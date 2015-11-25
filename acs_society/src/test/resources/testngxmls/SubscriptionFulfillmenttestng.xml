@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<suite name="Test" verbose="1" configfailurepolicy="continue"
-	parallel="false" thread-count="3">
-	<test name="Subscription Fulfillment" parallel="false">
-		<classes>
-			<class name="com.qait.tests.Subscription_Fulfillment_Test"></class>
-		</classes>
-	</test>
-</suite>
