@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Test" verbose="1" configfailurepolicy="continue">
+    <test name="Create User Account Test" thread-count="10" parallel="instances">
+        <classes>
+            <class name="com.qait.tests.FactoryClass" />
+        </classes>
+    </test>
+</suite>

@@ -1,0 +1,12 @@
+Page Title: HomePage_IWEB
+
+#Object Definitions
+====================================================================================
+
+link_findIndividuals       xpath    //a[@id='F1_HYPERLINK_2']
+tab_selectedTab            xpath     //a[@class='TopUIItemBarLinkSelected']
+txt_pageHeader             css    .application.oma
+btn_tabs                   xpath                //a[contains(text(),'${tabName}')]
+hd_sideBar                  xpath                 //h3[text()='${sideBarName}']
+area_overView              id                       F1_DesignedDiv
+====================================================================================

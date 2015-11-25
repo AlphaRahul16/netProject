@@ -1,0 +1,518 @@
+app_url_OMA: https://ewebtest12.acs.org/NFStage3/oma
+app_url_IWEB: https://iwebtest.acs.org/NFStage3/iweb
+app_url_CCED: https://ewebtest12.acs.org/NFStage3/ccedlookup
+app_url_Store: https://ewebtest12.acs.org/NFStage3/store/
+app_url_AACT: https://ewebtest12.acs.org/NFStage3/aactoma
+app_url_email: https://ewebtest12.acs.org/NFStage3/emailcenter
+app_url_nominateFellow: https://ewebtest12.acs.org/NFStage3/nominatefellow
+app_url_egift: https://ewebtest12.acs.org/NFStage3/egift
+app_url_givingDonate: https://ewebtest12.acs.org/NFStage3/donate   
+app_url_givingGreen: https://ewebtest12.acs.org/NFStage3/green
+app_url_givingScholars: https://ewebtest12.acs.org/NFStage3/scholars/
+app_url_givingSeed: https://ewebtest12.acs.org/NFStage3/seed
+app_url_OMR: https://ewebtest12.acs.org/NFStage3/renew
+app_url_MGM: https://ewebtest12.acs.org/NFStage3/mgm
+app_url_Meeting: https://ewebtest12.acs.org/NFStage3/meetings/2012gcec
+app_url_MemberNumberLookup: https://ewebtest12.acs.org/NFStage3/membernumberlookup
+app_url_NCW: https://ewebtest12.acs.org/NFStage3/ncwlookup
+app_url_PUBS: https://ewebtest12.acs.org/NFStage3/pba
+app_url_Nominate: https://ewebtest12.acs.org/NFStage3/nominate
+
+csv-data-file:
+  path_OMA: ./src/test/resources/TestDataLibrary/OMA Business Rules.csv
+  path_PriceValue: ./src/test/resources/TestDataLibrary/PriceValues.csv
+  path_AACT_OMA: ./src/test/resources/TestDataLibrary/AACT_OMA_Data_Sheet.csv
+  data-separator: '\t'
+  has-header: true
+  
+Authentication: 
+  userName: C00616
+  password: "ACS2015#"
+  
+ASM_Data_File: 
+  path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt
+  data-separator: '\t'  
+  
+creditCardInfo: 
+  Type: Visa/MC
+  Holder-name: FIRSTNAME LASTNAME
+  Number: "4111111111111111"
+  cvv-number: 123
+  
+users: 
+    user1: 
+        contact-information:
+            name:
+                firstname: RegMem123
+                lastname: lastName123
+            email: ACS_OMA@acs.org
+            phone: 8888888888
+            address: 
+                type: Work
+                address: jacksonville
+                city: florida
+                country: UNITED STATES
+                state: New York
+                zipCode: 32256-7220
+        education-and-employment:
+            CASEID: 1
+#    user2: 
+#        contact-information:
+#            name:
+#                firstname: RegMem123
+#                lastname: lastName123
+#            email: ACS_OMA@acs.org
+#            phone: 8888888888
+#            address: 
+#                type: Work
+#                address: jacksonville
+#                city: florida
+#                country: Thailand
+#                state: New York
+#                zipCode: 32256-7220
+#        education-and-employment:
+#            CASEID: 13
+#    user3: 
+#        contact-information:
+#            name:
+#                firstname: RegMem123
+#                lastname: lastName123
+#            email: ACS_OMA@acs.org
+#            phone: 8888888888
+#            address: 
+#                type: Work
+#                address: jacksonville
+#                city: florida
+#                country: Thailand
+#                state: New York
+#                zipCode: 32256-7220
+#        education-and-employment:
+#            CASEID: 12
+#    user4: 
+#        contact-information:
+#            name:
+#                firstname: RegMem123
+#                lastname: lastName123
+#            email: ACS_OMA@acs.org
+#            phone: 8888888888
+#            address: 
+#                type: Work
+#                address: jacksonville
+#                city: florida
+#                country: Thailand
+#                state: New York
+#                zipCode: 32256-7220
+#        education-and-employment:
+#            CASEID: 13         
+
+
+AACT_users: 
+    user1: 
+        CASEID: 1
+#    user2: 
+#        CASEID: 4
+#    user3: 
+#        CASEID: 5  
+#    user4: 
+#        CASEID: 6        
+
+
+            
+reinstateUsers: 
+    user1: 
+        contact-information:
+            address: 
+                type: Work
+                address: jacksonville
+                city: florida
+                country: UNITED STATES
+                state: New York
+                zipCode: 32256-7220
+        education-and-employment:
+            CASEID: 1            
+      
+      
+           
+OMA_SmokeChecklistData:
+    firstname: fname
+    lastname: lname
+    email: ACS_OMA@acs.org
+    address: 19481 Creekview Dr
+    city: Noblesville
+    country: UNITED STATES
+    state: Indiana
+    zipCode: 46062-6769
+    type: Work 
+    jobExp: test data
+    university: A.T. Still University of Health Sciences
+    paymentErrorMessage: "Payment has failed, please confirm your information and try again"
+    
+    
+    
+ASM_StoreSmokeChecklist_Data: 
+    userName: dsouzaaubh
+    password: password
+    shippingAddress: 
+              FName: Dean
+              LName: Dean
+              MName: Dean
+              Company: ACS
+              Department: Department
+              Address: bioMerieux Inc. 100 Rodolphe St
+              Address2: bioMerieux Inc. 100 Rodolphe St
+              City: Durham
+              State: Ohio 
+              ZipCode: 27712-9402
+              Phone: (404)633-2574
+              Country: UNITED STATES
+              IntlProvince: 27712-9402
+              Phone: 4046332574
+              Email: annesciencemom@aol.com
+    paymentInformation:
+              CreditCardType: Visa/MC
+              CreditCardExpiration: 06/2016
+              CardHolderName: Anne Seton DeMasi
+              CreditCardNumber: 4111111111111111
+              CreditCardVerificationNumber: 123
+      
+      
+      
+AACT_SmokeChecklistData:
+    contactInformation: 
+              firstname: fname
+              lastname: lname
+              email: ACS_OMA@acs.org
+              address: address123
+              city: city123
+              country: UNITED STATES
+              state: New York
+              zipCode: 10001
+              type: Home 
+    aboutYou:
+         organization: ACS 
+         address: address123
+         city: city123
+         country: UNITED STATES
+         state: New York
+         zipCode: 10001
+         instructionalSetting: Public School
+         grade: Kindergarten
+         subject: Chemistry
+    creditCardInfo: 
+         Type: Visa/MC
+         Holder-name: FIRSTNAME LASTNAME
+         Number: "4111111111111111"
+         cvv-number: 123
+      
+      
+         
+ASM_emailSmokeChecklistData:
+    LoginInfo:
+         username: sandu
+         password: password
+    LoginErrorMessage: We're sorry, there was a problem with your log in attempt. Please try again. If the problem persists, please e-mail service@acs.org or call 800-333-9511 (US Only) or 614-447-3776. We are sorry for any inconvenience.
+    InvalidEmailFailMessage: Please enter a valid Email Address   
+    
+    
+    
+ASM_fellowNominatedSmokeChecklistData: 
+    LoginInfo:
+         username: ADEMASI
+         password: password 
+    NomineeName: Dean  
+    EducationDetails: 
+         Institution: Test
+         Degree: Associate
+         Major: IT
+         GraduationYear: 1995   
+    LoginErrorMessage: We're sorry, there was a problem with your log in attempt. Please try again. If the problem persists, please e-mail service@acs.org or call 800-333-9511 (US Only) or 614-447-3776. We are sorry for any inconvenience.
+    memberNameSearchError: Only ACS members in good standing are eligible to be nominated as Fellows. If you do not see the person you're trying to nominate, they are not eligible. Please contact the Fellows office by email fellows@acs.org or phone 202-872-4431 for more information.
+    memberNumberSearchError: Can't find the person you're looking for? Try finding by name          
+    gradYearErrorMsz: Graduation Year
+    LessToDateErrorMsz: To Date must be greater than From Date
+    ProfessionalHistory: 
+         Employer: employer abc
+         Title: Associate
+         FromDate: 1995
+         ToDate: 2005
+         Description: Test. Specialization:- Chem.(Medical/Bio).
+    ProfessionalOrganizationAffiliation:
+         ProfessionalOrg: EMP
+         Position_title: Test
+         FromDate: 1998
+         ToDate: 2005
+    HonorAndAwards: 
+         Name: Test
+         Sponcor: Test
+         Year: 2010
+    SelectSupportAndUploadLetters: 
+         SecondaryNominator1: john
+         SecondaryNominator2: sam 
+    
+    
+ASM_Donate_SmokeChecklistData:
+    userName: ADEMASI
+    password: password
+    makeDonation: 
+         donate: 100
+    ContactInfo: 
+         firstName: Alfred
+         lastName: Kramer
+         email: annesciencemom@aol.com
+         phone: 9898656223
+         address: 7955 Pina Lake Rd
+         city: Jacksonville
+         state: Florida
+         zipcode: 32256-7220
+         country: UNITED STATES
+    ConfirmYourDonation: 
+         inHonorOf: Ajay Verma Jr.
+         inMemoryOf: Ajay Verma Jr.
+         recipientEmail: abcd@test.com
+         expirationDate: 05
+         expirationYear: 2017
+         To: Andy Anderson
+         address: 7955 Pina Lake Rd
+         city: Jacksonville
+         state: Florida
+         zipCode: 32256-7220
+    LoginErrorMessage: We're sorry, there was a problem with your log in attempt. Please try again. If the problem persists, please e-mail service@acs.org or call 800-333-9511 (US Only) or 614-447-3776. We are sorry for any inconvenience.    
+    emailErrorMessage: Please enter a valid email address.
+    addressErrorMessage: Address is not valid, please update.
+    creditCardErrorMessage: "Please enter a valid credit card number."
+         
+         
+ASM_Giving_Green_SmokeChecklistData:
+    userName: ADEMASI
+    password: password
+    lastName: McFaddin
+    memberNumber: 30782803
+    Amount: 100
+    ContactInfo: 
+         firstName: Alfred
+         lastName: Kramer
+         email: annesciencemom@aol.com
+         phone: 9898656223
+         address: 7955 Pina Lake Rd
+         city: Jacksonville
+         state: Florida
+         zipcode: 32256-7220
+         country: UNITED STATES
+    ConfirmYourDonation: 
+         inHonorOf: Ajay Verma Jr.
+         inMemoryOf: Ajay Verma Jr.
+         recipientEmail: abcd@acs.org
+         expirationDate: 05
+         expirationYear: 2017
+         To: Andy Anderson
+         address: 7955 Pina Lake Rd
+         city: Jacksonville
+         state: Florida
+         zipCode: 32256-7220   
+    LoginErrorMessage: We're sorry, there was a problem with your log in attempt. Please try again. If the problem persists, please e-mail service@acs.org or call 800-333-9511 (US Only) or 614-447-3776. We are sorry for any inconvenience.    
+    ErrorMessage_lastname_memberNumber: We can't locate your account with this information. Please try again or contact Member Services (service@acs.org or 800-333-9511 (toll free in the US) or 614-447-3776).
+    emailErrorMessage: Please enter a valid email address.
+    addressErrorMessage: Address is not valid, please update.
+    creditCardErrorMessage: "Please enter a valid credit card number."
+    
+   
+ASM_OMR_SmokeChecklistData:
+    userName: ADEMASI
+    password: password
+    lastName: Raes
+    memberNumber: 30258074
+    noticeNumber: 16286127
+    LoginErrorMessage: We're sorry, there was a problem with your log in attempt. Please try again. If the problem persists, please e-mail service@acs.org or call 800-333-9511 (US Only) or 614-447-3776. We are sorry for any inconvenience.
+    ErrorMessage_noticeNumber_memberNumber: We can't locate your renewal with this information. Please try again or contact Member Services (service@acs.org or 800-333-9511 (toll free in the US) or +614-447-3776).
+    InvalidEmailErrorMessage: Invalid email format.  Please enter a valid email address.
+    CreditCardDate:
+         expirationDate: 05
+         expirationYear: 2017
+    creditCardErrorMessage: "Please enter a valid credit card number."
+    pageOnMakePayment: Renewal Receipt
+    
+ASM_MGM_SmokeChecklistData: 
+    userName: ADEMASI
+    password: password
+    memberDetailsToInvite: 
+         firstName: John
+         lastName: Smith
+         email: johnsmith@gmail.com
+    LoginErrorMessage: We're sorry, there was a problem with your log in attempt. Please try again. If the problem persists, please e-mail service@acs.org or call 800-333-9511 (US Only) or 614-447-3776. We are sorry for any inconvenience.    
+    
+    
+ASM_Meeting_SmokeChecklistData:
+    userName: ADEMASI
+    password: password    
+    specialService: ABC XYZ
+    professionalDiscipline: Academia
+    conference: Yes
+    speakerPoster: Yes
+    LoginErrorMessage: We're sorry, there was a problem with your log in attempt. Please try again. If the problem persists, please e-mail service@acs.org or call 800-333-9511 (US Only) or 614-447-3776. We are sorry for any inconvenience.
+    expirationDate: 10/2016
+    submitPaymentMessage: The event '17th Annual Green Chemistry & Engineering Conference' is closed for registration.
+    alertMessage: "your input has been truncated!"
+ 
+ 
+ASM_MemberNumberLookup_SmokeChecklistData:
+    firstName: Anne
+    lastName: DeMasi    
+    email: Annesciencemom@aol.com
+    verifyTextForMember: Member record located
+    
+    
+ASM_PUBS_SmokeChecklistData: 
+    userName: ADEMASI
+    password: password
+    expirationYear: 2023   
+
+ASM_Nominate_SmokeChecklistData: 
+    lastName: Burnham
+    memberNumber: 00427103
+    userName: ADEMASI
+    password: password
+    memberNumber_ADEMASI: 01592828
+    loginErrorMessage: We are sorry, but we cannot locate your Awards record. Please try again or contact the National Awards Office at 800-227-5558 ext. 4575 or awards@acs.org.
+    discipline: Student
+    awardName: ACS Award for Creative Research and Applications of Iodine Chemistry:2017
+    nomineeName: look
+    nomineePosition: Student
+    suggestedCitation: testCitation
+    recommendation: testRecommendation
+    pubPatentsFilename: test.pdf
+    biographicalSketchFileName: test.txt
+    supportForm1FileName: test.txt
+    support1LastName: mich
+    supportForm2FileName: test.jpeg
+    recommendationFileName: test.txt
+    support2LastName: des
+    FileUploadErrorMessage: Only txt, pdf, doc, docx, png, bmp, tiff, tif, gif, jpg, jpeg are allowed
+    
+    
+ASM_EGift_SmokeChecklistData: 
+    firstName: Frank
+    lastName: clark
+    recipientEmail: clark@gmail.com
+    errorMessage: Email must be in a valid format
+     
+    
+ReinstateMemberIWEB:
+    centralizedOrderEntry: 
+         association: ACS
+         memberType: Regular Member
+         memberPackage: "Regular Member 2Y Dues C&EN-Electronic"
+         jobTitle: NR-No Response
+         industry: 2-Independent Consulting
+         batch: "ACS: QA TEST BATCH"
+         PaymentType: prepaid
+         paymentMethod: Visa/MC
+         cardNumber: 4111111111111111
+         expireDate: 2016/12
+         cvvNumber: 123
+    billingAddress: 
+         address: address123
+         city: city123
+         country: country 123
+         state: New York
+         postalCode: 10001
+         district: district 123
+         congressional: congressional 123
+         province: province 123
+         mail: mail123@test.com 
+         
+
+SubscriptionFulfillment: 
+    productCode: 2300
+    fulfillmentType: Current
+    maxWaitTimeInMinutesForPreviewStatus: 30
+    centralizedOrderEntry: 
+         batch: "ACS: QA_SUB_BATCH"
+         paymentType: prepaid
+         paymentMethod: Visa/MC
+         cardNumber: 4111111111111111
+         expireDate: 2016/12
+         cvvNumber: 123 
+    subscriptionDetailsForSchedule: 
+         updateStartIssue: "Yes"
+         fulfillmentType: Current
+         scheduledTask: "Yes"
+         scheduledTaskCompleted: "No"
+         previewStatus: scheduled
+         commitScheduledTask: "No"
+    subscriptionDetailsForPreviewComplete: 
+         updateStartIssue: "Yes"
+         fulfillmentType: Current
+         scheduledTask: "Yes"
+         scheduledTaskCompleted: "Yes"
+         previewStatus: preview complete
+         commitScheduledTask: "No"
+         startLapTimeInMinutes: 4
+    subscriptionDetailsForCommitted:
+         updateStartIssue: "Yes"
+         fulfillmentType: Current 
+         scheduledTask: "Yes"
+         scheduledTaskCompleted: "Yes"
+         previewStatusOnStartCommit: commit started
+         previewStatus: committed
+         commitScheduledTask: "Yes"
+         startLapTimeInMinutes: 4
+         
+         
+MemberShipRenewal: 
+    addACSRenewalCycle:
+         name: ACS
+         expMonth: 11
+         expYear: 2017
+         renewalYear: 2017
+         type: ACS
+         renewalLength: 1 
+    firstMember: 
+         memberType: Regular Member
+         memberStatus: Active
+         country: UNITED STATES
+    secondMember: 
+         memberType: Student Member - UnderGrad
+         memberStatus: Active
+         country: Thailand
+    queryName: "Member Query by Member Number – Multiple"
+#    queryName: "CM- Inactive Members"
+    TimeSlabInMinutes: 5
+    maxWaitTimeInMinutesForStatus: 30 
+    renewalInformation: 
+         association: ACS
+         renewalYear: 2017  
+         batch: "ACS: QA_SUB_BATCH" 
+    renewalDetailsForSchedule: 
+         status: SCHEDULED
+         createInvoiceScheduleTask: No
+         associationCode: ACS
+         proforma: "Yes"
+         numberOfRenewals: 0
+         numberOfInvoicesCreated: 0
+         numberOfErrors: 0
+    renewalDetailsForProcessing: 
+         status: PROCESSING
+         numberOfRenewals: 2
+         numberOfInvoicesCreated: 0
+         numberOfErrors: 0   
+    renewalDetailsForSuccess: 
+         status: Success
+    createRenewalInvoice: 
+         numberOfRenewals: 2
+         numberOfInvoicesCreated: 2
+         numberOfErrors: 0          
+    renewalMessage: "Dues task netFORUM_Dues_Renewal_update_Task_a02bd1cb14a14b4090482ae01f213b2dd5fc7374 scheduled successfully.  Upon completion an e-mail will be sent to" 
+         
+           
+          
+            
+                  
+ASM_URLRejectedErrorMsz: "We aren't able to complete your request in the staging environment"
+ASMErrorPageTitle: Request Rejected
+ASM_zipCodeErrorMessage: "Zip code must be 5 digit or xxxxx-xxxx format"     
+      
+                   
+email:
+  send: true
+  recepients:
+    recepient1: avnishrawat@qainfotech.net
