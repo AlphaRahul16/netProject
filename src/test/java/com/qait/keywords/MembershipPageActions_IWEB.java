@@ -942,10 +942,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public String getProductNameInInvoice(boolean pageLink) {
 		if (pageLink) {
 			isElementDisplayed("txt_productNameOnPage");
-			return element("txt_productNameOnPage").getText();
+			return element("txt_productNameOnPage").getText().trim();
 		} else {
 			isElementDisplayed("txt_productName");
-			return element("txt_productName").getText();
+			return element("txt_productName").getText().trim();
 		}
 	}
 
@@ -971,20 +971,20 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public String getInvoiceIDInInvoice(boolean pageLink) {
 		if (pageLink) {
 			isElementDisplayed("txt_invoiceIdOnPage");
-			return element("txt_invoiceIdOnPage").getText();
+			return element("txt_invoiceIdOnPage").getText().trim();
 		} else {
 			isElementDisplayed("txt_invoiceId");
-			return element("txt_invoiceId").getText();
+			return element("txt_invoiceId").getText().trim();
 		}
 	}
 
 	public String getTermStartDateInvoice(boolean pageLink) {
 		if (pageLink) {
 			isElementDisplayed("txt_termStartDateOnPage");
-			return element("txt_termStartDateOnPage").getText();
+			return element("txt_termStartDateOnPage").getText().trim();
 		} else {
 			isElementDisplayed("txt_termStartDate");
-			return element("txt_termStartDate").getText();
+			return element("txt_termStartDate").getText().trim();
 		}
 
 	}
@@ -992,7 +992,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public String getMemberInfoOnMemberShipProfile(String memberInfo) {
 		isElementDisplayed("txt_membershipProfileInfo", memberInfo);
 		String info = element("txt_membershipProfileInfo", memberInfo)
-				.getText();
+				.getText().trim();
 		logMessage("Step : " + memberInfo + " is " + info + " \n");
 		return info;
 	}
@@ -1007,14 +1007,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public String getMemberDetailsOnMemberShipProfile(String memberInfo) {
 		isElementDisplayed("txt_membershipProfileDetails", memberInfo);
 		String info = element("txt_membershipProfileDetails", memberInfo)
-				.getText();
+				.getText().trim();
 		logMessage("Step : " + memberInfo + " is " + info + " \n");
 		return info;
 	}
 
 	public String getPaymentStatus() {
 		isElementDisplayed("txt_paymentStatus");
-		String paymentStatus = element("txt_paymentStatus").getText();
+		String paymentStatus = element("txt_paymentStatus").getText().trim();
 		logMessage("STEP : payment status is " + paymentStatus + "\n");
 		return paymentStatus;
 	}
@@ -1070,10 +1070,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		handleAlert();
 		wait.hardWait(3);
 		try {
-			customerContactId = element("txt_renewalContactId").getText();
+			customerContactId = element("txt_renewalContactId").getText().trim();
 			logMessage("Step : Member contact number is " + customerContactId);
 		} catch (StaleElementReferenceException stlExp) {
-			customerContactId = element("txt_renewalContactId").getText();
+			customerContactId = element("txt_renewalContactId").getText().trim();
 			logMessage("Step : Member contact number is " + customerContactId);
 		}
 		memberDetails.add(customerLname);
@@ -1278,12 +1278,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyInvoiceDetailsOnRenewal(String productName,
-			String invoiceId, String startDate) {
+			String invoiceId) {
 		openSubInfoDropDown("invoices");
 		flag = pagesLinkAvailable();
 		verifyProductNameInInvoice(productName, flag);
 		verifyInvoiceIDInInvoice(invoiceId, flag);
-		verifyTermStartDateInvoice(startDate, flag);
+		verifyTermStartDateInvoice("", flag);
+		verifyTermEndDateInvoice("", flag);
+
 	}
 
 	public void verifyMemberInfoOnMemberShipProfile(String memberdetail,
@@ -1375,6 +1377,27 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			Assert.assertTrue(element("txt_termStartDate").getText().trim()
 					.equalsIgnoreCase(startDate));
 			logMessage("ASSERT PASSED : start date is " + startDate
+					+ " in invoice is verified\n");
+		}
+	}
+
+	public void verifyTermEndDateInvoice(String endDate, boolean pageLink) {
+		if (pageLink) {
+			isElementDisplayed("txt_termEndDateOnPage");
+			System.out.println(element("txt_termEndDateOnPage").getText()
+					.trim());
+			System.out.println(endDate);
+			Assert.assertTrue(element("txt_termEndDateOnPage").getText().trim()
+					.equalsIgnoreCase(endDate));
+			logMessage("ASSERT PASSED : end date is " + endDate
+					+ " in invoice is verified\n");
+		} else {
+			isElementDisplayed("txt_termEndDate");
+			System.out.println(element("txt_termEndDate").getText().trim());
+			System.out.println(endDate);
+			Assert.assertTrue(element("txt_termEndDate").getText().trim()
+					.equalsIgnoreCase(endDate));
+			logMessage("ASSERT PASSED : end date is " + endDate
 					+ " in invoice is verified\n");
 		}
 	}

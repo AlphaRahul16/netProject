@@ -23,7 +23,7 @@ public class Membership_Renewal_Test {
 	Map<String, Object> mapMemberShipRenewal;
 	List<String> memberDetail1, memberDetail2;
 	Object[] obj = new Object[2];
-	int invocationCount =0;
+	int invocationCount = 0;
 
 	@Test
 	public void Step00_Launch_Application_Under_Test() {
@@ -60,10 +60,10 @@ public class Membership_Renewal_Test {
 				getMemRenewalInfo.getMemRenewalSecondMember("country"));
 		test.memberShipPage.selectAndRunQueryMembership(getMemRenewalInfo
 				.getMemRenewalInfo("queryName"));
-		
+
 		test.memberShipPage.enterCustomerIdsInRunQuery(memberDetail1.get(3),
 				memberDetail2.get(3));
-		
+
 		obj[0] = memberDetail1;
 		obj[1] = memberDetail2;
 	}
@@ -100,7 +100,7 @@ public class Membership_Renewal_Test {
 				getMemRenewalInfo.getRenewalInfoForProcessing("status"),
 				getMemRenewalInfo
 						.getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));
-		
+
 		test.membershipRenewalPage
 				.verifyRenewalSubDetails(
 						getMemRenewalInfo
@@ -130,14 +130,32 @@ public class Membership_Renewal_Test {
 	public void Step06_Verify_Renewal_Details_For_create_Renewal_Invoices() {
 		test.membershipRenewalPage
 				.verifyCreateInvoiceTaskStartTimeAndDate(time);
+		test.membershipRenewalPage.holdScriptUntilVerifyStatus(
+				getMemRenewalInfo.getRenewalInfoForProcessing("status"),
+				getMemRenewalInfo
+						.getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));
+
 		test.membershipRenewalPage
 				.verifyRenewalSubDetails(
 						getMemRenewalInfo
-								.getCreateRenewalInvoiceInfo("numberOfRenewals"),
+								.getCreateRenewalInvoiceProcesingInfo("numberOfRenewals"),
 						getMemRenewalInfo
-								.getCreateRenewalInvoiceInfo("numberOfInvoicesCreated"),
+								.getCreateRenewalInvoiceProcesingInfo("numberOfInvoicesCreated"),
 						getMemRenewalInfo
-								.getCreateRenewalInvoiceInfo("numberOfErrors"));
+								.getCreateRenewalInvoiceProcesingInfo("numberOfErrors"));
+		test.membershipRenewalPage.holdScriptUntilVerifyStatus(
+				getMemRenewalInfo.getRenewalInfoForSuccess("status"),
+				getMemRenewalInfo
+						.getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));
+
+		test.membershipRenewalPage
+				.verifyRenewalSubDetails(
+						getMemRenewalInfo
+								.getCreateRenewalInvoiceSuccessInfo("numberOfRenewals"),
+						getMemRenewalInfo
+								.getCreateRenewalInvoiceSuccessInfo("numberOfInvoicesCreated"),
+						getMemRenewalInfo
+								.getCreateRenewalInvoiceSuccessInfo("numberOfErrors"));
 	}
 
 	@Test(invocationCount = 2)
@@ -159,7 +177,7 @@ public class Membership_Renewal_Test {
 				memberDetails.get(5), memberDetails.get(6),
 				memberDetails.get(2));
 		test.memberShipPage.verifyInvoiceDetailsOnRenewal(memberDetails.get(7),
-				memberDetails.get(8), memberDetails.get(9));
+				memberDetails.get(8));
 		invocationCount++;
 	}
 

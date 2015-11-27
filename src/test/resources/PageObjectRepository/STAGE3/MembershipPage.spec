@@ -105,9 +105,11 @@ btn_memberShipSubInfo                             xpath                        /
 txt_productName                                   xpath                        (//table[@class='table']//tr[2]/td[4])[1]
 txt_invoiceId                                     xpath                        (//table[@class='table']//tr[2]/td[12])[1]
 txt_termStartDate                                 xpath                        (//table[@class='table']//tr[2]/td[14])[1]
+txt_termEndDate                                   xpath                        (//table[@class='table']//tr[2]/td[15])[1]
 txt_productNameOnPage                             xpath                        (//table[@class='table']//tr[3]/td[4])[1]
 txt_invoiceIdOnPage                               xpath                        (//table[@class='table']//tr[3]/td[12])[1]
 txt_termStartDateOnPage                           xpath                        (//table[@class='table']//tr[3]/td[14])[1]
+txt_termEndDateOnPage                             xpath                        (//table[@class='table']//tr[3]/td[15])[1]
 inp_customerId                                    xpath                        //input[contains(@id,'QueryAsk')]
 btn_askGo                                         id                            ButtonAskGo
 txt_recordNumberAtMemberQuery                    classname                     DataFormLabelRecordCount

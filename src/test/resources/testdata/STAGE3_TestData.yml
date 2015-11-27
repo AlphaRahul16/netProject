@@ -473,9 +473,8 @@ MemberShipRenewal:
     secondMember: 
          memberType: Student Member - UnderGrad
          memberStatus: Active
-         country: Thailand
+         country: India
     queryName: "Member Query by Member Number – Multiple"
-#    queryName: "CM- Inactive Members"
     timeSlabInMinutes: 5
     maxWaitTimeInMinutesForStatus: 30 
     renewalInformation: 
@@ -489,15 +488,21 @@ MemberShipRenewal:
          proforma: "Yes"
     renewalDetailsForProcessing: 
          status: PROCESSING
-         numberOfRenewals: 1
+         numberOfRenewals: 2
          numberOfInvoicesCreated: 0
          numberOfErrors: 0   
     renewalDetailsForSuccess: 
          status: Success
-    createRenewalInvoice: 
+    renewalDetailsForProcessingCreateRenewalInvoice: 
+         status: PROCESSING
+         numberOfRenewals: 2
+         numberOfInvoicesCreated: 1
+         numberOfErrors: 0
+    renewalDetailsForSuccessCreateRenewalInvoice: 
+         status: SUCCESS
          numberOfRenewals: 2
          numberOfInvoicesCreated: 2
-         numberOfErrors: 0          
+         numberOfErrors: 0              
     renewalMessage: "Dues task netFORUM_Dues_Renewal_update_Task_a02bd1cb14a14b4090482ae01f213b2dd5fc7374 scheduled successfully.  Upon completion an e-mail will be sent to" 
          
            

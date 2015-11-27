@@ -240,8 +240,12 @@ public class YamlInformationProvider {
 		return getMapValue(this.userInfoMap, "renewalDetailsForSuccess" + "." + infoType);
 	}
 	
-	public String getCreateRenewalInvoiceInfo(String infoType) {
-		return getMapValue(this.userInfoMap, "createRenewalInvoice" + "." + infoType);
+	public String getCreateRenewalInvoiceProcesingInfo(String infoType) {
+		return getMapValue(this.userInfoMap, "renewalDetailsForProcessingCreateRenewalInvoice" + "." + infoType);
+	}
+	
+	public String getCreateRenewalInvoiceSuccessInfo(String infoType) {
+		return getMapValue(this.userInfoMap, "renewalDetailsForSuccessCreateRenewalInvoice" + "." + infoType);
 	}
 	
 	

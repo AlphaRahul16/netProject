@@ -322,7 +322,7 @@ public class MemberShipRenewalPage extends GetPage {
 				.equalsIgnoreCase(status)) {
 			logMessage("AASERT PASSED : Status " + status + " is verified\n");
 		} else {
-			int count = (Integer.parseInt(waitTime)) / 10;
+			int count = (Integer.parseInt(waitTime)) / 5;
 			for (int i = 1; i <= count; i++) {
 				holdScriptExecutionToVerifyPreviewStatus();
 				pageRefresh();
