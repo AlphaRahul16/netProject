@@ -27,7 +27,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			state, zipCode, customerEmail, city, currentDate,
 			customerContactId, customerEmailAcsOrg, customerAddressType,
 			nextYearDate, displayName;
-	static boolean flag = false;
+	boolean flag = false;
 	int timeOut, hiddenFieldTimeOut;
 	List<String> memberDetails = new ArrayList<>();
 	StringBuffer sb = new StringBuffer();
@@ -907,6 +907,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public List<String> findMemberAndGetDetail(String memberType,
 			String memberStatus, String country) {
+		memberDetails = new ArrayList<>();
 		clickOnSideBar("Find Members");
 		wait.waitForPageToLoadCompletely();
 		selectValueInAdvanceNewNextDropDown("Member Type", "ACS : "
@@ -928,29 +929,63 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		memberDetails.add(getMemberDetailsOnMemberShipProfile("join date"));
 		openSubInfoDropDown("invoices");
 		waitForSpinner();
-		memberDetails.add(getProductNameInInvoice());
-		memberDetails.add(getInvoiceIDInInvoice());
-		memberDetails.add(getTermStartDateInvoice());
+		flag = pagesLinkAvailable();
+		memberDetails.add(getProductNameInInvoice(flag));
+		memberDetails.add(getInvoiceIDInInvoice(flag));
+		memberDetails.add(getTermStartDateInvoice(flag));
+		System.out.println("contact ID: " + memberDetails.get(3));
 		openSubInfoDropDown("invoices");
 		waitForSpinner();
 		return memberDetails;
 	}
 
-	public String getProductNameInInvoice() {
-		isElementDisplayed("txt_productName");
-		return element("txt_productName").getText();
+	public String getProductNameInInvoice(boolean pageLink) {
+		if (pageLink) {
+			isElementDisplayed("txt_productNameOnPage");
+			return element("txt_productNameOnPage").getText();
+		} else {
+			isElementDisplayed("txt_productName");
+			return element("txt_productName").getText();
+		}
+	}
+
+	public boolean pagesLinkAvailable() {
+		try {
+			wait.resetImplicitTimeout(3);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			flag = isElementDisplayed("link_pagesAvailable");
+			System.out.println(flag);
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			return flag;
+		} catch (Exception e) {
+			flag = false;
+			System.out.println("in catch: " + flag);
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			return flag;
+		}
 
 	}
 
-	public String getInvoiceIDInInvoice() {
-		isElementDisplayed("txt_invoiceId");
-		return element("txt_invoiceId").getText();
-
+	public String getInvoiceIDInInvoice(boolean pageLink) {
+		if (pageLink) {
+			isElementDisplayed("txt_invoiceIdOnPage");
+			return element("txt_invoiceIdOnPage").getText();
+		} else {
+			isElementDisplayed("txt_invoiceId");
+			return element("txt_invoiceId").getText();
+		}
 	}
 
-	public String getTermStartDateInvoice() {
-		isElementDisplayed("txt_termStartDate");
-		return element("txt_termStartDate").getText();
+	public String getTermStartDateInvoice(boolean pageLink) {
+		if (pageLink) {
+			isElementDisplayed("txt_termStartDateOnPage");
+			return element("txt_termStartDateOnPage").getText();
+		} else {
+			isElementDisplayed("txt_termStartDate");
+			return element("txt_termStartDate").getText();
+		}
 
 	}
 
@@ -1211,15 +1246,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void enterCustomerIdsInRunQuery(String... customerIds) {
 		isElementDisplayed("inp_customerId");
-		for (int i = 0; i < customerIds.length; i++) {
-			if (i == customerIds.length - 1) {
-				sb = sb.append(customerIds[i]);
-			} else {
-				sb = sb.append(customerIds[i] + ",");
-			}
-		}
-		System.out.println(sb);
-		logMessage("Step : enter customer IDs " + sb + " \n");
+		String customerID = customerIds[0] + "," + customerIds[1];
+		element("inp_customerId").clear();
+		element("inp_customerId").sendKeys(customerID);
+		logMessage("Step : enter customer IDs " + customerID + " \n");
 		clickOnGoButtonInRunQuery();
 	}
 
@@ -1237,61 +1267,122 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyMembershipDetailsOnRenewal(String expireDate,
 			String memberPackage, String renewalPackage, String customerID,
 			String effectiveDate, String joinDate, String paymentStatus) {
-		verifyMemberInfoOnMemberShipProfile("expire date", expireDate);
+		verifyMemberDetailsOnMemberShipProfile("expire date", expireDate);
 		verifyMemberInfoOnMemberShipProfile("member package", memberPackage);
 		verifyMemberInfoOnMemberShipProfile("renewal package", renewalPackage);
-		verifyMemberInfoOnMemberShipProfile("customer id", customerID);
-		verifyMemberInfoOnMemberShipProfile("effective date", effectiveDate);
-		verifyMemberInfoOnMemberShipProfile("join date", joinDate);
+		verifyMemberDetailsOnMemberShipProfile("customer id", customerID);
+		verifyMemberDetailsOnMemberShipProfile("effective date", effectiveDate);
+		verifyMemberDetailsOnMemberShipProfile("join date", joinDate);
 		verifyPaymentStatus(paymentStatus);
+
 	}
 
 	public void verifyInvoiceDetailsOnRenewal(String productName,
 			String invoiceId, String startDate) {
 		openSubInfoDropDown("invoices");
-		verifyProductNameInInvoice(productName);
-		verifyInvoiceIDInInvoice(invoiceId);
-		verifyTermStartDateInvoice(startDate);
+		flag = pagesLinkAvailable();
+		verifyProductNameInInvoice(productName, flag);
+		verifyInvoiceIDInInvoice(invoiceId, flag);
+		verifyTermStartDateInvoice(startDate, flag);
 	}
 
 	public void verifyMemberInfoOnMemberShipProfile(String memberdetail,
 			String memberValue) {
 		isElementDisplayed("txt_membershipProfileInfo", memberdetail);
-		element("txt_membershipProfileInfo", memberdetail).getText().trim()
-				.equalsIgnoreCase(memberValue);
+		System.out.println(element("txt_membershipProfileInfo", memberdetail)
+				.getText().trim());
+		System.out.println(memberValue);
+		Assert.assertTrue(element("txt_membershipProfileInfo", memberdetail)
+				.getText().trim().equalsIgnoreCase(memberValue));
 		logMessage("ASSERT PASSED : " + memberValue + " is verified for "
 				+ memberValue + " \n");
 
 	}
 
-	public void verifyProductNameInInvoice(String productName) {
-		isElementDisplayed("list_productName");
-		Assert.assertTrue(element("list_productName").getText().trim()
-				.equalsIgnoreCase(productName));
-		logMessage("ASSERT PASSED : product name " + productName
-				+ " in invoice is verified\n");
+	public void verifyMemberDetailsOnMemberShipProfile(String memberdetail,
+			String memberValue) {
+		isElementDisplayed("txt_membershipProfileDetails", memberdetail);
+		System.out
+				.println(element("txt_membershipProfileDetails", memberdetail)
+						.getText().trim());
+		System.out.println(memberValue);
+		Assert.assertTrue(element("txt_membershipProfileDetails", memberdetail)
+				.getText().trim().equalsIgnoreCase(memberValue));
+		logMessage("ASSERT PASSED : " + memberValue + " is verified for "
+				+ memberValue + " \n");
 
 	}
 
-	public void verifyInvoiceIDInInvoice(String invoiceID) {
-		isElementDisplayed("txt_invoiceId");
-		Assert.assertTrue(element("txt_invoiceId").getText().trim()
-				.equalsIgnoreCase(invoiceID));
-		logMessage("ASSERT PASSED : Invoice id " + invoiceID
-				+ " is verified \n");
+	public void verifyProductNameInInvoice(String productName, boolean pageLink) {
+		if (pageLink) {
+			isElementDisplayed("txt_productNameOnPage");
+			System.out.println(element("txt_productNameOnPage").getText()
+					.trim());
+			System.out.println(productName);
+			Assert.assertTrue(element("txt_productNameOnPage").getText().trim()
+					.equalsIgnoreCase(productName));
+			logMessage("ASSERT PASSED : product name " + productName
+					+ " in invoice is verified\n");
+		} else {
+			isElementDisplayed("txt_productName");
+			System.out.println(element("txt_productName").getText().trim());
+			System.out.println(productName);
+			Assert.assertTrue(element("txt_productName").getText().trim()
+					.equalsIgnoreCase(productName));
+			logMessage("ASSERT PASSED : product name " + productName
+					+ " in invoice is verified\n");
+
+		}
 
 	}
 
-	public void verifyTermStartDateInvoice(String startDate) {
-		isElementDisplayed("txt_termStartDate");
-		Assert.assertTrue(element("txt_termStartDate").getText()
-				.equalsIgnoreCase(startDate));
-		logMessage("ASSERT PASSED : start date " + startDate
-				+ " is verified \n");
+	public void verifyInvoiceIDInInvoice(String invoiceID, boolean pageLink) {
+		if (pageLink) {
+			isElementDisplayed("txt_invoiceIdOnPage");
+			System.out.println(element("txt_invoiceIdOnPage").getText().trim());
+			System.out.println(invoiceID);
+			Assert.assertTrue(element("txt_invoiceIdOnPage").getText().trim()
+					.equalsIgnoreCase(invoiceID));
+			logMessage("ASSERT PASSED : invoice id is " + invoiceID
+					+ " in invoice is verified\n");
+		} else {
+			isElementDisplayed("txt_invoiceId");
+			System.out.println(element("txt_invoiceId").getText().trim());
+			System.out.println(invoiceID);
+			Assert.assertTrue(element("txt_invoiceId").getText().trim()
+					.equalsIgnoreCase(invoiceID));
+			logMessage("ASSERT PASSED : invoice id is " + invoiceID
+					+ " in invoice is verified\n");
+
+		}
+
+	}
+
+	public void verifyTermStartDateInvoice(String startDate, boolean pageLink) {
+		if (pageLink) {
+			isElementDisplayed("txt_termStartDateOnPage");
+			System.out.println(element("txt_termStartDateOnPage").getText()
+					.trim());
+			System.out.println(startDate);
+			Assert.assertTrue(element("txt_termStartDateOnPage").getText()
+					.trim().equalsIgnoreCase(startDate));
+			logMessage("ASSERT PASSED : invoice id is " + startDate
+					+ " in invoice is verified\n");
+		} else {
+			isElementDisplayed("txt_termStartDate");
+			System.out.println(element("txt_termStartDate").getText().trim());
+			System.out.println(startDate);
+			Assert.assertTrue(element("txt_termStartDate").getText().trim()
+					.equalsIgnoreCase(startDate));
+			logMessage("ASSERT PASSED : start date is " + startDate
+					+ " in invoice is verified\n");
+		}
 	}
 
 	public void verifyPaymentStatus(String paymentStatus) {
 		isElementDisplayed("txt_paymentStatus");
+		System.out.println(element("txt_paymentStatus").getText().trim());
+		System.out.println(paymentStatus);
 		Assert.assertTrue(element("txt_paymentStatus").getText()
 				.equalsIgnoreCase(paymentStatus));
 		logMessage("ASSERT PASSED : payment status " + paymentStatus

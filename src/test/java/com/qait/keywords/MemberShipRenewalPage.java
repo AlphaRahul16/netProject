@@ -5,6 +5,7 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.jboss.netty.util.internal.DetectionUtil;
@@ -21,6 +22,7 @@ public class MemberShipRenewalPage extends GetPage {
 	WebDriver driver;
 	static String pagename = "MemberShipRenewalPage";
 	int timeOut, hiddenFieldTimeOut;
+	boolean flag = false;
 
 	public MemberShipRenewalPage(WebDriver driver) {
 		super(driver, pagename);
@@ -146,7 +148,7 @@ public class MemberShipRenewalPage extends GetPage {
 		element("inp_runTaskDateTime").clear();
 		wait.hardWait(2);
 		element("inp_runTaskDateTime").sendKeys(runTaskDateTime);
-		// element("inp_runTaskDateTime").sendKeys(Keys.ENTER);
+		element("inp_runTaskDateTime").sendKeys(Keys.ENTER);
 		wait.hardWait(2);
 		logMessage("Step : enter " + runTaskDateTime
 				+ " for run task date time\n");
@@ -166,8 +168,6 @@ public class MemberShipRenewalPage extends GetPage {
 		wait.hardWait(1);
 		waitForSpinner();
 		wait.hardWait(1);
-		// element("list_selectBatch", "batch").click();
-		// element("txt_addMembershipRenewal").click();
 		isElementDisplayed("txt_OK");
 		element("txt_OK").click();
 		waitForSpinner();
@@ -243,6 +243,8 @@ public class MemberShipRenewalPage extends GetPage {
 
 	public void verifyRenewalsSubInfo(String detailName, String detailValue) {
 		isElementDisplayed("txt_" + detailName);
+		System.out.println(element("txt_" + detailName).getText().trim());
+		System.out.println(detailValue);
 		Assert.assertTrue(element("txt_" + detailName).getText().trim()
 				.equalsIgnoreCase(detailValue));
 		logMessage("ASSERT PASSED : " + detailValue + " is verified for "
@@ -251,7 +253,6 @@ public class MemberShipRenewalPage extends GetPage {
 
 	public void verifyRenewalSubDetails(String numberOfRenewals,
 			String numberofInvoicesCreated, String numberOfErrors) {
-
 		verifyRenewalsSubInfo("numberOfRenewal", numberOfRenewals);
 		verifyRenewalsSubInfo("numberOfInvoicesCreated",
 				numberofInvoicesCreated);
@@ -299,8 +300,10 @@ public class MemberShipRenewalPage extends GetPage {
 
 	public void verifyErrorMessage(String renewalMessage) {
 		isElementDisplayed("txt_errorMessage");
-		Assert.assertTrue(element("txt_errorMessage").getText().trim()
-				.equalsIgnoreCase(renewalMessage));
+		System.out.println(element("txt_errorMessage").getText().trim());
+		System.out.println(renewalMessage);
+		flag = validateTextFormat(renewalMessage);
+		Assert.assertTrue(flag);
 		logMessage("ASSERT PASSED : renewal message " + renewalMessage
 				+ " is verified\n");
 	}
@@ -319,16 +322,18 @@ public class MemberShipRenewalPage extends GetPage {
 				.equalsIgnoreCase(status)) {
 			logMessage("AASERT PASSED : Status " + status + " is verified\n");
 		} else {
-			int count = (Integer.parseInt(waitTime)) / 5;
+			int count = (Integer.parseInt(waitTime)) / 10;
 			for (int i = 1; i <= count; i++) {
 				holdScriptExecutionToVerifyPreviewStatus();
 				pageRefresh();
 				isElementDisplayed("txt_renewalCycleName", "status");
-				System.out.println(element("txt_renewalCycleName", "status")
-						.getText().trim());
+
 				if (element("txt_renewalCycleName", "status").getText().trim()
 						.equalsIgnoreCase(status)) {
-					logMessage("AASERT PASSED : preview status " + status
+					System.out
+							.println(element("txt_renewalCycleName", "status")
+									.getText().trim());
+					logMessage("ASSERT PASSED : preview status " + status
 							+ " is verified\n");
 					break;
 				}
@@ -352,6 +357,12 @@ public class MemberShipRenewalPage extends GetPage {
 		System.out.print("\r");
 		System.out.println("Time:- " + 5 + " minutes            ");
 		System.out.println("");
+	}
+
+	public boolean validateTextFormat(String message) {
+		String format = "Dues task netFORUM_Dues_Renewal_update_Task_[\\w\\d]+\\sscheduled successfully. Upon completion an e-mail will be sent to";
+		Pattern pattern = Pattern.compile(format);
+		return pattern.matcher(message).find();
 	}
 
 }

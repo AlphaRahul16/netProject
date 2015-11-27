@@ -476,7 +476,7 @@ MemberShipRenewal:
          country: Thailand
     queryName: "Member Query by Member Number – Multiple"
 #    queryName: "CM- Inactive Members"
-    TimeSlabInMinutes: 5
+    timeSlabInMinutes: 5
     maxWaitTimeInMinutesForStatus: 30 
     renewalInformation: 
          association: ACS
@@ -489,7 +489,7 @@ MemberShipRenewal:
          proforma: "Yes"
     renewalDetailsForProcessing: 
          status: PROCESSING
-         numberOfRenewals: 2
+         numberOfRenewals: 1
          numberOfInvoicesCreated: 0
          numberOfErrors: 0   
     renewalDetailsForSuccess: 
