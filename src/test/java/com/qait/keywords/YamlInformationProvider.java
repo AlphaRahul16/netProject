@@ -244,6 +244,10 @@ public class YamlInformationProvider {
 		return getMapValue(this.userInfoMap, "createRenewalInvoice" + "." + infoType);
 	}
 	
+	public String getACSStoreInfo(String infoType) {
+		return getMapValue(this.userInfoMap,infoType);
+	}
+	
 	
 	
 

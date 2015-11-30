@@ -38,6 +38,7 @@ creditCardInfo:
   Holder-name: FIRSTNAME LASTNAME
   Number: "4111111111111111"
   cvv-number: 123
+  CreditCardExpiration: 06/2016
   
 users: 
     user1: 
@@ -499,7 +500,12 @@ MemberShipRenewal:
          numberOfInvoicesCreated: 2
          numberOfErrors: 0          
     renewalMessage: "Dues task netFORUM_Dues_Renewal_update_Task_a02bd1cb14a14b4090482ae01f213b2dd5fc7374 scheduled successfully.  Upon completion an e-mail will be sent to" 
-         
+      
+ACS_Store:
+    username: sandu
+    password: password   
+    product_key: N5503
+
            
           
             

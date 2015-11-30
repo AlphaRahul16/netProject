@@ -74,7 +74,7 @@
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
-					<encoding>${project.build.sourceEncoding}</encoding>
+					<encoding>UTF-8</encoding>
 				</configuration>
 				<executions>
 					<execution>
@@ -109,7 +109,7 @@
 					<suiteXmlFiles>
 						<suiteXmlFile>src/test/resources/testngxmls/${testngxml}</suiteXmlFile>
 					</suiteXmlFiles>
-					<argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
+					<argLine>-Dfile.encoding=UTF-8</argLine>
 				</configuration>
 				<executions>
 					<execution>
@@ -138,7 +138,7 @@
 							<goal>integration-test</goal>
 						</goals>
 						<configuration>
-							<encoding>${project.build.sourceEncoding}</encoding>
+							<encoding>UTF-8</encoding>
 						</configuration>
 					</execution>
 				</executions>

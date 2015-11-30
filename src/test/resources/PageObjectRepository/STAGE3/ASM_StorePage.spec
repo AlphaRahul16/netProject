@@ -29,4 +29,26 @@ list_paymentInfo               xpath               //select[contains(@id,'ddl${p
 inp_paymentInfo               xpath                //input[contains(@id,'${paymentInfo}')]
 list_phone                    xpath                //select[contains(@id,'Phone')]
 hd_secureCheckout             xpath                //h1[contains(text(),'Secure Checkout')]
+txt_price                     css                  .spnPriceValue
+lnk_searched_product          css                  .pnlProductListing>img[id*='imgProduct']+div>a
+txt_box_Quantity              xpath                 //div[@class='Attributes']/span/following-sibling::input
+txt_shoppingCart              css                   .LayoutCell>div>h1
+txt_store_cart_column         xpath                 //table[@class='StoreCart']/tbody/tr/th[contains(text(),'Price')]/../following-sibling::tr/td/div[contains(@class,'Price')]/span
+txt_Price                     css                   .StoreCartPriceColumn>span
+txt_quantity                  css                   .StoreCartQtyColumn>input
+txt_discount                  xpath                  (//div[@class='StoreCartTotalColumn']/span)[1]
+txt_total                     xpath                  (//div[@class='StoreCartTotalColumn']/span)[2]
+txt_store_Summary             xpath                  //span[contains(text(),'${value}')]/../../following-sibling::td//span
+inp_shipping_adress           xpath                  (//span[contains(text(),'${value}')]/../following-sibling::div[1]/input)[1]
+inp_country                   xpath                  //span[contains(text(),'Country')]/../following-sibling::div/select/option[@selected]
+txt_order_shipping_summary    xpath                  //span[contains(text(),'${value}')]/../../following-sibling::td//span
+btn_placeOrder                css                    input[value='Place Your Order']
+txt_summary_Price             css                    .StoreSummaryPriceColumn>span
+txt_summary_quantity          css                    .StoreSummaryQtyColumn>span
+txt_summary_discount          xpath                  //div[@class='StoreSummaryTotalColumn']
+txt_summary_total             xpath                  //div[@class='StoreSummaryTotalColumn']/span
+msg_thankyou                  css                    .StoreWrapper>div>.StoreMainHeading
+lnk_print_receipt             css                     a[href*='ReportPDF']
+
+
 =================================================================================================================================
