@@ -97,4 +97,22 @@ inp_prdCode                                       id                           p
 inp_searchDisplayButton                           id                           Look_Up_prc_display_name
 inp_displayName                                   id                           prc_display_name
 link_itemInLineItems                              xpath                        (//tr/td[4])[last()]/a
+lnk_pages                                         xpath                        //tr[@class='pager']/td/a[${randomPages}]
+txt_membershipProfileInfo                         xpath                        //label[contains(text(),'${memberInfo}:')]/following-sibling::span
+txt_paymentStatus                                 xpath                        //td[text()='Payment Status:']/following-sibling::td
+txt_membershipProfileDetails                      xpath                        //label[contains(text(),'${memberInfo}:')]/preceding-sibling::span
+btn_memberShipSubInfo                             xpath                        //span[text()='${membershipName}']/preceding-sibling::a//i[starts-with(@class,'icon-chevron-')]
+txt_productName                                   xpath                        (//table[@class='table']//tr[2]/td[4])[1]
+txt_invoiceId                                     xpath                        (//table[@class='table']//tr[2]/td[12])[1]
+txt_termStartDate                                 xpath                        (//table[@class='table']//tr[2]/td[14])[1]
+txt_termEndDate                                   xpath                        (//table[@class='table']//tr[2]/td[15])[1]
+txt_productNameOnPage                             xpath                        (//table[@class='table']//tr[3]/td[4])[1]
+txt_invoiceIdOnPage                               xpath                        (//table[@class='table']//tr[3]/td[12])[1]
+txt_termStartDateOnPage                           xpath                        (//table[@class='table']//tr[3]/td[14])[1]
+txt_termEndDateOnPage                             xpath                        (//table[@class='table']//tr[3]/td[15])[1]
+inp_customerId                                    xpath                        //input[contains(@id,'QueryAsk')]
+btn_askGo                                         id                            ButtonAskGo
+txt_recordNumberAtMemberQuery                    classname                     DataFormLabelRecordCount
+txt_loadOnExistingQueryLabel                      id                            LoadQueryLabel
+link_pagesAvailable                              classname                      DataFormChildDataGridPagerLink
 ==============================================================================================================================================

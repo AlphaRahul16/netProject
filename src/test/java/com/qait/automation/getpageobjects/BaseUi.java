@@ -255,7 +255,7 @@ public class BaseUi {
 		} catch (StaleElementReferenceException ex1) {
 			// wait.waitForElementToBeVisible(el);
 			// scrollDown(el);
-//			Select select = new Select(el);
+			// Select select = new Select(el);
 			sel.selectByVisibleText(text);
 			logMessage("select Element " + el
 					+ " after catching Stale Element Exception");
@@ -486,7 +486,7 @@ public class BaseUi {
 
 	public void enterAuthentication(String uName, String password) {
 		if ((isBrowser("ie") || isBrowser("internetexplorer"))
-				&& isTier("Stage3")) {
+				&& (isTier("Stage3") || isTier("Stage2"))) {
 			System.out.println("in authentication");
 			setClipboardData(uName);
 			Robot robot;
@@ -510,7 +510,6 @@ public class BaseUi {
 				robot.delay(2000);
 				robot.keyPress(KeyEvent.VK_ENTER);
 				robot.keyRelease(KeyEvent.VK_ENTER);
-
 			} catch (AWTException e) {
 				e.printStackTrace();
 			}

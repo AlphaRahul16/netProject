@@ -2,7 +2,7 @@ Page Title: IndividualsPage
 
 #Object Definitions
 ======================================================================================================================================
-inp_fieldName               xpath    //span[contains(text(),'${fieldName}')]/../following-sibling::td/input
+inp_fieldName               xpath    //span[contains(text(),'${fieldName}')]/../following-sibling::td//input
 btn_Go                      xpath    //input[@id='ButtonSearch']
 txt_userEmail                xpath    //a[text()='${email}']
 txt_memberDetails           xpath    //span[@class='DataFormTextBox']
@@ -31,4 +31,5 @@ img_noMemberBenefits        xpath       //span[contains(.,'aact member:')]/follo
 img_spinner                xpath          //*[contains(@src,'updating.gif')]
 txt_termStartDate           xpath     //td[contains(text(),'${productName}')]/following-sibling::td[10]
 txt_termEndDate            xpath      //td[contains(text(),'${productName}')]/following-sibling::td[11]
+lnk_pages                  xpath               //tr[@class='pager']/td/a
 ======================================================================================================================================

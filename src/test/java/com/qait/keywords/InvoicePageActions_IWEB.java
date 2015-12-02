@@ -268,7 +268,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		}
 	}
 
-	private void expandDetailsMenu(String menuName) {
+	public void expandDetailsMenu(String menuName) {
 		isElementDisplayed("btn_detailsMenuAACT", menuName);
 		element("btn_detailsMenuAACT", menuName).click();
 		logMessage("Step : " + menuName + " is clicked to expand");

@@ -27,7 +27,7 @@ csv-data-file:
   
 Authentication: 
   userName: C00616
-  password: "ACS2015#"
+  password: "ACS2016#"
   
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt
@@ -424,6 +424,7 @@ ReinstateMemberIWEB:
 SubscriptionFulfillment: 
     productCode: 2300
     fulfillmentType: Current
+    queryName: Selenium – Find Random Active Member
     maxWaitTimeInMinutesForPreviewStatus: 30
     centralizedOrderEntry: 
          batch: "ACS: QA_SUB_BATCH"
@@ -488,11 +489,11 @@ MemberShipRenewal:
          proforma: "Yes"
     renewalDetailsForProcessing: 
          status: PROCESSING
-         numberOfRenewals: 2
-         numberOfInvoicesCreated: 0
-         numberOfErrors: 0   
     renewalDetailsForSuccess: 
          status: Success
+         numberOfRenewals: 2
+         numberOfInvoicesCreated: 0
+         numberOfErrors: 0
     renewalDetailsForProcessingCreateRenewalInvoice: 
          status: PROCESSING
          numberOfRenewals: 2

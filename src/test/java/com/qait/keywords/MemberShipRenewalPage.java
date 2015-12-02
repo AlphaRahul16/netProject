@@ -257,7 +257,6 @@ public class MemberShipRenewalPage extends GetPage {
 		verifyRenewalsSubInfo("numberOfInvoicesCreated",
 				numberofInvoicesCreated);
 		verifyRenewalsSubInfo("numberOfErrors", numberOfErrors);
-
 	}
 
 	public void verifyNoResultDisplay() {
@@ -322,9 +321,9 @@ public class MemberShipRenewalPage extends GetPage {
 				.equalsIgnoreCase(status)) {
 			logMessage("AASERT PASSED : Status " + status + " is verified\n");
 		} else {
-			int count = (Integer.parseInt(waitTime)) / 5;
+			int count = (Integer.parseInt(waitTime)) / 2;
 			for (int i = 1; i <= count; i++) {
-				holdScriptExecutionToVerifyPreviewStatus();
+				holdScriptExecutionToVerifyPreviewStatus(status);
 				pageRefresh();
 				isElementDisplayed("txt_renewalCycleName", "status");
 
@@ -343,10 +342,11 @@ public class MemberShipRenewalPage extends GetPage {
 
 	}
 
-	public void holdScriptExecutionToVerifyPreviewStatus() {
-		logMessage("===== Automation script is on hold for 5 minutes to verify preview status =====\n");
+	public void holdScriptExecutionToVerifyPreviewStatus(String status) {
+		logMessage("===== Automation script is on hold for 2 minutes to verify preview status "
+				+ status + " =====\n");
 		String lapsedMinutes = "";
-		for (int minutes = 1; minutes <= 5; minutes++) {
+		for (int minutes = 1; minutes <= 2; minutes++) {
 			for (int i = 0; i <= 59; i++) {
 				System.out.print("\r");
 				System.out.print("Time:- " + lapsedMinutes + i + " sec ");
@@ -355,13 +355,14 @@ public class MemberShipRenewalPage extends GetPage {
 			lapsedMinutes = String.valueOf(minutes) + " min : ";
 		}
 		System.out.print("\r");
-		System.out.println("Time:- " + 5 + " minutes            ");
+		System.out.println("Time:- " + 2 + " minutes            ");
 		System.out.println("");
 	}
 
 	public boolean validateTextFormat(String message) {
 		String format = "Dues task netFORUM_Dues_Renewal_update_Task_[\\w\\d]+\\sscheduled successfully. Upon completion an e-mail will be sent to";
 		Pattern pattern = Pattern.compile(format);
+		System.out.println(pattern.matcher(message).matches());
 		return pattern.matcher(message).find();
 	}
 

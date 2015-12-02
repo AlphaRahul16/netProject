@@ -23,7 +23,7 @@ csv-data-file:
 
 Authentication: 
   userName: C00616
-  password: "ACS2015#"
+  password: "ACS2016#"
   
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt
@@ -67,7 +67,7 @@ users:
 #                state: New York
 #                zipCode: 32256-7220
 #        education-and-employment:
-#            CASEID: 3
+#            CASEID: 20
 #    user3: 
 #        contact-information:
 #            name:
@@ -83,7 +83,7 @@ users:
 #                state: New York
 #                zipCode: 32256-7220
 #        education-and-employment:
-#            CASEID: 4
+#            CASEID: 21
 #    user4: 
 #        contact-information:
 #            name:
@@ -99,7 +99,7 @@ users:
 #                state: New York
 #                zipCode: 32256-7220
 #        education-and-employment:
-#            CASEID: 6            
+#            CASEID: 22    
       
    
           

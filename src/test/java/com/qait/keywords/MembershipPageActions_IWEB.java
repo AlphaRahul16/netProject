@@ -37,8 +37,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		this.driver = driver;
 	}
 
-	public void selectAndRunQueryMembership(String queryName) {
-		clickOnSideBar("Query Membership");
+	public void selectAndRunQueryMembership(String queryLink,String queryName) {
+		clickOnSideBar(queryLink);
 		wait.waitForPageToLoadCompletely();
 		waitForSpinner();
 		wait.hardWait(3);
@@ -1070,10 +1070,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		handleAlert();
 		wait.hardWait(3);
 		try {
-			customerContactId = element("txt_renewalContactId").getText().trim();
+			customerContactId = element("txt_renewalContactId").getText()
+					.trim();
 			logMessage("Step : Member contact number is " + customerContactId);
 		} catch (StaleElementReferenceException stlExp) {
-			customerContactId = element("txt_renewalContactId").getText().trim();
+			customerContactId = element("txt_renewalContactId").getText()
+					.trim();
 			logMessage("Step : Member contact number is " + customerContactId);
 		}
 		memberDetails.add(customerLname);
@@ -1085,7 +1087,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public List<String> selectMemberAndGetDetails() {
 		clickOnRandomPage();
 		clickOnAnyRandomMember();
-		getMemberDetails();
+		memberDetails=getMemberDetails();
 		return memberDetails;
 	}
 
@@ -1251,6 +1253,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		element("inp_customerId").sendKeys(customerID);
 		logMessage("Step : enter customer IDs " + customerID + " \n");
 		clickOnGoButtonInRunQuery();
+		verifyMultipleRecordsInList("2");
 	}
 
 	public void verifyMultipleRecordsInList(String numberOfRecords) {
@@ -1282,7 +1285,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		openSubInfoDropDown("invoices");
 		flag = pagesLinkAvailable();
 		verifyProductNameInInvoice(productName, flag);
-		verifyInvoiceIDInInvoice(invoiceId, flag);
+		// verifyInvoiceIDInInvoice(invoiceId, flag);
 		verifyTermStartDateInvoice("", flag);
 		verifyTermEndDateInvoice("", flag);
 

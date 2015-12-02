@@ -58,7 +58,7 @@ public class Membership_Renewal_Test {
 				getMemRenewalInfo.getMemRenewalSecondMember("memberType"),
 				getMemRenewalInfo.getMemRenewalSecondMember("memberStatus"),
 				getMemRenewalInfo.getMemRenewalSecondMember("country"));
-		test.memberShipPage.selectAndRunQueryMembership(getMemRenewalInfo
+		test.memberShipPage.selectAndRunQueryMembership("Query Membership",getMemRenewalInfo
 				.getMemRenewalInfo("queryName"));
 
 		test.memberShipPage.enterCustomerIdsInRunQuery(memberDetail1.get(3),
@@ -101,19 +101,16 @@ public class Membership_Renewal_Test {
 				getMemRenewalInfo
 						.getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));
 
-		test.membershipRenewalPage
-				.verifyRenewalSubDetails(
-						getMemRenewalInfo
-								.getRenewalInfoForProcessing("numberOfRenewals"),
-						getMemRenewalInfo
-								.getRenewalInfoForProcessing("numberOfInvoicesCreated"),
-						getMemRenewalInfo
-								.getRenewalInfoForProcessing("numberOfErrors"));
-
 		test.membershipRenewalPage.holdScriptUntilVerifyStatus(
 				getMemRenewalInfo.getRenewalInfoForSuccess("status"),
 				getMemRenewalInfo
 						.getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));
+
+		test.membershipRenewalPage.verifyRenewalSubDetails(getMemRenewalInfo
+				.getRenewalInfoForSuccess("numberOfRenewals"),
+				getMemRenewalInfo
+						.getRenewalInfoForSuccess("numberOfInvoicesCreated"),
+				getMemRenewalInfo.getRenewalInfoForSuccess("numberOfErrors"));
 	}
 
 	@Test
@@ -178,6 +175,9 @@ public class Membership_Renewal_Test {
 				memberDetails.get(2));
 		test.memberShipPage.verifyInvoiceDetailsOnRenewal(memberDetails.get(7),
 				memberDetails.get(8));
+//		test.invoicePage.expandDetailsMenu("line items");
+		
+		
 		invocationCount++;
 	}
 
