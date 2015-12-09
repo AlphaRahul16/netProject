@@ -108,9 +108,9 @@ users:
      
 AACT_users: 
     user1: 
-        CASEID: 7
+        CASEID: 2
 #    user2: 
-#        CASEID: 7
+#        CASEID: 6
    
 
             
@@ -343,6 +343,43 @@ ReinstateMemberIWEB:
          congressional: congressional 123
          province: province 123
          mail: mail123@test.com 
+         
+SubscriptionFulfillment: 
+    productCode: 2300
+    fulfillmentType: Current
+    queryName: Selenium – Find Random Active Member
+    maxWaitTimeInMinutesForPreviewStatus: 30
+    centralizedOrderEntry: 
+         batch: "ACS: QA_SUB_BATCH"
+         paymentType: prepaid
+         paymentMethod: Visa/MC
+         cardNumber: 4111111111111111
+         expireDate: 2016/12
+         cvvNumber: 123 
+    subscriptionDetailsForSchedule: 
+         updateStartIssue: "Yes"
+         fulfillmentType: Current
+         scheduledTask: "Yes"
+         scheduledTaskCompleted: "No"
+         previewStatus: scheduled
+         commitScheduledTask: "No"
+    subscriptionDetailsForPreviewComplete: 
+         updateStartIssue: "Yes"
+         fulfillmentType: Current
+         scheduledTask: "Yes"
+         scheduledTaskCompleted: "Yes"
+         previewStatus: preview complete
+         commitScheduledTask: "No"
+         startLapTimeInMinutes: 5
+    subscriptionDetailsForCommitted:
+         updateStartIssue: "Yes"
+         fulfillmentType: Current 
+         scheduledTask: "Yes"
+         scheduledTaskCompleted: "Yes"
+         previewStatusOnStartCommit: commit started
+         previewStatus: committed
+         commitScheduledTask: "Yes"
+         startLapTimeInMinutes: 5       
            
 ASM_URLRejectedErrorMsz: "The requested URL was rejected."
 ASMErrorPageTitle: Request Rejected

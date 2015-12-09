@@ -1,18 +1,18 @@
 Page Title: SubscriptionPage
 
 #Object Definitions
-===================================================================================================================================
-hd_sideBar                         xpath                            //h3[text()='${tabName}']
+====================================================================================================================================================================================
+hd_subscriptionFulfillment         css                            #ui-accordion-accordion-panel-5+h3
 link_subTabSidebar                 xpath                            //a[text()='${linkName}']
 hd_subscriptionBatch               id                               ChildDivDataFormHeader
 chk_subscription                   xpath                            //label[text()='${subscriptionName}']/preceding-sibling::input
 btn_save                           id                               ButtonSave
 icon_printReports                  xpath                            //span[text()='print reports']
-txt_firstPreviewStatusInList       xpath                            //tr[3]/td[11]
-txt_firstTskStartTimeInList        xpath                            //tr[3]/td[5]
+txt_firstPreviewStatusInList       xpath                           //tr[3]/td[11]
+txt_firstTskStartTimeInList        xpath                           //tr[3]/td[5]
 inp_tskStartTime                   id                               sfg_task_start_time
 link_firstSubsTask                 css                              #dgDynamicList > tbody > tr:nth-child(3) > td:nth-child(1) > a
-label_subscriptionDetail           xpath                            //label[contains(text(),'${detailName}')]/preceding-sibling::span
+label_subscriptionDetail           xpath                            //label[text()='${detailName}']/preceding-sibling::span
 btn_commitPreviewButton            id                              F1_ACSCommitPreviewButton
 inp_commitStartDate                  id                              sfg_commit_start_date_ext
 inp_commitStartTime                 id                              sfg_commit_start_time_ext
@@ -30,10 +30,9 @@ txt_fulfillmentDate                      xpath                      //td[contain
 list_pages                              xpath                     //a[@class='DataFormChildDataGridPagerLink']
 img_spinner                               xpath                      //*[contains(@src,'updating.gif')]
 btn_goToRecord                            xpath                   (//td[contains(text(),'${prodName}')]/preceding-sibling::td[2]//a/i[@class='iconpro-circle-arrow-right'])[${index}]
-
 rows_table                           xpath                         ((//table[contains(@id,'ChildTable')])[1]//tr[last()])[1]//table//tr
 lnk_arrow                            xpath                         ((//table[contains(@id,'ChildTable')])[1]//tr[last()])[1]//table//tr[${index}]//td[3]//i
 txt_subscriptionName                 xpath                         ((//table[contains(@id,'ChildTable')])[1]//tr[last()])[1]//table//tr[${index}]//td[5]
 txt_startDateInTable                 xpath                         ((//table[contains(@id,'ChildTable')])[1]//tr[last()])[1]//table//tr[${index}]//td[7]
 txt_issueInTable                 xpath                         ((//table[contains(@id,'ChildTable')])[1]//tr[last()])[1]//table//tr[${index}]//td[9]
-===================================================================================================================================
+====================================================================================================================================================================================

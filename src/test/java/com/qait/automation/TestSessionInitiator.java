@@ -169,7 +169,6 @@ public class TestSessionInitiator {
 	}
 
 	public void launchApplication(String baseurl) {
-
 		try {
 
 			Reporter.log(
@@ -177,7 +176,6 @@ public class TestSessionInitiator {
 							+ _getSessionConfig().get("browser") + "\n", true);
 			deleteAllCookies();
 			driver.get(baseurl);
-
 			Reporter.log("\nThe application url is :- " + baseurl, true);
 			if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/"))
 					&& (ConfigPropertyReader.getProperty("browser")

@@ -32,15 +32,14 @@ public class Subscription_Fulfillment_Test {
 
 	@Test
 	public void Step01_Search_Member_In_Individual_Test() {
-		// test.homePageIWEB.clickFindForIndividualsSearch();
-		// test.individualsPage.checkMemberDetailsAndSearch("Member Flag");
-		// ///
-
-		test.homePageIWEB.clickOnSideBarTab("Individuals");
-		test.memberShipPage.selectAndRunQueryMembership("Query Individual",
-				getSubscriptionInfo.getSubscriptionInfo("queryName"));
-		memberDetails = test.memberShipPage.getMemberDetails();
-		// memberDetails = test.memberShipPage.selectMemberAndGetDetails();
+//		test.homePageIWEB.clickOnSideBarTab("Individuals");
+//		test.memberShipPage.selectAndRunQueryMembership("Query Individual",
+//				getSubscriptionInfo.getSubscriptionInfo("queryName"));
+//		memberDetails = test.memberShipPage.getMemberDetails();
+		
+		test.homePageIWEB.clickFindForIndividualsSearch();
+		test.individualsPage.checkMemberDetailsAndSearch("Member Flag");
+		memberDetails = test.memberShipPage.selectMemberAndGetDetails();
 	}
 
 	@Test

@@ -31,6 +31,4 @@ txt_addMembershipRenewal                         xpath                          
 txt_OK                                           xpath                           //a[text()='OK']
 txt_beginDate                                    id                              tsk_begin_date
 txt_noResultsDisplay                             xpath                           //span[contains(text(),'There are no results to display.')]
-txt_addACSRenewalCycle                           xpath                           //td[text()='${acsRenewalCycleName}']
-hd_acsRenewalCycle                               xpath                           //h3[11]
 ====================================================================================================================================================================================
