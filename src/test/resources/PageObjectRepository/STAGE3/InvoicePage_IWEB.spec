@@ -18,5 +18,9 @@ txt_balance                     xpath                  //td[contains(text(),'${p
 txt_invoiceValues               xpath                 //label[contains(text(),'${invoice value}')]/preceding-sibling::span
 btn_detailsMenu                 xpath                 //span[text()='${menuName}']/preceding-sibling::input
 btn_detailsMenuAACT             xpath                 //span[text()='${menuName}']/../a[1]
+txt_memberDetail_q              xpath                 //label[text()='${labelname}?']/preceding-sibling::span[1]
+txt_memberDetails               xpath                 //label[text()='${labelname}:']/preceding-sibling::span[1]
+lnk_batch                       xpath                 //a[contains(text(),'${batchName}')]
+txt_invoiceDetailsInTable       xpath                 (//td[starts-with(text(),'${detailValue}')])[1]
 ====================================================================================================================================
 

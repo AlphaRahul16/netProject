@@ -466,7 +466,7 @@ MemberShipRenewal:
          expYear: 2017
          renewalYear: 2017
          type: ACS
-         renewalLength: 1 
+         renewalLength: 1
     firstMember: 
          memberType: Regular Member
          memberStatus: Active
@@ -503,8 +503,10 @@ MemberShipRenewal:
          status: SUCCESS
          numberOfRenewals: 2
          numberOfInvoicesCreated: 2
-         numberOfErrors: 0              
-    renewalMessage: "Dues task netFORUM_Dues_Renewal_update_Task_a02bd1cb14a14b4090482ae01f213b2dd5fc7374 scheduled successfully.  Upon completion an e-mail will be sent to" 
+         numberOfErrors: 0
+    invoiceDetails: 
+         proforma: "Yes"               
+         paidInFull: "No"
          
            
           

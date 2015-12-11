@@ -991,8 +991,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public String getMemberInfoOnMemberShipProfile(String memberInfo) {
 		isElementDisplayed("txt_membershipProfileInfo", memberInfo);
+
 		String info = element("txt_membershipProfileInfo", memberInfo)
 				.getText().trim();
+		System.out.println("info:" + info);
 		logMessage("Step : " + memberInfo + " is " + info + " \n");
 		return info;
 	}
@@ -1314,7 +1316,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		Assert.assertTrue(element("txt_membershipProfileDetails", memberdetail)
 				.getText().trim().equalsIgnoreCase(memberValue));
 		logMessage("ASSERT PASSED : " + memberValue + " is verified for "
-				+ memberValue + " \n");
+				+ memberdetail + " \n");
 
 	}
 
@@ -1371,7 +1373,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			System.out.println(startDate);
 			Assert.assertTrue(element("txt_termStartDateOnPage").getText()
 					.trim().equalsIgnoreCase(startDate));
-			logMessage("ASSERT PASSED : invoice id is " + startDate
+			logMessage("ASSERT PASSED : term start date is " + startDate
 					+ " in invoice is verified\n");
 		} else {
 			isElementDisplayed("txt_termStartDate");
@@ -1379,7 +1381,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			System.out.println(startDate);
 			Assert.assertTrue(element("txt_termStartDate").getText().trim()
 					.equalsIgnoreCase(startDate));
-			logMessage("ASSERT PASSED : start date is " + startDate
+			logMessage("ASSERT PASSED : term start date is " + startDate
 					+ " in invoice is verified\n");
 		}
 	}
@@ -1392,16 +1394,16 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			System.out.println(endDate);
 			Assert.assertTrue(element("txt_termEndDateOnPage").getText().trim()
 					.equalsIgnoreCase(endDate));
-			logMessage("ASSERT PASSED : end date is " + endDate
-					+ " in invoice is verified\n");
+			logMessage("ASSERT PASSED : term end date is " + endDate
+					+ " in invoice is verified in txt_termEndDateOnPage\n");
 		} else {
 			isElementDisplayed("txt_termEndDate");
 			System.out.println(element("txt_termEndDate").getText().trim());
 			System.out.println(endDate);
 			Assert.assertTrue(element("txt_termEndDate").getText().trim()
 					.equalsIgnoreCase(endDate));
-			logMessage("ASSERT PASSED : end date is " + endDate
-					+ " in invoice is verified\n");
+			logMessage("ASSERT PASSED : term end date is " + endDate
+					+ " in invoice is verified in txt_termEndDateOnPage\n");
 		}
 	}
 
@@ -1412,7 +1414,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		Assert.assertTrue(element("txt_paymentStatus").getText()
 				.equalsIgnoreCase(paymentStatus));
 		logMessage("ASSERT PASSED : payment status " + paymentStatus
-				+ " is verified\n");
+				+ " is verified in txt_paymentStatus\n");
+	}
+
+	public void navigateToInvoicePageForFirstProduct() {
+		isElementDisplayed("btn_arrowRightCircle");
+		element("btn_arrowRightCircle").click();
+		logMessage("Step : navigate to invoice profile page for first product in btn_arrowRightCircle\n");
 	}
 
 }

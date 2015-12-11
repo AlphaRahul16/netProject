@@ -112,7 +112,8 @@ txt_termStartDateOnPage                           xpath                        (
 txt_termEndDateOnPage                             xpath                        (//table[@class='table']//tr[3]/td[15])[1]
 inp_customerId                                    xpath                        //input[contains(@id,'QueryAsk')]
 btn_askGo                                         id                            ButtonAskGo
-txt_recordNumberAtMemberQuery                    classname                     DataFormLabelRecordCount
+txt_recordNumberAtMemberQuery                    classname                      DataFormLabelRecordCount
 txt_loadOnExistingQueryLabel                      id                            LoadQueryLabel
 link_pagesAvailable                              classname                      DataFormChildDataGridPagerLink
+btn_arrowRightCircle                             xpath                          (i[@class='iconpro-circle-arrow-right'])[1]
 ==============================================================================================================================================

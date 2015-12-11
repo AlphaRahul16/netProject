@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.qait.automation.utils.DateUtil;
 
 public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
@@ -173,7 +174,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	private void verifyInvoiceDetails(String detailName, String productName,
 			String detailValue, String multiYear) {
 		if (productName.equalsIgnoreCase("")) {
-			
+
 		} else {
 			if (!multiYear.equalsIgnoreCase("")) {
 				int multiYearInInteger = Integer.parseInt(multiYear);
@@ -209,7 +210,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	private void verifyInvoiceDetails_AACTOMA(String detailName,
 			String productName, String detailValue) {
 		if (productName.equalsIgnoreCase("")) {
-			
+
 		} else {
 			isElementDisplayed("txt_" + detailName, productName);
 			String ExpectedPrice = detailValue.replaceAll("\\$", "");
@@ -225,7 +226,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	private void verifyNationalMembershipCode_AACTOMA(String detailName,
 			String productName, String detailValue) {
 		if (productName.equalsIgnoreCase("")) {
-			
+
 		} else {
 			isElementDisplayed("txt_" + detailName, productName);
 			String ExpectedPrice = detailValue.replaceAll("\\$", "");
@@ -272,6 +273,62 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_detailsMenuAACT", menuName);
 		element("btn_detailsMenuAACT", menuName).click();
 		logMessage("Step : " + menuName + " is clicked to expand");
+	}
+
+	public void verifyMemberDetailsOnInvoicePage(String proforma,
+			String paidInFull, String customerId, String batchName,
+			String invoiceNumber) {
+		verifyMemberDetails_question("proforma", proforma);
+		verifyMemberDetails_question("paid in full", paidInFull);
+		verifyMemberDetails("customer id", customerId);
+		verifyMemberDetails("transaction date",
+				DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY"));
+		verifyBatchAtRenewal(batchName.replaceAll("ACS: ", ""));
+		verifyMemberDetails("invoice number", invoiceNumber);
+	}
+
+	public void verifyMemberDetails_question(String detailName,
+			String detailValue) {
+		isElementDisplayed("txt_memberDetail_q", detailName);
+		System.out.println("actual : "
+				+ element("txt_memberDetail_q", detailName).getText().trim());
+		System.out.println("exp: " + detailValue);
+		Assert.assertTrue(element("txt_memberDetail_q", detailName).getText()
+				.trim().equalsIgnoreCase(detailValue));
+		logMessage("ASSERT PASSED : " + detailValue + " is verified for "
+				+ detailName + " in txt_memberDetail_q\n");
+	}
+
+	public void verifyMemberDetails(String detailName, String detailValue) {
+		isElementDisplayed("txt_memberDetails", detailName);
+		System.out.println("actual : "
+				+ element("txt_memberDetails", detailName).getText().trim());
+		System.out.println("exp:" + detailValue);
+		Assert.assertTrue(element("txt_memberDetails", detailName).getText()
+				.trim().equalsIgnoreCase(detailValue));
+		logMessage("ASSERT PASSED : " + detailValue + " is verified for "
+				+ detailName + " \n");
+	}
+
+	public void verifyBatchAtRenewal(String batchName) {
+		isElementDisplayed("lnk_batch", batchName);
+		logMessage("AASERT PASSED : batch name " + batchName + " is verfied\n");
+	}
+
+	public void verifyInvoiceDetailsInInvoiceTable(String detailName,
+			String detailValue) {
+		isElementDisplayed("txt_invoiceDetailsInTable", detailValue);
+		logMessage("ASSERT PASSED : " + detailValue + " is verfied for "
+				+ detailName + "\n");
+	}
+	
+	
+	public void verifyInvoiceDetailsOnInvoiceProfilePage(String invoiceId,
+			String productname) {
+		verifyInvoiceDetailsInInvoiceTable("invoiceId", invoiceId);
+		verifyInvoiceDetailsInInvoiceTable("productname", productname);
+	
+		
 	}
 
 }

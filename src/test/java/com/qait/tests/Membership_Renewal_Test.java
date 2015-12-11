@@ -132,15 +132,6 @@ public class Membership_Renewal_Test {
 				getMemRenewalInfo.getRenewalInfoForProcessing("status"),
 				getMemRenewalInfo
 						.getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));
-
-//		test.membershipRenewalPage
-//				.verifyRenewalSubDetails(
-//						getMemRenewalInfo
-//								.getCreateRenewalInvoiceProcesingInfo("numberOfRenewals"),
-//						getMemRenewalInfo
-//								.getCreateRenewalInvoiceProcesingInfo("numberOfInvoicesCreated"),
-//						getMemRenewalInfo
-//								.getCreateRenewalInvoiceProcesingInfo("numberOfErrors"));
 		test.membershipRenewalPage.holdScriptUntilVerifyStatus(
 				getMemRenewalInfo.getRenewalInfoForSuccess("status"),
 				getMemRenewalInfo
@@ -176,7 +167,17 @@ public class Membership_Renewal_Test {
 				memberDetails.get(2));
 		test.memberShipPage.verifyInvoiceDetailsOnRenewal(memberDetails.get(7),
 				memberDetails.get(8));
-		// test.invoicePage.expandDetailsMenu("line items");
+		test.memberShipPage.navigateToInvoicePageForFirstProduct();
+
+		test.invoicePage.verifyMemberDetailsOnInvoicePage(
+				getMemRenewalInfo.getRenewalInvoiceDetails("proforma"),
+				getMemRenewalInfo.getRenewalInvoiceDetails("paidInFull"),
+				memberDetails.get(3),
+				getMemRenewalInfo.getRenewalInfoAtAdd("batch"),
+				memberDetails.get(8));
+		test.invoicePage.expandDetailsMenu("line items");
+		test.invoicePage.verifyInvoiceDetailsOnInvoiceProfilePage(
+				memberDetails.get(8), memberDetails.get(7));
 
 		invocationCount++;
 	}
