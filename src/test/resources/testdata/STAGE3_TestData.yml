@@ -474,7 +474,7 @@ MemberShipRenewal:
     secondMember: 
          memberType: Student Member - UnderGrad
          memberStatus: Active
-         country: India
+         country: CANADA
     queryName: "Member Query by Member Number – Multiple"
     timeSlabInMinutes: 5
     maxWaitTimeInMinutesForStatus: 30 

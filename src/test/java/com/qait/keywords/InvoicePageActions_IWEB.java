@@ -284,7 +284,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		verifyMemberDetails("transaction date",
 				DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY"));
 		verifyBatchAtRenewal(batchName.replaceAll("ACS: ", ""));
-		verifyMemberDetails("invoice number", invoiceNumber);
+//		verifyMemberDetails("invoice number", invoiceNumber);
 	}
 
 	public void verifyMemberDetails_question(String detailName,
@@ -325,7 +325,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	
 	public void verifyInvoiceDetailsOnInvoiceProfilePage(String invoiceId,
 			String productname) {
-		verifyInvoiceDetailsInInvoiceTable("invoiceId", invoiceId);
+//		verifyInvoiceDetailsInInvoiceTable("invoiceId", invoiceId);
 		verifyInvoiceDetailsInInvoiceTable("productname", productname);
 	
 		

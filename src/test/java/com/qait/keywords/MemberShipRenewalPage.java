@@ -259,10 +259,38 @@ public class MemberShipRenewalPage extends GetPage {
 	}
 
 	public void verifyRenewalSubDetails(String numberOfRenewals,
-			String numberofInvoicesCreated, String numberOfErrors) {
+			String numberofInvoicesCreated, String numberOfErrors,
+			String waitTime) {
 		verifyRenewalsSubInfo("numberOfRenewal", numberOfRenewals);
-		verifyRenewalsSubInfo("numberOfInvoicesCreated",
+		// verifyRenewalsSubInfo("numberOfInvoicesCreated",
+		// numberofInvoicesCreated);
+		isElementDisplayed("txt_" + "numberOfInvoicesCreated",
 				numberofInvoicesCreated);
+		if (element("txt_numberOfInvoicesCreated").getText().trim()
+				.equalsIgnoreCase(numberofInvoicesCreated)) {
+			logMessage("AASERT PASSED : number of invoice created "
+					+ numberofInvoicesCreated + " is verified\n");
+		} else {
+			int count = (Integer.parseInt(waitTime)) / 2;
+			for (int i = 1; i <= count; i++) {
+				holdScriptExecutionToVerifyInvoiceCreated(numberofInvoicesCreated);
+				pageRefresh();
+				isElementDisplayed("txt_" + "numberOfInvoicesCreated",
+						numberofInvoicesCreated);
+
+				if (element("txt_numberOfInvoicesCreated").getText().trim()
+						.equalsIgnoreCase(numberofInvoicesCreated)) {
+					System.out.println(isElementDisplayed("txt_"
+							+ "numberOfInvoicesCreated",
+							numberofInvoicesCreated));
+					logMessage("ASSERT PASSED : number of Invoices Created "
+							+ numberofInvoicesCreated + " is verified\n");
+					break;
+				}
+			}
+
+		}
+
 		verifyRenewalsSubInfo("numberOfErrors", numberOfErrors);
 	}
 
@@ -366,6 +394,23 @@ public class MemberShipRenewalPage extends GetPage {
 		System.out.println("");
 	}
 
+	public void holdScriptExecutionToVerifyInvoiceCreated(String invoiceCreated) {
+		logMessage("===== Automation script is on hold for 2 minutes to verify invoice created "
+				+ invoiceCreated + " =====\n");
+		String lapsedMinutes = "";
+		for (int minutes = 1; minutes <= 2; minutes++) {
+			for (int i = 0; i <= 59; i++) {
+				System.out.print("\r");
+				System.out.print("Time:- " + lapsedMinutes + i + " sec ");
+				wait.hardWait(1);
+			}
+			lapsedMinutes = String.valueOf(minutes) + " min : ";
+		}
+		System.out.print("\r");
+		System.out.println("Time:- " + 2 + " minutes            ");
+		System.out.println("");
+	}
+
 	public boolean validateTextFormat(String message) {
 		String format = "Dues task netFORUM_Dues_Renewal_update_Task_([0-9a-zA-Z])+ scheduled successfully. Upon completion an e-mail will be sent to";
 		Pattern pattern = Pattern.compile(format);
@@ -384,7 +429,5 @@ public class MemberShipRenewalPage extends GetPage {
 		element("hd_acsRenewalCycle").click();
 		logMessage("Step : acs renewal cycle tab is clicked in hd_acsRenewalCycle\n");
 	}
-	
-	
 
 }

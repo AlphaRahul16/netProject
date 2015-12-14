@@ -115,5 +115,5 @@ btn_askGo                                         id                            
 txt_recordNumberAtMemberQuery                    classname                      DataFormLabelRecordCount
 txt_loadOnExistingQueryLabel                      id                            LoadQueryLabel
 link_pagesAvailable                              classname                      DataFormChildDataGridPagerLink
-btn_arrowRightCircle                             xpath                          (i[@class='iconpro-circle-arrow-right'])[1]
+btn_arrowRightCircle                             xpath                          (//i[@class='iconpro-circle-arrow-right'])[1]
 ==============================================================================================================================================

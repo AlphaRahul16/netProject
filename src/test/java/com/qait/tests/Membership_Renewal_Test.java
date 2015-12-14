@@ -98,10 +98,10 @@ public class Membership_Renewal_Test {
 		test.membershipRenewalPage
 				.clickOnSubInfoDropdown("batch renewal summary");
 		test.membershipRenewalPage.verifyNoResultDisplay();
-		test.membershipRenewalPage.holdScriptUntilVerifyStatus(
-				getMemRenewalInfo.getRenewalInfoForProcessing("status"),
-				getMemRenewalInfo
-						.getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));
+//		test.membershipRenewalPage.holdScriptUntilVerifyStatus(
+//				getMemRenewalInfo.getRenewalInfoForProcessing("status"),
+//				getMemRenewalInfo
+//						.getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));
 
 		test.membershipRenewalPage.holdScriptUntilVerifyStatus(
 				getMemRenewalInfo.getRenewalInfoForSuccess("status"),
@@ -112,7 +112,9 @@ public class Membership_Renewal_Test {
 				.getRenewalInfoForSuccess("numberOfRenewals"),
 				getMemRenewalInfo
 						.getRenewalInfoForSuccess("numberOfInvoicesCreated"),
-				getMemRenewalInfo.getRenewalInfoForSuccess("numberOfErrors"));
+				getMemRenewalInfo.getRenewalInfoForSuccess("numberOfErrors"),
+				getMemRenewalInfo
+						.getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));
 	}
 
 	@Test
@@ -128,10 +130,10 @@ public class Membership_Renewal_Test {
 	public void Step06_Verify_Renewal_Details_For_create_Renewal_Invoices() {
 		test.membershipRenewalPage
 				.verifyCreateInvoiceTaskStartTimeAndDate(time);
-		test.membershipRenewalPage.holdScriptUntilVerifyStatus(
+		/*test.membershipRenewalPage.holdScriptUntilVerifyStatus(
 				getMemRenewalInfo.getRenewalInfoForProcessing("status"),
 				getMemRenewalInfo
-						.getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));
+						.getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));*/
 		test.membershipRenewalPage.holdScriptUntilVerifyStatus(
 				getMemRenewalInfo.getRenewalInfoForSuccess("status"),
 				getMemRenewalInfo
@@ -144,7 +146,9 @@ public class Membership_Renewal_Test {
 						getMemRenewalInfo
 								.getCreateRenewalInvoiceSuccessInfo("numberOfInvoicesCreated"),
 						getMemRenewalInfo
-								.getCreateRenewalInvoiceSuccessInfo("numberOfErrors"));
+								.getCreateRenewalInvoiceSuccessInfo("numberOfErrors"),
+						getMemRenewalInfo
+								.getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));
 	}
 
 	@Test(invocationCount = 2)
