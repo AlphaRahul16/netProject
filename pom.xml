@@ -1,7 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<groupId>com.qait.automation</groupId>
 	<artifactId>acs-test</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -13,7 +12,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<testngxml>testng.xml</testngxml>
 		<seleniumver>2.47.0</seleniumver>
-		<maven.test.failure.ignore>true</maven.test.failure.ignore>
+			<maven.test.failure.ignore>true</maven.test.failure.ignore>
 	</properties>
 
 	<dependencies>
@@ -98,6 +97,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.17</version>
 				<configuration>
+				
 					<systemProperties>
 						<systemProperty>
 							<name>testngxml</name>
@@ -111,6 +111,8 @@
 					</suiteXmlFiles>
 					<argLine>-Dfile.encoding=UTF-8</argLine>
 				</configuration>
+				        <dependencies>
+            </dependencies>
 				<executions>
 					<execution>
 						<id>surefire-it</id>
@@ -189,6 +191,7 @@
 				<artifactId>maven-jxr-plugin</artifactId>
 				<version>2.2</version>
 			</plugin>
-		</plugins>
-	</reporting>
+            </plugins>
+    </reporting>
+    
 </project>

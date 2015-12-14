@@ -91,10 +91,17 @@ txt_renewalContactId                             id                           F1
 chk_advanceNew                                    id                           ctl10
 list_advanceNewDropDown                           xpath                        //span[contains(text(),'${headingName}')]/../following-sibling::td[1]/select
 inp_advanceNewInput                               xpath                         //span[contains(text(),'${headingName}')]/../following-sibling::td[2]/input
+txt_webLogin                                      id                        F1_cst_web_login
 list_advanceNewInput                               xpath                        //span[contains(text(),'${headingName}')]/../following-sibling::td[2]/select
 link_subscriptionInSelectProduct                  id                            HYPERLINK_2
 inp_prdCode                                       id                           prd_code
 inp_searchDisplayButton                           id                           Look_Up_prc_display_name
 inp_displayName                                   id                           prc_display_name
 link_itemInLineItems                              xpath                        (//tr/td[4])[last()]/a
+txt_loadOnExistingQueryLabel                      id                            LoadQueryLabel
+txt_membershipProfileDetails                      xpath                        //label[contains(text(),'${memberInfo}')]/preceding-sibling::span
+lnk_invoice_number                                 xpath                        //table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3][contains(text(),'${value}')]
+lnk_first_invoice_number                           xpath                       (//table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3])[1] 
+inp_customerId                                    xpath                        //input[contains(@id,'QueryAsk')]
+btn_askGo                                         id                            ButtonAskGo
 ==============================================================================================================================================

@@ -4,15 +4,20 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 import static com.qait.automation.utils.YamlReader.setYamlFilePath;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Reporter;
+
 
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.TakeScreenshot;
@@ -266,5 +271,35 @@ public class TestSessionInitiator {
 		driver.navigate().to(baseURL);
 		Reporter.log("\nThe application url is :- " + baseURL, true);
 	}
+	public void navigateToIWEBUrlOnNewBrowserTab(String baseURL) {
+		if(_getSessionConfig().get("browser").equalsIgnoreCase("firefox")||_getSessionConfig().get("browser").equalsIgnoreCase("ie"))
+		{
+			openUrl(baseURL);
+		}
+	else	if(_getSessionConfig().get("browser").equalsIgnoreCase("chrome"))
+		{
+		Robot robot;
+		try {
+			robot = new Robot();
+			robot.delay(2000);
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_T);
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+			robot.keyRelease(KeyEvent.VK_T);
+			String base = driver.getWindowHandle();
+			Set<String> set = driver.getWindowHandles();
+			set.remove(base);
+			assert set.size() == 1;
+			driver.switchTo().window((String) set.toArray()[0]);
+		driver.navigate().to(baseURL);
+		Reporter.log("\nThe application url is :- " + baseURL, true);
+		}
+	catch (AWTException e) {
+		e.printStackTrace();
+	}
 
+	}
+	}
+	
+	
 }

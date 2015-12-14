@@ -142,5 +142,13 @@ public class ASCSocietyGenericPage extends GetPage {
 				DataProvider.getColumnNumber_AACTOMA(valueFromDataSheet))
 				.trim();
 	}
+	public String getACS_Store_SheetValue(String caseId, String valueFromDataSheet) {
+		String csvLine = csvReaderRowSpecific(
+				getYamlValue("csv-data-file.path_ACS_Store"),
+				getYamlValue("csv-data-file.has-header"), caseId);
+		return DataProvider.getSpecificColumnFromCsvLine(csvLine, csvSeparator,
+				DataProvider.getColumnNumber_ACS_Store(valueFromDataSheet))
+				.trim();
+	}
 
 }

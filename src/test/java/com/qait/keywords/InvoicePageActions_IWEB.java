@@ -1,23 +1,29 @@
 package com.qait.keywords;
 
+import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
+
+import java.util.Map;
+
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 
 public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
-
+	
 	WebDriver driver;
 	String pagename = "InvoicePage_IWEB";
 	String invoiceTotal, LSDues;
-
+	int timeOut, hiddenFieldTimeOut;
 	public InvoicePageActions_IWEB(WebDriver driver) {
 		super(driver, "InvoicePage_IWEB");
 		this.driver = driver;
 	}
 
-	public void verifyInvoicedDetails(String caseId, String menuName,
-			String invoiceNumber, String[] quantities, String Total) {
+	public void verifyInvoicedDetails(String caseId, String menuName, String invoiceNumber, String[] quantities,
+			String Total) {
 
 		enterInvoiceNumber(invoiceNumber);
 		clickOnSearchButton();
@@ -27,45 +33,30 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 		expandDetailsMenu("line items");
 
-		verifyInvoiceDetails("priceValue",
-				getOmaSheetValue(caseId, "Iweb Product Name?"),
-				getPriceSheetValue(caseId, "Price value?"),
+		verifyInvoiceDetails("priceValue", getOmaSheetValue(caseId, "Iweb Product Name?"),
+				getPriceSheetValue(caseId, "Price value?"), getOmaSheetValue(caseId, "multiYearDecision"));
+		verifyInvoiceDetails("balance", getOmaSheetValue(caseId, "Iweb Product Name?"), "0.00",
 				getOmaSheetValue(caseId, "multiYearDecision"));
-		verifyInvoiceDetails("balance",
-				getOmaSheetValue(caseId, "Iweb Product Name?"), "0.00",
-				getOmaSheetValue(caseId, "multiYearDecision"));
-		verifyInvoiceDetails("discount",
-				getOmaSheetValue(caseId, "Iweb Product Name?"), "0.00",
+		verifyInvoiceDetails("discount", getOmaSheetValue(caseId, "Iweb Product Name?"), "0.00",
 				getOmaSheetValue(caseId, "multiYearDecision"));
 
-		verifyInvoiceDetails("priceValue",
-				getOmaSheetValue(caseId, "Iweb Pub Name?"),
+		verifyInvoiceDetails("priceValue", getOmaSheetValue(caseId, "Iweb Pub Name?"),
 				getPriceSheetValue(caseId, "pubsPrice?"), "1");
-		verifyInvoiceDetails("discount",
-				getOmaSheetValue(caseId, "Iweb Pub Name?"), "0.00", "1");
-		verifyInvoiceDetails("balance",
-				getOmaSheetValue(caseId, "Iweb Pub Name?"), "0.00", "1");
+		verifyInvoiceDetails("discount", getOmaSheetValue(caseId, "Iweb Pub Name?"), "0.00", "1");
+		verifyInvoiceDetails("balance", getOmaSheetValue(caseId, "Iweb Pub Name?"), "0.00", "1");
 
-		verifyInvoiceDetails("priceValue",
-				getOmaSheetValue(caseId, "Iweb Division Name?"),
-				getPriceSheetValue(caseId, "divisionPrice?"),
+		verifyInvoiceDetails("priceValue", getOmaSheetValue(caseId, "Iweb Division Name?"),
+				getPriceSheetValue(caseId, "divisionPrice?"), getOmaSheetValue(caseId, "multiYearDecision"));
+		verifyInvoiceDetails("balance", getOmaSheetValue(caseId, "Iweb Division Name?"), "0.00",
 				getOmaSheetValue(caseId, "multiYearDecision"));
-		verifyInvoiceDetails("balance",
-				getOmaSheetValue(caseId, "Iweb Division Name?"), "0.00",
-				getOmaSheetValue(caseId, "multiYearDecision"));
-		verifyInvoiceDetails("discount",
-				getOmaSheetValue(caseId, "Iweb Division Name?"), "0.00",
+		verifyInvoiceDetails("discount", getOmaSheetValue(caseId, "Iweb Division Name?"), "0.00",
 				getOmaSheetValue(caseId, "multiYearDecision"));
 
-		verifyInvoiceDetails("priceValue",
-				getOmaSheetValue(caseId, "Iweb CEN Product Name?"),
-				getPriceSheetValue(caseId, "CENprice?"),
+		verifyInvoiceDetails("priceValue", getOmaSheetValue(caseId, "Iweb CEN Product Name?"),
+				getPriceSheetValue(caseId, "CENprice?"), getOmaSheetValue(caseId, "multiYearDecision"));
+		verifyInvoiceDetails("discount", getOmaSheetValue(caseId, "Iweb CEN Product Name?"), "0.00",
 				getOmaSheetValue(caseId, "multiYearDecision"));
-		verifyInvoiceDetails("discount",
-				getOmaSheetValue(caseId, "Iweb CEN Product Name?"), "0.00",
-				getOmaSheetValue(caseId, "multiYearDecision"));
-		verifyInvoiceDetails("balance",
-				getOmaSheetValue(caseId, "Iweb CEN Product Name?"), "0.00",
+		verifyInvoiceDetails("balance", getOmaSheetValue(caseId, "Iweb CEN Product Name?"), "0.00",
 				getOmaSheetValue(caseId, "multiYearDecision"));
 
 		Float a1 = Float.parseFloat(quantities[0]);
@@ -85,68 +76,42 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		String quantity_IWEBLSName = String.valueOf(quantity_LSName);
 		String quantity_cenProductname = String.valueOf(quantity_cenPrd);
 
-		verifyInvoiceDetails("priceValue",
-				getOmaSheetValue(caseId, "Iweb LS Name?"),
-				getPriceSheetValue(caseId, "LSDues?"),
+		verifyInvoiceDetails("priceValue", getOmaSheetValue(caseId, "Iweb LS Name?"),
+				getPriceSheetValue(caseId, "LSDues?"), getOmaSheetValue(caseId, "multiYearDecision"));
+		verifyInvoiceDetails("discount", getOmaSheetValue(caseId, "Iweb LS Name?"), "0.00",
 				getOmaSheetValue(caseId, "multiYearDecision"));
-		verifyInvoiceDetails("discount",
-				getOmaSheetValue(caseId, "Iweb LS Name?"), "0.00",
-				getOmaSheetValue(caseId, "multiYearDecision"));
-		verifyInvoiceDetails("balance",
-				getOmaSheetValue(caseId, "Iweb LS Name?"), "0.00",
+		verifyInvoiceDetails("balance", getOmaSheetValue(caseId, "Iweb LS Name?"), "0.00",
 				getOmaSheetValue(caseId, "multiYearDecision"));
 
-		verifyInvoiceDetails("quantity",
-				getOmaSheetValue(caseId, "Iweb Product Name?"),
-				quantity_Product, "1");
-		verifyInvoiceDetails("quantity",
-				getOmaSheetValue(caseId, "Iweb Pub Name?"),
-				quantity_PublicationName, "1");
-		verifyInvoiceDetails("quantity",
-				getOmaSheetValue(caseId, "Iweb Division Name?"),
-				quantity_TechnicalDivision, "1");
-		verifyInvoiceDetails("quantity",
-				getPriceSheetValue(caseId, "Iweb CEN Product Name?"),
-				quantity_cenProductname, "1");
-		verifyInvoiceDetails("quantity",
-				getOmaSheetValue(caseId, "Iweb LS Name?"), quantity_IWEBLSName,
+		verifyInvoiceDetails("quantity", getOmaSheetValue(caseId, "Iweb Product Name?"), quantity_Product, "1");
+		verifyInvoiceDetails("quantity", getOmaSheetValue(caseId, "Iweb Pub Name?"), quantity_PublicationName, "1");
+		verifyInvoiceDetails("quantity", getOmaSheetValue(caseId, "Iweb Division Name?"), quantity_TechnicalDivision,
 				"1");
+		verifyInvoiceDetails("quantity", getPriceSheetValue(caseId, "Iweb CEN Product Name?"), quantity_cenProductname,
+				"1");
+		verifyInvoiceDetails("quantity", getOmaSheetValue(caseId, "Iweb LS Name?"), quantity_IWEBLSName, "1");
 	}
 
-	public void verifyInvoicedDetails_AACTOMA(String caseId, String menuName,
-			String invoiceNumber) {
+	public void verifyInvoicedDetails_AACTOMA(String caseId, String menuName, String invoiceNumber) {
 		String Total = getAACT_OmaSheetValue(caseId, "Product Subtotal?");
 		enterInvoiceNumber(invoiceNumber);
 		clickOnSearchButton();
 		verifyInvoiceProfile_AACTOMA("invoice total", Total);
 		verifyInvoiceProfile_AACTOMA("balance", "$0.00");
 		expandDetailsMenu("line items");
-		verifyNationalMembershipCode_AACTOMA("code",
-				getAACT_OmaSheetValue(caseId, "Iweb AACT Product Name?"),
+		verifyNationalMembershipCode_AACTOMA("code", getAACT_OmaSheetValue(caseId, "Iweb AACT Product Name?"),
 				getAACT_OmaSheetValue(caseId, "AACT Receipt Product Code?"));
-		verifyInvoiceDetails_AACTOMA("priceValue",
-				getAACT_OmaSheetValue(caseId, "Iweb AACT Product Name?"),
+		verifyInvoiceDetails_AACTOMA("priceValue", getAACT_OmaSheetValue(caseId, "Iweb AACT Product Name?"),
 				getAACT_OmaSheetValue(caseId, "Product Subtotal?"));
-		verifyInvoiceDetails_AACTOMA("balance",
-				getAACT_OmaSheetValue(caseId, "Iweb AACT Product Name?"),
-				"0.00");
-		verifyInvoiceDetails_AACTOMA("discount",
-				getAACT_OmaSheetValue(caseId, "Iweb AACT Product Name?"),
-				"0.00");
+		verifyInvoiceDetails_AACTOMA("balance", getAACT_OmaSheetValue(caseId, "Iweb AACT Product Name?"), "0.00");
+		verifyInvoiceDetails_AACTOMA("discount", getAACT_OmaSheetValue(caseId, "Iweb AACT Product Name?"), "0.00");
 
-		verifyNationalMembershipCode_AACTOMA(
-				"code",
-				getAACT_OmaSheetValue(caseId, "Iweb AACT Subscription Name?"),
+		verifyNationalMembershipCode_AACTOMA("code", getAACT_OmaSheetValue(caseId, "Iweb AACT Subscription Name?"),
 				getAACT_OmaSheetValue(caseId, "AACT Receipt Subscription Code?"));
-		verifyInvoiceDetails_AACTOMA("priceValue",
-				getAACT_OmaSheetValue(caseId, "IWEB AACT Subscription Name?"),
+		verifyInvoiceDetails_AACTOMA("priceValue", getAACT_OmaSheetValue(caseId, "IWEB AACT Subscription Name?"),
 				"0.00");
-		verifyInvoiceDetails_AACTOMA("discount",
-				getAACT_OmaSheetValue(caseId, "IWEB AACT Subscription Name?"),
-				"0.00");
-		verifyInvoiceDetails_AACTOMA("balance",
-				getAACT_OmaSheetValue(caseId, "IWEB AACT Subscription Name?"),
-				"0.00");
+		verifyInvoiceDetails_AACTOMA("discount", getAACT_OmaSheetValue(caseId, "IWEB AACT Subscription Name?"), "0.00");
+		verifyInvoiceDetails_AACTOMA("balance", getAACT_OmaSheetValue(caseId, "IWEB AACT Subscription Name?"), "0.00");
 
 	}
 
@@ -160,118 +125,137 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("inp_invoiceCode");
 		element("inp_invoiceCode").sendKeys(invoiceNumber);
-		logMessage("Step : " + invoiceNumber
-				+ " is entered to search in inp_invoiceCode\n");
+		logMessage("STEP : " + invoiceNumber + " is entered to search in inp_invoiceCode\n");
 	}
 
 	private void clickOnSearchButton() {
 		isElementDisplayed("btn_search");
 		element("btn_search").click();
-		logMessage("Step : search button is clicked in txt_invoiceMenu\n");
+		logMessage("STEP : Search button is clicked in txt_invoiceMenu\n");
 	}
 
-	private void verifyInvoiceDetails(String detailName, String productName,
-			String detailValue, String multiYear) {
+	private void verifyInvoiceDetails(String detailName, String productName, String detailValue, String multiYear) {
 		if (productName.equalsIgnoreCase("")) {
-			
+
 		} else {
 			if (!multiYear.equalsIgnoreCase("")) {
 				int multiYearInInteger = Integer.parseInt(multiYear);
 				if (multiYearInInteger > 1) {
 					isElementDisplayed("txt_" + detailName, productName);
 					String PriceInString = detailValue.replaceAll("\\$", "");
-					Float priceValueInSheet = Float.parseFloat(PriceInString)
-							* multiYearInInteger;
-					String formatedPrice = String.format("%.02f",
-							priceValueInSheet);
+					Float priceValueInSheet = Float.parseFloat(PriceInString) * multiYearInInteger;
+					String formatedPrice = String.format("%.02f", priceValueInSheet);
 					String PriceValueExpected = String.valueOf(formatedPrice);
-					Assert.assertTrue(element("txt_" + detailName, productName)
-							.getText().trim()
+					Assert.assertTrue(element("txt_" + detailName, productName).getText().trim()
 							.equalsIgnoreCase(PriceValueExpected));
-					logMessage("ASSERT PASSED : "
-							+ element("txt_" + detailName, productName)
-									.getText().trim() + " is verified in txt_"
-							+ detailName + "\n");
+					logMessage("ASSERT PASSED : " + element("txt_" + detailName, productName).getText().trim()
+							+ " is verified in txt_" + detailName + "\n");
 				} else {
 					isElementDisplayed("txt_" + detailName, productName);
 					String ExpectedPrice = detailValue.replaceAll("\\$", "");
-					Assert.assertTrue(element("txt_" + detailName, productName)
-							.getText().trim().equalsIgnoreCase(ExpectedPrice));
-					logMessage("ASSERT PASSED : "
-							+ element("txt_" + detailName, productName)
-									.getText().trim() + " is verified in txt_"
-							+ detailName + "\n");
+					Assert.assertTrue(
+							element("txt_" + detailName, productName).getText().trim().equalsIgnoreCase(ExpectedPrice));
+					logMessage("ASSERT PASSED : " + element("txt_" + detailName, productName).getText().trim()
+							+ " is verified in txt_" + detailName + "\n");
 				}
 			}
 		}
 	}
 
-	private void verifyInvoiceDetails_AACTOMA(String detailName,
-			String productName, String detailValue) {
+	public void verifyInvoiceDetailsInLineItems(String name, Map<String, String> mapGetMemberDetailsInStore) {
+		Assert.assertTrue(element("table_" + name).getText().trim().equals(mapGetMemberDetailsInStore.get(name)));
+		logMessage("ASSERT PASSED : " + name + " details on invoice profile succesfully verified as "+ mapGetMemberDetailsInStore.get(name)+"\n");
+	}
+
+	public void verifyInvoiceDetails_LineItems(Map<String, String> mapGetMemberDetailsInStore, String... name) {
+		for (String names : name) {
+			verifyInvoiceDetailsInLineItems(names, mapGetMemberDetailsInStore);
+		}
+
+	}
+
+	private void verifyInvoiceDetails_AACTOMA(String detailName, String productName, String detailValue) {
 		if (productName.equalsIgnoreCase("")) {
-			
+
 		} else {
 			isElementDisplayed("txt_" + detailName, productName);
 			String ExpectedPrice = detailValue.replaceAll("\\$", "");
-			Assert.assertTrue(element("txt_" + detailName, productName)
-					.getText().trim().equalsIgnoreCase(ExpectedPrice));
-			logMessage("ASSERT PASSED : "
-					+ element("txt_" + detailName, productName).getText()
-							.trim() + " is verified in txt_" + detailName
-					+ "\n");
+			Assert.assertTrue(
+					element("txt_" + detailName, productName).getText().trim().equalsIgnoreCase(ExpectedPrice));
+			logMessage("ASSERT PASSED : " + element("txt_" + detailName, productName).getText().trim()
+					+ " is verified in txt_" + detailName);
 		}
 	}
 
-	private void verifyNationalMembershipCode_AACTOMA(String detailName,
-			String productName, String detailValue) {
+	private void verifyNationalMembershipCode_AACTOMA(String detailName, String productName, String detailValue) {
 		if (productName.equalsIgnoreCase("")) {
-			
+
 		} else {
 			isElementDisplayed("txt_" + detailName, productName);
 			String ExpectedPrice = detailValue.replaceAll("\\$", "");
-			Assert.assertTrue(element("txt_" + detailName, productName)
-					.getText().trim().contains(ExpectedPrice));
-			logMessage("ASSERT PASSED : "
-					+ element("txt_" + detailName, productName).getText()
-							.trim() + " is verified in txt_" + detailName
-					+ "\n");
-		}
-	}
-
-	private void verifyInvoiceProfile(String detailName, String detailValue) {
-		if (detailValue.equalsIgnoreCase("")) {
-			logMessage("Step : value of " + detailName
-					+ "  price is empty in data sheet\n");
-		} else {
-			isElementDisplayed("txt_invoiceValues", detailName);
-			String detailValueWithOutDollar = detailValue.replace("$", "");
-			Assert.assertTrue(element("txt_invoiceValues", detailName)
-					.getText().trim()
-					.equalsIgnoreCase(detailValueWithOutDollar));
-			logMessage("ASSERT PASSED : " + detailValueWithOutDollar
+			Assert.assertTrue(element("txt_" + detailName, productName).getText().trim().contains(ExpectedPrice));
+			logMessage("ASSERT PASSED : " + element("txt_" + detailName, productName).getText().trim()
 					+ " is verified in txt_" + detailName + "\n");
 		}
 	}
 
-	private void verifyInvoiceProfile_AACTOMA(String detailName,
-			String detailValue) {
+	public void verifyInvoiceProfile(String detailName, String detailValue) {
 		if (detailValue.equalsIgnoreCase("")) {
-			logMessage("Step : value of " + detailName
-					+ "  price is empty in data sheet\n");
+			logMessage("Step : value of " + detailName + "  price is empty in data sheet\n");
 		} else {
-			isElementDisplayed("inp_invoiceAACT", detailName);
+			isElementDisplayed("txt_invoiceValues", detailName);
 			String detailValueWithOutDollar = detailValue.replace("$", "");
-			Assert.assertTrue(element("inp_invoiceAACT", detailName).getText()
-					.trim().equalsIgnoreCase(detailValueWithOutDollar));
-			logMessage("ASSERT PASSED : " + detailValueWithOutDollar
-					+ " is verified in " + detailName + "\n");
+			Assert.assertTrue(element("txt_invoiceValues", detailName).getText().trim()
+					.equalsIgnoreCase(detailValueWithOutDollar));
+			logMessage("ASSERT PASSED : " + detailValueWithOutDollar + " is verified in txt_" + detailName + "\n");
 		}
 	}
 
-	private void expandDetailsMenu(String menuName) {
+	private void verifyInvoiceProfile_AACTOMA(String detailName, String detailValue) {
+		if (detailValue.equalsIgnoreCase("")) {
+			logMessage("Step : Value of " + detailName + "  price is empty in data sheet\n");
+		} else {
+			isElementDisplayed("inp_invoiceAACT", detailName);
+			String detailValueWithOutDollar = detailValue.replace("$", "");
+			Assert.assertTrue(
+					element("inp_invoiceAACT", detailName).getText().trim().equalsIgnoreCase(detailValueWithOutDollar));
+			logMessage("ASSERT PASSED : " + detailValueWithOutDollar + " is verified in " + detailName + "\n");
+		}
+	}
+
+	public void expandDetailsMenu(String menuName) {
 		isElementDisplayed("btn_detailsMenuAACT", menuName);
 		element("btn_detailsMenuAACT", menuName).click();
-		logMessage("Step : " + menuName + " is clicked to expand");
+		logMessage("STEP : " + menuName  + " bar is clicked to expand"+"\n");
+		waitForSpinner();
+		
+	}
+	public void waitForSpinner() {
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
+		try {
+			handleAlert();
+			wait.resetImplicitTimeout(2);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("img_spinner");
+			wait.waitForElementToDisappear(element("img_spinner"));
+			logMessage("STEP : Wait for spinner to be disappeared \n");
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+		} catch (NoSuchElementException | AssertionError | TimeoutException Exp) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			logMessage("STEP : Spinner is not present \n");
+		}
+	}
+
+	public void collapseDetailsMenu(String menuName) {
+	  isElementDisplayed("icon_up",menuName);
+	  element("icon_up",menuName).click();
+	  waitForSpinner();
+	  logMessage("STEP : "+menuName+" bar collapse bar clicked\n");
+		
 	}
 
 }

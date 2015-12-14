@@ -63,9 +63,9 @@ public class ResultsIT extends ReformatTestFile {
 
     @Test
     public void changeTimeStamp() throws IOException  {
-        String html = readLargerTextFile("target/surefire-reports/emailable-report.html");
+        String html = readLargerTextFile("./target/surefire-reports/emailable-report.html");
         html = replacealltimestamp(html);
-        writeLargerTextFile("target/surefire-reports/emailable-report.html", html);
+        writeLargerTextFile("./target/surefire-reports/emailable-report.html", html);
     }
 
     @Test(dependsOnMethods = "changeTimeStamp")
@@ -154,7 +154,7 @@ public class ResultsIT extends ReformatTestFile {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(
                     val.toString()));
         }
-        message.addRecipient(Message.RecipientType.BCC, new InternetAddress("avnishrawat@qainfotech.net"));
+        message.addRecipient(Message.RecipientType.BCC, new InternetAddress("rahulyadav@qainfotech.net"));
 
     }
 

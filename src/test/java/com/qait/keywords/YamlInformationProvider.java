@@ -61,7 +61,7 @@ public class YamlInformationProvider {
 	}
 
 	public String get_AACTInfo(String infoType) {
-		return getMapValue(this.userInfoMap, "CASEID");
+		return getMapValue(this.userInfoMap, infoType);
 	}
 
 	public String get_AACTContactInfo(String infoType) {
@@ -252,6 +252,9 @@ public class YamlInformationProvider {
 		return getMapValue(this.userInfoMap,infoType);
 	}
 	
+	public String get_ACSStoreCaseId(String infoType) {
+		return getMapValue(this.userInfoMap, infoType);
+	}
 	
 	
 

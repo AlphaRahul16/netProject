@@ -132,7 +132,7 @@ public class ACS_AACT_Smoke_Test {
 		Reporter.log("****** TEST CASE ID : " + caseId + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 
-		test.launchApplication(app_url_IWEB);
+		test.navigateToIWEBUrlOnNewBrowserTab(app_url_IWEB);
 		test.homePageIWEB.enterAuthentication(
 				getKeyValueAACT.getAuthenticationInfo("userName"),
 				getKeyValueAACT.getAuthenticationInfo("password"));

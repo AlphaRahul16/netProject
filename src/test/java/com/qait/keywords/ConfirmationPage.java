@@ -17,6 +17,7 @@ public class ConfirmationPage extends ASCSocietyGenericPage {
 	ArrayList<String> nonVerifiedDetail = new ArrayList<String>();
 	int timeOut, hiddenFieldTimeOut;
 
+
 	public ConfirmationPage(WebDriver driver) {
 		super(driver, "ConfirmationPage");
 		this.driver = driver;

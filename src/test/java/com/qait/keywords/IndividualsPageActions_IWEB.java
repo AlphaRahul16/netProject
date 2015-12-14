@@ -32,7 +32,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		enterFieldValue(fieldName, fieldValue);
 		clickGoButton();
 		handleAlert();
-		logMessage("Step : member detail is filled and search\n");
+		logMessage("STEP : Member detail is filled and search\n");
 	}
 
 	public void checkMemberDetailsAndSearch(String fieldName) {
@@ -56,7 +56,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void enterFieldValue(String fieldName, String fieldValue) {
 		isElementDisplayed("inp_fieldName", fieldName);
 		element("inp_fieldName", fieldName).sendKeys(fieldValue);
-		logMessage("Step: " + fieldValue + " is entered in inp_fieldName\n");
+		logMessage("STEP : CustomerId" + fieldValue + " is entered in inp_fieldName\n");
 	}
 
 	public void clickGoButton() {
@@ -66,7 +66,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		} else {
 			element("btn_Go").click();
 		}
-		logMessage("Step:  go button is clicked in btn_Go\n");
+		logMessage("STEP:  go button is clicked in btn_Go\n");
 	}
 
 	public void verifyMemberDetails(String fName, String lName, String add,

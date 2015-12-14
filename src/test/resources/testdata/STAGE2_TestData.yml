@@ -18,12 +18,13 @@ csv-data-file:
   path_OMA: ./src/test/resources/TestDataLibrary/OMA Business Rules.csv
   path_PriceValue: ./src/test/resources/TestDataLibrary/PriceValues.csv
   path_AACT_OMA: ./src/test/resources/TestDataLibrary/AACT_OMA_Data_Sheet.csv
+  path_ACS_Store: ./src/test/resources/TestDataLibrary/ACS_Store_Sheet.csv
   data-separator: '\t'
   has-header: true
 
 Authentication: 
-  userName: C00616
-  password: "ACS2015#"
+  userName: C00525
+  password: "ACS2016#"
   
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt
@@ -34,6 +35,7 @@ creditCardInfo:
   Holder-name: FIRSTNAME LASTNAME
   Number: "4111111111111111"
   cvv-number: 123
+  CreditCardExpiration: 06/2016
   
 users: 
     user1: 
@@ -47,11 +49,11 @@ users:
                 type: Work
                 address: jacksonville
                 city: florida
-                country: UNITED STATES
+                country: Thailand
                 state: New York
                 zipCode: 32256-7220
         education-and-employment:
-            CASEID: 1
+            CASEID: 4
 #    user2: 
 #        contact-information:
 #            name:
@@ -67,7 +69,7 @@ users:
 #                state: New York
 #                zipCode: 32256-7220
 #        education-and-employment:
-#            CASEID: 3
+#            CASEID: 23
 #    user3: 
 #        contact-information:
 #            name:
@@ -83,7 +85,7 @@ users:
 #                state: New York
 #                zipCode: 32256-7220
 #        education-and-employment:
-#            CASEID: 4
+#            CASEID: 18
 #    user4: 
 #        contact-information:
 #            name:
@@ -99,7 +101,7 @@ users:
 #                state: New York
 #                zipCode: 32256-7220
 #        education-and-employment:
-#            CASEID: 6            
+#            CASEID: 21      
       
    
           
@@ -108,9 +110,9 @@ users:
      
 AACT_users: 
     user1: 
-        CASEID: 7
+        CASEID: 2
 #    user2: 
-#        CASEID: 7
+#        CASEID: 2
    
 
             
@@ -318,7 +320,14 @@ ASM_MGM_SmokeChecklistData:
     LoginErrorMessage: We're sorry, there was a problem with your log in attempt. Please try again. If the problem persists, please e-mail service@acs.org or call 800-333-9511 (US Only) or 614-447-3776. We are sorry for any inconvenience.    
     
     
-    
+ACS_Store:
+    password: password   
+    maxWaitTimeForPrintMessage: 30
+    members:
+         member1: 
+            CASEID: 1
+         member2: 
+            CASEID: 2
     
 ReinstateMemberIWEB:
     centralizedOrderEntry: 

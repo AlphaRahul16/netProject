@@ -2,71 +2,90 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.testng.ITestResult;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
-import com.qait.automation.getpageobjects.BaseUi;
 import com.qait.automation.utils.DataProvider;
 import com.qait.automation.utils.YamlReader;
-import com.qait.keywords.YamlInformationProvider;
-import com.thoughtworks.selenium.webdriven.commands.GetConfirmation;
 
 public class ASM_Store_Smoke {
 	TestSessionInitiator test;
 	String app_url_Store;
 	String headerName = this.getClass().getSimpleName();
-	YamlInformationProvider getACSStore;
-	Map<String, Object> mapACSStore;
-	
 
 	@Test
-	public void Step01_TC01_Verify_ASM_Search_Product_Using_Product_key() {
-		test.asm_storePage.searchText(YamlReader.getYamlValue("ACS_Store.product_key"));
+	public void Step01_TC01_EnterInvalidTextInSearchFieldAndVerifyASMErrorPresent() {
+		String tcId = test.ContactInfoPage.getTestCaseID(Thread.currentThread()
+				.getStackTrace()[1].getMethodName());
+		test.asm_storePage.searchText(DataProvider.getColumnData(tcId,
+				headerName));
+		test.asmErrorPage.verifyASMError(YamlReader
+				.getYamlValue("ASM_URLRejectedErrorMsz"));
+	}
+
+	@Test
+	public void Step02_TC02_VerifyASMErrorNotPresentOnEnterValidTextInSearchField() {
+		String tcId = test.ContactInfoPage.getTestCaseID(Thread.currentThread()
+				.getStackTrace()[1].getMethodName());
+		test.asm_storePage.searchText(DataProvider.getColumnData(tcId,
+				headerName));
 		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
 				.getYamlValue("ASMErrorPageTitle"));
 		test.asm_storePage.verifySearchSuccessfully();
 	}
 
 	@Test
-	public void Step02_TC02_Navigate_To_Shopping_Cart_Page_And_Verify_Product_Details() {
-  test.asm_storePage.NavigateToShoppingCartPage(getACSStore.getACSStoreInfo("username"),getACSStore.getACSStoreInfo("password"));
-  test.asm_storePage.verifyUserIsOnShoppingCartPage();
-  test.asm_storePage.verifyProductDetailsOnShoppingCartPage();
-
-	}
-
-	@Test
-	public void Step03_TC03_navigate_To_Secure_Checkout_Page_And_Get_Prepopulated_Address_Feilds() {
-		 test.asm_storePage.clickProceedToCheckoutAtBottom();
-		  test.asm_storePage.getPrepopulatedShippingAddressFeilds(); 
-		 
-	}
-
-	@Test
-	public void Step04_TC04_Verify_And_Fill_Payment_Details_On_Payment_Information_Page() {
+	public void Step03_TC03_VerifyASMErrorNotPresentForValidUserNameToLoginInToApplication() {
 		String tcId = test.ContactInfoPage.getTestCaseID(Thread.currentThread()
 				.getStackTrace()[1].getMethodName());
-		
-		 test.asm_storePage.clickOnContinue();
-		test.asm_storePage.enterPaymentInformation_ACSSTore(getACSStore.getCreditCardInfo("Type"),getACSStore.getCreditCardInfo("Holder-name")
-				,getACSStore.getCreditCardInfo("Number"),getACSStore.getCreditCardInfo("CreditCardExpiration"),getACSStore.getCreditCardInfo("cvv-number"));
-		test.asm_storePage
-				.verifyApplicationAcceptsDataAndNavigatesToSecureCheckoutPage();
+		test.asm_storePage.loginIntoApplication(DataProvider.getColumnData(
+				tcId, headerName), YamlReader
+				.getYamlValue("ASM_StoreSmokeChecklist_Data.password"));
+		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+				.getYamlValue("ASMErrorPageTitle"));
+		test.asm_storePage.verifyLoginSuccessfully();
 	}
 
 	@Test
-	public void Step05_TC05_Verify_Order_Summary_And_Place_The_order() {
-	       test.asm_storePage.verifyOrderSummaryAtCheckoutPage();
-	       test.asm_storePage.clickPlaceYourOrder();
-	       test.asm_storePage.verifyThankyouMessageAfterOrderCompletion();
+	public void Step04_TC04_VerifyASMErrorNotPresentForValidPasswordToLoginInToApplication() {
+		String tcId = test.ContactInfoPage.getTestCaseID(Thread.currentThread()
+				.getStackTrace()[1].getMethodName());
+		test.asm_storePage.loginIntoApplication(YamlReader
+				.getYamlValue("ASM_StoreSmokeChecklist_Data.userName"),
+				DataProvider.getColumnData(tcId, headerName));
+		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+				.getYamlValue("ASMErrorPageTitle"));
+		test.asm_storePage.verifyLoginSuccessfully();
+	}
+
+	@Test
+	public void Step05_TC05_VerifyASMErrorNotPresentForInValidPasswordToLoginInToApplication() {
+		String tcId = test.ContactInfoPage.getTestCaseID(Thread.currentThread()
+				.getStackTrace()[1].getMethodName());
+		test.asm_storePage.loginIntoApplication(YamlReader
+				.getYamlValue("ASM_StoreSmokeChecklist_Data.userName"),
+				DataProvider.getColumnData(tcId, headerName));
+		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+				.getYamlValue("ASMErrorPageTitle"));
+		test.asm_storePage.verifyNotLoginSuccessfully();
+	}
+
+	@Test
+	public void Step06_TC06_VerifyASMErrorNotPresentForValidFirstNameInShippingAddress() {
+		String tcId = test.ContactInfoPage.getTestCaseID(Thread.currentThread()
+				.getStackTrace()[1].getMethodName());
+		test.asm_storePage.preRequisiteForShippingAddress(YamlReader
+				.getYamlValue("ASM_StoreSmokeChecklist_Data.userName"),
+				YamlReader
+						.getYamlValue("ASM_StoreSmokeChecklist_Data.password"));
+		test.asm_storePage.FillValidShippingInformation();
+		test.asm_storePage.enterShippingAddress("FirstName",
+				DataProvider.getColumnData(tcId, headerName));
+		test.asm_storePage
+				.appAcceptsDataAndVerifyAsmErrorNotPresentAndNavigatesToPaymentInfoPage();
 	}
 
 	@Test
@@ -84,7 +103,7 @@ public class ASM_Store_Smoke {
 				.appAcceptsDataAndVerifyAsmErrorNotPresentAndNavigatesToPaymentInfoPage();
 	}
 
-	/*@Test
+	@Test
 	public void Step08_TC08_VerifyASMErrorNotPresentForValidLastNameInShippingAddress() {
 		String tcId = test.ContactInfoPage.getTestCaseID(Thread.currentThread()
 				.getStackTrace()[1].getMethodName());
@@ -550,22 +569,17 @@ public class ASM_Store_Smoke {
 				DataProvider.getColumnData(tcId, headerName));
 		test.asm_storePage
 				.verifyApplicationAcceptsDataAndVerifyAsmErrorNotPresentAndNavigatesToSecureCheckoutPage();
-	}*/
+	}
 
-	@AfterClass
+	@AfterMethod
 	public void take_screenshot_on_failure(ITestResult result) {
 		test.takescreenshot.takeScreenShotOnException(result);
 		test.closeBrowserSession();
 	}
 
-	@BeforeClass
+	@BeforeMethod
 	public void OpenBrowserWindow() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
-		
-		mapACSStore = YamlReader
-				.getYamlValues("ACS_Store");
-		getACSStore = new YamlInformationProvider(
-				mapACSStore);
 		app_url_Store = getYamlValue("app_url_Store");
 		test.launchApplication(app_url_Store);
 	}

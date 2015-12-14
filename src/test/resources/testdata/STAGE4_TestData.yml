@@ -13,7 +13,7 @@ csv-data-file:
   
 Authentication: 
   userName: C00616
-  password: "ACS2015#"
+  password: "ACS2016#"
   
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt
@@ -24,6 +24,7 @@ creditCardInfo:
   Holder-name: FIRSTNAME LASTNAME
   Number: "4111111111111111"
   cvv-number: 123
+  CreditCardExpiration: 06/2016
   
 users: 
     user1: 
@@ -121,6 +122,12 @@ AACT_SmokeChecklistData:
          Holder-name: FIRSTNAME LASTNAME
          Number: "4111111111111111"
          cvv-number: 123     
+         
+ACS_Store:
+    username: sandu
+    password: password   
+    product_key: N5503
+    contact_id: 30263426
                  
 ASM_URLRejectedErrorMsz: "The requested URL was rejected."
 ASMErrorPageTitle: Request Rejected

@@ -1,51 +1,53 @@
 package com.qait.keywords;
 
-import java.util.HashMap;
-import java.util.Map;
+import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
+import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.getpageobjects.GetPage;
+import com.qait.automation.utils.DataProvider;
 import com.qait.automation.utils.YamlReader;
 
-public class ASM_StorePage extends GetPage {
+public class ASM_StorePage extends ASCSocietyGenericPage {
 	WebDriver driver;
 	String pagename = "ASM_StorePage";
-	 Map<String,String> map = new HashMap<String,String>();
-	Map<String, Object> mapStoreSmoke = YamlReader
-			.getYamlValues("ASM_StoreSmokeChecklist_Data");
-	YamlInformationProvider getStoreSmokeValue = new YamlInformationProvider(
-			mapStoreSmoke);
+	Map<String, String> map = new HashMap<String, String>();
+	Map<String, String> map2  = new HashMap<String, String>();
+	Map<String, Object> mapStoreSmoke = YamlReader.getYamlValues("ASM_StoreSmokeChecklist_Data");
+	YamlInformationProvider getStoreSmokeValue = new YamlInformationProvider(mapStoreSmoke);
 	ASMErrorPage asmErrorPage;
 	String FirstName = getStoreSmokeValue.getASM_StoreShippingAddress("FName");
 	String LastName = getStoreSmokeValue.getASM_StoreShippingAddress("LName");
 	String MiddleName = getStoreSmokeValue.getASM_StoreShippingAddress("MName");
-	String CompanyName = getStoreSmokeValue
-			.getASM_StoreShippingAddress("Company");
-	String Department = getStoreSmokeValue
-			.getASM_StoreShippingAddress("Department");
-	String Adr_Line1 = getStoreSmokeValue
-			.getASM_StoreShippingAddress("Address");
-	String Adr_Line2 = getStoreSmokeValue
-			.getASM_StoreShippingAddress("Address2");
+	String CompanyName = getStoreSmokeValue.getASM_StoreShippingAddress("Company");
+	String Department = getStoreSmokeValue.getASM_StoreShippingAddress("Department");
+	String Adr_Line1 = getStoreSmokeValue.getASM_StoreShippingAddress("Address");
+	String Adr_Line2 = getStoreSmokeValue.getASM_StoreShippingAddress("Address2");
 	String City = getStoreSmokeValue.getASM_StoreShippingAddress("City");
 	String State = getStoreSmokeValue.getASM_StoreShippingAddress("State");
 	String ZipCode = getStoreSmokeValue.getASM_StoreShippingAddress("ZipCode");
 	String Country = getStoreSmokeValue.getASM_StoreShippingAddress("Country");
-	String Province = getStoreSmokeValue
-			.getASM_StoreShippingAddress("IntlProvince");
-	String CardHolderName = getStoreSmokeValue
-			.getASM_StorePaymentInfo("CardHolderName");
-	String CreditCardNumber = getStoreSmokeValue
-			.getASM_StorePaymentInfo("CreditCardNumber");
-	String CreditCardVerificationNumber = getStoreSmokeValue
-			.getASM_StorePaymentInfo("CreditCardVerificationNumber");
-	String CreditCardType = getStoreSmokeValue
-			.getASM_StorePaymentInfo("CreditCardType");
-	String CreditCardExpiration = getStoreSmokeValue
-			.getASM_StorePaymentInfo("CreditCardExpiration");
+	String Province = getStoreSmokeValue.getASM_StoreShippingAddress("IntlProvince");
+	String CardHolderName = getStoreSmokeValue.getASM_StorePaymentInfo("CardHolderName");
+	String CreditCardNumber = getStoreSmokeValue.getASM_StorePaymentInfo("CreditCardNumber");
+	String CreditCardVerificationNumber = getStoreSmokeValue.getASM_StorePaymentInfo("CreditCardVerificationNumber");
+	String CreditCardType = getStoreSmokeValue.getASM_StorePaymentInfo("CreditCardType");
+	String CreditCardExpiration = getStoreSmokeValue.getASM_StorePaymentInfo("CreditCardExpiration");
+	int timeOut, hiddenFieldTimeOut;
 
 	public ASM_StorePage(WebDriver driver) {
 		super(driver, "ASM_StorePage");
@@ -61,26 +63,25 @@ public class ASM_StorePage extends GetPage {
 		isElementDisplayed("inp_search");
 		element("inp_search").clear();
 		element("inp_search").sendKeys(searchValue);
-		logMessage("Step : " + searchValue + " is entered in inp_search\n");
+		logMessage("STEP : " + searchValue + " is entered in inp_search\n");
 	}
 
 	public void clickSearchButton() {
 		isElementDisplayed("btn_search");
 		element("btn_search").click();
-		logMessage("Step : search button is clicked in btn_search\n");
+		logMessage("STEP : search button is clicked in btn_search\n");
 	}
 
 	public void verifySearchSuccessfully() {
 		isElementDisplayed("txt_searchList");
 		verifyElementTextContains("txt_searchList", "Search Results");
-		logMessage("Step : verify search successfully in txt_searchList\n");
+		logMessage("STEP : verify search successfully in txt_searchList\n");
 	}
 
 	public void clickLoginButton() {
 		isElementDisplayed("lnk_logIn");
 		clickUsingXpathInJavaScriptExecutor(element("lnk_logIn"));
-		// element("lnk_logIn").click();
-		logMessage("Step : logIn button is clicked in lnk_logIn\n");
+		logMessage("STEP : logIn button is clicked in lnk_logIn\n");
 	}
 
 	public void enterUserName(String userName) {
@@ -88,27 +89,29 @@ public class ASM_StorePage extends GetPage {
 			isElementDisplayed("inp_userName");
 			element("inp_userName").clear();
 			element("inp_userName").sendKeys(userName);
-			logMessage("Step : " + userName + " is entered in inp_userName\n");
+			logMessage("STEP : " + userName + " is entered in inp_userName\n");
 		} catch (StaleElementReferenceException stlExp) {
 			isElementDisplayed("inp_userName");
 			element("inp_userName").clear();
 			element("inp_userName").sendKeys(userName);
-			logMessage("Step : " + userName + " is entered in inp_userName\n");
+			logMessage("STEP : " + userName + " is entered in inp_userName\n");
 		}
 
 	}
 
 	public void enterPassword(String password) {
+		wait.hardWait(3);
 		isElementDisplayed("inp_password");
 		element("inp_password").clear();
 		element("inp_password").sendKeys(password);
-		logMessage("Step : " + password + " is entered in inp_userName\n");
+		logMessage("STEP : " + password + " is entered in inp_password\n");
 	}
 
 	public void clickVerifyButton() {
+		wait.hardWait(3);
 		isElementDisplayed("btn_verify");
 		element("btn_verify").click();
-		logMessage("Step : Verify button is clicked in btn_verify\n");
+		logMessage("STEP : Verify button is clicked in btn_verify\n");
 	}
 
 	public void loginIntoApplication(String userName, String password) {
@@ -128,7 +131,8 @@ public class ASM_StorePage extends GetPage {
 		} catch (Exception exp) {
 			isElementDisplayed("lnk_logIn");
 			element("lnk_logIn").click();
-			logMessage("Step : logIn button is clicked for logout successfully due to issue occured intermitently Bug Id is 9131-6434260 in lnk_logIn\n");
+			logMessage(
+					"STEP : logIn button is clicked for logout successfully due to issue occured intermitently Bug Id is 9131-6434260 in lnk_logIn\n");
 			isElementDisplayed("lnk_logOut");
 			element("lnk_logOut").click();
 			isElementDisplayed("lnk_logIn");
@@ -138,7 +142,7 @@ public class ASM_StorePage extends GetPage {
 
 	public void verifyNotLoginSuccessfully() {
 		isElementDisplayed("btn_verify");
-		logMessage("Step : Verify button is clicked in btn_verify\n");
+		logMessage("STEP : Verify button is clicked in btn_verify\n");
 	}
 
 	public void preRequisiteForShippingAddress(String userName, String password) {
@@ -153,7 +157,6 @@ public class ASM_StorePage extends GetPage {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(5);
 		clickAddToCartButton();
-		// wait.waitForPageToLoadCompletely();
 		wait.hardWait(10);
 		clickProceedToCheckoutAtBottom();
 		wait.waitForPageToLoadCompletely();
@@ -175,104 +178,84 @@ public class ASM_StorePage extends GetPage {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(5);
 		clickAddToCartButton();
-		// wait.waitForPageToLoadCompletely();
 		wait.hardWait(10);
 		clickProceedToCheckoutAtBottom();
 		wait.hardWait(5);
-		// clickShippingAddressRadioButton("Shipping Address");
-		// clickShippingAddressRadioButton("New Address");
 
 	}
 
 	public void clickSecondFeatureItem() {
 		isElementDisplayed("lnk_secondFeatureItem");
 		clickUsingXpathInJavaScriptExecutor(element("lnk_secondFeatureItem"));
-		// element("lnk_secondFeatureItem").click();
-		logMessage("Step : second feature link is clicked at home page in lnk_secondFeatureItem\n");
+		logMessage("STEP : second feature link is clicked at home page in lnk_secondFeatureItem\n");
 
 	}
 
 	public void clickAddToCartButton() {
 		isElementDisplayed("btn_addToCart");
 		clickUsingXpathInJavaScriptExecutor(element("btn_addToCart"));
-	// element("btn_addToCart").click();
-		logMessage("Step : Add to cart button is clicked in btn_addToCart\n");
+		logMessage("STEP : Add to cart button is clicked in btn_addToCart\n");
 
 	}
 
 	public void clickProceedToCheckoutAtBottom() {
 		isElementDisplayed("btn_proceedToCheckoutTop");
 		clickUsingXpathInJavaScriptExecutor(element("btn_proceedToCheckoutTop"));
-		// element("btn_proceedToCheckoutTop").click();
-		logMessage("Step : proceed to checkout button is clicked at bottom in btn_proceedToCheckoutTop\n");
+		logMessage("STEP : proceed to checkout button is clicked at bottom in btn_proceedToCheckoutTop\n");
 
 	}
 
 	public void clickShippingAddressRadioButton(String shippingAddressRadio) {
 		wait.hardWait(2);
 		isElementDisplayed("rad_ShippingAdd", shippingAddressRadio);
-		// clickUsingXpathInJavaScriptExecutor(element("rad_ShippingAdd",
-		// shippingAddressRadio));
 		element("rad_ShippingAdd", shippingAddressRadio).click();
-		logMessage("Step :  " + shippingAddressRadio
-				+ " radio button is clicked at bottom in rad_ShippingAdd\n");
+		logMessage("STEP :  " + shippingAddressRadio + " radio button is clicked at bottom in rad_ShippingAdd\n");
 
 	}
 
-	public void enterValidTextsInShippingAddressFields(
-			String shippingAddressFieldName, String shippingAddressFieldValue) {
+	public void enterValidTextsInShippingAddressFields(String shippingAddressFieldName,
+			String shippingAddressFieldValue) {
 		wait.hardWait(2);
-		isElementDisplayed("inp_shippingAddressFields",
-				shippingAddressFieldName);
+		isElementDisplayed("inp_shippingAddressFields", shippingAddressFieldName);
 		element("inp_shippingAddressFields", shippingAddressFieldName).clear();
-		element("inp_shippingAddressFields", shippingAddressFieldName)
-				.sendKeys(shippingAddressFieldValue);
-		logMessage("Step : " + shippingAddressFieldValue + " is entered for "
-				+ shippingAddressFieldName + " in inp_userName\n");
+		element("inp_shippingAddressFields", shippingAddressFieldName).sendKeys(shippingAddressFieldValue);
+		logMessage("STEP : " + shippingAddressFieldValue + " is entered for " + shippingAddressFieldName
+				+ " in inp_userName\n");
 
 	}
 
-	public void enterValidTextsInBillingAddressFields(
-			String billingAddressFieldName, String billingAddressFieldValue) {
+	public void enterValidTextsInBillingAddressFields(String billingAddressFieldName, String billingAddressFieldValue) {
 		wait.hardWait(2);
 		isElementDisplayed("inp_billingAddressFields", billingAddressFieldName);
 		element("inp_billingAddressFields", billingAddressFieldName).clear();
-		element("inp_billingAddressFields", billingAddressFieldName).sendKeys(
-				billingAddressFieldValue);
-		logMessage("Step : " + billingAddressFieldValue + " is entered for "
-				+ billingAddressFieldName + " in inp_billingAddressFields\n");
+		element("inp_billingAddressFields", billingAddressFieldName).sendKeys(billingAddressFieldValue);
+		logMessage("STEP : " + billingAddressFieldValue + " is entered for " + billingAddressFieldName
+				+ " in inp_billingAddressFields\n");
 	}
 
-	public void selectValidTextsInShippingAddressFields(
-			String shippingAddressFieldName, String shippingAddressFieldValue) {
-		isElementDisplayed("list_shipping" + shippingAddressFieldName,
-				shippingAddressFieldName);
-		selectProvidedTextFromDropDown(element("list_shipping"
-				+ shippingAddressFieldName), shippingAddressFieldValue);
-		logMessage("Step : " + shippingAddressFieldValue
-				+ " is entered for list_shipping" + shippingAddressFieldName
+	public void selectValidTextsInShippingAddressFields(String shippingAddressFieldName,
+			String shippingAddressFieldValue) {
+		isElementDisplayed("list_shipping" + shippingAddressFieldName, shippingAddressFieldName);
+		selectProvidedTextFromDropDown(element("list_shipping" + shippingAddressFieldName), shippingAddressFieldValue);
+		logMessage("STEP : " + shippingAddressFieldValue + " is entered for list_shipping" + shippingAddressFieldName
 				+ " in inp_userName\n");
 	}
 
-	public void selectValidTextsInBillingAddressFields(
-			String billingAddressFieldName, String billingAddressFieldValue) {
-		isElementDisplayed("list_billing" + billingAddressFieldName,
-				billingAddressFieldName);
-		selectProvidedTextFromDropDown(element("list_billing"
-				+ billingAddressFieldName), billingAddressFieldValue);
-		logMessage("Step : " + billingAddressFieldValue
-				+ " is entered for list_billing" + billingAddressFieldName
+	public void selectValidTextsInBillingAddressFields(String billingAddressFieldName,
+			String billingAddressFieldValue) {
+		isElementDisplayed("list_billing" + billingAddressFieldName, billingAddressFieldName);
+		selectProvidedTextFromDropDown(element("list_billing"+billingAddressFieldName), billingAddressFieldValue);
+		logMessage("STEP : " + billingAddressFieldValue + " is entered for list_billing" + billingAddressFieldName
 				+ " in list_billing\n");
 	}
 
 	public void clickOnContinue() {
 		wait.waitForPageToLoadCompletely();
-		holdExecution(5000);
 		isElementDisplayed("btn_continue");
 		clickUsingXpathInJavaScriptExecutor(element("btn_continue"));
-		logMessage("Step : continue button is clicked in btn_continue\n");
+		logMessage("STEP : continue button is clicked in btn_continue\n");
 		wait.waitForPageToLoadCompletely();
-		holdExecution(9000);
+
 	}
 
 	public void FillValidShippingInformation() {
@@ -310,9 +293,7 @@ public class ASM_StorePage extends GetPage {
 	public void appAcceptsDataAndVerifyAsmErrorNotPresentAndNavigatesToPaymentInfoPage() {
 		clickOnContinue();
 		asmErrorPage = new ASMErrorPage(driver);
-		asmErrorPage.verifyASMErrorNotPresent(YamlReader
-				.getYamlValue("ASM_URLRejectedErrorMsz"));
-		// verifyPaymentInformationPageIsPresent();
+		asmErrorPage.verifyASMErrorNotPresent(YamlReader.getYamlValue("ASM_URLRejectedErrorMsz"));
 		navigateToBackPage();
 
 	}
@@ -325,11 +306,8 @@ public class ASM_StorePage extends GetPage {
 	public void clickBillingAddressRadioButton(String billingAddressRadio) {
 		wait.hardWait(5);
 		isElementDisplayed("rad_billingAdd", billingAddressRadio);
-		clickUsingXpathInJavaScriptExecutor(element("rad_billingAdd",
-				billingAddressRadio));
-		// element("rad_billingAdd", billingAddressRadio).click();
-		logMessage("Step :  " + billingAddressRadio
-				+ " radio button is clicked at bottom in rad_billingAdd\n");
+		clickUsingXpathInJavaScriptExecutor(element("rad_billingAdd", billingAddressRadio));
+		logMessage("STEP :  " + billingAddressRadio + " radio button is clicked at bottom in rad_billingAdd\n");
 	}
 
 	public void clickOnNewAddressInBillingAddress() {
@@ -356,17 +334,14 @@ public class ASM_StorePage extends GetPage {
 	public void enterPhone_Email(String phone_email) {
 		isElementDisplayed("inp_phone_email", phone_email);
 		element("inp_phone_email", phone_email).clear();
-		element("inp_phone_email", phone_email).sendKeys(
-				getStoreSmokeValue.getASM_StoreShippingAddress(phone_email));
-		logMessage("Step : "
-				+ getStoreSmokeValue.getASM_StoreShippingAddress(phone_email)
-				+ "  is entered in inp_phone_email\n");
+		element("inp_phone_email", phone_email).sendKeys(getStoreSmokeValue.getASM_StoreShippingAddress(phone_email));
+		logMessage("STEP : " + getStoreSmokeValue.getASM_StoreShippingAddress(phone_email)
+		+ "  is entered in inp_phone_email\n");
 	}
 
 	public void checkAddNewShippingPhoneNumber() {
 		isElementDisplayed("chk_newPhone");
 		clickUsingXpathInJavaScriptExecutor(element("chk_newPhone"));
-		// element("chk_newPhone").click();
 		wait.waitForElementToDisappear(element("list_phone"));
 	}
 
@@ -380,21 +355,19 @@ public class ASM_StorePage extends GetPage {
 		isElementDisplayed("inp_phone_email", email_phone);
 		element("inp_phone_email", email_phone).clear();
 		element("inp_phone_email", email_phone).sendKeys(email_phoneValue);
-		logMessage("Step : " + email_phoneValue
-				+ "  is entered in inp_phone_email\n");
+		logMessage("STEP : " + email_phoneValue + "  is entered in inp_phone_email\n");
 	}
 
 	public void enterPaymentInfo(String infoName, String infoValue) {
 		isElementDisplayed("inp_paymentInfo", infoName);
 		element("inp_paymentInfo", infoName).clear();
 		element("inp_paymentInfo", infoName).sendKeys(infoValue);
-		logMessage("Step : " + infoValue + "  is entered in inp_paymentInfo\n");
+		logMessage("STEP : " + infoValue + "  is entered in inp_paymentInfo\n");
 	}
 
 	public void selectPaymentInfo(String infoName, String infoValue) {
 		wait.hardWait(3);
-		selectProvidedTextFromDropDown(element("list_paymentInfo", infoName),
-				infoValue);
+		selectProvidedTextFromDropDown(element("list_paymentInfo", infoName), infoValue);
 	}
 
 	public void enterPaymentInformation() {
@@ -406,57 +379,23 @@ public class ASM_StorePage extends GetPage {
 		selectPaymentInfo("Expiration", CreditCardExpiration);
 		enterPaymentInfo("CVV", CreditCardVerificationNumber);
 	}
-	
-	public void enterPaymentInformation_ACSSTore(String CardType,String HolderName,String CCNumber,String Expiration,String CVV) {
-		wait.waitForPageToLoadCompletely();
-		wait.hardWait(5);
-		selectPaymentInfo("CardType",CardType);
-		enterPaymentInfo("CardHolderName",HolderName);
-		enterPaymentInfo("CCNumber",CCNumber);
-		selectPaymentInfo("Expiration",Expiration);
-		enterPaymentInfo("CVV",CVV);
-		
-	}
 
 	public void verifySecureCheckoutPageIsPresent() {
+		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(2);
 		isElementDisplayed("hd_secureCheckout");
 		logMessage("ASSERT PASSED : Secure Checkout page is verified in hd_secureCheckout\n");
 	}
 
-	public void verifyApplicationAcceptsDataAndNavigatesToSecureCheckoutPage() {
+	public void verifyApplicationAcceptsDataAndVerifyAsmErrorNotPresentAndNavigatesToSecureCheckoutPage() {
 		clickOnContinue();
+		asmErrorPage = new ASMErrorPage(driver);
+		asmErrorPage.verifyASMErrorNotPresent(YamlReader.getYamlValue("ASM_URLRejectedErrorMsz"));
 		verifySecureCheckoutPageIsPresent();
-	}
-	
-	public void getPriceValuesOfMembersAndNonMembers()
-	{
-		isElementDisplayed("txt_price");
-	    map.put("Price", elements("txt_price").get(0).getText().replace("$", "").trim());
-	    map.put("Members Pay",elements("txt_price").get(1).getText().replace("$", "").trim());
-		logMessage("Step : Price Values for Member is "+map.get("Members Pay")+" And Non Member is :"+map.get("Price"));
-	}
-
-	public void clickOnSearchedProductLink() {
-     isElementDisplayed("lnk_searched_product");
-     map.put("Product Name", element("lnk_searched_product").getText().trim());
-     element("lnk_searched_product").click();
-     logMessage("Searched Product is Displayed as :"+map.get("Product Name"));
-		
-	}
-	
-	public void verifyQuantityIsPrepopulatedFeild(String quantity)
-	{
-		isElementDisplayed("txt_box_Quantity");
-		element("txt_box_Quantity").getAttribute("value").equals(quantity);
-		map.put("quantity",element("txt_box_Quantity").getAttribute("value") );
-	}
-
-	public void verifyUserIsOnShoppingCartPage() {
-	 Assert.assertTrue(element("txt_shoppingCart").getText().equals("Shopping Cart"),"Shopping Cart page is not Displayed");
+		navigateToBackPage();
 	}
 
 	public void NavigateToShoppingCartPage(String userName, String password) {
-		getPriceValuesOfMembersAndNonMembers();
 		clickOnSearchedProductLink();
 		verifyQuantityIsPrepopulatedFeild("1");
 		wait.waitForPageToLoadCompletely();
@@ -464,128 +403,314 @@ public class ASM_StorePage extends GetPage {
 		enterUserName(userName);
 		enterPassword(password);
 		clickVerifyButton();
-		
+
 	}
 
-	public void verifyProductDetailsOnShoppingCartPage() {
-	
-		double totalpriceofproduct = getProductDetails("Price") * Integer.parseInt(element("txt_quantity").getAttribute("value")) - getProductDetails("discount");
-		System.out.println(totalpriceofproduct);
-		Assert.assertTrue(getProductDetails("total")==totalpriceofproduct);
-		double ordertotal=getStoreSummaryValues("Subtotal")+ getStoreSummaryValues("Shipping")
-				+getStoreSummaryValues("Tax");
-		System.out.println(ordertotal);
-		Assert.assertTrue(getStoreSummaryValues("Order Total")==ordertotal);
-		storeProductDetailsInMap();
-		
+	public void verifyQuantityIsPrepopulatedFeild(String quantity) {
+		isElementDisplayed("txt_box_Quantity");
+		Assert.assertTrue(element("txt_box_Quantity").getAttribute("value").equals(quantity));
+		logMessage("ASSERT PASSED : Quantity is prepolulated feild with value 1\n");
+		map.put("quantity", element("txt_box_Quantity").getAttribute("value"));
+		logMessage("STEP : Quantity value stored as 1\n");
 	}
-	
-	private void storeProductDetailsInMap()
+
+	public void verifyUserIsOnShoppingCartPage() {
+
+		Assert.assertTrue(element("txt_shoppingCart").getText().equals("Shopping Cart"),
+				"Shopping Cart page is not Displayed");
+		logMessage("ASSERT PASSED : Shopping cart page displayed\n");
+	}
+
+	public void verifyThankyouMessageAfterOrderCompletion(String waitTime, String printReceiptMessage) {
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
+		wait.hardWait(2);
+		isElementDisplayed("msg_thankyou");
+		Assert.assertTrue(element("msg_thankyou").getText().trim().equals("Thank you, your order is complete!"));
+		logMessage("ASSERT PASSED : Thank you message verified as " + element("msg_thankyou").getText().trim() + "\n");
+		try {
+			wait.resetImplicitTimeout(2);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("lnk_print_receipt");
+			Assert.assertTrue(element("lnk_print_receipt").getText().trim().equals(printReceiptMessage));
+			logMessage(
+					"ASSERT PASSED : Link print receipt is shown as " + element("lnk_print_receipt").getText() + "\n");
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+		} catch (NoSuchElementException e) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			int count = (Integer.parseInt(waitTime)) / 5;
+			for (int i = 1; i <= count; i++) {
+				holdScriptExecutionToVerifyPreviewStatus();
+				pageRefresh();
+				isElementDisplayed("lnk_print_receipt");
+				if (element("lnk_print_receipt").getText().trim().equalsIgnoreCase(printReceiptMessage)) {
+					logMessage("AASERT PASSED : link print message " + printReceiptMessage + " is verified\n");
+					break;
+				}
+			}
+		}
+	}
+
+	public String getInvoiceNumberFromPrintReceipt() {
+		String invoice_number = null;
+		if (!isBrowser("firefox")) {
+			logMessage("STEP : Script could not get invoice number from PDF on CHROME and IE browsers\n");
+		} else {
+			isElementDisplayed("lnk_print_receipt");
+			logMessage("STEP : Click print recepit link");
+			element("lnk_print_receipt").click();
+			String getWindow = driver.getWindowHandle();
+			switchWindow();
+			wait.waitForPageToLoadCompletely();
+			wait.hardWait(3);
+			isElementDisplayed("invoice_number");
+			invoice_number = element("invoice_number").getText();
+			driver.close();
+			driver.switchTo().window(getWindow);
+			logMessage("STEP : Current invoice number is " + invoice_number + "\n");
+		}
+		return invoice_number;
+
+	}
+
+	public Map<String, String> verifyBillingAndShippingAddress(String caseId) {
+		verifyMemnberDetails("First Name");
+		verifyMemnberDetails("Last Name");
+
+		logMessage("ASSERT PASSED : Billing address successfully verified as "+element("txt_mailing_address").getText().trim()+"\n");
+		return map;
+	}
+
+	private void verifyMemnberAddress(String caseId,String name) {
+		wait.waitForPageToLoadCompletely();
+		isElementDisplayed("txt_mailing_address");
+		String mailing_address = element("txt_mailing_address").getText().trim();
+		mailing_address= mailing_address.replace("Road", "Rd").replace("Kentucky", "KY");
+		Assert.assertTrue(mailing_address.trim().contains(getACS_Store_SheetValue(caseId, name).replace("Road", "Rd").replace("Kentucky", "KY").trim()));
+		logMessage("ASSERT PASSED : " + name + " in mailing address successfully verified as "+getACS_Store_SheetValue(caseId, name)+"\n");
+	}
+	private void verifyMemnberDetails(String name) {
+		isElementDisplayed("txt_mailing_address");
+		String mailing_address = element("txt_mailing_address").getText().trim();
+		Assert.assertTrue(mailing_address.contains(map2.get(name)));
+		logMessage("ASSERT PASSED : " + name + " in mailing address successfully verified as "+map2.get(name)+"\n");
+	}
+
+	public Map<String, String> verifyProductDetailsOnShoppingCartPage(String caseId, String priceValue, String discount,
+			String description) {
+		verifyProductDetails(caseId, priceValue);
+		verifyProductDetails(caseId, discount);
+		verifyProductDetails(caseId, description);
+
+		double totalPriceOfProduct = Double
+				.parseDouble(getACS_Store_SheetValue(caseId, "priceValue?").replace("$", "").trim())
+				* Integer.parseInt(element("txt_quantity").getAttribute("value"))
+				- Double.parseDouble(getACS_Store_SheetValue(caseId, "discount?").replace("$", "").trim());
+		Assert.assertTrue(getProductDetails("total") == totalPriceOfProduct);
+		logMessage("ASSERT PASSED : Total price with discount is verified as " + totalPriceOfProduct + "\n");   
+		return map;
+	}
+
+	public String getOrderTotalSummaryAtCheckoutPage()
 	{
-		storeOrderSummaryValues("Price");
-		storeOrderSummaryValues("discount");
-		storeOrderSummaryValues("total");
-		StoreOrderShippingDetailsValues("Shipping");
-		StoreOrderShippingDetailsValues("Subtotal");
-		StoreOrderShippingDetailsValues("Tax");
-		StoreOrderShippingDetailsValues("Order Total");
+
+		double ordertotal = getStoreSummaryValues("Subtotal") + getStoreSummaryValues("Shipping")
+		+ getStoreSummaryValues("Tax");
+		System.out.println("actual"+ordertotal);
+		double roundOffOrderTotal = Math.round(ordertotal * 100.0) / 100.0;
+		System.out.println("actual roundoff"+roundOffOrderTotal);
+		Assert.assertTrue(getStoreSummaryValues("Order Total") == roundOffOrderTotal);
+
+		logMessage("ASSERT PASSED : Order total is verified as " + roundOffOrderTotal + "\n");
+		;
+		return Double.toString(ordertotal);
 	}
-	
-	private double getStoreSummaryValues(String storeName)
+
+	private void verifyProductDetails(String caseId,String productDetail) {
+		Assert.assertTrue(element("txt_"+productDetail).getText().replace("$", "").trim()
+				.equalsIgnoreCase(getACS_Store_SheetValue(caseId, productDetail + "?").replace("$", "").trim()));
+		logMessage("ASSERT PASSED : Store " + productDetail + " is successfully verified as "
+				+ element("txt_" + productDetail).getText().trim() + "\n");
+		map.put(productDetail,element("txt_"+productDetail).getText().replace("$", "").trim());
+	}
+
+	private double getProductDetails(String detail) {
+		isElementDisplayed("txt_" + detail);
+		map.put(detail,element("txt_" + detail).getText().replace("$", "").trim());
+		return Double.parseDouble(element("txt_" + detail).getText().replace("$", "").trim());
+	}
+
+	private double getStoreSummaryValues(String storeName) {
+		//wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
+		//isElementDisplayed("txt_"+storeName);
+		map.put(storeName, element("txt_store_Summary", storeName).getText().trim());
+		return Double.parseDouble(element("txt_store_Summary", storeName).getText().trim());
+	}
+
+
+	public void clickOnSearchedProductLink() {
+		isElementDisplayed("lnk_searched_product");
+		map.put("Product Name", element("lnk_searched_product").getText().trim());
+		logMessage("STEP : Searched product is displayed as " + map.get("Product Name")+"\n");
+		element("lnk_searched_product").click();
+		logMessage("STEP : Searched product is clicked\n");
+
+	}
+
+	private void storeOrderSummaryValues(String name) {
+		isElementDisplayed("txt_" + name);
+		map.put(name, element("txt_" + name).getText().replace("$", "").trim());
+		logMessage("STEP : Get value of " + name + " as " + map.get(name) + "\n");
+	}
+
+	public void verifyOrderSummaryAtCheckoutPage(String caseId, String Shipping, String Tax,String orderTotal) {
+		verifyProductDetailsFromMappedValues(caseId,"priceValue");
+		verifyProductDetailsFromMappedValues(caseId,"description");
+		verifyProductDetailsFromMappedValues(caseId,"quantity");
+		verifyProductDetailsFromMappedValues(caseId,"discount");
+		getShippingSummaryDetailsFromMappedValues(caseId,"Shipping",Shipping);
+		//getShippingSummaryDetailsFromMappedValues("Subtotal",mapGetMemberDetailsInStore);
+		getShippingSummaryDetailsFromMappedValues(caseId,"Tax",Tax);
+		getShippingSummaryDetailsFromMappedValues(caseId,"Order Total",orderTotal);
+
+	}
+	public <map> Map<String, String> getPrepopulatedShippingAddressFeildsAndContinue() {
+		getPrepopulatedShippingAddressValues("First Name");
+		getPrepopulatedShippingAddressValues("Last Name");
+		getPrepopulatedShippingAddressValues("Email");
+		map2.put("Country",element("inp_dropdown", "Country").getAttribute("value"));
+		map2.put("Phone",element("inp_dropdown", "Phone").getAttribute("value"));
+		return map2;
+
+	}
+
+	public void enterPaymentInformation_ACSStore(String CardType, String HolderName, String CCNumber, String Expiration,
+			String CVV) {
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(5);
+		selectPaymentInfo("CardType", CardType);
+		enterPaymentInfo("CardHolderName", HolderName);
+		enterPaymentInfo("CCNumber", CCNumber);
+		selectPaymentInfo("Expiration", Expiration);
+		enterPaymentInfo("CVV", CVV);
+	}
+
+	private void getPrepopulatedShippingAddressValues(String name) {
+		isElementDisplayed("inp_shipping_adress", name);
+		map2.put(name, element("inp_shipping_adress", name).getAttribute("value"));
+		logMessage("STEP : Get prepopulated " + name + " value as " + map2.get(name) + "\n");
+	}
+
+	public void verifyApplicationAcceptsDataAndNavigatesToSecureCheckoutPage() {
+		clickOnContinue();
+		verifySecureCheckoutPageIsPresent();
+	}
+
+	private void getShippingSummaryDetailsFromMappedValues(String caseId,String name, String sheetvalue) {
+		isElementDisplayed("txt_order_shipping_summary", name);
+		wait.hardWait(2);
+		double sheetvaluefloat= Double.parseDouble(sheetvalue);
+		sheetvaluefloat= Math.round(sheetvaluefloat * 100.0) / 100.0;
+		double actualvalue = Double.parseDouble(element("txt_order_shipping_summary", name).getText());
+
+		System.out.println(sheetvaluefloat);
+		System.out.println(actualvalue);
+		Assert.assertTrue(actualvalue==sheetvaluefloat);
+		map.put(name, element("txt_order_shipping_summary", name).getText());
+		logMessage(
+				"ASSERT PASSED : Product summary details for " + name + " verified successfully as " + element("txt_order_shipping_summary", name).getText()+"\n");
+	}
+
+	public void clickPlaceYourOrder() {
+		isElementDisplayed("btn_placeOrder");
+		logMessage("STEP : Click place your order button\n");
+		element("btn_placeOrder").click();
+		logMessage("ASSERT PASSED : Place your order button clicked\n");
+	}
+
+	private void verifyProductDetailsFromMappedValues(String caseId,String name) {
+		hardWaitForIEBrowser(2);
+		isElementDisplayed("txt_summary_"+name);
+		Assert.assertTrue(getACS_Store_SheetValue(caseId, name + "?").replace("$", "").trim().equals(element("txt_summary_"+name).getText().replace("$", "").trim()));
+		logMessage("ASSERT PASSED : Product details for " + name + " verified successfully as " +element("txt_summary_" + name).getText()+"\n");
+	}
+
+	public void holdScriptExecutionToVerifyPreviewStatus() {
+		logMessage("===== Automation script is on hold for 5 minutes to verify preview status =====\n");
+		String lapsedMinutes = "";
+		for (int minutes = 1; minutes <= 5; minutes++) {
+			for (int i = 0; i <= 59; i++) {
+
+				wait.hardWait(1);
+			}
+			lapsedMinutes = String.valueOf(minutes) + " min : ";
+		}
+
+	}
+	protected void selectProvidedTextFromDropDown(WebElement el, String text) {
+		wait.waitForElementToBeVisible(el);
+		scrollDown(el);
+
+		Select sel = new Select(el);
+		try {
+			sel.selectByVisibleText(text);
+		} catch (StaleElementReferenceException ex1) {
+			sel.selectByVisibleText(text);
+			logMessage("select Element " + el
+					+ " after catching Stale Element Exception");
+		} catch (Exception ex2) {
+			logMessage("Element " + el + " could not be clicked! "
+					+ ex2.getMessage());
+		}
+	}
+
+
+	public void selectAndEnterNewShippingAddress(String FirstName,String LastName,String AdrLine1,
+			String City,String State,String ZipCode) {
+
+		clickNewShippingAddressButton();
+		enterValidTextsInShippingAddressFields("FirstName", FirstName);
+		enterValidTextsInShippingAddressFields("LastName", LastName);
+		enterValidTextsInShippingAddressFields("Adr_Line1", AdrLine1);
+		enterValidTextsInShippingAddressFields("City", City);
+		selectState(element("list_shippingState"));
+		enterValidTextsInShippingAddressFields("ZipCode", ZipCode);
+		clickOnContinue();
+	}
+	public void selectAndEnterNewBillingAddress(String FirstName,String LastName,String AdrLine1,
+			String City,String State,String ZipCode) {
+		clickNewBillingAddressButton();
+		enterValidTextsInBillingAddressFields("FirstName", FirstName);
+		enterValidTextsInBillingAddressFields("LastName", LastName);
+		enterValidTextsInBillingAddressFields("Adr_Line1", AdrLine1);
+		enterValidTextsInBillingAddressFields("City", City);
+		selectState(element("list_billingState"));
+		enterValidTextsInBillingAddressFields("ZipCode", ZipCode);
+
+	}
+
+	private void clickNewBillingAddressButton() {
+		element("btn_newBill").click();
+		logMessage("STEP: Click new billing Address button\n");
+	}
+
+	private void clickNewShippingAddressButton() {
+		element("btn_newShip").click();
+		logMessage("STEP: Click new Shipping Address button\n");
+
+	}
+
+	public void selectState(WebElement el)
 	{
-		return Double.parseDouble(element("txt_store_Summary",storeName).getText());
+
+		Select dropdown = new Select(el);
+		dropdown.selectByValue("KY");
+		logMessage("STEP: State is entered as Kentucky\n");
+
 	}
 
-	private double getProductDetails(String string) {
-	
-		return Double.parseDouble(element("txt_"+string).getText().replace("$", "").trim());
-	}
-	
-	private void getPrepopulatedShippingAddressValues(String name)
-	{
-		map.put(name,element("inp_shipping_adress",name).getAttribute("value"));
-	}
-	
-	private void storeOrderSummaryValues(String name)
-	{	
-			map.put(name,element("txt_"+name).getText().replace("$", "").trim());	
-	}
-	
-	private void StoreOrderShippingDetailsValues(String storeName)
-	{
-		map.put(storeName,element("txt_store_Summary",storeName).getText());
-	}
-	
-	
-public void printMap()
-{
-	for (Map.Entry<String, String> e : map.entrySet()) {
-	
-	    System.out.println("key.."+e.getKey()+"..value..."+e.getValue());
-	}
-}
-
-public void getPrepopulatedShippingAddressFeilds() {
-	getPrepopulatedShippingAddressValues("First Name");
-	getPrepopulatedShippingAddressValues("Last Name");
-	getPrepopulatedShippingAddressValues("Address");
-	getPrepopulatedShippingAddressValues("City");
-	getPrepopulatedShippingAddressValues("Zip Code");
-	map.put("Country",element("inp_country").getText());
-	printMap();
-	
-}
-
-public void verifyOrderSummaryAtCheckoutPage() {
-
-	verifyProductDetailsFromMappedValues("Price");
-	verifyProductDetailsFromMappedValues("quantity");
-	verifyProductDetailsFromMappedValues("discount");
-	verifyProductDetailsFromMappedValues("total");
-	getShippingSummaryDetailsFromMappedValues("Shipping");
-	getShippingSummaryDetailsFromMappedValues("Subtotal");
-	getShippingSummaryDetailsFromMappedValues("Tax");
-	getShippingSummaryDetailsFromMappedValues("Order Total");
-
-}
-
-private void verifyProductDetailsFromMappedValues(String name) {
-	if(name.equals("quantity"))
-	{
-		System.out.println(element("txt_summary_"+name).getText());
-		System.out.println("map value.."+map.get(name));
-		Assert.assertTrue(map.get(name).equals(element("txt_summary_"+name).getText().trim()));
-	
-	}
-	else
-	{
-		System.out.println(element("txt_summary_"+name).getText().replace("$", "").trim());
-		System.out.println("map value.."+map.get(name));
-	Assert.assertTrue(map.get(name).equals(element("txt_summary_"+name).getText().replace("$", "").trim()));
-	
-	}
-}
-private void getShippingSummaryDetailsFromMappedValues(String name)
-{
-	Assert.assertTrue(map.get(name).equals(element("txt_order_shipping_summary",name).getText()));
-	System.out.println(element("txt_order_shipping_summary",name).getText());
-	System.out.println(map.get(name));
-}
-
-public void clickPlaceYourOrder()
-{
-	element("btn_placeOrder").click();
-	logMessage("ASSERT PASS:: Place Your Order Button Clicked");
-}
-
-public void verifyThankyouMessageAfterOrderCompletion() {
-	isElementDisplayed("msg_thankyou");
-	System.out.println(element("msg_thankyou").getText().trim());
-	Assert.assertTrue(element("msg_thankyou").getText().trim().equals("Thank you, your order is complete!"));
-	isElementDisplayed("lnk_print_receipt");
-	System.out.println(element("lnk_print_receipt").getText());
-	Assert.assertTrue(element("lnk_print_receipt").getText().equals("Print Your Receipt"));
-	
-}
 
 }

@@ -51,5 +51,10 @@ table_queryResult                                css                            
 btn_saveForBillingAdd                             id                            ButtonSave   
 table_lineItems                                   id                         UPDATEGRIDCONTROL_DOD_Invoice_DetailGRIDDIV 
 frame_selectProduct                              id                             menu_a83665ae18eb43488c5d83ce5f6027f8  
-list_billAddress                                 id                         inv_cxa_key                
+list_billAddress                                 id                         inv_cxa_key    
+txt_loadOnExistingQueryLabel                      id                            LoadQueryLabel   
+inp_customerId                                    xpath                        //input[contains(@id,'QueryAsk')]        
+btn_askGo                                         id                            ButtonAskGo
+lnk_invoice_number                                 xpath                        //table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3][contains(text(),'${value}')]
+lnk_first_invoice_number                           xpath                       (//table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3])[1] 
 ==============================================================================================================================================

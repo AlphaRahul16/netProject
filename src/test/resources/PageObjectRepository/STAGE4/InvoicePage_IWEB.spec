@@ -14,8 +14,16 @@ txt_quantity                    xpath                  //td[contains(text(),'${p
 txt_total                       xpath                  //td[contains(text(),'${productName}')]//following-sibling::td[4]
 txt_discount                    xpath                  //td[contains(text(),'${productName}')]//following-sibling::td[5]
 txt_balance                     xpath                  //td[contains(text(),'${productName}')]//following-sibling::td[6]
-txt_invoiceValues               xpath                 //span[contains(text(),'${invoice value}')]/preceding-sibling::span
+txt_invoiceValues               xpath                 //label[contains(text(),'${invoice value}')]/preceding-sibling::span
 btn_detailsMenu                 xpath                 //span[text()='${menuName}']/preceding-sibling::input
 btn_detailsMenuAACT             xpath                 //span[text()='${menuName}']/../a[1]
+table_description               xpath                 //a/../../following-sibling::tr/td[5]
+table_priceValue                xpath                 //a/../../following-sibling::tr/td[7]
+table_quantity                  xpath                //a/../../following-sibling::tr/td[8]
+table_total                     xpath                 //a/../../following-sibling::tr/td[9]
+table_discount                  xpath                //a/../../following-sibling::tr/td[10]
+table_Shipping                  xpath                 .//a/../../following-sibling::tr/td[@id='UP17']
+img_spinner                     css                    #__UPIMG
+icon_up                         xpath                 //span[contains(text(),'${value}')]/preceding-sibling::a/i[@class='icon-chevron-up']
 ====================================================================================================================================
 

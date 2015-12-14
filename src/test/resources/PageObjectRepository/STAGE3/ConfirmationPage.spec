@@ -9,4 +9,5 @@ btn_topPrintButton               id                topPrintButton
 pdf_content                      xpath           //xhtml:div[@id='pageContainer1']/xhtml:div[2]/div[contains(.,'${detailvalue}')]
 txt_name                         xpath            //span[contains(@id,'${memberName_type}')]
 btnPDF_download                  id              download  
+invoice_number                   xpath            .//*[@id='pageContainer1']/xhtml:div[2]/xhtml:div[54]
 ====================================================================================================================================

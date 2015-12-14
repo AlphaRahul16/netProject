@@ -152,7 +152,7 @@ public class ACS_Create_Member_Test {
 		String caseId = getKeyValue.getEduEmpInfo("CASEID");
 		Reporter.log("****** TEST CASE ID : " + caseId + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
-		test.launchApplication(app_url_IWEB);
+		test.navigateToIWEBUrlOnNewBrowserTab(app_url_IWEB);
 		test.homePageIWEB.enterAuthentication(
 				getKeyValue.getAuthenticationInfo("userName"),
 				getKeyValue.getAuthenticationInfo("password"));

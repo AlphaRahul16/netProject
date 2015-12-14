@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
+import org.omg.CORBA.SystemException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -62,10 +63,10 @@ public class TakeScreenshot {
     }
     
     public void takeScreenShotOnException(ITestResult result) {
-        String takeScreenshot = getProperty("take-screenshot");
+    	String takeScreenShot = getProperty("take-screenshot");
         if (result.getStatus() == ITestResult.FAILURE) {
             Reporter.log("FAILURE occured at " + DateUtil.converttimestamp(System.currentTimeMillis()), true);
-            if (takeScreenshot.equalsIgnoreCase("true") || takeScreenshot.equalsIgnoreCase("yes")) {
+            if (takeScreenShot.equalsIgnoreCase("true") || takeScreenShot.equalsIgnoreCase("yes")) {
                 try {
                     if (driver != null) {
                         takeScreenshot();

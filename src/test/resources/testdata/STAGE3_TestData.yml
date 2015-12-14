@@ -22,12 +22,13 @@ csv-data-file:
   path_OMA: ./src/test/resources/TestDataLibrary/OMA Business Rules.csv
   path_PriceValue: ./src/test/resources/TestDataLibrary/PriceValues.csv
   path_AACT_OMA: ./src/test/resources/TestDataLibrary/AACT_OMA_Data_Sheet.csv
+  path_ACS_Store: ./src/test/resources/TestDataLibrary/ACS_Store_Sheet.csv
   data-separator: '\t'
   has-header: true
   
 Authentication: 
   userName: C00616
-  password: "ACS2015#"
+  password: "ACS2016#"
   
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt
@@ -507,13 +508,12 @@ MemberShipRenewal:
     renewalMessage: "Dues task netFORUM_Dues_Renewal_update_Task_a02bd1cb14a14b4090482ae01f213b2dd5fc7374 scheduled successfully.  Upon completion an e-mail will be sent to" 
       
 ACS_Store:
-    username: sandu
     password: password   
-    product_key: N5503
-
-           
-          
-            
+    maxWaitTimeForPrintMessage: 30
+    members:
+         member1: 
+            CASEID: 2
+        
                   
 ASM_URLRejectedErrorMsz: "We aren't able to complete your request in the staging environment"
 ASMErrorPageTitle: Request Rejected

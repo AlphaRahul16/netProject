@@ -5,7 +5,7 @@ Page Title: MembershipPage
 hd_sideBar                                          xpath                  //a[text()='${Query Membership}']
 hd_page                                             xpath                   //span[@class='PageTitle']
 list_existingQuery                                   id                        SavedQueriesDropDownList
-img_spinner                                          css                  #__UPIMG
+img_spinner                                          css                     #__UPIMG
 table_query                                          id                    DisplayConditionsTable
 btn_runQuery                                         id                   SaveGoButton
 img_firstInactiveRegularMember                       css                 #dgDynamicList > tbody > tr:nth-child(3) > td:nth-child(1) > a
@@ -65,7 +65,6 @@ inp_district                                       id                         ad
 inp_congressional                                id                            adr_cong_dist
 inp_province                                      id                         adr_intl_province
 inp_mail                                          id                         cxa_mail_stop
-table_queryResult                                css                             #DataFormTable  
 btn_saveForBillingAdd                             id                            ButtonSave   
 table_lineItems                                   id                         UPDATEGRIDCONTROL_DOD_Invoice_DetailGRIDDIV 
 frame_selectProduct                              id                             menu_a83665ae18eb43488c5d83ce5f6027f8  
@@ -100,7 +99,8 @@ link_itemInLineItems                              xpath                        (
 lnk_pages                                         xpath                        //tr[@class='pager']/td/a[${randomPages}]
 txt_membershipProfileInfo                         xpath                        //label[contains(text(),'${memberInfo}:')]/following-sibling::span
 txt_paymentStatus                                 xpath                        //td[text()='Payment Status:']/following-sibling::td
-txt_membershipProfileDetails                      xpath                        //label[contains(text(),'${memberInfo}:')]/preceding-sibling::span
+txt_membershipProfileDetails                      xpath                        //label[contains(text(),'${memberInfo}')]/preceding-sibling::span
+txt_webLogin                                      id                            F1_cst_web_login
 btn_memberShipSubInfo                             xpath                        //span[text()='${membershipName}']/preceding-sibling::a//i[starts-with(@class,'icon-chevron-')]
 txt_productName                                   xpath                        (//table[@class='table']//tr[2]/td[4])[1]
 txt_invoiceId                                     xpath                        (//table[@class='table']//tr[2]/td[12])[1]
@@ -115,4 +115,7 @@ btn_askGo                                         id                            
 txt_recordNumberAtMemberQuery                    classname                     DataFormLabelRecordCount
 txt_loadOnExistingQueryLabel                      id                            LoadQueryLabel
 link_pagesAvailable                              classname                      DataFormChildDataGridPagerLink
+lnk_invoice_number                                 xpath                        //table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3][contains(text(),'${value}')]
+lnk_first_invoice_number                           xpath                        (//table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3])[1] 
+txt_webLogin                                       id                            F1_cst_web_login
 ==============================================================================================================================================

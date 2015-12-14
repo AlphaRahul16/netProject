@@ -32,7 +32,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 			wait.hardWait(1);
 			element("link_findIndividuals").click();
 		}
-		logMessage("Step : click find button for individual search\n");
+		logMessage("STEP : Click find button for individual search\n");
 	}
 
 	public void verifySelectedTab(String tabName) {
@@ -84,7 +84,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("hd_sideBar", tabName);
 		clickUsingXpathInJavaScriptExecutor(element("hd_sideBar", tabName));
 		// element("hd_sideBar", tabName).click();
-		logMessage("Step : click on tab " + tabName + " in hd_sideBar \n");
+		logMessage("STEP : Click on tab " + tabName + " in hd_sideBar \n");
 	}
 
 	public void clickOnMemberShipTab() {
