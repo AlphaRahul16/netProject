@@ -247,6 +247,9 @@ public class YamlInformationProvider {
 	public String getCreateRenewalInvoiceSuccessInfo(String infoType) {
 		return getMapValue(this.userInfoMap, "renewalDetailsForSuccessCreateRenewalInvoice" + "." + infoType);
 	}
+	public String getRenewalInvoiceDetails(String infoType) {
+		return getMapValue(this.userInfoMap, "invoiceDetails" + "." + infoType);
+	}
 	
 	public String getACSStoreInfo(String infoType) {
 		return getMapValue(this.userInfoMap,infoType);

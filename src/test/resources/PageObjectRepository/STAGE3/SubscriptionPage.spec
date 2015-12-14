@@ -30,7 +30,6 @@ txt_fulfillmentDate                      xpath                      //td[contain
 list_pages                              xpath                     //a[@class='DataFormChildDataGridPagerLink']
 img_spinner                               xpath                      //*[contains(@src,'updating.gif')]
 btn_goToRecord                            xpath                   (//td[contains(text(),'${prodName}')]/preceding-sibling::td[2]//a/i[@class='iconpro-circle-arrow-right'])[${index}]
-
 rows_table                           xpath                         ((//table[contains(@id,'ChildTable')])[1]//tr[last()])[1]//table//tr
 lnk_arrow                            xpath                         ((//table[contains(@id,'ChildTable')])[1]//tr[last()])[1]//table//tr[${index}]//td[3]//i
 txt_subscriptionName                 xpath                         ((//table[contains(@id,'ChildTable')])[1]//tr[last()])[1]//table//tr[${index}]//td[5]

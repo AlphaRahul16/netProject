@@ -100,7 +100,6 @@ lnk_pages                                         xpath                        /
 txt_membershipProfileInfo                         xpath                        //label[contains(text(),'${memberInfo}:')]/following-sibling::span
 txt_paymentStatus                                 xpath                        //td[text()='Payment Status:']/following-sibling::td
 txt_membershipProfileDetails                      xpath                        //label[contains(text(),'${memberInfo}')]/preceding-sibling::span
-txt_webLogin                                      id                            F1_cst_web_login
 btn_memberShipSubInfo                             xpath                        //span[text()='${membershipName}']/preceding-sibling::a//i[starts-with(@class,'icon-chevron-')]
 txt_productName                                   xpath                        (//table[@class='table']//tr[2]/td[4])[1]
 txt_invoiceId                                     xpath                        (//table[@class='table']//tr[2]/td[12])[1]
@@ -112,10 +111,11 @@ txt_termStartDateOnPage                           xpath                        (
 txt_termEndDateOnPage                             xpath                        (//table[@class='table']//tr[3]/td[15])[1]
 inp_customerId                                    xpath                        //input[contains(@id,'QueryAsk')]
 btn_askGo                                         id                            ButtonAskGo
-txt_recordNumberAtMemberQuery                    classname                     DataFormLabelRecordCount
+txt_recordNumberAtMemberQuery                    classname                      DataFormLabelRecordCount
 txt_loadOnExistingQueryLabel                      id                            LoadQueryLabel
 link_pagesAvailable                              classname                      DataFormChildDataGridPagerLink
 lnk_invoice_number                                 xpath                        //table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3][contains(text(),'${value}')]
 lnk_first_invoice_number                           xpath                        (//table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3])[1] 
 txt_webLogin                                       id                            F1_cst_web_login
+btn_arrowRightCircle                             xpath                          (//i[@class='iconpro-circle-arrow-right'])[1]
 ==============================================================================================================================================

@@ -83,7 +83,7 @@ btn_editContactInfo                              css                          #F
 inp_editEmail                                    id                           eml_address
 btn_editNameAndAddress                           css                          #F1_HYPERLINK_2
 inp_firstName                                    id                          ind_first_name
-inp_lastName                                    id                          ind_last_name
+inp_lastName                                    id                            ind_last_name
 txt_numberOfyears                                xpath                         //td[contains(text(),'Total Years of Service')]/following-sibling::td
 btn_cancel                                       id                           ButtonCancel
 list_memberStatusRenewal                        id                            ValueDropDownList4
@@ -98,10 +98,24 @@ inp_prdCode                                       id                           p
 inp_searchDisplayButton                           id                           Look_Up_prc_display_name
 inp_displayName                                   id                           prc_display_name
 link_itemInLineItems                              xpath                        (//tr/td[4])[last()]/a
-txt_loadOnExistingQueryLabel                      id                            LoadQueryLabel
 txt_membershipProfileDetails                      xpath                        //label[contains(text(),'${memberInfo}')]/preceding-sibling::span
 lnk_invoice_number                                 xpath                        //table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3][contains(text(),'${value}')]
 lnk_first_invoice_number                           xpath                       (//table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3])[1] 
+lnk_pages                                         xpath                        //tr[@class='pager']/td/a[${randomPages}]
+txt_membershipProfileInfo                         xpath                        //label[contains(text(),'${memberInfo}:')]/following-sibling::span
+txt_paymentStatus                                 xpath                        //td[text()='Payment Status:']/following-sibling::td
+btn_memberShipSubInfo                             xpath                        //span[text()='${membershipName}']/preceding-sibling::a//i[starts-with(@class,'icon-chevron-')]
+txt_productName                                   xpath                        (//table[@class='table']//tr[2]/td[4])[1]
+txt_invoiceId                                     xpath                        (//table[@class='table']//tr[2]/td[12])[1]
+txt_termStartDate                                 xpath                        (//table[@class='table']//tr[2]/td[14])[1]
+txt_termEndDate                                   xpath                        (//table[@class='table']//tr[2]/td[15])[1]
+txt_productNameOnPage                             xpath                        (//table[@class='table']//tr[3]/td[4])[1]
+txt_invoiceIdOnPage                               xpath                        (//table[@class='table']//tr[3]/td[12])[1]
+txt_termStartDateOnPage                           xpath                        (//table[@class='table']//tr[3]/td[14])[1]
+txt_termEndDateOnPage                             xpath                        (//table[@class='table']//tr[3]/td[15])[1]
 inp_customerId                                    xpath                        //input[contains(@id,'QueryAsk')]
 btn_askGo                                         id                            ButtonAskGo
+txt_recordNumberAtMemberQuery                    classname                     DataFormLabelRecordCount
+txt_loadOnExistingQueryLabel                      id                            LoadQueryLabel
+link_pagesAvailable                              classname                      DataFormChildDataGridPagerLink
 ==============================================================================================================================================

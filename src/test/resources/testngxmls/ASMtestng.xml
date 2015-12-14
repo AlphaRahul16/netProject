@@ -4,7 +4,7 @@
 
 	<test name="ASM Donate Smoke" parallel="false">
 		<classes>
-			<class name="com.qait.tests.Subscription_Fulfillment"></class>
+			<class name="com.qait.tests.Subscription_Fulfillment_Test"></class>
 		</classes>
 	</test>
 	<!-- <test name="ASM Giving Green Smoke" parallel="false">

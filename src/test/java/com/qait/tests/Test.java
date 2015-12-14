@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.regex.Pattern;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -32,26 +33,41 @@ public class Test {
 
 	@org.testng.annotations.Test(invocationCount = 1)
 	public void method() throws ParseException {
-		String currentDate = DateUtil.getCurrentTime("hh:mm:ss a", "EST5EDT");
-		System.out.println(currentDate);
-		Date dateInDate = DateUtil.convertStringToDate(currentDate, "hh:mm:ss a");
-		Date dateAfterMinutesAdded = DateUtils.addMinutes(dateInDate,
-				Integer.parseInt("4"));
-		SimpleDateFormat sdf = new SimpleDateFormat("h:mm:ss a");
-		String dateWithTimeSlabInString = sdf.format(dateAfterMinutesAdded);
-		System.out.println(dateWithTimeSlabInString);
-//		 TimeZone timeZone = TimeZone.getTimeZone("EST5EDT");
-//		 String time = "05:00PM";
-//		 String s = DateUtil.getCurrentTime("h:mm:ss a", "EST5EDT");
-//		 System.out.println(s);
-//		 //System.out.println(getCurrentTime("ss", timeZone));
-//		 String currentDate = DateUtil.getCurrentTime("MM/d/YYY", "EST5EDT");
-//		 Date dateInDate = DateUtil.convertStringToDate(time, "hh:mm:ssa");
-//		 //System.out.println(currentDate);
-//		 Date date = DateUtils.addMinutes(dateInDate, Integer.parseInt("3"));
-//		 SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
-//		 String stringDate = sdf.format(date);
-//		 System.out.println(stringDate);
+
+		String format = "Dues task netFORUM_Dues_Renewal_update_Task_([0-9a-zA-Z])+ scheduled successfully. Upon completion an e-mail will be sent to";
+		Pattern pattern = Pattern.compile(format);
+		String s = "Dues task netFORUM_Dues_Renewal_update_Task_([0-9a-zA-Z])+ scheduled successfully. Upon completion an e-mail will be sent to";
+		System.out
+				.println(pattern
+						.matcher(
+								"Dues task netFORUM_Dues_Renewal_update_Task_7364783bhjb3y48384 scheduled successfully. Upon completion an e-mail will be sent to")
+						.matches());
+		pattern.matcher("Dues task netFORUM_Dues_Renewal_update_Task_7364783bhjb3y48384 scheduled successfully. Upon completion an e-mail will be sent to");
+		boolean match = s
+				.matches("Dues task netFORUM_Dues_Renewal_update_Task_([0-9a-zA-Z])+ scheduled successfully. Upon completion an e-mail will be sent to");
+		System.out.println(match);
+		// String currentDate = DateUtil.getCurrentTime("hh:mm:ss a",
+		// "EST5EDT");
+		// System.out.println(currentDate);
+		// Date dateInDate = DateUtil.convertStringToDate(currentDate,
+		// "hh:mm:ss a");
+		// Date dateAfterMinutesAdded = DateUtils.addMinutes(dateInDate,
+		// Integer.parseInt("4"));
+		// SimpleDateFormat sdf = new SimpleDateFormat("h:mm:ss a");
+		// String dateWithTimeSlabInString = sdf.format(dateAfterMinutesAdded);
+		// System.out.println(dateWithTimeSlabInString);
+		// TimeZone timeZone = TimeZone.getTimeZone("EST5EDT");
+		// String time = "05:00PM";
+		// String s = DateUtil.getCurrentTime("h:mm:ss a", "EST5EDT");
+		// System.out.println(s);
+		// //System.out.println(getCurrentTime("ss", timeZone));
+		// String currentDate = DateUtil.getCurrentTime("MM/d/YYY", "EST5EDT");
+		// Date dateInDate = DateUtil.convertStringToDate(time, "hh:mm:ssa");
+		// //System.out.println(currentDate);
+		// Date date = DateUtils.addMinutes(dateInDate, Integer.parseInt("3"));
+		// SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+		// String stringDate = sdf.format(date);
+		// System.out.println(stringDate);
 		// getCurrentdateInStringWithGivenFormateForTimeZone("dd/MM/YYYY",
 		// "EST");
 		// getUrlResponseCode("https://C00616:ACS201523@www.ewebtest12.acs.org/NFStage4/eweb/AACTOMATemplate.aspx?Site=AACT_OMA");

@@ -58,7 +58,7 @@ public class ACS_Reinstate_Member_EWEB_Test {
 	public void Step01_Get_Inactive_Regular_Member_List() {
 		test.homePageIWEB.GoToMemberShipModule();
 		test.memberShipPage
-				.selectAndRunQueryMembership("SELENIUM - Find Inactive Regular Member");
+				.selectAndRunQueryMembership("Query Membership","SELENIUM - Find Inactive Regular Member");
 	}
 
 	@Test

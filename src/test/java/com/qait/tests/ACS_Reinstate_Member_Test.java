@@ -28,14 +28,15 @@ public class ACS_Reinstate_Member_Test {
 	@Test
 	public void Step01_Get_Inactive_Regular_Member_List() {
 		test.homePageIWEB.GoToMemberShipModule();
-		test.memberShipPage
-				.selectAndRunQueryMembership("QTP - Find Inactive Regular Member");
+		test.memberShipPage.selectAndRunQueryMembership("Query Membership",
+				"QTP - Find Inactive Regular Member");
 	}
 
 	@Test
 	public void Step02_Select_First_Inactive_Regular_Member_And_Reinstate() {
 		customerName = test.memberShipPage
-				.selectFirstInactiveRegularMemberAndVerifyExistingDetails().get(0);
+				.selectFirstInactiveRegularMemberAndVerifyExistingDetails()
+				.get(0);
 		test.memberShipPage.addMemberAndSelectDetails();
 		test.memberShipPage.verifyItemsAddedSuccessFully();
 		test.memberShipPage.selectBatchAndPaymentDetails();
