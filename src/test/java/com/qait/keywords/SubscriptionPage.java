@@ -228,6 +228,7 @@ public class SubscriptionPage extends GetPage {
 		// verifySubscriptionDetail("time:", time);
 		verifySubscriptionDetail("scheduled task completed?",
 				scheduledTaskCompleted);
+		wait.hardWait(3);
 		verifySubscriptionDetail("preview status:", previewStatus);
 		verifySubscriptionDetail("commit scheduled task?", commitScheduledTask);
 		verifyFulfillmentType("fulfillment type:", fulfillmentType);

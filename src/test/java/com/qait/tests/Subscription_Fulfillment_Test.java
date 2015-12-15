@@ -161,9 +161,6 @@ public class Subscription_Fulfillment_Test {
 	@Test
 	public void Step07_Navigate_To_Subscriber_Profile_Page_And_Verify_Details_Test() {
 		test.launchApplication(app_url_IWEB);
-		test.homePageIWEB.enterAuthentication(
-				getYamlValue("Authentication.userName"),
-				getYamlValue("Authentication.password"));
 		test.homePageIWEB.GoToCRMModule();
 		test.homePageIWEB.clickFindForIndividualsSearch();
 		test.individualsPage.fillMemberDetailsAndSearch("Record Number",

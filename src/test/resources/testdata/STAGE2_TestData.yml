@@ -53,55 +53,55 @@ users:
                 state: New York
                 zipCode: 32256-7220
         education-and-employment:
-            CASEID: 4
-#    user2: 
-#        contact-information:
-#            name:
-#                firstname: RegMem123
-#                lastname: lastName123
-#            email: ACS_OMA@acs.org
-#            phone: 8888888888
-#            address: 
-#                type: Work
-#                address: jacksonville
-#                city: florida
-#                country: Thailand
-#                state: New York
-#                zipCode: 32256-7220
-#        education-and-employment:
-#            CASEID: 20
-#    user3: 
-#        contact-information:
-#            name:
-#                firstname: RegMem123
-#                lastname: lastName123
-#            email: ACS_OMA@acs.org
-#            phone: 8888888888
-#            address: 
-#                type: Work
-#                address: jacksonville
-#                city: florida
-#                country: Thailand
-#                state: New York
-#                zipCode: 32256-7220
-#        education-and-employment:
-#            CASEID: 21
-#    user4: 
-#        contact-information:
-#            name:
-#                firstname: RegMem123
-#                lastname: lastName123
-#            email: ACS_OMA@acs.org
-#            phone: 8888888888
-#            address: 
-#                type: Work
-#                address: jacksonville
-#                city: florida
-#                country: Thailand
-#                state: New York
-#                zipCode: 32256-7220
-#        education-and-employment:
-#            CASEID: 22    
+            CASEID: 1
+    user2: 
+        contact-information:
+            name:
+                firstname: RegMem123
+                lastname: lastName123
+            email: ACS_OMA@acs.org
+            phone: 8888888888
+            address: 
+                type: Work
+                address: jacksonville
+                city: florida
+                country: Thailand
+                state: New York
+                zipCode: 32256-7220
+        education-and-employment:
+            CASEID: 24
+    user3: 
+        contact-information:
+            name:
+                firstname: RegMem123
+                lastname: lastName123
+            email: ACS_OMA@acs.org
+            phone: 8888888888
+            address: 
+                type: Work
+                address: jacksonville
+                city: florida
+                country: Thailand
+                state: New York
+                zipCode: 32256-7220
+        education-and-employment:
+            CASEID: 25
+    user4: 
+        contact-information:
+            name:
+                firstname: RegMem123
+                lastname: lastName123
+            email: ACS_OMA@acs.org
+            phone: 8888888888
+            address: 
+                type: Work
+                address: jacksonville
+                city: florida
+                country: Thailand
+                state: New York
+                zipCode: 32256-7220
+        education-and-employment:
+            CASEID: 26
 
       
    
@@ -328,8 +328,8 @@ ACS_Store:
     members:
          member1: 
             CASEID: 1
-         member2: 
-            CASEID: 2
+#         member2: 
+#            CASEID: 2
     
 ReinstateMemberIWEB:
     centralizedOrderEntry: 

@@ -18,7 +18,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Reporter;
 
-
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.TakeScreenshot;
 import com.qait.keywords.ASMErrorPage;
@@ -269,35 +268,37 @@ public class TestSessionInitiator {
 		driver.navigate().to(baseURL);
 		Reporter.log("\nThe application url is :- " + baseURL, true);
 	}
+
 	public void navigateToIWEBUrlOnNewBrowserTab(String baseURL) {
-		if(_getSessionConfig().get("browser").equalsIgnoreCase("firefox")||_getSessionConfig().get("browser").equalsIgnoreCase("ie"))
-		{
+		if (_getSessionConfig().get("browser").equalsIgnoreCase("firefox")
+				|| _getSessionConfig().get("browser").equalsIgnoreCase("ie")) {
 			openUrl(baseURL);
+		} else if (_getSessionConfig().get("browser")
+				.equalsIgnoreCase("chrome")) {
+			Robot robot;
+			try {
+				robot = new Robot();
+				robot.delay(2000);
+				robot.keyPress(KeyEvent.VK_CONTROL);
+				robot.keyPress(KeyEvent.VK_T);
+				robot.keyRelease(KeyEvent.VK_CONTROL);
+				robot.keyRelease(KeyEvent.VK_T);
+				// String base = driver.getWindowHandle();
+				//
+				// Set<String> set = driver.getWindowHandles();
+				for (String s : driver.getWindowHandles()) {
+					driver.switchTo().window(s);
+				}
+				// set.remove(base);
+				// assert set.size() == 1;
+				// driver.switchTo().window((String) set.toArray()[0]);
+				driver.navigate().to(baseURL);
+				Reporter.log("\nThe application url is :- " + baseURL, true);
+			} catch (AWTException e) {
+				e.printStackTrace();
+			}
+
 		}
-	else	if(_getSessionConfig().get("browser").equalsIgnoreCase("chrome"))
-		{
-		Robot robot;
-		try {
-			robot = new Robot();
-			robot.delay(2000);
-			robot.keyPress(KeyEvent.VK_CONTROL);
-			robot.keyPress(KeyEvent.VK_T);
-			robot.keyRelease(KeyEvent.VK_CONTROL);
-			robot.keyRelease(KeyEvent.VK_T);
-			String base = driver.getWindowHandle();
-			Set<String> set = driver.getWindowHandles();
-			set.remove(base);
-			assert set.size() == 1;
-			driver.switchTo().window((String) set.toArray()[0]);
-		driver.navigate().to(baseURL);
-		Reporter.log("\nThe application url is :- " + baseURL, true);
-		}
-	catch (AWTException e) {
-		e.printStackTrace();
 	}
 
-	}
-	}
-	
-	
 }
