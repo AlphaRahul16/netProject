@@ -23,8 +23,10 @@ csv-data-file:
   path_PriceValue: ./src/test/resources/TestDataLibrary/PriceValues.csv
   path_AACT_OMA: ./src/test/resources/TestDataLibrary/AACT_OMA_Data_Sheet.csv
   path_ACS_Store: ./src/test/resources/TestDataLibrary/ACS_Store_Sheet.csv
+  path_createMember: ./src/test/resources/TestDataLibrary/createMemberDataSheet.csv
   data-separator: '\t'
   has-header: true
+  
   
 Authentication: 
   userName: C00616
@@ -51,10 +53,10 @@ users:
             phone: 8888888888
             address: 
                 type: Work
-                address: jacksonville
-                city: florida
+                address: 7955 Pina Lake Rd
+                city: Jacksonville
                 country: UNITED STATES
-                state: New York
+                state: Florida
                 zipCode: 32256-7220
         education-and-employment:
             CASEID: 1

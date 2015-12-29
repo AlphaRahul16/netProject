@@ -17,9 +17,10 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
 
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.pdfparser.PDFParser;
@@ -58,6 +59,8 @@ public class BaseUi {
 	protected SeleniumWait wait;
 	private String pageName;
 	int timeOut, hiddenFieldTimeOut;
+	boolean flag;
+	static String lastWindow;
 
 	protected BaseUi(WebDriver driver, String pageName) {
 		PageFactory.initElements(driver, this);
@@ -349,6 +352,23 @@ public class BaseUi {
 		}
 	}
 
+	public boolean isWindow() {
+		String window = driver.getWindowHandle();
+		Set<String> windows = driver.getWindowHandles();
+		Iterator<String> iterator = windows.iterator();
+		// check values
+		while (iterator.hasNext()) {
+			lastWindow = iterator.next().toString();
+			System.out.println("last window:" + lastWindow);
+		}
+		System.out.println("last window:" + lastWindow);
+		System.out.println("window:" + window);
+		if (!window.equalsIgnoreCase(lastWindow)) {
+			flag = true;
+		}
+		return flag;
+	}
+
 	public void pageRefresh() {
 		driver.navigate().refresh();
 	}
@@ -443,6 +463,13 @@ public class BaseUi {
 		}
 	}
 
+	protected void verifySelectedTextFromDropDown(WebElement el, String text) {
+		Assert.assertTrue(getSelectedTextFromDropDown(el)
+				.equalsIgnoreCase(text));
+		logMessage("AASERT PASSED : " + text
+				+ " is verified which is selected \n");
+	}
+
 	public void getUrlResponseCode(String url) {
 		try {
 			URL url1 = new URL(url);
@@ -492,7 +519,7 @@ public class BaseUi {
 	}
 
 	public void enterAuthentication(String uName, String password) {
-		if ((isBrowser("ie") || isBrowser("internetexplorer")||isBrowser("chrome"))) {
+		if ((isBrowser("ie") || isBrowser("internetexplorer") || isBrowser("chrome"))) {
 			System.out.println("in authentication");
 			setClipboardData(uName);
 			Robot robot;
@@ -521,15 +548,24 @@ public class BaseUi {
 			}
 
 		}
+		
 
 	}
 
 	public String getElementText(WebElement element) {
 		return element.getText();
 	}
-	
+
+	public void checkCheckbox(WebElement ele) {
+		if (!ele.isSelected()) {
+			ele.click();
+			logMessage("Step : check checkbox in " + ele + "\n");
+		} else {
+			logMessage("Step : check box is already selected\n");
+		}
 	}
-
-		  
-
-
+	
+	
+	
+	
+}

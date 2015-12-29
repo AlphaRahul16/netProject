@@ -36,6 +36,7 @@ import com.qait.keywords.ASM_PUBSPage;
 import com.qait.keywords.ASM_StorePage;
 import com.qait.keywords.ASM_emailPage;
 import com.qait.keywords.ASM_memberNumberLookupPage;
+import com.qait.keywords.AddMemeber_IWEB;
 import com.qait.keywords.BenefitsPage;
 import com.qait.keywords.CheckoutPage;
 import com.qait.keywords.ConfirmationPage;
@@ -95,6 +96,7 @@ public class TestSessionInitiator {
 	public ASM_EGiftPage asm_EGiftPage;
 	public SubscriptionPage subscriptionPage;
 	public MemberShipRenewalPage membershipRenewalPage;
+	public AddMemeber_IWEB addMember;
 
 	public TakeScreenshot takescreenshot;
 
@@ -131,6 +133,7 @@ public class TestSessionInitiator {
 		asm_EGiftPage = new ASM_EGiftPage(driver);
 		subscriptionPage = new SubscriptionPage(driver);
 		membershipRenewalPage = new MemberShipRenewalPage(driver);
+		addMember= new AddMemeber_IWEB(driver);
 	}
 
 	/**
@@ -202,6 +205,7 @@ public class TestSessionInitiator {
 			e.printStackTrace();
 
 		}
+	
 	}
 
 	public void openUrl(String url) {

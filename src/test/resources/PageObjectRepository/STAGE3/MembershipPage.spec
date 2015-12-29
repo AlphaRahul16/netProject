@@ -118,4 +118,13 @@ lnk_invoice_number                                 xpath                        
 lnk_first_invoice_number                           xpath                        (//table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3])[1] 
 txt_webLogin                                       id                            F1_cst_web_login
 btn_arrowRightCircle                             xpath                          (//i[@class='iconpro-circle-arrow-right'])[1]
+inp_transactionDate                              id                             inv_trx_date
+list_memberStatusInAddMembership                 id                             mbr_mbs_key
+list_memberRenewalPackage                        id                             mbr_pak_prd_renewal_key
+chk_complimentry                                 id                             ACS_complimentary_checkbox
+txt_totalPrice                                   id                             mbr_total
+list_complimentryRequest                         id                             ACS_complimentary_request_source
+txt_priceOrderEntryLineItmes                     xpath                          //a[text()='${itemName}']/../following-sibling::td[2]/span
+inp_sourceCode                                   id                             mbr_src_code
+list_chapter                                     id                             mbr_chp_cst_key
 ==============================================================================================================================================

@@ -36,6 +36,7 @@ txt_description               css                   .StoreCartDescriptionColumn>
 txt_shoppingCart              css                   .LayoutCell>div>h1
 txt_store_cart_column         xpath                 //table[@class='StoreCart']/tbody/tr/th[contains(text(),'Price')]/../following-sibling::tr/td/div[contains(@class,'Price')]/span
 txt_priceValue                css                   .StoreCartPriceColumn>span
+lnk_invoiceHeading            xpath                    //th/a[@class='DataFormListTDDataGridHeaderLink' and contains(text(),'Transaction Date')]
 txt_quantity                  css                   .StoreCartQtyColumn>input
 txt_discount                  xpath                  (//div[@class='StoreCartTotalColumn']/span)[1]
 txt_total                     xpath                  (//div[@class='StoreCartTotalColumn']/span)[2]

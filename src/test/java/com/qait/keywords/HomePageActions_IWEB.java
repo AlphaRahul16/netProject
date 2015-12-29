@@ -19,12 +19,13 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		verifyPageTitleContains(pageTitle);
 		logMessage("ASSERT PASSED: verified that user is on " + this.pagename
 				+ "\n");
+		
 	}
 
 	public void clickFindForIndividualsSearch() {
 		if (isIEBrowser()) {
 			wait.waitForPageToLoadCompletely();
-//			hardWaitForIEBrowser(10);
+			// hardWaitForIEBrowser(10);
 			clickUsingXpathInJavaScriptExecutor(element("link_findIndividuals"));
 			hardWaitForIEBrowser(3);
 		} else {
@@ -49,15 +50,15 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnMemberShipTab();
 		clickOnSideBarTab("Members");
 	}
-	
-	public void GoToMemberShipSetupProfile(){
+
+	public void GoToMemberShipSetupProfile() {
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);
 		isElementDisplayed("area_overView");
 		wait.hardWait(1);
 		clickOnModuleTab();
 		clickOnMemberShipTab();
-		
+
 	}
 
 	public void GoToSubscriptionModule() {
@@ -65,7 +66,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnModuleTab();
 		clickOnSubscriptionTab();
 	}
-	
+
 	public void GoToCRMModule() {
 		isElementDisplayed("area_overView");
 		clickOnModuleTab();
@@ -100,7 +101,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		clickUsingXpathInJavaScriptExecutor(element("link_subscription"));
 		logMessage("Step : subscription tab is clicked\n");
 	}
-	
+
 	public void clickOnCRMTab() {
 		handleAlert();
 		isElementDisplayed("link_CRM");
@@ -124,6 +125,13 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	public void launchUrl(String url) {
 		executeJavascript("window.location.replace('" + url + "','_self')");
 		System.out.println("11");
+	}
+
+	public void clickOnAddIndividual() {
+		isElementDisplayed("link_addIndividuals");
+		clickUsingXpathInJavaScriptExecutor(element("link_addIndividuals"));
+		logMessage("Step : add individual link is clicked in link_addIndividuals\n");
+
 	}
 
 }

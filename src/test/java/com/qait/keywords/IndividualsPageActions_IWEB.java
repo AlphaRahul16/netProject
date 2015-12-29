@@ -56,7 +56,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void enterFieldValue(String fieldName, String fieldValue) {
 		isElementDisplayed("inp_fieldName", fieldName);
 		element("inp_fieldName", fieldName).sendKeys(fieldValue);
-		logMessage("STEP : CustomerId" + fieldValue + " is entered in inp_fieldName\n");
+		logMessage("STEP : CustomerId" + fieldValue
+				+ " is entered in inp_fieldName\n");
 	}
 
 	public void clickGoButton() {
@@ -320,6 +321,40 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("ASSERT PASSED :" + userEmail
 					+ " is verified in txt_memberDetails\n");
 		}
+
+	}
+
+	public String verifyMemberDetails_InAddIndividual(String fName, String mName,String lName,String country,
+			String street, String city,  String abrv_state,
+			String zipCode) {
+
+		verifyElementTextContains("txt_memberDetails", map().get("firstName"));
+		logMessage("ASSERT PASSED :" + fName
+				+ " is verified in txt_memberDetails\n");
+		verifyElementTextContains("txt_memberDetails", mName);
+		logMessage("ASSERT PASSED :" + mName
+				+ " is verified in txt_memberDetails\n");
+		verifyElementTextContains("txt_memberDetails", lName);
+		logMessage("ASSERT PASSED :" + lName
+				+ " is verified in txt_memberDetails\n");
+		verifyElementTextContains("txt_memberDetails", country);
+		logMessage("ASSERT PASSED :" + country
+				+ " is verified in txt_memberDetails\n");
+		verifyElementTextContains("txt_memberDetails", street);
+		logMessage("ASSERT PASSED :" + street
+				+ " is verified in txt_memberDetails\n");
+		verifyElementTextContains("txt_memberDetails", abrv_state);
+		logMessage("ASSERT PASSED :" + abrv_state
+				+ " is verified in txt_memberDetails\n");
+		
+		verifyElementTextContains("txt_memberDetails", city);
+		logMessage("ASSERT PASSED :" + city
+				+ " is verified in txt_memberDetails\n");
+		verifyElementTextContains("txt_memberDetails", zipCode);
+		logMessage("ASSERT PASSED :" + zipCode
+				+ " is verified in txt_memberDetails\n");
+		return getContactId();
+
 
 	}
 
@@ -861,21 +896,20 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void waitForSpinner() {
 		try {
 			handleAlert();
-			
+
 			isElementDisplayed("img_spinner");
 			wait.waitForElementToDisappear(element("img_spinner"));
 			logMessage("STEP : wait for spinner to be disappeared \n");
-			
+
 		} catch (NoSuchElementException | AssertionError Exp) {
-			
+
 			logMessage("STEP : spinner is not present \n");
 		}
 	}
 
-	public void navigateToMembershipProfilePage(){
+	public void navigateToMembershipProfilePage() {
 		expandDetailsMenu("individual memberships");
 		clickOnButtonToNavigateFinancialPageInMembershipPage();
 	}
-	
-	
+
 }

@@ -35,8 +35,9 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 					+ Float.parseFloat(score_publicationName.get(0));
 
 			verifyTotalScorePublication(subtotalPublication_score);
-			clickSaveButton();
 			verifyDivision_PublicationAdded(publicationName);
+			clickSaveButton();
+			
 		} else {
 			logMessage("Step:  add ACS Publication value is not present in data sheet\n");
 		}
@@ -52,8 +53,9 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 			subtotalTechnical_score = subtotalTechnical_score
 					+ Float.parseFloat(score_divisionName.get(0));
 			verifyTotalScoreDivision(subtotalTechnical_score);
-			clickSaveButton();
 			verifyDivision_PublicationAdded(divisionName);
+			clickSaveButton();
+			
 		} else {
 			logMessage("Step: ACS Technical Division value is not present in data sheet\n");
 		}
