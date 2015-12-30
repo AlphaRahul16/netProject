@@ -267,6 +267,7 @@ public class BaseUi {
 			logMessage("select Element " + el
 					+ " after catching Stale Element Exception");
 		} catch (Exception ex2) {
+			
 			logMessage("Element " + el + " could not be clicked! "
 					+ ex2.getMessage());
 		}

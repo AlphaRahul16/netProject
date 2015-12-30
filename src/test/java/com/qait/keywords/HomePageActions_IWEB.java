@@ -1,6 +1,9 @@
 package com.qait.keywords;
 
+
+
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 
@@ -8,6 +11,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 
 	WebDriver driver;
 	String pagename = "HomePage_IWEB";
+   
 
 	public HomePageActions_IWEB(WebDriver driver) {
 		super(driver, "HomePage_IWEB");
@@ -123,7 +127,16 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void launchUrl(String url) {
 		executeJavascript("window.location.replace('" + url + "','_self')");
-		System.out.println("11");
 	}
+
+	public void clickOnTab(String tabName) {
+		isElementDisplayed("link_tabsOnModule", tabName);
+	    element("link_tabsOnModule", tabName).click();
+	    logMessage("STEP : "+tabName+" tab is clicked\n");
+		
+	}
+	
+		
+
 
 }

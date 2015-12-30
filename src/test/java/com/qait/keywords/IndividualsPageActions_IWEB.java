@@ -3,6 +3,7 @@ package com.qait.keywords;
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.util.Date;
+import java.util.HashMap;
 
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -22,6 +23,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	int timeOut, hiddenFieldTimeOut;
 	boolean flag;
 
+
 	public IndividualsPageActions_IWEB(WebDriver driver) {
 		super(driver, "IndividualsPage");
 		this.driver = driver;
@@ -39,8 +41,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(4);
 		if (!element("inp_fieldName", fieldName).isSelected()) {
 			if (isIEBrowser()) {
-				clickUsingXpathInJavaScriptExecutor(element("inp_fieldName",
-						fieldName));
+				clickUsingXpathInJavaScriptExecutor(element("inp_fieldName", fieldName));
 			} else {
 				element("inp_fieldName", fieldName).click();
 			}
@@ -56,7 +57,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void enterFieldValue(String fieldName, String fieldValue) {
 		isElementDisplayed("inp_fieldName", fieldName);
 		element("inp_fieldName", fieldName).sendKeys(fieldValue);
-		logMessage("STEP : CustomerId" + fieldValue + " is entered in inp_fieldName\n");
+		logMessage("STEP : CustomerId " + fieldValue + " is entered in inp_fieldName\n");
 	}
 
 	public void clickGoButton() {
@@ -69,31 +70,23 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("STEP:  go button is clicked in btn_Go\n");
 	}
 
-	public void verifyMemberDetails(String fName, String lName, String add,
-			String city, String zipCode, String addressType, String contactId,
-			String userEmail) {
+	public void verifyMemberDetails(String fName, String lName, String add, String city, String zipCode,
+			String addressType, String contactId, String userEmail) {
 		verifyElementTextContains("txt_memberDetails", fName);
-		logMessage("ASSERT PASSED :" + fName
-				+ " is verified in txt_memberDetails\n");
+		logMessage("ASSERT PASSED :" + fName + " is verified in txt_memberDetails\n");
 		verifyElementTextContains("txt_memberDetails", lName);
-		logMessage("ASSERT PASSED :" + lName
-				+ " is verified in txt_memberDetails\n");
+		logMessage("ASSERT PASSED :" + lName + " is verified in txt_memberDetails\n");
 
 		verifyElementTextContains("txt_memberDetails", add);
-		logMessage("ASSERT PASSED :" + add
-				+ " is verified in txt_memberDetails\n");
+		logMessage("ASSERT PASSED :" + add + " is verified in txt_memberDetails\n");
 		verifyElementTextContains("txt_memberDetails", city);
-		logMessage("ASSERT PASSED :" + city
-				+ " is verified in txt_memberDetails\n");
+		logMessage("ASSERT PASSED :" + city + " is verified in txt_memberDetails\n");
 		verifyElementTextContains("txt_memberDetails", zipCode);
-		logMessage("ASSERT PASSED :" + zipCode
-				+ " is verified in txt_memberDetails\n");
+		logMessage("ASSERT PASSED :" + zipCode + " is verified in txt_memberDetails\n");
 		isElementDisplayed("txt_additionalInfo", addressType.toLowerCase());
-		logMessage("ASSERT PASSED :" + addressType.toLowerCase()
-				+ " is verified in txt_memberDetails\n");
+		logMessage("ASSERT PASSED :" + addressType.toLowerCase() + " is verified in txt_memberDetails\n");
 		isElementDisplayed("txt_additionalInfo", contactId.trim());
-		logMessage("ASSERT PASSED : contact ID " + contactId.trim()
-				+ " is verified in txt_memberDetails\n");
+		logMessage("ASSERT PASSED : contact ID " + contactId.trim() + " is verified in txt_memberDetails\n");
 		if (!userEmail.equalsIgnoreCase("")) {
 			try {
 				isElementDisplayed("txt_userEmail", userEmail);
@@ -101,56 +94,36 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 				isElementDisplayed("txt_userEmail", userEmail);
 			}
 
-			logMessage("ASSERT PASSED :" + userEmail
-					+ " is verified in txt_memberDetails\n");
+			logMessage("ASSERT PASSED :" + userEmail + " is verified in txt_memberDetails\n");
 		}
 
 	}
 
-	public void verifyMemberDetails_OMA(String fName, String lName, String add,
-			String city, String zipCode, String addressType, String contactId,
-			String userEmail, String caseId) {
+	public void verifyMemberDetails_OMA(String fName, String lName, String add, String city, String zipCode,
+			String addressType, String contactId, String userEmail, String caseId) {
 		verifyElementTextContains("txt_memberDetails", fName);
-		logMessage("ASSERT PASSED :" + fName
-				+ " is verified in txt_memberDetails\n");
+		logMessage("ASSERT PASSED :" + fName + " is verified in txt_memberDetails\n");
 		verifyElementTextContains("txt_memberDetails", lName);
-		logMessage("ASSERT PASSED :" + lName
-				+ " is verified in txt_memberDetails\n");
-		if (getOmaSheetValue(caseId, "Has Summer mailing address?")
-				.equalsIgnoreCase("show")) {
-			String startDateInString = getOmaSheetValue(caseId,
-					"Select Summer mailing start day")
-					+ "/"
-					+ getOmaSheetValue(caseId,
-							"Select Summer mailing  start month");
-			String endDateInString = getOmaSheetValue(caseId,
-					"Select Summer mailing end month")
-					+ "/"
+		logMessage("ASSERT PASSED :" + lName + " is verified in txt_memberDetails\n");
+		if (getOmaSheetValue(caseId, "Has Summer mailing address?").equalsIgnoreCase("show")) {
+			String startDateInString = getOmaSheetValue(caseId, "Select Summer mailing start day") + "/"
+					+ getOmaSheetValue(caseId, "Select Summer mailing  start month");
+			String endDateInString = getOmaSheetValue(caseId, "Select Summer mailing end month") + "/"
 					+ getOmaSheetValue(caseId, "Select Summer mailing end day");
-			Date startDate = DateUtil.convertStringToDate(startDateInString,
-					"dd/MM");
-			Date endDate = DateUtil.convertStringToDate(endDateInString,
-					"dd/MM");
-			Date currentDate = DateUtil.convertStringToDate(
-					DateUtil.getCurrentdateInStringWithGivenFormate("dd/MM"),
+			Date startDate = DateUtil.convertStringToDate(startDateInString, "dd/MM");
+			Date endDate = DateUtil.convertStringToDate(endDateInString, "dd/MM");
+			Date currentDate = DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("dd/MM"),
 					"dd/MM");
 			if (currentDate.after(startDate) && currentDate.before(endDate)) {
-				verifyElementTextContains(
-						"txt_memberDetails",
+				verifyElementTextContains("txt_memberDetails",
 						getOmaSheetValue(caseId, "Enter Summer mailing address"));
-				logMessage("ASSERT PASSED :"
-						+ getOmaSheetValue(caseId,
-								"Enter Summer mailing address")
+				logMessage("ASSERT PASSED :" + getOmaSheetValue(caseId, "Enter Summer mailing address")
 						+ " is verified in txt_memberDetails\n");
-				verifyElementTextContains("txt_memberDetails",
-						getOmaSheetValue(caseId, "Enter  Summer city"));
-				logMessage("ASSERT PASSED :"
-						+ getOmaSheetValue(caseId, "Enter  Summer city")
+				verifyElementTextContains("txt_memberDetails", getOmaSheetValue(caseId, "Enter  Summer city"));
+				logMessage("ASSERT PASSED :" + getOmaSheetValue(caseId, "Enter  Summer city")
 						+ " is verified in txt_memberDetails\n");
-				verifyElementTextContains("txt_memberDetails",
-						getOmaSheetValue(caseId, "Enter  Summer zip code"));
-				logMessage("ASSERT PASSED :"
-						+ getOmaSheetValue(caseId, "Enter  Summer zip code")
+				verifyElementTextContains("txt_memberDetails", getOmaSheetValue(caseId, "Enter  Summer zip code"));
+				logMessage("ASSERT PASSED :" + getOmaSheetValue(caseId, "Enter  Summer zip code")
 						+ " is verified in txt_memberDetails\n");
 				isElementDisplayed("txt_additionalInfo", "seasonal");
 				logMessage("ASSERT PASSED : seasonal is verified in txt_memberDetails\n");
@@ -158,21 +131,16 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 		} else {
 			verifyElementTextContains("txt_memberDetails", add);
-			logMessage("ASSERT PASSED :" + add
-					+ " is verified in txt_memberDetails\n");
+			logMessage("ASSERT PASSED :" + add + " is verified in txt_memberDetails\n");
 			verifyElementTextContains("txt_memberDetails", city);
-			logMessage("ASSERT PASSED :" + city
-					+ " is verified in txt_memberDetails\n");
+			logMessage("ASSERT PASSED :" + city + " is verified in txt_memberDetails\n");
 			verifyElementTextContains("txt_memberDetails", zipCode);
-			logMessage("ASSERT PASSED :" + zipCode
-					+ " is verified in txt_memberDetails\n");
+			logMessage("ASSERT PASSED :" + zipCode + " is verified in txt_memberDetails\n");
 			isElementDisplayed("txt_additionalInfo", addressType.toLowerCase());
-			logMessage("ASSERT PASSED :" + addressType.toLowerCase()
-					+ " is verified in txt_memberDetails\n");
+			logMessage("ASSERT PASSED :" + addressType.toLowerCase() + " is verified in txt_memberDetails\n");
 		}
 		isElementDisplayed("txt_additionalInfo", contactId.trim());
-		logMessage("ASSERT PASSED : contact ID " + contactId.trim()
-				+ " is verified in txt_memberDetails\n");
+		logMessage("ASSERT PASSED : contact ID " + contactId.trim() + " is verified in txt_memberDetails\n");
 		if (!userEmail.equalsIgnoreCase("")) {
 			try {
 				isElementDisplayed("txt_userEmail", userEmail);
@@ -180,49 +148,38 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 				isElementDisplayed("txt_userEmail", userEmail);
 			}
 
-			logMessage("ASSERT PASSED :" + userEmail
-					+ " is verified in txt_memberDetails\n");
+			logMessage("ASSERT PASSED :" + userEmail + " is verified in txt_memberDetails\n");
 		}
 
 	}
 
-	public void verifyMemberDetails_AACTOMA(String caseId, String contactId,
-			String userEmail, String fName, String lName) {
-		if (getAACT_OmaSheetValue(caseId, "Affiliate Member").equalsIgnoreCase(
-				"Y")) {
+	public void verifyMemberDetails_AACTOMA(String caseId, String contactId, String userEmail, String fName,
+			String lName) {
+		if (getAACT_OmaSheetValue(caseId, "Affiliate Member").equalsIgnoreCase("Y")) {
 			String add = getAACT_OmaSheetValue(caseId, "Address Contact Page");
 			String city = getAACT_OmaSheetValue(caseId, "City Contact Page");
 
-			String zipCode = getAACT_OmaSheetValue(caseId,
-					"Zip code Contact Page");
-			String addressType = getAACT_OmaSheetValue(caseId,
-					"Address Type Contact Page");
-			System.out.println("------"
-					+ element("txt_memberDetails").getText());
+			String zipCode = getAACT_OmaSheetValue(caseId, "Zip code Contact Page");
+			String addressType = getAACT_OmaSheetValue(caseId, "Address Type Contact Page");
+			System.out.println("------" + element("txt_memberDetails").getText());
 			System.out.println("-----" + fName);
 			verifyElementTextContains("txt_memberDetails", fName);
-			logMessage("ASSERT PASSED :" + fName
-					+ " is verified in txt_memberDetails\n");
+			logMessage("ASSERT PASSED :" + fName + " is verified in txt_memberDetails\n");
 			verifyElementTextContains("txt_memberDetails", lName);
-			logMessage("ASSERT PASSED :" + lName
-					+ " is verified in txt_memberDetails\n");
+			logMessage("ASSERT PASSED :" + lName + " is verified in txt_memberDetails\n");
 			verifyElementTextContains("txt_memberDetails", add);
-			logMessage("ASSERT PASSED :" + add
-					+ " is verified in txt_memberDetails\n");
+			logMessage("ASSERT PASSED :" + add + " is verified in txt_memberDetails\n");
 			verifyElementTextContains("txt_memberDetails", city);
-			logMessage("ASSERT PASSED :" + city
-					+ " is verified in txt_memberDetails\n");
+			logMessage("ASSERT PASSED :" + city + " is verified in txt_memberDetails\n");
 			verifyElementTextContains("txt_memberDetails", zipCode);
-			logMessage("ASSERT PASSED :" + zipCode
-					+ " is verified in txt_memberDetails\n");
+			logMessage("ASSERT PASSED :" + zipCode + " is verified in txt_memberDetails\n");
 			// address type work is displayed instead of work/school
 			// isElementDisplayed("txt_additionalInfo",
 			// addressType.toLowerCase());
 			// logMessage("ASSERT PASSED :" + addressType.toLowerCase()
 			// + " is verified in txt_memberDetails\n");
 			isElementDisplayed("txt_additionalInfo", contactId.trim());
-			logMessage("ASSERT PASSED :" + contactId.trim()
-					+ " is verified in txt_additionalInfo\n");
+			logMessage("ASSERT PASSED :" + contactId.trim() + " is verified in txt_additionalInfo\n");
 			if (!userEmail.equalsIgnoreCase("")) {
 				try {
 					isElementDisplayed("txt_userEmail", userEmail);
@@ -230,43 +187,33 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 					isElementDisplayed("txt_userEmail", userEmail);
 				}
 
-				logMessage("ASSERT PASSED :" + userEmail
-						+ " is verified in txt_memberDetails\n");
+				logMessage("ASSERT PASSED :" + userEmail + " is verified in txt_memberDetails\n");
 			}
 		} else {
 			String add = getAACT_OmaSheetValue(caseId, "Address Contact Page");
 			String city = getAACT_OmaSheetValue(caseId, "City Contact Page");
 
-			String zipCode = getAACT_OmaSheetValue(caseId,
-					"Zip code Contact Page");
-			String addressType = getAACT_OmaSheetValue(caseId,
-					"Address Type Contact Page");
-			System.out.println("------"
-					+ element("txt_memberDetails").getText());
+			String zipCode = getAACT_OmaSheetValue(caseId, "Zip code Contact Page");
+			String addressType = getAACT_OmaSheetValue(caseId, "Address Type Contact Page");
+			System.out.println("------" + element("txt_memberDetails").getText());
 			System.out.println("-----" + fName);
 			verifyElementTextContains("txt_memberDetails", fName);
-			logMessage("ASSERT PASSED :" + fName
-					+ " is verified in txt_memberDetails\n");
+			logMessage("ASSERT PASSED :" + fName + " is verified in txt_memberDetails\n");
 			verifyElementTextContains("txt_memberDetails", lName);
-			logMessage("ASSERT PASSED :" + lName
-					+ " is verified in txt_memberDetails\n");
+			logMessage("ASSERT PASSED :" + lName + " is verified in txt_memberDetails\n");
 			verifyElementTextContains("txt_memberDetails", add);
-			logMessage("ASSERT PASSED :" + add
-					+ " is verified in txt_memberDetails\n");
+			logMessage("ASSERT PASSED :" + add + " is verified in txt_memberDetails\n");
 			verifyElementTextContains("txt_memberDetails", city);
-			logMessage("ASSERT PASSED :" + city
-					+ " is verified in txt_memberDetails\n");
+			logMessage("ASSERT PASSED :" + city + " is verified in txt_memberDetails\n");
 			verifyElementTextContains("txt_memberDetails", zipCode);
-			logMessage("ASSERT PASSED :" + zipCode
-					+ " is verified in txt_memberDetails\n");
+			logMessage("ASSERT PASSED :" + zipCode + " is verified in txt_memberDetails\n");
 			// address type work is displayed instead of work/school
 			// isElementDisplayed("txt_additionalInfo",
 			// addressType.toLowerCase());
 			// logMessage("ASSERT PASSED :" + addressType.toLowerCase()
 			// + " is verified in txt_memberDetails\n");
 			isElementDisplayed("txt_additionalInfo", contactId.trim());
-			logMessage("ASSERT PASSED :" + contactId.trim()
-					+ " is verified in txt_memberDetails\n");
+			logMessage("ASSERT PASSED :" + contactId.trim() + " is verified in txt_memberDetails\n");
 			if (!userEmail.equalsIgnoreCase("")) {
 				try {
 					isElementDisplayed("txt_userEmail", userEmail);
@@ -274,38 +221,30 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 					isElementDisplayed("txt_userEmail", userEmail);
 				}
 
-				logMessage("ASSERT PASSED :" + userEmail
-						+ " is verified in txt_memberDetails\n");
+				logMessage("ASSERT PASSED :" + userEmail + " is verified in txt_memberDetails\n");
 			}
 		}
 
 	}
 
-	public void verifyMemberDetails_AACTOMA_Individual(String caseId,
-			String userEmail, String fName, String lName) {
+	public void verifyMemberDetails_AACTOMA_Individual(String caseId, String userEmail, String fName, String lName) {
 
 		String add = getAACT_OmaSheetValue(caseId, "Address Contact Page");
 		String city = getAACT_OmaSheetValue(caseId, "City Contact Page");
 
 		String zipCode = getAACT_OmaSheetValue(caseId, "Zip code Contact Page");
-		String addressType = getAACT_OmaSheetValue(caseId,
-				"Address Type Contact Page");
+		String addressType = getAACT_OmaSheetValue(caseId, "Address Type Contact Page");
 
 		verifyElementTextContains("txt_memberDetails", fName);
-		logMessage("ASSERT PASSED :" + fName
-				+ " is verified in txt_memberDetails\n");
+		logMessage("ASSERT PASSED :" + fName + " is verified in txt_memberDetails\n");
 		verifyElementTextContains("txt_memberDetails", lName);
-		logMessage("ASSERT PASSED :" + lName
-				+ " is verified in txt_memberDetails\n");
+		logMessage("ASSERT PASSED :" + lName + " is verified in txt_memberDetails\n");
 		verifyElementTextContains("txt_memberDetails", add);
-		logMessage("ASSERT PASSED :" + add
-				+ " is verified in txt_memberDetails\n");
+		logMessage("ASSERT PASSED :" + add + " is verified in txt_memberDetails\n");
 		verifyElementTextContains("txt_memberDetails", city);
-		logMessage("ASSERT PASSED :" + city
-				+ " is verified in txt_memberDetails\n");
+		logMessage("ASSERT PASSED :" + city + " is verified in txt_memberDetails\n");
 		verifyElementTextContains("txt_memberDetails", zipCode);
-		logMessage("ASSERT PASSED :" + zipCode
-				+ " is verified in txt_memberDetails\n");
+		logMessage("ASSERT PASSED :" + zipCode + " is verified in txt_memberDetails\n");
 		// address type work is displayed instead of work/school
 		// isElementDisplayed("txt_additionalInfo", addressType.toLowerCase());
 		// logMessage("ASSERT PASSED :" + addressType.toLowerCase()
@@ -317,23 +256,18 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 				isElementDisplayed("txt_userEmail", userEmail);
 			}
 
-			logMessage("ASSERT PASSED :" + userEmail
-					+ " is verified in txt_memberDetails\n");
+			logMessage("ASSERT PASSED :" + userEmail + " is verified in txt_memberDetails\n");
 		}
 
 	}
 
 	public void verifyAACTMemberCreated(String caseId) {
 		isElementDisplayed("img_aactMember");
-		if (getAACT_OmaSheetValue(caseId, "Is Create Only Individual?")
-				.equalsIgnoreCase("Y")) {
-			Assert.assertTrue(element("img_aactMember").getAttribute("src")
-					.endsWith("delete1.gif"));
+		if (getAACT_OmaSheetValue(caseId, "Is Create Only Individual?").equalsIgnoreCase("Y")) {
+			Assert.assertTrue(element("img_aactMember").getAttribute("src").endsWith("delete1.gif"));
 			logMessage("ASSERT PASSED : AACT Individual Member created\n");
-		} else if (getAACT_OmaSheetValue(caseId, "Is Create Only Individual?")
-				.equalsIgnoreCase("N")) {
-			Assert.assertTrue(element("img_aactMember").getAttribute("src")
-					.endsWith("chkmk.gif"));
+		} else if (getAACT_OmaSheetValue(caseId, "Is Create Only Individual?").equalsIgnoreCase("N")) {
+			Assert.assertTrue(element("img_aactMember").getAttribute("src").endsWith("chkmk.gif"));
 			logMessage("ASSERT PASSED : AACT Member created\n");
 		} else {
 			logMessage("Value in Is Create Only Individual? column is null\n");
@@ -367,16 +301,13 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("ASSERT PASSED : IWEB product name is not present in data sheet\n");
 		} else {
 			isElementDisplayed(element, detailName);
-			logMessage("ASSERT PASSED : " + detailName
-					+ " is verified in IWEB in  element\n");
+			logMessage("ASSERT PASSED : " + detailName + " is verified in IWEB in  element\n");
 		}
 	}
 
-	private void verifyMemberProductDetails_Reinstate(String element,
-			String detailName, String invoiceNumber) {
+	private void verifyMemberProductDetails_Reinstate(String element, String detailName, String invoiceNumber) {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
-				"hiddenFieldTimeOut"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		flag = false;
 		if (detailName.equalsIgnoreCase("")) {
 			logMessage("ASSERT PASSED : IWEB product name is not present in data sheet\n");
@@ -391,14 +322,10 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 				wait.resetExplicitTimeout(timeOut);
 				for (int j = 1; j <= pageNumber; j++) {
 					for (int i = 0; i < elements(element, invoiceNumber).size(); i++) {
-						WebElement ele = elements(element, invoiceNumber)
-								.get(i);
-						flag = ele.getText().trim()
-								.equalsIgnoreCase(detailName);
+						WebElement ele = elements(element, invoiceNumber).get(i);
+						flag = ele.getText().trim().equalsIgnoreCase(detailName);
 						if (flag) {
-							logMessage("ASERT PASSED : " + detailName
-									+ " is verified in IWEB in " + element
-									+ "\n");
+							logMessage("ASERT PASSED : " + detailName + " is verified in IWEB in " + element + "\n");
 							clickOnPageLink(String.valueOf(1));
 							break;
 						}
@@ -414,14 +341,12 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 					WebElement ele = elements(element, invoiceNumber).get(i);
 					flag = ele.getText().trim().equalsIgnoreCase(detailName);
 					if (flag) {
-						logMessage("ASERT PASSED : " + detailName
-								+ " is verified in IWEB in " + element + "\n");
+						logMessage("ASERT PASSED : " + detailName + " is verified in IWEB in " + element + "\n");
 						break;
 					}
 				}
 			}
-			logMessage("ASSERT PASSED : " + detailName
-					+ " is verified in IWEB in  " + element + "\n");
+			logMessage("ASSERT PASSED : " + detailName + " is verified in IWEB in  " + element + "\n");
 		}
 	}
 
@@ -433,25 +358,20 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyMemberBenefitsDetail(String caseId, String invoiceNumber) {
 		navigateToProductsMenuOnHoveringMore();
-		verifyMemberProductDetails("txt_divisionPubName",
-				getOmaSheetValue(caseId, "Iweb Division Name?"));
-		verifyMemberProductDetails("txt_divisionPubName",
-				getOmaSheetValue(caseId, "Iweb LS Name?"));
+		verifyMemberProductDetails("txt_divisionPubName", getOmaSheetValue(caseId, "Iweb Division Name?"));
+		verifyMemberProductDetails("txt_divisionPubName", getOmaSheetValue(caseId, "Iweb LS Name?"));
 
 		verifyInvoiceNumber_AACT(invoiceNumber);
 		logMessage("ASSERT PASSED : member benefit details is verified in products menu \n");
 		navigateToSubscriptionMenuOnHoveringMore();
-		verifyMemberProductDetails("txt_divisionPubName",
-				getOmaSheetValue(caseId, "Iweb Pub Name?"));
+		verifyMemberProductDetails("txt_divisionPubName", getOmaSheetValue(caseId, "Iweb Pub Name?"));
 		logMessage("ASSERT PASSED : member benefit details is verified in subscriptions menu \n");
 
 	}
 
-	public void verifyMemberBenefitsDetail_AACTOMA(String caseId,
-			String invoiceNumber) {
+	public void verifyMemberBenefitsDetail_AACTOMA(String caseId, String invoiceNumber) {
 		navigateToProductsMenuOnHoveringMoreAACT();
-		verifyMemberProductDetails("txt_divisionPubName",
-				getAACT_OmaSheetValue(caseId, "IWEB AACT Product Name?"));
+		verifyMemberProductDetails("txt_divisionPubName", getAACT_OmaSheetValue(caseId, "IWEB AACT Product Name?"));
 		verifyInvoiceNumber_AACT(invoiceNumber);
 		logMessage("ASSERT PASSED : member benefit details is verified in products menu \n");
 		navigateToSubscriptionMenuOnHoveringMoreAACT();
@@ -460,15 +380,14 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : member benefit details is verified in subscriptions menu \n");
 	}
 
-	public void verifyMemberBenefitsDetail_Reinstate(String caseId,
-			String invoiceNumber) {
+	public void verifyMemberBenefitsDetail_Reinstate(String caseId, String invoiceNumber) {
 
 		navigateToProductsMenuOnHoveringMore();
 		// //verifyMemberProductDetails("txt_divisionPubName", iwebProductName);
 		verifyMemberProductDetails_Reinstate("txt_divisionPubName_reinstate",
 				getOmaSheetValue(caseId, "Iweb Division Name?"), invoiceNumber);
-		verifyMemberProductDetails_Reinstate("txt_divisionPubName_reinstate",
-				getOmaSheetValue(caseId, "Iweb LS Name?"), invoiceNumber);
+		verifyMemberProductDetails_Reinstate("txt_divisionPubName_reinstate", getOmaSheetValue(caseId, "Iweb LS Name?"),
+				invoiceNumber);
 
 		logMessage("ASSERT PASSED : member benefit details is verified in products menu \n");
 		navigateToSubscriptionMenuOnHoveringMore();
@@ -623,8 +542,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		} else {
 			isElementDisplayed("txt_numberOfyears");
 			verifyElementText("txt_numberOfyears", numberOfYears);
-			logMessage("ASSERT PASSED : " + numberOfYears
-					+ " total years of services in txt_numberOfyears\n");
+			logMessage("ASSERT PASSED : " + numberOfYears + " total years of services in txt_numberOfyears\n");
 		}
 	}
 
@@ -632,8 +550,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_numberOfyears");
 		String numberOfYears = element("txt_numberOfyears").getText();
 
-		logMessage("Step : total years of services for inactive member is "
-				+ numberOfYears);
+		logMessage("Step : total years of services for inactive member is " + numberOfYears);
 		return numberOfYears;
 	}
 
@@ -641,30 +558,25 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		String noOfYears = String.valueOf(numberOfYears + 1);
 		isElementDisplayed("txt_numberOfyears");
 		verifyElementText("txt_numberOfyears", noOfYears);
-		logMessage("ASSERT PASSED : " + noOfYears
-				+ " total years of services in txt_numberOfyears\n");
+		logMessage("ASSERT PASSED : " + noOfYears + " total years of services in txt_numberOfyears\n");
 
 	}
 
 	private void verifyInvoiceNumber_AACT(String invoiceNumber) {
 		isElementDisplayed("txt_invoiceAACT");
 		verifyElementTextContains("txt_invoiceAACT", invoiceNumber);
-		logMessage("ASSERT PASSED :" + invoiceNumber
-				+ " is verified in txt_invoiceAACT\n");
+		logMessage("ASSERT PASSED :" + invoiceNumber + " is verified in txt_invoiceAACT\n");
 	}
 
 	private void verifyInvoiceNumber(String invoiceNumber) {
 		isElementDisplayed("txt_invoiceValue");
 		verifyElementTextContains("txt_invoiceValue", invoiceNumber);
-		logMessage("ASSERT PASSED :" + invoiceNumber
-				+ " is verified in txt_memberDetails\n");
+		logMessage("ASSERT PASSED :" + invoiceNumber + " is verified in txt_memberDetails\n");
 	}
 
-	public String verifyIndividualDetails(String detailName,
-			String productName, String detailValue, String multiYear) {
+	public String verifyIndividualDetails(String detailName, String productName, String detailValue, String multiYear) {
 		if (detailValue.equalsIgnoreCase("")) {
-			logMessage("Step : value of " + productName
-					+ " price is empty in data sheet\n");
+			logMessage("Step : value of " + productName + " price is empty in data sheet\n");
 
 			return null;
 		} else {
@@ -672,34 +584,25 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 				int multiYearInInteger = Integer.parseInt(multiYear);
 				if (multiYearInInteger > 1) {
 					isElementDisplayed("txt_" + detailName, productName);
-					Float priceValueInSheet = Float.parseFloat(detailValue
-							.replaceAll("\\$", "")) * multiYearInInteger;
-					String formatedPrice = String.format("%.02f",
-							priceValueInSheet);
+					Float priceValueInSheet = Float.parseFloat(detailValue.replaceAll("\\$", "")) * multiYearInInteger;
+					String formatedPrice = String.format("%.02f", priceValueInSheet);
 					String PriceValueExpected = String.valueOf(formatedPrice);
 
-					String priceValueActual = element("txt_" + detailName,
-							productName).getText().trim();
-					Assert.assertTrue(priceValueActual
-							.equalsIgnoreCase(PriceValueExpected));
-					logMessage("ASSERT PASSED : " + priceValueActual
-							+ " is verified in txt_" + detailName + "\n");
+					String priceValueActual = element("txt_" + detailName, productName).getText().trim();
+					Assert.assertTrue(priceValueActual.equalsIgnoreCase(PriceValueExpected));
+					logMessage("ASSERT PASSED : " + priceValueActual + " is verified in txt_" + detailName + "\n");
 					return priceValueActual;
 				} else {
 					isElementDisplayed("txt_" + detailName, productName);
-					String priceValueActual = element("txt_" + detailName,
-							productName).getText().trim();
-					Float priceValueInSheet = Float.parseFloat(detailValue
-							.replaceAll("\\$", ""));
-					String formatedPrice = String.format("%.02f",
-							priceValueInSheet);
+					String priceValueActual = element("txt_" + detailName, productName).getText().trim();
+					Float priceValueInSheet = Float.parseFloat(detailValue.replaceAll("\\$", ""));
+					String formatedPrice = String.format("%.02f", priceValueInSheet);
 					String PriceValueExpected = String.valueOf(formatedPrice);
 					System.out.println(priceValueActual);
 					System.out.println(PriceValueExpected);
-					Assert.assertTrue(priceValueActual
-							.equalsIgnoreCase(PriceValueExpected));
-					logMessage("ASSERT PASSED : " + priceValueActual
-							+ " price is verified in txt_" + detailName + "\n");
+					Assert.assertTrue(priceValueActual.equalsIgnoreCase(PriceValueExpected));
+					logMessage(
+							"ASSERT PASSED : " + priceValueActual + " price is verified in txt_" + detailName + "\n");
 
 					return priceValueActual;
 				}
@@ -710,32 +613,25 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public String verifyIndividualDetails_AACTOMA(String detailName,
-			String productName, String detailValue) {
+	public String verifyIndividualDetails_AACTOMA(String detailName, String productName, String detailValue) {
 		if (detailValue.equalsIgnoreCase("")) {
-			logMessage("Step : value of " + productName
-					+ " price is empty in data sheet\n");
+			logMessage("Step : value of " + productName + " price is empty in data sheet\n");
 			return null;
 		} else {
 
 			isElementDisplayed("txt_" + detailName, productName);
-			String priceValueActual = element("txt_" + detailName, productName)
-					.getText().trim();
-			String formatedPrice = String.format("%.02f",
-					Float.parseFloat(detailValue));
+			String priceValueActual = element("txt_" + detailName, productName).getText().trim();
+			String formatedPrice = String.format("%.02f", Float.parseFloat(detailValue));
 			String PriceValueExpected = String.valueOf(formatedPrice);
-			Assert.assertTrue(priceValueActual
-					.equalsIgnoreCase(PriceValueExpected));
-			logMessage("ASSERT PASSED : " + priceValueActual
-					+ " price is verified in txt_" + detailName + "\n");
+			Assert.assertTrue(priceValueActual.equalsIgnoreCase(PriceValueExpected));
+			logMessage("ASSERT PASSED : " + priceValueActual + " price is verified in txt_" + detailName + "\n");
 			return priceValueActual;
 
 		}
 
 	}
 
-	public void verifyIndividualProfileDetails(String caseId,
-			String[] quantities) {
+	public void verifyIndividualProfileDetails(String caseId, String[] quantities) {
 
 		expandDetailsMenu("individual memberships");
 		clickOnButtonToNavigateFinancialPageInMembershipPage();
@@ -743,78 +639,60 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		expandDetailsMenu("invoices");
 
 		wait.waitForPageToLoadCompletely();
-		verifyIndividualDetails("priceValue",
-				getOmaSheetValue(caseId, "Iweb Product Name?"),
-				getPriceSheetValue(caseId, "Price value?"),
-				getOmaSheetValue(caseId, "multiYearDecision"));
+		verifyIndividualDetails("priceValue", getOmaSheetValue(caseId, "Iweb Product Name?"),
+				getPriceSheetValue(caseId, "Price value?"), getOmaSheetValue(caseId, "multiYearDecision"));
 
-		String payment = verifyIndividualDetails("payment",
-				getOmaSheetValue(caseId, "Iweb Product Name?"),
-				getPriceSheetValue(caseId, "Price value?"),
-				getOmaSheetValue(caseId, "multiYearDecision"));
+		String payment = verifyIndividualDetails("payment", getOmaSheetValue(caseId, "Iweb Product Name?"),
+				getPriceSheetValue(caseId, "Price value?"), getOmaSheetValue(caseId, "multiYearDecision"));
 		Float paymentInFloat = Float.parseFloat(payment.replace("$", ""));
 
-		String balance = verifyIndividualDetails("balance",
-				getOmaSheetValue(caseId, "Iweb Product Name?"), "0.00",
+		String balance = verifyIndividualDetails("balance", getOmaSheetValue(caseId, "Iweb Product Name?"), "0.00",
 				getOmaSheetValue(caseId, "multiYearDecision"));
 		Float balanceInFloat = Float.parseFloat(balance.replace("$", ""));
 		String total = String.valueOf(paymentInFloat + balanceInFloat);
 
-		verifyIndividualDetails("total",
-				getOmaSheetValue(caseId, "Iweb Product Name?"), total, "1");
+		verifyIndividualDetails("total", getOmaSheetValue(caseId, "Iweb Product Name?"), total, "1");
 
 		Float a1 = Float.parseFloat(quantities[0]);
 		int quantity_Prod = (int) Math.round(a1);
 		String quantity_Product = String.valueOf(quantity_Prod);
 
-		verifyIndividualDetails("quantity",
-				getOmaSheetValue(caseId, "Iweb Product Name?"),
-				quantity_Product, "1");
+		verifyIndividualDetails("quantity", getOmaSheetValue(caseId, "Iweb Product Name?"), quantity_Product, "1");
 
-		verifyStartAndEndDateInFinancialInvoice(
-				getOmaSheetValue(caseId, "Iweb Product Name?"), caseId);
+		verifyStartAndEndDateInFinancialInvoice(getOmaSheetValue(caseId, "Iweb Product Name?"), caseId);
 
 		element("lnk_lastName").click();
 	}
 
-	public void verifyIndividualProfileDetails_AACTOMA(String caseId,
-			String[] quantities) {
+	public void verifyIndividualProfileDetails_AACTOMA(String caseId, String[] quantities) {
 		expandDetailsMenuAACT("individual memberships");
 		clickOnButtonToNavigateFinancialPageInMembershipPage();
 		expandDetailsMenuAACT("invoices");
-		verifyIndividualDetails_AACTOMA("priceValue",
-				getAACT_OmaSheetValue(caseId, "Iweb AACT Product Name?"),
+		verifyIndividualDetails_AACTOMA("priceValue", getAACT_OmaSheetValue(caseId, "Iweb AACT Product Name?"),
 				getAACT_OmaSheetValue(caseId, "Product Subtotal?"));
 		String payment = verifyIndividualDetails_AACTOMA("payment",
 				getAACT_OmaSheetValue(caseId, "Iweb AACT Product Name?"),
 				getAACT_OmaSheetValue(caseId, "Product Subtotal?"));
 		Float paymentInFloat = Float.parseFloat(payment);
 		String balance = verifyIndividualDetails_AACTOMA("balance",
-				getAACT_OmaSheetValue(caseId, "Iweb AACT Product Name?"),
-				"0.00");
+				getAACT_OmaSheetValue(caseId, "Iweb AACT Product Name?"), "0.00");
 		Float balanceInFloat = Float.parseFloat(balance);
 		String total = String.valueOf(paymentInFloat + balanceInFloat);
-		verifyIndividualDetails("total",
-				getAACT_OmaSheetValue(caseId, "Iweb AACT Product Name?"),
-				total, "1");
-		verifyStartAndEndDateInFinancialInvoice(
-				getAACT_OmaSheetValue(caseId, "Iweb AACT Product Name?"),
-				caseId);
+		verifyIndividualDetails("total", getAACT_OmaSheetValue(caseId, "Iweb AACT Product Name?"), total, "1");
+		verifyStartAndEndDateInFinancialInvoice(getAACT_OmaSheetValue(caseId, "Iweb AACT Product Name?"), caseId);
 		element("lnk_lastName").click();
 	}
 
 	private void expandDetailsMenu(String menuName) {
 		isElementDisplayed("btn_memberShip", menuName);
 		element("btn_memberShip", menuName).click();
-		logMessage("Step : " + menuName
-				+ " is clicked to expand in btn_memberShip\n");
+		logMessage("Step : " + menuName + " is clicked to expand in btn_memberShip\n");
 	}
 
 	private void expandDetailsMenuAACT(String menuName) {
 		isElementDisplayed("btn_memberShipAACT", menuName);
 		element("btn_memberShipAACT", menuName).click();
-		logMessage("Step : " + menuName
-				+ " is clicked to expand in btn_memberShipAACT\n");
+		logMessage("Step : " + menuName + " is clicked to expand in btn_memberShipAACT\n");
 	}
 
 	private void clickOnButtonToNavigateFinancialPageInMembershipPage() {
@@ -828,54 +706,51 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		return element("txt_contactId").getText();
 	}
 
-	public void verifyStartAndEndDateInFinancialInvoice(String productName,
-			String caseId) {
+	public void verifyStartAndEndDateInFinancialInvoice(String productName, String caseId) {
 		String multiYear = getOmaSheetValue(caseId, "multiYearDecision");
 		verifyStartAndEndDate("StartDate", productName, caseId, multiYear);
 		verifyStartAndEndDate("EndDate", productName, caseId, multiYear);
 	}
 
-	public void verifyStartAndEndDate(String start_EndDate, String productName,
-			String caseId, String multiYear) {
-		String currentDate = DateUtil
-				.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY",
-						"EST5EDT");
-		String nextYearDate = DateUtil
-				.getAddYearWithLessOnedayInStringWithGivenFormate("M/d/YYYY",
-						multiYear, "EST5EDT");
+	public void verifyStartAndEndDate(String start_EndDate, String productName, String caseId, String multiYear) {
+		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY", "EST5EDT");
+		String nextYearDate = DateUtil.getAddYearWithLessOnedayInStringWithGivenFormate("M/d/YYYY", multiYear,
+				"EST5EDT");
 		isElementDisplayed("txt_term" + start_EndDate, productName);
 		if (start_EndDate.equalsIgnoreCase("StartDate")) {
-			Assert.assertTrue(element("txt_term" + start_EndDate, productName)
-					.getText().trim().equalsIgnoreCase(currentDate));
-			logMessage("AASERT PASSED : termStartDate is " + currentDate
-					+ " verified");
+			Assert.assertTrue(
+					element("txt_term" + start_EndDate, productName).getText().trim().equalsIgnoreCase(currentDate));
+			logMessage("AASERT PASSED : termStartDate is " + currentDate + " verified");
 		} else if (start_EndDate.equalsIgnoreCase("EndDate")) {
-			Assert.assertTrue(element("txt_term" + start_EndDate, productName)
-					.getText().trim().equalsIgnoreCase(nextYearDate));
-			logMessage("AASERT PASSED : termEndDate is " + nextYearDate
-					+ " verified");
+			Assert.assertTrue(
+					element("txt_term" + start_EndDate, productName).getText().trim().equalsIgnoreCase(nextYearDate));
+			logMessage("AASERT PASSED : termEndDate is " + nextYearDate + " verified");
 		}
 
 	}
 
 	public void waitForSpinner() {
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
 			handleAlert();
-			
+			wait.resetImplicitTimeout(0);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("img_spinner");
-			wait.waitForElementToDisappear(element("img_spinner"));
 			logMessage("STEP : wait for spinner to be disappeared \n");
-			
-		} catch (NoSuchElementException | AssertionError Exp) {
-			
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+		} catch (Exception Exp) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
 			logMessage("STEP : spinner is not present \n");
 		}
 	}
 
-	public void navigateToMembershipProfilePage(){
+	public void navigateToMembershipProfilePage() {
 		expandDetailsMenu("individual memberships");
 		clickOnButtonToNavigateFinancialPageInMembershipPage();
 	}
-	
+
 	
 }

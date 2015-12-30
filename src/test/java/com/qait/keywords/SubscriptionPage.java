@@ -224,7 +224,7 @@ public class SubscriptionPage extends GetPage {
 		String currentDateEST = DateUtil
 				.getCurrentdateInStringWithGivenFormateForTimeZone("MM/d/YYYY",
 						"EST5EDT");
-		verifySubscriptionDetail("start date:", currentDateEST);
+		//verifySubscriptionDetail("start date:", currentDateEST);
 		// verifySubscriptionDetail("time:", time);
 		verifySubscriptionDetail("scheduled task completed?",
 				scheduledTaskCompleted);
@@ -317,7 +317,7 @@ public class SubscriptionPage extends GetPage {
 		String dateWithTimeSlabInString = sdf.format(dateAfterMinutesAdded);
 		enterStartTimeInCommitPreview(dateWithTimeSlabInString);
 		clickOnSaveButton();
-		wait.hardWait(1);
+		wait.hardWait(5);
 		switchToDefaultContent();
 		commitStartTime = dateWithTimeSlabInString;
 		return commitStartTime;

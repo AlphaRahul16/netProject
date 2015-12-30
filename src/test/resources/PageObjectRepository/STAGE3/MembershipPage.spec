@@ -3,6 +3,7 @@ Page Title: MembershipPage
 #Object Definitions
 ==============================================================================================================================================
 hd_sideBar                                          xpath                  //a[text()='${Query Membership}']
+hd_sideBarOuter                                           xpath                 //h3[text()='${sideBarName}']
 hd_page                                             xpath                   //span[@class='PageTitle']
 list_existingQuery                                   id                        SavedQueriesDropDownList
 img_spinner                                          css                     #__UPIMG
@@ -118,4 +119,6 @@ lnk_invoice_number                                 xpath                        
 lnk_first_invoice_number                           xpath                        (//table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3])[1] 
 txt_webLogin                                       id                            F1_cst_web_login
 btn_arrowRightCircle                             xpath                          (//i[@class='iconpro-circle-arrow-right'])[1]
+link_tabsOnModule                                 xpath                          //a[text()='${value}']
+btn_tabs                                            css                        .iconpad[src='../images/puzzle-icon.png']
 ==============================================================================================================================================

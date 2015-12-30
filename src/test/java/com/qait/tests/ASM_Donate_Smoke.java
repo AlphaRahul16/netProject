@@ -44,6 +44,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
 				.getYamlValue("ASM_URLRejectedErrorMsz"));
+		
 
 	}
 

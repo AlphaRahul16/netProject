@@ -8,14 +8,18 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.Assert;
 import org.testng.Reporter;
 
 
@@ -52,7 +56,7 @@ import com.qait.keywords.SubscriptionPage;
 
 public class TestSessionInitiator {
 
-	protected WebDriver driver;
+	protected static WebDriver driver;
 	private final WebDriverFactory wdfactory;
 	String browser;
 	String seleniumserver;
@@ -263,6 +267,22 @@ public class TestSessionInitiator {
 		}
 
 	}
+	public static boolean closeAllOtherWindows(String openWindowHandle) {
+		Set<String> allWindowHandles = driver.getWindowHandles();
+		for (String currentWindowHandle : allWindowHandles) {
+			if (!currentWindowHandle.equals(openWindowHandle)) {
+				driver.switchTo().window(currentWindowHandle);
+				driver.close();
+			}
+		}
+		
+		driver.switchTo().window(openWindowHandle);
+		if (driver.getWindowHandles().size() == 1)
+			return true;
+		else
+			return false;
+	}
+
 
 	public void navigateToURL(String baseURL) {
 
@@ -286,15 +306,18 @@ public class TestSessionInitiator {
 			robot.keyRelease(KeyEvent.VK_T);
 			String base = driver.getWindowHandle();
 			Set<String> set = driver.getWindowHandles();
-			set.remove(base);
-			assert set.size() == 1;
-			driver.switchTo().window((String) set.toArray()[0]);
-		driver.navigate().to(baseURL);
+			Assert.assertTrue(closeAllOtherWindows(base));
+//			set.remove(base);
+//			assert set.size() == 1;
+//			driver.switchTo().window((String) set.toArray()[0]);
+			driver.get(baseURL);
 		Reporter.log("\nThe application url is :- " + baseURL, true);
 		}
 	catch (AWTException e) {
+		driver.get(baseURL);
 		e.printStackTrace();
-	}
+	} 
+
 
 	}
 	}

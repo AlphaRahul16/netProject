@@ -23,6 +23,7 @@ csv-data-file:
   path_PriceValue: ./src/test/resources/TestDataLibrary/PriceValues.csv
   path_AACT_OMA: ./src/test/resources/TestDataLibrary/AACT_OMA_Data_Sheet.csv
   path_ACS_Store: ./src/test/resources/TestDataLibrary/ACS_Store_Sheet.csv
+  path_giving_donate: ./src/test/resources/TestDataLibrary/DonateDataSheet.csv
   data-separator: '\t'
   has-header: true
   
@@ -516,7 +517,7 @@ ACS_Store:
     maxWaitTimeForPrintMessage: 30
     members:
          member1: 
-            CASEID: 2
+            CASEID: 1
                  
                   
 ASM_URLRejectedErrorMsz: "We aren't able to complete your request in the staging environment"
