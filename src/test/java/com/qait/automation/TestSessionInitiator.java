@@ -22,7 +22,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 import org.testng.Reporter;
 
-
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.TakeScreenshot;
 import com.qait.keywords.ASMErrorPage;
@@ -41,6 +40,7 @@ import com.qait.keywords.ASM_PUBSPage;
 import com.qait.keywords.ASM_StorePage;
 import com.qait.keywords.ASM_emailPage;
 import com.qait.keywords.ASM_memberNumberLookupPage;
+import com.qait.keywords.AddMemeber_IWEB;
 import com.qait.keywords.BenefitsPage;
 import com.qait.keywords.CheckoutPage;
 import com.qait.keywords.ConfirmationPage;
@@ -100,6 +100,7 @@ public class TestSessionInitiator {
 	public ASM_EGiftPage asm_EGiftPage;
 	public SubscriptionPage subscriptionPage;
 	public MemberShipRenewalPage membershipRenewalPage;
+	public AddMemeber_IWEB addMember;
 
 	public TakeScreenshot takescreenshot;
 
@@ -136,6 +137,7 @@ public class TestSessionInitiator {
 		asm_EGiftPage = new ASM_EGiftPage(driver);
 		subscriptionPage = new SubscriptionPage(driver);
 		membershipRenewalPage = new MemberShipRenewalPage(driver);
+		addMember= new AddMemeber_IWEB(driver);
 	}
 
 	/**
@@ -207,6 +209,7 @@ public class TestSessionInitiator {
 			e.printStackTrace();
 
 		}
+	
 	}
 
 	public void openUrl(String url) {
@@ -289,11 +292,38 @@ public class TestSessionInitiator {
 		driver.navigate().to(baseURL);
 		Reporter.log("\nThe application url is :- " + baseURL, true);
 	}
+
 	public void navigateToIWEBUrlOnNewBrowserTab(String baseURL) {
-		if(_getSessionConfig().get("browser").equalsIgnoreCase("firefox")||_getSessionConfig().get("browser").equalsIgnoreCase("ie"))
-		{
+		if (_getSessionConfig().get("browser").equalsIgnoreCase("firefox")
+				|| _getSessionConfig().get("browser").equalsIgnoreCase("ie")) {
 			openUrl(baseURL);
+		} else if (_getSessionConfig().get("browser")
+				.equalsIgnoreCase("chrome")) {
+			Robot robot;
+			try {
+				robot = new Robot();
+				robot.delay(2000);
+				robot.keyPress(KeyEvent.VK_CONTROL);
+				robot.keyPress(KeyEvent.VK_T);
+				robot.keyRelease(KeyEvent.VK_CONTROL);
+				robot.keyRelease(KeyEvent.VK_T);
+				// String base = driver.getWindowHandle();
+				//
+				// Set<String> set = driver.getWindowHandles();
+				for (String s : driver.getWindowHandles()) {
+					driver.switchTo().window(s);
+				}
+				// set.remove(base);
+				// assert set.size() == 1;
+				// driver.switchTo().window((String) set.toArray()[0]);
+				driver.navigate().to(baseURL);
+				Reporter.log("\nThe application url is :- " + baseURL, true);
+			} catch (AWTException e) {
+				e.printStackTrace();
+			}
+
 		}
+
 	else	if(_getSessionConfig().get("browser").equalsIgnoreCase("chrome"))
 		{
 		Robot robot;
@@ -319,8 +349,7 @@ public class TestSessionInitiator {
 	} 
 
 
+
+		}
 	}
-	}
-	
-	
 }

@@ -22,10 +22,6 @@ public class ACS_Create_Member_Test {
 	TestSessionInitiator test;
 	YamlInformationProvider getKeyValue;
 
-	String csvdatafilepath_OMA = getYamlValue("csv-data-file.path_OMA");
-	String csvdatafilepath_PriceValues = getYamlValue("csv-data-file.path_PriceValue");
-	String csvSeparator = getYamlValue("csv-data-file.data-separator");
-
 	String memberName, productSubTotal, Total, userEmail;
 	String[] userDetail;
 	String[] memberDetail, quantities;

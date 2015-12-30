@@ -57,4 +57,6 @@ lnk_print_receipt             css                     a[href*='ReportPDF']
 invoice_number                xpath                   .//*[@id='pageContainer1']/xhtml:div[2]/xhtml:div[54]
 txt_mailing_address           xpath                   //span[@class='DataFormTextBox' and contains(@id,'mailing_label')]
 btn_newShip                   xpath                    //input[@value='NewShip']
+lnk_invoiceHeading            xpath                    //th/a[@class='DataFormListTDDataGridHeaderLink' and contains(text(),'Transaction Date')]
+
 =================================================================================================================================

@@ -224,10 +224,12 @@ public class SubscriptionPage extends GetPage {
 		String currentDateEST = DateUtil
 				.getCurrentdateInStringWithGivenFormateForTimeZone("MM/d/YYYY",
 						"EST5EDT");
-		//verifySubscriptionDetail("start date:", currentDateEST);
+
+    //		verifySubscriptionDetail("start date:", currentDateEST);
 		// verifySubscriptionDetail("time:", time);
 		verifySubscriptionDetail("scheduled task completed?",
 				scheduledTaskCompleted);
+		wait.hardWait(3);
 		verifySubscriptionDetail("preview status:", previewStatus);
 		verifySubscriptionDetail("commit scheduled task?", commitScheduledTask);
 		verifyFulfillmentType("fulfillment type:", fulfillmentType);

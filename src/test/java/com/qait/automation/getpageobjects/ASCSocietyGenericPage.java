@@ -3,22 +3,12 @@ package com.qait.automation.getpageobjects;
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 import static com.qait.automation.utils.DataProvider.csvReaderRowSpecific;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.List;
-
+import java.util.HashMap;
 import junit.framework.Assert;
-
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Reporter;
-
-import com.google.common.io.Files;
 import com.qait.automation.utils.DataProvider;
 import com.qait.automation.utils.LayoutValidation;
 import com.qait.automation.utils.YamlReader;
@@ -29,7 +19,10 @@ public class ASCSocietyGenericPage extends GetPage {
 	String pageName;
 	LayoutValidation layouttest;
 	String csvSeparator = getYamlValue("csv-data-file.data-separator");
-	int timeOut, hiddenFieldTimeOut;
+	int timeOut, hiddenFieldTimeOut, numberOfColumns;
+	static int count;
+	ArrayList<String> listOfCaseIdToExecute = new ArrayList<>();
+	public static HashMap<String, String> hashMap = new HashMap<String, String>();
 
 	public ASCSocietyGenericPage(WebDriver driver, String pageName) {
 		super(driver, pageName);
@@ -91,34 +84,40 @@ public class ASCSocietyGenericPage extends GetPage {
 				"hiddenFieldTimeOut"));
 		if (visibility.equalsIgnoreCase("hide")) {
 			try {
-				Reporter.log("Waiting for the element: " + element + " "+replacementText
-						+ " to not to show up\n", true);
+				Reporter.log("Waiting for the element: " + element + " "
+						+ replacementText + " to not to show up\n", true);
 				wait.resetImplicitTimeout(0);
 				wait.resetExplicitTimeout(hiddenFieldTimeOut);
-				isElementDisplayed(element,replacementText); // this is expected to throw
+				isElementDisplayed(element, replacementText); // this is
+																// expected to
+																// throw
 				// exception as element is
 				// hidden
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
 				Assert.fail("ASSERT FAILED: "
-						+ element + " "+replacementText
+						+ element
+						+ " "
+						+ replacementText
 						+ " is found visible even though it is expected to be hidden\n");
 			} catch (NoSuchElementException e) {
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
-				logMessage("ASSERT PASS: " + element + " "+replacementText + " is hidden\n");
+				logMessage("ASSERT PASS: " + element + " " + replacementText
+						+ " is hidden\n");
 			}
 		} else if (visibility.equalsIgnoreCase("show")) {
 			try {
 				wait.resetImplicitTimeout(0);
 				wait.resetExplicitTimeout(hiddenFieldTimeOut);
-				isElementDisplayed(element,replacementText);
+				isElementDisplayed(element, replacementText);
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
 			} catch (NoSuchElementException e) {
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
-				logMessage("ASSERT FAILED: " + element + " "+replacementText+" is Show\n");
+				logMessage("ASSERT FAILED: " + element + " " + replacementText
+						+ " is Show\n");
 				throw new NoSuchElementException(
 						"visibility' field is not displayed in Application.\n");
 			}
@@ -154,7 +153,9 @@ public class ASCSocietyGenericPage extends GetPage {
 				DataProvider.getColumnNumber_AACTOMA(valueFromDataSheet))
 				.trim();
 	}
-	public String getACS_Store_SheetValue(String caseId, String valueFromDataSheet) {
+
+	public String getACS_Store_SheetValue(String caseId,
+			String valueFromDataSheet) {
 		String csvLine = csvReaderRowSpecific(
 				getYamlValue("csv-data-file.path_ACS_Store"),
 				getYamlValue("csv-data-file.has-header"), caseId);
@@ -173,6 +174,39 @@ public class ASCSocietyGenericPage extends GetPage {
 	}
 
 
+
+	public String getCreateMember_SheetValue(String caseId,
+			String valueFromDataSheet) {
+		String csvLine = csvReaderRowSpecific(
+				getYamlValue("csv-data-file.path_createMember"),
+				getYamlValue("csv-data-file.has-header"), caseId);
+		return DataProvider.getSpecificColumnFromCsvLine(csvLine, csvSeparator,
+				DataProvider.getColumnNumber_CreateMember(valueFromDataSheet))
+				.trim();
+	}
+
+	public void addValuesInMap(String sheetName, String caseID) {
+		YamlReader.setYamlFilePath();
+		String csvLine = csvReaderRowSpecific(
+				getYamlValue("csv-data-file.path_" + sheetName), "false",
+				String.valueOf(1));
+		String csvLine1 = csvReaderRowSpecific(
+				getYamlValue("csv-data-file.path_" + sheetName), "true",
+				String.valueOf(caseID));
+		numberOfColumns = csvLine.split(csvSeparator).length;
+		for (int i = 1; i < numberOfColumns; i++) {
+			
+			hashMap.put(csvLine.split(csvSeparator)[i], DataProvider
+					.getSpecificColumnFromCsvLine(csvLine1, csvSeparator, i)
+					.trim());
+		}
+
+
+	}
+	
+	public HashMap<String, String> map(){
+		return hashMap;
+	}
 
 }
 

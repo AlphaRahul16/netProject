@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="ACS Publications PageBuilder Automated Tests" verbose="1" data-provider-thread-count="2" thread-count="2" parallel="classes">
+    <test name="Content Browse Template Test for all Journals" thread-count="2" parallel="instances">
+        <classes>
+            <class name="com.qait.tests.ACS_Create_Member_IWEB_Test" />
+        </classes>
+    </test>
+</suite>
