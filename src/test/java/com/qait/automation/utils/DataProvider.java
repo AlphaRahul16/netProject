@@ -7,8 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+
 
 public class DataProvider {
 	static String ASM_dataSheet = YamlReader.getYamlValue("ASM_Data_File.path");
@@ -164,6 +164,21 @@ public class DataProvider {
 		return -1;
 
 	}
+	
+	public static int getColumnNumber_ACS_Giving(String columnName) {
+		String csvdatafilepath = getYamlValue("csv-data-file.path_giving_donate");
+		String csvSeparator = getYamlValue("csv-data-file.data-separator");
+		String firstCSVLine = csvReaderRowSpecific(csvdatafilepath, "false",
+				"1");
+		String[] arr = firstCSVLine.split(csvSeparator);
+		for (int i = 0; i <= arr.length - 1; i++) {
+			if (arr[i].trim().equalsIgnoreCase(columnName)) {
+				return i;
+			}
+		}
+		return -1;
+
+	}
 
 	public static int getColumnNumber_CreateMember(String columnName) {
 		String csvdatafilepath = getYamlValue("csv-data-file.path_createMember");
@@ -228,7 +243,7 @@ public class DataProvider {
 		} catch (ArrayIndexOutOfBoundsException ex) {
 		}
 		return columnData.replace("\\\"", "\"");
-	}
+	}	
 
 	public static List<String> getcaseIdToExecute(String executeColumnName,
 			String executeColumnValue, String caseIdColumnName, String sheetName) {

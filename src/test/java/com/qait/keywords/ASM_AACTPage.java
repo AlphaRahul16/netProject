@@ -419,4 +419,9 @@ public class ASM_AACTPage extends ASCSocietyGenericPage {
 
 	}
 
+	public void verifyMemberOrNonMemberDetails() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

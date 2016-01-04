@@ -4,6 +4,7 @@ Page Title: ASM_DonatePage
 =============================================================================================================================================================
 inp_DonateProgram                             xpath                       //span[text()='${donateName}']/../following-sibling::div[@class='donate']/input
 btn_login                                     xpath                       //a[text()='Log In']
+btn_memlogin                                  css                         #btnMember
 rad_acsId                                     xpath                       //input[contains(@id,'Login4')]
 inp_username                                  xpath                       //input[contains(@id,'Credential1')]
 inp_password                                  xpath                       //input[contains(@id,'Credential2')]
@@ -33,4 +34,23 @@ inp_to                                        id                          cardTo
 inp_postalMailInfo                            xpath                       //input[contains(@id,'Post${postalMailInfo}')]
 list_postalMailInfo                           xpath                       //select[contains(@id,'Post${postalMailInfo}')]
 txt_creditCardError                           xpath                       //span[contains(@id,'CreditCard_lblError')]
+txt_productNames                              xpath                            .//*[@id='dgDynamicList']/tbody/tr/td[3]
+txt_product_displayName                       xpath                           (//td[contains(text(),'${productName}')])[1]/following-sibling::td[1]
+txt_product_Code                              xpath                             (//td[contains(text(),'${productName}')])[1]/following-sibling::td[2]
+txt_totalamount                               css                             #total-amt
+txt_totalOnDonationPage                       css                             #lblTotal
+txt_PhoneNo                                  xpath                        //label[text()='Phone:']/../span
+txt_Email                                     css                          a[href*='mailto']
+txt_Address                                   xpath                        .//*[@id='F1_cxa_mailing_label_html']
+txtbox_inpfeild                               xpath                        (//label[contains(text(),'${value}')]/following-sibling::input)[1]
+drpdwn_country                                xpath                        //*[contains(text(),'${value}')]/following-sibling::select/option[@selected]
+txt_inpName                                   xpath                        //label[contains(text(),'Name')]/following-sibling::b/span
+txt_confirmDonation_product                   xpath                          //td[@class='program']/span/span
+txt_confirmDonation_amount                    xpath                         //td[@class='program']/span/span[contains(text(),'${value}')]/../../following-sibling::td/span
+inp_recipientPersonalisedMsg                  id                            cardMessage
+txt_thankYouMessage                           css                            .yui-u.first.confirmation-message>p:nth-child(2)
+lnk_printReceipt                              css                            .print-receipt>a
+txt_confirmationEmailBox                      css                             .yui-g.confirmation-box>p
+btn_loginMember                               id                               btnMemberLogin
+txt_DonateProgram                             xpath                            //span[text()='${donateName}']
 =============================================================================================================================================================

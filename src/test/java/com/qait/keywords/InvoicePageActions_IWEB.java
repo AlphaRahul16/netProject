@@ -269,13 +269,11 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		} else {
 			isElementDisplayed("txt_invoiceValues", detailName);
 			String detailValueWithOutDollar = detailValue.replace("$", "");
-			System.out
-					.println("actual:"
-							+ element("txt_invoiceValues", detailName)
-									.getText().trim());
-			System.out.println("exp:" + detailValueWithOutDollar);
-			Assert.assertTrue(element("txt_invoiceValues", detailName)
-					.getText().trim()
+
+			System.out.println(detailValueWithOutDollar);
+			System.out.println(element("txt_invoiceValues", detailName).getText().trim());
+			Assert.assertTrue(element("txt_invoiceValues", detailName).getText().trim()
+
 					.equalsIgnoreCase(detailValueWithOutDollar));
 			logMessage("ASSERT PASSED : " + detailValueWithOutDollar
 					+ " is verified in txt_" + detailName + "\n");

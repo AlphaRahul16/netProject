@@ -3,17 +3,12 @@ package com.qait.automation.getpageobjects;
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 import static com.qait.automation.utils.DataProvider.csvReaderRowSpecific;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
 import junit.framework.Assert;
-
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Reporter;
-
 import com.qait.automation.utils.DataProvider;
 import com.qait.automation.utils.LayoutValidation;
 import com.qait.automation.utils.YamlReader;
@@ -61,6 +56,7 @@ public class ASCSocietyGenericPage extends GetPage {
 			}
 
 		} else if (visibility.equalsIgnoreCase("show")) {
+			
 			try {
 				wait.resetImplicitTimeout(0);
 				wait.resetExplicitTimeout(hiddenFieldTimeOut);
@@ -167,6 +163,17 @@ public class ASCSocietyGenericPage extends GetPage {
 				DataProvider.getColumnNumber_ACS_Store(valueFromDataSheet))
 				.trim();
 	}
+	
+	public String getACS_Giving_SheetValue(String caseId, String valueFromDataSheet) {
+		String csvLine = csvReaderRowSpecific(
+				getYamlValue("csv-data-file.path_giving_donate"),
+				getYamlValue("csv-data-file.has-header"), caseId);
+		return DataProvider.getSpecificColumnFromCsvLine(csvLine, csvSeparator,
+				DataProvider.getColumnNumber_ACS_Giving(valueFromDataSheet))
+				.trim();
+	}
+
+
 
 	public String getCreateMember_SheetValue(String caseId,
 			String valueFromDataSheet) {
@@ -202,3 +209,4 @@ public class ASCSocietyGenericPage extends GetPage {
 	}
 
 }
+

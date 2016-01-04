@@ -1,9 +1,18 @@
 package com.qait.keywords;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang3.text.WordUtils;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.qait.automation.getpageobjects.ASCSocietyGenericPage.*;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.GetPage;
@@ -12,6 +21,13 @@ public class ASM_DonatePage extends GetPage {
 	WebDriver driver;
 	static String url;
 	static String pagename = "ASM_DonatePage";
+	String productNameValues1[]=new String[4];
+	Map<String, List<String>> mapIwebProductDetails = new HashMap<String, List<String>>();
+	Map<String,String> mapMemberAddress = new HashMap<>();
+	List<String> MemberFullName = new ArrayList<String>();
+
+
+
 
 	public ASM_DonatePage(WebDriver driver) {
 		super(driver, pagename);
@@ -26,11 +42,25 @@ public class ASM_DonatePage extends GetPage {
 		enterPassword(password);
 		clickOnVerifyButton();
 	}
+	public void loginIntoApplicationByMember(String userName, String password) {
+		clickLoginOnContactInfoPage();
+		wait.hardWait(3);
+		enterUserName(userName);
+		enterPassword(password);
+		clickOnLoginButtonForMember();
+	}
 
 	public void clickOnLoginButton() {
 		isElementDisplayed("btn_login");
 		element("btn_login").click();
 		logMessage("Step : Login button is clicked in btn_login\n");
+	}
+	public void clickLoginOnContactInfoPage()
+	{
+
+		isElementDisplayed("btn_memlogin");
+		element("btn_memlogin").click();
+		logMessage("Step : Login button is clicked on contact Info Page\n");
 	}
 
 	public void clickOnACSIDRadioButton() {
@@ -59,6 +89,14 @@ public class ASM_DonatePage extends GetPage {
 		element("btn_verify").click();
 		logMessage("Step : Verify button is clicked in btn_verify\n");
 		wait.hardWait(3);
+	
+	}
+	public void clickOnLoginButtonForMember() {
+		isElementDisplayed("btn_loginMember");
+		element("btn_loginMember").click();
+		logMessage("Step : Verify button is clicked in btn_verify\n");
+		wait.hardWait(3);
+
 	}
 
 	public void enterDonateValue(String donateProgram, String donateValue) {
@@ -153,6 +191,7 @@ public class ASM_DonatePage extends GetPage {
 	public void enterRequiredDetailsInNonMemberForm(String firstName,
 			String lastName, String email, String phone, String address,
 			String city, String state, String zipcode, String country) {
+		
 		enterNonMemberFieldValue("FirstName", firstName);
 		enterNonMemberFieldValue("LastName", lastName);
 		enterNonMemberFieldValue("Email", email);
@@ -163,6 +202,7 @@ public class ASM_DonatePage extends GetPage {
 		enterNonMemberFieldValue("ZipCode", zipcode);
 		selectNonMemberFieldValue("Country", country);
 		clickOnContinueButton();
+		
 	}
 
 	public void enterNonMemberFieldValue(String fieldName, String fieldValue) {
@@ -223,7 +263,7 @@ public class ASM_DonatePage extends GetPage {
 		isElementDisplayed("inp_honor_memory",
 				WordUtils.capitalize(honor_memory));
 		element("inp_honor_memory", WordUtils.capitalize(honor_memory))
-				.sendKeys(honor_memoryValue);
+		.sendKeys(honor_memoryValue);
 		logMessage("Step : " + honor_memoryValue + " is entered for "
 				+ honor_memory + " in inp_honor_memory\n");
 	}
@@ -233,6 +273,14 @@ public class ASM_DonatePage extends GetPage {
 		element("inp_recipientEmail").sendKeys(emailAddress);
 		logMessage("Step : " + emailAddress
 				+ " is entered in inp_recipientEmail\n");
+	
+	}
+	public void enterRecipientPersonalisedMessage(String Message) {
+		isElementDisplayed("inp_recipientPersonalisedMsg");
+		element("inp_recipientPersonalisedMsg").sendKeys(Message);
+		logMessage("Step : " + Message
+				+ " is entered in inp_recipientPersonalisedMsg\n");
+	
 	}
 
 	public void selectCreditCardType(String cardType) {
@@ -289,6 +337,30 @@ public class ASM_DonatePage extends GetPage {
 		selectExpirationDate_Year("Year", year_Value);
 		clickOnContinueButton();
 	}
+	
+	public void enterPaymentDetailsForACSDonateSmoke(List<String> memberLoginDetails,String cardType,String cardHolderName,String cardNumber, String cvvNumber, String date_Value,
+			String year_Value) {
+		if(memberLoginDetails.size()!=1)
+		{
+			String MemberName=MemberFullName.get(0);
+		    String arrayName[]=	MemberName.split(" ");
+		    MemberName=arrayName[(arrayName.length)-2]+" "+arrayName[(arrayName.length)-1];
+		    System.out.println("Member Full name"+MemberName);
+		    enterCreditCardHolderName(MemberName);
+		}
+		else if(memberLoginDetails.size()==1)
+		{
+			enterCreditCardHolderName(cardHolderName);
+		}
+		selectCreditCardType(cardType);
+		enterCreditCardNumber(cardNumber);
+		enterCVVNumber(cvvNumber);
+		selectExpirationDate_Year("Date", date_Value);
+		selectExpirationDate_Year("Year", year_Value);
+	
+		clickOnContinueButton();
+		
+	}
 
 	public void enterSendCardInfo(String sendCardType, String[] sendCardinfo) {
 		if (sendCardType.equalsIgnoreCase("Email")) {
@@ -300,6 +372,20 @@ public class ASM_DonatePage extends GetPage {
 			enterPostalMailInfo("City", sendCardinfo[2]);
 			selectPostalMailInfo("State", sendCardinfo[3]);
 			enterPostalMailInfo("ZipCode", sendCardinfo[4]);
+		}
+	}
+	
+	public void enterSendCardInfoForGivingApplication(String sendCardType, String[] sendCardinfo) {
+		if (sendCardType.equalsIgnoreCase("Email")) {
+			enterRecipientEmail(sendCardinfo[3]);
+			enterRecipientPersonalisedMessage(sendCardinfo[4]);
+		} else if (sendCardType.equalsIgnoreCase("Postal")) {
+			checkSendCradType(sendCardType);
+			enterPostalEmailInTo(sendCardinfo[5]);
+			enterPostalMailInfo("Adr_Line1", sendCardinfo[6]);
+			enterPostalMailInfo("City", sendCardinfo[7]);
+			selectPostalMailInfo("State", sendCardinfo[8]);
+			enterPostalMailInfo("ZipCode", sendCardinfo[9]);
 		}
 	}
 
@@ -342,5 +428,324 @@ public class ASM_DonatePage extends GetPage {
 		logMessage("ASSERT PASSED : Verified error message " + errorMessage
 				+ " in txt_creditCardError\n");
 	}
+
+	public String[] retreiveProductDetails() {
+
+		return getProductNamesAndCodes();
+
+	}
+
+	private String[] getProductNamesAndCodes() {
+		String productName=null;
+		for (int i=0;i<elements("txt_productNames").size();i++)
+		{
+			productNameValues1[i]=elements("txt_productNames").get(i).getText();
+			List<String> productNameValues = new ArrayList<String>();
+			productName=elements("txt_productNames").get(i).getText();
+			isElementDisplayed("txt_product_displayName", productName);
+			productNameValues.add(element("txt_product_displayName", productName).getText());
+			isElementDisplayed("txt_product_Code", productName);
+			productNameValues.add(element("txt_product_Code", productName).getText());
+			mapIwebProductDetails.put(productName, productNameValues);
+			logMessage("STEP : "+productName+" display name is"+productNameValues.get(0)+" And Code is "+productNameValues.get(1));
+
+		}
+		for (Map.Entry<String, List<String>> entry : mapIwebProductDetails.entrySet()) {
+			String key = entry.getKey();
+			List<String> values = entry.getValue();
+			System.out.println("Key = " + key);
+			System.out.println("Values = " + values + "\n");
+		}
+		return productNameValues1;
+
+
+	}
+
+	public String[] checkDonationPrograms(String[] ProgramNameToDonate) {
+		String[] programNames = new String[4];
+		for(int i=0;i<4;i++)
+		{
+			System.out.println("program"+ProgramNameToDonate[i]);
+			programNames[i]=   isProgram(ProgramNameToDonate[i]);
+			System.out.println("program names "+programNames[i]);
+		}
+		
+		return programNames;
+
+	}
+
+	private String isProgram(String ProgramName) {
+		if (ProgramName == null | ProgramName.length() == 0||ProgramName.equals("")) {
+			logMessage("Step : "+ProgramName+" no donation");
+			return ProgramName;
+		}
+		else
+		{
+			return ProgramName;
+		}
+
+	}
+
+	public void donateMoneyToProgram(String ProgramName[],String Amount[]) {
+		for(int i=1;i<4;i++)
+		{
+			System.out.println(i);
+			if(ProgramName[i].length()!=0)
+			{
+
+				enterDonateValue(ProgramName[i-1],Amount[i-1]);
+			}
+			else
+			{
+				logMessage(ProgramName[i-1] +" is empty");
+			}
+
+		}
+		if(ProgramName[3]!=null||ProgramName[3].length()!=0)
+		{
+
+			enterOtherProgram(ProgramName[3]);
+			enterOtherAmount(Amount[3]);
+		}
+
+	}
+	public void verifyTotalAmountDonated(String[] Amount)
+	{
+		double sum=0.00;
+		for(int i=0;i<Amount.length;i++)
+		{
+			if(!Amount[i].equals(""))
+				sum=Double.parseDouble(Amount[i])+sum;
+
+		}
+		double totalamount=Math.round(sum * 100.00) / 100.00;
+		isElementDisplayed("txt_totalamount");
+		System.out.println(element("txt_totalamount").getText().replace("$",""));
+		Assert.assertTrue(totalamount==Double.parseDouble(element("txt_totalamount").getText().replace("$","")));
+		clickOnContinueButton();
+		
+	}
+	public void verifyTotalAmountOnDonationPage(String[] Amount)
+	{
+		double sum=0.00;
+		for(int i=0;i<Amount.length;i++)
+		{
+			if(!Amount[i].equals(""))
+				sum=Double.parseDouble(Amount[i])+sum;
+
+		}
+		double totalamount=Math.round(sum * 100.00) / 100.00;
+		isElementDisplayed("txt_totalOnDonationPage");
+		System.out.println(element("txt_totalOnDonationPage").getText());
+		Assert.assertTrue(totalamount==Double.parseDouble(element("txt_totalOnDonationPage").getText()));
+	
+	
+	}
+
+
+	public void verifyProductNamesFromIweb(String[] productNameKey) {	
+		for(int i=0;i<3;i++)
+		{
+		System.out.println(productNameKey[i]);
+		isElementDisplayed("txt_DonateProgram",productNameKey[i]);
+		}
+
+	}
+
+	public void getUserAddressDetails(List<String> memberLoginDetails,String PhoneNo,String Email,String Address)
+	{
+		System.out.println("Member login details"+memberLoginDetails.size());
+		if(memberLoginDetails.size()>1)
+		{
+			getParticularAddressValue(PhoneNo);
+			getParticularAddressValue(Email);
+			getParticularAddressValue(Address);
+		}
+
+	}
+	public void getParticularAddressValue(String Name)
+	{
+
+		String actual =element("txt_"+Name).getText().trim();
+		mapMemberAddress.put(Name, actual);
+	}
+
+	public void clickOnLoginButtonForSpecifiedUser(List<String> memberLoginDetails,String ValidEmailAddress) {
+		if(memberLoginDetails.size()>1)
+		{
+			loginIntoApplicationByMember(memberLoginDetails.get(2),"password");
+			verifyMemberOrNonMemberDetails("Name", "Address");
+			verifyMemberOrNonMemberDetails("Email", "Email");
+			verifyMemberOrNonMemberDetails("Phone", "PhoneNo");
+			verifyMemberOrNonMemberDetails("Address", "Address");
+			verifyMemberOrNonMemberDetails("City", "Address");
+			verifyMemberOrNonMemberDetails("Zip Code", "Address");
+			//verifyMemberOrNonMemberDetails("State", "Address");
+			//verifyMemberOrNonMemberDetails("Country", "Address");
+			element("txtbox_inpfeild","Email").click();
+			element("txtbox_inpfeild","Email").clear();
+			element("txtbox_inpfeild","Email").sendKeys(ValidEmailAddress);
+			clickOnContinueButton();
+
+		}
+		else
+		{
+			clickOnContinueAsGuest();
+
+		}
+
+	}
+
+
+	public void verifyMemberOrNonMemberDetails(String inpfeilds,String Address) {
+		if(inpfeilds.equals("Name"))
+		{
+			
+			isElementDisplayed("txt_inpName");
+			System.out.println("...."+element("txt_inpName").getText().trim());
+			MemberFullName.add(element("txt_inpName").getText().trim());
+			Assert.assertTrue(mapMemberAddress.get(Address).contains(element("txt_inpName").getText().trim()));
+			logMessage("Name in Address feild is verified as "+element("txt_inpName").getText());
+		}
+		else if(inpfeilds.equals("State")|inpfeilds.equals("Country"))
+		{
+
+			isElementDisplayed("drpdwn_country",inpfeilds);
+			System.out.println(element("drpdwn_country",inpfeilds).getText());
+			if(inpfeilds.equals("State"))
+				Assert.assertTrue(mapMemberAddress.get(Address).contains(element("drpdwn_country",inpfeilds).getAttribute("value").trim()));
+			else
+				Assert.assertTrue(mapMemberAddress.get(Address).contains(element("drpdwn_country",inpfeilds).getText().trim()));
+			logMessage(inpfeilds+" in Address feild is verified as "+element("drpdwn_country",inpfeilds).getText());
+		}
+		else
+		{
+			isElementDisplayed("txtbox_inpfeild",inpfeilds);
+			System.out.println(element("txtbox_inpfeild",inpfeilds).getAttribute("value"));
+			Assert.assertTrue(mapMemberAddress.get(Address).contains(element("txtbox_inpfeild",inpfeilds).getAttribute("value").trim()));
+			logMessage(inpfeilds+" in Address feild is verified as "+element("txtbox_inpfeild",inpfeilds).getAttribute("value"));
+		}
+
+
+
+	}
+
+
+
+	public void verifyProductDetailsOnConfirmDonationPage(String[] ProductNames,String[] Amount) {
+		for (int j = 0; j < elements("txt_confirmDonation_product").size(); j++) {
+			double totalamount=Math.round(Double.parseDouble(Amount[j]) * 100.00) / 100.00;
+			Assert.assertTrue(elements("txt_confirmDonation_product").get(j).getText().equals(ProductNames[j]));
+			logMessage("ASSERT PASSED : Product name on confirm donation page is displayed as : "+ProductNames[j]);
+	        Assert.assertTrue(Double.parseDouble(element("txt_confirmDonation_amount",elements("txt_confirmDonation_product").get(j).getText()).getText())==totalamount);
+			logMessage("ASSERT PASSED : Product amount for Product "+elements("txt_confirmDonation_product").get(j).getText()+" is "+totalamount);
+		}
+	}
+
+		public void enterGuestRequiredDetailsInForm(List<String> memberLoginDetails,String FirstName, String LastName,
+				String validEmail, String PhoneNo, String Address,
+				String City, String State, String ZipCode,
+				String Country) {
+
+				if(memberLoginDetails.size()==1)
+				{
+
+			 enterRequiredDetailsInNonMemberForm(FirstName,
+						 LastName,validEmail,PhoneNo,
+						 Address, City, State,ZipCode,Country);
+			 
+		}
+		}
+
+		public void sendCardOrEmailFromSpreadsheet(String isCardSelectedInSpreadsheet,String inHonorOf,String inMemoryOf,String...a) {
+			if(isCardSelectedInSpreadsheet.equalsIgnoreCase("YES"))
+           {
+				    checkGiftToSomeoneCheckBox();
+	                if(inHonorOf.length()!=0&&inMemoryOf.length()==0)
+	                {
+	                
+	                	checkInHonor_MemoryCheckbox("honor");
+	                	enterHonor_MemoryValue("honor", inHonorOf);
+	                }
+	                else if(inMemoryOf.length()!=0&&inHonorOf.length()==0)
+	                {
+	                	checkInHonor_MemoryCheckbox("memory");
+	                	enterHonor_MemoryValue("memory", inMemoryOf);
+	                }
+	            
+	            	
+           }
+			else
+			{
+				logMessage("Step : Option to send an Ecard or mail a card Not Selected");
+			}
+		
+			
+		}
+
+		public void selectASendCardMethod(String... a) {
+			int count=0,iteration=0;
+		          for(int i=0;i<3;i++)
+		          {
+		        	  if(a[i].equalsIgnoreCase("YES"))
+		        	  {
+		     
+		        	       count++;
+		        	       iteration=i;
+		        	  }
+		          }
+		          System.out.println("iteration "+iteration);
+		          System.out.println("count "+count);
+		          if(count==1)
+		          {
+		          if(iteration==1)
+		          {
+		        	
+		        		enterSendCardInfoForGivingApplication("Email",a);
+		      
+		          }
+		          else if(iteration==2)
+		          {
+		        
+		        	  enterSendCardInfoForGivingApplication("Postal",a);
+		        	  
+		          }
+		          else if(iteration==0)
+		          {
+		        	  checkSendCradType("Nothing");
+		          }
+		          }
+		          else
+		          {
+		        	  Assert.fail("More than 1 feild in Datasheet Contains YES");
+		          }
+		       
+			
+		}
+
+		public void verifyThankyouMessageAfterDonation() {
+	
+			isElementDisplayed("txt_thankYouMessage");
+			element("txt_thankYouMessage").getText().trim().equals("Thank you for your donation to the American Chemical Society.");
+			logMessage("Thankyou Message is verified as "+element("txt_thankYouMessage").getText().trim());
+		}
+
+		public void verifyPrintReceiptMessageAfterDonation() {
+
+			isElementDisplayed("lnk_printReceipt");
+			element("lnk_printReceipt").getText().trim().equals("Print Your Receipt");
+			logMessage("Print Receipt Message is verified as "+element("lnk_printReceipt").getText().trim());
+			
+		}
+
+		public void verifyConfirmationEmailAfterDonation(String ConfirmationEmail) {
+			isElementDisplayed("txt_confirmationEmailBox");
+			element("txt_confirmationEmailBox").getText().trim().contains(ConfirmationEmail);
+			logMessage("Confirmation Email displayed on Confirm Your Donation Page as "+ConfirmationEmail);
+			
+		}
+
+		
+	
 
 }

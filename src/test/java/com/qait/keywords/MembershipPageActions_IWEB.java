@@ -34,6 +34,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	List<String> memberDetails = new ArrayList<>();
 	List<String> memberStoreDetails = new ArrayList<>();
 	StringBuffer sb = new StringBuffer();
+	 int count;
 
 	public MembershipPageActions_IWEB(WebDriver driver) {
 		super(driver, pagename);
@@ -914,7 +915,29 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ numberOfYears);
 		return numberOfYears;
 	}
-
+	public void clickOnSideBarTab(String tabName) {
+		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(4);
+		isElementDisplayed("hd_sideBarOuter", tabName);
+		clickUsingXpathInJavaScriptExecutor(element("hd_sideBarOuter", tabName));
+		// element("hd_sideBar", tabName).click();
+		logMessage("STEP : Click on tab " + tabName + " in hd_sideBar \n");
+	}
+	public void clickOnModuleTab() {
+		wait.waitForPageToLoadCompletely();
+		isElementDisplayed("btn_tabs");
+		wait.hardWait(1);
+		executeJavascript("document.getElementsByClassName('dropdown-toggle')[3].click()");
+		// element("btn_tabs").click();
+		logMessage("Step Module tab is clicked\n");
+	}
+	public void clickOnTab(String tabName) {
+		isElementDisplayed("link_tabsOnModule", tabName);
+	    element("link_tabsOnModule", tabName).click();
+	    logMessage("STEP : "+tabName+" tab is clicked\n");
+		
+	}
+	
 	public void numberOfYearsForActiveMember(String numberOfYears) {
 		String noOfYears = String.valueOf(Integer.parseInt(numberOfYears) + 1);
 		isElementDisplayed("txt_numberOfyears");
@@ -1529,6 +1552,62 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		element("btn_arrowRightCircle").click();
 		logMessage("Step : navigate to invoice profile page for first product in btn_arrowRightCircle\n");
 	}
+	public void getloginStatusFromSheet(String[] loginAs) {
+		   List<String> loginList = new ArrayList<String>();
+		  
+		   for(int i=0;i<loginAs.length;i++) {
+			   if((!loginAs[i].equals(" ")|loginAs[i].length()!=0)&&loginAs[i].equalsIgnoreCase("YES"))
+			   {
+				   loginList.add(loginAs[i]);
+				   count=i;
+				   System.out.println("Count is"+count);
+		   }
+		   }
+		   System.out.println(loginList.size());
+			   if(loginList.size()>1)
+			   { 
+				   logMessage("More than One option has YES value");
+				   Assert.assertFalse(true);
+			   }
+			   
+		   
+	}
+	
+	public List<String> loginUsingValueFromSheet(String[] loginAs)
+	{
+		getloginStatusFromSheet(loginAs);
+		if(count==0|count==1)
+		{
+			System.out.println("Member");
+			clickOnModuleTab();
+			clickOnTab("CRM");
+			clickOnSideBarTab("Individuals");
+			clickOnSideBar("Query Individual");
+			if(count==0)
+			{
+				System.out.println(count);
+				selectAndRunQuery("Selenium - Find Active Regular Member");
+				memberStoreDetails.add(String.valueOf(count));
+			}
+			else if(count==1)
+			{
+				System.out.println(count);
+				selectAndRunQuery("Selenium - Find Random Non Member");
+				memberStoreDetails.add(String.valueOf(count));
+			
+		    }
+			memberStoreDetails.add(getMemberDetailsOnMemberShipProfile("contact id"));
+			memberStoreDetails.add(getMemberWebLogin());
+		
+	    }
+		else if(count==2)
+		{
+
+			memberStoreDetails.add(String.valueOf(count));
+		}
+		return memberStoreDetails;
+	
+	}
 
 	public void goToAddMemebrshipAndFillDetails_LocalSection() {
 		if (map().get("Is_localSectionMemberType?").equalsIgnoreCase("")) {
@@ -1716,3 +1795,4 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 }
+
