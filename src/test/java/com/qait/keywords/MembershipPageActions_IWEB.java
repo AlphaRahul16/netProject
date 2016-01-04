@@ -394,7 +394,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			switchToDefaultContent();
-			clickOnSelectProduct();
+
 			// TODO Remove hard wait after handling stale element exception
 			holdExecution(3000);
 			switchToFrame(element("frame_selectProduct"));
@@ -428,6 +428,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// TODO Remove hard wait after handling stale element exception
 		holdExecution(2000);
 		enterDate("industryUpdateDate", currentDate);
+
 		enterDate("jobTitleUpdateDate", "08/02/" + nextSecondYear);
 		selectMemberInfo("industry",
 				getCenOrdEntry
@@ -584,12 +585,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void selectMemberInfo(String memberInfo, String memberInfoValue) {
 		try {
+			wait.waitForPageToLoadCompletely();
 			isElementDisplayed("list_" + memberInfo);
 			selectProvidedTextFromDropDown(element("list_" + memberInfo),
 					memberInfoValue);
 			logMessage("ASSERT PASSED : " + memberInfoValue
 					+ " is selected in list_" + memberInfo + "\n");
-			wait.waitForPageToLoadCompletely();
+
 		} catch (StaleElementReferenceException stlExp) {
 			selectProvidedTextFromDropDown(element("list_" + memberInfo),
 					memberInfoValue);
@@ -1533,9 +1535,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("Step : local section member is not mentioned in data sheet\n");
 		} else {
 			wait.waitForPageToLoadCompletely();
-			clickOnSelectProduct();
-			// TODO Remove hard wait after handling stale element exception
+			ScrollPage(0, -700);
 			holdExecution(1000);
+			clickOnSelectProduct();
+			switchToFrame("menu_a83665ae18eb43488c5d83ce5f6027f8");
+			selectAddMembershipInSelectProductLink();
 			switchToDefaultContent();
 			switchToFrame("iframe1");
 			// TODO Remove hard wait after handling stale element exception
@@ -1554,7 +1558,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			String totalPrice = getTotalPrice();
 			clickOnSaveAndFinish();
 			switchToDefaultContent();
-			handleAlert();
 			waitForSpinner();
 			verifyPrice(map().get("ls_memberPackage?"), totalPrice);
 		}
@@ -1563,8 +1566,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void goToAddMemebrshipAndFillDetails_membership() {
 		wait.waitForPageToLoadCompletely();
 		clickOnSelectProduct();
-		// TODO Remove hard wait after handling stale element exception
-		holdExecution(1000);
+		switchToFrame("menu_a83665ae18eb43488c5d83ce5f6027f8");
+		selectAddMembershipInSelectProductLink();
 		switchToDefaultContent();
 		switchToFrame("iframe1");
 		// TODO Remove hard wait after handling stale element exception
@@ -1575,32 +1578,31 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		selectMemberInfo("memberType", map().get("memberType"));
 		// TODO Remove hard wait after handling stale element exception
 		holdExecution(1000);
-		selectMemberInfo("memberStatusInAddMembership", "Active");
-
+		// selectMemberInfo("memberStatusInAddMembership", "Active");
 		selectMemberInfo("memberPackage", map().get("memberPackage"));
 		String currentDate = DateUtil
-				.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy");
-
-		// TODO Remove hard wait after handling stale element exception
+				.getCurrentdateInStringWithGivenFormate("M/d/yyyy");
+		verifySelectedTextFromDropDown(element("list_memberPackage"), map()
+				.get("memberPackage"));
+		wait.waitForPageToLoadCompletely();
 		holdExecution(2000);
-		enterDate("transactionDate", currentDate);
+		// enterDate("transactionDate", currentDate);
 		verifySelectedTextFromDropDown(element("list_memberRenewalPackage"),
 				map().get("memberPackage"));
 		if (map().get("complimentary").equalsIgnoreCase("On")) {
 			checkCheckbox(element("chk_complimentry"));
 			selectMemberInfo("complimentryRequest", map().get("compReason"));
 		}
-
-		selectMemberInfo("industry", map().get("industry"));
-
-		enterDate("industryUpdateDate", currentDate);
-
-		// TODO Remove hard wait after handling stale element exception
-		holdExecution(1000);
-		selectMemberInfo("jobTitle", map().get("jobTitle"));
-		enterDate("jobTitleUpdateDate", map().get("jobTitleUpdatedCode"));
-		// TODO Remove hard wait after handling stale element exception
-		holdExecution(1000);
+		if (!map().get("industry").equalsIgnoreCase("")) {
+			selectMemberInfo("industry", map().get("industry"));
+			enterDate("industryUpdateDate", map().get("industryUpdateDate"));
+			// TODO Remove hard wait after handling stale element exception
+			holdExecution(1000);
+			selectMemberInfo("jobTitle", map().get("jobTitle"));
+			enterDate("jobTitleUpdateDate", map().get("jobTitleUpdateDate"));
+			// TODO Remove hard wait after handling stale element exception
+			holdExecution(1000);
+		}
 		String totalPrice = getTotalPrice();
 		clickOnSaveAndFinish();
 		switchToDefaultContent();
@@ -1610,11 +1612,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public void goToAddMemebrshipAndFillDetails_Division() {
+	public void goToAddMembershipAndFillDetails_Division() {
 		wait.waitForPageToLoadCompletely();
+		ScrollPage(0, -700);
 		clickOnSelectProduct();
-		// TODO Remove hard wait after handling stale element exception
-		holdExecution(1000);
+		switchToFrame("menu_a83665ae18eb43488c5d83ce5f6027f8");
+		selectAddMembershipInSelectProductLink();
 		switchToDefaultContent();
 		switchToFrame("iframe1");
 		// TODO Remove hard wait after handling stale element exception
@@ -1622,20 +1625,23 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		selectMemberInfo("association", "ACS");
 		// TODO Remove hard wait after handling stale element exception
 		holdExecution(1000);
-		selectMemberInfo("memberType", map().get("div1_memberType"));
+		selectMemberInfo("memberType", map().get("div2_memberType"));
 		// TODO Remove hard wait after handling stale element exception
 		holdExecution(1000);
-		selectMemberInfo("chapter", map().get("div1_division"));
+		selectMemberInfo("chapter", map().get("div2_division"));
+		holdExecution(2000);
+		selectMemberInfo("memberPackage", map().get("div2_memberPackage"));
 		holdExecution(1000);
-		selectMemberInfo("memberPackage", map().get("div1_memberPackage?"));
-		holdExecution(1000);
+		if (map().get("complimentary").equalsIgnoreCase("On")) {
+			checkCheckbox(element("chk_complimentry"));
+			selectMemberInfo("complimentryRequest", map().get("compReason"));
+		}
 		String totalPrice = getTotalPrice();
 		clickOnSaveAndFinish();
 		switchToDefaultContent();
 		handleAlert();
 		waitForSpinner();
-		verifyPrice(map().get("div1_memberPackage?"), totalPrice);
-
+		verifyPrice(map().get("div2_memberPackage"), totalPrice);
 	}
 
 	public String getTotalPrice() {
@@ -1654,20 +1660,58 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_priceOrderEntryLineItmes", itemName);
 		String actualPrice = element("txt_priceOrderEntryLineItmes", itemName)
 				.getText().trim();
-		Assert.assertTrue(actualPrice.equalsIgnoreCase(price));
-		logMessage("ASSERT PASSED : price " + price
-				+ " is verified in txt_priceOrderEntryLineItmes\n");
+		System.out.println("*****Actual**** " + actualPrice + "expected ---"
+				+ price);
+		if (!map().get("complimentary").equalsIgnoreCase("On")) {
+			Assert.assertTrue(actualPrice.equalsIgnoreCase(price));
+			logMessage("ASSERT PASSED : price " + price
+					+ " is verified in txt_priceOrderEntryLineItmes\n");
+		} else {
+			Assert.assertTrue(actualPrice.equalsIgnoreCase("0.00"));
+			logMessage("ASSERT PASSED : price 0.00 is verified in txt_priceOrderEntryLineItmes, when Complementry option is checked\n");
+		}
+
 	}
 
 	public void navigateToSubscriptionInSelectLinkAndSellSubscription() {
-		navigateToSubscriptionThroughOrderEntry();
+		clickOnSelectProduct();
+		// TODO Remove hard wait after handling stale element exception
+		holdExecution(1000);
+		try {
+			wait.waitForPageToLoadCompletely();
+			wait.resetImplicitTimeout(2);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			switchToFrame("menu_a83665ae18eb43488c5d83ce5f6027f8");
+			selectSubscriptionInSelectProductLink();
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+		} catch (Exception e) {
+//			wait.waitForPageToLoadCompletely();
+			wait.resetImplicitTimeout(2);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			switchToDefaultContent();
+			// TODO Remove hard wait after handling stale element exception
+			holdExecution(3000);
+			switchToFrame("menu_a83665ae18eb43488c5d83ce5f6027f8");
+			selectSubscriptionInSelectProductLink();
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+		}
+
+		switchToDefaultContent();
 		String productName = addSubscriptionInOrderEntry(map().get(
 				"ProductCode1"));
 		handleAlert();
 		waitForSpinner();
 		Assert.assertTrue(productName.equalsIgnoreCase(map().get(
 				"subscription1")));
-		verifyPrice(map().get("div1_memberPackage?"), totalPrice);
+		verifyPrice(productName, totalPrice);
+	}
+
+	public void selectAddMembershipInSelectProductLink() {
+		isElementDisplayed("link_addMemership");
+		element("link_addMemership").click();
+		logMessage("Step : Add Membership link is clicked in link_addMemership\n");
 
 	}
 

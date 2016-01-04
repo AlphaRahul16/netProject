@@ -20,27 +20,36 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		this.driver = driver;
 	}
 
-	public void enterMemberDetailsInAddIndividual(String fName,
-			String middleName, String lName, String country, String street,
-			String city, String abrv_state, String inPostalCode,
-			String phnCountry, String phnNumber, String outPostalCode) {
-		if (lName.equalsIgnoreCase("")) {
-			enterMemberDetails("first name",
-					"firstName" + System.currentTimeMillis());
+	public String[] enterMemberDetailsInAddIndividual(String caseID) {
+		String fName = getCreateMember_SheetValue(caseID, "firstName");
+		String mName = getCreateMember_SheetValue(caseID, "middleName");
+		String lName = getCreateMember_SheetValue(caseID, "lastName");
+		String country = getCreateMember_SheetValue(caseID, "country");
+		String street = getCreateMember_SheetValue(caseID, "street");
+		String city = getCreateMember_SheetValue(caseID, "city");
+		String abrState = getCreateMember_SheetValue(caseID, "abrv_state");
+		String inPostalCode = getCreateMember_SheetValue(caseID, "In_postalCode");
+		String phnCountry = getCreateMember_SheetValue(caseID, "country");
+		String phnNumber = getCreateMember_SheetValue(caseID, "phnNumber");
+		String outPostalCode = getCreateMember_SheetValue(caseID, "Out_postalCode");
+
+		if (fName.equalsIgnoreCase("")) {
+			fName = "firstName" + System.currentTimeMillis();
+			enterMemberDetails("first name", fName);
 		} else {
 			enterMemberDetails("first name", fName);
 		}
 
-		if (lName.equalsIgnoreCase("")) {
-			enterMemberDetail("middleName",
-					"middleName" + System.currentTimeMillis());
+		if (mName.equalsIgnoreCase("")) {
+			mName = "middleName" + System.currentTimeMillis();
+			enterMemberDetail("middleName", mName);
 		} else {
-			enterMemberDetail("middleName", middleName);
+			enterMemberDetail("middleName", mName);
 		}
 
 		if (lName.equalsIgnoreCase("")) {
-			enterMemberDetail("lastName",
-					"lastName" + System.currentTimeMillis());
+			lName = "lastName" + System.currentTimeMillis();
+			enterMemberDetail("lastName", lName);
 		} else {
 			enterMemberDetail("lastName", lName);
 		}
@@ -50,30 +59,33 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		waitForSpinner();
 		enterMemberDetail("addressLine1", street);
 		enterMemberDetails("city/state/zip", city);
-		selectMemberDetails("state", abrv_state);
+		if (!(abrState.equalsIgnoreCase(""))) {
+			selectMemberDetails("state", abrState);
+		}
 		enterMemberDetail("postalCode", inPostalCode);
-		selectMemberDetails("list_phnCountry", phnCountry);
-		enterMemberDetails("number", phnNumber);
+		selectMemberDetails("phnCountry", phnCountry);
+		// enterMemberDetails("number", phnNumber);//Need to add column in data sheet
 		clickOnSaveButton();
-		handleAlert();
+		handleAlert1();
 		if (isWindow()) {
 			switchWindow();
 			getAndVerifyMemberDetailInAddVerify("Address Line 1", street);
 			getAndVerifyMemberDetailInAddVerify("City", city);
-
-			verifySelectedTextFromDropDown(element("State"), abrv_state);
-			getAndVerifyMemberDetailInAddVerify("Zip", inPostalCode + "-"
-					+ outPostalCode);
-			verifySelectedTextFromDropDown(element("Country"), country);
+			verifySelectedTextFromDropDown(element("list_state_ver"), abrState);
+			getAndVerifyMemberDetailInAddVerify("Zip", outPostalCode);
+			verifySelectedTextFromDropDown(element("list_country_ver"), country);
 			clickOnAddVerifySaveButton();
-			switchToDefaultContent();
+			switchWindow();
 		}
-		if(!outPostalCode.equalsIgnoreCase("")){
-			getAndVerifyMemberDetail("postalCode", inPostalCode + "-"
-					+ outPostalCode);
+		if (!outPostalCode.equalsIgnoreCase("")
+				&& country.equalsIgnoreCase("UNITED STATES")) {
+			getAndVerifyMemberDetail("postalCode", outPostalCode);
 			clickOnSaveButton();
 		}
-		
+
+		return new String[] { fName, mName, lName, street, city, abrState,
+				outPostalCode };
+
 	}
 
 	public void enterMemberDetails(String detailName, String detailValue) {
@@ -104,7 +116,8 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 
 	public void getAndVerifyMemberDetail(String detailName, String detailValue) {
 		isElementDisplayed("inp_" + detailName);
-		String actualText = element("inp_" + detailName).getText().trim();
+		String actualText = element("inp_" + detailName).getAttribute("value")
+				.trim();
 		Assert.assertTrue(actualText.equalsIgnoreCase(detailValue));
 		logMessage("ASSERT PASSED : Verified " + detailValue + " in "
 				+ detailName + " \n");
@@ -113,8 +126,8 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 	public void getAndVerifyMemberDetailInAddVerify(String detailName,
 			String detailValue) {
 		isElementDisplayed("inp_addVerify", detailName);
-		String actualText = element("inp_addVerify", detailName).getText()
-				.trim();
+		String actualText = element("inp_addVerify", detailName).getAttribute(
+				"value").trim();
 		Assert.assertTrue(actualText.equalsIgnoreCase(detailValue));
 		logMessage("ASSERT PASSED : Verified " + detailValue + " in "
 				+ detailName + " \n");
@@ -149,6 +162,17 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 			logMessage("STEP : Spinner is not present \n");
+		}
+	}
+
+	protected void handleAlert1() {
+		try {
+			switchToAlert().accept();
+			logMessage("Alert handled..");
+			driver.switchTo().defaultContent();
+		} catch (Exception e) {
+
+			System.out.println("No Alert window appeared...");
 		}
 	}
 

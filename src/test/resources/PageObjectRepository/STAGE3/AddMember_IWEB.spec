@@ -16,4 +16,6 @@ list_phnCountry                             id                            phn_ct
 list_addVerifyCountry                       id                            DropDownListCountry_adr
 inp_addVerify                               xpath                         //span[text()='${address values}:']/../following-sibling::td/input
 btn_addVerifySave                           id                            SaveButton
+list_state_ver		                        id                            DropDownListState_adr
+list_country_ver							id							  DropDownListCountry_adr
 =============================================================================================================================================

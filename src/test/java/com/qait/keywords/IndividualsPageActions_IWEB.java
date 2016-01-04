@@ -324,7 +324,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public String verifyMemberDetails_InAddIndividual(String fName, String mName,String lName,String country,
+	/*public String verifyMemberDetails_InAddIndividual(String fName, String mName,String lName,String country,
 			String street, String city,  String abrv_state,
 			String zipCode) {
 
@@ -356,6 +356,35 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		return getContactId();
 
 
+	}*/
+	
+	public String verifyMemberDetails_InAddIndividual(String caseID, String[] memDetails) {
+		verifyElementTextContent("txt_memberDetails", memDetails[0]);
+		logMessage("ASSERT PASSED :" + memDetails[0]
+				+ " is verified in txt_memberDetails\n");
+		verifyElementTextContent("txt_memberDetails", memDetails[1]);
+		logMessage("ASSERT PASSED :" + memDetails[1]
+				+ " is verified in txt_memberDetails\n");
+		verifyElementTextContent("txt_memberDetails", memDetails[2]);
+		logMessage("ASSERT PASSED :" + memDetails[2]
+				+ " is verified in txt_memberDetails\n");
+		if (!(memDetails[3].equalsIgnoreCase(""))){
+		verifyElementTextContent("txt_memberDetails", memDetails[3]);
+		logMessage("ASSERT PASSED :" + memDetails[3]
+				+ " is verified in txt_memberDetails\n");
+		}
+		verifyElementTextContent("txt_memberDetails", memDetails[4]);
+		logMessage("ASSERT PASSED :" + memDetails[4]
+				+ " is verified in txt_memberDetails\n");
+		verifyElementTextContent("txt_memberDetails", memDetails[5]);
+		logMessage("ASSERT PASSED :" + memDetails[5]
+				+ " is verified in txt_memberDetails\n");
+		
+		verifyElementTextContent("txt_memberDetails", memDetails[6]);
+		logMessage("ASSERT PASSED :" + memDetails[6]
+				+ " is verified in txt_memberDetails\n");
+		
+		return getContactId();
 	}
 
 	public void verifyAACTMemberCreated(String caseId) {
