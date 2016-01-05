@@ -20,7 +20,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	String[] quantity = new String[5];
 	String[] productNames = new String[5];
 	float amountInFloat;
-	int currentMonthInInteger = Calendar.getInstance().get(Calendar.MONTH);
+	int currentMonthInInteger = Calendar.getInstance().get(Calendar.MONTH)+1;
 	static int mutliYearInInteger = 0;
 	int nextYearInInteger = Calendar.getInstance().get(Calendar.YEAR) + 1;
 

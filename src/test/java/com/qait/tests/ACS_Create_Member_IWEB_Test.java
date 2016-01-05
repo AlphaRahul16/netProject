@@ -19,6 +19,7 @@ public class ACS_Create_Member_IWEB_Test {
 	private String caseID;
 	public String contactID;
 	private String[] memDetails;
+	int count;
 
 	String app_url_IWEB = getYamlValue("app_url_IWEB");
 
@@ -60,10 +61,12 @@ public class ACS_Create_Member_IWEB_Test {
 		test.memberShipPage.goToOrderEntry();
 		test.memberShipPage.goToAddMemebrshipAndFillDetails_membership();
 		test.memberShipPage.goToAddMemebrshipAndFillDetails_LocalSection();
+		count=test.memberShipPage.getDivisionNumbers();
 	}
 	
-	@Test
+	@Test(invocationCount=2)
 	public void Step05_Sell_Division(){
+		
 		test.memberShipPage.goToAddMembershipAndFillDetails_Division();
 	}
 	

@@ -5,7 +5,7 @@ Page Title: IndividualsPage
 inp_fieldName               xpath    //span[contains(text(),'${fieldName}')]/../following-sibling::td//input
 btn_Go                      xpath    //input[@id='ButtonSearch']
 txt_userEmail                xpath    //a[text()='${email}']
-txt_memberDetails           xpath    //span[@class='DataFormTextBox']
+txt_memberDetails           xpath    (//span[@class='DataFormTextBox'])[last()]
 txt_additionalInfo           xpath    //span[text()='${infoValue}']
 btn_memberShip              xpath    //span[text()='${membershipName}']/preceding-sibling::a//i[@class='icon-chevron-down']
 btn_memberShipAACT          xpath    //span[text()='${membershipName}']/../a[1]

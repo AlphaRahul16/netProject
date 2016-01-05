@@ -222,13 +222,14 @@ public class SubscriptionPage extends GetPage {
 		verifySubscriptionDetail("subscription:", subscriptionName);
 		verifySubscriptionDetail("scheduled task?", scheduledTask);
 		String currentDateEST = DateUtil
-				.getCurrentdateInStringWithGivenFormateForTimeZone("MM/d/YYYY",
+				.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY",
 						"EST5EDT");
 
     //		verifySubscriptionDetail("start date:", currentDateEST);
 		// verifySubscriptionDetail("time:", time);
 		verifySubscriptionDetail("scheduled task completed?",
 				scheduledTaskCompleted);
+		wait.waitForPageToLoadCompletely();
 		wait.hardWait(3);
 		verifySubscriptionDetail("preview status:", previewStatus);
 		verifySubscriptionDetail("commit scheduled task?", commitScheduledTask);
@@ -429,6 +430,7 @@ public class SubscriptionPage extends GetPage {
 								.contains(
 										DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone(
 												"MM/d/YYYY", "EST5EDT"))) {
+							
 							element("lnk_arrow", String.valueOf(i + 1)).click();
 							logMessage("Step : Go to record button is clicked \n");
 							flag = true;
@@ -446,7 +448,6 @@ public class SubscriptionPage extends GetPage {
 		} else {
 
 			int size = elements("rows_table").size();
-
 			for (int i = 1; i < size; i++) {
 				if (element("txt_subscriptionName", String.valueOf(i + 1))
 						.getText().contains(subscriptionName)) {

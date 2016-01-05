@@ -335,7 +335,7 @@ public class ASM_DonatePage extends GetPage {
 		enterCVVNumber(cvvNumber);
 		selectExpirationDate_Year("Date", date_Value);
 		selectExpirationDate_Year("Year", year_Value);
-		clickOnContinueButton();
+		clickOnSubmitPaymentButton();
 	}
 	
 	public void enterPaymentDetailsForACSDonateSmoke(List<String> memberLoginDetails,String cardType,String cardHolderName,String cardNumber, String cvvNumber, String date_Value,
@@ -745,7 +745,15 @@ public class ASM_DonatePage extends GetPage {
 			
 		}
 
-		
+		public void clickOnSubmitPaymentButton() {
+			  wait.hardWait(3);
+			  isElementDisplayed("btn_submitPayment");
+			  //element("btn_continue").click();
+			  clickUsingXpathInJavaScriptExecutor(element("btn_submitPayment"));
+			  logMessage("Step : click on continue button in btn_submitPayment\n");
+			  wait.waitForPageToLoadCompletely();
+			  
+			 }
 	
 
 }

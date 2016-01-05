@@ -9,7 +9,7 @@ rad_acsId                                     xpath                       //inpu
 inp_username                                  xpath                       //input[contains(@id,'Credential1')]
 inp_password                                  xpath                       //input[contains(@id,'Credential2')]
 btn_verify                                    xpath                       //input[contains(@id,'btnLogin')]
-btn_continue                                  xpath                       //input[contains(@id,'cmdContinue')]
+btn_continue                                  xpath                       //input[contains(@id,'cmdContinue1')]
 inp_otherProgram                              id                          txtOtherProgramName
 inp_otherAmount                               xpath                       //input[contains(@id,'OtherAmount')]
 btn_logout                                    xpath                       //a[text()='Log Out']
@@ -53,4 +53,5 @@ lnk_printReceipt                              css                            .pr
 txt_confirmationEmailBox                      css                             .yui-g.confirmation-box>p
 btn_loginMember                               id                               btnMemberLogin
 txt_DonateProgram                             xpath                            //span[text()='${donateName}']
+btn_submitPayment                             xpath                       //input[contains(@id,'cmdContinue')]
 =============================================================================================================================================================

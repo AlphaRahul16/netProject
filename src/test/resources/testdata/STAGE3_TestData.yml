@@ -56,11 +56,11 @@ users:
                 type: Work
                 address: 7955 Pina Lake Rd
                 city: Jacksonville
-                country: UNITED STATES
+                country: Thailand
                 state: Florida
                 zipCode: 32256-7220
         education-and-employment:
-            CASEID: 1
+            CASEID: 5
 #    user2: 
 #        contact-information:
 #            name:
@@ -337,7 +337,7 @@ ASM_OMR_SmokeChecklistData:
     pageOnMakePayment: Renewal Receipt
     
 ASM_MGM_SmokeChecklistData: 
-    userName: ADEMASI
+    userName: cabad
     password: password
     memberDetailsToInvite: 
          firstName: John
@@ -347,7 +347,7 @@ ASM_MGM_SmokeChecklistData:
     
     
 ASM_Meeting_SmokeChecklistData:
-    userName: ADEMASI
+    userName: cabad
     password: password    
     specialService: ABC XYZ
     professionalDiscipline: Academia
@@ -367,7 +367,7 @@ ASM_MemberNumberLookup_SmokeChecklistData:
     
     
 ASM_PUBS_SmokeChecklistData: 
-    userName: ADEMASI
+    userName: tscherer
     password: password
     expirationYear: 2023   
 
@@ -523,6 +523,7 @@ ACS_Store:
                  
                   
 ASM_URLRejectedErrorMsz: "We aren't able to complete your request in the staging environment"
+#ASM_URLRejectedErrorMsz: "The requested URL was rejected. Please consult with your administrator."
 ASMErrorPageTitle: Request Rejected
 ASM_zipCodeErrorMessage: "Zip code must be 5 digit or xxxxx-xxxx format"     
       
