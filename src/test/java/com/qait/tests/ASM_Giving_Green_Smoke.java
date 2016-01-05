@@ -22,62 +22,62 @@ public class ASM_Giving_Green_Smoke {
 	static Map<String, Object> mapGivingGreenSmoke, mapDonateSmoke;
 
 	String headerName = this.getClass().getSimpleName();
+//
+//	@Test
+//	public void Step03_TC01_Enter_Invalid_UserName_And_Verify_ASM_Error() {
+//
+//		String tcId = test.asm_givingGreen.getTestCaseID(Thread.currentThread()
+//				.getStackTrace()[1].getMethodName());
+//
+//		test.asm_givingGreen.loginIntoApplicationWithACS_ID(
+//				DataProvider.getColumnData(tcId, headerName),
+//				getASM_givingGreen.getASM_GivingGreen("password"));
+//		test.asmErrorPage.verifyASMError(YamlReader
+//				.getYamlValue("ASM_URLRejectedErrorMsz"));
+//	}
 
-	@Test
-	public void Step03_TC01_Enter_Invalid_UserName_And_Verify_ASM_Error() {
-
-		String tcId = test.asm_givingGreen.getTestCaseID(Thread.currentThread()
-				.getStackTrace()[1].getMethodName());
-
-		test.asm_givingGreen.loginIntoApplicationWithACS_ID(
-				DataProvider.getColumnData(tcId, headerName),
-				getASM_givingGreen.getASM_GivingGreen("password"));
-		test.asmErrorPage.verifyASMError(YamlReader
-				.getYamlValue("ASM_URLRejectedErrorMsz"));
-	}
-
-	@Test
-	public void Step01_TC02_Enter_Amount_And_Verify_ASM_Error_Not_Present() {
-		String tcId = test.asm_givingGreen.getTestCaseID(Thread.currentThread()
-				.getStackTrace()[1].getMethodName());
-		test.asm_givingGreen.selectAmount(DataProvider.getColumnData(tcId,
-				headerName));
-		test.asm_givingGreen.loginIntoApplicationWithACS_ID(
-				getASM_givingGreen.getASM_GivingGreen("userName"),
-				getASM_givingGreen.getASM_GivingGreen("password"));
-		test.asm_givingGreen.clickOnContinueButton();
-		test.asm_givingGreen.verifyCurrentPage("Confirm your donation");
-		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-				.getYamlValue("ASM_URLRejectedErrorMsz"));
-	}
-
-	@Test
-	public void Step02_TC03_Enter_Other_Amount_And_Verify_ASM_Error_Not_Present() {
-		String tcId = test.asm_givingGreen.getTestCaseID(Thread.currentThread()
-				.getStackTrace()[1].getMethodName());
-		test.asm_givingGreen.selectAndEnterOtherAmount(DataProvider
-				.getColumnData(tcId, headerName));
-		test.asm_givingGreen.loginIntoApplicationWithACS_ID(
-				getASM_givingGreen.getASM_GivingGreen("userName"),
-				getASM_givingGreen.getASM_GivingGreen("password"));
-		test.asm_givingGreen.clickOnContinueButton();
-		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-				.getYamlValue("ASM_URLRejectedErrorMsz"));
-	}
-
-	@Test
-	public void Step04_TC04_Enter_Invalid_Username_And_Verify_ASM_Error_Not_Present() {
-		String tcId = test.asm_givingGreen.getTestCaseID(Thread.currentThread()
-				.getStackTrace()[1].getMethodName());
-		test.asm_givingGreen.loginIntoApplicationWithACS_ID(
-				DataProvider.getColumnData(tcId, headerName),
-				getASM_givingGreen.getASM_GivingGreen("password"));
-		test.asm_givingGreen.clickOnContinueButton();
-		test.asm_givingGreen.verifyLoginErrorMessagePresent(getASM_givingGreen
-				.getASM_GivingGreen("LoginErrorMessage"));
-		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-				.getYamlValue("ASM_URLRejectedErrorMsz"));
-	}
+//	@Test
+//	public void Step01_TC02_Enter_Amount_And_Verify_ASM_Error_Not_Present() {
+//		String tcId = test.asm_givingGreen.getTestCaseID(Thread.currentThread()
+//				.getStackTrace()[1].getMethodName());
+//		test.asm_givingGreen.selectAmount(DataProvider.getColumnData(tcId,
+//				headerName));
+//		test.asm_givingGreen.loginIntoApplicationWithACS_ID(
+//				getASM_givingGreen.getASM_GivingGreen("userName"),
+//				getASM_givingGreen.getASM_GivingGreen("password"));
+//		test.asm_givingGreen.clickOnContinueButton();
+//		test.asm_givingGreen.verifyCurrentPage("Confirm your donation");
+//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+//				.getYamlValue("ASM_URLRejectedErrorMsz"));
+//	}
+//
+//	@Test
+//	public void Step02_TC03_Enter_Other_Amount_And_Verify_ASM_Error_Not_Present() {
+//		String tcId = test.asm_givingGreen.getTestCaseID(Thread.currentThread()
+//				.getStackTrace()[1].getMethodName());
+//		test.asm_givingGreen.selectAndEnterOtherAmount(DataProvider
+//				.getColumnData(tcId, headerName));
+//		test.asm_givingGreen.loginIntoApplicationWithACS_ID(
+//				getASM_givingGreen.getASM_GivingGreen("userName"),
+//				getASM_givingGreen.getASM_GivingGreen("password"));
+//		test.asm_givingGreen.clickOnContinueButton();
+//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+//				.getYamlValue("ASM_URLRejectedErrorMsz"));
+//	}
+//
+//	@Test
+//	public void Step04_TC04_Enter_Invalid_Username_And_Verify_ASM_Error_Not_Present() {
+//		String tcId = test.asm_givingGreen.getTestCaseID(Thread.currentThread()
+//				.getStackTrace()[1].getMethodName());
+//		test.asm_givingGreen.loginIntoApplicationWithACS_ID(
+//				DataProvider.getColumnData(tcId, headerName),
+//				getASM_givingGreen.getASM_GivingGreen("password"));
+//		//test.asm_givingGreen.clickOnContinueButton();
+//		test.asm_givingGreen.verifyLoginErrorMessagePresent(getASM_givingGreen
+//				.getASM_GivingGreen("LoginErrorMessage"));
+//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+//				.getYamlValue("ASM_URLRejectedErrorMsz"));
+//	}
 
 	@Test
 	public void Step05_TC05_Enter_InValid_MemberNumber_And_Verify_ASM_Error_Not_Present() {
@@ -86,7 +86,7 @@ public class ASM_Giving_Green_Smoke {
 		test.asm_givingGreen.loginIntoApplicationWith_Lastname_Member_Number(
 				getASM_givingGreen.getASM_GivingGreen("lastName"),
 				DataProvider.getColumnData(tcId, headerName));
-		test.asm_givingGreen.clickOnContinueButton();
+		//test.asm_givingGreen.clickOnContinueButton();
 		test.asm_givingGreen.verifyLoginErrorMessagePresent(getASM_givingGreen
 				.getASM_GivingGreen("ErrorMessage_lastname_memberNumber"));
 		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader

@@ -130,5 +130,6 @@ list_complimentryRequest                         id                             
 txt_priceOrderEntryLineItmes                     xpath                          //a[text()='${itemName}']/../following-sibling::td[2]/span
 inp_sourceCode                                   id                             mbr_src_code
 list_chapter                                     id                             mbr_chp_cst_key
+link_invoiceListHeadings                         xpath                          //a[contains(text(),'${value}')]
 
 ==============================================================================================================================================

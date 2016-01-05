@@ -185,7 +185,7 @@ public class ASCSocietyGenericPage extends GetPage {
 				.trim();
 	}
 
-	public void addValuesInMap(String sheetName, String caseID) {
+	public HashMap<String, String> addValuesInMap(String sheetName, String caseID) {
 		YamlReader.setYamlFilePath();
 		String csvLine = csvReaderRowSpecific(
 				getYamlValue("csv-data-file.path_" + sheetName), "false",
@@ -200,6 +200,7 @@ public class ASCSocietyGenericPage extends GetPage {
 					.getSpecificColumnFromCsvLine(csvLine1, csvSeparator, i)
 					.trim());
 		}
+		return hashMap;
 
 
 	}

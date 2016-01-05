@@ -577,13 +577,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		getShippingSummaryDetailsFromMappedValues(caseId,"Order Total",orderTotal);
 
 	}
-	public void clickInvoiceHeading()
-	{
-		wait.hardWait(2);
-		isElementDisplayed("lnk_invoiceHeading");
-		element("lnk_invoiceHeading").click();
-		wait.waitForPageToLoadCompletely();
-	}
+	
 	public <map> Map<String, String> getPrepopulatedShippingAddressFeildsAndContinue() {
 		getPrepopulatedShippingAddressValues("First Name");
 		getPrepopulatedShippingAddressValues("Last Name");

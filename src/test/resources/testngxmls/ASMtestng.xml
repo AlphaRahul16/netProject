@@ -2,11 +2,7 @@
 <suite name="Test" verbose="1" configfailurepolicy="continue"
 	parallel="false" thread-count="3">
 
-	<test name="ASM Donate Smoke" parallel="false">
-		<classes>
-			<class name="com.qait.tests.Subscription_Fulfillment_Test"></class>
-		</classes>
-	</test>
+	
 	<!-- <test name="ASM Giving Green Smoke" parallel="false">
 		<classes>
 			<class name="com.qait.tests.ASM_Giving_Green_Smoke"></class>
@@ -51,11 +47,11 @@
 		<classes>
 			<class name="com.qait.tests.ASM_OMR_Smoke"></class>
 		</classes>
-	</test>
-	<test name="ASM PUBS Smoke" parallel="false">
+	</test>-->
+	<test name="ASM OMA Smoke" parallel="false">
 		<classes>
-			<class name="com.qait.tests.ASM_PUBS_Smoke"></class>
+			<class name="com.qait.tests.ASM_OMA_Smoke"></class>
 		</classes>
 	</test>
---> 
+
 </suite>

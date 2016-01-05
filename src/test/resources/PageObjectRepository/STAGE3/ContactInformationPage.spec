@@ -5,6 +5,7 @@ Page Title: contact information
 inp_email          xpath  //input[@id='prospectEmail']
 inp_firstName      xpath  //input[@id='prospectFirstName']
 inp_lastName       xpath  //input[@id='prospectLastName']
+inp_middleName     xpath  //input[@id='prospectMiddleName']
 list_addressType   xpath  //select[@id='prospectAddressType']
 inp_address        xpath  //input[@id='prospectAddress']
 inp_city           xpath  //input[@id='prospectCity']

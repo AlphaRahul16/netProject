@@ -55,9 +55,10 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void enterFieldValue(String fieldName, String fieldValue) {
+		wait.hardWait(2);
 		isElementDisplayed("inp_fieldName", fieldName);
 		element("inp_fieldName", fieldName).sendKeys(fieldValue);
-		logMessage("STEP : CustomerId " + fieldValue + " is entered in inp_fieldName\n");
+		logMessage("STEP : "+fieldName+" as " + fieldValue + " is entered in inp_fieldName\n");
 
 	}
 
@@ -537,6 +538,33 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("Step : Navigate to products menu on clicking more button\n");
 		}
 	}
+	public void navigateToInvoicesMenuOnHoveringMore() {
+		try {
+			isElementDisplayed("img_moreMenu");
+			element("img_moreMenu").click();
+			isElementDisplayed("link_moreMenuName", "Invoices");
+			element("link_moreMenuName", "Invoices").click();
+			logMessage("Step : Invoices link is clicked\n");
+			waitForSpinner();
+			wait.hardWait(2);
+			isElementDisplayed("btn_memberShip", "invoices (open batch)");
+			element("btn_memberShip", "invoices (open batch)").click();
+			logMessage("Step : invoices (open batch) drop down button is clicked\n");
+			logMessage("Step : Navigate to Invoices menu on clicking more button\n");
+		} catch (StaleElementReferenceException stlEx) {
+			isElementDisplayed("img_moreMenu");
+			element("img_moreMenu").click();
+			wait.waitForPageToLoadCompletely();
+			isElementDisplayed("link_moreMenuName", "Invoices");
+			element("link_moreMenuName", "Invoices").click();
+			logMessage("Step : Invoices link is clicked\n");
+			waitForSpinner();
+			wait.waitForPageToLoadCompletely();
+			isElementDisplayed("btn_memberShip", "invoices (open batch)");
+			element("btn_memberShip", "invoices (open batch)").click();
+			logMessage("Step : Navigate to Invoices menu on clicking more button\n");
+		}
+	}
 
 	private void navigateToProductsMenuOnHoveringMoreAACT() {
 		try {
@@ -730,10 +758,16 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : " + menuName + " is clicked to expand in btn_memberShipAACT\n");
 	}
 
-	private void clickOnButtonToNavigateFinancialPageInMembershipPage() {
+	public void clickOnButtonToNavigateFinancialPageInMembershipPage() {
 		isElementDisplayed("btn_invoiceAtMembership");
 		element("btn_invoiceAtMembership").click();
 		logMessage("Step : user navigate to finance page in btn_memberShip\n");
+	}
+	public void clickOnInvoiceArrowButtonToNavigateFinancialPage() {
+		isElementDisplayed("btn_invoicearrow");
+		element("btn_invoicearrow").click();
+		logMessage("Step : user navigate to finance page in btn_invoicearrow\n");
+
 	}
 
 	public String getContactId() {

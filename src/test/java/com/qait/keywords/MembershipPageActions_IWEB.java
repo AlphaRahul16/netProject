@@ -125,7 +125,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				.equalsIgnoreCase("Selenium - Find Random Non Member")
 				&& ConfigPropertyReader.getProperty("tier").equalsIgnoreCase(
 						"Stage3")) {
-			selectDropDownValue(element("list_existingQuery"), 435);
+			selectDropDownValue(element("list_existingQuery"), 436);
 		}
 
 		else {
@@ -1378,6 +1378,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		logMessage("STEP: First Invoice Number Clicked");
 	}
+	public void clickInvoiceHeading(String tabName)
+	{
+		wait.hardWait(2);
+		isElementDisplayed("link_invoiceListHeadings",tabName);
+		element("link_invoiceListHeadings",tabName).click();
+		wait.waitForPageToLoadCompletely();
+	}
 
 	public void verifyMultipleRecordsInList(String numberOfRecords) {
 		isElementDisplayed("txt_recordNumberAtMemberQuery");
@@ -1576,7 +1583,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		getloginStatusFromSheet(loginAs);
 		if(count==0|count==1)
 		{
-			System.out.println("Member");
+		
 			clickOnModuleTab();
 			clickOnTab("CRM");
 			clickOnSideBarTab("Individuals");
@@ -1584,12 +1591,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			if(count==0)
 			{
 				System.out.println(count);
+				System.out.println("Member");
 				selectAndRunQuery("Selenium - Find Active Regular Member");
 				memberStoreDetails.add(String.valueOf(count));
 			}
 			else if(count==1)
 			{
 				System.out.println(count);
+				System.out.println(" Non Member");
 				selectAndRunQuery("Selenium - Find Random Non Member");
 				memberStoreDetails.add(String.valueOf(count));
 			
@@ -1602,6 +1611,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		{
 
 			memberStoreDetails.add(String.valueOf(count));
+			System.out.println("Guest");
 		}
 		return memberStoreDetails;
 	
@@ -1749,6 +1759,22 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		verifyPrice(map().get("div1_memberPackage?"), totalPrice);
 
 	}
+
+	public void navigateToMemberLatestInvoicePage(List<String> memberLoginDetails) {
+		if(memberLoginDetails.get(0).equals("0")|memberLoginDetails.get(0).equals("1"))
+		{
+		clickOnSideBarTab("Invoice");
+		clickOnSideBar("Query Invoice");
+		selectAndRunQuery("Selenium - Newest Invoice for Customer Id");
+		enterSingleCustomerIdInRunQuery(memberLoginDetails.get(1));
+		clickInvoiceHeading("Transaction Date");
+		clickInvoiceHeading("Transaction Date");
+		clickOnInvoiceNumber();
+		}
+		
+	}
+
+	
 
 }
 
