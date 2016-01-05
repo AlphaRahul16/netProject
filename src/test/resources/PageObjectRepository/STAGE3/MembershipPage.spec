@@ -131,5 +131,5 @@ txt_priceOrderEntryLineItmes                     xpath                          
 inp_sourceCode                                   id                             mbr_src_code
 list_chapter                                     id                             mbr_chp_cst_key
 link_invoiceListHeadings                         xpath                          //a[contains(text(),'${value}')]
-
+link_addMemership								 xpath							//a[text()='add membership']
 ==============================================================================================================================================

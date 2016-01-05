@@ -5,7 +5,7 @@ Page Title: IndividualsPage
 inp_fieldName               xpath    //span[starts-with(text(),'${fieldName}')]/../following-sibling::td//input
 btn_Go                      xpath    //input[@id='ButtonSearch']
 txt_userEmail                xpath    //a[text()='${email}']
-txt_memberDetails           xpath    //span[@class='DataFormTextBox']
+txt_memberDetails           xpath    //*[@id='F1_cxa_mailing_label_html']
 txt_additionalInfo           xpath    //span[text()='${infoValue}']
 btn_memberShip              xpath    //span[text()='${membershipName}']/preceding-sibling::a//i[@class='icon-chevron-down']
 btn_memberShipAACT          xpath    //span[text()='${membershipName}']/../a[1]
@@ -24,7 +24,7 @@ btn_invoiceAtMembership     xpath              //td[starts-with(text(),'Active')
 lnk_lastName                id            F1_HYPERLINK_4
 link_pageLink               css             .DataFormChildDataGridPagerLink:nth-child(${pageNumber})
 list_pageLink               css             .DataFormChildDataGridPagerLink
-txt_contactId               xpath     //span[contains(text(),'contact id')]/preceding-sibling::span
+txt_contactId               xpath     //*[contains(text(),'contact id:')]/preceding-sibling::span
 img_aactMember              xpath      //span[contains(.,'aact member:')]/following-sibling::span/img[@title='New Image']
 img_member                  xpath      //span[contains(.,'aact member:')]/following-sibling::span/img[@title='Non Member']
 img_noMemberBenefits        xpath       //span[contains(.,'aact member:')]/following-sibling::span/img[@title='No Member Benefits']

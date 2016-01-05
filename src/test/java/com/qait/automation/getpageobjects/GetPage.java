@@ -123,9 +123,7 @@ public class GetPage extends BaseUi {
 	protected void verifyElementTextContains(String elementName,
 			String expectedText) {
 		wait.waitForElementToBeVisible(element(elementName));
-		assertThat("ASSERT FAILED: element '" + elementName
-				+ "' Text is not as expected: ", element(elementName).getText()
-				.trim(), containsString(expectedText));
+		assertThat("ASSERT FAILED: element '" + elementName	+ "' Text is not as expected: ", element(elementName).getText(), containsString(expectedText));
 		logMessage("ASSERT PASSED: element " + elementName
 				+ " is visible and Text is " + expectedText);
 	}
@@ -322,6 +320,14 @@ public class GetPage extends BaseUi {
 				) {
 			wait.hardWait(1);
 		}
+	}
+	
+	protected void verifyElementTextContent(String elementName,
+			String expectedText) {
+		wait.waitForElementToBeVisible(element(elementName));
+		assertThat("ASSERT FAILED: element '" + elementName	+ "' Text is not as expected: ", element(elementName).getAttribute("textContent"), containsString(expectedText));
+		logMessage("ASSERT PASSED: element " + elementName
+				+ " is visible and Text is " + expectedText);
 	}
 
 }

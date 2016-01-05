@@ -250,7 +250,7 @@ public class BaseUi {
 		}
 	}
 
-	private Alert switchToAlert() {
+	protected Alert switchToAlert() {
 		WebDriverWait wait = new WebDriverWait(driver, 1);
 		return wait.until(ExpectedConditions.alertIsPresent());
 	}
@@ -566,7 +566,11 @@ public class BaseUi {
 		}
 	}
 	
-	
+	public void ScrollPage(int x, int y){
+		  JavascriptExecutor jse = 
+		(JavascriptExecutor)driver;
+		  jse.executeScript("window.scrollBy("+x+","+y+")", "");
+		 }	
 	
 	
 }

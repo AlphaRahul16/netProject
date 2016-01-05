@@ -18,6 +18,7 @@ public class ACS_Create_Member_IWEB_Test {
 	YamlInformationProvider getKeyValue;
 	private String caseID;
 	public String contactID;
+	private String[] memDetails;
 
 	String app_url_IWEB = getYamlValue("app_url_IWEB");
 
@@ -41,52 +42,14 @@ public class ACS_Create_Member_IWEB_Test {
 	@Test
 	public void Step02_Add_Individual() {
 		test.homePageIWEB.clickOnAddIndividual();
-		test.addMember
-				.enterMemberDetailsInAddIndividual(test.addMember
-						.getCreateMember_SheetValue(caseID, "firstName"),
-						test.addMember.getCreateMember_SheetValue(caseID,
-								"middleName"),
-						test.addMember.getCreateMember_SheetValue(caseID,
-								"lastName"), test.addMember
-								.getCreateMember_SheetValue(caseID, "country"),
-						test.addMember.getCreateMember_SheetValue(caseID,
-								"street"), test.addMember
-								.getCreateMember_SheetValue(caseID, "city"),
-						test.addMember.getCreateMember_SheetValue(caseID,
-								"abrv_state"), test.addMember
-								.getCreateMember_SheetValue(caseID,
-										"In_postalCode"), test.addMember
-								.getCreateMember_SheetValue(caseID,
-										"phnCountry"),
-						test.addMember.getCreateMember_SheetValue(caseID,
-								"phnNumber"), test.addMember
-								.getCreateMember_SheetValue(caseID,
-										"Out_postalCode"));
+		memDetails = test.addMember
+				.enterMemberDetailsInAddIndividual(caseID);
 	}
 
 	@Test
 	public void Step03_Verify_Individual_Details() {
 		contactID = test.individualsPage
-				.verifyMemberDetails_InAddIndividual(
-						test.addMember.getCreateMember_SheetValue(caseID,
-								"firstName"),
-						test.addMember.getCreateMember_SheetValue(caseID,
-								"middleName"),
-						test.addMember.getCreateMember_SheetValue(caseID,
-								"lastName"),
-						test.addMember.getCreateMember_SheetValue(caseID,
-								"country"),
-						test.addMember.getCreateMember_SheetValue(caseID,
-								"street"),
-						test.addMember.getCreateMember_SheetValue(caseID,
-								"city"),
-						test.addMember.getCreateMember_SheetValue(caseID,
-								"abrv_state"),
-						test.addMember.getCreateMember_SheetValue(caseID,
-								"In_postalCode")
-								+ "-"
-								+ test.addMember.getCreateMember_SheetValue(
-										caseID, "Out_postalCode"));
+				.verifyMemberDetails_InAddIndividual(caseID, memDetails);
 
 		test.individualsPage.verifyMemberIsNotCreated();
 		test.individualsPage.verifyMemberReceivedNoBenefits();
@@ -101,13 +64,11 @@ public class ACS_Create_Member_IWEB_Test {
 	
 	@Test
 	public void Step05_Sell_Division(){
-		
-		
-		test.memberShipPage.goToAddMemebrshipAndFillDetails_Division();
+		test.memberShipPage.goToAddMembershipAndFillDetails_Division();
 	}
 	
 	@Test
-	public void Step05_Sell_Subscription(){
+	public void Step06_Sell_Subscription(){
 		test.memberShipPage.navigateToSubscriptionInSelectLinkAndSellSubscription();
 		
 		
@@ -128,7 +89,7 @@ public class ACS_Create_Member_IWEB_Test {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
 
-	// @AfterClass(alwaysRun = true)
+	@AfterClass(alwaysRun = true)
 	public void Close_Test_Session() {
 		test.closeBrowserSession();
 	}
