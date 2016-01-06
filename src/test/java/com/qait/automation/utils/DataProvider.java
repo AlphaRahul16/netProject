@@ -291,6 +291,13 @@ public class DataProvider {
 				"createMember");
 	}
 	
+	public static List<String> getGivingData() {
+
+		System.out.println("get");
+		return getcaseIdToExecute("caseID Execute", "Yes", "caseID",
+				"giving_donate");
+	}
+	
 	
 	
 	

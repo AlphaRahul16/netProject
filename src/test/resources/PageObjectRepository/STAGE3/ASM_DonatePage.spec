@@ -10,6 +10,7 @@ inp_username                                  xpath                       //inpu
 inp_password                                  xpath                       //input[contains(@id,'Credential2')]
 btn_verify                                    xpath                       //input[contains(@id,'btnLogin')]
 btn_continue                                  xpath                       //input[contains(@id,'cmdContinue1')]
+btn_submitPayment                             xpath                       //input[contains(@id,'cmdContinue')]
 inp_otherProgram                              id                          txtOtherProgramName
 inp_otherAmount                               xpath                       //input[contains(@id,'OtherAmount')]
 btn_logout                                    xpath                       //a[text()='Log Out']
@@ -53,5 +54,14 @@ lnk_printReceipt                              css                            .pr
 txt_confirmationEmailBox                      css                             .yui-g.confirmation-box>p
 btn_loginMember                               id                               btnMemberLogin
 txt_DonateProgram                             xpath                            //span[text()='${donateName}']
+<<<<<<< HEAD
 btn_submitPayment                             xpath                       //input[contains(@id,'cmdContinue')]
+=======
+inp_passwordMember                            id                               realPassword
+chkbox_breakDonation                          id                               chkBreakPayments
+drpdown_pledgeMonths                          id                               cc
+txt_monthlyAmountPayble                       id                               paymentAmt
+txt_pledgeMessage                             css                              div[id*='pledgeMessage']
+
+>>>>>>> 9d48f189e5509013eca9bbb337ad3b04698885f9
 =============================================================================================================================================================

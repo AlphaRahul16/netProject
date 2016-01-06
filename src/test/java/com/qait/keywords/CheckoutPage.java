@@ -35,6 +35,8 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		selectCreditCardInfo("Type", creditCardType);
 		enterCreditCardInfo("creditCardHoldNo", creditCardHolderName);
 		enterCreditCardInfo("creditCardNumber", creditCardNumber);
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(3);
 		selectExpirationMonth("ExpirationMonth");
 		selectNextYear("ExpirationYear");
 		enterCreditCardInfo("CcvNumber", CvvNumber);

@@ -594,7 +594,7 @@ public class ASM_OMA_Smoke {
 	public void take_screenshot_on_failure(ITestResult result) {
 		
 		test.takescreenshot.takeScreenShotOnException(result);
-		test.closeBrowserSession();
+		//test.closeBrowserSession();
 	}
 
 

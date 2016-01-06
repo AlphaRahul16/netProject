@@ -2,6 +2,8 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.NoSuchElementException;
@@ -384,5 +386,80 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		verifyInvoiceDetailsInInvoiceTable("productname", productname);
 
 	}
+
+	public void validateBalanceAndTotalForInvoice(Map<String,String> TotalAmountMap) {
+		Iterator iterator = TotalAmountMap.keySet().iterator();
+		while (iterator.hasNext()) {
+		   String key = iterator.next().toString();
+		   String value = TotalAmountMap.get(key);
+
+		   System.out.println(key + " " + value);
+		}
+         if(TotalAmountMap.size()!=4&&!TotalAmountMap.get("IsProgramPledged").equals("1"))
+         {
+        	 System.out.println("In bbbbbbb");
+	verifyInvoiceProfile("balance", "0.00");
+	verifyInvoiceProfile("invoice total",TotalAmountMap.get("TotalAmount")+"0");
+	System.out.println(TotalAmountMap.size());
+         }
+         else if(TotalAmountMap.size()==4&&TotalAmountMap.get("pledgedMonthlyTotal").equals("true"))
+         {
+        	 Double balance=  Double.parseDouble(TotalAmountMap.get("TotalAmount"))-Double.parseDouble( TotalAmountMap.get("MonthlyAmount"));
+        	 verifyInvoiceProfile("invoice total",TotalAmountMap.get("TotalAmount")+"0");
+        	 verifyInvoiceProfile("balance", String.valueOf(balance)+"0");
+        		System.out.println(TotalAmountMap.size());
+        	 System.out.println("In aaaaaaaaaaa");
+         }
+	}
+
+	public void verfifyproductDisplayNamesAndCodesInsideLineItems(Map<String,String> TotalAmountMap,String[] Amount,String[] productNameKey,Map<String,List<String>> mapIwebProductDetails) {
+		 if(TotalAmountMap.size()!=4&&!TotalAmountMap.get("IsProgramPledged").equals("1"))
+         {
+			 for(int i=0;i<elements("table_description").size();i++)
+			 {
+				 for(int j=0;j<productNameKey.length;j++)
+				 {
+	     	if(elements("table_description").get(i).getText().trim().equals(mapIwebProductDetails.get(productNameKey[j]).get(0)))
+			     { 
+	     		Assert.assertTrue(elements("table_description").get(i).getText().trim().equals(mapIwebProductDetails.get(productNameKey[j]).get(0)));
+	     		logMessage("ASSERT PASSED : Product Display Name verified as "+mapIwebProductDetails.get(productNameKey[j]).get(0));
+	     	 	Assert.assertTrue(elements("table_code").get(i).getText().trim().equals(mapIwebProductDetails.get(productNameKey[j]).get(1)));
+	     	 	logMessage("ASSERT PASSED : Product Code for Product "+productNameKey[j]+" is verified as "+mapIwebProductDetails.get(productNameKey[j]).get(1));
+				Assert.assertTrue(elements("table_quantity").get(i).getText().trim().equals("1"));
+				logMessage("ASSERT PASSED : Product Quantity is verified as 1 ");
+				Assert.assertTrue(elements("table_discount").get(i).getText().trim().equals("0.00"));
+				logMessage("ASSERT PASSED : Product discount is verified as 0.00 ");
+				Assert.assertTrue(elements("table_balance").get(i).getText().trim().equals("0.00"));
+				logMessage("ASSERT PASSED : Product balance is verified as 0.00 ");
+				verifyEachProductAmountOnListItems(productNameKey[i],Amount);
+       			 }
+ 			 }
+			 }
+         }
+		
+	}
+
+	private void verifyEachProductAmountOnListItems(String productName,String[] Amount) {
+		if(productName.length()!=0)
+		{
+			switch(productName)
+			{
+			case "Project SEED": Assert.assertTrue(element("table_priceValue").getText().trim().equals(Amount[0]+".00"));
+			                     break;
+			                     
+			case "ACS Scholars Program": Assert.assertTrue(element("table_priceValue").getText().trim().equals(Amount[1]+".00"));
+                                 break;
+                                 
+			case "Advancing Chemistry Teaching": Assert.assertTrue(element("table_priceValue").getText().trim().equals(Amount[2]+".00"));
+                                 break;
+                                 
+			default : Assert.assertTrue(element("table_priceValue").getText().trim().equals(Amount[3]+".00"));
+                                 break;
+			
+			}
+		}
+	}
+	
+	
 
 }

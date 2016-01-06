@@ -142,8 +142,8 @@ public class ACS_Store_Test {
 				.selectAndRunQuery("Selenium - Newest Invoice for Customer Id");
 		test.memberShipPage.enterSingleCustomerIdInRunQuery(memberStoreDetails
 				.get(0));
-		test.asm_storePage.clickInvoiceHeading();
-		test.asm_storePage.clickInvoiceHeading();
+		test.memberShipPage.clickInvoiceHeading("Transaction Date");
+		test.memberShipPage.clickInvoiceHeading("Transaction Date");
 		test.memberShipPage.clickOnInvoiceNumber();
 	}
 
