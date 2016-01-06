@@ -52,6 +52,7 @@ import com.qait.keywords.IndividualsPageActions_IWEB;
 import com.qait.keywords.InvoicePageActions_IWEB;
 import com.qait.keywords.MemberShipRenewalPage;
 import com.qait.keywords.MembershipPageActions_IWEB;
+
 import com.qait.keywords.SubscriptionPage;
 
 public class TestSessionInitiator {
@@ -101,6 +102,7 @@ public class TestSessionInitiator {
 	public SubscriptionPage subscriptionPage;
 	public MemberShipRenewalPage membershipRenewalPage;
 	public AddMemeber_IWEB addMember;
+	
 
 	public TakeScreenshot takescreenshot;
 
@@ -138,6 +140,7 @@ public class TestSessionInitiator {
 		subscriptionPage = new SubscriptionPage(driver);
 		membershipRenewalPage = new MemberShipRenewalPage(driver);
 		addMember= new AddMemeber_IWEB(driver);
+
 	}
 
 	/**

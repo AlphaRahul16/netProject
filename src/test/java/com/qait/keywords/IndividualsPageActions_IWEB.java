@@ -430,6 +430,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnMemberShipMenu(String menuName) {
 		element("btn_memberShip", menuName).click();
 		logMessage("Step :" + menuName + " is clicked in btn_memberShip\n");
+		
 	}
 
 	private void verifyMemberProductDetails(String element, String detailName) {

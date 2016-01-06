@@ -132,4 +132,6 @@ inp_sourceCode                                   id                             
 list_chapter                                     id                             mbr_chp_cst_key
 link_invoiceListHeadings                         xpath                          //a[contains(text(),'${value}')]
 link_addMemership								 xpath							//a[text()='add membership']
+chk_complimentry_Sub                             id                             ivd_complimentary_flag_ext
+list_complimentryReq_Sub                         id                             ivd_a04_key_ext
 ==============================================================================================================================================

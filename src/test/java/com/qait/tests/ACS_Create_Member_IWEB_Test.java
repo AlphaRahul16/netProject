@@ -19,7 +19,7 @@ public class ACS_Create_Member_IWEB_Test {
 	private String caseID;
 	public String contactID;
 	private String[] memDetails;
-	public static final int count=0;
+	public static final int count = 0;
 
 	String app_url_IWEB = getYamlValue("app_url_IWEB");
 
@@ -43,41 +43,39 @@ public class ACS_Create_Member_IWEB_Test {
 	@Test
 	public void Step02_Add_Individual() {
 		test.homePageIWEB.clickOnAddIndividual();
-		memDetails = test.addMember
-				.enterMemberDetailsInAddIndividual(caseID);
+		memDetails = test.addMember.enterMemberDetailsInAddIndividual(caseID);
 	}
 
 	@Test
 	public void Step03_Verify_Individual_Details() {
-		contactID = test.individualsPage
-				.verifyMemberDetails_InAddIndividual(caseID, memDetails);
+		contactID = test.individualsPage.verifyMemberDetails_InAddIndividual(
+				caseID, memDetails);
 
 		test.individualsPage.verifyMemberIsNotCreated();
 		test.individualsPage.verifyMemberReceivedNoBenefits();
 	}
 
 	@Test
-	public void Step04_Navigate_To_Order_Entry_And_Sell_Membership(){
+	public void Step04_Navigate_To_Order_Entry_And_Sell_Membership() {
 		test.memberShipPage.goToOrderEntry();
 		test.memberShipPage.goToAddMemebrshipAndFillDetails_membership();
 		test.memberShipPage.goToAddMemebrshipAndFillDetails_LocalSection();
-//		count=test.memberShipPage.getDivisionNumbers();
+		// count=test.memberShipPage.getDivisionNumbers();
 	}
-	
-	@Test
-	public void Step05_Sell_Division(){
-		
+
+	@Test(invocationCount = 1)
+	public void Step05_Sell_Division() {
+
 		test.memberShipPage.goToAddMembershipAndFillDetails_Division();
 	}
-	
+
 	@Test
-	public void Step06_Sell_Subscription(){
-		test.memberShipPage.navigateToSubscriptionInSelectLinkAndSellSubscription();
-		
-		
+	public void Step06_Sell_Subscription() {
+		test.memberShipPage
+				.navigateToSubscriptionInSelectLinkAndSellSubscription();
+
 	}
-	
-	
+
 	/**
 	 * * Following methods are to setup and clean up the tests
 	 */
@@ -94,7 +92,9 @@ public class ACS_Create_Member_IWEB_Test {
 
 	@AfterClass(alwaysRun = true)
 	public void Close_Test_Session() {
-		test.closeBrowserSession();
+		// test.closeBrowserSession();
 	}
+
+	
 
 }

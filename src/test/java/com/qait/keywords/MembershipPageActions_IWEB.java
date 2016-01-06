@@ -51,6 +51,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		waitForSpinner();
 		verifyQueryTablePresent();
 		clickOnRunQuery();
+
 	}
 
 	public void selectAndRunQuery(String queryName) {
@@ -1763,13 +1764,16 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void navigateToSubscriptionInSelectLinkAndSellSubscription() {
-		clickOnSelectProduct();
+		wait.waitForPageToLoadCompletely();
+		ScrollPage(0, -700);
+
 		// TODO Remove hard wait after handling stale element exception
-		holdExecution(1000);
+
 		try {
 			wait.waitForPageToLoadCompletely();
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			clickOnSelectProduct();
 			holdExecution(3000);
 			switchToFrame(element("frame_selectProduct"));
 			selectSubscriptionInSelectProductLink();
@@ -1781,21 +1785,24 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			switchToDefaultContent();
 			// TODO Remove hard wait after handling stale element exception
+
+			clickOnSelectProduct();
 			holdExecution(3000);
-			switchToFrame("menu_a83665ae18eb43488c5d83ce5f6027f8");
+			switchToFrame(element("frame_selectProduct"));
 			selectSubscriptionInSelectProductLink();
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		}
 
 		switchToDefaultContent();
-		String productName = addSubscriptionInOrderEntry(map().get(
+		String[] productName_TotalPrice = addSubscriptionInOrderEntry_CreateMem(map().get(
 				"ProductCode1"));
+		System.out.println("prod name:-" + productName_TotalPrice[0]);
 		handleAlert();
 		waitForSpinner();
-		Assert.assertTrue(productName.equalsIgnoreCase(map().get(
-				"subscription1")));
-		verifyPrice(productName, totalPrice);
+
+		
+		verifyPrice(productName_TotalPrice[0], productName_TotalPrice[1]);
 	}
 
 	public void selectAddMembershipInSelectProductLink() {
@@ -1831,4 +1838,25 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
+	public String[] addSubscriptionInOrderEntry_CreateMem(String prodCode) {
+		switchToFrame("iframe1");
+		enterProductCode(prodCode);
+		displayName = searchAndGetDisplayName();
+
+		// totalPrice = getMemberInfoOnMemberShipProfile("net-balance:");
+		logMessage("Step : Display name is : " + displayName + "\n");
+		if (map().get("complimentary").equalsIgnoreCase("On")) {
+			checkCheckbox(element("chk_complimentry_Sub"));
+			selectMemberInfo("complimentryRequest", map().get("compReason"));
+		}
+		String totalPrice = getTotalPrice();
+		clickOnSaveAndFinish();
+		switchToDefaultContent();
+		waitForSpinner();
+		wait.hardWait(2);
+
+		verifyItemAddedInLineItems(displayName.split(" - ")[0]);
+		String[] arr = { displayName.split(" - ")[0], totalPrice };
+		return arr;
+	}
 }

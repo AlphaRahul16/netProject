@@ -125,6 +125,9 @@ public class ASM_MGMPage extends GetPage {
 				flag = true;
 			}
 		}
+		try{
+			
+		
 		if (isPagingPresent()) {
 			while (elements("list_pageNumber").size() > 0) {
 				WebElement nextPageElement = elements("list_pageNumber").get(0);
@@ -149,6 +152,9 @@ public class ASM_MGMPage extends GetPage {
 					break;
 				}
 			}
+		}
+		}catch(Exception e){
+			
 		}
 		if (!flag) {
 			Assert.fail("ASSERT FAILED : Member not invited successfully \n");
