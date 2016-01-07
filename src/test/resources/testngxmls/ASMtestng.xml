@@ -48,9 +48,29 @@
 			<class name="com.qait.tests.ASM_OMR_Smoke"></class>
 		</classes>
 	</test>-->
-	<test name="ASM OMA Smoke" parallel="false">
+	<test name="ASM_OMR_Smoke" parallel="false">
 		<classes>
-			<class name="com.qait.tests.ASM_OMA_Smoke"></class>
+			<class name="com.qait.tests.ASM_OMR_Smoke"></class>
+		</classes>
+	</test>
+		<test name="ASM_Nominate_Smoke" parallel="false">
+		<classes>
+			<class name="com.qait.tests.ASM_Nominate_Smoke"></class>
+		</classes>
+	</test>
+		<test name="Membership_Renewal_Test" parallel="false">
+		<classes>
+			<class name="com.qait.tests.Membership_Renewal_Test"></class>
+		</classes>
+	</test>
+		<test name="ASM_Meeting_Smoke" parallel="false">
+		<classes>
+			<class name="com.qait.tests.ASM_Meeting_Smoke"></class>
+		</classes>
+	</test>
+		<test name="ASM_Donate_Smoke" parallel="false">
+		<classes>
+			<class name="com.qait.tests.ASM_Donate_Smoke"></class>
 		</classes>
 	</test>
 

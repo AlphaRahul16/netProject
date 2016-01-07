@@ -576,6 +576,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("Step : Invoices link is clicked\n");
 			waitForSpinner();
 			wait.hardWait(2);
+			wait.waitForPageToLoadCompletely();
 			isElementDisplayed("btn_memberShip", "invoices (open batch)");
 			element("btn_memberShip", "invoices (open batch)").click();
 			logMessage("Step : invoices (open batch) drop down button is clicked\n");
@@ -793,6 +794,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : user navigate to finance page in btn_memberShip\n");
 	}
 	public void clickOnInvoiceArrowButtonToNavigateFinancialPage() {
+		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("btn_invoicearrow");
 		element("btn_invoicearrow").click();
 		logMessage("Step : user navigate to finance page in btn_invoicearrow\n");

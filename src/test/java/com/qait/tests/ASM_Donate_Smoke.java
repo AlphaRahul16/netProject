@@ -23,187 +23,187 @@ public class ASM_Donate_Smoke {
 
 	String headerName = this.getClass().getSimpleName();
 
-	@Test
-	public void Step03_TC01_Enter_Invalid_UserName_And_Verify_ASM_Error() {
-		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-				.getStackTrace()[1].getMethodName());
-		test.asm_Donate.loginIntoApplication(
-				DataProvider.getColumnData(tcId, headerName),
-				getASM_Donate.getASM_Donate("password"));
-		test.asmErrorPage.verifyASMError(YamlReader
-				.getYamlValue("ASM_URLRejectedErrorMsz"));
-	}
-
-	@Test
-	public void Step01_TC02_Enter_Donate_In_Program_And_Verify_ASM_Error_Not_Present() {
-		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-				.getStackTrace()[1].getMethodName());
-		test.asm_Donate.enterDonateValue("Project SEED",
-				DataProvider.getColumnData(tcId, headerName));
-		test.asm_Donate.clickOnContinueButton();
-		test.asm_Donate.verifyCurrentPage("Contact info");
-		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-				.getYamlValue("ASM_URLRejectedErrorMsz"));
-		
-
-	}
-
-	@Test
-	public void Step02_TC03_Enter_Other_Program_And_Verify_ASM_Error_Not_Present() {
-		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-				.getStackTrace()[1].getMethodName());
-		test.asm_Donate.enterOtherProgram(DataProvider.getColumnData(tcId,
-				headerName));
-		test.asm_Donate.enterOtherAmount(getASM_Donate
-				.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
-		test.asm_Donate.verifyCurrentPage("Contact info");
-		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-				.getYamlValue("ASM_URLRejectedErrorMsz"));
-
-	}
-
-	@Test
-	public void Step04_TC04_Enter_Valid_Username_And_Verify_ASM_Error_Not_Present() {
-		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-				.getStackTrace()[1].getMethodName());
-		test.asm_Donate.loginIntoApplication(
-				DataProvider.getColumnData(tcId, headerName),
-				getASM_Donate.getASM_Donate("password"));
-		test.asm_Donate.verifyCurrentPage("Make a donation");
-		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-				.getYamlValue("ASM_URLRejectedErrorMsz"));
-
-	}
-
-	@Test
-	public void Step05_TC05_Enter_Valid_Password_And_Verify_ASM_Error_Not_Present() {
-		String tcId = "TC05";
-		test.asm_Donate.loginIntoApplication(
-				getASM_Donate.getASM_Donate("userName"),
-				DataProvider.getColumnData(tcId, headerName));
-		test.asm_Donate.verifyCurrentPage("Make a donation");
-		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-				.getYamlValue("ASM_URLRejectedErrorMsz"));
-
-	}
-
-	@Test
-	public void Step06_TC06_Enter_Invalid_Username_And_Verify_ASM_Error_Not_Present() {
-		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-				.getStackTrace()[1].getMethodName());
-		test.asm_Donate.loginIntoApplication(
-				DataProvider.getColumnData(tcId, headerName),
-				getASM_Donate.getASM_Donate("password"));
-		test.asm_Donate.verifyLoginErrorMessagePresent(getASM_Donate
-				.getASM_Donate("LoginErrorMessage"));
-		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-				.getYamlValue("ASM_URLRejectedErrorMsz"));
-	}
-
-	@Test
-	public void Step07_TC07_Enter_Valid_Firstname_And_Verify_ASM_Error_Not_Present() {
-		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-				.getStackTrace()[1].getMethodName());
-		test.asm_Donate.verifyCurrentPage("Make a donation");
-		test.asm_Donate.enterDonateValue("Project SEED",
-				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
-		test.asm_Donate.verifyCurrentPage("Contact info");
-		test.asm_Donate.clickOnContinueAsGuest();
-		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
-				DataProvider.getColumnData(tcId, headerName),
-				getASM_Donate.getASM_Donate_ContactInfo("lastName"),
-				getASM_Donate.getASM_Donate_ContactInfo("email"),
-				getASM_Donate.getASM_Donate_ContactInfo("phone"),
-				getASM_Donate.getASM_Donate_ContactInfo("address"),
-				getASM_Donate.getASM_Donate_ContactInfo("city"),
-				getASM_Donate.getASM_Donate_ContactInfo("state"),
-				getASM_Donate.getASM_Donate_ContactInfo("zipcode"),
-				getASM_Donate.getASM_Donate_ContactInfo("country"));
-		test.asm_Donate.verifyCurrentPage("Confirm your donation");
-		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-				.getYamlValue("ASM_URLRejectedErrorMsz"));
-	}
-
-	@Test
-	public void Step08_TC08_Enter_Valid_Lastname_And_Verify_ASM_Error_Not_Present() {
-		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-				.getStackTrace()[1].getMethodName());
-		test.asm_Donate.verifyCurrentPage("Make a donation");
-		test.asm_Donate.enterDonateValue("Project SEED",
-				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
-		test.asm_Donate.verifyCurrentPage("Contact info");
-		test.asm_Donate.clickOnContinueAsGuest();
-		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
-				getASM_Donate.getASM_Donate_ContactInfo("firstName"),
-				DataProvider.getColumnData(tcId, headerName),
-				getASM_Donate.getASM_Donate_ContactInfo("email"),
-				getASM_Donate.getASM_Donate_ContactInfo("phone"),
-				getASM_Donate.getASM_Donate_ContactInfo("address"),
-				getASM_Donate.getASM_Donate_ContactInfo("city"),
-				getASM_Donate.getASM_Donate_ContactInfo("state"),
-				getASM_Donate.getASM_Donate_ContactInfo("zipcode"),
-				getASM_Donate.getASM_Donate_ContactInfo("country"));
-		test.asm_Donate.verifyCurrentPage("Confirm your donation");
-		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-				.getYamlValue("ASM_URLRejectedErrorMsz"));
-	}
-
-	@Test
-	public void Step09_TC09_Enter_Valid_Email_And_Verify_ASM_Error_Not_Present() {
-		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-				.getStackTrace()[1].getMethodName());
-
-		test.asm_Donate.verifyCurrentPage("Make a donation");
-		test.asm_Donate.enterDonateValue("Project SEED",
-				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
-		test.asm_Donate.verifyCurrentPage("Contact info");
-		test.asm_Donate.clickOnContinueAsGuest();
-		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
-				getASM_Donate.getASM_Donate_ContactInfo("firstName"),
-				getASM_Donate.getASM_Donate_ContactInfo("lastName"),
-				DataProvider.getColumnData(tcId, headerName),
-				getASM_Donate.getASM_Donate_ContactInfo("phone"),
-				getASM_Donate.getASM_Donate_ContactInfo("address"),
-				getASM_Donate.getASM_Donate_ContactInfo("city"),
-				getASM_Donate.getASM_Donate_ContactInfo("state"),
-				getASM_Donate.getASM_Donate_ContactInfo("zipcode"),
-				getASM_Donate.getASM_Donate_ContactInfo("country"));
-		test.asm_Donate.verifyCurrentPage("Confirm your donation");
-		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-				.getYamlValue("ASM_URLRejectedErrorMsz"));
-	}
-
-	@Test
-	public void Step10_TC10_Enter_Invalid_Email_And_Verify_ASM_Error_Not_Present() {
-		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-				.getStackTrace()[1].getMethodName());
-
-		test.asm_Donate.verifyCurrentPage("Make a donation");
-		test.asm_Donate.enterDonateValue("Project SEED",
-				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
-		test.asm_Donate.verifyCurrentPage("Contact info");
-		test.asm_Donate.clickOnContinueAsGuest();
-		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
-				getASM_Donate.getASM_Donate_ContactInfo("firstName"),
-				getASM_Donate.getASM_Donate_ContactInfo("lastName"),
-				DataProvider.getColumnData(tcId, headerName),
-				getASM_Donate.getASM_Donate_ContactInfo("phone"),
-				getASM_Donate.getASM_Donate_ContactInfo("address"),
-				getASM_Donate.getASM_Donate_ContactInfo("city"),
-				getASM_Donate.getASM_Donate_ContactInfo("state"),
-				getASM_Donate.getASM_Donate_ContactInfo("zipcode"),
-				getASM_Donate.getASM_Donate_ContactInfo("country"));
-		test.asm_Donate.verifyErrorMessage(getASM_Donate
-				.getASM_Donate("emailErrorMessage"));
-		test.asm_Donate.verifyCurrentPage("Contact info");
-		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-				.getYamlValue("ASM_URLRejectedErrorMsz"));
-	}
+//	@Test
+//	public void Step03_TC01_Enter_Invalid_UserName_And_Verify_ASM_Error() {
+//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+//				.getStackTrace()[1].getMethodName());
+//		test.asm_Donate.loginIntoApplication(
+//				DataProvider.getColumnData(tcId, headerName),
+//				getASM_Donate.getASM_Donate("password"));
+//		test.asmErrorPage.verifyASMError(YamlReader
+//				.getYamlValue("ASM_URLRejectedErrorMsz"));
+//	}
+//
+//	@Test
+//	public void Step01_TC02_Enter_Donate_In_Program_And_Verify_ASM_Error_Not_Present() {
+//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+//				.getStackTrace()[1].getMethodName());
+//		test.asm_Donate.enterDonateValue("Project SEED",
+//				DataProvider.getColumnData(tcId, headerName));
+//		test.asm_Donate.clickOnSubmitPaymentButton();
+//		test.asm_Donate.verifyCurrentPage("Contact info");
+//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+//				.getYamlValue("ASM_URLRejectedErrorMsz"));
+//		
+//
+//	}
+//
+//	@Test
+//	public void Step02_TC03_Enter_Other_Program_And_Verify_ASM_Error_Not_Present() {
+//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+//				.getStackTrace()[1].getMethodName());
+//		test.asm_Donate.enterOtherProgram(DataProvider.getColumnData(tcId,
+//				headerName));
+//		test.asm_Donate.enterOtherAmount(getASM_Donate
+//				.getASM_MakeDonate("donate"));
+//		test.asm_Donate.clickOnSubmitPaymentButton();
+//		test.asm_Donate.verifyCurrentPage("Contact info");
+//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+//				.getYamlValue("ASM_URLRejectedErrorMsz"));
+//
+//	}
+//
+//	@Test
+//	public void Step04_TC04_Enter_Valid_Username_And_Verify_ASM_Error_Not_Present() {
+//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+//				.getStackTrace()[1].getMethodName());
+//		test.asm_Donate.loginIntoApplication(
+//				DataProvider.getColumnData(tcId, headerName),
+//				getASM_Donate.getASM_Donate("password"));
+//		test.asm_Donate.verifyCurrentPage("Make a donation");
+//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+//				.getYamlValue("ASM_URLRejectedErrorMsz"));
+//
+//	}
+//
+//	@Test
+//	public void Step05_TC05_Enter_Valid_Password_And_Verify_ASM_Error_Not_Present() {
+//		String tcId = "TC05";
+//		test.asm_Donate.loginIntoApplication(
+//				getASM_Donate.getASM_Donate("userName"),
+//				DataProvider.getColumnData(tcId, headerName));
+//		test.asm_Donate.verifyCurrentPage("Make a donation");
+//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+//				.getYamlValue("ASM_URLRejectedErrorMsz"));
+//
+//	}
+//
+//	@Test
+//	public void Step06_TC06_Enter_Invalid_Username_And_Verify_ASM_Error_Not_Present() {
+//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+//				.getStackTrace()[1].getMethodName());
+//		test.asm_Donate.loginIntoApplication(
+//				DataProvider.getColumnData(tcId, headerName),
+//				getASM_Donate.getASM_Donate("password"));
+//		test.asm_Donate.verifyLoginErrorMessagePresent(getASM_Donate
+//				.getASM_Donate("LoginErrorMessage"));
+//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+//				.getYamlValue("ASM_URLRejectedErrorMsz"));
+//	}
+//
+//	@Test
+//	public void Step07_TC07_Enter_Valid_Firstname_And_Verify_ASM_Error_Not_Present() {
+//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+//				.getStackTrace()[1].getMethodName());
+//		test.asm_Donate.verifyCurrentPage("Make a donation");
+//		test.asm_Donate.enterDonateValue("Project SEED",
+//				getASM_Donate.getASM_MakeDonate("donate"));
+//		test.asm_Donate.clickOnSubmitPaymentButton();
+//		test.asm_Donate.verifyCurrentPage("Contact info");
+//		test.asm_Donate.clickOnContinueAsGuest();
+//		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
+//				DataProvider.getColumnData(tcId, headerName),
+//				getASM_Donate.getASM_Donate_ContactInfo("lastName"),
+//				getASM_Donate.getASM_Donate_ContactInfo("email"),
+//				getASM_Donate.getASM_Donate_ContactInfo("phone"),
+//				getASM_Donate.getASM_Donate_ContactInfo("address"),
+//				getASM_Donate.getASM_Donate_ContactInfo("city"),
+//				getASM_Donate.getASM_Donate_ContactInfo("state"),
+//				getASM_Donate.getASM_Donate_ContactInfo("zipcode"),
+//				getASM_Donate.getASM_Donate_ContactInfo("country"));
+//		test.asm_Donate.verifyCurrentPage("Confirm your donation");
+//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+//				.getYamlValue("ASM_URLRejectedErrorMsz"));
+//	}
+//
+//	@Test
+//	public void Step08_TC08_Enter_Valid_Lastname_And_Verify_ASM_Error_Not_Present() {
+//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+//				.getStackTrace()[1].getMethodName());
+//		test.asm_Donate.verifyCurrentPage("Make a donation");
+//		test.asm_Donate.enterDonateValue("Project SEED",
+//				getASM_Donate.getASM_MakeDonate("donate"));
+//		test.asm_Donate.clickOnSubmitPaymentButton();
+//		test.asm_Donate.verifyCurrentPage("Contact info");
+//		test.asm_Donate.clickOnContinueAsGuest();
+//		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
+//				getASM_Donate.getASM_Donate_ContactInfo("firstName"),
+//				DataProvider.getColumnData(tcId, headerName),
+//				getASM_Donate.getASM_Donate_ContactInfo("email"),
+//				getASM_Donate.getASM_Donate_ContactInfo("phone"),
+//				getASM_Donate.getASM_Donate_ContactInfo("address"),
+//				getASM_Donate.getASM_Donate_ContactInfo("city"),
+//				getASM_Donate.getASM_Donate_ContactInfo("state"),
+//				getASM_Donate.getASM_Donate_ContactInfo("zipcode"),
+//				getASM_Donate.getASM_Donate_ContactInfo("country"));
+//		test.asm_Donate.verifyCurrentPage("Confirm your donation");
+//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+//				.getYamlValue("ASM_URLRejectedErrorMsz"));
+//	}
+//
+//	@Test
+//	public void Step09_TC09_Enter_Valid_Email_And_Verify_ASM_Error_Not_Present() {
+//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+//				.getStackTrace()[1].getMethodName());
+//
+//		test.asm_Donate.verifyCurrentPage("Make a donation");
+//		test.asm_Donate.enterDonateValue("Project SEED",
+//				getASM_Donate.getASM_MakeDonate("donate"));
+//		test.asm_Donate.clickOnSubmitPaymentButton();
+//		test.asm_Donate.verifyCurrentPage("Contact info");
+//		test.asm_Donate.clickOnContinueAsGuest();
+//		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
+//				getASM_Donate.getASM_Donate_ContactInfo("firstName"),
+//				getASM_Donate.getASM_Donate_ContactInfo("lastName"),
+//				DataProvider.getColumnData(tcId, headerName),
+//				getASM_Donate.getASM_Donate_ContactInfo("phone"),
+//				getASM_Donate.getASM_Donate_ContactInfo("address"),
+//				getASM_Donate.getASM_Donate_ContactInfo("city"),
+//				getASM_Donate.getASM_Donate_ContactInfo("state"),
+//				getASM_Donate.getASM_Donate_ContactInfo("zipcode"),
+//				getASM_Donate.getASM_Donate_ContactInfo("country"));
+//		test.asm_Donate.verifyCurrentPage("Confirm your donation");
+//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+//				.getYamlValue("ASM_URLRejectedErrorMsz"));
+//	}
+//
+//	@Test
+//	public void Step10_TC10_Enter_Invalid_Email_And_Verify_ASM_Error_Not_Present() {
+//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+//				.getStackTrace()[1].getMethodName());
+//
+//		test.asm_Donate.verifyCurrentPage("Make a donation");
+//		test.asm_Donate.enterDonateValue("Project SEED",
+//				getASM_Donate.getASM_MakeDonate("donate"));
+//		test.asm_Donate.clickOnSubmitPaymentButton();
+//		test.asm_Donate.verifyCurrentPage("Contact info");
+//		test.asm_Donate.clickOnContinueAsGuest();
+//		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
+//				getASM_Donate.getASM_Donate_ContactInfo("firstName"),
+//				getASM_Donate.getASM_Donate_ContactInfo("lastName"),
+//				DataProvider.getColumnData(tcId, headerName),
+//				getASM_Donate.getASM_Donate_ContactInfo("phone"),
+//				getASM_Donate.getASM_Donate_ContactInfo("address"),
+//				getASM_Donate.getASM_Donate_ContactInfo("city"),
+//				getASM_Donate.getASM_Donate_ContactInfo("state"),
+//				getASM_Donate.getASM_Donate_ContactInfo("zipcode"),
+//				getASM_Donate.getASM_Donate_ContactInfo("country"));
+//		test.asm_Donate.verifyErrorMessage(getASM_Donate
+//				.getASM_Donate("emailErrorMessage"));
+//		test.asm_Donate.verifyCurrentPage("Contact info");
+//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+//				.getYamlValue("ASM_URLRejectedErrorMsz"));
+//	}
 
 	@Test
 	public void Step11_TC11_Enter_Valid_Phone_Number_And_Verify_ASM_Error_Not_Present() {
@@ -213,7 +213,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -239,7 +239,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -265,7 +265,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -293,7 +293,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -319,9 +319,9 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
-		test.asm_Donate.clickOnContinueAsGuest();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
 				getASM_Donate.getASM_Donate_ContactInfo("firstName"),
 				getASM_Donate.getASM_Donate_ContactInfo("lastName"),
@@ -345,7 +345,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -371,7 +371,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -397,7 +397,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 
@@ -439,7 +439,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -480,7 +480,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -517,7 +517,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -558,7 +558,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -602,7 +602,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -647,7 +647,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -692,7 +692,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -737,7 +737,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -774,7 +774,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -811,7 +811,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
