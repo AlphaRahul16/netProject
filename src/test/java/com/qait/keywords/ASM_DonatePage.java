@@ -385,7 +385,7 @@ public class ASM_DonatePage extends GetPage {
 		enterCVVNumber(cvvNumber);
 		selectExpirationDate_Year("Date", date_Value);
 		selectExpirationDate_Year("Year", year_Value);
-		clickOnContinueButton();
+		clickOnSubmitPaymentButton();
 
 	}
 
@@ -846,9 +846,10 @@ public class ASM_DonatePage extends GetPage {
 		}
 	}
 
-	public void verifyProductPledgedSummaryOnConfirmDonationPage(
-			String[] donateProgramNames, String[] amount, String PledgeMonths) {
-		if (IsProgramPledged == 1) {
+
+	public void verifyProductPledgedSummaryOnConfirmDonationPage(String[] donateProgramNames, String[] amount,String PledgeMonths) {
+		if(pledgedMonthlyTotal==true)
+		{
 			verifyPledgedProductSummary(donateProgramNames);
 			verifyPledgeMessageOnSummaryTable(PledgeMonths);
 		} else {

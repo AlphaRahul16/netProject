@@ -138,17 +138,11 @@ public class ACS_GivingApplication_Smoke {
 		test.asm_Donate.verifyThankyouMessageAfterDonation();
 		test.asm_Donate.verifyPrintReceiptMessageAfterDonation();
 		test.asm_Donate.verifyConfirmationEmailAfterDonation(mapSheetData.get("ValidEmailAddress"));
-		//TestNG tng = new TestNG();
-		//tng.setAnnotationTransformer(new MyTransformer(memberLoginDetails));
-
 	}
 
 	@Test
 	public void Step07_TC_07_Navigate_To_Iweb_And_Retreive_Lastest_Invoice_For_Donor()
 	{
-		String  Amount[]={mapSheetData.get("Program1 Donate Amount"),
-				mapSheetData.get("Program2 Donate Amount"),mapSheetData.get("Program3 Donate Amount"),
-				mapSheetData.get("Other Program Donate Amount")};
 		test.navigateToIWEBUrlOnNewBrowserTab(app_url_IWEB);
 		test.memberShipPage.navigateToMemberLatestInvoicePage(memberLoginDetails);
 		if(memberLoginDetails.get(0).equals("2"))
@@ -164,19 +158,24 @@ public class ACS_GivingApplication_Smoke {
 			test.individualsPage.clickOnInvoiceArrowButtonToNavigateFinancialPage();
 			
 		}
+	
+		
+	}
+	
+	@Test
+	public void Step08_TC_08_Navigate_To_Iweb_And_Retreive_Lastest_Invoice_For_Guest()
+	{
+		String  Amount[]={mapSheetData.get("Program1 Donate Amount"),
+				mapSheetData.get("Program2 Donate Amount"),mapSheetData.get("Program3 Donate Amount"),
+				mapSheetData.get("Other Program Donate Amount")};
 		test.invoicePage.validateBalanceAndTotalForInvoice(TotalAmountMap);
 		test.invoicePage.expandDetailsMenu("line items");
 		test.invoicePage.verfifyproductDisplayNamesAndCodesInsideLineItems(TotalAmountMap,Amount,productNameKey,mapIwebProductDetails);
 		test.invoicePage.collapseDetailsMenu("line items");
-		
-	}
-	
-
-
-	@Test
-	public void Step08_TC_08_Navigate_To_Iweb_And_Retreive_Lastest_Invoice_For_Guest()
-	{
-		System.out.println("adafdsafsafas");
+		test.invoicePage.expandDetailsMenu("acs giving invoice details");
+		test.invoicePage.verifyGivingInvoiceDetails(mapSheetData.get("SendCardVia_Email?"),mapSheetData.get("SendCardVia_PostalMail?"),
+				mapSheetData.get("DonotSendCard?"),	mapSheetData.get("Other Program"));
+		test.invoicePage.collapseDetailsMenu("acs giving invoice details");
 	}
 	
 

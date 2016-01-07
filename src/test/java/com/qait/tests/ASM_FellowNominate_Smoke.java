@@ -590,6 +590,6 @@ public class ASM_FellowNominate_Smoke {
 	@AfterMethod
 	public void take_screenshot_on_failure(ITestResult result) {
 		test.takescreenshot.takeScreenShotOnException(result);
-		test.closeBrowserSession();
+		//test.closeBrowserSession();
 	}
 }

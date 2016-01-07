@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.tools.ant.util.SymbolicLinkUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -13,6 +14,8 @@ import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DateUtil;
+
+import net.sourceforge.htmlunit.corejs.javascript.ast.SwitchCase;
 
 public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
@@ -413,52 +416,117 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verfifyproductDisplayNamesAndCodesInsideLineItems(Map<String,String> TotalAmountMap,String[] Amount,String[] productNameKey,Map<String,List<String>> mapIwebProductDetails) {
-		 if(TotalAmountMap.size()!=4&&!TotalAmountMap.get("IsProgramPledged").equals("1"))
+		 if(TotalAmountMap.size()!=4)
          {
-			 for(int i=0;i<elements("table_description").size();i++)
-			 {
-				 for(int j=0;j<productNameKey.length;j++)
-				 {
-	     	if(elements("table_description").get(i).getText().trim().equals(mapIwebProductDetails.get(productNameKey[j]).get(0)))
-			     { 
-	     		Assert.assertTrue(elements("table_description").get(i).getText().trim().equals(mapIwebProductDetails.get(productNameKey[j]).get(0)));
-	     		logMessage("ASSERT PASSED : Product Display Name verified as "+mapIwebProductDetails.get(productNameKey[j]).get(0));
-	     	 	Assert.assertTrue(elements("table_code").get(i).getText().trim().equals(mapIwebProductDetails.get(productNameKey[j]).get(1)));
-	     	 	logMessage("ASSERT PASSED : Product Code for Product "+productNameKey[j]+" is verified as "+mapIwebProductDetails.get(productNameKey[j]).get(1));
-				Assert.assertTrue(elements("table_quantity").get(i).getText().trim().equals("1"));
-				logMessage("ASSERT PASSED : Product Quantity is verified as 1 ");
-				Assert.assertTrue(elements("table_discount").get(i).getText().trim().equals("0.00"));
-				logMessage("ASSERT PASSED : Product discount is verified as 0.00 ");
-				Assert.assertTrue(elements("table_balance").get(i).getText().trim().equals("0.00"));
-				logMessage("ASSERT PASSED : Product balance is verified as 0.00 ");
-				verifyEachProductAmountOnListItems(productNameKey[i],Amount);
-       			 }
- 			 }
-			 }
+			 verifyProductDisplayDetailsAndAmountWhenProgramIsNotPledged(Amount,productNameKey,mapIwebProductDetails);
+			 
          }
+		 else if(TotalAmountMap.size()==4 && TotalAmountMap.get("pledgedMonthlyTotal").equals("true"))
+		 {
+				System.out.println("Pledged monthly "+TotalAmountMap.get("pledgedMonthlyTotal"));
+				verifyProductDisplayDetailsAndAmountWhenProgramIsPledged(Amount,productNameKey,mapIwebProductDetails);
+		 }
 		
+	}
+	private void verifyProductDisplayDetailsAndAmountWhenProgramIsPledged(String[] amount, String[] productNameKey, Map<String, List<String>> mapIwebProductDetails) {
+	    
+		System.out.println("product zero "+productNameKey[0]);
+		System.out.println(element("table_description").getText().trim());
+		String pledgedProduct=mapIwebProductDetails.get(productNameKey[0]).get(1).split(" ")[0] +" P";
+		if(element("table_description").getText().trim().contains(productNameKey[0]))
+		{
+			Assert.assertTrue(element("table_description").getText().trim().equals(productNameKey[0]+" Pledge"));
+			Assert.assertTrue(element("table_code").getText().trim().equals(pledgedProduct));
+		}
+	}
+
+	private void verifyProductDisplayDetailsAndAmountWhenProgramIsNotPledged(String[] Amount,String[] productNameKey,Map<String,List<String>> mapIwebProductDetails)
+	{
+		for(int i=0;i<elements("table_description").size();i++)
+		 {
+			 for(int j=0;j<productNameKey.length;j++)
+			 {
+    	if(elements("table_description").get(i).getText().trim().equals(mapIwebProductDetails.get(productNameKey[j]).get(0)))
+		     { 
+    		Assert.assertTrue(elements("table_description").get(i).getText().trim().equals(mapIwebProductDetails.get(productNameKey[j]).get(0)));
+    		logMessage("ASSERT PASSED : Product Display Name verified as "+mapIwebProductDetails.get(productNameKey[j]).get(0));
+    	 	Assert.assertTrue(elements("table_code").get(i).getText().trim().equals(mapIwebProductDetails.get(productNameKey[j]).get(1)));
+    	 	logMessage("ASSERT PASSED : Product Code for Product "+productNameKey[j]+" is verified as "+mapIwebProductDetails.get(productNameKey[j]).get(1));
+			Assert.assertTrue(elements("table_quantity").get(i).getText().trim().equals("1"));
+			logMessage("ASSERT PASSED : Product Quantity is verified as 1 ");
+			Assert.assertTrue(elements("table_discount").get(i).getText().trim().equals("0.00"));
+			logMessage("ASSERT PASSED : Product discount is verified as 0.00 ");
+			Assert.assertTrue(elements("table_balance").get(i).getText().trim().equals("0.00"));
+			logMessage("ASSERT PASSED : Product balance is verified as 0.00 ");
+			verifyEachProductAmountOnListItems(mapIwebProductDetails.get(productNameKey[j]).get(0),Amount);
+  			 }
+		 }
+		 }
 	}
 
 	private void verifyEachProductAmountOnListItems(String productName,String[] Amount) {
 		if(productName.length()!=0)
 		{
-			switch(productName)
-			{
-			case "Project SEED": Assert.assertTrue(element("table_priceValue").getText().trim().equals(Amount[0]+".00"));
-			                     break;
-			                     
-			case "ACS Scholars Program": Assert.assertTrue(element("table_priceValue").getText().trim().equals(Amount[1]+".00"));
-                                 break;
-                                 
-			case "Advancing Chemistry Teaching": Assert.assertTrue(element("table_priceValue").getText().trim().equals(Amount[2]+".00"));
-                                 break;
-                                 
-			default : Assert.assertTrue(element("table_priceValue").getText().trim().equals(Amount[3]+".00"));
-                                 break;
+			
+                   switch(productName)
+                   {
+                   case "Project SEED": verifyAmountForParticularProduct(productName,Amount[0]);
+                   break;
+                   case "ACS Scholars Program": verifyAmountForParticularProduct(productName,Amount[1]);
+                   break;
+                   case "Teacher Professional Development": verifyAmountForParticularProduct(productName,Amount[2]);
+                   break;
+                   default: verifyAmountForParticularProduct(productName,Amount[3]);
+                   break;
+                   }
 			
 			}
 		}
+
+	private void verifyAmountForParticularProduct(String Productname,String Amount) {
+		System.out.println("name "+Productname);
+		System.out.println(element("table_productPrice",Productname).getText());
+		System.out.println("Amount "+Amount+"0.00");
+		Assert.assertTrue(element("table_productPrice",Productname).getText().trim().equals(Amount+".00"));
+		
 	}
+
+	public void verifyGivingInvoiceDetails(String viaEmail, String viaPostmail,String dontsend,String otherProgramName) {
+		verifyCardSendViaEmailOrPost(viaEmail,viaPostmail,dontsend);
+		verifyOtherProgramNameOnInvoiceDetails(otherProgramName);
+	}
+	
+	private void verifyOtherProgramNameOnInvoiceDetails(String otherProgramName) {
+		if(otherProgramName.length()!=0)
+		{
+			Assert.assertTrue(element("txt_givingInvoiceOtherProgram").getText().trim().equals(otherProgramName));
+			logMessage("Other Program Name in Giving Invoice Details is verified as : "+otherProgramName);
+		}
+		
+	}
+
+	private void verifyCardSendViaEmailOrPost(String viaEmail, String viaPostmail,String dontsend)
+	{
+		if(viaEmail.length()!=0&&viaEmail.equalsIgnoreCase("YES"))
+		{
+			Assert.assertTrue(element("txt_givingInvoiceEmailPost").getText().trim().equals("email"));
+			logMessage("Card Send via in Giving Invoice Details is verified as : Email");
+		}
+		else if(viaPostmail.length()!=0&&viaPostmail.equalsIgnoreCase("YES"))
+		{
+			Assert.assertTrue(element("txt_givingInvoiceEmailPost").getText().trim().equals("post"));
+			logMessage("Card Send via in Giving Invoice Details is verified as : post");
+		}
+		else if (dontsend.length()!=0&&dontsend.equalsIgnoreCase("YES"))
+		{
+			logMessage("Donot send card option is selected and Giving Invoice Details is verified as : none");
+		}
+		else
+		{
+			logMessage("Card is not send Giving Invoice details verified as blank");
+		}
+	}
+
 	
 	
 
