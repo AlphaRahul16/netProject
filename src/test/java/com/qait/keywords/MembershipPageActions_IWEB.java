@@ -34,7 +34,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	List<String> memberDetails = new ArrayList<>();
 	List<String> memberStoreDetails = new ArrayList<>();
 	StringBuffer sb = new StringBuffer();
-	 int count;
+	int count;
 
 	public MembershipPageActions_IWEB(WebDriver driver) {
 		super(driver, pagename);
@@ -51,6 +51,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		waitForSpinner();
 		verifyQueryTablePresent();
 		clickOnRunQuery();
+
 	}
 
 	public void selectAndRunQuery(String queryName) {
@@ -915,6 +916,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ numberOfYears);
 		return numberOfYears;
 	}
+
 	public void clickOnSideBarTab(String tabName) {
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(4);
@@ -923,6 +925,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// element("hd_sideBar", tabName).click();
 		logMessage("STEP : Click on tab " + tabName + " in hd_sideBar \n");
 	}
+
 	public void clickOnModuleTab() {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("btn_tabs");
@@ -931,13 +934,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// element("btn_tabs").click();
 		logMessage("Step Module tab is clicked\n");
 	}
+
 	public void clickOnTab(String tabName) {
 		isElementDisplayed("link_tabsOnModule", tabName);
-	    element("link_tabsOnModule", tabName).click();
-	    logMessage("STEP : "+tabName+" tab is clicked\n");
-		
+		element("link_tabsOnModule", tabName).click();
+		logMessage("STEP : " + tabName + " tab is clicked\n");
+
 	}
-	
+
 	public void numberOfYearsForActiveMember(String numberOfYears) {
 		String noOfYears = String.valueOf(Integer.parseInt(numberOfYears) + 1);
 		isElementDisplayed("txt_numberOfyears");
@@ -1260,7 +1264,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToFrame("iframe1");
 		enterProductCode(prodCode);
 		displayName = searchAndGetDisplayName();
-		totalPrice = getMemberInfoOnMemberShipProfile("net-balance:");
+		// totalPrice = getMemberInfoOnMemberShipProfile("net-balance:");
 		logMessage("Step : Display name is : " + displayName + "\n");
 		clickOnSaveAndFinish();
 		switchToDefaultContent();
@@ -1380,11 +1384,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		logMessage("STEP: First Invoice Number Clicked");
 	}
-	public void clickInvoiceHeading(String tabName)
-	{
+
+	public void clickInvoiceHeading(String tabName) {
 		wait.hardWait(2);
-		isElementDisplayed("link_invoiceListHeadings",tabName);
-		element("link_invoiceListHeadings",tabName).click();
+		isElementDisplayed("link_invoiceListHeadings", tabName);
+		element("link_invoiceListHeadings", tabName).click();
 		wait.waitForPageToLoadCompletely();
 	}
 
@@ -1559,64 +1563,58 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		element("btn_arrowRightCircle").click();
 		logMessage("Step : navigate to invoice profile page for first product in btn_arrowRightCircle\n");
 	}
+
 	public void getloginStatusFromSheet(String[] loginAs) {
-		   List<String> loginList = new ArrayList<String>();
-		  
-		   for(int i=0;i<loginAs.length;i++) {
-			   if((!loginAs[i].equals(" ")|loginAs[i].length()!=0)&&loginAs[i].equalsIgnoreCase("YES"))
-			   {
-				   loginList.add(loginAs[i]);
-				   count=i;
-				   System.out.println("Count is"+count);
-		   }
-		   }
-		   System.out.println(loginList.size());
-			   if(loginList.size()>1)
-			   { 
-				   logMessage("More than One option has YES value");
-				   Assert.assertFalse(true);
-			   }
-			   
-		   
+		List<String> loginList = new ArrayList<String>();
+
+		for (int i = 0; i < loginAs.length; i++) {
+			if ((!loginAs[i].equals(" ") | loginAs[i].length() != 0)
+					&& loginAs[i].equalsIgnoreCase("YES")) {
+				loginList.add(loginAs[i]);
+				count = i;
+				System.out.println("Count is" + count);
+			}
+		}
+		System.out.println(loginList.size());
+		if (loginList.size() > 1) {
+			logMessage("More than One option has YES value");
+			Assert.assertFalse(true);
+		}
+
 	}
-	
-	public List<String> loginUsingValueFromSheet(String[] loginAs)
-	{
+
+	public List<String> loginUsingValueFromSheet(String[] loginAs) {
 		getloginStatusFromSheet(loginAs);
-		if(count==0|count==1)
-		{
-		
+		if (count == 0 | count == 1) {
+			System.out.println("Member");
+
 			clickOnModuleTab();
 			clickOnTab("CRM");
 			clickOnSideBarTab("Individuals");
 			clickOnSideBar("Query Individual");
-			if(count==0)
-			{
+			if (count == 0) {
 				System.out.println(count);
 				System.out.println("Member");
 				selectAndRunQuery("Selenium - Find Active Regular Member");
 				memberStoreDetails.add(String.valueOf(count));
-			}
-			else if(count==1)
-			{
+			} else if (count == 1) {
 				System.out.println(count);
 				System.out.println(" Non Member");
 				selectAndRunQuery("Selenium - Find Random Non Member");
 				memberStoreDetails.add(String.valueOf(count));
-			
-		    }
-			memberStoreDetails.add(getMemberDetailsOnMemberShipProfile("contact id"));
+
+			}
+			memberStoreDetails
+					.add(getMemberDetailsOnMemberShipProfile("contact id"));
 			memberStoreDetails.add(getMemberWebLogin());
-		
-	    }
-		else if(count==2)
-		{
+
+		} else if (count == 2) {
 
 			memberStoreDetails.add(String.valueOf(count));
 			System.out.println("Guest");
 		}
 		return memberStoreDetails;
-	
+
 	}
 
 	public void goToAddMemebrshipAndFillDetails_LocalSection() {
@@ -1627,7 +1625,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			ScrollPage(0, -700);
 			holdExecution(1000);
 			clickOnSelectProduct();
-			switchToFrame("menu_a83665ae18eb43488c5d83ce5f6027f8");
+			holdExecution(3000);
+			switchToFrame(element("frame_selectProduct"));
 			selectAddMembershipInSelectProductLink();
 			switchToDefaultContent();
 			switchToFrame("iframe1");
@@ -1655,7 +1654,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void goToAddMemebrshipAndFillDetails_membership() {
 		wait.waitForPageToLoadCompletely();
 		clickOnSelectProduct();
-		switchToFrame("menu_a83665ae18eb43488c5d83ce5f6027f8");
+		holdExecution(3000);
+		switchToFrame(element("frame_selectProduct"));
 		selectAddMembershipInSelectProductLink();
 		switchToDefaultContent();
 		switchToFrame("iframe1");
@@ -1696,7 +1696,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnSaveAndFinish();
 		switchToDefaultContent();
 		handleAlert();
-		waitForSpinner();
+		// waitForSpinner();
 		verifyPrice(map().get("memberPackage"), totalPrice);
 
 	}
@@ -1705,7 +1705,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		ScrollPage(0, -700);
 		clickOnSelectProduct();
-		switchToFrame("menu_a83665ae18eb43488c5d83ce5f6027f8");
+		holdExecution(3000);
+		switchToFrame(element("frame_selectProduct"));
 		selectAddMembershipInSelectProductLink();
 		switchToDefaultContent();
 		switchToFrame("iframe1");
@@ -1763,38 +1764,45 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void navigateToSubscriptionInSelectLinkAndSellSubscription() {
-		clickOnSelectProduct();
+		wait.waitForPageToLoadCompletely();
+		ScrollPage(0, -700);
+
 		// TODO Remove hard wait after handling stale element exception
-		holdExecution(1000);
+
 		try {
 			wait.waitForPageToLoadCompletely();
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
-			switchToFrame("menu_a83665ae18eb43488c5d83ce5f6027f8");
+			clickOnSelectProduct();
+			holdExecution(3000);
+			switchToFrame(element("frame_selectProduct"));
 			selectSubscriptionInSelectProductLink();
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		} catch (Exception e) {
-//			wait.waitForPageToLoadCompletely();
+			// wait.waitForPageToLoadCompletely();
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			switchToDefaultContent();
 			// TODO Remove hard wait after handling stale element exception
+
+			clickOnSelectProduct();
 			holdExecution(3000);
-			switchToFrame("menu_a83665ae18eb43488c5d83ce5f6027f8");
+			switchToFrame(element("frame_selectProduct"));
 			selectSubscriptionInSelectProductLink();
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		}
 
 		switchToDefaultContent();
-		String productName = addSubscriptionInOrderEntry(map().get(
+		String[] productName_TotalPrice = addSubscriptionInOrderEntry_CreateMem(map().get(
 				"ProductCode1"));
+		System.out.println("prod name:-" + productName_TotalPrice[0]);
 		handleAlert();
 		waitForSpinner();
-		Assert.assertTrue(productName.equalsIgnoreCase(map().get(
-				"subscription1")));
-		verifyPrice(productName, totalPrice);
+
+		
+		verifyPrice(productName_TotalPrice[0], productName_TotalPrice[1]);
 	}
 
 	public void selectAddMembershipInSelectProductLink() {
@@ -1804,21 +1812,51 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public void navigateToMemberLatestInvoicePage(List<String> memberLoginDetails) {
-		if(memberLoginDetails.get(0).equals("0")|memberLoginDetails.get(0).equals("1"))
-		{
-		clickOnSideBarTab("Invoice");
-		clickOnSideBar("Query Invoice");
-		selectAndRunQuery("Selenium - Newest Invoice for Customer Id");
-		enterSingleCustomerIdInRunQuery(memberLoginDetails.get(1));
-		clickInvoiceHeading("Transaction Date");
-		clickInvoiceHeading("Transaction Date");
-		clickOnInvoiceNumber();
+	public int getDivisionNumbers() {
+		for (int i = 1; i <= map().size(); i++) {
+			if (!(map().get("div" + i + "_memberType").equalsIgnoreCase(null) || map()
+					.get("div" + i + "_memberType").equalsIgnoreCase(""))) {
+				count++;
+				break;
+			}
 		}
-		
+		return count;
 	}
 
-	
+	public void navigateToMemberLatestInvoicePage(
+			List<String> memberLoginDetails) {
+		if (memberLoginDetails.get(0).equals("0")
+				| memberLoginDetails.get(0).equals("1")) {
+			clickOnSideBarTab("Invoice");
+			clickOnSideBar("Query Invoice");
+			selectAndRunQuery("Selenium - Newest Invoice for Customer Id");
+			enterSingleCustomerIdInRunQuery(memberLoginDetails.get(1));
+			clickInvoiceHeading("Transaction Date");
+			clickInvoiceHeading("Transaction Date");
+			clickOnInvoiceNumber();
+		}
 
+	}
+
+	public String[] addSubscriptionInOrderEntry_CreateMem(String prodCode) {
+		switchToFrame("iframe1");
+		enterProductCode(prodCode);
+		displayName = searchAndGetDisplayName();
+
+		// totalPrice = getMemberInfoOnMemberShipProfile("net-balance:");
+		logMessage("Step : Display name is : " + displayName + "\n");
+		if (map().get("complimentary").equalsIgnoreCase("On")) {
+			checkCheckbox(element("chk_complimentry_Sub"));
+			selectMemberInfo("complimentryRequest", map().get("compReason"));
+		}
+		String totalPrice = getTotalPrice();
+		clickOnSaveAndFinish();
+		switchToDefaultContent();
+		waitForSpinner();
+		wait.hardWait(2);
+
+		verifyItemAddedInLineItems(displayName.split(" - ")[0]);
+		String[] arr = { displayName.split(" - ")[0], totalPrice };
+		return arr;
+	}
 }
-

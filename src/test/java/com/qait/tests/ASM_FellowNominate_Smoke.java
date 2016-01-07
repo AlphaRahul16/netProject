@@ -586,7 +586,7 @@ public class ASM_FellowNominate_Smoke {
 		app_url_nominateFellow = getYamlValue("app_url_nominateFellow");
 		test.launchApplication(app_url_nominateFellow);
 	}
-
+	
 	@AfterMethod
 	public void take_screenshot_on_failure(ITestResult result) {
 		test.takescreenshot.takeScreenShotOnException(result);

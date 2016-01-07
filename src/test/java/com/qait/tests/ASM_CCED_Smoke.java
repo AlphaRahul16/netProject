@@ -69,6 +69,6 @@ public class ASM_CCED_Smoke {
 
 	@AfterClass(alwaysRun = true)
 	public void Close_Test_Session() {
-		test.closeBrowserSession();
+//		test.closeBrowserSession();
 	}
 }
