@@ -11,7 +11,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import junit.framework.Assert;
+
+
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -23,6 +24,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.security.UserAndPassword;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.LayoutValidation;

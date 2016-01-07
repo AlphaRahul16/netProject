@@ -134,4 +134,6 @@ link_invoiceListHeadings                         xpath                          
 link_addMemership								 xpath							//a[text()='add membership']
 chk_complimentry_Sub                             id                             ivd_complimentary_flag_ext
 list_complimentryReq_Sub                         id                             ivd_a04_key_ext
+txt_priceDetailsBelowLineItems                   id                             inv_${detailsName}
+list_priceOrderEntryNetBalance                   xpath                          //*[contains(@id,'ivd_${netPriceName}')]
 ==============================================================================================================================================
