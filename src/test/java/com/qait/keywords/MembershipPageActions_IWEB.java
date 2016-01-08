@@ -497,6 +497,32 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnMenuItems("individual memberships");
 	}
 
+	public void verifyMemberDetails_IWEB(String tabName, String memberType) {
+		handleAlert();
+		verifyTickedMarked("receives member benefits");
+		verifyTickedMarked("member");
+		clickOnMenuItems(tabName);
+		if (memberType.contains(":")) {
+			verifyMemberTypeInIndividualMemberships(memberType.split(" : ")[1]);
+			verifyJoinDateIsCurentDateForMemebrType(memberType.split(" : ")[1]);
+			verifyEffectiveDateIsCurentDateForMemebrType(memberType
+					.split(" : ")[1]);
+		} else {
+			verifyMemberTypeInIndividualMemberships(memberType);
+			verifyJoinDateIsCurentDateForMemebrType(memberType);
+			verifyEffectiveDateIsCurentDateForMemebrType(memberType);
+		}
+
+		verifyMemberStatusActiveIsPresent();
+		clickOnMenuItems(tabName);
+	}
+
+	public void verifyMemberTypeInIndividualMemberships(String memberType) {
+		isElementDisplayed("txt_memberType", memberType);
+		logMessage("ASSERT PASSED : " + memberType
+				+ " is verified in txt_memberType\n");
+	}
+
 	public void verifyMemberReinstatedSuccessfully_Iweb() {
 		handleAlert();
 		clickOnMenuItems("individual memberships");
@@ -660,6 +686,38 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_effectiveDateForActive");
 		String rejoindate = element("txt_effectiveDateForActive").getText()
 				.trim();
+		currentDate = DateUtil
+				.getCurrentdateInStringWithGivenFormate("M/d/yyyy");
+
+		if (currentDate.startsWith("0")) {
+			String newCurrentDate = currentDate.substring(1);
+			isStringMatching(rejoindate, newCurrentDate);
+		} else {
+			isStringMatching(rejoindate, currentDate);
+		}
+
+	}
+
+	public void verifyEffectiveDateIsCurentDateForMemebrType(String memberType) {
+		isElementDisplayed("txt_effectiveDateMemebrType", memberType);
+		String rejoindate = element("txt_effectiveDateMemebrType", memberType)
+				.getText().trim();
+		currentDate = DateUtil
+				.getCurrentdateInStringWithGivenFormate("M/d/yyyy");
+
+		if (currentDate.startsWith("0")) {
+			String newCurrentDate = currentDate.substring(1);
+			isStringMatching(rejoindate, newCurrentDate);
+		} else {
+			isStringMatching(rejoindate, currentDate);
+		}
+
+	}
+
+	public void verifyJoinDateIsCurentDateForMemebrType(String memberType) {
+		isElementDisplayed("txt_joinDateMemberType", memberType);
+		String rejoindate = element("txt_joinDateMemberType", memberType)
+				.getText().trim();
 		currentDate = DateUtil
 				.getCurrentdateInStringWithGivenFormate("M/d/yyyy");
 

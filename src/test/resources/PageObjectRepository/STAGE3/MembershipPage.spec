@@ -136,4 +136,7 @@ chk_complimentry_Sub                             id                             
 list_complimentryReq_Sub                         id                             ivd_a04_key_ext
 txt_priceDetailsBelowLineItems                   id                             inv_${detailsName}
 list_priceOrderEntryNetBalance                   xpath                          //*[contains(@id,'ivd_${netPriceName}')]
+txt_memberType                                   xpath                          //td[starts-with(text(),${memberType})]
+txt_effectiveDateMemebrType                      xpath                          //td[starts-with(text(),'${memberType}')]/following-sibling::td[5]   
+txt_joinDateMemberType                           xpath                          //td[starts-with(text(),'${memberType}')]/following-sibling::td[2]                      
 ==============================================================================================================================================

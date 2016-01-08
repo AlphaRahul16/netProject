@@ -2,7 +2,7 @@ Page Title: AddMember_IWEB
 
 #Object Definitions
 =============================================================================================================================================
-inp_memberDetailInAdd                       xpath                         //label[text()='${detailNale}:']/preceding-sibling::input
+inp_memberDetailInAdd                       xpath                         (//label[text()='${detailName}:']/preceding-sibling::input)[1]
 list_individualType                         id                            ind_int_code
 list_country                                id                            adr_country
 inp_postalCode                              id                            adr_post_code
