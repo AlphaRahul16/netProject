@@ -9,7 +9,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
+import com.gargoylesoftware.htmlunit.javascript.host.Map;
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.utils.YamlReader;
 import com.qait.keywords.YamlInformationProvider;
 
 public class ACS_Create_Member_IWEB_Test {
@@ -19,8 +21,7 @@ public class ACS_Create_Member_IWEB_Test {
 	private String caseID;
 	public String contactID;
 	private String[] memDetails;
-	public static final int count = 0;
-
+	int numberOfDivisions, numberOfSubscriptions;
 	String app_url_IWEB = getYamlValue("app_url_IWEB");
 
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_CreateMemberIWEB.class, dataProvider = "data")
@@ -43,14 +44,13 @@ public class ACS_Create_Member_IWEB_Test {
 	@Test
 	public void Step02_Add_Individual() {
 		test.homePageIWEB.clickOnAddIndividual();
-		memDetails = test.addMember.enterMemberDetailsInAddIndividual(caseID);
+		memDetails = test.addMember.enterMemberDetailsInAddIndividual();
 	}
 
 	@Test
 	public void Step03_Verify_Individual_Details() {
 		contactID = test.individualsPage.verifyMemberDetails_InAddIndividual(
-				caseID, memDetails);
-
+				memDetails);
 		test.individualsPage.verifyMemberIsNotCreated();
 		test.individualsPage.verifyMemberReceivedNoBenefits();
 	}
@@ -60,26 +60,50 @@ public class ACS_Create_Member_IWEB_Test {
 		test.memberShipPage.goToOrderEntry();
 		test.memberShipPage.goToAddMemebrshipAndFillDetails_membership();
 		test.memberShipPage.goToAddMemebrshipAndFillDetails_LocalSection();
-		// count=test.memberShipPage.getDivisionNumbers();
 	}
 
-	@Test(invocationCount = 1)
+	@Test
 	public void Step05_Sell_Division() {
-
-		test.memberShipPage.goToAddMembershipAndFillDetails_Division();
+		numberOfDivisions = test.memberShipPage.getDivisionNumbers();
+		test.memberShipPage
+				.goToAddMembershipAndFillDetails_Division(numberOfDivisions);
 	}
 
 	@Test
 	public void Step06_Sell_Subscription() {
+		numberOfSubscriptions = test.memberShipPage.getSubscriptionNumbers();
 		test.memberShipPage
-				.navigateToSubscriptionInSelectLinkAndSellSubscription();
+				.navigateToSubscriptionInSelectLinkAndSellSubscription(numberOfSubscriptions);
 
+	}
+
+	@Test
+	public void Step07_Verify_NetPrice_Amount_And_Make_Payment() {
+		// test.memberShipPage.verifyNetPriceValue("netpayment");
+		test.memberShipPage.verifyNetPriceValue("netbalance");
+		test.memberShipPage.selectBatchAndPaymentDetails_subscription(
+				YamlReader.getYamlValue("Acs_CreateMember_IWEB.batch"),
+				YamlReader.getYamlValue("Acs_CreateMember_IWEB.PaymentType"),
+				YamlReader.getYamlValue("Acs_CreateMember_IWEB.paymentMethod"),
+				YamlReader.getYamlValue("Acs_CreateMember_IWEB.cardNumber"),
+				YamlReader.getYamlValue("Acs_CreateMember_IWEB.expireDate"),
+				YamlReader.getYamlValue("Acs_CreateMember_IWEB.cvvNumber"));
+
+	}
+
+	@Test
+	public void Step08_Verify_Member_Details() {
+		test.individualsPage.verifyMemberDetails_MemberProfile(memDetails[1],
+				memDetails[3]);
+		test.memberShipPage.verifyMemberDetails_IWEB("individual memberships",test.memberShipPage.map()
+				.get("memberType"));
+		test.memberShipPage.verifyMemberDetails_IWEB("chapter memberships",test.memberShipPage.map()
+				.get("div1_memberType"));
 	}
 
 	/**
 	 * * Following methods are to setup and clean up the tests
 	 */
-
 	@BeforeClass
 	public void Start_Test_Session() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
@@ -94,7 +118,5 @@ public class ACS_Create_Member_IWEB_Test {
 	public void Close_Test_Session() {
 		// test.closeBrowserSession();
 	}
-
-	
 
 }

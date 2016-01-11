@@ -521,6 +521,14 @@ ACS_Store:
     members:
          member1: 
             CASEID: 1
+            
+Acs_CreateMember_IWEB:
+    batch: "ACS: QA_SUB_BATCH"
+    PaymentType: prepaid
+    paymentMethod: Visa/MC
+    cardNumber: 4111111111111111
+    expireDate: 2016/12
+    cvvNumber: 123            
                  
                   
 ASM_URLRejectedErrorMsz: "We aren't able to complete your request in the staging environment"
