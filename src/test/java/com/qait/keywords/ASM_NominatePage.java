@@ -82,7 +82,7 @@ public class ASM_NominatePage extends GetPage {
 			String nomineeName, String nomineePosition, String discipline) {
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);
-		// clickOnConfirmButton();
+		clickOnConfirmButton();
 		waitForSpinner();
 		hardWaitForIEBrowser(3);
 		// removeIncompletedSubmision();
@@ -112,9 +112,9 @@ public class ASM_NominatePage extends GetPage {
 			String supportForm1FileName, String support1LastName) {
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);
-		// clickOnConfirmButton();
+		clickOnConfirmButton();
 		waitForSpinner();
-		// removeIncompletedSubmision();
+		removeIncompletedSubmision();
 
 		clickOnArrowButton();
 		clickOnAwardInList();
@@ -134,6 +134,17 @@ public class ASM_NominatePage extends GetPage {
 		selectDiscipline(discipline);
 		patentQuestion();
 		selectNoForYearOfExperience();
+		try
+		{
+			wait.resetImplicitTimeout(2);
+		
+		uploadFileForPatent("test.pdf");
+		wait.resetImplicitTimeout(timeOut);
+		}
+		catch(NoSuchElementException e)
+		{
+			wait.resetImplicitTimeout(timeOut);
+		}
 		clickOnContinueButton();
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);
@@ -176,6 +187,10 @@ public class ASM_NominatePage extends GetPage {
 		waitForSpinnerOnUpload();
 	}
 	
+	public void uploadFileForPatent(String fileName) {
+		selectFileToUpload("recommendation", fileName, "0");
+		waitForSpinnerOnUpload();
+	}
 	public void uploadInValidFileInRecommendation(String fileName) {
 		selectUploadRecommendation();
 		selectFileToUpload("recommendation", fileName, "0");
@@ -190,10 +205,15 @@ public class ASM_NominatePage extends GetPage {
 			wait.resetImplicitTimeout(10);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("link_removeIncompleteSubmission");
-			element("link_removeIncompleteSubmission").click();
-			handleAlert();
+			for (WebElement ele : elements("link_removeIncompleteSubmission")) {
+				ele.click();
+				handleAlert();
+				ele.click();
+				handleAlert();
+				waitForSpinnerOnUpload();
+			}
 			waitForSpinnerOnUpload();
-			isElementDisplayed("txt_nominationRemoved");
+			//isElementDisplayed("txt_nominationRemoved");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 			logMessage("Step : Incomplete submission removed \n");
@@ -250,9 +270,18 @@ public class ASM_NominatePage extends GetPage {
 	}
 
 	public void clickOnConfirmButton() {
+		try
+		{
+		wait.resetImplicitTimeout(2);
 		isElementDisplayed("btn_confirm");
 		element("btn_confirm").click();
+		wait.resetExplicitTimeout(timeOut);
 		logMessage("Step : confirm button is clicked in btn_confirm\n");
+		}
+		catch(NoSuchElementException e)
+		{
+			wait.resetExplicitTimeout(timeOut);
+		}
 	}
 
 	public void waitForSpinner() {

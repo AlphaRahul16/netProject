@@ -235,6 +235,7 @@ ASM_fellowNominatedSmokeChecklistData:
     memberNumberSearchError: Can't find the person you're looking for? Try finding by name          
     gradYearErrorMsz: Graduation Year
     LessToDateErrorMsz: To Date must be greater than From Date
+    CommunityCitationMsg: This is a test Demo 1
     ProfessionalHistory: 
          Employer: employer abc
          Title: Associate
