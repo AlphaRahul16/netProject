@@ -526,6 +526,14 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("Card is not send Giving Invoice details verified as blank");
 		}
 	}
+	public void verifyEmailStatusAsDefinedInSheet(String emailstatusformsheet)
+	{
+		if(emailstatusformsheet.equalsIgnoreCase("YES"))
+		Assert.assertTrue(element("txt_emailStatus").getText().equals("Yes"));
+		else
+	    Assert.assertTrue(element("txt_emailStatus").getText().equals("No"));
+		
+	}
 
 	
 	

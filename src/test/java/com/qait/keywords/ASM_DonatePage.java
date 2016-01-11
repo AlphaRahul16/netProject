@@ -618,6 +618,7 @@ public class ASM_DonatePage extends GetPage {
 
 	public void clickOnLoginButtonForSpecifiedUser(
 			List<String> memberLoginDetails, String ValidEmailAddress) {
+		System.out.println("member login details"+memberLoginDetails.size());
 		if (memberLoginDetails.size() > 1) {
 			wait.waitForPageToLoadCompletely();
 			loginIntoApplicationByMember(memberLoginDetails.get(2), "password");

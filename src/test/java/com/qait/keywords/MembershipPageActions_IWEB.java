@@ -153,7 +153,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("STEP : wait for spinner to be disappeared \n");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
-		} catch (NoSuchElementException | AssertionError | TimeoutException Exp) {
+		} catch (Exception Exp) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 			logMessage("STEP : spinner is not present \n");
