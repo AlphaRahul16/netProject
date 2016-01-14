@@ -1,0 +1,852 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>TestNG (Next Generation Testing Framework) &ndash; Understanding Annotations</title>
+<meta name="robots" content="noodp, noydir" />
+<meta name="description" content="Annotation: Annotation defines a type and it can be applied to several Java elements such as Java methods, classes, etc.&#160; Annotation adds meta-data facility to Java elements.&#160; Some examples of Java built-in annotations are: @Override @Deprecated @SuppressWarnings Each annotation will [&hellip;]" />
+<meta name="keywords" content="TestNG" />
+<link rel="stylesheet" href="http://selftechy.com/wp-content/themes/thesis_182/style.css" type="text/css" media="screen, projection" />
+<link rel="stylesheet" href="http://selftechy.com/wp-content/themes/thesis_182/custom/layout.css" type="text/css" media="screen, projection" />
+<!--[if lte IE 8]><link rel="stylesheet" href="http://selftechy.com/wp-content/themes/thesis_182/lib/css/ie.css" type="text/css" media="screen, projection" /><![endif]-->
+<link rel="stylesheet" href="http://selftechy.com/wp-content/themes/thesis_182/custom/custom.css" type="text/css" media="screen, projection" />
+<link rel="shortcut icon" href="http://selftechy.com/wp-content/uploads/2011/10/favicon2.ico" />
+<link rel="canonical" href="http://selftechy.com/2012/01/14/testng-next-generation-testing-framework-understanding-annotations" />
+<link rel="alternate" type="application/rss+xml" title="Selftechy.com RSS Feed" href="http://feeds.feedburner.com/Selftechy" />
+<link rel="pingback" href="http://selftechy.com/xmlrpc.php" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://selftechy.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://selftechy.com/wp-includes/wlwmanifest.xml" />
+<link rel="alternate" type="application/rss+xml" title="Selftechy.com &raquo; TestNG (Next Generation Testing Framework) &ndash; Understanding Annotations Comments Feed" href="http://selftechy.com/2012/01/14/testng-next-generation-testing-framework-understanding-annotations/feed" />
+</head>
+<body class="custom">
+<div id="container">
+<div id="page">
+<ul class="menu">
+<li class="tab tab-home"><a href="http://selftechy.com">Home</a></li>
+<li class="tab tab-1"><a href="http://selftechy.com/about" title="About">About</a></li>
+<li class="tab tab-2"><a href="http://selftechy.com/selenium-2" title="Selenium">Selenium</a></li>
+</ul>
+	<div id="header">
+	</div>
+<script type="text/javascript">
+  ( function() {
+    if (window.CHITIKA === undefined) { window.CHITIKA = { 'units' : [] }; };
+    var unit = {"calltype":"async[2]","publisher":"selftechy","width":728,"height":90,"sid":"Chitika Default"};
+    var placement_id = window.CHITIKA.units.length;
+    window.CHITIKA.units.push(unit);
+    document.write('<div id="chitikaAdBlock-' + placement_id + '"></div>');
+}());
+</script>
+<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>	<div id="content_box">
+		<div id="content" class="hfeed">
+
+			<div class="post-552 post type-post status-publish format-standard hentry category-selenium category-uncategorized tag-testng post_box top" id="post-552">
+				<div class="headline_area">
+					<h1 class="entry-title">TestNG (Next Generation Testing Framework) &ndash; Understanding Annotations</h1>
+					<p class="headline_meta">by <span class="author vcard fn">seetaram</span> on <abbr class="published" title="2012-01-14">January 14, 2012</abbr></p>
+				</div>
+				<div class="format_text entry-content">
+<p><strong><font color="#000080" size="3">Annotation:</font></strong></p>
+<p>Annotation defines a type and it can be applied to several Java elements such as Java methods, classes, etc.&#160; Annotation adds meta-data facility to Java elements.&#160; Some examples of Java built-in annotations are:</p>
+<ol>
+<li>@Override</li>
+<li>@Deprecated</li>
+<li>@SuppressWarnings</li>
+</ol>
+<p>Each annotation will instruct the compiler to do something. For example, @Override tells the compiler to check whether the parent class contains the same method (also checks whether the overriding method follows all the rules correctly).</p>
+<p>Let us have a look at TestNG annotations.</p>
+<ol>
+<li>@BeforeSuite</li>
+<li>@AfterSuite</li>
+<li>@BeforeTest</li>
+<li>@AfterTest</li>
+<li>@BeforeGroups</li>
+<li>@AfterGroups</li>
+<li>@BeforeClass</li>
+<li>@AfterClass</li>
+<li>@BeforeMethod</li>
+<li>@AfterMethod </li>
+<li>@DataProvider</li>
+<li>@Factory</li>
+<li>@Listeners</li>
+<li>@Parameters</li>
+<li>@Test</li>
+</ol>
+<p>Out of these annotations, we will try to understand only “@Test, @BeforeClass, @AfterClass, @BeforeMethod, @AfterMethod”.</p>
+<p>Every Java application should contain “main” method and the execution of the entire project starts from “main” method. With using TestNG as a testing framework, there is no need to use “main” method. The execution will be handled by the TestNG (testing framework).</p>
+<p><strong><font color="#000080">@Test</font></strong></p>
+<p>If a Java method marked with @Test, then the compiler understands that the method is a “Test Method”.</p>
+<p><strong><font color="#000080">@BeforeClass</font></strong></p>
+<p>A Java method marked with @BeforeClass annotation will be executed before executing all the methods in the class. This annotation can be used to make sure that the configuration or some precondition for entire set of “test methods” inside the class will be executed before all the methods.</p>
+<p><strong><font color="#000080">@AfterClass</font></strong></p>
+<p>A Java method marked with @AfterClass annotation will be executed after executing all the methods in the class. Hence, this annotation helps in executing a particular set of actions that needs to be done after executing all the “test methods” in the class.</p>
+<p><strong><font color="#000080">@BeforeMethod </font></strong>– Execute the method just before executing any test method in the class.</p>
+<p><strong><font color="#000080">@AfterMethod </font></strong>– Execute the method after executing every test method in the class.</p>
+<p>Now, open Eclipse IDE and create a .Java file and use the following code.</p>
+<div class="wlWriterEditableSmartContent" id="scid:812469c5-0cb0-4c63-8c15-c81123a09de7:0d738276-4da2-4933-8b05-758897547259" style="padding-right: 0px; display: inline; padding-left: 0px; float: none; padding-bottom: 0px; margin: 0px; padding-top: 0px">
+<pre name="code" class="java">package com.selftechy.testng;
+
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+public class tngAnnotations {
+	
+	@BeforeClass
+	public void beforeClass(){
+		System.out.println("In BeforeClass");
+	}
+	
+	@BeforeMethod
+	public void beforeMethod(){
+		System.out.println("In BeforeMethod");
+	}
+
+	@Test
+	public void testOne(){
+		System.out.println("In TestOne");
+	}
+
+	@Test
+	public void testTwo(){
+		System.out.println("In TestTwo");
+	}
+	
+	@AfterMethod
+	public void afterMethod(){
+		System.out.println("In AfterMethod");
+	}
+
+	@AfterClass
+	public void afterClass(){
+		System.out.println("In AfterClass");
+	}
+
+}
+</pre>
+</div>
+<p>Execute the code as below:</p>
+<p>Click Run –&gt; Run As –&gt; TestNG Test</p>
+<p><a href="http://selftechy.com/wp-content/uploads/2012/01/ExecuteTestNG_Test.jpg"><img title="ExecuteTestNG_Test" style="border-right: 0px; border-top: 0px; display: block; float: none; margin-left: auto; border-left: 0px; margin-right: auto; border-bottom: 0px" height="263" alt="ExecuteTestNG_Test" src="http://selftechy.com/wp-content/uploads/2012/01/ExecuteTestNG_Test_thumb.jpg" width="344" border="0" /></a> </p>
+<p>Output of the executing should be as follows:</p>
+<div class="wlWriterEditableSmartContent" id="scid:812469c5-0cb0-4c63-8c15-c81123a09de7:af515480-048b-474a-ad9c-c67fbbb8869f" style="padding-right: 0px; display: inline; padding-left: 0px; float: none; padding-bottom: 0px; margin: 0px; padding-top: 0px">
+<pre name="code" class="java">[TestNG] Running:
+  C:\Documents and Settings\parwathi\Local Settings\Temp\testng-eclipse--966152916\testng-customsuite.xml
+
+In BeforeClass
+In BeforeMethod
+In TestOne
+In AfterMethod
+In BeforeMethod
+In TestTwo
+In AfterMethod
+In AfterClass
+PASSED: testOne
+PASSED: testTwo
+
+===============================================
+    Default test
+    Tests run: 2, Failures: 0, Skips: 0
+===============================================
+
+
+===============================================
+Default suite
+Total tests run: 2, Failures: 0, Skips: 0
+===============================================
+
+[TestNG] Time taken by org.testng.reporters.JUnitReportReporter@1a679b7: 15 ms
+[TestNG] Time taken by org.testng.reporters.SuiteHTMLReporter@1430b5c: 16 ms
+[TestNG] Time taken by org.testng.reporters.EmailableReporter@e102dc: 16 ms
+[TestNG] Time taken by [TestListenerAdapter] Passed:0 Failed:0 Skipped:0]: 0 ms
+[TestNG] Time taken by org.testng.reporters.XMLReporter@a1807c: 0 ms
+</pre>
+</div>
+<p>This execution shows how exactly the annotations instruct the java to execute the test methods.&#160; The below figure shows the order of execution.</p>
+<p><a href="http://selftechy.com/wp-content/uploads/2012/01/Annotations1.jpg"><img title="Annotations" style="border-right: 0px; border-top: 0px; display: block; float: none; margin-left: auto; border-left: 0px; margin-right: auto; border-bottom: 0px" height="325" alt="Annotations" src="http://selftechy.com/wp-content/uploads/2012/01/Annotations_thumb1.jpg" width="293" border="0" /></a> </p>
+<p>In the upcoming posts, will try to explain the rest of the annotations and other features of the TestNG. Also, we will try to understand how the TestNG is used with Selenium for Test Automation.</p>
+					<p class="post_tags">Tagged as:
+						<a href="http://selftechy.com/tag/testng" rel="tag nofollow">TestNG</a>
+					</p>
+<div id="related_posts_thumbnails" class="clear"><h3>You might also like:</h3><ul>    <li>
+     <a href="http://selftechy.com/2011/06/30/parameterization-of-tests-in-selenium-ide" rel="bookmark" title="Parameterization of Tests in Selenium IDE">
+          </a>
+     <div class="related_content">
+     <a href="http://selftechy.com/2011/06/30/parameterization-of-tests-in-selenium-ide" rel="bookmark" title="Parameterization of Tests in Selenium IDE">Parameterization of Tests in Selenium IDE</a>
+     </div>
+    </li>
+        <li>
+     <a href="http://selftechy.com/2011/05/17/junit4-before-vs-beforeclass-after-vs-afterclass" rel="bookmark" title="JUnit4 &#8211; @Before vs @BeforeClass / @After vs @AfterClass">
+          </a>
+     <div class="related_content">
+     <a href="http://selftechy.com/2011/05/17/junit4-before-vs-beforeclass-after-vs-afterclass" rel="bookmark" title="JUnit4 &#8211; @Before vs @BeforeClass / @After vs @AfterClass">JUnit4 &#8211; @Before vs @BeforeClass / @After vs @AfterClass</a>
+     </div>
+    </li>
+        <li>
+     <a href="http://selftechy.com/2011/09/17/fundamental-concepts-of-test-automation" rel="bookmark" title="Fundamental Concepts of Test Automation">
+          </a>
+     <div class="related_content">
+     <a href="http://selftechy.com/2011/09/17/fundamental-concepts-of-test-automation" rel="bookmark" title="Fundamental Concepts of Test Automation">Fundamental Concepts of Test Automation</a>
+     </div>
+    </li>
+        <li>
+     <a href="http://selftechy.com/2012/01/08/testng-next-generation-testing-framework" rel="bookmark" title="TestNG &ndash; Next Generation Testing Framework">
+          </a>
+     <div class="related_content">
+     <a href="http://selftechy.com/2012/01/08/testng-next-generation-testing-framework" rel="bookmark" title="TestNG &ndash; Next Generation Testing Framework">TestNG &ndash; Next Generation Testing Framework</a>
+     </div>
+    </li>
+    </ul></div>    		<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fselftechy.com%2F2012%2F01%2F14%2Ftestng-next-generation-testing-framework-understanding-annotations&amp;layout=standard&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light" scrolling="no" frameborder="0" allowTransparency="true" style="border:none; overflow:hidden; width:450px; height:60px;"></iframe>
+
+						</div>
+			</div>
+
+			<div id="comments">
+				<div id="comments_intro" class="comments_intro">
+					<p><span class="bracket">{</span> <span>10</span> comments&#8230; read them below or <a href="#respond" rel="nofollow">add one</a> <span class="bracket">}</span></p>
+				</div>
+
+				<dl id="comment_list">
+					<dt class="comment even thread-even depth-1 parent" id="comment-354">
+<span class="avatar"></span>
+<span class="comment_author">suresh</span>
+<span class="comment_time"><a href="#comment-354" title="Permalink to this comment" rel="nofollow">February 27, 2012 at 3:54 pm</a></span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1 parent">
+<div class="format_text" id="comment-body-354">
+<p>Hi seetharam,</p>
+<p>I got below output after running the above code please explain&#8230;.</p>
+<p>[Parser] Running:<br />
+  C:\Users\suresh\sample1\temp-testng-customsuite.xml</p>
+<p>In BeforeClass<br />
+In BeforeMethod<br />
+In TestTwo<br />
+In AfterMethod<br />
+In BeforeMethod<br />
+In TestOne<br />
+In AfterMethod<br />
+In AfterClass<br />
+PASSED: testTwo<br />
+PASSED: testOne</p>
+<p>===============================================<br />
+    com.selftechy.testng.tngAnnotations<br />
+    Tests run: 2, Failures: 0, Skips: 0<br />
+===============================================</p>
+<p>===============================================<br />
+sample1<br />
+Total tests run: 2, Failures: 0, Skips: 0<br />
+===============================================</p>
+<p class="reply"><a class='comment-reply-link' href='/2012/01/14/testng-next-generation-testing-framework-understanding-annotations?replytocom=354#respond' onclick='return addComment.moveForm("comment-body-354", "354", "respond", "552")'>Reply</a></p>
+</div>
+					<dl class="children">
+					<dt class="comment byuser comment-author-selftechy bypostauthor odd alt depth-2" id="comment-389">
+<span class="avatar"><a href="http://www.selftechy.com" rel="nofollow"></a></span>
+<span class="comment_author"><a href='http://www.selftechy.com' rel='external nofollow' class='url'>seetaram</a></span>
+<span class="comment_time"><a href="#comment-389" title="Permalink to this comment" rel="nofollow">March 24, 2012 at 9:39 am</a></span>
+
+					</dt>
+					<dd class="comment byuser comment-author-selftechy bypostauthor odd alt depth-2">
+<div class="format_text" id="comment-body-389">
+<p>how they appear inside the java class?? first testTwo then testOne??</p>
+<p class="reply"><a class='comment-reply-link' href='/2012/01/14/testng-next-generation-testing-framework-understanding-annotations?replytocom=389#respond' onclick='return addComment.moveForm("comment-body-389", "389", "respond", "552")'>Reply</a></p>
+</div>
+					</dd>
+					</dl>
+					</dd>
+					<dt class="comment even thread-odd thread-alt depth-1 parent" id="comment-355">
+<span class="avatar"></span>
+<span class="comment_author">suresh</span>
+<span class="comment_time"><a href="#comment-355" title="Permalink to this comment" rel="nofollow">February 27, 2012 at 3:56 pm</a></span>
+
+					</dt>
+					<dd class="comment even thread-odd thread-alt depth-1 parent">
+<div class="format_text" id="comment-body-355">
+<p>here in my case testTwo executed first and then testOne please explain this&#8230;</p>
+<p class="reply"><a class='comment-reply-link' href='/2012/01/14/testng-next-generation-testing-framework-understanding-annotations?replytocom=355#respond' onclick='return addComment.moveForm("comment-body-355", "355", "respond", "552")'>Reply</a></p>
+</div>
+					<dl class="children">
+					<dt class="comment odd alt depth-2" id="comment-899">
+<span class="avatar"></span>
+<span class="comment_author">Ram</span>
+<span class="comment_time"><a href="#comment-899" title="Permalink to this comment" rel="nofollow">November 15, 2012 at 11:57 am</a></span>
+
+					</dt>
+					<dd class="comment odd alt depth-2">
+<div class="format_text" id="comment-body-899">
+<p>Hi Pls check that in the Name of the methods  wether u had the keyword Test if u not give this the execution order by default is 2 and then one &#8230;. give a try</p>
+<p class="reply"><a class='comment-reply-link' href='/2012/01/14/testng-next-generation-testing-framework-understanding-annotations?replytocom=899#respond' onclick='return addComment.moveForm("comment-body-899", "899", "respond", "552")'>Reply</a></p>
+</div>
+					</dd>
+					</dl>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-1729">
+<span class="avatar"></span>
+<span class="comment_author">Sreekanth</span>
+<span class="comment_time"><a href="#comment-1729" title="Permalink to this comment" rel="nofollow">May 30, 2013 at 9:49 am</a></span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-1729">
+<p>Hi Seetharam,<br />
+      Could you please Explain the following Annotations.<br />
+    @DataProvider<br />
+    @Factory<br />
+    @Listeners<br />
+    @Parameters</p>
+<p>How to use them.</p>
+<p class="reply"><a class='comment-reply-link' href='/2012/01/14/testng-next-generation-testing-framework-understanding-annotations?replytocom=1729#respond' onclick='return addComment.moveForm("comment-body-1729", "1729", "respond", "552")'>Reply</a></p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-1849">
+<span class="avatar"></span>
+<span class="comment_author">Chakri</span>
+<span class="comment_time"><a href="#comment-1849" title="Permalink to this comment" rel="nofollow">July 2, 2013 at 12:14 pm</a></span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-1849">
+<p>Hi seetharam,</p>
+<p>Not sure if this query is related to current page, but still very much related to Running tests in TestNG.</p>
+<p>I had exported selenium IDe testcase as &#8220;Java/JUnit4/Webdriver. Next I created a Java project in eclipse (Eclipse Juno &#8211; 4.2 and TestNG 6.8.6; attached selenium jar files and added TestNG library) and copied that testcase. Now, I converted that testcase to TestNG and tried to run/debug in TestNG. I am getting below error:<br />
+com.thoughtworks.selenium.SeleniumException: Connection refused: connect<br />
+	at com.thoughtworks.selenium.HttpCommandProcessor.executeCommandOnServlet(HttpCommandProcessor.java:121)<br />
+	at com.thoughtworks.selenium.HttpCommandProcessor.doCommand(HttpCommandProcessor.java:101)<br />
+	at com.thoughtworks.selenium.DefaultSelenium.captureScreenshot(DefaultSelenium.java:751)<br />
+	at com.thoughtworks.selenium.ScreenshotListener.onTestFailure(ScreenshotListener.java:45)<br />
+	at com.thoughtworks.selenium.ScreenshotListener.onConfigurationFailure(ScreenshotListener.java:59)<br />
+	at org.testng.internal.Invoker.runConfigurationListeners(Invoker.java:1868)<br />
+	at org.testng.internal.Invoker.handleConfigurationFailure(Invoker.java:334)<br />
+	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:237)<br />
+	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:138)<br />
+	at org.testng.TestRunner.beforeRun(TestRunner.java:641)<br />
+	at org.testng.TestRunner.run(TestRunner.java:609)<br />
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:335)<br />
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:330)<br />
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)<br />
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)<br />
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)<br />
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)<br />
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)<br />
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)<br />
+	at org.testng.TestNG.run(TestNG.java:1057)<br />
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)<br />
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)<br />
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)<br />
+Caused by: java.net.ConnectException: Connection refused: connect<br />
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)<br />
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source)<br />
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source)<br />
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source)<br />
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source)<br />
+	at java.net.PlainSocketImpl.connect(Unknown Source)<br />
+	at java.net.SocksSocketImpl.connect(Unknown Source)<br />
+	at java.net.Socket.connect(Unknown Source)<br />
+	at java.net.Socket.connect(Unknown Source)<br />
+	at sun.net.NetworkClient.doConnect(Unknown Source)<br />
+	at sun.net.www.http.HttpClient.openServer(Unknown Source)<br />
+	at sun.net.www.http.HttpClient.openServer(Unknown Source)<br />
+	at sun.net.www.http.HttpClient.(Unknown Source)<br />
+	at sun.net.www.http.HttpClient.New(Unknown Source)<br />
+	at sun.net.www.http.HttpClient.New(Unknown Source)<br />
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(Unknown Source)<br />
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(Unknown Source)<br />
+	at sun.net.www.protocol.http.HttpURLConnection.connect(Unknown Source)<br />
+	at sun.net.www.protocol.http.HttpURLConnection.getOutputStream(Unknown Source)<br />
+	at com.thoughtworks.selenium.HttpCommandProcessor.getOutputStreamWriter(HttpCommandProcessor.java:149)<br />
+	at com.thoughtworks.selenium.HttpCommandProcessor.getCommandResponseAsString(HttpCommandProcessor.java:176)<br />
+	at com.thoughtworks.selenium.HttpCommandProcessor.executeCommandOnServlet(HttpCommandProcessor.java:118)<br />
+	&#8230; 22 more<br />
+com.thoughtworks.selenium.SeleniumException: Connection refused: connect<br />
+	at com.thoughtworks.selenium.HttpCommandProcessor.executeCommandOnServlet(HttpCommandProcessor.java:121)<br />
+	at com.thoughtworks.selenium.HttpCommandProcessor.doCommand(HttpCommandProcessor.java:101)<br />
+	at com.thoughtworks.selenium.DefaultSelenium.captureScreenshot(DefaultSelenium.java:751)<br />
+	at com.thoughtworks.selenium.ScreenshotListener.onTestFailure(ScreenshotListener.java:45)<br />
+	at com.thoughtworks.selenium.ScreenshotListener.onConfigurationFailure(ScreenshotListener.java:59)<br />
+	at org.testng.internal.Invoker.runConfigurationListeners(Invoker.java:1868)<br />
+	at org.testng.internal.Invoker.handleConfigurationFailure(Invoker.java:334)<br />
+	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:237)<br />
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:786)<br />
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)<br />
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)<br />
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)<br />
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)<br />
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)<br />
+	at org.testng.TestRunner.run(TestRunner.java:617)<br />
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:335)<br />
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:330)<br />
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)<br />
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)<br />
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)<br />
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)<br />
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)<br />
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)<br />
+	at org.testng.TestNG.run(TestNG.java:1057)<br />
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)<br />
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)<br />
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)<br />
+Caused by: java.net.ConnectException: Connection refused: connect<br />
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)<br />
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source)<br />
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source)<br />
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source)<br />
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source)<br />
+	at java.net.PlainSocketImpl.connect(Unknown Source)<br />
+	at java.net.SocksSocketImpl.connect(Unknown Source)<br />
+	at java.net.Socket.connect(Unknown Source)<br />
+	at java.net.Socket.connect(Unknown Source)<br />
+	at sun.net.NetworkClient.doConnect(Unknown Source)<br />
+	at sun.net.www.http.HttpClient.openServer(Unknown Source)<br />
+	at sun.net.www.http.HttpClient.openServer(Unknown Source)<br />
+	at sun.net.www.http.HttpClient.(Unknown Source)<br />
+	at sun.net.www.http.HttpClient.New(Unknown Source)<br />
+	at sun.net.www.http.HttpClient.New(Unknown Source)<br />
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(Unknown Source)<br />
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(Unknown Source)<br />
+	at sun.net.www.protocol.http.HttpURLConnection.connect(Unknown Source)<br />
+	at sun.net.www.protocol.http.HttpURLConnection.getOutputStream(Unknown Source)<br />
+	at com.thoughtworks.selenium.HttpCommandProcessor.getOutputStreamWriter(HttpCommandProcessor.java:149)<br />
+	at com.thoughtworks.selenium.HttpCommandProcessor.getCommandResponseAsString(HttpCommandProcessor.java:176)<br />
+	at com.thoughtworks.selenium.HttpCommandProcessor.executeCommandOnServlet(HttpCommandProcessor.java:118)<br />
+	&#8230; 26 more<br />
+FAILED CONFIGURATION: @BeforeTest setUp(null, null)<br />
+java.lang.RuntimeException: Could not contact Selenium Server; have you started it on &#8216;localhost:4444&#8242; ?<br />
+Read more at <a href="http://seleniumhq.org/projects/remote-control/not-started.html" rel="nofollow">http://seleniumhq.org/projects/remote-control/not-started.html</a><br />
+Connection refused: connect<br />
+	at com.thoughtworks.selenium.DefaultSelenium.start(DefaultSelenium.java:104)<br />
+	at com.thoughtworks.selenium.SeleneseTestBase.setUp(SeleneseTestBase.java:134)<br />
+	at com.thoughtworks.selenium.SeleneseTestBase.setUp(SeleneseTestBase.java:103)<br />
+	at com.thoughtworks.selenium.SeleneseTestNgHelper.setUp(SeleneseTestNgHelper.java:47)<br />
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br />
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)<br />
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)<br />
+	at java.lang.reflect.Method.invoke(Unknown Source)<br />
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)<br />
+	at org.testng.internal.Invoker.invokeConfigurationMethod(Invoker.java:564)<br />
+	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:213)<br />
+	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:138)<br />
+	at org.testng.TestRunner.beforeRun(TestRunner.java:641)<br />
+	at org.testng.TestRunner.run(TestRunner.java:609)<br />
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:335)<br />
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:330)<br />
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)<br />
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)<br />
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)<br />
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)<br />
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)<br />
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)<br />
+	at org.testng.TestNG.run(TestNG.java:1057)<br />
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)<br />
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)<br />
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)</p>
+<p>FAILED CONFIGURATION: @AfterMethod selectDefaultWindow<br />
+com.thoughtworks.selenium.SeleniumException: Connection refused: connect<br />
+	at com.thoughtworks.selenium.HttpCommandProcessor.executeCommandOnServlet(HttpCommandProcessor.java:121)<br />
+	at com.thoughtworks.selenium.HttpCommandProcessor.doCommand(HttpCommandProcessor.java:101)<br />
+	at com.thoughtworks.selenium.DefaultSelenium.selectWindow(DefaultSelenium.java:377)<br />
+	at com.thoughtworks.selenium.SeleneseTestNgHelper.selectDefaultWindow(SeleneseTestNgHelper.java:92)<br />
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br />
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)<br />
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)<br />
+	at java.lang.reflect.Method.invoke(Unknown Source)<br />
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)<br />
+	at org.testng.internal.Invoker.invokeConfigurationMethod(Invoker.java:564)<br />
+	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:213)<br />
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:786)<br />
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)<br />
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)<br />
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)<br />
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)<br />
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)<br />
+	at org.testng.TestRunner.run(TestRunner.java:617)<br />
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:335)<br />
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:330)<br />
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)<br />
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)<br />
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)<br />
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)<br />
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)<br />
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)<br />
+	at org.testng.TestNG.run(TestNG.java:1057)<br />
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)<br />
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)<br />
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)<br />
+Caused by: java.net.ConnectException: Connection refused: connect<br />
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)<br />
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source)<br />
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source)<br />
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source)<br />
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source)<br />
+	at java.net.PlainSocketImpl.connect(Unknown Source)<br />
+	at java.net.SocksSocketImpl.connect(Unknown Source)<br />
+	at java.net.Socket.connect(Unknown Source)<br />
+	at java.net.Socket.connect(Unknown Source)<br />
+	at sun.net.NetworkClient.doConnect(Unknown Source)<br />
+	at sun.net.www.http.HttpClient.openServer(Unknown Source)<br />
+	at sun.net.www.http.HttpClient.openServer(Unknown Source)<br />
+	at sun.net.www.http.HttpClient.(Unknown Source)<br />
+	at sun.net.www.http.HttpClient.New(Unknown Source)<br />
+	at sun.net.www.http.HttpClient.New(Unknown Source)<br />
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(Unknown Source)<br />
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(Unknown Source)<br />
+	at sun.net.www.protocol.http.HttpURLConnection.connect(Unknown Source)<br />
+	at sun.net.www.protocol.http.HttpURLConnection.getOutputStream(Unknown Source)<br />
+	at com.thoughtworks.selenium.HttpCommandProcessor.getOutputStreamWriter(HttpCommandProcessor.java:149)<br />
+	at com.thoughtworks.selenium.HttpCommandProcessor.getCommandResponseAsString(HttpCommandProcessor.java:176)<br />
+	at com.thoughtworks.selenium.HttpCommandProcessor.executeCommandOnServlet(HttpCommandProcessor.java:118)<br />
+	&#8230; 29 more</p>
+<p>SKIPPED CONFIGURATION: @BeforeClass getSelenium<br />
+SKIPPED CONFIGURATION: @BeforeMethod setTestContext<br />
+SKIPPED CONFIGURATION: @AfterMethod checkForVerificationErrors<br />
+SKIPPED: testLogin_Red</p>
+<p>===============================================<br />
+    Default test<br />
+    Tests run: 1, Failures: 0, Skips: 1<br />
+    Configuration Failures: 2, Skips: 3<br />
+===============================================</p>
+<p>===============================================<br />
+Default suite<br />
+Total tests run: 1, Failures: 0, Skips: 1<br />
+Configuration Failures: 2, Skips: 3<br />
+===============================================</p>
+<p>[TestNG] Time taken by org.testng.reporters.EmailableReporter2@1f12af8: 9 ms<br />
+[TestNG] Time taken by org.testng.reporters.XMLReporter@1fc5c47: 9 ms<br />
+[TestNG] Time taken by org.testng.reporters.jq.Main@1f622fa: 36 ms<br />
+[TestNG] Time taken by org.testng.reporters.SuiteHTMLReporter@bb473b: 17 ms<br />
+[TestNG] Time taken by [FailedReporter passed=0 failed=0 skipped=0]: 4 ms<br />
+[TestNG] Time taken by org.testng.reporters.JUnitReportReporter@1816032: 2 ms</p>
+<p>I run/debug the same testcase successfully in JUnit4. I don&#8217;t understand why I get Connection Refused error.</p>
+<p>Can u help me on this?</p>
+<p class="reply"><a class='comment-reply-link' href='/2012/01/14/testng-next-generation-testing-framework-understanding-annotations?replytocom=1849#respond' onclick='return addComment.moveForm("comment-body-1849", "1849", "respond", "552")'>Reply</a></p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1 parent" id="comment-1982">
+<span class="avatar"></span>
+<span class="comment_author">suman</span>
+<span class="comment_time"><a href="#comment-1982" title="Permalink to this comment" rel="nofollow">August 7, 2013 at 3:16 pm</a></span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1 parent">
+<div class="format_text" id="comment-body-1982">
+<p>Hi Seetaram,  Really great stuff to learn on our.. Thank you for sharing&#8230;<br />
+Can you please elaborate on the below annotations as well.. that will really great&#8230;</p>
+<p>thank you in advance&#8230;.</p>
+<p>@DataProvider<br />
+@Factory<br />
+@Listeners<br />
+@Parameters</p>
+<p class="reply"><a class='comment-reply-link' href='/2012/01/14/testng-next-generation-testing-framework-understanding-annotations?replytocom=1982#respond' onclick='return addComment.moveForm("comment-body-1982", "1982", "respond", "552")'>Reply</a></p>
+</div>
+					<dl class="children">
+					<dt class="comment byuser comment-author-selftechy bypostauthor odd alt depth-2" id="comment-2045">
+<span class="avatar"><a href="http://www.selftechy.com" rel="nofollow"></a></span>
+<span class="comment_author"><a href='http://www.selftechy.com' rel='external nofollow' class='url'>seetaram</a></span>
+<span class="comment_time"><a href="#comment-2045" title="Permalink to this comment" rel="nofollow">August 20, 2013 at 9:24 am</a></span>
+
+					</dt>
+					<dd class="comment byuser comment-author-selftechy bypostauthor odd alt depth-2">
+<div class="format_text" id="comment-body-2045">
+<p>Sure.. Thanks&#8230;</p>
+<p class="reply"><a class='comment-reply-link' href='/2012/01/14/testng-next-generation-testing-framework-understanding-annotations?replytocom=2045#respond' onclick='return addComment.moveForm("comment-body-2045", "2045", "respond", "552")'>Reply</a></p>
+</div>
+					</dd>
+					</dl>
+					</dd>
+					<dt class="comment even thread-odd thread-alt depth-1 parent" id="comment-11347">
+<span class="avatar"></span>
+<span class="comment_author">ahn</span>
+<span class="comment_time"><a href="#comment-11347" title="Permalink to this comment" rel="nofollow">March 24, 2015 at 6:58 am</a></span>
+
+					</dt>
+					<dd class="comment even thread-odd thread-alt depth-1 parent">
+<div class="format_text" id="comment-body-11347">
+<p>Is it possible to have a For Loop outside the @Test</p>
+<p>Please see below sample:</p>
+<p>for(int x=1; x&lt;5; x++){<br />
+     @Test<br />
+        public void testOne(){<br />
+		System.out.println(&quot;In TestOne&quot;);<br />
+	}<br />
+     @Test<br />
+        public void testTwo(){<br />
+		System.out.println(&quot;In TestTwo&quot;);<br />
+	}<br />
+}</p>
+<p class="reply"><a class='comment-reply-link' href='/2012/01/14/testng-next-generation-testing-framework-understanding-annotations?replytocom=11347#respond' onclick='return addComment.moveForm("comment-body-11347", "11347", "respond", "552")'>Reply</a></p>
+</div>
+					<dl class="children">
+					<dt class="comment byuser comment-author-selftechy bypostauthor odd alt depth-2" id="comment-17090">
+<span class="avatar"><a href="http://www.selftechy.com" rel="nofollow"></a></span>
+<span class="comment_author"><a href='http://www.selftechy.com' rel='external nofollow' class='url'>seetaram</a></span>
+<span class="comment_time"><a href="#comment-17090" title="Permalink to this comment" rel="nofollow">October 25, 2015 at 5:22 am</a></span>
+
+					</dt>
+					<dd class="comment byuser comment-author-selftechy bypostauthor odd alt depth-2">
+<div class="format_text" id="comment-body-17090">
+<p>Why dont you improve upon your java skills first?</p>
+<p class="reply"><a class='comment-reply-link' href='/2012/01/14/testng-next-generation-testing-framework-understanding-annotations?replytocom=17090#respond' onclick='return addComment.moveForm("comment-body-17090", "17090", "respond", "552")'>Reply</a></p>
+</div>
+					</dd>
+					</dl>
+					</dd>
+				</dl>
+				<div id="respond">
+					<div id="respond_intro">
+<a rel="nofollow" id="cancel-comment-reply-link" href="/2012/01/14/testng-next-generation-testing-framework-understanding-annotations#respond" style="display:none;">Cancel reply</a>						<p>Leave a Comment</p>
+					</div>
+					<form action="http://selftechy.com/wp-comments-post.php" method="post" id="commentform">
+						<p><input class="text_input" type="text" name="author" id="author" value="" tabindex="1" aria-required="true" /><label for="author">Name <span class="required" title="Required">*</span></label></p>
+						<p><input class="text_input" type="text" name="email" id="email" value="" tabindex="2" aria-required="true" /><label for="email">E-mail <span class="required" title="Required">*</span></label></p>
+						<p><input class="text_input" type="text" name="url" id="url" value="" tabindex="3" /><label for="url">Website</label></p>
+						<p class="comment_box">
+							<textarea name="comment" id="comment" tabindex="4" cols="40" rows="8"></textarea>
+						</p>
+						<p class="remove_bottom_margin">
+							<input name="submit" class="form_submit" type="submit" id="submit" tabindex="5" value="Submit" />
+<input type='hidden' name='comment_post_ID' value='552' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="4922ad7d85" /></p><script type='text/javascript' src='http://selftechy.com/wp-includes/js/jquery/jquery.js?ver=1.11.0'></script>
+<script type='text/javascript' src='http://selftechy.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<script type='text/javascript' src='http://selftechy.com/wp-content/plugins/akismet/_inc/form.js?ver=3.0.0'></script>
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="173"/></p>					</form>
+				</div>
+			</div>
+					<div class="prev_next post_nav">
+						<p class="previous">Previous post: <a href="http://selftechy.com/2012/01/09/setting-up-testng-with-eclipse" rel="prev">Setting up TestNG with Eclipse</a></p>
+						<p>Next post: <a href="http://selftechy.com/2012/01/15/testng-test-automation-with-selenium" rel="next">TestNG &ndash; Test Automation with Selenium</a></p>
+					</div>
+<script type="text/javascript">
+  ( function() {
+    if (window.CHITIKA === undefined) { window.CHITIKA = { 'units' : [] }; };
+    var unit = {"calltype":"async[2]","publisher":"selftechy","width":728,"height":90,"sid":"Chitika Default"};
+    var placement_id = window.CHITIKA.units.length;
+    window.CHITIKA.units.push(unit);
+    document.write('<div id="chitikaAdBlock-' + placement_id + '"></div>');
+}());
+</script>
+<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
+		</div>
+
+		<div id="sidebars">
+<A HREF="http://www.copyscape.com/online-infringement/"><IMG SRC="http://banners.copyscape.com/images/cs-bl-3d-120x60.gif" ALT="Protected by Copyscape Online Infringement Checker" TITLE="Protected by Copyscape Plagiarism Checker - Do not copy content from this page." WIDTH="120" HEIGHT="60" BORDER="0"></A>
+<ul id="subscribe">
+      <li>
+        <a class="linkblock" href="http://feeds.feedburner.com/Selftechy" title="RSS Feed"></a>
+        <img alt="Full RSS Feed" src="http://www.selftechy.com/images/rss.png"/>
+        <p>Subscribe via</p>
+        <h4>RSS Feed</h4>
+    </li>
+      <li>
+        <a class="linkblock" href="http://feedburner.google.com/fb/a/mailverify?uri=Selftechy&amp;loc=en_US" title="E-Mail Delivery"></a>
+        <img alt="E-Mail Delivery" src="http://www.selftechy.com/images/email.png"/>
+        <p>Subscribe via</p>
+        <h4>E-Mail</h4>
+      </li>
+    </ul>
+			<div id="sidebar_1" class="sidebar">
+				<ul class="sidebar_list">
+	<li class="widget popular_posts">
+		<h3>Popular Posts</h3>
+		<ul>
+					<li>
+				<a href="http://selftechy.com/2011/06/02/parameterization-of-selenium-tests-with-microsoft-excel" title="Permalink to Parameterization of Selenium Tests with Microsoft Excel">
+					Parameterization of Selenium Tests with Microsoft Excel				</a>
+			</li>
+					<li>
+				<a href="http://selftechy.com/2011/06/29/selenium-use-ant-to-generate-html-reports" title="Permalink to Selenium &ndash; Use Ant to Generate HTML Reports">
+					Selenium &ndash; Use Ant to Generate HTML Reports				</a>
+			</li>
+					<li>
+				<a href="http://selftechy.com/2011/05/31/setting-up-selenium-with-eclipse" title="Permalink to Setting up Selenium with Eclipse">
+					Setting up Selenium with Eclipse				</a>
+			</li>
+					<li>
+				<a href="http://selftechy.com/2011/03/22/execute-selenium-test-using-eclipse" title="Permalink to Execute Selenium Test Using Eclipse">
+					Execute Selenium Test Using Eclipse				</a>
+			</li>
+					<li>
+				<a href="http://selftechy.com/2011/07/24/selenium-2-0-webdriver-a-test-automation-example" title="Permalink to Selenium 2.0 WebDriver &ndash; A Test Automation example">
+					Selenium 2.0 WebDriver &ndash; A Test Automation example				</a>
+			</li>
+				</ul>
+	</li>
+	<li class="widget popular_posts">
+		<h3>Recent Posts</h3>
+		<ul>
+					<li>
+				<a href="http://selftechy.com/2015/01/20/soap-web-services" title="Permalink to SOAP Web services">
+					SOAP Web services				</a>
+			</li>
+					<li>
+				<a href="http://selftechy.com/2015/01/16/web-services-introduction" title="Permalink to Web services &#8211; Introduction">
+					Web services &#8211; Introduction				</a>
+			</li>
+					<li>
+				<a href="http://selftechy.com/2013/11/22/introduction-to-java-virtual-machine-jvm" title="Permalink to Introduction to Java Virtual Machine (JVM)">
+					Introduction to Java Virtual Machine (JVM)				</a>
+			</li>
+					<li>
+				<a href="http://selftechy.com/2013/10/07/hp-uft-11-50-unified-functional-testing" title="Permalink to HP-UFT 11.50 (Unified Functional Testing)">
+					HP-UFT 11.50 (Unified Functional Testing)				</a>
+			</li>
+					<li>
+				<a href="http://selftechy.com/2013/09/23/innovation" title="Permalink to Innovation&hellip;.">
+					Innovation&hellip;.				</a>
+			</li>
+				</ul>
+	</li>
+<li class="widget widget_categories" id="categories-7"><h3>Categories</h3>		<ul>
+	<li class="cat-item cat-item-6"><a href="http://selftechy.com/category/ant" title="View all posts filed under Ant">Ant</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://selftechy.com/category/automation-testing" title="View all posts filed under Automation Testing">Automation Testing</a>
+</li>
+	<li class="cat-item cat-item-72"><a href="http://selftechy.com/category/general" title="View all posts filed under General">General</a>
+</li>
+	<li class="cat-item cat-item-26"><a href="http://selftechy.com/category/java" title="View all posts filed under Java">Java</a>
+</li>
+	<li class="cat-item cat-item-66"><a href="http://selftechy.com/category/mobile-apps-testing" title="View all posts filed under Mobile Apps Testing">Mobile Apps Testing</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://selftechy.com/category/quick-test-professional" title="View all posts filed under Quick Test Professional">Quick Test Professional</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://selftechy.com/category/selenium" title="View all posts filed under Selenium">Selenium</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="http://selftechy.com/category/selenium-2-0" title="View all posts filed under Selenium 2.0">Selenium 2.0</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://selftechy.com/category/uncategorized" title="View all posts filed under Uncategorized">Uncategorized</a>
+</li>
+	<li class="cat-item cat-item-75"><a href="http://selftechy.com/category/unified-functional-testing" title="View all posts filed under Unified Functional Testing">Unified Functional Testing</a>
+</li>
+	<li class="cat-item cat-item-39"><a href="http://selftechy.com/category/vbscript" title="View all posts filed under VBScript">VBScript</a>
+</li>
+	<li class="cat-item cat-item-68"><a href="http://selftechy.com/category/web-services" title="View all posts filed under Web Services">Web Services</a>
+</li>
+	<li class="cat-item cat-item-69"><a href="http://selftechy.com/category/web-technology" title="View all posts filed under Web Technology">Web Technology</a>
+</li>
+	<li class="cat-item cat-item-19"><a href="http://selftechy.com/category/webdriver" title="View all posts filed under WebDriver">WebDriver</a>
+</li>
+		</ul>
+</li><li class="widget widget_archive" id="archives-7"><h3>Archives</h3>		<ul>
+	<li><a href='http://selftechy.com/2015/01'>January 2015</a></li>
+	<li><a href='http://selftechy.com/2013/11'>November 2013</a></li>
+	<li><a href='http://selftechy.com/2013/10'>October 2013</a></li>
+	<li><a href='http://selftechy.com/2013/09'>September 2013</a></li>
+	<li><a href='http://selftechy.com/2013/08'>August 2013</a></li>
+	<li><a href='http://selftechy.com/2012/06'>June 2012</a></li>
+	<li><a href='http://selftechy.com/2012/04'>April 2012</a></li>
+	<li><a href='http://selftechy.com/2012/01'>January 2012</a></li>
+	<li><a href='http://selftechy.com/2011/12'>December 2011</a></li>
+	<li><a href='http://selftechy.com/2011/11'>November 2011</a></li>
+	<li><a href='http://selftechy.com/2011/10'>October 2011</a></li>
+	<li><a href='http://selftechy.com/2011/09'>September 2011</a></li>
+	<li><a href='http://selftechy.com/2011/08'>August 2011</a></li>
+	<li><a href='http://selftechy.com/2011/07'>July 2011</a></li>
+	<li><a href='http://selftechy.com/2011/06'>June 2011</a></li>
+	<li><a href='http://selftechy.com/2011/05'>May 2011</a></li>
+	<li><a href='http://selftechy.com/2011/04'>April 2011</a></li>
+	<li><a href='http://selftechy.com/2011/03'>March 2011</a></li>
+	<li><a href='http://selftechy.com/2011/02'>February 2011</a></li>
+		</ul>
+</li><li class="widget widget_tag_cloud" id="tag_cloud-4"><h3>Tags</h3><div class="tagcloud"><a href='http://selftechy.com/tag/annotations' class='tag-link-13' title='1 topic' style='font-size: 8pt;'>Annotations</a>
+<a href='http://selftechy.com/tag/ant' class='tag-link-6' title='2 topics' style='font-size: 10.27027027027pt;'>Ant</a>
+<a href='http://selftechy.com/tag/arrays' class='tag-link-49' title='2 topics' style='font-size: 10.27027027027pt;'>Arrays</a>
+<a href='http://selftechy.com/tag/assertions' class='tag-link-36' title='1 topic' style='font-size: 8pt;'>Assertions</a>
+<a href='http://selftechy.com/tag/automation-testing' class='tag-link-3' title='3 topics' style='font-size: 11.783783783784pt;'>Automation Testing</a>
+<a href='http://selftechy.com/tag/build-process' class='tag-link-25' title='1 topic' style='font-size: 8pt;'>Build Process</a>
+<a href='http://selftechy.com/tag/chromedriver' class='tag-link-38' title='2 topics' style='font-size: 10.27027027027pt;'>Chromedriver</a>
+<a href='http://selftechy.com/tag/classes' class='tag-link-27' title='1 topic' style='font-size: 8pt;'>Classes</a>
+<a href='http://selftechy.com/tag/configuration' class='tag-link-23' title='1 topic' style='font-size: 8pt;'>configuration</a>
+<a href='http://selftechy.com/tag/csv' class='tag-link-22' title='2 topics' style='font-size: 10.27027027027pt;'>CSV</a>
+<a href='http://selftechy.com/tag/data-types' class='tag-link-40' title='1 topic' style='font-size: 8pt;'>Data Types</a>
+<a href='http://selftechy.com/tag/eclipse' class='tag-link-15' title='2 topics' style='font-size: 10.27027027027pt;'>eclipse</a>
+<a href='http://selftechy.com/tag/for-loop' class='tag-link-44' title='3 topics' style='font-size: 11.783783783784pt;'>for loop</a>
+<a href='http://selftechy.com/tag/functions' class='tag-link-47' title='2 topics' style='font-size: 10.27027027027pt;'>functions</a>
+<a href='http://selftechy.com/tag/if' class='tag-link-32' title='1 topic' style='font-size: 8pt;'>if</a>
+<a href='http://selftechy.com/tag/if-else' class='tag-link-33' title='1 topic' style='font-size: 8pt;'>if else</a>
+<a href='http://selftechy.com/tag/inheritance' class='tag-link-30' title='1 topic' style='font-size: 8pt;'>Inheritance</a>
+<a href='http://selftechy.com/tag/java' class='tag-link-26' title='6 topics' style='font-size: 14.936936936937pt;'>Java</a>
+<a href='http://selftechy.com/tag/junit' class='tag-link-7' title='1 topic' style='font-size: 8pt;'>JUnit</a>
+<a href='http://selftechy.com/tag/junit-4' class='tag-link-8' title='5 topics' style='font-size: 14.054054054054pt;'>JUnit 4</a>
+<a href='http://selftechy.com/tag/log4j' class='tag-link-14' title='1 topic' style='font-size: 8pt;'>log4j</a>
+<a href='http://selftechy.com/tag/methods' class='tag-link-29' title='1 topic' style='font-size: 8pt;'>Methods</a>
+<a href='http://selftechy.com/tag/microsoft-excel' class='tag-link-17' title='1 topic' style='font-size: 8pt;'>Microsoft Excel</a>
+<a href='http://selftechy.com/tag/object-identification' class='tag-link-9' title='1 topic' style='font-size: 8pt;'>Object identification</a>
+<a href='http://selftechy.com/tag/object-repository' class='tag-link-54' title='2 topics' style='font-size: 10.27027027027pt;'>Object Repository</a>
+<a href='http://selftechy.com/tag/objects' class='tag-link-28' title='1 topic' style='font-size: 8pt;'>Objects</a>
+<a href='http://selftechy.com/tag/parameterization' class='tag-link-16' title='5 topics' style='font-size: 14.054054054054pt;'>Parameterization</a>
+<a href='http://selftechy.com/tag/properties' class='tag-link-24' title='1 topic' style='font-size: 8pt;'>properties</a>
+<a href='http://selftechy.com/tag/qtp' class='tag-link-10' title='2 topics' style='font-size: 10.27027027027pt;'>QTP</a>
+<a href='http://selftechy.com/tag/qtp-fundamentals' class='tag-link-52' title='14 topics' style='font-size: 19.099099099099pt;'>QTP Fundamentals</a>
+<a href='http://selftechy.com/tag/quick-test-professional' class='tag-link-4' title='2 topics' style='font-size: 10.27027027027pt;'>Quick Test Professional</a>
+<a href='http://selftechy.com/tag/selenium' class='tag-link-5' title='25 topics' style='font-size: 22pt;'>Selenium</a>
+<a href='http://selftechy.com/tag/selenium-2-0' class='tag-link-18' title='2 topics' style='font-size: 10.27027027027pt;'>Selenium 2.0</a>
+<a href='http://selftechy.com/tag/selenium-ide' class='tag-link-11' title='3 topics' style='font-size: 11.783783783784pt;'>Selenium IDE</a>
+<a href='http://selftechy.com/tag/soap' class='tag-link-78' title='2 topics' style='font-size: 10.27027027027pt;'>SOAP</a>
+<a href='http://selftechy.com/tag/test-automation' class='tag-link-12' title='10 topics' style='font-size: 17.333333333333pt;'>Test Automation</a>
+<a href='http://selftechy.com/tag/test-automation-framework' class='tag-link-21' title='1 topic' style='font-size: 8pt;'>Test Automation Framework</a>
+<a href='http://selftechy.com/tag/testng' class='tag-link-64' title='4 topics' style='font-size: 13.045045045045pt;'>TestNG</a>
+<a href='http://selftechy.com/tag/variables' class='tag-link-31' title='2 topics' style='font-size: 10.27027027027pt;'>Variables</a>
+<a href='http://selftechy.com/tag/vbscript' class='tag-link-39' title='14 topics' style='font-size: 19.099099099099pt;'>VBScript</a>
+<a href='http://selftechy.com/tag/webdriver' class='tag-link-19' title='6 topics' style='font-size: 14.936936936937pt;'>WebDriver</a>
+<a href='http://selftechy.com/tag/webdriver-apis' class='tag-link-37' title='1 topic' style='font-size: 8pt;'>WebDriver APIs</a>
+<a href='http://selftechy.com/tag/web-services-2' class='tag-link-77' title='2 topics' style='font-size: 10.27027027027pt;'>web services</a>
+<a href='http://selftechy.com/tag/xml' class='tag-link-35' title='1 topic' style='font-size: 8pt;'>XML</a>
+<a href='http://selftechy.com/tag/xpath' class='tag-link-34' title='1 topic' style='font-size: 8pt;'>XPath</a></div>
+</li>				</ul>
+			</div>
+		</div>
+	</div>
+<p style="border:thin dotted black; padding:3mm;font-size: 150%;text-align:left;font-weight: bold;color:FFFFFF;background:B1FF4A;">
+Do you want to get updates on the recent articles written? Please subscribe to 
+<a href="http://feeds.feedburner.com/Selftechy">RSS feed</a>
+or 
+<a href="http://feedburner.google.com/fb/a/mailverify?uri=Selftechy&amp;loc=en_US">Email</a>
+</p>
+	<div id="footer">
+<p> 2010-2015 Selftechy.com - All rights reserved.</p>
+<p>No content on this site may be reused in any fashion without written permission from Selftechy.com</p>
+<script type='text/javascript' src='http://selftechy.com/wp-includes/js/comment-reply.min.js?ver=3.9.9'></script>
+	</div>
+</div>
+</div>
+<!--[if lte IE 8]>
+<div id="ie_clear"></div>
+<![endif]-->
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">
+var sc_project=6954409; 
+var sc_invisible=1; 
+var sc_security="f38954da"; 
+</script>
+<script type="text/javascript"
+src="http://www.statcounter.com/counter/counter.js"></script>
+<noscript><div class="statcounter"><a title="tumblr stats"
+href="http://statcounter.com/tumblr/" target="_blank"><img
+class="statcounter"
+src="http://c.statcounter.com/6954409/0/f38954da/1/"
+alt="tumblr stats"></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22650881-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</body>
+</html>%6~�      V���V���;� �       c:http://selftechy.com/2012/01/14/testng-next-generation-testing-framework-understanding-annotations necko:classified 1 request-method GET response-head HTTP/1.1 200 OK
+Date: Tue, 05 Jan 2016 11:17:47 GMT
+Server: Apache Phusion_Passenger/4.0.10 mod_bwlimited/1.4 mod_fcgid/2.3.9
+X-Powered-By: PHP/5.4.45
+X-Pingback: http://selftechy.com/xmlrpc.php
+Link: <http://selftechy.com/?p=552>; rel=shortlink
+Content-Type: text/html; charset=UTF-8
+ charset UTF-8 uncompressed-len 0 predictor::resource-count 28 predictor::http://selftechy.com/wp-content/themes/thesis_182/style.css 1,1,1451992802,0 predictor::http://selftechy.com/wp-content/themes/thesis_182/custom/layout.css 1,1,1451992802,0 predictor::http://selftechy.com/wp-content/themes/thesis_182/custom/custom.css 1,1,1451992802,0 predictor::http://cdn.chitika.net/getads.js 1,1,1451992802,0 predictor::http://selftechy.com/wp-content/uploads/2012/01/ExecuteTestNG_Test_thumb.jpg 1,1,1451992802,0 predictor::http://selftechy.com/wp-content/uploads/2012/01/Annotations_thumb1.jpg 1,1,1451992802,0 predictor::http://selftechy.com/wp-includes/js/jquery/jquery.js?ver=1.11.0 1,1,1451992802,0 predictor::http://selftechy.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1 1,1,1451992802,0 predictor::http://selftechy.com/wp-content/plugins/akismet/_inc/form.js?ver=3.0.0 1,1,1451992802,0 predictor::http://banners.copyscape.com/images/cs-bl-3d-120x60.gif 1,1,1451992802,0 predictor::http://www.selftechy.com/images/rss.png 1,1,1451992802,0 predictor::http://www.selftechy.com/images/email.png 1,1,1451992802,0 predictor::http://selftechy.com/wp-includes/js/comment-reply.min.js?ver=3.9.9 1,1,1451992802,0 predictor::http://www.statcounter.com/counter/counter.js 1,1,1451992802,0 predictor::http://fonts.googleapis.com/css?family=Crimson+Text 1,1,1451992802,0 predictor::http://selftechy.com/wp-content/uploads/2011/10/HeaderImage2.jpg 1,1,1451992802,0 predictor::http://selftechy.com/wp-content/themes/thesis_182/lib/images/dot-ddd.gif 1,1,1451992802,0 predictor::http://selftechy.com/wp-content/themes/thesis_182/lib/images/submit-bg.gif 1,1,1451992802,0 predictor::http://fonts.gstatic.com/s/crimsontext/v6/3IFMwfRa07i-auYR-B-zNegdm0LZdjqr5-oayXSOefg.woff2 1,1,1451992802,0 predictor::http://c.statcounter.com/t.php?sc_project=6954409&java=1&security=f38954da&u1=za&sc_random=0.47304045432076025&resolution=1366&h=768&camefrom=https%3A//www.google.co.in&u=http%3A//selftechy.com/2012/01/14/testng-next-generation-testing-framework-understanding-annotations&t=TestNG%20(Next%20Generation%20Testing%20Framework)%20%E2%80%93%20Understanding%20Annotations&sc_snum=1&p=0&invisible=1 1,1,1451992802,0 predictor::http://www.google-analytics.com/ga.js 1,1,1451992802,0 predictor::http://scripts.chitika.net/apps/linx.js 1,1,1451992802,0 predictor::http://scripts.chitika.net/apps/adhesion.js 1,1,1451992802,0 predictor::http://scripts.chitika.net/apps/highlight.js 1,1,1451992802,0 predictor::http://psdata.chitika.net/extract?u=http%3A%2F%2Fselftechy.com%2F2012%2F01%2F14%2Ftestng-next-generation-testing-framework-understanding-annotations&c=LINX.main 1,1,1451992802,0 predictor::http://mm.chitika.net/chewey?event=adhesion_activate&publisher=selftechy&url=http%3A%2F%2Fselftechy.com%2F2012%2F01%2F14%2Ftestng-next-generation-testing-framework-understanding-annotations&vsn=7.0 1,1,1451992802,0 predictor::http://mm.chitika.net/chewey?event=adhesion_close&publisher=selftechy&url=http%3A%2F%2Fselftechy.com%2F2012%2F01%2F14%2Ftestng-next-generation-testing-framework-understanding-annotations&vsn=7.0 1,1,1451992802,0 predictor::http://mm.chitika.net/chewey?event=adhesion_render&publisher=selftechy&impId=dd9abc2951ffade0dad9ac3fcd60002f&url=http%3A%2F%2Fselftechy.com%2F2012%2F01%2F14%2Ftestng-next-generation-testing-framework-understanding-annotations&vsn=7.0 1,1,1451992802,0   ؑ

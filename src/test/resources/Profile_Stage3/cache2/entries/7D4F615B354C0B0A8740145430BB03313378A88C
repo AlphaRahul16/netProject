@@ -1,0 +1,312 @@
+Ôªøvar maxPubs = 5;
+var errMsg = 'Please select 5 or fewer ACS journals.';
+ 
+ function showProcessingText() {
+        var disabledButton = $("#btnSave");
+        disabledButton.attr("disabled", "disabled");
+        disabledButton.val("Saving Publications...");
+        $("#btnCancel").attr("disabled", "disabled");
+        return true;
+    }
+    /*
+    function itemRemoved(event) {
+        var $checkbox = $(event.target).closest('.item-heading').find('.hidden-checkbox');
+        $checkbox.attr('checked', false);
+        resizer();
+    }
+    function itemAdded(event) {
+        var $checkbox = $(event.target).closest('.item-heading').find('.hidden-checkbox');
+        $checkbox.attr('checked', true);
+        resizer();
+    }*/
+
+    /*BEGIN Subscription Archive Grouping Func*/
+    function initGroupArchives() {
+        var archives = getArchives();
+        var common_archives = getCommonArchives(archives);
+
+        common_archives.on(
+            { click: function (e) {
+                var group_key = $(this).attr('groupkey');
+                var group_archives = getCommonArchiveGroup(archives, group_key); 
+
+                if (group_archives.filter(':checked').length == 0) group_archives.removeAttr('disabled');
+                else group_archives.not(':checked').attr('disabled', 'disabled');
+            }
+       });
+    }
+    function getArchives() {
+        var selector = 'td.product>table>tbody>' +
+                       'tr.archive>td>table>tbody>' +
+                       'tr.item-archives>td.item-archive-year';
+        return $(selector);
+    }
+    function getCommonArchives(archives) {
+        return archives.find('>input[type=checkbox].common-archive');
+    }
+    function getCommonArchiveGroup(archives, groupKey) {
+        return archives.find('>input[groupkey="' + groupKey + '"]');
+    }
+    /*END Subscription Archive Grouping Func*/
+
+    $('document').ready(function () {
+        /*$(document).bind("ItemRemoved", itemRemoved);
+        $(document).bind("ItemAdded", itemAdded);*/
+        wireMoreLess();
+        initGroupArchives();
+        var cartcount = getCartCount();
+
+        $("input.add-to-cart[id!='btn_9ac334a4-9c89-4b82-9e92-3f45001dceaa']").click(function () {
+            if ($(this).hasClass("ptcCode_EPASS")) {
+                disableRelatedItems($(this));
+            }
+            updateUISelected($(this));
+        });
+        $(".item-archives :checkbox, .item-remove[id!='btn_9ac334a4-9c89-4b82-9e92-3f45001dceaa']").click(function () {
+            if ($(this).closest('.item-heading').find('input.add-to-cart-btn').hasClass("ptcCode_EPASS")) {
+                enableRelatedItems($(this));
+            }
+            updateUIRemoved($(this));
+        });
+        $("#eWebForm").submit(function (e) {
+            var cartcount = getCartCount();
+            if (cartcount > maxPubs) {
+                alert(cartcount + " " + errMsg);
+                return false;
+            }
+            else {
+                e.preventDefault();
+                showProcessingText();
+                clickSaveButtonServerSide();
+            }
+        });
+    });
+    function updateUISelected($addedInputButton) {
+        var $addBtn = $addedInputButton; // clicked button
+        var $cartStatusText = $addBtn.closest('.cart-action').find('.item-status-added'); // "Added" status text
+        var $product = $($addBtn.parentsUntil(".product").parent()[0]); // parent product
+        var $priceColumn = $product.find("td.item-price", "td.item-archive-price"); // cache archive price column
+        var $removeBtn = $priceColumn.next().find(".item-remove"); //remove item link
+        var $checkbox = $addBtn.closest('.item-heading').find('.hidden-checkbox'); //hidden checkbox for publication
+        
+        // if the user clicked a product
+        if ($addBtn.hasClass("add-to-cart-btn")) {
+            var cartcount = getCartCount();
+            if (!$addBtn.hasClass("ptcCode_EPASS") && cartcount >= maxPubs) {
+                alert(cartcount + " " + errMsg);
+            }
+            else {
+                $checkbox.attr('checked', true); // check hidden checkbox which is used when saving publications
+                $addBtn.hide(); // hide the add to cart button
+                $cartStatusText.show(); //display the added to cart text
+                $removeBtn.show(); //display the remove link
+                $product.find("tr.archive").show(); // show the archived items
+                $addBtn.parent().next().next().find(">div").addClass("selected"); // change color of the price background to yellow
+            }
+        }
+        // if the user clicked an archived product
+        else {
+            $addBtn.parentsUntil(".item-archives").next().find(">div").addClass("selected");
+
+            $primaryProduct = $product.find("input.add-to-cart-btn");
+            // if the primary product had not been added to the order
+            // then add the primary product to the order
+            if ($primaryProduct.is(":visible")) {
+                $primaryProduct.click();
+                //$product.find("input.add-to-cart").click();
+            }
+        }
+        calcPrice($product);
+        $(this).trigger("ItemAdded");
+    }
+    function updateUIRemoved($removeInputButton) {
+        var $removeBtn = $($removeInputButton); // clicked button
+        var $addBtn = $removeBtn.parent().parent().find(".add-to-cart");
+        var $cartStatusText = $addBtn.closest('.cart-action').find(".item-status-added"); // "Added" status text
+        var $product = $($addBtn.parentsUntil(".product").parent()[0]); // parent product
+        var $priceColumn = $product.find("td.item-price", "td.item-archive-price"); // cache archive price column
+        var $price;
+        var $checkbox = $addBtn.closest('.item-heading').find('.hidden-checkbox'); //hidden checkbox for publication
+
+        // if the user clicked an archive checkbox
+        // and the checkbox is not checked and the add to cart button is a checkbox
+        if ($removeBtn.filter(":checked").length == 0 && $addBtn.is("input[type='checkbox']")) {
+            $removeBtn.parent().next().find(">div").removeClass("selected"); // price of item or sub item
+        }
+        else if ($addBtn.hasClass("add-to-cart-btn")) {
+            $checkbox.attr('checked', false); // uncheck hidden checkbox which is used when saving publications
+            $addBtn.show(); // show the add to cart button
+            $cartStatusText.hide(); //display the added to cart text
+            $removeBtn.hide(); //display the remove link
+            $priceColumn.find(">div").removeClass("selected"); // change color of the price baground to yellow
+            $product.find(".item-archive-price>div.price").removeClass("selected"); // remove selected class from prices
+            $product.find("input.add-to-cart-checkbox:checked").removeAttr("checked"); // remove the archived items from the order
+            var ca = $product.find('.common-archive');
+            if (ca.length > 0 && ca.attr('groupenabled') === 'true') {
+                var groupkey = ca.attr('groupkey');
+                if (groupkey) {
+                    var cag = getCommonArchiveGroup(getArchives(), groupkey);
+                    if(cag.filter(':checked').length === 0) cag.removeAttr('disabled');
+                }
+            }
+            $product.find("tr.archive").hide(); // hide the archived items
+        }
+        calcPrice($product);
+    }
+    function wireMoreLess() {
+        // hide / show item details
+        // cache each product
+        var $item = $("#publications").find(".product");
+
+        $item.each(function () {
+            // cache each product's details
+            var $itemmore = $(this).find(".item-details");
+
+            // toggle the product details on click
+            $(this).find(".item-toggle>a").click(function () {
+                if ($(this).html() == "less...") {
+                    $(this).html("more...");
+                    $itemmore.hide();
+                } else {
+                    $(this).html("less...");
+                    $itemmore.show();
+                    $image = $(this).closest('.product').find('img');
+                    $image.each(function () {
+                        if ($(this).attr('src') == 'OTI/controls/OMR/none') $(this).hide();
+                    });
+                }
+                // stop the browser from following the href
+                return false;
+            });
+        });
+    }
+    function getCartCount() {
+        var cartCountTemp = 0;
+
+        var cartItemsTemp = $(".item-status-added:visible:not(.added_ptcCode_EPASS), .item-status-paid:visible:not(.added_ptcCode_EPASS)");
+        if (cartItemsTemp) {
+            cartCountTemp = cartItemsTemp.length;
+        }
+        return cartCountTemp;
+    }
+    function uncheckRelatedItems(checkedItem) {
+        var checkedItemId = $(checkedItem).attr("id");
+        $(".ptcCode_EPASS").not("#" + checkedItemId).closest('.item-heading').find('.item-remove a').click();
+    }
+    function disableRelatedItems(checkedItem) {
+        uncheckRelatedItems(checkedItem);
+        var checkedItemId = $(checkedItem).attr("id");
+        $(".ptcCode_EPASS").not("#" + checkedItemId).closest('.item-heading').find('input.add-to-cart-btn').attr('disabled', 'disabled');
+    }
+    function enableRelatedItems($removedItem) {
+        var checkedItemId = $removedItem.closest('.item-heading').find('input.add-to-cart').attr("id");
+        $(".ptcCode_EPASS").not("#" + checkedItemId).closest('.item-heading').find('input.add-to-cart-btn').removeAttr('disabled');
+    }
+    function validateCount() {
+        var cartCount = getCartCount();
+        if (cartCount > maxPubs) {
+            alert(cartCount + " " + errMsg);
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    function calcPrice($product) {
+        var $prices = $product.find(".price"); // all the prices in the prices column
+        if ($prices.length > 0) {
+            var $subTotalTR = $product.find(".item-sub-total");
+            var $subtotal = $subTotalTR.find("span.price"); // product subtotal
+            var $pagetotal = $("#page-subtotal .amount"); // the grandtotal for this page
+
+            // add prices to get the subtotal
+            var add = 0;
+            var price = 0;
+            $prices.filter(".selected").each(function () {
+                add += Number($(this).text().replace('$', '').replace(',', '').replace('(','-').replace(')','')); 
+            });
+            var subtotalPrice = add;
+            // update the subtotal price
+            $subtotal.html("$" + subtotalPrice.toFixed(2));
+            // if user removed products and all sub products then hide the subtotal 
+            if (subtotalPrice <= 0) {
+                $subTotalTR.hide();
+            } else {
+                $subTotalTR.show();
+            }
+            add = 0;
+            $(".price").filter(".selected").each(function () {
+                add += Number($(this).text().replace('$', '').replace(',', '').replace('(', '-').replace(')', '')); 
+            });
+            var subtotalPrices = add;
+
+            $pagetotal.html("$" + subtotalPrices.toFixed(2));
+        }
+
+    }
+    function CalcTotal() {
+        var $selItems = $('.add-to-cart:hidden'); //Items added during current session
+        var amt = Number;
+
+        amt = 0;
+
+        var $product = $selItems.closest('.product');
+        var $prices = $product.find('.price:visible');
+
+        $selItems.each(function (index) {
+            var $primary = $(this).parent().parent().next().next().find('.price:visible');
+            var $subTtl = $(this).closest('.product').find('.archive-subtotal-price:visible');
+
+            if ($subTtl.length == 0) {
+                amt += parseFloat($primary.text().substr(1));
+            }
+        });
+
+        //var $archiveSubtotal = $('.archive-subtotal-price:visible');
+
+        $('.archive-subtotal-price:visible').each(function (index) {
+            amt += parseFloat($(this).text().substr(1));
+        });
+
+        return amt.toFixed(2).toString();
+    }
+    function CalcArchiveSubTotal(chkboxes) {
+        var $items = chkboxes;
+        var amt = Number;
+
+        amt = 0;
+
+        $items.each(function (index) {
+            var checked = $(this).is(':checked');
+
+            if (checked) {
+                var strAmt = $(this).parent().next('td').find('.price').text();
+                var $parentAmt = $(this).closest('.product').find('.item-price').find('.price');
+
+                if (strAmt.charAt(0) === '$') {
+                    strAmt = strAmt.substr(1);
+                }
+
+                var strParentAmt = '0.00';
+
+                if ($parentAmt.length > 0) {
+                    strParentAmt = $parentAmt.text();
+
+                    if (strParentAmt.charAt(0) === '$') {
+                        strParentAmt = strParentAmt.substr(1);
+                    }
+                }
+
+                amt += parseFloat(strAmt) + parseFloat(strParentAmt);
+            }
+        });
+        return amt.toFixed(2);
+    }$fµü‘¬      Vãù∞Vãù∞;˝MW¢    P:https://ewebtest12.acs.org/NFStage3/eweb/Include/OTI/javascript/subscription.js necko:classified 1 security-info FnhllAKWRHGAlo+ESXykKAAAAAAAAAAAwAAAAAAAAEaphjojH6pBabDSgSnsfLHeAAQAAgAAAAAAAAAAAAAAAAAAAAAB4vFIJp5wRkeyPxAQ9RJGKPqbqVvKO0mKuIl8ec8o/uhmCjImkVxP+7sgiYWmMt8F+O2DZM7ZTG6GukivU8OT5gAAAAAAAAVEMIIFQDCCBCigAwIBAgIITMYRplPAiqswDQYJKoZIhvcNAQELBQAwgcYxCzAJBgNVBAYTAlVTMRAwDgYDVQQIEwdBcml6b25hMRMwEQYDVQQHEwpTY290dHNkYWxlMSUwIwYDVQQKExxTdGFyZmllbGQgVGVjaG5vbG9naWVzLCBJbmMuMTMwMQYDVQQLEypodHRwOi8vY2VydHMuc3RhcmZpZWxkdGVjaC5jb20vcmVwb3NpdG9yeS8xNDAyBgNVBAMTK1N0YXJmaWVsZCBTZWN1cmUgQ2VydGlmaWNhdGUgQXV0aG9yaXR5IC0gRzIwHhcNMTUwOTExMjAzNjM4WhcNMTYwOTExMjAzNjM4WjA3MSEwHwYDVQQLExhEb21haW4gQ29udHJvbCBWYWxpZGF0ZWQxEjAQBgNVBAMMCSouYWNzLm9yZzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANhtLnIRYXkfieRtHjAATgbS493uCNSFatg8NwPa2CglcR2ABq8uzAGbo235jOjsP7R+uQhMZfxGpUx7PQ6brIYQOQOfapdg2PL6ydnTljjUuMnoxN87lWMhwWimO+8NWZbZ3iKtbZkAHpRU9a+Vij230+kYixRDx2C0GMudFAItFKtthrMdCwevJCucIqcfqbM6XEXPfUdF6HLR5+PqkQnkZ51nkLexIHpYBhBl8G99caFGT19kxtH5LbyZs1gE0AzWvX9xOulVULpSWjbO1SMLazPJ6V98kAtisi5dK/2ZGJvBqLO4pi2OMKjb14Bl6ODm8Ib66m+xqG9E7DBD11kCAwEAAaOCAb4wggG6MAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMA4GA1UdDwEB/wQEAwIFoDA8BgNVHR8ENTAzMDGgL6AthitodHRwOi8vY3JsLnN0YXJmaWVsZHRlY2guY29tL3NmaWcyczEtMTYuY3JsMFkGA1UdIARSMFAwTgYLYIZIAYb9bgEHFwEwPzA9BggrBgEFBQcCARYxaHR0cDovL2NlcnRpZmljYXRlcy5zdGFyZmllbGR0ZWNoLmNvbS9yZXBvc2l0b3J5LzCBggYIKwYBBQUHAQEEdjB0MCoGCCsGAQUFBzABhh5odHRwOi8vb2NzcC5zdGFyZmllbGR0ZWNoLmNvbS8wRgYIKwYBBQUHMAKGOmh0dHA6Ly9jZXJ0aWZpY2F0ZXMuc3RhcmZpZWxkdGVjaC5jb20vcmVwb3NpdG9yeS9zZmlnMi5jcnQwHwYDVR0jBBgwFoAUJUWBaFAmOD07LSy+zWrZtj2zZmMwHQYDVR0RBBYwFIIJKi5hY3Mub3JnggdhY3Mub3JnMB0GA1UdDgQWBBSeVGVWZiHq5bqxNe1nkOcTs1An5jANBgkqhkiG9w0BAQsFAAOCAQEASFHP/L3dLV33J1QYdA00hFTpmnH/X/e1bC20HL876hm5+OoElywjKOcBWFje5GL7zbDfFE3/eWcSEHmK4e/inXBWchTzLd3wa0E7vMGrA7xjHqmnmpEfvYdwb/zE/EbLxWYWHYXir2Ytap0KX52Jp+K19FVY3k127AKIebXe1VhHwDest0lqa8szeC9ltYZTAFalbsld9qqH8oF5ZpVm7/iggmN9SYC5StzIOK78HJnDzY2X9sOHzyLccrcaJRGsUdw5WrkqDocY6tKOKjUvwHsy16cR+a92/203QLk4BznoXbRNkMbdHs8LIwZBT1ugm2HIJ5MSKfGvW9pfYGgpTwA1AAMAAAAAAQEAAA== request-method GET response-head HTTP/1.1 200 OK
+Content-Type: application/javascript
+Last-Modified: Fri, 22 Feb 2013 12:58:46 GMT
+Accept-Ranges: bytes
+Etag: "0c78459fc10ce1:0"
+X-Powered-By: ASP.NET
+Date: Tue, 05 Jan 2016 10:38:34 GMT
+Content-Length: 13353
+ uncompressed-len 0   4)
