@@ -123,7 +123,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(1);
 		executeJavascript("document.getElementsByClassName('dropdown-toggle')[3].click()");
 		// element("btn_tabs").click();
-		logMessage("Step Module tab is clicked\n");
+		logMessage("STEP :  Module tab is clicked\n");
 	}
 
 	public void launchUrl(String url) {

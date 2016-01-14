@@ -17,6 +17,7 @@ import com.qait.keywords.YamlInformationProvider;
 public class ASM_Meeting_Smoke {
 
 	TestSessionInitiator test;
+
 	String app_url_Meeting;
 	YamlInformationProvider getASM_Meeting;
 	Map<String, Object> mapMeetingSmoke;
@@ -280,7 +281,7 @@ public class ASM_Meeting_Smoke {
 	@AfterMethod
 	public void take_screenshot_on_failure(ITestResult result) {
 		test.takescreenshot.takeScreenShotOnException(result);
-		test.closeBrowserSession();
+		//test.closeBrowserSession();
 	}
 
 }

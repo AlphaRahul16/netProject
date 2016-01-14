@@ -56,11 +56,11 @@ users:
                 type: Work
                 address: 7955 Pina Lake Rd
                 city: Jacksonville
-                country: Thailand
+                country: UNITED STATES
                 state: Florida
                 zipCode: 32256-7220
         education-and-employment:
-            CASEID: 5
+            CASEID: 1
 #    user2: 
 #        contact-information:
 #            name:
@@ -235,6 +235,7 @@ ASM_fellowNominatedSmokeChecklistData:
     memberNumberSearchError: Can't find the person you're looking for? Try finding by name          
     gradYearErrorMsz: Graduation Year
     LessToDateErrorMsz: To Date must be greater than From Date
+    CommunityCitationMsg: This is a test Demo 1
     ProfessionalHistory: 
          Employer: employer abc
          Title: Associate
@@ -519,7 +520,7 @@ ACS_Store:
     maxWaitTimeForPrintMessage: 30
     members:
          member1: 
-            CASEID: 1
+            CASEID: 2
             
 Acs_CreateMember_IWEB:
     batch: "ACS: QA_SUB_BATCH"

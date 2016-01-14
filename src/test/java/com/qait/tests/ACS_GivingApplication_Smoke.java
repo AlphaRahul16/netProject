@@ -47,13 +47,14 @@ public class ACS_GivingApplication_Smoke {
 	public void Step01_TC01_Launch_IWeb_Application_And_Navigate_To_Funds() {
 		mapSheetData=test.homePageIWEB.addValuesInMap("giving_donate", caseID);
 		test.navigateToIWEBUrlOnNewBrowserTab(app_url_IWEB);
+		test.homePageIWEB.enterAuthentication("C00616","ACS2016#");
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Fundraising");
 		test.homePageIWEB.clickOnSideBarTab("More...");
 		test.homePageIWEB.clickOnTab("Find Fund");
 		test.homePageIWEB.clickOnTab("Query Fund");
-		test.memberShipPage.selectAndRunQuery("QTP - Find funds on Donate All Programs Page");
+		test.memberShipPage.selectAndRunQuery("Selenium - Find funds on Donate All Programs Page");
 		productNameKey=test.asm_Donate.retreiveProductDetails();
 	}
 
@@ -169,12 +170,14 @@ public class ACS_GivingApplication_Smoke {
 				mapSheetData.get("Program2 Donate Amount"),mapSheetData.get("Program3 Donate Amount"),
 				mapSheetData.get("Other Program Donate Amount")};
 		test.invoicePage.validateBalanceAndTotalForInvoice(TotalAmountMap);
+		test.invoicePage.verifyEmailStatusAsDefinedInSheet(mapSheetData.get("SendCardVia_Email?"),mapSheetData.get("SendCardVia_PostalMail?")
+				,mapSheetData.get("DonotSendCard?"),mapSheetData.get("SelectSendCardOption?"));
 		test.invoicePage.expandDetailsMenu("line items");
 		test.invoicePage.verfifyproductDisplayNamesAndCodesInsideLineItems(TotalAmountMap,Amount,productNameKey,mapIwebProductDetails);
 		test.invoicePage.collapseDetailsMenu("line items");
 		test.invoicePage.expandDetailsMenu("acs giving invoice details");
 		test.invoicePage.verifyGivingInvoiceDetails(mapSheetData.get("SendCardVia_Email?"),mapSheetData.get("SendCardVia_PostalMail?"),
-				mapSheetData.get("DonotSendCard?"),	mapSheetData.get("Other Program"));
+				mapSheetData.get("DonotSendCard?"),	mapSheetData.get("Other Program"),mapSheetData.get("SelectSendCardOption?"));
 		test.invoicePage.collapseDetailsMenu("acs giving invoice details");
 	}
 	

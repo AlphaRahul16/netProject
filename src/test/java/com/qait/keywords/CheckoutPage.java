@@ -257,6 +257,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 				mutliYearInInteger);
 		verifyPriceType(getOmaSheetValue(caseId, "Product?"), "Tax",
 				getPriceSheetValue(caseId, "productTax?"), mutliYearInInteger);
+		wait.hardWait(3);
 		verifyPriceType(getOmaSheetValue(caseId, "Product?"), "amount",
 				getPriceSheetValue(caseId, "Price value?"), mutliYearInInteger);
 		verifyPriceType(getOmaSheetValue(caseId, "Product?"), "shipping",

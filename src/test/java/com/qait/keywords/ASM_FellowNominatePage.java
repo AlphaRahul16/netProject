@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.Map;
 
 import org.apache.commons.lang3.text.WordUtils;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -244,6 +245,45 @@ public class ASM_FellowNominatePage extends GetPage {
 		wait.waitForPageToLoadCompletely();
 		clickOnSaveButton("education");
 	}
+	
+	public void enterAwardCitationDetails(String ProfessionCitation,String Communitycitation)
+	{
+		 enterTextInProfessionCitation(ProfessionCitation);
+		 makeTextItalicAndUnderline();
+		 enterTextInCommunityCitation(Communitycitation);
+		 makeTextItalicAndUnderline();
+		clickOnSaveButton("citation");
+	}
+	private void makeTextItalicAndUnderline() {
+	   element("txtarea_awards").sendKeys(Keys.chord(Keys.CONTROL, "a"));
+	   switchToDefaultContent();
+	   element("btn_underline").click();
+	   wait.hardWait(1);
+	   element("btn_italic").click();
+	   
+	}
+
+	private void enterTextInProfessionCitation(String ProfessionCitation)
+	{
+		switchToFrame(element("iframe1_Awards"));
+		element("txtarea_awards").click();
+		element("txtarea_awards").clear();
+		System.out.println(ProfessionCitation);
+		element("txtarea_awards").sendKeys(ProfessionCitation);
+	System.out.println(	element("txtarea_awards").getText());
+	
+		
+	}
+	private void enterTextInCommunityCitation(String Communitycitation)
+	{
+		switchToFrame(element("iframe2_Awards"));
+		element("txtarea_awards").click();
+		element("txtarea_awards").clear();
+		System.out.println(Communitycitation);
+		element("txtarea_awards").sendKeys(Communitycitation);
+		System.out.println(element("txtarea_awards").getText());
+		
+	}
 
 	public void verifyAddMoreButton() {
 		isElementDisplayed("btn_AddMore");
@@ -430,26 +470,27 @@ public class ASM_FellowNominatePage extends GetPage {
 		getFellowNominated = new YamlInformationProvider(
 				mapFellowNominatedSmoke);
 		wait.waitForPageToLoadCompletely();
-		enterEducationDetails(
-				getFellowNominated
-						.getASM_fellowNominated_EduDetails("Institution"),
-				getFellowNominated.getASM_fellowNominated_EduDetails("Degree"),
-				getFellowNominated.getASM_fellowNominated_EduDetails("Major"),
-				getFellowNominated
-						.getASM_fellowNominated_EduDetails("GraduationYear"));
-		verifyAddMoreButton();
-		selectNominationChecklistName("Professional History");
-
-		fillDetailsForProfessionalHistory(
-				getFellowNominated
-						.getASM_fellowNominated_ProfDetails("Employer"),
-				getFellowNominated.getASM_fellowNominated_ProfDetails("Title"),
-				getFellowNominated
-						.getASM_fellowNominated_ProfDetails("FromDate"),
-				getFellowNominated.getASM_fellowNominated_ProfDetails("ToDate"),
-				getFellowNominated
-						.getASM_fellowNominated_ProfDetails("Description"));
-		verifyAddMoreButton();
+		
+//		enterEducationDetails(
+//				getFellowNominated
+//						.getASM_fellowNominated_EduDetails("Institution"),
+//				getFellowNominated.getASM_fellowNominated_EduDetails("Degree"),
+//				getFellowNominated.getASM_fellowNominated_EduDetails("Major"),
+//				getFellowNominated
+//						.getASM_fellowNominated_EduDetails("GraduationYear"));
+//		verifyAddMoreButton();
+//		selectNominationChecklistName("Professional History");
+//
+//		fillDetailsForProfessionalHistory(
+//				getFellowNominated
+//						.getASM_fellowNominated_ProfDetails("Employer"),
+//				getFellowNominated.getASM_fellowNominated_ProfDetails("Title"),
+//				getFellowNominated
+//						.getASM_fellowNominated_ProfDetails("FromDate"),
+//				getFellowNominated.getASM_fellowNominated_ProfDetails("ToDate"),
+//				getFellowNominated
+//						.getASM_fellowNominated_ProfDetails("Description"));
+//		verifyAddMoreButton();
 		selectNominationChecklistName("Professional Organization Affiliations");
 		fillDetailsForProfessionalOrganizationAffiliations(
 				getFellowNominated
