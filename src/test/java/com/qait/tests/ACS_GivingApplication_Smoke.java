@@ -54,7 +54,7 @@ public class ACS_GivingApplication_Smoke {
 		test.homePageIWEB.clickOnSideBarTab("More...");
 		test.homePageIWEB.clickOnTab("Find Fund");
 		test.homePageIWEB.clickOnTab("Query Fund");
-		test.memberShipPage.selectAndRunQuery("QTP - Find funds on Donate All Programs Page");
+		test.memberShipPage.selectAndRunQuery("Selenium - Find funds on Donate All Programs Page");
 		productNameKey=test.asm_Donate.retreiveProductDetails();
 	}
 
@@ -170,13 +170,14 @@ public class ACS_GivingApplication_Smoke {
 				mapSheetData.get("Program2 Donate Amount"),mapSheetData.get("Program3 Donate Amount"),
 				mapSheetData.get("Other Program Donate Amount")};
 		test.invoicePage.validateBalanceAndTotalForInvoice(TotalAmountMap);
-		test.invoicePage.verifyEmailStatusAsDefinedInSheet(mapSheetData.get("SendCardVia_Email?"));
+		test.invoicePage.verifyEmailStatusAsDefinedInSheet(mapSheetData.get("SendCardVia_Email?"),mapSheetData.get("SendCardVia_PostalMail?")
+				,mapSheetData.get("DonotSendCard?"),mapSheetData.get("SelectSendCardOption?"));
 		test.invoicePage.expandDetailsMenu("line items");
 		test.invoicePage.verfifyproductDisplayNamesAndCodesInsideLineItems(TotalAmountMap,Amount,productNameKey,mapIwebProductDetails);
 		test.invoicePage.collapseDetailsMenu("line items");
 		test.invoicePage.expandDetailsMenu("acs giving invoice details");
 		test.invoicePage.verifyGivingInvoiceDetails(mapSheetData.get("SendCardVia_Email?"),mapSheetData.get("SendCardVia_PostalMail?"),
-				mapSheetData.get("DonotSendCard?"),	mapSheetData.get("Other Program"));
+				mapSheetData.get("DonotSendCard?"),	mapSheetData.get("Other Program"),mapSheetData.get("SelectSendCardOption?"));
 		test.invoicePage.collapseDetailsMenu("acs giving invoice details");
 	}
 	

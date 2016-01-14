@@ -17,6 +17,7 @@ import com.qait.keywords.YamlInformationProvider;
 public class ASM_Meeting_Smoke {
 
 	TestSessionInitiator test;
+
 	String app_url_Meeting;
 	YamlInformationProvider getASM_Meeting;
 	Map<String, Object> mapMeetingSmoke;

@@ -128,7 +128,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				.equalsIgnoreCase("Selenium - Find Random Non Member")
 				&& ConfigPropertyReader.getProperty("tier").equalsIgnoreCase(
 						"Stage3")) {
-			selectDropDownValue(element("list_existingQuery"), 436);
+			selectDropDownValue(element("list_existingQuery"), 437);
 		}
 
 		else {
@@ -1452,6 +1452,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("link_invoiceListHeadings", tabName);
 		element("link_invoiceListHeadings", tabName).click();
 		wait.waitForPageToLoadCompletely();
+		logMessage("Invoice heading "+tabName+" is clicked");
+
 	}
 
 	public void verifyMultipleRecordsInList(String numberOfRecords) {

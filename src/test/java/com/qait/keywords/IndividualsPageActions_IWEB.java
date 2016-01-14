@@ -928,7 +928,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("btn_invoicearrow");
 		element("btn_invoicearrow").click();
-		logMessage("Step : user navigate to finance page in btn_invoicearrow\n");
+		logMessage("Step : user navigate to finance page by clicking btn_invoicearrow\n");
 
 	}
 
