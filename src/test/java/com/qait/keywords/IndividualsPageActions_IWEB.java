@@ -557,14 +557,14 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			element("link_moreMenuName", "Subscriptions").click();
 			logMessage("Step : Subscription link is clicked\n");
 			waitForSpinner();
-			isElementDisplayed("btn_memberShip", "active subscriptions");
-			element("btn_memberShip", "active subscriptions").click();
+//			isElementDisplayed("btn_memberShip", "active subscriptions");
+//			element("btn_memberShip", "active subscriptions").click();
 			logMessage("Step : Navigate to subscription menu on clicking more button\n");
 		} catch (StaleElementReferenceException stEx) {
-			wait.waitForPageToLoadCompletely();
+			
 			wait.hardWait(5);
 			isElementDisplayed("img_moreMenu");
-			hover(element("img_moreMenu"));
+			
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
 			// element("img_moreMenu").click();
 			isElementDisplayed("link_moreMenuName", "Subscriptions");
