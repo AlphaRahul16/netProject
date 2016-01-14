@@ -99,7 +99,7 @@ public class DateUtil {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DATE, 365 * yearToAddInInteger);
 		Date nextYear = cal.getTime();
-		SimpleDateFormat formatter = new SimpleDateFormat("M/d/yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat(formate);
 		formatter.setTimeZone(TimeZone.getTimeZone(timeZone));
 		String ourformat = formatter.format(nextYear.getTime());
 		return ourformat;

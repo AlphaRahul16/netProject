@@ -337,29 +337,26 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED :" + middleName
 				+ " is verified as middle name\n");
 		verifyElementTextContains("txt_memberDetails", lastName);
-		logMessage("ASSERT PASSED :" + lastName
-				+ " is verified as last name\n");
+		logMessage("ASSERT PASSED :" + lastName + " is verified as last name\n");
+		System.out.println("strret:" + map().get("street"));
 		verifyElementTextContains("txt_memberDetails", map().get("street"));
 		logMessage("ASSERT PASSED :" + map().get("street")
 				+ " is verified as street\n");
 		verifyElementTextContains("txt_memberDetails", map().get("city"));
 		logMessage("ASSERT PASSED :" + map().get("city")
 				+ " is verified as city\n");
-		verifyElementTextContains("txt_memberDetails", map().get("country"));
-		logMessage("ASSERT PASSED :" + map().get("country")
-				+ " is verified as country\n");
+		// verifyElementTextContains("txt_memberDetails", map().get("country"));
+		// logMessage("ASSERT PASSED :" + map().get("country")
+		// + " is verified as country\n");
 		if (!map().get("country").equalsIgnoreCase("UNITED STATES")) {
 			verifyElementTextContains("txt_memberDetails",
 					map().get("In_postalCode"));
 			logMessage("ASSERT PASSED :" + map().get("In_postalCode")
 					+ " is verified in txt_memberDetails\n");
 		} else {
-			verifyElementTextContains(
-					"txt_memberDetails",
-					map().get("In_postalCode") + "-"
-							+ map().get("Out_postalCode"));
-			logMessage("ASSERT PASSED :" + map().get("In_postalCode") + "-"
-					+ map().get("Out_postalCode")
+			verifyElementTextContains("txt_memberDetails",
+					map().get("Out_postalCode"));
+			logMessage("ASSERT PASSED :" + map().get("Out_postalCode")
 					+ " is verified in txt_memberDetails\n");
 		}
 	}
@@ -375,6 +372,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		verifyElementTextContent("txt_memberDetails", memDetails[2]);
 		logMessage("ASSERT PASSED :" + memDetails[2]
 				+ " is verified in txt_memberDetails\n");
+		System.out.println("street:" + memDetails[3]);
 		if (!(memDetails[3].equalsIgnoreCase(""))) {
 			verifyElementTextContent("txt_memberDetails", memDetails[3]);
 			logMessage("ASSERT PASSED :" + memDetails[3]
@@ -534,14 +532,12 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyMemberBenefitsDetail_Reinstate(String caseId,
 			String invoiceNumber) {
-
 		navigateToProductsMenuOnHoveringMore();
 		// //verifyMemberProductDetails("txt_divisionPubName", iwebProductName);
 		verifyMemberProductDetails_Reinstate("txt_divisionPubName_reinstate",
 				getOmaSheetValue(caseId, "Iweb Division Name?"), invoiceNumber);
 		verifyMemberProductDetails_Reinstate("txt_divisionPubName_reinstate",
 				getOmaSheetValue(caseId, "Iweb LS Name?"), invoiceNumber);
-
 		logMessage("ASSERT PASSED : member benefit details is verified in products menu \n");
 		navigateToSubscriptionMenuOnHoveringMore();
 		// verifyMemberProductDetails("txt_divisionPubName",
@@ -553,8 +549,10 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void navigateToSubscriptionMenuOnHoveringMore() {
 		try {
+			wait.hardWait(5);
 			isElementDisplayed("img_moreMenu");
-			element("img_moreMenu").click();
+			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
+			// element("img_moreMenu").click();
 			isElementDisplayed("link_moreMenuName", "Subscriptions");
 			element("link_moreMenuName", "Subscriptions").click();
 			logMessage("Step : Subscription link is clicked\n");
@@ -562,10 +560,13 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			isElementDisplayed("btn_memberShip", "active subscriptions");
 			element("btn_memberShip", "active subscriptions").click();
 			logMessage("Step : Navigate to subscription menu on clicking more button\n");
-
 		} catch (StaleElementReferenceException stEx) {
+			wait.waitForPageToLoadCompletely();
+			wait.hardWait(5);
 			isElementDisplayed("img_moreMenu");
-			element("img_moreMenu").click();
+			hover(element("img_moreMenu"));
+			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
+			// element("img_moreMenu").click();
 			isElementDisplayed("link_moreMenuName", "Subscriptions");
 			element("link_moreMenuName", "Subscriptions").click();
 			logMessage("Step : Subscription link is clicked\n");
@@ -992,6 +993,63 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void navigateToMembershipProfilePage() {
 		expandDetailsMenu("individual memberships");
 		clickOnButtonToNavigateFinancialPageInMembershipPage();
+	}
+
+	public void navigateToSubscriptionAndVerifySubscriptionDetails(
+			int numberOfSubscriptions) {
+
+		navigateToSubscriptionMenuOnHoveringMore();
+		for (int i = 0; i < elements("list_rowsInSubscription").size() - 1; i++) {
+			for (int j = 1; j <= numberOfSubscriptions; j++) {
+				System.out.println(element("txt_subscriptionName",
+						String.valueOf(j)).getText().trim());
+				if (element("txt_subscriptionName", String.valueOf(j))
+						.getText()
+						.trim()
+						.equalsIgnoreCase(
+								map().get("subscription" + j).split(" - ")[0])) {
+					verifySubscriptionDetails("Name",
+							map().get("subscription" + j).split(" - ")[0],
+							String.valueOf(j));
+					// verifySubscriptionDetails("Price",
+					// map().get("Sub" + j + "_SalePrice?"),
+					// String.valueOf(j));
+					// verifySubscriptionDetails("StartDate",
+					// ,
+					// String.valueOf(j));
+					// verifySubscriptionDetails("EndDate",
+					// ,
+					// String.valueOf(j));
+					verifySubscriptionDetails("IssueFulfilled", "0",
+							String.valueOf(j));
+					verifySubscriptionDetails("StartIssue",
+							map().get("subscription" + j).split(" - ")[0],
+							String.valueOf(j));
+					break;
+				}
+
+			}
+		}
+	}
+
+	public void verifySubscriptionDetails(String detailName,
+			String detailValue, String index) {
+		isElementDisplayed("txt_subscription" + detailName, index);
+		String actual = element("txt_subscription" + detailName, index)
+				.getText().trim().replaceAll("\\$", "");
+		String expected = detailValue;
+		System.out.println("actual:" + actual);
+		System.out.println("expected:" + expected);
+		if (detailName.equalsIgnoreCase("StartIssue")) {
+			Assert.assertTrue(actual.startsWith(expected));
+			logMessage("AASERT PASSED : " + detailValue + " is verified for "
+					+ detailName + " \n");
+		} else {
+			Assert.assertTrue(actual.equalsIgnoreCase(expected));
+			logMessage("AASERT PASSED : " + detailValue + " is verified for "
+					+ detailName + " \n");
+		}
+
 	}
 
 }

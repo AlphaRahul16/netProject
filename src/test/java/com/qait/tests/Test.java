@@ -25,6 +25,7 @@ import org.apache.commons.lang3.time.DateUtils;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DateUtil;
+import com.qait.keywords.MembershipPageActions_IWEB;
 
 public class Test {
 	static int nextYear;
@@ -34,7 +35,18 @@ public class Test {
 
 	@org.testng.annotations.Test(invocationCount = 1)
 	public void method() throws ParseException {
+		int i=1;
+		String j="40.50";
+		Float f=Float.parseFloat(j);
+		Float k=i*f;
+		System.out.println(k);
+		String formatedPrice = String.format("%.02f", k);
+		System.out.println(formatedPrice);
 		
+		String nextYearDate = DateUtil
+				.getAddYearWithLessOnedayInStringWithGivenFormate(
+						"MM/dd/yyyy", "1", "EST5EDT");
+		System.out.println(nextYearDate);
 //		getcaseIdToExecute
 
 //		String format = "Dues task netFORUM_Dues_Renewal_update_Task_([0-9a-zA-Z])+ scheduled successfully. Upon completion an e-mail will be sent to";

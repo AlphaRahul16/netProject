@@ -127,7 +127,7 @@ list_memberRenewalPackage                        id                             
 chk_complimentry                                 id                             ACS_complimentary_checkbox
 txt_totalPrice                                   id                             mbr_total
 list_complimentryRequest                         id                             ACS_complimentary_request_source
-txt_priceOrderEntryLineItmes                     xpath                          //a[text()='${itemName}']/../following-sibling::td[2]/span
+txt_priceOrderEntryLineItmes                     xpath                          //a[text()='${itemName}']/../following-sibling::td[9]/span
 inp_sourceCode                                   id                             mbr_src_code
 list_chapter                                     id                             mbr_chp_cst_key
 link_invoiceListHeadings                         xpath                          //a[contains(text(),'${value}')]
@@ -136,7 +136,11 @@ chk_complimentry_Sub                             id                             
 list_complimentryReq_Sub                         id                             ivd_a04_key_ext
 txt_priceDetailsBelowLineItems                   id                             inv_${detailsName}
 list_priceOrderEntryNetBalance                   xpath                          //*[contains(@id,'ivd_${netPriceName}')]
-txt_memberType                                   xpath                          //td[starts-with(text(),${memberType})]
-txt_effectiveDateMemebrType                      xpath                          //td[starts-with(text(),'${memberType}')]/following-sibling::td[5]   
+txt_memberType                                   xpath                          //td[starts-with(text(),'${memberType}')]
+txt_effectiveDateMemberType                      xpath                          //td[starts-with(text(),'${memberType}')]/following-sibling::td[4]
+txt_expireDateMemberType                         xpath                          //td[starts-with(text(),'${memberType}')]/following-sibling::td[5]   
 txt_joinDateMemberType                           xpath                          //td[starts-with(text(),'${memberType}')]/following-sibling::td[2]                      
+txt_effectiveDate_chapter                        xpath                          //td[starts-with(text(),'${memberType}')]/following-sibling::td[5]   
+txt_joinDate_chapter                             xpath                          //td[starts-with(text(),'${memberType}')]/following-sibling::td[3]
+txt_expireDate_chapter                           xpath                          //td[starts-with(text(),'${memberType}')]/following-sibling::td[6]
 ==============================================================================================================================================

@@ -53,28 +53,23 @@ users:
                 state: New York
                 zipCode: 32256-7220
         education-and-employment:
-            CASEID: 26
-
-
-#    user2: 
-#        contact-information:
-#            name:
-#                firstname: RegMem123
-#                lastname: lastName123
-#            email: ACS_OMA@acs.org
-#            phone: 8888888888
-#            address: 
-#                type: Work
-#                address: jacksonville
-#                city: florida
-#                country: Thailand
-#                state: New York
-#                zipCode: 32256-7220
-#        education-and-employment:
-
-#            CASEID: 21
-
-
+            CASEID: 14
+    user2: 
+        contact-information:
+            name:
+                firstname: RegMem123
+                lastname: lastName123
+            email: ACS_OMA@acs.org
+            phone: 8888888888
+            address: 
+                type: Work
+                address: jacksonville
+                city: florida
+                country: Thailand
+                state: New York
+                zipCode: 32256-7220
+        education-and-employment:
+            CASEID: 12
 #    user3: 
 #        contact-information:
 #            name:
@@ -90,9 +85,7 @@ users:
 #                state: New York
 #                zipCode: 32256-7220
 #        education-and-employment:
-
-#            CASEID: 23
-
+#            CASEID: 13
 #    user4: 
 #        contact-information:
 #            name:
@@ -108,8 +101,7 @@ users:
 #                state: New York
 #                zipCode: 32256-7220
 #        education-and-employment:
-
-#            CASEID: 25    
+#            CASEID: 20   
 
 
       
