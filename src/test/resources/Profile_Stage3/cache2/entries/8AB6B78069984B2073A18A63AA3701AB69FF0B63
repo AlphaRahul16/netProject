@@ -1,0 +1,2106 @@
+/*
+
+	Please keep the following lines visible, in recognition of my work...
+
+	************************	
+	Author: Max Holman <max@blueroo.net>
+	Date  : Sun, 21 Jan 2001
+	************************
+
+	This functions lets users type in letters to select an option in your SELECT form fields.
+
+	Usually the browser only takes notice of single keystrokes and switches to the first Option that
+	begins with that letter.
+
+	This scripts buffers the users input and compares it against the OPTIONs in the SELECT field, 
+	choosing the closest match as you type
+
+
+	Cut and Paste this text into your HTML file or into a separate .js file for inclusion on your site.
+
+	Usage:	<SELECT onKeyPress = "return shiftHighlight(event.keyCode, this);">	
+
+	Platform: Only tested on IE5 (Win) - will not work on Netscape
+
+
+*/
+
+var timerid     = null;
+var matchString = "";
+var mseconds    = 1500;	// Length of time before search string is reset
+var msecondsshort    = 500;	// Length of time before search string is reset
+
+// H. Stechl 06/05/2006
+var utilitystring = ""; // maybe used as a temporary variable...
+//
+var bConfirmNavAway = 1;
+var bTimeout = true;
+var DialogWindow = null;
+var nOriginalWidth = 0;
+var nOriginalHeight = 0;
+
+var aDialogs = new Array();
+
+function expandDropDownList(e)
+{
+	// H. Stechl 10/30/2007
+	// IE 6, causes a postback as soon as the user clicks on the dropdown
+	if (navigator.userAgent.indexOf("MSIE")>-1 && parseFloat(navigator.appVersion.split("MSIE")[1])>=7)
+	{
+		if (e != null && e.tagName == "SELECT")
+		{
+			var w = e.offsetWidth;
+			var z = e.style.zIndex;
+			// H. Stechl 01/21/2008
+			// during WebForm_AutoFocus, width is 0 and causes dropdownlist to disappear.
+			if (w>0)
+			{
+				e.setAttribute("_position", e.style.position);
+				e.style.position = "absolute";
+				e.style.width = "";
+				if (e.offsetWidth <= w)
+				{
+					e.style.width = w + "px";
+					e.style.position = e.attributes["_position"].value.toString();
+					e.setAttribute("_position", "");
+				}
+				else
+				{
+					e.setAttribute("_width", w + "px");
+					e.style.zIndex = 100000;
+					e.setAttribute("_zindex", z);
+				}
+			}
+		}
+    }
+    return true;
+}
+
+function collapseDropDownList(e)
+{
+	// H. Stechl 10/30/2007
+	// IE 6, causes a postback as soon as the user clicks on the dropdown
+	if (navigator.userAgent.indexOf("MSIE")>-1 && parseFloat(navigator.appVersion.split("MSIE")[1])>=7)
+	{
+		if (e != null && e.tagName == "SELECT" && e.attributes["_width"] != null)
+		{
+			e.style.width = e.attributes["_width"].value.toString();
+			e.style.zIndex = e.attributes["_zindex"].value.toString();
+			e.style.position = e.attributes["_position"].value.toString();
+			e.setAttribute("_width", "");
+			e.setAttribute("_zindex", "");
+			e.setAttribute("_position", "");
+		}
+    }
+    return true;
+}
+
+
+function shiftHighlight(keyCode,targ)
+{
+    // navid 11/07/06: return if tab or enter key
+    if (keyCode==9 || keyCode==13) { return true; }
+    
+    keyVal      = String.fromCharCode(keyCode); // Convert ASCII Code to a string
+    matchString = matchString + keyVal; // Add to previously typed characters
+
+    elementCnt  = targ.length - 1;	// Calculate length of array -1
+
+    for (i = elementCnt; i > 0; i--)
+    {
+	    selectText = targ.options[i].text.toLowerCase(); // convert text in SELECT to lower case
+	    if (selectText.substr(0,matchString.length) == 	matchString.toLowerCase())
+	    {
+		    targ.options[i].selected = true; // Make the relevant OPTION selected
+	    }
+    }
+    clearTimeout(timerid); // Clear the timeout
+    timerid = setTimeout('matchString = ""',mseconds); // Set a new timeout to reset the key press string
+	
+    return false; // to prevent IE from doing its own highlight switching
+}
+
+function FormFocusFirst(oForm, szName)
+{
+	if (oForm)
+		{
+		var oElement=null;
+		
+		if (szName!=null && szName!="")
+		{
+			oElement = oForm.elements[szName];
+		}
+		else
+		{
+			for (i = 0; i < oForm.elements.length; i++)
+			{
+				oElement = oForm.elements[i] ;
+				if (!oElement.isDisabled) //ajs 12/9/02
+				{
+					if (oElement.type == 'text' || oElement.type == 'textarea' || oElement.type == 'select-one' || oElement.type == 'checkbox' || oElement.type == 'select-multiple' || oElement.type == 'radio')
+					{
+						break;
+					}
+				}
+			}
+		}
+		if (oElement!=null && oElement.type != 'hidden' && !oElement.isDisabled && oElement.style.display != 'none') // ajs 12/9/02
+		{
+			oElement.focus();
+		}
+	}
+}
+
+function TabStrip_Next(oTS)
+{
+	if (oTS.selectedIndex < oTS.numTabs)
+		oTS.selectedIndex++;
+}
+
+function TabStrip_Previous(oTS)
+{
+	if (oTS.selectedIndex > 0)
+		oTS.selectedIndex--;
+}
+
+
+function expandCollapseDiv(divId, imageId, szExpand, szCollapse, szExpandAlt, szCollapseAlt)
+{
+	var div,img,oMultiChildAttributes
+	
+	if (document.all)
+	{
+		div = document.all[divId];
+		img = document.all[imageId];
+		oMultiChildAttributes = document.all["MultiChildAttributes"];
+	}
+	else if (document.getElementById)
+	{
+		div = document.getElementById(divId);
+		img = document.getElementById(imageId); //BugFix by psherman (10-12-2006): replaced incorrect element ID
+		oMultiChildAttributes = document.getElementById("MultiChildAttributes");
+	}
+		
+	if (div != null && img != null)
+	{
+	    //AAG NS:9447 code controls the display of grand child rows
+	    if ($(div).parent('td').length > 0 && $(div).parent('td').parent('tr').length > 0) {
+	        var parentRow = $(div).parent('td').parent('tr');
+
+	        if (parentRow.css("display") == "none")
+	            parentRow.css("display", "");
+	        else
+	            parentRow.css("display", "none");
+	    }
+	    //END NS:9447
+	    
+		if (div.style.display == "none") 
+		{
+			div.style.display = "inline";
+			img.src = szCollapse;
+			if (szCollapseAlt!=null)
+			{img.alt = szCollapseAlt;}
+		}
+		else
+		{
+			div.style.display = "none";		
+			img.src = szExpand;	
+			if (szExpandAlt!=null)
+			{img.alt = szExpandAlt;}
+		}
+		if (oMultiChildAttributes != null)
+		{
+			szAttribute = "["+divId+"]";
+			szAttributes = oMultiChildAttributes.value;
+			if (div.style.display == "inline")
+			{
+				if (szAttributes.indexOf(szAttribute) < 0)
+					szAttributes += szAttribute;
+			}
+			else
+			{
+				if (szAttributes.indexOf(szAttribute) >= 0)
+					szAttributes = szAttributes.replace(szAttribute,"");
+			}
+			oMultiChildAttributes.value = szAttributes;
+		}
+	}
+}
+function KeyPressMasked(szMaskType)
+{
+// Supported Mask Types:
+//	Currency
+//	Date
+//	Phone
+//	Integer
+//	Float
+//	Alpha
+
+	// H. Stechl 11/16/2007
+	// quick fix, make sure window.event exists
+	if (typeof( window.event ) != "undefined")
+	{
+		if (szMaskType != "")
+		{
+			szChar = String.fromCharCode(window.event.keyCode)
+			szMaskType = szMaskType.toLowerCase();
+			if (szMaskType == "currency")
+			{
+				if ((szChar < "0" || szChar > "9") && "$,.-".indexOf(szChar) < 0)
+					window.event.keyCode = 0;
+			}
+			else if (szMaskType == "date")
+			{
+				if ((szChar < "0" || szChar > "9") && szChar != "/")
+					window.event.keyCode = 0;
+			}
+			else if (szMaskType == "phone")
+			{
+				if ((szChar < "0" || szChar > "9") && "()-/".indexOf(szChar) < 0)
+					window.event.keyCode = 0;
+			}
+			else if (szMaskType == "integer")
+			{
+				if ((szChar < "0" || szChar > "9") && szChar != "-")
+					window.event.keyCode = 0;
+			}
+			else if (szMaskType == "float")
+			{
+				if ((szChar < "0" || szChar > "9") && ".-".indexOf(szChar) < 0)
+					window.event.keyCode = 0;
+			}
+			else if (szMaskType == "alpha")
+			{
+				if ((szChar < "a" || szChar > "z") && (szChar < "A" || szChar > "Z"))
+					window.event.keyCode = 0;
+			}
+		}
+	}
+}
+
+function ListGridRowClicked()
+{
+	szHref = event.srcRow.children[0].children[0].href;
+	szHref = szHref.substr(szHref.indexOf("'")+1);
+	szHref = szHref.substr(0,szHref.indexOf("'"));
+	__doPostBack(szHref,'');
+}
+
+function ConfirmDelete()
+{
+	if (!confirm("Are you sure you want to delete?"))
+	{
+		// H. Stechl 11/16/2007
+		// quick fix, make sure window.event exists
+		if (typeof( event ) != "undefined")
+		{
+			if (event)
+				{event.returnValue = false;}
+		}
+		return false;
+	}
+	return true;
+}
+
+function Confirm(msg)
+{
+	if (!confirm(msg))
+	{
+		// H. Stechl 11/16/2007
+		// quick fix, make sure window.event exists
+		if (typeof( window.event ) != "undefined")
+		{
+			if (event)
+				{event.returnValue = false;}
+		}
+		return false;
+	}
+	return true;
+}
+
+function DeleteChildRow(szFormKey,szRowKey)
+{
+	if (ConfirmDelete())
+	{
+		if (document.forms[0].MultiChildAttributes != null)
+		{
+			document.forms[0].MultiChildAttributes.value += "DCKey["+szFormKey+"]DCRKey["+szRowKey+"]";
+			document.forms[0].submit();
+		}
+		/*
+		szURL = window.document.URL;
+		if (szURL.indexOf("&DCKey=") > 0)
+			szURL = szURL.substr(0,szURL.indexOf("&DCKey="));
+		szURL += "&DCKey="+szFormKey+"&DCRKey="+szRowKey;
+		window.document.URL = szURL;
+		*/
+	}
+}
+
+function GetParentWindow()
+{
+
+    var parentwin = opener;
+    if (parentwin==null)
+    {
+        if (parent.aDialogs < 2)
+            parentwin = parent;
+        else
+            parentwin = $('#iframe'+(parent.aDialogs.length - 1), parent.document)[0].contentWindow;
+    }
+    return parentwin;
+}
+
+function ParentWindowRefresh(szURL)
+{
+    var parentwin = GetParentWindow();
+	if (parentwin)
+	{
+	    //AAG8/13/2013 remove if else. first true condition wins
+	    if (window.document.URL.toLowerCase().indexOf("reloadparent=") >= 0) {
+	        parentwin.location.reload(true);
+	        return;
+	    }
+
+	    if (window.document.URL.toLowerCase().indexOf("restart=") >= 0) {
+	        parentwin.location.href = "startpage.aspx";
+	        return;
+	    }
+
+	    if (window.document.URL.toLowerCase().indexOf("redirect=") >= 0) {
+	        parentwin.location.href = window.document.URL.substring(window.document.URL.indexOf("Redirect=") + 9);
+	        return;
+	    }
+	    //STH 4/30/13 NS:4769 (3854) Do not do a post back if "NoReload" is in the URL
+	    if (window.document.URL.toLowerCase().indexOf("noreload=") >= 0)
+	        return; // Do nothing!
+	    //this needs to be in a try catch block. __doPostBack is not always accessible
+	    try {
+	        if (parentwin.__doPostBack) //AAG 8/12/2013 do post back may not be accessible from parentwin in IE
+	        {
+	            if (window.document.URL.indexOf("UpdateAll=") >= 0)
+	                parentwin.__doPostBack("ZZZZZZZZ", "");
+	            else
+	                parentwin.__doPostBack("XXXXXXXX", "");
+	            return;
+	        }
+	    }
+	    catch (ex) { }
+
+	    if (parentwin.document.forms[0]) {
+	        parentwin.document.forms[0].submit();
+	        return;
+	    }
+	    if (szURL != "") {
+	        parentwin.location.assign(szURL);
+	        return;
+	    }//AAG 8/13/2013
+	    if (window.document.URL.indexOf("NoReload") < 0)
+	        parentwin.location.reload(false);
+		}
+	}
+
+function ImageSrcChange(szImageSrc,evt)
+{
+
+    var element =  null;
+    
+    if (evt != null)
+         element = evt.target;
+     else
+         element = window.event.srcElement;
+    
+
+	var oImage = null;
+	if (element.childNodes[0] != null && element[0].tagName == "IMG")
+		oImage = element[0];
+	else if (element.parentNode != null && element.parentNode.childNodes[0] != null && element.parentNode.childNodes[0].tagName == "IMG")
+		oImage = element.parentNode.childNodes[0];
+	if (oImage != null)
+	{
+		oImage.src = szImageSrc;	
+	}
+}
+
+function TextLimit(field, maxlen)
+{
+	if (field.value.length > maxlen) 
+	{
+		field.value = field.value.substring(0, maxlen);
+		alert('your input has been truncated!');
+	}
+}
+
+function checkField (objField, cInputMask) 
+{
+	InputMaskDelimiters = "/"
+	bDelimiter = false;
+	if( objField.value != "")
+	{
+		for (var i=0; i<objField.value.length; i++)
+		{
+			cChar = objField.value.charAt(i)
+			if (InputMaskDelimiters.indexOf(cChar)>-1)
+			{
+				bDelimiter = true;
+				break;
+			}
+		}
+
+		if ( !bDelimiter )
+		{
+			objField.value = reformatInputMask(objField.value, cInputMask, InputMaskDelimiters)
+		}
+	}
+	return true;
+}
+
+function reformat (s)
+{   
+	var arg;
+    var sPos = 0;
+    var resultString = "";
+	var nStringLength = s.length
+    for (var i = 1; i < reformat.arguments.length ; i++) {
+		if (sPos <= nStringLength)
+		{
+			arg = reformat.arguments[i];
+			if (i % 2 == 1) resultString += arg;
+			else
+			{
+				resultString += s.substring(sPos, sPos + arg);
+				sPos += arg;
+			}
+		}
+    }
+
+    return resultString;
+}
+
+function stripCharsInBag (s, bag)
+{   var i;
+    var returnString = "";
+
+    for (i = 0; i < s.length; i++)
+    {   
+        var c = s.charAt(i);
+        if (bag.indexOf(c) == -1) returnString += c;
+    }
+
+    return returnString;
+}
+
+
+
+
+function reformatInputMask (cValue,cInputMask, InputMaskDelimiters)
+{   
+	creformatFunction = "reformat (cValue, "
+	nChar = 0
+	for (i=0;i<cInputMask.length;i++)
+	{
+		if (InputMaskDelimiters.indexOf(cInputMask.charAt(i))==-1)
+		{
+			nChar=nChar+1
+			if (i==0) //first character
+				{creformatFunction = creformatFunction + "'', "}
+			else
+				{
+				if (nConcatMask)
+					{creformatFunction = creformatFunction + "', "}
+				}				
+			nConcatMask = false
+		}	
+		else
+		{
+			if (i==0)
+				{creformatFunction = creformatFunction + "'"+cInputMask.charAt(i)}
+			else
+			{
+				if (nChar==0)
+				{
+					if (nConcatMask)
+						{creformatFunction = creformatFunction + cInputMask.charAt(i)}
+					else
+						{creformatFunction = creformatFunction + "'"+cInputMask.charAt(i)}
+				}
+				else
+				{
+					if (nConcatMask)
+						{creformatFunction = creformatFunction + cInputMask.charAt(i)}
+					else
+						{creformatFunction = creformatFunction + " "+nChar+", '"+cInputMask.charAt(i)}
+				}
+			}
+			nConcatMask = true
+			nChar = 0
+		}
+	}
+	if (nChar > 0)
+	{
+		creformatFunction = creformatFunction + " "+nChar+", "
+	}
+	//remove last two characters ", " and add close parenthesis at the end.
+	creformatFunction = creformatFunction.substring(0,creformatFunction.length-2)
+	creformatFunction = creformatFunction + ")"
+	//alert(creformatFunction)
+return ( eval(creformatFunction) )
+}
+
+
+
+function CheckCreditDebit()
+{
+	oSrcElement = event.srcElement;
+	iIndex = oSrcElement.name.indexOf('JDG');
+	iIndex = oSrcElement.name.indexOf('_', iIndex+1); 
+	iIndex = oSrcElement.name.indexOf('_', iIndex+1); 
+	oRowID = oSrcElement.name.substr(iIndex+1,1); 
+	if ( oSrcElement.name.indexOf('JournalDataGrid') >= 0 &&
+		oSrcElement.type == 'text' &&
+		(oSrcElement.name.indexOf('Debit') >= 0 || oSrcElement.name.indexOf('Credit') >= 0) &&
+		oSrcElement.value > 0 )
+	{
+		if (oSrcElement.name.indexOf('Debit') >= 0) Opposite = 'Credit';
+		if (oSrcElement.name.indexOf('Credit') >= 0) Opposite = 'Debit';
+		for (i = 0; i < document.forms[0].elements.length; i++)
+		{
+			oElement = document.forms[0].elements[i];
+			if (oElement.type == 'text' &&
+				oElement.name.indexOf('JournalDataGrid') >= 0 && 
+				oElement.name.indexOf('JDG_'+Opposite+'_' + oRowID) >= 0 )
+			{    
+				document.forms[0].elements[i].disabled = true;
+				if (Opposite == 'Credit')
+					document.forms[0].elements[i+1].focus();
+				if (Opposite == 'Debit')
+					document.forms[0].elements[i+2].focus();
+				break;
+			}
+		}
+	}
+}
+
+function SetCookie(szName, szValue)
+{
+	document.cookie = szName + "=" + escape(szValue) + "; expires=Fri, 31 Dec 2099 23:59:59 GMT;";
+	if (0==1){}
+	var szDummy = GetCookie(szName);
+	if (0==1){}
+}
+
+function GetCookie(szName)
+{
+	// cookies are separated by semicolons
+	var szReturnValue = null;
+	var aCookies = document.cookie.split("; ");
+	for (var i=0; i < aCookies.length; i++)
+	{
+		// a name/value pair (a crumb) is separated by an equal sign
+		var aCookie = aCookies[i].split("=");
+		if (szName == aCookie[0]) 
+			szReturnValue = unescape(aCookie[1]);
+	}
+	return szReturnValue;
+}
+
+function DelCookie(szName)
+{
+	date = new Date();
+	document.cookie = szName + "=" + "; expires=" + date.toGMTString();
+}
+
+function OpenNewWindow_WithClose(szURL)
+{
+	close();
+	openDialog(szURL,50,50);
+}
+
+function OpenNewWindow(szURL, newBrowser)
+{
+	//window.onfocus = "reload();";
+	//openDialog(szURL,screen.width/2,screen.height/2);
+    //debugger
+    //AAG 4/4/2013 form designer needs to open with correct size
+    if (szURL != null && szURL.toLowerCase().indexOf('md_dynamic_designer.aspx') > -1) {
+        openDialog(szURL, (screen.availWidth - 100), (screen.availHeight - 100));
+    }
+    else if (newBrowser || (szURL && szURL.indexOf('md_dynamic_formdesign.aspx') > -1))// || szURL.indexOf('md_dynamic_designer.aspx') > -1)))
+	openDialog(szURL,50,50);
+    else
+        openJQueryDialog(szURL);
+
+}
+
+function OpenNewWindowAlert(szURL, szAlert)
+{
+	if (szAlert != "")
+		AlertDialog(szAlert);
+	openDialog(szURL,50,50);
+}
+
+function openJQueryDialog(url, TheOpener)
+{
+        if (self != top) { top.openJQueryDialog(url, self); return; }
+
+        if (TheOpener == null)
+            TheOpener = self;
+
+        var nDialogID = aDialogs.length + 1;
+        aDialogs.push(nDialogID);
+
+        var newDiv = document.createElement('div');
+        newDiv.setAttribute('id', 'div'+nDialogID);
+        newDiv.setAttribute('title', '&nbsp;');
+		newDiv.setAttribute('style', 'overflow: hidden;');
+        document.body.appendChild(newDiv);
+
+
+        $('#div' + nDialogID).dialog({
+            autoOpen: true,
+            //iframeFix: true,
+            //opacity: 0.4,
+            //height: "auto",
+			//width: "auto",
+            resize: "auto",
+            modal: true,
+            closeOnEscape: true,
+            //hide: "explode",
+            close: function(event, ui) { 
+                                var nDialogID = aDialogs.pop();
+                                dialIframe = $('#iframe' + nDialogID, document)[0];
+                                //AAG 1/23/2012 preventive chqange based on errors received on resize. will do a null check
+                                if(dialIframe != null)
+                                    dialIframe.src = '';
+                                dialDiv = $('#div' + nDialogID, document)[0];
+                                //AAG 1/23/2012 preventive chqange based on errors received on resize. will do a null check
+                                if(dialDiv != null)
+                                dialDiv.parentNode.removeChild(dialDiv);;
+                                }
+								,
+            resize: function(event, ui) { 
+                                dialIframe = $('#iframe' + nDialogID, document)[0];
+                                //AAG 1/23/2012 received JS errors after a dialog was closed, somehow this continued to fire
+                                if(dialIframe != null)
+                                {
+                                    dialIframe.style.height = this.style.height;
+                                    dialIframe.style.width = this.style.width;
+                                }
+            },
+            dragStart: function (event, ui) {
+                            $('#iframe' + nDialogID, this).each(function() {
+                                $('<div class="ui-draggable-iframeFix" style="background: #FFF;"></div>')
+                                    .css({
+                                        width: '100%', height: '100%',
+                                        position: 'absolute', opacity: '0', zIndex: 1000, overflowX: 'hidden'
+                                        })
+                                    .css($(this).position())
+                                    .appendTo($(this).offsetParent());
+                            });
+            },
+            dragStop: function (event, ui) {
+                            $("div.ui-draggable-iframeFix").each(function() {
+                                this.parentNode.removeChild(this); }); //Remove frame helpers
+            },
+            resizeStart: function (event, ui) {
+                            $('#iframe' + nDialogID, this).each(function() {
+                                $('<div class="ui-draggable-iframeFix" style="background: #FFF;"></div>')
+                                    .css({
+                                        width: '100%', height: '100%',
+                                        position: 'absolute', opacity: '0', zIndex: 1000, overflowX: 'hidden'
+                                        })
+                                    .css($(this).position())
+                                    .appendTo($(this).offsetParent());
+                            });
+            },
+            resizeStop: function (event, ui) {
+                            $("div.ui-draggable-iframeFix").each(function() {
+                                this.parentNode.removeChild(this); }); //Remove frame helpers
+            }
+
+
+            }).parent().draggable("option", { containment: false });
+
+        var newIframe;
+//        if ($.browser.msie)
+//            newIframe = document.createElement('<iframe name="iframe'+nDialogID+'">');
+//        else
+			newIframe = document.createElement('iframe');
+        newIframe.setAttribute('id', 'iframe'+nDialogID);
+        newIframe.setAttribute('name', 'iframe'+nDialogID);
+        newIframe.setAttribute('scrolling', 'auto');
+        newIframe.setAttribute('frameBorder', '0');
+        //newIframe.setAttribute('allowTransparency', 'true');
+        if (url != null)
+            newIframe.setAttribute('src', url);
+        newIframe.setAttribute('style', 'display:none;padding:0;margin:0;');
+        newDiv.appendChild(newIframe);
+    
+    //AAG 1/7/2013 NS:9596 Prevent dialog from increasing in size on postbacks
+        var nCurrentDialogWidth = -1;
+        var nCurrentDialogHeight = -1;
+
+        $('#iframe'+ nDialogID).load( 
+            function () {
+
+			var iFrameDoc;
+			
+			try { iFrameDoc = this.contentWindow.document || this.contentDocument || this.document; } catch(e) {;}
+			if (!iFrameDoc)
+				return;
+
+            try {
+                var onloadattr = iFrameDoc.body.getAttribute('onload').toString();
+    	        if (onloadattr.indexOf('close()') > -1)
+    		        CloseWindow(newDiv);
+            } catch (ex) { ; }
+
+			if (iFrameDoc.loaded) return;
+				iFrameDoc.loaded=true;
+            this.style.display = 'inline';
+
+			if (this.loaded)
+			{
+				this.style.height = '270px';
+				this.style.width = '270px';
+			}
+			var w = iFrameDoc.documentElement.scrollWidth;
+			var h = iFrameDoc.documentElement.scrollHeight;
+			if (w < iFrameDoc.body.scrollWidth)
+			{
+				w = iFrameDoc.body.scrollWidth;
+				h = iFrameDoc.body.scrollHeight;
+			}
+
+           //AAG 1/7/2013 NS:9596 Prevent dialog from increasing in size on postbacks
+			if (w > nCurrentDialogWidth) {
+			    w = w + 30;
+			    nCurrentDialogWidth = w;
+			}
+			if (h > nCurrentDialogHeight) {
+			    h = h + 30;
+			    nCurrentDialogHeight = h;
+			}
+
+			if (this.loaded)
+			{
+				if (navigator.userAgent.indexOf('Opera')>-1) // and then there was one.
+					w = w - 30;
+			}
+			this.loaded = true;
+				
+			this.style.height = (h) + 'px';
+			this.style.width = (w) + 'px';
+
+			try { this.contentWindow.opener = TheOpener; } catch (e) {;}
+
+            $('#div' + nDialogID).dialog('option', 'height', h);
+            $('#div' + nDialogID).dialog('option', 'width', w);
+            $('#div' + nDialogID).dialog('option','position','center');
+            $('#div' + nDialogID).dialog('option','title', iFrameDoc.title);
+            }
+	    );
+        $('#iframe'+ nDialogID).unload( 
+            function () {
+				try { this.contentWindow.opener = null; } catch (e) {;}
+				this.setAttribute('src', '');
+				this.style.height = '270px';
+				this.style.width = '270px';
+            }
+	    );
+
+}
+
+
+// do all the magic here..
+function CloseWindow(jqd)
+{
+    if (self != parent)
+        top.CloseWindow(self);
+    else if (jqd)
+{
+        var nDialogID = aDialogs[aDialogs.length-1];
+        $("#div"+ nDialogID).dialog('close'); 
+    }
+    else if (self==top)
+	close();
+
+}
+
+function openDialog(url, width, height)
+{
+	DialogWindow = null;
+	DialogWindow = new Object();
+	if (!DialogWindow.win || (DialogWindow.win && DialogWindow.win.closed))
+	{
+		//DialogWindow.returnFunc = returnFunc;
+		//DialogWindow.returnedValue = "";
+		//DialogWindow.args = args;
+		DialogWindow.url = url;
+		DialogWindow.width = width;
+		DialogWindow.height = height;
+		// H. Stechl 08/14/2006
+		// ensure unique window name
+		// DialogWindow.name = (new Date()).getSeconds().toString();
+		dDate = new Date();
+		DialogWindow.name = dDate.getMinutes().toString() + dDate.getSeconds();
+		//
+		DialogWindow.left = window.screenLeft;//5000; //(screen.width - width) / 2;
+		DialogWindow.top = window.screenTop;//5000; // (screen.height - height) / 2;
+		var attr = "left=" + DialogWindow.left + ",top=" + 
+			DialogWindow.top + ",resizable=yes,status=yes,scrollbars=yes,width=" 
+			+ DialogWindow.width + ",height=" + DialogWindow.height;
+		DialogWindow.win = window.open(DialogWindow.url, DialogWindow.name, attr);
+		var nLeftOffset = DialogWindow.left-DialogWindow.win.screenLeft;
+		var nTopOffset = DialogWindow.top-DialogWindow.win.screenTop;
+		SetCookie("WindowTopLeftOffset",nTopOffset+","+nLeftOffset);
+		//setTimeout("CheckWindowCoorinatesTimer()",3000);
+	}
+	DialogWindow.win.focus()
+}
+
+function openDialogAbsolute(url, width, height)
+{
+	DialogWindow = null;
+	DialogWindow = new Object();
+	if (!DialogWindow.win || (DialogWindow.win && DialogWindow.win.closed))
+	{
+		DialogWindow.url = url;
+		DialogWindow.width = width;
+		DialogWindow.height = height;
+		DialogWindow.name = (new Date()).getSeconds().toString();
+		DialogWindow.left = (screen.width - width) / 2;
+		DialogWindow.top = (screen.height - height) / 2;
+		var attr = "left=" + DialogWindow.left + ",top=" + 
+			DialogWindow.top + ",resizable=yes,status=yes,scrollbars=yes,width=" 
+			+ DialogWindow.width + ",height=" + DialogWindow.height;
+		DialogWindow.win = window.open(DialogWindow.url, DialogWindow.name, attr);
+	}
+	DialogWindow.win.focus()
+	//setTimeout("CheckWindowCoorinatesTimer()",3000);
+}
+
+function CheckWindowCoorinatesTimer()
+{
+	//debugger
+	try
+	{
+		if (DialogWindow && DialogWindow.win && DialogWindow.win.screenTop)
+		{
+			//nTop = Math.abs(DialogWindow.win.screenTop);
+			//nLeft = Math.abs(DialogWindow.win.screenLeft);
+			nTop = DialogWindow.win.screenTop;
+			nLeft = DialogWindow.win.screenLeft;
+			if (nTop > screen.height || nLeft > screen.width)
+			{
+				if (nTop > screen.height)
+					nTop = 100;
+				if (nLeft > screen.width)
+					nLeft = 100;
+//				DialogWindow.win.moveTo(nLeft,nTop);
+			}
+		}
+	}
+	catch (e)
+	{
+		// window must have been closed by user before timer interval, do nothing
+	}
+}
+
+function WindowBlockEvents()
+{
+	window.onfocus = WindowCheckModal
+}
+
+function WindowCheckModal()
+{	
+	if (DialogWindow != null)
+	{
+		if (DialogWindow.win!=null)
+		{ 
+			if (typeof DialogWindow.win.closed != 'unknown')
+			{
+				if (!DialogWindow.win.closed)
+					{ DialogWindow.win.focus(); }
+			}
+		}
+	}
+}
+
+function DialogBlockParent()
+{
+	if (opener) 
+	{
+		try
+		{		
+			opener.WindowBlockEvents();
+		}
+		catch (e)
+		{
+		}
+
+	}
+}
+
+function SetWindowSize(bRemember)
+{
+	if (window.top==window.self) {
+	if (! bRemember || ! ResizeByCookie())
+	{
+			w = document.documentElement.scrollWidth;
+			h = document.documentElement.scrollHeight;
+			if (document.body.scrollWidth > w)
+			{
+				w = document.body.scrollWidth;
+				h = document.body.scrollHeight;
+		}
+		w += 40;
+		h += 60;
+		if (w > screen.width-50)
+		w = screen.width-50;
+		if (h > screen.height-50)
+		h = screen.height-50;
+		window.resizeTo(w,h);
+		window.moveTo(((screen.availWidth-w) / 2),((screen.availHeight-h) / 2));
+		window.scrollTo(0,0);
+	}
+}
+}
+
+function ResizeByCookie()
+{
+	var bResized = false;
+	var szCookie = GetCookieName(document.location.search);
+	
+	if (szCookie == "")
+		szCookie = GetFileName(document.location.pathname);
+	
+	if (szCookie != "")
+	{
+		var szCoordinates = GetCookie(szCookie);
+		if (szCoordinates != null)
+		{
+		
+			var nTopOffset = 0;
+			var nLeftOffset = 0;
+			var szOffsetCookie = GetCookie("WindowTopLeftOffset");
+			if (szOffsetCookie != null)
+			{
+				var aOffsets = szOffsetCookie.split(",");
+				nTopOffset = (isNaN(parseInt(aOffsets[0])) ? 1 : nTopOffset);
+				nLeftOffset = (isNaN(parseInt(aOffsets[1])) ? 1 : nLeftOffset);
+				
+				// TJW, 11/14/2005, fix from OD team to make sure windows don't resize too small
+                if(nTopOffset>0) nTopOffset=-30;
+                if(nLeftOffset>0) nLeftOffset=-4;
+                // TJW, 11/14/2005, END
+			}
+			
+			var aCoordinates = szCoordinates.split(",");
+			var nTop = parseInt(aCoordinates[0])+nTopOffset;
+			nTop = isNaN(nTop) ? 0 : nTop;
+			var nLeft = parseInt(aCoordinates[1])+nLeftOffset;
+			nLeft = isNaN(nLeft) ? 0 : nLeft;
+			
+			// TJW, 11/14/2005, fix from OD team to make sure windows don't resize too small
+            if(nTop<0 || nTop>window.screen.availHeight) nTop=100;
+            if(nLeft<0 /*|| nLeft>window.screen.availWidth*/) nLeft=100;
+            // TJW, 11/14/2005, END 
+			
+			// H. Stechl 07/31/2006
+			// bug # 5862 hold on to previous size
+			//nOriginalHeight = parseInt(aCoordinates[2]);
+			//nOriginalWidth = parseInt(aCoordinates[3]);
+			
+			var nHeight = parseInt(aCoordinates[2]) - (nTopOffset * 2);
+			var nWidth = parseInt(aCoordinates[3]) - (nLeftOffset * 2);
+
+			window.resizeTo(nWidth,nHeight);
+			window.moveTo(nLeft,nTop);
+
+            var adjustWidth, adjustHeight, screenLeft, screenTop;
+            if (navigator.appName == "Netscape")
+            {
+			    adjustWidth = parseInt(aCoordinates[3]) - parseInt(window.outerWidth) ;
+			    adjustHeight = parseInt(aCoordinates[2]) - parseInt(window.outerHeight);
+            }
+            else
+            {
+			    adjustWidth = parseInt(aCoordinates[3]) - parseInt(document.body.offsetWidth);
+			    adjustHeight = parseInt(aCoordinates[2]) - parseInt(document.body.offsetHeight);
+			}
+
+			//adjust to the exactly saved size
+			window.resizeBy(adjustWidth, adjustHeight);
+			
+			// adjust to make sure the window is moved to the exact position saved in cookie
+			var screenLeft = (window.screenLeft == undefined ? window.screenX : window.screenLeft);
+			var screenTop = (window.screenTop == undefined ? window.screenY : window.screenTop);
+			var adjustLeft = nLeft - parseInt(screenLeft);
+			var adjustTop = nTop - parseInt(screenTop);
+			window.moveBy(adjustLeft, adjustTop);
+
+			window.scrollTo(0,0);
+			bResized = true;
+		}
+	}
+	return bResized;
+}
+
+function GetCookieName(szQueryString)
+{
+	var szCookie = "";
+	if (szQueryString.indexOf("WizardKey=") >= 0)
+		szCookie = szQueryString.substr(szQueryString.indexOf("WizardKey=")+10);
+	else if (szQueryString.indexOf("FormKey") >= 0)
+		szCookie = szQueryString.substr(szQueryString.indexOf("FormKey=")+8);
+	if (szCookie != "")
+	{
+		if (szCookie.indexOf("&") >= 0)
+			szCookie = szCookie.substring(0,szCookie.indexOf("&"));
+	}
+	return szCookie;
+}
+
+function GetFileName(szQueryString)
+{
+	var szCookie = "";
+	if (szQueryString.indexOf(".") >= 0)
+		szCookie = szQueryString.substr(0,szQueryString.indexOf("."));
+	while (szCookie.indexOf("/") >= 0)
+		szCookie = szCookie.substr(szCookie.indexOf("/")+1);
+	if (szCookie != "")
+		szCookie = "FORM_"+szCookie;
+	return szCookie;
+}
+
+function BeforeUnloadWindow()
+{
+	//debugger
+	var szCookie = GetCookieName(document.location.search);
+	if (szCookie == "")
+		szCookie = GetFileName(document.location.pathname);
+	if (szCookie != "")
+	{
+		// H. Stechl 07/31/2006
+		// bug # 5862 use original height if increased by less than 10 pixels
+		// prevents ever-increasing browser height.
+//		var nWidth = document.body.offsetWidth;
+//		var nHeight = document.body.offsetHeight;
+//		if ( (nHeight > nOriginalHeight) && (nHeight - nOriginalHeight) < 11)
+//			nHeight = nOriginalHeight;
+//		var szCookieValue = window.screenTop+","+window.screenLeft+","+nHeight+","+nWidth;
+
+	    var szCookieValue;
+	    if (navigator.appName == "Netscape")
+	    	szCookieValue = window.screenY + "," + window.screenX + "," + window.outerHeight + "," + window.outerWidth;
+	    else
+	    	szCookieValue = window.screenTop + "," + window.screenLeft + "," + document.body.offsetHeight + "," + document.body.offsetWidth;
+
+		SetCookie(szCookie,szCookieValue);
+	}
+}
+
+function Report_Preview(szReportKey)
+{
+	openDialogAbsolute("ReportPreview.aspx?ReportKey="+szReportKey,800,600);
+}
+
+/*
+function Report_Run(szReportKey)
+{
+	openDialogAbsolute("ReportStart.aspx?ReportKey="+szReportKey,200,200);
+}
+*/
+
+function Report_Run(szReportKey)
+{
+	Report_Run(szReportKey,null);
+}
+
+function Report_Run(szReportKey, szParam)
+{
+  Report_Run(szReportKey,szParam,null);
+}
+
+function Report_Run(szReportKey, szParam, szAParams)
+{
+  Report_Run(szReportKey,szParam,szAParams,null);
+}
+
+function Report_Run(szReportKey,szParam,szAdditionalParams,szDelivery)
+{
+   //debugger;
+       
+   //SB, 11/03/2005, MRS
+   var szOutputFormat = "";
+   var oDropDown = document.getElementById("DDL"+szReportKey);
+    
+   if (oDropDown != null)
+   {
+		szOutputFormat = oDropDown.options[oDropDown.selectedIndex].value;
+		
+		if (szDelivery==null)
+		    szDelivery = "0";
+		    
+		if (szAdditionalParams==null)
+		{
+			//openDialogAbsolute("ReportStart.aspx?ReportKey="+szReportKey,200,200);
+			
+			//SB, 04/05/2006, Fixes Bug# 5294			
+			if (szParam == "True")
+			{
+				openDialogAbsolute("ReportStart.aspx?ReportKey="+szReportKey+"&OutputFormat="+szOutputFormat+"&bReportCentral=true&ReportSubscription="+szDelivery, 200, 200);
+			}
+			else if (szParam == "False")
+			{
+			    openDialogAbsolute("ReportStart.aspx?ReportKey="+szReportKey+"&OutputFormat="+szOutputFormat+"&bReportCentral=true&ReportSubscription="+szDelivery, 800, 600);		
+			}
+			else
+			{
+			    openDialogAbsolute("ReportStart.aspx?ReportKey="+szReportKey+"&OutputFormat="+szOutputFormat+"&bReportCentral=true&ReportSubscription="+szDelivery, 200, 200);
+			}
+			//SB, 04/05/2006			    
+		}
+		else
+		{
+			//openDialogAbsolute("ReportStart.aspx?ReportKey="+szReportKey+szAdditonalParams,200,200);
+			openDialogAbsolute("ReportStart.aspx?ReportKey="+szReportKey+szAdditionalParams+"&OutputFormat="+szOutputFormat+"&bReportCentral=true&ReportSubscription="+szDelivery, 200, 200);			
+		}
+   }   
+   //SB, 11/03/2005, end
+}
+
+function ConfirmDialog(szMessage, szButtonID)
+{
+	if (window.confirm(szMessage))
+	{
+		if (document.forms[0].action)
+			document.forms[0].action += "&Confirm=ByPass";
+
+		if (szButtonID==null || szButtonID=='')
+			szButtonID='ButtonSave';
+
+		oButton = eval("document.getElementById('"+szButtonID+"')");
+		
+		if (!oButton)
+			oButton = eval('document.forms[0].'+szButtonID);
+		
+		if (oButton)
+			oButton.click();
+	}
+}
+
+function ClearConfirmByPass()
+{
+	if (document.forms[0].action && document.forms[0].action.indexOf("&Confirm=ByPass") > 0)
+		document.forms[0].action = document.forms[0].action.replace("&Confirm=ByPass","");
+}
+
+function AlertDialog(szMessage)
+{
+	window.alert(szMessage);
+}
+
+// H. Stechl - add options to dropdown from opener
+function DropDownAddOption(oDropDown, szValue, szText)
+{
+	oDropDown.options[oDropDown.length] = new Option((szText==null)?szValue:szText, szValue);
+}
+function postBackDropDownListEdit(szDropDownListID)
+{
+    if(__doPostBack) 
+        __doPostBack(szDropDownListID, ''); 
+    else 
+        document.forms[0].submit(); 
+}
+function postBackDropDownListAdd(szDropDownListID, szNewKey)
+{
+    oDropDownList = document.getElementById(szDropDownListID);
+    DropDownAddOption(oDropDownList, szNewKey, 'Loading new item...');
+    oDropDownList.options.selectedIndex=oDropDownList.options.length-1; 
+    if(__doPostBack) 
+        __doPostBack(szDropDownListID, '');
+    else 
+        document.forms[0].submit();
+}
+
+//s sterian - in order to remove header added by internet explorer to innerHTML in iframe
+//				(for RichTextBox control)
+ 
+var differenceUrl2P ='',differenceUrl1P ='',differenceUrl='',differenceUrl4P='',differenceUrlAnchor='';
+
+
+function ReplaceUrlHeaders(textHtml,checkbPres)
+{
+	var innText=new String();	
+	innText = textHtml;
+	
+	//SRI --Bug# 11386 - 06/14/2010 
+    //NXN and ssterian -- resolve issue with relative path causing the script to get stuck in infinite loop 
+	if (differenceUrl2P =='..')
+		differenceUrl2P ='';
+
+	if (differenceUrl4P =='../..')
+		differenceUrl4P ='';
+		
+	
+	if (checkbPres != null && checkbPres.checked == true)
+	{//replace only anchors
+	    if (differenceUrlAnchor != '')
+	    	while (innText.indexOf(differenceUrlAnchor+'#',0)!=-1)	    		
+		        innText = innText.replace(differenceUrlAnchor+'#','#');	   
+		     
+		return innText;
+    }
+
+	if (differenceUrlAnchor != '')					 									
+		while (innText.indexOf(differenceUrlAnchor,0)!=-1)
+			innText = innText.replace(differenceUrlAnchor,'');	
+	if (differenceUrl1P != '')
+		while (innText.indexOf(differenceUrl1P,0)!=-1)
+			innText = innText.replace(differenceUrl1P,'');
+	if (differenceUrl2P != '')
+		while (innText.indexOf(differenceUrl2P,0)!=-1)
+			innText = innText.replace(differenceUrl2P,'..');
+	if (differenceUrl4P != '')
+		while (innText.indexOf(differenceUrl4P,0)!=-1)
+			innText = innText.replace(differenceUrl4P,'../..');
+	if (differenceUrl != '')										 									
+		while (innText.indexOf(differenceUrl,0)!=-1)
+			innText = innText.replace(differenceUrl,'');	
+
+	return innText;	
+}
+
+function OnLoadGrabUrlDiff(iframeObj)
+{
+	var c=0;var testHtml=new String();	
+	
+	iframeObj.document.body.innerHTML ="<A href='/TxTTT.aspx'>Link</A>xxx0"+
+	"<A href='UxUUU.aspx'>Link</A>yyy0<A href='../VxVVV.aspx'>Link</A>"+
+	"zzz0<a href='../../WxWWW.aspx'>Link</a>www0<a href='#QxQQQ'>Link</a>";
+	
+	testHtml=iframeObj.document.body.innerHTML;
+	
+	c = testHtml.indexOf('/TxTTT.aspx');
+	if (c>0)
+		differenceUrl=testHtml.substr(9,c-9);		
+	b  = testHtml.indexOf('xxx0');
+	testHtml = testHtml.substr(b+4);	
+		
+	c = testHtml.indexOf('UxUUU.aspx');
+	if (c>0)
+		differenceUrl1P=testHtml.substr(9,c-9); 		
+	b  = testHtml.indexOf('yyy0');
+	testHtml = testHtml.substr(b+4);			
+	c = testHtml.indexOf('/VxVVV.aspx');		
+	if (c>0)
+		differenceUrl2P=testHtml.substr(9,c-9); 		
+	
+	b  = testHtml.indexOf('zzz0');
+	testHtml = testHtml.substr(b+4);		
+	c = testHtml.indexOf('/WxWWW.aspx');
+	if (c>0)
+	 differenceUrl4P=testHtml.substr(9,c-9);	
+	 
+	b  = testHtml.indexOf('www0');	
+	testHtml = testHtml.substr(b+4);		
+	c = testHtml.indexOf('#QxQQQ');		
+	if (c>0)
+	 differenceUrlAnchor=testHtml.substr(9,c-9);	 
+}
+
+
+function goback()
+{
+	history.go(-1);
+}
+
+var new_win;
+
+function open_window(url,win_name,w,h,scroll)
+{
+	settings = "";
+	settings += 'toolbar=0, directories=0, menubar=0,';
+	if(scroll!=null)
+	{
+		settings+=' scrollbars=yes, resizable=1,';
+	}
+	else
+	{
+		settings+=' scrollbars=0, resizable=0,';
+	}
+	settings += 'status=0, width='+w+', height='+h;
+	close_window();
+	var new_win = window.open(url, win_name, settings);
+	new_win.focus();
+}
+
+function close_window()
+{
+	if(new_win  && !new_win.closed)
+	{
+		new_win.close();
+	}
+}
+
+function arg_length(f,len,number)
+{
+	if(len!=number) {document.write("function "+f+"called with "+len+" arguments, but expected "+number+"!");return 0;} else {return 1;}
+}
+
+function not_empty(par)
+{
+	if ((par!=null)&&(par!="")) return 1;
+	if ((par==null)||(par=="")) return 0;
+}
+
+function space(par1,par2)
+{
+	if(not_empty(par1)&&not_empty(par2)) return 1;
+	if(!not_empty(par1)||!not_empty(par2)) return 0;
+}
+
+function StartProcess(id,s)
+{
+	var features;
+	features = "toolbar=no,directories=no,menubar=no,scrollbars=no,resizable=no,height=100,width=200";
+	window.open('ProgressBar.aspx?id=' + id +'&s=' + s, 'Progress', features);
+}
+
+function formatInput(element,format)
+{
+	if(element!=null && element.tagName=="INPUT" && element.type=="text" && format!=null)
+	{
+		var s=element.value;
+		var f=format.toLowerCase();
+		switch(f)
+		{
+			case "integer":
+			{
+				var n=s.length;
+				s=s.replace(/[^0-9]/g,"");
+				if(element.value!=s) element.value=s;
+				if(s.length<n)
+				{
+					if(!confirm("The entered number contains invalid characters and they have been removed.\nPlease review the number and click OK to continue or Cancel to modify."))
+					{
+						try{element.focus();} catch(x){}
+						return false;
+					}
+				}
+				break;
+			}
+			case "float":
+			{
+				var n=s.length;
+				s=s.replace(/[^0-9\.\,]/g,"");
+				var m=s.length;
+				s=s.replace(/[^0-9\.]/g,"");
+				if(s!="")
+				{
+					if(s.indexOf(".")<0) s+=".00";
+					var a=s.split(".");
+					s=a[0]+".";
+					for(var i=1; i<a.length; i++) s+=a[i];
+					a=s.split("");
+					if(a[0] && a[0]==".") a[0]="0.";
+					else if(a[a.length-1] && a[a.length-1]==".") a[a.length-1]=".00";
+					s=a.join("");
+				}
+				if(element.value!=s) element.value=s;
+				if(m<n)
+				{
+					if(!confirm("The entered number contains invalid characters and they have been removed.\nPlease review the number and click OK to continue or Cancel to modify."))
+					{
+						try{element.focus();} catch(x){}
+						return false;
+					}
+				}
+				break;
+			}
+			case "currency":
+			{
+				var n=s.length;
+				s=s.replace(/[^0-9\.\$\,]/g,"");
+				var m=s.length;
+				s=s.replace(/[^0-9\.]/g,"");
+				if(s!="")
+				{
+					var a=s.split(".");
+					s=a[0]+".";
+					for(var i=1; i<a.length; i++) s+=a[i];
+					s=""+(Math.round(parseFloat(s)*100)/100);
+					a=s.split("");
+					if(a[0] && a[0]==".") a[0]="0.";
+					else if(a[a.length-1] && a[a.length-1]==".") a[a.length-1]=".00";
+					s=a.join("");
+					a=s.split(".");
+					if(a[1])
+					{
+						if(a[1].length==0) a[1]="00";
+						else if(a[1].length==1) a[1]+="0";
+					}
+					else a[1]="00";
+					s=a.join(".");
+					s="$"+s;
+				}
+				if(element.value!=s) element.value=s;
+				if(m<n)
+				{
+					if(!confirm("The entered currency value contains invalid characters and they have been removed.\nPlease review the value and click OK to continue or Cancel to modify."))
+					{
+						try{element.focus();} catch(x){}
+						return false;
+					}
+				}
+				break;
+			}
+			case "time":
+			{
+				s=s.toLowerCase().replace(/[^0-9\:\a\p\m]/g,"");
+				var t="";
+				if(s.indexOf("am")>0) t="am";
+				else if(s.indexOf("pm")>0) t="pm";
+				s=s.replace(/[^0-9\:]/g,"");
+				var a=s.split(":");
+				if(a.length!=2)
+				{
+					if(s!="")
+					{
+						alert("The entered time is invalid and will be removed!\nPlease re-enter a valid time.");
+						element.value="";
+						try{element.focus();} catch(x){}
+						return false;
+					}
+				}
+				else
+				{
+					for(var i=0; i<a.length; i++)
+					{
+						if(a[i].length<2)
+						{
+							a[i]="00"+a[i];
+							a[i]=a[i].substring(a[i].length-2);
+						}
+						else if(a[i].length>2) a[i]=a[i].substring(0,2);
+					}
+					if(t!="")
+					{
+						if(parseInt(a[0])>12) a[0]="12";
+					}
+					else if(t=="")
+					{
+						if(parseInt(a[0])>23) a[0]="00";
+					}
+					if(parseInt(a[1])>59) a[1]="00";
+					s=a.join(":");
+					if(t!="") s+=" "+t;
+					if(element.value!=s) element.value=s;
+				}
+				break;
+			}
+			case "date":
+			{
+				s=s.replace(/[^0-9\/]/g,"");
+				if(s.length>10) s=s.substring(0,10);
+				var a=s.split("/");
+				if(a.length!=3)
+				{
+					if(s!="")
+					{
+						alert("The entered date is invalid and will be removed!\nPlease re-enter a valid date.");
+						element.value="";
+						try{element.focus();} catch(x){}
+						return false;
+					}
+				}
+				else
+				{
+					for(var i=0; i<a.length; i++)
+					{
+						if(a[i].length<2)
+						{
+							a[i]="00"+a[i];
+							a[i]=a[i].substring(a[i].length-2);
+						}
+						else if(i<2 && a[i].length>2) a[i]=a[i].substring(0,2);
+						else if(i==2 && a[i].length>4) a[i]=a[i].substring(0,4);
+					}
+					if(parseInt(a[0])>12) a[0]="12";
+					if(parseInt(a[1])>31) a[1]="31";
+					s=a.join("/");
+					if(element.value!=s) element.value=s;
+				}
+				break;
+			}
+			case "phone":
+			{
+				s=s.replace(/[^0-9]/g,"");
+				var n=s.length;
+				if(s.length==10 || (s.length==11 && s.substring(0,1)=="1"))
+				{
+					var b=false;
+					if(s.substring(0,1)=="1")
+					{
+						b=true;
+						s=s.substring(1);
+					}
+					var a=s.split("");
+					var n=a.length;
+					for(var i=0; i<n; i++)
+					{
+						switch(i)
+						{
+							case 0: a[i]="("+a[i]; break;
+							case 2: if(a[i+1]!=null) a[i]+=") "; break;
+							case 5: if(a[i+1]!=null) a[i]+="-"; break;
+						}
+					}
+					s=a.join("");
+					if(b) s="1 "+s;
+				}
+				if(s.length==7) s=s.substring(0,3)+"-"+s.substring(3);
+				if(n!=0 && (n<7 || (n>11 && s.substring(0,1)=="1") || (n>10 && s.substring(0,1)!="1")))
+				{
+					if(!confirm("The entered phone number does not seem valid.\nPlease review the number and click OK to continue or Cancel to modify."))
+					{
+						try{element.focus();} catch(x){}
+						return false;
+					}
+				}
+				else if(element.value!=s) element.value=s;
+				break;
+			}
+			case "alphanumeric":
+			{
+				var n=s.length;
+				s=s.replace(/[^\w]/g,"");
+				if(element.value!=s) element.value=s;
+				if(n>s.length) alert("Invalid or special characters have been removed from your entry.\nOnly alpha-numeric characters and underscores \"_\" (no spaces) are allowed.");
+				break;
+			}
+			case "initialuppercase":
+			{
+				var a=s.split("");
+				var n=a.length;
+				for(var i=0; i<n; i++)
+				{
+					if(i==0) a[i]=a[i].toUpperCase();
+					else if(a[i]==" " && a[i+1]!=null) a[i+1]=a[i+1].toUpperCase();
+				}
+				s=a.join("");
+				if(element.value!=s) element.value=s;
+				break;
+			}
+			case "fulluppercase":
+			{
+				s=s.toUpperCase();
+				if(element.value!=s) element.value=s;
+				break;
+			}
+			case "fulllowercase":
+			{
+				s=s.toLowerCase();
+				if(element.value!=s) element.value=s;
+				break;
+			}
+		}
+	}
+}
+
+function fadeOpacity(id, opacStart, opacEnd, millisec) 
+{ 
+    if (millisec==null)
+		millisec=200;
+    var speed = Math.round(millisec / 100); 
+    var timer = 0; 
+
+    if(opacStart > opacEnd) { 
+        for(i = opacStart; i >= opacEnd; i--) { 
+            setTimeout("changeOpac(" + i + ",'" + id + "')",(timer * speed)); 
+            timer++; 
+        } 
+    } else if(opacStart < opacEnd) { 
+        for(i = opacStart; i <= opacEnd; i++) 
+            { 
+            setTimeout("changeOpac(" + i + ",'" + id + "')",(timer * speed)); 
+            timer++; 
+        } 
+    } 
+} 
+
+function changeOpac(opacity, id, bDisappear) 
+{ 
+    var object = document.getElementById(id).style; 
+
+	if (object != null)
+	{
+		if (opacity!=0 && object.display != 'block')
+			object.display = 'block';
+
+		object.filter = "alpha(opacity=" + opacity + ")"; 
+		
+		if (opacity==0 && object.display != 'none')
+			object.display = 'none';
+
+    }
+} 
+
+function fadeHeight(id, heightStart, heightEnd, millisec) 
+{
+    if (millisec==null)
+		millisec=250;
+    var speed = Math.round(millisec / 100); 
+    var timer = 0; 
+
+    if(heightStart > heightEnd) { 
+        for(i = heightStart; i >= heightEnd; i--) { 
+            setTimeout("changeHeight(" + i + ",'" + id + "')",(timer * speed)); 
+            timer++;
+        } 
+    } else if(heightStart < heightEnd) { 
+        for(i = heightStart; i <= heightEnd; i++) 
+            { 
+            setTimeout("changeHeight(" + i + ",'" + id + "')",(timer * speed)); 
+            timer++; 
+        } 
+    } 
+} 
+
+function changeHeight(height, id) 
+{ 
+    var object = document.getElementById(id).style;
+    if (object != null)
+    {
+		if (height!=0 && object.display != 'block')
+			object.display = 'block';
+
+		object.height = (height); 
+
+		if (height==0 && object.display != 'none')
+			object.display = 'none';
+	}
+} 
+
+
+
+function fadeWidth(id, widthStart, widthEnd, millisec) 
+{ 
+    if (millisec==null)
+		millisec=250;
+    var speed = Math.round(millisec / 100); 
+    var timer = 0; 
+
+    if(widthStart > widthEnd) { 
+        for(i = widthStart; i >= widthEnd; i--) { 
+            setTimeout("changeWidth(" + i + ",'" + id + "')",(timer * speed)); 
+            timer++; 
+        } 
+    } else if(widthStart < widthEnd) { 
+        for(i = widthStart; i <= widthEnd; i++) 
+            { 
+            setTimeout("changeWidth(" + i + ",'" + id + "')",(timer * speed)); 
+            timer++; 
+        } 
+    } 
+} 
+
+function changeWidth(width, id) { 
+    var object = document.getElementById(id).style; 
+    if (object != null)
+    {
+		if (width!=0 && object.display != 'block')
+			object.display = 'block';
+
+	    object.width = (width); 
+
+		if (width==0 && object.display != 'none')
+			object.display = 'none';
+
+	}
+} 
+
+// H. Stechl 07/27/2006
+// control which button/image is activated.
+function CheckForEnter(szButtonOrImage,evt)
+{
+	//RJ, bug# 11743 
+	// Get current event object
+    evt = (!evt && window.event) ? window.event : evt;
+   
+	if (evt)
+	{
+		// Get KeyCode
+        var keyCode = 0;
+        if (evt.which) 
+        {
+            keyCode = evt.which;
+        } 
+        else 
+        {
+            keyCode = evt.keyCode;
+        }
+		if (keyCode==13)
+		{
+			oButtonOrImage = document.getElementById(szButtonOrImage);
+			if (oButtonOrImage != null)
+			{
+				evt.keyCode = 0;
+				evt.cancelBubble = true;
+				oButtonOrImage.click();
+				return false; // Don't accept the keypress
+			}
+		}
+	}
+	return true;
+}
+
+function RTBCleanupMSWord(szIframeId)
+{
+    if (szIframeId != null && szIframeId != "")
+    {
+        var oIframe = document.getElementById(szIframeId);
+        if (oIframe != null)
+        {
+            var oDocument = oIframe.contentWindow.document;
+            var aElements = oDocument.getElementsByTagName("*");
+            for (var i = 0; i < aElements.length; i++)
+            {
+                var e = aElements[i];
+                if (e.className.toLowerCase().indexOf("mso")>=0)
+                    e.removeAttribute("className","",0);
+                if (e.style.cssText.toLowerCase().indexOf("mso")>=0)
+                {
+                    var szCssText = "";
+                    var aStyles = e.style.cssText.split(";");
+                    for (var j = 0; j < aStyles.length; j++)
+                    {
+                        if (aStyles[j].toLowerCase().indexOf("mso")<0)
+                            szCssText += aStyles[j] + ";";
+                    }
+                    e.style.cssText = szCssText;
+                }
+                e.removeAttribute("lang","",0);
+                e.removeAttribute("stylw","",0);
+            }
+            var html = oDocument.body.innerHTML;
+            html = html.replace(/\r/g,"");
+            html = html.replace(/\n/g,"");
+            html = html.replace(/\t/g," ");
+            html = html.replace(/<\\?\??xml[^>]>/gi,"");
+            html = html.replace(/(\&lt\;)?\\?\??|\W?|\w?xml[^(\&gt\;)](\&gt\;)?/gi,"");
+            html = html.replace(/<\/?\w+:[^>]*>/gi,"");
+            html = html.replace(/<p>&nbsp;<\/p>/gi,"<br/><br/>");
+            html = html.replace(/[ ]+/g," ");
+            html = html.replace(/<(\/)?strong>/ig,"<$1b> ");
+            html = html.replace(/<(\/)?em>/ig,"<$1i> ");
+            html = html.replace(/[”“]/gi,"\"")
+	        html = html.replace(/[‘’]/gi,"'")
+            html = html.replace(/^\s/i,"");
+            html = html.replace(/\s$/i,"");
+            html = html.replace(/<o:[pP]>&nbsp;<\/o:[pP]>/gi,"");
+            html = html.replace(/<font>([^<>]+)<\/font>/gi,"$1");
+            html = html.replace(/<span>([^<>]+)<\/span>/gi,"$1");
+	        //html = html.replace(/<p([^>])*>(&nbsp;)*\s*<\/p>/gi,"")
+	        //html = html.replace(/<span([^>])*>(&nbsp;)*\s*<\/span>/gi,"")
+	        try { html = html.replace(/<st1:.*?>/gi,""); } 
+            catch(ex) { html = html.replace(/<st1:.*>/gi,""); }
+            oDocument.body.innerHTML = html;
+        }
+    }
+}
+
+//AAG MISC-06 netFORUM 2010 Session timeout warning message
+function SessionTimeoutWarningDisplay(iTimeout) {
+    iTimeout = iTimeout * 60000;
+    var displayMssageTime = 120000;
+    setTimeout("SessionTimeoutConfirm()", (iTimeout - displayMssageTime));
+}
+
+function SessionTimeoutConfirm() {
+    //setTimeout("AutoAbandonSession()", 120000);
+
+    //  var szConfirmDialogDiv = " <div id=\"SessionTimeoutDialog\"><div id=\"dialog\" title=\"Session Warning\"> <Label id=\"LabelSessionTimeout\" CSSClass=\"DataFormLabel\">";
+    // szConfirmDialogDiv += "Your session is about to expire! <br /> click ok to continue.</Label><BR /> <Button id=\"Button\" CSSClass=\"DataFormButton\" onclick=\"CloseSessionDialog(); __doPostBack(\'XXXXXXXX\',\'\'); \" >Ok! </Button>";
+    //  szConfirmDialogDiv += "</div></div>";
+
+    //  document.writeln(szConfirmDialogDiv);
+
+    OpenSessionDialog();
+
+    if(bTimeout == null)
+        bTimeout = true;
+
+    setTimeout("if(bTimeout){CloseSessionDialog();AutoAbandonSession();} else{setTimeout('bTimeout=true;SessionTimeoutConfirm();', 1200000);}", 115000);
+    /*
+    if(window.confirm("Your session is about to expire! click ok to continue"))
+    {
+    __doPostBack("XXXXXXXX","");        
+    }
+    else
+    {
+    } 
+    */
+}
+
+function ShowSessionDialog() {
+    $('#SessionDialog').dialog({
+        autoOpen: false,
+        width: 600,
+        dialogClass: "confirm",
+        buttons: {
+            "Ok": function () {
+                  CloseSessionDialog();
+                  bTimeout = false;
+                __doPostBack('XXXXXXXX','');                
+            },
+            "Cancel": function () {
+                $(this).dialog("close");                
+            }
+        }
+    });
+
+}
+
+function OpenSessionDialog() {
+    $('#SessionDialog').dialog('open');
+    // $("#SessionTimeoutDialog").dialog("open");
+}
+
+function CloseSessionDialog() {
+    $('#SessionDialog').dialog('close');
+    // $("#SessionTimeoutDialog").dialog("close");
+}
+function AutoAbandonSession()
+{
+    window.location.href="~/WelcomePage.aspx";
+}
+
+
+//AAG MISC-06 netFORUM 2010
+function NavigationWarningConfirm()
+{
+    if(bConfirmNavAway == 1)
+    {
+        return "You have not saved!";
+        /* if(window.confirm(""))
+        {
+          
+        }
+        else
+        {
+           // __doPostBack("","");
+        }
+        */
+    }
+    
+}
+
+//AAG MISC-06 netFORUM 2010 DateTextBox Type Ahead Suggest Calendar Functions  
+// Created To have readable and debuggable code
+// Bug# 12024 08/17/2010  
+function DateTextOnFocus(szControlId, szValue,szBaseID,szIFrameID,szConfigPath,szAutoPostback)
+{
+    clearTimeout(timerid); 
+    if(utilitystring!='') 
+    { 
+      document.getElementById(utilitystring).offsetParent.style.zIndex=998; 
+      document.getElementById(utilitystring).style.display='none'; 
+    } 
+    
+    utilitystring= szIFrameID ;
+    //lets make cleaner debuggable JS code
+    //var szTimeoutCommands = 'if(document.getElementById(\''+ szNewIframeID+'\').style.display==\'none\') document.getElementById(\'' + szNewBaseID + '\').style.zIndex=9999; fadeOpacity(\'' + szNewIframeID + '\',0,100); document.getElementById(\'' + szNewIframeID + '\').src=\'' + szConfigPath + '?typeaheadsuggest=yes&field='+this.id+' (this.AutoPostBack) ? "&PostbackOpener=Yes" : "") + "&value='+this.value+'\'';
+    
+    timerid= setTimeout('CalendarTypeAheadDisplay(\''+szControlId+'\',\''+szValue+'\',\''+szBaseID+'\',\''+szIFrameID+'\',\''+szConfigPath+'\',\''+szAutoPostback+'\');' ,150);     
+    clearTimeout(timerid);
+
+    return true;
+}
+
+function DateTextOnKeyUp(szNewID, szControlID, szValue, szBaseID, szFrameID, szConfigPath, szAutoPostBack)
+{
+    clearTimeout(timerid);    
+    if (document.getElementById(szNewID).value.length>=0) 
+    { 
+        timerid=setTimeout('CalendarRefresh(\''+szNewID+'\',\''+szControlID+'\',\''+szValue+'\',\''+szBaseID+'\',\''+szFrameID+'\',\''+szConfigPath+'\',\''+szAutoPostBack+'\');' ,150);
+    }
+
+    return true;
+}
+
+function DateTextOnBlur(szControlId, szValue, szBaseID, szIFrameID, szConfigPath, szAutoPostBack)
+{
+    clearTimeout(timerid);
+    timerid=setTimeout('CalendarHide(\''+szControlId+'\',\''+szValue+'\',\''+szBaseID+'\',\''+szIFrameID+'\',\''+szConfigPath+'\',\''+szAutoPostBack+'\');',150);
+    timerid=setTimeout('CalendarHideWithParent(\''+szControlId+'\',\''+szValue+'\',\''+szBaseID+'\',\''+szIFrameID+'\',\''+szConfigPath+'\',\''+szAutoPostBack+'\');',150);
+}
+
+function CalendarHide(szControlID,szValue,szBaseID,szFrameID, szConfigPath, szAutoPostBack)
+{
+   if (document.getElementById(szFrameID).style.display!='none') 
+   {
+      document.getElementById(szBaseID).style.zIndex=998; 
+   }
+   
+   if(navigator.appName != "Microsoft Internet Explorer")
+   {   
+     fadeOpacity(szFrameID,100,0,0);
+   }
+   else
+   {
+     fadeOpacity(szFrameID,100,0);
+   }
+}
+
+function CalendarHideWithParent(szControlID, szValue, szBaseID, szFrameID, szConfigPath, szAutoPostBack)
+{
+   if (parent != null && parent.document.getElementById(szFrameID) != null && parent.document.getElementById(szFrameID).style.display!='none') 
+   {
+      document.getElementById(szBaseID).style.zIndex=998; 
+   }
+   
+   if(navigator.appName != "Microsoft Internet Explorer")
+   {   
+     fadeOpacity(szFrameID,100,0,0);
+   }
+   else
+   {
+     fadeOpacity(szFrameID,100,0);
+   }
+}
+
+function CalendarRefresh(szNewID, szControlID, szValue, szBaseID, szFrameID, szConfigPath, szAutoPostBack)
+{
+   if(document.getElementById(szBaseID).style != null && document.getElementById(szFrameID).style.display=='none') 
+   { 
+      document.getElementById(szBaseID).style.zIndex=9999; 
+   }
+    
+   fadeOpacity(szFrameID,0,100,0); 
+
+   var szIFrameSRC = szConfigPath + '?typeaheadsuggest=yes&field='+szControlID;
+
+   if(szAutoPostBack == 'true' || szAutoPostBack == '1')
+   {
+        szIFrameSRC += '&PostbackOpener=Yes';
+   }
+
+   szIFrameSRC += '&value='+szValue;
+    
+   document.getElementById(szFrameID).src=szIFrameSRC;
+   //'" + szConfigPath + "?typeaheadsuggest=yes" + "&field='+this.id+'" + ((this.AutoPostBack) ? "&PostbackOpener=Yes" : "") + "&value='+this.value+'\\'
+}
+
+function CalendarTypeAheadDisplay(szControlId,szValue,szBaseID,szFrameID,szConfigPath,szAutoPostBack)
+{
+     if(document.getElementById(szFrameID).style != null && document.getElementById(szFrameID).style.display == 'none')
+     {
+        document.getElementById(szBaseID).style.zIndex=99999;
+     }
+
+     fadeOpacity(szFrameID,0,100,0);
+
+     var szIFrameSRC = szConfigPath + '?typeaheadsuggest=yes&field='+szControlId; //this.Id
+
+     if(szAutoPostBack == 'true' || szAutoPostBack == '1')
+     {
+        szIFrameSRC += '&PostbackOpener=Yes';
+     }
+
+     szIFrameSRC += '&value='+szValue; //this.value
+
+     document.getElementById(szFrameID).src=szIFrameSRC;
+}
+
+function updateQueryStringParameter(a, k, v) {
+    var re = new RegExp("([?|&])" + k + "=.*?(&|$)", "i"),
+        separator = a.indexOf('?') !== -1 ? "&" : "?";
+
+    if (a.match(re)) return a.replace(re, '$1' + k + "=" + v + '$2');
+    else return a + separator + k + "=" + v;
+}
+
+//AAG NS:2590 logic for form submit
+function InitializeFormSubmitBehavior(szDefaultButtonId)
+{
+    $('input[type="text"]').keydown(function(e){
+        if($(this).attr('onkeydown') != null && $(this).attr('onkeydown') != "" && $(this).attr('onkeydown') != 'undefind')
+            return true;
+        else
+        {
+            if((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13))
+                $('#'+szDefaultButtonId).click(); 
+        }
+      
+    });
+} 
+
+
+
+function gup(name){ 
+name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");   
+var regexS = "[\\?&]"+name+"=([^&#]*)";   
+var regex = new RegExp( regexS );   
+var results = regex.exec( window.location.href );  
+ if( results == null )    return "";   
+ else return results[1];
+}
+
+//GO BACK TO THE TOP BUTTON FOR MOBILE DEVICES. ADDED APRIL 2, 2014. IM
+function toTheTop() {
+    var offset =20;
+    var duration = 400;
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > offset) {
+            $('.back-to-top').fadeIn(duration);
+        } else {
+            $('.back-to-top').fadeOut(duration);
+        }
+    });
+
+    $('.back-to-top').click(function (event) {
+        event.preventDefault();
+        $('html, body').animate({ scrollTop: 0 }, duration);
+        return false;
+    })
+}
+
+function appendHashForPostbacks() {
+    document.getElementById("eWebForm").action += document.location.hash;
+}
+function setHash(hashLocation) {
+    if ((location.hash == "") || (location.hash == "#")) {
+        location.hash = hashLocation;
+        appendHashForPostbacks();
+    }
+    else if ((location.hash != "#" + hashLocation) || (location.hash != hashLocation)) {
+        location.hash = "";
+        location.hash = hashLocation;
+        appendHashForPostbacks();
+    }
+    else {
+        location.hash = "";
+    }
+}
+//12304 - if a wizard button is clicked, the other submit buttons should be disabled
+function disableSubmitButtons() {
+    var inputFields = document.getElementsByTagName('input');
+
+    for (var i = 0; i < inputFields.length; i++) {
+        if (inputFields[i].type == 'submit') {
+            inputFields[i].disabled = 'disabled';
+        }
+    }
+
+}Öçýì%      V‹“&V‹“';ýÿVÊ.¬   B:https://ewebtest12.acs.org/NFStage3/eweb/Scripts/FormFunctions.js necko:classified 1 security-info FnhllAKWRHGAlo+ESXykKAAAAAAAAAAAwAAAAAAAAEaphjojH6pBabDSgSnsfLHeAAQAAgAAAAAAAAAAAAAAAAAAAAAB4vFIJp5wRkeyPxAQ9RJGKPqbqVvKO0mKuIl8ec8o/uhmCjImkVxP+7sgiYWmMt8F+O2DZM7ZTG6GukivU8OT5gAAAAAAAAVEMIIFQDCCBCigAwIBAgIITMYRplPAiqswDQYJKoZIhvcNAQELBQAwgcYxCzAJBgNVBAYTAlVTMRAwDgYDVQQIEwdBcml6b25hMRMwEQYDVQQHEwpTY290dHNkYWxlMSUwIwYDVQQKExxTdGFyZmllbGQgVGVjaG5vbG9naWVzLCBJbmMuMTMwMQYDVQQLEypodHRwOi8vY2VydHMuc3RhcmZpZWxkdGVjaC5jb20vcmVwb3NpdG9yeS8xNDAyBgNVBAMTK1N0YXJmaWVsZCBTZWN1cmUgQ2VydGlmaWNhdGUgQXV0aG9yaXR5IC0gRzIwHhcNMTUwOTExMjAzNjM4WhcNMTYwOTExMjAzNjM4WjA3MSEwHwYDVQQLExhEb21haW4gQ29udHJvbCBWYWxpZGF0ZWQxEjAQBgNVBAMMCSouYWNzLm9yZzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANhtLnIRYXkfieRtHjAATgbS493uCNSFatg8NwPa2CglcR2ABq8uzAGbo235jOjsP7R+uQhMZfxGpUx7PQ6brIYQOQOfapdg2PL6ydnTljjUuMnoxN87lWMhwWimO+8NWZbZ3iKtbZkAHpRU9a+Vij230+kYixRDx2C0GMudFAItFKtthrMdCwevJCucIqcfqbM6XEXPfUdF6HLR5+PqkQnkZ51nkLexIHpYBhBl8G99caFGT19kxtH5LbyZs1gE0AzWvX9xOulVULpSWjbO1SMLazPJ6V98kAtisi5dK/2ZGJvBqLO4pi2OMKjb14Bl6ODm8Ib66m+xqG9E7DBD11kCAwEAAaOCAb4wggG6MAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMA4GA1UdDwEB/wQEAwIFoDA8BgNVHR8ENTAzMDGgL6AthitodHRwOi8vY3JsLnN0YXJmaWVsZHRlY2guY29tL3NmaWcyczEtMTYuY3JsMFkGA1UdIARSMFAwTgYLYIZIAYb9bgEHFwEwPzA9BggrBgEFBQcCARYxaHR0cDovL2NlcnRpZmljYXRlcy5zdGFyZmllbGR0ZWNoLmNvbS9yZXBvc2l0b3J5LzCBggYIKwYBBQUHAQEEdjB0MCoGCCsGAQUFBzABhh5odHRwOi8vb2NzcC5zdGFyZmllbGR0ZWNoLmNvbS8wRgYIKwYBBQUHMAKGOmh0dHA6Ly9jZXJ0aWZpY2F0ZXMuc3RhcmZpZWxkdGVjaC5jb20vcmVwb3NpdG9yeS9zZmlnMi5jcnQwHwYDVR0jBBgwFoAUJUWBaFAmOD07LSy+zWrZtj2zZmMwHQYDVR0RBBYwFIIJKi5hY3Mub3JnggdhY3Mub3JnMB0GA1UdDgQWBBSeVGVWZiHq5bqxNe1nkOcTs1An5jANBgkqhkiG9w0BAQsFAAOCAQEASFHP/L3dLV33J1QYdA00hFTpmnH/X/e1bC20HL876hm5+OoElywjKOcBWFje5GL7zbDfFE3/eWcSEHmK4e/inXBWchTzLd3wa0E7vMGrA7xjHqmnmpEfvYdwb/zE/EbLxWYWHYXir2Ytap0KX52Jp+K19FVY3k127AKIebXe1VhHwDest0lqa8szeC9ltYZTAFalbsld9qqH8oF5ZpVm7/iggmN9SYC5StzIOK78HJnDzY2X9sOHzyLccrcaJRGsUdw5WrkqDocY6tKOKjUvwHsy16cR+a92/203QLk4BznoXbRNkMbdHs8LIwZBT1ugm2HIJ5MSKfGvW9pfYGgpTwA1AAMAAAAAAQEAAA== request-method GET response-head HTTP/1.1 200 OK
+Content-Type: application/javascript
+Last-Modified: Wed, 17 Sep 2014 12:10:14 GMT
+Accept-Ranges: bytes
+Etag: "0d71d5670d2cf1:0"
+X-Powered-By: ASP.NET
+Date: Tue, 05 Jan 2016 09:53:36 GMT
+Content-Length: 62154
+ uncompressed-len 0   òÊ

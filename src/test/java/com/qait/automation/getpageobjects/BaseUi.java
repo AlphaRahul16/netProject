@@ -560,7 +560,7 @@ public class BaseUi {
 	public void checkCheckbox(WebElement ele) {
 		if (!ele.isSelected()) {
 			ele.click();
-			logMessage("Step : check checkbox in " + ele + "\n");
+			logMessage("Step : check checkbox \n");
 		} else {
 			logMessage("Step : check box is already selected\n");
 		}

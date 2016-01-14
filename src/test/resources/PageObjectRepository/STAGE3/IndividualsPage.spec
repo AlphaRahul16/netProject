@@ -33,5 +33,11 @@ txt_termStartDate           xpath     //td[contains(text(),'${productName}')]/fo
 txt_termEndDate            xpath      //td[contains(text(),'${productName}')]/following-sibling::td[11]
 lnk_pages                  xpath               //tr[@class='pager']/td/a
 btn_invoicearrow           css               .iconpro-circle-arrow-right
-
+list_rowsInSubscription                   xpath             (//th/a)[2]/../../following-sibling::tr
+txt_subscriptionName                      xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[5]
+txt_subscriptionPrice                     xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[6]
+txt_subscriptionStartDate                 xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[7]
+txt_subscriptionEndDate                   xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[8]
+txt_subscriptionIssueFulfilled           xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[9]
+txt_subscriptionStartIssue               xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[10]
 ======================================================================================================================================
