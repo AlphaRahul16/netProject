@@ -152,6 +152,7 @@ public class ASM_AACTPage extends ASCSocietyGenericPage {
 
 	public void selectMemberContactDetail(String detailType, String detailValue) {
 		if (!detailValue.equalsIgnoreCase("null")) {
+			wait.hardWait(3);
 			isElementDisplayed("list_schoolWorkInfo", detailType);
 			selectProvidedTextFromDropDown(
 					element("list_schoolWorkInfo", detailType), detailValue);
@@ -334,6 +335,7 @@ public class ASM_AACTPage extends ASCSocietyGenericPage {
 						getAACT_OmaSheetValue(caseId, "address About You Page"));
 				enterMemberContactDetail("City",
 						getAACT_OmaSheetValue(caseId, "City About You Page"));
+				wait.hardWait(2);
 				selectMemberContactDetail("Country",
 						getAACT_OmaSheetValue(caseId, "Country About You Page"));
 				if (getAACT_OmaSheetValue(caseId, "Country About You Page")

@@ -414,7 +414,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyMemberIsNotCreated() {
 		isElementDisplayed("img_member");
-		logMessage("ASSERT PASSED : Member is not created and has cross mark for member\n");
+		logMessage("ASSERT PASSED : Cross mark for non member is verified \n");
 	}
 
 	public void verifyMemberReceivedNoBenefits() {

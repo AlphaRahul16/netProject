@@ -10,6 +10,7 @@ import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.SkipException;
 import org.testng.TestNG;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -170,7 +171,7 @@ public class ACS_GivingApplication_Smoke {
 				mapSheetData.get("Program2 Donate Amount"),mapSheetData.get("Program3 Donate Amount"),
 				mapSheetData.get("Other Program Donate Amount")};
 		test.invoicePage.validateBalanceAndTotalForInvoice(TotalAmountMap);
-		test.invoicePage.verifyEmailStatusAsDefinedInSheet(mapSheetData.get("SendCardVia_Email?"),mapSheetData.get("SendCardVia_PostalMail?")
+		test	.invoicePage.verifyEmailStatusAsDefinedInSheet(mapSheetData.get("SendCardVia_Email?"),mapSheetData.get("SendCardVia_PostalMail?")
 				,mapSheetData.get("DonotSendCard?"),mapSheetData.get("SelectSendCardOption?"));
 		test.invoicePage.expandDetailsMenu("line items");
 		test.invoicePage.verfifyproductDisplayNamesAndCodesInsideLineItems(TotalAmountMap,Amount,productNameKey,mapIwebProductDetails);
@@ -189,5 +190,15 @@ public class ACS_GivingApplication_Smoke {
 		app_url_givingDonate = getYamlValue("app_url_givingDonate");
 		app_url_IWEB=getYamlValue("app_url_IWEB");
 
+	}
+	
+	@AfterMethod
+	public void take_screenshot_on_failure(ITestResult e) {
+		test.takescreenshot.takeScreenShotOnException(e);
+	}
+
+	@AfterClass
+	public void Close_Browser_Session() {
+		test.closeBrowserSession();
 	}
 }

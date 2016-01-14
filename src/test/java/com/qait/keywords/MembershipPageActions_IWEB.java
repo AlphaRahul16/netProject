@@ -1450,9 +1450,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickInvoiceHeading(String tabName) {
 		wait.hardWait(2);
 		isElementDisplayed("link_invoiceListHeadings", tabName);
+		wait.hardWait(1);
 		element("link_invoiceListHeadings", tabName).click();
 		wait.waitForPageToLoadCompletely();
-		logMessage("Invoice heading "+tabName+" is clicked");
+		logMessage("Step : Invoice heading "+tabName+" is clicked");
 
 	}
 
