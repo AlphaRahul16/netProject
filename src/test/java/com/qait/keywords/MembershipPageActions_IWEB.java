@@ -506,12 +506,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		if (tabName.equalsIgnoreCase("chapter memberships")) {
 			for (int i = 0; i < numberOfDivisions - 1; i++) {
 				int divNumber = i + 1;
-				System.out.println(divNumber);
-				System.out.println(map().get("div" + divNumber + "_division"));
+				
 				if (map().get("div" + divNumber + "_division").length() > 20) {
 					String newMemberType = map().get(
 							"div" + divNumber + "_division").substring(0, 20);
-					System.out.println("new mem :" + newMemberType);
+					
 					verifyMemberTypeInIndividualMemberships(newMemberType);
 					verifyJoinDateIsCurentDateForMemebrType(tabName,
 							newMemberType);
@@ -545,7 +544,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyMemberTypeInIndividualMemberships(String memberType) {
-		System.out.println("mem type:" + memberType);
 		isElementDisplayed("txt_memberType", memberType);
 		logMessage("ASSERT PASSED : " + memberType
 				+ " is verified in txt_memberType\n");
@@ -1169,13 +1167,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			wait.resetImplicitTimeout(3);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			flag = isElementDisplayed("link_pagesAvailable");
-			System.out.println(flag);
+			
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 			return flag;
 		} catch (Exception e) {
 			flag = false;
-			System.out.println("in catch: " + flag);
+			
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 			return flag;
@@ -1526,7 +1524,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_recordNumberAtMemberQuery");
 		String recordNumber = element("txt_recordNumberAtMemberQuery")
 				.getText().trim();
-		System.out.println(recordNumber);
+		
 		Assert.assertTrue(recordNumber.equalsIgnoreCase("(" + numberOfRecords
 				+ " records)"));
 		logMessage("Step : multiple records are presents in the List - Member Query by Member Number - Multiple \n");
@@ -1560,9 +1558,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyMemberInfoOnMemberShipProfile(String memberdetail,
 			String memberValue) {
 		isElementDisplayed("txt_membershipProfileInfo", memberdetail);
-		System.out.println(element("txt_membershipProfileInfo", memberdetail)
-				.getText().trim());
-		System.out.println(memberValue);
+	
+		
 		Assert.assertTrue(element("txt_membershipProfileInfo", memberdetail)
 				.getText().trim().equalsIgnoreCase(memberValue));
 		logMessage("ASSERT PASSED : " + memberValue + " is verified for "
@@ -1573,10 +1570,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyMemberDetailsOnMemberShipProfile(String memberdetail,
 			String memberValue) {
 		isElementDisplayed("txt_membershipProfileDetails", memberdetail);
-		System.out
-				.println(element("txt_membershipProfileDetails", memberdetail)
-						.getText().trim());
-		System.out.println(memberValue);
+		
+		
 		Assert.assertTrue(element("txt_membershipProfileDetails", memberdetail)
 				.getText().trim().equalsIgnoreCase(memberValue));
 		logMessage("ASSERT PASSED : " + memberValue + " is verified for "
@@ -1587,17 +1582,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyProductNameInInvoice(String productName, boolean pageLink) {
 		if (pageLink) {
 			isElementDisplayed("txt_productNameOnPage");
-			System.out.println(element("txt_productNameOnPage").getText()
-					.trim());
-			System.out.println(productName);
+			
 			Assert.assertTrue(element("txt_productNameOnPage").getText().trim()
 					.equalsIgnoreCase(productName));
 			logMessage("ASSERT PASSED : product name " + productName
 					+ " in invoice is verified\n");
 		} else {
 			isElementDisplayed("txt_productName");
-			System.out.println(element("txt_productName").getText().trim());
-			System.out.println(productName);
+		
 			Assert.assertTrue(element("txt_productName").getText().trim()
 					.equalsIgnoreCase(productName));
 			logMessage("ASSERT PASSED : product name " + productName
@@ -1610,16 +1602,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyInvoiceIDInInvoice(String invoiceID, boolean pageLink) {
 		if (pageLink) {
 			isElementDisplayed("txt_invoiceIdOnPage");
-			System.out.println(element("txt_invoiceIdOnPage").getText().trim());
-			System.out.println(invoiceID);
+		
 			Assert.assertTrue(element("txt_invoiceIdOnPage").getText().trim()
 					.equalsIgnoreCase(invoiceID));
 			logMessage("ASSERT PASSED : invoice id is " + invoiceID
 					+ " in invoice is verified\n");
 		} else {
 			isElementDisplayed("txt_invoiceId");
-			System.out.println(element("txt_invoiceId").getText().trim());
-			System.out.println(invoiceID);
+			
 			Assert.assertTrue(element("txt_invoiceId").getText().trim()
 					.equalsIgnoreCase(invoiceID));
 			logMessage("ASSERT PASSED : invoice id is " + invoiceID
@@ -1632,9 +1622,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyTermStartDateInvoice(String startDate, boolean pageLink) {
 		if (pageLink) {
 			isElementDisplayed("txt_termStartDateOnPage");
-			System.out.println(element("txt_termStartDateOnPage").getText()
-					.trim());
-			System.out.println(startDate);
+			
 
 			Assert.assertTrue(element("txt_termStartDateOnPage").getText()
 					.trim().equalsIgnoreCase(startDate));
@@ -1642,8 +1630,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 					+ " in invoice is verified\n");
 		} else {
 			isElementDisplayed("txt_termStartDate");
-			System.out.println(element("txt_termStartDate").getText().trim());
-			System.out.println(startDate);
+			
 
 			Assert.assertTrue(element("txt_termStartDate").getText().trim()
 					.equalsIgnoreCase(startDate));
@@ -1655,10 +1642,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyTermEndDateInvoice(String endDate, boolean pageLink) {
 		if (pageLink) {
 			isElementDisplayed("txt_termEndDateOnPage");
-			System.out.println(element("txt_termEndDateOnPage").getText()
-					.trim());
-			System.out.println(endDate);
-
+			
 			Assert.assertTrue(element("txt_termEndDateOnPage").getText().trim()
 					.equalsIgnoreCase(endDate));
 			logMessage("ASSERT PASSED : term end date is " + endDate
@@ -1666,9 +1650,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		} else {
 			isElementDisplayed("txt_termEndDate");
-			System.out.println(element("txt_termEndDate").getText().trim());
-			System.out.println(endDate);
-
+			
 			Assert.assertTrue(element("txt_termEndDate").getText().trim()
 					.equalsIgnoreCase(endDate));
 			logMessage("ASSERT PASSED : term end date is " + endDate
@@ -1679,8 +1661,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyPaymentStatus(String paymentStatus) {
 		isElementDisplayed("txt_paymentStatus");
-		System.out.println(element("txt_paymentStatus").getText().trim());
-		System.out.println(paymentStatus);
+		
 
 		Assert.assertTrue(element("txt_paymentStatus").getText()
 				.equalsIgnoreCase(paymentStatus));
@@ -1702,10 +1683,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 					&& loginAs[i].equalsIgnoreCase("YES")) {
 				loginList.add(loginAs[i]);
 				count = i;
-				System.out.println("Count is" + count);
+				
 			}
 		}
-		System.out.println(loginList.size());
+		
 		if (loginList.size() > 1) {
 			logMessage("More than One option has YES value");
 			Assert.assertFalse(true);
@@ -1716,20 +1697,18 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public List<String> loginUsingValueFromSheet(String[] loginAs) {
 		getloginStatusFromSheet(loginAs);
 		if (count == 0 | count == 1) {
-			System.out.println("Member");
+			
 
 			clickOnModuleTab();
 			clickOnTab("CRM");
 			clickOnSideBarTab("Individuals");
 			clickOnSideBar("Query Individual");
 			if (count == 0) {
-				System.out.println(count);
-				System.out.println("Member");
+				
 				selectAndRunQuery("Selenium - Find Active Regular Member");
 				memberStoreDetails.add(String.valueOf(count));
 			} else if (count == 1) {
-				System.out.println(count);
-				System.out.println(" Non Member");
+				
 				selectAndRunQuery("Selenium - Find Random Non Member");
 				memberStoreDetails.add(String.valueOf(count));
 
@@ -1741,7 +1720,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		} else if (count == 2) {
 
 			memberStoreDetails.add(String.valueOf(count));
-			System.out.println("Guest");
+			
 		}
 		return memberStoreDetails;
 
@@ -1777,9 +1756,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			clickOnSaveAndFinish();
 			switchToDefaultContent();
 			waitForSpinner();
-			System.out.println("=====" + map().get("ls_memberPackage?"));
-			System.out.println("=====" + totalPrice);
-			System.out.println("=====" + map().get("localSection_PriceValue?"));
+			
 			verifyPrice(map().get("expectedLocalSectionName"),
 					map().get("localSection_PriceValue?"));
 
@@ -1832,15 +1809,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnSaveAndFinish();
 		switchToDefaultContent();
 		handleAlert();
-		System.out.println("total price in member and local :" + totalPrice);
+		
 		waitForSpinner();
 		verifyPrice(map().get("memberPackage"), map().get("priceValue?"));
 	}
 
 	public void goToAddMembershipAndFillDetails_Division(int numberOfDivisions) {
-		System.out.println("no. of div " + numberOfDivisions);
+		
 		for (int i = 1; i <= numberOfDivisions; i++) {
-			System.out.println("loop:" + i);
+			
 			wait.waitForPageToLoadCompletely();
 			ScrollPage(0, -700);
 			clickOnSelectProduct();
@@ -1867,8 +1844,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				selectMemberInfo("complimentryRequest", map().get("compReason"));
 			}
 			String totalPrice = getTotalPrice();
-			System.out
-					.println("division price values " + i + " :" + totalPrice);
+			
 			clickOnSaveAndFinish();
 			switchToDefaultContent();
 			handleAlert();
@@ -1894,11 +1870,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_priceOrderEntryLineItmes", itemName);
 		String actualPrice = element("txt_priceOrderEntryLineItmes", itemName)
 				.getText().trim();
-		System.out.println("*****Actual**** " + actualPrice + "expected ---"
-				+ price);
+		
 		Float newPrice = Float.parseFloat(price)
 				* Integer.parseInt(map().get("renewalTerm").trim());
-		System.out.println("newPrice:" + newPrice);
+		
 		String formatedPrice = String.format("%.02f", newPrice);
 		if (!map().get("complimentary").equalsIgnoreCase("On")) {
 			Assert.assertTrue(actualPrice.equalsIgnoreCase(formatedPrice));
@@ -1907,10 +1882,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 					+ " in txt_priceOrderEntryLineItmes\n");
 		} 
 		
-//		else {
-//			Assert.assertTrue(actualPrice.equalsIgnoreCase("0.00"));
-//			logMessage("ASSERT PASSED : price 0.00 is verified in txt_priceOrderEntryLineItmes, when Complementry option is checked\n");
-//		}
 
 	}
 
@@ -1952,9 +1923,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			String[] productName_TotalPrice = addSubscriptionInOrderEntry_CreateMem(
 					map().get("ProductCode" + i), i);
 
-			System.out.println("prod name:-" + productName_TotalPrice[0]);
-			System.out.println("subs price values for " + i + " :"
-					+ productName_TotalPrice[1]);
+			
 			handleAlert();
 			waitForSpinner();
 
@@ -1972,9 +1941,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public int getDivisionNumbers() {
 		for (int i = 1; i <= map().size(); i++) {
-			System.out.println("i:" + i);
-			System.out.println(map().get("caseID Execute"));
-			System.out.println(map().get("div" + i + "_memberType"));
+			
 			try {
 				if (map().get("div" + i + "_memberType").equalsIgnoreCase(null)
 						|| map().get("div" + i + "_memberType")
@@ -1982,8 +1949,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 					break;
 				} else {
 					numberOfDivisions++;
-					System.out.println("numberOfDivisions in loop:"
-							+ numberOfDivisions);
+					
 
 				}
 			} catch (NullPointerException npe) {
@@ -1993,23 +1959,20 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			}
 
 		}
-		System.out.println("numberOfDivisions:" + numberOfDivisions);
+		
 		return numberOfDivisions;
 	}
 
 	public int getSubscriptionNumbers() {
 		for (int i = 1; i <= map().size(); i++) {
-			System.out.println("i:" + i);
-			System.out.println(map().get("caseID Execute"));
-			System.out.println(map().get("ProductCode" + i));
+			
 			try {
 				if (map().get("ProductCode" + i).equalsIgnoreCase(null)
 						|| map().get("ProductCode" + i).equalsIgnoreCase("")) {
 					break;
 				} else {
 					numberOfSubscriptions++;
-					System.out.println("numberOfSubscriptions in loop:"
-							+ numberOfSubscriptions);
+					
 				}
 			} catch (NullPointerException npe) {
 				logMessage("ProductCode" + i
@@ -2017,7 +1980,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				break;
 			}
 		}
-		System.out.println("numberOfSubscriptions:" + numberOfSubscriptions);
 		return numberOfSubscriptions;
 	}
 

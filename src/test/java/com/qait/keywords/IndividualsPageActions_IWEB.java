@@ -202,9 +202,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 					"Zip code Contact Page");
 			String addressType = getAACT_OmaSheetValue(caseId,
 					"Address Type Contact Page");
-			System.out.println("------"
-					+ element("txt_memberDetails").getText());
-			System.out.println("-----" + fName);
+			
 			verifyElementTextContains("txt_memberDetails", fName);
 			logMessage("ASSERT PASSED :" + fName
 					+ " is verified in txt_memberDetails\n");
@@ -246,9 +244,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 					"Zip code Contact Page");
 			String addressType = getAACT_OmaSheetValue(caseId,
 					"Address Type Contact Page");
-			System.out.println("------"
-					+ element("txt_memberDetails").getText());
-			System.out.println("-----" + fName);
+			
+			
 			verifyElementTextContains("txt_memberDetails", fName);
 			logMessage("ASSERT PASSED :" + fName
 					+ " is verified in txt_memberDetails\n");
@@ -338,7 +335,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 				+ " is verified as middle name\n");
 		verifyElementTextContains("txt_memberDetails", lastName);
 		logMessage("ASSERT PASSED :" + lastName + " is verified as last name\n");
-		System.out.println("strret:" + map().get("street"));
+		
 		verifyElementTextContains("txt_memberDetails", map().get("street"));
 		logMessage("ASSERT PASSED :" + map().get("street")
 				+ " is verified as street\n");
@@ -372,7 +369,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		verifyElementTextContent("txt_memberDetails", memDetails[2]);
 		logMessage("ASSERT PASSED :" + memDetails[2]
 				+ " is verified in txt_memberDetails\n");
-		System.out.println("street:" + memDetails[3]);
+		
 		if (!(memDetails[3].equalsIgnoreCase(""))) {
 			verifyElementTextContent("txt_memberDetails", memDetails[3]);
 			logMessage("ASSERT PASSED :" + memDetails[3]
@@ -796,8 +793,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 					String formatedPrice = String.format("%.02f",
 							priceValueInSheet);
 					String PriceValueExpected = String.valueOf(formatedPrice);
-					System.out.println(priceValueActual);
-					System.out.println(PriceValueExpected);
+					
 					Assert.assertTrue(priceValueActual
 							.equalsIgnoreCase(PriceValueExpected));
 					logMessage("ASSERT PASSED : " + priceValueActual
@@ -1001,8 +997,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		navigateToSubscriptionMenuOnHoveringMore();
 		for (int i = 0; i < elements("list_rowsInSubscription").size() - 1; i++) {
 			for (int j = 1; j <= numberOfSubscriptions; j++) {
-				System.out.println(element("txt_subscriptionName",
-						String.valueOf(j)).getText().trim());
+				
 				if (element("txt_subscriptionName", String.valueOf(j))
 						.getText()
 						.trim()
@@ -1038,8 +1033,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		String actual = element("txt_subscription" + detailName, index)
 				.getText().trim().replaceAll("\\$", "");
 		String expected = detailValue;
-		System.out.println("actual:" + actual);
-		System.out.println("expected:" + expected);
+		
 		if (detailName.equalsIgnoreCase("StartIssue")) {
 			Assert.assertTrue(actual.startsWith(expected));
 			logMessage("AASERT PASSED : " + detailValue + " is verified for "
