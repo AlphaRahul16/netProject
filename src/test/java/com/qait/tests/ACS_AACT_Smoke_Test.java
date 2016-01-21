@@ -207,7 +207,7 @@ public class ACS_AACT_Smoke_Test {
 
 	 @AfterClass(alwaysRun = true)
 	public void Close_Test_Session() {
-		test.closeBrowserSession();
+		//test.closeBrowserSession();
 	}
 
 }

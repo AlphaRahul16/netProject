@@ -170,7 +170,8 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	// }
 
 	private void enterInvoiceNumber(String invoiceNumber) {
-		wait.waitForPageToLoadCompletely();
+	//	wait.waitForPageToLoadCompletely();
+		wait.hardWait(5);
 		isElementDisplayed("inp_invoiceCode");
 		element("inp_invoiceCode").sendKeys(invoiceNumber);
 		logMessage("STEP : " + invoiceNumber
@@ -179,7 +180,8 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	private void clickOnSearchButton() {
 		isElementDisplayed("btn_search");
-		element("btn_search").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_search"));
+	//	element("btn_search").click();
 		logMessage("STEP : Search button is clicked in txt_invoiceMenu\n");
 	}
 
@@ -291,6 +293,8 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("Step : Value of " + detailName
 					+ "  price is empty in data sheet\n");
 		} else {
+			wait.waitForPageToLoadCompletely();
+			wait.hardWait(6);
 			isElementDisplayed("inp_invoiceAACT", detailName);
 			String detailValueWithOutDollar = detailValue.replace("$", "");
 			Assert.assertTrue(element("inp_invoiceAACT", detailName).getText()
@@ -302,7 +306,8 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void expandDetailsMenu(String menuName) {
 		isElementDisplayed("btn_detailsMenuAACT", menuName);
-		element("btn_detailsMenuAACT", menuName).click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT", menuName));
+		//element("btn_detailsMenuAACT", menuName).click();
 		logMessage("STEP : " + menuName + " bar is clicked to expand" + "\n");
 		waitForSpinner();
 
