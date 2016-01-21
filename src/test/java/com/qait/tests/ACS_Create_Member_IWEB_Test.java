@@ -39,7 +39,6 @@ public class ACS_Create_Member_IWEB_Test {
 				getYamlValue("Authentication.password"));
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
-		
 	}
 
 	@Test
@@ -128,7 +127,7 @@ public class ACS_Create_Member_IWEB_Test {
 
 	@AfterClass(alwaysRun = true)
 	public void Close_Test_Session() {
-		// test.closeBrowserSession();
+		 test.closeBrowserSession();
 	}
 
 }

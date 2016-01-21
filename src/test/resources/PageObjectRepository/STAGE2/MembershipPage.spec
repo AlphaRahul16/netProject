@@ -3,9 +3,10 @@ Page Title: MembershipPage
 #Object Definitions
 ==============================================================================================================================================
 hd_sideBar                                          xpath                  //a[text()='${Query Membership}']
+hd_sideBarOuter                                           xpath                 //h3[text()='${sideBarName}']
 hd_page                                             xpath                   //span[@class='PageTitle']
 list_existingQuery                                   id                        SavedQueriesDropDownList
-img_spinner                                          css                  #__UPIMG
+img_spinner                                          css                     #__UPIMG
 table_query                                          id                    DisplayConditionsTable
 btn_runQuery                                         id                   SaveGoButton
 img_firstInactiveRegularMember                       css                 #dgDynamicList > tbody > tr:nth-child(3) > td:nth-child(1) > a
@@ -26,7 +27,7 @@ list_industry                                         id                    mbr_
 inp_industryUpdateDate                              id                     mbr_sin_last_update_date_ext
 inp_jobTitleUpdateDate                               id                     mbr_jfn_last_update_date_ext
 btn_saveAndFinish                                    id                    Bottom_0
-txt_itemsAdded                                       xpath                   //a[text()='${itemName}']
+txt_itemsAdded                                      xpath                   //a[text()='${itemName}']
 list_batch                                          id                        inv_bat_key
 list_PaymentType                                     id                       inv_orig_trans_type
 list_paymentMethod                                   id                       pin_apm_key
@@ -65,7 +66,6 @@ inp_district                                       id                         ad
 inp_congressional                                id                            adr_cong_dist
 inp_province                                      id                         adr_intl_province
 inp_mail                                          id                         cxa_mail_stop
-table_queryResult                                css                             #DataFormTable  
 btn_saveForBillingAdd                             id                            ButtonSave   
 table_lineItems                                   id                         UPDATEGRIDCONTROL_DOD_Invoice_DetailGRIDDIV 
 frame_selectProduct                              id                             menu_a83665ae18eb43488c5d83ce5f6027f8  
@@ -83,7 +83,7 @@ btn_editContactInfo                              css                          #F
 inp_editEmail                                    id                           eml_address
 btn_editNameAndAddress                           css                          #F1_HYPERLINK_2
 inp_firstName                                    id                          ind_first_name
-inp_lastName                                    id                            ind_last_name
+inp_lastName                                    id                          ind_last_name
 txt_numberOfyears                                xpath                         //td[contains(text(),'Total Years of Service')]/following-sibling::td
 btn_cancel                                       id                           ButtonCancel
 list_memberStatusRenewal                        id                            ValueDropDownList4
@@ -91,19 +91,16 @@ txt_renewalContactId                             id                           F1
 chk_advanceNew                                    id                           ctl10
 list_advanceNewDropDown                           xpath                        //span[contains(text(),'${headingName}')]/../following-sibling::td[1]/select
 inp_advanceNewInput                               xpath                         //span[contains(text(),'${headingName}')]/../following-sibling::td[2]/input
-txt_webLogin                                      id                        F1_cst_web_login
 list_advanceNewInput                               xpath                        //span[contains(text(),'${headingName}')]/../following-sibling::td[2]/select
 link_subscriptionInSelectProduct                  id                            HYPERLINK_2
 inp_prdCode                                       id                           prd_code
 inp_searchDisplayButton                           id                           Look_Up_prc_display_name
 inp_displayName                                   id                           prc_display_name
 link_itemInLineItems                              xpath                        (//tr/td[4])[last()]/a
-txt_membershipProfileDetails                      xpath                        //label[contains(text(),'${memberInfo}')]/preceding-sibling::span
-lnk_invoice_number                                 xpath                        //table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3][contains(text(),'${value}')]
-lnk_first_invoice_number                           xpath                       (//table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3])[1] 
 lnk_pages                                         xpath                        //tr[@class='pager']/td/a[${randomPages}]
 txt_membershipProfileInfo                         xpath                        //label[contains(text(),'${memberInfo}:')]/following-sibling::span
 txt_paymentStatus                                 xpath                        //td[text()='Payment Status:']/following-sibling::td
+txt_membershipProfileDetails                      xpath                        //label[contains(text(),'${memberInfo}')]/preceding-sibling::span
 btn_memberShipSubInfo                             xpath                        //span[text()='${membershipName}']/preceding-sibling::a//i[starts-with(@class,'icon-chevron-')]
 txt_productName                                   xpath                        (//table[@class='table']//tr[2]/td[4])[1]
 txt_invoiceId                                     xpath                        (//table[@class='table']//tr[2]/td[12])[1]
@@ -115,7 +112,38 @@ txt_termStartDateOnPage                           xpath                        (
 txt_termEndDateOnPage                             xpath                        (//table[@class='table']//tr[3]/td[15])[1]
 inp_customerId                                    xpath                        //input[contains(@id,'QueryAsk')]
 btn_askGo                                         id                            ButtonAskGo
-txt_recordNumberAtMemberQuery                    classname                     DataFormLabelRecordCount
+txt_recordNumberAtMemberQuery                    classname                      DataFormLabelRecordCount
 txt_loadOnExistingQueryLabel                      id                            LoadQueryLabel
 link_pagesAvailable                              classname                      DataFormChildDataGridPagerLink
+lnk_invoice_number                                 xpath                        //table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3][contains(text(),'${value}')]
+lnk_first_invoice_number                           xpath                        (//table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3])[1] 
+txt_webLogin                                       id                            F1_cst_web_login
+btn_arrowRightCircle                             xpath                          (//i[@class='iconpro-circle-arrow-right'])[1]
+link_tabsOnModule                                 xpath                          //a[text()='${value}']
+btn_tabs                                            css                        .iconpad[src='../images/puzzle-icon.png']
+inp_transactionDate                              id                             inv_trx_date
+list_memberStatusInAddMembership                 id                             mbr_mbs_key
+list_memberRenewalPackage                        id                             mbr_pak_prd_renewal_key
+chk_complimentry                                 id                             ACS_complimentary_checkbox
+txt_totalPrice                                   id                             mbr_total
+list_complimentryRequest                         id                             ACS_complimentary_request_source
+txt_priceOrderEntryLineItmes                     xpath                          //a[text()='${itemName}']/../following-sibling::td[9]/span
+inp_sourceCode                                   id                             mbr_src_code
+list_chapter                                     id                             mbr_chp_cst_key
+link_invoiceListHeadings                         xpath                          //a[contains(text(),'${value}')]
+link_addMemership								 xpath							//a[text()='add membership']
+chk_complimentry_Sub                             id                             ivd_complimentary_flag_ext
+list_complimentryReq_Sub                         id                             ivd_a04_key_ext
+txt_priceDetailsBelowLineItems                   id                             inv_${detailsName}
+list_priceOrderEntryNetBalance                   xpath                          //*[contains(@id,'ivd_${netPriceName}')]
+txt_memberType                                   xpath                          //td[starts-with(text(),'${memberType}')]
+txt_effectiveDateMemberType                      xpath                          //td[starts-with(text(),'${memberType}')]/following-sibling::td[4]
+txt_expireDateMemberType                         xpath                          //td[starts-with(text(),'${memberType}')]/following-sibling::td[5]   
+txt_joinDateMemberType                           xpath                          //td[starts-with(text(),'${memberType}')]/following-sibling::td[2]                      
+txt_effectiveDate_chapter                        xpath                          //td[starts-with(text(),'${memberType}')]/following-sibling::td[5]   
+txt_joinDate_chapter                             xpath                          //td[starts-with(text(),'${memberType}')]/following-sibling::td[3]
+txt_expireDate_chapter                           xpath                          //td[starts-with(text(),'${memberType}')]/following-sibling::td[6]
+btn_addBatch                                     id                             inv_bat_key_oAddHyperLink
+inp_addBatchName                                 id                             bat_code
+list_batchSecurityGroup                          id                             gsc_grp_key
 ==============================================================================================================================================

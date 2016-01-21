@@ -2,10 +2,10 @@ Page Title: IndividualsPage
 
 #Object Definitions
 ======================================================================================================================================
-inp_fieldName               xpath    //span[contains(text(),'${fieldName}')]/../following-sibling::td//input
+inp_fieldName               xpath    //span[starts-with(text(),'${fieldName}')]/../following-sibling::td//input
 btn_Go                      xpath    //input[@id='ButtonSearch']
 txt_userEmail                xpath    //a[text()='${email}']
-txt_memberDetails           xpath    (//span[@class='DataFormTextBox'])[last()]
+txt_memberDetails           xpath    //*[@id='F1_cxa_mailing_label_html']
 txt_additionalInfo           xpath    //span[text()='${infoValue}']
 btn_memberShip              xpath    //span[text()='${membershipName}']/preceding-sibling::a//i[@class='icon-chevron-down']
 btn_memberShipAACT          xpath    //span[text()='${membershipName}']/../a[1]
@@ -24,7 +24,7 @@ btn_invoiceAtMembership     xpath              //td[starts-with(text(),'Active')
 lnk_lastName                id            F1_HYPERLINK_4
 link_pageLink               css             .DataFormChildDataGridPagerLink:nth-child(${pageNumber})
 list_pageLink               css             .DataFormChildDataGridPagerLink
-txt_contactId               xpath     //span[contains(text(),'contact id')]/preceding-sibling::span
+txt_contactId               xpath     //*[contains(text(),'contact id:')]/preceding-sibling::span
 img_aactMember              xpath      //span[contains(.,'aact member:')]/following-sibling::span/img[@title='New Image']
 img_member                  xpath      //span[contains(.,'aact member:')]/following-sibling::span/img[@title='Non Member']
 img_noMemberBenefits        xpath       //span[contains(.,'aact member:')]/following-sibling::span/img[@title='No Member Benefits']
@@ -32,4 +32,12 @@ img_spinner                xpath          //*[contains(@src,'updating.gif')]
 txt_termStartDate           xpath     //td[contains(text(),'${productName}')]/following-sibling::td[10]
 txt_termEndDate            xpath      //td[contains(text(),'${productName}')]/following-sibling::td[11]
 lnk_pages                  xpath               //tr[@class='pager']/td/a
+btn_invoicearrow           css               .iconpro-circle-arrow-right
+list_rowsInSubscription                   xpath             (//th/a)[2]/../../following-sibling::tr
+txt_subscriptionName                      xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[5]
+txt_subscriptionPrice                     xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[6]
+txt_subscriptionStartDate                 xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[7]
+txt_subscriptionEndDate                   xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[8]
+txt_subscriptionIssueFulfilled           xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[9]
+txt_subscriptionStartIssue               xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[10]
 ======================================================================================================================================

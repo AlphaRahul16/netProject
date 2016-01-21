@@ -59,7 +59,7 @@ public class BaseUi {
 	protected SeleniumWait wait;
 	private String pageName;
 	int timeOut, hiddenFieldTimeOut;
-	boolean flag;
+	boolean flag = false;;
 	static String lastWindow;
 
 	protected BaseUi(WebDriver driver, String pageName) {
@@ -270,7 +270,7 @@ public class BaseUi {
 			logMessage("select Element " + el
 					+ " after catching Stale Element Exception");
 		} catch (Exception ex2) {
-			
+
 			logMessage("Element " + el + " could not be clicked! "
 					+ ex2.getMessage());
 		}
@@ -442,6 +442,16 @@ public class BaseUi {
 		builder.moveToElement(element).click().perform();
 	}
 
+	public boolean isDropDownValuePresent(List<WebElement> elements,
+			String value) {
+		for (WebElement element : elements) {
+			if (element.getText().equalsIgnoreCase(value)) {
+				flag = true;
+			}
+		}
+		return flag;
+	}
+
 	protected String getSelectedTextFromDropDown(WebElement el) {
 		try {
 			wait.waitForElementToBeVisible(el);
@@ -549,7 +559,6 @@ public class BaseUi {
 			}
 
 		}
-		
 
 	}
 
@@ -565,13 +574,10 @@ public class BaseUi {
 			logMessage("Step : check box is already selected\n");
 		}
 	}
-	
-	public void ScrollPage(int x, int y){
-		  JavascriptExecutor jse = 
-		(JavascriptExecutor)driver;
-		  jse.executeScript("window.scrollBy("+x+","+y+")", "");
-		 }	
-	
-	
-	
+
+	public void ScrollPage(int x, int y) {
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+		jse.executeScript("window.scrollBy(" + x + "," + y + ")", "");
+	}
+
 }

@@ -143,4 +143,7 @@ txt_joinDateMemberType                           xpath                          
 txt_effectiveDate_chapter                        xpath                          //td[starts-with(text(),'${memberType}')]/following-sibling::td[5]   
 txt_joinDate_chapter                             xpath                          //td[starts-with(text(),'${memberType}')]/following-sibling::td[3]
 txt_expireDate_chapter                           xpath                          //td[starts-with(text(),'${memberType}')]/following-sibling::td[6]
+btn_addBatch                                     id                             inv_bat_key_oAddHyperLink
+inp_addBatchName                                 id                             bat_code
+list_batchSecurityGroup                          id                             gsc_grp_key
 ==============================================================================================================================================

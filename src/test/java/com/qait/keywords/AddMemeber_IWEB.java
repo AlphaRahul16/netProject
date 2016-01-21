@@ -41,7 +41,7 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		}
 
 		if (mName.equalsIgnoreCase("")) {
-			mName = "middleName" + System.currentTimeMillis();
+			mName = "Selenium middleName";
 			enterMemberDetail("middleName", mName);
 		} else {
 			enterMemberDetail("middleName", mName);
@@ -63,11 +63,11 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 			selectMemberDetails("state", abrState);
 		}
 		enterMemberDetail("postalCode", inPostalCode);
-//		selectMemberDetails("phnCountry", phnCountry);
-//		
-//		enterMemberDetails("number", phnNumber);
+		// selectMemberDetails("phnCountry", phnCountry);
+		//
+		// enterMemberDetails("number", phnNumber);
 		clickOnSaveButton();
-		
+
 		handleAlert1();
 		if (isWindow()) {
 			switchWindow();
@@ -86,7 +86,7 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		}
 
 		return new String[] { fName, mName, lName, street, city, abrState,
-				outPostalCode ,phnNumber};
+				outPostalCode, phnNumber };
 
 	}
 
