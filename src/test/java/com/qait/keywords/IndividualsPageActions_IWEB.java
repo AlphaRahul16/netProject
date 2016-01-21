@@ -390,6 +390,9 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyAACTMemberCreated(String caseId) {
+		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(10);
+		//wait.hardWait(8);
 		isElementDisplayed("img_aactMember");
 		if (getAACT_OmaSheetValue(caseId, "Is Create Only Individual?")
 				.equalsIgnoreCase("Y")) {
@@ -430,6 +433,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	private void verifyMemberProductDetails(String element, String detailName) {
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(3);
 		if (detailName.equalsIgnoreCase("")) {
 			logMessage("ASSERT PASSED : IWEB product name is not present in data sheet\n");
 		} else {
@@ -604,13 +609,16 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void navigateToSubscriptionMenuOnHoveringMoreAACT() {
 		try {
 			isElementDisplayed("img_moreMenu");
-			element("img_moreMenu").click();
+			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
+			//element("img_moreMenu").click();
 			isElementDisplayed("link_moreMenuName", "Subscriptions");
-			element("link_moreMenuName", "Subscriptions").click();
+			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName", "Subscriptions"));
+			//element("link_moreMenuName", "Subscriptions").click();
 			logMessage("Step : Subscription link is clicked\n");
 			waitForSpinner();
 			isElementDisplayed("btn_memberShipAACT", "active subscriptions");
-			element("btn_memberShipAACT", "active subscriptions").click();
+			clickUsingXpathInJavaScriptExecutor(element("btn_memberShipAACT", "active subscriptions"));
+			//element("btn_memberShipAACT", "active subscriptions").click();
 			logMessage("Step : Navigate to subscription menu on clicking more button\n");
 		} catch (StaleElementReferenceException stEx) {
 			isElementDisplayed("img_moreMenu");
@@ -693,13 +701,16 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			}
 
 			wait.waitForPageToLoadCompletely();
+			wait.hardWait(1);
 			isElementDisplayed("link_moreMenuName", "Products");
-			element("link_moreMenuName", "Products").click();
+			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName", "Products"));
+			//element("link_moreMenuName", "Products").click();
 			logMessage("Step : Product link is clicked\n");
 			waitForSpinner();
 			wait.waitForPageToLoadCompletely();
 			isElementDisplayed("btn_memberShipAACT", "services purchased");
-			element("btn_memberShipAACT", "services purchased").click();
+			clickUsingXpathInJavaScriptExecutor(element("btn_memberShipAACT", "services purchased"));
+			//element("btn_memberShipAACT", "services purchased").click();
 			logMessage("Step : Navigate to products menu on clicking more button\n");
 		} catch (StaleElementReferenceException stlEx) {
 			isElementDisplayed("img_moreMenu");

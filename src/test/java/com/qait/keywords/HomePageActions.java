@@ -33,7 +33,7 @@ public class HomePageActions extends ASCSocietyGenericPage {
 	}
 
 	public boolean verifyCurrentTab(String tabName) {
-		hardWaitForIEBrowser(3);
+		hardWaitForIEBrowser(20);
 		try {
 			return isElementDisplayed("txt_tabName", tabName);
 		} catch (StaleElementReferenceException stlExp) {
@@ -53,6 +53,7 @@ public class HomePageActions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyAboutYouPage(String caseId) {
+	
 		wait.waitForPageToLoadCompletely();
 		if (getAACT_OmaSheetValue(caseId, "Has About You Page?")
 				.equalsIgnoreCase("null")) {
@@ -67,6 +68,7 @@ public class HomePageActions extends ASCSocietyGenericPage {
 			Assert.assertFalse(flag, "About page is not expected\n");
 
 		}
+	
 	}
 
 	public void verifyConfirmationPage(String caseId) {
