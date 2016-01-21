@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class DataProvider_CreateMemberIWEB {
+public class DataProvider_FactoryClass {
 
+	static String sheetName;
+
+	
 	@org.testng.annotations.DataProvider
 	public static Iterator<Object[]> data() {
-
-		List<String> s = com.qait.automation.utils.DataProvider.get();
+		List<String> listOfAllExecutableIds = com.qait.automation.utils.DataProvider
+				.get(sheetName);
 		List<Object[]> dataToBeReturned = new ArrayList<Object[]>();
-		for (String userData : s) {
-			System.out.println("user data :" + userData);
+		for (String userData : listOfAllExecutableIds) {
 			dataToBeReturned.add(new Object[] { userData });
-
 		}
-		
 		return dataToBeReturned.iterator();
 	}
 }

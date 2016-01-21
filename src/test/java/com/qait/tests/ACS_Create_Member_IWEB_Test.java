@@ -24,7 +24,11 @@ public class ACS_Create_Member_IWEB_Test {
 	int numberOfDivisions, numberOfSubscriptions;
 	String app_url_IWEB = getYamlValue("app_url_IWEB");
 
-	@Factory(dataProviderClass = com.qait.tests.DataProvider_CreateMemberIWEB.class, dataProvider = "data")
+	public ACS_Create_Member_IWEB_Test() {
+		com.qait.tests.DataProvider_FactoryClass.sheetName = "createMember";
+	}
+
+	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
 	public ACS_Create_Member_IWEB_Test(String caseID) {
 		this.caseID = caseID;
 	}
@@ -127,7 +131,7 @@ public class ACS_Create_Member_IWEB_Test {
 
 	@AfterClass(alwaysRun = true)
 	public void Close_Test_Session() {
-		 test.closeBrowserSession();
+		test.closeBrowserSession();
 	}
 
 }

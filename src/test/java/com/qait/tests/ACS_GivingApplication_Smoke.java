@@ -35,14 +35,17 @@ public class ACS_GivingApplication_Smoke {
 	Map<String,String> mapSheetData = new HashMap<String,String>();
 	private String caseID;
 
-
-	@Factory(dataProviderClass = com.qait.tests.DataProvider_GivingApplicationSmoke.class, dataProvider = "data")
-	public ACS_GivingApplication_Smoke (String caseID) {
-		System.out.println("factory " + caseID);
-		this.caseID = caseID;
+	public ACS_GivingApplication_Smoke() {
+		com.qait.tests.DataProvider_FactoryClass.sheetName = "giving_donate";
 	}
 
+	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
+	public ACS_GivingApplication_Smoke(String caseID) {
+		this.caseID = caseID;
 
+	}
+
+	
 	@Test
 	public void Step01_TC01_Launch_IWeb_Application_And_Navigate_To_Funds() {
 		mapSheetData=test.homePageIWEB.addValuesInMap("giving_donate", caseID);
