@@ -588,8 +588,9 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			element("link_moreMenuName", "Subscriptions").click();
 			logMessage("Step : Subscription link is clicked\n");
 			waitForSpinner();
-			 isElementDisplayed("btn_memberShip", "active subscriptions");
-			 element("btn_memberShip", "active subscriptions").click();
+			wait.hardWait(2);
+			 //isElementDisplayed("btn_memberShip", "active subscriptions");
+			// element("btn_memberShip", "active subscriptions").click();
 			logMessage("Step : Navigate to subscription menu on clicking more button\n");
 		} catch (StaleElementReferenceException stEx) {
 

@@ -523,7 +523,7 @@ ACS_Store:
             CASEID: 2
             
 Acs_CreateMember_IWEB:
-    batch: "ACS: QA_SUB_BATCH"
+    batch: "ACS: Selenium_BATCH"
     PaymentType: prepaid
     paymentMethod: Visa/MC
     cardNumber: 4111111111111111
