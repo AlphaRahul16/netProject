@@ -113,6 +113,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyMemberDetails_OMA(String fName, String lName, String add,
 			String city, String zipCode, String addressType, String contactId,
 			String userEmail, String caseId) {
+		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(2);
 		verifyElementTextContains("txt_memberDetails", fName);
 		logMessage("ASSERT PASSED :" + fName
 				+ " is verified in txt_memberDetails\n");
@@ -390,7 +392,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyAACTMemberCreated(String caseId) {
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(10);
-		//wait.hardWait(8);
+		// wait.hardWait(8);
 		isElementDisplayed("img_aactMember");
 		if (getAACT_OmaSheetValue(caseId, "Is Create Only Individual?")
 				.equalsIgnoreCase("Y")) {
@@ -425,7 +427,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnMemberShipMenu(String menuName) {
-		element("btn_memberShip", menuName).click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", menuName));
+		// element("btn_memberShip", menuName).click();
 		logMessage("Step :" + menuName + " is clicked in btn_memberShip\n");
 
 	}
@@ -558,7 +561,9 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("Step : Subscription link is clicked\n");
 			waitForSpinner();
 			isElementDisplayed("btn_memberShip", "active subscriptions");
-			element("btn_memberShip", "active subscriptions").click();
+			clickUsingXpathInJavaScriptExecutor(element("btn_memberShip",
+					"active subscriptions"));
+			// element("btn_memberShip", "active subscriptions").click();
 			logMessage("Step : Navigate to subscription menu on clicking more button\n");
 		} catch (StaleElementReferenceException stEx) {
 
@@ -572,7 +577,9 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("Step : Subscription link is clicked\n");
 			waitForSpinner();
 			isElementDisplayed("btn_memberShip", "active subscriptions");
-			element("btn_memberShip", "active subscriptions").click();
+			clickUsingXpathInJavaScriptExecutor(element("btn_memberShip",
+					"active subscriptions"));
+			// element("btn_memberShip", "active subscriptions").click();
 			logMessage("Step : Navigate to subscription menu on clicking more button\n");
 		}
 
@@ -588,6 +595,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			element("link_moreMenuName", "Subscriptions").click();
 			logMessage("Step : Subscription link is clicked\n");
 			waitForSpinner();
+			isElementDisplayed("btn_memberShip", "active subscriptions");
+			element("btn_memberShip", "active subscriptions").click();
 			wait.hardWait(2);
 			 //isElementDisplayed("btn_memberShip", "active subscriptions");
 			// element("btn_memberShip", "active subscriptions").click();
@@ -640,15 +649,17 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		try {
 			isElementDisplayed("img_moreMenu");
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
-			//element("img_moreMenu").click();
+			// element("img_moreMenu").click();
 			isElementDisplayed("link_moreMenuName", "Subscriptions");
-			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName", "Subscriptions"));
-			//element("link_moreMenuName", "Subscriptions").click();
+			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName",
+					"Subscriptions"));
+			// element("link_moreMenuName", "Subscriptions").click();
 			logMessage("Step : Subscription link is clicked\n");
 			waitForSpinner();
 			isElementDisplayed("btn_memberShipAACT", "active subscriptions");
-			clickUsingXpathInJavaScriptExecutor(element("btn_memberShipAACT", "active subscriptions"));
-			//element("btn_memberShipAACT", "active subscriptions").click();
+			clickUsingXpathInJavaScriptExecutor(element("btn_memberShipAACT",
+					"active subscriptions"));
+			// element("btn_memberShipAACT", "active subscriptions").click();
 			logMessage("Step : Navigate to subscription menu on clicking more button\n");
 		} catch (StaleElementReferenceException stEx) {
 			isElementDisplayed("img_moreMenu");
@@ -733,14 +744,16 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			wait.waitForPageToLoadCompletely();
 			wait.hardWait(1);
 			isElementDisplayed("link_moreMenuName", "Products");
-			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName", "Products"));
-			//element("link_moreMenuName", "Products").click();
+			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName",
+					"Products"));
+			// element("link_moreMenuName", "Products").click();
 			logMessage("Step : Product link is clicked\n");
 			waitForSpinner();
 			wait.waitForPageToLoadCompletely();
 			isElementDisplayed("btn_memberShipAACT", "services purchased");
-			clickUsingXpathInJavaScriptExecutor(element("btn_memberShipAACT", "services purchased"));
-			//element("btn_memberShipAACT", "services purchased").click();
+			clickUsingXpathInJavaScriptExecutor(element("btn_memberShipAACT",
+					"services purchased"));
+			// element("btn_memberShipAACT", "services purchased").click();
 			logMessage("Step : Navigate to products menu on clicking more button\n");
 		} catch (StaleElementReferenceException stlEx) {
 			isElementDisplayed("img_moreMenu");
@@ -944,7 +957,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	private void expandDetailsMenu(String menuName) {
 		isElementDisplayed("btn_memberShip", menuName);
-		element("btn_memberShip", menuName).click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", menuName));
+		// element("btn_memberShip", menuName).click();
 		logMessage("Step : " + menuName
 				+ " is clicked to expand in btn_memberShip\n");
 	}
@@ -958,7 +972,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnButtonToNavigateFinancialPageInMembershipPage() {
 		isElementDisplayed("btn_invoiceAtMembership");
-		element("btn_invoiceAtMembership").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_invoiceAtMembership"));
+	//	element("btn_invoiceAtMembership").click();
 		logMessage("Step : user navigate to finance page in btn_memberShip\n");
 	}
 

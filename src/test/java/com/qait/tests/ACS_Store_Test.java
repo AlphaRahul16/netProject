@@ -126,8 +126,7 @@ public class ACS_Store_Test {
 	@Test
 	public void Step06_TC06_Launch_IWEB_Application_Under_Test() {
 		test.navigateToIWEBUrlOnNewBrowserTab(app_url_IWEB);
-		test.homePageIWEB
-				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
+		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 
 	@Test
@@ -139,7 +138,7 @@ public class ACS_Store_Test {
 		test.homePageIWEB.clickOnSideBarTab("Invoice");
 		test.memberShipPage.clickOnSideBar("Query Invoice");
 		test.memberShipPage
-				.selectAndRunQuery("Selenium - Newest Invoice for Customer Id");
+				.selectAndRunQuery("Selenium - Newest Invoice for Customer ID");
 		test.memberShipPage.enterSingleCustomerIdInRunQuery(memberStoreDetails
 				.get(0));
 		test.memberShipPage.clickInvoiceHeading("Transaction Date");

@@ -452,13 +452,16 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 			try {
 				wait.resetImplicitTimeout(0);
 				wait.resetExplicitTimeout(hiddenFieldTimeOut);
+				hardWaitForIEBrowser(5);
 				if (isElementDisplayed("lbl_warnings")) {
 					wait.resetImplicitTimeout(timeOut);
 					wait.resetExplicitTimeout(timeOut);
 					Assert.fail("ASSERT FAILED : Expected error message occur while error message is empty in data sheet\n");
 
 				}
-			} catch (NoSuchElementException e) {
+			} 
+			catch (Exception e){
+			//catch (NoSuchElementException e) {
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
 				logMessage("Step : Error message is empty\n");

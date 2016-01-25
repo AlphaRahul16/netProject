@@ -335,7 +335,8 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void collapseDetailsMenu(String menuName) {
 		isElementDisplayed("icon_up", menuName);
-		element("icon_up", menuName).click();
+		clickUsingXpathInJavaScriptExecutor(element("icon_up", menuName));
+		//element("icon_up", menuName).click();
 		waitForSpinner();
 		logMessage("STEP : " + menuName + " bar collapse bar clicked\n");
 

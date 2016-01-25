@@ -92,7 +92,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnSideBar(String tabName) {
-		hardWaitForIEBrowser(2);
+		hardWaitForIEBrowser(4);
 		isElementDisplayed("hd_sideBar", tabName);
 		clickUsingXpathInJavaScriptExecutor(element("hd_sideBar", tabName));
 		logMessage("STEP : Click on side bar for tab " + tabName
@@ -1217,6 +1217,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public String getMemberDetailsOnMemberShipProfile(String memberInfo) {
 		wait.hardWait(2);
+		hardWaitForIEBrowser(2);
 		isElementDisplayed("txt_membershipProfileDetails", memberInfo);
 		String info = element("txt_membershipProfileDetails", memberInfo)
 				.getText().trim();
@@ -1498,7 +1499,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnGoButtonInRunQuery() {
 		isElementDisplayed("btn_askGo");
-		element("btn_askGo").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_askGo"));
+		//element("btn_askGo").click();
 		logMessage("STEP : Go button is clicked in btn_askGo\n");
 	}
 
@@ -1542,9 +1544,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickInvoiceHeading(String tabName) {
-		wait.hardWait(2);
+		wait.hardWait(3);
 		isElementDisplayed("link_invoiceListHeadings", tabName);
-		element("link_invoiceListHeadings", tabName).click();
+		clickUsingXpathInJavaScriptExecutor(element("link_invoiceListHeadings", tabName));
+		//element("link_invoiceListHeadings", tabName).click();
 		wait.waitForPageToLoadCompletely();
 		logMessage("Invoice heading " + tabName + " is clicked");
 
