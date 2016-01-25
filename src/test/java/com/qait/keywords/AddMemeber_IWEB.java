@@ -34,21 +34,21 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		String outPostalCode = map().get("Out_postalCode");
 
 		if (fName.equalsIgnoreCase("")) {
-			fName = "firstName" + System.currentTimeMillis();
+			fName = "FN" + System.currentTimeMillis();
 			enterMemberDetails("first name", fName);
 		} else {
 			enterMemberDetails("first name", fName);
 		}
 
 		if (mName.equalsIgnoreCase("")) {
-			mName = "Selenium middleName";
+			mName = "Selenium";
 			enterMemberDetail("middleName", mName);
 		} else {
 			enterMemberDetail("middleName", mName);
 		}
 
 		if (lName.equalsIgnoreCase("")) {
-			lName = "lastName" + System.currentTimeMillis();
+			lName = "LN" + System.currentTimeMillis();
 			enterMemberDetail("lastName", lName);
 		} else {
 			enterMemberDetail("lastName", lName);

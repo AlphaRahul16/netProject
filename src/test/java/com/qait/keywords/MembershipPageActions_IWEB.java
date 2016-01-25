@@ -1444,7 +1444,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		if (verifyBatchIsPresent(batchName)) {
 			selectOrderEntryInfo("batch", batchName);
 		} else {
-			addBatch("QA_Selenium_Batch", "QA");
+			addBatch("Selenium_Batch", "QA");
 		}
 		waitForSpinner();
 		selectOrderEntryInfo("PaymentType", paymentType);
