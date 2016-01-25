@@ -1456,6 +1456,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		selectBillingAddressIfNotPrePopulated();
 		clickOnSaveAndFinish();
 		handleAlert();
+		
 		verifyPageTitleContains("CRM | Individuals |");
 	}
 

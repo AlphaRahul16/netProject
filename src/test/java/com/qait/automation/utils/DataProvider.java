@@ -249,9 +249,9 @@ public class DataProvider {
 		listOfCaseIdToExecute.removeAll(listOfCaseIdToExecute);
 		YamlReader.setYamlFilePath();
 		String csvSeparator = getYamlValue("csv-data-file.data-separator");
+		System.out.println("shhet name " + sheetName);
 		int totalNumberOfRows = getTotalNumberOfRowsInSheet(
-
-		getYamlValue("csv-data-file.path_" + sheetName), "true");
+				getYamlValue("csv-data-file.path_" + sheetName), "true");
 		for (int i = 1; i <= totalNumberOfRows; i++) {
 			String csvLine = csvReaderRowSpecific(
 					getYamlValue("csv-data-file.path_" + sheetName), "true",
@@ -267,17 +267,11 @@ public class DataProvider {
 				String value1 = DataProvider.getSpecificColumnFromCsvLine(
 						csvLine1, csvSeparator,
 						getColumnNumber_CreateMember(caseIdColumnName));
-
 				listOfCaseIdToExecute.add(value1);
-
 				caseCount++;
 			}
-
 		}
 
-		for (String s : listOfCaseIdToExecute) {
-			System.out.println(s);
-		}
 		return listOfCaseIdToExecute;
 	}
 
@@ -285,9 +279,9 @@ public class DataProvider {
 		return getcaseIdToExecute("caseID Execute", "Yes", "caseID", sheetName);
 	}
 
-	public static List<String> getGivingData() {
-		return getcaseIdToExecute("caseID Execute", "Yes", "caseID",
-				"giving_donate");
-	}
+	// public static List<String> getGivingData() {
+	// return getcaseIdToExecute("caseID Execute", "Yes", "caseID",
+	// "giving_donate");
+	// }
 
 }

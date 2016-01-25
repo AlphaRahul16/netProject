@@ -44,71 +44,7 @@ creditCardInfo:
   cvv-number: 123
   CreditCardExpiration: 06/2016
   
-users: 
-    user1: 
-        contact-information:
-            name:
-                firstname: RegMem123
-                lastname: lastName123
-            email: ACS_OMA@acs.org
-            phone: 8888888888
-            address: 
-                type: Work
-                address: 7955 Pina Lake Rd
-                city: Jacksonville
-                country: UNITED STATES
-                state: Florida
-                zipCode: 32256-7220
-        education-and-employment:
-            CASEID: 1
-#    user2: 
-#        contact-information:
-#            name:
-#                firstname: RegMem123
-#                lastname: lastName123
-#            email: ACS_OMA@acs.org
-#            phone: 8888888888
-#            address: 
-#                type: Work
-#                address: jacksonville
-#                city: florida
-#                country: Thailand
-#                state: New York
-#                zipCode: 32256-7220
-#        education-and-employment:
-#            CASEID: 13
-#    user3: 
-#        contact-information:
-#            name:
-#                firstname: RegMem123
-#                lastname: lastName123
-#            email: ACS_OMA@acs.org
-#            phone: 8888888888
-#            address: 
-#                type: Work
-#                address: jacksonville
-#                city: florida
-#                country: Thailand
-#                state: New York
-#                zipCode: 32256-7220
-#        education-and-employment:
-#            CASEID: 12
-#    user4: 
-#        contact-information:
-#            name:
-#                firstname: RegMem123
-#                lastname: lastName123
-#            email: ACS_OMA@acs.org
-#            phone: 8888888888
-#            address: 
-#                type: Work
-#                address: jacksonville
-#                city: florida
-#                country: Thailand
-#                state: New York
-#                zipCode: 32256-7220
-#        education-and-employment:
-#            CASEID: 13         
+         
 
 
 AACT_users: 
@@ -523,7 +459,7 @@ ACS_Store:
             CASEID: 2
             
 Acs_CreateMember_IWEB:
-    batch: "ACS: Selenium_BATCH"
+    batch: "ACS: SELENIUM_BATCH"
     PaymentType: prepaid
     paymentMethod: Visa/MC
     cardNumber: 4111111111111111

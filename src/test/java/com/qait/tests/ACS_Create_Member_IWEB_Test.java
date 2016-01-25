@@ -12,12 +12,11 @@ import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.utils.YamlReader;
-import com.qait.keywords.YamlInformationProvider;
 
 public class ACS_Create_Member_IWEB_Test {
 
 	TestSessionInitiator test;
-	YamlInformationProvider getKeyValue;
+	
 	private String caseID;
 	public String contactID;
 	private String[] memDetails;
