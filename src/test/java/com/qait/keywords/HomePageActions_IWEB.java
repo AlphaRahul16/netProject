@@ -85,7 +85,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnSideBarTab(String tabName) {
 		wait.waitForPageToLoadCompletely();
-		hardWaitForIEBrowser(4);
+		hardWaitForIEBrowser(6);
 		isElementDisplayed("hd_sideBar", tabName);
 		clickUsingXpathInJavaScriptExecutor(element("hd_sideBar", tabName));
 		// element("hd_sideBar", tabName).click();

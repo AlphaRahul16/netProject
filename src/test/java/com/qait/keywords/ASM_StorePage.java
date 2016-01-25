@@ -73,6 +73,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 	}
 
 	public void verifySearchSuccessfully() {
+		hardWaitForIEBrowser(2);
 		isElementDisplayed("txt_searchList");
 		verifyElementTextContains("txt_searchList", "Search Results");
 		logMessage("STEP : verify search successfully in txt_searchList\n");
@@ -110,7 +111,8 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 	public void clickVerifyButton() {
 		wait.hardWait(3);
 		isElementDisplayed("btn_verify");
-		element("btn_verify").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_verify"));
+		//element("btn_verify").click();
 		logMessage("STEP : Verify button is clicked in btn_verify\n");
 	}
 
@@ -382,7 +384,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 
 	public void verifySecureCheckoutPageIsPresent() {
 		wait.waitForPageToLoadCompletely();
-		hardWaitForIEBrowser(2);
+		hardWaitForIEBrowser(8);
 		isElementDisplayed("hd_secureCheckout");
 		logMessage("ASSERT PASSED : Secure Checkout page is verified in hd_secureCheckout\n");
 	}
@@ -407,6 +409,8 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 	}
 
 	public void verifyQuantityIsPrepopulatedFeild(String quantity) {
+		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(5);
 		isElementDisplayed("txt_box_Quantity");
 		Assert.assertTrue(element("txt_box_Quantity").getAttribute("value").equals(quantity));
 		logMessage("ASSERT PASSED : Quantity is prepolulated feild with value 1\n");
@@ -415,7 +419,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 	}
 
 	public void verifyUserIsOnShoppingCartPage() {
-
+       wait.waitForPageToLoadCompletely();
 		Assert.assertTrue(element("txt_shoppingCart").getText().equals("Shopping Cart"),
 				"Shopping Cart page is not Displayed");
 		logMessage("ASSERT PASSED : Shopping cart page displayed\n");
@@ -579,6 +583,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 	}
 	
 	public <map> Map<String, String> getPrepopulatedShippingAddressFeildsAndContinue() {
+		hardWaitForIEBrowser(7);
 		getPrepopulatedShippingAddressValues("First Name");
 		getPrepopulatedShippingAddressValues("Last Name");
 		getPrepopulatedShippingAddressValues("Email");
@@ -591,7 +596,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 	public void enterPaymentInformation_ACSStore(String CardType, String HolderName, String CCNumber, String Expiration,
 			String CVV) {
 		wait.waitForPageToLoadCompletely();
-		wait.hardWait(5);
+		wait.hardWait(8);
 		selectPaymentInfo("CardType", CardType);
 		enterPaymentInfo("CardHolderName", HolderName);
 		enterPaymentInfo("CCNumber", CCNumber);
@@ -628,7 +633,8 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 	public void clickPlaceYourOrder() {
 		isElementDisplayed("btn_placeOrder");
 		logMessage("STEP : Click place your order button\n");
-		element("btn_placeOrder").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_placeOrder"));
+		//element("btn_placeOrder").click();
 		logMessage("ASSERT PASSED : Place your order button clicked\n");
 	}
 

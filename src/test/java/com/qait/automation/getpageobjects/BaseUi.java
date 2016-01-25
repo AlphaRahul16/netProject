@@ -134,6 +134,7 @@ public class BaseUi {
 					+ actualPageTitle
 					+ "' does not contain expected Page Title : '"
 					+ expectedPagetitle + "'.");
+			System.out.println("In catch---");
 		}
 		String actualPageTitle = getPageTitle().trim();
 		logMessage("ASSERT PASSED: PageTitle for " + actualPageTitle
