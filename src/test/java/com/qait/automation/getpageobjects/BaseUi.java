@@ -271,9 +271,9 @@ public class BaseUi {
 			logMessage("select Element " + el
 					+ " after catching Stale Element Exception");
 		} catch (Exception ex2) {
-
-			logMessage("Element " + el + " could not be clicked! "
-					+ ex2.getMessage());
+sel.selectByVisibleText(text);
+	//logMessage("Element " + el + " could not be clicked! "
+	//				+ ex2.getMessage());
 		}
 	}
 
@@ -580,5 +580,10 @@ public class BaseUi {
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("window.scrollBy(" + x + "," + y + ")", "");
 	}
+	public void selectDropDownValue(String value){
+		  WebElement element=driver.findElement(By.xpath("//select/option[text()='"+value+"']"));
+		  element.click();
+		  logMessage("Step : "+value+" is selected in drop down");
+		 }
 
 }
