@@ -29,7 +29,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickFindForIndividualsSearch() {
 		if (isIEBrowser()) {
 			wait.waitForPageToLoadCompletely();
-			// hardWaitForIEBrowser(10);
+		    hardWaitForIEBrowser(3);
 			clickUsingXpathInJavaScriptExecutor(element("link_findIndividuals"));
 			hardWaitForIEBrowser(3);
 		} else {
