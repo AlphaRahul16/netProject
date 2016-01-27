@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<<<<<<< HEAD
 <suite name="ACS Tests" preserve-order="true" thread-count="1">
+=======
+<suite name="ACS Tests" preserve-order="true" thread-count="1"  configfailurepolicy="continue">
+>>>>>>> 8cc9cfd18f8edceb49362f65e64a955c04892306
 	<test name="ACS Create Member Test"
 		group-by-instances="true">
 		<classes>

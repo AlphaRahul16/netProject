@@ -203,7 +203,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			String addressType = getAACT_OmaSheetValue(caseId,
 					"Address Type Contact Page");
 
-			verifyElementTextContains("txt_memberDetails", fName);
+			verifyElementTextContains("txt_memberDetails",fName);
 			logMessage("ASSERT PASSED :" + fName
 					+ " is verified in txt_memberDetails\n");
 			verifyElementTextContains("txt_memberDetails", lName);

@@ -56,7 +56,8 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(2);
 		isElementDisplayed("btn_submitBottom");
-		click(element("btn_submitBottom"));
+		clickUsingXpathInJavaScriptExecutor(element("btn_submitBottom"));
+		//click(element("btn_submitBottom"));
 		logMessage("Step: submit button at bottom is clicked in  btn_submitBottom\n");
 		//cancelOutPopUp();
 	}
