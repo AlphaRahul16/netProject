@@ -203,7 +203,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			String addressType = getAACT_OmaSheetValue(caseId,
 					"Address Type Contact Page");
 
-			verifyElementTextContains("txt_memberDetails", fName);
+			verifyElementTextContains("txt_memberDetails",fName);
 			logMessage("ASSERT PASSED :" + fName
 					+ " is verified in txt_memberDetails\n");
 			verifyElementTextContains("txt_memberDetails", lName);
@@ -557,7 +557,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
 			// element("img_moreMenu").click();
 			isElementDisplayed("link_moreMenuName", "Subscriptions");
-			element("link_moreMenuName", "Subscriptions").click();
+			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName", "Subscriptions"));
+		//	element("link_moreMenuName", "Subscriptions").click();
 			logMessage("Step : Subscription link is clicked\n");
 			waitForSpinner();
 			isElementDisplayed("btn_memberShip", "active subscriptions");
@@ -956,6 +957,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	private void expandDetailsMenu(String menuName) {
+		hardWaitForIEBrowser(2);
 		isElementDisplayed("btn_memberShip", menuName);
 		clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", menuName));
 		// element("btn_memberShip", menuName).click();

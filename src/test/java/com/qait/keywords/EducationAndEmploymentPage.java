@@ -230,7 +230,8 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 
 	private void clickRadioButton_Detail(String detailtype, String detailValue) {
 		isElementDisplayed("rad_" + detailtype, detailValue);
-		click(element("rad_" + detailtype, detailValue));
+		clickUsingXpathInJavaScriptExecutor(element("rad_" + detailtype, detailValue));
+		//click(element("rad_" + detailtype, detailValue));
 		logMessage("Step: " + detailValue + " is checked in rad_" + detailtype
 				+ "\n");
 	}
