@@ -113,8 +113,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyMemberDetails_OMA(String fName, String lName, String add,
 			String city, String zipCode, String addressType, String contactId,
 			String userEmail, String caseId) {
-		wait.waitForPageToLoadCompletely();
-		hardWaitForIEBrowser(2);
+		//wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(10);
 		verifyElementTextContains("txt_memberDetails", fName);
 		logMessage("ASSERT PASSED :" + fName
 				+ " is verified in txt_memberDetails\n");
@@ -679,27 +679,34 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	private void navigateToProductsMenuOnHoveringMore() {
 		try {
 			isElementDisplayed("img_moreMenu");
-			element("img_moreMenu").click();
+			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
+		//	element("img_moreMenu").click();
 			isElementDisplayed("link_moreMenuName", "Products");
-			element("link_moreMenuName", "Products").click();
+			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName", "Products"));
+		//	element("link_moreMenuName", "Products").click();
 			logMessage("Step : Product link is clicked\n");
 			waitForSpinner();
 			wait.hardWait(2);
+			hardWaitForIEBrowser(3);
 			isElementDisplayed("btn_memberShip", "services purchased");
-			element("btn_memberShip", "services purchased").click();
+			clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", "services purchased"));
+			//element("btn_memberShip", "services purchased").click();
 			logMessage("Step : services purchased drop down button is clicked\n");
 			logMessage("Step : Navigate to products menu on clicking more button\n");
 		} catch (StaleElementReferenceException stlEx) {
 			isElementDisplayed("img_moreMenu");
-			element("img_moreMenu").click();
+			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
+			//element("img_moreMenu").click();
 			wait.waitForPageToLoadCompletely();
 			isElementDisplayed("link_moreMenuName", "Products");
-			element("link_moreMenuName", "Products").click();
+			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName", "Products"));
+			//element("link_moreMenuName", "Products").click();
 			logMessage("Step : Product link is clicked\n");
 			waitForSpinner();
 			wait.waitForPageToLoadCompletely();
 			isElementDisplayed("btn_memberShip", "services purchased");
-			element("btn_memberShip", "services purchased").click();
+			clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", "services purchased"));
+		//	element("btn_memberShip", "services purchased").click();
 			logMessage("Step : Navigate to products menu on clicking more button\n");
 		}
 	}
@@ -957,17 +964,34 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	private void expandDetailsMenu(String menuName) {
-		hardWaitForIEBrowser(2);
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
+		hardWaitForIEBrowser(10);
+		try
+		{
+			wait.resetImplicitTimeout(0);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 		isElementDisplayed("btn_memberShip", menuName);
 		clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", menuName));
 		// element("btn_memberShip", menuName).click();
 		logMessage("Step : " + menuName
 				+ " is clicked to expand in btn_memberShip\n");
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
+		}
+		catch(Exception E)
+		{
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			logMessage("Step : "+menuName+ " already expanded \n" );
+		}
 	}
 
 	private void expandDetailsMenuAACT(String menuName) {
 		isElementDisplayed("btn_memberShipAACT", menuName);
-		element("btn_memberShipAACT", menuName).click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_memberShipAACT", menuName));
+		//element("btn_memberShipAACT", menuName).click();
 		logMessage("Step : " + menuName
 				+ " is clicked to expand in btn_memberShipAACT\n");
 	}
@@ -982,7 +1006,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnInvoiceArrowButtonToNavigateFinancialPage() {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("btn_invoicearrow");
-		element("btn_invoicearrow").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_invoicearrow"));
+		//element("btn_invoicearrow").click();
 		logMessage("Step : user navigate to finance page by clicking btn_invoicearrow\n");
 
 	}

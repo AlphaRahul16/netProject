@@ -270,6 +270,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyInvoiceProfile(String detailName, String detailValue) {
+		hardWaitForIEBrowser(3);
 		if (detailValue.equalsIgnoreCase("")) {
 			logMessage("Step : value of " + detailName
 					+ "  price is empty in data sheet\n");

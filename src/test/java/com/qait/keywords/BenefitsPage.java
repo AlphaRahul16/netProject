@@ -81,8 +81,8 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 			}
 
 			if (getOmaSheetValue(caseId, "CENtype").equalsIgnoreCase("print")) {
-				wait.waitForPageToLoadCompletely();
-				hardWaitForIEBrowser(3);
+				//wait.waitForPageToLoadCompletely();
+				hardWaitForIEBrowser(8);
 				isElementDisplayed("rad_CENType", "Print");
 				clickUsingXpathInJavaScriptExecutor(element("rad_CENType",
 						"Print"));
@@ -112,7 +112,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 
 	private void clickOnACSPublication() {
 		wait.waitForPageToLoadCompletely();
-		hardWaitForIEBrowser(2);
+		hardWaitForIEBrowser(15);
 		isElementDisplayed("btn_ACSPublication");
 		click(element("btn_ACSPublication"));
 		logMessage("Step:  btn_ACSPublication is clicked\n");
@@ -126,7 +126,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 	}
 
 	private void clickOnAddToMembership(String divisionName) {
-		hardWaitForIEBrowser(2);
+		hardWaitForIEBrowser(13);
 		isElementDisplayed("btn_addToMembership", divisionName);
 		clickUsingXpathInJavaScriptExecutor(element("btn_addToMembership",
 				divisionName));

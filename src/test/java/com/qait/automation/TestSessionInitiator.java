@@ -216,7 +216,7 @@ public class TestSessionInitiator {
 	}
 
 	public void openUrl(String url) {
-		driver.navigate().to(url);;
+		driver.navigate().to(url);
 		//driver.get(url);
 		}
 
@@ -300,6 +300,7 @@ public class TestSessionInitiator {
 	public void navigateToIWEBUrlOnNewBrowserTab(String baseURL) {
 		if (_getSessionConfig().get("browser").equalsIgnoreCase("firefox")
 				|| _getSessionConfig().get("browser").equalsIgnoreCase("ie")) {
+			driver.manage().deleteAllCookies();
 			openUrl(baseURL);
 		} else if (_getSessionConfig().get("browser")
 				.equalsIgnoreCase("chrome")) {
