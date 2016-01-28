@@ -4,6 +4,7 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import org.junit.Assert;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 
@@ -91,6 +92,8 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void enterMemberDetails(String detailName, String detailValue) {
+		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(2);
 		isElementDisplayed("inp_memberDetailInAdd", detailName);
 		element("inp_memberDetailInAdd", detailName).clear();
 		element("inp_memberDetailInAdd", detailName).sendKeys(detailValue);
@@ -118,12 +121,22 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void getAndVerifyMemberDetail(String detailName, String detailValue) {
-		isElementDisplayed("inp_" + detailName);
-		String actualText = element("inp_" + detailName).getAttribute("value")
-				.trim();
-		Assert.assertTrue(actualText.equalsIgnoreCase(detailValue));
-		logMessage("ASSERT PASSED : Verified " + detailValue + " in "
-				+ detailName + " \n");
+		wait.waitForPageToLoadCompletely();
+		try {
+			isElementDisplayed("inp_" + detailName);
+			String actualText = element("inp_" + detailName).getAttribute(
+					"value").trim();
+			Assert.assertTrue(actualText.equalsIgnoreCase(detailValue));
+			logMessage("ASSERT PASSED : Verified " + detailValue + " in "
+					+ detailName + " \n");
+		} catch (StaleElementReferenceException E) {
+			isElementDisplayed("inp_" + detailName);
+			String actualText = element("inp_" + detailName).getAttribute(
+					"value").trim();
+			Assert.assertTrue(actualText.equalsIgnoreCase(detailValue));
+			logMessage("ASSERT PASSED : Verified " + detailValue + " in "
+					+ detailName + " \n");
+		}
 	}
 
 	public void getAndVerifyMemberDetailInAddVerify(String detailName,

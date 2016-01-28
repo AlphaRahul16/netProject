@@ -116,7 +116,7 @@ public class ACS_Create_Member_Test {
 		test.checkoutPage.verifyTechnicalDivision(caseID);
 		test.checkoutPage.verifyPublication(caseID);
 		test.checkoutPage.enterPaymentInfo(
-				test.homePageIWEB.map().get("AddressType"), userDetail[1] + " "
+				YamlReader.getYamlValue("creditCardInfo.Type"), userDetail[1] + " "
 						+ userDetail[2],
 				YamlReader.getYamlValue("creditCardInfo.Number"),
 				YamlReader.getYamlValue("creditCardInfo.cvv-number"));
