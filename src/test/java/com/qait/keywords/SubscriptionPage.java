@@ -403,7 +403,7 @@ public class SubscriptionPage extends GetPage {
 				.trim()
 				.equalsIgnoreCase(
 						DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone(
-								"MM/d/YYYY", "EST5EDT")));
+								"M/d/YYYY", "EST5EDT")));
 		logMessage("ASSERT PASSED : Fulfillment date "
 				+ DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone(
 						"MM/d/YYYY", "EST5EDT")

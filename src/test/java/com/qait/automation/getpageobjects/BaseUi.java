@@ -558,13 +558,18 @@ public class BaseUi {
 			} catch (AWTException e) {
 				e.printStackTrace();
 			}
-
 		}
-
 	}
 
 	public String getElementText(WebElement element) {
 		return element.getText();
+		
+	}
+	
+	public void selectDropDownValue(String value){
+		WebElement element=driver.findElement(By.xpath("//select/option[text()='"+value+"']"));
+		element.click();
+		logMessage("Step : "+value+" is selected in drop down");
 	}
 
 	public void checkCheckbox(WebElement ele) {

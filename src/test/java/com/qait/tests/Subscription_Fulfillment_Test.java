@@ -33,7 +33,7 @@ public class Subscription_Fulfillment_Test {
 	@Test
 	public void Step01_Search_Member_In_Individual_Test() {
 		// test.homePageIWEB.clickOnSideBarTab("Individuals");
-//		 test.memberShipPage.selectAndRunQueryMembership("Query Individual",
+		// test.memberShipPage.selectAndRunQueryMembership("Query Individual",
 		// getSubscriptionInfo.getSubscriptionInfo("queryName"));
 		// memberDetails = test.memberShipPage.getMemberDetails();
 
@@ -167,7 +167,7 @@ public class Subscription_Fulfillment_Test {
 				memberDetails.get(1));
 		test.individualsPage.navigateToSubscriptionMenuOnHoveringMore();
 		test.subscriptionPage.verifySubscriptionAdded(subscriptionName);
-		test.individualsPage.navigateToMembershipProfilePage();
+		test.individualsPage.clickOnArrowButtonForProductName(subscriptionName);
 		test.individualsPage.navigateToIssuesMenuOnHoveringMore();
 		test.subscriptionPage.verifyDetailsOnSubscriberProfile("1",
 				memberDetails.get(1), subscriptionName);

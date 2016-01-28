@@ -598,7 +598,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			isElementDisplayed("btn_memberShip", "active subscriptions");
 			element("btn_memberShip", "active subscriptions").click();
 			wait.hardWait(2);
-			 //isElementDisplayed("btn_memberShip", "active subscriptions");
+			// isElementDisplayed("btn_memberShip", "active subscriptions");
 			// element("btn_memberShip", "active subscriptions").click();
 			logMessage("Step : Navigate to subscription menu on clicking more button\n");
 		} catch (StaleElementReferenceException stEx) {
@@ -973,7 +973,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnButtonToNavigateFinancialPageInMembershipPage() {
 		isElementDisplayed("btn_invoiceAtMembership");
 		clickUsingXpathInJavaScriptExecutor(element("btn_invoiceAtMembership"));
-	//	element("btn_invoiceAtMembership").click();
+		// element("btn_invoiceAtMembership").click();
 		logMessage("Step : user navigate to finance page in btn_memberShip\n");
 	}
 
@@ -983,6 +983,13 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		element("btn_invoicearrow").click();
 		logMessage("Step : user navigate to finance page by clicking btn_invoicearrow\n");
 
+	}
+
+	public void clickOnArrowButtonForProductName(String productName) {
+		isElementDisplayed("btnArrowProdName", productName);
+		element("btnArrowProdName", productName).click();
+		logMessage("Step : Arrow button is clicked for product name "
+				+ productName);
 	}
 
 	public String getContactId() {
@@ -1043,7 +1050,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void navigateToMembershipProfilePage() {
-		expandDetailsMenu("individual memberships");
+		// expandDetailsMenu("individual memberships");
 		clickOnButtonToNavigateFinancialPageInMembershipPage();
 	}
 

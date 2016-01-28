@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.utils.YamlReader;
 
 public class ACS_Reinstate_Member_Test {
 	TestSessionInitiator test;
@@ -19,8 +20,10 @@ public class ACS_Reinstate_Member_Test {
 
 	@Test
 	public void Step00_Launch_Application_Under_Test() {
-		System.out.println(app_url_IWEB);
-		test.launchApplication(app_url_IWEB);
+		test.navigateToIWEBUrlOnNewBrowserTab(app_url_IWEB);
+		test.homePageIWEB.enterAuthentication(
+				YamlReader.getYamlValue("Authentication.userName"),
+				YamlReader.getYamlValue("Authentication.password"));
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
