@@ -333,7 +333,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		verifyCrossMarked("Non Member");
 		// TODO Remove hard wait after handling stale element exception
 		holdExecution(1000);
-		clickOnMenuItems("individual memberships");
+		switchToDefaultContent();
+		isElementDisplayed("btn_memberShip", "individual memberships");
+		clickUsingXpathInJavaScriptExecutor(element("btn_memberShip",
+				"individual memberships"));
+		wait.hardWait(4);
+		waitForSpinner();
 		verifyMemberStatusIsNotActive();
 		return memberDetails;
 	}
@@ -372,6 +377,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		mapReinstateMember = YamlReader.getYamlValues("ReinstateMemberIWEB");
 		getCenOrdEntry = new YamlInformationProvider(mapReinstateMember);
+
 		clickOnOrderEntryIcon();
 		// TODO Remove hard wait after handling stale element exception
 		holdExecution(2000);
@@ -445,6 +451,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		holdExecution(1000);
 		clickOnSaveAndFinish();
 		handleAlert();
+		switchToDefaultContent();
 
 	}
 
@@ -548,7 +555,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyMemberReinstatedSuccessfully_Iweb() {
 		handleAlert();
-		clickOnMenuItems("individual memberships");
+		isElementDisplayed("btn_memberShip", "individual memberships");
+		element("btn_memberShip", "individual memberships").click();
 		verifyRejoinDateIsCurentDate();
 		verifyEffectiveDateIsCurentDate();
 		verifyTickedMarked("receives member benefits");
@@ -598,6 +606,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyMemberStatusIsNotActive() {
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
+		switchToDefaultContent();
 		isElementDisplayed("list_mbrStatus");
 		for (WebElement element : elements("list_mbrStatus")) {
 			if (element.getText().trim().equalsIgnoreCase("Active")) {
@@ -623,13 +634,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnOrderEntryIcon() {
+		switchToDefaultContent();
+		wait.hardWait(2);
+		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("img_orderEntry");
-		if (isBrowser("ie") || isBrowser("internetexplorer")) {
-			clickUsingXpathInJavaScriptExecutor(element("img_orderEntry"));
-		} else {
-			element("img_orderEntry").click();
-		}
+		clickUsingXpathInJavaScriptExecutor(element("img_orderEntry"));
 		logMessage("Step : order entry icon is clicked in img_orderEntry\n");
+
 	}
 
 	public void clickOnAddMembershipMenu() {
@@ -698,7 +709,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_rejoinDateForActive");
 		String rejoindate = element("txt_rejoinDateForActive").getText().trim();
 		currentDate = DateUtil
-				.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST5EDT");
+				.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy",
+						"EST5EDT");
 
 		if (currentDate.startsWith("0")) {
 			String newCurrentDate = currentDate.substring(1);
@@ -714,7 +726,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		String rejoindate = element("txt_effectiveDateForActive").getText()
 				.trim();
 		currentDate = DateUtil
-				.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST5EDT");
+				.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy",
+						"EST5EDT");
 
 		if (currentDate.startsWith("0")) {
 			String newCurrentDate = currentDate.substring(1);
@@ -1470,7 +1483,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		selectBillingAddressIfNotPrePopulated();
 		clickOnSaveAndFinish();
 		handleAlert();
-		
+
 		verifyPageTitleContains("CRM | Individuals |");
 	}
 
@@ -1514,7 +1527,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnGoButtonInRunQuery() {
 		isElementDisplayed("btn_askGo");
 		clickUsingXpathInJavaScriptExecutor(element("btn_askGo"));
-		//element("btn_askGo").click();
+		// element("btn_askGo").click();
 		logMessage("STEP : Go button is clicked in btn_askGo\n");
 	}
 
@@ -1561,8 +1574,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickInvoiceHeading(String tabName) {
 		wait.hardWait(3);
 		isElementDisplayed("link_invoiceListHeadings", tabName);
-		clickUsingXpathInJavaScriptExecutor(element("link_invoiceListHeadings", tabName));
-		//element("link_invoiceListHeadings", tabName).click();
+		clickUsingXpathInJavaScriptExecutor(element("link_invoiceListHeadings",
+				tabName));
+		// element("link_invoiceListHeadings", tabName).click();
 		wait.waitForPageToLoadCompletely();
 		logMessage("Invoice heading " + tabName + " is clicked");
 

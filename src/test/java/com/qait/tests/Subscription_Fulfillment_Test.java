@@ -167,7 +167,7 @@ public class Subscription_Fulfillment_Test {
 				memberDetails.get(1));
 		test.individualsPage.navigateToSubscriptionMenuOnHoveringMore();
 		test.subscriptionPage.verifySubscriptionAdded(subscriptionName);
-		test.individualsPage.navigateToMembershipProfilePage();
+		test.individualsPage.clickOnArrowButtonForProductName(subscriptionName);
 		test.individualsPage.navigateToIssuesMenuOnHoveringMore();
 		test.subscriptionPage.verifyDetailsOnSubscriberProfile("1",
 				memberDetails.get(1), subscriptionName);

@@ -247,7 +247,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
 				}
-				catch(StaleElementReferenceException E)
+				catch(Exception E)
 				{
 					wait.resetImplicitTimeout(timeOut);
 					wait.resetExplicitTimeout(timeOut);

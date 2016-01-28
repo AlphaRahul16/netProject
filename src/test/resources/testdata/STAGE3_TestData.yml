@@ -42,20 +42,7 @@ creditCardInfo:
   Holder-name: FIRSTNAME LASTNAME
   Number: "4111111111111111"
   cvv-number: 123
-  CreditCardExpiration: 06/2016
-  
-         
-
-
-AACT_users: 
-    user1: 
-        CASEID: 1
-#    user2: 
-#        CASEID: 4
-#    user3: 
-#        CASEID: 5  
-#    user4: 
-#        CASEID: 6        
+  CreditCardExpiration: 06/2016      
 
 
             
@@ -345,7 +332,7 @@ ReinstateMemberIWEB:
          memberPackage: "Regular Member 2Y Dues C&EN-Electronic"
          jobTitle: NR-No Response
          industry: 2-Independent Consulting
-         batch: "ACS: QA TEST BATCH"
+         batch: "ACS: QA_SUB_BATCH"
          PaymentType: prepaid
          paymentMethod: Visa/MC
          cardNumber: 4111111111111111
