@@ -3,7 +3,7 @@
 	parallel="false" thread-count="3">
 
 
-	<!-- <test name="ASM Giving Green Smoke" parallel="false">
+	<test name="ASM Giving Green Smoke" parallel="false">
 		<classes>
 			<class name="com.qait.tests.ASM_Giving_Green_Smoke"></class>
 		</classes>
@@ -17,7 +17,13 @@
 		<classes>
 			<class name="com.qait.tests.ASM_Giving_Seed_Smoke"></class>
 		</classes>
-	</test> -->
+	</test>
+	
+	<test name="ASM Giving Donate Smoke" parallel="false">
+		<classes>
+			<class name="com.qait.tests.ASM_Donate_Smoke"></class>
+		</classes>
+	</test>
 	
 <test name="ASM Meeting Smoke" parallel="false">
 		<classes>
@@ -30,13 +36,15 @@
 			<class name="com.qait.tests.ASM_MGM_Smoke"></class>
 		</classes>
 	</test>
-	
-	
-	
-	
-	<test name="ASM OMR Smoke" parallel="false">
+	<test name="ASM Nominate Smoke" parallel="false">
 		<classes>
-			<class name="com.qait.tests.ASM_OMR_Smoke"></class>
+			<class name="com.qait.tests.ASM_Nominate_Smoke"></class>
+		</classes>
+	</test>
+
+	<test name="ASM Pubs Smoke" parallel="false">
+		<classes>
+			<class name="com.qait.tests.ASM_PUBS_Smoke"></class>
 		</classes>
 
 	</test>
@@ -51,5 +59,10 @@
 
 		</classes>
 	</test>
+	
+	
+	
+	
+	
 
 </suite>
