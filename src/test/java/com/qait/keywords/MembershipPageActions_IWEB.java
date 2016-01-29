@@ -628,8 +628,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnSelectProduct() {
 		isElementDisplayed("lnk_selectProduct");
-		clickUsingXpathInJavaScriptExecutor(element("lnk_selectProduct"));
+		//hover(element("lnk_selectProduct"));
+		wait.hardWait(1);
+		//clickUsingXpathInJavaScriptExecutor(element("lnk_selectProduct"));
 		//element("lnk_selectProduct").click();
+		executeJavascript("document.getElementById('HYPERLINK_17').click()");
 		logMessage("Step : select product link is clicked in lnk_selectProduct\n");
 	}
 
@@ -693,9 +696,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnSaveAndFinish() {
+		hardWaitForIEBrowser(2);
 		isElementDisplayed("btn_saveAndFinish");
-		clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
-		//element("btn_saveAndFinish").click();
+		hardWaitForIEBrowser(2);
+		System.out.println("click............................");
+		element("btn_saveAndFinish").click();
+		//executeJavascript("document.getElementById('Bottom_0').click()");
+		//clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
+		hardWaitForIEBrowser(10);
+		
 		logMessage("Step : save and finish button is clicked\n");
 	}
 
@@ -1328,8 +1337,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void selectSubscriptionInSelectProductLink() {
+		hardWaitForIEBrowser(10);
 		isElementDisplayed("link_subscriptionInSelectProduct");
-		clickUsingXpathInJavaScriptExecutor(element("link_subscriptionInSelectProduct"));
+		//hover(element("link_subscriptionInSelectProduct"));
+		wait.hardWait(1);
+		executeJavascript("document.getElementById('HYPERLINK_2').click()");
+		//clickUsingXpathInJavaScriptExecutor(element("link_subscriptionInSelectProduct"));
 		//element("link_subscriptionInSelectProduct").click();
 		logMessage("Step : subscription link is clicked in link_subscriptionInSelectProduct\n");
 
@@ -1382,6 +1395,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		} catch (Exception e) {
+			System.out.println("in catch");
 			wait.waitForPageToLoadCompletely();
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
@@ -1413,7 +1427,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// totalPrice = getMemberInfoOnMemberShipProfile("net-balance:");
 		logMessage("Step : Display name is : " + displayName + "\n");
 		clickOnSaveAndFinish();
-		switchToDefaultContent();
+		driver.navigate().refresh();
+		//switchToDefaultContent();
 		waitForSpinner();
 		wait.hardWait(2);
 		if (displayName
@@ -1440,7 +1455,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickUsingXpathInJavaScriptExecutor(element("inp_searchDisplayButton"));
 		//element("inp_searchDisplayButton").click();
 		wait.hardWait(2);
-		hardWaitForIEBrowser(6);
+		hardWaitForIEBrowser(8);
 		logMessage("Step : Search display name button is clicked in inp_searchDisplayButton\n");
 	}
 
