@@ -125,6 +125,25 @@ public class ASM_OMRPage extends GetPage {
 		switchToDefaultContent();
 		return email;
 	}
+	public void selectUndergradutaeSchoolStatus(String value)
+	{
+		try
+		{
+			wait.resetImplicitTimeout(2);
+		switchToFrame("eWebFrame");
+		element("chkbox_undergraduate").click();
+		wait.hardWait(2);
+		element("rad_undergraduate", value).click();
+		clickOnSaveButton();
+		switchToDefaultContent();
+		
+		}
+		catch(Exception e)
+		{
+			wait.resetImplicitTimeout(timeOut);
+		}
+		wait.resetImplicitTimeout(timeOut);
+	}
 
 	public String enterValueInUpdateAddressFields(String fieldName,
 			String fieldValue) {

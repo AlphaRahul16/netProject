@@ -140,11 +140,11 @@ public class ASM_DonatePage extends GetPage {
 		wait.hardWait(3);
 	}
 
-	public void enterOtherProgram(String otherProgramValue) {
+	public void enterOtherProgram(String otherProgramName) {
 		isElementDisplayed("inp_otherProgram");
 		element("inp_otherProgram").clear();
-		element("inp_otherProgram").sendKeys(otherProgramValue);
-		logMessage("Step : " + otherProgramValue
+		element("inp_otherProgram").sendKeys(otherProgramName);
+		logMessage("Step : " + otherProgramName
 				+ " is entered in inp_otherProgram\n");
 	}
 
@@ -375,7 +375,6 @@ public class ASM_DonatePage extends GetPage {
 			String arrayName[] = MemberName.split(" ");
 			MemberName = arrayName[(arrayName.length) - 2] + " "
 					+ arrayName[(arrayName.length) - 1];
-			System.out.println("Member Full name" + MemberName);
 			enterCreditCardHolderName(MemberName);
 		} else if (memberLoginDetails.size() == 1) {
 			enterCreditCardHolderName(cardHolderName);
@@ -385,7 +384,7 @@ public class ASM_DonatePage extends GetPage {
 		enterCVVNumber(cvvNumber);
 		selectExpirationDate_Year("Date", date_Value);
 		selectExpirationDate_Year("Year", year_Value);
-		clickOnContinueButton();
+		clickOnSubmitPaymentButton();
 
 	}
 
@@ -477,7 +476,7 @@ public class ASM_DonatePage extends GetPage {
 			productNameValues.add(element("txt_product_Code", productName)
 					.getText());
 			mapIwebProductDetails.put(productName, productNameValues);
-			logMessage("STEP : " + productName + " display name is"
+			logMessage("STEP : " + productName + " display name is "
 					+ productNameValues.get(0) + " And Code is "
 					+ productNameValues.get(1));
 
@@ -497,9 +496,7 @@ public class ASM_DonatePage extends GetPage {
 		String[] programNames = new String[4];
 		wait.waitForPageToLoadCompletely();
 		for (int i = 0; i < 4; i++) {
-			System.out.println("program" + ProgramNameToDonate[i]);
 			programNames[i] = isProgram(ProgramNameToDonate[i]);
-			System.out.println("program names " + programNames[i]);
 		}
 
 		return programNames;
@@ -509,8 +506,6 @@ public class ASM_DonatePage extends GetPage {
 	private String isProgram(String ProgramName) {
 		if (ProgramName.length() != 0) {
 			IsProgramPledged++;
-			System.out.println("ProgramName " + ProgramName + " pledge status "
-					+ IsProgramPledged);
 		}
 		TotalAmountMap
 				.put("IsProgramPledged", String.valueOf(IsProgramPledged));
@@ -521,19 +516,19 @@ public class ASM_DonatePage extends GetPage {
 	public void donateMoneyToProgram(String ProgramName[], String Amount[]) {
 		wait.waitForPageToLoadCompletely();
 		for (int i = 0; i < 3; i++) {
-			System.out.println(i);
+
 			if (ProgramName[i].length() == 0) {
-				System.out.println("Program name" + ProgramName[i]
+				System.out.println("Program name " + ProgramName[i]
 						+ " Length is " + ProgramName[i].length());
-				logMessage(ProgramName[i] + " is empty");
 
 			} else {
-				System.out.println("Program name" + ProgramName[i]
+				System.out.println("Program name " + ProgramName[i]
 						+ " Length is " + ProgramName[i].length());
 				enterDonateValue(ProgramName[i], Amount[i]);
 			}
 		}
-		if (ProgramName[3] != null || ProgramName[3].length() != 0) {
+		if (ProgramName[3].length()!=0) {
+			System.out.println("Program 3 lenght "+ProgramName[3].length());
 
 			enterOtherProgram(ProgramName[3]);
 			enterOtherAmount(Amount[3]);
@@ -548,10 +543,9 @@ public class ASM_DonatePage extends GetPage {
 		}
 		double totalamount = Math.round(sum * 100.00) / 100.00;
 		isElementDisplayed("txt_totalamount");
-		System.out.println(element("txt_totalamount").getText()
-				.replace("$", ""));
 		Assert.assertTrue(totalamount == Double.parseDouble(element(
 				"txt_totalamount").getText().replace("$", "")));
+		logMessage("ASSERT PASSED : Total calculated amount entered on donation page is "+totalamount);
 		clickOnSubmitPaymentButton();
 
 	}
@@ -568,21 +562,18 @@ public class ASM_DonatePage extends GetPage {
 		}
 		TotalAmountMap.put("TotalAmount", String.valueOf(totalamount));
 		isElementDisplayed("txt_totalOnDonationPage");
-		System.out.println(element("txt_totalOnDonationPage").getText()
-				.replace("$", ""));
 		if (pledgedMonthlyTotal == true) {
 
 			Monthlyamount = (totalamount / Double.parseDouble(PledgeMonths));
 			Monthlyamount = Math.round(Monthlyamount * 100.00) / 100.00;
 			TotalAmountMap.put("MonthlyAmount", String.valueOf(Monthlyamount));
-			System.out.println(Monthlyamount);
 			Assert.assertTrue(Monthlyamount == Double.parseDouble(element(
 					"txt_totalOnDonationPage").getText().replace("$", "")));
-			logMessage("Pledged Monthly total displayed as " + Monthlyamount);
+			logMessage("ASSERT PASSED : Pledged Monthly total displayed as " + Monthlyamount);
 		} else {
 			Assert.assertTrue(totalamount == Double.parseDouble(element(
 					"txt_totalOnDonationPage").getText().replace("$", "")));
-			logMessage("Total on Confirmation Page displayed as " + totalamount);
+			logMessage("ASSERT PASSED : Total on Confirmation Page displayed as " + totalamount);
 		}
 		return TotalAmountMap;
 
@@ -590,7 +581,7 @@ public class ASM_DonatePage extends GetPage {
 
 	public void verifyProductNamesFromIweb(String[] productNameKey) {
 		wait.waitForPageToLoadCompletely();
-		for (int i = 0; i < 3; i++) {
+		for (int i = 1; i < 3; i++) {
 			System.out.println(productNameKey[i]);
 			isElementDisplayed("txt_DonateProgram", productNameKey[i]);
 		}
@@ -600,7 +591,6 @@ public class ASM_DonatePage extends GetPage {
 	public Map<String, List<String>> getUserAddressDetails(
 			List<String> memberLoginDetails, String PhoneNo, String Email,
 			String Address) {
-		System.out.println("Member login details" + memberLoginDetails.size());
 		if (memberLoginDetails.size() > 1) {
 			getParticularAddressValue(PhoneNo);
 			getParticularAddressValue(Email);
@@ -612,24 +602,31 @@ public class ASM_DonatePage extends GetPage {
 
 	public void getParticularAddressValue(String Name) {
 
-		String actual = element("txt_" + Name).getText().trim();
-		mapMemberAddress.put(Name, actual);
+		String actualvalue = element("txt_" + Name).getText().trim();
+		mapMemberAddress.put(Name, actualvalue);
+		logMessage("Step : User "+Name+" is displayed on iweb as "+actualvalue);
 	}
 
 	public void clickOnLoginButtonForSpecifiedUser(
 			List<String> memberLoginDetails, String ValidEmailAddress) {
+		System.out.println("member login details"+memberLoginDetails.size());
 		if (memberLoginDetails.size() > 1) {
 			wait.waitForPageToLoadCompletely();
 			loginIntoApplicationByMember(memberLoginDetails.get(2), "password");
 			wait.waitForPageToLoadCompletely();
+			try
+			{
 			verifyMemberOrNonMemberDetails("Name", "Address");
 			verifyMemberOrNonMemberDetails("Email", "Email");
 			verifyMemberOrNonMemberDetails("Phone", "PhoneNo");
 			verifyMemberOrNonMemberDetails("Address", "Address");
 			verifyMemberOrNonMemberDetails("City", "Address");
 			verifyMemberOrNonMemberDetails("Zip Code", "Address");
-			// verifyMemberOrNonMemberDetails("State", "Address");
-			// verifyMemberOrNonMemberDetails("Country", "Address");
+			}
+			catch(StaleElementReferenceException e)
+			{
+				
+			}
 			element("txtbox_inpfeild", "Email").click();
 			element("txtbox_inpfeild", "Email").clear();
 			element("txtbox_inpfeild", "Email").sendKeys(ValidEmailAddress);
@@ -647,7 +644,7 @@ public class ASM_DonatePage extends GetPage {
 		wait.hardWait(3);
 		if (inpfeilds.equals("Name")) {
 			wait.hardWait(1);
-			// isElementDisplayed("txt_inpName");
+			isElementDisplayed("txt_inpName");
 			MemberFullName.add(element("txt_inpName").getText().trim());
 			Assert.assertTrue(mapMemberAddress.get(Address).contains(
 					element("txt_inpName").getText().trim()));
@@ -662,7 +659,7 @@ public class ASM_DonatePage extends GetPage {
 			Assert.assertTrue(mapMemberAddress.get(Address).contains(
 					element("txtbox_inpfeild", inpfeilds).getAttribute("value")
 							.trim()));
-			logMessage(inpfeilds
+			logMessage("ASSERT PASSED : "+inpfeilds
 					+ " in Address feild is verified as "
 					+ element("txtbox_inpfeild", inpfeilds).getAttribute(
 							"value"));
@@ -689,12 +686,12 @@ public class ASM_DonatePage extends GetPage {
 						"txt_confirmDonation_amount",
 						elements("txt_confirmDonation_product").get(i)
 								.getText()).getText()) == totalamount);
-				logMessage("ASSERT PASSED : Product amount for Product "
+				logMessage("ASSERT PASSED : Product amount donated for Product "
 						+ elements("txt_confirmDonation_product").get(i)
 								.getText() + " is " + totalamount);
 				i++;
 			} else {
-				logMessage("Step : Amount is not donated for Product "
+				System.out.println("Step : Amount is not donated for Product "
 						+ ProductNames[j]);
 			}
 		}
@@ -745,8 +742,6 @@ public class ASM_DonatePage extends GetPage {
 					iteration = i;
 				}
 			}
-			System.out.println("iteration " + iteration);
-			System.out.println("count " + count);
 			if (count == 1) {
 				if (iteration == 1) {
 
@@ -769,11 +764,11 @@ public class ASM_DonatePage extends GetPage {
 	public void verifyThankyouMessageAfterDonation() {
 
 		isElementDisplayed("txt_thankYouMessage");
-		element("txt_thankYouMessage")
+		Assert.assertTrue(element("txt_thankYouMessage")
 				.getText()
 				.trim()
-				.equals("Thank you for your donation to the American Chemical Society.");
-		logMessage("Thankyou Message is verified as "
+				.equals("Thank you for your donation to the American Chemical Society."));
+		logMessage("ASSERT PASSED : Thankyou Message is verified as "
 				+ element("txt_thankYouMessage").getText().trim());
 	}
 
@@ -782,7 +777,7 @@ public class ASM_DonatePage extends GetPage {
 		isElementDisplayed("lnk_printReceipt");
 		element("lnk_printReceipt").getText().trim()
 				.equals("Print Your Receipt");
-		logMessage("Print Receipt Message is verified as "
+		logMessage("ASSERT PASSED : Print Receipt Message is verified as "
 				+ element("lnk_printReceipt").getText().trim());
 
 	}
@@ -791,7 +786,7 @@ public class ASM_DonatePage extends GetPage {
 		isElementDisplayed("txt_confirmationEmailBox");
 		element("txt_confirmationEmailBox").getText().trim()
 				.contains(ConfirmationEmail);
-		logMessage("Confirmation Email displayed on Confirm Your Donation Page as "
+		logMessage("ASSERT PASSED : Confirmation Email displayed on Confirm Your Donation Page as "
 				+ ConfirmationEmail);
 
 	}
@@ -810,11 +805,12 @@ public class ASM_DonatePage extends GetPage {
 					| (!isBreakDonationTrue.equalsIgnoreCase("YES") && PledgeMonths
 							.length() != 0)) {
 				Assert.fail("Break Donation/PledgeMonths in datasheet are Empty");
+				
 			} else {
-				logMessage("Break Donation/PledgeMonths checkbox is not checked");
+				logMessage("ASSERT PASSED : Break Donation/PledgeMonths checkbox is not checked");
 			}
 		} else {
-			logMessage("Step : Donation not eligible for monthly payments");
+			logMessage("ASSERT PASSED : Donation not eligible for monthly payments");
 		}
 
 	}
@@ -827,9 +823,9 @@ public class ASM_DonatePage extends GetPage {
 				.getText());
 		Monthlyamount = (Totalamount / Double.parseDouble(PledgeMonths));
 		Monthlyamount = Math.round(Monthlyamount * 100.00) / 100.00;
-		System.out.println("Monthly Amount " + Monthlyamount);
 		Assert.assertTrue(Monthlyamount == Double.parseDouble(element(
 				"txt_monthlyAmountPayble").getText().replace("$", " ").trim()));
+		logMessage("ASSERT PASSED : Monthly payable amount is verifed as "+Monthlyamount);
 	}
 
 	private void checkBreakMyDonationInto() {
@@ -846,9 +842,10 @@ public class ASM_DonatePage extends GetPage {
 		}
 	}
 
-	public void verifyProductPledgedSummaryOnConfirmDonationPage(
-			String[] donateProgramNames, String[] amount, String PledgeMonths) {
-		if (IsProgramPledged == 1) {
+
+	public void verifyProductPledgedSummaryOnConfirmDonationPage(String[] donateProgramNames, String[] amount,String PledgeMonths) {
+		if(pledgedMonthlyTotal==true)
+		{
 			verifyPledgedProductSummary(donateProgramNames);
 			verifyPledgeMessageOnSummaryTable(PledgeMonths);
 		} else {
@@ -862,10 +859,10 @@ public class ASM_DonatePage extends GetPage {
 		isElementDisplayed("txt_pledgeMessage");
 		Assert.assertTrue(element("txt_pledgeMessage").getText().contains(
 				PledgeMonths));
-		logMessage("Pledge Message contains Pledge months as " + PledgeMonths);
+		logMessage("ASSERT PASSED : Pledge Message contains Pledge months as " + PledgeMonths);
 		Assert.assertTrue(element("txt_pledgeMessage").getText().contains(
 				String.valueOf(totalamount)));
-		logMessage("Pledge Message contains total amount as " + totalamount);
+		logMessage("ASSERT PASSED : Pledge Message contains total amount as " + totalamount);
 
 	}
 
@@ -877,8 +874,6 @@ public class ASM_DonatePage extends GetPage {
 		}
 		isElementDisplayed("txt_confirmDonation_product");
 		String pledgeProductName = donateProgramNames[0] + " Pledge";
-		System.out.println("pledgeProductName " + pledgeProductName);
-		System.out.println(element("txt_confirmDonation_product").getText());
 		Assert.assertTrue(element("txt_confirmDonation_product").getText()
 				.equals(pledgeProductName));
 		logMessage("ASSERT PASSED : Product name on confirm donation page is displayed as : "
@@ -886,4 +881,7 @@ public class ASM_DonatePage extends GetPage {
 
 	}
 
-}
+		
+	}
+
+

@@ -1,0 +1,243 @@
+        
+function ResizeMenu()
+{
+    var w = 150;
+    var h = 20;
+    if (navigator.userAgent.toLowerCase().indexOf("msie") > 0)
+    {
+        // if IE
+        w = document.forms[0].scrollWidth;
+        h = document.forms[0].scrollHeight;
+        if (w < 150) { w = 150; }   // set a minimum width for the menu
+        //if (h < 20) { h = 20; }     // set a minimum height for the menu
+        try { window.resizeTo(w, h); } catch(ex) { }
+    }
+    else if (window.frameElement != null)
+    {
+        // else (FireFox, Netscape)
+        w = document.forms[0].offsetWidth;
+        h = document.forms[0].offsetHeight;
+        if (w < 150) { w = 150; }   // set a minimum width for the menu
+        //if (h < 20) { h = 20; }     // set a minimum height for the menu
+        window.frameElement.style.width = w + "px";
+        window.frameElement.style.height = h + "px";
+    }
+    if (parent != null && window.frameElement != null)
+	{
+	    var t = GetTop(window.frameElement);
+	    var l = GetLeft(window.frameElement);
+	    CheckOpenToLeftOrTop(t, l, w, h);
+        // create a shadow box for the newly resized and repositioned menu
+       // if (parent.CreateShadowBox) { parent.CreateShadowBox(window.frameElement.id, GetLeft(window.frameElement), GetTop(window.frameElement), w, h); }
+    }
+}
+
+function CheckOpenToLeftOrTop(t, l, w, h)
+{
+    var bNeedsToMove = false;
+    
+    var moveToLeft = GetRequest("MoveToLeft");
+    if (moveToLeft == "1")
+	{
+	    var parentId = GetRequest("ParentId");
+	    var widthAdj = GetRequest("WidthAdj");
+	    var heightAdj = GetRequest("HeightAdj");
+	    if (parentId != "")
+	    {
+	        // find the parent link (which opened this menu) and position the window frame to the left of it
+	        var parentLink;
+	        if (window.frameElement.document != null)
+	            parentLink = window.frameElement.document.getElementById(parentId);
+	        else
+	            parentLink = window.frameElement.ownerDocument.getElementById(parentId);
+		    if (parentLink != null)
+		    {
+		        if (widthAdj == "") { widthAdj = "0"; }
+		        try { widthAdj = parseInt(widthAdj); } catch(ex) { widthAdj = 0; }
+			    var l = GetLeft(parentLink) - w + parentLink.offsetWidth + widthAdj;
+			    bNeedsToMove = true;
+		    }
+		}
+	}
+	
+	var moveToTop = GetRequest("MoveToTop");
+	if (moveToTop == "1")
+	{
+	    var parentId = GetRequest("ParentId");
+	    var widthAdj = GetRequest("WidthAdj");
+	    var heightAdj = GetRequest("HeightAdj");
+	    if (parentId != "")
+	    {
+	        // find the parent link (which opened this menu) and position the window frame to the left of it
+		    var parentLink;
+		    if (window.frameElement.document != null)
+		        parentLink = window.frameElement.document.getElementById(parentId);
+		    else
+		        parentLink = window.frameElement.ownerDocument.getElementById(parentId);
+		    if (parentLink != null)
+		    {
+		        if (heightAdj == "") { heightAdj = "0"; }
+		        try { heightAdj = parseInt(heightAdj); } catch(ex) { heightAdj = 0; }
+			    var t = GetTop(parentLink) - h + heightAdj;
+			    bNeedsToMove = true;
+		    }
+		}
+	}
+	
+	if (bNeedsToMove)
+	{
+	    if (l < 0) { l = 0; }   // set a minimum left for the menu
+        if (t < 0) { t = 0; }   // set a minimum top for the menu
+	    if (navigator.userAgent.toLowerCase().indexOf("msie") > 0)
+        {
+            // if IE
+	        try { window.moveTo(l, t); } catch(ex) { }
+	    }
+	    else if (window.frameElement != null)
+        {
+            // else (FireFox, Netscape)
+            window.frameElement.style.left = l +"px";
+            window.frameElement.style.top = t + "px";
+        }
+	}
+}
+
+// functions to keep the menus open:
+
+function ShowMenu()
+{
+	if (parent != null && parent.ShowContextMenu) { parent.ShowContextMenu(null, null, null, null, 0, 0, null, null, false); }
+}
+
+function HideMenu()
+{
+	if (parent != null && parent.HideContextMenu) { parent.HideContextMenu(null); }
+}
+
+function GetRequest(name)
+{
+    var v = "";
+    var s = document.location.href;
+    if (s.toLowerCase().indexOf(name.toLowerCase() + "=") >= 0)
+    {
+        v = s.substring(s.toLowerCase().indexOf(name.toLowerCase() + "=") + name.length + 1);
+        if (v.indexOf("&") >= 0) { v = v.substring(0, v.indexOf("&")); }
+    }
+    return v;
+}
+
+// ----- vertical sliding (overflow) menu:
+
+var nOverflowMenuOpenTimerId = null;
+var nOverflowMenuCloseTimerId = null;
+var sLastOpenOverflowMenuId = "";
+var oLastOpenOverflowMenuParentLink = null;
+var sLastOpenOverflowMenuParentLinkCssClass = "";
+
+function SlideMenu(id, resize, link, cssClass, activeCssClass)
+{
+	var e = FindControl(id);
+	if (e != null)
+	{
+		if (e.style.display == "none")
+		{
+		    if (link != null && activeCssClass != null && activeCssClass != "")
+		    {
+		        var currentCssClass = link.className;
+		        link.className = activeCssClass;
+		        if (oLastOpenOverflowMenuParentLink != null)
+		        {
+		            if (sLastOpenOverflowMenuParentLinkCssClass != "") { oLastOpenOverflowMenuParentLink.className = sLastOpenOverflowMenuParentLinkCssClass; }
+		            else if (cssClass != null && cssClass != "") { oLastOpenOverflowMenuParentLink.className = cssClass; }
+		        }
+		        sLastOpenOverflowMenuParentLinkCssClass = currentCssClass;
+		        oLastOpenOverflowMenuParentLink = link;
+		    }
+			e.style.height = "0px";
+			e.style.display = "inline";
+			CollapseSlideMenu(sLastOpenOverflowMenuId, resize);
+			ExpandSlideMenu(id, resize);
+			sLastOpenOverflowMenuId = id;
+		}
+		else if (e.style.display == "inline")
+		{
+	        if (link != null && cssClass != null && cssClass != "") { link.className = cssClass; }
+	        oLastOpenOverflowMenuParentLink = null;
+	        sLastOpenOverflowMenuParentLinkCssClass = "";
+			CollapseSlideMenu(id, resize);
+			sLastOpenOverflowMenuId = "";
+		}
+	}
+}
+
+function ExpandSlideMenu(id, resize)
+{
+	var e = FindControl(id);
+	var o = FindControl(id + "_child");
+	if (e != null && o != null)
+	{
+	    if (parseInt(e.style.width) < o.offsetWidth) { e.style.width = o.offsetWidth; }
+	    //else { e.style.width = "100%"; }
+		var h = parseInt(e.style.height);
+		if (h < o.scrollHeight)
+		{   
+		    if (h + 50 > o.scrollHeight) { h = o.scrollHeight - 50; }
+			o.style.clip = "rect(0," + o.offsetWidth + "," + (h + 50) + ",0)";
+			e.style.height = (h + 50) + "px";
+			nOverflowMenuOpenTimerId = setTimeout("ExpandSlideMenu('" + id + "'," + (resize ? "true" : "false") + ")", 10);
+		}
+		else
+		{
+			clearTimeout(nOverflowMenuOpenTimerId);
+			nOverflowMenuOpenTimerId = null;
+		}
+		if (resize && window.ResizeMenu) { ResizeMenu(); }
+		else if (sLastContextMenuId != null && sLastContextMenuId != "")
+		{
+		    var menu = FindControl(sLastContextMenuId);
+		   // if (menu != null) { CreateShadowBox(sLastContextMenuId, GetLeft(menu), GetTop(menu), menu.offsetWidth, menu.offsetHeight); }
+		}
+	}
+}
+
+function CollapseSlideMenu(id, resize)
+{
+	var e = FindControl(id);
+	var o = FindControl(id + "_child");
+	if (e != null && o != null)
+	{
+		if (parseInt(e.style.width) < o.offsetWidth) { e.style.width = o.offsetWidth; }
+		//else { e.style.width = "100%"; }
+		var h = parseInt(e.style.height);
+		if (h > 0)
+		{
+		    if (h < 50) { h = 50; }
+			o.style.clip = "rect(0," + o.offsetWidth + "," + (h - 50) + ",0)";
+			e.style.height = (h - 50) + "px";
+			nOverflowMenuCloseTimerId = setTimeout("CollapseSlideMenu('" + id + "'," + (resize ? "true" : "false")  + ")", 10);
+		}
+		else
+		{
+			clearTimeout(nOverflowMenuCloseTimerId);
+			nOverflowMenuCloseTimerId = null;
+			e.style.display = "none";
+		}
+		if (resize && window.ResizeMenu) { ResizeMenu(); }
+		else if (sLastContextMenuId != null && sLastContextMenuId != "")
+		{
+		    var menu = FindControl(sLastContextMenuId);
+		  //  if (menu != null) { CreateShadowBox(sLastContextMenuId, GetLeft(menu), GetTop(menu), menu.offsetWidth, menu.offsetHeight); }
+		}
+	}
+}
+
+&f&Zƒ      V”‡ÊV”‡Ê<`ÒVËXý   >:https://iwebtest.acs.org/NFStage3/iweb/Scripts/ContextMenu.js necko:classified 1 security-info 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 request-method GET auth Basic response-head HTTP/1.1 200 OK
+Content-Type: application/javascript
+Last-Modified: Wed, 17 Sep 2014 12:10:28 GMT
+Accept-Ranges: bytes
+Etag: "012765e70d2cf1:0"
+Server: Microsoft-IIS/8.5
+X-Powered-By: ASP.NET
+Date: Wed, 06 Jan 2016 05:10:45 GMT
+Content-Length: 8090
+ uncompressed-len 0   š

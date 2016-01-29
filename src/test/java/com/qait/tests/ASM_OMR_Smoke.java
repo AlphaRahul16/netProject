@@ -125,8 +125,10 @@ public class ASM_OMR_Smoke {
 		test.asm_OMR.loginIntoApplication_LastName_NoticeNumber(
 				getASM_OMR.getASM_OMR("lastName"),
 				getASM_OMR.getASM_OMR("noticeNumber"));
+		test.asm_OMR.selectUndergradutaeSchoolStatus("No");
 		test.asm_OMR.updateAddress("Organization",
 				DataProvider.getColumnData(tcId, headerName));
+	
 		test.asm_OMR.verifyAddressUpdated(DataProvider.getColumnData(tcId,
 				headerName));
 		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
@@ -141,6 +143,7 @@ public class ASM_OMR_Smoke {
 		test.asm_OMR.loginIntoApplication_LastName_NoticeNumber(
 				getASM_OMR.getASM_OMR("lastName"),
 				getASM_OMR.getASM_OMR("noticeNumber"));
+		test.asm_OMR.selectUndergradutaeSchoolStatus("No");
 		test.asm_OMR.updateAddress("Organization",
 				DataProvider.getColumnData(tcId, headerName));
 		test.asm_OMR.verifyAddressUpdated(DataProvider.getColumnData(tcId,

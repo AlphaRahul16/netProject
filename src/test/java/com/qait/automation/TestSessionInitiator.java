@@ -216,8 +216,9 @@ public class TestSessionInitiator {
 	}
 
 	public void openUrl(String url) {
-		driver.get(url);
-	}
+		driver.navigate().to(url);
+		//driver.get(url);
+		}
 
 	public void closeBrowserSession() {
 		try {
@@ -299,6 +300,7 @@ public class TestSessionInitiator {
 	public void navigateToIWEBUrlOnNewBrowserTab(String baseURL) {
 		if (_getSessionConfig().get("browser").equalsIgnoreCase("firefox")
 				|| _getSessionConfig().get("browser").equalsIgnoreCase("ie")) {
+			driver.manage().deleteAllCookies();
 			openUrl(baseURL);
 		} else if (_getSessionConfig().get("browser")
 				.equalsIgnoreCase("chrome")) {
@@ -327,32 +329,34 @@ public class TestSessionInitiator {
 
 		}
 
-	else	if(_getSessionConfig().get("browser").equalsIgnoreCase("chrome"))
-		{
-		Robot robot;
-		try {
-			robot = new Robot();
-			robot.delay(2000);
-			robot.keyPress(KeyEvent.VK_CONTROL);
-			robot.keyPress(KeyEvent.VK_T);
-			robot.keyRelease(KeyEvent.VK_CONTROL);
-			robot.keyRelease(KeyEvent.VK_T);
-			String base = driver.getWindowHandle();
-			Set<String> set = driver.getWindowHandles();
-			Assert.assertTrue(closeAllOtherWindows(base));
-//			set.remove(base);
-//			assert set.size() == 1;
-//			driver.switchTo().window((String) set.toArray()[0]);
-			driver.get(baseURL);
-		Reporter.log("\nThe application url is :- " + baseURL, true);
-		}
-	catch (AWTException e) {
-		driver.get(baseURL);
-		e.printStackTrace();
-	} 
+//	else	if(_getSessionConfig().get("browser").equalsIgnoreCase("chrome"))
+//		{
+//		Robot robot;
+//		try {
+//			System.out.println("Open URL 4");
+//			robot = new Robot();
+//			robot.delay(2000);
+//			robot.keyPress(KeyEvent.VK_CONTROL);
+//			robot.keyPress(KeyEvent.VK_T);
+//			robot.keyRelease(KeyEvent.VK_CONTROL);
+//			robot.keyRelease(KeyEvent.VK_T);
+//			String base = driver.getWindowHandle();
+//			Set<String> set = driver.getWindowHandles();
+//			Assert.assertTrue(closeAllOtherWindows(base));
+////			set.remove(base);
+////			assert set.size() == 1;
+////			driver.switchTo().window((String) set.toArray()[0]);
+//			driver.get(baseURL);
+//		Reporter.log("\nThe application url is :- " + baseURL, true);
+//		}
+//	catch (AWTException e) {
+//		System.out.println("Open URL 5");
+//		driver.get(baseURL);
+//		e.printStackTrace();
+//	} 
 
 
 
-		}
+		//}
 	}
 }

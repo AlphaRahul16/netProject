@@ -59,7 +59,7 @@ public class BaseUi {
 	protected SeleniumWait wait;
 	private String pageName;
 	int timeOut, hiddenFieldTimeOut;
-	boolean flag;
+	boolean flag = false;;
 	static String lastWindow;
 
 	protected BaseUi(WebDriver driver, String pageName) {
@@ -134,6 +134,7 @@ public class BaseUi {
 					+ actualPageTitle
 					+ "' does not contain expected Page Title : '"
 					+ expectedPagetitle + "'.");
+			System.out.println("In catch---");
 		}
 		String actualPageTitle = getPageTitle().trim();
 		logMessage("ASSERT PASSED: PageTitle for " + actualPageTitle
@@ -213,7 +214,7 @@ public class BaseUi {
 					"timeout"));
 			hiddenFieldTimeOut = Integer.parseInt(getProperty(
 					"Config.properties", "hiddenFieldTimeOut"));
-			wait.resetImplicitTimeout(0);
+			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			switchToAlert().accept();
 			logMessage("Alert handled..");
@@ -270,9 +271,9 @@ public class BaseUi {
 			logMessage("select Element " + el
 					+ " after catching Stale Element Exception");
 		} catch (Exception ex2) {
-			
-			logMessage("Element " + el + " could not be clicked! "
-					+ ex2.getMessage());
+sel.selectByVisibleText(text);
+	//logMessage("Element " + el + " could not be clicked! "
+	//				+ ex2.getMessage());
 		}
 	}
 
@@ -442,6 +443,16 @@ public class BaseUi {
 		builder.moveToElement(element).click().perform();
 	}
 
+	public boolean isDropDownValuePresent(List<WebElement> elements,
+			String value) {
+		for (WebElement element : elements) {
+			if (element.getText().equalsIgnoreCase(value)) {
+				flag = true;
+			}
+		}
+		return flag;
+	}
+
 	protected String getSelectedTextFromDropDown(WebElement el) {
 		try {
 			wait.waitForElementToBeVisible(el);
@@ -547,31 +558,33 @@ public class BaseUi {
 			} catch (AWTException e) {
 				e.printStackTrace();
 			}
-
 		}
-		
-
 	}
 
 	public String getElementText(WebElement element) {
 		return element.getText();
+		
+	}
+	
+	public void selectDropDownValue(String value){
+		WebElement element=driver.findElement(By.xpath("//select/option[text()='"+value+"']"));
+		element.click();
+		logMessage("Step : "+value+" is selected in drop down");
 	}
 
 	public void checkCheckbox(WebElement ele) {
 		if (!ele.isSelected()) {
 			ele.click();
-			logMessage("Step : check checkbox in " + ele + "\n");
+			logMessage("Step : check checkbox \n");
 		} else {
 			logMessage("Step : check box is already selected\n");
 		}
 	}
+
+	public void ScrollPage(int x, int y) {
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+		jse.executeScript("window.scrollBy(" + x + "," + y + ")", "");
+	}
 	
-	public void ScrollPage(int x, int y){
-		  JavascriptExecutor jse = 
-		(JavascriptExecutor)driver;
-		  jse.executeScript("window.scrollBy("+x+","+y+")", "");
-		 }	
-	
-	
-	
+
 }

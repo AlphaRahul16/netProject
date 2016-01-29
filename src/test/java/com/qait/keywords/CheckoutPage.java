@@ -1,7 +1,10 @@
 package com.qait.keywords;
 
+import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
+
 import java.util.Calendar;
 
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -13,7 +16,6 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	WebDriver driver;
 	String pagename = "CheckoutPage";
 	String memberName, productName, priceValue,
-
 	PublicationName, TechnicalDivision, multiYearDecisionValue, priceValues,
 			amountValue, cenStatus;
 	boolean flag;
@@ -23,7 +25,9 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	int currentMonthInInteger = Calendar.getInstance().get(Calendar.MONTH)+1;
 	static int mutliYearInInteger = 0;
 	int nextYearInInteger = Calendar.getInstance().get(Calendar.YEAR) + 1;
+	int timeOut, hiddenFieldTimeOut;
 
+	
 	public CheckoutPage(WebDriver driver) {
 		super(driver, "CheckoutPage");
 		this.driver = driver;
@@ -49,8 +53,11 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	}
 
 	public void clickSubmitButtonAtBottom() {
+		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(2);
 		isElementDisplayed("btn_submitBottom");
-		click(element("btn_submitBottom"));
+		clickUsingXpathInJavaScriptExecutor(element("btn_submitBottom"));
+		//click(element("btn_submitBottom"));
 		logMessage("Step: submit button at bottom is clicked in  btn_submitBottom\n");
 		//cancelOutPopUp();
 	}
@@ -160,8 +167,11 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 
 	private void selectCreditCardInfo(String creditCardInfo, String value) {
 		isElementDisplayed("list_creditCard" + creditCardInfo);
-		selectProvidedTextFromDropDown(element("list_creditCard"
-				+ creditCardInfo), value);
+		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(2);
+		selectDropDownValue(value);
+	//	selectProvidedTextFromDropDown(element("list_creditCard"
+	//			+ creditCardInfo), value);
 		logMessage("Step: " + value + " is selected in  list_creditCard"
 				+ creditCardInfo + "\n");
 	}
@@ -205,6 +215,9 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	}
 
 	public String[] verifyPriceValues(String caseId) {
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
 		String[] productNames = { getOmaSheetValue(caseId, "Product?"),
 				getOmaSheetValue(caseId, "Iweb Pub Name?"),
 				getOmaSheetValue(caseId, "Iweb Division Name?"),
@@ -221,11 +234,26 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 			if (getOmaSheetValue(caseId, "multiYearDecision").equalsIgnoreCase(
 					"2")) {
 				multiYearDecisionValue = "Two";
-				click(element("rad_multiYear", multiYearDecisionValue));
+				clickUsingXpathInJavaScriptExecutor(element("rad_multiYear", multiYearDecisionValue));
+				//click(element("rad_multiYear", multiYearDecisionValue));
 				logMessage("Step : multiYearDecision " + multiYearDecisionValue
 						+ " value is clicked in rad_multiYear\n");
 				logMessage("Step : wait for price values to be changed after selection of multi year value\n");
+				//hardWaitForIEBrowser(2);
+				try{
+					wait.resetImplicitTimeout(0);
+					wait.resetExplicitTimeout(hiddenFieldTimeOut);
 				wait.waitForElementToDisappear(element("txt_multiYearWait"));
+				wait.resetImplicitTimeout(timeOut);
+				wait.resetExplicitTimeout(timeOut);
+				}
+				catch(Exception E)
+				{
+					wait.resetImplicitTimeout(timeOut);
+					wait.resetExplicitTimeout(timeOut);
+					logMessage("Image not present");
+					//wait.waitForElementToDisappear(element("txt_multiYearWait"));
+				}
 			} else if (getOmaSheetValue(caseId, "multiYearDecision")
 					.equalsIgnoreCase("3")) {
 				multiYearDecisionValue = "Three";
@@ -257,6 +285,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 				mutliYearInInteger);
 		verifyPriceType(getOmaSheetValue(caseId, "Product?"), "Tax",
 				getPriceSheetValue(caseId, "productTax?"), mutliYearInInteger);
+		wait.hardWait(3);
 		verifyPriceType(getOmaSheetValue(caseId, "Product?"), "amount",
 				getPriceSheetValue(caseId, "Price value?"), mutliYearInInteger);
 		verifyPriceType(getOmaSheetValue(caseId, "Product?"), "shipping",

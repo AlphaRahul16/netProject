@@ -42,7 +42,7 @@ link_remove                                   xpath                       //div[
 btn_submit                                    id                          submit
 txt_nominationSubmitted                       xpath                       //span[text()='Nomination Submitted']
 btn_cancel                                    classname                   cancel
-link_removeIncompleteSubmission               xpath                       //td[text()='Incomplete Submission']/following-sibling::td/a[@class='removeNominee']
+link_removeIncompleteSubmission               xpath                       //a[@class='removeNominee']
 txt_nominationRemoved                         xpath                       //span[text()='Nomination Removed']
 txt_patentQuestion                            id                          patentQuestion
 list_patentDate_day                           id                          patentDate_day

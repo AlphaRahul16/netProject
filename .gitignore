@@ -1,6 +1,6 @@
 target
 test-output
-src/test/resources/drivers/*
+
 **/.~lock*
 
 .project
@@ -10,6 +10,3 @@ src/test/resources/drivers/*
 .log
 .DS_Store
 /target
-src/test/resources/Profile_Stage2/*
-src/test/resources/Profile_Stage3/*
-src/test/resources/Profile_Stage4/*

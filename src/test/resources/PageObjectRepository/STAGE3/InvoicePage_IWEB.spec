@@ -32,6 +32,10 @@ txt_memberDetail_q              xpath                 //label[text()='${labelnam
 txt_memberDetails               xpath                 //label[text()='${labelname}:']/preceding-sibling::span[1]
 lnk_batch                       xpath                 //a[contains(text(),'${batchName}')]
 txt_invoiceDetailsInTable       xpath                 (//td[starts-with(text(),'${detailValue}')])[1]
+table_productPrice              xpath                 //td[contains(text(),'${value}')]/following-sibling::td[2]
+txt_givingInvoiceEmailPost      xpath                 //a[contains(@id,'Email/Post ')]/../../following-sibling::tr/td[5]
+txt_givingInvoiceOtherProgram   xpath                 //a[contains(@id,'Other Fund Name')]/../../following-sibling::tr/td[6]
+txt_emailStatus                 xpath                 //label[@id='Caption_F1_inv_email_confirm_sent_flag']/preceding-sibling::span
 
 ====================================================================================================================================
 

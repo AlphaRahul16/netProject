@@ -2,6 +2,7 @@ Page Title: HomePage_IWEB
 
 #Object Definitions
 ==================================================================================================================================
+
 link_findIndividuals       xpath                //a[@id='F1_HYPERLINK_2']
 tab_selectedTab            xpath                //a[@class='TopUIItemBarLinkSelected']
 txt_pageHeader             css                 .application.oma
@@ -12,4 +13,7 @@ link_memberShip            css                     a[title='Membership Managemen
 tab_tabArear               id                   moduleList
 link_subscription          xpath                 //a[text()='Subscriptions']
 link_CRM                   xpath                 //a[text()='CRM']
+link_tabsOnModule          xpath                 //a[text()='${value}']
+link_addIndividuals        xpath                //a[@id='F1_HYPERLINK_4']
+
 ==================================================================================================================================

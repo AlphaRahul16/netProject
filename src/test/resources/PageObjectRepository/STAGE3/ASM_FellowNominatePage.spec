@@ -62,4 +62,9 @@ txt_successNomination                                       classname           
 inp_upload                                                  xpath                               //input[@id='fuName']
 txt_allFieldsRequired                                       xpath                               //span[text()='All Fields Required']
 txt_startNominationDiv                                      classname                            action-bar-green
+iframe1_Awards                                              id                                citation_field_1_value_ifr
+iframe2_Awards                                              id                                citation_field_2_value_ifr
+txtarea_awards                                              css                               #tinymce
+btn_underline                                               css                               .mceIcon.mce_underline
+btn_italic                                                  css                                .mceIcon.mce_italic
 =======================================================================================================================================================================================

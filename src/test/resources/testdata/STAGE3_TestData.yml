@@ -42,84 +42,7 @@ creditCardInfo:
   Holder-name: FIRSTNAME LASTNAME
   Number: "4111111111111111"
   cvv-number: 123
-  CreditCardExpiration: 06/2016
-  
-users: 
-    user1: 
-        contact-information:
-            name:
-                firstname: RegMem123
-                lastname: lastName123
-            email: ACS_OMA@acs.org
-            phone: 8888888888
-            address: 
-                type: Work
-                address: 7955 Pina Lake Rd
-                city: Jacksonville
-                country: Thailand
-                state: Florida
-                zipCode: 32256-7220
-        education-and-employment:
-            CASEID: 5
-#    user2: 
-#        contact-information:
-#            name:
-#                firstname: RegMem123
-#                lastname: lastName123
-#            email: ACS_OMA@acs.org
-#            phone: 8888888888
-#            address: 
-#                type: Work
-#                address: jacksonville
-#                city: florida
-#                country: Thailand
-#                state: New York
-#                zipCode: 32256-7220
-#        education-and-employment:
-#            CASEID: 13
-#    user3: 
-#        contact-information:
-#            name:
-#                firstname: RegMem123
-#                lastname: lastName123
-#            email: ACS_OMA@acs.org
-#            phone: 8888888888
-#            address: 
-#                type: Work
-#                address: jacksonville
-#                city: florida
-#                country: Thailand
-#                state: New York
-#                zipCode: 32256-7220
-#        education-and-employment:
-#            CASEID: 12
-#    user4: 
-#        contact-information:
-#            name:
-#                firstname: RegMem123
-#                lastname: lastName123
-#            email: ACS_OMA@acs.org
-#            phone: 8888888888
-#            address: 
-#                type: Work
-#                address: jacksonville
-#                city: florida
-#                country: Thailand
-#                state: New York
-#                zipCode: 32256-7220
-#        education-and-employment:
-#            CASEID: 13         
-
-
-AACT_users: 
-    user1: 
-        CASEID: 1
-#    user2: 
-#        CASEID: 4
-#    user3: 
-#        CASEID: 5  
-#    user4: 
-#        CASEID: 6        
+  CreditCardExpiration: 06/2016      
 
 
             
@@ -235,6 +158,7 @@ ASM_fellowNominatedSmokeChecklistData:
     memberNumberSearchError: Can't find the person you're looking for? Try finding by name          
     gradYearErrorMsz: Graduation Year
     LessToDateErrorMsz: To Date must be greater than From Date
+    CommunityCitationMsg: This is a test Demo 1
     ProfessionalHistory: 
          Employer: employer abc
          Title: Associate
@@ -408,7 +332,7 @@ ReinstateMemberIWEB:
          memberPackage: "Regular Member 2Y Dues C&EN-Electronic"
          jobTitle: NR-No Response
          industry: 2-Independent Consulting
-         batch: "ACS: QA TEST BATCH"
+         batch: "ACS: QA_SUB_BATCH"
          PaymentType: prepaid
          paymentMethod: Visa/MC
          cardNumber: 4111111111111111
@@ -519,7 +443,15 @@ ACS_Store:
     maxWaitTimeForPrintMessage: 30
     members:
          member1: 
-            CASEID: 1
+            CASEID: 2
+            
+Acs_CreateMember_IWEB:
+    batch: "ACS: SELENIUM_BATCH"
+    PaymentType: prepaid
+    paymentMethod: Visa/MC
+    cardNumber: 4111111111111111
+    expireDate: 2016/12
+    cvvNumber: 123            
                  
                   
 ASM_URLRejectedErrorMsz: "We aren't able to complete your request in the staging environment"

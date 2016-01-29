@@ -6,26 +6,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.testng.ITestResult;
-import org.testng.Reporter;
-import org.testng.SkipException;
-import org.testng.TestNG;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.utils.YamlReader;
-import com.qait.keywords.YamlInformationProvider;
 
 public class ACS_GivingApplication_Smoke {
 
 	TestSessionInitiator test;
 	String app_url_givingDonate;
 	String app_url_IWEB;
-	YamlInformationProvider getGivingDetails;
+
 	String productNameKey[];
 	String DonateProgramNames[];
 	static String uniquelastname;
@@ -35,25 +28,28 @@ public class ACS_GivingApplication_Smoke {
 	Map<String,String> mapSheetData = new HashMap<String,String>();
 	private String caseID;
 
+	public ACS_GivingApplication_Smoke() {
+		com.qait.tests.DataProvider_FactoryClass.sheetName = "giving_donate";
+	}
 
-	@Factory(dataProviderClass = com.qait.tests.DataProvider_GivingApplicationSmoke.class, dataProvider = "data")
-	public ACS_GivingApplication_Smoke (String caseID) {
-		System.out.println("factory " + caseID);
+	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
+	public ACS_GivingApplication_Smoke(String caseID) {
 		this.caseID = caseID;
 	}
 
-
+	
 	@Test
 	public void Step01_TC01_Launch_IWeb_Application_And_Navigate_To_Funds() {
 		mapSheetData=test.homePageIWEB.addValuesInMap("giving_donate", caseID);
 		test.navigateToIWEBUrlOnNewBrowserTab(app_url_IWEB);
+		test.homePageIWEB.enterAuthentication("C00616","ACS2016#");
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Fundraising");
 		test.homePageIWEB.clickOnSideBarTab("More...");
 		test.homePageIWEB.clickOnTab("Find Fund");
 		test.homePageIWEB.clickOnTab("Query Fund");
-		test.memberShipPage.selectAndRunQuery("QTP - Find funds on Donate All Programs Page");
+		test.memberShipPage.selectAndRunQuery("Selenium - Find funds on Donate All Programs Page");
 		productNameKey=test.asm_Donate.retreiveProductDetails();
 	}
 
@@ -96,8 +92,6 @@ public class ACS_GivingApplication_Smoke {
 	@Test
 	public void Step05_TC05_Navigate_To_Confirm_Your_Donation_Page_And_Verify_Details()
 	{
-
-
 		String  Amount[]={mapSheetData.get("Program1 Donate Amount"),
 				mapSheetData.get("Program2 Donate Amount"),mapSheetData.get("Program3 Donate Amount"),
 				mapSheetData.get("Other Program Donate Amount")};
@@ -138,17 +132,11 @@ public class ACS_GivingApplication_Smoke {
 		test.asm_Donate.verifyThankyouMessageAfterDonation();
 		test.asm_Donate.verifyPrintReceiptMessageAfterDonation();
 		test.asm_Donate.verifyConfirmationEmailAfterDonation(mapSheetData.get("ValidEmailAddress"));
-		//TestNG tng = new TestNG();
-		//tng.setAnnotationTransformer(new MyTransformer(memberLoginDetails));
-
 	}
 
 	@Test
 	public void Step07_TC_07_Navigate_To_Iweb_And_Retreive_Lastest_Invoice_For_Donor()
 	{
-		String  Amount[]={mapSheetData.get("Program1 Donate Amount"),
-				mapSheetData.get("Program2 Donate Amount"),mapSheetData.get("Program3 Donate Amount"),
-				mapSheetData.get("Other Program Donate Amount")};
 		test.navigateToIWEBUrlOnNewBrowserTab(app_url_IWEB);
 		test.memberShipPage.navigateToMemberLatestInvoicePage(memberLoginDetails);
 		if(memberLoginDetails.get(0).equals("2"))
@@ -164,19 +152,26 @@ public class ACS_GivingApplication_Smoke {
 			test.individualsPage.clickOnInvoiceArrowButtonToNavigateFinancialPage();
 			
 		}
-		test.invoicePage.validateBalanceAndTotalForInvoice(TotalAmountMap);
-		test.invoicePage.expandDetailsMenu("line items");
-		test.invoicePage.verfifyproductDisplayNamesAndCodesInsideLineItems(TotalAmountMap,Amount,productNameKey,mapIwebProductDetails);
-		test.invoicePage.collapseDetailsMenu("line items");
+	
 		
 	}
 	
-
-
 	@Test
 	public void Step08_TC_08_Navigate_To_Iweb_And_Retreive_Lastest_Invoice_For_Guest()
 	{
-		System.out.println("adafdsafsafas");
+		String  Amount[]={mapSheetData.get("Program1 Donate Amount"),
+				mapSheetData.get("Program2 Donate Amount"),mapSheetData.get("Program3 Donate Amount"),
+				mapSheetData.get("Other Program Donate Amount")};
+		test.invoicePage.validateBalanceAndTotalForInvoice(TotalAmountMap);
+		test.invoicePage.verifyEmailStatusAsDefinedInSheet(mapSheetData.get("SendCardVia_Email?"),mapSheetData.get("SendCardVia_PostalMail?")
+				,mapSheetData.get("DonotSendCard?"),mapSheetData.get("SelectSendCardOption?"));
+		test.invoicePage.expandDetailsMenu("line items");
+		test.invoicePage.verfifyproductDisplayNamesAndCodesInsideLineItems(TotalAmountMap,Amount,productNameKey,mapIwebProductDetails);
+		test.invoicePage.collapseDetailsMenu("line items");
+		test.invoicePage.expandDetailsMenu("acs giving invoice details");
+		test.invoicePage.verifyGivingInvoiceDetails(mapSheetData.get("SendCardVia_Email?"),mapSheetData.get("SendCardVia_PostalMail?"),
+				mapSheetData.get("DonotSendCard?"),	mapSheetData.get("Other Program"),mapSheetData.get("SelectSendCardOption?"));
+		test.invoicePage.collapseDetailsMenu("acs giving invoice details");
 	}
 	
 

@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.tools.ant.util.SymbolicLinkUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -13,6 +14,8 @@ import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DateUtil;
+
+import net.sourceforge.htmlunit.corejs.javascript.ast.SwitchCase;
 
 public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
@@ -167,7 +170,8 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	// }
 
 	private void enterInvoiceNumber(String invoiceNumber) {
-		wait.waitForPageToLoadCompletely();
+	//	wait.waitForPageToLoadCompletely();
+		wait.hardWait(5);
 		isElementDisplayed("inp_invoiceCode");
 		element("inp_invoiceCode").sendKeys(invoiceNumber);
 		logMessage("STEP : " + invoiceNumber
@@ -176,7 +180,8 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	private void clickOnSearchButton() {
 		isElementDisplayed("btn_search");
-		element("btn_search").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_search"));
+	//	element("btn_search").click();
 		logMessage("STEP : Search button is clicked in txt_invoiceMenu\n");
 	}
 
@@ -265,6 +270,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyInvoiceProfile(String detailName, String detailValue) {
+		hardWaitForIEBrowser(3);
 		if (detailValue.equalsIgnoreCase("")) {
 			logMessage("Step : value of " + detailName
 					+ "  price is empty in data sheet\n");
@@ -288,6 +294,8 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("Step : Value of " + detailName
 					+ "  price is empty in data sheet\n");
 		} else {
+			wait.waitForPageToLoadCompletely();
+			wait.hardWait(6);
 			isElementDisplayed("inp_invoiceAACT", detailName);
 			String detailValueWithOutDollar = detailValue.replace("$", "");
 			Assert.assertTrue(element("inp_invoiceAACT", detailName).getText()
@@ -299,7 +307,8 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void expandDetailsMenu(String menuName) {
 		isElementDisplayed("btn_detailsMenuAACT", menuName);
-		element("btn_detailsMenuAACT", menuName).click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT", menuName));
+		//element("btn_detailsMenuAACT", menuName).click();
 		logMessage("STEP : " + menuName + " bar is clicked to expand" + "\n");
 		waitForSpinner();
 
@@ -327,7 +336,8 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void collapseDetailsMenu(String menuName) {
 		isElementDisplayed("icon_up", menuName);
-		element("icon_up", menuName).click();
+		clickUsingXpathInJavaScriptExecutor(element("icon_up", menuName));
+		//element("icon_up", menuName).click();
 		waitForSpinner();
 		logMessage("STEP : " + menuName + " bar collapse bar clicked\n");
 
@@ -393,73 +403,151 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		   String key = iterator.next().toString();
 		   String value = TotalAmountMap.get(key);
 
-		   System.out.println(key + " " + value);
 		}
          if(TotalAmountMap.size()!=4&&!TotalAmountMap.get("IsProgramPledged").equals("1"))
          {
         	 System.out.println("In bbbbbbb");
 	verifyInvoiceProfile("balance", "0.00");
 	verifyInvoiceProfile("invoice total",TotalAmountMap.get("TotalAmount")+"0");
-	System.out.println(TotalAmountMap.size());
          }
          else if(TotalAmountMap.size()==4&&TotalAmountMap.get("pledgedMonthlyTotal").equals("true"))
          {
         	 Double balance=  Double.parseDouble(TotalAmountMap.get("TotalAmount"))-Double.parseDouble( TotalAmountMap.get("MonthlyAmount"));
         	 verifyInvoiceProfile("invoice total",TotalAmountMap.get("TotalAmount")+"0");
-        	 verifyInvoiceProfile("balance", String.valueOf(balance)+"0");
-        		System.out.println(TotalAmountMap.size());
-        	 System.out.println("In aaaaaaaaaaa");
+        	 verifyInvoiceProfile("balance", String.valueOf(balance)+"0");		
          }
 	}
 
 	public void verfifyproductDisplayNamesAndCodesInsideLineItems(Map<String,String> TotalAmountMap,String[] Amount,String[] productNameKey,Map<String,List<String>> mapIwebProductDetails) {
-		 if(TotalAmountMap.size()!=4&&!TotalAmountMap.get("IsProgramPledged").equals("1"))
+		 if(TotalAmountMap.size()!=4)
          {
-			 for(int i=0;i<elements("table_description").size();i++)
-			 {
-				 for(int j=0;j<productNameKey.length;j++)
-				 {
-	     	if(elements("table_description").get(i).getText().trim().equals(mapIwebProductDetails.get(productNameKey[j]).get(0)))
-			     { 
-	     		Assert.assertTrue(elements("table_description").get(i).getText().trim().equals(mapIwebProductDetails.get(productNameKey[j]).get(0)));
-	     		logMessage("ASSERT PASSED : Product Display Name verified as "+mapIwebProductDetails.get(productNameKey[j]).get(0));
-	     	 	Assert.assertTrue(elements("table_code").get(i).getText().trim().equals(mapIwebProductDetails.get(productNameKey[j]).get(1)));
-	     	 	logMessage("ASSERT PASSED : Product Code for Product "+productNameKey[j]+" is verified as "+mapIwebProductDetails.get(productNameKey[j]).get(1));
-				Assert.assertTrue(elements("table_quantity").get(i).getText().trim().equals("1"));
-				logMessage("ASSERT PASSED : Product Quantity is verified as 1 ");
-				Assert.assertTrue(elements("table_discount").get(i).getText().trim().equals("0.00"));
-				logMessage("ASSERT PASSED : Product discount is verified as 0.00 ");
-				Assert.assertTrue(elements("table_balance").get(i).getText().trim().equals("0.00"));
-				logMessage("ASSERT PASSED : Product balance is verified as 0.00 ");
-				verifyEachProductAmountOnListItems(productNameKey[i],Amount);
-       			 }
- 			 }
-			 }
+			 verifyProductDisplayDetailsAndAmountWhenProgramIsNotPledged(Amount,productNameKey,mapIwebProductDetails);
+			 
          }
+		 else if(TotalAmountMap.size()==4 && TotalAmountMap.get("pledgedMonthlyTotal").equals("true"))
+		 {
+
+				verifyProductDisplayDetailsAndAmountWhenProgramIsPledged(Amount,productNameKey,mapIwebProductDetails);
+		 }
 		
+	}
+	private void verifyProductDisplayDetailsAndAmountWhenProgramIsPledged(String[] amount, String[] productNameKey, Map<String, List<String>> mapIwebProductDetails) {
+	    
+		String pledgedProduct=mapIwebProductDetails.get(productNameKey[0]).get(1).split(" ")[0] +" P";
+		if(element("table_description").getText().trim().contains(productNameKey[0]))
+		{
+			Assert.assertTrue(element("table_description").getText().trim().equals(productNameKey[0]+" Pledge"));
+			logMessage("ASSERT PASSED : Program Name inside Line items is verifed as "+productNameKey[0]+" Pledge");
+			Assert.assertTrue(element("table_code").getText().trim().equals(pledgedProduct));
+			logMessage("ASSERT PASSED : Program Code inside Line items is verifed as "+pledgedProduct);
+		}
+	}
+
+	private void verifyProductDisplayDetailsAndAmountWhenProgramIsNotPledged(String[] Amount,String[] productNameKey,Map<String,List<String>> mapIwebProductDetails)
+	{
+		for(int i=0;i<elements("table_description").size();i++)
+		 {
+			 for(int j=0;j<productNameKey.length;j++)
+			 {
+    	if(elements("table_description").get(i).getText().trim().equals(mapIwebProductDetails.get(productNameKey[j]).get(0)))
+		     { 
+    		Assert.assertTrue(elements("table_description").get(i).getText().trim().equals(mapIwebProductDetails.get(productNameKey[j]).get(0)));
+    		logMessage("ASSERT PASSED : Product Display Name verified as "+mapIwebProductDetails.get(productNameKey[j]).get(0)+"\n");
+    	 	Assert.assertTrue(elements("table_code").get(i).getText().trim().equals(mapIwebProductDetails.get(productNameKey[j]).get(1)));
+    	 	logMessage("ASSERT PASSED : Product Code for Product "+productNameKey[j]+" is verified as "+mapIwebProductDetails.get(productNameKey[j]).get(1)+"\n");
+			Assert.assertTrue(elements("table_quantity").get(i).getText().trim().equals("1"));
+			logMessage("ASSERT PASSED : Product Quantity is verified as 1 \n");
+			Assert.assertTrue(elements("table_discount").get(i).getText().trim().equals("0.00"));
+			logMessage("ASSERT PASSED : Product discount is verified as 0.00 \n");
+			Assert.assertTrue(elements("table_balance").get(i).getText().trim().equals("0.00"));
+			logMessage("ASSERT PASSED : Product balance is verified as 0.00 \n");
+			verifyEachProductAmountOnListItems(mapIwebProductDetails.get(productNameKey[j]).get(0),Amount);
+  			 }
+		 }
+		 }
 	}
 
 	private void verifyEachProductAmountOnListItems(String productName,String[] Amount) {
 		if(productName.length()!=0)
 		{
-			switch(productName)
-			{
-			case "Project SEED": Assert.assertTrue(element("table_priceValue").getText().trim().equals(Amount[0]+".00"));
-			                     break;
-			                     
-			case "ACS Scholars Program": Assert.assertTrue(element("table_priceValue").getText().trim().equals(Amount[1]+".00"));
-                                 break;
-                                 
-			case "Advancing Chemistry Teaching": Assert.assertTrue(element("table_priceValue").getText().trim().equals(Amount[2]+".00"));
-                                 break;
-                                 
-			default : Assert.assertTrue(element("table_priceValue").getText().trim().equals(Amount[3]+".00"));
-                                 break;
+			
+                   switch(productName)
+                   {
+                   case "Project SEED": verifyAmountForParticularProduct(productName,Amount[0]);
+                   break;
+                   case "ACS Scholars Program": verifyAmountForParticularProduct(productName,Amount[1]);
+                   break;
+                   case "Teacher Professional Development": verifyAmountForParticularProduct(productName,Amount[2]);
+                   break;
+                   default: verifyAmountForParticularProduct(productName,Amount[3]);
+                   break;
+                   }
 			
 			}
 		}
+
+	private void verifyAmountForParticularProduct(String Productname,String Amount) {
+		Assert.assertTrue(element("table_productPrice",Productname).getText().trim().equals(Amount+".00"));
+		logMessage("ASSERT PASSED : Product amount for "+Productname+" on iweb is verified as "+Amount+".00\n");
+		
+	}
+
+	public void verifyGivingInvoiceDetails(String viaEmail, String viaPostmail,String dontsend,String otherProgramName,String isSendCard) {
+		verifyCardSendViaEmailOrPost(viaEmail,viaPostmail,dontsend,isSendCard);
+		verifyOtherProgramNameOnInvoiceDetails(otherProgramName);
 	}
 	
+	private void verifyOtherProgramNameOnInvoiceDetails(String otherProgramName) {
+		if(otherProgramName.length()!=0)
+		{
+			Assert.assertTrue(element("txt_givingInvoiceOtherProgram").getText().trim().equals(otherProgramName));
+			logMessage("ASSERT PASSED : Other Program Name in Giving Invoice Details is verified as : "+otherProgramName+"\n");
+		}
+		else
+		{
+			logMessage("ASSERT PASSED : Other Program Name in Giving Invoice Details is Displayed as blank\n");
+		}
+		
+	}
+
+	private void verifyCardSendViaEmailOrPost(String viaEmail, String viaPostmail,String dontsend,String isSendCard)
+	{
+		if(viaEmail.length()!=0&&viaEmail.equalsIgnoreCase("YES")&&isSendCard.equalsIgnoreCase("YES"))
+		{
+			Assert.assertTrue(element("txt_givingInvoiceEmailPost").getText().trim().equals("email"));
+			logMessage("ASSERT PASSED : Card Send via in Giving Invoice Details is verified as : email\n");
+		}
+		else if(viaPostmail.length()!=0&&viaPostmail.equalsIgnoreCase("YES")&&isSendCard.equalsIgnoreCase("YES"))
+		{
+			Assert.assertTrue(element("txt_givingInvoiceEmailPost").getText().trim().equals("post"));
+			logMessage("ASSERT PASSED : Card Send via in Giving Invoice Details is verified as : post\n");
+		}
+		else if (dontsend.length()!=0&&dontsend.equalsIgnoreCase("YES")&&isSendCard.equalsIgnoreCase("YES"))
+		{
+			logMessage("ASSERT PASSED : Donot send card option is selected and Giving Invoice Details is verified as : none\n");
+		}
+		else
+		{
+			logMessage("Step : Card is not send and Giving Invoice details displayed blank\n");
+		}
+	}
+	public void verifyEmailStatusAsDefinedInSheet(String emailstatusformsheet,String emailstatusformsheet2,String emailstatusformsheet3
+			,String isSendCard)
+	{
+		System.out.println("Email status"+emailstatusformsheet);
+		if((emailstatusformsheet.equalsIgnoreCase("YES")||emailstatusformsheet2.equalsIgnoreCase("YES")||emailstatusformsheet3.equalsIgnoreCase("YES"))
+				&&(isSendCard.equalsIgnoreCase("YES")))
+		{
+		Assert.assertTrue(element("txt_emailStatus").getText().equals("Yes"));
+		logMessage("ASSERT PASSED : Email verification on feild email? is verified as Yes\n");
+		}
+		else
+		{
+	    Assert.assertTrue(element("txt_emailStatus").getText().equals("No"));
+		logMessage("ASSERT PASSED : Email verification on feild email? is verified as No\n");
+		}
+
 	
+	}
 
 }

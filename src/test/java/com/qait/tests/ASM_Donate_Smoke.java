@@ -40,7 +40,7 @@ public class ASM_Donate_Smoke {
 				.getStackTrace()[1].getMethodName());
 		test.asm_Donate.enterDonateValue("Project SEED",
 				DataProvider.getColumnData(tcId, headerName));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
 				.getYamlValue("ASM_URLRejectedErrorMsz"));
@@ -56,7 +56,7 @@ public class ASM_Donate_Smoke {
 				headerName));
 		test.asm_Donate.enterOtherAmount(getASM_Donate
 				.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
 				.getYamlValue("ASM_URLRejectedErrorMsz"));
@@ -108,7 +108,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -133,7 +133,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -159,7 +159,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -185,7 +185,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -213,7 +213,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -239,7 +239,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -265,7 +265,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -293,7 +293,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -319,9 +319,9 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
-		test.asm_Donate.clickOnContinueAsGuest();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
 				getASM_Donate.getASM_Donate_ContactInfo("firstName"),
 				getASM_Donate.getASM_Donate_ContactInfo("lastName"),
@@ -345,7 +345,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -371,7 +371,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -397,7 +397,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 
@@ -439,7 +439,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -480,7 +480,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -517,7 +517,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -558,7 +558,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -602,7 +602,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -647,7 +647,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -692,7 +692,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -737,7 +737,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -774,7 +774,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(
@@ -811,7 +811,7 @@ public class ASM_Donate_Smoke {
 		test.asm_Donate.verifyCurrentPage("Make a donation");
 		test.asm_Donate.enterDonateValue("Project SEED",
 				getASM_Donate.getASM_MakeDonate("donate"));
-		test.asm_Donate.clickOnContinueButton();
+		test.asm_Donate.clickOnSubmitPaymentButton();
 		test.asm_Donate.verifyCurrentPage("Contact info");
 		test.asm_Donate.clickOnContinueAsGuest();
 		test.asm_Donate.enterRequiredDetailsInNonMemberForm(

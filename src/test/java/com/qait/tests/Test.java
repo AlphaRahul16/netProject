@@ -25,6 +25,7 @@ import org.apache.commons.lang3.time.DateUtils;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DateUtil;
+import com.qait.keywords.MembershipPageActions_IWEB;
 
 public class Test {
 	static int nextYear;
@@ -34,7 +35,10 @@ public class Test {
 
 	@org.testng.annotations.Test(invocationCount = 1)
 	public void method() throws ParseException {
-		
+		DateFormat df=new SimpleDateFormat("M/d/YYYY");
+		df.setTimeZone(TimeZone.getTimeZone("EST5EDT"));
+		String date = df.format(new Date());
+		System.out.println(date);
 //		getcaseIdToExecute
 
 //		String format = "Dues task netFORUM_Dues_Renewal_update_Task_([0-9a-zA-Z])+ scheduled successfully. Upon completion an e-mail will be sent to";

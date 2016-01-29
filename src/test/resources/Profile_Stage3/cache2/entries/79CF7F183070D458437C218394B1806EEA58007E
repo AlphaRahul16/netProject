@@ -1,0 +1,493 @@
+1|#||4|0|updatePanel|LabelMessageTop__UP||249|updatePanel|0426f9234cd441349399e2b3c79fc650_MU__UP|<iframe id="menu_0426f9234cd441349399e2b3c79fc650" scrolling="no" frameborder="no" src="" onblur="if(window.CloseContextMenu){CloseContextMenu(null);}" class="dropdown-menu  extendInfo" style="display:none;position:absolute;z-index:65000;"></iframe>|257|updatePanel|0426f9234cd441349399e2b3c79fc650_MU_IM__UP|<img src="/NFStage3/iweb/images/spacer.gif" id="0426f9234cd441349399e2b3c79fc650_MU__IM" border="0" style="position:absolute;top:0px;left:0px;" onload="if(window.RemoveShadowBox &amp;&amp; window.sLastContextMenuId){RemoveShadowBox(sLastContextMenuId);}" />|249|updatePanel|ee216e5e73b94128a636a046c5ee9fd1_MU__UP|<iframe id="menu_ee216e5e73b94128a636a046c5ee9fd1" scrolling="no" frameborder="no" src="" onblur="if(window.CloseContextMenu){CloseContextMenu(null);}" class="dropdown-menu  extendInfo" style="display:none;position:absolute;z-index:65000;"></iframe>|257|updatePanel|ee216e5e73b94128a636a046c5ee9fd1_MU_IM__UP|<img src="/NFStage3/iweb/images/spacer.gif" id="ee216e5e73b94128a636a046c5ee9fd1_MU__IM" border="0" style="position:absolute;top:0px;left:0px;" onload="if(window.RemoveShadowBox &amp;&amp; window.sLastContextMenuId){RemoveShadowBox(sLastContextMenuId);}" />|249|updatePanel|ca7e89b3a4ee49f0a6e2173f62de9cd2_MU__UP|<iframe id="menu_ca7e89b3a4ee49f0a6e2173f62de9cd2" scrolling="no" frameborder="no" src="" onblur="if(window.CloseContextMenu){CloseContextMenu(null);}" class="dropdown-menu  extendInfo" style="display:none;position:absolute;z-index:65000;"></iframe>|257|updatePanel|ca7e89b3a4ee49f0a6e2173f62de9cd2_MU_IM__UP|<img src="/NFStage3/iweb/images/spacer.gif" id="ca7e89b3a4ee49f0a6e2173f62de9cd2_MU__IM" border="0" style="position:absolute;top:0px;left:0px;" onload="if(window.RemoveShadowBox &amp;&amp; window.sLastContextMenuId){RemoveShadowBox(sLastContextMenuId);}" />|249|updatePanel|a83665ae18eb43488c5d83ce5f6027f8_MU__UP|<iframe id="menu_a83665ae18eb43488c5d83ce5f6027f8" scrolling="no" frameborder="no" src="" onblur="if(window.CloseContextMenu){CloseContextMenu(null);}" class="dropdown-menu  extendInfo" style="display:none;position:absolute;z-index:65000;"></iframe>|257|updatePanel|a83665ae18eb43488c5d83ce5f6027f8_MU_IM__UP|<img src="/NFStage3/iweb/images/spacer.gif" id="a83665ae18eb43488c5d83ce5f6027f8_MU__IM" border="0" style="position:absolute;top:0px;left:0px;" onload="if(window.RemoveShadowBox &amp;&amp; window.sLastContextMenuId){RemoveShadowBox(sLastContextMenuId);}" />|249|updatePanel|30a5ee3d76c34ba6a82d1c3ecc2aca74_MU__UP|<iframe id="menu_30a5ee3d76c34ba6a82d1c3ecc2aca74" scrolling="no" frameborder="no" src="" onblur="if(window.CloseContextMenu){CloseContextMenu(null);}" class="dropdown-menu  extendInfo" style="display:none;position:absolute;z-index:65000;"></iframe>|257|updatePanel|30a5ee3d76c34ba6a82d1c3ecc2aca74_MU_IM__UP|<img src="/NFStage3/iweb/images/spacer.gif" id="30a5ee3d76c34ba6a82d1c3ecc2aca74_MU__IM" border="0" style="position:absolute;top:0px;left:0px;" onload="if(window.RemoveShadowBox &amp;&amp; window.sLastContextMenuId){RemoveShadowBox(sLastContextMenuId);}" />|0|updatePanel|inv_cur_key__UP||2035|updatePanel|inv_cxa_key__UP|<span id="inv_cxa_key_DDLAE" onmouseover="" class="AddEditDiv" style="LEFT: 10px; POSITION: absolute; TOP: 46px;"><select name="inv_cxa_key" id="inv_cxa_key" tabindex="4" class="span3 AddEdit" placeholder="Please select" onchange="clearTimeout(timerid); timerid=setTimeout(&#39;__doPostBack(\&#39;inv_cxa_key\&#39;,\&#39;\&#39;)&#39;, msecondsshort); " onfocusin="expandDropDownList(this);" onblur="collapseDropDownList(this);">
+	<option value="">Please select</option>
+	<option selected="selected" value="8d99b54b-3808-4d61-87aa-04133ab49378">work: Alfred Nobel Str 50 Geb 6650</option>
+
+</select><div id="inv_cxa_key_oAddEditDiv" class="AddEditLinkDiv"><a id="inv_cxa_key_oEditHyperLink" tabindex="4" title="Edit" onclick=" bConfirmNavAway=0; if(document.forms[0].inv_cxa_key.selectedIndex==-1 || document.forms[0].inv_cxa_key[document.forms[0].inv_cxa_key.selectedIndex].value==&#39;&#39;) alert(&#39;No Item Selected.&#39;); else OpenNewWindow(&#39;DynamicEditModal.aspx?Modal=Yes&amp;NoReload=Yes&amp;FormKey=E53A8841-1D85-4C4A-B68B-80568FA7191D&amp;cxa_cst_key=ab7dec75-861b-4ee7-9c2c-c82ceb3c7712&amp;Key=&#39;+document.forms[0].inv_cxa_key[document.forms[0].inv_cxa_key.selectedIndex].value+&#39;&amp;ClearQuery=yes&amp;onclose=GetParentWindow().postBackDropDownListEdit(\&#39;inv_cxa_key\&#39;)&#39;, false );" href="javascript:void(0)" style="width:16px"><img src="/NFStage3/iweb/images/edit_16.gif" style="width:16px; height:16px" /></a><a id="inv_cxa_key_oAddHyperLink" tabindex="4" title="Add" onclick="bConfirmNavAway=0; OpenNewWindow(&#39;DynamicEditModal.aspx?Modal=Yes&amp;NoReload=Yes&amp;FormKey=E53A8841-1D85-4C4A-B68B-80568FA7191D&amp;cxa_cst_key=ab7dec75-861b-4ee7-9c2c-c82ceb3c7712&amp;Action=Add&amp;onclose=GetParentWindow().postBackDropDownListAdd(\&#39;inv_cxa_key\&#39;, {CurrentKey})&#39;, false );" href="javascript:void(0)" style="width:16px"><img src="/NFStage3/iweb/images/add_16.gif" style="width:16px; height:16px" /></a></div></span><span id="inv_cxa_key_Validator" style="display:none;"></span>|1660|updatePanel|inv_src_key__UP|<span id="inv_src_key_DDLAE" onmouseover="" class="AddEditDiv" style="display:inline-block;LEFT: 52px; POSITION: absolute; TOP: 92px; HEIGHT: 19px; WIDTH: 198px;"><select name="inv_src_key" id="inv_src_key" tabindex="10" class="DataFormDropDownList AddEdit" placeholder="Please select" onchange="clearTimeout(timerid); timerid=setTimeout(&#39;__doPostBack(\&#39;inv_src_key\&#39;,\&#39;\&#39;)&#39;, msecondsshort); " onfocusin="expandDropDownList(this);" onblur="collapseDropDownList(this);" style="height:19px;width:182px;">
+	<option selected="selected" value="">Please select</option>
+	<option value="b55c0218-621f-4e50-8098-11d5ff272a27">0213LAC421</option>
+	<option value="b509af5e-9712-4f8e-a758-f3039ff59ca2">15-adwordscenod</option>
+	<option value="10a3f073-7461-479f-b035-9f67fe9f1eef">COMP</option>
+	<option value="6df02818-6919-4f9b-bf6b-9f000b7b7bc5">PosSrcCode</option>
+	<option value="f974f12a-f92d-4292-8a63-4d0621b40622">PROMO</option>
+
+</select><div id="inv_src_key_oAddEditDiv" class="AddEditLinkDiv"><a id="inv_src_key_oAddHyperLink" tabindex="10" title="Add" onclick="bConfirmNavAway=0; OpenNewWindow(&#39;DynamicEditModal.aspx?Modal=Yes&amp;NoReload=Yes&amp;FormKey=17da73e3-d788-4857-a650-755049246102&amp;Action=Add&amp;onclose=GetParentWindow().postBackDropDownListAdd(\&#39;inv_src_key\&#39;, {CurrentKey})&#39;, false );" href="javascript:void(0)" style="width:16px"><img src="/NFStage3/iweb/images/add_16.gif" style="width:16px; height:16px" /></a></div></span><label for="inv_src_key" id="Caption_inv_src_key" class="DataFormLabel" style="LEFT: 7px; POSITION: absolute; TOP: 92px; HEIGHT: 13px; WIDTH: 46px;">source:</label>|161|updatePanel|OnInit_SetAutoApplyPayment__UP|<DIV id="OnInit_SetAutoApplyPayment" class="DataFormTextBox" style="LEFT: 825px; POSITION: absolute; TOP: 372px; HEIGHT: 19px; WIDTH: 177px;" tabindex="0"></DIV>|300|updatePanel|Span_inv_autoapply__UP|<span id="Span_inv_autoapply" style="LEFT: 588px; POSITION: absolute; TOP: 136px;"><table id="Table_inv_autoapply" cellspacing="0" cellpadding="0" style="border-width:0px;border-collapse:collapse;">
+	<tr id="TableRow_inv_autoapply">
+		<td id="TableCell_inv_autoapply"></td>
+	</tr>
+</table></span>|804|updatePanel|Span_inv_group_flag__UP|<span id="Span_inv_group_flag" style="LEFT: 340px; POSITION: absolute; TOP: 351px;"><table id="Table_inv_group_flag" cellspacing="0" cellpadding="0" style="border-width:0px;border-collapse:collapse;">
+	<tr id="TableRow_inv_group_flag">
+		<td id="TableCell_inv_group_flag"><span class="DataFormCheckBox" title="group items for reporting?"><input id="inv_group_flag" type="checkbox" name="inv_group_flag" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;inv_group_flag\&#39;,\&#39;\&#39;)&#39;, 0)" tabindex="22" /></span></td>
+	</tr>
+</table></span><label for="inv_group_flag" id="Caption_inv_group_flag" class="DataFormLabel" style="LEFT: 364px; POSITION: absolute; TOP: 356px; HEIGHT: 13px; WIDTH: 73px;">group items</label><input name="__inv_group_flag" type="hidden" id="__inv_group_flag" />|447|updatePanel|XXXXXXXX__UP|<input name="XXXXXXXX" type="text" value="SystemTextBox" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;XXXXXXXX\&#39;,\&#39;\&#39;)&#39;, 0)" onkeypress="if (WebForm_TextBoxKeyHandler(event) == false) return false;" id="XXXXXXXX" disabled="disabled" class="DataFormTextBox" placeholder="" style="LEFT: 0px; POSITION: absolute; TOP: 0px; HEIGHT: 0px; WIDTH: 0px;display:none;" /><span id="XXXXXXXX_Validator" style="display:none;"></span>|120|updatePanel|ACSBatchDate__UP|<DIV id="ACSBatchDate" class="DataFormTextBox" style="LEFT: 640px; POSITION: absolute; TOP: 924px;" tabindex="91"></DIV>|760|updatePanel|inv_pref_comm_meth__UP|<select name="inv_pref_comm_meth" id="inv_pref_comm_meth" tabindex="9" class="DataFormDropDownList" placeholder="Please select" onkeypress="return shiftHighlight(event.keyCode, this);" onfocusin="expandDropDownList(this);" onblur="collapseDropDownList(this);" style="LEFT: 556px; POSITION: absolute; TOP: 66px; HEIGHT: 19px; WIDTH: 234px;">
+	<option selected="selected" value="">Please select</option>
+	<option value="E-Mail">E-Mail</option>
+	<option value="Fax">Fax</option>
+	<option value="Mail">Mail</option>
+	<option value="Phone">Phone</option>
+
+</select><label for="inv_pref_comm_meth" id="Caption_inv_pref_comm_meth" class="tinyTXT" style="LEFT: 410px; POSITION: absolute; TOP: 66px; HEIGHT: 13px; WIDTH: 137px;">communication preference:</label>|338|updatePanel|bcs__cst_credit_limit__UP|<span id="bcs__cst_credit_limit" class="DataFormLabelReadOnly" style="LEFT: 455px; POSITION: absolute; TOP: 143px; HEIGHT: 12px; WIDTH: 125px;"></span><label for="bcs__cst_credit_limit" id="Caption_bcs__cst_credit_limit" class="tinyTXT" style="LEFT: 395px; POSITION: absolute; TOP: 143px; HEIGHT: 13px; WIDTH: 59px;">credit limit:</label>|141|updatePanel|inv_nettotal__UP|<span id="inv_nettotal" class="DataFormTextBox" style="LEFT: 324px; POSITION: absolute; TOP: 330px; HEIGHT: 13px; WIDTH: 60px;">220.00</span>|276|updatePanel|IMAGE_0__UP|<img id="IMAGE_0" tabindex="15" title="Shippable Items Present - May Need Shipping Fee" class="DataFormImage" src="../images/shipping2.png" alt="Shippable Items Present - May Need Shipping Fee" style="LEFT: 317px; POSITION: absolute; TOP: 130px; HEIGHT: 13px; WIDTH: 18px;" />|153|updatePanel|ACSTrackSourceCode__UP|<DIV id="ACSTrackSourceCode" class="DataFormTextBox" style="LEFT: 336px; POSITION: absolute; TOP: 374px; HEIGHT: 19px; WIDTH: 136px;" tabindex="0"></DIV>|323|updatePanel|Span_inv_agency_flag_ext__UP|<span id="Span_inv_agency_flag_ext" style="LEFT: 770px; POSITION: absolute; TOP: 22px;"><table id="Table_inv_agency_flag_ext" cellspacing="0" cellpadding="0" style="border-width:0px;border-collapse:collapse;">
+	<tr id="TableRow_inv_agency_flag_ext">
+		<td id="TableCell_inv_agency_flag_ext"></td>
+	</tr>
+</table></span>|2301|updatePanel|Span_bcs__cst_sort_name_dn__UP|<span id="Span_bcs__cst_sort_name_dn" style="LEFT: 61px; POSITION: absolute; TOP: 4px;"><input name="bcs__cst_sort_name_dn" type="text" value="lastName1452166166659 NAME_09 middleName1452166166309" maxlength="150" id="bcs__cst_sort_name_dn" tabindex="2" title="sort name" class="DataFormTextBox LookUp" placeholder="sort name" onkeydown="CheckForEnter(&#39;Look_Up_bcs__cst_sort_name_dn&#39;,event)" autocomplete="off" onfocus="document.forms[0].target=&#39;Look_Up_IF_bcs__cst_sort_name_dn&#39;;document.forms[0].action=document.forms[0].action+(document.forms[0].action.indexOf(&#39;&amp;typeaheadsuggest=yes&#39;)&lt;0?&#39;&amp;typeaheadsuggest=yes&#39;:&#39;&#39;);if(document.getElementById(&#39;Look_Up_IF_bcs__cst_sort_name_dn&#39;).style.display==&#39;none&#39;){restoreWidth();}" onblur="document.forms[0].target=&#39;_self&#39;;document.forms[0].action=document.forms[0].action.replace(&#39;&amp;typeaheadsuggest=yes&#39;,&#39;&#39;);clearTimeout(timerid);if (document.getElementById(&#39;Look_Up_IF_bcs__cst_sort_name_dn&#39;).style.display!=&#39;none&#39; &amp;&amp; !bOverLookUpFrame) {setTimeout(&#39;document.getElementById(\&#39;Span_bcs__cst_sort_name_dn\&#39;).style.zIndex=0;&#39;,100); fadeOpacity(&#39;Look_Up_IF_bcs__cst_sort_name_dn&#39;,100,0);}" onkeyup="clearTimeout(timerid);if (document.getElementById(&#39;bcs__cst_sort_name_dn&#39;).value.length>1){document.getElementById(&#39;Span_bcs__cst_sort_name_dn&#39;).style.zIndex=99999;timerid=setTimeout(&#39;fadeOpacity(\&#39;Look_Up_IF_bcs__cst_sort_name_dn\&#39;,0,100); document.getElementById(\&#39;Look_Up_bcs__cst_sort_name_dn\&#39;).click()&#39;,500);}return true;" style="HEIGHT: 19px;WIDTH: 313px;" /><input type="image" name="Look_Up_bcs__cst_sort_name_dn" id="Look_Up_bcs__cst_sort_name_dn" tabindex="2" title="Look-Up ..." class="LookUpHyperLink" src="/NFStage3/iweb/images/lookup_16.gif" alt="Look-Up ..." onclick=" bConfirmNavAway=0; ;" style="width:16px; height:16px;" /><br><iframe id="Look_Up_IF_bcs__cst_sort_name_dn" onmouseout=" bOverLookUpFrame = false;" onmouseover=" bOverLookUpFrame = true;" frameborder="no" width="700" scrolling="auto" height="300" style="position:absolute;z-index:999;display:none;top:18;" name="Look_Up_IF_bcs__cst_sort_name_dn" class="DataFormDivDefault" src=""></iframe></span>|790|updatePanel|Span_inv_assumed_src_flag_ext__UP|<span id="Span_inv_assumed_src_flag_ext" style="LEFT: 627px; POSITION: absolute; TOP: 89px;"><table id="Table_inv_assumed_src_flag_ext" cellspacing="0" cellpadding="0" style="border-width:0px;border-collapse:collapse;">
+	<tr id="TableRow_inv_assumed_src_flag_ext">
+		<td id="TableCell_inv_assumed_src_flag_ext"><span class="DataFormCheckBox" title="assumed src?"><input id="inv_assumed_src_flag_ext" type="checkbox" name="inv_assumed_src_flag_ext" tabindex="117" /></span></td>
+	</tr>
+</table></span><label for="inv_assumed_src_flag_ext" id="Caption_inv_assumed_src_flag_ext" class="DataFormLabel" style="LEFT: 550px; POSITION: absolute; TOP: 94px; HEIGHT: 26px; WIDTH: 83px;">assumed src?</label><input name="__inv_assumed_src_flag_ext" type="hidden" id="__inv_assumed_src_flag_ext" />|810|updatePanel|Span_inv_send_fax_confirmation__UP|<span id="Span_inv_send_fax_confirmation" style="LEFT: 230px; POSITION: absolute; TOP: 350px;"><table id="Table_inv_send_fax_confirmation" cellspacing="0" cellpadding="0" style="border-width:0px;border-collapse:collapse;">
+	<tr id="TableRow_inv_send_fax_confirmation">
+		<td id="TableCell_inv_send_fax_confirmation"><span class="DataFormCheckBox" title="send fax confirmation?"><input id="inv_send_fax_confirmation" type="checkbox" name="inv_send_fax_confirmation" tabindex="21" /></span></td>
+	</tr>
+</table></span><label for="inv_send_fax_confirmation" id="Caption_inv_send_fax_confirmation" class="DataFormLabel" style="LEFT: 253px; POSITION: absolute; TOP: 355px; HEIGHT: 13px; WIDTH: 72px;">send by fax</label><input name="__inv_send_fax_confirmation" type="hidden" id="__inv_send_fax_confirmation" />|146|updatePanel|AfterSaveSetTodateValues__UP|<DIV id="AfterSaveSetTodateValues" class="DataFormTextBox" style="LEFT: 826px; POSITION: absolute; TOP: 443px; HEIGHT: 19px; WIDTH: 173px;"></DIV>|177|updatePanel|StartUpScriptforComplementaryProductsPopUp__UP|<DIV id="StartUpScriptforComplementaryProductsPopUp" class="DataFormTextBox" style="LEFT: 817px; POSITION: absolute; TOP: 551px; HEIGHT: 19px; WIDTH: 280px;" tabindex="0"></DIV>|157|updatePanel|ExtensionLineItemMore__UP|<DIV id="ExtensionLineItemMore" class="DataFormTextBox" style="LEFT: 820px; POSITION: absolute; TOP: 586px; HEIGHT: 19px; WIDTH: 78px;" tabindex="999"></DIV>|120|updatePanel|OTIInputReader__UP|<DIV id="OTIInputReader" class="DataFormTextBox" style="LEFT: 6px; POSITION: absolute; TOP: 443px; HEIGHT: 19px;"></DIV>|332|updatePanel|Span_inv_close_opportunity__UP|<span id="Span_inv_close_opportunity" style="LEFT: 770px; POSITION: absolute; TOP: 394px;"><table id="Table_inv_close_opportunity" cellspacing="0" cellpadding="0" style="border-width:0px;border-collapse:collapse;">
+	<tr id="TableRow_inv_close_opportunity">
+		<td id="TableCell_inv_close_opportunity"></td>
+	</tr>
+</table></span>|191|updatePanel|cst_sort_name_dn__UP|<span id="cst_sort_name_dn" class="DataFormTextBox" style="LEFT: 468px; POSITION: absolute; TOP: 4px; HEIGHT: 19px; WIDTH: 322px;">lastName1452166166659 NAME_09 middleName1452166166309</span>|0|updatePanel|TEXT_2__UP||791|updatePanel|inv_billing_pref_comm_meth__UP|<select name="inv_billing_pref_comm_meth" id="inv_billing_pref_comm_meth" tabindex="5" class="DataFormDropDownList" placeholder="Please select" onkeypress="return shiftHighlight(event.keyCode, this);" onfocusin="expandDropDownList(this);" onblur="collapseDropDownList(this);" style="LEFT: 151px; POSITION: absolute; TOP: 66px; HEIGHT: 19px; WIDTH: 239px;">
+	<option selected="selected" value="">Please select</option>
+	<option value="E-Mail">E-Mail</option>
+	<option value="Fax">Fax</option>
+	<option value="Mail">Mail</option>
+	<option value="Phone">Phone</option>
+
+</select><label for="inv_billing_pref_comm_meth" id="Caption_inv_billing_pref_comm_meth" class="tinyTXT" style="LEFT: 10px; POSITION: absolute; TOP: 66px; HEIGHT: 13px; WIDTH: 137px;">communication preference:</label>|137|updatePanel|ACSAgencyDefault__UP|<DIV id="ACSAgencyDefault" class="DataFormTextBox" style="LEFT: 481px; POSITION: absolute; TOP: 371px; HEIGHT: 19px;" tabindex="0"></DIV>|12769|updatePanel|UPDATEGRIDCONTROL_DOD_Invoice_DetailGRIDDIV__UP|<DIV id="UPDATEGRIDCONTROL_DOD_Invoice_DetailGRIDDIV" class="DataFormDivDefault" style="LEFT: 0px; POSITION: absolute; TOP: 155px; HEIGHT: 170px; WIDTH: 796px;overflow:auto;"><span id="UPDATEGRIDCONTROL_DOD_Invoice_Detail"><table id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_4de6987f-9c78-4eb5-98a5-c6dffd098ffb" border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tr id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_816a37bb-63ec-4f8a-a91e-47d26a9b44af" class="DataFormTR">
+		<td id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_512d4af8-c938-4473-baf2-a15077533a6e" class="DataFormChildHeader" width="85%">Line Items</td>
+		<td id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_500d4cda-2dc6-4ab2-8f52-1dc588d96c7a" align="right" class="DataFormChildHeader" width="150"><table id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_c2448595-01b1-4a65-a9ef-007715e380b4" border="0" cellpadding="0" cellspacing="0">
+			<tr id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_9e059485-cf75-4f41-b705-eb405e8fd253">
+				<td id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_35f8f9e5-b7d1-4f18-9d76-6657d573deca" width="60px">&nbsp;</td>
+				<td id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_0310f1dd-9b2e-46bb-becf-bc923f6cf83a" class="DataFormChildHeaderNoFilter" align="right"></td>
+				<td id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_94c1f8fa-c2e0-4c06-866c-ebfe33b98288" class="DataFormChildHeaderNoFilter" align="left" width="5%"><a onclick="return window.confirm(&#39;remove all items?&#39;);" id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_AllowRemoveAll" class="btn btn-mini" title="Remove All Items" rel="tooltip" href="javascript:__doPostBack(&#39;UPDATEGRIDCONTROL_DOD_Invoice_Detail$AllowRemoveAll&#39;,&#39;&#39;)"><i class="iconpro-bin"></i></a></td>
+				<td id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_1b2b2029-639a-46db-86d8-d38a52b40160" nowrap="nowrap" class="DataFormChildHeaderNoFilter" align="left"></td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+	<tr id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_67383901-4fee-4939-8386-7c7b7bb7a3b3" class="DataFormTR">
+		<td id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_80111392-9aca-4878-9b1c-eb2de3c533a7" class="DataFormTD" colspan="3"><table cellspacing="0" cellpadding="0" selectable="false" class="table" id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid" style="border-collapse:collapse;">
+			<tr>
+				<th scope="col">&nbsp;</th><th scope="col">&nbsp;</th><th scope="col">&nbsp;</th><th scope="col">item:</th><th scope="col">qty:</th><th scope="col"><a href="javascript:__doPostBack(&#39;UPDATEGRIDCONTROL_DOD_Invoice_Detail$InternalUpdateGrid$ctl01$ctl00&#39;,&#39;&#39;)">price:</a></th><th scope="col">discount:</th><th scope="col">tax:</th><th scope="col">ship:</th><th scope="col">net total:</th><th scope="col">net credit:</th><th scope="col">net payment:</th><th scope="col">net balance:</th><th scope="col">addl info:</th>
+			</tr><tr id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb" row_id="1bad4ff3-a08c-4532-b793-5bbbbd1a6ecb">
+				<td valign="middle" style="width:15px;"><a id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb_Delete:1bad4ff3-a08c-4532-b793-5bbbbd1a6ecb" title="delete record" onmouseover="style[&#39;cursor&#39;] = &#39;pointer&#39;;" class="iconpro-remove" onclick="__doPostBack(this.id,&#39;Delete:&#39;)"></a></td><td align="left" valign="middle"><a id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb_HYPERLINK_6___" class="DataFormHyperLink" onclick="OpenNewWindow(&#39;dynamiceditmodal.aspx?FormKey=3d466e13-a42e-427d-bdfe-ffc8cf188788&amp;DoNotSave=yes&amp;ParentObject=CentralizedOrderEntry&amp;ParentDataObject=Invoice Detail&amp;DetailKey=1bad4ff3-a08c-4532-b793-5bbbbd1a6ecb&amp;ivd_cxa_key=8d99b54b-3808-4d61-87aa-04133ab49378&amp;inv_cst_key=&#39;);if(bConfirmNavAway != null)bConfirmNavAway=0;" href="javascript:void(0)" style=""><img src="../images/img_edit.gif" alt="edit" /></a></td><td align="left" valign="middle"></td><td align="left" valign="middle"><a id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb_HYPERLINK_0___" class="DataFormHyperLink" onclick="OpenNewWindow(&#39;dynamiceditmodal.aspx?modal=yes&amp;formkey=a89a0ee2-45c1-4002-b592-918f4a2abb19&amp;key=a6969fe8-f4f3-4886-8c41-7171983b37c2&#39;);if(bConfirmNavAway != null)bConfirmNavAway=0;" href="javascript:void(0);" style="">Regular Member Dues C&EN-Print</a></td><td align="left" valign="middle"><span id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb_ivd_qty___" class="DataFormLabel" style=" HEIGHT: px;">1.00</span></td><td align="left" valign="middle"><span id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb_ivd_price___" class="DataFormCaptionTD" style=" HEIGHT: px;">162.00</span></td><td align="left" valign="middle"><span id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb_ivd_discountamount___" class="DataFormCaptionTD" style=" HEIGHT: px;">0.00</span></td><td align="left" valign="middle"><span id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb_ivd_tax___" class="DataFormCaptionTD" style=" HEIGHT: px;">0.00</span></td><td align="left" valign="middle"><span id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb_ivd_shipping___" class="DataFormCaptionTD" style=" HEIGHT: px;">0.00</span></td><td align="left" valign="middle"><span id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb_ivd_nettotal___" class="DataFormCaptionTD" style=" HEIGHT: px;">162.00</span></td><td align="left" valign="middle"><a id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb_HYPERLINK_1___" class="DataFormCaptionTD" onclick="OpenNewWindow(&#39;dynamiceditmodal.aspx?FormKey=b03fd16d-f0ff-4c7b-a76a-45ec88b0f330&amp;DoNotSave=yes&amp;ParentObject=CentralizedOrderEntry&amp;ParentDataObject=Invoice Detail&amp;DetailKey=1bad4ff3-a08c-4532-b793-5bbbbd1a6ecb&amp;inv_cur_key=&#39;);if(bConfirmNavAway != null)bConfirmNavAway=0;" href="javascript:void(0)" style="">0.00</a></td><td align="left" valign="middle"><input name="UPDATEGRIDCONTROL_DOD_Invoice_Detail$InternalUpdateGrid$1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb$ivd_netpayment___" type="text" value="0.00" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;UPDATEGRIDCONTROL_DOD_Invoice_Detail$InternalUpdateGrid$1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb$ivd_netpayment___\&#39;,\&#39;\&#39;)&#39;, 0)" onkeypress="if (WebForm_TextBoxKeyHandler(event) == false) return false;KeyPressMasked(&#39;Currency&#39;);" id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb_ivd_netpayment___" title="net payment" class="DataFormTextBox" placeholder="net payment" style=" HEIGHT: 19px; WIDTH: 63px;;text-align:right; padding-right: 2px" /><span id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb_ivd_netpayment____RegularExpressionValidator" style="display:none;"></span></td><td align="left" valign="middle"><span id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb_ivd_netbalance___" class="DataFormLabelErrorMessage" style=" HEIGHT: px;">162.00</span></td><td align="left" valign="middle"><span id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb_ivd_addl_info___" class="DataFormLabelReadOnly" style=" HEIGHT: px;"></span></td>
+			</tr><tr id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e" row_id="0e651901-c8cf-426e-a3a1-a88a30f07d7e">
+				<td valign="middle" style="width:15px;"><a id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e_Delete:0e651901-c8cf-426e-a3a1-a88a30f07d7e" title="delete record" onmouseover="style[&#39;cursor&#39;] = &#39;pointer&#39;;" class="iconpro-remove" onclick="__doPostBack(this.id,&#39;Delete:&#39;)"></a></td><td align="left" valign="middle"><a id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e_HYPERLINK_6___" class="DataFormHyperLink" onclick="OpenNewWindow(&#39;dynamiceditmodal.aspx?FormKey=afe644f0-872e-47ce-bf15-078e8001639d&amp;DoNotSave=yes&amp;ParentObject=CentralizedOrderEntry&amp;ParentDataObject=Invoice Detail&amp;DetailKey=0e651901-c8cf-426e-a3a1-a88a30f07d7e&amp;ivd_cxa_key=8d99b54b-3808-4d61-87aa-04133ab49378&amp;inv_cst_key=&#39;);if(bConfirmNavAway != null)bConfirmNavAway=0;" href="javascript:void(0)" style=""><img src="../images/img_edit.gif" alt="edit" /></a></td><td align="left" valign="middle"></td><td align="left" valign="middle"><a id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e_HYPERLINK_0___" class="DataFormHyperLink" onclick="OpenNewWindow(&#39;dynamiceditmodal.aspx?modal=yes&amp;formkey=a89a0ee2-45c1-4002-b592-918f4a2abb19&amp;key=4b1a5d8d-eba4-4b4a-945d-d0677a112771&#39;);if(bConfirmNavAway != null)bConfirmNavAway=0;" href="javascript:void(0);" style="">Chemical and Engineering News</a></td><td align="left" valign="middle"><span id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e_ivd_qty___" class="DataFormLabel" style=" HEIGHT: px;">1.00</span></td><td align="left" valign="middle"><span id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e_ivd_price___" class="DataFormCaptionTD" style=" HEIGHT: px;">0.00</span></td><td align="left" valign="middle"><span id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e_ivd_discountamount___" class="DataFormCaptionTD" style=" HEIGHT: px;">0.00</span></td><td align="left" valign="middle"><span id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e_ivd_tax___" class="DataFormCaptionTD" style=" HEIGHT: px;">0.00</span></td><td align="left" valign="middle"><span id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e_ivd_shipping___" class="DataFormCaptionTD" style=" HEIGHT: px;">58.00</span></td><td align="left" valign="middle"><span id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e_ivd_nettotal___" class="DataFormCaptionTD" style=" HEIGHT: px;">58.00</span></td><td align="left" valign="middle"><a id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e_HYPERLINK_1___" class="DataFormCaptionTD" onclick="OpenNewWindow(&#39;dynamiceditmodal.aspx?FormKey=b03fd16d-f0ff-4c7b-a76a-45ec88b0f330&amp;DoNotSave=yes&amp;ParentObject=CentralizedOrderEntry&amp;ParentDataObject=Invoice Detail&amp;DetailKey=0e651901-c8cf-426e-a3a1-a88a30f07d7e&amp;inv_cur_key=&#39;);if(bConfirmNavAway != null)bConfirmNavAway=0;" href="javascript:void(0)" style="">0.00</a></td><td align="left" valign="middle"><input name="UPDATEGRIDCONTROL_DOD_Invoice_Detail$InternalUpdateGrid$0e651901_c8cf_426e_a3a1_a88a30f07d7e$ivd_netpayment___" type="text" value="0.00" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;UPDATEGRIDCONTROL_DOD_Invoice_Detail$InternalUpdateGrid$0e651901_c8cf_426e_a3a1_a88a30f07d7e$ivd_netpayment___\&#39;,\&#39;\&#39;)&#39;, 0)" onkeypress="if (WebForm_TextBoxKeyHandler(event) == false) return false;KeyPressMasked(&#39;Currency&#39;);" id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e_ivd_netpayment___" title="net payment" class="DataFormTextBox" placeholder="net payment" style=" HEIGHT: 19px; WIDTH: 63px;;text-align:right; padding-right: 2px" /><span id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e_ivd_netpayment____RegularExpressionValidator" style="display:none;"></span></td><td align="left" valign="middle"><span id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e_ivd_netbalance___" class="DataFormLabelErrorMessage" style=" HEIGHT: px;">58.00</span></td><td align="left" valign="middle"><span id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e_ivd_addl_info___" class="DataFormLabelReadOnly" style=" HEIGHT: px;"></span></td>
+			</tr>
+		</table><input name="UPDATEGRIDCONTROL_DOD_Invoice_Detail$InternalUpdateGrid$__CurrentPageIndex" type="text" value="0" id="UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid___CurrentPageIndex" style="display:none;" /></td>
+	</tr>
+</table>
+</span></DIV>|152|updatePanel|SendEmailConfirmationByTemplate__UP|<DIV id="SendEmailConfirmationByTemplate" class="DataFormTextBox" style="LEFT: 820px; POSITION: absolute; TOP: 610px; HEIGHT: 19px; WIDTH: 85px;"></DIV>|136|updatePanel|ExtensionCurrencyReadOnlyDiv__UP|<DIV id="ExtensionCurrencyReadOnlyDiv" class="DataFormTextBox" style="LEFT: 820px; POSITION: absolute; TOP: 660px; HEIGHT: 19px;"></DIV>|162|updatePanel|StartUpScriptforOpportunity__UP|<DIV id="StartUpScriptforOpportunity" class="DataFormTextBox" style="LEFT: 849px; POSITION: absolute; TOP: 199px; HEIGHT: 19px; WIDTH: 187px;" tabindex="0"></DIV>|139|updatePanel|inv_netpayment__UP|<span id="inv_netpayment" class="DataFormLabel" style="LEFT: 606px; POSITION: absolute; TOP: 330px; HEIGHT: 13px; WIDTH: 80px;">0.00</span>|396|updatePanel|ExtensionPriceLookUpTextBox__UP|<input name="ExtensionPriceLookUpTextBox" type="text" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ExtensionPriceLookUpTextBox\&#39;,\&#39;\&#39;)&#39;, 0)" onkeypress="if (WebForm_TextBoxKeyHandler(event) == false) return false;" id="ExtensionPriceLookUpTextBox" class="DataFormTextBox" placeholder="" style="LEFT: 178px; POSITION: absolute; TOP: 328px; HEIGHT: 19px; WIDTH: 81px;" />|0|updatePanel|inv_email_bcc__UP||146|updatePanel|cst_credit_available__UP|<span id="cst_credit_available" class="TinyTXTOrange" style="LEFT: 457px; POSITION: absolute; TOP: 126px; HEIGHT: 16px; WIDTH: 125px;">0.00</span>|0|updatePanel|inv_cur_exchange_rate__UP||947|updatePanel|Span_inv_send_email_confirmation__UP|<span id="Span_inv_send_email_confirmation" style="LEFT: 107px; POSITION: absolute; TOP: 350px;"><table id="Table_inv_send_email_confirmation" cellspacing="0" cellpadding="0" style="border-width:0px;border-collapse:collapse;">
+	<tr id="TableRow_inv_send_email_confirmation">
+		<td id="TableCell_inv_send_email_confirmation"><span class="DataFormCheckBox" title="send email confirmation?"><input id="inv_send_email_confirmation" type="checkbox" name="inv_send_email_confirmation" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;inv_send_email_confirmation\&#39;,\&#39;\&#39;)&#39;, 0)" tabindex="38" /></span></td>
+	</tr>
+</table></span><label for="inv_send_email_confirmation" id="Caption_inv_send_email_confirmation" class="DataFormLabel" style="LEFT: 128px; POSITION: absolute; TOP: 355px; HEIGHT: 13px; WIDTH: 86px;">send by email</label><input name="__inv_send_email_confirmation" type="hidden" id="__inv_send_email_confirmation" />|859|updatePanel|HYPERLINK_2__UP|<a id="HYPERLINK_2" tabindex="6" class="DataFormMenuMore" onclick="bConfirmNavAway=0;ShowHideContextMenu(this,&#39;/NFStage3/iweb/forms/DynamicEditModal.aspx?IsMenu=Yes&amp;EnableAtlas=No&amp;FormKey=ca7e89b3-a4ee-49f0-a6e2-173f62de9cd2&amp;Key=8d99b54b-3808-4d61-87aa-04133ab49378&#39;,&#39;menu_ca7e89b3a4ee49f0a6e2173f62de9cd2&#39;,100,0,0,true,true,true);return false;" onmouseout="HideContextMenu(&#39;menu_ca7e89b3a4ee49f0a6e2173f62de9cd2&#39;);return false;" onkeypress="ContextMenuOnKeyPress(this,&#39;/NFStage3/iweb/forms/DynamicEditModal.aspx?IsMenu=Yes&amp;EnableAtlas=No&amp;FormKey=ca7e89b3-a4ee-49f0-a6e2-173f62de9cd2&amp;Key=8d99b54b-3808-4d61-87aa-04133ab49378&#39;,&#39;menu_ca7e89b3a4ee49f0a6e2173f62de9cd2&#39;,100,0,0,true,true,true);return false;" href="javascript:void(0);" style="LEFT: 401px; POSITION: absolute; TOP: 4px;">Ship To:</a>|33206|updatePanel|DESIGNEDSUBFORM_0__UP|<DIV id="DESIGNEDSUBFORM_0" style="LEFT:7px;POSITION:absolute;TOP:422px;HEIGHT:415px;WIDTH:392px;overflow:auto;"><input type="hidden" name="DESIGNEDSUBFORM_0_TabOrder" id="DESIGNEDSUBFORM_0_TabOrder" value="27" /><div id="DesignedSubDiv_DESIGNEDSUBFORM_0" style="position: relative; WIDTH: 349px; HEIGHT: 395px;"><label for="inv_bat_key" id="Caption_inv_bat_key" class="DataFormLabelRequired" style="LEFT: 1px; POSITION: absolute; TOP: 0px; HEIGHT: 13px; WIDTH: 42px;">batch:</label><label for="inv_po_number" id="Caption_inv_po_number" class="DataFormLabel" style="LEFT: 46px; POSITION: absolute; TOP: 47px; HEIGHT: 13px; WIDTH: 72px;">po number:</label><span id="inv_bat_key_DDLAE" onmouseover="" class="AddEditDiv" style="display:inline-block;LEFT: 1px; POSITION: absolute; TOP: 20px; HEIGHT: 20px; WIDTH: 340px;"><select name="inv_bat_key" id="inv_bat_key" tabindex="28" class="DataFormDropDownList AddEdit" placeholder="Please select" onchange="clearTimeout(timerid); timerid=setTimeout(&#39;__doPostBack(\&#39;inv_bat_key\&#39;,\&#39;\&#39;)&#39;, msecondsshort); " onfocusin="expandDropDownList(this);" onblur="collapseDropDownList(this);" style="height:20px;width:324px;">
+	<option selected="selected" value="">Please select</option>
+	<option value="4183a0b7-1ebc-4b34-aa90-1567fa72265a">ACS: 15Emeritus manual JJR</option>
+	<option value="acd5ce5e-850d-41fd-9b0a-65a7cb3369ce">ACS: 201007 Member Renewals</option>
+	<option value="7af4ad85-2178-46c5-a585-632b193d0e33">ACS: 201008 Member Renewals</option>
+	<option value="5359fd9e-0515-4125-8101-d7fad92ced0b">ACS: 201009 Member Renewals</option>
+	<option value="a38ce78a-c0f8-4901-b979-3425bce4180e">ACS: 201010 Member Renewals</option>
+	<option value="9221fbfe-543d-40fd-91a8-1575f4978b5e">ACS: 201011 Member Renewals</option>
+	<option value="9ac49bdb-75e7-479b-8efc-b7b07cc4467d">ACS: 201012 Emeritus Calendar Renewals</option>
+	<option value="f3554de2-46dc-4e5b-aafd-e8de3342dc18">ACS: 201012 Member Calendar Renewals</option>
+	<option value="33880946-4dcc-4aeb-918c-ba6e0fe2686a">ACS: 201012 Member Rolling Renewals</option>
+	<option value="1487d8b0-5a66-4d1e-a647-0033ee7f2b53">ACS: 201101 Emeritus Renewals</option>
+	<option value="e4bdff38-74a9-40cf-9f6d-429abdbcb49c">ACS: 201101 Member Renewals</option>
+	<option value="32535e4e-ed00-4e93-a06e-6310fa07c114">ACS: 201102 Emeritus Renewals</option>
+	<option value="2f5a3c5a-1a49-4fb0-8a96-7836a4a5e1a0">ACS: 201102 Member Renewals</option>
+	<option value="d3cdf222-8191-4fe5-a4b4-d41e244b23d2">ACS: 201103 Emeritus Renewals</option>
+	<option value="473004d6-de5b-4011-8fa3-eed91ebba044">ACS: 201103 Member Renewals</option>
+	<option value="c399d81d-8685-4ddb-b2ff-ee7388eac678">ACS: 201104 Emeritus Renewals</option>
+	<option value="9b03706a-27e1-4e70-85ef-c7af957c53da">ACS: 201104 Member Renewals</option>
+	<option value="7175edaf-7368-4444-8e89-23270d34c37a">ACS: 201105 Member Renewals</option>
+	<option value="fedb7fb6-37a5-4233-8199-914716663189">ACS: 201106 Emeritus Renewals</option>
+	<option value="a6a09f6d-7715-4881-8e50-607d7de3fbcd">ACS: 201106 Member Renewals</option>
+	<option value="91d31d52-772a-406f-8123-92f763dd3893">ACS: 201107 Member Renewals</option>
+	<option value="459ab486-6c2f-4e7c-924c-3a53570daf4c">ACS: 201108 Emeritus Renewals</option>
+	<option value="99d8bb68-9b58-4503-afe5-1e2d310e5f3a">ACS: 201108 Member Renewals</option>
+	<option value="dd6542ea-49af-48ab-9419-351bf0c1a9c4">ACS: 201109 Emeritus Renewals</option>
+	<option value="8f536cf8-20dd-405c-8f1e-bfc39bb500d6">ACS: 201109 Member Renewals</option>
+	<option value="18a0a925-c9d8-4782-8033-cae3b9f9aa1c">ACS: 201110 Emeritus Renewals</option>
+	<option value="592f7768-0f74-4ab3-9817-22338e0f77e2">ACS: 201110 Member Renewals</option>
+	<option value="37261dee-915e-43db-b0f5-22de97acb2af">ACS: 201111 Emeritus Member</option>
+	<option value="f6481c82-9b13-4c40-bbba-6eece17b86c7">ACS: 201111 Member Renewals</option>
+	<option value="8b1a17a1-d3e3-446d-8985-c87c253b72a8">ACS: 201112 Emeritus Calendar Renewals</option>
+	<option value="a4bda23e-d5ea-49b1-9aeb-3fd76fa7428c">ACS: 201112 Emeritus Rolling Renewals</option>
+	<option value="38510b90-d0ca-40fc-bd61-e125fec38aeb">ACS: 201112 Member Calendar Renewals</option>
+	<option value="f43b876a-e7b5-48e3-878f-6bb287a65d3c">ACS: 201112 Member Calendar Renewals TIMING TEST</option>
+	<option value="e2d11217-2047-4c9c-ba90-015920c83daa">ACS: 201112 Member Rolling Renewals</option>
+	<option value="cdcf81c6-7780-4d88-963d-39305d5dbe75">ACS: 201201 Emeritus Renewals</option>
+	<option value="4a21b33c-9e14-4a29-ac78-fc997f2ea785">ACS: 201201 Member Renewals</option>
+	<option value="e8332a33-1c9b-4b74-a15e-72bbdd8c5224">ACS: 201201 Member Renewals TIMING TEST</option>
+	<option value="47f25313-2a94-4d18-8647-79d1885db9c6">ACS: 201202 Emeritus Renewals</option>
+	<option value="f960a1ce-951b-4339-8443-e80c2c14b6c4">ACS: 201202 Member Renewals</option>
+	<option value="2ef4017e-14ea-47b0-bb7b-627da1ef62c4">ACS: 201202 Member Renewals TIMING TEST</option>
+	<option value="73f70625-4907-46e0-a939-0f7e2f963fac">ACS: 201203 Emeritus Renewals</option>
+	<option value="43242eed-cffc-42b6-8f4c-4ab529550ee9">ACS: 201203 Member Renewals</option>
+	<option value="aa2ed623-453e-41a8-a359-e5706c7c248a">ACS: 201203 Member Renewals TIMING TEST</option>
+	<option value="de21cd87-8581-4d93-9c83-70961d40006f">ACS: 201204 Emeritus Renewals</option>
+	<option value="80480f47-3558-48f7-bc2f-f566a3de7eae">ACS: 201204 Member Renewals</option>
+	<option value="b35d6864-ae38-4bf6-b71a-e98fb77bb18e">ACS: 201204 Member Renewals TIMING TEST</option>
+	<option value="96716833-a19b-46ed-910b-d902dd805c81">ACS: 201205 Emeritus Renewals</option>
+	<option value="3afde838-0527-48a6-b977-f86d27b14796">ACS: 201205 Member Renewals</option>
+	<option value="c536f73f-b006-4dad-a0b8-0f5d397414cf">ACS: 201205 Member Renewals TIMING TEST</option>
+	<option value="25c96715-e305-4b8f-ba37-0abc832def94">ACS: 201206 Emeritus Renewals</option>
+	<option value="87a5ddb2-6073-4c5d-af34-05b8b827a0ee">ACS: 201206 Member Renewals</option>
+	<option value="538d9c98-8bf4-48d3-b439-c5a4343bb805">ACS: 201206 Member Renewals TIMING TEST</option>
+	<option value="d6c80d07-c6d1-4ef4-bfbb-2e63285759bc">ACS: 201207 Emeritus Renewals</option>
+	<option value="40d6aea2-97d7-4119-bd33-cdf06303e1f9">ACS: 201207 Member Renewals</option>
+	<option value="a4043737-b3b9-4d8e-b5c5-79cd3bd8a045">ACS: 201207 Member Renewals TIMING TEST</option>
+	<option value="6100dd03-f171-42ce-a73e-e727683d992a">ACS: 201208 Emeritus Renewals</option>
+	<option value="c894133b-4ac1-4235-91f1-e23390b24df2">ACS: 201208 Member Renewals</option>
+	<option value="92348cb4-75ff-422a-85d1-0c95b8affde2">ACS: 201208 Member Renewals TIMING TEST</option>
+	<option value="a4545857-c35b-45f9-8ef1-374a39a606ca">ACS: 201209 Emeritus Renewals</option>
+	<option value="516b430d-556e-4ebc-95a5-d98385cb991b">ACS: 201209 Member Renewals</option>
+	<option value="d804ad35-164a-41fb-a06e-2db9c85bd79d">ACS: 201209 Member Renewals TIMING TEST</option>
+	<option value="2505c20d-c4a1-4ef2-b305-4811acaf9b09">ACS: 201210 Emeritus Renewals</option>
+	<option value="8a26d5cd-5131-4653-b6c3-f615625a9ff8">ACS: 201210 Member Renewals</option>
+	<option value="d33585a2-6379-45e3-987e-cb18a7ecfe29">ACS: 201210 Member Renewals TIMING TEST</option>
+	<option value="30194273-d9a6-427e-b0f5-71ae43e9fb7b">ACS: 201211 Emeritus Renewals</option>
+	<option value="476792d4-6dda-4f8e-b1c4-afb24949e15d">ACS: 201211 Member Renewals</option>
+	<option value="97fcafc0-f883-491c-b218-8cedaae68c6b">ACS: 201211 Member Renewals TIMING TEST</option>
+	<option value="cc9aa538-3f37-44bf-acbe-58c2fb9b11fa">ACS: 201212 Calendar Emeritus Renewals</option>
+	<option value="f096eb09-4193-4b44-b755-29a6428194a2">ACS: 201212 Calendar Member Renewals</option>
+	<option value="4287eb02-f624-4459-9e47-7b601d74e55a">ACS: 201212 Rolling Emeritus Renewals</option>
+	<option value="e88d65fa-3a51-4211-8547-1935eafdd74e">ACS: 201212 Rolling Member Renewals</option>
+	<option value="1e7a7927-cfc5-4ef9-882c-74ebd8b55edd">ACS: 201212 Rolling Member Renewals TIMING TEST</option>
+	<option value="09936703-5587-4de5-ba60-b8cd6f1f6475">ACS: 201301 Emeritus Renewals</option>
+	<option value="3cbfe89e-7bd0-4ad9-8da7-01f51c4c7c81">ACS: 201301 Member Renewals</option>
+	<option value="f149f61c-98e4-4af5-80af-e3532df970d9">ACS: 201302 Emeritus Renewals</option>
+	<option value="09ba9fa8-7024-4ec1-b39c-36be44e36d9d">ACS: 201302 Member Renewals</option>
+	<option value="cf533d0e-7b7f-4bf3-844c-1230335eb1e7">ACS: 201303 Emeritus Renewals</option>
+	<option value="ef8c2bed-a0e0-4622-a2ad-fc0184af4df0">ACS: 201303 Member Renewals</option>
+	<option value="0cd35566-8915-41b4-83e0-68a26a6313a0">ACS: 201304 Emeritus Renewals</option>
+	<option value="c45e8a1c-2c73-4024-9540-3e6256b5be82">ACS: 201304 Member Renewals</option>
+	<option value="be475503-5b34-4308-b7d6-ba76b1bb2bad">ACS: 201305 Emeritus Renewals</option>
+	<option value="aaf41413-4510-45c0-8e10-acf572dfd569">ACS: 201305 Member Renewals</option>
+	<option value="6a2010c0-10d8-475a-a793-d866ca15ff4d">ACS: 201306 Emeritus Member</option>
+	<option value="3a69eec5-3657-4663-bdf9-ca5d3dae1b2a">ACS: 201306 Member Renewals</option>
+	<option value="ad5edbb1-4401-4dac-bcb1-3bb65863fd54">ACS: 201307 Emeritus Renewals</option>
+	<option value="b6817cd8-99e8-44b1-a19a-c00aebb15aa4">ACS: 201307 Member Renewals</option>
+	<option value="a9e43cd4-7d16-4533-9b9d-64da6ecdb5f6">ACS: 201308 Emeritus Renewals</option>
+	<option value="8a784b0f-cec8-4e5a-bd3b-6bb507da10bb">ACS: 201308 Member Renewals</option>
+	<option value="7b1a470b-3e83-4ae2-920d-5c964c642a5f">ACS: 201309 Emeritus Renewals</option>
+	<option value="caeaf527-30f5-49ac-ad1c-6e5297b80fbc">ACS: 201309 Member Renewals</option>
+	<option value="b7a4020f-8eb2-4ac9-ac58-7f0f840bd319">ACS: 201310 Member Renewals</option>
+	<option value="71caeb44-b1d8-48bf-9640-6b7a3272c846">ACS: 201311 Emeritus Renewals</option>
+	<option value="34908301-c53c-499c-9fd8-157d4308ddc8">ACS: 201311 Member Renewals</option>
+	<option value="aa24a29f-af9c-4403-bc33-f1eeada630a7">ACS: 201312 Calendar Emeritus Renewals</option>
+	<option value="6a69db0b-9dff-431e-b96b-3d8d566f7bc9">ACS: 201312 Calendar Member Renewals</option>
+	<option value="3222ce0b-23ec-4dcf-99c5-e28ef05354de">ACS: 201312 Pub Renewals Exceptions</option>
+	<option value="5eff1fdf-cd8c-4d50-a411-5b558fcd3c45">ACS: 201312 Rolling Emeritus Renewals</option>
+	<option value="e1b9a1ab-5dfa-450b-a55d-85c3a100d771">ACS: 201312 Rolling Member Renewals</option>
+	<option value="54bac6c6-9f47-486e-9dc3-0a1e3e1e2be0">ACS: 2014 ChemMattersRenewals</option>
+	<option value="bcaaef38-6d7b-4e3e-8077-ab676798b205">ACS: 201401 Emeritus Renewals</option>
+	<option value="00c55a69-5671-4a64-bad5-786f256b1af3">ACS: 201401 Member Renewals</option>
+	<option value="04430baf-4e4f-4302-99cb-f69d49c78e48">ACS: 201402 Emeritus Renewals</option>
+	<option value="f4917907-7a26-4f81-a51c-5a75c9a22204">ACS: 201402 Member Renewals</option>
+	<option value="b8abb268-9c6b-4e5f-a1be-47602f525339">ACS: 201403 Emeritus Renewals</option>
+	<option value="3b9c4d7f-d980-4c3d-9dc5-5b1c2c711acf">ACS: 201403 Member Renewals</option>
+	<option value="326f2cf1-c70c-405b-82d7-cfd4cc74430d">ACS: 201404 Emeritus Renewals</option>
+	<option value="99c0821b-b238-4757-8175-05af82b9b692">ACS: 201404 Member Renewals</option>
+	<option value="b70078b5-0ed2-4d14-90fc-3de4b852080e">ACS: 201405 Emeritus Renewals</option>
+	<option value="7337d091-8e52-49da-9bc2-54889fdc86ff">ACS: 201405 Member Renewals</option>
+	<option value="b3b06464-bee0-4d4e-a6ec-1be5e7dff710">ACS: 201406 Emeritus Renewals</option>
+	<option value="f728975c-d61f-47d5-a138-3eea934e810b">ACS: 201406 Member Renewals</option>
+	<option value="8f7d7cfe-48f6-4cdd-b98b-499b1b880643">ACS: 201407 Emeritus Renewals</option>
+	<option value="03e50349-ee11-4706-881b-06992ad23eaf">ACS: 201407 Member Renewals</option>
+	<option value="d03e2484-9632-48b0-af6d-ac298812be1a">ACS: 201408 Emeritus Renewals</option>
+	<option value="8dd1ffbc-8d15-4192-82cf-e83bb1101c6b">ACS: 201408 Member Renewals</option>
+	<option value="b1a40c6c-0796-4160-800b-4360b98363d8">ACS: 201409 Emeritus Renewals</option>
+	<option value="3fdf63b7-a4fb-47d1-b70b-5d05e4bc2858">ACS: 201409 Member Renewals</option>
+	<option value="2a589844-638e-4eb5-89cb-34ac7c23635d">ACS: 201410 Emeritus Renewals</option>
+	<option value="011bb995-1124-4809-9078-28323b7a722e">ACS: 201410 Member Renewals</option>
+	<option value="c36149d1-ca90-4c3d-b969-42224082de48">ACS: 201411 Division Affiliate Renewals</option>
+	<option value="373b0d68-2e8e-427d-b68d-f01dd24bfd33">ACS: 201411 Emeritus Renewals</option>
+	<option value="e8eabc93-d589-4df5-bbe6-aa14cce016d0">ACS: 201411 Member Renewals</option>
+	<option value="b0f63364-fd70-4161-ae24-3fb9375856a9">ACS: 201411 Pub Renewals</option>
+	<option value="5991c6ec-781d-4d18-b298-2ad72315a520">ACS: 201412 Calendar Member Renewals</option>
+	<option value="3e4223e8-1307-4559-97b9-a40c83f3018d">ACS: 201412 Division Affiliate Renewals</option>
+	<option value="dff7636f-1e7e-42db-9e1b-40f4c1260483">ACS: 201412 Pub Renewals</option>
+	<option value="84527a35-4c4e-42d7-8209-450542547956">ACS: 201412 Rolling Member Renewals</option>
+	<option value="5f123b5b-fccf-49b8-9b60-6a31d0f1c77d">ACS: 2015 ChemMatters Renewals 2</option>
+	<option value="8eea33eb-cc5a-4eab-8e91-35d47b1ca482">ACS: 2015 December ChemMatters Renewals</option>
+	<option value="b067263d-258e-43d0-b650-a61234f1f7be">ACS: 2015 October ChemMatters Renewals</option>
+	<option value="924b8374-53fb-4c3a-853a-94d4af033fe7">ACS: 201501 Division Affiliate Renewals</option>
+	<option value="1bb2c442-ebfc-419b-bd9e-9e2ba2be777e">ACS: 201501 Emeritus Renewals</option>
+	<option value="67b5cab8-1d08-429f-a4b0-19d5c5dd0582">ACS: 201501 Member Renewals</option>
+	<option value="932c22fd-5e86-4aa6-b268-588422ac8a3c">ACS: 201501 Pub Renewals</option>
+	<option value="a03b285c-70fb-4303-97a3-adfe315d86cd">ACS: 201502 Division Affiliate Renewals</option>
+	<option value="32eb9336-8c60-4f0b-9e44-f964ebf1afc1">ACS: 201502 Emeritus Renewals</option>
+	<option value="2eca7c1f-043e-433a-b464-4254ccb28806">ACS: 201502 Member Renewals</option>
+	<option value="5165bb4b-4684-4cdd-ad22-4ad82715b973">ACS: 201502 Pub Renewals</option>
+	<option value="08edd86a-f310-4d7d-99aa-f4d2b8dcf2ef">ACS: 201503 Division Affiliate Renewals</option>
+	<option value="d880cc41-8d4a-4f6f-9369-e1bd359afd65">ACS: 201503 Emeritus Renewals</option>
+	<option value="9cf0e013-2dc2-4607-ba93-e6e9026b89ca">ACS: 201503 Member Renewals</option>
+	<option value="5283cab4-c36c-41d6-ab91-8ffd2c46119a">ACS: 201503 Pub Renewals</option>
+	<option value="55724e12-9afc-4bc3-9271-fdd684b292e0">ACS: 201504 Division Affiliate Renewals</option>
+	<option value="ff68e9bb-77fc-426a-bd34-7dc34caeae28">ACS: 201504 Emeritus Renewals</option>
+	<option value="e2fbc38c-1c8f-40c2-937c-735c4e80d7d1">ACS: 201504 Member Auto Renewal</option>
+	<option value="bdb0aec6-05b4-4fed-a35d-9a0b9199a6ea">ACS: 201504 Member Renewals</option>
+	<option value="7662d38a-78e0-4ac7-8b2e-eee791264c78">ACS: 201504 Pub Renewals</option>
+	<option value="ef0c80f7-1322-4c54-ba9a-3952f1375b86">ACS: 201505 Division Affiliate Renewals</option>
+	<option value="1bdacb5d-8939-4027-a576-7c8369663d70">ACS: 201505 Emeritus Renewals</option>
+	<option value="731de8e6-4ec3-4a49-9acd-4210b105190e">ACS: 201505 Member Auto Renewal</option>
+	<option value="31f2dd77-f725-441e-ab44-a7a47482b0af">ACS: 201505 Member Renewals</option>
+	<option value="64624c3a-a97b-4ad3-b78b-356cd1e8399a">ACS: 201505 Pub Renewals</option>
+	<option value="55ae9817-50f8-4b7d-81ab-377d10a3b00f">ACS: 2015-05-04-ANE-Seed</option>
+	<option value="a77a241c-42a0-4599-8a47-f83ae852d0ad">ACS: 201506 Division Affiliate Renewals</option>
+	<option value="f2050997-9084-47cb-ae1f-2f037c5f2fa0">ACS: 201506 Emeritus Renewals</option>
+	<option value="fdd684ae-ee1d-4935-81e1-99578d030c08">ACS: 201506 Member Auto Renewal</option>
+	<option value="dcb71c7a-3cf7-42e6-8f47-9337ebf0f74a">ACS: 201506 Member Renewals</option>
+	<option value="db18a495-a095-4939-8930-2cf0ebd3d06f">ACS: 201506 Pub Renewals</option>
+	<option value="0acba2c5-45a8-4670-8975-82ed21491114">ACS: 201507 AACT Renewals</option>
+	<option value="e61317a6-4dd1-4a3a-9eb5-772892b66182">ACS: 201507 Division Affiliate Renewals</option>
+	<option value="9366f232-a61d-4b2c-bfd4-eb94254aeb9c">ACS: 201507 Emeritus Renewals</option>
+	<option value="19185c53-11bf-4f99-ad36-53052cc4b799">ACS: 201507 Member Auto Renewal</option>
+	<option value="a46a594a-0fa8-41a3-a6d2-4cc10c822667">ACS: 201507 Member Renewals</option>
+	<option value="9cb40070-1c03-406c-b51c-eb8df1eec992">ACS: 201507 Pub Renewals</option>
+	<option value="34e9b268-037b-4e1e-9a05-95af198b1983">ACS: 201508 AACT Renewals</option>
+	<option value="cf84d17c-e933-4c23-aab5-90548f06c5c2">ACS: 201508 Division Affiliate Renewals</option>
+	<option value="aea1e7f8-1c8e-4c59-be2f-e3a6a497a1c0">ACS: 201508 Emeritus Renewals</option>
+	<option value="22b078eb-4ccc-4ec7-8c4d-dc0a56fdc34e">ACS: 201508 Member Auto Renewal</option>
+	<option value="80ae4418-169e-4ec7-afdb-56ed69172aa4">ACS: 201508 Member Renewals</option>
+	<option value="e9a038f3-3eb5-4db8-bfbd-d8b5d180cc01">ACS: 201508 Pub Renewals</option>
+	<option value="6aaee3c1-a7ae-4c43-9d36-93e0985d0739">ACS: 201509 AACT Renewals</option>
+	<option value="682ae25e-a8fe-4bb6-830e-5e8d9889af0e">ACS: 201509 Division Affiliate Renewals</option>
+	<option value="502fd1db-dd9f-4015-ab06-f626df3ed8c5">ACS: 201509 Emeritus Renewals</option>
+	<option value="44efe749-ed74-4457-aa33-8b01b805d81e">ACS: 201509 Member Auto Renewal</option>
+	<option value="bab6fc10-c298-46a6-b5fe-c7a0e6d0df74">ACS: 201509 Member Renewals</option>
+	<option value="758bec22-7f0a-4b88-9e59-4cb79474dbce">ACS: 201509 Pub Renewals</option>
+	<option value="afd6bed4-21e0-4eb3-94ca-5e01951dc76d">ACS: 201510 AACT Renewals</option>
+	<option value="50468c37-84b5-475c-97b1-486eddacf511">ACS: 201510 Division Affiliate Renewals</option>
+	<option value="4edb4b5c-b415-4af1-bf12-19f0c6cb3b62">ACS: 201510 Emeritus Member </option>
+	<option value="a84b5619-bae3-47c7-aeae-3f4c7500517a">ACS: 201510 Member Auto Renewal</option>
+	<option value="99122515-63b9-465e-9fff-cc6969d4f083">ACS: 201510 Member Renewals</option>
+	<option value="f7aa6c6a-52be-41da-98af-44fdf8ae0eaf">ACS: 201510 Pub Renewals</option>
+	<option value="f8ae3742-5c40-4046-b42e-70a8c05f0ef6">ACS: 2015-10-29-plb-renewalcreate-201604</option>
+	<option value="9d10ae7d-e6fe-479d-b085-26eccb7bfc47">ACS: 201511 AACT Renewals</option>
+	<option value="351aa7c6-0e21-43f5-8633-05e01a672311">ACS: 201511 Division Affiliate Renewals</option>
+	<option value="db19fea2-743e-4641-94cb-16997432ee5b">ACS: 201511 Emeritus Renewals</option>
+	<option value="db02b9a4-8041-43f3-86e0-e0bc8c74e2e0">ACS: 201511 Member Auto Renewal</option>
+	<option value="e37332ff-8e72-49cf-8029-fca687019139">ACS: 201511 Member Renewals</option>
+	<option value="2136cd9b-7b94-4b48-941c-eed21a61b2ed">ACS: 201511 Pub Renewals</option>
+	<option value="307eb04b-1331-47c8-a15e-6b91f37485b4">ACS: 2015-1101-AOC-GMG</option>
+	<option value="927abc8e-70b1-4b86-9a9a-0d805813666e">ACS: 2015-11-01-cos-plb37-membertests</option>
+	<option value="10780c4e-751e-4183-a5e4-aca16f3b4b81">ACS: 2015-11-16-MOS37</option>
+	<option value="46e6be87-694f-4550-82cb-9e3ff956328c">ACS: 2015-11-17  corrections CAC</option>
+	<option value="347b8a31-cb88-4daa-bbf8-9e556586b610">ACS: 2015-11-22 misc CAC</option>
+	<option value="91f46715-0f8b-4219-8df3-dd1911a05425">ACS: 2015-11-24 Misc Corrections JJR</option>
+	<option value="11fdb84a-cf46-4f92-8592-149b328fbeec">ACS: 2015-11-24-COS-JMB37</option>
+	<option value="0dfa9526-899a-4eb8-886e-1447df9c5344">ACS: 2015-11-24-EmeritusReinstate QTP</option>
+	<option value="323e03e9-68a4-4962-a486-218541fb183b">ACS: 2015-11-25 Misc JJR</option>
+	<option value="8dd6b2bc-8339-469a-b2ef-2daaa37a2cae">ACS: 2015-11-25-COS-BSP</option>
+	<option value="7eb8083b-5f1c-4ca0-8bda-0d254afa819a">ACS: 2015-11-25-COS-JMB37</option>
+	<option value="e31a570a-2d32-4f50-b4c1-96e8c9d8bab6">ACS: 2015-11-25-cos-plb37</option>
+	<option value="46b11d29-08b6-4a82-9947-c0c267f49bdb">ACS: 201511-cos-plb37-renewals for cdstests</option>
+	<option value="bd214b60-bb07-42c3-8e7f-8e7f94cb787c">ACS: 201512 AACT Renewals</option>
+	<option value="871eae5c-903a-4c8f-8b69-dadfff2b1e96">ACS: 201512 Calendar Emeritus Renewals</option>
+	<option value="330ae4cf-570f-47a4-adb7-63400336ef07">ACS: 201512 Calendar Emeritus Renewals 2014 Auto Convert</option>
+	<option value="88b1a77c-1e46-4e08-a613-38d2acd03860">ACS: 201512 Calendar Member Auto Renewal</option>
+	<option value="11fc2bf7-4a62-4d87-97d1-256e57de301c">ACS: 201512 Calendar Member Auto Renewal Payments</option>
+	<option value="032df8f7-0a57-4e95-bf50-fdc4d002726b">ACS: 201512 Calendar Member Renewals</option>
+	<option value="5e2ec8de-85da-49da-835d-3cd5e65845cc">ACS: 201512 Division Affiliate Renewals</option>
+	<option value="d36cec47-af8c-4120-9491-890d55aee6b7">ACS: 201512 Pub Renewals</option>
+	<option value="08dc7be2-c68d-44b5-a8f7-1e86efa16ea9">ACS: 201512 Rolling Emeritus Member Renewals</option>
+	<option value="697e1e90-2375-4b69-8c05-21c3a8cb6b17">ACS: 201512 Rolling Member Auto Renewal</option>
+	<option value="ddafa128-1ce1-4c01-afed-318ff0fab752">ACS: 201512 Rolling Member Renewals</option>
+	<option value="a01742d3-0574-4994-a177-089e4ab72cfd">ACS: 2015-12-03-BATCH-001</option>
+	<option value="661ccacc-7e93-4815-a101-00514f2928ee">ACS: 201601 AACT Renewals</option>
+	<option value="d9aee81b-df07-42ac-94d5-c2258857c7b2">ACS: 201601 Division Affiliate Renewals</option>
+	<option value="80a866f2-54d5-4e74-92e1-9acc783e1966">ACS: 201601 Emeritus Renewals</option>
+	<option value="6e976354-f374-46e6-a1a9-393aa2d2afe1">ACS: 201601 Member Auto Renewal</option>
+	<option value="7fe842ff-ce60-4996-a8ff-28ac0e6efd05">ACS: 201601 Member AutoPay Membership Payments</option>
+	<option value="deda5702-01c4-4b85-b1f2-af1cd25d2519">ACS: 201601 Member Renewals</option>
+	<option value="536a310e-bfe9-4a59-aee8-800ff937ea4e">ACS: 201601 Pub Renewals</option>
+	<option value="bc533c49-8a5e-4fcf-b069-9a0ffda0aa09">ACS: 201602 Emeritus Member Renewals</option>
+	<option value="1c92ae46-c053-4b5c-bf7b-9e26db327275">ACS: 201602 Member Auto Renewal</option>
+	<option value="37d6ca1c-83cd-40ec-a243-b66a62ba5232">ACS: 201602 Member Renewals</option>
+	<option value="3a545986-989f-45b6-b918-f572f57a9b24">ACS: 201602 Pub Renewals</option>
+	<option value="b7ead055-47f7-413b-800a-43493be21dfd">ACS: 201603 Emeritus Renewals</option>
+	<option value="10c8be59-4a09-49f9-93bd-446b9d70f867">ACS: 201603 Member Renewals</option>
+	<option value="566f7089-d698-45b3-b62f-4ff68d7b89ff">ACS: 201606 Member Renewals</option>
+	<option value="75d7d0f0-a4c2-4339-8959-42d72312479d">ACS: 5THEFF-CN-2015-1119-001</option>
+	<option value="b84d5c09-04d1-4ac6-97f0-9f2ab99dcc6b">ACS: DECX-2015-1112-001</option>
+	<option value="71831cf6-3990-47d9-b26d-767f03ebb3c7">ACS: DECX-2015-1118-001</option>
+	<option value="7eac19a7-8ee0-42eb-9a3c-f8f219fa1370">ACS: DECX-2015-1123-001</option>
+	<option value="5731a1ba-5255-4740-9f11-9021d894e2e3">ACS: DECX-2015-1124-001</option>
+	<option value="d776776e-1fc2-4697-9f69-b73095219427">ACS: DIVQ-2015-1124-001</option>
+	<option value="32e1ccd2-7494-4dec-a18f-ec666ffed520">ACS: DIVX-2015-1123-001</option>
+	<option value="0d7d7270-e2f0-413e-9a10-0bb98f52924d">ACS: FREX-2015-NOVEMBER</option>
+	<option value="a4b3a08f-649f-4d4d-922c-63efc809ebf9">ACS: GSH-2015-1130-TERMINV</option>
+	<option value="7e940000-b563-443b-ac64-3d7fa29629b9">ACS: JCE Proforma August 2015</option>
+	<option value="9845a5a5-d719-40b3-b184-209515376257">ACS: JCE Proforma December 2014</option>
+	<option value="de2fe2f6-c04f-4782-8f83-2ad069acbce4">ACS: JCE Proforma February 2015</option>
+	<option value="96aedd93-69c3-4855-81cc-fc278a7ae111">ACS: JCE Proforma July 2015</option>
+	<option value="ef8b1deb-a6d7-4445-a7a7-f7939ccd31fd">ACS: JCE Proforma June 2015</option>
+	<option value="9f54b502-cebb-4916-bde6-eb9ee939e32d">ACS: JCE Proforma November 2014</option>
+	<option value="10056fb6-4181-4845-896d-dfb2abce1089">ACS: JCE Proforma November 2015</option>
+	<option value="d69a8063-709c-4fbc-a05b-344498b108df">ACS: JCE Proforma October 2015</option>
+	<option value="4e8124f8-252d-4ef5-8ad7-deb3d09dfe08">ACS: JCE Proforma September 2015</option>
+	<option value="dfea5576-bfeb-4e26-927c-20b54d66ac18">ACS: MAPX-2015-1118-001</option>
+	<option value="66240781-01f0-4635-a4bf-439328ec6f9d">ACS: MAPX-2015-1120-001</option>
+	<option value="3d9a834c-e672-43cc-9d99-50e93637eb91">ACS: MAPX-2015-1123-001</option>
+	<option value="b3dd37be-35d5-4a7b-9dde-89e5ec2d95c1">ACS: MAPX-2015-1124-001</option>
+	<option value="434be9eb-8926-48fb-93e3-a24df1655e2d">ACS: MAPX-2015-1124-002</option>
+	<option value="dddb7a4f-66c8-4d3b-a128-69e758e9b0ce">ACS: MAPX-2015-1124-003</option>
+	<option value="14346bab-f059-4547-b0be-066035490cdf">ACS: MOS Renewal Issue</option>
+	<option value="649c913b-b8ae-451c-8cf0-a2468d45c4d2">ACS: MRGX-2015-0904-001</option>
+	<option value="9f21dcb1-715a-4e30-9022-4e4c8e8524fc">ACS: MRGX-2015-0929-001</option>
+	<option value="560b3658-0571-4360-9da7-e9f72836583f">ACS: MRGX-2015-0929-002</option>
+	<option value="c9fbc55c-639e-4490-b98d-8ba10c0337dd">ACS: MRGX-2015-0929-003</option>
+	<option value="bc4eda9d-6542-4e4d-930d-dad8c64205d8">ACS: MRGX-2015-0929-004</option>
+	<option value="f8782d2e-73d4-442f-be40-970563486e30">ACS: MRGX-2015-0929-005</option>
+	<option value="20f10f6e-92c3-4f51-a328-0b7a136b6677">ACS: MRGX-2015-0929-006</option>
+	<option value="34c12062-4dfb-4aaa-afac-a85bcd246ce3">ACS: MRGX-2015-0929-007</option>
+	<option value="1da98e04-b9ac-4038-85b1-a614bd057e81">ACS: MRGX-2015-0929-008</option>
+	<option value="471275b4-cd61-449f-952a-1e1950191fba">ACS: MRGX-2015-0929-009</option>
+	<option value="fb83e810-1f56-46f2-a920-2b8f8be30df5">ACS: MRGX-2015-0929-010</option>
+	<option value="06e4626c-98ca-4fd4-aff0-d2b0d34aee13">ACS: MRGX-2015-1123-001</option>
+	<option value="a1d4f64f-d2c3-4e8e-bdd2-e63f6d2d6805">ACS: OLBE-2015-1113-001</option>
+	<option value="12ee1b98-b7b6-4b27-9e2c-621522193772">ACS: OLBE-2015-1116-001</option>
+	<option value="c390bb8b-f801-49af-bd12-ac0f6cc35b3a">ACS: OLBE-2015-1118-001</option>
+	<option value="646a1fb8-86fc-40e8-af28-c81457bdadfc">ACS: OLBE-2015-1123-001</option>
+	<option value="c457569c-588b-4937-b679-dbebc6c80a62">ACS: OLBE-2015-1124-001</option>
+	<option value="97bec533-6284-447d-9529-aba9b498b712">ACS: OVERPYMT-WRITEOFF-2015-11</option>
+	<option value="f1bf7988-0261-45e1-8525-bbd0e3d3cb47">ACS: PORQ-2015-1118-001</option>
+	<option value="cb730a8a-dfb8-4303-bd7b-5155ad7ab1ec">ACS: PORQ-2015-1123-001</option>
+	<option value="195d19ec-c45d-47be-8dae-78f113337bc9">ACS: PORQ-2015-1124-001</option>
+	<option value="32b5989d-387c-484a-bd9d-ae780228eb9c">ACS: PORQ-CM-2015-1112-002</option>
+	<option value="dc1e20b6-b675-48d1-b420-3bc5ad1155b3">ACS: PORQ-CM-2015-1117-002</option>
+	<option value="d2f1a0d2-e94b-4f9e-9c68-2d594e378134">ACS: PORQ-CM-2015-1118-001</option>
+	<option value="00087113-e877-4103-9fdf-b13a5b200ef2">ACS: PORQ-CM-2015-1122-002</option>
+	<option value="86fb49d3-f521-401a-8908-6ed68b0fc2a3">ACS: PORQ-CM-2015-1124-001</option>
+	<option value="e6034adf-7c53-4e44-b41b-8ec3e8378505">ACS: PORQ-CM-2015-1124-002</option>
+	<option value="6ddf7d80-9391-4620-860a-d708fad80035">ACS: QA_Batch</option>
+	<option value="82e8536a-c3b9-4d9a-8681-3ab335e6810d">ACS: QA_SUB_BATCH</option>
+	<option value="d413bf8a-92fb-4dfd-8deb-230994431a47">ACS: RESX-2015-1103-002</option>
+	<option value="e367cd66-ceeb-47ad-bc25-a26b1ed4de72">ACS: RESX-2015-1104-001</option>
+	<option value="641e4d7b-0c3e-463f-8f70-942971632451">ACS: RESX-2015-1109-001</option>
+	<option value="c4960a7d-4ee9-4e7e-ac34-79bd49d72944">ACS: RESX-2015-1112-001</option>
+	<option value="257c6dec-0025-493e-8dd9-2947d735fedc">ACS: RESX-2015-1113-001</option>
+	<option value="64dbca05-5880-40a3-82c3-c612a104759a">ACS: RESX-2015-1116-001</option>
+	<option value="7d492b3b-8052-4e2a-af7c-bb9677192ffa">ACS: RESX-2015-1118-001</option>
+	<option value="a4b39629-8d36-4760-b965-099e8f6b876b">ACS: RESX-2015-1123-001</option>
+	<option value="3c9176fc-c845-4859-b31c-73316bfe2970">ACS: RESX-2015-1124-001</option>
+	<option value="810b5383-0c9b-4cb3-a7c0-bf897332cbeb">ACS: SLS-2015-10-27-OMR-EXCEPTION</option>
+	<option value="18fe96be-4c73-4854-9ac9-6f0637506c9d">ACS: SLS-2015-1129</option>
+	<option value="98f3babb-3c5a-46ad-ad35-c35bc9cfdcc3">ACS: SLS-COUPON.CORR-2015-1124</option>
+	<option value="b874e11b-9a03-4d98-9a9f-67c97b1be3b0">ACS: SLS-GCS-ONLINE.PYMTS-2015-1129</option>
+	<option value="afb52758-b8f9-4fa0-a022-f684d16bd853">ACS: SLS-MANUAL.PYMT-2015-1123-plb</option>
+	<option value="ce3f880d-fbf1-4ad3-905f-e0c1e060ad01">ACS: SLS-MANUAL.PYMT-2015-1124-plb</option>
+	<option value="e7c90037-46d7-4fed-a4ca-aa16d79aac3c">ACS: SLS-OMR.EXCEPTION-2015-1111</option>
+	<option value="755910b3-2a2f-4a7a-9533-8be9bc1a3041">ACS: SPEX-2015-1116-001</option>
+	<option value="1b034485-c46f-45fc-8866-0923129b4bac">ACS: SPEX-2015-1118-001</option>
+	<option value="d0a9bde5-837b-4fe9-bb24-5f8b779d1af6">ACS: SPEX-2015-1123-001</option>
+	<option value="d9038946-c96a-46bc-968e-5214e4dc41ea">ACS: UPIX-2015-1109-001</option>
+	<option value="1e13765b-f1e4-4e68-82f7-04b0205cd307">ACS: UPIX-2015-1113-001</option>
+	<option value="1602aca5-e31c-4ffc-bace-24243d465c1d">ACS: UPIX-2015-1116-001</option>
+	<option value="59e1dd85-0fdf-49b5-8121-8d0dc1fe28c2">ACS: UPIX-2015-1118-001</option>
+	<option value="1ff51859-e8cb-4f1e-9996-9fe8420af54c">ACS: UPIX-2015-1123-001</option>
+	<option value="77cf6931-252e-4a0e-92f2-003e085f5e7d">ACS: UPIX-2015-1124-001</option>
+	<option value="371d2385-920e-4917-93a1-7ad86b849b88">ACS: UPIX-CM-2015-1109-001</option>
+	<option value="23aa7d10-003f-4ec5-80c2-3d722f87e978">ACS: UPIX-CM-2015-1113-001</option>
+	<option value="447bb5a1-ab80-4de4-b0f8-6ead993e43d5">ACS: UPIX-CM-2015-1124-001</option>
+	<option value="aeb99d46-dc46-4489-a78c-cfa4891602b5">ACS: WRITEOFFS-2015-11</option>
+
+</select><div id="inv_bat_key_oAddEditDiv" class="AddEditLinkDiv"><a id="inv_bat_key_oAddHyperLink" tabindex="28" title="Add" onclick="bConfirmNavAway=0; OpenNewWindow(&#39;DynamicEditModal.aspx?Modal=Yes&amp;NoReload=Yes&amp;FormKey=b290c926-549c-4b54-8b20-14d45548ca1f&amp;Action=Add&amp;onclose=GetParentWindow().postBackDropDownListAdd(\&#39;inv_bat_key\&#39;, {CurrentKey})&#39;, false );" href="javascript:void(0)" style="width:16px"><img src="/NFStage3/iweb/images/add_16.gif" style="width:16px; height:16px" /></a></div></span><span id="inv_bat_key_Validator" style="display:none;"></span><input name="inv_po_number" type="text" maxlength="50" id="inv_po_number" tabindex="29" title="po number" class="DataFormTextBox" placeholder="po number" style="LEFT: 120px; POSITION: absolute; TOP: 45px; HEIGHT: 20px; WIDTH: 220px;" /><span id="inv_trx_date_CompareValidator" style="display:none;"></span><span id="Span_inv_autoapplypayment" style="LEFT: 212px; POSITION: absolute; TOP: 196px;"><table id="Table_inv_autoapplypayment" cellspacing="0" cellpadding="0" style="border-width:0px;border-collapse:collapse;">
+	<tr id="TableRow_inv_autoapplypayment">
+		<td id="TableCell_inv_autoapplypayment"></td>
+	</tr>
+</table></span><span id="Span_ord_proforma" style="LEFT: 120px; POSITION: absolute; TOP: 296px;"><table id="Table_ord_proforma" cellspacing="0" cellpadding="0" style="border-width:0px;border-collapse:collapse;">
+	<tr id="TableRow_ord_proforma">
+		<td id="TableCell_ord_proforma"></td>
+	</tr>
+</table></span><span id="ord_first_process_date_CompareValidator" style="display:none;"></span><span id="Span_ord_auto_pay" style="LEFT: 120px; POSITION: absolute; TOP: 371px;"><table id="Table_ord_auto_pay" cellspacing="0" cellpadding="0" style="border-width:0px;border-collapse:collapse;">
+	<tr id="TableRow_ord_auto_pay">
+		<td id="TableCell_ord_auto_pay"></td>
+	</tr>
+</table></span><label for="bat_make_default_flag" id="Caption_bat_make_default_flag" class="DataFormLabel" style="LEFT: 140px; POSITION: absolute; TOP: 0px;">make default?</label><span id="Span_bat_make_default_flag" style="LEFT: 120px; POSITION: absolute; TOP: -1px;"><table id="Table_bat_make_default_flag" cellspacing="0" cellpadding="0" style="border-width:0px;border-collapse:collapse;">
+	<tr id="TableRow_bat_make_default_flag">
+		<td id="TableCell_bat_make_default_flag"><span class="DataFormCheckBox" title="make default?"><input id="bat_make_default_flag" type="checkbox" name="bat_make_default_flag" tabindex="62" /></span></td>
+	</tr>
+</table></span><input name="__bat_make_default_flag" type="hidden" id="__bat_make_default_flag" /><span id="ord_num_of_installments_CompareValidator" style="display:none;"></span></div></DIV>|0|updatePanel|HYPERLINK_0__UP||857|updatePanel|HYPERLINK_1__UP|<a id="HYPERLINK_1" tabindex="1" class="DataFormMenuMore" onclick="bConfirmNavAway=0;ShowHideContextMenu(this,&#39;/NFStage3/iweb/forms/DynamicEditModal.aspx?IsMenu=Yes&amp;EnableAtlas=No&amp;FormKey=ee216e5e-73b9-4128-a636-a046c5ee9fd1&amp;Key=8d99b54b-3808-4d61-87aa-04133ab49378&#39;,&#39;menu_ee216e5e73b94128a636a046c5ee9fd1&#39;,100,0,0,true,true,true);return false;" onmouseout="HideContextMenu(&#39;menu_ee216e5e73b94128a636a046c5ee9fd1&#39;);return false;" onkeypress="ContextMenuOnKeyPress(this,&#39;/NFStage3/iweb/forms/DynamicEditModal.aspx?IsMenu=Yes&amp;EnableAtlas=No&amp;FormKey=ee216e5e-73b9-4128-a636-a046c5ee9fd1&amp;Key=8d99b54b-3808-4d61-87aa-04133ab49378&#39;,&#39;menu_ee216e5e73b94128a636a046c5ee9fd1&#39;,100,0,0,true,true,true);return false;" href="javascript:void(0);" style="LEFT: 4px; POSITION: absolute; TOP: 4px;">Bill To:</a>|160|updatePanel|ACSOrderEntryEventHandler__UP|<DIV id="ACSOrderEntryEventHandler" class="DataFormTextBox" style="LEFT: 624px; POSITION: absolute; TOP: 369px; HEIGHT: 19px; WIDTH: 136px;" tabindex="0"></DIV>|636|updatePanel|inv_sfo_key__UP|<select name="inv_sfo_key" id="inv_sfo_key" tabindex="25" class="DataFormDropDownList" placeholder="Please select" onchange="clearTimeout(timerid); timerid=setTimeout(&#39;__doPostBack(\&#39;inv_sfo_key\&#39;,\&#39;\&#39;)&#39;, msecondsshort); " onfocusin="expandDropDownList(this);" onblur="collapseDropDownList(this);" style="LEFT: 153px; POSITION: absolute; TOP: 396px; HEIGHT: 19px; WIDTH: 469px;">
+	<option selected="selected" value="">Please select</option>
+
+</select><label for="inv_sfo_key" id="Caption_inv_sfo_key" class="DataFormLabel" style="LEFT: 78px; POSITION: absolute; TOP: 396px; HEIGHT: 13px;">opportunity:</label>|145|updatePanel|ACSStoreOriginalAddress__UP|<DIV id="ACSStoreOriginalAddress" class="DataFormTextBox" style="LEFT: 582px; POSITION: absolute; TOP: 639px; HEIGHT: 19px; WIDTH: 169px;"></DIV>|153|updatePanel|ACSInvoiceDateUpdateCOEAfterSave__UP|<DIV id="ACSInvoiceDateUpdateCOEAfterSave" class="DataFormTextBox" style="LEFT: 362px; POSITION: absolute; TOP: 400px; HEIGHT: 19px; WIDTH: 27px;"></DIV>|1279|updatePanel|inv_med_key__UP|<span id="inv_med_key_DDLAE" onmouseover="" class="AddEditDiv" style="LEFT: 304px; POSITION: absolute; TOP: 92px;"><select name="inv_med_key" id="inv_med_key" tabindex="11" class="DataFormDropDownList AddEdit" placeholder="Please select" onchange="clearTimeout(timerid); timerid=setTimeout(&#39;__doPostBack(\&#39;inv_med_key\&#39;,\&#39;\&#39;)&#39;, msecondsshort); " onfocusin="expandDropDownList(this);" onblur="collapseDropDownList(this);">
+	<option selected="selected" value="">Please select</option>
+	<option value="cbaee5f3-1bf7-461a-aae6-609f45722b57">POS</option>
+
+</select><div id="inv_med_key_oAddEditDiv" class="AddEditLinkDiv"><a id="inv_med_key_oAddHyperLink" tabindex="11" title="Add" onclick="bConfirmNavAway=0; OpenNewWindow(&#39;DynamicEditModal.aspx?Modal=Yes&amp;NoReload=Yes&amp;FormKey=a69b9673-c707-4947-a1a9-8cc7724b63f9&amp;Action=Add&amp;onclose=GetParentWindow().postBackDropDownListAdd(\&#39;inv_med_key\&#39;, {CurrentKey})&#39;, false );" href="javascript:void(0)" style="width:16px"><img src="/NFStage3/iweb/images/add_16.gif" style="width:16px; height:16px" /></a></div></span><label for="inv_med_key" id="Caption_inv_med_key" class="DataFormLabel" style="LEFT: 256px; POSITION: absolute; TOP: 92px; HEIGHT: 13px; WIDTH: 42px;">media:</label>|138|updatePanel|inv_netcredit__UP|<span id="inv_netcredit" class="DataFormLabel" style="LEFT: 456px; POSITION: absolute; TOP: 330px; HEIGHT: 13px; WIDTH: 64px;">0.00</span>|154|updatePanel|ExtensionAfterSaveRedirectCOE_COE__UP|<DIV id="ExtensionAfterSaveRedirectCOE_COE" class="DataFormTextBox" style="LEFT: 820px; POSITION: absolute; TOP: 635px; HEIGHT: 19px; WIDTH: 70px;"></DIV>|138|updatePanel|ACSResponseEffort__UP|<DIV id="ACSResponseEffort" class="DataFormTextBox" style="LEFT: 541px; POSITION: absolute; TOP: 613px; HEIGHT: 19px;" tabindex="0"></DIV>|133|updatePanel|ACSInvoiceBPADemographics__UP|<DIV id="ACSInvoiceBPADemographics" class="DataFormTextBox" style="LEFT: 622px; POSITION: absolute; TOP: 592px; HEIGHT: 19px;"></DIV>|157|updatePanel|OnInitAddInvoiceCopyBillingCstToShippingCstIfBlank__UP|<DIV id="OnInitAddInvoiceCopyBillingCstToShippingCstIfBlank" class="DataFormTextBox" style="LEFT: 656px; POSITION: absolute; TOP: 373px;" tabindex="0"></DIV>|2124|updatePanel|ivd_cxa_key__UP|<span id="ivd_cxa_key_DDLAE" onmouseover="" class="AddEditDiv" style="LEFT: 410px; POSITION: absolute; TOP: 46px;"><select name="ivd_cxa_key" id="ivd_cxa_key" tabindex="8" class="span3 AddEdit" placeholder="Please select" onchange="clearTimeout(timerid); timerid=setTimeout(&#39;__doPostBack(\&#39;ivd_cxa_key\&#39;,\&#39;\&#39;)&#39;, msecondsshort); " onfocusin="expandDropDownList(this);" onblur="collapseDropDownList(this);">
+	<option value="">Please select</option>
+	<option selected="selected" value="8d99b54b-3808-4d61-87aa-04133ab49378">work: Alfred Nobel Str 50 Geb 6650</option>
+
+</select><div id="ivd_cxa_key_oAddEditDiv" class="AddEditLinkDiv"><a id="ivd_cxa_key_oEditHyperLink" tabindex="8" title="Edit" onclick=" bConfirmNavAway=0; if(document.forms[0].ivd_cxa_key.selectedIndex==-1 || document.forms[0].ivd_cxa_key[document.forms[0].ivd_cxa_key.selectedIndex].value==&#39;&#39;) alert(&#39;No Item Selected.&#39;); else OpenNewWindow(&#39;DynamicEditModal.aspx?Modal=Yes&amp;NoReload=Yes&amp;FormKey=E53A8841-1D85-4C4A-B68B-80568FA7191D&amp;cxa_cst_key=ab7dec75-861b-4ee7-9c2c-c82ceb3c7712&amp;cst_sort_name_dn=lastName1452166166659 NAME_09 middleName1452166166309&amp;Key=&#39;+document.forms[0].ivd_cxa_key[document.forms[0].ivd_cxa_key.selectedIndex].value+&#39;&amp;ClearQuery=yes&amp;onclose=GetParentWindow().postBackDropDownListEdit(\&#39;ivd_cxa_key\&#39;)&#39;, false );" href="javascript:void(0)" style="width:16px"><img src="/NFStage3/iweb/images/edit_16.gif" style="width:16px; height:16px" /></a><a id="ivd_cxa_key_oAddHyperLink" tabindex="8" title="Add" onclick="bConfirmNavAway=0; OpenNewWindow(&#39;DynamicEditModal.aspx?Modal=Yes&amp;NoReload=Yes&amp;FormKey=E53A8841-1D85-4C4A-B68B-80568FA7191D&amp;cxa_cst_key=ab7dec75-861b-4ee7-9c2c-c82ceb3c7712&amp;cst_sort_name_dn=lastName1452166166659 NAME_09 middleName1452166166309&amp;Action=Add&amp;onclose=GetParentWindow().postBackDropDownListAdd(\&#39;ivd_cxa_key\&#39;, {CurrentKey})&#39;, false );" href="javascript:void(0)" style="width:16px"><img src="/NFStage3/iweb/images/add_16.gif" style="width:16px; height:16px" /></a></div></span>|478|updatePanel|inv_group_description__UP|<input name="inv_group_description" type="text" maxlength="300" id="inv_group_description" tabindex="23" title="invoice group description" class="DataFormTextBox" placeholder="invoice group description" style="LEFT: 518px; POSITION: absolute; TOP: 353px; HEIGHT: 19px; WIDTH: 272px;" /><label for="inv_group_description" id="Caption_inv_group_description" class="DataFormLabel" style="LEFT: 446px; POSITION: absolute; TOP: 353px; HEIGHT: 13px; WIDTH: 71px;">description:</label>|134|updatePanel|inv_netbalance__UP|<span id="inv_netbalance" class="tabTXT" style="LEFT: 765px; POSITION: absolute; TOP: 330px; HEIGHT: 13px; WIDTH: 84px;">220.00</span>|818|updatePanel|inv_ind_cst_billing_key__UP|<select name="inv_ind_cst_billing_key" id="inv_ind_cst_billing_key" tabindex="3" class="DataFormDropDownList" placeholder="Please select" onchange="clearTimeout(timerid); timerid=setTimeout(&#39;__doPostBack(\&#39;inv_ind_cst_billing_key\&#39;,\&#39;\&#39;)&#39;, msecondsshort); " onfocusin="expandDropDownList(this);" onblur="collapseDropDownList(this);" style="LEFT: 61px; POSITION: absolute; TOP: 26px; HEIGHT: 19px; WIDTH: 329px;">
+	<option value="">Please select</option>
+	<option selected="selected" value="ab7dec75-861b-4ee7-9c2c-c82ceb3c7712">lastName1452166166659 NAME_09 middleName1452166166309</option>
+
+</select><label for="inv_ind_cst_billing_key" id="Caption_inv_ind_cst_billing_key" class="DataFormLabel" style="LEFT: 6px; POSITION: absolute; TOP: 26px; HEIGHT: 13px; WIDTH: 49px;">contact:</label>|537|updatePanel|inv_response_effort_ext__UP|<input name="inv_response_effort_ext" type="text" maxlength="10" id="inv_response_effort_ext" tabindex="126" title="response effort" class="DataFormTextBox" placeholder="response effort" style="LEFT: 518px; POSITION: absolute; TOP: 636px; HEIGHT: 19px; WIDTH: 49px;" /><label for="inv_response_effort_ext" id="Caption_inv_response_effort_ext" class="DataFormLabel" style="LEFT: 419px; POSITION: absolute; TOP: 636px; HEIGHT: 13px;">response effort:</label><span id="inv_response_effort_ext_CompareValidator" style="display:none;"></span>|0|updatePanel|DESIGNEDSUBFORM_1__UP||844|updatePanel|WizardContentTableBottom__UP|<table id="US316" cellpadding="0" cellspacing="3" border="0">
+	<tr id="US317">
+		<td id="US318"><input type="submit" name="Bottom_0" value="Save" onclick=" bConfirmNavAway=0; if (document.getElementById(&#39;__UP&#39;)!=null &amp;&amp; document.getElementById(&#39;__UP&#39;).style.display!=&#39;none&#39;) {return false;} this.value = &#39;Please Wait...&#39;; disableSubmitButtons(); __doPostBack(&#39;Bottom_0&#39;,&#39;&#39;);WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;Bottom_0&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" id="Bottom_0" title="Click to save the order" class="wizardbutton" /></td>
+		<td id="US319"><input type="submit" name="Bottom_1" value="Cancel" onclick=" bConfirmNavAway=0; ;" id="Bottom_1" title="Click here to cancel" class="wizardbutton" /></td>
+	</tr>
+</table>
+|0|updatePanel|LabelMessage__UP||0|hiddenField|__LASTFOCUS||0|hiddenField|__EVENTTARGET||0|hiddenField|__EVENTARGUMENT||1176|hiddenField|__VIEWSTATE|uyncDjVvnqN4DZYZIn2PVhtSz0WLquG+vAptVVSDyFcxcu7XnwKLO34qxlP1ketyl1WuLqN4z7P7tl1SJCVpFeGQFTn2gG6mh3DW/ualJyX4VUGCCjEW6WTesvENihEZnZ+r9hUSbLws5f+kzTqzMjwpRL4ZuT86/E6iW/mmcEQ6/6hoN4wCl6Y2BFxmC3suB39Ie1qc17msFLzLFpCIX8FH5RKmREnL3UjEVzPVcTRNFs3WN7QD6gaOj8aBmoGU02gpJkorLOqGU7KCoWypoSNVS+wxSoWFQRXry9s12UK2E7cPORXNby3feS1Opnu1HQIWAn4wLFYw7VC0aMNCFQzlTqT8akAkSROCwfJsH2e9dfTJYgkhuBIfd2MDTB4odqFxy/H5D57aALBDOjOGzjIANMNeb5Ghst+3YjH4WncwQtCfWuJZjln9cQbJqyYR9JmSxQh6XWf+ChSOWzO56epFCvSRgsDA+I/dEN1yVA4W1ZYBD+zcB+ZGN26qFg83kQAY/J4QaZnuOIsJrepou30hZku56WDrBuroCc/5XWeXVinda4y4nCbFrqLs9TOvJrhpCfO10tRpwKgbEPuiLvy2VVaro//3jaGdIDnAr+Pp/kK6g94w2SexLyHkhFoNhZB5lbcHZSPsaiWejkxPEbLvtG3cZJ3PvJsR+Smy8dY0domeaKwJ1PoJcBJIPGyWs1nHW/7VyIM9kZR8bjao3Zeipk++OniNat57jOKxw3sULKO4bEb0o9Y6faGfIAO1qNGzDMfLdJGaKiteZbtbMq2WaLeBldEnfnqirMFizIYTCWtOCnwVAr6Jj9gk14GuwCbiaTC5sssd9OhdJtqUG7PF8mNtZghFUBhJe30krLY6H/Kr85mZM/tYi2vYvdjRxZgpG3v6nkJ+fpNpBm+pp9Fg/de8n9u6SxhXW8E7vbT/HXExSofwSx7tRWEtKgwJcQ+rD1ZkQhF07D20upvYqkZHa7ooU3yk1PVUIPyHeuTkKxmCK52SH5Ra6SZNcOlvk5znXPw5uVWP6BvN7K16BhYeJF9Wq+Ijua9ed5+pa3MBYfkm7yWSxkMkUM+B/wJuFa1OIEfz1cnFsZMadRicCH8S2+tEnK15fRdJxJbVRr2Y/BPAompu+HJnolB0WtqtloXxoIVMjhaA+VV5E7cVow==|8|hiddenField|__VIEWSTATEGENERATOR|10E9FEE0|0|hiddenField|__VIEWSTATEENCRYPTED||121|asyncPostBackControlIDs||inv_ind_cst_billing_key,,inv_sfo_key,,inv_send_email_confirmation,,ivd_cxa_key,,inv_bat_key,,inv_cxa_key,,inv_group_flag,|50|postBackControlIDs||Look_Up_bcs__cst_sort_name_dn,,Bottom_0,,Bottom_1,|2045|updatePanelIDs||tLabelMessageTop__UP,,t0426f9234cd441349399e2b3c79fc650_MU__UP,,t0426f9234cd441349399e2b3c79fc650_MU_IM__UP,,tee216e5e73b94128a636a046c5ee9fd1_MU__UP,,tee216e5e73b94128a636a046c5ee9fd1_MU_IM__UP,,tca7e89b3a4ee49f0a6e2173f62de9cd2_MU__UP,,tca7e89b3a4ee49f0a6e2173f62de9cd2_MU_IM__UP,,ta83665ae18eb43488c5d83ce5f6027f8_MU__UP,,ta83665ae18eb43488c5d83ce5f6027f8_MU_IM__UP,,t30a5ee3d76c34ba6a82d1c3ecc2aca74_MU__UP,,t30a5ee3d76c34ba6a82d1c3ecc2aca74_MU_IM__UP,,tinv_cur_key__UP,,tinv_cxa_key__UP,,tinv_src_key__UP,,tOnInit_SetAutoApplyPayment__UP,,tSpan_inv_autoapply__UP,,tSpan_inv_group_flag__UP,,tXXXXXXXX__UP,,tACSBatchDate__UP,,tinv_pref_comm_meth__UP,,tbcs__cst_credit_limit__UP,,tinv_nettotal__UP,,tIMAGE_0__UP,,tACSTrackSourceCode__UP,,tSpan_inv_agency_flag_ext__UP,,tSpan_bcs__cst_sort_name_dn__UP,,tSpan_inv_assumed_src_flag_ext__UP,,tSpan_inv_send_fax_confirmation__UP,,tAfterSaveSetTodateValues__UP,,tStartUpScriptforComplementaryProductsPopUp__UP,,tExtensionLineItemMore__UP,,tOTIInputReader__UP,,tSpan_inv_close_opportunity__UP,,tcst_sort_name_dn__UP,,tTEXT_2__UP,,tinv_billing_pref_comm_meth__UP,,tACSAgencyDefault__UP,,tUPDATEGRIDCONTROL_DOD_Invoice_DetailGRIDDIV__UP,,tSendEmailConfirmationByTemplate__UP,,tExtensionCurrencyReadOnlyDiv__UP,,tStartUpScriptforOpportunity__UP,,tinv_netpayment__UP,,tExtensionPriceLookUpTextBox__UP,,tinv_email_bcc__UP,,tcst_credit_available__UP,,tinv_cur_exchange_rate__UP,,tSpan_inv_send_email_confirmation__UP,,tHYPERLINK_2__UP,,tDESIGNEDSUBFORM_0__UP,,tHYPERLINK_0__UP,,tHYPERLINK_1__UP,,tACSOrderEntryEventHandler__UP,,tinv_sfo_key__UP,,tACSStoreOriginalAddress__UP,,tACSInvoiceDateUpdateCOEAfterSave__UP,,tinv_med_key__UP,,tinv_netcredit__UP,,tExtensionAfterSaveRedirectCOE_COE__UP,,tACSResponseEffort__UP,,tACSInvoiceBPADemographics__UP,,tOnInitAddInvoiceCopyBillingCstToShippingCstIfBlank__UP,,tivd_cxa_key__UP,,tinv_group_description__UP,,tinv_netbalance__UP,,tinv_ind_cst_billing_key__UP,,tinv_response_effort_ext__UP,,tDESIGNEDSUBFORM_1__UP,,tWizardContentTableBottom__UP,,tLabelMessage__UP,|0|childUpdatePanelIDs|||1976|panelsToRefreshIDs||LabelMessageTop__UP,,0426f9234cd441349399e2b3c79fc650_MU__UP,,0426f9234cd441349399e2b3c79fc650_MU_IM__UP,,ee216e5e73b94128a636a046c5ee9fd1_MU__UP,,ee216e5e73b94128a636a046c5ee9fd1_MU_IM__UP,,ca7e89b3a4ee49f0a6e2173f62de9cd2_MU__UP,,ca7e89b3a4ee49f0a6e2173f62de9cd2_MU_IM__UP,,a83665ae18eb43488c5d83ce5f6027f8_MU__UP,,a83665ae18eb43488c5d83ce5f6027f8_MU_IM__UP,,30a5ee3d76c34ba6a82d1c3ecc2aca74_MU__UP,,30a5ee3d76c34ba6a82d1c3ecc2aca74_MU_IM__UP,,inv_cur_key__UP,,inv_cxa_key__UP,,inv_src_key__UP,,OnInit_SetAutoApplyPayment__UP,,Span_inv_autoapply__UP,,Span_inv_group_flag__UP,,XXXXXXXX__UP,,ACSBatchDate__UP,,inv_pref_comm_meth__UP,,bcs__cst_credit_limit__UP,,inv_nettotal__UP,,IMAGE_0__UP,,ACSTrackSourceCode__UP,,Span_inv_agency_flag_ext__UP,,Span_bcs__cst_sort_name_dn__UP,,Span_inv_assumed_src_flag_ext__UP,,Span_inv_send_fax_confirmation__UP,,AfterSaveSetTodateValues__UP,,StartUpScriptforComplementaryProductsPopUp__UP,,ExtensionLineItemMore__UP,,OTIInputReader__UP,,Span_inv_close_opportunity__UP,,cst_sort_name_dn__UP,,TEXT_2__UP,,inv_billing_pref_comm_meth__UP,,ACSAgencyDefault__UP,,UPDATEGRIDCONTROL_DOD_Invoice_DetailGRIDDIV__UP,,SendEmailConfirmationByTemplate__UP,,ExtensionCurrencyReadOnlyDiv__UP,,StartUpScriptforOpportunity__UP,,inv_netpayment__UP,,ExtensionPriceLookUpTextBox__UP,,inv_email_bcc__UP,,cst_credit_available__UP,,inv_cur_exchange_rate__UP,,Span_inv_send_email_confirmation__UP,,HYPERLINK_2__UP,,DESIGNEDSUBFORM_0__UP,,HYPERLINK_0__UP,,HYPERLINK_1__UP,,ACSOrderEntryEventHandler__UP,,inv_sfo_key__UP,,ACSStoreOriginalAddress__UP,,ACSInvoiceDateUpdateCOEAfterSave__UP,,inv_med_key__UP,,inv_netcredit__UP,,ExtensionAfterSaveRedirectCOE_COE__UP,,ACSResponseEffort__UP,,ACSInvoiceBPADemographics__UP,,OnInitAddInvoiceCopyBillingCstToShippingCstIfBlank__UP,,ivd_cxa_key__UP,,inv_group_description__UP,,inv_netbalance__UP,,inv_ind_cst_billing_key__UP,,inv_response_effort_ext__UP,,DESIGNEDSUBFORM_1__UP,,WizardContentTableBottom__UP,,LabelMessage__UP,|4|asyncPostBackTimeout||7200|135|formAction||./Wizard.aspx?Action=Add&ObjectKeyFrom=F41B6E06-299B-4022-BE6F-0641BA87DE59&inv_bat_key=&WizardKey=9253f8f8-4249-4c7b-accb-c368e1047390|48|arrayDeclaration|Page_Validators|document.getElementById("inv_cxa_key_Validator")|45|arrayDeclaration|Page_Validators|document.getElementById("XXXXXXXX_Validator")|164|arrayDeclaration|Page_Validators|document.getElementById("UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb_ivd_netpayment____RegularExpressionValidator")|164|arrayDeclaration|Page_Validators|document.getElementById("UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e_ivd_netpayment____RegularExpressionValidator")|48|arrayDeclaration|Page_Validators|document.getElementById("inv_bat_key_Validator")|56|arrayDeclaration|Page_Validators|document.getElementById("inv_trx_date_CompareValidator")|66|arrayDeclaration|Page_Validators|document.getElementById("ord_first_process_date_CompareValidator")|67|arrayDeclaration|Page_Validators|document.getElementById("ord_num_of_installments_CompareValidator")|67|arrayDeclaration|Page_Validators|document.getElementById("inv_response_effort_ext_CompareValidator")|197|scriptBlock|ScriptPath|/NFStage3/iweb/ScriptResource.axd?d=nv7asgRUU0tRmHNR2D6t1CSqPXIK_jnyiBsyg5Ed1GJ34pFL2nG2KKLUFWXpnzkEMAW6GB1bmStXS6biI_5DHbBaHPPopdQJfgflpQQV_Ouz__9bpZWg5AVROT1_0SlsTrjOpqF34Cse0U_KB9hQ5w2&t=5302ca9|76|scriptStartupBlock|ScriptContentNoTags|$(document).ready(ShowSessionDialog()); SessionTimeoutWarningDisplay(60); 
+ |281|scriptStartupBlock|ScriptContentNoTags|
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+        |164|scriptStartupBlock|ScriptContentNoTags|
+document.getElementById('inv_cxa_key_Validator').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('inv_cxa_key_Validator'));
+}
+|158|scriptStartupBlock|ScriptContentNoTags|
+document.getElementById('XXXXXXXX_Validator').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('XXXXXXXX_Validator'));
+}
+|396|scriptStartupBlock|ScriptContentNoTags|
+document.getElementById('UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb_ivd_netpayment____RegularExpressionValidator').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb_ivd_netpayment____RegularExpressionValidator'));
+}
+|396|scriptStartupBlock|ScriptContentNoTags|
+document.getElementById('UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e_ivd_netpayment____RegularExpressionValidator').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e_ivd_netpayment____RegularExpressionValidator'));
+}
+|164|scriptStartupBlock|ScriptContentNoTags|
+document.getElementById('inv_bat_key_Validator').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('inv_bat_key_Validator'));
+}
+|180|scriptStartupBlock|ScriptContentNoTags|
+document.getElementById('inv_trx_date_CompareValidator').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('inv_trx_date_CompareValidator'));
+}
+|200|scriptStartupBlock|ScriptContentNoTags|
+document.getElementById('ord_first_process_date_CompareValidator').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('ord_first_process_date_CompareValidator'));
+}
+|202|scriptStartupBlock|ScriptContentNoTags|
+document.getElementById('ord_num_of_installments_CompareValidator').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('ord_num_of_installments_CompareValidator'));
+}
+|202|scriptStartupBlock|ScriptContentNoTags|
+document.getElementById('inv_response_effort_ext_CompareValidator').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('inv_response_effort_ext_CompareValidator'));
+}
+|90|onSubmit||if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;|13|expando|document.getElementById('inv_cxa_key_Validator')['controltovalidate']|"inv_cxa_key"|38|expando|document.getElementById('inv_cxa_key_Validator')['errormessage']|"customer bill to address is Required"|6|expando|document.getElementById('inv_cxa_key_Validator')['display']|"None"|39|expando|document.getElementById('inv_cxa_key_Validator')['evaluationfunction']|"RequiredFieldValidatorEvaluateIsValid"|2|expando|document.getElementById('inv_cxa_key_Validator')['initialvalue']|""|10|expando|document.getElementById('XXXXXXXX_Validator')['controltovalidate']|"XXXXXXXX"|22|expando|document.getElementById('XXXXXXXX_Validator')['errormessage']|"XXXXXXXX is Required"|6|expando|document.getElementById('XXXXXXXX_Validator')['display']|"None"|39|expando|document.getElementById('XXXXXXXX_Validator')['evaluationfunction']|"RequiredFieldValidatorEvaluateIsValid"|2|expando|document.getElementById('XXXXXXXX_Validator')['initialvalue']|""|112|expando|document.getElementById('UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb_ivd_netpayment____RegularExpressionValidator')['controltovalidate']|"UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb_ivd_netpayment___"|6|expando|document.getElementById('UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb_ivd_netpayment____RegularExpressionValidator')['display']|"None"|7|expando|document.getElementById('UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb_ivd_netpayment____RegularExpressionValidator')['enabled']|"False"|43|expando|document.getElementById('UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_1bad4ff3_a08c_4532_b793_5bbbbd1a6ecb_ivd_netpayment____RegularExpressionValidator')['evaluationfunction']|"RegularExpressionValidatorEvaluateIsValid"|112|expando|document.getElementById('UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e_ivd_netpayment____RegularExpressionValidator')['controltovalidate']|"UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e_ivd_netpayment___"|6|expando|document.getElementById('UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e_ivd_netpayment____RegularExpressionValidator')['display']|"None"|7|expando|document.getElementById('UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e_ivd_netpayment____RegularExpressionValidator')['enabled']|"False"|43|expando|document.getElementById('UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid_0e651901_c8cf_426e_a3a1_a88a30f07d7e_ivd_netpayment____RegularExpressionValidator')['evaluationfunction']|"RegularExpressionValidatorEvaluateIsValid"|13|expando|document.getElementById('inv_bat_key_Validator')['controltovalidate']|"inv_bat_key"|19|expando|document.getElementById('inv_bat_key_Validator')['errormessage']|"batch is Required"|6|expando|document.getElementById('inv_bat_key_Validator')['display']|"None"|39|expando|document.getElementById('inv_bat_key_Validator')['evaluationfunction']|"RequiredFieldValidatorEvaluateIsValid"|2|expando|document.getElementById('inv_bat_key_Validator')['initialvalue']|""|14|expando|document.getElementById('inv_trx_date_CompareValidator')['controltovalidate']|"inv_trx_date"|38|expando|document.getElementById('inv_trx_date_CompareValidator')['errormessage']|"Transaction Date is not a valid date"|6|expando|document.getElementById('inv_trx_date_CompareValidator')['display']|"None"|6|expando|document.getElementById('inv_trx_date_CompareValidator')['type']|"Date"|5|expando|document.getElementById('inv_trx_date_CompareValidator')['dateorder']|"mdy"|6|expando|document.getElementById('inv_trx_date_CompareValidator')['cutoffyear']|"2029"|6|expando|document.getElementById('inv_trx_date_CompareValidator')['century']|"2000"|33|expando|document.getElementById('inv_trx_date_CompareValidator')['evaluationfunction']|"CompareValidatorEvaluateIsValid"|15|expando|document.getElementById('inv_trx_date_CompareValidator')['operator']|"DataTypeCheck"|24|expando|document.getElementById('ord_first_process_date_CompareValidator')['controltovalidate']|"ord_first_process_date"|47|expando|document.getElementById('ord_first_process_date_CompareValidator')['errormessage']|"Process First Invoice on  is not a valid date"|6|expando|document.getElementById('ord_first_process_date_CompareValidator')['display']|"None"|6|expando|document.getElementById('ord_first_process_date_CompareValidator')['type']|"Date"|5|expando|document.getElementById('ord_first_process_date_CompareValidator')['dateorder']|"mdy"|6|expando|document.getElementById('ord_first_process_date_CompareValidator')['cutoffyear']|"2029"|6|expando|document.getElementById('ord_first_process_date_CompareValidator')['century']|"2000"|33|expando|document.getElementById('ord_first_process_date_CompareValidator')['evaluationfunction']|"CompareValidatorEvaluateIsValid"|15|expando|document.getElementById('ord_first_process_date_CompareValidator')['operator']|"DataTypeCheck"|25|expando|document.getElementById('ord_num_of_installments_CompareValidator')['controltovalidate']|"ord_num_of_installments"|75|expando|document.getElementById('ord_num_of_installments_CompareValidator')['errormessage']|"number of installments is an integer and must only contain numeric values"|6|expando|document.getElementById('ord_num_of_installments_CompareValidator')['display']|"None"|9|expando|document.getElementById('ord_num_of_installments_CompareValidator')['type']|"Integer"|33|expando|document.getElementById('ord_num_of_installments_CompareValidator')['evaluationfunction']|"CompareValidatorEvaluateIsValid"|15|expando|document.getElementById('ord_num_of_installments_CompareValidator')['operator']|"DataTypeCheck"|25|expando|document.getElementById('inv_response_effort_ext_CompareValidator')['controltovalidate']|"inv_response_effort_ext"|68|expando|document.getElementById('inv_response_effort_ext_CompareValidator')['errormessage']|"Response Effort is an integer and must only contain numeric values"|6|expando|document.getElementById('inv_response_effort_ext_CompareValidator')['display']|"None"|9|expando|document.getElementById('inv_response_effort_ext_CompareValidator')['type']|"Integer"|33|expando|document.getElementById('inv_response_effort_ext_CompareValidator')['evaluationfunction']|"CompareValidatorEvaluateIsValid"|15|expando|document.getElementById('inv_response_effort_ext_CompareValidator')['operator']|"DataTypeCheck"|175|scriptBlock|ScriptPath|/NFStage3/iweb/ScriptResource.axd?d=Uup1LtIMaOciOW_48s7YOzvUuvAeai2mUv3EH3jvZ1BoLGEHI1ocqdEMTUx1oXsl83PHpCTB7TcP35edV8vPuw-mA9Z8eD7maqS9V5swrkflJKP0kRdkRNBVz3IYNYR40&t=5302ca9|8|focus||XXXXXXXX|.ôTç      VŽMêVŽMí;þ÷X       ¿~1452166522,:https://iwebtest.acs.org/NFStage3/iweb/forms/Wizard.aspx?Action=Add&ObjectKeyFrom=F41B6E06-299B-4022-BE6F-0641BA87DE59&inv_bat_key=&WizardKey=9253f8f8-4249-4c7b-accb-c368e1047390 security-info FnhllAKWRHGAlo+ESXykKAAAAAAAAAAAwAAAAAAAAEaphjojH6pBabDSgSnsfLHeAAQAAgAAAAAAAAAAAAAAAAAAAAAB4vFIJp5wRkeyPxAQ9RJGKPqbqVvKO0mKuIl8ec8o/uhmCjImkVxP+7sgiYWmMt8F+O2DZM7ZTG6GukivU8OT5gAAAAAAAAVEMIIFQDCCBCigAwIBAgIITMYRplPAiqswDQYJKoZIhvcNAQELBQAwgcYxCzAJBgNVBAYTAlVTMRAwDgYDVQQIEwdBcml6b25hMRMwEQYDVQQHEwpTY290dHNkYWxlMSUwIwYDVQQKExxTdGFyZmllbGQgVGVjaG5vbG9naWVzLCBJbmMuMTMwMQYDVQQLEypodHRwOi8vY2VydHMuc3RhcmZpZWxkdGVjaC5jb20vcmVwb3NpdG9yeS8xNDAyBgNVBAMTK1N0YXJmaWVsZCBTZWN1cmUgQ2VydGlmaWNhdGUgQXV0aG9yaXR5IC0gRzIwHhcNMTUwOTExMjAzNjM4WhcNMTYwOTExMjAzNjM4WjA3MSEwHwYDVQQLExhEb21haW4gQ29udHJvbCBWYWxpZGF0ZWQxEjAQBgNVBAMMCSouYWNzLm9yZzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANhtLnIRYXkfieRtHjAATgbS493uCNSFatg8NwPa2CglcR2ABq8uzAGbo235jOjsP7R+uQhMZfxGpUx7PQ6brIYQOQOfapdg2PL6ydnTljjUuMnoxN87lWMhwWimO+8NWZbZ3iKtbZkAHpRU9a+Vij230+kYixRDx2C0GMudFAItFKtthrMdCwevJCucIqcfqbM6XEXPfUdF6HLR5+PqkQnkZ51nkLexIHpYBhBl8G99caFGT19kxtH5LbyZs1gE0AzWvX9xOulVULpSWjbO1SMLazPJ6V98kAtisi5dK/2ZGJvBqLO4pi2OMKjb14Bl6ODm8Ib66m+xqG9E7DBD11kCAwEAAaOCAb4wggG6MAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMA4GA1UdDwEB/wQEAwIFoDA8BgNVHR8ENTAzMDGgL6AthitodHRwOi8vY3JsLnN0YXJmaWVsZHRlY2guY29tL3NmaWcyczEtMTYuY3JsMFkGA1UdIARSMFAwTgYLYIZIAYb9bgEHFwEwPzA9BggrBgEFBQcCARYxaHR0cDovL2NlcnRpZmljYXRlcy5zdGFyZmllbGR0ZWNoLmNvbS9yZXBvc2l0b3J5LzCBggYIKwYBBQUHAQEEdjB0MCoGCCsGAQUFBzABhh5odHRwOi8vb2NzcC5zdGFyZmllbGR0ZWNoLmNvbS8wRgYIKwYBBQUHMAKGOmh0dHA6Ly9jZXJ0aWZpY2F0ZXMuc3RhcmZpZWxkdGVjaC5jb20vcmVwb3NpdG9yeS9zZmlnMi5jcnQwHwYDVR0jBBgwFoAUJUWBaFAmOD07LSy+zWrZtj2zZmMwHQYDVR0RBBYwFIIJKi5hY3Mub3JnggdhY3Mub3JnMB0GA1UdDgQWBBSeVGVWZiHq5bqxNe1nkOcTs1An5jANBgkqhkiG9w0BAQsFAAOCAQEASFHP/L3dLV33J1QYdA00hFTpmnH/X/e1bC20HL876hm5+OoElywjKOcBWFje5GL7zbDfFE3/eWcSEHmK4e/inXBWchTzLd3wa0E7vMGrA7xjHqmnmpEfvYdwb/zE/EbLxWYWHYXir2Ytap0KX52Jp+K19FVY3k127AKIebXe1VhHwDest0lqa8szeC9ltYZTAFalbsld9qqH8oF5ZpVm7/iggmN9SYC5StzIOK78HJnDzY2X9sOHzyLccrcaJRGsUdw5WrkqDocY6tKOKjUvwHsy16cR+a92/203QLk4BznoXbRNkMbdHs8LIwZBT1ugm2HIJ5MSKfGvW9pfYGgpT8AUAAMAAAAAAQEAAA== request-method POST auth Basic response-head HTTP/1.1 200 OK
+Cache-Control: no-cache
+Pragma: no-cache
+Content-Type: text/plain; charset=utf-8
+Expires: -1
+Server: Microsoft-IIS/8.5
+X-Frame-Options: SAMEORIGIN
+X-AspNet-Version: 4.0.30319
+X-Powered-By: ASP.NET
+Date: Thu, 07 Jan 2016 11:35:02 GMT
+Content-Length: 93860
+ uncompressed-len 0  n¤

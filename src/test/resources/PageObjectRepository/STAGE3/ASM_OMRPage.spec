@@ -31,4 +31,6 @@ txt_navigation                                xpath                             
 chkConfirm                                      id                                     //input[contains(@id,'Confirm')]
 rad_No                                        xpath                                    //label[text()='No']/preceding-sibling::input
 txt_confirmPage                             xpath                                      //legend[text()='Confirm your information']
+chkbox_undergraduate                        css                                        input[id*='ucDegree_cbConfirm']
+rad_undergraduate                           css                                        input[value='${value}']
 =================================================================================================================================================

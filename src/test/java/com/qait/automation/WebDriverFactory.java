@@ -35,14 +35,14 @@ public class WebDriverFactory {
 			if (browser.equalsIgnoreCase("firefox")) {
 				return getFirefoxDriver();
 			} else if (browser.equalsIgnoreCase("chrome")) {
-				return getChromeDriver(seleniumconfig.get("driverpath"));
+				return getChromeDriver(seleniumconfig.get("driverpath")+"chromedriver.exe");
 			} else if (browser.equalsIgnoreCase("Safari")) {
 				return getSafariDriver();
 			} else if ((browser.equalsIgnoreCase("ie"))
 					|| (browser.equalsIgnoreCase("internetexplorer"))
 					|| (browser.equalsIgnoreCase("internet explorer"))) {
 				return getInternetExplorerDriver(seleniumconfig
-						.get("driverpath"));
+						.get("driverpath")+"IEDriverServer.exe");
 			}
 		}
 		if (seleniumconfig.get("seleniumserver").equalsIgnoreCase("remote")) {

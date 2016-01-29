@@ -4,6 +4,7 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import org.junit.Assert;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 
@@ -20,35 +21,35 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		this.driver = driver;
 	}
 
-	public String[] enterMemberDetailsInAddIndividual(String caseID) {
-		String fName = getCreateMember_SheetValue(caseID, "firstName");
-		String mName = getCreateMember_SheetValue(caseID, "middleName");
-		String lName = getCreateMember_SheetValue(caseID, "lastName");
-		String country = getCreateMember_SheetValue(caseID, "country");
-		String street = getCreateMember_SheetValue(caseID, "street");
-		String city = getCreateMember_SheetValue(caseID, "city");
-		String abrState = getCreateMember_SheetValue(caseID, "abrv_state");
-		String inPostalCode = getCreateMember_SheetValue(caseID, "In_postalCode");
-		String phnCountry = getCreateMember_SheetValue(caseID, "country");
-		String phnNumber = getCreateMember_SheetValue(caseID, "phnNumber");
-		String outPostalCode = getCreateMember_SheetValue(caseID, "Out_postalCode");
+	public String[] enterMemberDetailsInAddIndividual() {
+		String fName = map().get("firstName");
+		String mName = map().get("middleName");
+		String lName = map().get("lastName");
+		String country = map().get("country");
+		String street = map().get("street");
+		String city = map().get("city");
+		String abrState = map().get("abrv_state");
+		String inPostalCode = map().get("In_postalCode");
+		String phnCountry = map().get("country");
+		String phnNumber = map().get("phnNumber");
+		String outPostalCode = map().get("Out_postalCode");
 
 		if (fName.equalsIgnoreCase("")) {
-			fName = "firstName" + System.currentTimeMillis();
+			fName = "FN" + System.currentTimeMillis();
 			enterMemberDetails("first name", fName);
 		} else {
 			enterMemberDetails("first name", fName);
 		}
 
 		if (mName.equalsIgnoreCase("")) {
-			mName = "middleName" + System.currentTimeMillis();
+			mName = "Selenium";
 			enterMemberDetail("middleName", mName);
 		} else {
 			enterMemberDetail("middleName", mName);
 		}
 
 		if (lName.equalsIgnoreCase("")) {
-			lName = "lastName" + System.currentTimeMillis();
+			lName = "LN" + System.currentTimeMillis();
 			enterMemberDetail("lastName", lName);
 		} else {
 			enterMemberDetail("lastName", lName);
@@ -63,9 +64,11 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 			selectMemberDetails("state", abrState);
 		}
 		enterMemberDetail("postalCode", inPostalCode);
-		selectMemberDetails("phnCountry", phnCountry);
-		// enterMemberDetails("number", phnNumber);//Need to add column in data sheet
+		// selectMemberDetails("phnCountry", phnCountry);
+		//
+		// enterMemberDetails("number", phnNumber);
 		clickOnSaveButton();
+
 		handleAlert1();
 		if (isWindow()) {
 			switchWindow();
@@ -84,12 +87,15 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		}
 
 		return new String[] { fName, mName, lName, street, city, abrState,
-				outPostalCode };
+				outPostalCode, phnNumber };
 
 	}
 
 	public void enterMemberDetails(String detailName, String detailValue) {
+		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(2);
 		isElementDisplayed("inp_memberDetailInAdd", detailName);
+		element("inp_memberDetailInAdd", detailName).clear();
 		element("inp_memberDetailInAdd", detailName).sendKeys(detailValue);
 		logMessage("Step : enter " + detailValue + " in " + detailName + " \n");
 	}
@@ -115,12 +121,22 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void getAndVerifyMemberDetail(String detailName, String detailValue) {
-		isElementDisplayed("inp_" + detailName);
-		String actualText = element("inp_" + detailName).getAttribute("value")
-				.trim();
-		Assert.assertTrue(actualText.equalsIgnoreCase(detailValue));
-		logMessage("ASSERT PASSED : Verified " + detailValue + " in "
-				+ detailName + " \n");
+		wait.waitForPageToLoadCompletely();
+		try {
+			isElementDisplayed("inp_" + detailName);
+			String actualText = element("inp_" + detailName).getAttribute(
+					"value").trim();
+			Assert.assertTrue(actualText.equalsIgnoreCase(detailValue));
+			logMessage("ASSERT PASSED : Verified " + detailValue + " in "
+					+ detailName + " \n");
+		} catch (StaleElementReferenceException E) {
+			isElementDisplayed("inp_" + detailName);
+			String actualText = element("inp_" + detailName).getAttribute(
+					"value").trim();
+			Assert.assertTrue(actualText.equalsIgnoreCase(detailValue));
+			logMessage("ASSERT PASSED : Verified " + detailValue + " in "
+					+ detailName + " \n");
+		}
 	}
 
 	public void getAndVerifyMemberDetailInAddVerify(String detailName,

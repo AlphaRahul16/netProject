@@ -53,7 +53,7 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 			wait.hardWait(1);
 			logMessage("Step: click btn_continue\n");
 		} catch (StaleElementReferenceException stlRef) {
-			isElementDisplayed("btn_continue");
+			//isElementDisplayed("btn_continue");
 			element("btn_continue").click();
 			logMessage("Step: click btn_continue\n");
 		}

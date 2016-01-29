@@ -41,7 +41,7 @@ public class ASM_Giving_Scholars_Smoke {
 		test.asm_givingGreen.loginIntoApplicationWithACS_ID(
 				DataProvider.getColumnData(tcId, headerName),
 				getASM_givingGreen.getASM_GivingGreen("password"));
-		test.asm_givingGreen.clickOnContinueButton();
+		test.asm_givingGreen.clickOnContinueButton();;
 		test.asm_givingGreen.verifyLoginErrorMessagePresent(getASM_givingGreen
 				.getASM_GivingGreen("LoginErrorMessage"));
 		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
@@ -789,7 +789,7 @@ public class ASM_Giving_Scholars_Smoke {
 	@AfterMethod
 	public void take_screenshot_on_failure(ITestResult result) {
 		test.takescreenshot.takeScreenShotOnException(result);
-		test.closeBrowserSession();
+		//test.closeBrowserSession();
 	}
 
 }
