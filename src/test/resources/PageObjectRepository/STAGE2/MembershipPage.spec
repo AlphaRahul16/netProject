@@ -17,7 +17,7 @@ list_mbrStatus                                       xpath                  //a[
 img_cross                                           xpath                  //img[@title='${memberDetailName}']
 btn_menuItems                                     xpath                    //a[contains(@title,'${menuName}')]/i
 img_orderEntry                                      xpath                   //img[contains(@alt,'Order Entry')]
-lnk_selectProduct                                   id                      HYPERLINK_17
+lnk_selectProduct                                   id                     HYPERLINK_17
 txt_menuItems                                      id                      HYPERLINK_20
 list_association                                    id                     mbr_asn_code
 list_memberType                                     id                     mbr_mbt_key
@@ -26,7 +26,7 @@ list_jobTitle                                        id                    mbr_t
 list_industry                                         id                    mbr_sin_key_ext
 inp_industryUpdateDate                              id                     mbr_sin_last_update_date_ext
 inp_jobTitleUpdateDate                               id                     mbr_jfn_last_update_date_ext
-btn_saveAndFinish                                    id                    Bottom_0
+btn_saveAndFinish                                    css                    input[id='Bottom_0']
 txt_itemsAdded                                      xpath                   //a[text()='${itemName}']
 list_batch                                          id                        inv_bat_key
 list_PaymentType                                     id                       inv_orig_trans_type
@@ -92,7 +92,7 @@ chk_advanceNew                                    id                           c
 list_advanceNewDropDown                           xpath                        //span[contains(text(),'${headingName}')]/../following-sibling::td[1]/select
 inp_advanceNewInput                               xpath                         //span[contains(text(),'${headingName}')]/../following-sibling::td[2]/input
 list_advanceNewInput                               xpath                        //span[contains(text(),'${headingName}')]/../following-sibling::td[2]/select
-link_subscriptionInSelectProduct                  id                            HYPERLINK_2
+link_subscriptionInSelectProduct                  id                          HYPERLINK_2
 inp_prdCode                                       id                           prd_code
 inp_searchDisplayButton                           id                           Look_Up_prc_display_name
 inp_displayName                                   id                           prc_display_name
