@@ -37,9 +37,9 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 		verifyInvoiceProfile("invoice total", Total);
 		verifyInvoiceProfile("balance", "$0.00");
-
+		hardWaitForIEBrowser(3);
 		expandDetailsMenu("line items");
-
+hardWaitForIEBrowser(3);
 		verifyInvoiceDetails("priceValue",
 				getOmaSheetValue(caseId, "Iweb Product Name?"),
 				getPriceSheetValue(caseId, "Price value?"),

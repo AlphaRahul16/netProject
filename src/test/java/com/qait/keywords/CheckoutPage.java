@@ -257,11 +257,18 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 			} else if (getOmaSheetValue(caseId, "multiYearDecision")
 					.equalsIgnoreCase("3")) {
 				multiYearDecisionValue = "Three";
-				click(element("rad_multiYear", multiYearDecisionValue));
+				clickUsingXpathInJavaScriptExecutor(element("rad_multiYear", multiYearDecisionValue));
+				//click(element("rad_multiYear", multiYearDecisionValue));
 				logMessage("Step : multiYearDecision " + multiYearDecisionValue
 						+ " value is clicked in rad_multiYear\n");
 				logMessage("Step : wait for price values to be changed after selection of multi year value\n");
+				try{
 				wait.waitForElementToDisappear(element("txt_multiYearWait"));
+				}
+				catch(Exception E)
+				{
+					logMessage("txt_multiYearWait did not appear");
+				}
 			} else {
 				logMessage("Step : multiyear flag is not present in price value sheet\n");
 			}
