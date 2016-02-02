@@ -412,6 +412,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 
 	private void verifySummerMailingAddressFiledVisibility(
 			String isSummerMaillingAdd) {
+		wait.waitForPageToLoadCompletely();
 		verifyFieldVisibility("txt_summerMailingAdd", isSummerMaillingAdd);
 	}
 

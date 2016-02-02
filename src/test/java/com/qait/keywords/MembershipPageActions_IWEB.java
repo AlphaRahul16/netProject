@@ -59,7 +59,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void selectAndRunQuery(String queryName) {
 		wait.waitForPageToLoadCompletely();
 		waitForSpinner();
-		wait.hardWait(3);
 		isElementDisplayed("txt_loadOnExistingQueryLabel");
 		selectExistingQuery(queryName);
 		waitForSpinner();
@@ -124,7 +123,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				.equalsIgnoreCase("Selenium - Find Random Non Member")
 				&& ConfigPropertyReader.getProperty("tier").equalsIgnoreCase(
 						"Stage3")) {
-			selectDropDownValue(element("list_existingQuery"), 437);
+			selectDropDownValue(element("list_existingQuery"), 434);
 		}
 
 		else {
@@ -168,7 +167,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("STEP : Click on run query button in btn_runQuery \n");
 		wait.waitForPageToLoadCompletely();
 		waitForSpinner();
-		wait.hardWait(3);
+		wait.hardWait(1);
 	}
 
 	public void clickOnMenuItems(String menuName) {
@@ -422,15 +421,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 						.getReinstateMember_centralizedOrderEntry("association"));
 		// TODO Remove hard wait after handling stale element exception
 		holdExecution(1000);
-		selectMemberInfo("memberType",
-				getCenOrdEntry
-						.getReinstateMember_centralizedOrderEntry("memberType"));
+		selectMemberInfo("memberType",getCenOrdEntry.getReinstateMember_centralizedOrderEntry("memberType"));
 		// TODO Remove hard wait after handling stale element exception
 		holdExecution(1000);
 		selectMemberInfo(
-				"memberPackage",
-				getCenOrdEntry
-						.getReinstateMember_centralizedOrderEntry("memberPackage"));
+				"memberPackage",getCenOrdEntry.getReinstateMember_centralizedOrderEntry("memberPackage"));
 		String currentDate = DateUtil
 				.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy");
 		String nextSecondYear = DateUtil.getNextDate("year", 2)[0];
@@ -628,8 +623,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnSelectProduct() {
 		isElementDisplayed("lnk_selectProduct");
-		clickUsingXpathInJavaScriptExecutor(element("lnk_selectProduct"));
+		//hover(element("lnk_selectProduct"));
+		wait.hardWait(1);
+		//clickUsingXpathInJavaScriptExecutor(element("lnk_selectProduct"));
 		//element("lnk_selectProduct").click();
+		executeJavascript("document.getElementById('HYPERLINK_17').click()");
 		logMessage("Step : select product link is clicked in lnk_selectProduct\n");
 	}
 
@@ -693,9 +691,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnSaveAndFinish() {
+		hardWaitForIEBrowser(2);
 		isElementDisplayed("btn_saveAndFinish");
-		clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
-		//element("btn_saveAndFinish").click();
+		hardWaitForIEBrowser(2);
+		System.out.println("click............................");
+		element("btn_saveAndFinish").click();
+		//executeJavascript("document.getElementById('Bottom_0').click()");
+		//clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
+		hardWaitForIEBrowser(10);
+		
 		logMessage("Step : save and finish button is clicked\n");
 	}
 
@@ -1070,7 +1074,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnModuleTab() {
 		wait.waitForPageToLoadCompletely();
-		isElementDisplayed("btn_tabs");
+		//isElementDisplayed("btn_tabs");
 		wait.hardWait(1);
 		executeJavascript("document.getElementsByClassName('dropdown-toggle')[3].click()");
 		// element("btn_tabs").click();
@@ -1241,7 +1245,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_membershipProfileDetails", memberInfo);
 		String info = element("txt_membershipProfileDetails", memberInfo)
 				.getText().trim();
-		logMessage("Step : " + memberInfo + " is " + info + " \n");
+		logMessage("Step : Customer ID is " + info + " \n");
 		return info;
 	}
 
@@ -1328,8 +1332,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void selectSubscriptionInSelectProductLink() {
+		hardWaitForIEBrowser(10);
 		isElementDisplayed("link_subscriptionInSelectProduct");
-		clickUsingXpathInJavaScriptExecutor(element("link_subscriptionInSelectProduct"));
+		//hover(element("link_subscriptionInSelectProduct"));
+		wait.hardWait(1);
+		executeJavascript("document.getElementById('HYPERLINK_2').click()");
+		//clickUsingXpathInJavaScriptExecutor(element("link_subscriptionInSelectProduct"));
 		//element("link_subscriptionInSelectProduct").click();
 		logMessage("Step : subscription link is clicked in link_subscriptionInSelectProduct\n");
 
@@ -1382,6 +1390,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		} catch (Exception e) {
+			System.out.println("in catch");
 			wait.waitForPageToLoadCompletely();
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
@@ -1413,7 +1422,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// totalPrice = getMemberInfoOnMemberShipProfile("net-balance:");
 		logMessage("Step : Display name is : " + displayName + "\n");
 		clickOnSaveAndFinish();
-		switchToDefaultContent();
+		driver.navigate().refresh();
+		//switchToDefaultContent();
 		waitForSpinner();
 		wait.hardWait(2);
 		if (displayName
@@ -1440,7 +1450,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickUsingXpathInJavaScriptExecutor(element("inp_searchDisplayButton"));
 		//element("inp_searchDisplayButton").click();
 		wait.hardWait(2);
-		hardWaitForIEBrowser(6);
+		hardWaitForIEBrowser(8);
 		logMessage("Step : Search display name button is clicked in inp_searchDisplayButton\n");
 	}
 
@@ -1572,13 +1582,23 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickInvoiceHeading(String tabName) {
-		wait.hardWait(10);
+		wait.hardWait(2);
+		try
+		{
+			wait.resetImplicitTimeout(hiddenFieldTimeOut);
 		isElementDisplayed("link_invoiceListHeadings", tabName);
-		clickUsingXpathInJavaScriptExecutor(element("link_invoiceListHeadings",
-				tabName));
-		// element("link_invoiceListHeadings", tabName).click();
-		//wait.waitForPageToLoadCompletely();
-		logMessage("Invoice heading " + tabName + " is clicked");
+		wait.hardWait(1);
+		element("link_invoiceListHeadings", tabName).click();
+		wait.waitForPageToLoadCompletely();
+		wait.resetExplicitTimeout(timeOut);
+		logMessage("Step : Invoice heading "+tabName+" is clicked");
+		}
+		catch(Exception e)
+		{
+			wait.resetExplicitTimeout(timeOut);
+		}
+
+
 
 	}
 
@@ -1755,7 +1775,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public List<String> loginUsingValueFromSheet(String[] loginAs) {
 		getloginStatusFromSheet(loginAs);
 		if (count == 0 | count == 1) {
-
+			System.out.println("Member");
 			clickOnModuleTab();
 			clickOnTab("CRM");
 			clickOnSideBarTab("Individuals");
@@ -1764,10 +1784,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 				selectAndRunQuery("Selenium - Find Active Regular Member");
 				memberStoreDetails.add(String.valueOf(count));
+				logMessage("User will login as a Member");
 			} else if (count == 1) {
 
 				selectAndRunQuery("Selenium - Find Random Non Member");
 				memberStoreDetails.add(String.valueOf(count));
+				logMessage("User will login as a Non - Member");
 
 			}
 			memberStoreDetails
@@ -1777,6 +1799,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		} else if (count == 2) {
 
 			memberStoreDetails.add(String.valueOf(count));
+			System.out.println("Guest");
+			logMessage("User will login as a Guest");
 
 		}
 		return memberStoreDetails;
@@ -2048,10 +2072,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				| memberLoginDetails.get(0).equals("1")) {
 			clickOnSideBarTab("Invoice");
 			clickOnSideBar("Query Invoice");
-			selectAndRunQuery("Selenium - Newest Invoice for Customer Id");
+			selectAndRunQuery("Selenium - Newest Invoice for Customer ID");
 			enterSingleCustomerIdInRunQuery(memberLoginDetails.get(1));
-			clickInvoiceHeading("Transaction Date");
-			clickInvoiceHeading("Transaction Date");
+//			clickInvoiceHeading("Transaction Date");
+//			clickInvoiceHeading("Transaction Date");
 			clickOnInvoiceNumber();
 		}
 
@@ -2105,6 +2129,25 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				.format("%.2f", netIndividualBalance))));
 		logMessage("ASSERT PASSED : " + netBalance
 				+ " is verified for net balance\n");
+	}
+	public List<String> getCustomerLastNameAndContactID(String SheetStatusForLogin)
+	{
+		if(SheetStatusForLogin.equalsIgnoreCase("YES"))
+{
+		clickOnEditNameAndAddress();
+		switchToFrame("iframe1");
+		customerLname = getNameFromEditNameAndAddressButton("lastName");
+		clickOnCancelButton();
+		handleAlert();
+		switchToDefaultContent();
+		customerContactId = element("txt_renewalContactId").getText();
+		memberDetails.add(customerLname);
+		
+		memberDetails.add(customerContactId);
+		logMessage("Step : ");
+}
+		return memberDetails;
+
 	}
 
 }

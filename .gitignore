@@ -1,6 +1,7 @@
 target
 test-output
-
+src\test\resources\Profile_Stage2
+src\test\resources\Profile_Stage3
 **/.~lock*
 
 .project

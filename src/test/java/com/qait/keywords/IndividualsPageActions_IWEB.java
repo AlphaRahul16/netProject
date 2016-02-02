@@ -412,7 +412,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyMemberIsNotCreated() {
 		isElementDisplayed("img_member");
-		logMessage("ASSERT PASSED : Member is not created and has cross mark for member\n");
+		logMessage("ASSERT PASSED : Cross mark for non member is verified \n");
 	}
 
 	public void verifyMemberReceivedNoBenefits() {
@@ -561,11 +561,17 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		//	element("link_moreMenuName", "Subscriptions").click();
 			logMessage("Step : Subscription link is clicked\n");
 			waitForSpinner();
+			try{
 			isElementDisplayed("btn_memberShip", "active subscriptions");
 			clickUsingXpathInJavaScriptExecutor(element("btn_memberShip",
 					"active subscriptions"));
 			// element("btn_memberShip", "active subscriptions").click();
 			logMessage("Step : Navigate to subscription menu on clicking more button\n");
+			}
+			catch(Exception E)
+			{
+				logMessage("Step : Already Expanded");
+			}
 		} catch (StaleElementReferenceException stEx) {
 
 			wait.hardWait(5);
