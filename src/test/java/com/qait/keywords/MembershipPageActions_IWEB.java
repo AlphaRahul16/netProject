@@ -92,7 +92,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnSideBar(String tabName) {
-		hardWaitForIEBrowser(4);
+		hardWaitForIEBrowser(10);
 		isElementDisplayed("hd_sideBar", tabName);
 		clickUsingXpathInJavaScriptExecutor(element("hd_sideBar", tabName));
 		logMessage("STEP : Click on side bar for tab " + tabName
@@ -1553,9 +1553,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnInvoiceNumber() {
 		wait.waitForPageToLoadCompletely();
-		wait.hardWait(3);
+		wait.hardWait(5);
 
-		try {
+	
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("lnk_first_invoice_number");
@@ -1563,21 +1563,21 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			//element("lnk_first_invoice_number").click();
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
-		} catch (Exception e) {
-			wait.resetImplicitTimeout(timeOut);
-			wait.resetExplicitTimeout(timeOut);
-			logMessage("STEP: First Invoice Number Clicked");
-		}
+//		} catch (Exception e) {
+//			wait.resetImplicitTimeout(timeOut);
+//			wait.resetExplicitTimeout(timeOut);
+//			logMessage("STEP: First Invoice Number Clicked");
+//		}
 		logMessage("STEP: First Invoice Number Clicked");
 	}
 
 	public void clickInvoiceHeading(String tabName) {
-		wait.hardWait(3);
+		wait.hardWait(10);
 		isElementDisplayed("link_invoiceListHeadings", tabName);
 		clickUsingXpathInJavaScriptExecutor(element("link_invoiceListHeadings",
 				tabName));
 		// element("link_invoiceListHeadings", tabName).click();
-		wait.waitForPageToLoadCompletely();
+		//wait.waitForPageToLoadCompletely();
 		logMessage("Invoice heading " + tabName + " is clicked");
 
 	}
