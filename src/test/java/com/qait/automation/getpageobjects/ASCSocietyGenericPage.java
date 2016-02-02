@@ -42,6 +42,7 @@ public class ASCSocietyGenericPage extends GetPage {
 						+ " to not to show up", true);
 				wait.resetImplicitTimeout(0);
 				wait.resetExplicitTimeout(hiddenFieldTimeOut);
+				wait.waitForPageToLoadCompletely();
 				isElementDisplayed(element);
 				org.testng.Assert
 						.fail("ASSERT FAILED: "

@@ -46,6 +46,7 @@ import com.qait.keywords.CheckoutPage;
 import com.qait.keywords.ConfirmationPage;
 import com.qait.keywords.ContactInformationPage;
 import com.qait.keywords.EducationAndEmploymentPage;
+import com.qait.keywords.FundProfilePage;
 import com.qait.keywords.HomePageActions;
 import com.qait.keywords.HomePageActions_IWEB;
 import com.qait.keywords.IndividualsPageActions_IWEB;
@@ -102,6 +103,7 @@ public class TestSessionInitiator {
 	public SubscriptionPage subscriptionPage;
 	public MemberShipRenewalPage membershipRenewalPage;
 	public AddMemeber_IWEB addMember;
+	public FundProfilePage fundpofilePage;
 	
 
 	public TakeScreenshot takescreenshot;
@@ -140,6 +142,7 @@ public class TestSessionInitiator {
 		subscriptionPage = new SubscriptionPage(driver);
 		membershipRenewalPage = new MemberShipRenewalPage(driver);
 		addMember= new AddMemeber_IWEB(driver);
+		fundpofilePage= new FundProfilePage(driver);
 
 	}
 

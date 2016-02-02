@@ -1,9 +1,11 @@
 package com.qait.keywords;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -51,6 +53,15 @@ public class ASM_DonatePage extends GetPage {
 		enterPasswordForMember(password);
 		clickOnLoginButtonForMember();
 	}
+	
+	public void loginIntoApplicationByMemberViaIDOrMemmberNumber(String userName, String password) {
+		clickLoginOnContactInfoPage();
+		clickOnLoginByMemberNumberLastName();
+		wait.hardWait(3);
+		enterUserName(userName);
+		enterPassword(password);
+		clickOnLoginButtonForMember();
+	}
 
 	public void clickOnLoginButton() {
 		isElementDisplayed("btn_login");
@@ -83,7 +94,7 @@ public class ASM_DonatePage extends GetPage {
 		isElementDisplayed("inp_password");
 		element("inp_password").clear();
 		element("inp_password").sendKeys(password);
-		logMessage("Step : " + password + " is entered in inp_username\n");
+		logMessage("Step : " + password + " is entered in inp_password\n");
 	}
 
 	public void enterPasswordForMember(String password) {
@@ -205,6 +216,22 @@ public class ASM_DonatePage extends GetPage {
 
 	}
 
+	public void enterRequiredDetailsInNonMemberFormForIndividualLandingPage(String firstName,
+			String lastName, String email, String phone, String address,
+			String city, String state, String zipcode, String country) {
+
+		enterNonMemberFieldValue("FirstName", firstName);
+		enterNonMemberFieldValue("LastName", lastName);
+		enterNonMemberFieldValue("Email", email);
+		enterNonMemberFieldValue("Phone", phone);
+		enterNonMemberFieldValue("Adr_Line1", address);
+		enterNonMemberFieldValue("City", city);
+		selectNonMemberFieldValue("State", state);
+		enterNonMemberFieldValue("ZipCode", zipcode);
+		selectNonMemberFieldValue("Country", country);
+		clickOnContinueButton();
+
+	}
 	public void enterRequiredDetailsInNonMemberForm(String firstName,
 			String lastName, String email, String phone, String address,
 			String city, String state, String zipcode, String country) {
@@ -226,8 +253,7 @@ public class ASM_DonatePage extends GetPage {
 		isElementDisplayed("inp_fieldName", fieldName);
 		element("inp_fieldName", fieldName).clear();
 		element("inp_fieldName", fieldName).sendKeys(fieldValue);
-		logMessage("Step : enter field value: " + fieldValue
-				+ " in field name: " + fieldName + " in inp_fieldName\n");
+		logMessage("Step :  "+fieldName+" in in inp_fieldName is entered as : "+fieldValue+"\n");
 
 	}
 
@@ -358,7 +384,10 @@ public class ASM_DonatePage extends GetPage {
 
 	public void clickOnSubmitPaymentButton() {
 		wait.hardWait(3);
-		isElementDisplayed("btn_submitPayment");
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
+		//isElementDisplayed("btn_submitPayment");
+		wait.hardWait(2);
 		// element("btn_continue").click();
 		clickUsingXpathInJavaScriptExecutor(element("btn_submitPayment"));
 		logMessage("Step : click on continue button in btn_submitPayment\n");
@@ -370,7 +399,10 @@ public class ASM_DonatePage extends GetPage {
 			List<String> memberLoginDetails, String cardType,
 			String cardHolderName, String cardNumber, String cvvNumber,
 			String date_Value, String year_Value) {
+		selectCreditCardType(cardType);
 		if (memberLoginDetails.size() != 1) {
+			System.out.println(memberLoginDetails.size());
+			System.out.println(MemberFullName.get(0));
 			String MemberName = MemberFullName.get(0);
 			String arrayName[] = MemberName.split(" ");
 			MemberName = arrayName[(arrayName.length) - 2] + " "
@@ -379,7 +411,7 @@ public class ASM_DonatePage extends GetPage {
 		} else if (memberLoginDetails.size() == 1) {
 			enterCreditCardHolderName(cardHolderName);
 		}
-		selectCreditCardType(cardType);
+	
 		enterCreditCardNumber(cardNumber);
 		enterCVVNumber(cvvNumber);
 		selectExpirationDate_Year("Date", date_Value);
@@ -457,7 +489,7 @@ public class ASM_DonatePage extends GetPage {
 	}
 
 	public String[] retreiveProductDetails() {
-
+          
 		return getProductNamesAndCodes();
 
 	}
@@ -492,46 +524,47 @@ public class ASM_DonatePage extends GetPage {
 
 	}
 
-	public String[] checkDonationPrograms(String[] ProgramNameToDonate) {
-		String[] programNames = new String[4];
+	public String[] checkDonationPrograms(String[] ProgramAmountToDonate) {
+		String[] programAmount = new String[4];
 		wait.waitForPageToLoadCompletely();
 		for (int i = 0; i < 4; i++) {
-			programNames[i] = isProgram(ProgramNameToDonate[i]);
+			programAmount[i] = isProgram(ProgramAmountToDonate[i]);
 		}
 
-		return programNames;
+		return programAmount;
 
 	}
 
-	private String isProgram(String ProgramName) {
-		if (ProgramName.length() != 0) {
+	private String isProgram(String programAmount) {
+		if (programAmount.length() != 0) {
 			IsProgramPledged++;
 		}
 		TotalAmountMap
 				.put("IsProgramPledged", String.valueOf(IsProgramPledged));
-		return ProgramName;
+		return programAmount;
 
 	}
 
-	public void donateMoneyToProgram(String ProgramName[], String Amount[]) {
+	public void donateMoneyToProgram(String ProgramName[], String Amount[],String OtherProgramName) {
 		wait.waitForPageToLoadCompletely();
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i <ProgramName.length ; i++) {
 
-			if (ProgramName[i].length() == 0) {
+			if (Amount[i].length() == 0) {
 				System.out.println("Program name " + ProgramName[i]
 						+ " Length is " + ProgramName[i].length());
 
-			} else {
+			} 
+			else if(ProgramName[i].equals(OtherProgramName))
+					{
+				enterOtherProgram(OtherProgramName);
+				enterOtherAmount(Amount[3]);
+					}
+			
+			else if(Amount[i].length() != 0){
 				System.out.println("Program name " + ProgramName[i]
 						+ " Length is " + ProgramName[i].length());
 				enterDonateValue(ProgramName[i], Amount[i]);
 			}
-		}
-		if (ProgramName[3].length()!=0) {
-			System.out.println("Program 3 lenght "+ProgramName[3].length());
-
-			enterOtherProgram(ProgramName[3]);
-			enterOtherAmount(Amount[3]);
 		}
 	}
 
@@ -578,10 +611,11 @@ public class ASM_DonatePage extends GetPage {
 		return TotalAmountMap;
 
 	}
+	
 
 	public void verifyProductNamesFromIweb(String[] productNameKey) {
 		wait.waitForPageToLoadCompletely();
-		for (int i = 1; i < 3; i++) {
+		for (int i = 0; i < 3; i++) {
 			System.out.println(productNameKey[i]);
 			isElementDisplayed("txt_DonateProgram", productNameKey[i]);
 		}
@@ -606,16 +640,34 @@ public class ASM_DonatePage extends GetPage {
 		mapMemberAddress.put(Name, actualvalue);
 		logMessage("Step : User "+Name+" is displayed on iweb as "+actualvalue);
 	}
+	private void clickOnLoginByMemberNumberLastName()
+	{
+		
+		isElementDisplayed("rad_lastNameMemNumber");
+		element("rad_lastNameMemNumber").click();
+		
+		
+	}
 
 	public void clickOnLoginButtonForSpecifiedUser(
-			List<String> memberLoginDetails, String ValidEmailAddress) {
+			List<String> memberLoginDetails, String ValidEmailAddress,String sheetValue,List<String> memberdetails) {
 		System.out.println("member login details"+memberLoginDetails.size());
 		if (memberLoginDetails.size() > 1) {
 			wait.waitForPageToLoadCompletely();
+			if(sheetValue.equalsIgnoreCase("YES"))
+			{
+				System.out.println("$$$$$$$$");
+			loginIntoApplicationByMemberViaIDOrMemmberNumber(memberdetails.get(1), memberdetails.get(0));
+			}
+			else
+			{
 			loginIntoApplicationByMember(memberLoginDetails.get(2), "password");
+			}
 			wait.waitForPageToLoadCompletely();
 			try
 			{
+				wait.hardWait(2);
+				System.out.println("asfsfsffs");
 			verifyMemberOrNonMemberDetails("Name", "Address");
 			verifyMemberOrNonMemberDetails("Email", "Email");
 			verifyMemberOrNonMemberDetails("Phone", "PhoneNo");
@@ -625,7 +677,7 @@ public class ASM_DonatePage extends GetPage {
 			}
 			catch(StaleElementReferenceException e)
 			{
-				
+				System.out.println("sfsfsf");
 			}
 			element("txtbox_inpfeild", "Email").click();
 			element("txtbox_inpfeild", "Email").clear();
@@ -641,9 +693,10 @@ public class ASM_DonatePage extends GetPage {
 
 	public void verifyMemberOrNonMemberDetails(String inpfeilds, String Address) {
 		wait.waitForPageToLoadCompletely();
-		wait.hardWait(3);
+		System.out.println(inpfeilds);
+		wait.hardWait(2);
 		if (inpfeilds.equals("Name")) {
-			wait.hardWait(1);
+			wait.hardWait(10);
 			isElementDisplayed("txt_inpName");
 			MemberFullName.add(element("txt_inpName").getText().trim());
 			Assert.assertTrue(mapMemberAddress.get(Address).contains(
@@ -675,7 +728,7 @@ public class ASM_DonatePage extends GetPage {
 			System.out.println("Program name " + ProductNames[j]
 					+ " length is " + ProductNames[j].length() + " Amount is "
 					+ Amount[j]);
-			if (ProductNames[j].length() != 0) {
+			if (Amount[j].length() != 0) {
 				double totalamount = Math
 						.round(Double.parseDouble(Amount[j]) * 100.00) / 100.00;
 				Assert.assertTrue(elements("txt_confirmDonation_product")
@@ -705,6 +758,19 @@ public class ASM_DonatePage extends GetPage {
 		if (memberLoginDetails.size() == 1) {
 
 			enterRequiredDetailsInNonMemberForm(FirstName, LastName,
+					validEmail, PhoneNo, Address, City, State, ZipCode, Country);
+
+		}
+	}
+	
+	public void enterGuestRequiredDetailsInFormForIndividualLandingPage(
+			List<String> memberLoginDetails, String FirstName, String LastName,
+			String validEmail, String PhoneNo, String Address, String City,
+			String State, String ZipCode, String Country) {
+
+		if (memberLoginDetails.size() == 1) {
+
+			enterRequiredDetailsInNonMemberFormForIndividualLandingPage(FirstName, LastName,
 					validEmail, PhoneNo, Address, City, State, ZipCode, Country);
 
 		}
@@ -814,6 +880,27 @@ public class ASM_DonatePage extends GetPage {
 		}
 
 	}
+	public void BreakMyDonationForMonthlyPaymentsForIndividualLanding(String isBreakDonationTrue,
+			String PledgeMonths) {
+	
+			if ((isBreakDonationTrue.equalsIgnoreCase("YES") || isBreakDonationTrue
+					.length() != 0) && PledgeMonths.length() != 0) {
+				checkBreakMyDonationInto();
+				selectProvidedTextFromDropDown(element("drpdown_pledgeMonths"),
+						PledgeMonths);
+				verifyMonthlyAmountPayable(PledgeMonths);
+			} else if ((isBreakDonationTrue.equalsIgnoreCase("YES") && PledgeMonths
+					.length() == 0)
+					| (!isBreakDonationTrue.equalsIgnoreCase("YES") && PledgeMonths
+							.length() != 0)) {
+				Assert.fail("Break Donation/PledgeMonths in datasheet are Empty");
+				
+			} else {
+				logMessage("ASSERT PASSED : Break Donation/PledgeMonths checkbox is not checked");
+			}
+		
+
+	}
 
 	private void verifyMonthlyAmountPayable(String PledgeMonths) {
 		double Totalamount = 0;
@@ -823,6 +910,8 @@ public class ASM_DonatePage extends GetPage {
 				.getText());
 		Monthlyamount = (Totalamount / Double.parseDouble(PledgeMonths));
 		Monthlyamount = Math.round(Monthlyamount * 100.00) / 100.00;
+		System.out.println(element(
+				"txt_monthlyAmountPayble").getText().replace("$", " ").trim());
 		Assert.assertTrue(Monthlyamount == Double.parseDouble(element(
 				"txt_monthlyAmountPayble").getText().replace("$", " ").trim()));
 		logMessage("ASSERT PASSED : Monthly payable amount is verifed as "+Monthlyamount);
@@ -831,11 +920,14 @@ public class ASM_DonatePage extends GetPage {
 	private void checkBreakMyDonationInto() {
 		isElementDisplayed("chkbox_breakDonation");
 		if (!element("chkbox_breakDonation").isSelected()) {
+			System.out.println("###############pledgedMonthlyTotal is True##############");
+			wait.hardWait(1);
 			pledgedMonthlyTotal = true;
 			TotalAmountMap.put("pledgedMonthlyTotal",
 					String.valueOf(pledgedMonthlyTotal));
+			System.out.println(pledgedMonthlyTotal+"  pledgedMonthlyTotal value");
 			element("chkbox_breakDonation").click();
-			logMessage("Step : " + " is checked in chkbox_breakDonation\n");
+			logMessage("Step : breakdonation  is checked in chkbox_breakDonation\n");
 		} else {
 			logMessage("Step : "
 					+ " is already checked in chkbox_breakDonation\n");
@@ -846,7 +938,7 @@ public class ASM_DonatePage extends GetPage {
 	public void verifyProductPledgedSummaryOnConfirmDonationPage(String[] donateProgramNames, String[] amount,String PledgeMonths) {
 		if(pledgedMonthlyTotal==true)
 		{
-			verifyPledgedProductSummary(donateProgramNames);
+			verifyPledgedProductSummary(donateProgramNames,amount);
 			verifyPledgeMessageOnSummaryTable(PledgeMonths);
 		} else {
 			verifyProductDetailsOnConfirmDonationPage(donateProgramNames,
@@ -860,25 +952,105 @@ public class ASM_DonatePage extends GetPage {
 		Assert.assertTrue(element("txt_pledgeMessage").getText().contains(
 				PledgeMonths));
 		logMessage("ASSERT PASSED : Pledge Message contains Pledge months as " + PledgeMonths);
+		System.out.println(element("txt_pledgeMessage").getText());
+		System.out.println(totalamount);
 		Assert.assertTrue(element("txt_pledgeMessage").getText().contains(
 				String.valueOf(totalamount)));
 		logMessage("ASSERT PASSED : Pledge Message contains total amount as " + totalamount);
 
 	}
 
-	private void verifyPledgedProductSummary(String[] donateProgramNames) {
-		for (int i = 0; i < donateProgramNames.length; i++) {
-			if (donateProgramNames[i].length() != 0) {
+	private void verifyPledgedProductSummary(String[] donateProgramNames,String[] amount) {
+		for (int i = 0; i < amount.length; i++) {
+			if (amount[i].length() != 0) {
 				donateProgramNames[0] = donateProgramNames[i];
 			}
 		}
+		System.out.println("Donate Program Names"+donateProgramNames);
 		isElementDisplayed("txt_confirmDonation_product");
 		String pledgeProductName = donateProgramNames[0] + " Pledge";
+		System.out.println(pledgeProductName);
+		System.out.println(element("txt_confirmDonation_product").getText());
 		Assert.assertTrue(element("txt_confirmDonation_product").getText()
 				.equals(pledgeProductName));
 		logMessage("ASSERT PASSED : Product name on confirm donation page is displayed as : "
-				+ donateProgramNames[0]);
+				+ pledgeProductName);
 
+	}
+
+
+
+	public String[] getDisplayedProductNamesOnEweb(String[] productNameKey, String  OtherProgramName) {
+//		Set<String> myset;
+//		String[] ProductNames;
+//		myset=mapIwebProductDetails.keySet();
+//		ProductNames=myset.toArray(new String[myset.size()]);
+	List<String> list = new ArrayList<String>(Arrays.asList(productNameKey));
+		list.remove("Suspense Gift");
+		System.out.println("other program length "+OtherProgramName.length());
+		if(OtherProgramName.length()!=0)
+		{
+		list.add(OtherProgramName);
+		}
+		productNameKey=list.toArray(new String[0]);
+		 for ( int i=0;i<productNameKey.length;i++ ) {
+			System.out.println( "program names in eweb"+productNameKey[i]);
+			}
+		 return productNameKey;
+		
+	}
+
+	
+	public void verifyIndividualDonationDisplayOrder(int donationcount, Map<String, String> mapSheetData,
+			Map<String, String> mapFundOrder) {
+		String defaultamount=mapSheetData.get("Default_price?");
+        wait.waitForPageToLoadCompletely();
+        wait.hardWait(2);
+		Assert.assertTrue(element("rad_defaultAmount").getText().replaceAll("[$,]", "").trim().equals(mapSheetData.get(defaultamount)));
+		System.out.println("Donation count "+donationcount);
+		System.out.println("Size "+elements("rad_landingAmount").size());
+		Assert.assertTrue(donationcount==elements("rad_landingAmount").size());
+	for(int i=0;i<donationcount;i++)
+	{
+		System.out.println(i);
+		System.out.println("Actual "+mapFundOrder.get("Amount"+i));
+		System.out.println(Double.parseDouble(elements("rad_landingAmount").get(i).getText().replaceAll("[$,]","")));
+		Assert.assertTrue(Double.parseDouble(elements("rad_landingAmount").get(i).getText().replaceAll("[$,]",""))==Double.parseDouble(mapFundOrder.get("Amount"+i)));
+
+	}
+		
+	}
+	public String[] donateAmountToOtherFund(String otherAmount)
+	{
+	
+
+		if(otherAmount.length()!=0)
+			{
+			wait.waitForPageToLoadCompletely();
+			element("rad_otherdonationAmount").click();
+			
+			wait.waitForElementToBeVisible(element("inp_otherAmountLandingPage"));
+			wait.hardWait(2);
+		element("inp_otherAmountLandingPage").click();
+		element("inp_otherAmountLandingPage").clear();
+		element("inp_otherAmountLandingPage").sendKeys(otherAmount);
+		System.out.println("other amount is "+ otherAmount);
+			}
+		System.out.println(element("txt_individualProgramHeading").getText().trim());
+		String[] ProductNames=new String[]{element("txt_individualProgramHeading").getText().trim()};
+		System.out.println(ProductNames[0]);
+		return ProductNames;
+		
+	}
+
+
+	public String[] getTotalAmountDonatedForIndividualLandingPage() {
+	
+		String[] totalAmount=new String[]{element("txt_totalamount").getText().replace("$", "")};
+		System.out.println(totalAmount[0].length());
+		System.out.println(totalAmount);
+		totalamount=Double.parseDouble(totalAmount[0]);
+		return totalAmount;
 	}
 
 		

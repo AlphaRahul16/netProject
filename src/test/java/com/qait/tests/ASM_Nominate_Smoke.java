@@ -22,16 +22,16 @@ public class ASM_Nominate_Smoke {
 	Map<String, Object> mapNominateSmoke;
 	String headerName = this.getClass().getSimpleName();
 
-//	@Test
-//	public void Step01_TC01_Enter_Invalid_Lastname_And_Verify_ASM_Error() {
-//		String tcId = test.asm_NominatePage.getTestCaseID(Thread
-//				.currentThread().getStackTrace()[1].getMethodName());
-//		test.asm_NominatePage.loginInToApplication(
-//				DataProvider.getColumnData(tcId, headerName),
-//				getASM_Nominate.getASM_NominateInfo("memberNumber"));
-//		test.asmErrorPage.verifyASMError(YamlReader
-//				.getYamlValue("ASM_URLRejectedErrorMsz"));
-//	}
+	@Test
+	public void Step01_TC01_Enter_Invalid_Lastname_And_Verify_ASM_Error() {
+		String tcId = test.asm_NominatePage.getTestCaseID(Thread
+				.currentThread().getStackTrace()[1].getMethodName());
+		test.asm_NominatePage.loginInToApplication(
+				DataProvider.getColumnData(tcId, headerName),
+				getASM_Nominate.getASM_NominateInfo("memberNumber"));
+		test.asmErrorPage.verifyASMError(YamlReader
+				.getYamlValue("ASM_URLRejectedErrorMsz"));
+	}
 //
 //	@Test
 //	public void Step02_TC02_Enter_Valid_Lastname_And_Verify_ASM_Error_Not_Present() {

@@ -24,98 +24,98 @@ public class ASM_OMR_Smoke {
 	Map<String, Object> mapOMRSmoke;
 	String headerName = this.getClass().getSimpleName();
 
-	@Test
-	public void Step01_TC01_Enter_Invalid_UserName_And_Verify_ASM_Error() {
-		test.launchApplication(app_url_OMR);
-		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-				.getStackTrace()[1].getMethodName());
-		test.asm_OMR.loginIntoApplication_ACS_ID(
-				DataProvider.getColumnData(tcId, headerName),
-				getASM_OMR.getASM_OMR("password"));
-		test.asm_OMR.switchToFrame("eWebFrame");
-		test.asmErrorPage.verifyASMError(YamlReader
-				.getYamlValue("ASM_URLRejectedErrorMsz"));
-
-	}
-
-	@Test
-	public void Step02_TC02_Enter_Invalid_UserName_And_Verify_Error_Message_And_ASM_Error_Not_Present() {
-		test.launchApplication(app_url_OMR);
-		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-				.getStackTrace()[1].getMethodName());
-		test.asm_OMR.loginIntoApplication_ACS_ID(
-				DataProvider.getColumnData(tcId, headerName),
-				getASM_OMR.getASM_OMR("password"));
-		test.asm_OMR.verifyLoginErrorMessage(getASM_OMR
-				.getASM_OMR("LoginErrorMessage"));
-		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-				.getYamlValue("ASM_URLRejectedErrorMsz"));
-	}
-
-	@Test
-	public void Step03_TC03_Enter_Invalid_Notice_Number_And_Verify_Error_Message_And_ASM_Error_Not_Present() {
-		test.launchApplication(app_url_OMR);
-		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-				.getStackTrace()[1].getMethodName());
-		test.asm_OMR.loginIntoApplication_LastName_NoticeNumber(
-				getASM_OMR.getASM_OMR("lastName"),
-				DataProvider.getColumnData(tcId, headerName));
-		test.asm_OMR.verifyLoginErrorMessage(getASM_OMR
-				.getASM_OMR("ErrorMessage_noticeNumber_memberNumber"));
-		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-				.getYamlValue("ASM_URLRejectedErrorMsz"));
-	}
-
-	@Test
-	public void Step04_TC04_Enter_Invalid_Member_Number_And_Verify_Error_Message_And_ASM_Error_Not_Present() {
-		test.launchApplication(app_url_OMR);
-		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-				.getStackTrace()[1].getMethodName());
-		test.asm_OMR.loginIntoApplication_LastName_MemberNumber(
-				getASM_OMR.getASM_OMR("lastName"),
-				DataProvider.getColumnData(tcId, headerName));
-		test.asm_OMR.verifyLoginErrorMessage(getASM_OMR
-				.getASM_OMR("ErrorMessage_noticeNumber_memberNumber"));
-		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-				.getYamlValue("ASM_URLRejectedErrorMsz"));
-	}
-
-	@Test
-	public void Step05_TC05_Enter_Valid_Member_Number_And_Verify_ASM_Error_Not_Present() {
-		test.launchApplication(app_url_OMR);
-		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-				.getStackTrace()[1].getMethodName());
-		test.asm_OMR.loginIntoApplication_LastName_MemberNumber(
-				getASM_OMR.getASM_OMR("lastName"),
-				DataProvider.getColumnData(tcId, headerName));
-		test.asm_OMR.verifyWelcomePage();
-		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-				.getYamlValue("ASM_URLRejectedErrorMsz"));
-	}
-
-	@Test
-	public void Step06_TC06_Enter_Valid_Notice_Number_Verify_ASM_Error_Not_Present() {
-		test.launchApplication(app_url_OMR);
-		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-				.getStackTrace()[1].getMethodName());
-		test.asm_OMR.loginIntoApplication_LastName_NoticeNumber(
-				getASM_OMR.getASM_OMR("lastName"),
-				DataProvider.getColumnData(tcId, headerName));
-		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-				.getYamlValue("ASM_URLRejectedErrorMsz"));
-	}
-
-	@Test
-	public void Step07_TC07_Enter_valid_UserName_And_Verify_ASM_Error_Not_Present() {
-		test.launchApplication(app_url_OMR);
-		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-				.getStackTrace()[1].getMethodName());
-		test.asm_OMR.loginIntoApplication_ACS_ID(
-				DataProvider.getColumnData(tcId, headerName),
-				getASM_OMR.getASM_OMR("password"));
-		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-				.getYamlValue("ASM_URLRejectedErrorMsz"));
-	}
+//	@Test
+//	public void Step01_TC01_Enter_Invalid_UserName_And_Verify_ASM_Error() {
+//		test.launchApplication(app_url_OMR);
+//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+//				.getStackTrace()[1].getMethodName());
+//		test.asm_OMR.loginIntoApplication_ACS_ID(
+//				DataProvider.getColumnData(tcId, headerName),
+//				getASM_OMR.getASM_OMR("password"));
+//		test.asm_OMR.switchToFrame("eWebFrame");
+//		test.asmErrorPage.verifyASMError(YamlReader
+//				.getYamlValue("ASM_URLRejectedErrorMsz"));
+//
+//	}
+//
+//	@Test
+//	public void Step02_TC02_Enter_Invalid_UserName_And_Verify_Error_Message_And_ASM_Error_Not_Present() {
+//		test.launchApplication(app_url_OMR);
+//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+//				.getStackTrace()[1].getMethodName());
+//		test.asm_OMR.loginIntoApplication_ACS_ID(
+//				DataProvider.getColumnData(tcId, headerName),
+//				getASM_OMR.getASM_OMR("password"));
+//		test.asm_OMR.verifyLoginErrorMessage(getASM_OMR
+//				.getASM_OMR("LoginErrorMessage"));
+//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+//				.getYamlValue("ASM_URLRejectedErrorMsz"));
+//	}
+//
+//	@Test
+//	public void Step03_TC03_Enter_Invalid_Notice_Number_And_Verify_Error_Message_And_ASM_Error_Not_Present() {
+//		test.launchApplication(app_url_OMR);
+//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+//				.getStackTrace()[1].getMethodName());
+//		test.asm_OMR.loginIntoApplication_LastName_NoticeNumber(
+//				getASM_OMR.getASM_OMR("lastName"),
+//				DataProvider.getColumnData(tcId, headerName));
+//		test.asm_OMR.verifyLoginErrorMessage(getASM_OMR
+//				.getASM_OMR("ErrorMessage_noticeNumber_memberNumber"));
+//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+//				.getYamlValue("ASM_URLRejectedErrorMsz"));
+//	}
+//
+//	@Test
+//	public void Step04_TC04_Enter_Invalid_Member_Number_And_Verify_Error_Message_And_ASM_Error_Not_Present() {
+//		test.launchApplication(app_url_OMR);
+//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+//				.getStackTrace()[1].getMethodName());
+//		test.asm_OMR.loginIntoApplication_LastName_MemberNumber(
+//				getASM_OMR.getASM_OMR("lastName"),
+//				DataProvider.getColumnData(tcId, headerName));
+//		test.asm_OMR.verifyLoginErrorMessage(getASM_OMR
+//				.getASM_OMR("ErrorMessage_noticeNumber_memberNumber"));
+//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+//				.getYamlValue("ASM_URLRejectedErrorMsz"));
+//	}
+//
+//	@Test
+//	public void Step05_TC05_Enter_Valid_Member_Number_And_Verify_ASM_Error_Not_Present() {
+//		test.launchApplication(app_url_OMR);
+//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+//				.getStackTrace()[1].getMethodName());
+//		test.asm_OMR.loginIntoApplication_LastName_MemberNumber(
+//				getASM_OMR.getASM_OMR("lastName"),
+//				DataProvider.getColumnData(tcId, headerName));
+//		test.asm_OMR.verifyWelcomePage();
+//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+//				.getYamlValue("ASM_URLRejectedErrorMsz"));
+//	}
+//
+//	@Test
+//	public void Step06_TC06_Enter_Valid_Notice_Number_Verify_ASM_Error_Not_Present() {
+//		test.launchApplication(app_url_OMR);
+//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+//				.getStackTrace()[1].getMethodName());
+//		test.asm_OMR.loginIntoApplication_LastName_NoticeNumber(
+//				getASM_OMR.getASM_OMR("lastName"),
+//				DataProvider.getColumnData(tcId, headerName));
+//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+//				.getYamlValue("ASM_URLRejectedErrorMsz"));
+//	}
+//
+//	@Test
+//	public void Step07_TC07_Enter_valid_UserName_And_Verify_ASM_Error_Not_Present() {
+//		test.launchApplication(app_url_OMR);
+//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+//				.getStackTrace()[1].getMethodName());
+//		test.asm_OMR.loginIntoApplication_ACS_ID(
+//				DataProvider.getColumnData(tcId, headerName),
+//				getASM_OMR.getASM_OMR("password"));
+//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+//				.getYamlValue("ASM_URLRejectedErrorMsz"));
+//	}
 
 	@Test
 	public void Step08_TC08_Enter_Invalid_Organization_And_Verify_ASM_Error_Not_Present() {
