@@ -32,10 +32,7 @@ img_spinner                xpath          //*[contains(@src,'updating.gif')]
 txt_termStartDate           xpath     //td[contains(text(),'${productName}')]/following-sibling::td[10]
 txt_termEndDate            xpath      //td[contains(text(),'${productName}')]/following-sibling::td[11]
 lnk_pages                  xpath               //tr[@class='pager']/td/a
-<<<<<<< HEAD
 img_member                  xpath      //span[contains(.,'aact member:')]/following-sibling::span/img[@title='Non Member']
-btn_invoicearrow           css               .iconpro-circle-arrow-right
-=======
 btn_invoicearrow           css               .iconpro-circle-arrow-right
 list_rowsInSubscription                   xpath             (//th/a)[2]/../../following-sibling::tr
 txt_subscriptionName                      xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[5]
@@ -44,5 +41,5 @@ txt_subscriptionStartDate                 xpath       (//th/a)[2]/../../followin
 txt_subscriptionEndDate                   xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[8]
 txt_subscriptionIssueFulfilled           xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[9]
 txt_subscriptionStartIssue               xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[10]
->>>>>>> 03d3d063c664e5386998778c1f839105e98c0ded
+
 ======================================================================================================================================

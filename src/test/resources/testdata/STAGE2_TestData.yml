@@ -21,14 +21,11 @@ csv-data-file:
   path_PriceValue: ./src/test/resources/TestDataLibrary/PriceValues.csv
   path_AACT_OMA: ./src/test/resources/TestDataLibrary/AACT_OMA_Data_Sheet.csv
   path_ACS_Store: ./src/test/resources/TestDataLibrary/ACS_Store_Sheet.csv
-<<<<<<< HEAD
   path_createMember: ./src/test/resources/TestDataLibrary/createMemberDataSheet.csv
   path_giving_donate: ./src/test/resources/TestDataLibrary/DonateDataSheet.csv
   path_landingPage: ./src/test/resources/TestDataLibrary/IndividualLandingPageSheet.csv
-=======
-  path_giving_donate: ./src/test/resources/TestDataLibrary/DonateDataSheet.csv
   path_createMember: ./src/test/resources/TestDataLibrary/createMemberDataSheet.csv
->>>>>>> 03d3d063c664e5386998778c1f839105e98c0ded
+
   data-separator: '\t'
   has-header: true
 
@@ -62,31 +59,9 @@ users:
                 country: Thailand
                 state: New York
                 zipCode: 32256-7220
-        education-and-employment:
-<<<<<<< HEAD
-            CASEID: 23
-#    user2: 
-#        contact-information:
-#            name:
-#                firstname: RegMem123
-#                lastname: lastName123
-#            email: ACS_OMA@acs.org
-#            phone: 8888888888
-#            address: 
-#                type: Work
-#                address: jacksonville
-#                city: florida
-#                country: Thailand
-#                state: New York
-#                zipCode: 32256-7220
-#        education-and-employment:
-#            CASEID: 3
-
-
-
-=======
+        education-and-employment:        
             CASEID: 4
->>>>>>> 03d3d063c664e5386998778c1f839105e98c0ded
+
 #    user2: 
 #        contact-information:
 #            name:
@@ -137,22 +112,6 @@ users:
 #            CASEID: 6
 
 
-#    user4: 
-#        contact-information:
-#            name:
-#                firstname: RegMem123
-#                lastname: lastName123
-#            email: ACS_OMA@acs.org
-#            phone: 8888888888
-#            address: 
-#                type: Work
-#                address: jacksonville
-#                city: florida
-#                country: Thailand
-#                state: New York
-#                zipCode: 32256-7220
-#        education-and-employment:
-#            CASEID: 20   
 
 
 
@@ -161,14 +120,10 @@ users:
      
 AACT_users: 
     user1: 
-<<<<<<< HEAD
         CASEID: 2
 #    user2:  
 #        CASEID: 3
-=======
-        CASEID: 7
 
->>>>>>> 03d3d063c664e5386998778c1f839105e98c0ded
 
    
 

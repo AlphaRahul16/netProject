@@ -95,7 +95,6 @@ public class DataProvider {
 			br = new BufferedReader(new FileReader(csvFile));
 			if (hasHeader.equalsIgnoreCase("yes")
 					|| hasHeader.equalsIgnoreCase("true")) {
-				System.out.println("has header");
 				br.readLine();// in case first line is header in the csv file
 			}
 			while ((line = br.readLine()) != null) {
@@ -249,15 +248,10 @@ public class DataProvider {
 		listOfCaseIdToExecute.removeAll(listOfCaseIdToExecute);
 		YamlReader.setYamlFilePath();
 		String csvSeparator = getYamlValue("csv-data-file.data-separator");
-<<<<<<< HEAD
-        System.out.println(sheetName);
+
+
 		int totalNumberOfRows = getTotalNumberOfRowsInSheet(
 		getYamlValue("csv-data-file.path_" + sheetName), "true");
-=======
-		System.out.println("shhet name " + sheetName);
-		int totalNumberOfRows = getTotalNumberOfRowsInSheet(
-				getYamlValue("csv-data-file.path_" + sheetName), "true");
->>>>>>> 03d3d063c664e5386998778c1f839105e98c0ded
 		for (int i = 1; i <= totalNumberOfRows; i++) {
 			String csvLine = csvReaderRowSpecific(
 					getYamlValue("csv-data-file.path_" + sheetName), "true",
@@ -285,11 +279,8 @@ public class DataProvider {
 		return getcaseIdToExecute("caseID Execute", "Yes", "caseID", sheetName);
 	}
 
-<<<<<<< HEAD
-		System.out.println("get");
-		return getcaseIdToExecute("caseID Execute", "Yes", "caseID",
-				"giving_donate");
-	}
+
+	
 	
 	public static List<String> getIndividualLandingPageData() {
 
@@ -303,12 +294,6 @@ public class DataProvider {
 	
 	
 	  
-	
-=======
-	// public static List<String> getGivingData() {
-	// return getcaseIdToExecute("caseID Execute", "Yes", "caseID",
-	// "giving_donate");
-	// }
 
->>>>>>> 03d3d063c664e5386998778c1f839105e98c0ded
+
 }

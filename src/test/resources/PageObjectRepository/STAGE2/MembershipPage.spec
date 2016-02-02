@@ -115,11 +115,6 @@ btn_askGo                                         id                            
 txt_recordNumberAtMemberQuery                    classname                      DataFormLabelRecordCount
 txt_loadOnExistingQueryLabel                      id                            LoadQueryLabel
 link_pagesAvailable                              classname                      DataFormChildDataGridPagerLink
-<<<<<<< HEAD
-link_tabsOnModule                                 xpath                          //a[text()='${value}']
-hd_sideBarOuter                                           xpath                 //h3[text()='${sideBarName}']
-link_invoiceListHeadings                         xpath                          //a[contains(text(),'${value}')]
-=======
 lnk_invoice_number                                 xpath                        //table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3][contains(text(),'${value}')]
 lnk_first_invoice_number                           xpath                        (//table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3])[1] 
 txt_webLogin                                       id                            F1_cst_web_login
@@ -151,5 +146,4 @@ txt_expireDate_chapter                           xpath                          
 btn_addBatch                                     id                             inv_bat_key_oAddHyperLink
 inp_addBatchName                                 id                             bat_code
 list_batchSecurityGroup                          id                             gsc_grp_key
->>>>>>> 03d3d063c664e5386998778c1f839105e98c0ded
 ==============================================================================================================================================

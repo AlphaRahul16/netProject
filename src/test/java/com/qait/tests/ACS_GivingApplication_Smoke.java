@@ -6,13 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-<<<<<<< HEAD
+
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-=======
->>>>>>> 03d3d063c664e5386998778c1f839105e98c0ded
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -35,26 +33,19 @@ public class ACS_GivingApplication_Smoke {
 	Map<String, List<String>> mapIwebProductDetails;
 	Map<String, String> mapSheetData = new HashMap<String, String>();
 	private String caseID;
-<<<<<<< HEAD
-	String[] ProductNames;
 
-	@Factory(dataProviderClass = com.qait.tests.DataProvider_GivingApplicationSmoke.class, dataProvider = "data")
-=======
+	String[] ProductNames;
 
 	public ACS_GivingApplication_Smoke() {
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "giving_donate";
 	}
-
+	
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
->>>>>>> 03d3d063c664e5386998778c1f839105e98c0ded
 	public ACS_GivingApplication_Smoke(String caseID) {
 		this.caseID = caseID;
 	}
 
-<<<<<<< HEAD
-=======
-	
->>>>>>> 03d3d063c664e5386998778c1f839105e98c0ded
+
 	@Test
 	public void Step01_TC01_Launch_IWeb_Application_And_Navigate_To_Funds() {
 		Reporter.log("CASE ID : " + caseID, true);
@@ -118,7 +109,7 @@ public class ACS_GivingApplication_Smoke {
 	}
 
 	@Test
-<<<<<<< HEAD
+
 	public void Step05_TC05_Navigate_To_Confirm_Your_Donation_Page_And_Verify_Details() {
 		Reporter.log("CASE ID : " + caseID, true);
 		String Amount[] = { mapSheetData.get("Program1 Donate Amount"), mapSheetData.get("Program2 Donate Amount"),
@@ -126,16 +117,8 @@ public class ACS_GivingApplication_Smoke {
 
 		test.asm_Donate.verifyProductDetailsOnConfirmDonationPage(ProductNames, Amount);
 		test.asm_Donate.verifyTotalAmountOnDonationPage(Amount, mapSheetData.get("Pledge_Months"));
-=======
-	public void Step05_TC05_Navigate_To_Confirm_Your_Donation_Page_And_Verify_Details()
-	{
-		String  Amount[]={mapSheetData.get("Program1 Donate Amount"),
-				mapSheetData.get("Program2 Donate Amount"),mapSheetData.get("Program3 Donate Amount"),
-				mapSheetData.get("Other Program Donate Amount")};
 
-		test.asm_Donate.verifyProductDetailsOnConfirmDonationPage(DonateProgramNames,Amount);
-		test.asm_Donate.verifyTotalAmountOnDonationPage(Amount,mapSheetData.get("Pledge_Months"));
->>>>>>> 03d3d063c664e5386998778c1f839105e98c0ded
+
 		test.asm_Donate.sendCardOrEmailFromSpreadsheet(mapSheetData.get("SelectSendCardOption?"),
 				mapSheetData.get("InHonorOf?"), mapSheetData.get("InMemoryOf?"), mapSheetData.get("DonotSendCard?"),
 				mapSheetData.get("SendCardVia_Email?"), mapSheetData.get("SendCardVia_PostalMail?"));

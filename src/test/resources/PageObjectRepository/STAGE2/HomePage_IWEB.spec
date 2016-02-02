@@ -15,8 +15,5 @@ link_subscription          xpath                 //a[text()='Subscriptions']
 link_CRM                   xpath                 //a[text()='CRM']
 link_tabsOnModule          xpath                 //a[text()='${value}']
 link_addIndividuals        xpath                //a[@id='F1_HYPERLINK_4']
-<<<<<<< HEAD
-=======
 
->>>>>>> 03d3d063c664e5386998778c1f839105e98c0ded
 ==================================================================================================================================

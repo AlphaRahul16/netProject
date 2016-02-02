@@ -1582,7 +1582,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickInvoiceHeading(String tabName) {
-<<<<<<< HEAD
 		wait.hardWait(2);
 		try
 		{
@@ -1598,16 +1597,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		{
 			wait.resetExplicitTimeout(timeOut);
 		}
-	
-=======
-		wait.hardWait(3);
-		isElementDisplayed("link_invoiceListHeadings", tabName);
-		clickUsingXpathInJavaScriptExecutor(element("link_invoiceListHeadings",
-				tabName));
-		// element("link_invoiceListHeadings", tabName).click();
-		wait.waitForPageToLoadCompletely();
-		logMessage("Invoice heading " + tabName + " is clicked");
->>>>>>> 03d3d063c664e5386998778c1f839105e98c0ded
+
 
 	}
 
@@ -1784,11 +1774,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public List<String> loginUsingValueFromSheet(String[] loginAs) {
 		getloginStatusFromSheet(loginAs);
 		if (count == 0 | count == 1) {
-<<<<<<< HEAD
 			System.out.println("Member");
-=======
-
->>>>>>> 03d3d063c664e5386998778c1f839105e98c0ded
 			clickOnModuleTab();
 			clickOnTab("CRM");
 			clickOnSideBarTab("Individuals");
@@ -1812,12 +1798,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		} else if (count == 2) {
 
 			memberStoreDetails.add(String.valueOf(count));
-<<<<<<< HEAD
 			System.out.println("Guest");
 			logMessage("User will login as a Guest");
-=======
 
->>>>>>> 03d3d063c664e5386998778c1f839105e98c0ded
 		}
 		return memberStoreDetails;
 

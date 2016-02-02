@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Test" verbose="1" configfailurepolicy="continue">
-    <test name="Create User Account Test" thread-count="1" parallel="instances">
-        <classes>
-            <class name="com.qait.tests.FactoryClass" />
-        </classes>
-    </test>
-=======
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="ACS Tests" preserve-order="true" thread-count="1"  configfailurepolicy="continue">
@@ -16,5 +7,4 @@
 			<class name="com.qait.tests.ACS_Create_Member_Test"></class>
 		</classes>
 	</test>
->>>>>>> 03d3d063c664e5386998778c1f839105e98c0ded
 </suite>

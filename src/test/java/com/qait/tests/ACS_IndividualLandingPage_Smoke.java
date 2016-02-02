@@ -31,10 +31,16 @@ public class ACS_IndividualLandingPage_Smoke {
 	Map<String, String> TotalAmountMap;
 	Map<String, List<String>> mapIwebProductDetails;
 
-	@Factory(dataProviderClass = com.qait.tests.DataProvider_IndividualLandingPage.class, dataProvider = "data")
+	
+	public ACS_IndividualLandingPage_Smoke() {
+		com.qait.tests.DataProvider_FactoryClass.sheetName = "landingPage";
+	}
+	
+	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
 	public ACS_IndividualLandingPage_Smoke(String caseID) {
 		this.caseID = caseID;
 	}
+
 
 	@Test
 	public void Step01_TC01_Launch_IWeb_Application_And_Navigate_To_Funds() {
