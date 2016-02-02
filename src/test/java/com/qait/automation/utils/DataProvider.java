@@ -251,8 +251,8 @@ public class DataProvider {
 		listOfCaseIdToExecute.removeAll(listOfCaseIdToExecute);
 		YamlReader.setYamlFilePath();
 		String csvSeparator = getYamlValue("csv-data-file.data-separator");
+        System.out.println(sheetName);
 		int totalNumberOfRows = getTotalNumberOfRowsInSheet(
-
 		getYamlValue("csv-data-file.path_" + sheetName), "true");
 		for (int i = 1; i <= totalNumberOfRows; i++) {
 			String csvLine = csvReaderRowSpecific(
@@ -296,6 +296,13 @@ public class DataProvider {
 		System.out.println("get");
 		return getcaseIdToExecute("caseID Execute", "Yes", "caseID",
 				"giving_donate");
+	}
+	
+	public static List<String> getIndividualLandingPageData() {
+
+		System.out.println("get");
+		return getcaseIdToExecute("caseID Execute", "Yes", "caseID",
+				"landingPage");
 	}
 	
 	

@@ -154,6 +154,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 	}
 
 	public void addACSPublicationAndTechnicalDivision(String caseId) {
+		wait.hardWait(3);
 		addACSTechnicalDivision(getOmaSheetValue(caseId, "Technical Division"));
 		addACSPublication(getOmaSheetValue(caseId, "PublicationName"));
 

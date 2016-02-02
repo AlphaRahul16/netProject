@@ -139,7 +139,7 @@ public class ACS_Store_Test {
 		test.homePageIWEB.clickOnSideBarTab("Invoice");
 		test.memberShipPage.clickOnSideBar("Query Invoice");
 		test.memberShipPage
-				.selectAndRunQuery("Selenium - Newest Invoice for Customer Id");
+				.selectAndRunQuery("Selenium - Newest Invoice for Customer ID");
 		test.memberShipPage.enterSingleCustomerIdInRunQuery(memberStoreDetails
 				.get(0));
 		test.memberShipPage.clickInvoiceHeading("Transaction Date");

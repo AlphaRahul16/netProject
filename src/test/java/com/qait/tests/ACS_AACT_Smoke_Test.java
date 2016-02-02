@@ -83,7 +83,7 @@ public class ACS_AACT_Smoke_Test {
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.asm_aactPage.enterMemberDetailsAtAboutYouPage(caseId);
 		test.ContactInfoPage.clickContinue();
-		test.homePage.verifyCheckoutPage(caseId);
+		//test.homePage.verifyCheckoutPage(caseId);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 	}
 

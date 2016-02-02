@@ -77,6 +77,7 @@ public class ASM_AACTPage extends ASCSocietyGenericPage {
 		try {
 			if (!detailValue.equalsIgnoreCase("null")) {
 				wait.waitForPageToLoadCompletely();
+				wait.hardWait(2);
 				isElementDisplayed("inp_schoolWorkInfo", detailType);
 				element("inp_schoolWorkInfo", detailType).clear();
 				element("inp_schoolWorkInfo", detailType).sendKeys(detailValue);
@@ -88,6 +89,7 @@ public class ASM_AACTPage extends ASCSocietyGenericPage {
 		} catch (StaleElementReferenceException stlExp) {
 			if (!detailValue.equalsIgnoreCase("null")) {
 				wait.waitForPageToLoadCompletely();
+				wait.hardWait(2);
 				isElementDisplayed("inp_schoolWorkInfo", detailType);
 				element("inp_schoolWorkInfo", detailType).clear();
 				element("inp_schoolWorkInfo", detailType).sendKeys(detailValue);

@@ -1,8 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Test" verbose="1" configfailurepolicy="continue">
-    <test name="ACS Giving Application Smoke Test" thread-count="10" parallel="instances">
-        <classes>
-            <class name="com.qait.tests.ACS_GivingApplication_Smoke" />
-        </classes>
-    </test>
+<suite name="ACS Tests" preserve-order="true" thread-count="1">
+ <test name="ACS Giving Application Smoke Test"
+  group-by-instances="true">
+  <classes>
+   <class name="com.qait.tests.ACS_GivingApplication_Smoke"></class>
+  </classes>
+ </test>
 </suite>

@@ -118,4 +118,7 @@ btn_askGo                                         id                            
 txt_recordNumberAtMemberQuery                    classname                     DataFormLabelRecordCount
 txt_loadOnExistingQueryLabel                      id                            LoadQueryLabel
 link_pagesAvailable                              classname                      DataFormChildDataGridPagerLink
+link_tabsOnModule                                 xpath                          //a[text()='${value}']
+hd_sideBarOuter                                           xpath                 //h3[text()='${sideBarName}']
+link_invoiceListHeadings                         xpath                          //a[contains(text(),'${value}')]
 ==============================================================================================================================================

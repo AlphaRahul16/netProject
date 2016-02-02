@@ -28,7 +28,7 @@ public class ASM_EGift_Smoke {
 	
 	@Test
 	public void Step00_TC00_Enter_valid_Lastname_And_Verify_ASM_Error() {
-		test.launchApplication(app_url_Nominate);
+		test.launchApplication(app_url_egift);
 		test.asm_NominatePage.loginInToApplication_ACSID(
 				getASM_Nominate.getASM_NominateInfo("userName"),
 				getASM_Nominate.getASM_NominateInfo("password"));

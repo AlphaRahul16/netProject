@@ -5,7 +5,7 @@ app_url_Store: https://ewebtest12.acs.org/NFStage2/store/
 app_url_AACT: https://ewebtest12.acs.org/NFStage2/aactoma
 app_url_email: https://ewebtest12.acs.org/NFStage2/emailcenter
 app_url_nominateFellow: https://ewebtest12.acs.org/NFStage2/nominatefellow
-app_url_egift: https://ewebtest12.acs.org/NFStage2/egift
+app_url_egift: https://ewebtest12.acs.org/NFStage3/egift
 app_url_givingDonate: https://ewebtest12.acs.org/NFStage2/donate   
 app_url_givingGreen: https://ewebtest12.acs.org/NFStage2/green
 app_url_givingScholars: https://ewebtest12.acs.org/NFStage2/scholars/
@@ -19,6 +19,9 @@ csv-data-file:
   path_PriceValue: ./src/test/resources/TestDataLibrary/PriceValues.csv
   path_AACT_OMA: ./src/test/resources/TestDataLibrary/AACT_OMA_Data_Sheet.csv
   path_ACS_Store: ./src/test/resources/TestDataLibrary/ACS_Store_Sheet.csv
+  path_createMember: ./src/test/resources/TestDataLibrary/createMemberDataSheet.csv
+  path_giving_donate: ./src/test/resources/TestDataLibrary/DonateDataSheet.csv
+  path_landingPage: ./src/test/resources/TestDataLibrary/IndividualLandingPageSheet.csv
   data-separator: '\t'
   has-header: true
 
@@ -53,23 +56,23 @@ users:
                 state: New York
                 zipCode: 32256-7220
         education-and-employment:
-            CASEID: 14
-    user2: 
-        contact-information:
-            name:
-                firstname: RegMem123
-                lastname: lastName123
-            email: ACS_OMA@acs.org
-            phone: 8888888888
-            address: 
-                type: Work
-                address: jacksonville
-                city: florida
-                country: Thailand
-                state: New York
-                zipCode: 32256-7220
-        education-and-employment:
-            CASEID: 12
+            CASEID: 23
+#    user2: 
+#        contact-information:
+#            name:
+#                firstname: RegMem123
+#                lastname: lastName123
+#            email: ACS_OMA@acs.org
+#            phone: 8888888888
+#            address: 
+#                type: Work
+#                address: jacksonville
+#                city: florida
+#                country: Thailand
+#                state: New York
+#                zipCode: 32256-7220
+#        education-and-employment:
+#            CASEID: 3
 
 
 
@@ -134,9 +137,9 @@ users:
      
 AACT_users: 
     user1: 
-        CASEID: 5
+        CASEID: 2
 #    user2:  
-#        CASEID: 2
+#        CASEID: 3
 
    
 
@@ -197,8 +200,14 @@ ASM_StoreSmokeChecklist_Data:
               CardHolderName: Anne Seton DeMasi
               CreditCardNumber: 4111111111111111
               CreditCardVerificationNumber: 123
-      
-      
+              
+              
+ASM_EGift_SmokeChecklistData: 
+    firstName: Frank
+    lastName: clark
+    recipientEmail: clark@gmail.com
+    errorMessage: Email must be in a valid format
+  
       
 AACT_SmokeChecklistData:
     contactInformation: 

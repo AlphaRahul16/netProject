@@ -32,4 +32,6 @@ img_spinner                xpath          //*[contains(@src,'updating.gif')]
 txt_termStartDate           xpath     //td[contains(text(),'${productName}')]/following-sibling::td[10]
 txt_termEndDate            xpath      //td[contains(text(),'${productName}')]/following-sibling::td[11]
 lnk_pages                  xpath               //tr[@class='pager']/td/a
+img_member                  xpath      //span[contains(.,'aact member:')]/following-sibling::span/img[@title='Non Member']
+btn_invoicearrow           css               .iconpro-circle-arrow-right
 ======================================================================================================================================

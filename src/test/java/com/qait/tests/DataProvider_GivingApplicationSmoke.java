@@ -11,7 +11,7 @@ public class DataProvider_GivingApplicationSmoke {
 		List<String> s = com.qait.automation.utils.DataProvider.getGivingData();
 		List<Object[]> dataToBeReturned = new ArrayList<Object[]>();
 		for (String userData : s) {
-			System.out.println("user data :" + userData);
+			System.out.println("Active Case ID  : " + userData);
 			dataToBeReturned.add(new Object[] { userData });
 
 		}

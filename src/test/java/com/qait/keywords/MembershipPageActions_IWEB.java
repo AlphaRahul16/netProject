@@ -60,7 +60,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void selectAndRunQuery(String queryName) {
 		wait.waitForPageToLoadCompletely();
 		waitForSpinner();
-		wait.hardWait(3);
 		isElementDisplayed("txt_loadOnExistingQueryLabel");
 		selectExistingQuery(queryName);
 		waitForSpinner();
@@ -129,7 +128,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				.equalsIgnoreCase("Selenium - Find Random Non Member")
 				&& ConfigPropertyReader.getProperty("tier").equalsIgnoreCase(
 						"Stage3")) {
-			selectDropDownValue(element("list_existingQuery"), 437);
+			selectDropDownValue(element("list_existingQuery"), 434);
 		}
 
 		else {
@@ -172,7 +171,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("STEP : Click on run query button in btn_runQuery \n");
 		wait.waitForPageToLoadCompletely();
 		waitForSpinner();
-		wait.hardWait(3);
+		wait.hardWait(1);
 	}
 
 	public void clickOnMenuItems(String menuName) {
@@ -418,15 +417,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 						.getReinstateMember_centralizedOrderEntry("association"));
 		// TODO Remove hard wait after handling stale element exception
 		holdExecution(1000);
-		selectMemberInfo("memberType",
-				getCenOrdEntry
-						.getReinstateMember_centralizedOrderEntry("memberType"));
+		selectMemberInfo("memberType",getCenOrdEntry.getReinstateMember_centralizedOrderEntry("memberType"));
 		// TODO Remove hard wait after handling stale element exception
 		holdExecution(1000);
 		selectMemberInfo(
-				"memberPackage",
-				getCenOrdEntry
-						.getReinstateMember_centralizedOrderEntry("memberPackage"));
+				"memberPackage",getCenOrdEntry.getReinstateMember_centralizedOrderEntry("memberPackage"));
 		String currentDate = DateUtil
 				.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy");
 		String nextSecondYear = DateUtil.getNextDate("year", 2)[0];
@@ -1054,7 +1049,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnModuleTab() {
 		wait.waitForPageToLoadCompletely();
-		isElementDisplayed("btn_tabs");
+		//isElementDisplayed("btn_tabs");
 		wait.hardWait(1);
 		executeJavascript("document.getElementsByClassName('dropdown-toggle')[3].click()");
 		// element("btn_tabs").click();
@@ -1224,7 +1219,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_membershipProfileDetails", memberInfo);
 		String info = element("txt_membershipProfileDetails", memberInfo)
 				.getText().trim();
-		logMessage("Step : " + memberInfo + " is " + info + " \n");
+		logMessage("Step : Customer ID is " + info + " \n");
 		return info;
 	}
 
@@ -1515,11 +1510,21 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickInvoiceHeading(String tabName) {
 		wait.hardWait(2);
+		try
+		{
+			wait.resetImplicitTimeout(hiddenFieldTimeOut);
 		isElementDisplayed("link_invoiceListHeadings", tabName);
 		wait.hardWait(1);
 		element("link_invoiceListHeadings", tabName).click();
 		wait.waitForPageToLoadCompletely();
+		wait.resetExplicitTimeout(timeOut);
 		logMessage("Step : Invoice heading "+tabName+" is clicked");
+		}
+		catch(Exception e)
+		{
+			wait.resetExplicitTimeout(timeOut);
+		}
+	
 
 	}
 
@@ -1718,7 +1723,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		getloginStatusFromSheet(loginAs);
 		if (count == 0 | count == 1) {
 			System.out.println("Member");
-
 			clickOnModuleTab();
 			clickOnTab("CRM");
 			clickOnSideBarTab("Individuals");
@@ -1728,11 +1732,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				System.out.println("Member");
 				selectAndRunQuery("Selenium - Find Active Regular Member");
 				memberStoreDetails.add(String.valueOf(count));
+				logMessage("User will login as a Member");
 			} else if (count == 1) {
 				System.out.println(count);
 				System.out.println(" Non Member");
 				selectAndRunQuery("Selenium - Find Random Non Member");
 				memberStoreDetails.add(String.valueOf(count));
+				logMessage("User will login as a Non - Member");
 
 			}
 			memberStoreDetails
@@ -1743,6 +1749,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 			memberStoreDetails.add(String.valueOf(count));
 			System.out.println("Guest");
+			logMessage("User will login as a Guest");
 		}
 		return memberStoreDetails;
 
@@ -2028,10 +2035,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				| memberLoginDetails.get(0).equals("1")) {
 			clickOnSideBarTab("Invoice");
 			clickOnSideBar("Query Invoice");
-			selectAndRunQuery("Selenium - Newest Invoice for Customer Id");
+			selectAndRunQuery("Selenium - Newest Invoice for Customer ID");
 			enterSingleCustomerIdInRunQuery(memberLoginDetails.get(1));
-			clickInvoiceHeading("Transaction Date");
-			clickInvoiceHeading("Transaction Date");
+//			clickInvoiceHeading("Transaction Date");
+//			clickInvoiceHeading("Transaction Date");
 			clickOnInvoiceNumber();
 		}
 
@@ -2085,6 +2092,25 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				.format("%.2f", netIndividualBalance))));
 		logMessage("ASSERT PASSED : " + netBalance
 				+ " is verified for net balance\n");
+	}
+	public List<String> getCustomerLastNameAndContactID(String SheetStatusForLogin)
+	{
+		if(SheetStatusForLogin.equalsIgnoreCase("YES"))
+{
+		clickOnEditNameAndAddress();
+		switchToFrame("iframe1");
+		customerLname = getNameFromEditNameAndAddressButton("lastName");
+		clickOnCancelButton();
+		handleAlert();
+		switchToDefaultContent();
+		customerContactId = element("txt_renewalContactId").getText();
+		memberDetails.add(customerLname);
+		
+		memberDetails.add(customerContactId);
+		logMessage("Step : ");
+}
+		return memberDetails;
+
 	}
 
 }
