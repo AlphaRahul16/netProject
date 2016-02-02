@@ -102,16 +102,31 @@ public class ASM_AACTPage extends ASCSocietyGenericPage {
 
 	}
 
-	public void verifyMemberContactDetail(String detailType, String detailValue) {
+	public void verifyMemberContactDetail(String detailType, String detailValue) {	
 		if (!detailValue.equalsIgnoreCase("null")) {
+			try{
 			isElementDisplayed("inp_schoolWorkInfo", detailType);
+			}
+			 catch (StaleElementReferenceException stlExp) {
+				 isElementDisplayed("inp_schoolWorkInfo", detailType);
+				}
+			try
+			{
 			Assert.assertTrue(element("inp_schoolWorkInfo", detailType)
 					.getAttribute("value").trim().equalsIgnoreCase(detailValue));
+			}
+			catch(StaleElementReferenceException stlExp)
+			{
+				Assert.assertTrue(element("inp_schoolWorkInfo", detailType)
+						.getAttribute("value").trim().equalsIgnoreCase(detailValue));
+			}
 			logMessage("ASSERT PASSED : " + detailValue + " is verified in "
 					+ detailType + "\n");
 		} else {
 			logMessage(detailType + " value is not present in data sheet\n");
 		}
+	
+		
 
 	}
 

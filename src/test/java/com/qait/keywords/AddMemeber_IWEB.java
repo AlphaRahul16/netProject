@@ -4,6 +4,7 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import org.junit.Assert;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 
@@ -34,21 +35,21 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		String outPostalCode = map().get("Out_postalCode");
 
 		if (fName.equalsIgnoreCase("")) {
-			fName = "firstName" + System.currentTimeMillis();
+			fName = "FN" + System.currentTimeMillis();
 			enterMemberDetails("first name", fName);
 		} else {
 			enterMemberDetails("first name", fName);
 		}
 
 		if (mName.equalsIgnoreCase("")) {
-			mName = "middleName" + System.currentTimeMillis();
+			mName = "Selenium";
 			enterMemberDetail("middleName", mName);
 		} else {
 			enterMemberDetail("middleName", mName);
 		}
 
 		if (lName.equalsIgnoreCase("")) {
-			lName = "lastName" + System.currentTimeMillis();
+			lName = "LN" + System.currentTimeMillis();
 			enterMemberDetail("lastName", lName);
 		} else {
 			enterMemberDetail("lastName", lName);
@@ -63,11 +64,11 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 			selectMemberDetails("state", abrState);
 		}
 		enterMemberDetail("postalCode", inPostalCode);
-//		selectMemberDetails("phnCountry", phnCountry);
-//		
-//		enterMemberDetails("number", phnNumber);
+		// selectMemberDetails("phnCountry", phnCountry);
+		//
+		// enterMemberDetails("number", phnNumber);
 		clickOnSaveButton();
-		
+
 		handleAlert1();
 		if (isWindow()) {
 			switchWindow();
@@ -86,11 +87,13 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		}
 
 		return new String[] { fName, mName, lName, street, city, abrState,
-				outPostalCode ,phnNumber};
+				outPostalCode, phnNumber };
 
 	}
 
 	public void enterMemberDetails(String detailName, String detailValue) {
+		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(2);
 		isElementDisplayed("inp_memberDetailInAdd", detailName);
 		element("inp_memberDetailInAdd", detailName).clear();
 		element("inp_memberDetailInAdd", detailName).sendKeys(detailValue);
@@ -118,12 +121,22 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void getAndVerifyMemberDetail(String detailName, String detailValue) {
-		isElementDisplayed("inp_" + detailName);
-		String actualText = element("inp_" + detailName).getAttribute("value")
-				.trim();
-		Assert.assertTrue(actualText.equalsIgnoreCase(detailValue));
-		logMessage("ASSERT PASSED : Verified " + detailValue + " in "
-				+ detailName + " \n");
+		wait.waitForPageToLoadCompletely();
+		try {
+			isElementDisplayed("inp_" + detailName);
+			String actualText = element("inp_" + detailName).getAttribute(
+					"value").trim();
+			Assert.assertTrue(actualText.equalsIgnoreCase(detailValue));
+			logMessage("ASSERT PASSED : Verified " + detailValue + " in "
+					+ detailName + " \n");
+		} catch (StaleElementReferenceException E) {
+			isElementDisplayed("inp_" + detailName);
+			String actualText = element("inp_" + detailName).getAttribute(
+					"value").trim();
+			Assert.assertTrue(actualText.equalsIgnoreCase(detailValue));
+			logMessage("ASSERT PASSED : Verified " + detailValue + " in "
+					+ detailName + " \n");
+		}
 	}
 
 	public void getAndVerifyMemberDetailInAddVerify(String detailName,

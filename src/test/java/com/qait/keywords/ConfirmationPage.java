@@ -43,6 +43,8 @@ public class ConfirmationPage extends ASCSocietyGenericPage {
 
 	public String[] verifyMemberDetails(String city, String zipCode,
 			String country, String address) {
+		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(2);
 		String memberNumber = getMemberDetail("member-number");
 		String invoiceNumber = getMemberDetail("invoice-number");
 		String membercategory = getMemberDetail("member-category");

@@ -210,8 +210,9 @@ public class ASM_EGift_Smoke {
 		mapNominateSmoke = YamlReader
 				.getYamlValues("ASM_Nominate_SmokeChecklistData");
 		getASM_Nominate = new YamlInformationProvider(mapNominateSmoke);
+		test.launchApplication(app_url_Nominate);
 		test.asm_EGiftPage.navigateToUrl(app_url_egift);
-		test.launchApplication(app_url_egift);
+		
 	}
 
 	@AfterMethod

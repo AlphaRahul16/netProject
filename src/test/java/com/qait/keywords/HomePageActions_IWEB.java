@@ -29,13 +29,14 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickFindForIndividualsSearch() {
 		if (isIEBrowser()) {
 			wait.waitForPageToLoadCompletely();
-			// hardWaitForIEBrowser(10);
+		    hardWaitForIEBrowser(3);
 			clickUsingXpathInJavaScriptExecutor(element("link_findIndividuals"));
 			hardWaitForIEBrowser(3);
 		} else {
 			isElementDisplayed("link_findIndividuals");
 			wait.hardWait(1);
-			element("link_findIndividuals").click();
+			clickUsingXpathInJavaScriptExecutor(element("link_findIndividuals"));
+			//element("link_findIndividuals").click();
 		}
 		logMessage("STEP : Click find button for individual search\n");
 	}
@@ -85,7 +86,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnSideBarTab(String tabName) {
 		wait.waitForPageToLoadCompletely();
-		hardWaitForIEBrowser(4);
+		hardWaitForIEBrowser(6);
 		isElementDisplayed("hd_sideBar", tabName);
 		clickUsingXpathInJavaScriptExecutor(element("hd_sideBar", tabName));
 		// element("hd_sideBar", tabName).click();

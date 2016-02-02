@@ -126,8 +126,7 @@ public class ACS_Store_Test {
 	@Test
 	public void Step06_TC06_Launch_IWEB_Application_Under_Test() {
 		test.navigateToIWEBUrlOnNewBrowserTab(app_url_IWEB);
-		test.homePageIWEB
-				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
+		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 
 	@Test

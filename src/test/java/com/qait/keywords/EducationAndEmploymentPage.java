@@ -230,7 +230,8 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 
 	private void clickRadioButton_Detail(String detailtype, String detailValue) {
 		isElementDisplayed("rad_" + detailtype, detailValue);
-		click(element("rad_" + detailtype, detailValue));
+		clickUsingXpathInJavaScriptExecutor(element("rad_" + detailtype, detailValue));
+		//click(element("rad_" + detailtype, detailValue));
 		logMessage("Step: " + detailValue + " is checked in rad_" + detailtype
 				+ "\n");
 	}
@@ -453,13 +454,16 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 			try {
 				wait.resetImplicitTimeout(0);
 				wait.resetExplicitTimeout(hiddenFieldTimeOut);
+				hardWaitForIEBrowser(5);
 				if (isElementDisplayed("lbl_warnings")) {
 					wait.resetImplicitTimeout(timeOut);
 					wait.resetExplicitTimeout(timeOut);
 					Assert.fail("ASSERT FAILED : Expected error message occur while error message is empty in data sheet\n");
 
 				}
-			} catch (NoSuchElementException e) {
+			} 
+			catch (Exception e){
+			//catch (NoSuchElementException e) {
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
 				logMessage("Step : Error message is empty\n");

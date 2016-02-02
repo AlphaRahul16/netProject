@@ -71,12 +71,13 @@ table_lineItems                                   id                         UPD
 frame_selectProduct                              id                             menu_a83665ae18eb43488c5d83ce5f6027f8  
 list_billAddress                                 id                         inv_cxa_key   
 link_email                                       id                          F1_HYPERLINK_0     
-txt_contactId                                     id                        F1_cst_recno
+txt_contactId                                     id                        F1_cst_id
 txt_customerAddress                                id                          F1_cxa_mailing_label_html
 txt_addressType                                  id                           F1_cxa_adt_key_Display_Text_
 label_listMemberShip                             id                          LabelDataFormHeader
 list_memberStatus                               xpath                        //a[starts-with(text(),'Member Status')]/../../following-sibling::tr/td[10]
-list_joindate                                   xpath                         //td[contains(text(),'active')]/following-sibling::td[1]       
+list_joindate                                   xpath                         //td[contains(text(),'active')]/following-sibling::td[1]
+txt_effectiveDateForActive                       xpath                          //td[starts-with(text(),'Active')]/following-sibling::td[3]       
 inp_enterDetails                                xpath                         //span[contains(text(),'${detailName}')]/../following-sibling::td/input
 btn_go                                          id                           ButtonSearch
 btn_editContactInfo                              css                          #F1_HYPERLINK_1
@@ -143,4 +144,8 @@ txt_joinDateMemberType                           xpath                          
 txt_effectiveDate_chapter                        xpath                          //td[starts-with(text(),'${memberType}')]/following-sibling::td[5]   
 txt_joinDate_chapter                             xpath                          //td[starts-with(text(),'${memberType}')]/following-sibling::td[3]
 txt_expireDate_chapter                           xpath                          //td[starts-with(text(),'${memberType}')]/following-sibling::td[6]
+btn_addBatch                                     id                             inv_bat_key_oAddHyperLink
+inp_addBatchName                                 id                             bat_code
+list_batchSecurityGroup                          id                             gsc_grp_key
+
 ==============================================================================================================================================

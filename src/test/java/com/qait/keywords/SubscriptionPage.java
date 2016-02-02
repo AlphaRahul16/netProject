@@ -173,7 +173,8 @@ public class SubscriptionPage extends GetPage {
 
 	public void clickOnSubLinkSideBar(String linkName) {
 		isElementDisplayed("link_subTabSidebar", linkName);
-		element("link_subTabSidebar", linkName).click();
+		clickUsingXpathInJavaScriptExecutor(element("link_subTabSidebar", linkName));
+	//	element("link_subTabSidebar", linkName).click();
 		logMessage("Step : sublink " + linkName
 				+ " is clicked in link_subTabSidebar\n");
 	}
@@ -185,13 +186,15 @@ public class SubscriptionPage extends GetPage {
 
 	public void checkSubscriptionName(String subscriptionName) {
 		isElementDisplayed("chk_subscription", subscriptionName);
-		element("chk_subscription", subscriptionName).click();
+		clickUsingXpathInJavaScriptExecutor(element("chk_subscription", subscriptionName));
+		//element("chk_subscription", subscriptionName).click();
 		logMessage("Step : subscription " + subscriptionName + " is checked\n");
 	}
 
 	public void clickOnSaveButton() {
 		isElementDisplayed("btn_save");
-		element("btn_save").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
+		//element("btn_save").click();
 		logMessage("Step : save button is clicked in btn_save\n");
 	}
 
@@ -403,7 +406,7 @@ public class SubscriptionPage extends GetPage {
 				.trim()
 				.equalsIgnoreCase(
 						DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone(
-								"MM/d/YYYY", "EST5EDT")));
+								"M/d/YYYY", "EST5EDT")));
 		logMessage("ASSERT PASSED : Fulfillment date "
 				+ DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone(
 						"MM/d/YYYY", "EST5EDT")

@@ -32,14 +32,14 @@ public class Subscription_Fulfillment_Test {
 
 	@Test
 	public void Step01_Search_Member_In_Individual_Test() {
-		// test.homePageIWEB.clickOnSideBarTab("Individuals");
-		// test.memberShipPage.selectAndRunQueryMembership("Query Individual",
-		// getSubscriptionInfo.getSubscriptionInfo("queryName"));
-		// memberDetails = test.memberShipPage.getMemberDetails();
+		 test.homePageIWEB.clickOnSideBarTab("Individuals");
+		 test.memberShipPage.selectAndRunQueryMembership("Query Individual",
+		 getSubscriptionInfo.getSubscriptionInfo("queryName"));
+		 memberDetails = test.memberShipPage.getMemberDetails();
 
-		test.homePageIWEB.clickFindForIndividualsSearch();
-		test.individualsPage.checkMemberDetailsAndSearch("Member Flag");
-		memberDetails = test.memberShipPage.selectMemberAndGetDetails();
+//		test.homePageIWEB.clickFindForIndividualsSearch();
+//		test.individualsPage.checkMemberDetailsAndSearch("Member Flag");
+//		memberDetails = test.memberShipPage.selectMemberAndGetDetails();
 	}
 
 	@Test
@@ -58,120 +58,120 @@ public class Subscription_Fulfillment_Test {
 		test.homePageIWEB.GoToSubscriptionModule();
 	}
 
-	@Test
-	public void Step03_Edit_Subscription_And_Verify_Preview_Status_For_Scheduled_Test() {
-		taskStartTime = test.subscriptionPage.editSubscription(
-				subscriptionName, getSubscriptionInfo
-						.getSubsFul_PreviewComplete("startLapTimeInMinutes"),
-				getSubscriptionInfo.getSubscriptionInfo("fulfillmentType"));
-
-		test.subscriptionPage.clickOnSubLinkSideBar("List Fulfillment Batches");
-		test.subscriptionPage
-				.verifyPreviewStatusInListForFirst(
-						getSubscriptionInfo
-								.getSubsFul_Schedule("previewStatus"),
-						getSubscriptionInfo
-								.getSubscriptionInfo("maxWaitTimeInMinutesForPreviewStatus"));
-	}
-
-	@Test
-	public void Step04_Verify_Subscription_Details_For_Preview_Complete_Test() {
-		test.subscriptionPage
-				.verifyPreviewStatusInListForFirst(
-						getSubscriptionInfo
-								.getSubsFul_PreviewComplete("previewStatus"),
-						getSubscriptionInfo
-								.getSubscriptionInfo("maxWaitTimeInMinutesForPreviewStatus"));
-		test.subscriptionPage.navigateToFirstSubscriptionTask();
-		test.subscriptionPage
-				.verifySubscriptionDetails(
-						subscriptionName,
-						getSubscriptionInfo
-								.getSubsFul_PreviewComplete("scheduledTask"),
-						taskStartTime,
-						getSubscriptionInfo
-								.getSubsFul_PreviewComplete("scheduledTaskCompleted"),
-						getSubscriptionInfo
-								.getSubsFul_PreviewComplete("previewStatus"),
-						getSubscriptionInfo
-								.getSubsFul_PreviewComplete("commitScheduledTask"),
-						getSubscriptionInfo
-								.getSubsFul_PreviewComplete("fulfillmentType"),
-						getSubscriptionInfo
-								.getSubsFul_PreviewComplete("updateStartIssue"));
-	}
-
-	@Test
-	public void Step05_Enter_Required_Data_In_Commit_Preview_Test() {
-		commitStartTime = test.subscriptionPage
-				.navigateToCommitPreviewAndEnterRequiredData(getSubscriptionInfo
-						.getSubsFul_Committed("startLapTimeInMinutes"));
-	}
-
-	@Test
-	public void Step06_Verify_Subscription_Details_For_Commited_Test() {
-		test.subscriptionPage
-				.verifySubscriptionDetails(
-						subscriptionName,
-						getSubscriptionInfo
-								.getSubsFul_Committed("scheduledTask"),
-						taskStartTime,
-						getSubscriptionInfo
-								.getSubsFul_Committed("scheduledTaskCompleted"),
-						getSubscriptionInfo
-								.getSubsFul_Committed("previewStatusOnStartCommit"),
-						getSubscriptionInfo
-								.getSubsFul_Committed("commitScheduledTask"),
-						getSubscriptionInfo
-								.getSubsFul_Committed("fulfillmentType"),
-						getSubscriptionInfo
-								.getSubsFul_Committed("updateStartIssue"));
-
-		test.subscriptionPage.clickOnSubLinkSideBar("List Fulfillment Batches");
-
-		test.subscriptionPage
-				.verifyPreviewStatusInListForFirst(
-						getSubscriptionInfo
-								.getSubsFul_Committed("previewStatus"),
-						getSubscriptionInfo
-								.getSubscriptionInfo("maxWaitTimeInMinutesForPreviewStatus"));
-
-		test.subscriptionPage.navigateToFirstSubscriptionTask();
-		test.subscriptionPage
-				.verifySubscriptionDetails(
-						subscriptionName,
-						getSubscriptionInfo
-								.getSubsFul_Committed("scheduledTask"),
-						taskStartTime,
-						getSubscriptionInfo
-								.getSubsFul_Committed("scheduledTaskCompleted"),
-						getSubscriptionInfo
-								.getSubsFul_Committed("previewStatus"),
-						getSubscriptionInfo
-								.getSubsFul_Committed("commitScheduledTask"),
-						getSubscriptionInfo
-								.getSubsFul_Committed("fulfillmentType"),
-						getSubscriptionInfo
-								.getSubsFul_Committed("updateStartIssue"));
-		test.subscriptionPage
-				.verifyIssueInSubscriptionFulfillmentBatchSummary(subscriptionName);
-
-	}
-
-	@Test
-	public void Step07_Navigate_To_Subscriber_Profile_Page_And_Verify_Details_Test() {
-		test.launchApplication(app_url_IWEB);
-		test.homePageIWEB.GoToCRMModule();
-		test.homePageIWEB.clickFindForIndividualsSearch();
-		test.individualsPage.fillMemberDetailsAndSearch("Record Number",
-				memberDetails.get(1));
-		test.individualsPage.navigateToSubscriptionMenuOnHoveringMore();
-		test.subscriptionPage.verifySubscriptionAdded(subscriptionName);
-		test.individualsPage.navigateToMembershipProfilePage();
-		test.individualsPage.navigateToIssuesMenuOnHoveringMore();
-		test.subscriptionPage.verifyDetailsOnSubscriberProfile("1",
-				memberDetails.get(1), subscriptionName);
-	}
+//	@Test
+//	public void Step03_Edit_Subscription_And_Verify_Preview_Status_For_Scheduled_Test() {
+//		taskStartTime = test.subscriptionPage.editSubscription(
+//				subscriptionName, getSubscriptionInfo
+//						.getSubsFul_PreviewComplete("startLapTimeInMinutes"),
+//				getSubscriptionInfo.getSubscriptionInfo("fulfillmentType"));
+//
+//		test.subscriptionPage.clickOnSubLinkSideBar("List Fulfillment Batches");
+//		test.subscriptionPage
+//				.verifyPreviewStatusInListForFirst(
+//						getSubscriptionInfo
+//								.getSubsFul_Schedule("previewStatus"),
+//						getSubscriptionInfo
+//								.getSubscriptionInfo("maxWaitTimeInMinutesForPreviewStatus"));
+//	}
+//
+//	@Test
+//	public void Step04_Verify_Subscription_Details_For_Preview_Complete_Test() {
+//		test.subscriptionPage
+//				.verifyPreviewStatusInListForFirst(
+//						getSubscriptionInfo
+//								.getSubsFul_PreviewComplete("previewStatus"),
+//						getSubscriptionInfo
+//								.getSubscriptionInfo("maxWaitTimeInMinutesForPreviewStatus"));
+//		test.subscriptionPage.navigateToFirstSubscriptionTask();
+//		test.subscriptionPage
+//				.verifySubscriptionDetails(
+//						subscriptionName,
+//						getSubscriptionInfo
+//								.getSubsFul_PreviewComplete("scheduledTask"),
+//						taskStartTime,
+//						getSubscriptionInfo
+//								.getSubsFul_PreviewComplete("scheduledTaskCompleted"),
+//						getSubscriptionInfo
+//								.getSubsFul_PreviewComplete("previewStatus"),
+//						getSubscriptionInfo
+//								.getSubsFul_PreviewComplete("commitScheduledTask"),
+//						getSubscriptionInfo
+//								.getSubsFul_PreviewComplete("fulfillmentType"),
+//						getSubscriptionInfo
+//								.getSubsFul_PreviewComplete("updateStartIssue"));
+//	}
+//
+//	@Test
+//	public void Step05_Enter_Required_Data_In_Commit_Preview_Test() {
+//		commitStartTime = test.subscriptionPage
+//				.navigateToCommitPreviewAndEnterRequiredData(getSubscriptionInfo
+//						.getSubsFul_Committed("startLapTimeInMinutes"));
+//	}
+//
+//	@Test
+//	public void Step06_Verify_Subscription_Details_For_Commited_Test() {
+//		test.subscriptionPage
+//				.verifySubscriptionDetails(
+//						subscriptionName,
+//						getSubscriptionInfo
+//								.getSubsFul_Committed("scheduledTask"),
+//						taskStartTime,
+//						getSubscriptionInfo
+//								.getSubsFul_Committed("scheduledTaskCompleted"),
+//						getSubscriptionInfo
+//								.getSubsFul_Committed("previewStatusOnStartCommit"),
+//						getSubscriptionInfo
+//								.getSubsFul_Committed("commitScheduledTask"),
+//						getSubscriptionInfo
+//								.getSubsFul_Committed("fulfillmentType"),
+//						getSubscriptionInfo
+//								.getSubsFul_Committed("updateStartIssue"));
+//
+//		test.subscriptionPage.clickOnSubLinkSideBar("List Fulfillment Batches");
+//
+//		test.subscriptionPage
+//				.verifyPreviewStatusInListForFirst(
+//						getSubscriptionInfo
+//								.getSubsFul_Committed("previewStatus"),
+//						getSubscriptionInfo
+//								.getSubscriptionInfo("maxWaitTimeInMinutesForPreviewStatus"));
+//
+//		test.subscriptionPage.navigateToFirstSubscriptionTask();
+//		test.subscriptionPage
+//				.verifySubscriptionDetails(
+//						subscriptionName,
+//						getSubscriptionInfo
+//								.getSubsFul_Committed("scheduledTask"),
+//						taskStartTime,
+//						getSubscriptionInfo
+//								.getSubsFul_Committed("scheduledTaskCompleted"),
+//						getSubscriptionInfo
+//								.getSubsFul_Committed("previewStatus"),
+//						getSubscriptionInfo
+//								.getSubsFul_Committed("commitScheduledTask"),
+//						getSubscriptionInfo
+//								.getSubsFul_Committed("fulfillmentType"),
+//						getSubscriptionInfo
+//								.getSubsFul_Committed("updateStartIssue"));
+//		test.subscriptionPage
+//				.verifyIssueInSubscriptionFulfillmentBatchSummary(subscriptionName);
+//
+//	}
+//
+//	@Test
+//	public void Step07_Navigate_To_Subscriber_Profile_Page_And_Verify_Details_Test() {
+//		test.launchApplication(app_url_IWEB);
+//		test.homePageIWEB.GoToCRMModule();
+//		test.homePageIWEB.clickFindForIndividualsSearch();
+//		test.individualsPage.fillMemberDetailsAndSearch("Record Number",
+//				memberDetails.get(1));
+//		test.individualsPage.navigateToSubscriptionMenuOnHoveringMore();
+//		test.subscriptionPage.verifySubscriptionAdded(subscriptionName);
+//		test.individualsPage.clickOnArrowButtonForProductName(subscriptionName);
+//		test.individualsPage.navigateToIssuesMenuOnHoveringMore();
+//		test.subscriptionPage.verifyDetailsOnSubscriberProfile("1",
+//				memberDetails.get(1), subscriptionName);
+//	}
 
 	/**
 	 * Following methods are to setup and clean up the tests

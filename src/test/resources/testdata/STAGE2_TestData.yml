@@ -13,15 +13,22 @@ app_url_givingSeed: https://ewebtest12.acs.org/NFStage2/seed
 app_url_OMR: https://ewebtest12.acs.org/NFStage2/renew
 app_url_MGM: https://ewebtest12.acs.org/NFStage2/mgm
 app_url_Meeting: https://ewebtest12.acs.org/NFStage2/meetings/2012gcec
+app_url_egift: https://ewebtest12.acs.org/NFStage2/egift
+app_url_Nominate: https://ewebtest12.acs.org/NFStage2/nominate
 
 csv-data-file:
   path_OMA: ./src/test/resources/TestDataLibrary/OMA Business Rules.csv
   path_PriceValue: ./src/test/resources/TestDataLibrary/PriceValues.csv
   path_AACT_OMA: ./src/test/resources/TestDataLibrary/AACT_OMA_Data_Sheet.csv
   path_ACS_Store: ./src/test/resources/TestDataLibrary/ACS_Store_Sheet.csv
+<<<<<<< HEAD
   path_createMember: ./src/test/resources/TestDataLibrary/createMemberDataSheet.csv
   path_giving_donate: ./src/test/resources/TestDataLibrary/DonateDataSheet.csv
   path_landingPage: ./src/test/resources/TestDataLibrary/IndividualLandingPageSheet.csv
+=======
+  path_giving_donate: ./src/test/resources/TestDataLibrary/DonateDataSheet.csv
+  path_createMember: ./src/test/resources/TestDataLibrary/createMemberDataSheet.csv
+>>>>>>> 03d3d063c664e5386998778c1f839105e98c0ded
   data-separator: '\t'
   has-header: true
 
@@ -56,6 +63,7 @@ users:
                 state: New York
                 zipCode: 32256-7220
         education-and-employment:
+<<<<<<< HEAD
             CASEID: 23
 #    user2: 
 #        contact-information:
@@ -76,6 +84,9 @@ users:
 
 
 
+=======
+            CASEID: 4
+>>>>>>> 03d3d063c664e5386998778c1f839105e98c0ded
 #    user2: 
 #        contact-information:
 #            name:
@@ -91,10 +102,7 @@ users:
 #                state: New York
 #                zipCode: 32256-7220
 #        education-and-employment:
-#            CASEID: 6
-#
-#
-
+#            CASEID: 8
 #    user3: 
 #        contact-information:
 #            name:
@@ -110,7 +118,23 @@ users:
 #                state: New York
 #                zipCode: 32256-7220
 #        education-and-employment:
-#            CASEID: 13
+#            CASEID: 5
+#    user4: 
+#        contact-information:
+#            name:
+#                firstname: RegMem123
+#                lastname: lastName123
+#            email: ACS_OMA@acs.org
+#            phone: 8888888888
+#            address: 
+#                type: Work
+#                address: jacksonville
+#                city: florida
+#                country: Thailand
+#                state: New York
+#                zipCode: 32256-7220
+#        education-and-employment:
+#            CASEID: 6
 
 
 #    user4: 
@@ -137,9 +161,14 @@ users:
      
 AACT_users: 
     user1: 
+<<<<<<< HEAD
         CASEID: 2
 #    user2:  
 #        CASEID: 3
+=======
+        CASEID: 7
+
+>>>>>>> 03d3d063c664e5386998778c1f839105e98c0ded
 
    
 
@@ -245,7 +274,11 @@ ASM_emailSmokeChecklistData:
     LoginErrorMessage: We're sorry, there was a problem with your log in attempt. Please try again. If the problem persists, please e-mail service@acs.org or call 800-333-9511 (US Only) or 614-447-3776. We are sorry for any inconvenience.
     InvalidEmailFailMessage: Please enter a valid Email Address   
     
-    
+ASM_EGift_SmokeChecklistData: 
+    firstName: Frank
+    lastName: clark
+    recipientEmail: clark@gmail.com
+    errorMessage: Email must be in a valid format
     
 ASM_fellowNominatedSmokeChecklistData: 
     LoginInfo:
@@ -352,14 +385,36 @@ ASM_MGM_SmokeChecklistData:
          lastName: Smith
          email: johnsmith@gmail.com
     LoginErrorMessage: We're sorry, there was a problem with your log in attempt. Please try again. If the problem persists, please e-mail service@acs.org or call 800-333-9511 (US Only) or 614-447-3776. We are sorry for any inconvenience.    
-    
+  
+  
+ASM_Nominate_SmokeChecklistData: 
+    lastName: Burnham
+    memberNumber: 00427103
+    userName: ADEMASI
+    password: password
+    memberNumber_ADEMASI: 01592828
+    loginErrorMessage: We are sorry, but we cannot locate your Awards record. Please try again or contact the National Awards Office at 800-227-5558 ext. 4575 or awards@acs.org.
+    discipline: Student
+    awardName: ACS Award for Creative Research and Applications of Iodine Chemistry:2017
+    nomineeName: look
+    nomineePosition: Student
+    suggestedCitation: testCitation
+    recommendation: testRecommendation
+    pubPatentsFilename: test.pdf
+    biographicalSketchFileName: test.txt
+    supportForm1FileName: test.txt
+    support1LastName: mich
+    supportForm2FileName: test.jpeg
+    recommendationFileName: test.txt
+    support2LastName: des
+    FileUploadErrorMessage: Only txt, pdf, doc, docx, png, bmp, tiff, tif, gif, jpg, jpeg are allowed    
     
 ACS_Store:
     password: password   
     maxWaitTimeForPrintMessage: 30
     members:
          member1: 
-            CASEID: 2
+            CASEID: 1
 #         member2: 
 #            CASEID: 2
     
@@ -426,7 +481,15 @@ SubscriptionFulfillment:
            
 ASM_URLRejectedErrorMsz: "The requested URL was rejected."
 ASMErrorPageTitle: Request Rejected
-ASM_zipCodeErrorMessage: "Zip code must be 5 digit or xxxxx-xxxx format"     
+ASM_zipCodeErrorMessage: "Zip code must be 5 digit or xxxxx-xxxx format" 
+
+Acs_CreateMember_IWEB:
+    batch: "ACS: QA_SUB_BATCH"
+    PaymentType: prepaid
+    paymentMethod: Visa/MC
+    cardNumber: 4111111111111111
+    expireDate: 2016/12
+    cvvNumber: 123    
       
                    
 email:

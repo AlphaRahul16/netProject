@@ -9,6 +9,7 @@ import junit.framework.Assert;
 import org.openqa.selenium.WebDriver;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.thoughtworks.selenium.Wait.WaitTimedOutException;
 
 public class BenefitsPage extends ASCSocietyGenericPage {
 
@@ -18,8 +19,8 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 	ArrayList<String> score_publicationName = new ArrayList<String>();
 	Float subtotalTechnical_score = 0.0f;
 	Float subtotalPublication_score = 0.0f;
-	int timeOut,hiddenFieldTimeOut;
-	
+	int timeOut, hiddenFieldTimeOut;
+
 	public BenefitsPage(WebDriver driver) {
 		super(driver, "BenefitsPage");
 		this.driver = driver;
@@ -37,7 +38,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 			verifyTotalScorePublication(subtotalPublication_score);
 			verifyDivision_PublicationAdded(publicationName);
 			clickSaveButton();
-			
+
 		} else {
 			logMessage("Step:  add ACS Publication value is not present in data sheet\n");
 		}
@@ -55,7 +56,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 			verifyTotalScoreDivision(subtotalTechnical_score);
 			verifyDivision_PublicationAdded(divisionName);
 			clickSaveButton();
-			
+
 		} else {
 			logMessage("Step: ACS Technical Division value is not present in data sheet\n");
 		}
@@ -63,7 +64,8 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 	}
 
 	public void verifyCENPresent(String caseId) {
-		hiddenFieldTimeOut=Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
 		if (getOmaSheetValue(caseId, "C&EN Status").equalsIgnoreCase("Y")) {
 			try {
 				wait.resetImplicitTimeout(0);
@@ -75,17 +77,23 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
 			} catch (Exception exp) {
-				
+
 			}
 
 			if (getOmaSheetValue(caseId, "CENtype").equalsIgnoreCase("print")) {
+				//wait.waitForPageToLoadCompletely();
+				hardWaitForIEBrowser(8);
 				isElementDisplayed("rad_CENType", "Print");
-				click(element("rad_CENType", "Print"));
+				clickUsingXpathInJavaScriptExecutor(element("rad_CENType",
+						"Print"));
+				// click(element("rad_CENType", "Print"));
 				logMessage("Step:  rad_CENType is clicked\n");
 			} else if (getOmaSheetValue(caseId, "CENtype").equalsIgnoreCase(
 					"electronic")) {
 				isElementDisplayed("rad_CENType", "Email");
-				click(element("rad_CENType", "Email"));
+				clickUsingXpathInJavaScriptExecutor(element("rad_CENType",
+						"Email"));
+				// click(element("rad_CENType", "Email"));
 				logMessage("Step:  rad_CENType is clicked\n");
 			} else {
 				logMessage("Step : CENType is invalid in data sheet\n");
@@ -103,6 +111,8 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 	}
 
 	private void clickOnACSPublication() {
+		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(15);
 		isElementDisplayed("btn_ACSPublication");
 		click(element("btn_ACSPublication"));
 		logMessage("Step:  btn_ACSPublication is clicked\n");
@@ -110,13 +120,17 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 
 	private void clickOnACSTechnicalDivision() {
 		isElementDisplayed("btn_ACStechnicalDivision");
-		click(element("btn_ACStechnicalDivision"));
+		clickUsingXpathInJavaScriptExecutor(element("btn_ACStechnicalDivision"));
+		// click(element("btn_ACStechnicalDivision"));
 		logMessage("Step:  btn_ACStechnicalDivision is clicked\n");
 	}
 
 	private void clickOnAddToMembership(String divisionName) {
+		hardWaitForIEBrowser(13);
 		isElementDisplayed("btn_addToMembership", divisionName);
-		click(element("btn_addToMembership", divisionName));
+		clickUsingXpathInJavaScriptExecutor(element("btn_addToMembership",
+				divisionName));
+		// click(element("btn_addToMembership", divisionName));
 		logMessage("Step:  " + divisionName
 				+ " btn_addToMembership is clicked\n");
 	}
@@ -143,7 +157,8 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 
 	private void clickSaveButton() {
 		isElementDisplayed("btn_save");
-		click(element("btn_save"));
+		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
+		// click(element("btn_save"));
 		logMessage("Step:  btn_save is clicked\n");
 	}
 

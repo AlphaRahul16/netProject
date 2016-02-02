@@ -1,9 +1,5 @@
 package com.qait.keywords;
 
-import static com.qait.automation.utils.YamlReader.getYamlValue;
-
-import java.util.List;
-
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -33,7 +29,8 @@ public class HomePageActions extends ASCSocietyGenericPage {
 	}
 
 	public boolean verifyCurrentTab(String tabName) {
-		hardWaitForIEBrowser(3);
+		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(45);
 		try {
 			return isElementDisplayed("txt_tabName", tabName);
 		} catch (StaleElementReferenceException stlExp) {
@@ -53,6 +50,7 @@ public class HomePageActions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyAboutYouPage(String caseId) {
+	
 		wait.waitForPageToLoadCompletely();
 		if (getAACT_OmaSheetValue(caseId, "Has About You Page?")
 				.equalsIgnoreCase("null")) {
@@ -67,6 +65,7 @@ public class HomePageActions extends ASCSocietyGenericPage {
 			Assert.assertFalse(flag, "About page is not expected\n");
 
 		}
+	
 	}
 
 	public void verifyConfirmationPage(String caseId) {
@@ -102,11 +101,5 @@ public class HomePageActions extends ASCSocietyGenericPage {
 
 	}
 
-//	public List<String> getCaseIDs() {
-//		
-//	return getcaseIdToExecute("caseID Execute", "Yes", "caseID",
-//				"createMember");
-//		
-//	}
 
 }
