@@ -33,8 +33,7 @@ public class Subscription_Fulfillment_Test {
 	@Test
 	public void Step01_Search_Member_In_Individual_Test() {
 		 test.homePageIWEB.clickOnSideBarTab("Individuals");
-		 test.memberShipPage.selectAndRunQueryMembership("Query Individual",
-		 getSubscriptionInfo.getSubscriptionInfo("queryName"));
+		 test.memberShipPage.selectAndRunQueryMembership("Query Individual",getSubscriptionInfo.getSubscriptionInfo("queryName"));
 		 memberDetails = test.memberShipPage.getMemberDetails();
 
 //		test.homePageIWEB.clickFindForIndividualsSearch();

@@ -698,10 +698,22 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnSaveAndFinish() {
 		hardWaitForIEBrowser(2);
 		isElementDisplayed("btn_saveAndFinish");
-		hardWaitForIEBrowser(2);
+		hardWaitForIEBrowser(10);
 		System.out.println("click............................");
-		element("btn_saveAndFinish").click();
+		hoverClick(element("btn_saveAndFinish"));
+		//element("btn_saveAndFinish").click();
+		System.out.println("**********************************************");
+		String style = "bConfirmNavAway=0; if (document.getElementById('__UP')!=null && document.getElementById('__UP').style.display!='none') {return true;} this.value = 'Please Wait...'; disableSubmitButtons(); __doPostBack('Bottom_0','');WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions('Bottom_0', '', true,'', '', false, false))";
+		System.out.println("document.getElementById('Bottom_0').setAttribute(\"onclick\",\""+style+"\");");
+		//executeJavascript("document.getElementById('Bottom_0').setAttribute(\"onclick\","+style+");");
+		System.out.println(executeJavascriptReturnValue("document.getElementById('__UP').value;"));
+		System.out.println(executeJavascriptReturnValue("document.getElementById('__UP').style.display"));
+		System.out.println("**********************************************");
 		//executeJavascript("document.getElementById('Bottom_0').click()");
+		System.out.println("**********************************************");
+		System.out.println(executeJavascriptReturnValue("document.getElementById('__UP')"));
+		System.out.println(executeJavascriptReturnValue("document.getElementById('__UP').style.display"));
+		System.out.println("**********************************************");
 		//clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
 		hardWaitForIEBrowser(10);
 		
@@ -1385,7 +1397,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		clickOnSelectProduct();
 		// TODO Remove hard wait after handling stale element exception
-		holdExecution(1000);
+		//holdExecution(1000);
 		try {
 			wait.waitForPageToLoadCompletely();
 			wait.resetImplicitTimeout(2);
@@ -1402,7 +1414,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			switchToDefaultContent();
 			clickOnSelectProduct();
 			// TODO Remove hard wait after handling stale element exception
-			holdExecution(3000);
+			//holdExecution(3000);
 			switchToFrame(element("frame_selectProduct"));
 			selectSubscriptionInSelectProductLink();
 			wait.resetImplicitTimeout(timeOut);
@@ -1427,7 +1439,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// totalPrice = getMemberInfoOnMemberShipProfile("net-balance:");
 		logMessage("Step : Display name is : " + displayName + "\n");
 		clickOnSaveAndFinish();
-		driver.navigate().refresh();
+		//driver.navigate().refresh();
 		//switchToDefaultContent();
 		waitForSpinner();
 		wait.hardWait(2);
@@ -1438,6 +1450,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				.startsWith("Journal of the American Chemical Society")) {
 			displayName = "Jrnl of The American Chemical Society";
 		}
+		logMessage("-------*****Step : Display name is : " + displayName + "\n");
 		verifyItemAddedInLineItems(displayName);
 		return displayName;
 	}
@@ -1472,7 +1485,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyItemAddedInLineItems(String itemName) {
-		hardWaitForIEBrowser(10);
+		hardWaitForIEBrowser(15);
 		isElementDisplayed("link_itemInLineItems");
 		verifyElementText("link_itemInLineItems", itemName);
 	}

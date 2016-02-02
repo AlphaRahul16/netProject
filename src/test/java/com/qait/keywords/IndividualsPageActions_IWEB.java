@@ -570,11 +570,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			}
 			catch(Exception E)
 			{
-<<<<<<< HEAD
 				logMessage("Step : active subscriptions already expanded");
-=======
-				logMessage("Step : Already Expanded");
->>>>>>> 03d3d063c664e5386998778c1f839105e98c0ded
 			}
 		} catch (StaleElementReferenceException stEx) {
 

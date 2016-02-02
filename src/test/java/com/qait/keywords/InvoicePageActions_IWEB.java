@@ -187,6 +187,7 @@ hardWaitForIEBrowser(3);
 
 	private void verifyInvoiceDetails(String detailName, String productName,
 			String detailValue, String multiYear) {
+		hardWaitForIEBrowser(5);
 		if (productName.equalsIgnoreCase("")) {
 
 		} else {
