@@ -169,10 +169,10 @@ public class ACS_Store_Test {
 		test.takescreenshot.takeScreenShotOnException(e);
 	}
 
-	@AfterClass
-	public void Close_Browser_Session() {
-		test.closeBrowserSession();
-	}
+//	@AfterClass
+//	public void Close_Browser_Session() {
+//		test.closeBrowserSession();
+//	}
 
 	@BeforeClass
 	public void OpenBrowserWindow() {
