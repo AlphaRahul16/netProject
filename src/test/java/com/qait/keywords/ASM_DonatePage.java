@@ -828,7 +828,8 @@ public class ASM_DonatePage extends GetPage {
 	}
 
 	public void verifyThankyouMessageAfterDonation() {
-
+        wait.waitForPageToLoadCompletely();
+        wait.waitForElementToBeVisible(element("txt_thankYouMessage"));
 		isElementDisplayed("txt_thankYouMessage");
 		Assert.assertTrue(element("txt_thankYouMessage")
 				.getText()
@@ -1020,9 +1021,40 @@ public class ASM_DonatePage extends GetPage {
 	}
 		
 	}
-	public String[] donateAmountToOtherFund(String otherAmount)
-	{
 	
+	public String[] donateAmountToSpecifiedFund(Map<String, String> mapSheetData)
+	{
+		if(mapSheetData.get("Amount_to_be_donated").length()==0)
+		{
+			logMessage("Step : Amount to be donated is default Amount\n");
+		}
+		else if(mapSheetData.get("Amount_to_be_donated").length()!=0)
+		{
+			if(mapSheetData.get("Amount_to_be_donated").contains("Other_donation_amount"))
+			{
+				donateAmountToOtherFund(mapSheetData.get("Other_donation_amount"));
+			}
+			else
+			{
+				donateAmountToProgram(mapSheetData);
+			}
+		}
+		System.out.println(element("txt_individualProgramHeading").getText().trim());
+		String[] ProductNames=new String[]{element("txt_individualProgramHeading").getText().trim()};
+		System.out.println(ProductNames[0]);
+		return ProductNames;
+	}
+	private void donateAmountToProgram(Map<String, String> mapSheetData) {
+		String amountToBeDonated=mapSheetData.get("Amount_to_be_donated");
+		
+		String amountToBeDonatedindollars="\\$"+mapSheetData.get(amountToBeDonated);
+		System.out.println("Dollars "+amountToBeDonatedindollars);
+		element("rad_donatedAmount1",amountToBeDonatedindollars).click();
+		logMessage("Step : Amount selected for donation is "+"$"+mapSheetData.get(amountToBeDonated));
+	}
+
+	public void donateAmountToOtherFund(String otherAmount)
+	{
 
 		if(otherAmount.length()!=0)
 			{
@@ -1036,10 +1068,7 @@ public class ASM_DonatePage extends GetPage {
 		element("inp_otherAmountLandingPage").sendKeys(otherAmount);
 		System.out.println("other amount is "+ otherAmount);
 			}
-		System.out.println(element("txt_individualProgramHeading").getText().trim());
-		String[] ProductNames=new String[]{element("txt_individualProgramHeading").getText().trim()};
-		System.out.println(ProductNames[0]);
-		return ProductNames;
+	
 		
 	}
 

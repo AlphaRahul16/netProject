@@ -66,5 +66,6 @@ rad_otherdonationAmount                       css                              #
 inp_otherAmountLandingPage                    css                              #otherAmt
 txt_individualProgramHeading                  css                              span[id*='lblProgramTitle']
 rad_lastNameMemNumber                         id                               rMemberNum
+rad_donatedAmount1                            xpath                            //label[text()='${value}']/preceding-sibling::input[1]
 
 =============================================================================================================================================================

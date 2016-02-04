@@ -85,6 +85,7 @@ public class GetPage extends BaseUi {
 		}
 		return elem;
 	}
+	//label[contains(.,'10')]/preceding-sibling::input[@value[contains(.,'10.0000')]]
 
 	protected List<WebElement> elements(String elementToken, String replacement) {
 		return wait.waitForElementsToBeVisible(webdriver
