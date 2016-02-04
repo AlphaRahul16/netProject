@@ -480,6 +480,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 	}
 
 	public Map<String, String> verifyBillingAndShippingAddress(String caseId) {
+		hardWaitForIEBrowser(10);
 		verifyMemnberDetails("First Name");
 		verifyMemnberDetails("Last Name");
 

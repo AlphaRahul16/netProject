@@ -37,7 +37,13 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 		if (country.equalsIgnoreCase("UNITED STATES")) {
 			selectMemberContactDetail("stateName", state);
 		} else {
+			try{
 			wait.waitForElementToDisappear(element("list_stateName"));
+			}
+			catch(Exception E)
+			{
+				logMessage("Element not present");
+			}
 		}
 		enterMemberContactDetail("zipCode", zipCode);
 		String[] arr = { userEmail, fname, lname };

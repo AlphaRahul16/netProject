@@ -30,7 +30,7 @@ public class HomePageActions extends ASCSocietyGenericPage {
 
 	public boolean verifyCurrentTab(String tabName) {
 		wait.waitForPageToLoadCompletely();
-		hardWaitForIEBrowser(45);
+		hardWaitForIEBrowser(60);
 		try {
 			return isElementDisplayed("txt_tabName", tabName);
 		} catch (StaleElementReferenceException stlExp) {

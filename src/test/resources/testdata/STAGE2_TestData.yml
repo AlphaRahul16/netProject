@@ -400,7 +400,7 @@ ReinstateMemberIWEB:
 SubscriptionFulfillment: 
     productCode: 2300
     fulfillmentType: Current
-    queryName: Selenium – Find Random Active Member
+    queryName: "Selenium – Find Random Active Member"
     maxWaitTimeInMinutesForPreviewStatus: 30
     centralizedOrderEntry: 
          batch: "ACS: QA_SUB_BATCH"

@@ -196,6 +196,10 @@ public class BaseUi {
 	protected void executeJavascript(String script) {
 		((JavascriptExecutor) driver).executeScript(script);
 	}
+	
+	protected Object executeJavascriptReturnValue(String script) {
+		return ((JavascriptExecutor) driver).executeScript("return "+script);
+	}
 
 	protected Object executeJavascript1(Object script) {
 

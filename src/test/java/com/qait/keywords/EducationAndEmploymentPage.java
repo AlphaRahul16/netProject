@@ -328,7 +328,12 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 					getOmaSheetValue(caseId, "Select  Summer country"));
 			if (!getOmaSheetValue(caseId, "Select  Summer country")
 					.equalsIgnoreCase("UNITED STATES"))
+				try{
 				wait.waitForElementToDisappear(element("list_state"));
+				}
+			catch(Exception E){
+				logMessage("list_state does not exsist \n");
+			}
 			else
 				selectEduAndEmpDetail("state",
 						getOmaSheetValue(caseId, "Select  Summer state"));

@@ -570,7 +570,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			}
 			catch(Exception E)
 			{
-				logMessage("Step : Already Expanded");
+				logMessage("Step : active subscriptions already expanded");
 			}
 		} catch (StaleElementReferenceException stEx) {
 
@@ -683,6 +683,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	private void navigateToProductsMenuOnHoveringMore() {
+		hardWaitForIEBrowser(2);
 		try {
 			isElementDisplayed("img_moreMenu");
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
@@ -693,12 +694,18 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("Step : Product link is clicked\n");
 			waitForSpinner();
 			wait.hardWait(2);
-			hardWaitForIEBrowser(3);
+			hardWaitForIEBrowser(6);
+			try{
 			isElementDisplayed("btn_memberShip", "services purchased");
 			clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", "services purchased"));
 			//element("btn_memberShip", "services purchased").click();
 			logMessage("Step : services purchased drop down button is clicked\n");
 			logMessage("Step : Navigate to products menu on clicking more button\n");
+			}
+			catch(Exception E)
+			{
+				logMessage("Step : services purchased is already expanded");
+			}
 		} catch (StaleElementReferenceException stlEx) {
 			isElementDisplayed("img_moreMenu");
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
@@ -710,10 +717,16 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("Step : Product link is clicked\n");
 			waitForSpinner();
 			wait.waitForPageToLoadCompletely();
+			try{
 			isElementDisplayed("btn_memberShip", "services purchased");
 			clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", "services purchased"));
 		//	element("btn_memberShip", "services purchased").click();
 			logMessage("Step : Navigate to products menu on clicking more button\n");
+			}
+			catch(Exception E)
+			{
+				logMessage("Step : services purchased already expanded");
+			}
 		}
 	}
 
@@ -939,8 +952,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 		verifyStartAndEndDateInFinancialInvoice(
 				getOmaSheetValue(caseId, "Iweb Product Name?"), caseId);
-
-		element("lnk_lastName").click();
+     clickUsingXpathInJavaScriptExecutor(element("lnk_lastName"));
+		//element("lnk_lastName").click();
 	}
 
 	public void verifyIndividualProfileDetails_AACTOMA(String caseId,

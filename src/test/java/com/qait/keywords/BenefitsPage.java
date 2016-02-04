@@ -112,9 +112,10 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 
 	private void clickOnACSPublication() {
 		wait.waitForPageToLoadCompletely();
-		hardWaitForIEBrowser(15);
+		hardWaitForIEBrowser(25);
 		isElementDisplayed("btn_ACSPublication");
-		click(element("btn_ACSPublication"));
+		clickUsingXpathInJavaScriptExecutor(element("btn_ACSPublication"));
+		//click(element("btn_ACSPublication"));
 		logMessage("Step:  btn_ACSPublication is clicked\n");
 	}
 
@@ -126,7 +127,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 	}
 
 	private void clickOnAddToMembership(String divisionName) {
-		hardWaitForIEBrowser(13);
+		hardWaitForIEBrowser(20);
 		isElementDisplayed("btn_addToMembership", divisionName);
 		clickUsingXpathInJavaScriptExecutor(element("btn_addToMembership",
 				divisionName));

@@ -202,7 +202,8 @@ public class ACS_Create_Member_Test {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
 
-	// @AfterClass(alwaysRun = true)
+
+	 @AfterClass(alwaysRun = true)
 	public void Close_Test_Session() {
 		test.closeBrowserSession();
 	}
