@@ -369,7 +369,7 @@ ACS_Store:
     maxWaitTimeForPrintMessage: 30
     members:
          member1: 
-            CASEID: 1
+            CASEID: 2
 #         member2: 
 #            CASEID: 2
     
@@ -439,7 +439,7 @@ ASMErrorPageTitle: Request Rejected
 ASM_zipCodeErrorMessage: "Zip code must be 5 digit or xxxxx-xxxx format" 
 
 Acs_CreateMember_IWEB:
-    batch: "ACS: QA_SUB_BATCH"
+    batch: "ACS: SELENIUM_BATCH"
     PaymentType: prepaid
     paymentMethod: Visa/MC
     cardNumber: 4111111111111111

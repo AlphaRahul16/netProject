@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.testng.ITestResult;
 import org.testng.Reporter;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -75,7 +77,7 @@ public class ACS_IndividualLandingPage_Smoke {
 		memberDetails = test.memberShipPage.getCustomerLastNameAndContactID(mapSheetData.get("Login_via_MemberNumber"));
 		test.launchApplication(mapSheetData.get("Application_Url"));
 		test.asm_Donate.verifyIndividualDonationDisplayOrder(donationcount, mapSheetData, mapFundOrder);
-		ProductNames = test.asm_Donate.donateAmountToOtherFund(mapSheetData.get("Other_donation_amount"));
+		ProductNames = test.asm_Donate.donateAmountToSpecifiedFund(mapSheetData);
 		totalAmount = test.asm_Donate.getTotalAmountDonatedForIndividualLandingPage();
 
 	}
@@ -170,6 +172,15 @@ public class ACS_IndividualLandingPage_Smoke {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 
+	}
+	@AfterMethod
+	public void take_screenshot_on_failure(ITestResult result) {
+		test.takescreenshot.takeScreenShotOnException(result);
+	}
+
+	// @AfterClass(alwaysRun = true)
+	public void Close_Test_Session() {
+		test.closeBrowserSession();
 	}
 
 }
