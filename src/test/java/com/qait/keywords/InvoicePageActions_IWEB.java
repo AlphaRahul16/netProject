@@ -39,7 +39,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		verifyInvoiceProfile("balance", "$0.00");
 		hardWaitForIEBrowser(3);
 		expandDetailsMenu("line items");
-hardWaitForIEBrowser(3);
+hardWaitForIEBrowser(10);
 		verifyInvoiceDetails("priceValue",
 				getOmaSheetValue(caseId, "Iweb Product Name?"),
 				getPriceSheetValue(caseId, "Price value?"),
@@ -187,7 +187,7 @@ hardWaitForIEBrowser(3);
 
 	private void verifyInvoiceDetails(String detailName, String productName,
 			String detailValue, String multiYear) {
-		hardWaitForIEBrowser(5);
+		hardWaitForIEBrowser(20);
 		if (productName.equalsIgnoreCase("")) {
 
 		} else {
@@ -271,7 +271,7 @@ hardWaitForIEBrowser(3);
 	}
 
 	public void verifyInvoiceProfile(String detailName, String detailValue) {
-		hardWaitForIEBrowser(3);
+		hardWaitForIEBrowser(10);
 		if (detailValue.equalsIgnoreCase("")) {
 			logMessage("Step : value of " + detailName
 					+ "  price is empty in data sheet\n");

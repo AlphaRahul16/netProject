@@ -73,7 +73,8 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 				boolean flag = element("rad_dues_cenPackage", "C&EN Package")
 						.isDisplayed();
 				if (flag)
-					click(element("rad_dues_cenPackage", "C&EN Package"));
+					clickUsingXpathInJavaScriptExecutor(element("rad_dues_cenPackage", "C&EN Package"));
+					//click(element("rad_dues_cenPackage", "C&EN Package"));
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
 			} catch (Exception exp) {
@@ -82,7 +83,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 
 			if (getOmaSheetValue(caseId, "CENtype").equalsIgnoreCase("print")) {
 				//wait.waitForPageToLoadCompletely();
-				hardWaitForIEBrowser(8);
+				hardWaitForIEBrowser(10);
 				isElementDisplayed("rad_CENType", "Print");
 				clickUsingXpathInJavaScriptExecutor(element("rad_CENType",
 						"Print"));
@@ -101,7 +102,8 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 			}
 		} else if (getOmaSheetValue(caseId, "C&EN Status")
 				.equalsIgnoreCase("N")) {
-			click(element("rad_dues_cenPackage", "Dues Only Package"));
+			clickUsingXpathInJavaScriptExecutor(element("rad_dues_cenPackage", "Dues Only Package"));
+			//click(element("rad_dues_cenPackage", "Dues Only Package"));
 			logMessage("Step:  rad_duesOnlyPackage is clicked\n");
 		} else {
 			logMessage("Step:  CEN status value is not valid in data sheet\n");

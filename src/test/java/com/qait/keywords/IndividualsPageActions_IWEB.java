@@ -435,7 +435,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	private void verifyMemberProductDetails(String element, String detailName) {
 		wait.waitForPageToLoadCompletely();
-		wait.hardWait(3);
+		wait.hardWait(5);
 		if (detailName.equalsIgnoreCase("")) {
 			logMessage("ASSERT PASSED : IWEB product name is not present in data sheet\n");
 		} else {
@@ -683,7 +683,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	private void navigateToProductsMenuOnHoveringMore() {
-		hardWaitForIEBrowser(2);
+		hardWaitForIEBrowser(10);
 		try {
 			isElementDisplayed("img_moreMenu");
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
@@ -1033,7 +1033,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnArrowButtonForProductName(String productName) {
 		isElementDisplayed("btnArrowProdName", productName);
-		element("btnArrowProdName", productName).click();
+		clickUsingXpathInJavaScriptExecutor(element("btnArrowProdName", productName));
+		//element("btnArrowProdName", productName).click();
 		logMessage("Step : Arrow button is clicked for product name "
 				+ productName);
 	}

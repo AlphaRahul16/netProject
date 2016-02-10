@@ -706,7 +706,8 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 	}
 
 	private void clickNewShippingAddressButton() {
-		element("btn_newShip").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_newShip"));
+		//element("btn_newShip").click();
 		logMessage("STEP: Click new Shipping Address button\n");
 
 	}

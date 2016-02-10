@@ -97,7 +97,7 @@ link_subscriptionInSelectProduct                  id                            
 inp_prdCode                                       id                           prd_code
 inp_searchDisplayButton                           id                           Look_Up_prc_display_name
 inp_displayName                                   id                           prc_display_name
-link_itemInLineItems                              xpath                        (//tr/td[4])[last()]/a
+link_itemInLineItems                              xpath                        //table[@id='UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid']//td[4]/a
 lnk_pages                                         xpath                        //tr[@class='pager']/td/a[${randomPages}]
 txt_membershipProfileInfo                         xpath                        //label[contains(text(),'${memberInfo}:')]/following-sibling::span
 txt_paymentStatus                                 xpath                        //td[text()='Payment Status:']/following-sibling::td
