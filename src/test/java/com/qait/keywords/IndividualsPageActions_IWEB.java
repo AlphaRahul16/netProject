@@ -627,26 +627,34 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void navigateToIssuesMenuOnHoveringMore() {
+	wait.waitForPageToLoadCompletely();
+	wait.hardWait(3);
 		try {
 			isElementDisplayed("img_moreMenu");
-			element("img_moreMenu").click();
+			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
+			//element("img_moreMenu").click();
 			isElementDisplayed("link_moreMenuName", "Issues");
-			element("link_moreMenuName", "Issues").click();
+			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName", "Issues"));
+			//element("link_moreMenuName", "Issues").click();
 			logMessage("Step : Issues link is clicked\n");
 			waitForSpinner();
 			isElementDisplayed("btn_memberShip", "issues fulfilled");
-			element("btn_memberShip", "issues fulfilled").click();
+			clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", "issues fulfilled"));
+			//element("btn_memberShip", "issues fulfilled").click();
 			logMessage("Step : Navigate to Issues menu on clicking more button\n");
 
 		} catch (StaleElementReferenceException stEx) {
 			isElementDisplayed("img_moreMenu");
-			element("img_moreMenu").click();
+			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
+		//	element("img_moreMenu").click();
 			isElementDisplayed("link_moreMenuName", "Issues");
-			element("link_moreMenuName", "Issues").click();
+			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName", "Issues"));
+		//	element("link_moreMenuName", "Issues").click();
 			logMessage("Step : Issues link is clicked\n");
 			waitForSpinner();
 			isElementDisplayed("btn_memberShip", "issues fulfilled");
-			element("btn_memberShip", "issues fulfilled").click();
+			clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", "issues fulfilled"));
+			//element("btn_memberShip", "issues fulfilled").click();
 			logMessage("Step : Navigate to Issues menu on clicking more button\n");
 		}
 

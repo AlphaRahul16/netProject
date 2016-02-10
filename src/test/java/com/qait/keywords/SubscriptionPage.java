@@ -64,6 +64,7 @@ public class SubscriptionPage extends GetPage {
 		}
 		String startTime = editTaskStartTime(timeSlab);
 		clickOnSaveButton();
+		wait.hardWait(2);
 		isElementDisplayed("icon_printReports");
 		if (Integer.parseInt(DateUtil.getCurrentTime("ss", "EST5EDT")) < Integer
 				.parseInt(currentSeconds)) {
