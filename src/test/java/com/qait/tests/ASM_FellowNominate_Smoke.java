@@ -22,205 +22,205 @@ public class ASM_FellowNominate_Smoke {
 	Map<String, Object> mapFellowNominatedSmoke;
 	String headerName = this.getClass().getSimpleName();
 
-//	@Test
-//	public void Step01_TC01_Enter_Invalid_Username_And_Verify_ASM_Error_Present() {
-//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-//				.getStackTrace()[1].getMethodName());
-//		test.asm_FellowNomiate
-//				.loginInToApplication(DataProvider.getColumnData(tcId,
-//						headerName), getFellowNominated
-//						.getASM_fellowNominated_LoginInfo("password"));
-//		test.asmErrorPage.verifyASMError(YamlReader
-//				.getYamlValue("ASM_URLRejectedErrorMsz"));
-//	}
-//
-//	@Test
-//	public void Step02_TC02_Enter_Invalid_Password_And_Verify_ASM_Error_Not_Present() {
-//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-//				.getStackTrace()[1].getMethodName());
-//		test.asm_FellowNomiate
-//				.loginInToApplication(getFellowNominated
-//						.getASM_fellowNominated_LoginInfo("username"),
-//						DataProvider.getColumnData(tcId, headerName));
-//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-//				.getYamlValue("ASM_URLRejectedErrorMsz"));
-//		test.asm_FellowNomiate
-//				.verifyLoginErrorMessagePresent(YamlReader
-//						.getYamlValue("ASM_fellowNominatedSmokeChecklistData.LoginErrorMessage"));
-//	}
-//
-//	@Test
-//	public void Step03_TC03_Enter_Valid_Username_And_Verify_ASM_Error_Not_Present() {
-//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-//				.getStackTrace()[1].getMethodName());
-//		test.asm_FellowNomiate
-//				.loginInToApplication(DataProvider.getColumnData(tcId,
-//						headerName), getFellowNominated
-//						.getASM_fellowNominated_LoginInfo("password"));
-//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-//				.getYamlValue("ASM_URLRejectedErrorMsz"));
-//		test.asm_FellowNomiate.verifyLoginSuccessfully();
-//	}
-//
-//	@Test
-//	public void Step04_TC04_Enter_Invalid_Member_Number_And_Verify_ASM_Error_Not_Present() {
-//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-//				.getStackTrace()[1].getMethodName());
-//		test.asm_FellowNomiate
-//				.loginInToApplication(getFellowNominated
-//						.getASM_fellowNominated_LoginInfo("username"),
-//						getFellowNominated
-//								.getASM_fellowNominated_LoginInfo("password"));
-//		test.asm_FellowNomiate.preRequisiteToidentifyNomineeByName_Number();
-//		test.asm_FellowNomiate.selectSearchTypeAndSearchNominee("Num",
-//				DataProvider.getColumnData(tcId, headerName));
-//		test.asm_FellowNomiate
-//				.verifyErrorMessage(YamlReader
-//						.getYamlValue("ASM_fellowNominatedSmokeChecklistData.memberNumberSearchError"));
-//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-//				.getYamlValue("ASM_URLRejectedErrorMsz"));
-//	}
-//
-//	@Test
-//	public void Step05_TC05_Enter_Invalid_Member_Name_And_Verify_ASM_Error_Not_Present() {
-//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-//				.getStackTrace()[1].getMethodName());
-//		test.asm_FellowNomiate
-//				.loginInToApplication(getFellowNominated
-//						.getASM_fellowNominated_LoginInfo("username"),
-//						getFellowNominated
-//								.getASM_fellowNominated_LoginInfo("password"));
-//		test.asm_FellowNomiate.preRequisiteToidentifyNomineeByName_Number();
-//		test.asm_FellowNomiate.selectSearchTypeAndSearchNominee("Name",
-//				DataProvider.getColumnData(tcId, headerName));
-//		test.asm_FellowNomiate
-//				.verifyErrorMessage(YamlReader
-//						.getYamlValue("ASM_fellowNominatedSmokeChecklistData.memberNameSearchError"));
-//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-//				.getYamlValue("ASM_URLRejectedErrorMsz"));
-//	}
-//
-//	@Test
-//	public void Step06_TC06_Enter_link_In_Institution_Name_And_Verify_ASM_Error_Not_Present() {
-//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-//				.getStackTrace()[1].getMethodName());
-//		test.asm_FellowNomiate
-//				.loginInToApplication(getFellowNominated
-//						.getASM_fellowNominated_LoginInfo("username"),
-//						getFellowNominated
-//								.getASM_fellowNominated_LoginInfo("password"));
-//		test.asm_FellowNomiate.preRequisiteForPrepareNomination("Name",
-//				getFellowNominated.getASM_fellowNominated("NomineeName"),
-//				"education");
-//		test.asm_FellowNomiate.enterAwardCitationDetails(DataProvider
-//				.getColumnData(tcId, headerName),getFellowNominated.getASM_fellowNominated("CommunityCitationMsg"));
-//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-//				.getYamlValue("ASM_URLRejectedErrorMsz"));
-//	
-//	}
-//
-////	@Test
-////	public void Step07_TC07_Enter_valid_Institution_Name_In_Professional_History_And_Verify_ASM_Error_Not_Present() {
-////
-////		test.asm_FellowNomiate
-////				.loginInToApplication(getFellowNominated
-////						.getASM_fellowNominated_LoginInfo("username"),
-////						getFellowNominated
-////								.getASM_fellowNominated_LoginInfo("password"));
-////		test.asm_FellowNomiate.preRequisiteForPrepareNomination("Name",
-////				getFellowNominated.getASM_fellowNominated("NomineeName"),
-////				"education");
-////		test.asm_FellowNomiate.enterEducationDetails(getFellowNominated
-////				.getASM_fellowNominated_EduDetails("Institution"),
-////				getFellowNominated.getASM_fellowNominated_EduDetails("Degree"),
-////				getFellowNominated.getASM_fellowNominated_EduDetails("Major"),
-////				getFellowNominated
-////						.getASM_fellowNominated_EduDetails("GraduationYear"));
-////		test.asm_FellowNomiate.verifyAddMoreButton();
-////		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-////				.getYamlValue("ASM_URLRejectedErrorMsz"));
-////	}
-////
-////	@Test
-////	public void Step08_TC08_Enter_Invalid_Graduation_Year_In_Professional_History_And_Verify_ASM_Error_Not_Present() {
-////		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-////				.getStackTrace()[1].getMethodName());
-////		test.asm_FellowNomiate
-////				.loginInToApplication(getFellowNominated
-////						.getASM_fellowNominated_LoginInfo("username"),
-////						getFellowNominated
-////								.getASM_fellowNominated_LoginInfo("password"));
-////		test.asm_FellowNomiate.preRequisiteForPrepareNomination("Name",
-////				getFellowNominated.getASM_fellowNominated("NomineeName"),
-////				"education");
-////		test.asm_FellowNomiate.enterEducationDetails(getFellowNominated
-////				.getASM_fellowNominated_EduDetails("Institution"),
-////				getFellowNominated.getASM_fellowNominated_EduDetails("Degree"),
-////				getFellowNominated.getASM_fellowNominated_EduDetails("Major"),
-////				DataProvider.getColumnData(tcId, headerName));
-////		test.asm_FellowNomiate.verifyErrorMessage_Nomination(getFellowNominated
-////				.getASM_fellowNominated("gradYearErrorMsz"));
-////		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-////				.getYamlValue("ASM_URLRejectedErrorMsz"));
-////	}
-////
-////	@Test
-////	public void Step09_TC09_Enter_link_In_Employer_In_Professional_History_And_Verify_ASM_Error_Not_Present() {
-////		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-////				.getStackTrace()[1].getMethodName());
-////		test.asm_FellowNomiate
-////				.loginInToApplication(getFellowNominated
-////						.getASM_fellowNominated_LoginInfo("username"),
-////						getFellowNominated
-////								.getASM_fellowNominated_LoginInfo("password"));
-////		test.asm_FellowNomiate.preRequisiteForPrepareNomination("Name",
-////				getFellowNominated.getASM_fellowNominated("NomineeName"),
-////				"education");
-////		test.asm_FellowNomiate
-////				.selectNominationChecklistName("Professional History");
-////		test.asm_FellowNomiate
-////				.fillDetailsForProfessionalHistory(
-////						DataProvider.getColumnData(tcId, headerName),
-////						getFellowNominated
-////								.getASM_fellowNominated_ProfDetails("Title"),
-////						getFellowNominated
-////								.getASM_fellowNominated_ProfDetails("FromDate"),
-////						getFellowNominated
-////								.getASM_fellowNominated_ProfDetails("ToDate"),
-////						getFellowNominated
-////								.getASM_fellowNominated_ProfDetails("Description"));
-////		test.asm_FellowNomiate.verifyAddMoreButton();
-////		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-////				.getYamlValue("ASM_URLRejectedErrorMsz"));
-////	}
-//
-//	@Test
-//	public void Step10_TC10_Enter_link_In_Professional_Organization_And_Verify_ASM_Error_Not_Present() {
-//		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
-//				.getStackTrace()[1].getMethodName());
-//		test.asm_FellowNomiate
-//				.loginInToApplication(getFellowNominated
-//						.getASM_fellowNominated_LoginInfo("username"),
-//						getFellowNominated
-//								.getASM_fellowNominated_LoginInfo("password"));
-//		test.asm_FellowNomiate.preRequisiteForPrepareNomination("Name",
-//				getFellowNominated.getASM_fellowNominated("NomineeName"),
-//				"education");
-//		test.asm_FellowNomiate
-//				.selectNominationChecklistName("Professional Organization Affiliations");
-//		test.asm_FellowNomiate
-//				.fillDetailsForProfessionalOrganizationAffiliations(
-//						DataProvider.getColumnData(tcId, headerName),
-//						getFellowNominated
-//								.getASM_fellowNominated_ProfOrgDetails("Position_title"),
-//						getFellowNominated
-//								.getASM_fellowNominated_ProfOrgDetails("FromDate"),
-//						getFellowNominated
-//								.getASM_fellowNominated_ProfOrgDetails("ToDate"));
-//		test.asm_FellowNomiate.verifyAddMoreButton();
-//		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
-//				.getYamlValue("ASM_URLRejectedErrorMsz"));
-//	}
+	@Test
+	public void Step01_TC01_Enter_Invalid_Username_And_Verify_ASM_Error_Present() {
+		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+				.getStackTrace()[1].getMethodName());
+		test.asm_FellowNomiate
+				.loginInToApplication(DataProvider.getColumnData(tcId,
+						headerName), getFellowNominated
+						.getASM_fellowNominated_LoginInfo("password"));
+		test.asmErrorPage.verifyASMError(YamlReader
+				.getYamlValue("ASM_URLRejectedErrorMsz"));
+	}
+
+	@Test
+	public void Step02_TC02_Enter_Invalid_Password_And_Verify_ASM_Error_Not_Present() {
+		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+				.getStackTrace()[1].getMethodName());
+		test.asm_FellowNomiate
+				.loginInToApplication(getFellowNominated
+						.getASM_fellowNominated_LoginInfo("username"),
+						DataProvider.getColumnData(tcId, headerName));
+		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+				.getYamlValue("ASM_URLRejectedErrorMsz"));
+		test.asm_FellowNomiate
+				.verifyLoginErrorMessagePresent(YamlReader
+						.getYamlValue("ASM_fellowNominatedSmokeChecklistData.LoginErrorMessage"));
+	}
+
+	@Test
+	public void Step03_TC03_Enter_Valid_Username_And_Verify_ASM_Error_Not_Present() {
+		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+				.getStackTrace()[1].getMethodName());
+		test.asm_FellowNomiate
+				.loginInToApplication(DataProvider.getColumnData(tcId,
+						headerName), getFellowNominated
+						.getASM_fellowNominated_LoginInfo("password"));
+		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+				.getYamlValue("ASM_URLRejectedErrorMsz"));
+		test.asm_FellowNomiate.verifyLoginSuccessfully();
+	}
+
+	@Test
+	public void Step04_TC04_Enter_Invalid_Member_Number_And_Verify_ASM_Error_Not_Present() {
+		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+				.getStackTrace()[1].getMethodName());
+		test.asm_FellowNomiate
+				.loginInToApplication(getFellowNominated
+						.getASM_fellowNominated_LoginInfo("username"),
+						getFellowNominated
+								.getASM_fellowNominated_LoginInfo("password"));
+		test.asm_FellowNomiate.preRequisiteToidentifyNomineeByName_Number();
+		test.asm_FellowNomiate.selectSearchTypeAndSearchNominee("Num",
+				DataProvider.getColumnData(tcId, headerName));
+		test.asm_FellowNomiate
+				.verifyErrorMessage(YamlReader
+						.getYamlValue("ASM_fellowNominatedSmokeChecklistData.memberNumberSearchError"));
+		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+				.getYamlValue("ASM_URLRejectedErrorMsz"));
+	}
+
+	@Test
+	public void Step05_TC05_Enter_Invalid_Member_Name_And_Verify_ASM_Error_Not_Present() {
+		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+				.getStackTrace()[1].getMethodName());
+		test.asm_FellowNomiate
+				.loginInToApplication(getFellowNominated
+						.getASM_fellowNominated_LoginInfo("username"),
+						getFellowNominated
+								.getASM_fellowNominated_LoginInfo("password"));
+		test.asm_FellowNomiate.preRequisiteToidentifyNomineeByName_Number();
+		test.asm_FellowNomiate.selectSearchTypeAndSearchNominee("Name",
+				DataProvider.getColumnData(tcId, headerName));
+		test.asm_FellowNomiate
+				.verifyErrorMessage(YamlReader
+						.getYamlValue("ASM_fellowNominatedSmokeChecklistData.memberNameSearchError"));
+		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+				.getYamlValue("ASM_URLRejectedErrorMsz"));
+	}
+
+	@Test
+	public void Step06_TC06_Enter_link_In_Institution_Name_And_Verify_ASM_Error_Not_Present() {
+		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+				.getStackTrace()[1].getMethodName());
+		test.asm_FellowNomiate
+				.loginInToApplication(getFellowNominated
+						.getASM_fellowNominated_LoginInfo("username"),
+						getFellowNominated
+								.getASM_fellowNominated_LoginInfo("password"));
+		test.asm_FellowNomiate.preRequisiteForPrepareNomination("Name",
+				getFellowNominated.getASM_fellowNominated("NomineeName"),
+				"education");
+		test.asm_FellowNomiate.enterAwardCitationDetails(DataProvider
+				.getColumnData(tcId, headerName),getFellowNominated.getASM_fellowNominated("CommunityCitationMsg"));
+		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+				.getYamlValue("ASM_URLRejectedErrorMsz"));
+	
+	}
+
+	@Test
+	public void Step07_TC07_Enter_valid_Institution_Name_In_Professional_History_And_Verify_ASM_Error_Not_Present() {
+
+		test.asm_FellowNomiate
+				.loginInToApplication(getFellowNominated
+						.getASM_fellowNominated_LoginInfo("username"),
+						getFellowNominated
+								.getASM_fellowNominated_LoginInfo("password"));
+		test.asm_FellowNomiate.preRequisiteForPrepareNomination("Name",
+				getFellowNominated.getASM_fellowNominated("NomineeName"),
+				"education");
+		test.asm_FellowNomiate.enterEducationDetails(getFellowNominated
+				.getASM_fellowNominated_EduDetails("Institution"),
+				getFellowNominated.getASM_fellowNominated_EduDetails("Degree"),
+				getFellowNominated.getASM_fellowNominated_EduDetails("Major"),
+				getFellowNominated
+						.getASM_fellowNominated_EduDetails("GraduationYear"));
+		test.asm_FellowNomiate.verifyAddMoreButton();
+		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+				.getYamlValue("ASM_URLRejectedErrorMsz"));
+	}
+
+	@Test
+	public void Step08_TC08_Enter_Invalid_Graduation_Year_In_Professional_History_And_Verify_ASM_Error_Not_Present() {
+		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+				.getStackTrace()[1].getMethodName());
+		test.asm_FellowNomiate
+				.loginInToApplication(getFellowNominated
+						.getASM_fellowNominated_LoginInfo("username"),
+						getFellowNominated
+								.getASM_fellowNominated_LoginInfo("password"));
+		test.asm_FellowNomiate.preRequisiteForPrepareNomination("Name",
+				getFellowNominated.getASM_fellowNominated("NomineeName"),
+				"education");
+		test.asm_FellowNomiate.enterEducationDetails(getFellowNominated
+				.getASM_fellowNominated_EduDetails("Institution"),
+				getFellowNominated.getASM_fellowNominated_EduDetails("Degree"),
+				getFellowNominated.getASM_fellowNominated_EduDetails("Major"),
+				DataProvider.getColumnData(tcId, headerName));
+		test.asm_FellowNomiate.verifyErrorMessage_Nomination(getFellowNominated
+				.getASM_fellowNominated("gradYearErrorMsz"));
+		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+				.getYamlValue("ASM_URLRejectedErrorMsz"));
+	}
+
+	@Test
+	public void Step09_TC09_Enter_link_In_Employer_In_Professional_History_And_Verify_ASM_Error_Not_Present() {
+		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+				.getStackTrace()[1].getMethodName());
+		test.asm_FellowNomiate
+				.loginInToApplication(getFellowNominated
+						.getASM_fellowNominated_LoginInfo("username"),
+						getFellowNominated
+								.getASM_fellowNominated_LoginInfo("password"));
+		test.asm_FellowNomiate.preRequisiteForPrepareNomination("Name",
+				getFellowNominated.getASM_fellowNominated("NomineeName"),
+				"education");
+		test.asm_FellowNomiate
+				.selectNominationChecklistName("Professional History");
+		test.asm_FellowNomiate
+				.fillDetailsForProfessionalHistory(
+						DataProvider.getColumnData(tcId, headerName),
+						getFellowNominated
+								.getASM_fellowNominated_ProfDetails("Title"),
+						getFellowNominated
+								.getASM_fellowNominated_ProfDetails("FromDate"),
+						getFellowNominated
+								.getASM_fellowNominated_ProfDetails("ToDate"),
+						getFellowNominated
+								.getASM_fellowNominated_ProfDetails("Description"));
+		test.asm_FellowNomiate.verifyAddMoreButton();
+		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+				.getYamlValue("ASM_URLRejectedErrorMsz"));
+	}
+
+	@Test
+	public void Step10_TC10_Enter_link_In_Professional_Organization_And_Verify_ASM_Error_Not_Present() {
+		String tcId = test.asm_Donate.getTestCaseID(Thread.currentThread()
+				.getStackTrace()[1].getMethodName());
+		test.asm_FellowNomiate
+				.loginInToApplication(getFellowNominated
+						.getASM_fellowNominated_LoginInfo("username"),
+						getFellowNominated
+								.getASM_fellowNominated_LoginInfo("password"));
+		test.asm_FellowNomiate.preRequisiteForPrepareNomination("Name",
+				getFellowNominated.getASM_fellowNominated("NomineeName"),
+				"education");
+		test.asm_FellowNomiate
+				.selectNominationChecklistName("Professional Organization Affiliations");
+		test.asm_FellowNomiate
+				.fillDetailsForProfessionalOrganizationAffiliations(
+						DataProvider.getColumnData(tcId, headerName),
+						getFellowNominated
+								.getASM_fellowNominated_ProfOrgDetails("Position_title"),
+						getFellowNominated
+								.getASM_fellowNominated_ProfOrgDetails("FromDate"),
+						getFellowNominated
+								.getASM_fellowNominated_ProfOrgDetails("ToDate"));
+		test.asm_FellowNomiate.verifyAddMoreButton();
+		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
+				.getYamlValue("ASM_URLRejectedErrorMsz"));
+	}
 
 	@Test
 	public void Step11_TC11_Enter_less_To_Date_In_Professional_Organization_And_Verify_ASM_Error_Not_Present() {

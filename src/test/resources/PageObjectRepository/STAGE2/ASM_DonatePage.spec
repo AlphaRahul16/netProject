@@ -59,5 +59,12 @@ chkbox_breakDonation                          id                               c
 drpdown_pledgeMonths                          id                               cc
 txt_monthlyAmountPayble                       id                               paymentAmt
 txt_pledgeMessage                             css                              div[id*='pledgeMessage']
-btn_memlogin                                  css                         #btnMember
+btn_memlogin                                  css                            #btnMember
+rad_landingAmount                             css                              input[name='donateAmt']:not(#rbOtherAmt)+label
+rad_defaultAmount                             css                             input[class='currency']:not(#rbOtherAmt)[checked]+label
+rad_otherdonationAmount                       css                              #rbOtherAmt
+inp_otherAmountLandingPage                    css                              #otherAmt
+txt_individualProgramHeading                  css                              span[id*='lblProgramTitle']
+rad_lastNameMemNumber                         id                               rMemberNum
+rad_donatedAmount1                            xpath                            //label[text()='${value}']/preceding-sibling::input[1]
 =============================================================================================================================================================

@@ -67,4 +67,12 @@ iframe2_Awards                                              id                  
 txtarea_awards                                              css                               #tinymce
 btn_underline                                               css                               .mceIcon.mce_underline
 btn_italic                                                  css                                .mceIcon.mce_italic
+txt_dashboardHeadings                                       xpath                                //legend[contains(text(),'${value}')]
+rad_localsectionArea                                        xpath                              //label[text()='${value}']/preceding-sibling::input/following-sibling::ul//input
+btn_CancelEligibity                                         id                                 btnCancelEligibility
+rad_codeConductYes                                          id                                 cocFlagYes
+rad_codeConductNo                                           id                                 cocFlagNo
+txt_citationNumber                                          xpath                              //a[text()='${value}']/following-sibling::span
+btn_ReturnToDashboard                                       xpath                              //input[@value='Return to the Dashboard']
+
 =======================================================================================================================================================================================
