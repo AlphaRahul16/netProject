@@ -455,7 +455,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnSaveAndFinish();
 		handleAlert();
 		switchToDefaultContent();
-
 	}
 
 	public void verifyItemsAddedSuccessFully() {

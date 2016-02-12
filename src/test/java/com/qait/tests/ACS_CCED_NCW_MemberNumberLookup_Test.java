@@ -29,7 +29,7 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test {
 		this.caseID = caseID;
 	}
 
-	@Test
+	//@Test
 	public void Step00_Member_Number_Lookup_Test() {
 		test.homePageIWEB.addValuesInMap("CCED_NCW_MemberNumberLookup", caseID);
 		test.homePageIWEB
@@ -52,17 +52,16 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test {
 	}
 
 	@Test
-	public void Step00_() {
-		test.launchApplication(app_url_IWEB);
+	public void Step01_NCW_CCED_Lookup_Test() {
+		test.homePageIWEB.addValuesInMap("CCED_NCW_MemberNumberLookup", caseID);
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
-		test.homePageIWEB.clickOnSideBarTab("Individuals");
-		test.memberShipPage.selectAndRunQueryMembership("Query Individual",
-				"Selenium - Find Active Regular Member");
-		test.memberShipPage.getMemberDetails_Iweb();
-
-		// test.asm_CCEDPage.enterZipCodeAndFindCCEDCoordinator();
-
+		test.homePageIWEB.clickFindForIndividualsSearch();
+		test.individualsPage.fillMemberDetailsAndSearch("Record Number",
+				test.homePageIWEB.map().get("Cordinator_MemberNumber"));
+		test.individualsPage.navigateToContactInfoMenuOnHoveringMore();
+		test.individualsPage.verifyNCW_CCEDEmailPresent("ncw/cced",
+				test.homePageIWEB.map().get("ncw/cced_email"));
 	}
 
 	@BeforeClass
