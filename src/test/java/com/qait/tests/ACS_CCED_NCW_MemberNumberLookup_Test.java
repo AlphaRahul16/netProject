@@ -29,7 +29,7 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test {
 		this.caseID = caseID;
 	}
 
-	//@Test
+	// @Test
 	public void Step00_Member_Number_Lookup_Test() {
 		test.homePageIWEB.addValuesInMap("CCED_NCW_MemberNumberLookup", caseID);
 		test.homePageIWEB
@@ -52,7 +52,7 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test {
 	}
 
 	@Test
-	public void Step01_NCW_CCED_Lookup_Test() {
+	public void Step01_NCW_CCED_Lookup_IWEB_Test() {
 		test.homePageIWEB.addValuesInMap("CCED_NCW_MemberNumberLookup", caseID);
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
@@ -62,6 +62,15 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test {
 		test.individualsPage.navigateToContactInfoMenuOnHoveringMore();
 		test.individualsPage.verifyNCW_CCEDEmailPresent("ncw/cced",
 				test.homePageIWEB.map().get("ncw/cced_email"));
+
+	}
+
+	@Test
+	public void Step02_CCED_Lookup_Test() {
+		test.asm_CCEDPage.verifyPageTitle("Chemists Celebrate Earth Day");
+		test.asm_CCEDPage.selectSearchTypeAndNavigateToFindCoordinator(test.asm_CCEDPage.map().get(
+				"searchMethod"));
+		
 	}
 
 	@BeforeClass

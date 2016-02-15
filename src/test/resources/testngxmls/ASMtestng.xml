@@ -3,13 +3,11 @@
 	parallel="false" thread-count="3">
 
 
-<<<<<<< HEAD
-	<test name="ASM Giving Green Smoke" parallel="false">
-=======
-	
+
 	<test name="ASM Giving Green Smoke" parallel="false">
 
->>>>>>> 9f1966b0734f48e6d599d8651cc710750e919e16
+
+
 		<classes>
 			<class name="com.qait.tests.ASM_Giving_Green_Smoke"></class>
 		</classes>
@@ -24,95 +22,15 @@
 			<class name="com.qait.tests.ASM_Giving_Seed_Smoke"></class>
 		</classes>
 	</test>
-<<<<<<< HEAD
+
 	
 	<test name="ASM Giving Donate Smoke" parallel="false">
 		<classes>
 			<class name="com.qait.tests.ASM_Donate_Smoke"></class>
 		</classes>
 	</test>
-=======
->>>>>>> 9f1966b0734f48e6d599d8651cc710750e919e16
-	
-	<test name="ASM Giving Donate Smoke" parallel="false">
-		<classes>
-			<class name="com.qait.tests.ASM_Donate_Smoke"></class>
-		</classes>
-	</test>
-	
-	<!-- <test name="ASM Meeting Smoke" parallel="false">
-		<classes>
-			<class name="com.qait.tests.ASM_Meeting_Smoke"></class>
-		</classes>
-	</test> -->
-	<!-- <test name="ASM Member no look up Smoke" parallel="false">
-		<classes>
-			<class name="com.qait.tests.ASM_Member_Number_Lookup_Smoke"></class>
-		</classes>
-	</test>
-	<test name="ASM MGM Smoke" parallel="false">
-		<classes>
-			<class name="com.qait.tests.ASM_MGM_Smoke"></class>
-		</classes>
-	</test>
-<<<<<<< HEAD
-	<test name="ASM Nominate Smoke" parallel="false">
-=======
-
-	<test name="ASM Nominate Smoke" parallel="false">
-		<classes>
-			<class name="com.qait.tests.ASM_Nominate_Smoke"></class>
-		</classes>
-	</test>
-
-
 
 	
-	<test name="ASM NCW Smoke" parallel="false">
-		<classes>
-			<class name="com.qait.tests.ASM_NCW_Smoke"></class>
-		</classes>
-	</test>
-	--> 
-	
-	
-	<!--<test name="ASM OMR Smoke" parallel="false">
->>>>>>> 9f1966b0734f48e6d599d8651cc710750e919e16
-		<classes>
-			<class name="com.qait.tests.ASM_Nominate_Smoke"></class>
-		</classes>
-	</test>
-
-	<test name="ASM Pubs Smoke" parallel="false">
-		<classes>
-			<class name="com.qait.tests.ASM_PUBS_Smoke"></class>
-		</classes>
-	</test>-->
-	<test name="ASM_OMR_Smoke" parallel="false">
-		<classes>
-			<class name="com.qait.tests.ASM_PUBS_Smoke"></class>
-		</classes>
-	</test>
-		<test name="ASM_Nominate_Smoke" parallel="false">
-		<classes>
-			<class name="com.qait.tests.ASM_Nominate_Smoke"></class>
-		</classes>
-	</test>
-		<test name="Membership_Renewal_Test" parallel="false">
-		<classes>
-			<class name="com.qait.tests.Membership_Renewal_Test"></class>
-		</classes>
-	</test>
-		<test name="ASM_Meeting_Smoke" parallel="false">
-		<classes>
-			<class name="com.qait.tests.ASM_Meeting_Smoke"></class>
-		</classes>
-	</test>
-		<test name="ASM_Donate_Smoke" parallel="false">
-		<classes>
-			<class name="com.qait.tests.ASM_Donate_Smoke"></class>
-		</classes>
-	</test>
 	
 	
 	

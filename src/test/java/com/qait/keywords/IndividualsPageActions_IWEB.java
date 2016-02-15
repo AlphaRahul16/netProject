@@ -1221,9 +1221,13 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnAddButton();
 		switchToFrame("iframe1");
 		selectEmailType(emailType);
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
 		enterEmailIDToAdd(emailID);
 		clickOnSaveButton();
 		switchToDefaultContent();
+		handleAlert();
+		verifyNCW_CCEDEmailPresent(emailType, emailID);
 	}
 
 	public void selectEmailType(String emailType) {
@@ -1233,9 +1237,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void enterEmailIDToAdd(String emailID) {
 		isElementDisplayed("inp_emailAddress");
-		element("inp_emailAddress").click();
+		element("inp_emailAddress").sendKeys(emailID);
 		logMessage("Step : enter email ID " + emailID + " to add\n");
-
 	}
 
 	public void clickOnSaveButton() {
@@ -1264,7 +1267,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 				flag1 = true;
 				isElementDisplayed("txt_emailID", String.valueOf(i + 2));
 				String emailID = element("txt_emailID", String.valueOf(i + 2))
-						.getText();
+						.getText().trim();
 				System.out.println("actual: " + emailID);
 				System.out.println("expected: " + map().get("ncw/cced_email"));
 				if (emailID.equalsIgnoreCase(map().get("ncw/cced_email"))) {
@@ -1280,6 +1283,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 					break;
 				}
 			}
+
 		}
 		if (!flag1) {
 			System.out.println("flag 1 is false");
