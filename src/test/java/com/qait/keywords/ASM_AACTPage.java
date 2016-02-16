@@ -362,8 +362,14 @@ public class ASM_AACTPage extends ASCSocietyGenericPage {
 							getAACT_OmaSheetValue(caseId,
 									"state About You Page"));
 				} else {
+					try{
 					wait.waitForElementToDisappear(element(
 							"list_schoolWorkInfo", "State"));
+					}
+					catch(Exception E)
+					{
+						logMessage("list_schoolWorkInfo not visible");
+					}
 				}
 				selectMemberContactDetail("Country",
 						getAACT_OmaSheetValue(caseId, "Country About You Page"));

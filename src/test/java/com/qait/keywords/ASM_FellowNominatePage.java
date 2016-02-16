@@ -798,9 +798,9 @@ public class ASM_FellowNominatePage extends GetPage {
 				+ iframe
 				+ ".contentWindow.document.getElementById('fuName').setAttribute('width','200')");
 		switchToFrame("ifBridge" + frameName + "");
-		// WebElement element = (WebElement) executeJavascript1("return " +
-		// iframe
-		// + ".contentDocument.getElementById('fuName')");
+//		 WebElement element = (WebElement) executeJavascript1("return " +
+//		 iframe
+//		 + ".contentDocument.getElementById('fuName')");
 		isElementDisplayed("inp_upload");
 		element("inp_upload").sendKeys(filePath.getAbsolutePath());
 		switchToDefaultContent();

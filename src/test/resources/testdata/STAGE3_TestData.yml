@@ -26,7 +26,11 @@ csv-data-file:
   path_giving_donate: ./src/test/resources/TestDataLibrary/DonateDataSheet.csv
   path_createMember: ./src/test/resources/TestDataLibrary/createMemberDataSheet.csv
   path_landingPage: ./src/test/resources/TestDataLibrary/IndividualLandingPageSheet.csv
+<<<<<<< HEAD
   path_fellowNominate: ./src/test/resources/TestDataLibrary/FellowsNomination_DataSheet.csv
+=======
+  path_CCED_NCW_MemberNumberLookup: ./src/test/resources/TestDataLibrary/CCED_NCW_Data_Sheet.csv
+>>>>>>> c3f9ab4913633609558b26e34f7505e48521dd34
   data-separator: '\t'
   has-header: true
   

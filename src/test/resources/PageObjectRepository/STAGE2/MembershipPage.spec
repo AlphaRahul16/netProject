@@ -96,7 +96,7 @@ link_subscriptionInSelectProduct                  id                          HY
 inp_prdCode                                       id                           prd_code
 inp_searchDisplayButton                           id                           Look_Up_prc_display_name
 inp_displayName                                   id                           prc_display_name
-link_itemInLineItems                              xpath                        (//tr/td[4])[last()]/a
+link_itemInLineItems                              xpath                        //table[@id='UPDATEGRIDCONTROL_DOD_Invoice_Detail_InternalUpdateGrid']//td[4]/a
 lnk_pages                                         xpath                        //tr[@class='pager']/td/a[${randomPages}]
 txt_membershipProfileInfo                         xpath                        //label[contains(text(),'${memberInfo}:')]/following-sibling::span
 txt_paymentStatus                                 xpath                        //td[text()='Payment Status:']/following-sibling::td
@@ -116,7 +116,7 @@ txt_recordNumberAtMemberQuery                    classname                      
 txt_loadOnExistingQueryLabel                      id                            LoadQueryLabel
 link_pagesAvailable                              classname                      DataFormChildDataGridPagerLink
 lnk_invoice_number                                 xpath                        //table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3][contains(text(),'${value}')]
-lnk_first_invoice_number                           xpath                        (//table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3])[1] 
+lnk_first_invoice_number                           xpath                        (//table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[1]/a/img)[1]
 txt_webLogin                                       id                            F1_cst_web_login
 btn_arrowRightCircle                             xpath                          (//i[@class='iconpro-circle-arrow-right'])[1]
 link_tabsOnModule                                 xpath                          //a[text()='${value}']

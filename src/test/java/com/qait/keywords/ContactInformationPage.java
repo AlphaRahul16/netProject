@@ -60,7 +60,7 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 			logMessage("Step: click btn_continue\n");
 		} catch (StaleElementReferenceException stlRef) {
 			//isElementDisplayed("btn_continue");
-			element("btn_continue").click();
+			clickUsingXpathInJavaScriptExecutor(element("btn_continue"));
 			logMessage("Step: click btn_continue\n");
 		}
 
@@ -245,7 +245,13 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 			selectMemberContactDetail("stateName",
 					getAACT_OmaSheetValue(caseId, "State Contact Page"));
 		} else {
+			try{
 			wait.waitForElementToDisappear(element("list_stateName"));
+			}
+			catch(Exception E)
+			{
+				logMessage("list_stateName not present");
+			}
 		}
 		enterMemberContactDetail("zipCode",
 				getAACT_OmaSheetValue(caseId, "Zip code Contact Page"));

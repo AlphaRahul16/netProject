@@ -3,9 +3,12 @@ package com.qait.keywords;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 
+
+
+import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.getpageobjects.GetPage;
 
-public class ASM_CCEDPage extends GetPage {
+public class ASM_CCEDPage  extends ASCSocietyGenericPage{
 	WebDriver driver;
 	static String pagename = "ASM_CCEDPage";
 
@@ -19,6 +22,18 @@ public class ASM_CCEDPage extends GetPage {
 		element("inp_zipCode").clear();
 		element("inp_zipCode").sendKeys(zipCode);
 		logMessage("Step : " + zipCode + " is entered in inp_zipCode\n");
+	}
+
+	public void selectSearchTypeAndNavigateToFindCoordinator(String searchType) {
+		isElementDisplayed("inp_searchType", searchType);
+		element("inp_searchType").click();
+		logMessage("Step : select search type is " + searchType + "\n");
+		if(searchType.equalsIgnoreCase("State")){
+			selectStateAndFindCCEDCoordinator(map().get("searchValue"));
+		}else{
+			enterZipCodeAndFindCCEDCoordinator(map().get("searchValue"));
+		}
+
 	}
 
 	public void clickFindCCEDCoordinator() {
@@ -37,6 +52,12 @@ public class ASM_CCEDPage extends GetPage {
 		clickFindCCEDCoordinator();
 	}
 
+	public void selectStateAndFindCCEDCoordinator(String state) {
+		isElementDisplayed("adr_state");
+		selectProvidedTextFromDropDown(element("adr_state"), state);
+		clickFindCCEDCoordinator();
+	}
+
 	public void verifyContactCordinatorIsPresent() {
 		isElementDisplayed("lnk_contactCordinator");
 		logMessage("ASSERT PASSED : contact cordinator is present in lnk_contactCordinator\n");
@@ -51,6 +72,11 @@ public class ASM_CCEDPage extends GetPage {
 			verifyElementText("txt_zipCodeErrorMsz", errorMessage);
 		}
 
+	}
+
+	public void verifyPageTitle(String pageTitle) {
+		isElementDisplayed("txt_title");
+		verifyElementText("txt_title", pageTitle);
 	}
 
 }

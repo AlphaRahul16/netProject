@@ -51,9 +51,9 @@ import com.qait.keywords.HomePageActions;
 import com.qait.keywords.HomePageActions_IWEB;
 import com.qait.keywords.IndividualsPageActions_IWEB;
 import com.qait.keywords.InvoicePageActions_IWEB;
+import com.qait.keywords.MemberNumberLookupPage;
 import com.qait.keywords.MemberShipRenewalPage;
 import com.qait.keywords.MembershipPageActions_IWEB;
-
 import com.qait.keywords.SubscriptionPage;
 
 public class TestSessionInitiator {
@@ -104,7 +104,7 @@ public class TestSessionInitiator {
 	public MemberShipRenewalPage membershipRenewalPage;
 	public AddMemeber_IWEB addMember;
 	public FundProfilePage fundpofilePage;
-	
+	public MemberNumberLookupPage memNumLookupPage;
 
 	public TakeScreenshot takescreenshot;
 
@@ -141,9 +141,9 @@ public class TestSessionInitiator {
 		asm_EGiftPage = new ASM_EGiftPage(driver);
 		subscriptionPage = new SubscriptionPage(driver);
 		membershipRenewalPage = new MemberShipRenewalPage(driver);
-		addMember= new AddMemeber_IWEB(driver);
-		fundpofilePage= new FundProfilePage(driver);
-
+		addMember = new AddMemeber_IWEB(driver);
+		fundpofilePage = new FundProfilePage(driver);
+		memNumLookupPage = new MemberNumberLookupPage(driver);
 	}
 
 	/**
@@ -215,13 +215,13 @@ public class TestSessionInitiator {
 			e.printStackTrace();
 
 		}
-	
+
 	}
 
 	public void openUrl(String url) {
 		driver.navigate().to(url);
-		//driver.get(url);
-		}
+		// driver.get(url);
+	}
 
 	public void closeBrowserSession() {
 		try {
@@ -277,6 +277,7 @@ public class TestSessionInitiator {
 		}
 
 	}
+
 	public static boolean closeAllOtherWindows(String openWindowHandle) {
 		Set<String> allWindowHandles = driver.getWindowHandles();
 		for (String currentWindowHandle : allWindowHandles) {
@@ -285,14 +286,13 @@ public class TestSessionInitiator {
 				driver.close();
 			}
 		}
-		
+
 		driver.switchTo().window(openWindowHandle);
 		if (driver.getWindowHandles().size() == 1)
 			return true;
 		else
 			return false;
 	}
-
 
 	public void navigateToURL(String baseURL) {
 
@@ -332,34 +332,33 @@ public class TestSessionInitiator {
 
 		}
 
-//	else	if(_getSessionConfig().get("browser").equalsIgnoreCase("chrome"))
-//		{
-//		Robot robot;
-//		try {
-//			System.out.println("Open URL 4");
-//			robot = new Robot();
-//			robot.delay(2000);
-//			robot.keyPress(KeyEvent.VK_CONTROL);
-//			robot.keyPress(KeyEvent.VK_T);
-//			robot.keyRelease(KeyEvent.VK_CONTROL);
-//			robot.keyRelease(KeyEvent.VK_T);
-//			String base = driver.getWindowHandle();
-//			Set<String> set = driver.getWindowHandles();
-//			Assert.assertTrue(closeAllOtherWindows(base));
-////			set.remove(base);
-////			assert set.size() == 1;
-////			driver.switchTo().window((String) set.toArray()[0]);
-//			driver.get(baseURL);
-//		Reporter.log("\nThe application url is :- " + baseURL, true);
-//		}
-//	catch (AWTException e) {
-//		System.out.println("Open URL 5");
-//		driver.get(baseURL);
-//		e.printStackTrace();
-//	} 
+		// else
+		// if(_getSessionConfig().get("browser").equalsIgnoreCase("chrome"))
+		// {
+		// Robot robot;
+		// try {
+		// System.out.println("Open URL 4");
+		// robot = new Robot();
+		// robot.delay(2000);
+		// robot.keyPress(KeyEvent.VK_CONTROL);
+		// robot.keyPress(KeyEvent.VK_T);
+		// robot.keyRelease(KeyEvent.VK_CONTROL);
+		// robot.keyRelease(KeyEvent.VK_T);
+		// String base = driver.getWindowHandle();
+		// Set<String> set = driver.getWindowHandles();
+		// Assert.assertTrue(closeAllOtherWindows(base));
+		// // set.remove(base);
+		// // assert set.size() == 1;
+		// // driver.switchTo().window((String) set.toArray()[0]);
+		// driver.get(baseURL);
+		// Reporter.log("\nThe application url is :- " + baseURL, true);
+		// }
+		// catch (AWTException e) {
+		// System.out.println("Open URL 5");
+		// driver.get(baseURL);
+		// e.printStackTrace();
+		// }
 
-
-
-		//}
+		// }
 	}
 }
