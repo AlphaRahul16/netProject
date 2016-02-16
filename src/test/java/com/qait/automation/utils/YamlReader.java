@@ -9,6 +9,7 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.Reader;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.testng.Reporter;
@@ -101,10 +102,14 @@ public class YamlReader {
 		}
 		return object;
 	}
+	
+
 
 	public static int generateRandomNumber(int MinRange, int MaxRange) {
 		int randomNumber = MinRange
 				+ (int) (Math.random() * ((MaxRange - MinRange) + 1));
 		return randomNumber;
 	}
+	
+
 }

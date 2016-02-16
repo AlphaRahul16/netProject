@@ -74,5 +74,11 @@ rad_codeConductYes                                          id                  
 rad_codeConductNo                                           id                                 cocFlagNo
 txt_citationNumber                                          xpath                              //a[text()='${value}']/following-sibling::span
 btn_ReturnToDashboard                                       xpath                              //input[@value='Return to the Dashboard']
-
+txt_NomineeName1                                            css                                .name
+rad_lastNameMemNumber                                       css                                input[value*='rbLogin1']
+txt_codeOfConductValue                                      xpath                              //a[contains(text(),'Value')]/../../following-sibling::tr/td[5]
+btn_detailsMenuAACT                                         xpath                               //span[text()='${menuName}']/../a[1]
+icon_up                                                     xpath                               //span[contains(text(),'${value}')]/preceding-sibling::a/i[@class='icon-chevron-up']
+txt_fellowIwebDetails                                       xpath                                (//th/a)[2]/../../following-sibling::tr[1]//td[${coloumnNumber}]
+frameGeneral                                                xpath                               //iframe[@id='txt${value}Desc_ifr']
 =======================================================================================================================================================================================

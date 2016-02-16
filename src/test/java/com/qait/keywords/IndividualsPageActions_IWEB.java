@@ -1160,5 +1160,33 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 
 	}
+	
+	public void selectFeildValue(String feildName, String feildValue)
+	{
+		wait.hardWait(2);
+		isElementDisplayed("inp_fieldSelect",feildName);
+		selectProvidedTextFromDropDown(element("inp_fieldSelect",feildName), feildValue);
+		logMessage("STEP : " + feildValue + " as " + feildValue
+				+ " is entered in inp_fieldSelect\n");
+	}
+	
+	public void SelectFellowNominatorForVerification(String NomineeName,String NominatorName)
+	{
+		System.out.println(element("txt_NominatorName", NomineeName).getText());
+		if(element("txt_NominatorName", NomineeName).getText().equals(NominatorName))
+		{
+			click(element("txt_NominatorName", NomineeName));
+			//element("txt_NominatorName", NomineeName).click();
+			clickUsingXpathInJavaScriptExecutor(element("txt_NominatorName", NomineeName));
+			logMessage("Step : Nominee fellow selected from the list as "+NomineeName);
+		}
+		else
+		{
+			logMessage("Step : Nominee Fellow is not present in the list\n");
+		}
+		
+	}
+
+	
 
 }

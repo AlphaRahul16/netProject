@@ -279,7 +279,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(2);
 		clickOnEditNameAndAddress();
 		switchToFrame("iframe1");
-		customerFname = getNameFromEditNameAndAddressButton("firstName");
+		//customerFname = getNameFromEditNameAndAddressButton("firstName");
 		customerLname = getNameFromEditNameAndAddressButton("lastName");
 		// clickOnSaveButtonForBillingAddress();
 		clickOnCancelButton();
@@ -697,18 +697,18 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		System.out.println("click............................");
 		hoverClick(element("btn_saveAndFinish"));
 		//element("btn_saveAndFinish").click();
-		System.out.println("**********************************************");
-		String style = "bConfirmNavAway=0; if (document.getElementById('__UP')!=null && document.getElementById('__UP').style.display!='none') {return true;} this.value = 'Please Wait...'; disableSubmitButtons(); __doPostBack('Bottom_0','');WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions('Bottom_0', '', true,'', '', false, false))";
-		System.out.println("document.getElementById('Bottom_0').setAttribute(\"onclick\",\""+style+"\");");
+		//System.out.println("**********************************************");
+		//String style = "bConfirmNavAway=0; if (document.getElementById('__UP')!=null && document.getElementById('__UP').style.display!='none') {return true;} this.value = 'Please Wait...'; disableSubmitButtons(); __doPostBack('Bottom_0','');WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions('Bottom_0', '', true,'', '', false, false))";
+		//System.out.println("document.getElementById('Bottom_0').setAttribute(\"onclick\",\""+style+"\");");
 		//executeJavascript("document.getElementById('Bottom_0').setAttribute(\"onclick\","+style+");");
-		System.out.println(executeJavascriptReturnValue("document.getElementById('__UP').value;"));
-		System.out.println(executeJavascriptReturnValue("document.getElementById('__UP').style.display"));
-		System.out.println("**********************************************");
+		//System.out.println(executeJavascriptReturnValue("document.getElementById('__UP').value;"));
+		//System.out.println(executeJavascriptReturnValue("document.getElementById('__UP').style.display"));
+		//System.out.println("**********************************************");
 		//executeJavascript("document.getElementById('Bottom_0').click()");
-		System.out.println("**********************************************");
-		System.out.println(executeJavascriptReturnValue("document.getElementById('__UP')"));
-		System.out.println(executeJavascriptReturnValue("document.getElementById('__UP').style.display"));
-		System.out.println("**********************************************");
+		//System.out.println("**********************************************");
+		//System.out.println(executeJavascriptReturnValue("document.getElementById('__UP')"));
+		//System.out.println(executeJavascriptReturnValue("document.getElementById('__UP').style.display"));
+		//System.out.println("**********************************************");
 		//clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
 		hardWaitForIEBrowser(10);
 		
@@ -2162,5 +2162,28 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		return memberDetails;
 
 	}
+	
+	public List<String> getCustomerFullNameAndContactID()
+	{
+
+		clickOnEditNameAndAddress();
+		switchToFrame("iframe1");
+		customerLname = getNameFromEditNameAndAddressButton("lastName")+" "+getNameFromEditNameAndAddressButton("firstName")+" "+
+		getNameFromEditNameAndAddressButton("middleName");
+		clickOnCancelButton();
+		handleAlert();
+		switchToDefaultContent();
+		customerContactId = element("txt_renewalContactId").getText();
+		System.out.println(customerContactId);
+		System.out.println(customerLname);
+		memberDetails.add(customerLname);
+		
+		memberDetails.add(customerContactId);
+		logMessage("Step : ");
+		return memberDetails;
+
+	}
+	
+	
 
 }

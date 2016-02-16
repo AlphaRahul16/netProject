@@ -180,7 +180,35 @@ ASM_fellowNominatedSmokeChecklistData:
          SecondaryNominator1: john
          SecondaryNominator2: sam 
         
-    
+ACS_fellowNominatedData: 
+    NomineeName: Dean  
+    EducationDetails: 
+         Institution: TestInstitution
+         Degree: AssociateDegree
+         Major: ITMajor
+         GraduationYear: 2001  
+    CodeOfConductResponse: "No" 
+    CommunityCitationMsg: This is a Community Message
+    ScienceCitationMsg: This is a Science Message
+    ProfessionalHistory: 
+         Employer: employer Test
+         Title: AssociateTitle
+         FromDate: 2002
+         ToDate: 2010
+         Description: Test. Specialization:- Chem.(Medical/Bio).
+    ProfessionalOrganizationAffiliation:
+         ProfessionalOrg: EMPLOYER
+         Position_title: TestPosition
+         FromDate: 1998
+         ToDate: 2005
+    HonorAndAwards: 
+         Name: TestHonor
+         Sponcor: TestSponcor
+         Year: 2012
+    SelectSupportAndUploadLetters: 
+         SecondaryNominator1: john
+         SecondaryNominator2: sam 
+        
     
 ASM_Donate_SmokeChecklistData:
     userName: ADEMASI

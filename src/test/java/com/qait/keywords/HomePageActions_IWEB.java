@@ -137,6 +137,12 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	    element("link_tabsOnModule", tabName).click();
 	    logMessage("STEP : "+tabName+" tab is clicked\n");
 	}
+	public void clickOnFindNominationTab()
+	{
+		isElementDisplayed("lnk_FindNomination");
+	    element("lnk_FindNomination").click();
+	    logMessage("STEP : Find Nomination tab is clicked\n");
+	}
 	
 	public void clickOnAddIndividual() {
 		isElementDisplayed("link_addIndividuals");

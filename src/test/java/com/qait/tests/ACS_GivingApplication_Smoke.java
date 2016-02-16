@@ -202,6 +202,7 @@ public class ACS_GivingApplication_Smoke {
 	@AfterMethod
 	public void take_screenshot_on_failure(ITestResult e) {
 		test.takescreenshot.takeScreenShotOnException(e);
+
 	}
 
 	@AfterClass
