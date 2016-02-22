@@ -24,7 +24,7 @@ csv-data-file:
   path_AACT_OMA: ./src/test/resources/TestDataLibrary/AACT_OMA_Data_Sheet.csv
   path_ACS_Store: ./src/test/resources/TestDataLibrary/ACS_Store_Sheet.csv
   path_giving_donate: ./src/test/resources/TestDataLibrary/DonateDataSheet.csv
-  path_createMember: ./src/test/resources/TestDataLibrary/createMemberDataSheet.csv
+  path_createMember: ./src/test/resources/TestDataLibrary/CreateMemberDataSheet.csv
   path_landingPage: ./src/test/resources/TestDataLibrary/IndividualLandingPageSheet.csv
   path_fellowNominate: ./src/test/resources/TestDataLibrary/FellowsNomination_DataSheet.csv
   path_CCED_NCW_MemberNumberLookup: ./src/test/resources/TestDataLibrary/CCED_NCW_Data_Sheet.csv

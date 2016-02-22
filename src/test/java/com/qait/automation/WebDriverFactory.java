@@ -20,11 +20,9 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
-
 import com.qait.automation.utils.ConfigPropertyReader;
 
 public class WebDriverFactory {
-
 	private static String browser;
 	static String downloadFilePath = System.getProperty("user.dir")
 			   + File.separator + "src" + File.separator + "test" + File.separator

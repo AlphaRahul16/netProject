@@ -121,7 +121,7 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void getAndVerifyMemberDetail(String detailName, String detailValue) {
-		wait.waitForPageToLoadCompletely();
+//		wait.waitForPageToLoadCompletely();
 		try {
 			isElementDisplayed("inp_" + detailName);
 			String actualText = element("inp_" + detailName).getAttribute(

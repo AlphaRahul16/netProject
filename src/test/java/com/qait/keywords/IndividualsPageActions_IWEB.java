@@ -1283,40 +1283,28 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyNCW_CCEDEmailPresent(String emailType, String emailAddress) {
 		isElementDisplayed("list_emailAddressType");
-		System.out.println("size of list :- "
-				+ elements("list_emailAddressType").size());
 		for (int i = 0; i < elements("list_emailAddressType").size(); i++) {
-			System.out.println("value of i :- " + i);
-			int index = i + 1;
 			String typeName = elements("list_emailAddressType").get(i)
 					.getText().trim();
 			if (typeName.equalsIgnoreCase("ncw/cced")) {
-				System.out.println("ncw cced");
 				flag1 = true;
 				isElementDisplayed("txt_emailID", String.valueOf(i + 2));
 				String emailID = element("txt_emailID", String.valueOf(i + 2))
 						.getText().trim();
-				System.out.println("actual: " + emailID);
-				System.out.println("expected: " + map().get("ncw/cced_email"));
 				if (emailID.equalsIgnoreCase(map().get("ncw/cced_email"))) {
-					System.out.println("ncw email");
 					flag = true;
 					logMessage("ASSERT PASSED : email ID "
 							+ map().get("ncw/cced_email")
 							+ " is already present \n");
 					break;
 				} else {
-					System.out.println("else email ");
 					addEmail_NCW_CCED(emailType, emailAddress);
 					break;
 				}
 			}
-
 		}
 		if (!flag1) {
-			System.out.println("flag 1 is false");
 			addEmail_NCW_CCED(emailType, emailAddress);
 		}
 	}
-
 }
