@@ -589,6 +589,18 @@ sel.selectByVisibleText(text);
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("window.scrollBy(" + x + "," + y + ")", "");
 	}
+	public String ReverseStringWords(String sentence)
+	{
+		 String str[] = sentence.split(" ");
+		    String finalStr="";
+		        for(int i = str.length-1; i>= 0 ;i--){
+		            finalStr += str[i]+" ";
+		        }
+		        System.out.println(finalStr);
+		    	return finalStr;
+
+
+	}
 	
 	
 

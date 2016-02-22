@@ -62,6 +62,7 @@ public class ASM_DonatePage extends GetPage {
 		enterPassword(password);
 		clickOnLoginButtonForMember();
 	}
+	
 
 	public void clickOnLoginButton() {
 		isElementDisplayed("btn_login");

@@ -2,18 +2,22 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+import java.awt.Menu;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.GetPage;
@@ -24,6 +28,9 @@ public class ASM_FellowNominatePage extends GetPage {
 	static String pagename = "ASM_FellowNominatePage";
 	YamlInformationProvider getFellowNominated;
 	Map<String, Object> mapFellowNominatedSmoke;
+	Map<String, String> mapFellowNomineeDetails=new HashMap<String,String>();
+	String NomineeName;
+
 	int timeOut, hiddenFieldTimeOut;
 
 	public ASM_FellowNominatePage(WebDriver driver) {
@@ -36,6 +43,21 @@ public class ASM_FellowNominatePage extends GetPage {
 		enterCredencial("password", password);
 		clickOnLoginButton();
 		// deleteAllNominations();
+	}
+	
+	public void loginInToApplicationByLastNameAndMemberNumber(String username, String password) {
+		clickLastNameMemberNumberRadiobutton();
+		enterCredencial("username", username);
+		enterCredencial("password", password);
+		clickOnLoginButton();
+		// deleteAllNominations();
+	}
+
+	private void clickLastNameMemberNumberRadiobutton() {
+	isElementDisplayed("rad_lastNameMemNumber");
+	click(element("rad_lastNameMemNumber"));
+	logMessage("Last Name/Member Number Button clicked\n");
+		
 	}
 
 	public void enterCredencial(String fieldName, String fieldValue) {
@@ -158,6 +180,48 @@ public class ASM_FellowNominatePage extends GetPage {
 		wait.waitForPageToLoadCompletely();
 		verifyCurrentNomination(nominationName);
 	}
+	
+	public void preRequisiteForACSNomination(String NominationType,String searchType,
+			String searchValue, String nominationName)
+	{
+	    clickOnStartNomination();
+		clickOnConfirm();
+		selectDesignateYourNomination(NominationType);
+		selectRadioButtonInsideFellowType(NominationType);
+		verifyEligibilitySectionWithContinueAndCancelButtons();
+		clickOnContinueWithNomination();
+		clickOnConfirmSelection();
+		selectSearchTypeAndSearchNominee(searchType, searchValue);
+		selectNominee();
+		saveNomineeInformation(NominationType);
+		clickOnSaveAndContinueButton();
+		wait.waitForPageToLoadCompletely();
+
+	}
+
+	private void saveNomineeInformation(String NominationType) {
+
+		NomineeName=ReverseStringWords(element("txt_NomineeName").getText());
+		System.out.println("Nominee Name "+NomineeName);
+		mapFellowNomineeDetails.put("Nominee "+NominationType,NomineeName);
+
+	}
+
+	public void preRequisiteForACSIndividualNomination(String NominationType,String searchType,
+			String searchValue, String nominationName)
+	{
+		String NomineeName;
+	    clickOnStartNomination();
+		clickOnConfirm();
+		selectDesignateYourNomination(NominationType);
+		clickOnConfirmSelection();
+		selectSearchTypeAndSearchNominee(searchType, searchValue);
+		selectNominee();
+		saveNomineeInformation(NominationType);
+		clickOnSaveAndContinueButton();
+		wait.waitForPageToLoadCompletely();
+	}
+
 
 	public void selectSearchTypeAndSearchNominee(String searchType,
 			String searchValue) {
@@ -197,6 +261,9 @@ public class ASM_FellowNominatePage extends GetPage {
 	}
 
 	public void selectNominee() {
+		wait.hardWait(2);
+		wait.waitForPageToLoadCompletely();
+		wait.waitForElementToBeVisible(element("btn_firstNominee"));
 		isElementDisplayed("btn_firstNominee");
 		element("btn_firstNominee").click();
 		logMessage("Step : select first nominee in btn_firstNominee\n");
@@ -218,6 +285,12 @@ public class ASM_FellowNominatePage extends GetPage {
 		element("inp_nominationField", fieldName).sendKeys(fieldValue);
 		logMessage("Step : " + fieldValue + " is entered in " + fieldName
 				+ " \n");
+	}
+	public void clickReturnToDashBoardButton() {
+		isElementDisplayed("btn_ReturnToDashboard");
+	
+		element("btn_ReturnToDashboard").click();
+		logMessage("Step : Return To Dashboard is clicked\n");
 	}
 
 	public void selectNominationFieldValue(String fieldName, String fieldValue) {
@@ -249,11 +322,10 @@ public class ASM_FellowNominatePage extends GetPage {
 	public void enterAwardCitationDetails(String ProfessionCitation,String Communitycitation)
 	{
 		 enterTextInProfessionCitation(ProfessionCitation);
-		 makeTextItalicAndUnderline();
 		 enterTextInCommunityCitation(Communitycitation);
-		 makeTextItalicAndUnderline();
-		clickOnSaveButton("citation");
+		 clickOnSaveButton("citation");
 	}
+	
 	private void makeTextItalicAndUnderline() {
 	   element("txtarea_awards").sendKeys(Keys.chord(Keys.CONTROL, "a"));
 	   switchToDefaultContent();
@@ -271,6 +343,7 @@ public class ASM_FellowNominatePage extends GetPage {
 		System.out.println(ProfessionCitation);
 		element("txtarea_awards").sendKeys(ProfessionCitation);
 	System.out.println(	element("txtarea_awards").getText());
+	   switchToDefaultContent();
 	
 		
 	}
@@ -282,7 +355,7 @@ public class ASM_FellowNominatePage extends GetPage {
 		System.out.println(Communitycitation);
 		element("txtarea_awards").sendKeys(Communitycitation);
 		System.out.println(element("txtarea_awards").getText());
-		
+		switchToDefaultContent();
 	}
 
 	public void verifyAddMoreButton() {
@@ -311,6 +384,8 @@ public class ASM_FellowNominatePage extends GetPage {
 
 	public void enterNominationDetails(String fieldName, String fieldValue) {
 		try {
+			wait.resetExplicitTimeout(4);
+			wait.resetImplicitTimeout(4);
 			isElementDisplayed("inp_professionalHistory", fieldName);
 			element("inp_professionalHistory", fieldName).clear();
 			element("inp_professionalHistory", fieldName).sendKeys(fieldValue);
@@ -322,7 +397,11 @@ public class ASM_FellowNominatePage extends GetPage {
 			element("inp_professionalHistory", fieldName).sendKeys(fieldValue);
 			logMessage("Step : " + fieldValue + " is entered in " + fieldName
 					+ " in inp_professionalHistory\n");
+			wait.resetExplicitTimeout(timeOut);
+			wait.resetImplicitTimeout(timeOut);
 		}
+		wait.resetExplicitTimeout(timeOut);
+		wait.resetImplicitTimeout(timeOut);
 
 	}
 
@@ -340,8 +419,10 @@ public class ASM_FellowNominatePage extends GetPage {
 	}
 
 	public void enterDescription(String description) {
-		isElementDisplayed("inp_description");
-		element("inp_description").sendKeys(description);
+		isElementDisplayed("txtarea_awards");
+		element("txtarea_awards").click();
+		element("txtarea_awards").clear();
+		element("txtarea_awards").sendKeys(description);
 		logMessage("Step : " + description + " is entered in inp_description\n");
 	}
 
@@ -359,12 +440,18 @@ public class ASM_FellowNominatePage extends GetPage {
 		enterNominationDetails("Title", title);
 		enterNominationDetails("FromDate", fromDate);
 		enterNominationDetails("ToDate", toDate);
-		clickOnAllFieldsRequiredHeading();
-		wait.waitForPageToLoadCompletely();
+		//clickOnAllFieldsRequiredHeading();
+		System.out.println("1");
 		String frame = WordUtils.capitalize(saveName);
-		switchToFrame("txt" + frame + "Desc_ifr");
+		System.out.println("11");
+		//switchoFrame("txt" + frame + "Desc_ifr");
+		System.out.println(frame);
+		switchToFrame(element("frameGeneral",frame));
+		System.out.println("2");
 		enterDescription(description);
+		System.out.println("3");
 		switchToDefaultContent();
+		System.out.println("4");
 		clickOnSaveButton(saveName);
 	}
 
@@ -567,6 +654,120 @@ public class ASM_FellowNominatePage extends GetPage {
 		hardWaitForIEBrowser(2);
 		clickOnSubmitButton();
 	}
+	
+	public void fillAllRequiredDetailsToSubmitACSFellowsNominations(String NominationType) {
+		mapFellowNominatedSmoke = YamlReader
+				.getYamlValues("ACS_fellowNominatedData");
+		getFellowNominated = new YamlInformationProvider(
+				mapFellowNominatedSmoke);
+		wait.waitForPageToLoadCompletely();
+		wait.waitForPageToLoadCompletely();
+		ClickCodeOfConductButton(getFellowNominated.getASM_fellowNominated("CodeOfConductResponse"));
+		clickOnSaveButton("codeofconduct");
+		verifyNumberOfCitationsAs("Code of Conduct","1");
+		
+		selectNominationChecklistName("Award Citations");
+		enterAwardCitationDetails(getFellowNominated.getASM_fellowNominated("ScienceCitationMsg"),getFellowNominated.getASM_fellowNominated("CommunityCitationMsg"));
+		verifyNumberOfCitationsAs("Award Citations","2");
+
+		selectNominationChecklistName("Professional Organization Affiliations");
+		fillDetailsForProfessionalOrganizationAffiliations(	getFellowNominated
+				.getASM_fellowNominated_ProfOrgDetails("ProfessionalOrg"),
+		getFellowNominated
+				.getASM_fellowNominated_ProfOrgDetails("Position_title"),
+		getFellowNominated
+				.getASM_fellowNominated_ProfOrgDetails("FromDate"),
+		getFellowNominated
+				.getASM_fellowNominated_ProfOrgDetails("ToDate"));
+		verifyNumberOfCitationsAs("Professional Organization Affiliations","1");
+		
+		selectNominationChecklistName("Volunteer Service to the ACS Community");
+		fillDetailsForVolunteerServiceToTheACSComunity(getFellowNominated.getASM_fellowNominated_ProfDetails("Title"),
+				getFellowNominated
+				.getASM_fellowNominated_ProfDetails("FromDate"),
+		getFellowNominated.getASM_fellowNominated_ProfDetails("ToDate"),
+		getFellowNominated
+				.getASM_fellowNominated_ProfDetails("Description"),
+		"service");
+		verifyNumberOfCitationsAs("Volunteer Service to the ACS Community","1");
+
+		selectNominationChecklistName("Contributions to the Science / Profession");
+		fillDetailsForVolunteerServiceToTheACSComunity(getFellowNominated.getASM_fellowNominated_ProfDetails("Title"),
+				getFellowNominated
+				.getASM_fellowNominated_ProfDetails("FromDate"),
+		getFellowNominated.getASM_fellowNominated_ProfDetails("ToDate"),
+		getFellowNominated
+				.getASM_fellowNominated_ProfDetails("Description"),
+		"contribution");
+		verifyNumberOfCitationsAs("Contributions to the Science / Profession","1");
+
+		selectNominationChecklistName("Honors and Awards");
+		fillDetailsForHonorAndAwards(getFellowNominated
+				.getASM_fellowNominated_HonorAndAwardsDetails("Name"),
+		getFellowNominated
+				.getASM_fellowNominated_HonorAndAwardsDetails("Sponcor"),
+		getFellowNominated
+				.getASM_fellowNominated_HonorAndAwardsDetails("Year"));
+		verifyNumberOfCitationsAs("Honors and Awards","1");
+		
+		selectNominationChecklistName("Select Supporters and Upload Letters");
+		searchByName_NumberForSecondaryNominatorAndVerifyMemberList(
+				"name",
+				"1",
+				getFellowNominated
+				.getASM_fellowNominated_SelectSupportAndUploadLetters("SecondaryNominator1"));
+		selectFirstNominator("1");
+
+		selectFileToUpload("Secondary1", "test.pdf", "Secondary1");
+		searchByName_NumberForSecondaryNominatorAndVerifyMemberList(
+				"name",
+				"2",
+				getFellowNominated
+				.getASM_fellowNominated_SelectSupportAndUploadLetters("SecondaryNominator2"));
+		selectFirstNominator("2");
+		selectFileToUpload("Secondary2", "test.pdf", "Secondary2");
+		selectFileToUpload("Primary", "test.pdf", "Primary");
+		if(NominationType.equals("Local Section")||NominationType.equals("Technical Division"))
+		{
+		selectFileToUpload("Attestation", "test.pdf", "Attestation");
+		verifyNumberOfCitationsAs("Select Supporters and Upload Letters","4");
+		}
+		else
+		{
+			verifyNumberOfCitationsAs("Select Supporters and Upload Letters","3");
+		}
+
+		selectNominationChecklistName("Upload Resume/CV");
+		selectFileToUpload("Resume", "test.pdf", "");
+		verifyNumberOfCitationsAs("Upload Resume/CV","1");
+		
+		selectNominationChecklistName("Upload Supplementary Information");
+		selectFileToUpload("SupplementryMaterial", "test.pdf", "");
+		verifyNumberOfCitationsAs("Upload Supplementary Information","1");
+		
+		clickOnContinueToNextButton();
+		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(4);
+		clickOnContinueToSubmit();
+		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(3);
+		checkForSubmitNomination();
+		hardWaitForIEBrowser(2);
+		clickOnSubmitNomination();
+		hardWaitForIEBrowser(2);
+		clickOnSubmitButton();
+	}
+
+
+	private void verifyNumberOfCitationsAs(String tabName, String numberOfCitations) {
+		wait.hardWait(4);
+		isElementDisplayed("txt_citationNumber",tabName);
+		wait.waitForPageToLoadCompletely();
+		System.out.println(element("txt_citationNumber",tabName).getText());
+		System.out.println(numberOfCitations);
+		Assert.assertTrue(element("txt_citationNumber",tabName).getText().equals(numberOfCitations));
+		logMessage("ASSERT PASSED : "+tabName+" citation number is verified as "+numberOfCitations+"\n");
+	}
 
 	public void selectFileToUpload(String fieldname, String fileName,
 			String frameName) {
@@ -658,6 +859,8 @@ public class ASM_FellowNominatePage extends GetPage {
 
 	public void verifyFileUploaded(String fileName, String nominatorName) {
 		try {
+			wait.resetExplicitTimeout(3);
+			wait.resetImplicitTimeout(3);
 			wait.waitForPageToLoadCompletely();
 			isElementDisplayed("link_delete" + nominatorName + "Nominator");
 			logMessage("ASSERT PASSED : File " + fileName + " is uploaded for "
@@ -666,7 +869,11 @@ public class ASM_FellowNominatePage extends GetPage {
 			isElementDisplayed("link_delete" + nominatorName + "Nominator");
 			logMessage("ASSERT PASSED : File " + fileName + " is uploaded for "
 					+ nominatorName + "\n");
+			wait.resetExplicitTimeout(timeOut);
+			wait.resetImplicitTimeout(timeOut);
 		}
+		wait.resetExplicitTimeout(timeOut);
+		wait.resetImplicitTimeout(timeOut);
 	}
 
 	public void verifyCurrentTab(String tabName) {
@@ -721,5 +928,230 @@ public class ASM_FellowNominatePage extends GetPage {
 	public void verifyNominationCompleted() {
 		isElementDisplayed("txt_successNomination");
 		verifyElementText("txt_successNomination", "Nomination Complete");
+	}
+
+	public void verifyUserIsOnFellowsDashboard() {
+		verifyTabOnDashboard("Contact Information");
+		verifyTabOnDashboard("Program Information");
+		verifyTabOnDashboard("My Fellows Nominations");
+		
+		
+	}
+
+	private void verifyTabOnDashboard(String tabname) {
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
+	isElementDisplayed("txt_dashboardHeadings",tabname);
+	System.out.println("actual : "+element("txt_dashboardHeadings",tabname).getText());
+	System.out.println("expected : "+tabname);
+	Assert.assertTrue(element("txt_dashboardHeadings",tabname).getText().contains(tabname));
+	logMessage("ASSERT PASSED : "+tabname+" is verified on dashboard\n");
+	
+	
+		
+	}
+
+	public void selectRadioButtonInsideFellowType(String fellowtype) {
+		isElementDisplayed("rad_localsectionArea",fellowtype);
+		element("rad_localsectionArea",fellowtype).click();
+		logMessage("Step : Radio Button inside"+ fellowtype+" is clicked\n");
+		
+	}
+	private void collapseDetailsMenu(String menuName) {
+		//isElementDisplayed("icon_up", menuName);
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(1);
+		clickUsingXpathInJavaScriptExecutor(element("icon_up", menuName));
+		//element("icon_up", menuName).click();
+		waitForSpinner();
+		logMessage("STEP : " + menuName + " bar collapse bar clicked\n");
+
+	}
+	public void expandDetailsMenu(String menuName) {
+		//isElementDisplayed("btn_detailsMenuAACT", menuName);
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(1);
+		clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT", menuName));
+		//element("btn_detailsMenuAACT", menuName).click();
+		logMessage("STEP : " + menuName + " bar is clicked to expand" + "\n");
+		waitForSpinner();
+
+	}
+	public void waitForSpinner() {
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
+		try {
+			handleAlert();
+			wait.resetImplicitTimeout(5);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("img_spinner");
+			logMessage("STEP : wait for spinner to be disappeared \n");
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+		} catch (Exception Exp) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+
+		} catch (AssertionError Exp) {
+
+			logMessage("STEP : spinner is not present \n");
+		}
+	}
+
+
+
+	public void verifyEligibilitySectionWithContinueAndCancelButtons() {
+		verifyTabOnDashboard("Eligibility");
+		isElementDisplayed("btn_countinueWithNomination");
+	    isElementDisplayed("btn_CancelEligibity");
+		
+	}
+	private void ClickCodeOfConductButton(String choice)
+	{
+		System.out.println(getFellowNominated.getASM_fellowNominated("CodeOfConductResponse"));
+		choice=choice.replace("\"", "").trim();
+		if(choice.equalsIgnoreCase("Yes"))
+	{
+		System.out.println("Choice is "+choice);
+		isElementDisplayed("rad_codeConductYes");
+		click(element("rad_codeConductYes"));
+	}
+	else if(choice.equalsIgnoreCase("No"))
+	{
+		System.out.println("Choice is "+choice);
+		isElementDisplayed("rad_codeConductNo");
+		click(element("rad_codeConductNo"));
+	}
+	logMessage("Step : code of conduct details filled with choice as : "+choice);
+		
+	}
+	private void verifyDetailsForCodeOfConduct(String Value)
+	{
+
+		isElementDisplayed("txt_codeOfConductValue");
+		System.out.println(element("txt_codeOfConductValue").getText());
+		Value=Value.replace("\"", "");
+		System.out.println(Value);
+		Assert.assertTrue(element("txt_codeOfConductValue").getText().trim().equals(Value.trim()));
+		logMessage("ASSERT PASSED : Code Of Conduct value verified as "+Value);
+
+	}
+	private void verifyScienceAndCommunityCitationMessages(String ScienceMsg,String CommunityMsg)
+	{
+		System.out.println("Science msg "+elements("txt_codeOfConductValue").get(0).getText());
+		System.out.println("Community msg "+elements("txt_codeOfConductValue").get(1).getText());
+		Assert.assertTrue(elements("txt_codeOfConductValue").get(0).getText().trim().equals(ScienceMsg.trim()));
+		logMessage("ASSERT PASSED : Science Citation Message is verified as "+ScienceMsg);
+		Assert.assertTrue(elements("txt_codeOfConductValue").get(1).getText().trim().equals(CommunityMsg.trim()));
+		logMessage("ASSERT PASSED : Community Citation Message is verified as "+CommunityMsg);
+	}
+	private void verifyServiceToAcsDetailsForFellowNomination(String MenuName)
+	{
+	
+	int index=4;
+String[] AcsServicesArray={getFellowNominated.getASM_fellowNominated_ProfDetails("Title"),getFellowNominated.getASM_fellowNominated_ProfDetails("Description"),
+		getFellowNominated.getASM_fellowNominated_ProfDetails("FromDate"),getFellowNominated.getASM_fellowNominated_ProfDetails("ToDate"),
+getFellowNominated.getASM_fellowNominated_ProfDetails("ToDate")};
+
+String[] ProfessionalOrg={getFellowNominated
+		.getASM_fellowNominated_ProfOrgDetails("ProfessionalOrg"),
+getFellowNominated
+		.getASM_fellowNominated_ProfOrgDetails("Position_title"),
+getFellowNominated
+		.getASM_fellowNominated_ProfOrgDetails("FromDate"),
+getFellowNominated
+		.getASM_fellowNominated_ProfOrgDetails("ToDate"),
+		getFellowNominated
+		.getASM_fellowNominated_ProfOrgDetails("ToDate")};
+
+String[] honors={getFellowNominated
+		.getASM_fellowNominated_HonorAndAwardsDetails("Name"),
+getFellowNominated
+		.getASM_fellowNominated_HonorAndAwardsDetails("Sponcor"),
+getFellowNominated
+		.getASM_fellowNominated_HonorAndAwardsDetails("Year")};
+
+if(MenuName.equals("professional organization affiliation"))
+{
+
+for(int i=0;i<ProfessionalOrg.length;i++)
+{
+	    System.out.println(element("txt_fellowIwebDetails",toString().valueOf(index)).getText());
+	   Assert.assertTrue(element("txt_fellowIwebDetails",toString().valueOf(index)).getText().trim().equals(ProfessionalOrg[i].trim()));
+	   index++;
+}
+}
+else if(MenuName.equals("honors and awards"))
+{
+	for(int i=0;i<honors.length;i++)
+	{
+		    System.out.println(element("txt_fellowIwebDetails",toString().valueOf(index)).getText());
+		   Assert.assertTrue(element("txt_fellowIwebDetails",toString().valueOf(index)).getText().trim().equals(honors[i].trim()));
+		   index++;
+	}
+}
+else
+{
+for(int i=0;i<AcsServicesArray.length;i++)
+{
+	    System.out.println(element("txt_fellowIwebDetails",toString().valueOf(index)).getText());
+	   Assert.assertTrue(element("txt_fellowIwebDetails",toString().valueOf(index)).getText().trim().equals(AcsServicesArray[i].trim()));
+	   index++;
+}
+}
+
+			
+	}
+	
+	public void verifyDetailsOnIwebForFellowNomination()
+	{
+		mapFellowNominatedSmoke = YamlReader
+				.getYamlValues("ACS_fellowNominatedData");
+		getFellowNominated = new YamlInformationProvider(
+				mapFellowNominatedSmoke);
+		expandDetailsMenu("code of conduct");
+		verifyDetailsForCodeOfConduct(getFellowNominated.getASM_fellowNominated("CodeOfConductResponse"));
+		collapseDetailsMenu("code of conduct");
+		
+		expandDetailsMenu("award citations");
+		verifyScienceAndCommunityCitationMessages(getFellowNominated.getASM_fellowNominated("ScienceCitationMsg"),
+				getFellowNominated.getASM_fellowNominated("CommunityCitationMsg"));
+		collapseDetailsMenu("award citations");
+		
+		expandDetailsMenu("service to the acs");
+		verifyServiceToAcsDetailsForFellowNomination("service to the acs");
+		collapseDetailsMenu("service to the acs");
+		
+		expandDetailsMenu("contribution to the science/profession");
+		verifyServiceToAcsDetailsForFellowNomination("contribution to the science/profession");
+		collapseDetailsMenu("contribution to the science/profession");
+		
+		expandDetailsMenu("honors and awards");
+		verifyServiceToAcsDetailsForFellowNomination("honors and awards");
+		collapseDetailsMenu("honors and awards");
+		
+		expandDetailsMenu("professional organization affiliation");
+		verifyServiceToAcsDetailsForFellowNomination("professional organization affiliation");
+		collapseDetailsMenu("professional organization affiliation");
+		
+	}
+
+	public String selectNomineeForParticularFellowType(String fellowType) {
+
+	System.out.println("Map FelloeType "+mapFellowNomineeDetails.get("Nominee "+fellowType));
+		return mapFellowNomineeDetails.get("Nominee"+fellowType);
+	}
+	
+	public void printmap()
+	{
+		for (String name: mapFellowNomineeDetails.keySet()){
+
+            String key =name.toString();
+            String value = mapFellowNomineeDetails.get(name).toString();  
+            System.out.println(key + " " + value);  
+
+
+} 
 	}
 }

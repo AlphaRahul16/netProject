@@ -26,7 +26,11 @@ csv-data-file:
   path_giving_donate: ./src/test/resources/TestDataLibrary/DonateDataSheet.csv
   path_createMember: ./src/test/resources/TestDataLibrary/CreateMemberDataSheet.csv
   path_landingPage: ./src/test/resources/TestDataLibrary/IndividualLandingPageSheet.csv
+<<<<<<< HEAD
+  path_fellowNominate: ./src/test/resources/TestDataLibrary/FellowsNomination_DataSheet.csv
+=======
   path_CCED_NCW_MemberNumberLookup: ./src/test/resources/TestDataLibrary/CCED_NCW_Data_Sheet.csv
+>>>>>>> c3f9ab4913633609558b26e34f7505e48521dd34
   data-separator: '\t'
   has-header: true
   
@@ -179,7 +183,36 @@ ASM_fellowNominatedSmokeChecklistData:
     SelectSupportAndUploadLetters: 
          SecondaryNominator1: john
          SecondaryNominator2: sam 
-    
+        
+ACS_fellowNominatedData: 
+    NomineeName: Dean  
+    EducationDetails: 
+         Institution: TestInstitution
+         Degree: AssociateDegree
+         Major: ITMajor
+         GraduationYear: 2001  
+    CodeOfConductResponse: "No" 
+    CommunityCitationMsg: This is a Community Message
+    ScienceCitationMsg: This is a Science Message
+    ProfessionalHistory: 
+         Employer: employer Test
+         Title: AssociateTitle
+         FromDate: 2002
+         ToDate: 2010
+         Description: Test. Specialization:- Chem.(Medical/Bio).
+    ProfessionalOrganizationAffiliation:
+         ProfessionalOrg: EMPLOYER
+         Position_title: TestPosition
+         FromDate: 1998
+         ToDate: 2005
+    HonorAndAwards: 
+         Name: TestHonor
+         Sponcor: TestSponcor
+         Year: 2012
+    SelectSupportAndUploadLetters: 
+         SecondaryNominator1: john
+         SecondaryNominator2: sam 
+        
     
 ASM_Donate_SmokeChecklistData:
     userName: ADEMASI

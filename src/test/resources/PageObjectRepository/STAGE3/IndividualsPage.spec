@@ -38,6 +38,13 @@ txt_subscriptionName                      xpath       (//th/a)[2]/../../followin
 txt_subscriptionPrice                     xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[6]
 txt_subscriptionStartDate                 xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[7]
 txt_subscriptionEndDate                   xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[8]
+<<<<<<< HEAD
+txt_subscriptionIssueFulfilled           xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[9]
+txt_subscriptionStartIssue               xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[10]
+btnArrowProdName                         xpath       //td[contains(text(),'${prodName}')][1]/preceding-sibling::td[2]//i
+inp_fieldSelect                          xpath       //span[starts-with(text(),'${fieldName}')]/../following-sibling::td//select
+txt_NominatorName                        xpath       .//*[@id='dgDynamicList']/tbody/tr/td[contains(text(),'${NomineeName}')]/following-sibling::td[4][contains(text(),'Submitted')]/following-sibling::td[3]    
+=======
 txt_subscriptionIssueFulfilled           xpath        (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[9]
 txt_subscriptionStartIssue               xpath        (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[10]
 btnArrowProdName                         xpath        //td[contains(text(),'${prodName}')][1]/preceding-sibling::td[2]//i
@@ -47,4 +54,5 @@ link_addRecordEmail                     xpath          //a[@title='Add Record: e
 select_emailType                        id               eml_type
 inp_emailAddress                        id              eml_address
 btn_saveButton                          id             ButtonSave
+>>>>>>> c3f9ab4913633609558b26e34f7505e48521dd34
 ======================================================================================================================================

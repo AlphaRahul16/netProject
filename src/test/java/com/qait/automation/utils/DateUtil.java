@@ -146,5 +146,13 @@ public class DateUtil {
 			}
 	      return currentTime;
 	   }
+	
+	public static int getCurrentYear()
+	{
+	
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		System.out.println("Current Year is : "+year);
+		return year;
+	}
 
 }

@@ -283,7 +283,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(2);
 		clickOnEditNameAndAddress();
 		switchToFrame("iframe1");
-		customerFname = getNameFromEditNameAndAddressButton("firstName");
+		//customerFname = getNameFromEditNameAndAddressButton("firstName");
 		customerLname = getNameFromEditNameAndAddressButton("lastName");
 		// clickOnSaveButtonForBillingAddress();
 		clickOnCancelButton();
@@ -703,9 +703,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(10);
 
 		hoverClick(element("btn_saveAndFinish"));
-
 		hardWaitForIEBrowser(15);
-
 		logMessage("Step : save and finish button is clicked\n");
 	}
 
@@ -2172,5 +2170,28 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		return memberDetails;
 
 	}
+	
+	public List<String> getCustomerFullNameAndContactID()
+	{
+
+		clickOnEditNameAndAddress();
+		switchToFrame("iframe1");
+		customerLname = getNameFromEditNameAndAddressButton("lastName")+" "+getNameFromEditNameAndAddressButton("firstName")+" "+
+		getNameFromEditNameAndAddressButton("middleName");
+		clickOnCancelButton();
+		handleAlert();
+		switchToDefaultContent();
+		customerContactId = element("txt_renewalContactId").getText();
+		System.out.println(customerContactId);
+		System.out.println(customerLname);
+		memberDetails.add(customerLname);
+		
+		memberDetails.add(customerContactId);
+		logMessage("Step : ");
+		return memberDetails;
+
+	}
+	
+	
 
 }
