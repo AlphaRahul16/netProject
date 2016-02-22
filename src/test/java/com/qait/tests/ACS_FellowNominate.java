@@ -50,15 +50,15 @@ public class ACS_FellowNominate {
 	@Test
 	public void Step01_TC01_CreateMember_As_A_Prerequisite_For_Fellow_Nomination() {
 		test.homePageIWEB.addValuesInMap("createMember", caseID);
-		test.homePageIWEB.enterAuthentication("C00616","password");
+		test.homePageIWEB.enterAuthentication("C00616","Zx605@95");
 		test.homePageIWEB.clickOnAddIndividual();
 		memDetails = test.addMember.enterMemberDetailsInAddIndividual();
 		test.memberShipPage.goToOrderEntry();
-		test.memberShipPage.goToAddMembershipAndFillDetails_membership();
-		test.memberShipPage.goToAddMemebrshipAndFillDetails_LocalSection();
+		test.memberShipPage.goToAddMembershipAndFillDetails_membershipAsFellowPrequisite();
+		test.memberShipPage.goToAddMemebrshipAndFillDetails_LocalSectionAsFellowPrequisite();
 		numberOfDivisions = test.memberShipPage.getDivisionNumbers();
 		test.memberShipPage
-				.goToAddMembershipAndFillDetails_Division(numberOfDivisions);
+				.goToAddMembershipAndFillDetails_DivisionAsFellowPrequisite(numberOfDivisions);
 		test.memberShipPage.selectBatchAndPaymentDetails_subscription(
 				YamlReader.getYamlValue("Acs_CreateMember_IWEB.batch"),
 				YamlReader.getYamlValue("Acs_CreateMember_IWEB.PaymentType"),
@@ -69,58 +69,68 @@ public class ACS_FellowNominate {
 	}
 	
 	
-	@Test
+	@Test 		// For Login Into Fellow Nominate Application
 	public void Step02_TC02_Enter_Valid_Credentials_To_Login_Into_Application() {
-
     	memberDetails = test.memberShipPage.getCustomerFullNameAndContactID();
-	
-		// For Login 
     	test.launchApplication(app_url_nominateFellow);
 		test.asm_FellowNomiate.loginInToApplicationByLastNameAndMemberNumber(memberDetails.get(0).split(" ")[0],memberDetails.get(1));
-    
-
-    	//test.asm_FellowNomiate.loginInToApplicationByLastNameAndMemberNumber("LN1455524487370","30956094");
-		test.asm_FellowNomiate.verifyUserIsOnFellowsDashboard();
-		
-		// For Individual
-		
+    	//test.asm_FellowNomiate.loginInToApplicationByLastNameAndMemberNumber("LN1455709562088","30956112");
+     	test.asm_FellowNomiate.verifyUserIsOnFellowsDashboard();
+	}
+	
+	@Test 	// For Individual
+	public void Step03_TC03_Nominate_For_Individual_FellowType() {
+	  	
+		test.asm_FellowNomiate.clickPrintPDFButton("Individual Nomination");
 		test.asm_FellowNomiate.preRequisiteForACSIndividualNomination("Individual", "Name",getFellowNominated.getASM_fellowNominated("NomineeName"),"education");
 		test.asm_FellowNomiate.fillAllRequiredDetailsToSubmitACSFellowsNominations("Individual");
 		test.asm_FellowNomiate.clickReturnToDashBoardButton();
+		test.asm_FellowNomiate.verifyUserIsAbleToViewSubmittedNominations();
+		test.asm_FellowNomiate.clickPrintPDFButton("Individual Nomination");
+	}
 	
-		// For Local Section
+	@Test	// For Local Section
+	public void Step04_TC04_Nominate_For_LocalSection_FellowType() {
+	
 		
 		test.asm_FellowNomiate.preRequisiteForACSNomination("Local Section", "Name",
 				getFellowNominated.getASM_fellowNominated("NomineeName"), "education");
 		test.asm_FellowNomiate.fillAllRequiredDetailsToSubmitACSFellowsNominations("Local Section");
 		test.asm_FellowNomiate.clickReturnToDashBoardButton();
 
-		// For Technical division
-		
+
+	}
+	
+	@Test	// For Technical division
+	public void Step05_TC05_Nominate_For_TechnicalDivision_FellowType() {
 		test.asm_FellowNomiate.preRequisiteForACSNomination("Technical Division","Name",getFellowNominated.getASM_fellowNominated("NomineeName"),"education");
 		test.asm_FellowNomiate.fillAllRequiredDetailsToSubmitACSFellowsNominations("Technical Division");
-	test.launchApplication(app_url_IWEB);
-	test.homePageIWEB.enterAuthentication("C00186","ACS2016!");
+		test.asm_FellowNomiate.clickReturnToDashBoardButton();
+		test.asm_FellowNomiate.verifyNominatedPersonCannotBeNominatedAgain("Technical Division","Name");
+		
+	
 	}
     
 
 	@Test(dataProvider = "test1")
-	public void Step03_TC03_Navigate_To_Iweb(String FellowType) {
-
+	public void Step03_TC03_Navigate_To_Iweb_And_Verify_Nomination_Details(String FellowType) {
+	     test.launchApplication(app_url_IWEB);
+	     test.homePageIWEB.enterAuthentication("C00186","ACS2016!");
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Fellows");
 		test.homePageIWEB.clickOnFindNominationTab();
 		test.individualsPage.selectFeildValue("fellow year",toString().valueOf(DateUtil.getCurrentYear()));
-		System.out.println(FellowType);
+		System.out.println("Fellow tupe "+FellowType);
 		test.individualsPage.selectFeildValue("Fellow Type",FellowType);
 		test.individualsPage.clickGoButton();
 		test.asm_FellowNomiate.printmap();
 		NomineeName=test.asm_FellowNomiate.selectNomineeForParticularFellowType(FellowType);
-		test.individualsPage.SelectFellowNominatorForVerification(NomineeName,memberDetails.get(0));
+		test.individualsPage.SelectFellowNominatorForVerification(NomineeName.trim(),memberDetails.get(0));
 		//test.individualsPage.SelectFellowNominatorForVerification("Dean Bauer","LN1455524487370 Selenium FellowMN");
-		test.asm_FellowNomiate.verifyDetailsOnIwebForFellowNomination();
+		test.asm_FellowNomiate.verifyDetailsOnIwebForFellowNomination(FellowType);
 		
 	}
+	
 	
 	
 	@BeforeClass

@@ -26,18 +26,15 @@ csv-data-file:
   path_giving_donate: ./src/test/resources/TestDataLibrary/DonateDataSheet.csv
   path_createMember: ./src/test/resources/TestDataLibrary/createMemberDataSheet.csv
   path_landingPage: ./src/test/resources/TestDataLibrary/IndividualLandingPageSheet.csv
-<<<<<<< HEAD
   path_fellowNominate: ./src/test/resources/TestDataLibrary/FellowsNomination_DataSheet.csv
-=======
   path_CCED_NCW_MemberNumberLookup: ./src/test/resources/TestDataLibrary/CCED_NCW_Data_Sheet.csv
->>>>>>> c3f9ab4913633609558b26e34f7505e48521dd34
   data-separator: '\t'
   has-header: true
   
   
 Authentication: 
   userName: C00616
-  password: "ACS2016#"
+  password: "Zx605@95"
   
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt
@@ -185,7 +182,7 @@ ASM_fellowNominatedSmokeChecklistData:
          SecondaryNominator2: sam 
         
 ACS_fellowNominatedData: 
-    NomineeName: Dean  
+    NomineeName: Ben,jim,Bob,Bud,Cal,Don,Edd,Eva,Fed,Kim,Lee,Leo,Jan,May,Meg,Mia,Tom,Pan,Sue,Ova,Pet
     EducationDetails: 
          Institution: TestInstitution
          Degree: AssociateDegree

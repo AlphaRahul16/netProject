@@ -1228,7 +1228,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	
 	public void SelectFellowNominatorForVerification(String NomineeName,String NominatorName)
 	{
-		System.out.println(element("txt_NominatorName", NomineeName).getText());
+		//System.out.println(element("txt_NominatorName", NomineeName).getText());
 		if(element("txt_NominatorName", NomineeName).getText().equals(NominatorName))
 		{
 			click(element("txt_NominatorName", NomineeName));

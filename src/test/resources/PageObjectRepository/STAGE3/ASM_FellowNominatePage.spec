@@ -81,4 +81,11 @@ btn_detailsMenuAACT                                         xpath               
 icon_up                                                     xpath                               //span[contains(text(),'${value}')]/preceding-sibling::a/i[@class='icon-chevron-up']
 txt_fellowIwebDetails                                       xpath                                (//th/a)[2]/../../following-sibling::tr[1]//td[${coloumnNumber}]
 frameGeneral                                                xpath                               //iframe[@id='txt${value}Desc_ifr']
+lnk_viewNominations                                         xpath                              //h5[contains(text(),'${value}')]/following-sibling::ul//a[contains(text(),'View')]
+lnk_editNominations                                         xpath                              //h5[contains(text(),'${value}')]/following-sibling::ul//a[contains(text(),'Edit')]
+lnk_printPDF                                                xpath                               //h5[contains(text(),'Individual Nomination')]/following-sibling::ul//a[contains(text(),'Print PDF')]
+btn_codeofconduct_checked                                   css                                input[type='radio'][checked]
+btn_previewNomination                                       id                                  btnPreviewNomination
+btn_view                                                    css                                 input[value='View']
+btn_home                                                    classname                           home
 =======================================================================================================================================================================================

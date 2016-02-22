@@ -114,6 +114,8 @@ public class GetPage extends BaseUi {
 		return result;
 	}
 
+	
+
 	protected void verifyElementText(String elementName, String expectedText) {
 		wait.waitForElementToBeVisible(element(elementName));
 		assertEquals(element(elementName).getText().trim(), expectedText,

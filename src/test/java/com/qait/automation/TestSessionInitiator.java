@@ -165,21 +165,35 @@ public class TestSessionInitiator {
 	private void _configureBrowser() {
 		driver = wdfactory.getDriver(_getSessionConfig());
 		driver.manage().window().maximize();
-		driver.manage()
-				.timeouts()
-				.implicitlyWait(Integer.parseInt(getProperty("timeout")),
-						TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(Integer.parseInt(getProperty("timeout")), TimeUnit.SECONDS);
 	}
 
 	private Map<String, String> _getSessionConfig() {
-		String[] configKeys = { "tier", "browser", "seleniumserver",
-				"seleniumserverhost", "timeout", "driverpath" };
+		String[] configKeys = { "tier", "browser", "seleniumserver", "seleniumserverhost", "timeout", "driverpath" };
 		Map<String, String> config = new HashMap<String, String>();
 		for (String string : configKeys) {
+try
+{
+			if(System.getProperty(string).isEmpty())
+			{
 			config.put(string, getProperty("./Config.properties", string));
+			}
+			else
+			{
+			config.put(string, System.getProperty(string));
+			}
+}
+		
+	
+		
+catch(NullPointerException e)
+{
+	config.put(string, getProperty("./Config.properties", string));
+}
 		}
 		return config;
 	}
+	
 
 	public void launchApplication() {
 		launchApplication(getYamlValue("baseurl"));
@@ -188,27 +202,21 @@ public class TestSessionInitiator {
 	public void launchApplication(String baseurl) {
 		try {
 
-			Reporter.log(
-					"The test browser is :- "
-							+ _getSessionConfig().get("browser") + "\n", true);
+			Reporter.log("The test browser is :- " + _getSessionConfig().get("browser") + "\n", true);
 			deleteAllCookies();
 			driver.get(baseurl);
 			Reporter.log("\nThe application url is :- " + baseurl, true);
 			if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/"))
-					&& (ConfigPropertyReader.getProperty("browser")
-							.equalsIgnoreCase("IE")
-							|| ConfigPropertyReader.getProperty("browser")
-									.equalsIgnoreCase("ie") || ConfigPropertyReader
-							.getProperty("browser").equalsIgnoreCase(
-									"internetexplorer"))) {
+					&& (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
+							|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
+							|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer"))) {
 				try {
 					Thread.sleep(8000);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
 			}
-			if (!baseurl
-					.equalsIgnoreCase("https://iwebtest.acs.org/NFStage3/iweb")) {
+			if (!baseurl.equalsIgnoreCase("https://iwebtest.acs.org/NFStage3/iweb")) {
 				handleSSLCertificateCondition(baseurl);
 			}
 		} catch (Exception e) {
@@ -244,12 +252,9 @@ public class TestSessionInitiator {
 			driver.get("javascript:document.getElementById('overridelink').click();");
 			System.out.println("Step : handle SSL certificate condition\n");
 			if (baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/")
-					&& ConfigPropertyReader.getProperty("browser")
-							.equalsIgnoreCase("IE")
-					|| ConfigPropertyReader.getProperty("browser")
-							.equalsIgnoreCase("ie")
-					|| ConfigPropertyReader.getProperty("browser")
-							.equalsIgnoreCase("internetexplorer")) {
+					&& ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
+					|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
+					|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer")) {
 				try {
 					Thread.sleep(5000);
 				} catch (InterruptedException e1) {
@@ -262,12 +267,9 @@ public class TestSessionInitiator {
 		}
 
 		if (baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/")
-				&& ConfigPropertyReader.getProperty("browser")
-						.equalsIgnoreCase("IE")
-				|| ConfigPropertyReader.getProperty("browser")
-						.equalsIgnoreCase("ie")
-				|| ConfigPropertyReader.getProperty("browser")
-						.equalsIgnoreCase("internetexplorer")) {
+				&& ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
+				|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
+				|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer")) {
 			try {
 				Thread.sleep(5000);
 			} catch (InterruptedException e1) {
@@ -305,8 +307,7 @@ public class TestSessionInitiator {
 				|| _getSessionConfig().get("browser").equalsIgnoreCase("ie")) {
 			driver.manage().deleteAllCookies();
 			openUrl(baseURL);
-		} else if (_getSessionConfig().get("browser")
-				.equalsIgnoreCase("chrome")) {
+		} else if (_getSessionConfig().get("browser").equalsIgnoreCase("chrome")) {
 			Robot robot;
 			try {
 				robot = new Robot();

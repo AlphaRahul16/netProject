@@ -26,6 +26,9 @@ import com.qait.automation.utils.ConfigPropertyReader;
 public class WebDriverFactory {
 
 	private static String browser;
+	static String downloadFilePath = System.getProperty("user.dir")
+			   + File.separator + "src" + File.separator + "test" + File.separator
+			   + "resources" + File.separator + "DownloadedFiles";
 	private static final DesiredCapabilities capabilities = new DesiredCapabilities();
 
 	public WebDriver getDriver(Map<String, String> seleniumconfig) {
@@ -100,6 +103,7 @@ public class WebDriverFactory {
 
 	private static WebDriver getFirefoxDriver() {
 		String firefoxProfilePath = "./src/test/resources/Profile_"
+			
 				+ ConfigPropertyReader.getProperty("tier");
 		FirefoxProfile profile;
 		String autoAuthPath = "src/test/resources/AddOn/autoauth-2.1-fx+fn.xpi";
@@ -114,6 +118,23 @@ public class WebDriverFactory {
 			e.printStackTrace();
 		}
 		profile.setPreference("browser.cache.disk.enable", false);
+		 profile.setPreference("browser.download.useDownloadDir", true);
+		  profile.setPreference("browser.cache.disk.enable", false);
+		  profile.setPreference("browser.download.folderList", 2);
+		  profile.setPreference("browser.download.manager.alertOnEXEOpen", false);
+		  
+		  profile.setPreference(
+		    "browser.helperApps.neverAsk.saveToDisk",
+		    "application/msword, application/csv, application/ris, text/csv, application/pdf, text/plain, application/zip, application/x-zip, application/x-zip-compressed, application/download, application/octet-stream");
+		  profile.setPreference("browser.download.manager.showWhenStarting",
+		    false);
+		  profile.setPreference("browser.download.manager.focusWhenStarting",
+		    false);
+		  profile.setPreference("browser.download.dir", downloadFilePath);
+		  profile.setPreference("browser.download.manager.showAlertOnComplete", false);
+		  profile.setPreference("browser.download.manager.alertOnEXEOpen", false);
+		  profile.setPreference("pdfjs.disabled", true);
+
 		return new FirefoxDriver(profile);
 	}
 }

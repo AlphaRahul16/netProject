@@ -21,7 +21,22 @@ public class YamlReader {
 	public static String yamlFilePath = "";
 
 	public static String setYamlFilePath() {
-		String tier = getProperty("Config.properties", "tier").trim();
+		String tier;
+		try
+		{
+		if(System.getProperty("tier").isEmpty())
+		{
+		 tier= getProperty("./Config.properties", "tier");
+		}
+		else
+		{
+	     tier= System.getProperty("tier");
+		}
+		}
+		catch(NullPointerException e)
+		{
+			 tier= getProperty("./Config.properties", "tier");
+		}
 		if (tier.equalsIgnoreCase("dev")) {
 			yamlFilePath = "src/test/resources/testdata/DEV_TestData.yml";
 
