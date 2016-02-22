@@ -332,5 +332,36 @@ public class GetPage extends BaseUi {
 		logMessage("ASSERT PASSED: element " + elementName
 				+ " is visible and Text is " + expectedText);
 	}
+	public void EnterTestMethodNameToSkipInMap_MemberNumber_CCED_NCW(
+			Map<String, Boolean> skipTest, String AppUrl) {
+		switch(AppUrl)
+		{
+		case "https://ewebtest12.acs.org/NFStage3/membernumberlookup/":
+			skipTest.put("Step01_Verify_Email_Address_IWEB_Test",
+					true);
+			skipTest.put("Step02_CCED_Lookup_Test",
+					true);
+			skipTest.put("Step03_NCW_Lookup_Test",
+					true);
+			break;
+		case "https://ewebtest12.acs.org/NFStage3/ccedlookup":
+			skipTest.put("Step00_Member_Number_Lookup_Test",
+					true);
+			skipTest.put("Step03_NCW_Lookup_Test",
+					true);
+			break;
+		case "https://ewebtest12.acs.org/NFStage3/ncwlookup":
+			skipTest.put("Step00_Member_Number_Lookup_Test",
+					true);
+			skipTest.put("Step02_CCED_Lookup_Test",
+					true);
+			break;
+			
+		default:
+			logMessage("Error: Invalid Application URL in DataSheet\n");
+			
+		}
+		
+	}
 
 }

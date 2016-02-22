@@ -1314,11 +1314,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		try {
 			customerContactId = element("txt_renewalContactId").getText()
 					.trim();
-			logMessage("Step : Member contact number is " + customerContactId);
+			logMessage("Step : Member cusomer ID is " + customerContactId);
 		} catch (StaleElementReferenceException stlExp) {
 			customerContactId = element("txt_renewalContactId").getText()
 					.trim();
-			logMessage("Step : Member contact number is " + customerContactId);
+			logMessage("Step : Member cusomer ID is " + customerContactId);
 		}
 		memberDetails.add(customerLname);
 		memberDetails.add(customerContactId);

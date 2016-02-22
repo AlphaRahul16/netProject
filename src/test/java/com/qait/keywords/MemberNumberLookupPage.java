@@ -14,13 +14,15 @@ public class MemberNumberLookupPage extends GetPage {
 	}
 
 	public void enterMemberDetail(String detailName, String detailValue) {
-		isElementDisplayed("inp_memberDetail",detailName);
+		isElementDisplayed("inp_memberDetail", detailName);
 		element("inp_memberDetail", detailName).sendKeys(detailValue);
 		logMessage("Step : enter " + detailValue + " for " + detailName + " \n");
 	}
 
 	public void enterMemberDetailsInMemberNumberLookup(String firstName,
 			String lastName, String email) {
+		handleAlert();
+		wait.waitForPageToLoadCompletely();
 		enterMemberDetail("FirstName", firstName);
 		enterMemberDetail("LastName", lastName);
 		enterMemberDetail("Email", email);
@@ -40,8 +42,8 @@ public class MemberNumberLookupPage extends GetPage {
 
 	public void verifyMemberNumber(String memberNumber) {
 		isElementDisplayed("txt_memberNumber", memberNumber);
-		logMessage("ASSERT PASSED : member number " + memberNumber
-				+ " is verified\n");
+		logMessage("ASSERT PASSED : member number / customer ID is "
+				+ memberNumber + " is verified\n");
 	}
 
 	public void verifyThankYouMessage() {

@@ -187,10 +187,10 @@ public class TestSessionInitiator {
 
 	public void launchApplication(String baseurl) {
 		try {
-
 			Reporter.log(
 					"The test browser is :- "
 							+ _getSessionConfig().get("browser") + "\n", true);
+		
 			deleteAllCookies();
 			driver.get(baseurl);
 			Reporter.log("\nThe application url is :- " + baseurl, true);
@@ -213,9 +213,7 @@ public class TestSessionInitiator {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-
 		}
-
 	}
 
 	public void openUrl(String url) {

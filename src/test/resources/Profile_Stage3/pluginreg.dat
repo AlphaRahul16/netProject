@@ -42,9 +42,9 @@ Adobe Acrobat|$
 5|application/vnd.adobe.xdp+xml| Acrobat XML Data Package|xdp|$
 6|application/vnd.adobe.xfd+xml|Adobe FormFlow99 Data File|xfd|$
 npGoogleUpdate3.dll|$
-C:\Program Files\Google\Update\1.3.29.1\npGoogleUpdate3.dll|$
-1.3.29.1|$
-1449463748750|0|0|0|$
+C:\Program Files\Google\Update\1.3.29.5\npGoogleUpdate3.dll|$
+1.3.29.5|$
+1454352918217|0|0|0|$
 Google Update|$
 Google Update|$
 2
@@ -112,15 +112,23 @@ NPRuntime Script Plug-in Library for Java(TM) Deploy|$
 Java Deployment Toolkit 7.0.800.5|$
 1
 0|application/java-deployment-toolkit|||$
-NPSWF32_20_0_0_267.dll|$
-C:\Windows\system32\Macromed\Flash\NPSWF32_20_0_0_267.dll|$
-20.0.0.267|$
-1451461333514|0|0|0|$
+NPSWF32_20_0_0_306.dll|$
+C:\Windows\system32\Macromed\Flash\NPSWF32_20_0_0_306.dll|$
+20.0.0.306|$
+1455090135796|0|0|0|$
 Shockwave Flash 20.0 r0|$
 Shockwave Flash|$
 2
 0|application/x-shockwave-flash|Adobe Flash movie|swf|$
 1|application/futuresplash|FutureSplash movie|spl|$
+npappdetector.dll|$
+C:\Users\avnishrawat\AppData\Local\Citrix\Plugins\104\npappdetector.dll|$
+1.0.0.104|$
+1452780581056|0|0|0|$
+Citrix Online App Detector Plugin|$
+Citrix Online Web Deployment Plugin 1.0.0.104|$
+1
+0|application/x-col-application-detector|Citrix Online App Detector Plugin|colappdetector|$
 
 [INVALID]
 c:\Program Files\Microsoft Silverlight\5.1.41105.0\npctrlui.dll|$
