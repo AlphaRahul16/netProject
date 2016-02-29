@@ -46,15 +46,18 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test {
 				"Selenium - Find Active Regular Member");
 		memberDetailsMap = test.memberShipPage.getMemberDetails_Iweb();
 		test.navigateToURL(test.homePageIWEB.map().get("Application URL"));
-
 		test.memNumLookupPage.enterMemberDetailsInMemberNumberLookup(
 				memberDetailsMap.get("firstName"),
 				memberDetailsMap.get("lastName"),
 				memberDetailsMap.get("emailID"));
 		test.memNumLookupPage.checkCertify();
 		test.memNumLookupPage.clickOnSubmitButton();
+		test.memNumLookupPage.verifyMemberName(
+				memberDetailsMap.get("firstName"),
+				memberDetailsMap.get("lastName"));
 		test.memNumLookupPage.verifyMemberNumber(memberDetailsMap
 				.get("memberNumber"));
+
 		test.memNumLookupPage.verifyThankYouMessage();
 	}
 
@@ -128,7 +131,7 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
 
-	@AfterClass(alwaysRun = true)
+	 @AfterClass(alwaysRun = true)
 	public void Close_Test_Session() {
 		test.closeBrowserSession();
 	}

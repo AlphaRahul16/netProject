@@ -4,7 +4,6 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.util.Calendar;
 
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;

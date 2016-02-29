@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.tools.ant.util.SymbolicLinkUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -14,8 +13,6 @@ import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DateUtil;
-
-import net.sourceforge.htmlunit.corejs.javascript.ast.SwitchCase;
 
 public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 

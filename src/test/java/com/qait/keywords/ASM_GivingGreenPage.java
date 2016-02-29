@@ -4,7 +4,6 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.GetPage;
 

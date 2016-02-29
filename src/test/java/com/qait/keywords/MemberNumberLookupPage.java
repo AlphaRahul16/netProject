@@ -1,5 +1,9 @@
 package com.qait.keywords;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 
 import com.qait.automation.getpageobjects.GetPage;
@@ -44,6 +48,17 @@ public class MemberNumberLookupPage extends GetPage {
 		isElementDisplayed("txt_memberNumber", memberNumber);
 		logMessage("ASSERT PASSED : member number / customer ID is "
 				+ memberNumber + " is verified\n");
+	}
+
+	public void verifyMemberName(String firstName, String lastName) {
+		isElementDisplayed("txt_memberName");
+		String MemberName = element("txt_memberName").getText();
+		String regex = ".*" + firstName + ".*" + lastName + ".*";
+		Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+		Matcher matcher = pattern.matcher(MemberName);
+		Assert.assertTrue(matcher.find());
+		logMessage("ASSERT PASSED : member name " + MemberName
+				+ " is verified\n");
 	}
 
 	public void verifyThankYouMessage() {

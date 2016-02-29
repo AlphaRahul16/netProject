@@ -2,15 +2,11 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
-import java.awt.AWTException;
-import java.awt.Menu;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,12 +14,9 @@ import org.apache.commons.lang3.text.WordUtils;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-import com.gargoylesoftware.htmlunit.javascript.host.file.FileReader;
 import com.qait.automation.getpageobjects.GetPage;
 import com.qait.automation.utils.YamlReader;
 

@@ -3,7 +3,6 @@ package com.qait.keywords;
 
 
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 
