@@ -57,8 +57,8 @@ public class MemberNumberLookupPage extends GetPage {
 		Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
 		Matcher matcher = pattern.matcher(MemberName);
 		Assert.assertTrue(matcher.find());
-		logMessage("ASSERT PASSED : member name " + MemberName
-				+ " is verified\n");
+		logMessage("ASSERT PASSED : member name "
+				+ MemberName.replaceAll("Member:", "") + " is verified\n");
 	}
 
 	public void verifyThankYouMessage() {

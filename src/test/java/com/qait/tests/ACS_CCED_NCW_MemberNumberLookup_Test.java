@@ -57,7 +57,6 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test {
 				memberDetailsMap.get("lastName"));
 		test.memNumLookupPage.verifyMemberNumber(memberDetailsMap
 				.get("memberNumber"));
-
 		test.memNumLookupPage.verifyThankYouMessage();
 	}
 

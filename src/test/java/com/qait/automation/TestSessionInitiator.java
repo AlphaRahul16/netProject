@@ -229,8 +229,9 @@ catch(NullPointerException e)
 		try {
 			Runtime.getRuntime().exec("taskkill /F /IM plugin-container.exe");
 		} catch (IOException e1) {
+			driver.quit();
 		}
-		driver.quit();
+		
 	}
 
 	public void deleteAllCookies() {

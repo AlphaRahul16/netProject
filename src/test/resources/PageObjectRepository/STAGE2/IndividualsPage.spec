@@ -42,4 +42,10 @@ txt_subscriptionEndDate                   xpath       (//th/a)[2]/../../followin
 txt_subscriptionIssueFulfilled           xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[9]
 txt_subscriptionStartIssue               xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[10]
 btnArrowProdName                         xpath       //td[contains(text(),'${prodName}')][1]/preceding-sibling::td[2]//i
+list_emailAddressType                    xpath         //tbody/tr/td[4]
+txt_emailID                             xpath          //tbody/tr[${rowNumber}]/td[5]
+link_addRecordEmail                     xpath          //a[@title='Add Record: e-mail addresses']
+select_emailType                        id               eml_type
+inp_emailAddress                        id              eml_address
+btn_saveButton                          id             ButtonSave
 ======================================================================================================================================
