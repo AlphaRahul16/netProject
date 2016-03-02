@@ -89,6 +89,8 @@
 					<systemProperties>
 						<tier>${tier}</tier>
 						<browser>${browser}</browser>
+						<seleniumserver>${serverName}</seleniumserver>
+						<seleniumserverhost>${hostAddress}</seleniumserverhost>
 						<systemProperty>
 							<name>testngxml</name>
 							<value>testngxml</value>

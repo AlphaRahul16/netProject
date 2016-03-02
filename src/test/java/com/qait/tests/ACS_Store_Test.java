@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.testng.ITestResult;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -163,10 +164,10 @@ public class ACS_Store_Test {
 		test.takescreenshot.takeScreenShotOnException(e);
 	}
 
-//	@AfterClass
-//	public void Close_Browser_Session() {
-//		test.closeBrowserSession();
-//	}
+	@AfterClass
+	public void Close_Browser_Session() {
+		test.closeBrowserSession();
+	}
 
 	@BeforeClass
 	public void OpenBrowserWindow() {

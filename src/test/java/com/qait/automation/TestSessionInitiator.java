@@ -164,31 +164,29 @@ public class TestSessionInitiator {
 		driver.manage().timeouts().implicitlyWait(Integer.parseInt(getProperty("timeout")), TimeUnit.SECONDS);
 	}
 
-	private Map<String, String> _getSessionConfig() {
-		String[] configKeys = { "tier", "browser", "seleniumserver", "seleniumserverhost", "timeout", "driverpath" };
-		Map<String, String> config = new HashMap<String, String>();
-		for (String string : configKeys) {
-try
-{
-			if(System.getProperty(string).isEmpty())
-			{
-			config.put(string, getProperty("./Config.properties", string));
-			}
-			else
-			{
-			config.put(string, System.getProperty(string));
-			}
-}
-		
+	 public Map<String, String> _getSessionConfig() {
+		    String[] configKeys = {"tier", "browser", "seleniumserver", "seleniumserverhost", "timeout", "driverpath"};
+		    Map<String, String> config = new HashMap<String, String>();
+		    for (String string : configKeys) {
+		      try {
+		        if (System.getProperty(string).isEmpty())
+		          config.put(string, getProperty("./Config.properties", string));
+		        else
+		          config.put(string, System.getProperty(string));
+		      } catch (NullPointerException e) {
+		        config.put(string, getProperty("./Config.properties", string));
+
+		      }
+		    }
+		    // for (Map.Entry<String, String> entry : config.entrySet()) {
+		    // System.out.println("Key = " + entry.getKey() + ", Value = " +
+		    // entry.getValue());
+		    // }
+		    return config;
+
+		  }
 	
-		
-catch(NullPointerException e)
-{
-	config.put(string, getProperty("./Config.properties", string));
-}
-		}
-		return config;
-	}
+
 	
 
 	public void launchApplication() {

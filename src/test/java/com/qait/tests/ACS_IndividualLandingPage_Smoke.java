@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.testng.ITestResult;
 import org.testng.Reporter;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Factory;
@@ -177,7 +178,7 @@ public class ACS_IndividualLandingPage_Smoke {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
 
-	// @AfterClass()
+	 @AfterClass()
 	public void Close_Test_Session() {
 		test.closeBrowserSession();
 	}
