@@ -21,10 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.pdfbox.cos.COSDocument;
-import org.apache.pdfbox.pdfparser.PDFParser;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.util.PDFTextStripper;
+
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -331,34 +328,34 @@ public class BaseUi {
 		}
 	}
 
-	public static String getPageTextOfPdf(String fileURL, int pageNumber) {
-		PDFParser parser;
-		String parsedText = null;
-
-		PDFTextStripper pdfStripper = null;
-		PDDocument pdDoc = null;
-		COSDocument cosDoc = null;
-
-		InputStream input;
-		try {
-			input = new URL(fileURL).openStream();
-			parser = new PDFParser(input);
-			parser.parse();
-			cosDoc = parser.getDocument();
-			pdfStripper = new PDFTextStripper();
-			pdDoc = new PDDocument(cosDoc);
-			pdfStripper.setStartPage(pageNumber);
-			pdfStripper.setEndPage(pageNumber);
-			parsedText = pdfStripper.getText(pdDoc);
-			cosDoc.close();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return parsedText;
-	}
+//	public static String getPageTextOfPdf(String fileURL, int pageNumber) {
+//		PDFParser parser;
+//		String parsedText = null;
+//
+//		PDFTextStripper pdfStripper = null;
+//		PDDocument pdDoc = null;
+//		COSDocument cosDoc = null;
+//
+//		InputStream input;
+//		try {
+//			input = new URL(fileURL).openStream();
+//			parser = new PDFParser(input);
+//			parser.parse();
+//			cosDoc = parser.getDocument();
+//			pdfStripper = new PDFTextStripper();
+//			pdDoc = new PDDocument(cosDoc);
+//			pdfStripper.setStartPage(pageNumber);
+//			pdfStripper.setEndPage(pageNumber);
+//			parsedText = pdfStripper.getText(pdDoc);
+//			cosDoc.close();
+//		} catch (MalformedURLException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return parsedText;
+//	}
 
 	protected void holdExecution(int milliSeconds) {
 		try {
