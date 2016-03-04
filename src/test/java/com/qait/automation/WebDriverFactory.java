@@ -20,33 +20,39 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
+
 import com.qait.automation.utils.ConfigPropertyReader;
 
 public class WebDriverFactory {
 	private static String browser;
+	String seleniumServer;
 	static String downloadFilePath = System.getProperty("user.dir")
-			   + File.separator + "src" + File.separator + "test" + File.separator
-			   + "resources" + File.separator + "DownloadedFiles";
+			+ File.separator + "src" + File.separator + "test" + File.separator
+			+ "resources" + File.separator + "DownloadedFiles";
 	private static final DesiredCapabilities capabilities = new DesiredCapabilities();
 
 	public WebDriver getDriver(Map<String, String> seleniumconfig) {
+
+		seleniumServer = seleniumconfig.get("seleniumserver");
+
 		browser = seleniumconfig.get("browser");
 
-		if (seleniumconfig.get("seleniumserver").equalsIgnoreCase("local")) {
+		if (seleniumServer.equalsIgnoreCase("local")) {
 			if (browser.equalsIgnoreCase("firefox")) {
 				return getFirefoxDriver();
 			} else if (browser.equalsIgnoreCase("chrome")) {
-				return getChromeDriver(seleniumconfig.get("driverpath")+"chromedriver.exe");
+				return getChromeDriver(seleniumconfig.get("driverpath")
+						+ "chromedriver.exe");
 			} else if (browser.equalsIgnoreCase("Safari")) {
 				return getSafariDriver();
 			} else if ((browser.equalsIgnoreCase("ie"))
 					|| (browser.equalsIgnoreCase("internetexplorer"))
 					|| (browser.equalsIgnoreCase("internet explorer"))) {
 				return getInternetExplorerDriver(seleniumconfig
-						.get("driverpath")+"IEDriverServer.exe");
+						.get("driverpath") + "IEDriverServer.exe");
 			}
 		}
-		if (seleniumconfig.get("seleniumserver").equalsIgnoreCase("remote")) {
+		if (seleniumServer.equalsIgnoreCase("remote")) {
 			return setRemoteDriver(seleniumconfig);
 		}
 		return new FirefoxDriver();
@@ -82,7 +88,7 @@ public class WebDriverFactory {
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--disable-extensions");
 		options.addArguments("test-type");
-		
+
 		DesiredCapabilities cap = DesiredCapabilities.chrome();
 		cap.setCapability(ChromeOptions.CAPABILITY, options);
 		return new ChromeDriver(cap);
@@ -101,8 +107,8 @@ public class WebDriverFactory {
 
 	private static WebDriver getFirefoxDriver() {
 		String firefoxProfilePath = "./src/test/resources/Profile_"
-			
-				+ ConfigPropertyReader.getProperty("tier");
+
+		+ ConfigPropertyReader.getProperty("tier");
 		FirefoxProfile profile;
 		String autoAuthPath = "src/test/resources/AddOn/autoauth-2.1-fx+fn.xpi";
 		File firefoxProfile = new File(firefoxProfilePath);// path of firefox
@@ -116,22 +122,23 @@ public class WebDriverFactory {
 			e.printStackTrace();
 		}
 		profile.setPreference("browser.cache.disk.enable", false);
-		 profile.setPreference("browser.download.useDownloadDir", true);
-		  profile.setPreference("browser.cache.disk.enable", false);
-		  profile.setPreference("browser.download.folderList", 2);
-		  profile.setPreference("browser.download.manager.alertOnEXEOpen", false);
-		  
-		  profile.setPreference(
-		    "browser.helperApps.neverAsk.saveToDisk",
-		    "application/msword, application/csv, application/ris, text/csv, application/pdf, text/plain, application/zip, application/x-zip, application/x-zip-compressed, application/download, application/octet-stream");
-		  profile.setPreference("browser.download.manager.showWhenStarting",
-		    false);
-		  profile.setPreference("browser.download.manager.focusWhenStarting",
-		    false);
-		  profile.setPreference("browser.download.dir", downloadFilePath);
-		  profile.setPreference("browser.download.manager.showAlertOnComplete", false);
-		  profile.setPreference("browser.download.manager.alertOnEXEOpen", false);
-		  profile.setPreference("pdfjs.disabled", true);
+		profile.setPreference("browser.download.useDownloadDir", true);
+		profile.setPreference("browser.cache.disk.enable", false);
+		profile.setPreference("browser.download.folderList", 2);
+		profile.setPreference("browser.download.manager.alertOnEXEOpen", false);
+
+		profile.setPreference(
+				"browser.helperApps.neverAsk.saveToDisk",
+				"application/msword, application/csv, application/ris, text/csv, application/pdf, text/plain, application/zip, application/x-zip, application/x-zip-compressed, application/download, application/octet-stream");
+		profile.setPreference("browser.download.manager.showWhenStarting",
+				false);
+		profile.setPreference("browser.download.manager.focusWhenStarting",
+				false);
+		profile.setPreference("browser.download.dir", downloadFilePath);
+		profile.setPreference("browser.download.manager.showAlertOnComplete",
+				false);
+		profile.setPreference("browser.download.manager.alertOnEXEOpen", false);
+		profile.setPreference("pdfjs.disabled", true);
 
 		return new FirefoxDriver(profile);
 	}

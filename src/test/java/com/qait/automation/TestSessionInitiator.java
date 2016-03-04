@@ -8,18 +8,14 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.Assert;
 import org.testng.Reporter;
 
 import com.qait.automation.utils.ConfigPropertyReader;
@@ -168,31 +164,29 @@ public class TestSessionInitiator {
 		driver.manage().timeouts().implicitlyWait(Integer.parseInt(getProperty("timeout")), TimeUnit.SECONDS);
 	}
 
-	private Map<String, String> _getSessionConfig() {
-		String[] configKeys = { "tier", "browser", "seleniumserver", "seleniumserverhost", "timeout", "driverpath" };
-		Map<String, String> config = new HashMap<String, String>();
-		for (String string : configKeys) {
-try
-{
-			if(System.getProperty(string).isEmpty())
-			{
-			config.put(string, getProperty("./Config.properties", string));
-			}
-			else
-			{
-			config.put(string, System.getProperty(string));
-			}
-}
-		
+	 public Map<String, String> _getSessionConfig() {
+		    String[] configKeys = {"tier", "browser", "seleniumserver", "seleniumserverhost", "timeout", "driverpath"};
+		    Map<String, String> config = new HashMap<String, String>();
+		    for (String string : configKeys) {
+		      try {
+		        if (System.getProperty(string).isEmpty())
+		          config.put(string, getProperty("./Config.properties", string));
+		        else
+		          config.put(string, System.getProperty(string));
+		      } catch (NullPointerException e) {
+		        config.put(string, getProperty("./Config.properties", string));
+
+		      }
+		    }
+		    // for (Map.Entry<String, String> entry : config.entrySet()) {
+		    // System.out.println("Key = " + entry.getKey() + ", Value = " +
+		    // entry.getValue());
+		    // }
+		    return config;
+
+		  }
 	
-		
-catch(NullPointerException e)
-{
-	config.put(string, getProperty("./Config.properties", string));
-}
-		}
-		return config;
-	}
+
 	
 
 	public void launchApplication() {
@@ -233,8 +227,9 @@ catch(NullPointerException e)
 		try {
 			Runtime.getRuntime().exec("taskkill /F /IM plugin-container.exe");
 		} catch (IOException e1) {
+			driver.quit();
 		}
-		driver.quit();
+		
 	}
 
 	public void deleteAllCookies() {

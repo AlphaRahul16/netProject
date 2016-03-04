@@ -20,17 +20,12 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
-import org.apache.pdfbox.cos.COSDocument;
-import org.apache.pdfbox.pdfparser.PDFParser;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.util.PDFTextStripper;
+
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -39,14 +34,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.Reporter;
 
-import com.google.common.base.Function;
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.SeleniumWait;
 
@@ -203,9 +195,9 @@ public class BaseUi {
 	protected void executeJavascript(String script) {
 		((JavascriptExecutor) driver).executeScript(script);
 	}
-	
+
 	protected Object executeJavascriptReturnValue(String script) {
-		return ((JavascriptExecutor) driver).executeScript("return "+script);
+		return ((JavascriptExecutor) driver).executeScript("return " + script);
 	}
 
 	protected Object executeJavascript1(Object script) {
@@ -233,43 +225,33 @@ public class BaseUi {
 			wait.resetExplicitTimeout(timeOut);
 			driver.switchTo().defaultContent();
 		} catch (Exception e) {
-		
-			
 			System.out.println("No Alert window appeared...");
 		}
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
 		
 	}
-	
-	protected void waitForAlertToAppear()
-	{
-		
-		   int i=0;
-		   Alert alert = null;
-		   while(i++<5)
-		   {
-		        try
-		        {
-	
-					alert = driver.switchTo().alert();
-					System.out.println("Switched to alert");
-		            break;
-		        }
-		        catch(NoAlertPresentException e)
-		        {
-		          try {
+
+	protected void waitForAlertToAppear() {
+		int i = 0;
+		Alert alert = null;
+		while (i++ < 5) {
+			try {
+				alert = driver.switchTo().alert();
+				System.out.println("Switched to alert");
+				break;
+			} catch (NoAlertPresentException e) {
+				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
-		          continue;
-		        }
-		   }
-		   alert.accept();
-           driver.switchTo().defaultContent();
+				continue;
+			}
 		}
-	
+		alert.accept();
+		driver.switchTo().defaultContent();
+	}
 
 	protected String getAlertText() {
 		try {
@@ -314,9 +296,9 @@ public class BaseUi {
 			logMessage("select Element " + el
 					+ " after catching Stale Element Exception");
 		} catch (Exception ex2) {
-sel.selectByVisibleText(text);
-	//logMessage("Element " + el + " could not be clicked! "
-	//				+ ex2.getMessage());
+			sel.selectByVisibleText(text);
+			// logMessage("Element " + el + " could not be clicked! "
+			// + ex2.getMessage());
 		}
 	}
 
@@ -353,34 +335,34 @@ sel.selectByVisibleText(text);
 		}
 	}
 
-	public static String getPageTextOfPdf(String fileURL, int pageNumber) {
-		PDFParser parser;
-		String parsedText = null;
-
-		PDFTextStripper pdfStripper = null;
-		PDDocument pdDoc = null;
-		COSDocument cosDoc = null;
-
-		InputStream input;
-		try {
-			input = new URL(fileURL).openStream();
-			parser = new PDFParser(input);
-			parser.parse();
-			cosDoc = parser.getDocument();
-			pdfStripper = new PDFTextStripper();
-			pdDoc = new PDDocument(cosDoc);
-			pdfStripper.setStartPage(pageNumber);
-			pdfStripper.setEndPage(pageNumber);
-			parsedText = pdfStripper.getText(pdDoc);
-			cosDoc.close();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return parsedText;
-	}
+//	public static String getPageTextOfPdf(String fileURL, int pageNumber) {
+//		PDFParser parser;
+//		String parsedText = null;
+//
+//		PDFTextStripper pdfStripper = null;
+//		PDDocument pdDoc = null;
+//		COSDocument cosDoc = null;
+//
+//		InputStream input;
+//		try {
+//			input = new URL(fileURL).openStream();
+//			parser = new PDFParser(input);
+//			parser.parse();
+//			cosDoc = parser.getDocument();
+//			pdfStripper = new PDFTextStripper();
+//			pdDoc = new PDDocument(cosDoc);
+//			pdfStripper.setStartPage(pageNumber);
+//			pdfStripper.setEndPage(pageNumber);
+//			parsedText = pdfStripper.getText(pdDoc);
+//			cosDoc.close();
+//		} catch (MalformedURLException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return parsedText;
+//	}
 
 	protected void holdExecution(int milliSeconds) {
 		try {
@@ -613,13 +595,14 @@ sel.selectByVisibleText(text);
 
 	public String getElementText(WebElement element) {
 		return element.getText();
-		
+
 	}
-	
-	public void selectDropDownValue(String value){
-		WebElement element=driver.findElement(By.xpath("//select/option[text()='"+value+"']"));
+
+	public void selectDropDownValue(String value) {
+		WebElement element = driver.findElement(By
+				.xpath("//select/option[text()='" + value + "']"));
 		element.click();
-		logMessage("Step : "+value+" is selected in drop down");
+		logMessage("Step : " + value + " is selected in drop down");
 	}
 
 	public void checkCheckbox(WebElement ele) {
@@ -635,24 +618,20 @@ sel.selectByVisibleText(text);
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("window.scrollBy(" + x + "," + y + ")", "");
 	}
-	public String ReverseStringWords(String sentence)
-	{
-		 String str[] = sentence.split(" ");
-		    String finalStr="";
-		        for(int i = str.length-1; i>= 0 ;i--){
-		            finalStr += str[i]+" ";
-		        }
-		        if(str.length==3)
-		        {
-		        	System.out.println("Name is of 3 letters ");
-		        	finalStr=str[2]+str[0]+str[1];
-		        }
-		        System.out.println("Name is of 3 letters "+finalStr);
-		    	return finalStr;
 
+	public String ReverseStringWords(String sentence) {
+		String str[] = sentence.split(" ");
+		String finalStr = "";
+		for (int i = str.length - 1; i >= 0; i--) {
+			finalStr += str[i] + " ";
+		}
+		if (str.length == 3) {
+			System.out.println("Name is of 3 letters ");
+			finalStr = str[2] + str[0] + str[1];
+		}
+		System.out.println("Name is of 3 letters " + finalStr);
+		return finalStr;
 
 	}
-	
-	
 
 }

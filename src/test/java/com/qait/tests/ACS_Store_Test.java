@@ -2,7 +2,6 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,13 +10,9 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
-import com.fasterxml.jackson.databind.ser.SerializerCache.TypeKey;
 import com.qait.automation.TestSessionInitiator;
-import com.qait.automation.report.ResultsIT;
 import com.qait.automation.utils.YamlReader;
 import com.qait.keywords.YamlInformationProvider;
 
@@ -169,10 +164,10 @@ public class ACS_Store_Test {
 		test.takescreenshot.takeScreenShotOnException(e);
 	}
 
-//	@AfterClass
-//	public void Close_Browser_Session() {
-//		test.closeBrowserSession();
-//	}
+	@AfterClass
+	public void Close_Browser_Session() {
+		test.closeBrowserSession();
+	}
 
 	@BeforeClass
 	public void OpenBrowserWindow() {

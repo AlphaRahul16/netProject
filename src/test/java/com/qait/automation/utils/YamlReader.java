@@ -12,11 +12,10 @@ import java.io.Reader;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.testng.Reporter;
 import org.yaml.snakeyaml.Yaml;
-
 import com.google.common.io.Files;
+import com.qait.automation.getpageobjects.Tiers;
 
 @SuppressWarnings("unchecked")
 public class YamlReader {
@@ -24,22 +23,18 @@ public class YamlReader {
 	public static String yamlFilePath = "";
 
 	public static String setYamlFilePath() {
-		String tier;
-		try
-		{
-		if(System.getProperty("tier").isEmpty())
-		{
-		 tier= getProperty("./Config.properties", "tier");
-		}
-		else
-		{
-	     tier= System.getProperty("tier");
-		}
-		}
-		catch(NullPointerException e)
-		{
-			 tier= getProperty("./Config.properties", "tier");
-		}
+		
+		String tier = "";
+	    try {
+	      if (System.getProperty("tier").contains("defaultTier") || System.getProperty("tier").isEmpty())
+	        tier = Tiers.valueOf(getProperty("Config.properties", "tier")).toString();
+	      else {
+	        tier = System.getProperty("tier");
+	      }
+	    } catch (NullPointerException e) {
+	      tier = Tiers.valueOf(getProperty("Config.properties", "tier")).toString();
+
+	    }
 		if (tier.equalsIgnoreCase("dev")) {
 			yamlFilePath = "src/test/resources/testdata/DEV_TestData.yml";
 
@@ -121,14 +116,10 @@ public class YamlReader {
 		return object;
 	}
 	
-
-
 	public static int generateRandomNumber(int MinRange, int MaxRange) {
 		int randomNumber = MinRange
 				+ (int) (Math.random() * ((MaxRange - MinRange) + 1));
 		return randomNumber;
 	}
 	
-	
-
 }

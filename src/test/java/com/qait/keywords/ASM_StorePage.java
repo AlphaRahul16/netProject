@@ -2,24 +2,17 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
-import com.qait.automation.getpageobjects.GetPage;
-import com.qait.automation.utils.DataProvider;
 import com.qait.automation.utils.YamlReader;
 
 public class ASM_StorePage extends ASCSocietyGenericPage {

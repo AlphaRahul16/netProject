@@ -15,16 +15,21 @@ app_url_MGM: https://ewebtest12.acs.org/NFStage2/mgm
 app_url_Meeting: https://ewebtest12.acs.org/NFStage2/meetings/2012gcec
 app_url_egift: https://ewebtest12.acs.org/NFStage2/egift
 app_url_Nominate: https://ewebtest12.acs.org/NFStage2/nominate
+app_url_MemberNumberLookup: https://ewebtest12.acs.org/NFStage2/membernumberlookup
+app_url_NCW: https://ewebtest12.acs.org/NFStage2/ncwlookup
 
 csv-data-file:
   path_OMA: ./src/test/resources/TestDataLibrary/OMA Business Rules.csv
   path_PriceValue: ./src/test/resources/TestDataLibrary/PriceValues.csv
   path_AACT_OMA: ./src/test/resources/TestDataLibrary/AACT_OMA_Data_Sheet.csv
   path_ACS_Store: ./src/test/resources/TestDataLibrary/ACS_Store_Sheet.csv
-  path_createMember: ./src/test/resources/TestDataLibrary/createMemberDataSheet.csv
   path_giving_donate: ./src/test/resources/TestDataLibrary/DonateDataSheet.csv
+  path_createMember: ./src/test/resources/TestDataLibrary/CreateMemberDataSheet.csv
   path_landingPage: ./src/test/resources/TestDataLibrary/IndividualLandingPageSheet.csv
-  path_createMember: ./src/test/resources/TestDataLibrary/createMemberDataSheet.csv
+  path_fellowNominate: ./src/test/resources/TestDataLibrary/FellowsNomination_DataSheet.csv
+  path_CCED_NCW_MemberNumberLookup: ./src/test/resources/TestDataLibrary/CCED_NCW_Data_Sheet.csv
+  data-separator: '\t'
+  has-header: true
 
   data-separator: '\t'
   has-header: true

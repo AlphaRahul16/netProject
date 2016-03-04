@@ -9,7 +9,6 @@ import junit.framework.Assert;
 import org.openqa.selenium.WebDriver;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
-import com.thoughtworks.selenium.Wait.WaitTimedOutException;
 
 public class BenefitsPage extends ASCSocietyGenericPage {
 

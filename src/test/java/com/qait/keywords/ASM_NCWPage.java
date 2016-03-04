@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
-import com.qait.automation.getpageobjects.GetPage;
 
 public class ASM_NCWPage extends ASCSocietyGenericPage {
 	WebDriver driver;

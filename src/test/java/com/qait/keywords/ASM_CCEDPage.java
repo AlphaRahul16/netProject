@@ -4,9 +4,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
-import com.gargoylesoftware.htmlunit.javascript.host.Map;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
-import com.qait.automation.getpageobjects.GetPage;
 
 public class ASM_CCEDPage extends ASCSocietyGenericPage {
 	WebDriver driver;

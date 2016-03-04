@@ -11,12 +11,10 @@ import java.util.Random;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-import com.fasterxml.jackson.databind.cfg.ConfigFeature;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.DateUtil;
@@ -284,7 +282,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(2);
 		clickOnEditNameAndAddress();
 		switchToFrame("iframe1");
-		//customerFname = getNameFromEditNameAndAddressButton("firstName");
+		// customerFname = getNameFromEditNameAndAddressButton("firstName");
 		customerLname = getNameFromEditNameAndAddressButton("lastName");
 		// clickOnSaveButtonForBillingAddress();
 		clickOnCancelButton();
@@ -779,6 +777,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			String nextYearDate = DateUtil
 					.getAddYearWithLessOnedayInStringWithGivenFormate(
 							"M/d/yyyy", "1", "EST5EDT");
+			
 			isStringMatching(rejoindate, nextYearDate);
 		} else {
 			isElementDisplayed("txt_expireDate_chapter", memberType);
@@ -1865,7 +1864,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		}
 	}
-	
+
 	public void goToAddMemebrshipAndFillDetails_LocalSectionAsFellowPrequisite() {
 		if (map().get("Is_localSectionMemberType?").equalsIgnoreCase("")) {
 			logMessage("Step : local section member is not mentioned in data sheet\n");
@@ -1949,8 +1948,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		handleAlert();
 
 		waitForSpinner();
+		System.out.println("actual:-" + map().get("memberPackage"));
+		System.out.println("expected:-" + map().get("priceValue?"));
 		verifyPrice(map().get("memberPackage"), map().get("priceValue?"));
 	}
+
 	public void goToAddMembershipAndFillDetails_membershipAsFellowPrequisite() {
 		wait.waitForPageToLoadCompletely();
 		clickOnSelectProduct();
@@ -2043,7 +2045,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 	}
 
-	public void goToAddMembershipAndFillDetails_DivisionAsFellowPrequisite(int numberOfDivisions) {
+	public void goToAddMembershipAndFillDetails_DivisionAsFellowPrequisite(
+			int numberOfDivisions) {
 
 		for (int i = 1; i <= numberOfDivisions; i++) {
 
@@ -2081,6 +2084,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		}
 	}
+
 	public String getTotalPrice() {
 		isElementDisplayed("txt_totalPrice");
 		return element("txt_totalPrice").getText();
@@ -2293,14 +2297,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		return memberDetails;
 
 	}
-	
-	public List<String> getCustomerFullNameAndContactID()
-	{
+
+	public List<String> getCustomerFullNameAndContactID() {
 
 		clickOnEditNameAndAddress();
 		switchToFrame("iframe1");
-		customerLname = getNameFromEditNameAndAddressButton("lastName")+" "+getNameFromEditNameAndAddressButton("firstName")+" "+
-		getNameFromEditNameAndAddressButton("middleName");
+		customerLname = getNameFromEditNameAndAddressButton("lastName") + " "
+				+ getNameFromEditNameAndAddressButton("firstName") + " "
+				+ getNameFromEditNameAndAddressButton("middleName");
 		clickOnCancelButton();
 		handleAlert();
 		switchToDefaultContent();
@@ -2308,13 +2312,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		System.out.println(customerContactId);
 		System.out.println(customerLname);
 		memberDetails.add(customerLname);
-		
+
 		memberDetails.add(customerContactId);
 		logMessage("Step : ");
 		return memberDetails;
 
 	}
-	
-	
 
 }

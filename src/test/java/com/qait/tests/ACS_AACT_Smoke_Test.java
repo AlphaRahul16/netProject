@@ -19,7 +19,6 @@ import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.utils.YamlReader;
-import com.qait.keywords.YamlInformationProvider;
 
 public class ACS_AACT_Smoke_Test {
 

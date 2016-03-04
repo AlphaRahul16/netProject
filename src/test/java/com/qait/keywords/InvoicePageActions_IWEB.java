@@ -15,8 +15,6 @@ import org.testng.Assert;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DateUtil;
 
-
-
 public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	WebDriver driver;
