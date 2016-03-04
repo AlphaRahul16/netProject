@@ -9,11 +9,14 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.Reader;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.testng.Reporter;
 import org.yaml.snakeyaml.Yaml;
+
+import com.google.common.io.Files;
 
 @SuppressWarnings("unchecked")
 public class YamlReader {
@@ -125,6 +128,7 @@ public class YamlReader {
 				+ (int) (Math.random() * ((MaxRange - MinRange) + 1));
 		return randomNumber;
 	}
+	
 	
 
 }

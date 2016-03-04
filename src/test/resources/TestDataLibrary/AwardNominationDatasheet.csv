@@ -1,0 +1,3 @@
+caseID	caseID Execute	Login_by_lastname?	SearchNomieeBy_memberNumber?	Nominee_MemberNumber	Nominee_name	EligibilityQuestions_NomineePosition	EligibilityQuestions_professionalDiscipline	SuggestCitation_Text	UploadFileFor_Recommendation?	Recommendation_Text	Supporter1_name	Supporter1_membernumber	Supporter2_name	Supporter2_membernumber
+1	Yes	Yes			John	This is test data for Nominee Position	This is test data for professional Discipiline	This is citation text	Yes		Sam	322677	ben	366788
+2	No		Yes	322788	Dave	This is test data for Nominee Position	This is test data for professional Discipiline	This is citation text		This is recommendation	evan	352677	luke	364788

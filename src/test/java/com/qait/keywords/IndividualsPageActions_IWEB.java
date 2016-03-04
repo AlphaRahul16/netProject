@@ -1307,4 +1307,11 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			addEmail_NCW_CCED(emailType, emailAddress);
 		}
 	}
+	
+	public void selectRandomGeneralAward_AwardNomination(String awardName)
+	{
+		isElementDisplayed("txt_divisionPubName",awardName);
+		element("txt_divisionPubName",awardName).click();
+		logMessage("Step: General Award "+awardName+" is selected from the list\n");
+	}
 }

@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import org.testng.Reporter;
@@ -20,10 +21,10 @@ public class DateUtil {
 		Date date;
 		date = new Date(unixSeconds);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z"); // the
-																				// format
-																				// of
-																				// your
-																				// date
+		// format
+		// of
+		// your
+		// date
 		String formattedDate = sdf.format(date);
 		return formattedDate;
 	}
@@ -93,6 +94,29 @@ public class DateUtil {
 		return date;
 	}
 
+	public static String getAnyDateForType(String formate,int difference,String type)
+	{
+		SimpleDateFormat formatter = new SimpleDateFormat(formate);
+		Calendar cal = Calendar.getInstance();
+		if(type.equalsIgnoreCase("year"))
+		{
+			System.out.println(cal.getTime());
+		cal.add(Calendar.YEAR, difference); 
+		System.out.println(cal.getTime());// to get previous year add -1
+		}
+		else if(type.equalsIgnoreCase("month"))
+		{
+			cal.add(Calendar.MONTH, difference);
+		}
+		else if(type.equalsIgnoreCase("date"))
+		{
+			cal.add(Calendar.DAY_OF_MONTH, difference);
+		}
+		String nextYear = formatter.format(cal.getTime());
+		System.out.println("year"+nextYear);
+		return nextYear;
+	}
+
 	public static String getAddYearWithLessOnedayInStringWithGivenFormate(
 			String formate, String yearToAdd,String timeZone) {
 		int yearToAddInInteger = Integer.parseInt(yearToAdd);
@@ -105,54 +129,56 @@ public class DateUtil {
 		return ourformat;
 
 	}
-	
+
 	public static String getCurrentdateInStringWithGivenFormateForTimeZone(String formate,String timeZone) {
 		DateFormat df=new SimpleDateFormat(formate);
 		df.setTimeZone(TimeZone.getTimeZone(timeZone));
 		String date = df.format(new Date());
 		return date;
 	}
-	
+
 	public static Date convertStringToDate(String dateString,String formate)
 	{
 		DateFormat sourceFormat = new SimpleDateFormat(formate);
 		try {
-			 date = sourceFormat.parse(dateString);
+			date = sourceFormat.parse(dateString);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return date;
 	}
-	
-	
+
+
 	public static String getCurrentTime(String timeFormat, String timeZone)
-	   {
-		
-	      /* Specifying the format */ 
-	      DateFormat dateFormat = new SimpleDateFormat(timeFormat);
-	      /* Setting the Timezone */
-	      Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(timeZone));
-	      dateFormat.setTimeZone(cal.getTimeZone());
-	      cal.add(Calendar.MINUTE, -2);
-	      /* Picking the time value in the required Format */
-	      String currentTime = dateFormat.format(cal.getTime());
-	      DateFormat sourceFormat = new SimpleDateFormat(timeFormat);
-			try {
-				 date = sourceFormat.parse(currentTime);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	      return currentTime;
-	   }
-	
+	{
+
+		/* Specifying the format */ 
+		DateFormat dateFormat = new SimpleDateFormat(timeFormat);
+		/* Setting the Timezone */
+		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(timeZone));
+		dateFormat.setTimeZone(cal.getTimeZone());
+		cal.add(Calendar.MINUTE, -2);
+		/* Picking the time value in the required Format */
+		String currentTime = dateFormat.format(cal.getTime());
+		DateFormat sourceFormat = new SimpleDateFormat(timeFormat);
+		try {
+			date = sourceFormat.parse(currentTime);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return currentTime;
+	}
+
 	public static int getCurrentYear()
 	{
-	
+
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		System.out.println("Current Year is : "+year);
 		return year;
 	}
+	
+
 
 }

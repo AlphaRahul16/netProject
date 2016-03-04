@@ -74,14 +74,14 @@ public class ACS_FellowNominate {
     	memberDetails = test.memberShipPage.getCustomerFullNameAndContactID();
     	test.launchApplication(app_url_nominateFellow);
 		test.asm_FellowNomiate.loginInToApplicationByLastNameAndMemberNumber(memberDetails.get(0).split(" ")[0],memberDetails.get(1));
-    	//test.asm_FellowNomiate.loginInToApplicationByLastNameAndMemberNumber("LN1455709562088","30956112");
+    	//test.asm_FellowNomiate.loginInToApplicationByLastNameAndMemberNumber("LN1456391564816 ","30956154");
      	test.asm_FellowNomiate.verifyUserIsOnFellowsDashboard();
 	}
 	
 	@Test 	// For Individual
 	public void Step03_TC03_Nominate_For_Individual_FellowType() {
 	  	
-		test.asm_FellowNomiate.clickPrintPDFButton("Individual Nomination");
+
 		test.asm_FellowNomiate.preRequisiteForACSIndividualNomination("Individual", "Name",getFellowNominated.getASM_fellowNominated("NomineeName"),"education");
 		test.asm_FellowNomiate.fillAllRequiredDetailsToSubmitACSFellowsNominations("Individual");
 		test.asm_FellowNomiate.clickReturnToDashBoardButton();
@@ -113,7 +113,7 @@ public class ACS_FellowNominate {
     
 
 	@Test(dataProvider = "test1")
-	public void Step03_TC03_Navigate_To_Iweb_And_Verify_Nomination_Details(String FellowType) {
+	public void Step06_TC06_Navigate_To_Iweb_And_Verify_Nomination_Details(String FellowType) {
 	     test.launchApplication(app_url_IWEB);
 	     test.homePageIWEB.enterAuthentication("C00186","ACS2016!");
 		test.homePageIWEB.clickOnModuleTab();

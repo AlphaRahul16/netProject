@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.LineIterator;
+
 public class DataProvider {
 	static String ASM_dataSheet = YamlReader.getYamlValue("ASM_Data_File.path");
 	static String ASM_dataSheetSeparator = YamlReader
@@ -291,9 +294,59 @@ public class DataProvider {
 	
 	
 	
-	
-	
-	  
+	public static String getRandomSpecificLineFromTextFile(String FileName)
+	{
+		YamlReader.setYamlFilePath();
+		FileName=getYamlValue(("csv-data-file.path_" + FileName));
+		LineIterator it = null;
+		int lines = 0;
+		String line = null;
+		BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(new FileReader(FileName));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 
+		try {
+			while (reader.readLine() != null) lines++;
+			reader.close();
+		}
+		catch(IOException e)
+		{
+			System.out.println("Execption");
+		}
+	
+		
+		System.out.println("lines"+lines);
+	
+		try {
+			it = IOUtils.lineIterator(
+				       new BufferedReader(new FileReader(FileName)));
+		} catch (FileNotFoundException e1) {
+			
+			e1.printStackTrace();
+		}
+lines=YamlReader.generateRandomNumber(1, lines);
+System.out.println("after lines"+lines);
+			 for (int lineNumber = 0; it.hasNext(); lineNumber++) {
+			     line = (String) it.next();
+			     System.out.println(lineNumber+"..."+lines);
+			    if (lineNumber == lines) {
+			        break;
+			    }
+			 }
+			 System.out.println(line);
+			 return line;
+	}
 
+	
 }
+
+	
+	
+	
+	
+	 
+
+
