@@ -1116,14 +1116,20 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 						multiYear, "EST5EDT");
 		isElementDisplayed("txt_term" + start_EndDate, productName);
 		if (start_EndDate.equalsIgnoreCase("StartDate")) {
+			System.out.println(element("txt_term" + start_EndDate, productName)
+					.getText().trim());
+			System.out.println(currentDate);
 			Assert.assertTrue(element("txt_term" + start_EndDate, productName)
 					.getText().trim().equalsIgnoreCase(currentDate));
-			logMessage("AASERT PASSED : termStartDate is " + currentDate
+			logMessage("ASSERT PASSED : termStartDate is " + currentDate
 					+ " verified");
 		} else if (start_EndDate.equalsIgnoreCase("EndDate")) {
+			System.out.println(element("txt_term" + start_EndDate, productName)
+					.getText().trim());
+			System.out.println(nextYearDate);
 			Assert.assertTrue(element("txt_term" + start_EndDate, productName)
 					.getText().trim().equalsIgnoreCase(nextYearDate));
-			logMessage("AASERT PASSED : termEndDate is " + nextYearDate
+			logMessage("ASSERT PASSED : termEndDate is " + nextYearDate
 					+ " verified");
 		}
 
@@ -1207,43 +1213,42 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 		if (detailName.equalsIgnoreCase("StartIssue")) {
 			Assert.assertTrue(actual.startsWith(expected));
-			logMessage("AASERT PASSED : " + detailValue + " is verified for "
+			logMessage("ASSERT PASSED : " + detailValue + " is verified for "
 					+ detailName + " \n");
 		} else {
 			Assert.assertTrue(actual.equalsIgnoreCase(expected));
-			logMessage("AASERT PASSED : " + detailValue + " is verified for "
+			logMessage("ASSERT PASSED : " + detailValue + " is verified for "
 					+ detailName + " \n");
 		}
 
 	}
-	
-	public void selectFeildValue(String feildName, String feildValue)
-	{
+
+	public void selectFeildValue(String feildName, String feildValue) {
 		wait.hardWait(2);
-		isElementDisplayed("inp_fieldSelect",feildName);
-		selectProvidedTextFromDropDown(element("inp_fieldSelect",feildName), feildValue);
+		isElementDisplayed("inp_fieldSelect", feildName);
+		selectProvidedTextFromDropDown(element("inp_fieldSelect", feildName),
+				feildValue);
 		logMessage("STEP : " + feildValue + " as " + feildValue
 				+ " is entered in inp_fieldSelect\n");
 	}
-	
-	public void SelectFellowNominatorForVerification(String NomineeName,String NominatorName)
-	{
-		//System.out.println(element("txt_NominatorName", NomineeName).getText());
-		if(element("txt_NominatorName", NomineeName).getText().equals(NominatorName))
-		{
+
+	public void SelectFellowNominatorForVerification(String NomineeName,
+			String NominatorName) {
+		// System.out.println(element("txt_NominatorName",
+		// NomineeName).getText());
+		if (element("txt_NominatorName", NomineeName).getText().equals(
+				NominatorName)) {
 			click(element("txt_NominatorName", NomineeName));
-			//element("txt_NominatorName", NomineeName).click();
-			clickUsingXpathInJavaScriptExecutor(element("txt_NominatorName", NomineeName));
-			logMessage("Step : Nominee fellow selected from the list as "+NomineeName);
-		}
-		else
-		{
+			// element("txt_NominatorName", NomineeName).click();
+			clickUsingXpathInJavaScriptExecutor(element("txt_NominatorName",
+					NomineeName));
+			logMessage("Step : Nominee fellow selected from the list as "
+					+ NomineeName);
+		} else {
 			logMessage("Step : Nominee Fellow is not present in the list\n");
 		}
-		
-	}
 
-	
+	}
 
 	public void addEmail_NCW_CCED(String emailType, String emailID) {
 		clickOnAddButton();

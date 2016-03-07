@@ -48,90 +48,6 @@ creditCardInfo:
   Number: "4111111111111111"
   cvv-number: 123
   CreditCardExpiration: 06/2016
-  
-users: 
-    user1: 
-        contact-information:
-            name:
-                firstname: RegMem123
-                lastname: lastName123
-            email: ACS_OMA@acs.org
-            phone: 8888888888
-            address: 
-                type: Work
-                address: jacksonville
-                city: florida
-                country: Thailand
-                state: New York
-                zipCode: 32256-7220
-        education-and-employment:        
-            CASEID: 4
-
-#    user2: 
-#        contact-information:
-#            name:
-#                firstname: RegMem123
-#                lastname: lastName123
-#            email: ACS_OMA@acs.org
-#            phone: 8888888888
-#            address: 
-#                type: Work
-#                address: jacksonville
-#                city: florida
-#                country: Thailand
-#                state: New York
-#                zipCode: 32256-7220
-#        education-and-employment:
-#            CASEID: 8
-#    user3: 
-#        contact-information:
-#            name:
-#                firstname: RegMem123
-#                lastname: lastName123
-#            email: ACS_OMA@acs.org
-#            phone: 8888888888
-#            address: 
-#                type: Work
-#                address: jacksonville
-#                city: florida
-#                country: Thailand
-#                state: New York
-#                zipCode: 32256-7220
-#        education-and-employment:
-#            CASEID: 5
-#    user4: 
-#        contact-information:
-#            name:
-#                firstname: RegMem123
-#                lastname: lastName123
-#            email: ACS_OMA@acs.org
-#            phone: 8888888888
-#            address: 
-#                type: Work
-#                address: jacksonville
-#                city: florida
-#                country: Thailand
-#                state: New York
-#                zipCode: 32256-7220
-#        education-and-employment:
-#            CASEID: 6
-
-
-
-
-
-
-          
-     
-AACT_users: 
-    user1: 
-        CASEID: 2
-#    user2:  
-#        CASEID: 3
-
-
-   
-
             
 reinstateUsers: 
     user1: 
@@ -145,9 +61,7 @@ reinstateUsers:
                 zipCode: 32256-7220
         education-and-employment:
             CASEID: 1            
-      
-      
-           
+    
 OMA_SmokeChecklistData:
     firstname: fname
     lastname: lname
@@ -233,12 +147,14 @@ ASM_emailSmokeChecklistData:
          password: password
     LoginErrorMessage: We're sorry, there was a problem with your log in attempt. Please try again. If the problem persists, please e-mail service@acs.org or call 800-333-9511 (US Only) or 614-447-3776. We are sorry for any inconvenience.
     InvalidEmailFailMessage: Please enter a valid Email Address   
-    
+
+
 ASM_EGift_SmokeChecklistData: 
     firstName: Frank
     lastName: clark
     recipientEmail: clark@gmail.com
     errorMessage: Email must be in a valid format
+    
     
 ASM_fellowNominatedSmokeChecklistData: 
     LoginInfo:
@@ -254,7 +170,6 @@ ASM_fellowNominatedSmokeChecklistData:
     memberNameSearchError: Only ACS members in good standing are eligible to be nominated as Fellows. If you do not see the person you're trying to nominate, they are not eligible. Please contact the Fellows office by email fellows@acs.org or phone 202-872-4431 for more information.
     memberNumberSearchError: Can't find the person you're looking for? Try finding by name          
                
-    
     
 ASM_Donate_SmokeChecklistData:
     userName: ADEMASI
@@ -337,6 +252,7 @@ ASM_OMR_SmokeChecklistData:
     creditCardErrorMessage: "Please enter a valid credit card number."
     pageOnMakePayment: Renewal Receipt
     
+    
 ASM_MGM_SmokeChecklistData: 
     userName: ADEMASI
     password: password
@@ -402,6 +318,7 @@ ReinstateMemberIWEB:
          province: province 123
          mail: mail123@test.com 
          
+         
 SubscriptionFulfillment: 
     productCode: 2300
     fulfillmentType: Current
@@ -438,6 +355,7 @@ SubscriptionFulfillment:
          previewStatus: committed
          commitScheduledTask: "Yes"
          startLapTimeInMinutes: 5       
+           
            
 ASM_URLRejectedErrorMsz: "The requested URL was rejected."
 ASMErrorPageTitle: Request Rejected
