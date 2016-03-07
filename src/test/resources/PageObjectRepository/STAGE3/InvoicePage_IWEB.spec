@@ -36,6 +36,5 @@ table_productPrice              xpath                 //td[contains(text(),'${va
 txt_givingInvoiceEmailPost      xpath                 //a[contains(@id,'Email/Post ')]/../../following-sibling::tr/td[5]
 txt_givingInvoiceOtherProgram   xpath                 //a[contains(@id,'Other Fund Name')]/../../following-sibling::tr/td[6]
 txt_emailStatus                 xpath                 //label[@id='Caption_F1_inv_email_confirm_sent_flag']/preceding-sibling::span
-
 ====================================================================================================================================
 

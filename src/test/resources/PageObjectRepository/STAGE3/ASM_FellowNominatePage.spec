@@ -4,7 +4,7 @@ Page Title: ASM_FellowNominatePage
 =======================================================================================================================================================================================
 inp_username                                                xpath                            //input[contains(@id,'Credential1')]
 inp_password                                                xpath                            //input[contains(@id,'Credential2')]
-btn_login                                                   id                               btnLogin
+btn_login                                                   css                                 input[id*='btnLogin']
 txt_loginErrorMessage                                       xpath                            //p/span[contains(@id,'Login_lblMessage')]
 hdng_welcome                                                xpath                            //legend[text()='Contact Information']
 btn_startNomination                                         xpath                            //input[contains(@id,'btnStart')]
@@ -88,4 +88,6 @@ btn_codeofconduct_checked                                   css                 
 btn_previewNomination                                       id                                  btnPreviewNomination
 btn_view                                                    css                                 input[value='View']
 btn_home                                                    classname                           home
+txt_errmsg_renomination                                     css                                 span[id*='CantFind']
+btn_nominatorAdressConfirm                                  id                                  submitInfo                
 =======================================================================================================================================================================================

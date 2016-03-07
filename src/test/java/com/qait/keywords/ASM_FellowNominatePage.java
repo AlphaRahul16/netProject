@@ -52,9 +52,10 @@ public class ASM_FellowNominatePage extends GetPage {
 	}
 
 	private void clickPreviewNominationButton() {
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
 		isElementDisplayed("btn_previewNomination");
-		click(element("btn_previewNomination"));
-		logMessage("Preview Nomination Button clicked\n");
+		element("btn_previewNomination").click();
 	}
 
 	private void clickLastNameMemberNumberRadiobutton() {
@@ -204,7 +205,15 @@ public class ASM_FellowNominatePage extends GetPage {
 		clickOnContinueWithNomination();
 		clickOnConfirmSelection();
 		System.out.println(mapFellowNomineeDetails.get("Nominee " + NominationType));
-		selectSearchTypeAndSearchNominee(searchType, mapFellowNomineeDetails.get("Nominee " + NominationType));
+		selectSearchTypeAndSearchNominee(searchType, ReverseStringWords(mapFellowNomineeDetails.get("Nominee " + NominationType)));
+		//verifyErrorMessageForReNomination();
+	
+	}
+	private void verifyErrorMessageForReNomination() {
+		wait.hardWait(2);
+		wait.waitForElementToBeVisible(element("txt_errmsg_renomination"));
+		Assert.assertTrue(element("txt_errmsg_renomination").getText().contains("We were unable to locate a person with the information you provided"));
+		logMessage("ASSERT PASSED : Error message for re-nomination of same persion verified as "+element("txt_errmsg_renomination").getText());
 	}
 
 	private void saveNomineeInformation(String NominationType) {
@@ -212,6 +221,7 @@ public class ASM_FellowNominatePage extends GetPage {
 		NomineeName = ReverseStringWords(element("txt_NomineeName").getText());
 		System.out.println("Nominee Name " + NomineeName);
 		mapFellowNomineeDetails.put("Nominee " + NominationType, NomineeName);
+		logMessage("Nominee Name for "+NominationType+" is "+NomineeName);
 
 	}
 
@@ -919,6 +929,7 @@ public class ASM_FellowNominatePage extends GetPage {
 		verifyTabOnDashboard("My Fellows Nominations");
 
 	}
+	
 
 	private void verifyTabOnDashboard(String tabname) {
 		wait.waitForPageToLoadCompletely();
@@ -1059,6 +1070,7 @@ public class ASM_FellowNominatePage extends GetPage {
 				System.out.println(element("txt_fellowIwebDetails", toString().valueOf(index)).getText());
 				Assert.assertTrue(element("txt_fellowIwebDetails", toString().valueOf(index)).getText().trim()
 						.equals(ProfessionalOrg[i].trim()));
+				logMessage("ASSERT PASSED : details in "+MenuName+" verified as "+ProfessionalOrg[i].trim());
 				index++;
 			}
 		} else if (MenuName.equals("honors and awards")) {
@@ -1066,6 +1078,7 @@ public class ASM_FellowNominatePage extends GetPage {
 				System.out.println(element("txt_fellowIwebDetails", toString().valueOf(index)).getText());
 				Assert.assertTrue(element("txt_fellowIwebDetails", toString().valueOf(index)).getText().trim()
 						.equals(honors[i].trim()));
+				logMessage("ASSERT PASSED : details in "+MenuName+" verified as "+honors[i].trim());
 				index++;
 			}
 		} else {
@@ -1073,6 +1086,7 @@ public class ASM_FellowNominatePage extends GetPage {
 				System.out.println(element("txt_fellowIwebDetails", toString().valueOf(index)).getText());
 				Assert.assertTrue(element("txt_fellowIwebDetails", toString().valueOf(index)).getText().trim()
 						.equals(AcsServicesArray[i].trim()));
+				logMessage("ASSERT PASSED : details in "+MenuName+" verified as "+AcsServicesArray[i].trim());
 				index++;
 			}
 		}
@@ -1106,6 +1120,10 @@ public class ASM_FellowNominatePage extends GetPage {
 		expandDetailsMenu("professional organization affiliation");
 		verifyServiceToAcsDetailsForFellowNomination("professional organization affiliation");
 		collapseDetailsMenu("professional organization affiliation");
+		
+
+		expandDetailsMenu("nominee letters");
+		collapseDetailsMenu("nominee letters");
 
 	}
 
@@ -1159,7 +1177,7 @@ public class ASM_FellowNominatePage extends GetPage {
 		logMessage("Step : Print PDF button is clicked for " + Fellowtype + "\n");
 		Assert.assertTrue(isFileDownloaded(downloadFilePath, "FellowsNomination"),
 				"Failed to download Expected document");
-
+logMessage("ASSERT PASSED : Pdf file downloaded for "+Fellowtype+" submitted nomination\n");
 	}
 
 	public boolean isFileDownloaded(String downloadPath, String fileName) {
@@ -1173,7 +1191,7 @@ public class ASM_FellowNominatePage extends GetPage {
 			if (dir_contents[i].getName().contains(fileName))
 				return flag = true;
 		}
-
+    
 		return flag;
 	}
 
@@ -1185,6 +1203,13 @@ public class ASM_FellowNominatePage extends GetPage {
 
 		// prints
 		System.out.println("Downloaded File deleted: " + bool);
+	}
+
+	public void clickOnConfirmNominatorAdressDetailsIfAppears_AwardNomination() {
+	
+		isElementDisplayed("btn_nominatorAdressConfirm");
+		element("btn_nominatorAdressConfirm").click();
+		logMessage("Step : Nominator address details confirmed/n");
 	}
 
 	

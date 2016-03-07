@@ -120,7 +120,11 @@ public class BaseUi {
 			expectedPagetitle = getCurrentURL();
 		}
 		try {
+			wait.resetImplicitTimeout(2);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			wait.waitForPageTitleToContain(expectedPagetitle);
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
 		} catch (TimeoutException exp) {
 			String actualPageTitle = driver.getTitle().trim();
 			logMessage("ASSERT FAILED: As actual Page Title: '"
@@ -132,6 +136,8 @@ public class BaseUi {
 		String actualPageTitle = getPageTitle().trim();
 		logMessage("ASSERT PASSED: PageTitle for " + actualPageTitle
 				+ " contains: '" + expectedPagetitle + "'.");
+				wait.resetImplicitTimeout(timeOut);
+				wait.resetExplicitTimeout(timeOut);
 	}
 
 	protected WebElement getElementByIndex(List<WebElement> elementlist,
@@ -219,10 +225,11 @@ public class BaseUi {
 			wait.resetExplicitTimeout(timeOut);
 			driver.switchTo().defaultContent();
 		} catch (Exception e) {
-			wait.resetImplicitTimeout(timeOut);
-			wait.resetExplicitTimeout(timeOut);
 			System.out.println("No Alert window appeared...");
 		}
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
+		
 	}
 
 	protected void waitForAlertToAppear() {
@@ -430,6 +437,13 @@ public class BaseUi {
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].click();", element);
 
+	}
+	
+	public void EnterTextInField(String id,String Text) {
+		System.out.println(Text);
+		//element.sendKeys(Text);
+		executeJavascript("document.getElementById('"+id+"').setAttribute('value', '"+Text+"')");
+        logMessage("Step : text entered as "+Text);
 	}
 
 	public void sendKeysUsingXpathInJavaScriptExecutor(WebElement element,

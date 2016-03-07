@@ -290,7 +290,7 @@ ACS_Store:
     maxWaitTimeForPrintMessage: 30
     members:
          member1: 
-            CASEID: 2
+            CASEID: 1
 #         member2: 
 #            CASEID: 2
     

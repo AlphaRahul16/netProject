@@ -2,15 +2,16 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DateUtil;
 
@@ -648,5 +649,15 @@ verifyProductDetailsWhenProgramIsNotPledgedForIndividualLandingPage(Amount,produ
 			logMessage("ASSERT PASSED : Email verification on feild email? is verified as Yes\n");
 		}
 	}
+	
+	public void verifyStartDateIsNotEmpty_AwardsNomination()
+	{
+		for (WebElement iterable_element : elements("table_description")) {
+		System.out.println(iterable_element.getText().length());
+		Assert.assertTrue(iterable_element.getText().length()==0);
+		}
+	}
+	
+	
 
 }

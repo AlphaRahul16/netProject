@@ -2,12 +2,14 @@ package com.qait.keywords;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.qait.automation.utils.DateUtil;
 
 public class FundProfilePage extends ASCSocietyGenericPage
 {
@@ -15,7 +17,7 @@ public class FundProfilePage extends ASCSocietyGenericPage
 	int timeOut, hiddenFieldTimeOut;
 	int donationCount=0;
 	Map<String,String> mapFundOrder = new HashMap<String,String>();
-	
+    List<Integer> AwardsNominateDateCompareList=new ArrayList<Integer>();
 	
 	public FundProfilePage(WebDriver driver) {
 		super(driver, "FundProfilePage");
@@ -176,6 +178,69 @@ public class FundProfilePage extends ASCSocietyGenericPage
 		}
 		return mapFundOrder;
 	}
+
+	public void editpostToWebAndRemoveFromWebDates_AwardNomination()
+	{
+		System.out.println("flag"+isCurrentDateFallsBetweenTwoDates(element("inp_invoiceValue","post to web").getText().trim(),element("inp_invoiceValue","remove from web").getText().trim()));
+		if(isCurrentDateFallsBetweenTwoDates(element("inp_invoiceValue","post to web").getText().trim(),element("inp_invoiceValue","remove from web").getText().trim())==true)
+		{
+			clickEditButtonOnAwardsProfile();
+			editPostToAndRemoveFromDatesForAwardNomination();
+	
+		}
+	}
+	private void editPostToAndRemoveFromDatesForAwardNomination() {
+		switchToFrame(element("iframeMessageMenu"));
+	   if(AwardsNominateDateCompareList.get(0)==-1)
+	   {
+		   System.out.println("post "+DateUtil.getAnyDateForType("MM/dd/yyyy",-1,"year"));
+		   EnterTextInField("awh_post_to_web_date", DateUtil.getAnyDateForType("MM/dd/yyyy",-1,"year"));
+	   }
+	   if(AwardsNominateDateCompareList.get(1)==1)
+	   {
+		   System.out.println("remove "+DateUtil.getAnyDateForType("MM/dd/yyyy",1,"year"));
+		   EnterTextInField("awh_remove_from_web_date",DateUtil.getAnyDateForType("MM/dd/yyyy",1,"year"));
+	   }
+	
+	   clickSaveButtonInAwardNomination();
+	}
+
+	private void clickSaveButtonInAwardNomination() {
+	    isElementDisplayed("btn_save");
+	    click(element("btn_save"));
+	    switchToDefaultContent();
+	    logMessage("Step : Save button clicked in btn_save");
+		
+	}
+
+	private void clickEditButtonOnAwardsProfile() {
+		isElementDisplayed("img_editAwards");
+		click(element("img_editAwards"));
+		logMessage("Step : Edit Button is clicked in img_editAwards\n");
+		
+	}
+
+	private boolean isCurrentDateFallsBetweenTwoDates(String postToWeb,String removeFromWeb)
+	{
+		boolean flag=true;
+		int comaprePostToWeb;
+		int compareRemoveFromWeb;
+		comaprePostToWeb=DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),"MM/dd/yyyy").compareTo(
+			DateUtil.convertStringToDate(postToWeb,"MM/dd/yyyy"));
+		AwardsNominateDateCompareList.add(comaprePostToWeb);
+		compareRemoveFromWeb=DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),"MM/dd/yyyy").compareTo(
+				DateUtil.convertStringToDate(removeFromWeb,"MM/dd/yyyy"));
+		AwardsNominateDateCompareList.add(compareRemoveFromWeb);
+		System.out.println("postToWeb"+postToWeb);
+		System.out.println("compareRemoveFromWeb"+compareRemoveFromWeb);
+		if((comaprePostToWeb==1||compareRemoveFromWeb==0)&&(compareRemoveFromWeb==-1||compareRemoveFromWeb==0))
+				{
+			flag=false;
+				}
+		return flag;
+		
+	}
+	
 
 
 	

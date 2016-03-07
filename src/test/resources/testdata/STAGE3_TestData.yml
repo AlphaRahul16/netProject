@@ -28,6 +28,8 @@ csv-data-file:
   path_landingPage: ./src/test/resources/TestDataLibrary/IndividualLandingPageSheet.csv
   path_fellowNominate: ./src/test/resources/TestDataLibrary/FellowsNomination_DataSheet.csv
   path_CCED_NCW_MemberNumberLookup: ./src/test/resources/TestDataLibrary/CCED_NCW_Data_Sheet.csv
+  path_AwardNomination: ./src/test/resources/TestDataLibrary/AwardNominationDatasheet.csv
+  path_GeneralAwardList: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument.txt
   data-separator: '\t'
   has-header: true
   
