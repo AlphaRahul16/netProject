@@ -62,4 +62,31 @@ txt_successNomination                                       classname           
 inp_upload                                                  xpath                               //input[@id='fuName']
 txt_allFieldsRequired                                       xpath                               //span[text()='All Fields Required']
 txt_startNominationDiv                                      classname                            action-bar-green
+iframe1_Awards                                              id                                citation_field_1_value_ifr
+iframe2_Awards                                              id                                citation_field_2_value_ifr
+txtarea_awards                                              css                               #tinymce
+btn_underline                                               css                               .mceIcon.mce_underline
+btn_italic                                                  css                                .mceIcon.mce_italic
+txt_dashboardHeadings                                       xpath                                //legend[contains(text(),'${value}')]
+rad_localsectionArea                                        xpath                              //label[text()='${value}']/preceding-sibling::input/following-sibling::ul//input
+btn_CancelEligibity                                         id                                 btnCancelEligibility
+rad_codeConductYes                                          id                                 cocFlagYes
+rad_codeConductNo                                           id                                 cocFlagNo
+txt_citationNumber                                          xpath                              //a[text()='${value}']/following-sibling::span
+btn_ReturnToDashboard                                       xpath                              //input[@value='Return to the Dashboard']
+txt_NomineeName1                                            css                                .name
+rad_lastNameMemNumber                                       css                                input[value*='rbLogin1']
+txt_codeOfConductValue                                      xpath                              //a[contains(text(),'Value')]/../../following-sibling::tr/td[5]
+btn_detailsMenuAACT                                         xpath                               //span[text()='${menuName}']/../a[1]
+icon_up                                                     xpath                               //span[contains(text(),'${value}')]/preceding-sibling::a/i[@class='icon-chevron-up']
+txt_fellowIwebDetails                                       xpath                                (//th/a)[2]/../../following-sibling::tr[1]//td[${coloumnNumber}]
+frameGeneral                                                xpath                               //iframe[@id='txt${value}Desc_ifr']
+lnk_viewNominations                                         xpath                              //h5[contains(text(),'${value}')]/following-sibling::ul//a[contains(text(),'View')]
+lnk_editNominations                                         xpath                              //h5[contains(text(),'${value}')]/following-sibling::ul//a[contains(text(),'Edit')]
+lnk_printPDF                                                xpath                               //h5[contains(text(),'Individual Nomination')]/following-sibling::ul//a[contains(text(),'Print PDF')]
+btn_codeofconduct_checked                                   css                                input[type='radio'][checked]
+btn_previewNomination                                       id                                  btnPreviewNomination
+btn_view                                                    css                                 input[value='View']
+btn_home                                                    classname                           home
+txt_errmsg_renomination                                     css                                 span[id*='CantFind']
 =======================================================================================================================================================================================

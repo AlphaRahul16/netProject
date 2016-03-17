@@ -48,4 +48,6 @@ link_addRecordEmail                     xpath          //a[@title='Add Record: e
 select_emailType                        id               eml_type
 inp_emailAddress                        id              eml_address
 btn_saveButton                          id             ButtonSave
+txt_NominatorName                        xpath       .//*[@id='dgDynamicList']/tbody/tr/td[contains(text(),'${NomineeName}')]/following-sibling::td[4][contains(text(),'Submitted')]/following-sibling::td[3]
+inp_fieldSelect                          xpath       //span[starts-with(text(),'${fieldName}')]/../following-sibling::td//select    
 ======================================================================================================================================

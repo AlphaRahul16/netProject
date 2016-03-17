@@ -8,6 +8,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -15,6 +16,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.GetPage;
@@ -256,8 +258,6 @@ public class ASM_FellowNominatePage extends GetPage {
 				wait.resetExplicitTimeout(hiddenFieldTimeOut);
 				isElementDisplayed("img_search");
 				wait.waitForElementToDisappear(element("img_search"));
-				wait.resetImplicitTimeout(timeOut);
-				wait.resetExplicitTimeout(timeOut);
 			} catch (Exception exp) {
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
@@ -1180,38 +1180,19 @@ public class ASM_FellowNominatePage extends GetPage {
 logMessage("ASSERT PASSED : Pdf file downloaded for "+Fellowtype+" submitted nomination\n");
 	}
 
-	public boolean isFileDownloaded(String downloadPath, String fileName) {
-		boolean flag = false;
-		File dir = new File(downloadPath);
-		File[] dir_contents = dir.listFiles();
 
-		for (int i = 0; i < dir_contents.length; i++) {
-			System.out.println(dir_contents[i].getName());
-			System.out.println(fileName);
-			if (dir_contents[i].getName().contains(fileName))
-				return flag = true;
-		}
-    
-		return flag;
-	}
 
-	private void deleteDownloadedFile(String downloadPath, String fileName) {
-		File f = new File(fileName);
 
-		// tries to delete a non-existing file
-		boolean bool = f.delete();
 
-		// prints
-		System.out.println("Downloaded File deleted: " + bool);
-	}
 
-	public void clickOnConfirmNominatorAdressDetailsIfAppears_AwardNomination() {
 	
-		isElementDisplayed("btn_nominatorAdressConfirm");
-		element("btn_nominatorAdressConfirm").click();
-		logMessage("Step : Nominator address details confirmed/n");
+	
+	
+	
+		
 	}
+
 
 	
 
-}
+
