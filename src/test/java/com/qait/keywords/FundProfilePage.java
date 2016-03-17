@@ -194,12 +194,12 @@ public class FundProfilePage extends ASCSocietyGenericPage
 	   if(AwardsNominateDateCompareList.get(0)==-1)
 	   {
 		   System.out.println("post "+DateUtil.getAnyDateForType("MM/dd/yyyy",-1,"year"));
-		   EnterTextInField("awh_post_to_web_date", DateUtil.getAnyDateForType("MM/dd/yyyy",-1,"year"));
+		   EnterTextInFieldByJavascript("awh_post_to_web_date", DateUtil.getAnyDateForType("MM/dd/yyyy",-1,"year"));
 	   }
 	   if(AwardsNominateDateCompareList.get(1)==1)
 	   {
 		   System.out.println("remove "+DateUtil.getAnyDateForType("MM/dd/yyyy",1,"year"));
-		   EnterTextInField("awh_remove_from_web_date",DateUtil.getAnyDateForType("MM/dd/yyyy",1,"year"));
+		   EnterTextInFieldByJavascript("awh_remove_from_web_date",DateUtil.getAnyDateForType("MM/dd/yyyy",1,"year"));
 	   }
 	
 	   clickSaveButtonInAwardNomination();

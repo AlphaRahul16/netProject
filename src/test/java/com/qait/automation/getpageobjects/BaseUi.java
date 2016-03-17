@@ -12,6 +12,7 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -217,7 +218,7 @@ public class BaseUi {
 					"timeout"));
 			hiddenFieldTimeOut = Integer.parseInt(getProperty(
 					"Config.properties", "hiddenFieldTimeOut"));
-			wait.resetImplicitTimeout(2);
+			wait.resetImplicitTimeout(3);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			switchToAlert().accept();
 			logMessage("Alert handled..");
@@ -439,10 +440,19 @@ public class BaseUi {
 
 	}
 	
-	public void EnterTextInField(String id,String Text) {
+	public void EnterTextInFieldByJavascript(String id,String Text) {
 		System.out.println(Text);
 		//element.sendKeys(Text);
 		executeJavascript("document.getElementById('"+id+"').setAttribute('value', '"+Text+"')");
+        logMessage("Step : text entered as "+Text);
+	}
+	
+	public void EnterTextInField(WebElement ele,String Text) {
+		System.out.println(Text);
+		ele.click();
+		ele.clear();
+		ele.sendKeys(Text);
+
         logMessage("Step : text entered as "+Text);
 	}
 
@@ -592,6 +602,31 @@ public class BaseUi {
 			}
 		}
 	}
+	
+	public void enterAuthenticationAutoIt() {
+//		try {
+//			System.out.println(isBrowser("chrome"));
+//		if(isBrowser("chrome"))
+//		{
+//			Runtime.getRuntime().exec("./src/test/resources/testdata/popupChrome.exe");
+//			System.out.println("ho gya.");
+//		}
+//		else{
+//			
+//			Runtime.getRuntime().exec("./src/test/resources/testdata/popup.exe");
+//		} 
+//		}catch (IOException e) {
+//		System.out.println("Runtime exception");
+//			e.printStackTrace();
+//		
+//		}
+		try {
+			Runtime.getRuntime().exec("./src/test/resources/PopUpHandlers/popup.exe");
+		} catch (IOException e) {
+	
+			e.printStackTrace();
+		}
+	}
 
 	public String getElementText(WebElement element) {
 		return element.getText();
@@ -632,6 +667,20 @@ public class BaseUi {
 		System.out.println("Name is of 3 letters " + finalStr);
 		return finalStr;
 
+	}
+	public boolean isFileDownloaded(String downloadPath, String fileName) {
+		boolean flag = false;
+		File dir = new File(downloadPath);
+		File[] dir_contents = dir.listFiles();
+
+		for (int i = 0; i < dir_contents.length; i++) {
+			System.out.println(dir_contents[i].getName());
+			System.out.println(fileName);
+			if (dir_contents[i].getName().contains(fileName))
+				return flag = true;
+		}
+    
+		return flag;
 	}
 
 }

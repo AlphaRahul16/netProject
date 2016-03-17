@@ -68,7 +68,6 @@ public class ACS_FellowNominate {
     	memberDetails = test.memberShipPage.getCustomerFullNameAndContactID();
     	test.launchApplication(app_url_nominateFellow);
 		test.asm_FellowNomiate.loginInToApplicationByLastNameAndMemberNumber(memberDetails.get(0).split(" ")[0],memberDetails.get(1));
-    	//test.asm_FellowNomiate.loginInToApplicationByLastNameAndMemberNumber("LN1456391564816 ","30956154");
      	test.asm_FellowNomiate.verifyUserIsOnFellowsDashboard();
 	}
 	
@@ -109,7 +108,7 @@ public class ACS_FellowNominate {
 	@Test(dataProvider = "test1")
 	public void Step06_TC06_Navigate_To_Iweb_And_Verify_Nomination_Details(String FellowType) {
 	     test.launchApplication(app_url_IWEB);
-	     test.homePageIWEB.enterAuthentication("C00186","ACS2016!");
+	     test.homePageIWEB.enterAuthentication("C00616","Zx605@95");
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Fellows");
 		test.homePageIWEB.clickOnFindNominationTab();
@@ -120,7 +119,6 @@ public class ACS_FellowNominate {
 		test.asm_FellowNomiate.printmap();
 		NomineeName=test.asm_FellowNomiate.selectNomineeForParticularFellowType(FellowType);
 		test.individualsPage.SelectFellowNominatorForVerification(NomineeName.trim(),memberDetails.get(0));
-		//test.individualsPage.SelectFellowNominatorForVerification("Dean Bauer","LN1455524487370 Selenium FellowMN");
 		test.asm_FellowNomiate.verifyDetailsOnIwebForFellowNomination(FellowType);
 		
 	}

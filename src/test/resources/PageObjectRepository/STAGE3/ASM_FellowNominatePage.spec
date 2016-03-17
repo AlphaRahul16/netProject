@@ -89,5 +89,4 @@ btn_previewNomination                                       id                  
 btn_view                                                    css                                 input[value='View']
 btn_home                                                    classname                           home
 txt_errmsg_renomination                                     css                                 span[id*='CantFind']
-btn_nominatorAdressConfirm                                  id                                  submitInfo                
 =======================================================================================================================================================================================

@@ -105,6 +105,36 @@ ASM_StoreSmokeChecklist_Data:
               CreditCardVerificationNumber: 123
               
               
+ACS_fellowNominatedData: 
+    NomineeName: Bob,Bud,Cal,Don,Edd,Eva,Fed,Kim,Lee,Leo,Jan,May,Meg,Mia,Tom,Pan,Sue,Ova,Pet
+    EducationDetails: 
+         Institution: TestInstitution
+         Degree: AssociateDegree
+         Major: ITMajor
+         GraduationYear: 2001  
+    CodeOfConductResponse: "No" 
+    CommunityCitationMsg: This is a Community Message
+    ScienceCitationMsg: This is a Science Message
+    ProfessionalHistory: 
+         Employer: employer Test
+         Title: AssociateTitle
+         FromDate: 2002
+         ToDate: 2010
+         Description: Test. Specialization:- Chem.(Medical/Bio).
+    ProfessionalOrganizationAffiliation:
+         ProfessionalOrg: EMPLOYER
+         Position_title: TestPosition
+         FromDate: 1998
+         ToDate: 2005
+    HonorAndAwards: 
+         Name: TestHonor
+         Sponcor: TestSponcor
+         Year: 2012
+    SelectSupportAndUploadLetters: 
+         SecondaryNominator1: john
+         SecondaryNominator2: sam 
+              
+              
 ASM_EGift_SmokeChecklistData: 
     firstName: Frank
     lastName: clark
@@ -290,7 +320,7 @@ ACS_Store:
     maxWaitTimeForPrintMessage: 30
     members:
          member1: 
-            CASEID: 1
+            CASEID: 2
 #         member2: 
 #            CASEID: 2
     

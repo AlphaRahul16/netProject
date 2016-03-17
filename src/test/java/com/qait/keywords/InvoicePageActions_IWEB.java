@@ -324,13 +324,14 @@ hardWaitForIEBrowser(10);
 			isElementDisplayed("img_spinner");
 			wait.waitForElementToDisappear(element("img_spinner"));
 			logMessage("STEP : Wait for spinner to be disappeared \n");
-			wait.resetImplicitTimeout(timeOut);
-			wait.resetExplicitTimeout(timeOut);
+	
 		} catch (NoSuchElementException | AssertionError | TimeoutException Exp) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 			logMessage("STEP : Spinner is not present \n");
 		}
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
 	}
 
 	public void collapseDetailsMenu(String menuName) {
@@ -438,7 +439,7 @@ hardWaitForIEBrowser(10);
           //else 	if(TotalAmountMap.size()!=4)
           else 	
   		{
-         	 System.out.println("In bbbbbbb");
+     
  	verifyInvoiceProfile("balance", "0.00");
  	verifyInvoiceProfile("invoice total",total[0]);
  		}
@@ -657,6 +658,8 @@ verifyProductDetailsWhenProgramIsNotPledgedForIndividualLandingPage(Amount,produ
 		Assert.assertTrue(iterable_element.getText().length()==0);
 		}
 	}
+
+	
 	
 	
 

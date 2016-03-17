@@ -16,7 +16,7 @@ li_awards                                     xpath                       //li[@
 inp_createNewNomination                       id                          createNomination
 rad_knowTheirName                             xpath                       //div[@id='memberSearch_searchNominee']/input[2]
 inp_findByName                                id                          memberName_searchNominee
-btn_selectNomineeSupport1                     xpath                       (//input[@class='selectNominee'])[1]
+btn_selectNomineeSupport1                     css                         input[class*='selectNominee']:not([disabled])
 btn_selectNomineeSupport2                     xpath                       (//input[@class='selectNominee'])[10] 
 tab_currentTab                                xpath                       //span[@class='progressStepOn']  
 inp_nomineePosition                           xpath                       //div[@id='nomineePosition']/input  
@@ -51,4 +51,30 @@ list_patentDate_year                          id                          patent
 inp_patentName                                id                          n04_patent_name
 inp_patentNumber                              css                         #patentNumber>input
 inp_patentDescription                         id                          n04_patent_description
+btn_nominatorAdressConfirm                    id                          submitInfo     
+list_drpdnAwards                              css                         .ui-menu-item>.ui-corner-all
+drpdwn_arrowAwards                            id                           showAll
+inp_AwardField                                id                           selectAward
+txt_NominationTooltip                         classname                    awardDeadline  
+inp_findbymembernumber                        id                           memberNumber_searchNominee
+rad_dynsafelabpractice                        xpath                        //span/following-sibling::input[@value='${value}']
+rad_disscusNomination                         xpath                        //div[@id='discussedWithNominee']/span[text()='${value}']/following-sibling::input
+link_open                                     xpath                       //div[@id='${nominationName}']//a[@class='download']
+btn_saveForLater                              css                         .saveData.later
+txt_awardStatus                               xpath                       //div[contains(text(),'${awardName}')]/following-sibling::table//td[@class='status']
+btn_editNominee                               classname                   editNominee
+btn_upload_item                               xpath                       //div[@id='${value}']//div[@class='qq-upload-button']
+chkbox_labPractice                            css                         .checkbox.selected
+txt_positionTitle                             css                          #positionTitle>span:nth-child(3)
+txt_industry                                  css                          #industry>span:nth-child(3)
+txt_confirmSuggestedCitation                  xpath                        //div[contains(text(),'Suggested Citation')]/..
+lnk_downloaddocumentsLink                     css                         img[alt='Download consolidated PDF file']
+txt_Nomineename                               classname                   nomineeName 
+txt_nomineeSelectError                        xpath                       //div[@class='personIneligible' and contains(text(),'This person is either a')]
+txt_supporterNames                           css                           .PersonSelected>.person
+inp_support1FindByNumber                        xpath                       (//input[contains(@id,'memberNumber_searchSupporter')])[1]
+inp_support2FindByNumber                        xpath                       (//input[contains(@id,'memberNumber_searchSupporter')])[2]
+btn_findSupporter1ByNumber                     xpath                        (//input[contains(@id,'doSearchByNumber_searchSupporter')])[1]
+btn_findSupporter2ByNumber                     xpath                        (//input[contains(@id,'doSearchByNumber_searchSupporter')])[2]
+btn_findMemberByNumber                         id                            doSearchByNumber_searchNominee
 =================================================================================================================================
