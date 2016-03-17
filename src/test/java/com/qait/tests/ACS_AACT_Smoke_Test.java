@@ -124,9 +124,9 @@ public class ACS_AACT_Smoke_Test {
 				caseID, userUniqueDetail.get(1), userUniqueDetail.get(2));
 		test.checkoutPage.verifyAACTNationalMembership(caseID);
 		test.checkoutPage.verifyPriceValues_AACT(caseID);
-		test.confirmationPage.verifyPrintReceiptContent(caseID,
-				memberDetail[0], memberDetail[1], userUniqueDetail.get(1),
-				userUniqueDetail.get(2));
+//		test.confirmationPage.verifyPrintReceiptContent(caseID,
+//				memberDetail[0], memberDetail[1], userUniqueDetail.get(1),
+//				userUniqueDetail.get(2));
 
 	}
 

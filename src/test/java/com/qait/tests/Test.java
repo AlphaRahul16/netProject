@@ -35,35 +35,59 @@ public class Test {
 	int a = 10;
 	String s1;
 	static String s2;
+
 	@org.testng.annotations.Test
-	public void function1(){
-		Reporter.log("<b>Avnish Rawat</b>",true);
+	public void function1() {
+		Reporter.log("<b>Avnish Rawat</b>", true);
 	}
-
-//	@org.testng.annotations.Test
-//	public void method1() {
-//		String s = "hh jj aa bb cc dd ee ff aa bb cc dd ee ff aa bb cc dd ee ff aa bb cc dd ee ff";
-//		split(s, "aa");
-//	}
-
-//	public String split(String s, String splitString) {
-////		String size=s.
-////		String[] arr = s.split(splitString);
-//		
-//	}
-	@org.testng.annotations.Test
-	public void method111(){
+	// @org.testng.annotations.Test
+	// public void method1() {
+	// String s =
+	// "hh jj aa bb cc dd ee ff aa bb cc dd ee ff aa bb cc dd ee ff aa bb cc dd ee ff";
+	// split(s, "aa");
+	// }
+	// public String split(String s, String splitString) {
+	// // String size=s.
+	// // String[] arr = s.split(splitString);
+	//
+	// }
+	// @org.testng.annotations.Test
+	public void method111() {
 		String data1 = "Today, java is object oriented language";
-	       
+
 		String regex = "\\bjava.*object\\b";
-		 
+
 		Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
 		Matcher matcher = pattern.matcher(data1);
 		System.out.println(matcher.find());
-		
 	}
-	
-	
+
+	public static String getCurrentdateInStringWithGivenFormateForTimeZone1(
+			String formate, String timeZone) {
+		DateFormat df = new SimpleDateFormat(formate);
+		df.setTimeZone(TimeZone.getTimeZone(timeZone));
+		String date = df.format(new Date());
+		return date;
+	}
+
+	@org.testng.annotations.Test
+	public void test123() {
+		Calendar cal = Calendar.getInstance();
+//System.out.println(cal.get);
+	String currentMonth=getCurrentdateInStringWithGivenFormateForTimeZone1("M", "EST5EDT");
+	String currentDay=	getCurrentdateInStringWithGivenFormateForTimeZone1("d", "EST5EDT");
+	String currentYear=getCurrentdateInStringWithGivenFormateForTimeZone1("yyyy", "EST5EDT");
+	boolean b=((Integer.parseInt(currentYear))%4)==0;
+	Calendar calendar = Calendar.getInstance();
+	Date currentDate = calendar.getTime();
+	System.out.format("today:      %s\n", currentDate);
+	calendar.setTime(currentDate);
+    calendar.add(Calendar.YEAR, 1);
+    calendar.add(Calendar.DATE, -1);
+    Date nextYear = calendar.getTime();
+    System.out.format("next year:  %s\n", nextYear);
+	}
+
 	// @org.testng.annotations.Test(invocationCount = 1)
 	public void method() throws ParseException {
 		DateFormat df = new SimpleDateFormat("M/d/YYYY");

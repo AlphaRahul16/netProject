@@ -17,10 +17,10 @@ import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.YamlReader;
 
 public class ACS_CCED_NCW_MemberNumberLookup_Test {
-
 	TestSessionInitiator test;
 	String app_url, caseID;
 	String app_url_IWEB = getYamlValue("app_url_IWEB");
@@ -45,7 +45,8 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test {
 		test.memberShipPage.selectAndRunQueryMembership("Query Individual",
 				"Selenium - Find Active Regular Member");
 		memberDetailsMap = test.memberShipPage.getMemberDetails_Iweb();
-		test.navigateToURL(test.homePageIWEB.map().get("Application URL"));
+		test.navigateToURL(test.homePageIWEB.map().get("Application URL")
+				.replaceAll("Stage3", ConfigPropertyReader.getProperty("tier")));
 		test.memNumLookupPage.enterMemberDetailsInMemberNumberLookup(
 				memberDetailsMap.get("firstName"),
 				memberDetailsMap.get("lastName"),
@@ -71,13 +72,14 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test {
 		test.individualsPage.navigateToContactInfoMenuOnHoveringMore();
 		test.individualsPage.verifyNCW_CCEDEmailPresent("ncw/cced",
 				test.homePageIWEB.map().get("ncw/cced_email"));
-
 	}
 
 	@Test
 	public void Step02_CCED_Lookup_Test() {
 		Reporter.log("CaseID Under Test Is : " + caseID, true);
-		test.launchApplication(test.asm_CCEDPage.map().get("Application URL"));
+
+		test.launchApplication(test.asm_CCEDPage.map().get("Application URL")
+				.replaceAll("Stage3", ConfigPropertyReader.getProperty("tier")));
 		test.asm_CCEDPage.verifyPageTitle("Chemists Celebrate Earth Day");
 		test.asm_CCEDPage
 				.selectSearchTypeAndNavigateToCoordinator(test.asm_CCEDPage
@@ -91,7 +93,9 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test {
 	@Test
 	public void Step03_NCW_Lookup_Test() {
 		Reporter.log("CaseID Under Test Is : " + caseID, true);
-		test.launchApplication(test.asm_NCWPage.map().get("Application URL"));
+
+		test.launchApplication(test.asm_NCWPage.map().get("Application URL")
+				.replaceAll("Stage3", ConfigPropertyReader.getProperty("tier")));
 		test.asm_NCWPage.verifyPageTitle("National Chemistry Week");
 		test.asm_NCWPage
 				.selectSearchTypeAndNavigateToCoordinator(test.asm_NCWPage
@@ -111,12 +115,16 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test {
 				YamlReader.getYamlValue("Authentication.password"));
 		test.homePageIWEB.addValuesInMap("CCED_NCW_MemberNumberLookup", caseID);
 		test.homePageIWEB.EnterTestMethodNameToSkipInMap_MemberNumber_CCED_NCW(
-				skipTest, test.asm_NCWPage.map().get("Application URL"));
+				skipTest,
+				test.asm_NCWPage
+						.map()
+						.get("Application URL")
+						.replaceAll("Stage3",
+								ConfigPropertyReader.getProperty("tier")));
 	}
 
 	@BeforeMethod
 	public void Skip_Tests_For_Different_Apps(Method method) {
-
 		if (!skipTest.containsKey(method.getName())) {
 			skipTest.put(method.getName(), false);
 		}
@@ -130,7 +138,7 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
 
-	 @AfterClass(alwaysRun = true)
+	@AfterClass(alwaysRun = true)
 	public void Close_Test_Session() {
 		test.closeBrowserSession();
 	}

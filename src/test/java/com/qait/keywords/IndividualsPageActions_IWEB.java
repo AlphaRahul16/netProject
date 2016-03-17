@@ -113,7 +113,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyMemberDetails_OMA(String fName, String lName, String add,
 			String city, String zipCode, String addressType, String contactId,
 			String userEmail, String caseId) {
-		// wait.waitForPageToLoadCompletely();
+
 		hardWaitForIEBrowser(10);
 		verifyElementTextContains("txt_memberDetails", fName);
 		logMessage("ASSERT PASSED :" + fName
@@ -160,7 +160,6 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 				isElementDisplayed("txt_additionalInfo", "seasonal");
 				logMessage("ASSERT PASSED : seasonal is verified in txt_memberDetails\n");
 			}
-
 		} else {
 			verifyElementTextContains("txt_memberDetails", add);
 			logMessage("ASSERT PASSED :" + add
@@ -184,11 +183,9 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			} catch (StaleElementReferenceException stlExp) {
 				isElementDisplayed("txt_userEmail", userEmail);
 			}
-
 			logMessage("ASSERT PASSED :" + userEmail
 					+ " is verified in txt_memberDetails\n");
 		}
-
 	}
 
 	public void verifyMemberDetails_AACTOMA(String caseId, String contactId,
@@ -392,7 +389,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyAACTMemberCreated(String caseId) {
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(10);
-		// wait.hardWait(8);
+
 		isElementDisplayed("img_aactMember");
 		if (getAACT_OmaSheetValue(caseId, "Is Create Only Individual?")
 				.equalsIgnoreCase("Y")) {
@@ -428,7 +425,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnMemberShipMenu(String menuName) {
 		clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", menuName));
-		// element("btn_memberShip", menuName).click();
+
 		logMessage("Step :" + menuName + " is clicked in btn_memberShip\n");
 
 	}
@@ -455,7 +452,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("ASSERT PASSED : IWEB product name is not present in data sheet\n");
 		} else {
 
-			// isElementDisplayed(element, invoiceNumber);
+
 			try {
 				wait.resetImplicitTimeout(0);
 				wait.resetExplicitTimeout(hiddenFieldTimeOut);
@@ -536,15 +533,14 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyMemberBenefitsDetail_Reinstate(String caseId,
 			String invoiceNumber) {
 		navigateToProductsMenuOnHoveringMore();
-		// //verifyMemberProductDetails("txt_divisionPubName", iwebProductName);
+
 		verifyMemberProductDetails_Reinstate("txt_divisionPubName_reinstate",
 				getOmaSheetValue(caseId, "Iweb Division Name?"), invoiceNumber);
 		verifyMemberProductDetails_Reinstate("txt_divisionPubName_reinstate",
 				getOmaSheetValue(caseId, "Iweb LS Name?"), invoiceNumber);
 		logMessage("ASSERT PASSED : member benefit details is verified in products menu \n");
 		navigateToSubscriptionMenuOnHoveringMore();
-		// verifyMemberProductDetails("txt_divisionPubName",
-		// getOmaSheetValue(caseId, "Iweb CEN Product Name?"));
+ 
 		verifyMemberProductDetails_Reinstate("txt_divisionPubName_reinstate",
 				getOmaSheetValue(caseId, "Iweb Pub Name?"), invoiceNumber);
 		logMessage("ASSERT PASSED : member benefit details is verified in subscriptions menu \n");
@@ -555,18 +551,18 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			wait.hardWait(5);
 			isElementDisplayed("img_moreMenu");
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
-			// element("img_moreMenu").click();
+
 			isElementDisplayed("link_moreMenuName", "Subscriptions");
 			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName",
 					"Subscriptions"));
-			// element("link_moreMenuName", "Subscriptions").click();
+
 			logMessage("Step : Subscription link is clicked\n");
 			waitForSpinner();
 			try {
 				isElementDisplayed("btn_memberShip", "active subscriptions");
 				clickUsingXpathInJavaScriptExecutor(element("btn_memberShip",
 						"active subscriptions"));
-				// element("btn_memberShip", "active subscriptions").click();
+
 				logMessage("Step : Navigate to subscription menu on clicking more button\n");
 			} catch (Exception E) {
 				logMessage("Step : active subscriptions already expanded");
@@ -577,7 +573,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			isElementDisplayed("img_moreMenu");
 
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
-			// element("img_moreMenu").click();
+
 			isElementDisplayed("link_moreMenuName", "Subscriptions");
 			element("link_moreMenuName", "Subscriptions").click();
 			logMessage("Step : Subscription link is clicked\n");
@@ -585,7 +581,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			isElementDisplayed("btn_memberShip", "active subscriptions");
 			clickUsingXpathInJavaScriptExecutor(element("btn_memberShip",
 					"active subscriptions"));
-			// element("btn_memberShip", "active subscriptions").click();
+
 			logMessage("Step : Navigate to subscription menu on clicking more button\n");
 		}
 
@@ -640,7 +636,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			wait.hardWait(5);
 			isElementDisplayed("img_moreMenu");
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
-			// element("img_moreMenu").click();
+
 			isElementDisplayed("link_moreMenuName", "Subscriptions");
 			element("link_moreMenuName", "Subscriptions").click();
 			logMessage("Step : Subscription link is clicked\n");
@@ -648,8 +644,6 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			isElementDisplayed("btn_memberShip", "active subscriptions");
 			element("btn_memberShip", "active subscriptions").click();
 			wait.hardWait(2);
-			// isElementDisplayed("btn_memberShip", "active subscriptions");
-			// element("btn_memberShip", "active subscriptions").click();
 			logMessage("Step : Navigate to subscription menu on clicking more button\n");
 		} catch (StaleElementReferenceException stEx) {
 
@@ -657,7 +651,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			isElementDisplayed("img_moreMenu");
 
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
-			// element("img_moreMenu").click();
+
 			isElementDisplayed("link_moreMenuName", "Subscriptions");
 			element("link_moreMenuName", "Subscriptions").click();
 			logMessage("Step : Subscription link is clicked\n");
@@ -675,33 +669,33 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		try {
 			isElementDisplayed("img_moreMenu");
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
-			// element("img_moreMenu").click();
+
 			isElementDisplayed("link_moreMenuName", "Issues");
 			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName",
 					"Issues"));
-			// element("link_moreMenuName", "Issues").click();
+
 			logMessage("Step : Issues link is clicked\n");
 			waitForSpinner();
 			isElementDisplayed("btn_memberShip", "issues fulfilled");
 			clickUsingXpathInJavaScriptExecutor(element("btn_memberShip",
 					"issues fulfilled"));
-			// element("btn_memberShip", "issues fulfilled").click();
+
 			logMessage("Step : Navigate to Issues menu on clicking more button\n");
 
 		} catch (StaleElementReferenceException stEx) {
 			isElementDisplayed("img_moreMenu");
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
-			// element("img_moreMenu").click();
+
 			isElementDisplayed("link_moreMenuName", "Issues");
 			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName",
 					"Issues"));
-			// element("link_moreMenuName", "Issues").click();
+
 			logMessage("Step : Issues link is clicked\n");
 			waitForSpinner();
 			isElementDisplayed("btn_memberShip", "issues fulfilled");
 			clickUsingXpathInJavaScriptExecutor(element("btn_memberShip",
 					"issues fulfilled"));
-			// element("btn_memberShip", "issues fulfilled").click();
+
 			logMessage("Step : Navigate to Issues menu on clicking more button\n");
 		}
 
@@ -711,17 +705,17 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		try {
 			isElementDisplayed("img_moreMenu");
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
-			// element("img_moreMenu").click();
+
 			isElementDisplayed("link_moreMenuName", "Subscriptions");
 			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName",
 					"Subscriptions"));
-			// element("link_moreMenuName", "Subscriptions").click();
+
 			logMessage("Step : Subscription link is clicked\n");
 			waitForSpinner();
 			isElementDisplayed("btn_memberShipAACT", "active subscriptions");
 			clickUsingXpathInJavaScriptExecutor(element("btn_memberShipAACT",
 					"active subscriptions"));
-			// element("btn_memberShipAACT", "active subscriptions").click();
+
 			logMessage("Step : Navigate to subscription menu on clicking more button\n");
 		} catch (StaleElementReferenceException stEx) {
 			isElementDisplayed("img_moreMenu");
@@ -742,11 +736,11 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		try {
 			isElementDisplayed("img_moreMenu");
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
-			// element("img_moreMenu").click();
+
 			isElementDisplayed("link_moreMenuName", "Products");
 			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName",
 					"Products"));
-			// element("link_moreMenuName", "Products").click();
+
 			logMessage("Step : Product link is clicked\n");
 			waitForSpinner();
 			wait.hardWait(2);
@@ -755,7 +749,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 				isElementDisplayed("btn_memberShip", "services purchased");
 				clickUsingXpathInJavaScriptExecutor(element("btn_memberShip",
 						"services purchased"));
-				// element("btn_memberShip", "services purchased").click();
+
 				logMessage("Step : services purchased drop down button is clicked\n");
 				logMessage("Step : Navigate to products menu on clicking more button\n");
 			} catch (Exception E) {
@@ -764,12 +758,12 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		} catch (StaleElementReferenceException stlEx) {
 			isElementDisplayed("img_moreMenu");
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
-			// element("img_moreMenu").click();
+
 			wait.waitForPageToLoadCompletely();
 			isElementDisplayed("link_moreMenuName", "Products");
 			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName",
 					"Products"));
-			// element("link_moreMenuName", "Products").click();
+
 			logMessage("Step : Product link is clicked\n");
 			waitForSpinner();
 			wait.waitForPageToLoadCompletely();
@@ -777,7 +771,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 				isElementDisplayed("btn_memberShip", "services purchased");
 				clickUsingXpathInJavaScriptExecutor(element("btn_memberShip",
 						"services purchased"));
-				// element("btn_memberShip", "services purchased").click();
+
 				logMessage("Step : Navigate to products menu on clicking more button\n");
 			} catch (Exception E) {
 				logMessage("Step : services purchased already expanded");
@@ -828,14 +822,14 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			isElementDisplayed("link_moreMenuName", "Products");
 			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName",
 					"Products"));
-			// element("link_moreMenuName", "Products").click();
+
 			logMessage("Step : Product link is clicked\n");
 			waitForSpinner();
 			wait.waitForPageToLoadCompletely();
 			isElementDisplayed("btn_memberShipAACT", "services purchased");
 			clickUsingXpathInJavaScriptExecutor(element("btn_memberShipAACT",
 					"services purchased"));
-			// element("btn_memberShipAACT", "services purchased").click();
+			
 			logMessage("Step : Navigate to products menu on clicking more button\n");
 		} catch (StaleElementReferenceException stlEx) {
 			isElementDisplayed("img_moreMenu");
@@ -1008,7 +1002,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		verifyStartAndEndDateInFinancialInvoice(
 				getOmaSheetValue(caseId, "Iweb Product Name?"), caseId);
 		clickUsingXpathInJavaScriptExecutor(element("lnk_lastName"));
-		// element("lnk_lastName").click();
+
 	}
 
 	public void verifyIndividualProfileDetails_AACTOMA(String caseId,
@@ -1048,7 +1042,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			isElementDisplayed("btn_memberShip", menuName);
 			clickUsingXpathInJavaScriptExecutor(element("btn_memberShip",
 					menuName));
-			// element("btn_memberShip", menuName).click();
+
 			logMessage("Step : " + menuName
 					+ " is clicked to expand in btn_memberShip\n");
 			wait.resetImplicitTimeout(timeOut);
@@ -1064,7 +1058,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_memberShipAACT", menuName);
 		clickUsingXpathInJavaScriptExecutor(element("btn_memberShipAACT",
 				menuName));
-		// element("btn_memberShipAACT", menuName).click();
+
 		logMessage("Step : " + menuName
 				+ " is clicked to expand in btn_memberShipAACT\n");
 	}
@@ -1072,7 +1066,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnButtonToNavigateFinancialPageInMembershipPage() {
 		isElementDisplayed("btn_invoiceAtMembership");
 		clickUsingXpathInJavaScriptExecutor(element("btn_invoiceAtMembership"));
-		// element("btn_invoiceAtMembership").click();
+
 		logMessage("Step : user navigate to finance page in btn_memberShip\n");
 	}
 
@@ -1080,7 +1074,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("btn_invoicearrow");
 		clickUsingXpathInJavaScriptExecutor(element("btn_invoicearrow"));
-		// element("btn_invoicearrow").click();
+
 		logMessage("Step : user navigate to finance page by clicking btn_invoicearrow\n");
 
 	}
@@ -1108,6 +1102,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyStartAndEndDate(String start_EndDate, String productName,
 			String caseId, String multiYear) {
+		System.out.println("multi year :- " + multiYear);
 		String currentDate = DateUtil
 				.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY",
 						"EST5EDT");
@@ -1132,7 +1127,6 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("ASSERT PASSED : termEndDate is " + nextYearDate
 					+ " verified");
 		}
-
 	}
 
 	public void waitForSpinner() {
@@ -1150,9 +1144,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		} catch (Exception Exp) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
-
 		} catch (AssertionError Exp) {
-
 			logMessage("STEP : spinner is not present \n");
 		}
 	}
@@ -1312,11 +1304,11 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			addEmail_NCW_CCED(emailType, emailAddress);
 		}
 	}
-	
-	public void selectRandomGeneralAward_AwardNomination(String awardName)
-	{
-		isElementDisplayed("txt_divisionPubName",awardName);
-		element("txt_divisionPubName",awardName).click();
-		logMessage("Step: General Award "+awardName+" is selected from the list\n");
+
+	public void selectRandomGeneralAward_AwardNomination(String awardName) {
+		isElementDisplayed("txt_divisionPubName", awardName);
+		element("txt_divisionPubName", awardName).click();
+		logMessage("Step: General Award " + awardName
+				+ " is selected from the list\n");
 	}
 }
