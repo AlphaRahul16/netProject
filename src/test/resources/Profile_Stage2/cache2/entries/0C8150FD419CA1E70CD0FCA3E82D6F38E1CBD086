@@ -1,0 +1,252 @@
+/* 
+Theme Name: miniBits 
+Theme URI: http://www.creativebits.it/go/minibits 
+Version: 0.8 
+Author: Raffaele Rasini 
+Author URI: http://creativebits.it/ 
+*/ 
+
+* { padding:0; margin:0; }
+body { padding:0px; text-align: left; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: small; color: #222222; line-height: 150%; /*background: #4A525A ;*/ background-color: #fff; }
+hr { display: none; margin: 0; }
+a { color: #6B8D20; text-decoration: underline; }
+a:hover { background-color: #6B8D20; color: White; text-decoration: none; }
+a img, .post a img, img { border: 0; text-decoration: none; border-color: white; }
+h1, h2, h3, h4, h5, h6 { font-family: Georgia, serif; }
+span.highlight { background-color: #FFFFDB; }
+
+/* ---[ Elementi ]------------------------------- */
+blockquote { margin: 1em 0 1em 0; padding: 0; color: #777; background: White url(img/quote.gif) no-repeat top left; padding-top: 10px; padding-left: 35px; }
+code { color: #6B8D20; font-family: Monaco, monospace; text-align: left; }
+code strong { color: #4E6200; }
+abbr, acronym, .popup { font-style: normal; border-bottom: 1px dotted #999; cursor: help; }
+em { font-style: italic; }
+strong { font-weight: bold; }
+strike, del { text-decoration: line-through; }
+ins { text-decoration: none; }
+address { margin: 0; padding: 0; font-style: normal; }
+
+/* ---[ Container ]------------------------------- */ 
+#wrapper { margin: 0 auto; text-align: left; width: 760px; background: #FFFFFF ; font-size: 0.9em; line-height: 1.6em; padding: 20px 10px 0 10px; /*border-right: 2px solid #424A51; border-left: 2px solid #424A51;*/ }
+#wrapper .container { float: left; width: 520px; }
+.clear { clear: both; }
+
+/* ---[ Header ]------------------------------- */ 
+#header { padding: 30px 0 20px 0; text-align:center; }
+#header h1 { font-weight: lighter; font-size: 4em; margin-bottom: 10px; }
+#header h1 a { color: #4A525A; text-decoration: none; }
+#header h1 a:hover { color: #9D4134; background-color: transparent; }
+#header span.desc { color: #7B8691; text-transform: uppercase; font-size: 0.9em; }
+
+/* ---[ Pagine ]------------------------------- */ 
+.post { margin-bottom: 25px; }
+.post .titolo { border-bottom: 1px solid #E1E1D3; padding-bottom: 3px; }
+* html .post .titolo { padding-bottom: 6px; }
+.post h2, .post h2 a { color: #DD467B; font-size: 22.8px; font-weight: lighter; display: inline; }
+.post h2 a { border: 0; text-decoration: none; }
+.post h2 a:hover { background-color: transparent; color: #6B8D20; }
+.post h3 { margin-bottom: 4px; padding-bottom: 3px; font-size: 1.2em; color: #278BD8; font-weight: bold; border-bottom: 1px solid #D8D3C1; }
+.post span.edit { float: right; margin-top: -20px; }
+.post span.edit a { border: 0; font-size: 0.9em; }
+.post small { color: #878787; font-size: 0.9em; padding-left: 1px; }
+* html .post small { padding-left: 5px; }
+
+.post div.corpo ul.more_info a { color: #D87431; }
+.post div.corpo ul.more_info a:hover { background-color: #D87431; color: White; }
+.post div.corpo ul.more_info { list-style-type: none; margin: 0; padding: 3px 8px 3px 8px; width: 145px; float: right; margin-bottom: 10px; margin-left: 10px; background-color: #F8F8F6; border: 1px solid #E2E2DA; }
+.post div.corpo ul.more_info li { padding-top: 5px; padding-bottom: 5px; border-top: 1px solid #E2E2DA; }
+.post div.corpo ul.more_info li.first { border: 0; }
+.post div.corpo ul.more_info span { display: block; }
+.post div.corpo { padding-top: 6px; }
+.post div.corpo a.more-link { color: #9D4134; }
+.post div.corpo a.more-link:hover { color: White; background-color: #9D4134; }
+.post div.corpo ul, .post div.corpo ol{ margin: 15px 0 15px 35px; }
+.post div.corpo p { margin-bottom: 10px; }
+img.center, img[align="center"], img[align="middle"] { display: block; margin-left: auto; margin-right: auto; }
+img.alignright, img[align="right"] { padding: 4px 0 0 0; margin: 0 0 5px 5px; display: inline; }
+img.alignleft, img[align="left"] { padding: 4px 0 0 0; margin: 0 5px 5px 0; display: inline; }
+.post div.corpo h4 { font-size: 1.1em; margin-top: 10px; margin-bottom: 0; }
+
+/* ---[ Commenti ]------------------------------- */ 
+#commenti { margin-top: 15px; }
+#commenti h4 { margin-bottom: 15px; font-size: 1.05em; color: #626C76; font-weight: bold; border-bottom: 1px solid #E1E1D3; }
+#commenti a.rss_commenti { border: 0; float: right; margin-top: 1px; }
+#commenti ol#commentlist { list-style-type: none; }
+#commenti ol#commentlist li { margin-bottom: 15px; }
+#commenti ol#commentlist li span { display: block; }
+#commenti ol#commentlist li div.messaggio { background: #F4FAE2; padding: 10px; }
+#commenti ol#commentlist li span.autore { padding: 5px 10px 5px 0; background: url(img/comment-from.gif) no-repeat 20px 0px; }
+#commenti ol#commentlist li span.autore a.count{ color: #999999; margin-right: 45px; font-weight: normal; }
+#commenti ol#commentlist li span.autore a.count:hover{ color: #666666; background-color: White; }
+
+/* Stile link per commentatore normale */ 
+#commenti ol#commentlist li span.autore a { font-weight: bold; color: #96B236; border-color: #CFE7F7; }
+#commenti ol#commentlist li span.autore a:hover { background-color: White; }
+.nocomment { padding: 0 0 10px 0; margin: 0; }
+#commenti ol#commentlist li span.edit_comment { float: right; margin: -16px 0 0 0; }
+
+/* Modulo inserimento commenti */ 
+#commenti .form_commenti { }
+#commenti .form_commenti form { color: #595750; padding: 0; margin-top: -4px; }
+form label { display: block; }
+
+/* link e maggiori info sui commenti */ 
+#commenti .form_commenti .more_info { background-color: #FFF0F5; float: right; }
+#commenti .form_commenti form br { display: none; }
+
+/* ---[ Sidebar ]------------------- */ 
+#sidebar { width: 220px; background-color: #F0F3F4; float: right; color: #727267; }
+#sidebar .main_sidebar { padding: 5px 10px 5px 10px; }
+#sidebar h3, #sidebar h2 { font-size: 1.2em; padding-bottom: 2px; color: #3C4848; border-bottom: 1px solid #CCD6D6; font-weight: lighter; margin-bottom: 4px; }
+#sidebar a { color: #4170BE; text-decoration: underline; }
+#sidebar a:hover { background-color: #4170BE; color: White; text-decoration: none; }
+#sidebar .top { background: url(img/sidebar_top.gif) no-repeat top center; height: 5px; }
+#sidebar .bottom { background: url(img/sidebar_bottom.gif) no-repeat bottom center; height: 5px; }
+#sidebar ul, #sidebar ol, #sidebar li { list-style-type: none; }
+#sidebar .block, #sidebar .linkcat { margin-bottom: 15px; }
+.cerca_modulo { width: 130px; }
+.cerca_invio { width: 60px; }
+
+/* ---[ Widget]------------- */ 
+#wp-calendar { width: 180px; }
+
+/* ---[ Footer ]------------------------------- */ 
+#footer { padding: 8px 0 8px 0; border-top: 1px solid #EEEEEE; margin: 0px; font-size: 0.9em; color: #999999; margin-top: 15px; }
+#footer img { float: left; margin-top: 5px; margin-bottom: -5px; margin-right: 5px; }
+#footer img a { border: 0; }
+#footer span{ display: block; margin-left: 60px; }
+#footer a { color: #333; border-color: #D8F18C; }
+#footer a:hover { background-color: White; color: #333; text-decoration: none; }
+
+
+/* ---- Honza ---- */
+h3 {
+    padding-top: 20px;
+}
+
+.post h2 a {
+    line-height: 1.2em;
+}
+
+#sidebar h3, #sidebar h2 {
+    padding-top: 20px;
+}
+
+#sidebar .block:first-child h3 {
+    padding-top: 0
+}
+
+.sihTable {
+    margin-bottom: 20px;
+}
+
+.sihTable TD {
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+.sihTableBorder {
+    border-top: solid 1px #D8D3C1;
+    border-left: solid 1px #D8D3C1;
+    width: 520px;
+}
+
+.sihTableBorder TD {
+    border-right: solid 1px #D8D3C1;
+    border-bottom: solid 1px #D8D3C1;
+    padding: 7px;
+}
+
+.sihImageBorder {
+    border: 4px solid #D1D1D1 !important;
+    padding: 0 !important;
+}
+ 
+.sihHeader {
+    font-size:16px;
+    font-family:Lucida Grande,Arial,sans-serif;
+    font-weight: bold;
+    color: #DD467B;
+    display: block;
+}
+
+#main_header { width: 100%; background-color: #F0F3F4; margin-bottom:40px; border:1px solid #E2E2DA;}
+/*#main_header .top { background: url(img/sidebar_top.gif) no-repeat top center; height: 5px; }
+#main_header .bottom { background: url(img/sidebar_bottom.gif) no-repeat bottom center; height: 5px; }*/
+
+.rss_posts {
+    float:right;
+    padding: 3px;
+}
+
+.bullet {
+    color: #278bd8;
+    text-align: center;
+}
+
+.bullet:after {
+    content: "\2022";
+}
+
+.post div.corpo h4 {
+    font-size:16px;
+    font-family:Lucida Grande,Arial,sans-serif;
+    font-weight: bold;
+    color: #DD467B;
+    display: block;
+    margin-top: 20px;
+}
+
+.separator {
+    border-top: 1px solid rgb(209, 209, 209);
+    color: gray;
+    margin-top: 25px;
+    padding-bottom: 15px;
+    font-style: italic;
+}
+
+.sihHARViewerAdopter, .sihHARViewerSponsor {
+    font-size: 16px;
+    font-family: Lucida Grande,Arial,sans-serif;
+    font-weight: bold;
+    color: #dd467b;
+    padding-top: 20px;
+}
+
+.sihHARViewerSponsor {
+    display: block;
+    text-align: center;
+    padding-top: 0;
+    color: #278BD8;
+}
+
+.red {
+    color: #DD467B;
+}
+
+.firebugTipsLink {
+    background-color: #F8F8F6;
+    border: 1px solid #E2E2DA;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px !important;
+    text-align: center;
+}
+
+/* ---[ Side Bar ]------------------------------- */
+
+#get_recent_comments_wrap li,
+#twitter_time_line li {
+    padding-bottom: 10px;
+}
+’B/!Ñ       VïÄVïÄ<B…xVøýã   Q:http://www.softwareishard.com/blog/wp-content/themes/miniBits/miniBits/style.css necko:classified 1 request-method GET response-head HTTP/1.1 200 OK
+Date: Mon, 21 Mar 2016 09:48:20 GMT
+Server: Apache
+Last-Modified: Thu, 09 Aug 2012 16:09:55 GMT
+Etag: "1759e2b-2415-4c6d7754b9ac0"
+Accept-Ranges: bytes
+Content-Length: 9237
+Cache-Control: max-age=604800
+Expires: Mon, 28 Mar 2016 09:48:20 GMT
+Content-Type: text/css
+ uncompressed-len 0   $

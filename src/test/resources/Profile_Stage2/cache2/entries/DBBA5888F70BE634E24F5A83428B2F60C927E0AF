@@ -1,0 +1,604 @@
+<style type="text/css">
+#snippetContainer div.snippet img.icon {
+  margin: -0.75em 1em 0 0;
+  float: left;
+}
+
+    .snippet {
+       position: relative;
+   }
+
+   .snippet .icon {
+       position: absolute;
+       right: 400px;
+       top: 5px;
+       height: 50px;
+   }
+
+   .snippet p {
+       display: table-cell;
+       height: 40px;
+       padding-left: 80px;
+       vertical-align: middle;
+       width: 400px;
+   }
+ 
+ </style><script type="text/javascript">
+//<![CDATA[
+  // Generated on 2016-03-08 20:23:31.560788
+  // Included snippets:
+  //  - 5274
+  //  - 5140
+  //  - 5170
+  var ABOUTHOME_SNIPPETS = JSON.parse('[{\u0022code\u0022: \u0022\u003Cdiv data\u002Dsnippet\u002Did\u003D\u005C\u00225274\u005C\u0022 data\u002Dweight\u003D\u005C\u0022300\u005C\u0022 data\u002Dcampaign\u003D\u005C\u0022sync\u005C\u0022 class\u003D\u005C\u0022snippet\u002Dmetadata\u005C\u0022\u003E\u003C!\u002D\u002D Simple and Logo Swap Snippet with Block and Click \u002D\u002D\u003E\u005Cn\u003C!\u002D\u002D\u005CnVariables:\u005Cn\u005Cn  @block_button_text \u002D small text \u002D Text to display while hovering over opt out button. Default \u0027Remove this\u0027\u005Cn  @blockable: checkbox \u002D Check to allow user to block this snippet.\u005Cn  @clickable: checkbox \u002D Check to allow snippet to be clickable\u005Cn  @icon: image \u002D Snippet icon. 64x64px. SVG or PNG preferred.\u005Cn  @icon_url: text \u002D URL linked from icon and whole snippet when snippet is clickable. (optional / required when snippet is clickable)\u005Cn  @link_logo: checkbox \u002D Check to make replacement logo clickable.\u005Cn  @replacement_logo: image \u002D Optional. Replace logo.\u005Cn  @text: main text \u002D Text of snippet.\u005Cn  @logo_height: small_text \u002D Logo height. Defaults to 192px\u005Cn  @logo_width: small_text \u002D  Logo width. Defaults to 192px\u005Cn\u005Cn\u002D\u002D\u003E\u005Cn\u003Cstyle\u003E\u005Cndiv.switch#brandLogo {\u005Cn   background\u002Dsize: 192px auto\u003B\u005Cn}\u005Cn\u005Cn.switch#brandLogo {\u005Cn   height: 192px\u003B\u005Cn   width: 192px\u003B\u005Cn}\u005Cn\u005Cn#snippetContainer div.snippet {\u005Cn   margin: 10px 5px\u003B\u005Cn}\u005Cn\u005Cn#snippetContainer div.snippet img.icon {\u005Cn    margin: 5px\u003B\u005Cn    float: none\u003B\u005Cn}\u005Cn\u005Cn.snippet p {\u005Cn    display: inline\u002Dblock\u003B\u005Cn    padding\u002Dleft: 0\u003B\u005Cn    width: auto\u003B\u005Cn    max\u002Dwidth: 380px\u003B\u005Cn    height: auto\u003B\u005Cn    vertical\u002Dalign: middle\u003B\u005Cn}\u005Cn\u005Cn.snippet .icon {\u005Cn    position: relative\u003B\u005Cn    right: 0\u003B\u005Cn    top: 0\u003B\u005Cn    display: inline\u002Dblock\u003B\u005Cn    height: auto\u003B\u005Cn    max\u002Dheight: 64px\u003B\u005Cn    vertical\u002Dalign: middle\u003B\u005Cn}\u005Cn\u005Cn\u005Cn\u005Cn \u005Cn\u003C/style\u003E\u005Cn  \u003Cdiv class\u003D\u005C\u0022snippet\u005C\u0022 id\u003D\u005C\u0022snippet\u005C\u0022\u003E\u005Cn    \u005Cn          \u003Ca href\u003D\u005C\u0022https://www.mozilla.org/firefox/sync/?utm_source\u003Ddesktop\u002Dsnippet\u0026amp\u003Butm_medium\u003Dsnippet\u0026amp\u003Butm_content\u003Dsync\u0026amp\u003Butm_term\u003D5274\u0026amp\u003Butm_campaign\u003Ddesktop\u005C\u0022\u003E\u005Cn              \u003Cimg class\u003D\u005C\u0022icon\u005C\u0022 src\u003D\u005C\u0022data:image/png\u003Bbase64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAyCAYAAAAus5mQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDE0IDc5LjE1Njc5NywgMjAxNC8wOC8yMC0wOTo1MzowMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NERDRDc0MkE3Njc5MTFFNTlFRDZFREIzRjUwRDc3Q0YiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NERDRDc0MkI3Njc5MTFFNTlFRDZFREIzRjUwRDc3Q0YiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0RENENzQyODc2NzkxMUU1OUVENkVEQjNGNTBENzdDRiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0RENENzQyOTc2NzkxMUU1OUVENkVEQjNGNTBENzdDRiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pv5DJ9QAAAelSURBVHja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\u005C\u0022 /\u003E\u005Cn          \u003C/a\u003E\u005Cn    \u005Cn    \u003Cp\u003EDid you know you can access your personal Firefox bookmark collection everywhere you browse, even on your phone? \u003Ca href\u003D\u005C\u0022https://www.mozilla.org/firefox/sync/?utm_source\u003Ddesktop\u002Dsnippet\u0026amp\u003Butm_medium\u003Dsnippet\u0026amp\u003Butm_content\u003Dsync\u0026amp\u003Butm_term\u003D5274\u0026amp\u003Butm_campaign\u003Ddesktop\u005C\u0022\u003ESync your bookmarks with a Firefox Account\u003C/a\u003E.\u003C/p\u003E\u005Cn\u005Cn    \u005Cn      \u003C/div\u003E\u005Cn\u003Cscript type\u003D\u005C\u0022text/javascript\u005C\u0022\u003E\u005Cn //\u003C![CDATA[\u005Cn (function() {\u005Cn     var snippet \u003D document.getElementById(\u0027snippet\u0027)\u003B\u005Cn\u005Cn     snippet.addEventListener(\u0027show_snippet\u0027, function () {\u005Cn         var overlay \u003D document.getElementById(\u0027block\u002Dsnippet\u002Doverlay\u0027)\u003B\u005Cn         var xbuttons \u003D document.querySelectorAll(\u0027.block\u002Dsnippet\u002Dbutton\u0027)\u003B\u005Cn\u005Cn         \u005Cn         \u005Cn              })\u003B\u005Cn })()\u003B\u005Cn //]]\u003E\u005Cn\u003C/script\u003E\u003C/div\u003E\u0022, \u0022campaign\u0022: \u0022sync\u0022, \u0022weight\u0022: 300, \u0022countries\u0022: [], \u0022exclude_from_search_engines\u0022: [], \u0022id\u0022: 5274}, {\u0022code\u0022: \u0022\u003Cdiv data\u002Dsnippet\u002Did\u003D\u005C\u00225140\u005C\u0022 data\u002Dweight\u003D\u005C\u0022100\u005C\u0022 data\u002Dcampaign\u003D\u005C\u0022desktop\u005C\u0022 class\u003D\u005C\u0022snippet\u002Dmetadata\u005C\u0022\u003E\u003C!\u002D\u002D Simple and Logo Swap Snippet with Block and Click \u002D\u002D\u003E\u005Cn\u003C!\u002D\u002D\u005CnVariables:\u005Cn\u005Cn  @block_button_text \u002D small text \u002D Text to display while hovering over opt out button. Default \u0027Remove this\u0027\u005Cn  @blockable: checkbox \u002D Check to allow user to block this snippet.\u005Cn  @clickable: checkbox \u002D Check to allow snippet to be clickable\u005Cn  @icon: image \u002D Snippet icon. 64x64px. SVG or PNG preferred.\u005Cn  @icon_url: text \u002D URL linked from icon and whole snippet when snippet is clickable. (optional / required when snippet is clickable)\u005Cn  @link_logo: checkbox \u002D Check to make replacement logo clickable.\u005Cn  @replacement_logo: image \u002D Optional. Replace logo.\u005Cn  @text: main text \u002D Text of snippet.\u005Cn  @logo_height: small_text \u002D Logo height. Defaults to 192px\u005Cn  @logo_width: small_text \u002D  Logo width. Defaults to 192px\u005Cn\u005Cn\u002D\u002D\u003E\u005Cn\u003Cstyle\u003E\u005Cndiv.switch#brandLogo {\u005Cn   background\u002Dsize: 192px auto\u003B\u005Cn}\u005Cn\u005Cn.switch#brandLogo {\u005Cn   height: 192px\u003B\u005Cn   width: 192px\u003B\u005Cn}\u005Cn\u005Cn#snippetContainer div.snippet {\u005Cn   margin: 10px 5px\u003B\u005Cn}\u005Cn\u005Cn#snippetContainer div.snippet img.icon {\u005Cn    margin: 5px\u003B\u005Cn    float: none\u003B\u005Cn}\u005Cn\u005Cn.snippet p {\u005Cn    display: inline\u002Dblock\u003B\u005Cn    padding\u002Dleft: 0\u003B\u005Cn    width: auto\u003B\u005Cn    max\u002Dwidth: 380px\u003B\u005Cn    height: auto\u003B\u005Cn    vertical\u002Dalign: middle\u003B\u005Cn}\u005Cn\u005Cn.snippet .icon {\u005Cn    position: relative\u003B\u005Cn    right: 0\u003B\u005Cn    top: 0\u003B\u005Cn    display: inline\u002Dblock\u003B\u005Cn    height: auto\u003B\u005Cn    max\u002Dheight: 64px\u003B\u005Cn    vertical\u002Dalign: middle\u003B\u005Cn}\u005Cn\u005Cn\u005Cn\u005Cn \u005Cn\u003C/style\u003E\u005Cn  \u003Cdiv class\u003D\u005C\u0022snippet\u005C\u0022 id\u003D\u005C\u0022snippet\u005C\u0022\u003E\u005Cn    \u005Cn          \u003Ca href\u003D\u005C\u0022https://addons.mozilla.org/firefox/collections/mozmj/green/?utm_source\u003Ddesktop\u002Dsnippet\u0026amp\u003Butm_medium\u003Dsnippet\u0026amp\u003Butm_content\u003DAdd\u002Dons\u0026amp\u003Butm_term\u003D5140\u0026amp\u003Butm_campaign\u003Ddesktop\u005C\u0022\u003E\u005Cn              \u003Cimg class\u003D\u005C\u0022icon\u005C\u0022 src\u003D\u005C\u0022data:image/png\u003Bbase64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAACplBMVEWc/4ic/4ih/4uB8XcVwS8AuiUAuycAuycAuycAuiURzFAo5oso5Yoo5Yoo5Yqc/4ic/4ih/4uB8XcVwS8AuiYAuycAuycAuycAuiURzVAo5oso5Yoo5Yoo5Yqg/4uf/4ul/4+D8nkVvy0AuCIAuSQAuSQAuSQAuCEPzFAl5o8l5o4l5Y4l5Y6J7naJ7naN7nh152soyTwYxDUZxTYZxTYZxTYZxTUl0lE15Hc15Hc15Hc15Hc6tCw6tCw3silDvjlu6nNz8Hpz73lz73lz73lz8Htx51Zu3CRu3CRu3CRu3CQurCEurCIsqh48uTN473uA9oR/9YJ/9YJ/9YN/9YV76ld22xh22xl22xl22xkwrSMwrSMtqyA9ujR27nl+9YN99IF99IF99IF99IN66ld12xp12xt12xt12xswrSMwrSMtqyA9ujR27nl+9YN99IF99IF99IF99IN66ld12xp12xt12xt12xswrSMwrSMtqyA9uTR27np+9YN99IF99IF99IF99YN66ld12xp12xt12xt12xswqyIwqyIuqR4+uTN58XuB+IV/94N/94N/94OA94V861h22xp32xt32xt32xsqyDsqyDspyDkxx0FNwVtRwF9QwF5QwF5QwF5Qv19Wy0Fe2hhe2Rhe2Rle2Rki71wi71wj814e2VMRgDAQdCsQdiwQdiwQdiwPdC0jniI+2BU91xU91xU91xUi7lsi7lsj8l0f2VMSgTEQdSwRdy0Rdy0Rdi0PdC0jnyM/2BU+1xU+1xU+1xUi7lsi7lsj8l0f2VMSgTERdSwRdy0Rdy0Rdy0QdS0knyM/2BU+1xU+1xU+1xUi7lsi7lsj8l0f2VMSgTERdSwRdy0Rdy0Rdy0QdS0knyM/2BU+1xU+1xU+1xX///+I3NtXAAAAAWJLR0ThXwjPpgAAAAd0SU1FB+ADBxEDBUZEnUAAAAFUSURBVEjH7ctjV5hRAADgm23btmst27aWuVotrGXbto1lW4tLC6tW+yn7eO/9AZ3TOb3P9wcADAkpGTkFJRVETUNLR8/AiAJEIcobLEwYZhZWNnYOToiLm4eXj18ABQQxQsIiomLiEpCklLSMrJw8CihgFJWUVVTV1CENTS1tnQ+6KPARo6dvYGhkbAKZmplbWFpZo4ANxtbO3sHRyRlycXVz9/D0QgFvjI+vn3/Ap0AoKDgkNCw8AgUiMVHRMZ9j475A8QlfE5OSU1BEedflGyb1e1p6RmYWlJ2Tm5dfUIgCRZjiktKy8opKqKq6prauvgEFGjFNzS2tbe0dUGdXd09vXz8KDGAGh4ZHRsfGoYnJH1PTM7MoMIeZX1hcWl5ZhdbWNza3tndQYBezt3/w8/DoGDo5Pft1fnGJAleY6983t3f3f6CHx6e/zy//UEQhymuX/1a9MB3aZrZlAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE2LTAzLTA3VDE3OjAzOjA1LTA1OjAw7tMbNgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxNi0wMy0wN1QxNzowMzowNS0wNTowMJ+Oo4oAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8AAAAAElFTkSuQmCC\u005C\u0022 /\u003E\u005Cn          \u003C/a\u003E\u005Cn    \u005Cn    \u003Cp\u003EOne of these 15 fresh looks just might grow on you.  \u003Ca href\u003D\u005C\u0022https://addons.mozilla.org/firefox/collections/mozmj/green/?utm_source\u003Ddesktop\u002Dsnippet\u0026amp\u003Butm_medium\u003Dsnippet\u0026amp\u003Butm_content\u003DAdd\u002Dons\u0026amp\u003Butm_term\u003D5140\u0026amp\u003Butm_campaign\u003Ddesktop\u005C\u0022\u003EGo green with your theme\u003C/a\u003E.\u003C/p\u003E\u005Cn\u005Cn    \u005Cn      \u003C/div\u003E\u005Cn\u003Cscript type\u003D\u005C\u0022text/javascript\u005C\u0022\u003E\u005Cn //\u003C![CDATA[\u005Cn (function() {\u005Cn     var snippet \u003D document.getElementById(\u0027snippet\u0027)\u003B\u005Cn\u005Cn     snippet.addEventListener(\u0027show_snippet\u0027, function () {\u005Cn         var overlay \u003D document.getElementById(\u0027block\u002Dsnippet\u002Doverlay\u0027)\u003B\u005Cn         var xbuttons \u003D document.querySelectorAll(\u0027.block\u002Dsnippet\u002Dbutton\u0027)\u003B\u005Cn\u005Cn         \u005Cn         \u005Cn              })\u003B\u005Cn })()\u003B\u005Cn //]]\u003E\u005Cn\u003C/script\u003E\u003C/div\u003E\u0022, \u0022campaign\u0022: \u0022desktop\u0022, \u0022weight\u0022: 100, \u0022countries\u0022: [], \u0022exclude_from_search_engines\u0022: [], \u0022id\u0022: 5140}, {\u0022code\u0022: \u0022\u003Cdiv data\u002Dsnippet\u002Did\u003D\u005C\u00225170\u005C\u0022 data\u002Dweight\u003D\u005C\u0022100\u005C\u0022 data\u002Dcampaign\u003D\u005C\u0022\u005C\u0022 class\u003D\u005C\u0022snippet\u002Dmetadata\u005C\u0022\u003E\u003C!\u002D\u002D Simple and Logo Swap Snippet with Block and Click \u002D\u002D\u003E\u005Cn\u003C!\u002D\u002D\u005CnVariables:\u005Cn\u005Cn  @block_button_text \u002D small text \u002D Text to display while hovering over opt out button. Default \u0027Remove this\u0027\u005Cn  @blockable: checkbox \u002D Check to allow user to block this snippet.\u005Cn  @clickable: checkbox \u002D Check to allow snippet to be clickable\u005Cn  @icon: image \u002D Snippet icon. 64x64px. SVG or PNG preferred.\u005Cn  @icon_url: text \u002D URL linked from icon and whole snippet when snippet is clickable. (optional / required when snippet is clickable)\u005Cn  @link_logo: checkbox \u002D Check to make replacement logo clickable.\u005Cn  @replacement_logo: image \u002D Optional. Replace logo.\u005Cn  @text: main text \u002D Text of snippet.\u005Cn  @logo_height: small_text \u002D Logo height. Defaults to 192px\u005Cn  @logo_width: small_text \u002D  Logo width. Defaults to 192px\u005Cn\u005Cn\u002D\u002D\u003E\u005Cn\u003Cstyle\u003E\u005Cndiv.switch#brandLogo {\u005Cn   background\u002Dsize: 192px auto\u003B\u005Cn}\u005Cn\u005Cn.switch#brandLogo {\u005Cn   height: 192px\u003B\u005Cn   width: 192px\u003B\u005Cn}\u005Cn\u005Cn#snippetContainer div.snippet {\u005Cn   margin: 10px 5px\u003B\u005Cn}\u005Cn\u005Cn#snippetContainer div.snippet img.icon {\u005Cn    margin: 5px\u003B\u005Cn    float: none\u003B\u005Cn}\u005Cn\u005Cn.snippet p {\u005Cn    display: inline\u002Dblock\u003B\u005Cn    padding\u002Dleft: 0\u003B\u005Cn    width: auto\u003B\u005Cn    max\u002Dwidth: 380px\u003B\u005Cn    height: auto\u003B\u005Cn    vertical\u002Dalign: middle\u003B\u005Cn}\u005Cn\u005Cn.snippet .icon {\u005Cn    position: relative\u003B\u005Cn    right: 0\u003B\u005Cn    top: 0\u003B\u005Cn    display: inline\u002Dblock\u003B\u005Cn    height: auto\u003B\u005Cn    max\u002Dheight: 64px\u003B\u005Cn    vertical\u002Dalign: middle\u003B\u005Cn}\u005Cn\u005Cn\u005Cn\u005Cn \u005Cn\u003C/style\u003E\u005Cn  \u003Cdiv class\u003D\u005C\u0022snippet\u005C\u0022 id\u003D\u005C\u0022snippet\u005C\u0022\u003E\u005Cn    \u005Cn          \u003Ca href\u003D\u005C\u0022http://mzl.la/1Ei687v\u005C\u0022\u003E\u005Cn              \u003Cimg class\u003D\u005C\u0022icon\u005C\u0022 src\u003D\u005C\u0022data:image/png\u003Bbase64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAyCAYAAAAus5mQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABDBJREFUeNrsV01PE0EYHqxBoSJbjFFPbEwwxo+wGE4edHs1GsCbJ8vJk4EeTUygJ4/oL2g9GBM1UqPRxAuYePBgtKhBo2IXpECFbbflo9vCLr7vMtNMt620UozGfZJJu7Mz7zzzfjwzS4gDBw4cOKgpMhNX5Fra21FLY7pyXSZGYnj5w1HhryQIGCDEQHL9tTJYV4V3JGPpgeY+8Umx9fvg5zI0Edt6bpyY0AARaBq0AMwZtXsabEWgX6ulB4c2PFSIuYn7Z9dyKZkS5CHlsll5RpkUy9jqr1mIrdwiBJsP8qtgwZXUV3/sUzACJAvmADnyIzYTajufCZWwJUHrqyRX635BCokEqTHLEISFvcYwY4h68GH8oUs4fOpaEv+zEJuGEWlq/9JRra2KPfjtzQ1tYepZ3iAP0zTFuanvEnsGctYYfWmKqLNjZG11lexwuUTOFpmffCKXsxWfnhaqDvGxi4aWXoh4E7GRokRW43Etq+v5HSdnX4qzX+5qM5/vBNKq0hGLKiF1Li5wtpRF9X2HFn9VZAvSIKKvZHp+u4qXPl8d3FnfPMCHJadnezyd0TAbgyFG7yARrk/kn2moB1mhcSH22qt8Uw+CofzugVwrFgCEiCTn5zEkpH73LsnubTsZ+zNFO7OVUhOWLVb9/Jo8dpYg54NEx0m4WxKPDovLSWuHfvTScnpxoMHt/i3RBVsC2MKqDiCxtKYNNbrdFsH1tWk8gXrtOlvKe9GVj2eSTAIwVPYxNKRVo4wtEaUHzvB1WDNYMgdhQDeVgHZo3WbmBVk35jHHxuiJMPor1X/8+px8ofPpqK0PNyHZ+20yxgS+C9aTcF3ATWgpuuaoFWJwe9DtKRJNJN2NgptKJFDPIrBokBrshYX5UPTBO8LpHG7qLLRHNtLD9H0vhFv2HDwdrG84YOdunTCQozh/gyAM9u83zweb9p0srOB0moBchCDhI7TLx/0Ocp5C0iMlHDXGkZPopq3CAKeE9cXJvkNtlyQ7STX+Q1tKpfz5KgYCIdPM+otE1DDC8K6X62JEuzhyb6nnSiEIY9imLvN2sPKNtYw3l1koKgog52VOyctM8/5OK8dQBvTlBatvr8czZpvLQibBwiINh1jBJYPQfLPIQXpoTJ72tBxXNs70KJMd0nqkrVhm4JgSF9V3BBTfOtx3Nzb4mlta2m2LhbkbjUzzbDMI1IvMy7cLLhvpCVH9/lxbzWohl8slNQmCvKuxQSgiCMcUVluYuXb8YSagr8QKru+wcywUhVUeF/LNwG+koKrnvt67BT+Y5+BVA9ZVu4lKlKovrFyy99Ow+SnJSr5BUJj7aHi923KjLkN2pEKC3nJ6+Ke/SWoOh6BD8F8nWIkOavTDaHs/3CuUmwAV4pGtyst/nYPa30jQT8N7E89r+uzfangdOHDgwIGDreOnAAMAN8Aw94YMJtAAAAAASUVORK5CYII\u003D\u005C\u0022 /\u003E\u005Cn          \u003C/a\u003E\u005Cn    \u005Cn    \u003Cp\u003ERated 5\u002Dstars by over a million users! \u003Ca href\u003D\u005C\u0022http://mzl.la/1Ei687v\u005C\u0022\u003EGet Firefox for Android\u003C/a\u003E.\u003C/p\u003E\u005Cn\u005Cn    \u005Cn      \u003C/div\u003E\u005Cn\u003Cscript type\u003D\u005C\u0022text/javascript\u005C\u0022\u003E\u005Cn //\u003C![CDATA[\u005Cn (function() {\u005Cn     var snippet \u003D document.getElementById(\u0027snippet\u0027)\u003B\u005Cn\u005Cn     snippet.addEventListener(\u0027show_snippet\u0027, function () {\u005Cn         var overlay \u003D document.getElementById(\u0027block\u002Dsnippet\u002Doverlay\u0027)\u003B\u005Cn         var xbuttons \u003D document.querySelectorAll(\u0027.block\u002Dsnippet\u002Dbutton\u0027)\u003B\u005Cn\u005Cn         \u005Cn         \u005Cn              })\u003B\u005Cn })()\u003B\u005Cn //]]\u003E\u005Cn\u003C/script\u003E\u003C/div\u003E\u0022, \u0022campaign\u0022: \u0022\u0022, \u0022weight\u0022: 100, \u0022countries\u0022: [], \u0022exclude_from_search_engines\u0022: [], \u0022id\u0022: 5170}]');
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+'use strict';
+
+var SNIPPET_METRICS_SAMPLE_RATE = 0.1;
+var SNIPPET_METRICS_URL = 'https://snippets-stats.mozilla.org/foo.html';
+var ABOUTHOME_SHOWN_SNIPPET = null;
+var USER_COUNTRY = null;
+var GEO_CACHE_DURATION = 1000 * 60 * 60 * 24 * 30; // 30 days
+
+// Start MozUITour
+// Copy from https://hg.mozilla.org/mozilla-central/file/tip/browser/components/uitour/UITour-lib.js
+if (typeof Mozilla == 'undefined') {
+    var Mozilla = {};
+}
+
+if (typeof Mozilla.UITour == 'undefined') {
+    Mozilla.UITour = {};
+}
+
+function _sendEvent(action, data) {
+    var event = new CustomEvent('mozUITour', {
+        bubbles: true,
+        detail: {
+            action: action,
+            data: data || {}
+        }
+    });
+
+    document.dispatchEvent(event);
+}
+
+function _generateCallbackID() {
+    return Math.random().toString(36).replace(/[^a-z]+/g, '');
+}
+
+function _waitForCallback(callback) {
+    var id = _generateCallbackID();
+
+    function listener(event) {
+        if (typeof event.detail != 'object')
+            return;
+        if (event.detail.callbackID != id)
+            return;
+
+        document.removeEventListener('mozUITourResponse', listener);
+        callback(event.detail.data);
+    }
+    document.addEventListener('mozUITourResponse', listener);
+
+    return id;
+}
+
+Mozilla.UITour.showHighlight = function(target, effect) {
+    _sendEvent('showHighlight', {
+        target: target,
+        effect: effect
+    });
+};
+
+Mozilla.UITour.hideHighlight = function() {
+    _sendEvent('hideHighlight');
+};
+
+Mozilla.UITour.showMenu = function(name, callback) {
+    var showCallbackID;
+    if (callback)
+        showCallbackID = _waitForCallback(callback);
+
+    _sendEvent('showMenu', {
+        name: name,
+        showCallbackID: showCallbackID,
+    });
+};
+
+Mozilla.UITour.hideMenu = function(name) {
+    _sendEvent('hideMenu', {
+        name: name
+    });
+};
+
+Mozilla.UITour.getConfiguration = function(configName, callback) {
+    _sendEvent('getConfiguration', {
+        callbackID: _waitForCallback(callback),
+        configuration: configName,
+    });
+};
+
+Mozilla.UITour.setConfiguration = function(configName, configValue) {
+    _sendEvent('setConfiguration', {
+        configuration: configName,
+        value: configValue,
+    });
+};
+// End MozUITour
+
+
+(function(showDefaultSnippets) {
+    'use strict';
+
+    // showDefaultSnippets polyfill, available in about:home v4
+    if (typeof showDefaultSnippets !== 'function') {
+        showDefaultSnippets = function() {
+            localStorage.snippets = '';
+            showSnippets();
+        };
+    }
+
+    // gSnippetsMap polyfill, available in Firefox 22 and above.
+    var gSnippetsMap = null;
+    if (supportsLocalStorage()) {
+        // localStorage is available, so we wrap it with gSnippetsMap.
+        gSnippetsMap = {
+            set: function(key, value) {
+                localStorage[key] = value;
+            },
+            get: function(key) {
+                return localStorage[key];
+            }
+        };
+        window.gSnippetsMap = gSnippetsMap;
+    } else {
+        // localStorage isn't available, use gSnippetsMap (backed by IndexedDB).
+        gSnippetsMap = window.gSnippetsMap;
+    }
+
+
+    var show_snippet = null;
+    if (ABOUTHOME_SNIPPETS.length > 0) {
+        show_snippet = chooseSnippet(ABOUTHOME_SNIPPETS);
+    }
+
+    if (show_snippet) {
+        ABOUTHOME_SHOWN_SNIPPET = show_snippet;
+
+        // Inject the snippet onto the page.
+        var snippetContainer = document.createElement('div');
+        snippetContainer.innerHTML = show_snippet.code;
+        document.getElementById('snippets').appendChild(snippetContainer);
+        activateScriptTags(snippetContainer);
+
+        try {
+            activateSnippetsButtonClick(show_snippet);
+        } catch (err) {
+            // Do nothing, most likely a newer version of Firefox w/o
+            // activateSnippetsButtonClick
+        }
+
+        // By the time show_snippet event reaches #snippets the snippet
+        // will have finished initializing and altering the DOM. It's the
+        // time to modifyLinks() and addSnippetBlockLinks().
+        var snippets = document.getElementById('snippets');
+        snippets.addEventListener('show_snippet', function(event) {
+            var topSection = document.getElementById('topSection');
+            // Add sample rate and snippet ID to currently displayed links.
+            var parameters = ('sample_rate=' + SNIPPET_METRICS_SAMPLE_RATE + '&snippet_name=' +
+                              ABOUTHOME_SHOWN_SNIPPET.id);
+            modifyLinks(topSection.querySelectorAll('a'), parameters);
+            addSnippetBlockLinks(topSection.querySelectorAll('.block-snippet-button'));
+            keypressIsMine(snippetContainer.querySelector('.snippet'));
+            sendImpression();
+        });
+
+        // Trigger show_snippet event
+        var evt = document.createEvent('Event');
+        evt.initEvent('show_snippet', true, true);
+        snippetContainer.querySelector('.snippet').dispatchEvent(evt);
+    } else {
+        showDefaultSnippets();
+    }
+
+    // Update FxAccount Status
+    updateFxAccountStatus();
+
+    // Update Selected Search Engine
+    updateSelectedSearchEngine();
+
+    // Fetch user country if we don't have it.
+    if (!haveUserCountry()) {
+        downloadUserCountry();
+    }
+
+        // Choose which snippet to display to the user based on various factors,
+    // such as which country they are in.
+    function chooseSnippet(snippets) {
+        USER_COUNTRY = getUserCountry();
+        if (USER_COUNTRY) {
+            snippets = snippets.filter(
+                function(snippet) {
+                    var countries = snippet.countries;
+                    if (countries.length && countries.indexOf(USER_COUNTRY) === -1) {
+                        return false;
+                    }
+                    return true;
+                }
+            );
+        }
+        else {
+            // If we don't have the user's country, remove all geolocated snippets.
+            // Bug 1140476
+            snippets = snippets.filter(
+                function(snippet) {
+                    return snippet.countries.length === 0;
+                }
+            )
+        }
+
+        // FxAccount is already setup skip snippets that link to
+        // about:accounts
+        if (isFxAccountSetup()) {
+            snippets = snippets.filter(
+                function(snippet) {
+                    return !hasAboutAccountsLink(snippet);
+                }
+            );
+        }
+
+        // Exclude snippets from search providers.
+        var searchProvider = gSnippetsMap.get('selectedSearchEngine');
+        if (searchProvider) {
+            snippets = snippets.filter(
+                function(snippet) {
+                    var excludeFromSearchEngines = snippet.exclude_from_search_engines;
+                    if (excludeFromSearchEngines.length && excludeFromSearchEngines.indexOf(searchProvider) !== -1) {
+                        return false;
+                    }
+                    return true;
+                }
+            );
+        }
+
+        // Exclude snippets in block list.
+        var blockList = getBlockList();
+        snippets = snippets.filter(
+            function (snippet) {
+                if (blockList.indexOf(snippet.id) === -1) {
+                    return true;
+                }
+                return false;
+            }
+        );
+
+        // Choose a random snippet from the snippets list.
+        if (snippets && snippets.length) {
+            var sum = 0;
+            var number_of_snippets = snippets.length;
+            for (var k = 0; k < number_of_snippets; k++) {
+                sum += snippets[k].weight;
+                snippets[k].weight = sum;
+            }
+            var random_number = Math.random() * sum;
+            for (var k = 0; k < number_of_snippets; k++) {
+                if (random_number < snippets[k].weight) {
+                    return snippets[k];
+                }
+            }
+        } else {
+            return null;
+        }
+    }
+    
+    // Check whether snippet links to about:accounts.
+    function hasAboutAccountsLink(snippet) {
+        return snippet.code.indexOf('href="about:accounts"') !== -1;
+    }
+
+    function isFxAccountSetup() {
+        var fxaccount = gSnippetsMap.get('fxaccount');
+        if (fxaccount !== undefined) {
+            return fxaccount;
+        }
+        // If fxaccount === undefined pretend that sync is already
+        // setup, to avoid showing about:accounts snippets to browsers
+        // that do not support mozUITour signal or have accounts
+        // already setup.
+        return true;
+    }
+
+    function updateFxAccountStatus() {
+        var callback = function(result) {
+            gSnippetsMap.set('fxaccount', result.setup);
+        }
+        var event = new CustomEvent(
+            'mozUITour', {
+                bubbles: true,
+                detail: {
+                    action:'getConfiguration',
+                    data: {
+                        configuration: 'sync',
+                        callbackID: _waitForCallback(callback)
+                    }
+                }
+            }
+        );
+        document.dispatchEvent(event);
+    }
+
+    function updateSelectedSearchEngine() {
+        var callback = function(result) {
+            gSnippetsMap.set('selectedSearchEngine', result.searchEngineIdentifier);
+        }
+        var event = new CustomEvent(
+            'mozUITour', {
+                bubbles: true,
+                detail: {
+                    action:'getConfiguration',
+                    data: {
+                        configuration: 'selectedSearchEngine',
+                        callbackID: _waitForCallback(callback)
+                    }
+                }
+            }
+        );
+        document.dispatchEvent(event);
+    }
+
+    // Check whether we have the user's country stored and if it is still valid.
+    function haveUserCountry() {
+        // Check if there's an existing country code to use.
+        if (gSnippetsMap.get('geoCountry')) {
+            // Make sure we have a valid lastUpdated date.
+            var lastUpdated = Date.parse(gSnippetsMap.get('geoLastUpdated'));
+            if (lastUpdated) {
+                // Make sure that it is past the lastUpdated date.
+                var now = new Date();
+                if (now < lastUpdated + GEO_CACHE_DURATION) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    function getUserCountry() {
+        if (haveUserCountry()) {
+            return gSnippetsMap.get('geoCountry').toLowerCase();
+        } else {
+            return null;
+        }
+    }
+
+    // Download the user's country using the geolocation service.
+    // Please do not directly use this code or Snippets key.
+    // Contact MLS team for your own credentials.
+    // https://location.services.mozilla.com/contact
+    function downloadUserCountry() {
+        var GEO_URL = "https://location.services.mozilla.com/v1/country?key=fff72d56-b040-4205-9a11-82feda9d83a3";
+        var request = new XMLHttpRequest();
+        request.timeout = 60000;
+        request.onreadystatechange = function() {
+            if (request.readyState == 4 && request.status == 200) {
+                var country_data = JSON.parse(request.responseText);
+
+                try {
+                    gSnippetsMap.set('geoCountry', country_data.country_code);
+                    gSnippetsMap.set('geoLastUpdated', new Date());
+                } catch (e) {
+                    // Most likely failed to load Data file. Continue on without us,
+                    // we'll try again next time.
+                }
+            }
+        };
+        request.open('GET', GEO_URL, true);
+        request.send();
+    }
+
+    // Notifies stats server that the given snippet ID
+    // was shown. No personally-identifiable information
+    // is sent.
+    function sendImpression() {
+        sendMetric('impression');
+    }
+
+    // Modifies the given links to include the specified GET parameters.
+    function modifyLinks(links, parameters) {
+        for (var k = 0, len = links.length; k < len; k++) {
+            var link = links[k];
+            var delimeter = (link.href.indexOf('?') !== -1 ? '&' : '?');
+
+            // Pull the fragment off of the link
+            var fragment_position = link.href.indexOf('#');
+            if (fragment_position === -1) {
+                fragment_position = link.href.length;
+            }
+
+            var href = link.href.substring(0, fragment_position);
+            var fragment = link.href.substring(fragment_position);
+
+            link.href = href + delimeter + parameters + fragment;
+        }
+    }
+
+    // Add links to buttons that block snippets.
+    function addSnippetBlockLinks(elements) {
+        var snippet_id = ABOUTHOME_SHOWN_SNIPPET.id;
+        var blockSnippet = function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            addToBlockList(snippet_id);
+
+            // Waiting for 500ms before reloading the page after user blocks a snippet,
+            // will allow the IndexedDB more time to complete its transaction. While
+            // this is an imperfect non-deterministic solution it will fix the issue
+            // for most of the users. Ideally we would create our own
+            // connection to the iDB and ensure that the write completes
+            // before we reload the page. Bug 1236090.
+            function reloadWindow() {
+                window.location.reload();
+            }
+            sendMetric('snippet-blocked', function() { setTimeout(reloadWindow, 500); })
+        };
+
+        for (var k = 0; k < elements.length; k++) {
+            var button = elements[k];
+            button.addEventListener('click', blockSnippet);
+        }
+    }
+
+    // Bug 1238092. Got fixed in Fx45. We can drop this when Fx44
+    // usage drops significantly.
+    function keypressIsMine(snippet) {
+        snippet.addEventListener('keypress', function(event) {
+            var tagName = event.target.tagName.toLowerCase();
+            if (tagName === 'input' || tagName === 'select') {
+                event.stopPropagation();
+            }
+        });
+    }
+
+    // Check for localStorage support. Copied from Modernizr.
+    function supportsLocalStorage() {
+        var s = 'snippets-test';
+        try {
+            localStorage.setItem(s, s);
+            localStorage.removeItem(s);
+            return true;
+        } catch(e) {
+            return false;
+        }
+    }
+
+    // Scripts injected by innerHTML are inactive, so we have to relocate them
+    // through DOM manipulation to activate their contents.
+    // (Adapted from http://mxr.mozilla.org/mozilla-central/source/browser/base/content/abouthome/aboutHome.js)
+    function activateScriptTags(element) {
+       Array.forEach(element.getElementsByTagName('script'), function(elt) {
+           var relocatedScript = document.createElement('script');
+           relocatedScript.type = 'text/javascript;version=1.8';
+           relocatedScript.text = elt.text;
+           elt.parentNode.replaceChild(relocatedScript, elt);
+       });
+    }
+
+    // Listen for clicks on links, send metrics and handle
+    // about:account custom links.
+    var topSection = document.getElementById('topSection');
+    topSection.addEventListener('click', function(event) {
+        var target = event.target;
+        while (target.tagName && target.tagName.toLowerCase() !== 'a') {
+            // Do not track clicks outside topSection.
+            if (target.id === 'topSection') {
+                return;
+            }
+            target = target.parentNode;
+        }
+
+        // Count snippet clicks.
+        if (target.dataset.eventCounted !== 'true') {
+            target.dataset.eventCounted = 'true';
+            // Fetch custom metric or default to 'click'
+            var metric = target.dataset.metric || 'click';
+            // If user is not opening a new tab, preventDefault action.
+            if (target.href && (event.button === 0 && !(event.metaKey || event.ctrlKey))) {
+                event.preventDefault();
+                var callback = function() {
+                    target.click();
+                }
+            }
+            sendMetric(metric, callback);
+        }
+
+        // Handle about:accounts clicks.
+        if (target.href && target.href.indexOf('about:accounts') === 0) {
+            var snippet_id = ABOUTHOME_SHOWN_SNIPPET.id;
+            var metric = snippet_id + '-about-accounts-click';
+            var fire_event = function() {
+                var event = new CustomEvent(
+                    'mozUITour',
+                    { bubbles: true, detail: { action:'showFirefoxAccounts', data: {}}}
+                );
+                document.dispatchEvent(event);
+            };
+            sendMetric(metric, fire_event);
+        }
+    }, false);
+
+
+})(window.showDefaultSnippets);
+
+// Send impressions and other interactions to the service
+// If no parameter is entered, quit function
+function sendMetric(metric, callback) {
+              if ((Math.random() > SNIPPET_METRICS_SAMPLE_RATE) || (!metric)) {
+          if (callback) {
+              callback();
+          }
+          return;
+      }
+
+      var locale = 'en-US';
+      var userCountry = USER_COUNTRY || '';
+      var campaign = ABOUTHOME_SHOWN_SNIPPET.campaign;
+      var snippet_id = ABOUTHOME_SHOWN_SNIPPET.id;
+
+      var url = (SNIPPET_METRICS_URL + '?snippet_name=' + snippet_id +
+                 '&locale=' + locale + '&country=' + userCountry +
+                 '&metric=' + metric + '&campaign=' + campaign);
+      var request = new XMLHttpRequest();
+      request.open('GET', url);
+      if (callback) {
+          request.addEventListener('loadend', callback, false);
+      }
+      request.send();
+      return request;
+    }
+
+function popFromBlockList(snippetID) {
+    var blockList = getBlockList();
+    var item = blockList.pop(snippetID);
+    gSnippetsMap.set('blockList', blockList);
+    return item;
+}
+
+function addToBlockList(snippetID) {
+    var blockList = getBlockList();
+    snippetID = parseInt(snippetID, 10);
+    if (blockList.indexOf(snippetID) === -1) {
+        blockList = [snippetID].concat(blockList);
+        gSnippetsMap.set('blockList', blockList);
+    }
+}
+
+function getBlockList() {
+    if (gSnippetsMap.get('blockList') === undefined) {
+        gSnippetsMap.set('blockList', []);
+    }
+    return gSnippetsMap.get('blockList');
+}
+//]]>
+</script>.à3Ò»      Væs(Væs(<<`WÁÄ   fa,:https://snippets.cdn.mozilla.net/media/bundles/bundle_961ecefd6965b01c650cf212f3a7f7b58388c185.html security-info FnhllAKWRHGAlo+ESXykKAAAAAAAAAAAwAAAAAAAAEaphjojH6pBabDSgSnsfLHeAAQAAgAAAAAAAAAAAAAAAAAAAAAB4vFIJp5wRkeyPxAQ9RJGKPqbqVvKO0mKuIl8ec8o/uhmCjImkVxP+7sgiYWmMt8F+O2DZM7ZTG6GukivU8OT5gAAAAAAAAUoMIIFJDCCBAygAwIBAgIQBvKITxcFmVFgpBnShsOHcTANBgkqhkiG9w0BAQsFADBNMQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMScwJQYDVQQDEx5EaWdpQ2VydCBTSEEyIFNlY3VyZSBTZXJ2ZXIgQ0EwHhcNMTUwMzEyMDAwMDAwWhcNMTcwMzE2MTIwMDAwWjBsMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxHDAaBgNVBAoTE01vemlsbGEgQ29ycG9yYXRpb24xGjAYBgNVBAMMESouY2RuLm1vemlsbGEubmV0MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArd1PwIc1JUz3R98ls44sNn/ms5F/GIPiN8wn3vxx+cQTztQGqO4a2+0GyX1RD88e3KlASHe/Mb2HwM2AqmvtUM75NnSLy2Fa/9P0fCuLyqQPQSZdSGrKW9jJL4Zod/YlhHvf/pcLSZo3fRvDLRUE9TYbuy6oNjeoCYXMtjjFpYl5DyzYyL9NKBEfAL2p4a9nqvuN17joKMnrmt5JR3A0g4hLzOXc7o6OnYwfaPgF9db/nna74ROj0lYQHQkP/jBlydiCo0i8Ju8dkS0K1vdg/hio+zmJTU5epUgR5UQygYiiBxyov3kk9ALX5Xlu5OscKhcR/Vu8uslwBy0RKEeGXQIDAQABo4IB3zCCAdswHwYDVR0jBBgwFoAUD4BhHIIxYdUvKOeNRji0LOHG2eIwHQYDVR0OBBYEFEwziXLlFOUjs2Aq/Pa8SoP0+48iMC0GA1UdEQQmMCSCESouY2RuLm1vemlsbGEubmV0gg9jZG4ubW96aWxsYS5uZXQwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMBBggrBgEFBQcDAjBrBgNVHR8EZDBiMC+gLaArhilodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vc3NjYS1zaGEyLWczLmNybDAvoC2gK4YpaHR0cDovL2NybDQuZGlnaWNlcnQuY29tL3NzY2Etc2hhMi1nMy5jcmwwQgYDVR0gBDswOTA3BglghkgBhv1sAQEwKjAoBggrBgEFBQcCARYcaHR0cHM6Ly93d3cuZGlnaWNlcnQuY29tL0NQUzB8BggrBgEFBQcBAQRwMG4wJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBGBggrBgEFBQcwAoY6aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0U0hBMlNlY3VyZVNlcnZlckNBLmNydDAMBgNVHRMBAf8EAjAAMA0GCSqGSIb3DQEBCwUAA4IBAQCWySmCzgXCq5Xt5aNaytCwERbSQIWLzDv8f8AERKCGZGuuB7yJN53YHk0ef5Df0z13jg5zSch9jwNFQZlQC/GDvubla/3gXq8OfLT8GFc/T6pIoXHHUIFsEfA19S627WsiSNcgCYYJpOq/mhaIsWpVUMjOmC4EwDbDvc9bDzoyvR6R8do+G1E1sCMadJ/YS4ONapb5jBsV0Jstrsxmv6bxEHnBAVqFc4CGngmoYvJNVX5aZU9Ois1WIzpZFicECk1gGeNJfVmpPMwqPScaRh4yY2/fEpzY9M9BAgMgU7Bpx4ZFKZY0Feytk5yMqAswc0QeWVJjkSAx2w3dMgIPKQ+BwC8AAwAAAAABAQAA request-method GET response-head HTTP/1.1 200 OK
+Content-Type: text/html; charset=UTF-8
+Content-Length: 38347
+Server: Apache
+X-Backend-Server: snippets5.webapp.phx1.mozilla.com
+Cache-Control: max-age=2592000
+Date: Tue, 08 Mar 2016 20:23:32 GMT
+Expires: Thu, 07 Apr 2016 20:23:32 GMT
+Accept-Ranges: bytes
+Access-Control-Allow-Origin: *
+Etag: W/"52d8f5add13da"
+Last-Modified: Tue, 08 Mar 2016 20:23:31 GMT
+X-Cache-Info: cached
+Age: 474547
+X-Cache: Hit from cloudfront
+Via: 1.1 af70784b6b43d4801d09b1c1699dc86a.cloudfront.net (CloudFront)
+X-Amz-Cf-Id: Z5T3w32uo-10h-bF8lXCiAu0YYtpGuKJz2S3GFDM3SXdADoeXGCK3g==
+ uncompressed-len 0   •Ë

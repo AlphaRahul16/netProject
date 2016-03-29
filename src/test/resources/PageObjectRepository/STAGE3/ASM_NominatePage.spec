@@ -77,4 +77,5 @@ inp_support2FindByNumber                        xpath                       (//i
 btn_findSupporter1ByNumber                     xpath                        (//input[contains(@id,'doSearchByNumber_searchSupporter')])[1]
 btn_findSupporter2ByNumber                     xpath                        (//input[contains(@id,'doSearchByNumber_searchSupporter')])[2]
 btn_findMemberByNumber                         id                            doSearchByNumber_searchNominee
+img_submitnomination                           css                          .updating
 =================================================================================================================================

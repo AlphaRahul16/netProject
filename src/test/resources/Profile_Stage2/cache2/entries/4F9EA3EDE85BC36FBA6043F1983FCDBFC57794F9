@@ -1,0 +1,535 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<title>Firebug Tip: Trace Styles | Software is hard</title>
+	
+	<meta name="generator" content="WordPress 3.1" />
+	<meta name="description" content="More musings on software development" />
+
+
+	<style type="text/css" media="screen">
+		@import url( http://www.softwareishard.com/blog/wp-content/themes/miniBits/miniBits/style.css );
+	</style>
+
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.softwareishard.com/blog/feed/" />
+	<link rel="alternate" type="text/xml" title="RSS .92" href="http://www.softwareishard.com/blog/feed/rss/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://www.softwareishard.com/blog/feed/atom/" />
+	<link rel="pingback" href="http://www.softwareishard.com/blog/xmlrpc.php" />
+    	<link rel='archives' title='March 2015' href='http://www.softwareishard.com/blog/2015/03/' />
+	<link rel='archives' title='June 2014' href='http://www.softwareishard.com/blog/2014/06/' />
+	<link rel='archives' title='March 2014' href='http://www.softwareishard.com/blog/2014/03/' />
+	<link rel='archives' title='September 2013' href='http://www.softwareishard.com/blog/2013/09/' />
+	<link rel='archives' title='August 2013' href='http://www.softwareishard.com/blog/2013/08/' />
+	<link rel='archives' title='July 2013' href='http://www.softwareishard.com/blog/2013/07/' />
+	<link rel='archives' title='June 2013' href='http://www.softwareishard.com/blog/2013/06/' />
+	<link rel='archives' title='May 2013' href='http://www.softwareishard.com/blog/2013/05/' />
+	<link rel='archives' title='February 2013' href='http://www.softwareishard.com/blog/2013/02/' />
+	<link rel='archives' title='January 2013' href='http://www.softwareishard.com/blog/2013/01/' />
+	<link rel='archives' title='December 2012' href='http://www.softwareishard.com/blog/2012/12/' />
+	<link rel='archives' title='November 2012' href='http://www.softwareishard.com/blog/2012/11/' />
+	<link rel='archives' title='October 2012' href='http://www.softwareishard.com/blog/2012/10/' />
+	<link rel='archives' title='August 2012' href='http://www.softwareishard.com/blog/2012/08/' />
+	<link rel='archives' title='July 2012' href='http://www.softwareishard.com/blog/2012/07/' />
+	<link rel='archives' title='June 2012' href='http://www.softwareishard.com/blog/2012/06/' />
+	<link rel='archives' title='May 2012' href='http://www.softwareishard.com/blog/2012/05/' />
+	<link rel='archives' title='March 2012' href='http://www.softwareishard.com/blog/2012/03/' />
+	<link rel='archives' title='February 2012' href='http://www.softwareishard.com/blog/2012/02/' />
+	<link rel='archives' title='July 2011' href='http://www.softwareishard.com/blog/2011/07/' />
+	<link rel='archives' title='June 2011' href='http://www.softwareishard.com/blog/2011/06/' />
+	<link rel='archives' title='May 2011' href='http://www.softwareishard.com/blog/2011/05/' />
+	<link rel='archives' title='March 2011' href='http://www.softwareishard.com/blog/2011/03/' />
+	<link rel='archives' title='February 2011' href='http://www.softwareishard.com/blog/2011/02/' />
+	<link rel='archives' title='January 2011' href='http://www.softwareishard.com/blog/2011/01/' />
+	<link rel='archives' title='December 2010' href='http://www.softwareishard.com/blog/2010/12/' />
+	<link rel='archives' title='November 2010' href='http://www.softwareishard.com/blog/2010/11/' />
+	<link rel='archives' title='October 2010' href='http://www.softwareishard.com/blog/2010/10/' />
+	<link rel='archives' title='September 2010' href='http://www.softwareishard.com/blog/2010/09/' />
+	<link rel='archives' title='August 2010' href='http://www.softwareishard.com/blog/2010/08/' />
+	<link rel='archives' title='July 2010' href='http://www.softwareishard.com/blog/2010/07/' />
+	<link rel='archives' title='June 2010' href='http://www.softwareishard.com/blog/2010/06/' />
+	<link rel='archives' title='May 2010' href='http://www.softwareishard.com/blog/2010/05/' />
+	<link rel='archives' title='March 2010' href='http://www.softwareishard.com/blog/2010/03/' />
+	<link rel='archives' title='February 2010' href='http://www.softwareishard.com/blog/2010/02/' />
+	<link rel='archives' title='January 2010' href='http://www.softwareishard.com/blog/2010/01/' />
+	<link rel='archives' title='November 2009' href='http://www.softwareishard.com/blog/2009/11/' />
+	<link rel='archives' title='October 2009' href='http://www.softwareishard.com/blog/2009/10/' />
+	<link rel='archives' title='September 2009' href='http://www.softwareishard.com/blog/2009/09/' />
+	<link rel='archives' title='July 2009' href='http://www.softwareishard.com/blog/2009/07/' />
+	<link rel='archives' title='May 2009' href='http://www.softwareishard.com/blog/2009/05/' />
+	<link rel='archives' title='April 2009' href='http://www.softwareishard.com/blog/2009/04/' />
+	<link rel='archives' title='March 2009' href='http://www.softwareishard.com/blog/2009/03/' />
+	<link rel='archives' title='January 2009' href='http://www.softwareishard.com/blog/2009/01/' />
+	<link rel='archives' title='December 2008' href='http://www.softwareishard.com/blog/2008/12/' />
+	<link rel='archives' title='November 2008' href='http://www.softwareishard.com/blog/2008/11/' />
+	<link rel='archives' title='October 2008' href='http://www.softwareishard.com/blog/2008/10/' />
+	<link rel='archives' title='September 2008' href='http://www.softwareishard.com/blog/2008/09/' />
+	<link rel='archives' title='August 2008' href='http://www.softwareishard.com/blog/2008/08/' />
+	<link rel='archives' title='July 2008' href='http://www.softwareishard.com/blog/2008/07/' />
+	<link rel='archives' title='June 2008' href='http://www.softwareishard.com/blog/2008/06/' />
+	<link rel='archives' title='May 2008' href='http://www.softwareishard.com/blog/2008/05/' />
+	<link rel='archives' title='April 2008' href='http://www.softwareishard.com/blog/2008/04/' />
+	<link rel='archives' title='March 2008' href='http://www.softwareishard.com/blog/2008/03/' />
+	<link rel='archives' title='February 2008' href='http://www.softwareishard.com/blog/2008/02/' />
+	<link rel="alternate" type="application/rss+xml" title="Software is hard &raquo; Firebug Tip: Trace Styles Comments Feed" href="http://www.softwareishard.com/blog/firebug/firebug-tip-trace-styles/feed/" />
+<script type='text/javascript' src='http://www.softwareishard.com/blog/wp-includes/js/l10n.js?ver=20101110'></script>
+<script type='text/javascript' src='http://www.softwareishard.com/blog/wp-includes/js/prototype.js?ver=1.6.1'></script>
+<script type='text/javascript' src='http://www.softwareishard.com/blog/wp-includes/js/scriptaculous/wp-scriptaculous.js?ver=1.8.3'></script>
+<script type='text/javascript' src='http://www.softwareishard.com/blog/wp-includes/js/scriptaculous/effects.js?ver=1.8.3'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.softwareishard.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.softwareishard.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='Software is hard' href='http://www.softwareishard.com/blog/' />
+<link rel='start' title='Extending Firebug, Hello World! (Part I.)' href='http://www.softwareishard.com/blog/firebug-tutorial/extending-firebug-hello-world-part-i/' />
+<link rel='prev' title='Automate Page Load Performance Testing with Firebug and Selenium' href='http://www.softwareishard.com/blog/firebug/automate-page-load-performance-testing-with-firebug-and-selenium/' />
+<link rel='next' title='Firebug Tip: Break on HTML Mutation' href='http://www.softwareishard.com/blog/firebug/firebug-tip-break-on-html-mutation/' />
+<meta name="generator" content="WordPress 3.1" />
+<link rel='shortlink' href='http://www.softwareishard.com/blog/?p=423' />
+
+<!-- All in One SEO Pack 1.6.14.6 by Michael Torbert of Semper Fi Web Design[280,331] -->
+<link rel="canonical" href="http://www.softwareishard.com/blog/firebug/firebug-tip-trace-styles/" />
+<!-- /all in one seo pack -->
+<link rel="stylesheet" href="http://www.softwareishard.com/blog/wp-content/plugins/deans_code_highlighter/geshi.css"  type="text/css" />	<!-- WP lightbox 2 Plugin version 0.6.3 -->
+	<link rel="stylesheet" href="http://www.softwareishard.com/blog/wp-content/plugins/wp-lightbox2/css/lightbox.css" type="text/css" media="screen" />
+	<style type="text/css" media="screen">
+		#prevLink, #nextLink { background: transparent url("http://www.softwareishard.com/blog/wp-content/plugins/wp-lightbox2/images/blank.gif") no-repeat; }
+		#prevLink:hover, #prevLink:visited:hover { background: url("http://www.softwareishard.com/blog/wp-content/plugins/wp-lightbox2/images/prevlabel.gif") left 15% no-repeat; }
+		#nextLink:hover, #nextLink:visited:hover { background: url("http://www.softwareishard.com/blog/wp-content/plugins/wp-lightbox2/images/nextlabel.gif") right 15% no-repeat; }
+	</style>
+	<script type="text/javascript" src="http://www.softwareishard.com/blog/wp-content/plugins/wp-lightbox2/js/lightbox.js"></script>
+	<script type="text/javascript">
+		var fileLoadingImage = "http://www.softwareishard.com/blog/wp-content/plugins/wp-lightbox2/images/loading.gif";
+		var fileBottomNavCloseImage = "http://www.softwareishard.com/blog/wp-content/plugins/wp-lightbox2/images/closelabel.gif";
+	</script>
+</head>
+
+<body>
+<script  type="text/javascript">
+function installXPI(href)
+{
+    if (typeof(InstallTrigger) != 'undefined')
+    {
+        var xpi = {'Firebug': href};
+        InstallTrigger.install(xpi);
+    }
+    else
+    {
+        alert("You must be using Firefox to install this extension.");
+    }
+}
+
+function run(id) 
+{
+    try 
+    {
+        var form = document.createElement("form");
+        form.setAttribute("action", "http://www.softwareishard.com/domplate/runner/index.php");
+        form.setAttribute("method", "POST");
+        form.setAttribute("style", "display:none");
+
+        var parts = ["script", "data", "css"];
+        for (var i=0; i<parts.length; i++) 
+        {
+            var part = document.getElementById(id+"-"+parts[i]);
+            if (!part)
+                continue;
+            var input = document.createElement("input");
+            input.setAttribute("name", parts[i]);          
+            input.setAttribute("value", part.innerHTML);
+            form.appendChild(input);
+        }
+
+        document.body.appendChild(form);
+        form.submit();     
+    } 
+    catch (err) 
+    {
+        alert("Error: " + err);
+    }  
+}
+</script>
+
+<div id="wrapper">
+
+<div id="main_header">
+    <div class="top"></div>
+
+    <div class="main_sidebar">
+        <a class="rss_posts" href="http://feeds.feedburner.com/SoftwareIsHard"
+            title="Subscribe to RSS Feed"><img border="0"
+                src="http://www.softwareishard.com/blog/wp-content/themes/miniBits/miniBits/img/rss.gif"
+                alt="Subscribe to RSS Feed"/></a>
+        <div id="header">
+            <h1><a href="http://www.softwareishard.com/blog/">Software is hard</a></h1>
+            <span class="desc">More musings on software development</span>
+            <div class="desc">Jan Odvarko</div>
+            <div class="desc">odvarko@gmail.com</div>
+        </div>
+    </div>
+
+    <div class="bottom"></div>
+</div>
+	
+<div class="container">
+<hr />
+
+
+
+
+
+<div class="post">
+	<div class="titolo">
+		<h2><a href="http://www.softwareishard.com/blog/firebug/firebug-tip-trace-styles/">Firebug Tip: Trace Styles</a></h2>
+  		<small>by Honza</small>
+	</div>
+  	<span class="edit"></span>
+
+  	<div class="corpo">
+  	  	<ul class="more_info">
+  	  		<li class="first"><strong>Published</strong>:<span>July 13th, 2012</span></li>
+  	  		<li><strong>Comments</strong>:<span><a href="http://www.softwareishard.com/blog/firebug/firebug-tip-trace-styles/#comments ">11 Comments</a></span></li>
+  	 		<li><strong>Category</strong>:<span><a href="http://www.softwareishard.com/blog/category/firebug/" title="View all posts in Firebug" rel="category tag">Firebug</a>, <a href="http://www.softwareishard.com/blog/category/firebug-tip/" title="View all posts in Firebug Tip" rel="category tag">Firebug Tip</a>, <a href="http://www.softwareishard.com/blog/category/planet-mozilla/" title="View all posts in Planet Mozilla" rel="category tag">Planet Mozilla</a></span></li>
+  	  	</ul>
+		<p><strong>Firebug 1.10</strong> has been <a href="https://blog.getfirebug.com/2012/07/13/firebug-1-10-0/">released</a> today and one of the <a href="http://hacks.mozilla.org/2012/07/firebug-1-10-new-features/">new features</a> introduced in this version is called <strong>Trace Styles</strong>.</p>
+<p>This feature allows tracing all places which affected specific CSS property, whether explicitly or by inheritance. The list also shows which property is actually applied.</p>
+<p>This feature is integrated into the <strong>Computed side panel</strong> (available within the HTML panel) where every CSS property is expandable.</p>
+<p>Of course, <span style="color:#DD467B">you need Firebug 1.10+</span> to try out this feature.</p>
+<p class="firebugTipsLink">See all <a href="http://www.softwareishard.com/blog/firebug-tips/">Firebug tips</a>
+<p><span id="more-423"></span></p>
+<h3>Explicit CSS Properties</h3>
+<p>Let's see an example showing more explicit CSS properties (with different values) set on one element.</p>
+<div class="dean_ch" style="white-space: wrap;">&lt;style type=<span class="st0">&quot;text/css&quot;</span>&gt;<br />
+<span class="re1">.a</span> <span class="br0">&#123;</span> <span class="kw1">color</span>: <span class="kw2">red</span>; <span class="br0">&#125;</span><br />
+<span class="re1">.b</span> <span class="br0">&#123;</span> <span class="kw1">color</span>: <span class="kw2">green</span>; <span class="br0">&#125;</span><br />
+&lt;/style&gt;<br />
+&lt;span class=<span class="st0">&quot;a b&quot;</span>&gt;Hello World!&lt;/span&gt;</div>
+<p><img alt="" src="http://www.softwareishard.com/images/posts/trace-styles/explicit-styles.png" title="Explicit Styles" class="aligncenter" width="520" height="282" /></p>
+<ul>
+<li>There are two CSS rules applied on the same element: <strong>a, b</strong></li>
+<li>Both rules modify the <em>color</em> CSS property</li>
+<li>The <strong>a</strong> rule is overwritten by <strong>b</strong> since <strong>b</strong> is defined later.</li>
+<li>That's why <em>Hello World!</em> text is green and the rule <strong>a</strong> crossed out in the Computed panel.
+</ul>
+<h3>Inherited CSS Properties</h3>
+<p>This example demonstrates how to trace also inherited properties.</p>
+<div class="dean_ch" style="white-space: wrap;">&lt;style type=<span class="st0">&quot;text/css&quot;</span>&gt;<br />
+<span class="re1">.a</span> <span class="br0">&#123;</span> <span class="kw1">color</span>: <span class="kw2">red</span>; <span class="br0">&#125;</span><br />
+<span class="re1">.b</span> <span class="br0">&#123;</span> <span class="kw1">color</span>: <span class="kw2">green</span>; <span class="br0">&#125;</span><br />
+body <span class="br0">&#123;</span> <span class="kw1">color</span>: <span class="kw2">purple</span>; <span class="br0">&#125;</span><br />
+&lt;/style&gt;<br />
+&lt;body&gt;<br />
+&lt;span class=<span class="st0">&quot;a b&quot;</span>&gt;Hello World!&lt;/span&gt;<br />
+&lt;/body&gt;</div>
+<p><img alt="" src="http://www.softwareishard.com/images/posts/trace-styles/inherited-styles.png" title="Inherited Styles" class="aligncenter" width="520" height="288" /></p>
+<ul>
+<li>The example extends the previous by appending one more rule: <strong>body</strong></li>
+<li>We are again inspecting the same span element</li>
+<li>There are three CSS rules now, two explicit and one inherited.</li>
+<li>The new <strong>body</strong> rule (inherited) is grayed out since it's overwritten by <strong>b</strong> rule</li>
+</ul>
+<p class="bullet">&nbsp;</p>
+<p>So, if you are trying to figure out why your CSS property doesn't have any effect, you can effectively use this feature and see (a) whether the property is actually applied and (b) whether it isn't overwritten by another property.</p>
+<p>Happy Firebugging!</p>
+		<div class="clear"></div>
+  	</div> 
+</div>
+
+<hr />
+<div id="commenti">
+
+<div class="commentlist">
+
+<a class="rss_commenti" href="/feed/" title="Feed RSS Comments"><img src="http://www.softwareishard.com/blog/wp-content/themes/miniBits/miniBits/img/rss.gif" alt="Rss Commenti"/></a>
+
+<h4 id="comments">11 Comments</h4>
+
+<ol id="commentlist">
+
+
+	<li id="comment-22995">
+    	<div class="messaggio"><p>Great explanation, Honza!</p>
+<p>Just want to note that a detailed description of the Computed side panel is also available at <a href="https://getfirebug.com/wiki/index.php/Computed_Side_Panel" rel="nofollow">https://getfirebug.com/wiki/index.php/Computed_Side_Panel</a>.</p>
+<p>Sebastian</p>
+		</div>
+		<span class="autore"><a class="count" href="#comment-22995">#1</a> Sebastian Z.		</span>	
+	</li>
+
+
+	<li id="comment-22996">
+    	<div class="messaggio"><p>[...] See, there are three places trying to set the font-size of the selected element (the one in black succeeded). Of course, the blue text/location on the right is click-able and navigates the user the right place. See also detailed explanation. [...]</p>
+		</div>
+		<span class="autore"><a class="count" href="#comment-22996">#2</a> <a href='http://hacks.mozilla.org/2012/07/firebug-1-10-new-features/' rel='external nofollow' class='url'>Firebug 1.10 New Features &#10025; Mozilla Hacks &#8211; the Web developer blog</a>		</span>	
+	</li>
+
+
+	<li id="comment-22997">
+    	<div class="messaggio"><p>[...] منبع: http://www.softwareishard.com/blog/firebug/firebug-tip-trace-styles     Tagged: [...]</p>
+		</div>
+		<span class="autore"><a class="count" href="#comment-22997">#3</a> <a href='http://mrfalahat.ir/?p=242' rel='external nofollow' class='url'>فایرباگ 1.10 &#8211; Trace کردن استایل | محمد فلاحت</a>		</span>	
+	</li>
+
+
+	<li id="comment-22999">
+    	<div class="messaggio"><p>Excellent!!!!!!!!!!!!!<br />
+@notengoideacove</p>
+		</div>
+		<span class="autore"><a class="count" href="#comment-22999">#4</a> <a href='http://notengoidea.com.ve/blog' rel='external nofollow' class='url'>Hugo Cabrera</a>		</span>	
+	</li>
+
+
+	<li id="comment-23001">
+    	<div class="messaggio"><p>hm, I thoungh @Explicit CSS Properties@ was before version 1.10</p>
+		</div>
+		<span class="autore"><a class="count" href="#comment-23001">#5</a> <a href='http://stepansuvorov.com' rel='external nofollow' class='url'>STEVER</a>		</span>	
+	</li>
+
+
+	<li id="comment-23004">
+    	<div class="messaggio"><p>@STEVER: the corresponding issue report is here:<br />
+<a href="http://code.google.com/p/fbug/issues/detail?id=2916" rel="nofollow">http://code.google.com/p/fbug/issues/detail?id=2916</a><br />
+And its label says: fixed-1.10-a8 (so introduced in 1.10 alpha 8). So, perhaps you have been already using in in 1.10 alpha or beta releases.</p>
+<p>Honza</p>
+		</div>
+		<span class="autore"><a class="count" href="#comment-23004">#6</a> <a href='http://www.softwareishard.com' rel='external nofollow' class='url'>Honza</a>		</span>	
+	</li>
+
+
+	<li id="comment-23015">
+    	<div class="messaggio"><p>[...] <a href="http://www.softwareishard.com/blog/firebug/firebug-tip-trace-styles/" rel="nofollow">http://www.softwareishard.com/blog/firebug/firebug-tip-trace-styles/</a> [...]</p>
+		</div>
+		<span class="autore"><a class="count" href="#comment-23015">#7</a> <a href='http://www.fatihhayrioglu.com/firebug-1-10-surumu-yenilikleri/' rel='external nofollow' class='url'>Firebug 1.10 Sürümü Yenilikleri / Fatih Hayrioğlu&#039;nun not defteri</a>		</span>	
+	</li>
+
+
+	<li id="comment-23025">
+    	<div class="messaggio"><p>[...] справа — кликабелен, ведёт на описания правил. См. подробное описание (англ.). (Аплодисменты — информативность этой панели [...]</p>
+		</div>
+		<span class="autore"><a class="count" href="#comment-23025">#8</a> <a href='http://ajedrezcampeonatomundial2005.com/?p=707' rel='external nofollow' class='url'>[Перевод] Firebug 1.10 — новые возможности | wp2005 [Перевод] Firebug 1.10 — новые возможности |</a>		</span>	
+	</li>
+
+
+	<li id="comment-23138">
+    	<div class="messaggio"><p>Great article, I didn't know about this - although I proclaim my new live html/css/js code editor (LIVEditor) has a Firebug-like UI for tweaking css in real-time <img src='http://www.softwareishard.com/blog/wp-includes/images/smilies/icon_wink.gif' alt=';)' class='wp-smiley' /> </p>
+		</div>
+		<span class="autore"><a class="count" href="#comment-23138">#9</a> <a href='http://liveditor.com' rel='external nofollow' class='url'>Edwin Yip</a>		</span>	
+	</li>
+
+
+	<li id="comment-24023">
+    	<div class="messaggio"><p>[...] its treatment options. Visit: drspencepentland.com for treatment of endometriosis in Vancouver.   Detailed explanation of what endometriosis is, how it effects fertility, and its treatment options.....youtube.com/v/LcGc3RnuhXo?fs=1&amp;rel=0&quot; type=&quot;application/x-shockwave-flash&quot; width=&quot;425&quot; height=&quot;355&quot; [...]</p>
+		</div>
+		<span class="autore"><a class="count" href="#comment-24023">#10</a> <a href='http://infertilityinfemale.com/endometriosis-infertility-2/' rel='external nofollow' class='url'>Endometriosis &amp; Infertility - Infertility In Female.com | Infertility In Female.com</a>		</span>	
+	</li>
+
+
+	<li id="comment-24273">
+    	<div class="messaggio"><p>[...] kw=&quot;weight+loss+tips&quot; num=&quot;24&quot; ebcat=&quot;-1&quot;] [wprebay kw=&quot;weight+loss+tips&quot; num=&quot;25&quot; ebcat=&quot;-1&quot;] 100 Weight Loss Tips 100 weight loss tips with detailed explanationsChange font size, color, type, a...%3Dguid-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB0071NOALO&quot; [...]</p>
+		</div>
+		<span class="autore"><a class="count" href="#comment-24273">#11</a> <a href='http://www.weight-loss-diet-info.com/100-weight-loss-tips/' rel='external nofollow' class='url'>100 Weight Loss Tips | weight loss diet information, dieting and weight loss, weight loss for men and women</a>		</span>	
+	</li>
+
+</ol>
+
+
+
+</div>
+
+<div class="form_commenti">
+<p>Sorry, the comment form is closed at this time.</p>
+
+</div></div>
+<div class="clear"></div>
+
+	<!--
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+			xmlns:dc="http://purl.org/dc/elements/1.1/"
+			xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+		<rdf:Description rdf:about="http://www.softwareishard.com/blog/firebug/firebug-tip-trace-styles/"
+    dc:identifier="http://www.softwareishard.com/blog/firebug/firebug-tip-trace-styles/"
+    dc:title="Firebug Tip: Trace Styles"
+    trackback:ping="http://www.softwareishard.com/blog/firebug/firebug-tip-trace-styles/trackback/" />
+</rdf:RDF>	-->
+
+ 
+
+</div>
+<hr />
+
+<div id="sidebar">
+<div class="top"></div>
+<div class="main_sidebar">
+
+	<div class="block">
+   <h3>Search:</h3>
+   <form id="searchform" method="get" action="http://www.softwareishard.com/blog">
+		<input class="cerca_modulo" type="text" name="s" id="s" size="12" />
+		<input class="cerca_invio" type="submit" value="Search" />
+	</form>
+	</div>
+<div class="block"><h3>About Jan Odvarko</h3>
+	<ul class='xoxo blogroll'>
+<li><a href="http://www.softwareishard.com/blog/about/" title="About Me">About Me</a></li>
+<li><a href="https://github.com/janodvarko">GitHub</a></li>
+<li><a href="https://plus.google.com/+JanOdvarko">Google+</a></li>
+<li><a href="http://www.linkedin.com/in/odvarko">LinkedIn</a></li>
+<li><a href="https://www.ohloh.net/p/firebug/contributors/20658792769607">Ohloh</a></li>
+<li><a href="http://www.quora.com/Jan-Odvarko">Quora</a></li>
+<li><a href="https://twitter.com/janodvarko">Twitter</a></li>
+
+	</ul>
+</div>
+<div class="block"><h3>About My Projects</h3>
+	<ul class='xoxo blogroll'>
+<li><a href="http://www.softwareishard.com/domplate/runner/index.php" title="Check out Domplate templates online">Domplate Runner</a></li>
+<li><a href="http://getfirebug.com">Firebug</a></li>
+<li><a href="http://www.softwareishard.com/blog/firecookie/" title="Firebug extension for managing cookies">Firecookie</a></li>
+<li><a href="http://www.softwareishard.com/blog/har-adopters/" title="List of tools supporting HAR format">HAR Adopters</a></li>
+<li><a href="http://www.softwareishard.com/blog/har-export-trigger/" title="Automate HAR export in Firefox 42">HAR Export Trigger</a></li>
+<li><a href="http://www.softwareishard.com/blog/har-viewer/" title="HTTP Archive Viewer &#8211; preview HAR files online">HAR Viewer</a></li>
+<li><a href="http://www.softwareishard.com/blog/har-12-spec/" title="JSON based format for data collected by HTTP monitoring tools">HTTP Archive Spec 1.2 (HAR)</a></li>
+
+	</ul>
+</div>
+<div class="block"><h3>Domplate Tutorial</h3>
+	<ul class='xoxo blogroll'>
+<li><a href="http://www.softwareishard.com/blog/planet-mozilla/domplate-examples-part-i/" title="Set of examples about Domplate.">Part I. Examples</a></li>
+<li><a href="http://www.softwareishard.com/blog/domplate/domplate-examples-part-ii/" title="Set of examples about Domplate.">Part II. Examples</a></li>
+
+	</ul>
+</div>
+<div class="block"><h3>Extending Firebug Tutorial</h3>
+	<ul class='xoxo blogroll'>
+<li><a href="http://www.softwareishard.com/blog/?p=3">Part I. Hello World!</a></li>
+<li><a href="http://www.softwareishard.com/blog/?p=4">Part II. Toolbar</a></li>
+<li><a href="http://www.softwareishard.com/blog/?p=7">Part III. Options</a></li>
+<li><a href="http://www.softwareishard.com/blog/?p=10">Part IV. Localization</a></li>
+<li><a href="http://www.softwareishard.com/blog/firebug-tutorial/extending-firebug-activable-panel-part-ix/">Part IX. Activable Panel</a></li>
+<li><a href="http://www.softwareishard.com/blog/firebug-tutorial/extending-firebug-domplate-part-v/">Part V. Domplate</a></li>
+<li><a href="http://www.softwareishard.com/blog/firebug-tutorial/extending-firebug-yahoo-search-part-vi/">Part VI. Yahoo! Search</a></li>
+<li><a href="http://www.softwareishard.com/blog/firebug-tutorial/extending-firebug-customize-net-panel-part-vii/">Part VII. Customize Net Panel</a></li>
+<li><a href="http://www.softwareishard.com/blog/firebug-tutorial/extending-firebug-net-panel-listener-part-viii/">Part VIII. Net Panel Listener</a></li>
+<li><a href="http://www.softwareishard.com/blog/firebug-tutorial/extending-firebug-inspector-part-x/">Part X. Inspector</a></li>
+<li><a href="http://www.softwareishard.com/blog/firebug-tutorial/extending-firebug-infotip-part-xi/">Part XI. Infotip</a></li>
+<li><a href="http://www.softwareishard.com/blog/firebug-tutorial/extending-firebug-hello-amd-part-xii/">Part XII. Hello AMD!</a></li>
+
+	</ul>
+</div>
+<div class="block"><h3>Miscellaneous</h3>
+	<ul class='xoxo blogroll'>
+<li><a href="http://www.softwareishard.com/blog/extending-firebug/" title="How to develop extension for Firebug">Extending Firebug</a></li>
+<li><a href="http://www.softwareishard.com/blog/category/firebug-extension/" title="Posts about existing Firebug extensions">Firebug Extensions</a></li>
+<li><a href="http://www.softwareishard.com/blog/firebug-tips/" title="Various Firebug features explained">Firebug Tips &amp; Tricks</a></li>
+
+	</ul>
+</div>
+<div class="block"><h3>Subscribe</h3>
+	<ul class='xoxo blogroll'>
+<li><a href="http://feeds.feedburner.com/CommentsForSoftwareIsHard">Comments</a></li>
+<li><a href="http://onswipe.com/janodvarko" title="iPad enabled theme">iPad</a></li>
+<li><a href="http://feeds.feedburner.com/SoftwareIsHard">Posts</a></li>
+
+	</ul>
+</div>
+<div class="block"><h3>Categories</h3>		<ul>
+	<li class="cat-item cat-item-174"><a href="http://www.softwareishard.com/blog/category/consoleexport/" title="View all posts filed under ConsoleExport">ConsoleExport</a>
+</li>
+	<li class="cat-item cat-item-195"><a href="http://www.softwareishard.com/blog/category/design-pattern/" title="View all posts filed under Design Pattern">Design Pattern</a>
+</li>
+	<li class="cat-item cat-item-69"><a href="http://www.softwareishard.com/blog/category/documentation/" title="View all posts filed under Documentation">Documentation</a>
+</li>
+	<li class="cat-item cat-item-19"><a href="http://www.softwareishard.com/blog/category/domplate/" title="View all posts filed under Domplate">Domplate</a>
+</li>
+	<li class="cat-item cat-item-81"><a href="http://www.softwareishard.com/blog/category/eventbug/" title="View all posts filed under Eventbug">Eventbug</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://www.softwareishard.com/blog/category/firebug-tutorial/" title="View all posts filed under Extending Firebug Tutorial">Extending Firebug Tutorial</a>
+</li>
+	<li class="cat-item cat-item-45"><a href="http://www.softwareishard.com/blog/category/extension-architecture/" title="View all posts filed under Extension Architecture">Extension Architecture</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://www.softwareishard.com/blog/category/firebug/" title="View all posts filed under Firebug">Firebug</a>
+</li>
+	<li class="cat-item cat-item-175"><a href="http://www.softwareishard.com/blog/category/firebug-extension/" title="View all posts filed under Firebug Extension">Firebug Extension</a>
+</li>
+	<li class="cat-item cat-item-189"><a href="http://www.softwareishard.com/blog/category/firebug-lite/" title="View all posts filed under Firebug Lite">Firebug Lite</a>
+</li>
+	<li class="cat-item cat-item-122"><a href="http://www.softwareishard.com/blog/category/firebug-tip/" title="View all posts filed under Firebug Tip">Firebug Tip</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://www.softwareishard.com/blog/category/firecookie/" title="View all posts filed under Firecookie">Firecookie</a>
+</li>
+	<li class="cat-item cat-item-86"><a href="http://www.softwareishard.com/blog/category/firestarter/" title="View all posts filed under Firestarter">Firestarter</a>
+</li>
+	<li class="cat-item cat-item-41"><a href="http://www.softwareishard.com/blog/category/fireunit/" title="View all posts filed under Fireunit">Fireunit</a>
+</li>
+	<li class="cat-item cat-item-75"><a href="http://www.softwareishard.com/blog/category/har/" title="View all posts filed under HAR">HAR</a>
+</li>
+	<li class="cat-item cat-item-146"><a href="http://www.softwareishard.com/blog/category/http-monitor/" title="View all posts filed under HTTP Monitor">HTTP Monitor</a>
+</li>
+	<li class="cat-item cat-item-145"><a href="http://www.softwareishard.com/blog/category/memory-leaks/" title="View all posts filed under Memory Leaks">Memory Leaks</a>
+</li>
+	<li class="cat-item cat-item-59"><a href="http://www.softwareishard.com/blog/category/netexport/" title="View all posts filed under NetExport">NetExport</a>
+</li>
+	<li class="cat-item cat-item-196"><a href="http://www.softwareishard.com/blog/category/pixel-perfect/" title="View all posts filed under Pixel Perfect">Pixel Perfect</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="http://www.softwareishard.com/blog/category/planet-mozilla/" title="View all posts filed under Planet Mozilla">Planet Mozilla</a>
+</li>
+	<li class="cat-item cat-item-34"><a href="http://www.softwareishard.com/blog/category/prism/" title="View all posts filed under Prism">Prism</a>
+</li>
+	<li class="cat-item cat-item-110"><a href="http://www.softwareishard.com/blog/category/release/" title="View all posts filed under Release">Release</a>
+</li>
+	<li class="cat-item cat-item-147"><a href="http://www.softwareishard.com/blog/category/selenium/" title="View all posts filed under Selenium">Selenium</a>
+</li>
+	<li class="cat-item cat-item-43"><a href="http://www.softwareishard.com/blog/category/testing/" title="View all posts filed under Testing">Testing</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://www.softwareishard.com/blog/category/uncategorized/" title="View all posts filed under Uncategorized">Uncategorized</a>
+</li>
+		</ul>
+</div><div class="block"><h3>Archives</h3>		<ul>
+			<li><a href='http://www.softwareishard.com/blog/2015/' title='2015'>2015</a></li>
+	<li><a href='http://www.softwareishard.com/blog/2014/' title='2014'>2014</a></li>
+	<li><a href='http://www.softwareishard.com/blog/2013/' title='2013'>2013</a></li>
+	<li><a href='http://www.softwareishard.com/blog/2012/' title='2012'>2012</a></li>
+	<li><a href='http://www.softwareishard.com/blog/2011/' title='2011'>2011</a></li>
+	<li><a href='http://www.softwareishard.com/blog/2010/' title='2010'>2010</a></li>
+	<li><a href='http://www.softwareishard.com/blog/2009/' title='2009'>2009</a></li>
+	<li><a href='http://www.softwareishard.com/blog/2008/' title='2008'>2008</a></li>
+		</ul>
+		</div><div class="block"><h3>Recent Comments</h3><div id="get_recent_comments_wrap"><ul>	<li><a href="http://www.softwareishard.com/blog/firebug/firebug-internals-i-data-providers-and-viewers/#comment-39217" title="Firebug Internals I. &#8211; Data Providers and Viewers, March 28, 2014">Jeff Marlon</a>: I appreciate you this achievement. I am hapy that now, you improved the performance of Firebug 2. Wish...</li>
+	<li><a href="http://www.softwareishard.com/blog/firebug/firebug-2-support-for-dynamic-scripts/#comment-39171" title="Firebug 2: Support for dynamic scripts, March 27, 2014">cheltenham</a>: hi, I have encountered one problem about this feature, if the script is executed using jQuery.globalEval...</li>
+	<li><a href="http://www.softwareishard.com/blog/firebug/firebug-internals-i-data-providers-and-viewers/#comment-39120" title="Firebug Internals I. &#8211; Data Providers and Viewers, March 28, 2014">Sebastian Zartner</a>: Good explained article about the internals. I&#8217;d like to see more of these here (and on the...</li>
+	<li><a href="http://www.softwareishard.com/blog/firebug/firebug-2-support-for-dynamic-scripts/#comment-39117" title="Firebug 2: Support for dynamic scripts, March 27, 2014">Honza</a>: > but you actually mean &#8220;sourceURL&#8221;. Fixed, thanks! I kept button-label in there, I think...</li>
+	<li><a href="http://www.softwareishard.com/blog/firebug/firebug-2-support-for-dynamic-scripts/#comment-39110" title="Firebug 2: Support for dynamic scripts, March 27, 2014">Sebastian Zartner</a>: Hmm, the tags got stripped out. So here&#8217;s the corrected version: The article says...</li>
+</ul></div></div><div class="block"><h3>Recent Trackbacks</h3><div id="get_recent_comments_wrap"><ul>	<li><a href="http://www.softwareishard.com/blog/extension-architecture/pixel-perfect-2-developer-tool-extension-architecture/#comment-39493" title="Trackback to &quot;Pixel Perfect 2, Developer Tool Extension Architecture&quot;: Pixel Perfect 2, Developer Tool Extension Architecture &#8211; Some notes on building a...">CodangoNet</a>: Double Shot #1499</li>
+	<li><a href="http://www.softwareishard.com/blog/extension-architecture/pixel-perfect-2-developer-tool-extension-architecture/#comment-39487" title="Trackback to &quot;Pixel Perfect 2, Developer Tool Extension Architecture&quot;: This post is about the feature, but if you are an extension developer interested in...">InfoLogs</a>: Pixel Perfect 2: extension for Firefox Developer Tools</li>
+	<li><a href="http://www.softwareishard.com/blog/extension-architecture/pixel-perfect-2-developer-tool-extension-architecture/#comment-39459" title="Trackback to &quot;Pixel Perfect 2, Developer Tool Extension Architecture&quot;: This post is about the feature, but if you are an extension developer interested in...">SDK News</a>: Pixel Perfect 2: extension for Firefox Developer Tools</li>
+	<li><a href="http://www.softwareishard.com/blog/planet-mozilla/firebug-tip-geteventlisteners-command/#comment-39028" title="Trackback to &quot;Firebug Tip: getEventListeners() command&quot;: different, but we also have Firebug&#8217;s getEventListeners(elem), which would be...">Aaron T. Grogg</a>: Today&#8217;s Readings</li>
+	<li><a href="http://www.softwareishard.com/blog/firebug/firebug-extension-firestorage-plus-manage-web-storage/#comment-38876" title="Trackback to &quot;Firebug Extension: FireStorage Plus! &#8211; Manage web storage&quot;: As you can see in the context menu there are more actions related to data management....">Apparel stuff</a>: The recent subject, pt.29</li>
+</ul></div></div><div class="block"><h3>Recent Tweets</h3><div id="widget_twitter_vjck" ><ul><div id="twitter_time_line"  style="width:100%; overflow:hidden;" ><script type="text/javascript">function flip_twitter_image(arg) {var targetTagID = window.document.getElementById(arg); var styleStr = (window.document.documentElement.getAttribute("style") == window.document.documentElement.style) ? targetTagID.style.cssText : targetTagID.getAttribute( "style" ); var nonString = styleStr.match( /display:.*?none;/g ); var nonPos = nonString ? styleStr.indexOf( nonString ) : -1; if( nonPos >= 0 ) { styleStr = styleStr.substring( 0, nonPos ) + styleStr.substring( nonPos + nonString.length, styleStr.length ); styleStr = styleStr + "display:block;"; }else{ var blkString = styleStr.match( /display:.*?block;/g ); var blkPos = blkString ? styleStr.indexOf( blkString ) : -1; if( blkPos >= 0 ) { styleStr = styleStr.substring( 0, blkPos ) + styleStr.substring( blkPos + blkString.length, styleStr.length ); } styleStr = styleStr + "display:none;"; } if( styleStr ) { if( window.document.documentElement.getAttribute("style") == window.document.documentElement.style ) { targetTagID.style.cssText = styleStr; }else{ targetTagID.setAttribute( "style", styleStr); }}}</script><li>The HAR Show: Capturing and Analyzing performance data with HTTP Archive format
+ <br /><a href="http://t.co/q2N3U8zU" target="_blank" >http://t.co/q2N3U8zU</a></li><li>Firebug Tip: The Start Button <br /><a href="http://t.co/CY6IsFsg" target="_blank" >http://t.co/CY6IsFsg</a></li><li><a href="http://twitter.com/search?q=%23Firebug" target="_blank" >#Firebug</a> Tip: What the heck is BFCache? <br /><a href="http://t.co/OZNjSBkt" target="_blank" >http://t.co/OZNjSBkt</a></li><li><a href="http://twitter.com/search?q=%23Firebug" target="_blank" >#Firebug</a> Tip: Log Function Calls <br /><a href="http://t.co/WcdIVV8q" target="_blank" >http://t.co/WcdIVV8q</a></li><li><a href="http://twitter.com/search?q=%23Firebug" target="_blank" >#Firebug</a> Tip: Log DOM Events <br /><a href="http://t.co/dvrs5jdl" target="_blank" >http://t.co/dvrs5jdl</a></li></div></ul></div><!-- cached --></div></div>
+<div class="bottom"></div>
+</div><div class="clear"></div>
+
+<div id="footer">
+<a href="http://www.wordpress.org"><img src="http://www.softwareishard.com/blog/wp-content/themes/miniBits/miniBits/img/wordpress.gif" alt="Wordpress.org"/></a>
+<a href="http://www.creativebits.it/news/tema-wordpress-minibits/"><img src="http://www.softwareishard.com/blog/wp-content/themes/miniBits/miniBits/img/creativebits.gif" alt="clearPaper by CreativeBits.it"/></a>
+	<span>Copyright &copy; 2007 Software is hard. All rights reserved.</span>
+	<span><a href="http://validator.w3.org/check/referer" title="Pagina valida XHTML 1.0 Transitional">Xhtml</a>, <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Pagina valida CSS v.1">Css</a>, <a href="http://www.softwareishard.com/blog/feed/">Rss</a>. Powered by <a href="http://www.creativebits.it/news/tema-wordpress-minibits/">miniBits</a> &amp; <a href="http://www.wordpress.org/">Wordpress</a>.</span></div>
+
+</div>
+
+<div id="sk2-footer" style="color:#FFF; background-color:#444; padding: 3px 2px 3px 2px; border-top: #888 solid 1px;">This blog is protected by <a href="http://unknowngenius.com/blog/" title="Dave">Dave</a>'s <strong><a href="http://unknowngenius.com/blog/wordpress/spam-karma/" title="SK2">Spam Karma 2</a></strong>: <strong>62904</strong>  Spams eaten and counting...</div>
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-3586722-1";
+urchinTracker();
+</script>
+</body>
+</html>�h�^�      V��V��<B�yV�߃   E:http://www.softwareishard.com/blog/firebug/firebug-tip-trace-styles/ request-method GET response-head HTTP/1.1 200 OK
+Date: Mon, 21 Mar 2016 09:48:21 GMT
+Server: Apache
+X-Pingback: http://www.softwareishard.com/blog/xmlrpc.php
+Link: <http://www.softwareishard.com/blog/?p=423>; rel=shortlink
+Cache-Control: max-age=7200
+Expires: Mon, 21 Mar 2016 11:48:21 GMT
+Content-Type: text/html; charset=UTF-8
+ uncompressed-len 0   �$

@@ -4,15 +4,23 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 import static com.qait.automation.utils.DataProvider.csvReaderRowSpecific;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import junit.framework.Assert;
 
+import org.apache.pdfbox.cos.COSDocument;
+import org.apache.pdfbox.pdfparser.PDFParser;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.util.PDFTextStripper;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Reporter;
 
+import com.gargoylesoftware.htmlunit.javascript.host.file.File;
 import com.qait.automation.utils.DataProvider;
 import com.qait.automation.utils.LayoutValidation;
 import com.qait.automation.utils.YamlReader;
@@ -213,6 +221,28 @@ public class ASCSocietyGenericPage extends GetPage {
 	public HashMap<String, String> map(){
 		return hashMap;
 	}
+	
+//	public void pdfTextExtracter()
+//	{
+//		PDFTextStripper pdfStripper = null;
+//        PDDocument pdDoc = null;
+//        COSDocument cosDoc = null;
+//        File file = new File(".\\src\\test\\resources\\UploadFiles\\Test Biographical Sketch.pdf");
+//        try {
+//            PDFParser parser = new PDFParser(new FileInputStream(file));
+//            parser.parse();
+//            cosDoc = parser.getDocument();
+//            pdfStripper = new PDFTextStripper();
+//            pdDoc = new PDDocument(cosDoc);
+//            pdfStripper.setStartPage(1);
+//            pdfStripper.setEndPage(5);
+//            String parsedText = pdfStripper.getText(pdDoc);
+//            System.out.println(parsedText);
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        } 
+	//}
 
 }
 

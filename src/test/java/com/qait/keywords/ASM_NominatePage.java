@@ -63,7 +63,7 @@ public class ASM_NominatePage extends GetPage {
 		isElementDisplayed("inp_password");
 		element("inp_password").clear();
 		element("inp_password").sendKeys(password);
-		logMessage("Step : " + password + " is entered in inp_username\n");
+		logMessage("Step : " + password + " is entered in inp_password\n");
 	}
 
 	public void clickOnVerifyButton() {
@@ -352,6 +352,26 @@ public class ASM_NominatePage extends GetPage {
 			logMessage("Spinner is not present \n");
 		}
 	}
+	
+	public void waitForSpinnerOnSubmitNomination() {
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
+		try {
+			wait.hardWait(1);
+			wait.resetImplicitTimeout(3);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("img_submitnomination");
+			logMessage("wait for spinner to disappear\n");
+			wait.waitForElementToDisappear(element("img_submitnomination"));
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+		} catch (Exception exp) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			logMessage("Spinner is not present \n");
+		}
+	}
 
 	public void clickOnArrowButton() {
 		wait.waitForPageToLoadCompletely();
@@ -430,7 +450,6 @@ public class ASM_NominatePage extends GetPage {
 		logMessage("Step : Find Member for supporter "+formnumber+" is clicked inp_findbymembernumber\n");
 	}
 	public void clickOnSelectNomineeButton() {
-		boolean flag=false;
 		try
 		{
 			wait.hardWait(1);
@@ -449,32 +468,30 @@ public class ASM_NominatePage extends GetPage {
 		logMessage("Step : Select Nominee button is clicked in btn_selectNomineeSupport1\n");
 	}
 	
-	public void clickOnSelectNomineeButtonForAwardsNomination(int formNumber,Map<String,String> mapAwardsNomination) {
-		try
-		{
+	public void clickOnSelectNomineeButtonForAwardsNomination() {
+		//try
+		//{
 			wait.hardWait(1);
-			wait.resetImplicitTimeout(3);
-			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+//			wait.resetImplicitTimeout(3);
+//			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 		
-			elements("btn_selectNomineeSupport1").get(NomineeVisitedAwards).click();
-			wait.hardWait(2);
-			flag=isElementDisplayed("txt_nomineeSelectError");
-			chooseUniqueNomineeForAwardsNomination(flag,mapAwardsNomination,formNumber);
+			elements("btn_selectNomineeSupport1").get(0).click();
+			wait.hardWait(1);
+			//flag=isElementDisplayed("txt_nomineeSelectError");
+			//chooseUniqueNomineeForAwardsNomination(flag,mapAwardsNomination,formNumber);
 		
-		}
-		catch(Exception e)
-		{
-			if(formNumber!=3)
-			{
-				wait.hardWait(3);
-				mapNomineeNames.put("supporter"+formNumber, elements("txt_supporterNames").get(formNumber-1).getText().trim());
-				System.out.println(mapNomineeNames.get("supporter"+formNumber));
-				logMessage("Step : Supporter "+formNumber+" name is saved as "+mapNomineeNames.get("supporter"+formNumber));
-			}
-		}
-		wait.resetImplicitTimeout(timeOut);
-		wait.resetExplicitTimeout(timeOut);
-		NomineeVisitedAwards=0;
+		//}
+//		catch(Exception e)
+//		{
+//			if(formNumber!=3)
+//			{
+//				wait.hardWait(3);
+//				mapNomineeNames.put("supporter"+formNumber, elements("txt_supporterNames").get(formNumber-1).getText().trim());
+//				logMessage("Step : Supporter "+formNumber+" name is saved as "+mapNomineeNames.get("supporter"+formNumber));
+//			}
+//		}
+//		wait.resetImplicitTimeout(timeOut);
+//		wait.resetExplicitTimeout(timeOut);
 	
 		
 		logMessage("Step : Select Nominee button is clicked in btn_selectNomineeSupport1\n");
@@ -497,25 +514,25 @@ public class ASM_NominatePage extends GetPage {
 	public void selectSafeLabPracticesUnknownRadioButton() {
 		isElementDisplayed("rad_safeLabPractices");
 		element("rad_safeLabPractices").click();
-		logMessage("Step : safe laboratory practices radio button is selected for unknown in rad_safeLabPractices\n");
+		logMessage("Step : Safe laboratory practices radio button is selected for unknown in rad_safeLabPractices\n");
 	}
 
 	public void selectSafeLabPracticesRadioButton(String value) {
 		isElementDisplayed("rad_dynsafelabpractice",value);
 		element("rad_dynsafelabpractice",value).click();
-		logMessage("Step : safe laboratory practices radio button"+value+" is selected for unknown in rad_dynsafelabpractice\n");
+		logMessage("Step : Safe laboratory practices radio button "+value+" is selected for unknown in rad_dynsafelabpractice\n");
 	}
 
 	public void selectNoForDiscussedAwardNominationRadioButton() {
 		isElementDisplayed("rad_discussedAwardNomination");
 		element("rad_discussedAwardNomination").click();
-		logMessage("Step : have discussed award nomination radio button is selected for No in rad_discussedAwardNomination\n");
+		logMessage("Step : Have discussed award nomination radio button is selected as No \n");
 	}
 
 	public void selectValueForDiscussedAwardNominationRadioButton(String value) {
 		isElementDisplayed("rad_disscusNomination",value);
 		element("rad_disscusNomination",value).click();
-		logMessage("Step : have discussed award nomination radio button as "+value+" is selected for No in rad_disscusNomination\n");
+		logMessage("Step : Have discussed award nomination radio button as "+value+"\n");
 	}
 
 	public void selectDiscipline(String discipline) {
@@ -595,11 +612,11 @@ public class ASM_NominatePage extends GetPage {
 	public void clickOnIKnowTheirName_Support(String formNumber) {
 		isElementDisplayed("inp_support" + formNumber + "IKnowThierName");
 		element("inp_support" + formNumber + "IKnowThierName").click();
-		logMessage("Step : I Konw Their Name radio button is clicked for supportform"
+		logMessage("Step : I Konw Their Name radio button is clicked for supportform "
 				+ formNumber
-				+ " in inp_support"
+				+ " in inp_support "
 				+ formNumber
-				+ "IKnowThierName");
+				+ " IKnowThierName");
 	}
 
 	public void enterLastName_support(String formNumber, String lastName) {
@@ -608,14 +625,14 @@ public class ASM_NominatePage extends GetPage {
 		//element("inp_support" + formNumber + "FindByName").sendKeys(lastName);
 		element("inp_support" + formNumber + "FindByName").sendKeys(Keys.chord(Keys.CONTROL, "a"), lastName);
 		logMessage("Step : " + lastName + " is entered in support form "
-				+ formNumber + " in inp_support" + formNumber + "FindByName \n");
+				+ formNumber + " in inp_support " + formNumber + " FindByName \n");
 	}
 
 	public void clickOnSubmitButton() {
 		isElementDisplayed("btn_submit");
 		element("btn_submit").click();
 		logMessage("Step : click on submit button in btn_submit\n");
-		waitForSpinnerOnUpload();
+		waitForSpinnerOnSubmitNomination();
 		wait.waitForPageToLoadCompletely();
 		verifyNominationSubmitted();
 		wait.waitForPageToLoadCompletely();
@@ -624,7 +641,7 @@ public class ASM_NominatePage extends GetPage {
 	public void verifyNominationSubmitted() {
 		wait.waitForElementToBeVisible(element("txt_nominationSubmitted"));
 		isElementDisplayed("txt_nominationSubmitted");
-		logMessage("Step : verified nomination is submitted\n");
+		logMessage("Step : verifiy nomination is submitted\n");
 	}
 
 	public void clickonGoBackButton() {
@@ -704,13 +721,13 @@ public class ASM_NominatePage extends GetPage {
 		}
 		catch(NoSuchElementException e)
 		{
-			logMessage("Step : Confirm Address button does not appeared/n");
+			logMessage("Step : Confirm Address button does not appeared\n");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		}
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
-		logMessage("Step : Nominator address details confirmed/n");
+		logMessage("Step : Nominator address details confirmed"+"\n");
 	}
 
 	public void selectAwardFromAwardListAndVerifyNominationMessage(String currentAwardName)
@@ -733,19 +750,19 @@ public class ASM_NominatePage extends GetPage {
 			if(iterable_element.getText().trim().equals(currentAwardName))
 			{
 				Assert.assertTrue(iterable_element.getText().trim().equals(currentAwardName));
-				logMessage("ASSERT PASSED : "+currentAwardName+" is displayed in awards dropdown/n");
+				logMessage("ASSERT PASSED : "+currentAwardName+" is displayed in awards dropdown\n");
 				iterable_element.click();
 			}
 		}
-		logMessage("Step : "+currentAwardName+" is selected from the list/n");
+		logMessage("Step : "+currentAwardName+" is selected from the list\n");
 
 
 	}
 
-	public String SearchNomineeByMemeberNameOrNumber(Map<String,String> mapAwardsNomination) {
+	public String SearchNomineeByMemeberNameOrNumber(Map<String,String> mapAwardsNomination,Map<String,String> createMemberCredentials) {
 		if(mapAwardsNomination.get("SearchNomieeBy_memberNumber?").equalsIgnoreCase("Yes"))
 		{
-			enterMemberNumber(mapAwardsNomination.get("Nominee_MemberNumber"));
+			enterMemberNumber(createMemberCredentials.get("Nominee1Number"));
 			clickFindMemberBynumberButton();
 		}
 		else
@@ -753,41 +770,41 @@ public class ASM_NominatePage extends GetPage {
 			wait.waitForPageToLoadCompletely();
 			wait.hardWait(2);
 			selectIKnowTheirNameRadioButton();
-			enterLastName(mapAwardsNomination.get("Nominee_name"));
+			enterLastName(createMemberCredentials.get("Nominee1Name").split(" ")[0]);
 
 		}
 		waitForSpinner();
-		clickOnSelectNomineeButtonForAwardsNomination(3,mapAwardsNomination);
+		clickOnSelectNomineeButtonForAwardsNomination();
 	
 		wait.waitForPageToLoadCompletely();
 		return 	saveNomineeInformation();
 	}
 	
-	private void chooseUniqueNomineeForAwardsNomination(boolean flag,Map<String,String> mapAwardsNomination,int formNumber) {
-		System.out.println(flag);
-		if(flag)
-		{
-			NomineeVisitedAwards++;
-			if(formNumber==3)
-			{
-				SearchNomineeByMemeberNameOrNumber(mapAwardsNomination);
-			}
-			else
-			{
-				selectSupporterts(toString().valueOf(formNumber),mapAwardsNomination);
-				mapNomineeNames.put("supporter"+formNumber, elements("txt_supporterNames").get(formNumber-1).getText().trim());
-				System.out.println(mapNomineeNames.get("supporter"+formNumber));
-				logMessage("Step : Supporter "+formNumber+" name is saved as "+mapNomineeNames.get("supporter"+formNumber));
-			}
-		}
-		
-	}
+//	private void chooseUniqueNomineeForAwardsNomination(boolean flag,Map<String,String> mapAwardsNomination,int formNumber) {
+//		System.out.println(flag);
+//		if(flag)
+//		{
+//			NomineeVisitedAwards++;
+//			if(formNumber==3)
+//			{
+//				SearchNomineeByMemeberNameOrNumber(mapAwardsNomination);
+//			}
+//			else
+//			{
+//				selectSupporterts(toString().valueOf(formNumber),mapAwardsNomination);
+//				mapNomineeNames.put("supporter"+formNumber, elements("txt_supporterNames").get(formNumber-1).getText().trim());
+//				System.out.println(mapNomineeNames.get("supporter"+formNumber));
+//				logMessage("Step : Supporter "+formNumber+" name is saved as "+mapNomineeNames.get("supporter"+formNumber));
+//			}
+//		}
+//		
+//	}
 
 	private String saveNomineeInformation() {
         
 		String NomineeName = ReverseStringWords(element("txt_Nomineename").getText());
 		System.out.println("Nominee Name " + NomineeName);
-		logMessage("Nominee Name for is "+NomineeName);
+		logMessage("Step : Nominator Name is "+NomineeName);
         return NomineeName;
 	}
 
@@ -801,15 +818,16 @@ public class ASM_NominatePage extends GetPage {
 		selectDiscipline(mapAwardsNomination.get("EligibilityQuestions_professionalDiscipline"));
 	}
 	
-	public void selectSupporterts(String formNumber,Map<String,String> mapAwardsNomination)
+	public void selectSupporterts(String formNumber,Map<String,String> createMemberCredentials)
 	{
-		enterLastName_support(toString().valueOf(formNumber), mapAwardsNomination.get("Supporter"+formNumber+"_name"));
+		System.out.println("Nominee"+(Integer.parseInt(formNumber)+1)+"Name");
+		enterLastName_support(formNumber, createMemberCredentials.get("Nominee"+(Integer.parseInt(formNumber)+1)+"Name").split(" ")[0]);
 		waitForSpinnerOnSearch();
-		clickOnSelectNomineeButtonForAwardsNomination(Integer.parseInt(formNumber), mapAwardsNomination);
+		clickOnSelectNomineeButtonForAwardsNomination();
 	}
 	
 
-	public Map<String, String> FillDetailsOnVerifyEligibilityPage(Map<String,String> mapAwardsNomination)
+	public void FillDetailsOnVerifyEligibilityPage(Map<String,String> mapAwardsNomination,Map<String,String> createMemberCredentials)
 	{
 		enterSuggstedCitation(mapAwardsNomination.get("SuggestCitation_Text"));
 		EnterTextOrUploadFileInRecomendation_AwardsNomination(mapAwardsNomination.get("UploadFileFor_Recommendation?"),
@@ -823,47 +841,46 @@ public class ASM_NominatePage extends GetPage {
 		selectFileToUpload_Awards("biography", mapAwardsNomination.get("FileNameForBioSketch"), "2");
 		waitForSpinnerOnUpload();
 		verifyOpenAndRemoveButtonIsDisplayedOnUploadingFile("biography");
-		SelectSupporterByMemberNumberOrName("1",mapAwardsNomination);
+		SelectSupporterByMemberNumberOrName("1",mapAwardsNomination,createMemberCredentials);
 		selectFileToUpload_Awards("supporter1", mapAwardsNomination.get("FileNameForSupportForm1"), "3");
 		waitForSpinnerOnUpload();
 		verifyOpenAndRemoveButtonIsDisplayedOnUploadingFile("supporter1");
 		
-		SelectSupporterByMemberNumberOrName("2",mapAwardsNomination);
+		SelectSupporterByMemberNumberOrName("2",mapAwardsNomination,createMemberCredentials);
 		selectFileToUpload_Awards("supporter2", mapAwardsNomination.get("FileNameForSupportForm2"), "4");
 		waitForSpinnerOnUpload();
 		verifyOpenAndRemoveButtonIsDisplayedOnUploadingFile("supporter2");
 		
 		//clickOnContinueButton();
-return mapNomineeNames;
 	}
 
-	public void SelectSupporterByMemberNumberOrName(String formNumber, Map<String, String> mapAwardsNomination) {
+	public void SelectSupporterByMemberNumberOrName(String formNumber, Map<String, String> mapAwardsNomination,Map<String, String> createMemberCredentials) {
 		if(formNumber.equals("1"))
 		{
 		if(mapAwardsNomination.get("SearchSupporter1By_memberNumber").equalsIgnoreCase("Yes"))
 		{
-			enterSupporterMemberNumber(formNumber, mapAwardsNomination.get("Supporter1_membernumber"));
+			enterSupporterMemberNumber(formNumber, createMemberCredentials.get("Nominee2Number"));
 			ClickSupporterFindMemberButton(formNumber);
-			clickOnSelectNomineeButtonForAwardsNomination(Integer.parseInt(formNumber), mapAwardsNomination);
+			clickOnSelectNomineeButtonForAwardsNomination();
 		}
 		else
 		{
 		clickOnIKnowTheirName_Support(formNumber);
-		selectSupporterts(formNumber,mapAwardsNomination);
+		selectSupporterts(formNumber,createMemberCredentials);
 		}
 		}
 		else if(formNumber.equals("2"))
 		{
 			if(mapAwardsNomination.get("SearchSupporter2By_memberNumber").equalsIgnoreCase("Yes"))
 			{
-				enterSupporterMemberNumber(formNumber, mapAwardsNomination.get("Supporter2_membernumber"));
+				enterSupporterMemberNumber(formNumber,createMemberCredentials.get("Nominee3Number"));
 				ClickSupporterFindMemberButton(formNumber);
-				clickOnSelectNomineeButtonForAwardsNomination(Integer.parseInt(formNumber), mapAwardsNomination);
+				clickOnSelectNomineeButtonForAwardsNomination();
 			}
 			else
 			{
 			clickOnIKnowTheirName_Support(formNumber);
-			selectSupporterts(formNumber,mapAwardsNomination);
+			selectSupporterts(formNumber,createMemberCredentials);
 			}
 			}
 		}
@@ -956,7 +973,8 @@ return mapNomineeNames;
 				+ File.separator + "resources" + File.separator + "DownloadedFiles";
 		isElementDisplayed("lnk_downloaddocumentsLink");
 		element("lnk_downloaddocumentsLink").click();
-		wait.hardWait(4);
+		switchWindow();
+		wait.waitForPageToLoadCompletely();
 		try {
 			Runtime.getRuntime().exec("./src/test/resources/PopUpHandlers/AwardsNominationDownloadPopup.exe");
 		} catch (IOException e) {
@@ -966,7 +984,7 @@ return mapNomineeNames;
 		//Assert.assertTrue(isFileDownloaded(downloadFilePath, name),
 		//		"Failed to download Expected document");
 logMessage("ASSERT PASSED : Pdf file downloaded for "+name+" submitted nomination\n");
-switchWindow();
+
 		}
 	}
 	
@@ -980,17 +998,13 @@ switchWindow();
 		
 	}
 	public void loginInToAwardsNominateApplication(Map<String, String> mapAwardsNomination,
-			List<String> memberDetails) {
-		if(mapAwardsNomination.get("Login_by_lastname?").equalsIgnoreCase("Yes"))
-		{
-			loginInToApplication(memberDetails.get(0).split(" ")[0],memberDetails.get(1));
-		}
-		else
-		{
-			loginInToApplication_ACSID(memberDetails.get(2),"password");
-		}
+			Map<String, String> createMemberCredentials) {
+			loginInToApplication(createMemberCredentials.get("Nominee0Name").split(" ")[0],createMemberCredentials.get("Nominee0Number"));
+	
 		
 	}
+
+
 
 
 }

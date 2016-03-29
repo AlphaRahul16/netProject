@@ -1334,10 +1334,33 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	
 	public String selectRandomGeneralAward_AwardNomination(String awardName)
 	{
+		try
+		{
+			wait.resetImplicitTimeout(4);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 		isElementDisplayed("txt_divisionPubName",awardName);
-	
 		element("txt_divisionPubName",awardName).click();
 		logMessage("Step: General Award "+awardName+" is selected from the list\n");
+		}
+		catch(NoSuchElementException e)
+		{
+			wait.resetImplicitTimeout(4);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			try{
+			element("txt_userEmail","2").click();
+			wait.waitForPageToLoadCompletely();
+			element("txt_divisionPubName",awardName).click();
+			}
+			catch(NoSuchElementException e1)
+			{
+				element("txt_userEmail","3").click();
+				wait.waitForPageToLoadCompletely();
+				element("txt_divisionPubName",awardName).click();
+			}
+			logMessage("Step: General Award "+awardName+" is selected from the list\n");
+		}
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
 		return awardName;
 	}
 	public void selectNomineeEntryForVerification(String NominatorName) {
@@ -1371,13 +1394,13 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		
 		
 	}
-	public void verifyDetailsForAwardsNomination(Map<String, String> mapAwardsNomination,Map<String, String> mapNomineeNames) {
+	public void verifyDetailsForAwardsNomination(Map<String, String> mapAwardsNomination,Map<String, String> createMemberCredentials) {
 		System.out.println(mapAwardsNomination.get("SuggestCitation_Text"));
 		System.out.println(element("txt_citationAwards").getText().trim());
 	      Assert.assertTrue(element("txt_citationAwards").getText().trim().equals(mapAwardsNomination.get("SuggestCitation_Text")));
 	      logMessage("ASSERT PASSED : citiation field on Award Entry Profile is verified as "+mapAwardsNomination.get("SuggestCitation_Text"));
-	      verifySupporterNamesOnAwardEntryProfilePage(mapNomineeNames,"1");
-	      verifySupporterNamesOnAwardEntryProfilePage(mapNomineeNames,"2");
+	      verifySupporterNamesOnAwardEntryProfilePage(createMemberCredentials,"1");
+	      verifySupporterNamesOnAwardEntryProfilePage(createMemberCredentials,"2");
 		 verifySupporterDocumentsContainsUploadedFile(mapAwardsNomination,"1");
 		 verifySupporterDocumentsContainsUploadedFile(mapAwardsNomination,"2");
 	}
@@ -1390,19 +1413,19 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 	
 
-	private void verifySupporterNamesOnAwardEntryProfilePage(Map<String, String> mapNomineeNames,String SupporterNumber) {
+	private void verifySupporterNamesOnAwardEntryProfilePage(Map<String, String> createMemberCredentials,String SupporterNumber) {
 		String[] supporters=element("txt_supporterNameAwardsNomination",SupporterNumber).getText().trim().split(" ");
 		
 		for(int i=0;i<supporters.length;i++)
 		{
-			if(mapNomineeNames.get("supporter"+SupporterNumber).contains(supporters[0]))
+			if(createMemberCredentials.get("Nominee"+(Integer.parseInt(SupporterNumber)+1)+"Name").contains(supporters[0]))
 			{
-			System.out.println(mapNomineeNames.get("supporter"+SupporterNumber));
+			System.out.println(createMemberCredentials.get("Nominee"+(Integer.parseInt(SupporterNumber)+1)+"Name"));
 			System.out.println(supporters[i]);
-			Assert.assertTrue(mapNomineeNames.get("supporter"+SupporterNumber).contains(supporters[i]));
+			Assert.assertTrue(createMemberCredentials.get("Nominee"+(Integer.parseInt(SupporterNumber)+1)+"Name").contains(supporters[i]));
 			}
 		}
-		logMessage("ASSERT PASSED : Supporter "+SupporterNumber+" name under acs award entry supporter is displayed as "+mapNomineeNames.get("supporter"+SupporterNumber));
+		logMessage("ASSERT PASSED : Supporter "+SupporterNumber+" name under acs award entry supporter is displayed as "+createMemberCredentials.get("Nominee"+(Integer.parseInt(SupporterNumber)+1)+"Name"));
 	}
 	
 	private void verifyLetterDocuments_AwardsNomination(Map<String, String> mapAwardsNomination,String lettername,String datasheetValue)
@@ -1412,18 +1435,21 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			System.out.println(elements("lnk_awardsLettersDoc",lettername).get(0).getAttribute("onclick"));
 			System.out.println(mapAwardsNomination.get(datasheetValue));
 			Assert.assertTrue(elements("lnk_awardsLettersDoc",lettername).get(0).getAttribute("onclick").contains(mapAwardsNomination.get(datasheetValue)));
+			logMessage("ASSERT PASSED : File uploaded for Support form 1 is displayed under Documents \n");
 		}
 		else if(datasheetValue.equalsIgnoreCase("FileNameForSupportForm2"))
 		{
 			System.out.println(elements("lnk_awardsLettersDoc",lettername).get(1).getAttribute("onclick"));
 			System.out.println(mapAwardsNomination.get(datasheetValue));
 			Assert.assertTrue(elements("lnk_awardsLettersDoc",lettername).get(1).getAttribute("onclick").contains(mapAwardsNomination.get(datasheetValue)));
+			logMessage("ASSERT PASSED : File uploaded for Support form 2 is displayed under Documents \n");
 		}
 		else
 		{
 		System.out.println(element("lnk_awardsLettersDoc",lettername).getAttribute("onclick"));
 		System.out.println(mapAwardsNomination.get(datasheetValue));
 		Assert.assertTrue(element("lnk_awardsLettersDoc",lettername).getAttribute("onclick").contains(mapAwardsNomination.get(datasheetValue)));
+		logMessage("ASSERT PASSED : File uploaded for "+lettername+" is displayed under Documents \n");
 	}
 	}
 	
@@ -1450,7 +1476,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	private void verifyAwardDetailsAndRecommendations(Map<String, String> mapAwardsNomination) {
 		System.out.println(element("txtarea_CitationRecommedation", "citation").getText().trim());
 		Assert.assertTrue(element("txtarea_CitationRecommedation","citation").getText().trim().equals(mapAwardsNomination.get("SuggestCitation_Text")));
-		logMessage("ASSERT PASSED : Citation field is verified as "+mapAwardsNomination.get("SuggestCitation_Text")+"\n");
+		logMessage("ASSERT PASSED : Citation field is verified as "+mapAwardsNomination.get("SuggestCitation_Text"));
 		if(!mapAwardsNomination.get("UploadFileFor_Recommendation?").equals("Yes")&&mapAwardsNomination.get("Recommendation_Text").length()!=0)
 		{
 			System.out.println(element("txtarea_CitationRecommedation", "Recommendation").getText().trim());

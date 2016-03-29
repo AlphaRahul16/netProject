@@ -37,6 +37,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	int numberOfDivisions, numberOfSubscriptions, count;
 	Float netIndividualBalance = 0.0f;
 	public static HashMap<String, String> memberDetailsMap = new HashMap<String, String>();
+	Map<String,String> createMemberCredentials=new HashMap<String,String>();
+	private static int individualCount=0;
 
 	public MembershipPageActions_IWEB(WebDriver driver) {
 		super(driver, pagename);
@@ -2314,10 +2316,38 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		memberDetails.add(customerLname);
 
 		memberDetails.add(customerContactId);
-		memberDetails.add(getMemberWebLogin());
+//		memberDetails.add(getMemberWebLogin());
 		logMessage("Step : ");
 		return memberDetails;
 
+	}
+	
+
+	public void getIndividualFullNameForAwardsNomination() {
+
+		clickOnEditNameAndAddress();
+		switchToFrame("iframe1");
+		customerLname = getNameFromEditNameAndAddressButton("lastName") + " "
+				+ getNameFromEditNameAndAddressButton("firstName") + " "
+				+ getNameFromEditNameAndAddressButton("middleName");
+		clickOnCancelButton();
+		handleAlert();
+		switchToDefaultContent();
+		customerContactId = element("txt_renewalContactId").getText();
+		System.out.println(customerContactId);
+		System.out.println(customerLname);
+		createMemberCredentials.put("Nominee"+individualCount+"Name",customerLname);
+		createMemberCredentials.put("Nominee"+individualCount+"Number",customerContactId);
+		System.out.println(createMemberCredentials.get("Nominee"+individualCount+"Name"));
+		System.out.println(createMemberCredentials.get("Nominee"+individualCount+"Number"));
+		logMessage("Step : Individual Details saved from iweb profile page\n");
+		individualCount++;
+	
+	}
+
+	public Map<String, String> getIndividualMapFromCreateMemberScript() {
+		return createMemberCredentials;
+		
 	}
 
 }

@@ -79,7 +79,7 @@ public class ACS_FellowNominate {
 		test.asm_FellowNomiate.fillAllRequiredDetailsToSubmitACSFellowsNominations("Individual");
 		test.asm_FellowNomiate.clickReturnToDashBoardButton();
 		test.asm_FellowNomiate.verifyUserIsAbleToViewSubmittedNominations();
-		test.asm_FellowNomiate.clickPrintPDFButton("Individual Nomination");
+		//test.asm_FellowNomiate.clickPrintPDFButton("Individual Nomination");
 	}
 	
 	@Test	// For Local Section
@@ -135,8 +135,7 @@ public class ACS_FellowNominate {
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		app_url_nominateFellow=getYamlValue("app_url_nominateFellow");
 		test.launchApplication(app_url_IWEB);
-		test.homePageIWEB.enterAuthentication("C00616",
-		"password");
+		test.homePageIWEB.enterAuthenticationAutoIt();
 	}
 	
 	@AfterClass

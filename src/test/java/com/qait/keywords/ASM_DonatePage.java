@@ -975,8 +975,6 @@ public class ASM_DonatePage extends GetPage {
 
 	}
 
-
-
 	public String[] getDisplayedProductNamesOnEweb(String[] productNameKey, String  OtherProgramName) {
 //		Set<String> myset;
 //		String[] ProductNames;
