@@ -175,15 +175,9 @@ public class TestSessionInitiator {
 		          config.put(string, System.getProperty(string));
 		      } catch (NullPointerException e) {
 		        config.put(string, getProperty("./Config.properties", string));
-
 		      }
 		    }
-		    // for (Map.Entry<String, String> entry : config.entrySet()) {
-		    // System.out.println("Key = " + entry.getKey() + ", Value = " +
-		    // entry.getValue());
-		    // }
 		    return config;
-
 		  }
 	
 
@@ -196,7 +190,6 @@ public class TestSessionInitiator {
 	public void launchApplication(String baseurl) {
 		try {
 			Reporter.log("The test browser is :- " + _getSessionConfig().get("browser") + "\n", true);
-
 			deleteAllCookies();
 			driver.get(baseurl);
 			Reporter.log("\nThe application url is :- " + baseurl, true);

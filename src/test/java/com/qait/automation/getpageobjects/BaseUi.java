@@ -42,10 +42,10 @@ import org.testng.Reporter;
 
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.SeleniumWait;
-
 /**
  * 
- * @author prashantshukla
+ * @author avnishrawat
+ *
  */
 public class BaseUi {
 

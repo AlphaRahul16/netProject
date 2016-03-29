@@ -524,7 +524,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 							newMemberType);
 					verifyEffectiveDateIsCurentDateForMemebrType(tabName,
 							newMemberType);
-					verifyExpireDateIsNextYearForMemebrType(tabName,
+					verifyExpireDateIsNextYearForMemberType(tabName,
 							newMemberType);
 				} else {
 					String newMemberType = map().get(
@@ -534,7 +534,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 							newMemberType);
 					verifyEffectiveDateIsCurentDateForMemebrType(tabName,
 							newMemberType);
-					verifyExpireDateIsNextYearForMemebrType(tabName,
+					verifyExpireDateIsNextYearForMemberType(tabName,
 							newMemberType);
 				}
 			}
@@ -544,7 +544,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			verifyMemberTypeInIndividualMemberships(memberType);
 			verifyJoinDateIsCurentDateForMemebrType(tabName, memberType);
 			verifyEffectiveDateIsCurentDateForMemebrType(tabName, memberType);
-			verifyExpireDateIsNextYearForMemebrType(tabName, memberType);
+			verifyExpireDateIsNextYearForMemberType(tabName, memberType);
 			verifyMemberStatusActiveIsPresent();
 		}
 
@@ -770,7 +770,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public void verifyExpireDateIsNextYearForMemebrType(String tabName,
+	public void verifyExpireDateIsNextYearForMemberType(String tabName,
 			String memberType) {
 		if (tabName.equalsIgnoreCase("individual memberships")) {
 			isElementDisplayed("txt_expireDateMemberType", memberType);

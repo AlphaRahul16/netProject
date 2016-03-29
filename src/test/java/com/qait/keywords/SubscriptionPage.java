@@ -4,10 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.commons.lang3.time.DateUtils;
-import org.junit.Assert;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.GetPage;
 import com.qait.automation.utils.DateUtil;
@@ -261,9 +261,7 @@ public class SubscriptionPage extends GetPage {
 			logMessage("ASSERT PASSED : "
 					+ detailValue
 					+ " is verified for fulfillment type in label_subscriptionDetail\n");
-
 		}
-
 	}
 
 	public void verifySubscriptionDetail(String detailName, String detailValue) {

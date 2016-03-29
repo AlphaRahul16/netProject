@@ -120,14 +120,24 @@ public class DateUtil {
 	public static String getAddYearWithLessOnedayInStringWithGivenFormate(
 			String formate, String yearToAdd,String timeZone) {
 		int yearToAddInInteger = Integer.parseInt(yearToAdd);
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DATE, 365 * yearToAddInInteger);
-		Date nextYear = cal.getTime();
-		SimpleDateFormat formatter = new SimpleDateFormat(formate);
+//		Calendar cal = Calendar.getInstance();
+//		cal.add(Calendar.DATE, 365 * yearToAddInInteger);
+//		Date nextYear = cal.getTime();
+//		SimpleDateFormat formatter = new SimpleDateFormat(formate);
+//		formatter.setTimeZone(TimeZone.getTimeZone(timeZone));
+//		String ourformat = formatter.format(nextYear.getTime());
+		
+		
+		Calendar calendar = Calendar.getInstance();
+		 Date currentDate = calendar.getTime();
+		calendar.setTime(currentDate);
+	    calendar.add(Calendar.YEAR, yearToAddInInteger);
+	    calendar.add(Calendar.DATE, -1);
+	    Date nextYear = calendar.getTime();
+	    SimpleDateFormat formatter = new SimpleDateFormat(formate);
 		formatter.setTimeZone(TimeZone.getTimeZone(timeZone));
 		String ourformat = formatter.format(nextYear.getTime());
 		return ourformat;
-
 	}
 
 	public static String getCurrentdateInStringWithGivenFormateForTimeZone(String formate,String timeZone) {

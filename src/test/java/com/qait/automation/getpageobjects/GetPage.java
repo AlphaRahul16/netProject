@@ -25,12 +25,14 @@ import org.testng.Assert;
 
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.LayoutValidation;
+import com.qait.automation.utils.YamlReader;
 
 public class GetPage extends BaseUi {
 
 	protected WebDriver webdriver;
 	String pageName;
 	LayoutValidation layouttest;
+	final String case1 = "";
 
 	public GetPage(WebDriver driver, String pageName) {
 		super(driver, pageName);
@@ -82,7 +84,7 @@ public class GetPage extends BaseUi {
 		}
 		return elem;
 	}
-	//label[contains(.,'10')]/preceding-sibling::input[@value[contains(.,'10.0000')]]
+
 
 	protected List<WebElement> elements(String elementToken, String replacement) {
 		return wait.waitForElementsToBeVisible(webdriver
@@ -111,8 +113,6 @@ public class GetPage extends BaseUi {
 		return result;
 	}
 
-	
-
 	protected void verifyElementText(String elementName, String expectedText) {
 		wait.waitForElementToBeVisible(element(elementName));
 		assertEquals(element(elementName).getText().trim(), expectedText,
@@ -125,7 +125,9 @@ public class GetPage extends BaseUi {
 	protected void verifyElementTextContains(String elementName,
 			String expectedText) {
 		wait.waitForElementToBeVisible(element(elementName));
-		assertThat("ASSERT FAILED: element '" + elementName	+ "' Text is not as expected: ", element(elementName).getText(), containsString(expectedText));
+		assertThat("ASSERT FAILED: element '" + elementName
+				+ "' Text is not as expected: ",
+				element(elementName).getText(), containsString(expectedText));
 		logMessage("ASSERT PASSED: element " + elementName
 				+ " is visible and Text is " + expectedText);
 	}
@@ -307,7 +309,6 @@ public class GetPage extends BaseUi {
 		individualMember
 				.put("Step08_Search_Individual_In_IWEB_Application_And_Verify_Details",
 						!isIndividualMember);
-
 	}
 
 	public void handleAuthenticationPopup(String username, String password) {
@@ -315,52 +316,48 @@ public class GetPage extends BaseUi {
 		Alert alert = wait.until(ExpectedConditions.alertIsPresent());
 		alert.authenticateUsing(new UserAndPassword(username, password));
 	}
-	
-	
-	public void scriptExecutionController(){
-		if (ConfigPropertyReader.getProperty("mode").equalsIgnoreCase("debug")
-				) {
+
+	public void scriptExecutionController() {
+		if (ConfigPropertyReader.getProperty("mode").equalsIgnoreCase("debug")) {
 			wait.hardWait(1);
 		}
 	}
-	
+
 	protected void verifyElementTextContent(String elementName,
 			String expectedText) {
 		wait.waitForElementToBeVisible(element(elementName));
-		assertThat("ASSERT FAILED: element '" + elementName	+ "' Text is not as expected: ", element(elementName).getAttribute("textContent"), containsString(expectedText));
+		assertThat("ASSERT FAILED: element '" + elementName
+				+ "' Text is not as expected: ", element(elementName)
+				.getAttribute("textContent"), containsString(expectedText));
 		logMessage("ASSERT PASSED: element " + elementName
 				+ " is visible and Text is " + expectedText);
 	}
+
 	public void EnterTestMethodNameToSkipInMap_MemberNumber_CCED_NCW(
 			Map<String, Boolean> skipTest, String AppUrl) {
-		switch(AppUrl)
-		{
-		case "https://ewebtest12.acs.org/NFStage3/membernumberlookup/":
-			skipTest.put("Step01_Verify_Email_Address_IWEB_Test",
-					true);
-			skipTest.put("Step02_CCED_Lookup_Test",
-					true);
-			skipTest.put("Step03_NCW_Lookup_Test",
-					true);
-			break;
-		case "https://ewebtest12.acs.org/NFStage3/ccedlookup":
-			skipTest.put("Step00_Member_Number_Lookup_Test",
-					true);
-			skipTest.put("Step03_NCW_Lookup_Test",
-					true);
-			break;
-		case "https://ewebtest12.acs.org/NFStage3/ncwlookup":
-			skipTest.put("Step00_Member_Number_Lookup_Test",
-					true);
-			skipTest.put("Step02_CCED_Lookup_Test",
-					true);
-			break;
-			
-		default:
-			logMessage("Error: Invalid Application URL in DataSheet\n");
-			
-		}
-		
-	}
+		String url = ConfigPropertyReader.getProperty("tier");
 
+		String case1 = "https://ewebtest12.acs.org/NF" + url
+				+ "/membernumberlookup/";
+		String case2 = "https://ewebtest12.acs.org/NF" + url + "/ccedlookup";
+		String case3 = "https://ewebtest12.acs.org/NF" + url + "/ncwlookup";
+		System.out.println("case 1 :- " + case1);
+		System.out.println("case 2 :- " + case2);
+		System.out.println("case 3 :- " + case3);
+		if (AppUrl.equalsIgnoreCase(case1)) {
+			skipTest.put("Step01_Verify_Email_Address_IWEB_Test", true);
+			skipTest.put("Step02_CCED_Lookup_Test", true);
+			skipTest.put("Step03_NCW_Lookup_Test", true);
+		}
+		if (AppUrl.equalsIgnoreCase(case2)) {
+			skipTest.put("Step00_Member_Number_Lookup_Test", true);
+			skipTest.put("Step03_NCW_Lookup_Test", true);
+		}
+		if (AppUrl.equalsIgnoreCase(case3)) {
+			skipTest.put("Step00_Member_Number_Lookup_Test", true);
+			skipTest.put("Step02_CCED_Lookup_Test", true);
+		} else {
+			logMessage("Error: Invalid Application URL in DataSheet\n");
+		}
+	}
 }
