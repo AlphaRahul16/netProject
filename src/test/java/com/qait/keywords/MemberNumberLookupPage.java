@@ -3,8 +3,9 @@ package com.qait.keywords;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.junit.Assert;
+
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.GetPage;
 

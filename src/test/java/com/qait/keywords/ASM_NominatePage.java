@@ -1,7 +1,6 @@
 package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
-
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
@@ -18,6 +17,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
+import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.getpageobjects.GetPage;
 import com.qait.automation.utils.DateUtil;
 
@@ -738,6 +738,7 @@ public class ASM_NominatePage extends GetPage {
 
 
 	private void verifyTooltipMessageAppearsAfterSelectingAward() {
+		wait.hardWait(2);
 		isElementDisplayed("txt_NominationTooltip");
 		verifyElementTextContains("txt_NominationTooltip","Nominations must be submitted before");
 
@@ -1003,6 +1004,17 @@ logMessage("ASSERT PASSED : Pdf file downloaded for "+name+" submitted nominatio
 	
 		
 	}
+
+	public void verifyPdfContent() {
+		ASCSocietyGenericPage.extractAndCompareTextFromPdfFile("Test Biographical Sketch","Test Biography",1);
+		ASCSocietyGenericPage.extractAndCompareTextFromPdfFile("Test Publications & Patents","Test Publications",1);
+		ASCSocietyGenericPage.extractAndCompareTextFromPdfFile("Test Recommendation","Test Recommendation",1);
+		ASCSocietyGenericPage.extractAndCompareTextFromPdfFile("Test Support Form 1","Support Form 1",1);
+		ASCSocietyGenericPage.extractAndCompareTextFromPdfFile("Test Support Form 2","Support Form 2",1);
+		
+	}
+
+
 
 
 

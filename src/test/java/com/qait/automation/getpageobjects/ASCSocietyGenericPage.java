@@ -4,23 +4,28 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 import static com.qait.automation.utils.DataProvider.csvReaderRowSpecific;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import junit.framework.Assert;
 
 import org.apache.pdfbox.cos.COSDocument;
+import org.apache.pdfbox.io.RandomAccessBufferedFileInputStream;
+import org.apache.pdfbox.io.RandomAccessRead;
 import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.util.PDFTextStripper;
+import org.apache.pdfbox.text.PDFTextStripper;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.Reporter;
 
-import com.gargoylesoftware.htmlunit.javascript.host.file.File;
 import com.qait.automation.utils.DataProvider;
 import com.qait.automation.utils.LayoutValidation;
 import com.qait.automation.utils.YamlReader;
@@ -221,28 +226,62 @@ public class ASCSocietyGenericPage extends GetPage {
 	public HashMap<String, String> map(){
 		return hashMap;
 	}
+
+	public static void extractAndCompareTextFromPdfFile(String filename,String texttocompare,int totalnumberofpages)
+	{ 
+		String textinpdf;
+		try {
+			textinpdf = extractFromPdf(filename,1).trim();
+			String textarray[]=texttocompare.trim().split(" ");
+		for (int i = 0; i < textarray.length; i++) {
+			System.out.println(textinpdf);
+			System.out.println(textarray[i]);
+			Assert.assertTrue(textinpdf.trim().contains(textarray[i].trim()));
+		}
 	
-//	public void pdfTextExtracter()
-//	{
-//		PDFTextStripper pdfStripper = null;
-//        PDDocument pdDoc = null;
-//        COSDocument cosDoc = null;
-//        File file = new File(".\\src\\test\\resources\\UploadFiles\\Test Biographical Sketch.pdf");
-//        try {
-//            PDFParser parser = new PDFParser(new FileInputStream(file));
-//            parser.parse();
-//            cosDoc = parser.getDocument();
-//            pdfStripper = new PDFTextStripper();
-//            pdDoc = new PDDocument(cosDoc);
-//            pdfStripper.setStartPage(1);
-//            pdfStripper.setEndPage(5);
-//            String parsedText = pdfStripper.getText(pdDoc);
-//            System.out.println(parsedText);
-//        } catch (IOException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        } 
-	//}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	private static String extractFromPdf(String filename,int totalnumberofpages) throws IOException
+	{
+		String uploadedfilepath="./src/test/resources/UploadFiles/"+filename+".pdf";
+		String parsedText = null;
+		PDFTextStripper pdfStripper = null;
+		PDDocument pdDoc = null;
+		COSDocument cosDoc = null;
+		PDFParser parser=null;
+	    File file=null;
+		
+	    try {
+	    	 file = new File(uploadedfilepath);
+			parser = new PDFParser( new RandomAccessBufferedFileInputStream(file));
+			parser.parse();
+			cosDoc = parser.getDocument();
+			pdfStripper = new PDFTextStripper();
+			pdDoc = new PDDocument(cosDoc);
+			pdfStripper.setStartPage(1);
+			pdfStripper.setEndPage(2);
+		    parsedText = pdfStripper.getText(pdDoc);
+			System.out.println(parsedText);
+		}
+		catch (FileNotFoundException e) {
+			System.out.println("File not found");
+		} 
+		 finally {
+				try {
+					if (cosDoc != null)
+						cosDoc.close();
+					if (pdDoc != null)
+						pdDoc.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		return parsedText;
+	}
 
 }
 

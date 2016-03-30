@@ -4,9 +4,10 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.util.ArrayList;
 
-import junit.framework.Assert;
+
 
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 

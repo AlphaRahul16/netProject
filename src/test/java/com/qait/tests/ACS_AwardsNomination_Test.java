@@ -11,13 +11,11 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
-import org.testng.internal.Yaml;
-
 import com.qait.automation.utils.DataProvider;
 import com.qait.automation.utils.DateUtil;
-import com.qait.automation.utils.YamlReader;
 import com.qait.automation.TestSessionInitiator;
-import com.qait.automation.getpageobjects.BaseUi;
+
+
 
 public class ACS_AwardsNomination_Test {
 	TestSessionInitiator test;
@@ -72,21 +70,13 @@ public class ACS_AwardsNomination_Test {
 	public void Step03_TC03_Launch_AwardsNominateApplication_And_Perform_Nomination() {  
 		createMemberCredentials=test.memberShipPage.getIndividualMapFromCreateMemberScript();
 		test.launchApplication(app_url_Nominate);
-		for (String name : createMemberCredentials.keySet()) {
-			String key = name.toString();
-			String value = createMemberCredentials.get(name).toString();
-			System.out.println(key + " " + value);
-		}
+		
 		test.asm_NominatePage.loginInToAwardsNominateApplication(mapAwardsNomination,createMemberCredentials);
 		test.asm_NominatePage.clickOnConfirmNominatorAdressDetailsIfAppears_AwardNomination();
 		test.asm_NominatePage.selectAwardFromAwardListAndVerifyNominationMessage(currentAwardName);
 		
 		test.asm_NominatePage.clickOnCreateNewNominationButton(); 
-		for (String name : mapAwardsNomination.keySet()) {
-			String key = name.toString();
-			String value = mapAwardsNomination.get(name).toString();
-			System.out.println(key + " " + value);
-		}
+	
 		NomineeName=test.asm_NominatePage.SearchNomineeByMemeberNameOrNumber(mapAwardsNomination,createMemberCredentials);
 		test.asm_NominatePage.FillEligibilityQuestionsDetails_AwardsNomination(mapAwardsNomination);
 		test.asm_NominatePage.clickSaveForLaterButtonToNavigateToHomePage();
@@ -126,6 +116,7 @@ public class ACS_AwardsNomination_Test {
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Documents");
 		test.invoicePage.expandDetailsMenu("document");
 		test.individualsPage.verifyLetterDocumentsOnAwardEntryProfilePage(mapAwardsNomination);
+		test.asm_NominatePage.verifyPdfContent();
 		test.invoicePage.collapseDetailsMenu("document");
 		test.individualsPage.clickOnEditButtonAndVerifyNomineeDetails_AwardRequirementsAndRecommendation(mapAwardsNomination);
 		

@@ -1,10 +1,11 @@
 package com.qait.keywords;
 
-import org.junit.Assert;
+
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.GetPage;
 
