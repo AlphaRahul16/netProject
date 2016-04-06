@@ -37,6 +37,7 @@ import com.qait.keywords.ASM_StorePage;
 import com.qait.keywords.ASM_emailPage;
 import com.qait.keywords.ASM_memberNumberLookupPage;
 import com.qait.keywords.AddMemeber_IWEB;
+import com.qait.keywords.AwardsPageActions_IWEB;
 import com.qait.keywords.BenefitsPage;
 import com.qait.keywords.CheckoutPage;
 import com.qait.keywords.ConfirmationPage;
@@ -101,6 +102,7 @@ public class TestSessionInitiator {
 	public AddMemeber_IWEB addMember;
 	public FundProfilePage fundpofilePage;
 	public MemberNumberLookupPage memNumLookupPage;
+public AwardsPageActions_IWEB awardsPageAction;
 
 	public TakeScreenshot takescreenshot;
 
@@ -140,12 +142,12 @@ public class TestSessionInitiator {
 		addMember = new AddMemeber_IWEB(driver);
 		fundpofilePage = new FundProfilePage(driver);
 		memNumLookupPage = new MemberNumberLookupPage(driver);
+		awardsPageAction= new AwardsPageActions_IWEB(driver);
 	}
 
 	/**
 	 * Page object Initiation done
 	 */
-
 	public TestSessionInitiator(String testname) {
 		wdfactory = new WebDriverFactory();
 		testInitiator(testname);

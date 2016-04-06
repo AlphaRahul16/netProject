@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -51,7 +52,7 @@ public class SeleniumWait {
 		return wait.until(ExpectedConditions.titleContains(expectedPagetitle)) != null;
 	}
 
-	public WebElement waitForElementToBeVisible(WebElement element) {
+	public WebElement waitForElementToBeVisible(WebElement element) throws NoSuchElementException {
 		WebElement webElement = (WebElement) wait.until(ExpectedConditions
 				.visibilityOf(element));
 		elementHighlight(webElement);

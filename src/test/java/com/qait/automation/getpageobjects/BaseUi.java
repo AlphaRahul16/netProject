@@ -623,7 +623,6 @@ public class BaseUi {
 		try {
 			Runtime.getRuntime().exec("./src/test/resources/PopUpHandlers/popup.exe");
 		} catch (IOException e) {
-	
 			e.printStackTrace();
 		}
 	}

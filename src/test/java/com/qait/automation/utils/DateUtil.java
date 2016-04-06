@@ -100,9 +100,9 @@ public class DateUtil {
 		Calendar cal = Calendar.getInstance();
 		if(type.equalsIgnoreCase("year"))
 		{
-			System.out.println(cal.getTime());
+			
 		cal.add(Calendar.YEAR, difference); 
-		System.out.println(cal.getTime());// to get previous year add -1
+		
 		}
 		else if(type.equalsIgnoreCase("month"))
 		{
@@ -113,7 +113,7 @@ public class DateUtil {
 			cal.add(Calendar.DAY_OF_MONTH, difference);
 		}
 		String nextYear = formatter.format(cal.getTime());
-		System.out.println("year"+nextYear);
+		
 		return nextYear;
 	}
 

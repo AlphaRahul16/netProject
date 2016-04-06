@@ -252,9 +252,8 @@ public class DataProvider {
 		YamlReader.setYamlFilePath();
 		String csvSeparator = getYamlValue("csv-data-file.data-separator");
 
-
 		int totalNumberOfRows = getTotalNumberOfRowsInSheet(
-		getYamlValue("csv-data-file.path_" + sheetName), "true");
+				getYamlValue("csv-data-file.path_" + sheetName), "true");
 		for (int i = 1; i <= totalNumberOfRows; i++) {
 			String csvLine = csvReaderRowSpecific(
 					getYamlValue("csv-data-file.path_" + sheetName), "true",
@@ -282,22 +281,14 @@ public class DataProvider {
 		return getcaseIdToExecute("caseID Execute", "Yes", "caseID", sheetName);
 	}
 
-
-	
-	
 	public static List<String> getIndividualLandingPageData() {
-
-		System.out.println("get");
 		return getcaseIdToExecute("caseID Execute", "Yes", "caseID",
 				"landingPage");
 	}
-	
-	
-	
-	public static String getRandomSpecificLineFromTextFile(String FileName)
-	{
+
+	public static String getRandomSpecificLineFromTextFile(String FileName) {
 		YamlReader.setYamlFilePath();
-		FileName=getYamlValue(("csv-data-file.path_" + FileName));
+		FileName = getYamlValue(("csv-data-file.path_" + FileName));
 		LineIterator it = null;
 		int lines = 0;
 		String line = null;
@@ -309,44 +300,31 @@ public class DataProvider {
 		}
 
 		try {
-			while (reader.readLine() != null) lines++;
+			while (reader.readLine() != null)
+				lines++;
 			reader.close();
-		}
-		catch(IOException e)
-		{
+		} catch (IOException e) {
 			System.out.println("Execption");
 		}
-	
-		
-		System.out.println("lines"+lines);
-	
+
 		try {
-			it = IOUtils.lineIterator(
-				       new BufferedReader(new FileReader(FileName)));
+			it = IOUtils.lineIterator(new BufferedReader(new FileReader(
+					FileName)));
 		} catch (FileNotFoundException e1) {
-			
+
 			e1.printStackTrace();
 		}
-lines=YamlReader.generateRandomNumber(1, lines);
-System.out.println("after lines"+lines);
-			 for (int lineNumber = 0; it.hasNext(); lineNumber++) {
-			     line = (String) it.next();
-			     System.out.println(lineNumber+"..."+lines);
-			    if (lineNumber == lines) {
-			        break;
-			    }
-			 }
-			 System.out.println(line);
-			 return line;
+		lines = YamlReader.generateRandomNumber(1, lines);
+
+		for (int lineNumber = 0; it.hasNext(); lineNumber++) {
+			line = (String) it.next();
+
+			if (lineNumber == lines) {
+				break;
+			}
+		}
+
+		return line;
 	}
 
-	
 }
-
-	
-	
-	
-	
-	 
-
-

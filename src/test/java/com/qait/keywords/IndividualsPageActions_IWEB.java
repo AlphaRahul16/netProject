@@ -702,6 +702,42 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
+	public void navigateToEntrantsMenuOnHoveringMore() {
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(3);
+		try {
+			isElementDisplayed("img_moreMenu");
+			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
+
+			isElementDisplayed("link_moreMenuName", "Entrants");
+			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName",
+					"Entrants"));
+
+			logMessage("Step : Entrants link is clicked\n");
+			waitForSpinner();
+			isElementDisplayed("btn_memberShip", "acs nominee/ entry");
+			clickUsingXpathInJavaScriptExecutor(element("btn_memberShip",
+					"acs nominee/ entry"));
+			logMessage("Step : Navigate to Entrants menu on clicking more button\n");
+
+		} catch (StaleElementReferenceException stEx) {
+			isElementDisplayed("img_moreMenu");
+			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
+
+			isElementDisplayed("link_moreMenuName", "Entrants");
+			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName",
+					"Entrants"));
+
+			logMessage("Step : Entrants link is clicked\n");
+			waitForSpinner();
+			isElementDisplayed("btn_memberShip", "acs nominee/ entry");
+			clickUsingXpathInJavaScriptExecutor(element("btn_memberShip",
+					"acs nominee/ entry"));
+			logMessage("Step : Navigate to Entrants menu on clicking more button\n");
+		}
+
+	}
+
 	public void navigateToSubscriptionMenuOnHoveringMoreAACT() {
 		try {
 			isElementDisplayed("img_moreMenu");
@@ -1329,33 +1365,28 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 	}
 
-	
-	public String selectRandomGeneralAward_AwardNomination(String awardName)
-	{
-		try
-		{
+	public String selectRandomGeneralAward_AwardNomination(String awardName) {
+		try {
 			wait.resetImplicitTimeout(4);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
-		isElementDisplayed("txt_divisionPubName",awardName);
-		element("txt_divisionPubName",awardName).click();
-		logMessage("Step: General Award "+awardName+" is selected from the list\n");
-		}
-		catch(NoSuchElementException e)
-		{
+			isElementDisplayed("txt_divisionPubName", awardName);
+			element("txt_divisionPubName", awardName).click();
+			logMessage("Step: General Award " + awardName
+					+ " is selected from the list\n");
+		} catch (NoSuchElementException e) {
 			wait.resetImplicitTimeout(4);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
-			try{
-			element("txt_userEmail","2").click();
-			wait.waitForPageToLoadCompletely();
-			element("txt_divisionPubName",awardName).click();
-			}
-			catch(NoSuchElementException e1)
-			{
-				element("txt_userEmail","3").click();
+			try {
+				element("txt_userEmail", "2").click();
 				wait.waitForPageToLoadCompletely();
-				element("txt_divisionPubName",awardName).click();
+				element("txt_divisionPubName", awardName).click();
+			} catch (NoSuchElementException e1) {
+				element("txt_userEmail", "3").click();
+				wait.waitForPageToLoadCompletely();
+				element("txt_divisionPubName", awardName).click();
 			}
-			logMessage("Step: General Award "+awardName+" is selected from the list\n");
+			logMessage("Step: General Award " + awardName
+					+ " is selected from the list\n");
 		}
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
@@ -1396,85 +1427,120 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public void verifyDetailsForAwardsNomination(Map<String, String> mapAwardsNomination,Map<String, String> createMemberCredentials) {
+	public void verifyDetailsForAwardsNomination(
+			Map<String, String> mapAwardsNomination,
+			Map<String, String> createMemberCredentials) {
 		System.out.println(mapAwardsNomination.get("SuggestCitation_Text"));
 		System.out.println(element("txt_citationAwards").getText().trim());
-	      Assert.assertTrue(element("txt_citationAwards").getText().trim().equals(mapAwardsNomination.get("SuggestCitation_Text")));
-	      logMessage("ASSERT PASSED : citiation field on Award Entry Profile is verified as "+mapAwardsNomination.get("SuggestCitation_Text"));
-	      verifySupporterNamesOnAwardEntryProfilePage(createMemberCredentials,"1");
-	      verifySupporterNamesOnAwardEntryProfilePage(createMemberCredentials,"2");
-		 verifySupporterDocumentsContainsUploadedFile(mapAwardsNomination,"1");
-		 verifySupporterDocumentsContainsUploadedFile(mapAwardsNomination,"2");
+		Assert.assertTrue(element("txt_citationAwards").getText().trim()
+				.equals(mapAwardsNomination.get("SuggestCitation_Text")));
+		logMessage("ASSERT PASSED : citiation field on Award Entry Profile is verified as "
+				+ mapAwardsNomination.get("SuggestCitation_Text"));
+		verifySupporterNamesOnAwardEntryProfilePage(createMemberCredentials,
+				"1");
+		verifySupporterNamesOnAwardEntryProfilePage(createMemberCredentials,
+				"2");
+		verifySupporterDocumentsContainsUploadedFile(mapAwardsNomination, "1");
+		verifySupporterDocumentsContainsUploadedFile(mapAwardsNomination, "2");
 	}
 
-	private void verifySupporterDocumentsContainsUploadedFile(Map<String, String> mapAwardsNomination,String SupporterNumber) {
-		System.out.println(element("txt_subscriptionName",SupporterNumber).getAttribute("href"));
-		System.out.println(mapAwardsNomination.get("FileNameForSupportForm"+SupporterNumber));
-		 Assert.assertTrue(element("lnk_awardsSupporterDoc",SupporterNumber).getAttribute("href").contains(mapAwardsNomination.get("FileNameForSupportForm"+SupporterNumber)));
-		 logMessage("ASSERT PASSED : Document for supporter "+SupporterNumber+" succesfully verified as "+mapAwardsNomination.get("FileNameForSupportForm"+SupporterNumber));
+	private void verifySupporterDocumentsContainsUploadedFile(
+			Map<String, String> mapAwardsNomination, String SupporterNumber) {
+		System.out.println(element("txt_subscriptionName", SupporterNumber)
+				.getAttribute("href"));
+		System.out.println(mapAwardsNomination.get("FileNameForSupportForm"
+				+ SupporterNumber));
+		Assert.assertTrue(element("lnk_awardsSupporterDoc", SupporterNumber)
+				.getAttribute("href").contains(
+						mapAwardsNomination.get("FileNameForSupportForm"
+								+ SupporterNumber)));
+		logMessage("ASSERT PASSED : Document for supporter "
+				+ SupporterNumber
+				+ " succesfully verified as "
+				+ mapAwardsNomination.get("FileNameForSupportForm"
+						+ SupporterNumber));
 	}
-	
 
-	private void verifySupporterNamesOnAwardEntryProfilePage(Map<String, String> createMemberCredentials,String SupporterNumber) {
-		String[] supporters=element("txt_supporterNameAwardsNomination",SupporterNumber).getText().trim().split(" ");
-		
-		for(int i=0;i<supporters.length;i++)
-		{
-			if(createMemberCredentials.get("Nominee"+(Integer.parseInt(SupporterNumber)+1)+"Name").contains(supporters[0]))
-			{
-			System.out.println(createMemberCredentials.get("Nominee"+(Integer.parseInt(SupporterNumber)+1)+"Name"));
-			System.out.println(supporters[i]);
-			Assert.assertTrue(createMemberCredentials.get("Nominee"+(Integer.parseInt(SupporterNumber)+1)+"Name").contains(supporters[i]));
+	private void verifySupporterNamesOnAwardEntryProfilePage(
+			Map<String, String> createMemberCredentials, String SupporterNumber) {
+		String[] supporters = element("txt_supporterNameAwardsNomination",
+				SupporterNumber).getText().trim().split(" ");
+
+		for (int i = 0; i < supporters.length; i++) {
+			if (createMemberCredentials.get(
+					"Nominee" + (Integer.parseInt(SupporterNumber) + 1)
+							+ "Name").contains(supporters[0])) {
+				System.out.println(createMemberCredentials.get("Nominee"
+						+ (Integer.parseInt(SupporterNumber) + 1) + "Name"));
+				System.out.println(supporters[i]);
+				Assert.assertTrue(createMemberCredentials.get(
+						"Nominee" + (Integer.parseInt(SupporterNumber) + 1)
+								+ "Name").contains(supporters[i]));
 			}
 		}
-		logMessage("ASSERT PASSED : Supporter "+SupporterNumber+" name under acs award entry supporter is displayed as "+createMemberCredentials.get("Nominee"+(Integer.parseInt(SupporterNumber)+1)+"Name"));
+		logMessage("ASSERT PASSED : Supporter "
+				+ SupporterNumber
+				+ " name under acs award entry supporter is displayed as "
+				+ createMemberCredentials.get("Nominee"
+						+ (Integer.parseInt(SupporterNumber) + 1) + "Name"));
 	}
-	
-	private void verifyLetterDocuments_AwardsNomination(Map<String, String> mapAwardsNomination,String lettername,String datasheetValue)
-	{
-		if(datasheetValue.equalsIgnoreCase("FileNameForSupportForm1"))
-		{
-			System.out.println(elements("lnk_awardsLettersDoc",lettername).get(0).getAttribute("onclick"));
+
+	private void verifyLetterDocuments_AwardsNomination(
+			Map<String, String> mapAwardsNomination, String lettername,
+			String datasheetValue) {
+		if (datasheetValue.equalsIgnoreCase("FileNameForSupportForm1")) {
+			System.out.println(elements("lnk_awardsLettersDoc", lettername)
+					.get(0).getAttribute("onclick"));
 			System.out.println(mapAwardsNomination.get(datasheetValue));
-			Assert.assertTrue(elements("lnk_awardsLettersDoc",lettername).get(0).getAttribute("onclick").contains(mapAwardsNomination.get(datasheetValue)));
+			Assert.assertTrue(elements("lnk_awardsLettersDoc", lettername)
+					.get(0).getAttribute("onclick")
+					.contains(mapAwardsNomination.get(datasheetValue)));
 			logMessage("ASSERT PASSED : File uploaded for Support form 1 is displayed under Documents \n");
-		}
-		else if(datasheetValue.equalsIgnoreCase("FileNameForSupportForm2"))
-		{
-			System.out.println(elements("lnk_awardsLettersDoc",lettername).get(1).getAttribute("onclick"));
+		} else if (datasheetValue.equalsIgnoreCase("FileNameForSupportForm2")) {
+			System.out.println(elements("lnk_awardsLettersDoc", lettername)
+					.get(1).getAttribute("onclick"));
 			System.out.println(mapAwardsNomination.get(datasheetValue));
-			Assert.assertTrue(elements("lnk_awardsLettersDoc",lettername).get(1).getAttribute("onclick").contains(mapAwardsNomination.get(datasheetValue)));
+			Assert.assertTrue(elements("lnk_awardsLettersDoc", lettername)
+					.get(1).getAttribute("onclick")
+					.contains(mapAwardsNomination.get(datasheetValue)));
 			logMessage("ASSERT PASSED : File uploaded for Support form 2 is displayed under Documents \n");
+		} else {
+			System.out.println(element("lnk_awardsLettersDoc", lettername)
+					.getAttribute("onclick"));
+			System.out.println(mapAwardsNomination.get(datasheetValue));
+			Assert.assertTrue(element("lnk_awardsLettersDoc", lettername)
+					.getAttribute("onclick").contains(
+							mapAwardsNomination.get(datasheetValue)));
+			logMessage("ASSERT PASSED : File uploaded for " + lettername
+					+ " is displayed under Documents \n");
 		}
-		else
-		{
-		System.out.println(element("lnk_awardsLettersDoc",lettername).getAttribute("onclick"));
-		System.out.println(mapAwardsNomination.get(datasheetValue));
-		Assert.assertTrue(element("lnk_awardsLettersDoc",lettername).getAttribute("onclick").contains(mapAwardsNomination.get(datasheetValue)));
-		logMessage("ASSERT PASSED : File uploaded for "+lettername+" is displayed under Documents \n");
-	}
-	}
-	
-	public void verifyLetterDocumentsOnAwardEntryProfilePage(Map<String, String> mapAwardsNomination)
-	{
-		verifyLetterDocuments_AwardsNomination(mapAwardsNomination,"Letter of Support","FileNameForSupportForm1");
-		verifyLetterDocuments_AwardsNomination(mapAwardsNomination,"Letter of Support","FileNameForSupportForm2");
-		if(mapAwardsNomination.get("UploadFileFor_Recommendation?").equals("Yes"))
-		{
-		verifyLetterDocuments_AwardsNomination(mapAwardsNomination,"Letter of Recommendation","FileNameForReccomendation");
-		}
-		verifyLetterDocuments_AwardsNomination(mapAwardsNomination,"Biographical Sketch","FileNameForBioSketch");
-		verifyLetterDocuments_AwardsNomination(mapAwardsNomination,"Publications List","FileNameForPubPatents");
 	}
 
-	public void clickOnEditButtonAndVerifyNomineeDetails_AwardRequirementsAndRecommendation(Map<String, String> mapAwardsNomination) {
-	    clickEditACSAwardsEntryButton(); 
-	    wait.waitForPageToLoadCompletely();
-	    switchToFrame("iframe1");
-	    verifyAwardDetailsAndRecommendations(mapAwardsNomination);
-		
+	public void verifyLetterDocumentsOnAwardEntryProfilePage(
+			Map<String, String> mapAwardsNomination) {
+		verifyLetterDocuments_AwardsNomination(mapAwardsNomination,
+				"Letter of Support", "FileNameForSupportForm1");
+		verifyLetterDocuments_AwardsNomination(mapAwardsNomination,
+				"Letter of Support", "FileNameForSupportForm2");
+		if (mapAwardsNomination.get("UploadFileFor_Recommendation?").equals(
+				"Yes")) {
+			verifyLetterDocuments_AwardsNomination(mapAwardsNomination,
+					"Letter of Recommendation", "FileNameForReccomendation");
+		}
+		verifyLetterDocuments_AwardsNomination(mapAwardsNomination,
+				"Biographical Sketch", "FileNameForBioSketch");
+		verifyLetterDocuments_AwardsNomination(mapAwardsNomination,
+				"Publications List", "FileNameForPubPatents");
 	}
 
+	public void clickOnEditButtonAndVerifyNomineeDetails_AwardRequirementsAndRecommendation(
+			Map<String, String> mapAwardsNomination) {
+		clickEditACSAwardsEntryButton();
+		wait.waitForPageToLoadCompletely();
+		switchToFrame("iframe1");
+		verifyAwardDetailsAndRecommendations(mapAwardsNomination);
+
+	}
 
 	private void verifyAwardDetailsAndRecommendations(
 			Map<String, String> mapAwardsNomination) {

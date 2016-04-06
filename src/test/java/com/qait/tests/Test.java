@@ -70,7 +70,16 @@ public class Test {
 		return date;
 	}
 
-	@org.testng.annotations.Test
+
+public static void main(String[] args) {
+	int intArray[][] = new int[][]{{1,2},{2,3}};
+	   
+   
+   
+     
+		
+}
+	//@org.testng.annotations.Test
 	public void test123() {
 		Calendar cal = Calendar.getInstance();
 //System.out.println(cal.get);
