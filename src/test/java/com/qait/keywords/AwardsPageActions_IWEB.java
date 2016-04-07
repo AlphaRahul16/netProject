@@ -3,12 +3,16 @@ package com.qait.keywords;
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import org.mozilla.javascript.ast.Label;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -23,6 +27,11 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	boolean flag;
 	Set<String> nomineesNames = new HashSet<>();
 	int timeOut, hiddenFieldTimeOut;
+	List<String> judgeCustomerID_Weblogin = new ArrayList<String>();
+	List<String> listOfJudgesForRescused = new ArrayList<String>();
+	List<String> listOfJudgesName = new ArrayList<String>();
+
+	Map<String, List<String>> judgeDetailsMap = new HashMap<>();
 
 	public AwardsPageActions_IWEB(WebDriver driver) {
 		super(driver, "AwardsPageIWEB");
@@ -30,6 +39,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void ClearStartDateAndEndDate_AllRounds() {
+		holdExecution(5000);
 		ClearStartDateEmpty_Round("1");
 		ClearStartDateEmpty_Round("2");
 		ClearStartDateEmpty_Round("3");
@@ -40,6 +50,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void ClearStartDateEmpty_Round(String roundNumber) {
+		System.out.println("ClearStartDateEmpty_Round" + roundNumber);
 		isElementDisplayed("txt_startDateRounds", roundNumber);
 		element("txt_startDateRounds", roundNumber).click();
 		if (element("txt_startDateRounds", roundNumber).getText().contains("/")) {
@@ -56,6 +67,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void ClearEndDateEmpty_Round(String roundNumber) {
+		System.out.println("ClearEndDateEmpty_Round" + roundNumber);
 		isElementDisplayed("txt_endDateRounds", roundNumber);
 		if (element("txt_endDateRounds", roundNumber).getText().contains("/")) {
 			clickOnEditRecordButton(roundNumber);
@@ -76,12 +88,14 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToFrame("iframe1");
 		editStartEndDate("start",
 				DateUtil.getAnyDateForType("M/dd/YYYY", -5, "date"));
+		wait.waitForPageToLoadCompletely();
 		editStartEndDate("end",
 				DateUtil.getAnyDateForType("M/dd/YYYY", 2, "month"));
 
 	}
 
 	public void clickOnSaveButton() {
+		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("btn_saveButton");
 		element("btn_saveButton").click();
 		logMessage("Step : click on save button\n");
@@ -89,6 +103,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnEditRecordButton(String roundNumber) {
+		System.out.println("clickOnEditRecordButton");
 		isElementDisplayed("link_editRecord", roundNumber);
 		element("link_editRecord", roundNumber).click();
 		logMessage("Step : Edit record button is clicked in link_editRecord\n");
@@ -96,9 +111,12 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void editStartEndDate(String start_endDate, String value) {
+		System.out.println("editStartEndDate" + start_endDate);
 		isElementDisplayed("inp_editStartEndDate", start_endDate);
+		element("inp_editStartEndDate", start_endDate).clear();
 		element("inp_editStartEndDate", start_endDate).sendKeys(value);
-		logMessage("Step : Edit " + start_endDate + " with " + value + " \n");
+		logMessage("Step : Edit " + start_endDate + " date with " + value
+				+ " \n");
 	}
 
 	public Set<String> getACSNomineesInEntrants() {
@@ -106,9 +124,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		for (WebElement nominees : elements("list_nominees")) {
 			nomineesNames.add(nominees.getText());
 		}
-		for (String nomineee : nomineesNames) {
-			System.out.println(nomineee);
-		}
+
 		if (nomineesNames.size() < 0) {
 			Assert.fail("ASSERT FAILED : " + nomineesNames.size()
 					+ " Nominees are exists in award selected\n");
@@ -121,14 +137,14 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
 				"hiddenFieldTimeOut"));
 		try {
-			wait.waitForPageToLoadCompletely();
+
 			wait.resetImplicitTimeout(5);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("list_paging");
 			int sizeOfPage = elements("list_paging").size();
 			System.out.println("page size:" + sizeOfPage);
 			int page = 0;
-
+			int pageCount = page + 1;
 			getACSNomineesInEntrants();
 			do {
 				System.out.println("page number :" + page);
@@ -136,10 +152,10 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 				isElementDisplayed("link_paging", String.valueOf(page + 1));
 				element("link_paging", String.valueOf(page + 1)).click();
 				waitForSpinner();
-				logMessage("Step : page number " + page + 1 + " is clicked\n");
+				logMessage("Step : page number " + pageCount + " is clicked\n");
 				System.out.println("page no.:" + page);
 				getACSNomineesInEntrants();
-			} while (page < sizeOfPage);
+			} while (pageCount < sizeOfPage);
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		} catch (Exception exp) {
@@ -174,14 +190,15 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyOrAddRoundsPresents() {
-		Set<String> roundNumberSet = new HashSet<>();
+		List<String> roundNumberList = new ArrayList<>();
 		isElementDisplayed("list_rounds");
 		int numberOfRounds = elements("list_rounds").size();
+		System.out.println("no of round" + numberOfRounds);
 		if (numberOfRounds < 3) {
 			for (WebElement ele : elements("list_rounds")) {
-				roundNumberSet.add(ele.getText().trim());
+				roundNumberList.add(ele.getText().trim());
 			}
-			List<String> roundNumberList = new ArrayList<>(roundNumberSet);
+
 			for (int i = 1; i <= roundNumberList.size(); i++) {
 				if (!roundNumberList.get(i - 1).equalsIgnoreCase("Round " + i)) {
 					addRound(String.valueOf(i));
@@ -191,7 +208,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void addRound(String roundNumber) {
-		clickOnAddRoundButton("stages/rounds");
+		clickOnAddRoundButton("award stages/rounds");
 		isElementDisplayed("lbl_addRound");
 		switchToFrame("iframe1");
 		enterDetailsToAddRound_Judge("stage/round description", "Round "
@@ -200,6 +217,31 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		enterDetailsToAddRound_Judge("order", roundNumber);
 		clickOnSaveButton();
 		switchToDefaultContent();
+	}
+
+	public void clickOnRandomPage() {
+		try {
+			wait.resetImplicitTimeout(2);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("lnk_pages", "2");
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			int max = 6, min = 2;
+			Random rand = new Random();
+			int randomNumber = rand.nextInt((max - min) + 1) + min;
+			// int randomNumber = (int) Math.random();
+			String randomNumberInString = String.valueOf(randomNumber);
+			isElementDisplayed("lnk_pages", randomNumberInString);
+
+			clickUsingXpathInJavaScriptExecutor(element("lnk_pages",
+					randomNumberInString));
+			logMessage("Step : page at the position of " + randomNumberInString
+					+ " is clicked in lnk_pages\n");
+
+		} catch (NoSuchElementException exp) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+		}
 	}
 
 	public void enterDetailsToAddRound_Judge(String detailName,
@@ -211,23 +253,45 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnAddRoundButton(String tabName) {
 		isElementDisplayed("btn_addRounds_judges", tabName);
-		element("btn_addRounds_judges",tabName).click();
+		element("btn_addRounds_judges", tabName).click();
 		logMessage("Step : add button for " + tabName + " is clicked\n");
 	}
 
 	public void verifyNumberOfJudgesAndAdd() {
-		Set<String> judgeNumberSet = new HashSet<>();
-		isElementDisplayed("list_awardJudge");
-		int numberOfJudges = elements("list_awardJudge").size();
-		if (numberOfJudges < 5) {
-			for (WebElement ele : elements("list_awardJudge")) {
-				judgeNumberSet.add(ele.getText().trim());
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
+		try {
+			wait.resetImplicitTimeout(0);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("list_awardJudge");
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			int numberOfJudges = elements("list_awardJudge").size();
+			System.out.println("nu of judges" + numberOfJudges);
+			if (numberOfJudges < 5) {
+				int numberOfJudgesToAdd = 5 - numberOfJudges;
+				System.out.println(numberOfJudgesToAdd);
+				for (int i = 1; i <= numberOfJudgesToAdd; i++) {
+					addJudges(1);
+				}
 			}
-			List<String> judgeNumberList = new ArrayList<>(judgeNumberSet);
-			for (int i = 1; i <= 5 - judgeNumberList.size(); i++) {
-				addJudges(i);
+		} catch (Exception e) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			logMessage("INFO : Judges are not present in the list of judges \n");
+			int numberOfJudges = 0;
+			System.out.println("nu of judges" + numberOfJudges);
+			if (numberOfJudges < 5) {
+				int numberOfJudgesToAdd = 5 - numberOfJudges;
+				System.out.println(numberOfJudgesToAdd);
+				for (int i = 1; i <= numberOfJudgesToAdd; i++) {
+					addJudges(1);
+				}
 			}
 		}
+
+		
 	}
 
 	public void addJudges(int roundNumber) {
@@ -248,8 +312,126 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void selectJudgeName() {
-		isElementDisplayed("img_goToJudge");
-		element("img_goToJudge").click();
+		int max = 12, min = 3;
+		Random rand = new Random();
+		clickOnRandomPage();
+		int randomNumber = rand.nextInt((max - min) + 1) + min;
+		String randomNumberInString = String.valueOf(randomNumber);
+		isElementDisplayed("img_goToJudge", randomNumberInString);
+		element("img_goToJudge", randomNumberInString).click();
 		logMessage("Step : click on judge profile\n");
 	}
+
+	public void goToRecordForRound(String roundNumber) {
+		isElementDisplayed("link_goToRecord", roundNumber);
+		element("link_goToRecord", roundNumber).click();
+		logMessage("Step : navigate to record for round\n");
+	}
+
+	public List<String> getRecusedStatusForRounds(String roundNumber) {
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
+		try {
+			wait.resetImplicitTimeout(0);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("list_judgeName_rescused");
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			for (WebElement ele : elements("list_judgeName_rescused")) {
+				listOfJudgesForRescused.add(ele.getText().trim());
+			}
+			for (String s : listOfJudgesForRescused) {
+				System.out.println(s);
+			}
+			return listOfJudgesForRescused;
+		} catch (Exception exp) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			logMessage("Step : list of judges that contains rescused\n");
+			return null;
+		}
+	}
+
+	public List<String> getJudgesName() {
+		isElementDisplayed("list_judgeName_Judges");
+		for (WebElement ele : elements("list_judgeName_Judges")) {
+			listOfJudgesName.add(ele.getText().trim());
+		}
+		for (String s : listOfJudgesName) {
+			System.out.println(s);
+		}
+		return listOfJudgesName;
+	}
+
+	public void goToJudgeRecord(String judgeName) {
+		isElementDisplayed("link_goToJudgeRecord", judgeName);
+		element("link_goToJudgeRecord", judgeName).click();
+		logMessage("Step : navigate to judge " + judgeName + " profile\n");
+
+	}
+
+	public void getJudgeDetails(List<String> judgeNames, String roundNumber) {
+		for (String judgeName : judgeNames) {
+			goToJudgeRecord(judgeName);
+			clickOnJudgeNameToNavigateOnProfilePage(judgeName);
+			waitForSpinner();
+			judgeCustomerID_Weblogin.add(getCustomerID(judgeName));
+			judgeCustomerID_Weblogin.add(getWebLogin(judgeName));
+			judgeDetailsMap.put(judgeName, judgeCustomerID_Weblogin);
+			navigateToBackPage();
+			clickOnAwardsName_RoundName("Round " + roundNumber);
+			judgeCustomerID_Weblogin.clear();
+		}
+		for (String judgeName : judgeNames) {
+			System.out.println(judgeDetailsMap.get(judgeName).get(0));
+			System.out.println(judgeDetailsMap.get(judgeName).get(1));
+		}
+	}
+
+	public void clickOnAwardsName_RoundName(String awards_roundName) {
+		isElementDisplayed("lnk_awardName_RoundName", awards_roundName);
+		element("lnk_awardName_RoundName", awards_roundName).click();
+		logMessage("Step : click on awards name " + awards_roundName);
+	}
+
+	public void clickOnJudgeNameToNavigateOnProfilePage(String judgeName) {
+		isElementDisplayed("lnk_judgeProfile", judgeName);
+		element("lnk_judgeProfile", judgeName).click();
+		logMessage("Step : click on judge name " + judgeName
+				+ " to navigate on profile page\n");
+	}
+
+	public String getCustomerID(String judgeName) {
+		isElementDisplayed("txt_customerId");
+		String customerId = element("txt_customerId").getText();
+		logMessage("Step : Customer ID for " + judgeName + " is " + customerId
+				+ "\n");
+		return customerId;
+	}
+
+	public String getWebLogin(String judgeName) {
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
+		try {
+			wait.resetImplicitTimeout(0);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("txt_webLogin");
+			String webLogin = element("txt_webLogin").getText();
+			logMessage("Step : Web Login ID for " + judgeName + " is "
+					+ webLogin + "\n");
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			return webLogin;
+		} catch (Exception e) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			logMessage("INFO : web login is not present for judge " + judgeName
+					+ "\n");
+			return null;
+		}
+
+	}
+
 }

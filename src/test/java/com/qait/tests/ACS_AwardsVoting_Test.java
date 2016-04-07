@@ -18,11 +18,11 @@ import com.qait.automation.TestSessionInitiator;
 
 public class ACS_AwardsVoting_Test {
 	TestSessionInitiator test;
-	String app_url_Nominate, app_url_IWEB, app_url_nominateFellow;
+	String app_url_IWEB, app_url_Awards;
 	private String caseID;
 	private String currentAwardName;
 
-	List<String> memberDetails;
+	List<String> memberDetails, nameOfJudges;
 
 	int numberOfDivisions;
 	Map<String, String> mapAwardsNomination = new HashMap<String, String>();
@@ -53,10 +53,10 @@ public class ACS_AwardsVoting_Test {
 						.getRandomSpecificLineFromTextFile("GeneralAwardList")
 						.trim());
 	}
-	
-	 @Test
-		public void Step02_TC02_Verify_Nominees_And_Set_Start_End_Dates_Round_1() {
-		
+
+	@Test
+	public void Step02_TC02_Verify_Nominees_And_Set_Start_End_Dates_Round_1() {
+
 		test.individualsPage.navigateToEntrantsMenuOnHoveringMore();
 		test.awardsPageAction.allACSNomineesInEntrants();
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("General");
@@ -68,15 +68,20 @@ public class ACS_AwardsVoting_Test {
 		test.awardsPageAction.switchToDefaultContent();
 		test.invoicePage.collapseDetailsMenu("award stages/rounds");
 	}
-	 
-	 @Test
-		public void Step03_TC03_(){
-		
+
+	@Test
+	public void Step03_TC03_Add_Judges_Fetch_Rescused_Status() {
 		test.invoicePage.expandDetailsMenu("award judges");
 		test.awardsPageAction.verifyNumberOfJudgesAndAdd();
-		
-		
+		nameOfJudges = test.awardsPageAction.getJudgesName();
 		test.invoicePage.collapseDetailsMenu("award judges");
+		test.invoicePage.expandDetailsMenu("award stages/rounds");
+		test.awardsPageAction.goToRecordForRound("1");
+		test.invoicePage.expandDetailsMenu("award judge");
+		test.awardsPageAction.getRecusedStatusForRounds("1");
+		test.awardsPageAction.clickOnAwardsName_RoundName(currentAwardName);
+		test.invoicePage.expandDetailsMenu("award judges");
+		test.awardsPageAction.getJudgeDetails(nameOfJudges, "1");
 	}
 
 	// @Test
@@ -117,7 +122,7 @@ public class ACS_AwardsVoting_Test {
 	public void Open_Browser_Window() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url_IWEB = getYamlValue("app_url_IWEB");
-		app_url_Nominate = getYamlValue("app_url_Nominate");
+		app_url_Awards = getYamlValue("app_url_Awards");
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.enterAuthentication(
 				YamlReader.getYamlValue("Authentication.userName"),
