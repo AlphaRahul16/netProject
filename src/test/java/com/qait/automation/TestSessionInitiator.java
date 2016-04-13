@@ -20,6 +20,7 @@ import org.testng.Reporter;
 
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.TakeScreenshot;
+import com.qait.keywords.ACS_Awards_EWEB_PageActions;
 import com.qait.keywords.ASMErrorPage;
 import com.qait.keywords.ASM_AACTPage;
 import com.qait.keywords.ASM_CCEDPage;
@@ -103,6 +104,7 @@ public class TestSessionInitiator {
 	public FundProfilePage fundpofilePage;
 	public MemberNumberLookupPage memNumLookupPage;
 public AwardsPageActions_IWEB awardsPageAction;
+public ACS_Awards_EWEB_PageActions award_ewebPage;
 
 	public TakeScreenshot takescreenshot;
 
@@ -143,6 +145,7 @@ public AwardsPageActions_IWEB awardsPageAction;
 		fundpofilePage = new FundProfilePage(driver);
 		memNumLookupPage = new MemberNumberLookupPage(driver);
 		awardsPageAction= new AwardsPageActions_IWEB(driver);
+		award_ewebPage = new ACS_Awards_EWEB_PageActions(driver);
 	}
 
 	/**

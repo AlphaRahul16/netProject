@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 
@@ -27,7 +28,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	boolean flag;
 	Set<String> nomineesNames = new HashSet<>();
 	int timeOut, hiddenFieldTimeOut;
-	List<String> judgeCustomerID_Weblogin = new ArrayList<String>();
+
 	List<String> listOfJudgesForRescused = new ArrayList<String>();
 	List<String> listOfJudgesName = new ArrayList<String>();
 
@@ -291,7 +292,6 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			}
 		}
 
-		
 	}
 
 	public void addJudges(int roundNumber) {
@@ -342,7 +342,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 				listOfJudgesForRescused.add(ele.getText().trim());
 			}
 			for (String s : listOfJudgesForRescused) {
-				System.out.println(s);
+				System.out.println("rescused judge:" + s);
 			}
 			return listOfJudgesForRescused;
 		} catch (Exception exp) {
@@ -366,27 +366,45 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void goToJudgeRecord(String judgeName) {
 		isElementDisplayed("link_goToJudgeRecord", judgeName);
-		element("link_goToJudgeRecord", judgeName).click();
+		clickUsingXpathInJavaScriptExecutor(element("link_goToJudgeRecord",
+				judgeName));
 		logMessage("Step : navigate to judge " + judgeName + " profile\n");
 
 	}
 
-	public void getJudgeDetails(List<String> judgeNames, String roundNumber) {
+	public Map<String, List<String>> getJudgeDetails(List<String> judgeNames,
+			String roundNumber) {
+		System.out.println("judges name size: " + judgeNames.size());
 		for (String judgeName : judgeNames) {
+			List<String> judgeCustomerID_Weblogin = new ArrayList<String>();
+			String currentUrl = getCurrentURL();
 			goToJudgeRecord(judgeName);
 			clickOnJudgeNameToNavigateOnProfilePage(judgeName);
 			waitForSpinner();
 			judgeCustomerID_Weblogin.add(getCustomerID(judgeName));
 			judgeCustomerID_Weblogin.add(getWebLogin(judgeName));
+
 			judgeDetailsMap.put(judgeName, judgeCustomerID_Weblogin);
-			navigateToBackPage();
-			clickOnAwardsName_RoundName("Round " + roundNumber);
-			judgeCustomerID_Weblogin.clear();
-		}
-		for (String judgeName : judgeNames) {
+
+			navigateToUrl(currentUrl);
+			System.out.println("judge name : " + judgeName);
 			System.out.println(judgeDetailsMap.get(judgeName).get(0));
 			System.out.println(judgeDetailsMap.get(judgeName).get(1));
 		}
+
+		for (Map.Entry<String, List<String>> entry : judgeDetailsMap.entrySet()) {
+			String key = entry.getKey();
+			List<String> values = entry.getValue();
+			System.out.println("Key = " + key);
+			System.out.println("akdfhbskdfd : "
+					+ entry.getValue().get(0).toString());
+			System.out.println(values.size() + "___________________");
+			System.out.println("Value1 = " + values.get(0) + "n");
+			System.out.println("Value2 = " + values.get(1) + "n");
+		}
+
+		return judgeDetailsMap;
+
 	}
 
 	public void clickOnAwardsName_RoundName(String awards_roundName) {
@@ -405,6 +423,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	public String getCustomerID(String judgeName) {
 		isElementDisplayed("txt_customerId");
 		String customerId = element("txt_customerId").getText();
+
 		logMessage("Step : Customer ID for " + judgeName + " is " + customerId
 				+ "\n");
 		return customerId;
@@ -432,6 +451,17 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			return null;
 		}
 
+	}
+
+	public void getJudgeDetail() {
+		clickOnEditJudgeButton();
+
+	}
+
+	public void clickOnEditJudgeButton() {
+		isElementDisplayed("btn_editAward");
+		element("btn_editJudge").click();
+		logMessage("Step : click on edit button on judge profile\n");
 	}
 
 }

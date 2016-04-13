@@ -3,8 +3,10 @@ package com.qait.tests;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -21,9 +23,9 @@ public class ACS_AwardsVoting_Test {
 	String app_url_IWEB, app_url_Awards;
 	private String caseID;
 	private String currentAwardName;
-
-	List<String> memberDetails, nameOfJudges;
-
+	Map<String, List<String>> memberDetail = new HashMap<>();
+	List<String> memberDetails, nameOfJudges, rescusedJudges;
+	Set<String >numberOfNomineesInEntrants=new HashSet<>();
 	int numberOfDivisions;
 	Map<String, String> mapAwardsNomination = new HashMap<String, String>();
 	Map<String, String> createMemberCredentials;
@@ -40,8 +42,7 @@ public class ACS_AwardsVoting_Test {
 
 	@Test
 	public void Step01_TC01_Launch_Iweb_And_Select_Award() {
-		mapAwardsNomination = test.homePageIWEB.addValuesInMap("AwardsVoting",
-				caseID);
+		test.homePageIWEB.addValuesInMap("AwardsVoting", caseID);
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Awards");
 		test.homePageIWEB.clickOnTab("Find Award");
@@ -56,9 +57,8 @@ public class ACS_AwardsVoting_Test {
 
 	@Test
 	public void Step02_TC02_Verify_Nominees_And_Set_Start_End_Dates_Round_1() {
-
 		test.individualsPage.navigateToEntrantsMenuOnHoveringMore();
-		test.awardsPageAction.allACSNomineesInEntrants();
+		numberOfNomineesInEntrants=	test.awardsPageAction.allACSNomineesInEntrants();
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("General");
 		test.invoicePage.expandDetailsMenu("award stages/rounds");
 		test.awardsPageAction.verifyOrAddRoundsPresents();
@@ -78,44 +78,30 @@ public class ACS_AwardsVoting_Test {
 		test.invoicePage.expandDetailsMenu("award stages/rounds");
 		test.awardsPageAction.goToRecordForRound("1");
 		test.invoicePage.expandDetailsMenu("award judge");
-		test.awardsPageAction.getRecusedStatusForRounds("1");
+		rescusedJudges = test.awardsPageAction.getRecusedStatusForRounds("1");
 		test.awardsPageAction.clickOnAwardsName_RoundName(currentAwardName);
 		test.invoicePage.expandDetailsMenu("award judges");
-		test.awardsPageAction.getJudgeDetails(nameOfJudges, "1");
+		memberDetail = test.awardsPageAction.getJudgeDetails(nameOfJudges, "1");
 	}
 
-	// @Test
-	public void Step04_TC04_Launch_Iweb_And_Verify_Details() {
-		test.launchApplication(app_url_IWEB);
-		test.homePageIWEB.clickOnModuleTab();
-		test.homePageIWEB.clickOnTab("Awards");
-		test.homePageIWEB.clickOnTab("Find Award");
-		test.individualsPage.enterFieldValue("Award Year",
-				DateUtil.getAnyDateForType("YYYY", 1, "year"));
-		test.individualsPage.clickGoButton();
-
-		test.individualsPage
-				.selectRandomGeneralAward_AwardNomination(currentAwardName);
-		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Entrants");
-		test.invoicePage.expandDetailsMenu("acs nominee/ entry");
-
-		test.individualsPage
-				.selectNomineeEntryForVerification(createMemberCredentials.get(
-						"Nominee0Name").trim());
-		test.invoicePage.expandDetailsMenu("acs award entry supporter");
-		test.individualsPage.verifyDetailsForAwardsNomination(
-				mapAwardsNomination, createMemberCredentials);
-		test.invoicePage.collapseDetailsMenu("acs award entry supporter");
-
-		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Documents");
-		test.invoicePage.expandDetailsMenu("document");
-		test.individualsPage
-				.verifyLetterDocumentsOnAwardEntryProfilePage(mapAwardsNomination);
-		test.asm_NominatePage.verifyPdfContent();
-		test.invoicePage.collapseDetailsMenu("document");
-		test.individualsPage
-				.clickOnEditButtonAndVerifyNomineeDetails_AwardRequirementsAndRecommendation(mapAwardsNomination);
-
+	@Test
+	public void Step04_TC04_Launch_Awards_Voting_Application() {
+		int i = 0;
+		test.launchApplication(app_url_Awards);
+		test.award_ewebPage.enterCredentials_LastNameMemberNumber_ACSID(
+				test.award_ewebPage.map().get("LoginType"), nameOfJudges.get(i)
+						.trim(), memberDetail);
+		test.award_ewebPage
+				.verifyLoginInAwardApplicationSuccessfully(nameOfJudges.get(i));
+		test.award_ewebPage.verifyStatus(rescusedJudges, nameOfJudges.get(i));
+		test.award_ewebPage.verifyAwardName(currentAwardName);
+//		test.award_ewebPage.verifyNumberOfDays(numberOfDays);
+		test.award_ewebPage.verifyNumberOfNominees(numberOfNomineesInEntrants.size());
+//		test.award_ewebPage.verifySubmitBallotDate(date);
+		
+		test.award_ewebPage.clickOnFiveYearNomineeMemoLink();
+		test.award_ewebPage.clickOnViewNominationMaterialButton();
+		test.award_ewebPage.verifyCurrentTab("Select Nominees");
 	}
 
 	@BeforeClass
