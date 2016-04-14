@@ -10,6 +10,9 @@ import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -36,10 +39,11 @@ public class Test {
 	String s1;
 	static String s2;
 
-	@org.testng.annotations.Test
+	// @org.testng.annotations.Test
 	public void function1() {
 		Reporter.log("<b>Avnish Rawat</b>", true);
 	}
+
 	// @org.testng.annotations.Test
 	// public void method1() {
 	// String s =
@@ -70,31 +74,42 @@ public class Test {
 		return date;
 	}
 
+	@org.testng.annotations.Test
+	public void abc() {
+		String format = "M/dd/YYYY";
+		String date1 = "6/14/2016";
+		String date2 = "4/9/2016";
+		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+		final LocalDate firstDate = LocalDate.parse(date1, formatter);
+		final LocalDate secondDate = LocalDate.parse(date2, formatter);
+		final long days = ChronoUnit.DAYS.between(firstDate, secondDate);
+		System.out.println("Days between: " + days);
+	}
 
-public static void main(String[] args) {
-	int intArray[][] = new int[][]{{1,2},{2,3}};
-	   
-   
-   
-     
-		
-}
-	//@org.testng.annotations.Test
+	public static void main(String[] args) {
+		int intArray[][] = new int[][] { { 1, 2 }, { 2, 3 } };
+
+	}
+
+	// @org.testng.annotations.Test
 	public void test123() {
 		Calendar cal = Calendar.getInstance();
-//System.out.println(cal.get);
-	String currentMonth=getCurrentdateInStringWithGivenFormateForTimeZone1("M", "EST5EDT");
-	String currentDay=	getCurrentdateInStringWithGivenFormateForTimeZone1("d", "EST5EDT");
-	String currentYear=getCurrentdateInStringWithGivenFormateForTimeZone1("yyyy", "EST5EDT");
-	boolean b=((Integer.parseInt(currentYear))%4)==0;
-	Calendar calendar = Calendar.getInstance();
-	Date currentDate = calendar.getTime();
-	System.out.format("today:      %s\n", currentDate);
-	calendar.setTime(currentDate);
-    calendar.add(Calendar.YEAR, 1);
-    calendar.add(Calendar.DATE, -1);
-    Date nextYear = calendar.getTime();
-    System.out.format("next year:  %s\n", nextYear);
+		// System.out.println(cal.get);
+		String currentMonth = getCurrentdateInStringWithGivenFormateForTimeZone1(
+				"M", "EST5EDT");
+		String currentDay = getCurrentdateInStringWithGivenFormateForTimeZone1(
+				"d", "EST5EDT");
+		String currentYear = getCurrentdateInStringWithGivenFormateForTimeZone1(
+				"yyyy", "EST5EDT");
+		boolean b = ((Integer.parseInt(currentYear)) % 4) == 0;
+		Calendar calendar = Calendar.getInstance();
+		Date currentDate = calendar.getTime();
+		System.out.format("today:      %s\n", currentDate);
+		calendar.setTime(currentDate);
+		calendar.add(Calendar.YEAR, 1);
+		calendar.add(Calendar.DATE, -1);
+		Date nextYear = calendar.getTime();
+		System.out.format("next year:  %s\n", nextYear);
 	}
 
 	// @org.testng.annotations.Test(invocationCount = 1)

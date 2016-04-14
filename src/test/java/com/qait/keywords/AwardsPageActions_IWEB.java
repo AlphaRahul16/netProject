@@ -84,15 +84,17 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 	}
 
-	public void editStartAndEndDate_Round(String roundNumber) {
+	public String[] editStartAndEndDate_Round(String roundNumber) {
 		clickOnEditRecordButton(roundNumber);
 		switchToFrame("iframe1");
-		editStartEndDate("start",
-				DateUtil.getAnyDateForType("M/dd/YYYY", -5, "date"));
-		wait.waitForPageToLoadCompletely();
-		editStartEndDate("end",
-				DateUtil.getAnyDateForType("M/dd/YYYY", 2, "month"));
 
+		String startDate = DateUtil.getAnyDateForType("M/dd/YYYY", -5, "date");
+		String endDate = DateUtil.getAnyDateForType("M/dd/YYYY", 2, "month");
+		editStartEndDate("start", startDate);
+		wait.waitForPageToLoadCompletely();
+		editStartEndDate("end", endDate);
+		String[] startEndDate = { startDate, endDate };
+		return startEndDate;
 	}
 
 	public void clickOnSaveButton() {

@@ -3,12 +3,14 @@ package com.qait.keywords;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.qait.automation.utils.DateUtil;
 
 public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	WebDriver driver;
@@ -87,11 +89,14 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			for (String rescusedJudge : rescusedJudges) {
 				if (rescusedJudge.equalsIgnoreCase(nameOfJudge)) {
 					Assert.assertTrue(
-							element("txt_status").getText().equalsIgnoreCase(
-									"Status - Ballot submitted"),
+							element("txt_status")
+									.getText()
+									.trim()
+									.equalsIgnoreCase(
+											"Status - Ballot submitted"),
 							"actual status of rescused judge is "
 									+ element("txt_status").getText()
-									+ " and expected is " + nameOfJudge + "\n");
+									+ " and expected is Status - Ballot submitted\n");
 					logMessage("AASERT PASSED : Status Status - Ballot submitted of rescused judge "
 							+ nameOfJudge + " is verified\n");
 				}
@@ -99,11 +104,11 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 		} else {
 			Assert.assertTrue(
-					element("txt_status").getText().equalsIgnoreCase(
-							"Status - Not Yet Started"),
+					element("txt_status").getText().trim()
+							.equalsIgnoreCase("Status - Not Yet Started"),
 					"actual status of rescused judge is "
 							+ element("txt_status").getText()
-							+ " and expected is " + nameOfJudge + "\n");
+							+ " and expected is Status - Not Yet Started\n");
 			logMessage("AASERT PASSED : Status Status - Not Yet Started of rescused judge "
 					+ nameOfJudge + " is verified\n");
 		}
@@ -128,12 +133,14 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	}
 
 	public void verifySubmitBallotDate(String date) {
+		String dateInGivenFormat = DateUtil.convertStringToDate(date,
+				"M/dd/YYYY").toString();
 		isElementDisplayed("txt_submitBallotDate");
 		Assert.assertTrue(element("txt_submitBallotDate").getText()
-				.equalsIgnoreCase(date),
+				.equalsIgnoreCase(dateInGivenFormat),
 				"ASSERT FAILED : actual: "
 						+ element("txt_submitBallotDate").getText()
-						+ " expected: " + date);
+						+ " expected: " + dateInGivenFormat);
 	}
 
 	public void clickOnFiveYearNomineeMemoLink() {
@@ -158,10 +165,18 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : current tab " + tabName + " is verified \n");
 	}
 
-	public void selectTenRandomNominees() {
-		isElementDisplayed("list_nominees");
-		for (WebElement element : elements("list_nominees")) {
-			element.click();
+	public List<List<String>> selectRandomNominees(int numberOfNomineesToSelect) {
+		List<List<String>> listOfFirstAndLastName = new ArrayList<>();
+
+		for (int i = 1; i <= numberOfNomineesToSelect; i++) {
+			Random rand = new Random();
+			isElementDisplayed("list_nominees");
+			int max = elements("list_nominees").size();
+			int min = 0;
+			System.out.println("min ============:" + min);
+			int randomNumber = rand.nextInt((max - min) + 1) + min;
+			System.out.println("random number :----------" + randomNumber);
+			elements("list_nominees").get(randomNumber).click();
 		}
 
 		for (WebElement element : elements("list_selectedNomineesFirstName")) {
@@ -182,6 +197,59 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			System.out.println("last name : " + selectedNomineeLastName);
 		}
 
+		listOfFirstAndLastName.add(selectedNomineeFirstNameList);
+		listOfFirstAndLastName.add(selectedNomineeLastNameList);
+
+		return listOfFirstAndLastName;
+
+	}
+
+	public void verifyHeaderForUnselectedNominee(String headerName) {
+		isElementDisplayed("txt_unselectedNomineeHeader");
+		Assert.assertTrue(element("txt_unselectedNomineeHeader").getText()
+				.equalsIgnoreCase(headerName),
+				"ASSERT FAILED : header name is " + headerName
+						+ " is not verified for unselected nominees\n");
+		logMessage("ASSERT PASSED : header name " + headerName
+				+ " is verified for unselected nominees\n");
+	}
+
+	public void verifyHeaderForSelectedNominee(String headerName) {
+		isElementDisplayed("txt_selectedNomineeHeader");
+		Assert.assertTrue(element("txt_selectedNomineeHeader").getText()
+				.equalsIgnoreCase(headerName),
+				"ASSERT FAILED : header name is " + headerName
+						+ " is not verified for selected nominees\n");
+		logMessage("ASSERT PASSED : header name " + headerName
+				+ " is verified for selected nominees\n");
+	}
+
+	public void clickOnViewProfileLink(List<String> nomineeFirstNames) {
+		int max = 10, min = 1;
+		Random rand = new Random();
+		int randomNumber = rand.nextInt((max - min) + 1) + min;
+		isElementDisplayed("lnk_viewProfile",
+				nomineeFirstNames.get(randomNumber));
+		element("lnk_viewProfile", nomineeFirstNames.get(randomNumber)).click();
+		logMessage("Step : view profile link is clicked for "
+				+ nomineeFirstNames.get(randomNumber));
+//		wait.waitForElementToDisappear(element("img_viewProfileLoader"));
+
+	}
+
+	public void verifyAwardName_viewProfileLink(String awardName) {
+		switchToFrame("TB_iframeContent");
+		isElementDisplayed("txt_viewProfileAwardName", awardName);
+		Assert.assertTrue(
+				element("txt_viewProfileAwardName", awardName).getText()
+						.equalsIgnoreCase(awardName),
+				"ASSERT FAILED : actual award name is "
+						+ element("txt_viewProfileAwardName", awardName)
+								.getText() + " and expected is " + awardName
+						+ "\n");
+		logMessage("ASSERT PASSED : " + awardName
+				+ " is verified in view profile link \n");
+		switchToDefaultContent();
 	}
 
 }

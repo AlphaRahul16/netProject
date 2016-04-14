@@ -14,9 +14,16 @@ txt_numberOfDaysRemaining                 xpath                           //em[c
 txt_totalNominations                      xpath                          //p[text()='${number of nominations} total nominations']
 txt_submitBallotDate                      classname                       bluetext
 lnk_fiveYearNomineeMemo                   xpath                          //div[@class='ranking awardHistory dashboard']/a
-inp_viewNominationMaterial                xpath                         //input[text()='View Nomination Materials']
+inp_viewNominationMaterial                xpath                         //input[@value='View Nomination Materials']
 tab_currentTab                            classname                       progressStepOn
-list_nominees                             classname                       nominee
+list_nominees                             xpath                          //tr[@style='font-weight: normal;']/td[1]/input
 list_selectedNomineesFirstName            xpath                           //tr[@style='font-weight: bold;']/td[1]
 list_selectedNomineesLastName             xpath                           //tr[@style='font-weight: bold;']/td[2]
+txt_unselectedNomineeHeader               classname                       info
+txt_selectedNomineeHeader                 classname                       nominationsAddedText 
+lnk_viewProfile                           xpath                          //td[text()='${nomineeName}']/following-sibling::td/a[text()='View Profile']
+img_viewProfileLoader                     xpath                          img[contains(@src,'loadingAnimation')]
+txt_viewProfileAwardName                  classname                      awtitle
+
+                          
 ================================================================================================================================
