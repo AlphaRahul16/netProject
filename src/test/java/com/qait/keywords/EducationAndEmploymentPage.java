@@ -437,6 +437,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 		if (!warningMessage.equalsIgnoreCase("")) {
 			isElementDisplayed("lbl_warnings");
 			String actualMsg = element("lbl_warnings").getText().trim();
+			System.out.println("actual msz: "+actualMsg);
 			if (element("lbl_warnings").getAttribute("id").contains("Warning")) {
 				messageType = "Warning";
 			} else if (element("lbl_warnings").getAttribute("id").contains(
@@ -446,6 +447,8 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 			logMessage(messageType + " message is displayed. Message : "
 					+ actualMsg);
 			boolean flag = actualMsg.equals(warningMessage);
+			
+			System.out.println("warning msz :"+warningMessage);
 			Assert.assertTrue(actualMsg.equals(warningMessage),
 					"Expected and Actual " + messageType
 							+ " messages differ. Message expected : "

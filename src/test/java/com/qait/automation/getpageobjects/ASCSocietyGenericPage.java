@@ -5,19 +5,13 @@ import static com.qait.automation.utils.DataProvider.csvReaderRowSpecific;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.io.RandomAccessBufferedFileInputStream;
-import org.apache.pdfbox.io.RandomAccessRead;
 import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -74,7 +68,7 @@ public class ASCSocietyGenericPage extends GetPage {
 			}
 
 		} else if (visibility.equalsIgnoreCase("show")) {
-			
+
 			try {
 				wait.resetImplicitTimeout(0);
 				wait.resetExplicitTimeout(hiddenFieldTimeOut);
@@ -181,8 +175,9 @@ public class ASCSocietyGenericPage extends GetPage {
 				DataProvider.getColumnNumber_ACS_Store(valueFromDataSheet))
 				.trim();
 	}
-	
-	public String getACS_Giving_SheetValue(String caseId, String valueFromDataSheet) {
+
+	public String getACS_Giving_SheetValue(String caseId,
+			String valueFromDataSheet) {
 		String csvLine = csvReaderRowSpecific(
 				getYamlValue("csv-data-file.path_giving_donate"),
 				getYamlValue("csv-data-file.has-header"), caseId);
@@ -190,8 +185,6 @@ public class ASCSocietyGenericPage extends GetPage {
 				DataProvider.getColumnNumber_ACS_Giving(valueFromDataSheet))
 				.trim();
 	}
-
-
 
 	public String getCreateMember_SheetValue(String caseId,
 			String valueFromDataSheet) {
@@ -203,7 +196,8 @@ public class ASCSocietyGenericPage extends GetPage {
 				.trim();
 	}
 
-	public HashMap<String, String> addValuesInMap(String sheetName, String caseID) {
+	public HashMap<String, String> addValuesInMap(String sheetName,
+			String caseID) {
 		YamlReader.setYamlFilePath();
 		String csvLine = csvReaderRowSpecific(
 				getYamlValue("csv-data-file.path_" + sheetName), "false",
@@ -213,75 +207,77 @@ public class ASCSocietyGenericPage extends GetPage {
 				String.valueOf(caseID));
 		numberOfColumns = csvLine.split(csvSeparator).length;
 		for (int i = 1; i < numberOfColumns; i++) {
-			
+
 			hashMap.put(csvLine.split(csvSeparator)[i], DataProvider
 					.getSpecificColumnFromCsvLine(csvLine1, csvSeparator, i)
 					.trim());
 		}
+
 		return hashMap;
 
-
 	}
-	
-	public HashMap<String, String> map(){
+
+	public HashMap<String, String> map() {
 		return hashMap;
 	}
 
-	public static void extractAndCompareTextFromPdfFile(String filename,String texttocompare,int totalnumberofpages)
-	{ 
+	public static void extractAndCompareTextFromPdfFile(String filename,
+			String texttocompare, int totalnumberofpages) {
 		String textinpdf;
 		try {
-			textinpdf = extractFromPdf(filename,1).trim();
-			String textarray[]=texttocompare.trim().split(" ");
-		for (int i = 0; i < textarray.length; i++) {
-			System.out.println(textinpdf);
-			System.out.println(textarray[i]);
-			Assert.assertTrue(textinpdf.trim().contains(textarray[i].trim()));
-		}
-	
+			textinpdf = extractFromPdf(filename, 1).trim();
+			String textarray[] = texttocompare.trim().split(" ");
+			for (int i = 0; i < textarray.length; i++) {
+				System.out.println(textinpdf);
+				System.out.println(textarray[i]);
+				Assert.assertTrue(textinpdf.trim()
+						.contains(textarray[i].trim()));
+			}
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	private static String extractFromPdf(String filename,int totalnumberofpages) throws IOException
-	{
-		String uploadedfilepath="./src/test/resources/UploadFiles/"+filename+".pdf";
+
+	private static String extractFromPdf(String filename, int totalnumberofpages)
+			throws IOException {
+		String uploadedfilepath = "./src/test/resources/UploadFiles/"
+				+ filename + ".pdf";
 		String parsedText = null;
 		PDFTextStripper pdfStripper = null;
 		PDDocument pdDoc = null;
 		COSDocument cosDoc = null;
-		PDFParser parser=null;
-	    File file=null;
-		
-	    try {
-	    	 file = new File(uploadedfilepath);
-			parser = new PDFParser( new RandomAccessBufferedFileInputStream(file));
+		PDFParser parser = null;
+		File file = null;
+
+		try {
+			file = new File(uploadedfilepath);
+			parser = new PDFParser(
+					new RandomAccessBufferedFileInputStream(file));
 			parser.parse();
 			cosDoc = parser.getDocument();
 			pdfStripper = new PDFTextStripper();
 			pdDoc = new PDDocument(cosDoc);
 			pdfStripper.setStartPage(1);
 			pdfStripper.setEndPage(2);
-		    parsedText = pdfStripper.getText(pdDoc);
+			parsedText = pdfStripper.getText(pdDoc);
 			System.out.println(parsedText);
-		}
-		catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
-		} 
-		 finally {
-				try {
-					if (cosDoc != null)
-						cosDoc.close();
-					if (pdDoc != null)
-						pdDoc.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		} finally {
+			try {
+				if (cosDoc != null)
+					cosDoc.close();
+				if (pdDoc != null)
+					pdDoc.close();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
+		}
 		return parsedText;
 	}
 
+	
 }
-

@@ -77,7 +77,6 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test {
 	@Test
 	public void Step02_CCED_Lookup_Test() {
 		Reporter.log("CaseID Under Test Is : " + caseID, true);
-
 		test.launchApplication(test.asm_CCEDPage.map().get("Application URL")
 				.replaceAll("Stage3", ConfigPropertyReader.getProperty("tier")));
 		test.asm_CCEDPage.verifyPageTitle("Chemists Celebrate Earth Day");

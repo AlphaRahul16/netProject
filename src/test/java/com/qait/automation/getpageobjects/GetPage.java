@@ -363,9 +363,7 @@ public class GetPage extends BaseUi {
 				+ "/membernumberlookup/";
 		String case2 = "https://ewebtest12.acs.org/NF" + url + "/ccedlookup";
 		String case3 = "https://ewebtest12.acs.org/NF" + url + "/ncwlookup";
-		System.out.println("case 1 :- " + case1);
-		System.out.println("case 2 :- " + case2);
-		System.out.println("case 3 :- " + case3);
+		
 		if (AppUrl.equalsIgnoreCase(case1)) {
 			skipTest.put("Step01_Verify_Email_Address_IWEB_Test", true);
 			skipTest.put("Step02_CCED_Lookup_Test", true);

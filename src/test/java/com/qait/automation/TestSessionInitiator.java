@@ -20,6 +20,7 @@ import org.testng.Reporter;
 
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.TakeScreenshot;
+import com.qait.keywords.ACS_Awards_EWEB_PageActions;
 import com.qait.keywords.ASMErrorPage;
 import com.qait.keywords.ASM_AACTPage;
 import com.qait.keywords.ASM_CCEDPage;
@@ -37,6 +38,7 @@ import com.qait.keywords.ASM_StorePage;
 import com.qait.keywords.ASM_emailPage;
 import com.qait.keywords.ASM_memberNumberLookupPage;
 import com.qait.keywords.AddMemeber_IWEB;
+import com.qait.keywords.AwardsPageActions_IWEB;
 import com.qait.keywords.BenefitsPage;
 import com.qait.keywords.CheckoutPage;
 import com.qait.keywords.ConfirmationPage;
@@ -101,6 +103,8 @@ public class TestSessionInitiator {
 	public AddMemeber_IWEB addMember;
 	public FundProfilePage fundpofilePage;
 	public MemberNumberLookupPage memNumLookupPage;
+public AwardsPageActions_IWEB awardsPageAction;
+public ACS_Awards_EWEB_PageActions award_ewebPage;
 
 	public TakeScreenshot takescreenshot;
 
@@ -140,12 +144,13 @@ public class TestSessionInitiator {
 		addMember = new AddMemeber_IWEB(driver);
 		fundpofilePage = new FundProfilePage(driver);
 		memNumLookupPage = new MemberNumberLookupPage(driver);
+		awardsPageAction= new AwardsPageActions_IWEB(driver);
+		award_ewebPage = new ACS_Awards_EWEB_PageActions(driver);
 	}
 
 	/**
 	 * Page object Initiation done
 	 */
-
 	public TestSessionInitiator(String testname) {
 		wdfactory = new WebDriverFactory();
 		testInitiator(testname);

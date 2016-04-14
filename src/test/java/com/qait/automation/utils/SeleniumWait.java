@@ -56,7 +56,7 @@ public class SeleniumWait {
 		return wait.until(ExpectedConditions.titleContains(expectedPagetitle)) != null;
 	}
 
-	public WebElement waitForElementToBeVisible(WebElement element) {
+	public WebElement waitForElementToBeVisible(WebElement element) throws NoSuchElementException {
 		WebElement webElement = (WebElement) wait.until(ExpectedConditions
 				.visibilityOf(element));
 		elementHighlight(webElement);

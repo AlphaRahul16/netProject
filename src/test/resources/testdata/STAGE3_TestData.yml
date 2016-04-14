@@ -17,6 +17,8 @@ app_url_MemberNumberLookup: https://ewebtest12.acs.org/NFStage3/membernumberlook
 app_url_NCW: https://ewebtest12.acs.org/NFStage3/ncwlookup
 app_url_PUBS: https://ewebtest12.acs.org/NFStage3/pba
 app_url_Nominate: https://ewebtest12.acs.org/NFStage3/nominate
+app_url_Awards: https://ewebtest12.acs.org/NFStage3/awards
+
 
 csv-data-file:
   path_OMA: ./src/test/resources/TestDataLibrary/OMA Business Rules.csv
@@ -31,6 +33,7 @@ csv-data-file:
   path_AwardNomination: ./src/test/resources/TestDataLibrary/AwardNominationDatasheet.csv
   path_OMR: ./src/test/resources/TestDataLibrary/OMR_Datasheet.csv
   path_GeneralAwardList: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument.txt
+  path_AwardsVoting: ./src/test/resources/TestDataLibrary/Awards_Voting_Data_Sheet.csv
   data-separator: '\t'
   has-header: true
   

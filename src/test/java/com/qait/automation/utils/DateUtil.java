@@ -3,6 +3,9 @@ package com.qait.automation.utils;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -100,9 +103,9 @@ public class DateUtil {
 		Calendar cal = Calendar.getInstance();
 		if(type.equalsIgnoreCase("year"))
 		{
-			System.out.println(cal.getTime());
+			
 		cal.add(Calendar.YEAR, difference); 
-		System.out.println(cal.getTime());// to get previous year add -1
+		
 		}
 		else if(type.equalsIgnoreCase("month"))
 		{
@@ -113,7 +116,7 @@ public class DateUtil {
 			cal.add(Calendar.DAY_OF_MONTH, difference);
 		}
 		String nextYear = formatter.format(cal.getTime());
-		System.out.println("year"+nextYear);
+		
 		return nextYear;
 	}
 
@@ -189,6 +192,15 @@ public class DateUtil {
 		return year;
 	}
 	
+	
+	public long numberOfDaysBetweenTwoDays(String date1,String date2,String format){
+		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+		 final LocalDate firstDate = LocalDate.parse(date1, formatter);
+	        final LocalDate secondDate = LocalDate.parse(date2, formatter);
+	        final long days = ChronoUnit.DAYS.between(firstDate, secondDate);
+	        System.out.println("Days between: " + days);
+	        return days;
+	}
 
 
 }

@@ -406,6 +406,7 @@ public class BaseUi {
 		logMessage("Step : navigate to back page\n");
 	}
 
+
 	public void navigateToUrl(String URL) {
 		driver.navigate().to(URL);
 		logMessage("STEP : Navigate to URL :- " + URL);
@@ -607,7 +608,6 @@ public class BaseUi {
 		try {
 			Runtime.getRuntime().exec("./src/test/resources/PopUpHandlers/popup.exe");
 		} catch (IOException e) {
-	
 			e.printStackTrace();
 		}
 	}
