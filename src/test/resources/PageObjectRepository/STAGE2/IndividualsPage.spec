@@ -50,4 +50,15 @@ inp_emailAddress                        id              eml_address
 btn_saveButton                          id             ButtonSave
 txt_NominatorName                        xpath       .//*[@id='dgDynamicList']/tbody/tr/td[contains(text(),'${NomineeName}')]/following-sibling::td[4][contains(text(),'Submitted')]/following-sibling::td[3]
 inp_fieldSelect                          xpath       //span[starts-with(text(),'${fieldName}')]/../following-sibling::td//select    
+txt_tableNominatorEntry                 xpath           //a[contains(text(),'${NominatorName}')]/../following-sibling::td[2]
+txt_tableEntryArrow                     xpath            //a[contains(text(),'${NominatorName}')]/../preceding-sibling::td//i[@class='iconpro-circle-arrow-right']
+txt_citationAwards                      css            div[id*='citation']>pre
+txt_supporterNameAwardsNomination       xpath          (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[4]
+btn_entryReceivedAwards                 xpath          //a[contains(text(),'Entry Received')]
+lnk_awardsSupporterDoc                  xpath          (//th/a)[2]/../../following-sibling::tr[1]//td[5]/a
+lnk_awardsLettersDoc                    xpath          //td[contains(text(),'${letterName}')]/preceding-sibling::td[1]/a
+btn_editAwardsEntry                     css               img[alt*='edit']
+txtarea_CitationRecommedation          xpath            //label[contains(text(),'${value}')]/preceding-sibling::textarea
+inp_presentposition                    xpath            //label[contains(text(),'present position')]/preceding-sibling::input
+drpdwn_industrytype                    css                select[id*='${value}']>option[selected]
 ======================================================================================================================================

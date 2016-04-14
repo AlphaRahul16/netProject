@@ -282,9 +282,9 @@ public class ASM_FellowNominatePage extends GetPage {
 	}
 
 	public void selectNominee() {
-		wait.hardWait(2);
+		wait.hardWait(5);
 		wait.waitForPageToLoadCompletely();
-		wait.waitForElementToBeVisible(element("btn_firstNominee"));
+		//wait.waitForElementToBeVisible(element("btn_firstNominee"));
 		isElementDisplayed("btn_firstNominee");
 		element("btn_firstNominee").click();
 		logMessage("Step : select first nominee in btn_firstNominee\n");

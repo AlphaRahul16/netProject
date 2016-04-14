@@ -41,7 +41,7 @@ public class ACS_AwardsNomination_Test {
 	
 	@Test(invocationCount=4)
 	public void Step01_TC01_CreateMember_As_A_Prerequisite_For_Award_Nomination() {
-		test.homePageIWEB.addValuesInMap("createMember", "14");
+		test.homePageIWEB.addValuesInMap("AwardNomination", "3");
 		test.homePageIWEB.clickOnAddIndividual();
 		memDetails = test.addMember.enterMemberDetailsInAddIndividual();
 	    test.memberShipPage.getIndividualFullNameForAwardsNomination();
@@ -130,7 +130,7 @@ public class ACS_AwardsNomination_Test {
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		app_url_Nominate = getYamlValue("app_url_Nominate");
 		test.launchApplication(app_url_IWEB);
-	test.homePageIWEB.enterAuthenticationAutoIt();
+	    test.homePageIWEB.enterAuthenticationAutoIt();
 
 	}
 	

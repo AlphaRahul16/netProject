@@ -604,22 +604,6 @@ public class BaseUi {
 	}
 	
 	public void enterAuthenticationAutoIt() {
-//		try {
-//			System.out.println(isBrowser("chrome"));
-//		if(isBrowser("chrome"))
-//		{
-//			Runtime.getRuntime().exec("./src/test/resources/testdata/popupChrome.exe");
-//			System.out.println("ho gya.");
-//		}
-//		else{
-//			
-//			Runtime.getRuntime().exec("./src/test/resources/testdata/popup.exe");
-//		} 
-//		}catch (IOException e) {
-//		System.out.println("Runtime exception");
-//			e.printStackTrace();
-//		
-//		}
 		try {
 			Runtime.getRuntime().exec("./src/test/resources/PopUpHandlers/popup.exe");
 		} catch (IOException e) {
