@@ -2,6 +2,8 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+import java.util.List;
+import java.util.Map;
 
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -28,8 +30,12 @@ public class ASM_OMRPage extends GetPage {
 	}
 
 	public void loginIntoApplication_ACS_ID(String userName, String password) {
-		switchToFrame("eWebFrame");
+    	System.out.println("1");
+		switchToFrame(element("iframe_ewebframe"));
+    	System.out.println("2");
 		selectLoginRadioButton("ACSid");
+    	wait.waitForPageToLoadCompletely();
+    	wait.hardWait(2);
 		enterUserName_lastName(userName);
 		enterPassword_mem_notice(password);
 		clickOnVerifyButton();
@@ -41,8 +47,11 @@ public class ASM_OMRPage extends GetPage {
 
 	public void loginIntoApplication_LastName_MemberNumber(String lastName,
 			String memberNumber) {
-		switchToFrame("eWebFrame");
+    	System.out.println("1");
+		switchToFrame(element("iframe_ewebframe"));
+    	System.out.println("2");
 		selectLoginRadioButton("LNMemNo");
+    	System.out.println("3");
 		enterUserName_lastName(lastName);
 		enterPassword_mem_notice(memberNumber);
 		clickOnVerifyButton();
@@ -54,7 +63,7 @@ public class ASM_OMRPage extends GetPage {
 
 	public void loginIntoApplication_LastName_NoticeNumber(String lastName,
 			String noticeNumber) {
-		switchToFrame("eWebFrame");
+		switchToFrame(element("iframe_ewebframe"));
 		selectLoginRadioButton("LNNoticeNo");
 		enterUserName_lastName(lastName);
 		enterPassword_mem_notice(noticeNumber);
@@ -336,6 +345,108 @@ public class ASM_OMRPage extends GetPage {
 		isElementDisplayed("rad_No");
 		element("rad_No").click();
 		logMessage("STEP : No radio button is selected \n");
+	}
+
+	
+	public void loginIntoApplicationWithValidChoice(Map<String, String> mapOMR,List<String> memDetails) {
+        if(mapOMR.get("Login_With_AcsID?").equalsIgnoreCase("Yes"))
+        {
+    
+        	//loginIntoApplication_ACS_ID(memDetails.get(2), "password");
+        	loginIntoApplication_ACS_ID("ebruoral", "password");
+        	
+        }
+        else if(mapOMR.get("Login_With_LastNameMemberNumber?").equalsIgnoreCase("Yes"))
+        {
+        	loginIntoApplication_LastName_MemberNumber(memDetails.get(0).split(" ")[0], memDetails.get(1));
+        }
+        else if(mapOMR.get("Login_With_LastNameNoticeNumber?").equalsIgnoreCase("Yes"))
+        {
+        	loginIntoApplication_LastName_NoticeNumber(memDetails.get(0).split(" ")[0], memDetails.get(3));
+        }
+        wait.waitForPageToLoadCompletely();
+		
+	}
+	
+	public void switchToEwebRenewalFrame()
+	{
+		switchToFrame(element("iframe_ewebframe"));
+	}
+
+	public void addMembershipsForRegularMember(Map<String, String> mapOMR) {
+	
+		//addACSTechnicalDivision(mapOMR);
+		addACSPublications(mapOMR);
+		addACSMemberBenefits(mapOMR);
+		addACSContributions(mapOMR);
+	}
+
+	private void addACSContributions(Map<String, String> mapOMR) {
+		clickAddMembershipButton("Add ACS Contribution");
+		
+		//isElementDisplayed("txt_legend","My ACS Contributions");
+		enterContributionForParticularSubscription(mapOMR.get("Contribution_To_Add?").trim(),mapOMR.get("Contribution_Amount?").trim());
+		clickSaveButtonToAddMembership();
+		wait.waitForPageToLoadCompletely();
+	}
+
+	private void enterContributionForParticularSubscription(String contribution,String price) {
+		isElementDisplayed("inp_contribution",contribution);
+		element("inp_contribution",contribution).sendKeys(price);
+		logMessage("Step : ACS Contribution entered for "+contribution+" as "+price+"\n");
+		
+	}
+
+	private void addACSMemberBenefits(Map<String, String> mapOMR) {
+		
+		clickAddMembershipButton("Add ACS Member Benefits");
+	//isElementDisplayed("txt_legend","My ACS Member Benefits");
+	selectAddToMembershipForParticularSubscription(mapOMR.get("MemBenefits_To_Add?").trim(),"BenefitAddToMembership");
+	clickSaveButtonToAddMembership();
+	wait.waitForPageToLoadCompletely();
+	}
+
+	private void addACSPublications(Map<String, String> mapOMR) {
+		
+		clickAddMembershipButton("Add ACS Publication");
+		//isElementDisplayed("txt_legend","My ACS Publications");
+		//selectAddToMembershipForParticularSubscription(mapOMR.get("Publications_To_Add?").trim(),"PubAddToMembership");
+		clickSaveButtonToAddMembership();
+		wait.waitForPageToLoadCompletely();
+	}
+
+	private void addACSTechnicalDivision(Map<String, String> mapOMR) {
+		clickAddMembershipButton("Add ACS Technical Division");
+		//isElementDisplayed("txt_legend","My ACS Technical Divisions");
+		selectAddToMembershipForParticularSubscription(mapOMR.get("Technical_Division_To_Add?").trim(),"add-to-cart");
+		clickSaveButtonToAddMembership();
+		wait.waitForPageToLoadCompletely();
+	}
+
+	private void clickAddMembershipButton(String valueofmembership) {
+		isElementDisplayed("btn_addSubscription",valueofmembership);
+		element("btn_addSubscription",valueofmembership).click();
+		wait.waitForPageToLoadCompletely();
+		logMessage("Step : "+valueofmembership+" button is clicked\n");
+		
+	}
+	private void selectAddToMembershipForParticularSubscription(String name,String value)
+	{
+		switchToDefaultContent();
+		switchToEwebRenewalFrame();
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(7);
+	
+			element("btn_addToMemberships",name,value).click();
+	
+	}
+	public void clickSaveButtonToAddMembership()
+	{
+		
+		isElementDisplayed("btn_save");
+		element("btn_save").click();
+		wait.waitForPageToLoadCompletely();
+		logMessage("Step : Save button is clicked\n");
 	}
 
 }

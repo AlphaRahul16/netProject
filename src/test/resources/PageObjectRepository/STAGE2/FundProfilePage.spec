@@ -10,5 +10,8 @@ btn_saveDetails                        id                     ButtonSave
 iframeMessageMenu                      css                    #iframe1
 btn_save                               css                    #ButtonSave
 txt_fundNameByOrder                    xpath                  //table[@id='UP2']/tbody/tr/td[6][contains(text(),'${value}')]/preceding-sibling::td[@align='right']
-
+img_editAwards                         xpath                 //img[@alt='edit awards']
+inp_invoiceValue                       xpath                  //label[contains(text(),'${invoice value}')]/preceding-sibling::span
+inp_postToWeb                          id                     awh_post_to_web_date
+inp_removeFromWeb                      id                     awh_remove_from_web_date
 ==================================================================================================================================

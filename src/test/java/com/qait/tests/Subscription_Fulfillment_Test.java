@@ -36,9 +36,9 @@ public class Subscription_Fulfillment_Test {
 		 test.memberShipPage.selectAndRunQueryMembership("Query Individual",getSubscriptionInfo.getSubscriptionInfo("queryName"));
 		 memberDetails = test.memberShipPage.getMemberDetails();
 
-//		test.homePageIWEB.clickFindForIndividualsSearch();
-//		test.individualsPage.checkMemberDetailsAndSearch("Member Flag");
-//		memberDetails = test.memberShipPage.selectMemberAndGetDetails();
+		//test.homePageIWEB.clickFindForIndividualsSearch();
+		//test.individualsPage.checkMemberDetailsAndSearch("Member Flag");
+		memberDetails = test.memberShipPage.selectMemberAndGetDetails();
 	}
 
 	@Test

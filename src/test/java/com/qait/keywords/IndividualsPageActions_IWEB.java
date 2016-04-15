@@ -1310,8 +1310,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			String NominatorName) {
 		// System.out.println(element("txt_NominatorName",
 		// NomineeName).getText());
-		if (element("txt_NominatorName", NomineeName).getText().equals(
-				NominatorName)) {
+		if (element("txt_NominatorName", NomineeName).getText().equals(NominatorName)) {
 			// click(element("txt_NominatorName", NomineeName));
 			// element("txt_NominatorName", NomineeName).click();
 			clickUsingXpathInJavaScriptExecutor(element("txt_NominatorName",
@@ -1631,5 +1630,38 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		element("btn_editAwardsEntry").click();
 		logMessage("Step : Edit button on ACS Entry profile page clicked\n");
 
+	}
+
+	public void selectMemberForRenewal(String membertype,Map<String, String> mapOMR) {
+	
+		switch(membertype)
+		{
+			case "Regular":		selectFeildValue("Member Type","ACS : Regular Member");break;
+			case "Student":     selectFeildValue("Member Type","ACS : Student Member - UnderGrad");break;
+			case "Emeritus":    selectFeildValue("Member Type","ACS : Emeritus Member");break;
+		}
+		selectFeildValue("Member Status","ACS : Active Renewed-No Response");
+		clickGoButton();
+		
+	}
+
+	
+	public void verifyTermStartDateAndEndDatesAreEmpty() {
+      isElementDisplayed("txt_termStartDaterenewal","1");
+       isElementDisplayed("txt_termEndDaterenewal","1");
+     System.out.println("startdate"+element("txt_termStartDaterenewal","1").getText().length());
+      System.out.println("startdate"+element("txt_termEndDaterenewal","1").getText().length());
+      Assert.assertTrue(element("txt_termStartDaterenewal","1").getText().length()==1, "Term Start Date is not Empty");
+      logMessage("ASSERT PASSED : Term Start date is empty\n");
+      Assert.assertTrue(element("txt_termEndDaterenewal","1").getText().length()==1, "Term End Date is not Empty");
+      logMessage("ASSERT PASSED : Term End date is empty\n");
+		
+	}
+
+	public void clickGotoRecordForRenewal() {
+		isElementDisplayed("txt_gotorecordrenewal","1");
+		element("txt_gotorecordrenewal","1").click();
+		logMessage("Step : goto record is clicked for latest Invoice\n");
+		
 	}
 }

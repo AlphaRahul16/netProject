@@ -718,11 +718,22 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		}
 	}
 
-	public void verifyStartDateIsNotEmpty_AwardsNomination() {
-		for (WebElement iterable_element : elements("table_description")) {
-			System.out.println(iterable_element.getText().length());
-			Assert.assertTrue(iterable_element.getText().length() == 0);
-		}
+	
+	public String verifyInvoiceDetailsBeforeRenewal()
+	{
+		verifyInvoiceProfile("proforma", "Yes");
+		verifyInvoiceProfile("paid in full", "No");
+		Assert.assertFalse(element("txt_invoiceValues", "balance").getText().trim()
+        .equalsIgnoreCase("0.00"),"Balance is not 0.00");
+		logMessage("ASSERT PASSED : Balance before renewal is not 0.00\n");
+		return element("inp_invoiceValue","invoice number").getText();
+
+
 	}
+	
+	
+	
+
+
 
 }

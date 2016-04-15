@@ -28,6 +28,8 @@ csv-data-file:
   path_landingPage: ./src/test/resources/TestDataLibrary/IndividualLandingPageSheet.csv
   path_fellowNominate: ./src/test/resources/TestDataLibrary/FellowsNomination_DataSheet.csv
   path_CCED_NCW_MemberNumberLookup: ./src/test/resources/TestDataLibrary/CCED_NCW_Data_Sheet.csv
+  path_AwardNomination: ./src/test/resources/TestDataLibrary/AwardNominationDatasheet.csv
+  path_GeneralAwardList: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument.txt
   data-separator: '\t'
   has-header: true
 
@@ -106,7 +108,7 @@ ASM_StoreSmokeChecklist_Data:
               
               
 ACS_fellowNominatedData: 
-    NomineeName: Bob,Bud,Cal,Don,Edd,Eva,Fed,Kim,Lee,Leo,Jan,May,Meg,Mia,Tom,Pan,Sue,Ova,Pet
+    NomineeName: Cal,Don,Edd,Eva,Fed,Kim,Lee,Leo,Jan,May,Meg,Mia,Tom,Pan,Sue,Ova,Pet
     EducationDetails: 
          Institution: TestInstitution
          Degree: AssociateDegree
@@ -131,8 +133,8 @@ ACS_fellowNominatedData:
          Sponcor: TestSponcor
          Year: 2012
     SelectSupportAndUploadLetters: 
-         SecondaryNominator1: john
-         SecondaryNominator2: sam 
+         SecondaryNominator1: kal
+         SecondaryNominator2: dean
               
               
 ASM_EGift_SmokeChecklistData: 

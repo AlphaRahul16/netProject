@@ -2344,10 +2344,37 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		individualCount++;
 	
 	}
+	public List<String> getCustomerAllDetails(String invoiceNumber) {
+
+		clickOnEditNameAndAddress();
+		switchToFrame("iframe1");
+		customerLname = getNameFromEditNameAndAddressButton("lastName") + " "
+				+ getNameFromEditNameAndAddressButton("firstName") + " "
+				+ getNameFromEditNameAndAddressButton("middleName");
+		clickOnCancelButton();
+		handleAlert();
+		switchToDefaultContent();
+		customerContactId = element("txt_renewalContactId").getText();
+		System.out.println(customerContactId);
+		System.out.println(customerLname);
+		memberDetails.add(customerLname);
+
+		memberDetails.add(customerContactId);
+		memberDetails.add(getMemberWebLogin());
+		memberDetails.add(invoiceNumber);
+		return memberDetails;
+
+	}
 
 	public Map<String, String> getIndividualMapFromCreateMemberScript() {
 		return createMemberCredentials;
 		
 	}
-
+	
+	public void clickOnCustomerNameAndNavigateToMembershipPage()
+	{
+		isElementDisplayed("link_customerName");
+		element("link_customerName").click();;
+		logMessage("Step : customer Name as is clicked\n");
+	}
 }

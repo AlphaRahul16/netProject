@@ -85,6 +85,20 @@ public class GetPage extends BaseUi {
 		return elem;
 	}
 
+	protected WebElement element(String elementToken, String replacement1,String replacement2)
+			throws NoSuchElementException {
+		WebElement elem = null;
+		By locator = getLocator(elementToken, replacement1,replacement2);
+		try {
+			elem = wait.waitForElementToBeVisible(webdriver.findElement(locator));
+		} catch (TimeoutException excp) {
+			throw new NoSuchElementException("Element " + elementToken
+					+ " with locator " + locator.toString().substring(2)
+					+ " not found on the " + this.pageName + " !!!");
+		}
+		return elem;
+	}
+
 
 	protected List<WebElement> elements(String elementToken, String replacement) {
 		return wait.waitForElementsToBeVisible(webdriver
@@ -167,6 +181,14 @@ public class GetPage extends BaseUi {
 		locator[2] = locator[2].replaceAll("\\$\\{.+\\}", replacement);
 		return getBy(locator[1].trim(), locator[2].trim());
 	}
+	
+	protected By getLocator(String elementToken, String replacement1, String replacement2) {
+		String[] locator = getELementFromFile(this.pageName, elementToken);
+		locator[2]=locator[2].replaceFirst("\\$\\{.+\\}", replacement1);
+		locator[2]=locator[2].replaceFirst("\\$\\{.+\\}", replacement2);
+		return getBy(locator[1].trim(), locator[2].trim());
+	}
+
 
 	private By getBy(String locatorType, String locatorValue) {
 		switch (Locators.valueOf(locatorType)) {

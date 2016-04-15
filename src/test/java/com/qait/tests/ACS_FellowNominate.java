@@ -32,7 +32,7 @@ public class ACS_FellowNominate {
 	Map<String, String> mapFellowNomineeDetails;
 	
 	public ACS_FellowNominate() {
-		com.qait.tests.DataProvider_FactoryClass.sheetName = "createMember";
+		com.qait.tests.DataProvider_FactoryClass.sheetName = "fellowNominate";
 	}
 	
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
@@ -43,7 +43,7 @@ public class ACS_FellowNominate {
 	
 	@Test
 	public void Step01_TC01_CreateMember_As_A_Prerequisite_For_Fellow_Nomination() {
-		test.homePageIWEB.addValuesInMap("createMember", caseID);
+		test.homePageIWEB.addValuesInMap("fellowNominate", "3");
 		test.homePageIWEB.enterAuthentication("C00616","Zx605@95");
 		test.homePageIWEB.clickOnAddIndividual();
 		memDetails = test.addMember.enterMemberDetailsInAddIndividual();
