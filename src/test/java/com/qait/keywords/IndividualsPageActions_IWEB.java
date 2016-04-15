@@ -112,6 +112,28 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
+	public void editEmail_NCW_CCED(String emailType, String emailID, String position) {
+		  clickOnEditButton(position);
+		  switchToFrame("iframe1");
+		  selectEmailType(emailType);
+		  wait.waitForPageToLoadCompletely();
+		  wait.hardWait(2);
+		  enterEmailIDToAdd(emailID);
+		  clickOnSaveButton();
+		  switchToDefaultContent();
+		  handleAlert();
+		  verifyNCW_CCEDEmailPresent(emailType, emailID);
+		 }
+	
+	 public void clickOnEditButton(String position){
+		  isElementDisplayed("link_editBtn",position);
+		  element("link_editBtn",position).click();
+		  logMessage("Step : edit button is clicked \n");
+		 
+		 }
+		 
+		
+	
 	public void verifyMemberDetails_OMA(String fName, String lName, String add,
 			String city, String zipCode, String addressType, String contactId,
 			String userEmail, String caseId) {
@@ -1338,32 +1360,39 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : add button is clicked \n");
 	}
 
-	public void verifyNCW_CCEDEmailPresent(String emailType, String emailAddress) {
-		isElementDisplayed("list_emailAddressType");
-		for (int i = 0; i < elements("list_emailAddressType").size(); i++) {
-			String typeName = elements("list_emailAddressType").get(i)
-					.getText().trim();
-			if (typeName.equalsIgnoreCase("ncw/cced")) {
-				flag1 = true;
-				isElementDisplayed("txt_emailID", String.valueOf(i + 2));
-				String emailID = element("txt_emailID", String.valueOf(i + 2))
-						.getText().trim();
-				if (emailID.equalsIgnoreCase(map().get("ncw/cced_email"))) {
-					flag = true;
-					logMessage("ASSERT PASSED : email ID "
-							+ map().get("ncw/cced_email")
-							+ " is already present \n");
-					break;
-				} else {
-					addEmail_NCW_CCED(emailType, emailAddress);
-					break;
-				}
-			}
+	 public void verifyNCW_CCEDEmailPresent(String emailType, String emailAddress) {
+		  isElementDisplayed("list_emailAddressType");
+		  for (int i = 0; i < elements("list_emailAddressType").size(); i++) {
+		   String typeName = elements("list_emailAddressType").get(i)
+		     .getText().trim();
+		   if (typeName.equalsIgnoreCase("ncw/cced")) {
+		      flag1 = true;
+		      isElementDisplayed("txt_emailID", String.valueOf(i + 2));
+		      String emailID = element("txt_emailID", String.valueOf(i + 2))
+		      .getText().trim();
+		      if (emailID.equalsIgnoreCase(map().get("ncw/cced_email"))) {
+		         flag = true;
+		         logMessage("ASSERT PASSED : email ID "
+		         + map().get("ncw/cced_email")
+		         + " is already present \n");
+		         break;
+		      } 
+		   }
+		 }
+		 if (!flag1) {
+		    addEmail_NCW_CCED(emailType, emailAddress);
+		  }
+		 if(flag1&&!flag){
+		   for (int i = 0; i < elements("list_emailAddressType").size(); i++) {
+		       String typeName = elements("list_emailAddressType").get(i)
+		      .getText().trim();
+		      if (typeName.equalsIgnoreCase("ncw/cced")) {
+		           String position = Integer.toString(i+1);
+		          editEmail_NCW_CCED(emailType, emailAddress, position);
+		       }
+		  }
 		}
-		if (!flag1) {
-			addEmail_NCW_CCED(emailType, emailAddress);
-		}
-	}
+}
 
 	public String selectRandomGeneralAward_AwardNomination(String awardName) {
 		try {

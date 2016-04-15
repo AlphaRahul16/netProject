@@ -28,14 +28,13 @@ public class ACS_AwardsVoting_Test {
 	Map<String, List<String>> memberDetail = new HashMap<>();
 	List<String> memberDetails, nameOfJudges, rescusedJudges;
 	Set<String> numberOfNomineesInEntrants = new HashSet<>();
-	int numberOfDivisions;
+	int numberOfDivisions,maxPossibleNominees;
 	Map<String, String> mapAwardsNomination = new HashMap<String, String>();
 	Map<String, String> createMemberCredentials;
 	List<List<String>> listOfFirstAndLastName = new ArrayList<>();
 
 	public ACS_AwardsVoting_Test() {
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "AwardsVoting";
-
 	}
 
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
@@ -102,15 +101,21 @@ public class ACS_AwardsVoting_Test {
 		// test.award_ewebPage.verifyNumberOfDays(numberOfDays);
 		test.award_ewebPage.verifyNumberOfNominees(numberOfNomineesInEntrants
 				.size());
-//		test.award_ewebPage.verifySubmitBallotDate(startEndDate[1]);
+		// test.award_ewebPage.verifySubmitBallotDate(startEndDate[1]);
 		test.award_ewebPage.clickOnFiveYearNomineeMemoLink();
 		test.award_ewebPage.clickOnViewNominationMaterialButton();
 		test.award_ewebPage.verifyCurrentTab("Select Nominees");
+		maxPossibleNominees=test.award_ewebPage.getNumberOfPossibleNominees();
 		test.award_ewebPage
-				.verifyHeaderForUnselectedNominee("You have selected 0 out of 10 possible nominations to rank.");
-		listOfFirstAndLastName = test.award_ewebPage.selectRandomNominees(10);
-		test.award_ewebPage
-				.verifyHeaderForSelectedNominee("You have selected 10 out of 10 possible nominations to rank.");
+				.verifyHeaderForUnselectedNominee("You have selected 0 out of "
+						+ maxPossibleNominees
+						+ " possible nominations to rank.");
+		listOfFirstAndLastName = test.award_ewebPage
+				.selectRandomNominees(maxPossibleNominees);
+		test.award_ewebPage.verifyHeaderForSelectedNominee("You have selected "
+				+ maxPossibleNominees + " out of "
+				+ maxPossibleNominees
+				+ " possible nominations to rank.");
 		test.award_ewebPage.clickOnViewProfileLink(listOfFirstAndLastName
 				.get(1));
 		test.award_ewebPage.verifyAwardName_viewProfileLink(currentAwardName);

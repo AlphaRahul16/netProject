@@ -233,7 +233,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		element("lnk_viewProfile", nomineeFirstNames.get(randomNumber)).click();
 		logMessage("Step : view profile link is clicked for "
 				+ nomineeFirstNames.get(randomNumber));
-//		wait.waitForElementToDisappear(element("img_viewProfileLoader"));
+		// wait.waitForElementToDisappear(element("img_viewProfileLoader"));
 
 	}
 
@@ -242,7 +242,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_viewProfileAwardName", awardName);
 		Assert.assertTrue(
 				element("txt_viewProfileAwardName", awardName).getText()
-						.equalsIgnoreCase(awardName),
+						.endsWith(awardName),
 				"ASSERT FAILED : actual award name is "
 						+ element("txt_viewProfileAwardName", awardName)
 								.getText() + " and expected is " + awardName
@@ -250,6 +250,15 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : " + awardName
 				+ " is verified in view profile link \n");
 		switchToDefaultContent();
+	}
+
+	public int getNumberOfPossibleNominees() {
+		isElementDisplayed("txt_numberOfPossibleNominees");
+		int maxPossibleNominees = Integer.parseInt(element(
+				"txt_numberOfPossibleNominees").getText().split(" ")[2]);
+		logMessage("Step : Maximum possible nominees is " + maxPossibleNominees
+				+ " \n");
+		return maxPossibleNominees;
 	}
 
 }

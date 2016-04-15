@@ -169,6 +169,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		for (String nominee : nomineesNames) {
 			System.out.println(nominee);
 		}
+		System.out.println("nominees size :" + nomineesNames.size());
 		return nomineesNames;
 	}
 
@@ -367,6 +368,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void goToJudgeRecord(String judgeName) {
+		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("link_goToJudgeRecord", judgeName);
 		clickUsingXpathInJavaScriptExecutor(element("link_goToJudgeRecord",
 				judgeName));
