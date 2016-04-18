@@ -252,10 +252,10 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 	}
 
-	public int getNumberOfPossibleNominees() {
-		isElementDisplayed("txt_numberOfPossibleNominees");
+	public int getNumberOfPossibleNominees(String awardName) {
+		isElementDisplayed("txt_numberOfPossibleNominees",awardName);
 		int maxPossibleNominees = Integer.parseInt(element(
-				"txt_numberOfPossibleNominees").getText().split(" ")[2]);
+				"txt_numberOfPossibleNominees",awardName).getText().split(" ")[2]);
 		logMessage("Step : Maximum possible nominees is " + maxPossibleNominees
 				+ " \n");
 		return maxPossibleNominees;

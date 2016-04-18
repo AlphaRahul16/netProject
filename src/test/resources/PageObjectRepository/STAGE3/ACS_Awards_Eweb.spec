@@ -24,6 +24,6 @@ txt_selectedNomineeHeader                 classname                       nomina
 lnk_viewProfile                           xpath                          //td[text()='${nomineeName}']/following-sibling::td/a[text()='View Profile']
 img_viewProfileLoader                     xpath                          img[contains(@src,'loadingAnimation')]
 txt_viewProfileAwardName                  classname                      awtitle
-txt_numberOfPossibleNominees              xpath                          //div[@class='awardrightcol']/p[1]
+txt_numberOfPossibleNominees              xpath                          //h1[contains(text(),'${Award name}')]/..//div[@class='awardrightcol']/p[1]
                           
 ================================================================================================================================

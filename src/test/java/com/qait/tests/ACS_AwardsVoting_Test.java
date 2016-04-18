@@ -96,7 +96,7 @@ public class ACS_AwardsVoting_Test {
 						.trim(), memberDetail);
 		test.award_ewebPage
 				.verifyLoginInAwardApplicationSuccessfully(nameOfJudges.get(i));
-		test.award_ewebPage.verifyStatus(rescusedJudges, nameOfJudges.get(i));
+		//test.award_ewebPage.verifyStatus(rescusedJudges, nameOfJudges.get(i));
 		test.award_ewebPage.verifyAwardName(currentAwardName);
 		// test.award_ewebPage.verifyNumberOfDays(numberOfDays);
 		test.award_ewebPage.verifyNumberOfNominees(numberOfNomineesInEntrants
@@ -105,7 +105,7 @@ public class ACS_AwardsVoting_Test {
 		test.award_ewebPage.clickOnFiveYearNomineeMemoLink();
 		test.award_ewebPage.clickOnViewNominationMaterialButton();
 		test.award_ewebPage.verifyCurrentTab("Select Nominees");
-		maxPossibleNominees=test.award_ewebPage.getNumberOfPossibleNominees();
+		maxPossibleNominees=test.award_ewebPage.getNumberOfPossibleNominees(currentAwardName);
 		test.award_ewebPage
 				.verifyHeaderForUnselectedNominee("You have selected 0 out of "
 						+ maxPossibleNominees

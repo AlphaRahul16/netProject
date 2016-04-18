@@ -88,7 +88,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnEditRecordButton(roundNumber);
 		switchToFrame("iframe1");
 
-		String startDate = DateUtil.getAnyDateForType("M/dd/YYYY", -5, "date");
+		String startDate = DateUtil.getAnyDateForType("M/dd/YYYY", -8, "date");
 		String endDate = DateUtil.getAnyDateForType("M/dd/YYYY", 2, "month");
 		editStartEndDate("start", startDate);
 		wait.waitForPageToLoadCompletely();

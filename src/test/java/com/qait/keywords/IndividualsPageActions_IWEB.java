@@ -126,8 +126,12 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		 }
 	
 	 public void clickOnEditButton(String position){
-		  isElementDisplayed("link_editBtn",position);
-		  element("link_editBtn",position).click();
+//		  isElementDisplayed("link_editBtn",position);
+//		  element("link_editBtn",position).click();
+//		  logMessage("Step : edit button is clicked \n");
+		 
+		 isElementDisplayed("link_editEmail",position);
+		  element("link_editEmail",position).click();
 		  logMessage("Step : edit button is clicked \n");
 		 
 		 }

@@ -63,5 +63,5 @@ drpdwn_industrytype                    css                select[id*='${value}']
 txt_termStartDaterenewal               xpath             (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[14]
 txt_termEndDaterenewal                 xpath             (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[15]
 txt_gotorecordrenewal                  xpath            (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[3]/a/i 
-
+link_editEmail                          xpath            (//a[@title='edit record']/i)[${1}]
 ======================================================================================================================================
