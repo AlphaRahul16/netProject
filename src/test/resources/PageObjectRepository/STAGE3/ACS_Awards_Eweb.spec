@@ -27,5 +27,5 @@ txt_viewProfileAwardName                  classname                      awtitle
 txt_numberOfPossibleNominees              xpath                          //h1[contains(text(),'${Award name}')]/..//div[@class='awardrightcol']/p[1]
 list_nominationsDocuments                 classname                       arrow    
 btn_close                                 classname                      closeModal    
-btn_rankNominees_save                     xpath                          //input[starts-with(@value,'${button name} >>')]
+btn_rankNominees_save                     classname                      save
 ================================================================================================================================

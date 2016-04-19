@@ -20,6 +20,7 @@ import com.qait.automation.utils.YamlReader;
 import com.qait.automation.TestSessionInitiator;
 
 public class ACS_AwardsVoting_Test {
+
 	TestSessionInitiator test;
 	String app_url_IWEB, app_url_Awards;
 	String[] startEndDate;
@@ -28,7 +29,7 @@ public class ACS_AwardsVoting_Test {
 	Map<String, List<String>> memberDetail = new HashMap<>();
 	List<String> memberDetails, nameOfJudges, rescusedJudges;
 	Set<String> numberOfNomineesInEntrants = new HashSet<>();
-	int numberOfDivisions, maxPossibleNominees;
+	int numberOfDivisions, maxPossibleNominees, i;
 	Map<String, String> mapAwardsNomination = new HashMap<String, String>();
 	Map<String, String> createMemberCredentials;
 	List<List<String>> listOfFirstAndLastName = new ArrayList<>();
@@ -40,6 +41,7 @@ public class ACS_AwardsVoting_Test {
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
 	public ACS_AwardsVoting_Test(String caseID) {
 		this.caseID = caseID;
+
 	}
 
 	@Test
@@ -85,18 +87,21 @@ public class ACS_AwardsVoting_Test {
 		test.awardsPageAction.clickOnAwardsName_RoundName(currentAwardName);
 		test.invoicePage.expandDetailsMenu("award judges");
 		memberDetail = test.awardsPageAction.getJudgeDetails(nameOfJudges, "1");
+
 	}
 
-	@Test
+	@Test(invocationCount = 1)
 	public void Step04_TC04_Launch_Awards_Voting_Application() {
-		int i = 0;
+
 		test.launchApplication(app_url_Awards);
 		test.award_ewebPage.enterCredentials_LastNameMemberNumber_ACSID(
 				test.award_ewebPage.map().get("LoginType"), nameOfJudges.get(i)
 						.trim(), memberDetail);
 		test.award_ewebPage
 				.verifyLoginInAwardApplicationSuccessfully(nameOfJudges.get(i));
-		test.award_ewebPage.verifyStatus(rescusedJudges, nameOfJudges.get(i));
+		// Status - Progress Saved 04/18/2016
+		// test.award_ewebPage.verifyStatus(rescusedJudges,
+		// nameOfJudges.get(i));
 		test.award_ewebPage.verifyAwardName(currentAwardName);
 		// test.award_ewebPage.verifyNumberOfDays(numberOfDays);
 
@@ -127,7 +132,7 @@ public class ACS_AwardsVoting_Test {
 		test.award_ewebPage.clickOnCloseButton();
 		test.award_ewebPage.clickOnRankNominees_Save("Rank Nominees");
 		test.award_ewebPage.verifyCurrentTab("Rank Nominees");
-
+		i++;
 	}
 
 	@BeforeClass

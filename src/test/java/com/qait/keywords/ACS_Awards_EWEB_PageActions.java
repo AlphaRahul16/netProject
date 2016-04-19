@@ -171,10 +171,11 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		for (int i = 1; i <= numberOfNomineesToSelect; i++) {
 			Random rand = new Random();
 			isElementDisplayed("list_nominees");
-			int max = elements("list_nominees").size()-1;
+			int max = elements("list_nominees").size() - 1;
 			int min = 0;
-			
-			System.out.println("min : ============:" + min+" max : ============ "+max);
+
+			System.out.println("min : ============:" + min
+					+ " max : ============ " + max);
 			int randomNumber = rand.nextInt((max - min) + 1) + min;
 			System.out.println("random number :----------" + randomNumber);
 			elements("list_nominees").get(randomNumber).click();
@@ -285,9 +286,16 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnRankNominees_Save(String buttonName) {
-		isElementDisplayed("btn_rankNominees_save", buttonName);
-		element("btn_rankNominees_save", buttonName).click();
-		logMessage("Step :  " + buttonName + " button is clicked \n");
+		isElementDisplayed("btn_rankNominees_save");
+		for (WebElement ele : elements("btn_rankNominees_save")) {
+			System.out.println("save btn text _________________________"
+					+ ele.getAttribute("value"));
+			if (ele.getAttribute("value").contains(buttonName)) {
+				clickUsingXpathInJavaScriptExecutor(ele);
+				logMessage("Step :  " + buttonName + " button is clicked \n");
+			}
+		}
+
 	}
 
 }
