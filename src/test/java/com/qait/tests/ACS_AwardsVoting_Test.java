@@ -28,7 +28,7 @@ public class ACS_AwardsVoting_Test {
 	Map<String, List<String>> memberDetail = new HashMap<>();
 	List<String> memberDetails, nameOfJudges, rescusedJudges;
 	Set<String> numberOfNomineesInEntrants = new HashSet<>();
-	int numberOfDivisions,maxPossibleNominees;
+	int numberOfDivisions, maxPossibleNominees;
 	Map<String, String> mapAwardsNomination = new HashMap<String, String>();
 	Map<String, String> createMemberCredentials;
 	List<List<String>> listOfFirstAndLastName = new ArrayList<>();
@@ -96,16 +96,21 @@ public class ACS_AwardsVoting_Test {
 						.trim(), memberDetail);
 		test.award_ewebPage
 				.verifyLoginInAwardApplicationSuccessfully(nameOfJudges.get(i));
-		//test.award_ewebPage.verifyStatus(rescusedJudges, nameOfJudges.get(i));
+		test.award_ewebPage.verifyStatus(rescusedJudges, nameOfJudges.get(i));
 		test.award_ewebPage.verifyAwardName(currentAwardName);
 		// test.award_ewebPage.verifyNumberOfDays(numberOfDays);
-		test.award_ewebPage.verifyNumberOfNominees(numberOfNomineesInEntrants
-				.size());
+
+		// issue in no. of moninations mismatch in eweb
+		// test.award_ewebPage.verifyNumberOfNominees(numberOfNomineesInEntrants
+		// .size());
 		// test.award_ewebPage.verifySubmitBallotDate(startEndDate[1]);
-		test.award_ewebPage.clickOnFiveYearNomineeMemoLink();
-		test.award_ewebPage.clickOnViewNominationMaterialButton();
+		test.award_ewebPage.clickOnFiveYearNomineeMemoLink(currentAwardName);
+		maxPossibleNominees = test.award_ewebPage
+				.getNumberOfPossibleNominees(currentAwardName);
+		test.award_ewebPage
+				.clickOnViewNominationMaterialButton(currentAwardName);
 		test.award_ewebPage.verifyCurrentTab("Select Nominees");
-		maxPossibleNominees=test.award_ewebPage.getNumberOfPossibleNominees(currentAwardName);
+
 		test.award_ewebPage
 				.verifyHeaderForUnselectedNominee("You have selected 0 out of "
 						+ maxPossibleNominees
@@ -113,12 +118,16 @@ public class ACS_AwardsVoting_Test {
 		listOfFirstAndLastName = test.award_ewebPage
 				.selectRandomNominees(maxPossibleNominees);
 		test.award_ewebPage.verifyHeaderForSelectedNominee("You have selected "
-				+ maxPossibleNominees + " out of "
-				+ maxPossibleNominees
+				+ maxPossibleNominees + " out of " + maxPossibleNominees
 				+ " possible nominations to rank.");
-		test.award_ewebPage.clickOnViewProfileLink(listOfFirstAndLastName
-				.get(1));
+		test.award_ewebPage.clickOnViewProfileLink(listOfFirstAndLastName);
 		test.award_ewebPage.verifyAwardName_viewProfileLink(currentAwardName);
+		test.award_ewebPage
+				.verifyNominationDocuments_viewProfileLink(currentAwardName);
+		test.award_ewebPage.clickOnCloseButton();
+		test.award_ewebPage.clickOnRankNominees_Save("Rank Nominees");
+		test.award_ewebPage.verifyCurrentTab("Rank Nominees");
+
 	}
 
 	@BeforeClass

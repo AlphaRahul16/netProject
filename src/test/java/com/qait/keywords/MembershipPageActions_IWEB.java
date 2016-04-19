@@ -1948,7 +1948,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnSaveAndFinish();
 		switchToDefaultContent();
 		handleAlert();
-
 		waitForSpinner();
 		System.out.println("actual:-" + map().get("memberPackage"));
 		System.out.println("expected:-" + map().get("priceValue?"));

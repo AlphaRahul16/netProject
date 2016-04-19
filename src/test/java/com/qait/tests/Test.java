@@ -57,13 +57,19 @@ public class Test {
 	// }
 	// @org.testng.annotations.Test
 	public void method111() {
-		String data1 = "Today, java is object oriented language";
-
-		String regex = "\\bjava.*object\\b";
-
-		Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-		Matcher matcher = pattern.matcher(data1);
-		System.out.println(matcher.find());
+//		String data1 = "Today, java is object oriented language";
+//
+//		String regex = "\\bjava.*object\\b";
+//
+//		Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+//		Matcher matcher = pattern.matcher(data1);
+//		System.out.println(matcher.find());
+		
+		Pattern intsOnly = Pattern.compile("\\d*");
+		Matcher makeMatch = intsOnly.matcher("61 days remain to submit your ballot 0 of 10 nominees ranked");
+		makeMatch.find();
+		String inputInt = makeMatch.group();
+		System.out.println(inputInt);
 	}
 
 	public static String getCurrentdateInStringWithGivenFormateForTimeZone1(

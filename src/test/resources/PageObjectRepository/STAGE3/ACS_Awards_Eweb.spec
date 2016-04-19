@@ -13,8 +13,8 @@ txt_awardName                             xpath                          //h1[te
 txt_numberOfDaysRemaining                 xpath                           //em[contains(.,'${'number of days'} days remain to submit your ballot')]
 txt_totalNominations                      xpath                          //p[text()='${number of nominations} total nominations']
 txt_submitBallotDate                      classname                       bluetext
-lnk_fiveYearNomineeMemo                   xpath                          //div[@class='ranking awardHistory dashboard']/a
-inp_viewNominationMaterial                xpath                         //input[@value='View Nomination Materials']
+lnk_fiveYearNomineeMemo                   xpath                         //h1[contains(text(),'${award name}')]/preceding-sibling::div[@class='awardrightcol']/div[@class='ranking awardHistory dashboard']/a
+inp_viewNominationMaterial                xpath                         //h1[contains(text(),'${award name}')]/preceding-sibling::div[@class='awardrightcol']//input[@value='View Nomination Materials']
 tab_currentTab                            classname                       progressStepOn
 list_nominees                             xpath                          //tr[@style='font-weight: normal;']/td[1]/input
 list_selectedNomineesFirstName            xpath                           //tr[@style='font-weight: bold;']/td[1]
@@ -25,5 +25,7 @@ lnk_viewProfile                           xpath                          //td[te
 img_viewProfileLoader                     xpath                          img[contains(@src,'loadingAnimation')]
 txt_viewProfileAwardName                  classname                      awtitle
 txt_numberOfPossibleNominees              xpath                          //h1[contains(text(),'${Award name}')]/..//div[@class='awardrightcol']/p[1]
-                          
+list_nominationsDocuments                 classname                       arrow    
+btn_close                                 classname                      closeModal    
+btn_rankNominees_save                     xpath                          //input[starts-with(@value,'${button name} >>')]
 ================================================================================================================================

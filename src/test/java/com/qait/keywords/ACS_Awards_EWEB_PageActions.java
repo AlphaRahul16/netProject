@@ -143,15 +143,15 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 						+ " expected: " + dateInGivenFormat);
 	}
 
-	public void clickOnFiveYearNomineeMemoLink() {
-		isElementDisplayed("lnk_fiveYearNomineeMemo");
-		element("lnk_fiveYearNomineeMemo").click();
+	public void clickOnFiveYearNomineeMemoLink(String awardName) {
+		isElementDisplayed("lnk_fiveYearNomineeMemo", awardName);
+		element("lnk_fiveYearNomineeMemo", awardName).click();
 		logMessage("Step : click on five year nominee memo link\n");
 	}
 
-	public void clickOnViewNominationMaterialButton() {
-		isElementDisplayed("inp_viewNominationMaterial");
-		element("inp_viewNominationMaterial").click();
+	public void clickOnViewNominationMaterialButton(String awardName) {
+		isElementDisplayed("inp_viewNominationMaterial", awardName);
+		element("inp_viewNominationMaterial", awardName).click();
 		logMessage("Step : click on view nomination material button\n");
 	}
 
@@ -171,9 +171,10 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		for (int i = 1; i <= numberOfNomineesToSelect; i++) {
 			Random rand = new Random();
 			isElementDisplayed("list_nominees");
-			int max = elements("list_nominees").size();
+			int max = elements("list_nominees").size()-1;
 			int min = 0;
-			System.out.println("min ============:" + min);
+			
+			System.out.println("min : ============:" + min+" max : ============ "+max);
 			int randomNumber = rand.nextInt((max - min) + 1) + min;
 			System.out.println("random number :----------" + randomNumber);
 			elements("list_nominees").get(randomNumber).click();
@@ -224,15 +225,17 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 				+ " is verified for selected nominees\n");
 	}
 
-	public void clickOnViewProfileLink(List<String> nomineeFirstNames) {
-		int max = 10, min = 1;
+	public void clickOnViewProfileLink(List<List<String>> nomineeFirstNames) {
+		int max = elements("list_nominees").size();
+		int min = 0;
 		Random rand = new Random();
 		int randomNumber = rand.nextInt((max - min) + 1) + min;
 		isElementDisplayed("lnk_viewProfile",
-				nomineeFirstNames.get(randomNumber));
-		element("lnk_viewProfile", nomineeFirstNames.get(randomNumber)).click();
+				nomineeFirstNames.get(1).get(randomNumber));
+		element("lnk_viewProfile", nomineeFirstNames.get(1).get(randomNumber))
+				.click();
 		logMessage("Step : view profile link is clicked for "
-				+ nomineeFirstNames.get(randomNumber));
+				+ nomineeFirstNames.get(1).get(randomNumber));
 		// wait.waitForElementToDisappear(element("img_viewProfileLoader"));
 
 	}
@@ -252,13 +255,39 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 	}
 
+	public void verifyNominationDocuments_viewProfileLink(String awardName) {
+		switchToFrame("TB_iframeContent");
+		isElementDisplayed("list_nominationsDocuments", awardName);
+		Assert.assertTrue(elements("list_nominationsDocuments", awardName)
+				.size() > 0,
+				"ASSERT FAILED : Nomination documents are not present in view profile link\n");
+		logMessage("ASSERT PASSED :Nomination documents are present in view profile link\n");
+		switchToDefaultContent();
+	}
+
 	public int getNumberOfPossibleNominees(String awardName) {
-		isElementDisplayed("txt_numberOfPossibleNominees",awardName);
+		isElementDisplayed("txt_numberOfPossibleNominees", awardName);
 		int maxPossibleNominees = Integer.parseInt(element(
-				"txt_numberOfPossibleNominees",awardName).getText().split(" ")[2]);
+				"txt_numberOfPossibleNominees", awardName).getText().split(
+				" of ")[1].split(" ")[0]);
+
 		logMessage("Step : Maximum possible nominees is " + maxPossibleNominees
 				+ " \n");
 		return maxPossibleNominees;
+	}
+
+	public void clickOnCloseButton() {
+		switchToFrame("TB_iframeContent");
+		isElementDisplayed("btn_close");
+		element("btn_close").click();
+		logMessage("Step : close button is clicked \n");
+		switchToDefaultContent();
+	}
+
+	public void clickOnRankNominees_Save(String buttonName) {
+		isElementDisplayed("btn_rankNominees_save", buttonName);
+		element("btn_rankNominees_save", buttonName).click();
+		logMessage("Step :  " + buttonName + " button is clicked \n");
 	}
 
 }
