@@ -156,6 +156,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyCurrentTab(String tabName) {
+		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("tab_currentTab");
 		Assert.assertTrue(
 				element("tab_currentTab").getText().trim().endsWith(tabName),
