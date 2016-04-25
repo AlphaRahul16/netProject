@@ -104,6 +104,7 @@ public class GetPage extends BaseUi {
 		return wait.waitForElementsToBeVisible(webdriver
 				.findElements(getLocator(elementToken, replacement)));
 	}
+	
 
 	protected List<WebElement> elements(String elementToken) {
 		return elements(elementToken, "");

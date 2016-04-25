@@ -59,4 +59,6 @@ txt_NominationTooltip                         classname                    award
 inp_findbymembernumber                        id                           memberNumber_searchNominee
 txt_Nomineename                               classname                   nomineeName 
 rad_dynsafelabpractice                        xpath                        //span/following-sibling::input[@value='${value}']
+rad_disscusNomination                         xpath                        //div[@id='discussedWithNominee']/span[text()='${value}']/following-sibling::input
+btn_saveForLater                              css                         .saveData.later
 =================================================================================================================================

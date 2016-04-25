@@ -25,6 +25,7 @@ public class ACS_OMR_Smoke_Test {
 	private String caseID,invoiceNumber;
 	Map<String,String> mapOMR=new HashMap<String,String>();
 	private List<String> memDetails;
+	Map<String,String> mapRenewedProductDetails;
 
 	public ACS_OMR_Smoke_Test() {
 		sheetname=com.qait.tests.DataProvider_FactoryClass.sheetName = "OMR";
@@ -37,7 +38,7 @@ public class ACS_OMR_Smoke_Test {
 
 	}
 
-	//@Test
+	@Test
 	public void Step01_TC01_launch_Iweb_And_Fetch_Member_Details()
 	{
 		mapOMR=test.homePageIWEB.addValuesInMap(sheetname, caseID);
@@ -56,15 +57,33 @@ public class ACS_OMR_Smoke_Test {
 	}
 
 	@Test
-	public void Step02_TC02_launch_Eweb_And_Login_With_Valid_Credentials()
+	public void Step02_TC01_launch_Eweb_And_Login_With_Valid_Credentials()
 	{
+		
 		mapOMR=test.homePageIWEB.addValuesInMap(sheetname, caseID);
 		test.launchApplication(app_url_OMR);
 		test.asm_OMR.loginIntoApplicationWithValidChoice(mapOMR,memDetails);
 		test.asm_OMR.OMRLogo("Online Membership Renewal");
 		test.asm_OMR.verifyWelcomePage();
-		test.asm_OMR.switchToEwebRenewalFrame();
-		test.asm_OMR.addMembershipsForRegularMember(mapOMR);
+		
+		test.asm_OMR.FillRequiredDetailsForStudentMember(mapOMR);
+		mapRenewedProductDetails=test.asm_OMR.addMembershipsForRegularMember(mapOMR);
+		test.asm_OMR.submitPaymentDetails(mapOMR.get("CreditCard_Type"),(memDetails.get(0).split(" ")[1]+" "+memDetails.get(0).split(" ")[0]), mapOMR.get("CreditCard_Number")
+				, mapOMR.get("CreditCard_CVV_Number"), mapOMR.get("CreditCardExpiration_Month"), mapOMR.get("CreditCardExpiration_Year"));
+		test.asm_OMR.verifyRenewedProductsSummaryOnCheckOutPage(mapRenewedProductDetails);
+		test.asm_OMR.clickOnSubmitPayment();
+		test.asm_OMR.verifyPrintReceiptMessageAfterPayment();
+		//test.asm_OMR.verifyMembershipRenewedAgainLoginIntoApplication(mapOMR,memDetails);
+	}
+	
+	@Test
+	public void Step03_TC01_launch_Iweb_And_Verify_Renewal_Details()
+	{
+		test.launchApplication(app_url_IWEB);
+		test.homePageIWEB.clickOnSideBarTab("Invoice");
+		test.memberShipPage.clickOnSideBar("Find Invoice");
+		test.individualsPage.enterFieldValue("Invoice Code",memDetails.get(2));
+		test.individualsPage.clickGoButton();
 	}
 
 
@@ -82,7 +101,8 @@ public class ACS_OMR_Smoke_Test {
 		app_url_OMR = getYamlValue("app_url_OMR");
 		app_url_IWEB =getYamlValue("app_url_IWEB");
 		test.launchApplication(app_url_IWEB);
-		test.homePageIWEB.enterAuthentication("C00616", "Zx605@95");
+		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"), 
+				YamlReader.getYamlValue("Authentication.password"));
 		System.out.println(sheetname);
 		mapOMR=test.homePageIWEB.addValuesInMap(sheetname, caseID);
 	}

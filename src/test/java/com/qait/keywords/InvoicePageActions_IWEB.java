@@ -402,12 +402,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	public void validateBalanceAndTotalForInvoice(
 			Map<String, String> TotalAmountMap) {
 		Iterator iterator = TotalAmountMap.keySet().iterator();
-		while (iterator.hasNext()) {
-			String key = iterator.next().toString();
-			String value = TotalAmountMap.get(key);
-			System.out.println(key + " keys " + value + " value");
-
-		}
+		
 		if (TotalAmountMap.size() != 4
 				&& !TotalAmountMap.get("IsProgramPledged").equals("1")) {
 			System.out.println("In bbbbbbb");

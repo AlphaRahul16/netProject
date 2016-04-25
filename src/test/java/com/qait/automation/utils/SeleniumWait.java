@@ -13,6 +13,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.google.common.base.Predicate;
+
+
 
 
 public class SeleniumWait {
@@ -83,7 +86,7 @@ public class SeleniumWait {
 		return (WebElement) wait.until(ExpectedConditions
 				.elementToBeClickable(element));
 	}
-
+	
 	public void clickWhenReady(By locator) {
 		WebElement element = (WebElement) wait.until(ExpectedConditions
 				.elementToBeClickable(locator));

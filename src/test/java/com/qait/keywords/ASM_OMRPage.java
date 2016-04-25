@@ -2,6 +2,7 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,8 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.GetPage;
+import com.qait.automation.utils.DateUtil;
+import com.qait.automation.utils.YamlReader;
 
 public class ASM_OMRPage extends GetPage {
 
@@ -18,6 +21,7 @@ public class ASM_OMRPage extends GetPage {
 	static String pagename = "ASM_OMRPage";
 	static boolean flag, confirmPage;
 	int timeOut, hiddenFieldTimeOut;
+	Map<String,String> mapRenewedProductDetails = new HashMap<String,String>();
 
 	public ASM_OMRPage(WebDriver driver) {
 		super(driver, pagename);
@@ -113,6 +117,7 @@ public class ASM_OMRPage extends GetPage {
 
 	public void verifyWelcomePage() {
 		switchToFrame("eWebFrame");
+		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("hdng_welcome");
 		logMessage("ASSERT PASSED : Welcome page is present in hdng_welcome\n");
 		switchToDefaultContent();
@@ -135,6 +140,21 @@ public class ASM_OMRPage extends GetPage {
 		switchToDefaultContent();
 		return email;
 	}
+	private void clickRadioButtonForRenewalYears(String years)
+	{
+		wait.waitForPageToLoadCompletely();
+		switchToFrame("eWebFrame");
+		isElementDisplayed("rad_undergraduate", years);
+		element("rad_undergraduate", years).click();
+		logMessage("Step : Renew membership for "+years+" radio button clicked\n");
+		wait.waitForPageToLoadCompletely();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		switchToDefaultContent();
+	}
 	public void selectUndergradutaeSchoolStatus(String value)
 	{
 		try
@@ -153,6 +173,7 @@ public class ASM_OMRPage extends GetPage {
 			wait.resetImplicitTimeout(timeOut);
 		}
 		wait.resetImplicitTimeout(timeOut);
+		switchToDefaultContent();
 	}
 
 	public String enterValueInUpdateAddressFields(String fieldName,
@@ -167,6 +188,7 @@ public class ASM_OMRPage extends GetPage {
 	}
 
 	public void clickOnSaveButton() {
+		
 		isElementDisplayed("btn_save");
 		element("btn_save").click();
 		logMessage("STEP : save button is clicked in btn_save\n");
@@ -206,7 +228,7 @@ public class ASM_OMRPage extends GetPage {
 	public void submitPaymentDetails(String cardType, String cardholderName,
 			String cardNumber, String cvvNumber, String date_Value,
 			String year_Value) {
-
+       switchToDefaultContent();
 		switchToFrame("eWebFrame");
 		selectCreditCardType(cardType);
 		enterCreditCardHolderName(cardholderName);
@@ -298,6 +320,7 @@ public class ASM_OMRPage extends GetPage {
 		element("btn_submitPayment").click();
 		logMessage("STEP : click on submit button at txt_errorMessage\n");
 		switchToDefaultContent();
+		wait.waitForPageToLoadCompletely();
 	}
 
 	public void verifyNavigationPage(String navigationPageName) {
@@ -352,17 +375,21 @@ public class ASM_OMRPage extends GetPage {
         if(mapOMR.get("Login_With_AcsID?").equalsIgnoreCase("Yes"))
         {
     
-        	//loginIntoApplication_ACS_ID(memDetails.get(2), "password");
-        	loginIntoApplication_ACS_ID("ebruoral", "password");
+        	loginIntoApplication_ACS_ID(memDetails.get(2), "password");
+        	
+        	loginIntoApplication_ACS_ID("ashafir", "password");
+        	//loginIntoApplication_ACS_ID("psossaa", "password");
+        	//loginIntoApplication_ACS_ID("jlcrist1224", "password");
         	
         }
         else if(mapOMR.get("Login_With_LastNameMemberNumber?").equalsIgnoreCase("Yes"))
         {
         	loginIntoApplication_LastName_MemberNumber(memDetails.get(0).split(" ")[0], memDetails.get(1));
+        	//loginIntoApplication_LastName_MemberNumber("Ingenito","00150042");
         }
         else if(mapOMR.get("Login_With_LastNameNoticeNumber?").equalsIgnoreCase("Yes"))
         {
-        	loginIntoApplication_LastName_NoticeNumber(memDetails.get(0).split(" ")[0], memDetails.get(3));
+        	loginIntoApplication_LastName_NoticeNumber(memDetails.get(0).split(" ")[0], memDetails.get(2));
         }
         wait.waitForPageToLoadCompletely();
 		
@@ -370,83 +397,371 @@ public class ASM_OMRPage extends GetPage {
 	
 	public void switchToEwebRenewalFrame()
 	{
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
 		switchToFrame(element("iframe_ewebframe"));
 	}
 
-	public void addMembershipsForRegularMember(Map<String, String> mapOMR) {
-	
-		//addACSTechnicalDivision(mapOMR);
+	public Map<String, String> addMembershipsForRegularMember(Map<String, String> mapOMR) {
+		
+		if(!mapOMR.get("Member_Status?").equalsIgnoreCase("Emeritus"))
+		{
+		removeAllPreviousRenewals("RemoveBenefitItem");
+        removeAllPreviousRenewals("RemoveDivisionItem");
+        removeAllPreviousRenewals("RemovePublicationItem");
+        removeAllPreviousRenewals("RemoveContributionItem");
+		addACSTechnicalDivision(mapOMR);
 		addACSPublications(mapOMR);
 		addACSMemberBenefits(mapOMR);
 		addACSContributions(mapOMR);
+		}
+		else if(mapOMR.get("Member_Status?").equalsIgnoreCase("Emeritus"))
+		{
+			clickCENElecronicallyButton();
+		removeAllPreviousRenewalsForEmeritusMember();
+		
+		}
+		else if(mapOMR.get("Member_Status?").equalsIgnoreCase("Regular"))
+		{
+			clickRadioButtonForRenewalYears(mapOMR.get("Renew_For_Years?"));
+		
+		}
+		
+		return saveProductsWithRespectiveRenewalAmount();
+	}
+
+	private void clickCENElecronicallyButton() {
+		switchToEwebRenewalFrame();
+		isElementDisplayed("rad_electronicCEN");
+		element("rad_electronicCEN").click();
+		logMessage("Step : \"I want to receive C&EN electronically\" button clicked\n");
+		switchToDefaultContent();
+		wait.waitForPageToLoadCompletely();
+		
 	}
 
 	private void addACSContributions(Map<String, String> mapOMR) {
 		clickAddMembershipButton("Add ACS Contribution");
 		
 		//isElementDisplayed("txt_legend","My ACS Contributions");
-		enterContributionForParticularSubscription(mapOMR.get("Contribution_To_Add?").trim(),mapOMR.get("Contribution_Amount?").trim());
+		enterContributionForParticularSubscription(mapOMR);
 		clickSaveButtonToAddMembership();
 		wait.waitForPageToLoadCompletely();
 	}
-
-	private void enterContributionForParticularSubscription(String contribution,String price) {
-		isElementDisplayed("inp_contribution",contribution);
-		element("inp_contribution",contribution).sendKeys(price);
-		logMessage("Step : ACS Contribution entered for "+contribution+" as "+price+"\n");
+	
+	private void enterContributionForParticularSubscription(Map<String, String> mapOMR) {
+		if(mapOMR.get("MemBenefits_To_Add?").equalsIgnoreCase("Yes"))
+		{
+			switchToDefaultContent();
+		switchToEwebRenewalFrame();
+		isElementDisplayed("inp_contribution",mapOMR.get("Contribution_To_Add?").trim());
+		element("inp_contribution",mapOMR.get("Contribution_To_Add?").trim()).sendKeys(mapOMR.get("Contribution_Amount?").trim());
+		logMessage("Step : ACS Contribution entered for "+mapOMR.get("Contribution_To_Add?").trim()+" as "+mapOMR.get("Contribution_Amount?").trim()+"\n");
+		switchToDefaultContent();
+		}
 		
 	}
 
 	private void addACSMemberBenefits(Map<String, String> mapOMR) {
-		
+		if(mapOMR.get("MemBenefits_To_Add?").equalsIgnoreCase("Yes"))
+		{
 		clickAddMembershipButton("Add ACS Member Benefits");
 	//isElementDisplayed("txt_legend","My ACS Member Benefits");
-	selectAddToMembershipForParticularSubscription(mapOMR.get("MemBenefits_To_Add?").trim(),"BenefitAddToMembership");
+	selectAddToMembershipForParticularSubscription("BenefitAddToMembership");
 	clickSaveButtonToAddMembership();
 	wait.waitForPageToLoadCompletely();
 	}
+	}
 
 	private void addACSPublications(Map<String, String> mapOMR) {
-		
+		if(mapOMR.get("Publications_To_Add?").equalsIgnoreCase("Yes"))
+		{
 		clickAddMembershipButton("Add ACS Publication");
+	
 		//isElementDisplayed("txt_legend","My ACS Publications");
-		//selectAddToMembershipForParticularSubscription(mapOMR.get("Publications_To_Add?").trim(),"PubAddToMembership");
+		selectAddToMembershipForParticularSubscription("PubAddToMembership");
 		clickSaveButtonToAddMembership();
 		wait.waitForPageToLoadCompletely();
+		}
 	}
 
 	private void addACSTechnicalDivision(Map<String, String> mapOMR) {
+		if(mapOMR.get("Technical_Division_To_Add?").equalsIgnoreCase("Yes"))
+		{
 		clickAddMembershipButton("Add ACS Technical Division");
 		//isElementDisplayed("txt_legend","My ACS Technical Divisions");
-		selectAddToMembershipForParticularSubscription(mapOMR.get("Technical_Division_To_Add?").trim(),"add-to-cart");
+		selectAddToMembershipForParticularSubscription("add-to-cart");
 		clickSaveButtonToAddMembership();
 		wait.waitForPageToLoadCompletely();
+		}
 	}
 
 	private void clickAddMembershipButton(String valueofmembership) {
+		
+		switchToDefaultContent();
+		try{
+			wait.resetImplicitTimeout(4);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			switchToEwebRenewalFrame();
 		isElementDisplayed("btn_addSubscription",valueofmembership);
 		element("btn_addSubscription",valueofmembership).click();
+		}
+		catch(NoSuchElementException e)
+		{
+			switchToDefaultContent();
+			executeJavascript("document.getElementById('eWebFrame').contentWindow.document.querySelectorAll(\"input[class='addItemButton'][value='"+valueofmembership+"']\")[0].click()");
+			//clickUsingXpathInJavaScriptExecutor(element("btn_addSubscription",valueofmembership));
+		}
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
 		wait.waitForPageToLoadCompletely();
 		logMessage("Step : "+valueofmembership+" button is clicked\n");
+		switchToDefaultContent();
+		
 		
 	}
-	private void selectAddToMembershipForParticularSubscription(String name,String value)
+
+	private void selectAddToMembershipForParticularSubscription(String value)
 	{
-		switchToDefaultContent();
-		switchToEwebRenewalFrame();
 		wait.waitForPageToLoadCompletely();
-		wait.hardWait(7);
-	
-			element("btn_addToMemberships",name,value).click();
-	
+		wait.hardWait(2);
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		switchToDefaultContent();
+Object length= executeJavascriptReturnValue("document.getElementById('eWebFrame').contentWindow.document.getElementsByClassName('add-to-cart add-to-cart-btn').length");
+System.out.println(length);
+int l1=((Long)length).intValue()-1;
+System.out.println(l1);
+switchToDefaultContent();
+wait.hardWait(3);
+	executeJavascript("document.getElementById('eWebFrame').contentWindow.document.getElementsByClassName('add-to-cart add-to-cart-btn')["+YamlReader.generateRandomNumber(0,
+			l1)+"].click()");
+		//System.out.println(elements("btn_addToMemberships").size());
+	// elements("btn_addToMemberships").get(YamlReader.generateRandomNumber(0,elements("btn_addToMemberships").size())).click();
+
 	}
 	public void clickSaveButtonToAddMembership()
 	{
 		
-		isElementDisplayed("btn_save");
-		element("btn_save").click();
-		wait.waitForPageToLoadCompletely();
+		switchToEwebRenewalFrame();
+		isElementDisplayed("btn_saveToAddMembership");
+		element("btn_saveToAddMembership").click();
 		logMessage("Step : Save button is clicked\n");
+		switchToDefaultContent();
+	}
+	
+	private Map<String, String> saveProductsWithRespectiveRenewalAmount() 
+	{
+		switchToDefaultContent();
+		wait.hardWait(2);
+		wait.hardWait(2);
+		wait.waitForPageToLoadCompletely();
+		switchToEwebRenewalFrame();
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		scrollDown(elements("txt_productname").get(0));
+		System.out.println(elements("txt_productname").size());
+		for(int i=0;i<elements("txt_productname").size();i++)
+		{
+			mapRenewedProductDetails.put(elements("txt_productname").get(i).getText().trim(), 
+					elements("txt_productamount").get(i).getText().replace("$", "").trim());
+			System.out.println(mapRenewedProductDetails.get(elements("txt_productname").get(i).getText()));
+		}
+		return mapRenewedProductDetails;
+	}
+
+	public void removeAllPreviousRenewals(String renewalName)
+	{
+		try{
+			switchToEwebRenewalFrame();
+			wait.resetImplicitTimeout(0);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+		for(int i=0;i<elements("btn_removerenewals",renewalName).size();i++)
+		{
+		elements("btn_removerenewals",renewalName).get(i).click();
+		wait.hardWait(2);
+		}
+		}
+		catch(Exception e)
+		{
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+		}
+
+		switchToDefaultContent();
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+	}
+	
+
+	public void removeAllPreviousRenewalsForEmeritusMember()
+	{
+
+		try{
+			switchToEwebRenewalFrame();
+			System.out.println("Total "+Float.parseFloat(element("txt_productFinalTotal","Total").getText().replace("$", "").trim()));
+			
+			System.out.println(elements("btns_remove").size());
+			System.out.println("Before remove"+element("txt_productFinalTotal","Total").getText().replace("$", "").trim());
+			wait.hardWait(2);
+			wait.resetImplicitTimeout(4);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			elements("btns_remove").get(0).click();
+			wait.hardWait(2);
+			System.out.println("After remove"+element("txt_productFinalTotal","Total").getText().replace("$", "").trim());
+			if(Float.parseFloat(element("txt_productFinalTotal","Total").getText().replace("$", "").trim())!=0.0)
+			{
+				switchToDefaultContent();
+				removeAllPreviousRenewalsForEmeritusMember();
+			}
+		
+			
+		}
+		
+		catch(Exception e)
+		{
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+		}
+
+		switchToDefaultContent();
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+		
+	}
+
+	public float verifySubTotalForRenewedProducts(Map<String, String> mapRenewedProductDetails) {
+
+				 float subtotal = 0.0f;
+		for (String f : mapRenewedProductDetails.values()) {
+			subtotal += Float.parseFloat(f);
+		}
+		switchToEwebRenewalFrame();
+		//double roundOffOrderTotal = Math.round(ordertotal * 100.0) / 100.0;
+		System.out.println("actual roundoff"+subtotal);
+		System.out.println(Float.parseFloat(element("txt_productFinalTotal","Subtotal").getText().replace("$", "").trim()));
+		Assert.assertTrue(Float.parseFloat(element("txt_productFinalTotal","Subtotal").getText().replace("$", "").trim()) == subtotal);
+
+		logMessage("ASSERT PASSED : Sub total is verified as " + subtotal + "\n");
+		switchToDefaultContent();
+		return subtotal;
+	}
+	public void verifyRenewedProductsSummaryOnCheckOutPage(Map<String, String> mapRenewedProductDetails)
+	{
+	
+		verifyProductsIndividualAmount(mapRenewedProductDetails);
+		verifyTotalAndBalanceDueOnCheckOutPage(mapRenewedProductDetails);
+		
+	}
+
+	private void verifyTotalAndBalanceDueOnCheckOutPage(Map<String, String> mapRenewedProductDetails) {
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		float subtotal=verifySubTotalForRenewedProducts(mapRenewedProductDetails);
+		switchToEwebRenewalFrame();
+		System.out.println("Shipping is"+Float.parseFloat(element("txt_productFinalTotal","Shipping").getText().replace("$", "").trim()));
+		System.out.println("Tax is"+Float.parseFloat(element("txt_productFinalTotal","Tax").getText().replace("$", "").trim()));
+		float total=subtotal+Float.parseFloat(element("txt_productFinalTotal","Tax").getText().replace("$", "").trim())+
+				Float.parseFloat(element("txt_productFinalTotal","Shipping").getText().replace("$", "").trim());
+		System.out.println(total);
+		total= (float) (Math.round(total * 100.0) / 100.0);
+		System.out.println(total);
+		System.out.println(Float.parseFloat(element("txt_productFinalTotal","Total").getText().replace("$", "").trim()));
+		Assert.assertTrue(Float.parseFloat(element("txt_productFinalTotal","Total").getText().replace("$", "").trim())==total);
+		float balancedue=total-Float.parseFloat(element("txt_productFinalTotal","Payment").getText().replace("$", "").trim());
+		System.out.println(balancedue);
+		System.out.println(Float.parseFloat(element("txt_productFinalTotal","Balance Due").getText().replace("$", "").trim()));
+		Assert.assertTrue(Float.parseFloat(element("txt_productFinalTotal","Balance Due").getText().replace("$", "").trim())==balancedue);
+		switchToDefaultContent();
+	}
+
+	private void verifyProductsIndividualAmount(Map<String, String> mapRenewedProductDetails) {
+		switchToEwebRenewalFrame();
+		for(int i=0;i<elements("txt_productname").size();i++)
+		{
+			System.out.println(elements("txt_productname").get(i).getText());
+			System.out.println(elements("txt_productamount").get(i).getText().replace("$", "").trim());
+		Assert.assertTrue(mapRenewedProductDetails.get(elements("txt_productname").get(i).getText().trim()).equals(
+		elements("txt_productamount").get(i).getText().replace("$", "").trim()));
+		}
+		switchToDefaultContent();
+		
+	}
+
+	public void FillRequiredDetailsForStudentMember(Map<String, String> mapOMR) {
+		if(mapOMR.get("Member_Status?").equalsIgnoreCase("Student"))
+		{
+
+		isConfirmYourInformationHeadingDisplayed();
+		enterGraduationDateForDegreeType();
+		enterStudentDegreeType(mapOMR);
+		confirmUndergraduateStatus();
+		switchToEwebRenewalFrame();
+		clickOnSaveButton();
+		switchToDefaultContent();
+
+		}
+	}
+
+	private void confirmUndergraduateStatus() {
+		switchToEwebRenewalFrame();
+		isElementDisplayed("chkbox_undergraduate");
+		element("chkbox_undergraduate").click();
+		logMessage("Step : checkbox to confirm undergraduate date is clicked\n");
+		switchToDefaultContent();
+	}
+
+	private void enterStudentDegreeType(Map<String, String> mapOMR) {
+		switchToEwebRenewalFrame();
+	selectProvidedTextFromDropDown(element("drpdwn_degreeType"), mapOMR.get("Stud_Degree_Type"));
+	switchToDefaultContent();
+	}
+
+	private void enterGraduationDateForDegreeType() {
+		switchToEwebRenewalFrame();
+		isElementDisplayed("inp_graduationDate");
+		System.out.println(DateUtil.getAnyDateForType("MM/dd/YYYY", 1, "year"));
+		element("inp_graduationDate").click();
+		element("inp_graduationDate").clear();
+		element("inp_graduationDate").sendKeys(DateUtil.getAnyDateForType("MM/dd/YYYY", 1, "year"));
+		logMessage("Step : Graduation date for Associates/Bachelors Degree entered as "+DateUtil.getAnyDateForType("MM/dd/YYYY", 1, "year"));
+		switchToDefaultContent();
+		
+	}
+
+	private void isConfirmYourInformationHeadingDisplayed() {
+		switchToEwebRenewalFrame();
+		isElementDisplayed("txt_legend","Confirm your information");
+		switchToDefaultContent();
+		
+	}
+
+	public void verifyPrintReceiptMessageAfterPayment() {
+		switchToEwebRenewalFrame();
+		isElementDisplayed("btn_printreceipt");
+		logMessage("Step : Printn Renewal Receipt button is verified\n");
+		verifyElementTextContains("txt_legend", "Membership & Subscription Renewal - ");
+		switchToDefaultContent();
+		
+	
+		
+	}
+
+	public void verifyMembershipRenewedAgainLoginIntoApplication(Map<String, String> mapOMR, List<String> memDetails) {
+		
+		
 	}
 
 }

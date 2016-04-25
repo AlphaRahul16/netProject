@@ -2360,7 +2360,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		memberDetails.add(customerLname);
 
 		memberDetails.add(customerContactId);
-		memberDetails.add(getMemberWebLogin());
+		//memberDetails.add(getMemberWebLogin());
 		memberDetails.add(invoiceNumber);
 		return memberDetails;
 
