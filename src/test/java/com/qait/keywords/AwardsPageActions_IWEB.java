@@ -40,7 +40,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void ClearStartDateAndEndDate_AllRounds() {
-		holdExecution(5000);
+
 		ClearStartDateEmpty_Round("1");
 		ClearStartDateEmpty_Round("2");
 		ClearStartDateEmpty_Round("3");
@@ -52,48 +52,77 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void ClearStartDateEmpty_Round(String roundNumber) {
 		System.out.println("ClearStartDateEmpty_Round" + roundNumber);
-		isElementDisplayed("txt_startDateRounds", roundNumber);
-		element("txt_startDateRounds", roundNumber).click();
-		if (element("txt_startDateRounds", roundNumber).getText().contains("/")) {
-			clickOnEditRecordButton(roundNumber);
-			switchToFrame("iframe1");
-			editStartEndDate("start", "");
-			clickOnSaveButton();
-			switchToDefaultContent();
-			logMessage("Step : Start date for round " + roundNumber
-					+ " is cleared\n");
-		} else {
-			logMessage("Step : Start date is already empty \n");
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
+		try {
+			wait.resetImplicitTimeout(5);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("txt_startDateRounds", roundNumber);
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			element("txt_startDateRounds", roundNumber).click();
+			if (element("txt_startDateRounds", roundNumber).getText().contains(
+					"/")) {
+				clickOnEditRecordButton(roundNumber);
+				switchToFrame("iframe1");
+				editStartEndDate("start", "");
+				clickOnSaveButton();
+				switchToDefaultContent();
+				logMessage("Step : Start date for round " + roundNumber
+						+ " is cleared\n");
+			} else {
+				logMessage("Step : Start date is already empty \n");
+			}
+		} catch (Exception e) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
 		}
+
 	}
 
 	public void ClearEndDateEmpty_Round(String roundNumber) {
 		System.out.println("ClearEndDateEmpty_Round" + roundNumber);
-		isElementDisplayed("txt_endDateRounds", roundNumber);
-		if (element("txt_endDateRounds", roundNumber).getText().contains("/")) {
-			clickOnEditRecordButton(roundNumber);
-			switchToFrame("iframe1");
-			editStartEndDate("end", "");
-			clickOnSaveButton();
-			switchToDefaultContent();
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
+		try {
+			wait.resetImplicitTimeout(5);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 
-			logMessage("Step : End date for round " + roundNumber
-					+ " is cleared\n");
-		} else {
-			logMessage("Step : End date is already empty \n");
+			isElementDisplayed("txt_endDateRounds", roundNumber);
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			if (element("txt_endDateRounds", roundNumber).getText().contains(
+					"/")) {
+				clickOnEditRecordButton(roundNumber);
+				switchToFrame("iframe1");
+				editStartEndDate("end", "");
+				clickOnSaveButton();
+				switchToDefaultContent();
+
+				logMessage("Step : End date for round " + roundNumber
+						+ " is cleared\n");
+			} else {
+				logMessage("Step : End date is already empty \n");
+			}
+		} catch (Exception e) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
 		}
 	}
 
 	public String[] editStartAndEndDate_Round(String roundNumber) {
 		clickOnEditRecordButton(roundNumber);
 		switchToFrame("iframe1");
-
 		String startDate = DateUtil.getAnyDateForType("M/dd/YYYY", -8, "date");
 		String endDate = DateUtil.getAnyDateForType("M/dd/YYYY", 2, "month");
 		editStartEndDate("start", startDate);
 		wait.waitForPageToLoadCompletely();
 		editStartEndDate("end", endDate);
 		String[] startEndDate = { startDate, endDate };
+		System.out.println("startDate :"+startDate);
+		System.out.println("endDate :"+endDate);
 		return startEndDate;
 	}
 
@@ -153,7 +182,8 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 				System.out.println("page number :" + page);
 				page++;
 				isElementDisplayed("link_paging", String.valueOf(page + 1));
-				element("link_paging", String.valueOf(page + 1)).click();
+				// element("link_paging", String.valueOf(page + 1)).click();
+				clickUsingXpathInJavaScriptExecutor(element("link_paging", String.valueOf(page + 1)));
 				waitForSpinner();
 				logMessage("Step : page number " + pageCount + " is clicked\n");
 				System.out.println("page no.:" + page);
@@ -194,26 +224,49 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyOrAddRoundsPresents() {
-		List<String> roundNumberList = new ArrayList<>();
-		isElementDisplayed("list_rounds");
-		int numberOfRounds = elements("list_rounds").size();
-		System.out.println("no of round" + numberOfRounds);
-		if (numberOfRounds < 3) {
-			for (WebElement ele : elements("list_rounds")) {
-				roundNumberList.add(ele.getText().trim());
-			}
+		Map<String, String> roundNumberList = new HashMap<>();
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
+		roundNumberList.put("Round 1", null);
+		roundNumberList.put("Round 2", null);
+		roundNumberList.put("Round 3", null);
+		try {
+			wait.resetImplicitTimeout(0);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("list_rounds");
+			int numberOfRounds = elements("list_rounds").size();
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			System.out.println("no of round" + numberOfRounds);
+			if (numberOfRounds < 3) {
+				for (WebElement ele : elements("list_rounds")) {
+					roundNumberList.put(ele.getText().trim(), ele.getText()
+							.trim());
+				}
+				for (int i = 1; i <= 3; i++) {
 
-			for (int i = 1; i <= roundNumberList.size(); i++) {
-				if (!roundNumberList.get(i - 1).equalsIgnoreCase("Round " + i)) {
-					addRound(String.valueOf(i));
+					if (roundNumberList.containsKey("Round " + i) != roundNumberList
+							.containsValue("Round " + i)) {
+						addRound(String.valueOf(i));
+					}
+
+					// if (!roundNumberList.get("Round "+i).equalsIgnoreCase(
+					// "Round " + i)) {
+					//
+					// }
 				}
 			}
+		} catch (NullPointerException npe) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			logMessage("Step : No any rounds are not presents\n");
 		}
 	}
 
 	public void addRound(String roundNumber) {
 		clickOnAddRoundButton("award stages/rounds");
-		isElementDisplayed("lbl_addRound");
+
 		switchToFrame("iframe1");
 		enterDetailsToAddRound_Judge("stage/round description", "Round "
 				+ roundNumber);
@@ -308,6 +361,15 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 	}
 
+	public void addRounds() {
+		clickOnAddRoundButton("award stages/rounds");
+		switchToFrame("iframe1");
+
+		selectJudgeName();
+		clickOnSaveButton();
+		switchToDefaultContent();
+	}
+
 	public void clickOnSearchButtonOnEditRecord() {
 		isElementDisplayed("btn_search");
 		element("btn_search").click();
@@ -351,7 +413,8 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		} catch (Exception exp) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
-			logMessage("Step : list of judges that contains rescused\n");
+
+			logMessage("Step : list of judges that does not contain rescused status\n");
 			return null;
 		}
 	}
@@ -368,7 +431,8 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void goToJudgeRecord(String judgeName) {
-		wait.waitForPageToLoadCompletely();
+		// wait.waitForPageToLoadCompletely();
+		wait.hardWait(1);
 		isElementDisplayed("link_goToJudgeRecord", judgeName);
 		clickUsingXpathInJavaScriptExecutor(element("link_goToJudgeRecord",
 				judgeName));
@@ -466,6 +530,22 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_editAward");
 		element("btn_editJudge").click();
 		logMessage("Step : click on edit button on judge profile\n");
+	}
+
+	public void clickOnUpdateScoreLink() {
+		isElementDisplayed("lnk_updateScore");
+		element("lnk_updateScore").click();
+		logMessage("Info: Clicked on Update score link");
+		isElementDisplayed("heading_updateScoreAlert");
+		element("btn_updateScore").click();
+		logMessage("Info: Clicked on Update Score button");
+		if (element("txt_updationMessage").getText().contains(
+				"Process Completed Successfully")) {
+			Assert.assertTrue(true);
+			logMessage("Test Passed: Process completed message is generated");
+		} else if (element("txt_updationMessage").getText().contains(
+				"Award stage is closed. Score updates are not allowed"))
+			logMessage("Award stage is closed. Score updates are not allowed message is generated");
 	}
 
 }
