@@ -71,7 +71,7 @@ table_lineItems                                   id                         UPD
 frame_selectProduct                              id                             menu_a83665ae18eb43488c5d83ce5f6027f8  
 list_billAddress                                 id                         inv_cxa_key   
 link_email                                       id                          F1_HYPERLINK_0     
-txt_contactId                                     id                        F1_cst_id
+txt_renewalContactId                                     id                        F1_cst_id
 txt_customerAddress                                id                          F1_cxa_mailing_label_html
 txt_addressType                                  id                           F1_cxa_adt_key_Display_Text_
 label_listMemberShip                             id                          LabelDataFormHeader
@@ -90,6 +90,7 @@ txt_numberOfyears                                xpath                         /
 btn_cancel                                       id                           ButtonCancel
 list_memberStatusRenewal                        id                            ValueDropDownList4
 txt_renewalContactId                             id                           F1_cst_id
+txt_ContactId									id 							F1_ind_acs_member_account_number_ext
 chk_advanceNew                                    id                           ctl10
 list_advanceNewDropDown                           xpath                        //span[contains(text(),'${headingName}')]/../following-sibling::td[1]/select
 inp_advanceNewInput                               xpath                         //span[contains(text(),'${headingName}')]/../following-sibling::td[2]/input

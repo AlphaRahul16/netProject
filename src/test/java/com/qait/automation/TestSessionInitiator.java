@@ -37,6 +37,7 @@ import com.qait.keywords.ASM_PUBSPage;
 import com.qait.keywords.ASM_StorePage;
 import com.qait.keywords.ASM_emailPage;
 import com.qait.keywords.ASM_memberNumberLookupPage;
+import com.qait.keywords.AcsYellowBookEwebPageActions;
 import com.qait.keywords.AddMemeber_IWEB;
 import com.qait.keywords.AwardsPageActions_IWEB;
 import com.qait.keywords.BenefitsPage;
@@ -103,8 +104,9 @@ public class TestSessionInitiator {
 	public AddMemeber_IWEB addMember;
 	public FundProfilePage fundpofilePage;
 	public MemberNumberLookupPage memNumLookupPage;
-public AwardsPageActions_IWEB awardsPageAction;
-public ACS_Awards_EWEB_PageActions award_ewebPage;
+	public AwardsPageActions_IWEB awardsPageAction;
+	public ACS_Awards_EWEB_PageActions award_ewebPage;
+	public AcsYellowBookEwebPageActions acsYellowBookEwebPage;
 
 	public TakeScreenshot takescreenshot;
 
@@ -146,6 +148,7 @@ public ACS_Awards_EWEB_PageActions award_ewebPage;
 		memNumLookupPage = new MemberNumberLookupPage(driver);
 		awardsPageAction= new AwardsPageActions_IWEB(driver);
 		award_ewebPage = new ACS_Awards_EWEB_PageActions(driver);
+		acsYellowBookEwebPage = new AcsYellowBookEwebPageActions(driver);
 	}
 
 	/**
@@ -223,12 +226,7 @@ public ACS_Awards_EWEB_PageActions award_ewebPage;
 	}
 
 	public void closeBrowserSession() {
-		try {
-			Runtime.getRuntime().exec("taskkill /F /IM plugin-container.exe");
-		} catch (IOException e1) {
-			driver.quit();
-		}
-		
+		driver.quit();
 	}
 
 	public void deleteAllCookies() {

@@ -2,7 +2,9 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.testng.Reporter;
@@ -20,7 +22,9 @@ public class ACS_Yellow_Book_Smoke_Test {
 	String app_url_eweb_yb;
 	String app_url_iweb_yb;
 	String app_url_iweb_nf;
+	
 	Map<String, String> mapSheetData = new HashMap<String, String>();
+	List<String> customerList	= new ArrayList<String>();
 	private String caseID;
 
 	public ACS_Yellow_Book_Smoke_Test() {
@@ -60,6 +64,20 @@ public class ACS_Yellow_Book_Smoke_Test {
 		test.homePageIWEB.verifyUserIsOnHomePage("Committee | Participation | Committee Participation Profile");
 	}
 	
+	@Test
+	public void Step05_Verify_User_Navigated_To_Individual_Profile_Page_On_Clicking_Customer_Name_Link_And_Fetch_ACS_Member_Number_And_Last_Name(){
+		test.homePageIWEB.clickOnFindNominationTab();
+		customerList = test.memberShipPage.getCustomerLastNameAndContactIDForYellowBook();
+		test.launchApplication(app_url_eweb_yb);
+	}
+	
+	@Test
+	public void Step06_Launch_Eweb_Application_For_Yellow_Book_And_Login_With_LastName_And_Member_ID_Than_Verify_User_Is_On_Home_Page(){
+		test.launchApplication(app_url_eweb_yb);
+		test.acsYellowBookEwebPage.loginWithLastNameAndMemberId(customerList.get(0),customerList.get(1));
+		test.acsYellowBookEwebPage.verifyUserIsOnHomePageOfYellowBookEweb();
+	}
+	
 	@BeforeClass
 	public void Open_Browser_Window() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
@@ -72,7 +90,7 @@ public class ACS_Yellow_Book_Smoke_Test {
 
 	@AfterClass
 	public void Close_Browser_Session() {
-		test.closeBrowserSession();
+		//test.closeBrowserSession();
 	}
 
 }
