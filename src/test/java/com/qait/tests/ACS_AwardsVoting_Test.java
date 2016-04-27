@@ -178,7 +178,6 @@ public class ACS_AwardsVoting_Test {
 		test.awardsPageAction.verifyNomineesWithRankOne(listsOfRanks);
 		test.awardsPageAction.verifyNomineeWinnerStatus(test.homePageIWEB.map()
 				.get("Round1 Winner Status?"));
-
 	}
 
 	@BeforeClass
