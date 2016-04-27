@@ -118,5 +118,34 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 		logMessage("[ASSERTION PASSED]:: Verified User Is On Home Page of Yellow Book Eweb");
 	}
 
+	public void clickOnLinkOnHomePageYBEweb(String link) {
+		isElementDisplayed("link_header",link);
+		element("link_header",link).click();
+		logMessage("Clicked On My "+link+" on Home Page Of Yellow Book Eweb");
+	}
+
+	public void verifyUserNavigatedToParticularPage(String title) {
+		wait.waitForPageToLoadCompletely();
+		isElementDisplayed("txt_toptitle");
+		Assert.assertEquals(element("txt_toptitle").getText().trim(),title);
+		logMessage("[ASSERTION PASSED]:: Verified User Navigated to "+title+" Page");
+	}
+
+	public void UpdateAddessField(String value) {
+		isElementDisplayed("inp_address2");
+		element("inp_address2").clear();
+		element("inp_address2").sendKeys(value);
+		logMessage("Updated Address field 2 with value "+value);
+	}
+
+	public void clickOnCheckBoxAndThanClickOnSubmitButton(String str) {
+		if (str.equalsIgnoreCase("Yes")) {
+			isElementDisplayed("chkbox_update");
+			element("chkbox_update").click();
+		}
+		isElementDisplayed("btn_submit");
+		element("btn_submit").click();
+	}
+
 
 }
