@@ -33,6 +33,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	List<String> listOfJudgesName = new ArrayList<String>();
 
 	Map<String, List<String>> judgeDetailsMap = new HashMap<>();
+	Map<String, Integer> nomineesWithRankOne = new HashMap<>();
 
 	public AwardsPageActions_IWEB(WebDriver driver) {
 		super(driver, "AwardsPageIWEB");
@@ -115,14 +116,14 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	public String[] editStartAndEndDate_Round(String roundNumber) {
 		clickOnEditRecordButton(roundNumber);
 		switchToFrame("iframe1");
-		String startDate = DateUtil.getAnyDateForType("M/dd/YYYY", -8, "date");
-		String endDate = DateUtil.getAnyDateForType("M/dd/YYYY", 2, "month");
+		String startDate = DateUtil.getAnyDateForType("MM/dd/YYYY", -8, "date");
+		String endDate = DateUtil.getAnyDateForType("MM/dd/YYYY", 2, "month");
 		editStartEndDate("start", startDate);
 		wait.waitForPageToLoadCompletely();
 		editStartEndDate("end", endDate);
 		String[] startEndDate = { startDate, endDate };
-		System.out.println("startDate :"+startDate);
-		System.out.println("endDate :"+endDate);
+		System.out.println("startDate :" + startDate);
+		System.out.println("endDate :" + endDate);
 		return startEndDate;
 	}
 
@@ -183,7 +184,8 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 				page++;
 				isElementDisplayed("link_paging", String.valueOf(page + 1));
 				// element("link_paging", String.valueOf(page + 1)).click();
-				clickUsingXpathInJavaScriptExecutor(element("link_paging", String.valueOf(page + 1)));
+				clickUsingXpathInJavaScriptExecutor(element("link_paging",
+						String.valueOf(page + 1)));
 				waitForSpinner();
 				logMessage("Step : page number " + pageCount + " is clicked\n");
 				System.out.println("page no.:" + page);
@@ -393,6 +395,32 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : navigate to record for round\n");
 	}
 
+	public void verifyACSAwardStageEntriesInThisStageIsEmpty() {
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
+		try {
+			wait.resetImplicitTimeout(0);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("link_acsAwardEntries");
+			clickOnReopenSubmissionButton();
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			logMessage("ASSERT FAILED : ACS Award Stage Entries In This Stage is not empty\n");
+		} catch (Exception exp) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			logMessage("Step : ACS Award Stage Entries In This Stage is empty \n");
+
+		}
+	}
+
+	public void clickOnReopenSubmissionButton() {
+		isElementDisplayed("img_reOpenSubmission");
+		clickUsingXpathInJavaScriptExecutor(element("img_reOpenSubmission"));
+		logMessage("Step : re open submission button is clicked\n");
+	}
+
 	public List<String> getRecusedStatusForRounds(String roundNumber) {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
@@ -440,6 +468,31 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
+	public void deleteNominees() {
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
+		try {
+			wait.waitForPageToLoadCompletely();
+			wait.resetImplicitTimeout(0);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("list_deleteNominee");
+			element("img_reOpenSubmission").click();
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			// for (WebElement ele : elements("list_deleteNominee")) {
+			// ele.click();
+			// handleAlert();
+			// }
+			logMessage("Step : nominees are deleted from pending scores tab\n");
+		} catch (Exception exp) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			logMessage("Step : nominees are not presents in pending scores tab\n");
+
+		}
+	}
+
 	public Map<String, List<String>> getJudgeDetails(List<String> judgeNames,
 			String roundNumber) {
 		System.out.println("judges name size: " + judgeNames.size());
@@ -447,6 +500,9 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			List<String> judgeCustomerID_Weblogin = new ArrayList<String>();
 			String currentUrl = getCurrentURL();
 			goToJudgeRecord(judgeName);
+
+			deleteNominees();
+
 			clickOnJudgeNameToNavigateOnProfilePage(judgeName);
 			waitForSpinner();
 			judgeCustomerID_Weblogin.add(getCustomerID(judgeName));
@@ -535,17 +591,96 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnUpdateScoreLink() {
 		isElementDisplayed("lnk_updateScore");
 		element("lnk_updateScore").click();
-		logMessage("Info: Clicked on Update score link");
+		logMessage("Step : Clicked on Update score link");
+	}
+
+	public void clickOnUpdateScoreButtonOnPopup() {
+		switchToFrame("iframe1");
 		isElementDisplayed("heading_updateScoreAlert");
 		element("btn_updateScore").click();
-		logMessage("Info: Clicked on Update Score button");
-		if (element("txt_updationMessage").getText().contains(
-				"Process Completed Successfully")) {
-			Assert.assertTrue(true);
-			logMessage("Test Passed: Process completed message is generated");
-		} else if (element("txt_updationMessage").getText().contains(
-				"Award stage is closed. Score updates are not allowed"))
-			logMessage("Award stage is closed. Score updates are not allowed message is generated");
+		logMessage("Step : Clicked on Update Score button");
+		switchToDefaultContent();
+	}
+
+	public void verifyUpdateScoreMessageOnClickingUpdateScore(
+			String updateScoreMessage) {
+		clickOnUpdateScoreLink();
+		clickOnUpdateScoreButtonOnPopup();
+		switchToFrame("iframe1");
+		isElementDisplayed("txt_updateScoreMessage");
+		Assert.assertTrue(
+				element("txt_updateScoreMessage").getText().equalsIgnoreCase(
+						updateScoreMessage),
+				"ASSERT FAILED : Actual upadte score message is "
+						+ element("txt_updateScoreMessage").getText()
+						+ " and expected is " + updateScoreMessage);
+		logMessage("ASSERT PASSED : message Process Completed Successfully is displayed on clicking update score link \n");
+		switchToDefaultContent();
+		clickOnCloseButton();
+	}
+
+	public void clickOnCloseButton() {
+		switchToFrame("iframe1");
+		isElementDisplayed("btn_updateScoreClose");
+		element("btn_updateScoreClose").click();
+		logMessage("Step : close button is clicked in update score popup\n");
+		switchToDefaultContent();
+	}
+
+	public void verifyClosedStatusOnUpdatingScore(String closedMessage) {
+		isElementDisplayed("txt_closedStatus");
+		Assert.assertTrue(element("txt_closedStatus").getText()
+				.equalsIgnoreCase(closedMessage));
+		logMessage("ASSERT PASSED : closed status is verified as "
+				+ closedMessage + "\n");
+	}
+
+	public void verifyNomineesWithRankOne(List<Map<Integer, String>> listsOfRanks) {
+
+		for (Map<Integer, String> map : listsOfRanks) {
+			String nomineeWithRankOne = map.get("1");
+			nomineesWithRankOne.put(nomineeWithRankOne, 0);
+		}
+
+		for (Map<Integer, String> map : listsOfRanks) {
+			String nomineeWithRankOne = map.get("1");
+			nomineesWithRankOne.put(nomineeWithRankOne,
+					nomineesWithRankOne.get(nomineeWithRankOne) + 1);
+		}
+		isElementDisplayed("list_stageEntriesRankOne");
+		for (String nomineeWithRankOne : nomineesWithRankOne.keySet()) {
+			Assert.assertTrue(
+					element("list_stageEntriesRankOne", nomineeWithRankOne)
+							.getText()
+							.trim()
+							.equalsIgnoreCase(
+									String.valueOf(nomineesWithRankOne
+											.get(nomineeWithRankOne))),
+					"ASSERT FAILED : Actual rank count for nominee "
+							+ nomineeWithRankOne
+							+ " is "
+							+ element("list_stageEntriesRankOne",
+									nomineeWithRankOne).getText().trim()
+							+ " Expected rank count for nominee "
+							+ nomineeWithRankOne + " is "
+							+ nomineesWithRankOne.get(nomineeWithRankOne)
+							+ "\n");
+		}
+
+	}
+
+	public void verifyNomineeWinnerStatus(String status) {
+		String nomineeName = "";
+		isElementDisplayed("txt_winnerStatusForNomineee", nomineeName);
+		Assert.assertTrue(
+				element("txt_winnerStatusForNomineee", nomineeName).getText()
+						.equalsIgnoreCase(status),
+				"ASSERT FAILED : Actual status is "
+						+ element("txt_winnerStatusForNomineee", nomineeName)
+								.getText() + " Expected status is " + status
+						+ " \n");
+		logMessage("ASSERT PASSED : Winner status is verified as " + status
+				+ " \n");
 	}
 
 }

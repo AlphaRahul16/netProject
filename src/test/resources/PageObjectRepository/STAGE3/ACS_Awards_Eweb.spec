@@ -8,11 +8,11 @@ rad_ACSID                                 xpath                          //input
 inp_credential1                           xpath                          //input[contains(@id,'Credential1')]
 inp_credential2                           xpath                          //input[contains(@id,'Credential2')]
 btn_login                                 xpath                          //input[contains(@id,'btnLogin')]
-txt_status                                classname                      highlight
+txt_status                                xpath                          //h1[text()='${awardName}']/preceding-sibling::div/div[@class='highlight']
 txt_awardName                             xpath                          //h1[text()='${awardName}']
 txt_numberOfDaysRemaining                 xpath                           //em[contains(.,'${'number of days'} days remain to submit your ballot')]
 txt_totalNominations                      xpath                          //p[text()='${number of nominations} total nominations']
-txt_submitBallotDate                      classname                       bluetext
+txt_submitBallotDate                      xpath                       //h1[text()='${awardName}']/preceding-sibling::div//p/span
 lnk_fiveYearNomineeMemo                   xpath                         //h1[contains(text(),'${award name}')]/preceding-sibling::div[@class='awardrightcol']/div[@class='ranking awardHistory dashboard']/a
 inp_viewNominationMaterial                xpath                         //h1[contains(text(),'${award name}')]/preceding-sibling::div[@class='awardrightcol']//input[@value='View Nomination Materials']
 tab_currentTab                            classname                       progressStepOn
@@ -40,8 +40,8 @@ txt_confirmBallotPage                     xpath                          //div[@
 btn_submit_editBallot                     xpath                          //input[@value='${button name}']
 txt_ballotConfirmation                    xpath                          //div[@class='ListHeaderTitle' and contains(text(),'Ballot Confirmation')]
 txt_confirmationMessage                   xpath                          //div[@class='ListDiv']//div[3]
-btn_returnToYourAwardDashboard            id                             save
-txt_ballotSubmissionDate                  xpath                          //div[@class='awardrightcol']//p//em
+btn_returnToYourAwardDashboard            xpath                          //input[@value='<<Return to your Awards Dashboard']
+txt_ballotSubmissionDate                  xpath                         //h1[text()='${awardName}']/preceding-sibling::div[@class='awardrightcol']//p//em
 lnk_updateScore                           id                             F1_HYPERLINK_2
 img_dashboardLoader                       xpath                          img[@src='images/awards/loading.gif']
 ================================================================================================================================

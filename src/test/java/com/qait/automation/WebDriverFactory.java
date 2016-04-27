@@ -106,22 +106,22 @@ public class WebDriverFactory {
 	}
 
 	private static WebDriver getFirefoxDriver() {
-//		String firefoxProfilePath = "./src/test/resources/Profile_"
-//		+ ConfigPropertyReader.getProperty("tier");
+		String firefoxProfilePath = "./src/test/resources/Profile_"
+		+ ConfigPropertyReader.getProperty("tier");
 		FirefoxProfile profile;
-//		String autoAuthPath = "src/test/resources/AddOn/autoauth-2.1-fx+fn.xpi";
-//		File firefoxProfile = new File(firefoxProfilePath);// path of firefox
+		String autoAuthPath = "src/test/resources/AddOn/autoauth-2.1-fx+fn.xpi";
+		File firefoxProfile = new File(firefoxProfilePath);// path of firefox
 //															// profile
 		
-		profile = new FirefoxProfile();
-//		profile = new FirefoxProfile(firefoxProfile);
-//		File extension = new File(autoAuthPath);// path of AutoAuth
-//		try {
-//			profile.addExtension(extension);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+//		profile = new FirefoxProfile();
+		profile = new FirefoxProfile(firefoxProfile);
+		File extension = new File(autoAuthPath);// path of AutoAuth
+		try {
+			profile.addExtension(extension);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		profile.setPreference("browser.download.useDownloadDir", true);
 		profile.setPreference("browser.cache.disk.enable", false);
 		profile.setPreference("browser.download.folderList", 2);
