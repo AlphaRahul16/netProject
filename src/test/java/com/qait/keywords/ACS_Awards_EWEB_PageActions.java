@@ -106,7 +106,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 				+ " login successfully\n");
 	}
 
-	public void verifyStatus(List<String> rescusedJudges, String nameOfJudge) {
+	public String verifyStatus(List<String> rescusedJudges, String nameOfJudge) {
 		isElementDisplayed("txt_status");
 
 		try {
@@ -124,6 +124,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 										+ " and expected is Status - Ballot submitted\n");
 						logMessage("AASERT PASSED : Status Status - Ballot submitted of rescused judge "
 								+ nameOfJudge + " is verified\n");
+						return "Status - Ballot submitted";
 					}
 				}
 			}
@@ -136,7 +137,9 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 							+ " and expected is Status - Not Yet Started\n");
 			logMessage("AASERT PASSED : Status Status - Not Yet Started of rescused judge "
 					+ nameOfJudge + " is verified\n");
+			return "Status - Not Yet Started";
 		}
+		return null;
 	}
 
 	public void verifyAwardName(String awardname) {
@@ -144,10 +147,10 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : award name " + awardname + " is verified\n");
 	}
 
-	public void verifyNumberOfDays(String dateFormate,
-			String endDate) {
+	public void verifyNumberOfDays(String dateFormate, String endDate) {
 		long numberOfDays = DateUtil.numberOfDaysBetweenTwoDays(dateFormate,
-				DateUtil.getCurrentdateInStringWithGivenFormate(dateFormate), endDate);
+				DateUtil.getCurrentdateInStringWithGivenFormate(dateFormate),
+				endDate);
 		isElementDisplayed("txt_numberOfDaysRemaining",
 				String.valueOf(numberOfDays));
 		logMessage("ASSERT PASSED : number of days " + numberOfDays
@@ -162,18 +165,20 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 				+ " is verified\n");
 	}
 
-	public void verifySubmitBallotDate(String date) {
-		String dateInGivenFormat = DateUtil.convertStringToDate(date,
-				"M/dd/YYYY").toString();
-		isElementDisplayed("txt_submitBallotDate");
-		Assert.assertTrue(element("txt_submitBallotDate").getText()
-				.equalsIgnoreCase(dateInGivenFormat),
+	public void verifySubmitBallotDate(String date, String awardName) {
+		isElementDisplayed("txt_submitBallotDate", awardName);
+		Assert.assertTrue(
+				element("txt_submitBallotDate", awardName).getText()
+						.equalsIgnoreCase(date),
 				"ASSERT FAILED : actual: "
-						+ element("txt_submitBallotDate").getText()
-						+ " expected: " + dateInGivenFormat);
+						+ element("txt_submitBallotDate", awardName).getText()
+						+ " expected: " + date);
+		logMessage("ASSERT PASSED : submit ballot date is verified as " + date
+				+ "\n");
 	}
 
 	public void clickOnFiveYearNomineeMemoLink(String awardName) {
+		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("lnk_fiveYearNomineeMemo", awardName);
 		element("lnk_fiveYearNomineeMemo", awardName).click();
 		logMessage("Step : click on five year nominee memo link\n");
@@ -201,7 +206,9 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
 				"hiddenFieldTimeOut"));
 		try {
-			wait.resetImplicitTimeout(0);
+			wait.hardWait(4);
+			wait.waitForPageToLoadCompletely();
+			wait.resetImplicitTimeout(5);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("list_selectedNomineesPrepopulated");
 			for (WebElement ele : elements("list_selectedNomineesPrepopulated")) {
@@ -214,9 +221,8 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		} catch (Exception e) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
-			logMessage("Step : Nominees are not already selected\n");
+			logMessage("Step : Nominees are not selected\n");
 		}
-
 	}
 
 	public List<List<String>> selectRandomNominees(int numberOfNomineesToSelect) {
@@ -369,7 +375,6 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		}
 		nomineeRanks = enterNomineeRankAndData(maxPossibleNominees);
 		clickOnConfirmBallotButton();
-
 		return nomineeRanks;
 	}
 
@@ -402,12 +407,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			name2 = element("drpdwn_rank", String.valueOf(i)).getText();
 			name1 = name1.replace(name2, "");
 			nomineeName.put(i, name1.replace("\n", ""));
-			// logMessage("Key: " + i + " name: " + name1);
-			// Pattern p = Pattern.compile("[a-zA-Z_ ]+");
-			// Matcher m = p.matcher(name1);
-			// if (m.find()) {
-			// logMessage("name in group:" + m.group());
-			// }
+			
 		}
 		Iterator<Entry<Integer, String>> it = nomineeName.entrySet().iterator();
 		while (it.hasNext()) {
@@ -445,10 +445,10 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		logMessage("Assertion Passed: User is on Confirm Ballot Page\n");
 	}
 
-	public void clickOnSubmit_EditBallot() {
-		isElementDisplayed("txt_confirmBallotPage");
-		element("txt_confirmBallotPage").click();
-		logMessage("Step : Submit Ballot button is clicked\n");
+	public void clickOnSubmit_EditBallot(String submit_edit) {
+		isElementDisplayed("btn_submit_editBallot", submit_edit);
+		element("btn_submit_editBallot", submit_edit).click();
+		logMessage("Step : " + submit_edit + " button is clicked\n");
 	}
 
 	public void verifyBallotConfirmationPage() {
@@ -466,17 +466,42 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		logMessage("Info: Clicked on Returns To Your Award Dashboard\n");
 	}
 
-	public void verifyStatusAfterBallotSubmission() {
-		Assert.assertTrue(element("txt_status").getText().trim()
+	public void verifyStatusAfterBallotSubmission(String awardName) {
+		isElementDisplayed("txt_status", awardName);
+		Assert.assertTrue(element("txt_status", awardName).getText().trim()
 				.equalsIgnoreCase("Status - Ballot Submitted"),
-				"actual status of judge is " + element("txt_status").getText()
+				"actual status of judge is "
+						+ element("txt_status", awardName).getText()
 						+ " and expected is Status - Ballot submitted\n");
 		logMessage("Assertion Passed: Actual status of Judge is Status-Ballot Submitted\n");
 
-		Assert.assertTrue(element("txt_ballotSubmissionDate").getText().trim()
-				.contains("You submitted your ballot on:"),
-				"Assertion Failed: Submission date is not present\n");
-		logMessage(element("txt_ballotSubmissionDate").getText().trim());
 	}
+
+	public void submissionDateAfterBallotSubmission(String awardName) {
+		isElementDisplayed("txt_ballotSubmissionDate", awardName);
+		Assert.assertTrue(
+				element("txt_ballotSubmissionDate", awardName)
+						.getText()
+						.trim()
+						.contains(
+								"You submitted your ballot on:\n"
+										+ DateUtil
+												.getCurrentdateInStringWithGivenFormate("MMM dd, YYYY")),
+				"Assertion Failed: actual submission date is "
+						+ element("txt_ballotSubmissionDate", awardName)
+								.getText().trim()
+						+ " and Expected is You submitted your ballot on:\n"
+						+ DateUtil
+								.getCurrentdateInStringWithGivenFormate("MMM dd, YYYY")
+						+ "\n");
+		logMessage("ASSERT PASSED : "
+				+ element("txt_ballotSubmissionDate", awardName).getText()
+						.trim());
+	}
+	
+	
+//	public void 
+	
+	
 
 }

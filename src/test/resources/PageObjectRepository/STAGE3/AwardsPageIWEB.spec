@@ -34,6 +34,12 @@ link_judgeName                            id                  F1_HYPERLINK_1
 heading_updateScoreAlert                  xpath               //span[text()='Edit - ACS Award Stage Score Update']
 lnk_updateScore                           id                  F1_HYPERLINK_2
 btn_updateScore                           id                  UpdateScoreForStageButton
-txt_updationMessage                       id                  LabelMessage
-
+txt_updateScoreMessage                    id                  LabelMessage
+link_acsAwardEntries                      xpath               //a[contains(@id,'Nominee ASC')]
+img_reOpenSubmission                      xpath               //div[@id='F1_ReopenJudging']/input
+list_deleteNominee                        classname           iconpro-remove
+btn_updateScoreClose                      xpath                //button[text()='Close']
+txt_closedStatus                          classname            DataFormLabelErrorMessage
+list_stageEntriesRankOne                  xpath                //td[starts-with(text(),'${nomineeName}')]/following-sibling::td[2]
+txt_winnerStatusForNomineee               xpath               //td[starts-with(text(),'${nomineeName}')]/following-sibling::td[3]
 ========================================================================================================================================

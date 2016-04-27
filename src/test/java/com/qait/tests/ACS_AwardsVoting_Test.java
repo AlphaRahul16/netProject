@@ -34,6 +34,8 @@ public class ACS_AwardsVoting_Test {
 	Map<String, String> createMemberCredentials;
 	List<List<String>> listOfFirstAndLastName = new ArrayList<>();
 	int invocationCount = 0;
+	Map<Integer, String> nomineeRanks = new HashMap<Integer, String>();
+	List<Map<Integer, String>> listsOfRanks = new ArrayList<Map<Integer, String>>();
 
 	public ACS_AwardsVoting_Test() {
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "AwardsVoting";
@@ -82,6 +84,8 @@ public class ACS_AwardsVoting_Test {
 		test.invoicePage.collapseDetailsMenu("award judges");
 		test.invoicePage.expandDetailsMenu("award stages/rounds");
 		test.awardsPageAction.goToRecordForRound("1");
+		// test.invoicePage.expandDetailsMenu("acs award stage - entries in this stage");
+		test.awardsPageAction.verifyACSAwardStageEntriesInThisStageIsEmpty();
 		test.invoicePage.expandDetailsMenu("award judge");
 		rescusedJudges = test.awardsPageAction.getRecusedStatusForRounds("1");
 		test.awardsPageAction.clickOnAwardsName_RoundName(currentAwardName);
@@ -89,12 +93,9 @@ public class ACS_AwardsVoting_Test {
 		memberDetail = test.awardsPageAction.getJudgeDetails(nameOfJudges, "1");
 	}
 
-	@Test(invocationCount = 1, dependsOnMethods = "Step03_TC03_Add_Judges_Fetch_Rescused_Status")
+	@Test(invocationCount = 5, dependsOnMethods = "Step03_TC03_Add_Judges_Fetch_Rescused_Status")
 	public void Step04_TC04_Launch_Awards_Voting_Application() {
-		Map<Integer, String> nomineeRanks = new HashMap<Integer, String>();
-		// test.homePageIWEB.addValuesInMap("AwardsVoting", caseID);
-		// String currentAwardName="ACS Award in Industrial Chemistry:2017";
-
+		test.homePageIWEB.addValuesInMap("AwardsVoting", caseID);
 		test.launchApplication(app_url_Awards);
 		// test.award_ewebPage.enterCredentials("ACSID");
 		test.award_ewebPage.enterCredentials_LastNameMemberNumber_ACSID(
@@ -108,16 +109,16 @@ public class ACS_AwardsVoting_Test {
 		// nameOfJudges.get(invocationCount));
 		test.award_ewebPage.verifyAwardName(currentAwardName);
 		test.award_ewebPage.verifyNumberOfDays("MM/d/YYYY", startEndDate[1]);
-
-		test.award_ewebPage.verifyNumberOfNominees(numberOfNomineesInEntrants
-				.size());
-		// test.award_ewebPage.verifySubmitBallotDate(startEndDate[1]);
+		// test.award_ewebPage.verifyNumberOfNominees(numberOfNomineesInEntrants
+		// .size());
+		test.award_ewebPage.verifySubmitBallotDate(startEndDate[1],
+				currentAwardName);
 		test.award_ewebPage.clickOnFiveYearNomineeMemoLink(currentAwardName);
 		maxPossibleNominees = test.award_ewebPage
 				.getNumberOfPossibleNominees(currentAwardName);
 		test.award_ewebPage
 				.clickOnViewNominationMaterialButton(currentAwardName);
-		// test.award_ewebPage.verifyCurrentTab("Select Nominees");
+
 		test.award_ewebPage.unselectAllNominees();
 		test.award_ewebPage
 				.verifyHeaderForUnselectedNominee("You have selected 0 out of "
@@ -135,37 +136,49 @@ public class ACS_AwardsVoting_Test {
 				.verifyNominationDocuments_viewProfileLink(currentAwardName);
 		test.award_ewebPage.clickOnCloseButton();
 		test.award_ewebPage.clickOnRankNominees_Save("Rank Nominees");
-		// test.award_ewebPage.verifyCurrentTab("Rank Nominees");
 		nomineeRanks = test.award_ewebPage
 				.enterRankForNominee(maxPossibleNominees);
 		test.award_ewebPage.verifyConfirmBallotPage();
 		test.award_ewebPage.verifyNomineeRankAndName(nomineeRanks,
 				maxPossibleNominees);
-		test.award_ewebPage.clickOnSubmit_EditBallot();
-		// test.award_ewebPage.verifyBallotConfirmationPage();
+		test.award_ewebPage.clickOnSubmit_EditBallot("Submit Ballot");
+
 		test.award_ewebPage.clickOnReturnToAwardDashboard();
-		test.award_ewebPage.verifyStatusAfterBallotSubmission();
+		test.award_ewebPage.verifyStatusAfterBallotSubmission(currentAwardName);
+		test.award_ewebPage
+				.submissionDateAfterBallotSubmission(currentAwardName);
 		invocationCount++;
 		System.out.println("value of i======================="
 				+ invocationCount);
+		listsOfRanks.add(nomineeRanks);
 
 	}
 
-	// @Test
+	@Test
 	public void Step05_TC05_Launch_Awards_Voting_IWeb() {
 		test.launchApplication(app_url_IWEB);
-		// String currentAwardName="ACS Award in Industrial Chemistry:2017";
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Awards");
 		test.homePageIWEB.clickOnTab("Find Award");
+		test.individualsPage.enterFieldValue("Award Name", currentAwardName);
 		test.individualsPage.enterFieldValue("Award Year",
 				DateUtil.getAnyDateForType("YYYY", 1, "year"));
 		test.individualsPage.clickGoButton();
-		test.individualsPage
-				.selectRandomGeneralAward_AwardNomination(currentAwardName);
 		test.invoicePage.expandDetailsMenu("award stages/rounds");
 		test.awardsPageAction.goToRecordForRound("1");
-		test.awardsPageAction.clickOnUpdateScoreLink();
+		test.awardsPageAction
+				.verifyUpdateScoreMessageOnClickingUpdateScore(test.homePageIWEB
+						.map().get("Round1 Update Score Success Message?"));
+		test.awardsPageAction
+				.verifyClosedStatusOnUpdatingScore(test.homePageIWEB.map().get(
+						"Round1 Closed Status?"));
+		test.invoicePage
+				.expandDetailsMenu("acs award stage - entries in this stage");
+		test.invoicePage.expandDetailsMenu("acs entries not in this stage");
+		test.awardsPageAction.verifyNomineesWithRankOne(listsOfRanks);
+		test.awardsPageAction.verifyNomineeWinnerStatus(test.homePageIWEB.map()
+				.get("Round1 Winner Status?"));
+
 	}
 
 	@BeforeClass
