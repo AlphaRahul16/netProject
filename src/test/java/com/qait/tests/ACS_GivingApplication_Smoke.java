@@ -78,7 +78,7 @@ public class ACS_GivingApplication_Smoke {
 		memberLoginDetails = test.memberShipPage.loginUsingValueFromSheet(loginAs);
 		mapIwebProductDetails = test.asm_Donate.getUserAddressDetails(memberLoginDetails, "PhoneNo", "Email",
 				"Address");
-		memberDetails = test.memberShipPage.getCustomerLastNameAndContactID(mapSheetData.get("Login_via_MemberNumber"));
+	/*memberDetails = test.memberShipPage.getCustomerLastNameAndContactID(mapSheetData.get("Login_via_MemberNumber"));*/
 	}
 
 	@Test

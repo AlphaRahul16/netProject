@@ -107,13 +107,11 @@ public class WebDriverFactory {
 
 	private static WebDriver getFirefoxDriver() {
 		String firefoxProfilePath = "./src/test/resources/Profile_"
-		+ ConfigPropertyReader.getProperty("tier");
+				+ ConfigPropertyReader.getProperty("tier");
 		FirefoxProfile profile;
 		String autoAuthPath = "src/test/resources/AddOn/autoauth-2.1-fx+fn.xpi";
 		File firefoxProfile = new File(firefoxProfilePath);// path of firefox
-//															// profile
-		
-//		profile = new FirefoxProfile();
+
 		profile = new FirefoxProfile(firefoxProfile);
 		File extension = new File(autoAuthPath);// path of AutoAuth
 		try {

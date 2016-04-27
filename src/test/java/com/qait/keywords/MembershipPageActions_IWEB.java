@@ -2280,9 +2280,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ " is verified for net balance\n");
 	}
 
-	public List<String> getCustomerLastNameAndContactID(
-			String SheetStatusForLogin) {
-		if (SheetStatusForLogin.equalsIgnoreCase("YES")) {
+	public List<String> getCustomerLastNameAndContactID() {
 			clickOnEditNameAndAddress();
 			switchToFrame("iframe1");
 			customerLname = getNameFromEditNameAndAddressButton("lastName");
@@ -2294,10 +2292,23 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 			memberDetails.add(customerContactId);
 			logMessage("Step : ");
-		}
 		return memberDetails;
-
 	}
+	
+	public List<String> getCustomerLastNameAndContactIDForYellowBook() {
+		clickOnEditNameAndAddress();
+		switchToFrame("iframe1");
+		customerLname = getNameFromEditNameAndAddressButton("lastName");
+		clickOnCancelButton();
+		handleAlert();
+		switchToDefaultContent();
+		customerContactId = element("txt_ContactId").getText().trim();
+		logMessage("Customer Last Name::"+customerLname);
+		logMessage("Customer ACS Member Number::"+customerLname);
+		memberDetails.add(customerLname);
+		memberDetails.add(customerContactId);
+	return memberDetails;
+}
 
 	public List<String> getCustomerFullNameAndContactID() {
 

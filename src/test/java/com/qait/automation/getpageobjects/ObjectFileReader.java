@@ -133,6 +133,11 @@ public class ObjectFileReader {
 		case stage2:
 			tier = "STAGE2/";
 			break;
+		case STAGE1:
+		case Stage1:
+		case stage1:
+			tier = "STAGE1/";
+			break;
 		case STAGE4:
 		case Stage4:
 		case stage4:
