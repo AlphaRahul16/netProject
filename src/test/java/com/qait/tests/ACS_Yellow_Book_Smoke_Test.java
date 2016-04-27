@@ -78,6 +78,14 @@ public class ACS_Yellow_Book_Smoke_Test {
 		test.acsYellowBookEwebPage.verifyUserIsOnHomePageOfYellowBookEweb();
 	}
 	
+	@Test
+	public void Step07_Update_Address_Field_And_Verify_On_Home_Page_Of_Yellow_Book_Eweb(){
+		test.acsYellowBookEwebPage.clickOnLinkOnHomePageYBEweb("contact");
+		test.acsYellowBookEwebPage.verifyUserNavigatedToParticularPage("State: Update My Yellow Book Contact Info");
+		test.acsYellowBookEwebPage.UpdateAddessField(mapSheetData.get("Address field 2"));
+		test.acsYellowBookEwebPage.clickOnCheckBoxAndThanClickOnSubmitButton(mapSheetData.get("checkbox?"));
+	}
+	
 	@BeforeClass
 	public void Open_Browser_Window() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
@@ -90,7 +98,7 @@ public class ACS_Yellow_Book_Smoke_Test {
 
 	@AfterClass
 	public void Close_Browser_Session() {
-		//test.closeBrowserSession();
+		test.closeBrowserSession();
 	}
 
 }
