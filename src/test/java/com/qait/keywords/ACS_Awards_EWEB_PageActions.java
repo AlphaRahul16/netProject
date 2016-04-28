@@ -378,15 +378,52 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		return nomineeRanks;
 	}
 
+	public Map<Integer, String> enterRankForNominee_rank1ForFirstNominee(
+			int maxPossibleNominees) {
+		List<Integer> ranks = new ArrayList<Integer>();
+		Map<Integer, String> nomineeRanks = new HashMap<Integer, String>();
+		isElementDisplayed("heading_rankAward");
+		logMessage("Info: User is navigated to Rank Award Nominees Page");
+		ranks = generateRandomNumberExceptOne(maxPossibleNominees);
+		for (int i = 0; i < ranks.size(); i++) {
+			logMessage("----" + ranks.get(i));
+		}
+		logMessage("list size:" + ranks.size());
+		Select dropdown_rank = new Select(element("drpdwn_rank",
+				String.valueOf(1)));
+		dropdown_rank.selectByVisibleText(String.valueOf(1));
+		for (int i = 0; i < maxPossibleNominees; i++) { // 10
+			Select dropdown_rank1 = new Select(element("drpdwn_rank",
+					String.valueOf(i + 2)));
+			dropdown_rank1.selectByVisibleText(String.valueOf(ranks.get(i)));
+		}
+		nomineeRanks = enterNomineeRankAndData(maxPossibleNominees);
+		clickOnConfirmBallotButton();
+		return nomineeRanks;
+	}
+
 	public void clickOnConfirmBallotButton() {
 		isElementDisplayed("btn_confirmBallot");
 		element("btn_confirmBallot").click();
 		logMessage("Info: Confirm Ballot Button is clicked\n");
-
 	}
 
 	public List<Integer> generateRandomNumber(int maxPossibleNominees) {
 		int max = maxPossibleNominees + 1, min = 1, num; // 11
+		Random random = new Random();
+		List<Integer> list = new ArrayList<Integer>();
+		while (list.size() < maxPossibleNominees) { // 10
+			num = random.nextInt((max - min)) + min;
+			if (list.contains(num))
+				continue;
+			else
+				list.add(num);
+		}
+		return list;
+	}
+
+	public List<Integer> generateRandomNumberExceptOne(int maxPossibleNominees) {
+		int max = maxPossibleNominees + 1, min = 2, num; // 11
 		Random random = new Random();
 		List<Integer> list = new ArrayList<Integer>();
 		while (list.size() < maxPossibleNominees) { // 10
@@ -407,7 +444,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			name2 = element("drpdwn_rank", String.valueOf(i)).getText();
 			name1 = name1.replace(name2, "");
 			nomineeName.put(i, name1.replace("\n", ""));
-			
+
 		}
 		Iterator<Entry<Integer, String>> it = nomineeName.entrySet().iterator();
 		while (it.hasNext()) {
@@ -498,10 +535,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 				+ element("txt_ballotSubmissionDate", awardName).getText()
 						.trim());
 	}
-	
-	
-//	public void 
-	
-	
+
+	// public void
 
 }
