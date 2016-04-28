@@ -3,9 +3,7 @@ package com.qait.tests;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
@@ -19,11 +17,12 @@ import com.qait.automation.utils.YamlReader;
 public class ACS_Yellow_Book_Smoke_Test {
 
 	TestSessionInitiator test;
+	String honorValue;
 	String app_url_eweb_yb;
 	String app_url_iweb_yb;
 	String app_url_iweb_nf;
 	
-	Map<String, String> mapSheetData = new HashMap<String, String>();
+	
 	List<String> customerList	= new ArrayList<String>();
 	private String caseID;
 
@@ -81,16 +80,30 @@ public class ACS_Yellow_Book_Smoke_Test {
 	@Test
 	public void Step07_Update_Address_Field_And_Verify_On_Home_Page_Of_Yellow_Book_Eweb(){
 		test.acsYellowBookEwebPage.clickOnLinkOnHomePageYBEweb("contact");
-		test.acsYellowBookEwebPage.verifyUserNavigatedToParticularPage("State: Update My Yellow Book Contact Info");
-		test.acsYellowBookEwebPage.UpdateAddessField(mapSheetData.get("Address field 2"));
-		test.acsYellowBookEwebPage.clickOnCheckBoxAndThanClickOnSubmitButton(mapSheetData.get("checkbox?"));
+		test.acsYellowBookEwebPage.verifyUserNavigatedToParticularPage("Update My Yellow Book Contact Info");
+		test.acsYellowBookEwebPage.updateAddessField(test.homePageIWEB.map().get("Address field 2"));
+		test.acsYellowBookEwebPage.clickOnCheckBoxAndThanClickOnSubmitButton(test.homePageIWEB.map().get("checkbox?"));
+		test.acsYellowBookEwebPage.verifyUpdatedAddressOnYellowBookHomePage(test.homePageIWEB.map().get("Address field 2"));
+	}
+	
+	@Test
+	public void Step08_Click_On_My_Biography_Link_And_Update_Biography_Fields_Than_Verify_Updated_Biography_On_Yellow_Book_Eweb_Home_Page(){
+		test.acsYellowBookEwebPage.clickOnLinkOnHomePageYBEweb("biography");
+		test.acsYellowBookEwebPage.verifyUserNavigatedToParticularPage("Update My Yellow Book Biography");
+		honorValue = test.acsYellowBookEwebPage.updateBiographyFields(test.homePageIWEB.map().get("Biography Honor field"));
+		test.acsYellowBookEwebPage.verifyUpdatedBiographyFieldOnYellowBookHomePage(honorValue);
+	}
+	
+	@Test
+	public void Step09_Click_On_Committe_Preferences_Link_And_Choose_Four_Random_Committees_And_Verify_Selected_Committees_On_Yellow_Book_Eweb_Home_Page(){
+		test.acsYellowBookEwebPage.clickOnLinkOnHomePageYBEweb("committees");
 	}
 	
 	@BeforeClass
 	public void Open_Browser_Window() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		Reporter.log("CASE ID : " + caseID, true);
-		mapSheetData = test.homePageIWEB.addValuesInMap("yellowBook", caseID);
+	test.homePageIWEB.addValuesInMap("yellowBook", caseID);
 		app_url_eweb_yb = getYamlValue("app_url_yellowBook");
 		app_url_iweb_yb = getYamlValue("app_url_iweb_yb");
 		app_url_iweb_nf = getYamlValue("app_url_IWEB");

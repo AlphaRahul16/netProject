@@ -131,7 +131,7 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 		logMessage("[ASSERTION PASSED]:: Verified User Navigated to "+title+" Page");
 	}
 
-	public void UpdateAddessField(String value) {
+	public void updateAddessField(String value) {
 		isElementDisplayed("inp_address2");
 		element("inp_address2").clear();
 		element("inp_address2").sendKeys(value);
@@ -145,6 +145,46 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 		}
 		isElementDisplayed("btn_submit");
 		element("btn_submit").click();
+	}
+
+	public void verifyUpdatedAddressOnYellowBookHomePage(String address) {
+		wait.waitForPageToLoadCompletely();
+		isElementDisplayed("txt_updated_add");
+		Assert.assertTrue(element("txt_updated_add").getText().contains(address));
+		logMessage("[ASSERTION PASSED]:: Verified Updated Address"+address+" on Yellow Book Home Page");
+	}
+
+	public String updateBiographyFields(String value) {
+		isElementDisplayed("inp_honor");
+		String honorValue = element("inp_honor").getText().trim()+ value;
+		element("inp_honor").clear();
+		element("inp_honor").sendKeys(honorValue);
+		isElementDisplayed("btn_submit");
+		element("btn_submit").click();
+		logMessage("Updated Honor field with value "+honorValue+" on Biography Page");
+		return honorValue;
+	}
+
+	public void verifyUpdatedBiographyFieldOnYellowBookHomePage(String honorValue) {
+		wait.waitForPageToLoadCompletely();
+		isElementDisplayed("txt_updated_honor", "Honors");
+		Assert.assertEquals(element("txt_updated_honor", "Honors").getText().trim(), honorValue);
+		logMessage("[ASSERTION PASSED]:: Verified Updated Biography Updated Field On Yellow Book Home Page");
+	}
+
+	public void selectFourRandomCommitteesFromCommitteesPreferencesPage(String str) {
+		wait.waitForPageToLoadCompletely();
+		int i = 1;
+		if (str.equalsIgnoreCase("Yes")) {
+		for (WebElement element : elements("drpdown_committee")) {
+			selectProvidedTextFromDropDown(element, "Ist");
+			i++;
+			if (i==4) {
+				break;
+			}
+		}
+		
+		}
 	}
 
 
