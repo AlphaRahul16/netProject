@@ -23,6 +23,9 @@ list_selectedNomineesPrepopulated         xpath                           //tr[@
 txt_unselectedNomineeHeader               classname                       info
 txt_selectedNomineeHeader                 classname                       nominationsAddedText 
 lnk_viewProfile                           xpath                          //td[text()='${nomineeName}']/following-sibling::td/a[text()='View Profile']
+lnk_Comment                               xpath                          //td[text()='${nomineeName}']/following-sibling::td/a[text()='Comment']
+txtArea_commnetStickyNotes                xpath                          //div[@class='stickyNoteText']/textarea
+img_closeButtonStickyNotes                classname                      closeButton
 img_viewProfileLoader                     xpath                          img[contains(@src,'loadingAnimation')]
 txt_viewProfileAwardName                  classname                      awtitle
 txt_numberOfPossibleNominees              xpath                          //h1[contains(text(),'${Award name}')]/..//div[@class='awardrightcol']/p[1]

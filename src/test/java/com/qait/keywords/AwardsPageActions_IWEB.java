@@ -281,10 +281,10 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		try {
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
-			isElementDisplayed("lnk_pages", "2");
+			isElementDisplayed("list_pages");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
-			int max = 6, min = 2;
+			int max = elements("list_pages").size() - 1, min = 2;
 			Random rand = new Random();
 			int randomNumber = rand.nextInt((max - min) + 1) + min;
 			// int randomNumber = (int) Math.random();
@@ -295,8 +295,9 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 					randomNumberInString));
 			logMessage("Step : page at the position of " + randomNumberInString
 					+ " is clicked in lnk_pages\n");
-
 		} catch (NoSuchElementException exp) {
+			System.out
+					.println("=======random page is not clicked on not present");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		}
@@ -460,6 +461,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void goToJudgeRecord(String judgeName) {
 		// wait.waitForPageToLoadCompletely();
 		wait.hardWait(1);
+		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("link_goToJudgeRecord", judgeName);
 		clickUsingXpathInJavaScriptExecutor(element("link_goToJudgeRecord",
 				judgeName));
@@ -634,7 +636,9 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 				+ closedMessage + "\n");
 	}
 
-	public void verifyNomineesWithRankOne(List<Map<Integer, String>> listsOfRanks,Map<Integer,String>confirmNominees) {
+	public void verifyNomineesWithRankOne(
+			List<Map<Integer, String>> listsOfRanks,
+			Map<Integer, String> confirmNominees) {
 		for (Map<Integer, String> map : listsOfRanks) {
 			String nomineeWithRankOne = map.get("1");
 			nomineesWithRankOne.put(nomineeWithRankOne, 0);
@@ -667,8 +671,8 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public void verifyNomineeWinnerStatus(String status,String nomineeName) {
-		
+	public void verifyNomineeWinnerStatus(String status, String nomineeName) {
+
 		isElementDisplayed("txt_winnerStatusForNomineee", nomineeName);
 		Assert.assertTrue(
 				element("txt_winnerStatusForNomineee", nomineeName).getText()

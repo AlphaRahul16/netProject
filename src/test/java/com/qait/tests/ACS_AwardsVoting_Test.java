@@ -128,6 +128,8 @@ public class ACS_AwardsVoting_Test {
 		test.award_ewebPage.verifyHeaderForSelectedNominee("You have selected "
 				+ maxPossibleNominees + " out of " + maxPossibleNominees
 				+ " possible nominations to rank.");
+		test.award_ewebPage.provideComments(listOfFirstAndLastName,
+				test.award_ewebPage.map().get("Comment Text"));
 		test.award_ewebPage.clickOnViewProfileLink(listOfFirstAndLastName);
 		test.award_ewebPage.verifyAwardName_viewProfileLink(currentAwardName);
 		test.award_ewebPage

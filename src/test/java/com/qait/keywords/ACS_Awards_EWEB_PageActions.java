@@ -12,6 +12,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,12 +25,15 @@ import com.qait.automation.utils.DateUtil;
 public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	WebDriver driver;
 	static String pagename = "ACS_Awards_EWEB";
+	@SuppressWarnings("unchecked")
 	List<String> selectedNomineeFirstNameList = new ArrayList();
+	@SuppressWarnings("unchecked")
 	List<String> selectedNomineeLastNameList = new ArrayList();
 	int timeOut, hiddenFieldTimeOut;
 
 	List<Integer> ranks = new ArrayList<Integer>();
 	Map<Integer, String> nomineeRanks = new HashMap<Integer, String>();
+	
 	List<Integer> uniqueRandom = new ArrayList<Integer>();
 	Map<String, String> judgesRanks = new HashMap<String, String>();
 
@@ -307,6 +311,40 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 	}
 
+	public void enterComments(String comment) {
+		isElementDisplayed("txtArea_commnetStickyNotes");
+		element("txtArea_commnetStickyNotes").sendKeys(comment);
+		logMessage("Step : comment " + comment + " is entered in sticky notes");
+	}
+
+	public void saveStickyNotes() {
+		isElementDisplayed("img_closeButtonStickyNotes");
+		element("img_closeButtonStickyNotes").click();
+		logMessage("Step : save button is clicked in sticky notes\n");
+	}
+
+	public void provideComments(List<List<String>> nomineeFirstNames,
+			String comment) {
+		clickOnCommentLink(nomineeFirstNames);
+		enterComments(comment);
+		saveStickyNotes();
+	}
+
+	public void clickOnCommentLink(List<List<String>> nomineeFirstNames) {
+		int max = nomineeFirstNames.size();
+		int min = 0;
+		Random rand = new Random();
+		int randomNumber = rand.nextInt((max - min) + 1) + min;
+		isElementDisplayed("lnk_Comment",
+				nomineeFirstNames.get(1).get(randomNumber));
+		element("lnk_Comment", nomineeFirstNames.get(1).get(randomNumber))
+				.click();
+		logMessage("Step : view profile link is clicked for "
+				+ nomineeFirstNames.get(1).get(randomNumber));
+		// wait.waitForElementToDisappear(element("img_viewProfileLoader"));
+
+	}
+
 	public void verifyAwardName_viewProfileLink(String awardName) {
 		switchToFrame("TB_iframeContent");
 		isElementDisplayed("txt_viewProfileAwardName", awardName);
@@ -365,9 +403,9 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	}
 
 	public void enterRankForNomineeInRound_1(int maxPossibleNominees) {
-		ranks = (List<Integer>) ThreadLocalRandom.current()
+		ranks =  ThreadLocalRandom.current()
 				.ints(2, maxPossibleNominees).distinct()
-				.limit(maxPossibleNominees - 1);
+				.limit(maxPossibleNominees - 1).boxed().collect(Collectors.toList());
 		for (int i = 0; i < ranks.size(); i++) {
 			logMessage("----" + ranks.get(i));
 		}
@@ -382,14 +420,13 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	
 	public void enterRankForNomineeForMultipleRounds(int maxPossibleNominees,
 			int invocationCount, String judges,
 			List<List<String>> FirstnameLastname) {
-
-		uniqueRandom = (List<Integer>) ThreadLocalRandom.current()
-				.ints(1, maxPossibleNominees).distinct()
-				.limit(maxPossibleNominees);
+		uniqueRandom =  ()ThreadLocalRandom.current()
+			    .ints(1, maxPossibleNominees).distinct()
+			    .limit(maxPossibleNominees).boxed().collect(Collectors.toList());
 
 		for (int j = 0; j < uniqueRandom.size(); j++) {
 			if (uniqueRandom.get(j) == 1) {

@@ -28,7 +28,8 @@ lnk_judgeProfile                          xpath               //a[text()='${judg
 txt_webLogin                              id                  F1_cst_web_login
 txt_customerId                            id                  F1_cst_id
 lnk_awardName_RoundName                   xpath               //a[text()='${awardName_roundName}']
-lnk_pages                                 xpath               //tr[@class='pager']/td/a[${randomPages}]
+list_pages                                classname            pager
+lnk_pages                                 xpath               //tr[@class='pager']//a
 btn_editJudge                             xpath               //img[@alt='edit award judge']
 link_judgeName                            id                  F1_HYPERLINK_1
 heading_updateScoreAlert                  xpath               //span[text()='Edit - ACS Award Stage Score Update']
