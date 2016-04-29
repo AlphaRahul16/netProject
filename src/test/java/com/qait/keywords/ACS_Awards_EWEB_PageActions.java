@@ -421,7 +421,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	}
 
 	
-	public void enterRankForNomineeForMultipleRounds(int maxPossibleNominees,
+	/*public void enterRankForNomineeForMultipleRounds(int maxPossibleNominees,
 			int invocationCount, String judges,
 			List<List<String>> FirstnameLastname) {
 		uniqueRandom =  ()ThreadLocalRandom.current()
@@ -466,10 +466,10 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			enterRankForNomineeForMultipleRounds(maxPossibleNominees,
 					invocationCount, judges, FirstnameLastname);
 			break;
-		}
+		}*/
 
-		isElementDisplayed("heading_rankAward");
-		logMessage("Info: User is navigated to Rank Award Nominees Page");
+		/*isElementDisplayed("heading_rankAward");
+		logMessage("Info: User is navigated to Rank Award Nominees Page");*/
 
 		// uniqueRandom = (List<Integer>) ThreadLocalRandom.current().ints(1,
 		// 10).distinct().limit(10);
@@ -496,11 +496,11 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		// dropdown_rank1.selectByVisibleText(String.valueOf(uniqueRandom.get(j)));
 		// }
 		//
-		nomineeRanks = enterNomineeRankAndData(maxPossibleNominees);
+	/*	nomineeRanks = enterNomineeRankAndData(maxPossibleNominees);
 		judgesRanks.put(judges, nomineeRanks.get(1));
 		clickOnConfirmBallotButton();
 		return nomineeRanks;
-	}
+	}*/
 
 	// public Map<Integer, String> enterRankForNominee(int maxPossibleNominees)
 	// {

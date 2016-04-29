@@ -138,10 +138,10 @@ public class ACS_AwardsVoting_Test {
 		test.award_ewebPage.clickOnRankNominees_Save("Rank Nominees");
 		// nomineeRanks = test.award_ewebPage
 		// .enterRankForNominee(maxPossibleNominees);
-		nomineeRanks = test.award_ewebPage
+		/*nomineeRanks = test.award_ewebPage
 				.enterRankForNominee_rank1ForFirstNominee(maxPossibleNominees,
 						nameOfJudges.get(invocationCount), invocationCount,
-						listOfFirstAndLastName, 1);
+						listOfFirstAndLastName, 1);*/
 		test.award_ewebPage.verifyConfirmBallotPage();
 		confirmNominees = test.award_ewebPage.verifyNomineeRankAndName(
 				nomineeRanks, maxPossibleNominees);
