@@ -24,7 +24,7 @@ public class ACS_AwardsVoting_Test {
 	TestSessionInitiator test;
 	String app_url_IWEB, app_url_Awards;
 	String[] startEndDate;
-	private String caseID,currentAwardName;
+	private String caseID, currentAwardName;
 	Map<String, List<String>> memberDetail = new HashMap<>();
 	List<String> memberDetails, nameOfJudges, rescusedJudges;
 	Set<String> numberOfNomineesInEntrants = new HashSet<>();
@@ -134,8 +134,12 @@ public class ACS_AwardsVoting_Test {
 				.verifyNominationDocuments_viewProfileLink(currentAwardName);
 		test.award_ewebPage.clickOnCloseButton();
 		test.award_ewebPage.clickOnRankNominees_Save("Rank Nominees");
+		// nomineeRanks = test.award_ewebPage
+		// .enterRankForNominee(maxPossibleNominees);
 		nomineeRanks = test.award_ewebPage
-				.enterRankForNominee(maxPossibleNominees);
+				.enterRankForNominee_rank1ForFirstNominee(maxPossibleNominees,
+						nameOfJudges.get(invocationCount), invocationCount,
+						listOfFirstAndLastName, 1);
 		test.award_ewebPage.verifyConfirmBallotPage();
 		confirmNominees = test.award_ewebPage.verifyNomineeRankAndName(
 				nomineeRanks, maxPossibleNominees);
@@ -157,10 +161,13 @@ public class ACS_AwardsVoting_Test {
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Awards");
 		test.homePageIWEB.clickOnTab("Find Award");
-		test.individualsPage.enterFieldValue("Award Name", currentAwardName);
+
 		test.individualsPage.enterFieldValue("Award Year",
 				DateUtil.getAnyDateForType("YYYY", 1, "year"));
 		test.individualsPage.clickGoButton();
+		test.individualsPage
+				.selectRandomGeneralAward_AwardNomination(currentAwardName
+						.trim());
 		test.invoicePage.expandDetailsMenu("award stages/rounds");
 		test.awardsPageAction.goToRecordForRound("1");
 		test.awardsPageAction
@@ -172,9 +179,10 @@ public class ACS_AwardsVoting_Test {
 		test.invoicePage
 				.expandDetailsMenu("acs award stage - entries in this stage");
 		test.invoicePage.expandDetailsMenu("acs entries not in this stage");
-		test.awardsPageAction.verifyNomineesWithRankOne(listsOfRanks,confirmNominees);
-//		test.awardsPageAction.verifyNomineeWinnerStatus(test.homePageIWEB.map()
-//				.get("Round1 Winner Status?"),"nominee name");
+		test.awardsPageAction.verifyNomineesWithRankOne(listsOfRanks,
+				confirmNominees);
+		// test.awardsPageAction.verifyNomineeWinnerStatus(test.homePageIWEB.map()
+		// .get("Round1 Winner Status?"),"nominee name");
 
 	}
 

@@ -101,7 +101,6 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 				editStartEndDate("end", "");
 				clickOnSaveButton();
 				switchToDefaultContent();
-
 				logMessage("Step : End date for round " + roundNumber
 						+ " is cleared\n");
 			} else {
