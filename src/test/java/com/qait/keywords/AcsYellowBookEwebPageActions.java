@@ -17,12 +17,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
+import com.itextpdf.text.log.SysoCounter;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DateUtil;
 
 public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 	WebDriver driver;
 	static String pagename = "ACS_YellowBook_EWEB";
+	List<String> committees = new ArrayList<String>();
 
 	public AcsYellowBookEwebPageActions(WebDriver driver) {
 		super(driver, pagename);
@@ -172,19 +174,87 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 		logMessage("[ASSERTION PASSED]:: Verified Updated Biography Updated Field On Yellow Book Home Page");
 	}
 
-	public void selectFourRandomCommitteesFromCommitteesPreferencesPage(String str) {
+	public List<String> selectFourRandomCommitteesFromCommitteesPreferencesPage(String str) {
 		wait.waitForPageToLoadCompletely();
-		int i = 1;
 		if (str.equalsIgnoreCase("Yes")) {
-		for (WebElement element : elements("drpdown_committee")) {
-			selectProvidedTextFromDropDown(element, "Ist");
-			i++;
-			if (i==4) {
+			_selectCommitteesWithoutWarningImage(3);
+			_selectCommitteesWithWarningImage();
+			
+		}
+		else{
+			_selectCommitteesWithoutWarningImage(4);
+		}
+		return _getSelectedCommitteesList();
+	}
+
+	private List<String> _getSelectedCommitteesList() {
+		wait.waitForPageToLoadCompletely();
+		for (int i = 1; i <=4; i++) {
+			System.out.println("committee"+i+"::"+element("txt_select_committee",""+i).getText().trim());
+			committees.add(element("txt_select_committee",""+i).getText().trim());
+		}
+		return committees;
+	}
+
+	private void _selectCommitteesWithWarningImage() {
+		selectProvidedTextFromDropDown(element("drpdown_img_alert"), "1st");
+		logMessage("selected 1 Committee With Warning Image");
+	}
+
+	private void _selectCommitteesWithoutWarningImage(int i) {
+		int j=1;
+		for (WebElement element : elements("drpdown_select")) {
+			selectProvidedTextFromDropDown(element, "1st");
+			if(j==i){
 				break;
 			}
+			j++;
 		}
-		
+		logMessage("selected "+i+" committees with out warning image");
+	}
+
+	public void clickOnContinueButton(String str) {
+		isElementDisplayed("bttn_continue");
+		element("bttn_continue").click();
+		if (str.equalsIgnoreCase("Yes")) {
+			isElementDisplayed("modal_popup");
+			isElementDisplayed("chkbox_understand");
+			isElementDisplayed("btn_cont");
+			logMessage("[ASSERTION PASSED]:: Verified Modal Box pop up is displayed with I Understand check box when selected committees have conflicts");
+			element("chkbox_understand").click();
+			element("btn_cont").click();
+			logMessage("Clicked on I understand check box and continue button on Modal Pop up");
+		}else{
+			Assert.assertFalse(element("modal_popup").isDisplayed(),"[ASSERTION FAILED]::  Modal Box pop up is displayed with I Understand check box when selected committees have no conflicts");
+			logMessage("[ASSERTION PASSED]:: Verified Modal Box pop up is not displayed with I Understand check box when selected committees have conflicts");
 		}
+	}
+
+	public void fillTheTestDataInSelectedCommitteeInputBoxAndClickOnSubmitButton() {
+		wait.waitForPageToLoadCompletely();
+		isElementDisplayed("inp_committee");
+		for (WebElement element : elements("inp_committee")) {
+			element.sendKeys("Test"+System.currentTimeMillis());
+		}
+		isElementDisplayed("btn_submit");
+		element("btn_submit").click();
+		logMessage("Step:: Filled the test data in Selected Committees Input Box and Click on Submit Button");
+	}
+
+	public void verifySelectedCommitteesOnYellowBookEwebHomePage(List<String> committeesList) {
+		wait.waitForPageToLoadCompletely();
+		isElementDisplayed("bttn_return_to_yb");
+		element("bttn_return_to_yb").click();
+		wait.waitForPageToLoadCompletely();
+		isElementDisplayed("list_select_committees");
+		int i=0;
+		for (WebElement element : elements("list_select_committees")) {
+			System.out.println("Actual Committees"+i+"::"+element.getText().trim());
+			System.out.println("Expected Committees"+i+"::"+committeesList.get(i));
+			Assert.assertEquals(element.getText().trim(), committeesList.get(i));
+			i++;
+		}
+		logMessage("[ASSERTION PASSED]:: Verified Selected Committees are displayed on Yellow Book Eweb Home Page");
 	}
 
 

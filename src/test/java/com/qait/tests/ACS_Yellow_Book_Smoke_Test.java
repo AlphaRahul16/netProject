@@ -24,6 +24,7 @@ public class ACS_Yellow_Book_Smoke_Test {
 	
 	
 	List<String> customerList	= new ArrayList<String>();
+	List<String> committeesList	= new ArrayList<String>();
 	private String caseID;
 
 	public ACS_Yellow_Book_Smoke_Test() {
@@ -97,13 +98,21 @@ public class ACS_Yellow_Book_Smoke_Test {
 	@Test
 	public void Step09_Click_On_Committe_Preferences_Link_And_Choose_Four_Random_Committees_And_Verify_Selected_Committees_On_Yellow_Book_Eweb_Home_Page(){
 		test.acsYellowBookEwebPage.clickOnLinkOnHomePageYBEweb("committees");
+		committeesList = test.acsYellowBookEwebPage.selectFourRandomCommitteesFromCommitteesPreferencesPage(test.homePageIWEB.map().get("checkbox?"));
+		test.acsYellowBookEwebPage.clickOnContinueButton(test.homePageIWEB.map().get("checkbox?"));
+	}
+	
+	@Test
+	public void Step10_Fill_The_Test_Data_In_Selected_Committee_Input_Box_And_Verify_Selected_Committees_On_Home_Page_Of_Yellow_Book_Eweb(){
+		test.acsYellowBookEwebPage.fillTheTestDataInSelectedCommitteeInputBoxAndClickOnSubmitButton();
+		test.acsYellowBookEwebPage.verifySelectedCommitteesOnYellowBookEwebHomePage(committeesList);
 	}
 	
 	@BeforeClass
 	public void Open_Browser_Window() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		Reporter.log("CASE ID : " + caseID, true);
-	test.homePageIWEB.addValuesInMap("yellowBook", caseID);
+		test.homePageIWEB.addValuesInMap("yellowBook", caseID);
 		app_url_eweb_yb = getYamlValue("app_url_yellowBook");
 		app_url_iweb_yb = getYamlValue("app_url_iweb_yb");
 		app_url_iweb_nf = getYamlValue("app_url_IWEB");

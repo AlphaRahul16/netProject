@@ -15,4 +15,13 @@ inp_honor					xpath						.//*[@id='ind_bio_honors_ext']
 txt_updated_honor			xpath						.//b[contains(text(),'${field}')]/../..//td[2]
 drpdown_committee			xpath						.//table[@class='cmtInactive']//select
 drpdown_img_alert			xpath						(.//center/../../following-sibling::td[1]/select)[1]
+drpdown_select				xpath						//select[contains(@id,'_0')]
+txt_select_committee		xpath						.//*[@id='div_${value}']//div[contains(@id,'lbl')]
+bttn_continue				xpath						.//*[@id='ButtonSave2']
+chkbox_understand			xpath						(.//input[@class='ACSCOICheckBox'])[2]
+btn_cont					xpath						(.//input[@value='Continue>>'])[2]
+modal_popup					xpath						.//*[@id='fancybox-content']
+inp_committee				xpath						.//div[@class='cmtInactiveText']/textarea
+bttn_return_to_yb			css							img[alt='Return to YellowBook Home']
+list_select_committees		xpath						.//div[contains(text(),'Committee Preferences')]/../..//td[2]
 ================================================================================================================================
