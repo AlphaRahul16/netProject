@@ -231,8 +231,8 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		for (int i = 1; i <= numberOfNomineesToSelect; i++) {
 			Random rand = new Random();
 			isElementDisplayed("list_nominees");
-			int max = elements("list_nominees").size() - 1;
-			int min = 0;
+			int sizeOfNominees = elements("list_nominees").size();
+			int min = 0, max = sizeOfNominees - 1;
 
 			System.out.println("min : ============:" + min
 					+ " max : ============ " + max);
@@ -454,7 +454,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		return nomineeName;
 	}
 
-	public void verifyNomineeRankAndName(
+	public Map<Integer,String> verifyNomineeRankAndName(
 			Map<Integer, String> expectedNomineeData, int maxPossibleNominees) {
 		Map<Integer, String> actualNomineeData = new HashMap<Integer, String>();
 		for (int i = 1; i <= maxPossibleNominees; i++) { // 10
@@ -472,6 +472,9 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		Assert.assertTrue(expectedNomineeData.equals(actualNomineeData),
 				"Assertion Failed: Nominees are not having assigned ranks");
 		logMessage("Assertion Passed: Nominees are having same assigned ranks");
+		
+		return actualNomineeData;
+		
 	}
 
 	public void verifyConfirmBallotPage() {

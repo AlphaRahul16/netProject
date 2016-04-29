@@ -596,7 +596,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnUpdateScoreButtonOnPopup() {
 		switchToFrame("iframe1");
-		isElementDisplayed("heading_updateScoreAlert");
+		isElementDisplayed("btn_updateScore");
 		element("btn_updateScore").click();
 		logMessage("Step : Clicked on Update Score button");
 		switchToDefaultContent();
@@ -635,8 +635,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 				+ closedMessage + "\n");
 	}
 
-	public void verifyNomineesWithRankOne(List<Map<Integer, String>> listsOfRanks) {
-
+	public void verifyNomineesWithRankOne(List<Map<Integer, String>> listsOfRanks,Map<Integer,String>confirmNominees) {
 		for (Map<Integer, String> map : listsOfRanks) {
 			String nomineeWithRankOne = map.get("1");
 			nomineesWithRankOne.put(nomineeWithRankOne, 0);
@@ -669,8 +668,8 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public void verifyNomineeWinnerStatus(String status) {
-		String nomineeName = "";
+	public void verifyNomineeWinnerStatus(String status,String nomineeName) {
+		
 		isElementDisplayed("txt_winnerStatusForNomineee", nomineeName);
 		Assert.assertTrue(
 				element("txt_winnerStatusForNomineee", nomineeName).getText()
