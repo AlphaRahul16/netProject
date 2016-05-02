@@ -20,6 +20,7 @@ import org.testng.Assert;
 import com.itextpdf.text.log.SysoCounter;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DateUtil;
+import com.thoughtworks.selenium.webdriven.commands.IsElementPresent;
 
 public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 	WebDriver driver;
@@ -31,23 +32,17 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 		this.driver = driver;
 	}
 
-	public void enterCredentials_LastNameMemberNumber_ACSID(
-			String credentialType, String nameOfJudge,
+	public void enterCredentials_LastNameMemberNumber_ACSID(String credentialType, String nameOfJudge,
 			Map<String, List<String>> memberDetail) {
 		System.out.println("login credential:" + nameOfJudge.split(" ")[0]);
-		System.out
-				.println("contact id:" + memberDetail.get(nameOfJudge).get(0));
-		System.out
-				.println("web login::" + memberDetail.get(nameOfJudge).get(1));
+		System.out.println("contact id:" + memberDetail.get(nameOfJudge).get(0));
+		System.out.println("web login::" + memberDetail.get(nameOfJudge).get(1));
 		checkCredentialType(credentialType);
 		if (credentialType.equalsIgnoreCase("lastNameMemberNumber")) {
-			enterCredential("credential1", nameOfJudge.split(" ")[0],
-					credentialType);
-			enterCredential("credential2",
-					memberDetail.get(nameOfJudge).get(0), credentialType);
+			enterCredential("credential1", nameOfJudge.split(" ")[0], credentialType);
+			enterCredential("credential2", memberDetail.get(nameOfJudge).get(0), credentialType);
 		} else if (credentialType.equalsIgnoreCase("ACSID")) {
-			enterCredential("credential1",
-					memberDetail.get(nameOfJudge).get(1), credentialType);
+			enterCredential("credential1", memberDetail.get(nameOfJudge).get(1), credentialType);
 			enterCredential("credential1", "beers418", credentialType);
 			enterCredential("credential2", "password", credentialType);
 		}
@@ -68,14 +63,12 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 		clickOnLoginButton();
 	}
 
-	public void enterCredential(String credential1_2, String credentialValue,
-			String credentialType) {
+	public void enterCredential(String credential1_2, String credentialValue, String credentialType) {
 		isElementDisplayed("inp_" + credential1_2);
 		element("inp_" + credential1_2).clear();
 		element("inp_" + credential1_2).sendKeys(credentialValue);
 		;
-		logMessage("Step : " + credentialValue + " is entered in "
-				+ credentialType + "\n");
+		logMessage("Step : " + credentialValue + " is entered in " + credentialType + "\n");
 	}
 
 	public void checkCredentialType(String typeName) {
@@ -93,51 +86,46 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 	public void verifyLoginInAwardApplicationSuccessfully(String judgeName) {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("hd_welcome");
-		Assert.assertTrue(
-				element("hd_welcome").getText().contains(
-						judgeName.split(" ")[0]),
+		Assert.assertTrue(element("hd_welcome").getText().contains(judgeName.split(" ")[0]),
 				"Heading is not contains last name");
-		Assert.assertTrue(
-				element("hd_welcome").getText().contains(
-						judgeName.split(" ")[1]),
+		Assert.assertTrue(element("hd_welcome").getText().contains(judgeName.split(" ")[1]),
 				"Heading is not contains first name");
-		logMessage("ASSERT PASSED : judge name " + judgeName
-				+ " login successfully\n");
+		logMessage("ASSERT PASSED : judge name " + judgeName + " login successfully\n");
 	}
 
 	public void loginWithLastNameAndMemberId(String lastName, String id) {
-		isElementDisplayed("inp_ln_id","Credential1");
-		isElementDisplayed("inp_ln_id","Credential2");
+		isElementDisplayed("inp_ln_id", "Credential1");
+		isElementDisplayed("inp_ln_id", "Credential2");
 		isElementDisplayed("inp_verify");
-		element("inp_ln_id","Credential1").sendKeys(lastName);
-		element("inp_ln_id","Credential2").sendKeys(id);
+		element("inp_ln_id", "Credential1").sendKeys(lastName);
+		element("inp_ln_id", "Credential2").sendKeys(id);
 		element("inp_verify").click();
-		logMessage("Login With "+lastName+" and "+id+" and clicked on login button");
+		logMessage("Login With " + lastName + " and " + id + " and clicked on login button");
 	}
 
 	public void verifyUserIsOnHomePageOfYellowBookEweb() {
-		isElementDisplayed("header_home","YellowBook Home");
+		isElementDisplayed("header_home", "YellowBook Home");
 		logMessage("[ASSERTION PASSED]:: Verified User Is On Home Page of Yellow Book Eweb");
 	}
 
 	public void clickOnLinkOnHomePageYBEweb(String link) {
-		isElementDisplayed("link_header",link);
-		element("link_header",link).click();
-		logMessage("Clicked On My "+link+" on Home Page Of Yellow Book Eweb");
+		isElementDisplayed("link_header", link);
+		element("link_header", link).click();
+		logMessage("Clicked On My " + link + " on Home Page Of Yellow Book Eweb");
 	}
 
 	public void verifyUserNavigatedToParticularPage(String title) {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("txt_toptitle");
-		Assert.assertEquals(element("txt_toptitle").getText().trim(),title);
-		logMessage("[ASSERTION PASSED]:: Verified User Navigated to "+title+" Page");
+		Assert.assertEquals(element("txt_toptitle").getText().trim(), title);
+		logMessage("[ASSERTION PASSED]:: Verified User Navigated to " + title + " Page");
 	}
 
 	public void updateAddessField(String value) {
 		isElementDisplayed("inp_address2");
 		element("inp_address2").clear();
 		element("inp_address2").sendKeys(value);
-		logMessage("Updated Address field 2 with value "+value);
+		logMessage("Updated Address field 2 with value " + value);
 	}
 
 	public void clickOnCheckBoxAndThanClickOnSubmitButton(String str) {
@@ -153,17 +141,17 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("txt_updated_add");
 		Assert.assertTrue(element("txt_updated_add").getText().contains(address));
-		logMessage("[ASSERTION PASSED]:: Verified Updated Address"+address+" on Yellow Book Home Page");
+		logMessage("[ASSERTION PASSED]:: Verified Updated Address" + address + " on Yellow Book Home Page");
 	}
 
 	public String updateBiographyFields(String value) {
 		isElementDisplayed("inp_honor");
-		String honorValue = element("inp_honor").getText().trim()+ value;
+		String honorValue = element("inp_honor").getText().trim() + value;
 		element("inp_honor").clear();
 		element("inp_honor").sendKeys(honorValue);
 		isElementDisplayed("btn_submit");
 		element("btn_submit").click();
-		logMessage("Updated Honor field with value "+honorValue+" on Biography Page");
+		logMessage("Updated Honor field with value " + honorValue + " on Biography Page");
 		return honorValue;
 	}
 
@@ -177,41 +165,57 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 	public List<String> selectFourRandomCommitteesFromCommitteesPreferencesPage(String str) {
 		wait.waitForPageToLoadCompletely();
 		if (str.equalsIgnoreCase("Yes")) {
-			_selectCommitteesWithoutWarningImage(3);
-			_selectCommitteesWithWarningImage();
-			
+			if(checkIfElementIsThere("txt_currentCommittee")){
+				logMessage("First committee pre-selected");
+			    _selectCommitteesWithoutWarningImage(2);
+			    _selectCommitteesWithWarningImage();
+			}
+			else{
+			    _selectCommitteesWithoutWarningImage(3);
+				_selectCommitteesWithWarningImage();	
+			}
 		}
 		else{
-			_selectCommitteesWithoutWarningImage(4);
-		}
+			if(checkIfElementIsThere("txt_currentCommittee")) {
+			   _selectCommitteesWithoutWarningImage(3);
+			}
+			else{
+				_selectCommitteesWithoutWarningImage(4);
+			}
+		}	
 		return _getSelectedCommitteesList();
 	}
 
 	private List<String> _getSelectedCommitteesList() {
 		wait.waitForPageToLoadCompletely();
-		for (int i = 1; i <=4; i++) {
-			System.out.println("committee"+i+"::"+element("txt_select_committee",""+i).getText().trim());
-			committees.add(element("txt_select_committee",""+i).getText().trim());
+		for (int i = 1; i <= 4; i++) {
+			System.out.println("committee" + i + "::" + element("txt_select_committee", "" + i).getText().trim());
+			committees.add(element("txt_select_committee", "" + i).getText().trim());
 		}
 		return committees;
 	}
-
+	
 	private void _selectCommitteesWithWarningImage() {
-		selectProvidedTextFromDropDown(element("drpdown_img_alert"), "1st");
-		logMessage("selected 1 Committee With Warning Image");
-	}
+		Select dropdown_committee = new Select(element("drpdown_img_alert"));
+		dropdown_committee.selectByIndex(1);
+	//selectProvidedTextFromDropDown(element("drpdown_img_alert"), "1st");
+	logMessage("selected 1 Committee With Warning Image");
+}
 
-	private void _selectCommitteesWithoutWarningImage(int i) {
-		int j=1;
-		for (WebElement element : elements("drpdown_select")) {
-			selectProvidedTextFromDropDown(element, "1st");
-			if(j==i){
-				break;
-			}
-			j++;
+private void _selectCommitteesWithoutWarningImage(int i) {
+	int j=1;
+	for (WebElement element : elements("drpdown_select")) {
+		Select dropdown_committee = new Select(element);
+		dropdown_committee.selectByIndex(1);
+//		selectDropDownValu("2nd");
+//		selectProvidedTextFromDropDown(element, "1st");
+		if(j==i){
+			break;
 		}
-		logMessage("selected "+i+" committees with out warning image");
+		j++;
 	}
+	logMessage("selected "+i+" committees with out warning image");
+}
 
 	public void clickOnContinueButton(String str) {
 		isElementDisplayed("bttn_continue");
@@ -220,13 +224,16 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 			isElementDisplayed("modal_popup");
 			isElementDisplayed("chkbox_understand");
 			isElementDisplayed("btn_cont");
-			logMessage("[ASSERTION PASSED]:: Verified Modal Box pop up is displayed with I Understand check box when selected committees have conflicts");
+			logMessage(
+					"[ASSERTION PASSED]:: Verified Modal Box pop up is displayed with I Understand check box when selected committees have conflicts");
 			element("chkbox_understand").click();
 			element("btn_cont").click();
 			logMessage("Clicked on I understand check box and continue button on Modal Pop up");
-		}else{
-			Assert.assertFalse(element("modal_popup").isDisplayed(),"[ASSERTION FAILED]::  Modal Box pop up is displayed with I Understand check box when selected committees have no conflicts");
-			logMessage("[ASSERTION PASSED]:: Verified Modal Box pop up is not displayed with I Understand check box when selected committees have conflicts");
+		} else {
+			Assert.assertFalse(element("modal_popup").isDisplayed(),
+					"[ASSERTION FAILED]::  Modal Box pop up is displayed with I Understand check box when selected committees have no conflicts");
+			logMessage(
+					"[ASSERTION PASSED]:: Verified Modal Box pop up is not displayed with I Understand check box when selected committees have conflicts");
 		}
 	}
 
@@ -234,7 +241,7 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("inp_committee");
 		for (WebElement element : elements("inp_committee")) {
-			element.sendKeys("Test"+System.currentTimeMillis());
+			element.sendKeys("Test" + System.currentTimeMillis());
 		}
 		isElementDisplayed("btn_submit");
 		element("btn_submit").click();
@@ -247,15 +254,14 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 		element("bttn_return_to_yb").click();
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("list_select_committees");
-		int i=0;
+		int i = 0;
 		for (WebElement element : elements("list_select_committees")) {
-			System.out.println("Actual Committees"+i+"::"+element.getText().trim());
-			System.out.println("Expected Committees"+i+"::"+committeesList.get(i));
+			System.out.println("Actual Committees" + i + "::" + element.getText().trim());
+			System.out.println("Expected Committees" + i + "::" + committeesList.get(i));
 			Assert.assertEquals(element.getText().trim(), committeesList.get(i));
 			i++;
 		}
 		logMessage("[ASSERTION PASSED]:: Verified Selected Committees are displayed on Yellow Book Eweb Home Page");
 	}
-
 
 }

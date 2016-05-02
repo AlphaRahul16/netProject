@@ -24,4 +24,5 @@ modal_popup					xpath						.//*[@id='fancybox-content']
 inp_committee				xpath						.//div[@class='cmtInactiveText']/textarea
 bttn_return_to_yb			css							img[alt='Return to YellowBook Home']
 list_select_committees		xpath						.//div[contains(text(),'Committee Preferences')]/../..//td[2]
+txt_currentCommittee        css                         .cmtOrder
 ================================================================================================================================
