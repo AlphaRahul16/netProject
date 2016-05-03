@@ -35,10 +35,9 @@ public class Subscription_Fulfillment_Test {
 		 test.homePageIWEB.clickOnSideBarTab("Individuals");
 		 test.memberShipPage.selectAndRunQueryMembership("Query Individual",getSubscriptionInfo.getSubscriptionInfo("queryName"));
 		 memberDetails = test.memberShipPage.getMemberDetails();
-
 		//test.homePageIWEB.clickFindForIndividualsSearch();
 		//test.individualsPage.checkMemberDetailsAndSearch("Member Flag");
-		memberDetails = test.memberShipPage.selectMemberAndGetDetails();
+//		memberDetails = test.memberShipPage.selectMemberAndGetDetails();
 	}
 
 	@Test
@@ -194,7 +193,7 @@ public class Subscription_Fulfillment_Test {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
 
-	 @AfterClass(alwaysRun = true)
+//	 @AfterClass(alwaysRun = true)
 	public void Close_Test_Session() {
 		test.closeBrowserSession();
 	}

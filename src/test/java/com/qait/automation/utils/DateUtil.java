@@ -18,7 +18,7 @@ public class DateUtil {
 	static Calendar cal;
 	static SimpleDateFormat s;
 	String[] arr;
-	static Date date;
+	static Date date, date1, date2;
 
 	public static String converttimestamp(Long unixSeconds) {
 		Date date;
@@ -97,61 +97,55 @@ public class DateUtil {
 		return date;
 	}
 
-	public static String getAnyDateForType(String formate,int difference,String type)
-	{
+	public static String getAnyDateForType(String formate, int difference,
+			String type) {
 		SimpleDateFormat formatter = new SimpleDateFormat(formate);
 		Calendar cal = Calendar.getInstance();
-		if(type.equalsIgnoreCase("year"))
-		{
-			
-		cal.add(Calendar.YEAR, difference); 
-		
-		}
-		else if(type.equalsIgnoreCase("month"))
-		{
+		if (type.equalsIgnoreCase("year")) {
+
+			cal.add(Calendar.YEAR, difference);
+
+		} else if (type.equalsIgnoreCase("month")) {
 			cal.add(Calendar.MONTH, difference);
-		}
-		else if(type.equalsIgnoreCase("date"))
-		{
+		} else if (type.equalsIgnoreCase("date")) {
 			cal.add(Calendar.DAY_OF_MONTH, difference);
 		}
 		String nextYear = formatter.format(cal.getTime());
-		
+
 		return nextYear;
 	}
 
 	public static String getAddYearWithLessOnedayInStringWithGivenFormate(
-			String formate, String yearToAdd,String timeZone) {
+			String formate, String yearToAdd, String timeZone) {
 		int yearToAddInInteger = Integer.parseInt(yearToAdd);
-//		Calendar cal = Calendar.getInstance();
-//		cal.add(Calendar.DATE, 365 * yearToAddInInteger);
-//		Date nextYear = cal.getTime();
-//		SimpleDateFormat formatter = new SimpleDateFormat(formate);
-//		formatter.setTimeZone(TimeZone.getTimeZone(timeZone));
-//		String ourformat = formatter.format(nextYear.getTime());
-		
-		
+		// Calendar cal = Calendar.getInstance();
+		// cal.add(Calendar.DATE, 365 * yearToAddInInteger);
+		// Date nextYear = cal.getTime();
+		// SimpleDateFormat formatter = new SimpleDateFormat(formate);
+		// formatter.setTimeZone(TimeZone.getTimeZone(timeZone));
+		// String ourformat = formatter.format(nextYear.getTime());
+
 		Calendar calendar = Calendar.getInstance();
-		 Date currentDate = calendar.getTime();
+		Date currentDate = calendar.getTime();
 		calendar.setTime(currentDate);
-	    calendar.add(Calendar.YEAR, yearToAddInInteger);
-	    calendar.add(Calendar.DATE, -1);
-	    Date nextYear = calendar.getTime();
-	    SimpleDateFormat formatter = new SimpleDateFormat(formate);
+		calendar.add(Calendar.YEAR, yearToAddInInteger);
+		calendar.add(Calendar.DATE, -1);
+		Date nextYear = calendar.getTime();
+		SimpleDateFormat formatter = new SimpleDateFormat(formate);
 		formatter.setTimeZone(TimeZone.getTimeZone(timeZone));
 		String ourformat = formatter.format(nextYear.getTime());
 		return ourformat;
 	}
 
-	public static String getCurrentdateInStringWithGivenFormateForTimeZone(String formate,String timeZone) {
-		DateFormat df=new SimpleDateFormat(formate);
+	public static String getCurrentdateInStringWithGivenFormateForTimeZone(
+			String formate, String timeZone) {
+		DateFormat df = new SimpleDateFormat(formate);
 		df.setTimeZone(TimeZone.getTimeZone(timeZone));
 		String date = df.format(new Date());
 		return date;
 	}
 
-	public static Date convertStringToDate(String dateString,String formate)
-	{
+	public static Date convertStringToDate(String dateString, String formate) {
 		DateFormat sourceFormat = new SimpleDateFormat(formate);
 		try {
 			date = sourceFormat.parse(dateString);
@@ -162,11 +156,9 @@ public class DateUtil {
 		return date;
 	}
 
+	public static String getCurrentTime(String timeFormat, String timeZone) {
 
-	public static String getCurrentTime(String timeFormat, String timeZone)
-	{
-
-		/* Specifying the format */ 
+		/* Specifying the format */
 		DateFormat dateFormat = new SimpleDateFormat(timeFormat);
 		/* Setting the Timezone */
 		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(timeZone));
@@ -184,23 +176,48 @@ public class DateUtil {
 		return currentTime;
 	}
 
-	public static int getCurrentYear()
-	{
+	public static int getCurrentYear() {
 
 		int year = Calendar.getInstance().get(Calendar.YEAR);
-		System.out.println("Current Year is : "+year);
+		System.out.println("Current Year is : " + year);
 		return year;
 	}
-	
-	
-	public long numberOfDaysBetweenTwoDays(String date1,String date2,String format){
-		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-		 final LocalDate firstDate = LocalDate.parse(date1, formatter);
-	        final LocalDate secondDate = LocalDate.parse(date2, formatter);
-	        final long days = ChronoUnit.DAYS.between(firstDate, secondDate);
-	        System.out.println("Days between: " + days);
-	        return days;
+
+	// public long numberOfDaysBetweenTwoDays(String date1,String date2,String
+	// format){
+	// final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+	// final LocalDate firstDate = LocalDate.parse(date1, formatter);
+	// final LocalDate secondDate = LocalDate.parse(date2, formatter);
+	// final long days = ChronoUnit.DAYS.between(firstDate, secondDate);
+	// System.out.println("Days between: " + days);
+	// return days;
+	// }
+	public static long numberOfDaysBetweenTwoDays(String dateFormate,
+			String startDate, String endDate) {
+		System.out.println("startdate :"+startDate);
+		System.out.println("end date :"+endDate);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("M/d/yyyy");
+		try {
+			date1 = sdf.parse(startDate);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			date2 = sdf.parse(endDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		long diff1 = Math.round((date2.getTime() - date1.getTime()));
+
+		long diff = Math.round((date2.getTime() - date1.getTime())
+				/ (double) 86400000);
+		System.out.println("diff :" + diff);
+		System.out.println("diff 1" + diff1);
+
+		return diff;
 	}
-
-
 }

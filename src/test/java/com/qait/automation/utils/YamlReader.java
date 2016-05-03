@@ -51,7 +51,12 @@ public class YamlReader {
 				|| tier.equalsIgnoreCase("Stage2")
 				|| tier.equalsIgnoreCase("stage2")) {
 			yamlFilePath = "src/test/resources/testdata/STAGE2_TestData.yml";
-		} else if (tier.equalsIgnoreCase("prod")
+		} else if (tier.equalsIgnoreCase("STAGE1")
+				|| tier.equalsIgnoreCase("Stage1")
+				|| tier.equalsIgnoreCase("stage1")) {
+			yamlFilePath = "src/test/resources/testdata/STAGE1_TestData.yml";
+		}  
+		else if (tier.equalsIgnoreCase("prod")
 				|| tier.equalsIgnoreCase("production")) {
 			yamlFilePath = "src/test/resources/testdata/PROD_TestData.yml";
 		} else {

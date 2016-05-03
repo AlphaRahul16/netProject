@@ -22,7 +22,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -40,12 +39,15 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.Reporter;
 
+import Client.Robotil;
+
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.SeleniumWait;
+
 /**
  * 
  * @author avnishrawat
- *
+ * 
  */
 public class BaseUi {
 
@@ -137,8 +139,8 @@ public class BaseUi {
 		String actualPageTitle = getPageTitle().trim();
 		logMessage("ASSERT PASSED: PageTitle for " + actualPageTitle
 				+ " contains: '" + expectedPagetitle + "'.");
-				wait.resetImplicitTimeout(timeOut);
-				wait.resetExplicitTimeout(timeOut);
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
 	}
 
 	protected WebElement getElementByIndex(List<WebElement> elementlist,
@@ -230,7 +232,7 @@ public class BaseUi {
 		}
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
-		
+
 	}
 
 	protected void waitForAlertToAppear() {
@@ -336,34 +338,34 @@ public class BaseUi {
 		}
 	}
 
-//	public static String getPageTextOfPdf(String fileURL, int pageNumber) {
-//		PDFParser parser;
-//		String parsedText = null;
-//
-//		PDFTextStripper pdfStripper = null;
-//		PDDocument pdDoc = null;
-//		COSDocument cosDoc = null;
-//
-//		InputStream input;
-//		try {
-//			input = new URL(fileURL).openStream();
-//			parser = new PDFParser(input);
-//			parser.parse();
-//			cosDoc = parser.getDocument();
-//			pdfStripper = new PDFTextStripper();
-//			pdDoc = new PDDocument(cosDoc);
-//			pdfStripper.setStartPage(pageNumber);
-//			pdfStripper.setEndPage(pageNumber);
-//			parsedText = pdfStripper.getText(pdDoc);
-//			cosDoc.close();
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//
-//		return parsedText;
-//	}
+	// public static String getPageTextOfPdf(String fileURL, int pageNumber) {
+	// PDFParser parser;
+	// String parsedText = null;
+	//
+	// PDFTextStripper pdfStripper = null;
+	// PDDocument pdDoc = null;
+	// COSDocument cosDoc = null;
+	//
+	// InputStream input;
+	// try {
+	// input = new URL(fileURL).openStream();
+	// parser = new PDFParser(input);
+	// parser.parse();
+	// cosDoc = parser.getDocument();
+	// pdfStripper = new PDFTextStripper();
+	// pdDoc = new PDDocument(cosDoc);
+	// pdfStripper.setStartPage(pageNumber);
+	// pdfStripper.setEndPage(pageNumber);
+	// parsedText = pdfStripper.getText(pdDoc);
+	// cosDoc.close();
+	// } catch (MalformedURLException e) {
+	// e.printStackTrace();
+	// } catch (IOException e) {
+	// e.printStackTrace();
+	// }
+	//
+	// return parsedText;
+	// }
 
 	protected void holdExecution(int milliSeconds) {
 		try {
@@ -406,7 +408,6 @@ public class BaseUi {
 		logMessage("Step : navigate to back page\n");
 	}
 
-
 	public void navigateToUrl(String URL) {
 		driver.navigate().to(URL);
 		logMessage("STEP : Navigate to URL :- " + URL);
@@ -440,21 +441,22 @@ public class BaseUi {
 		executor.executeScript("arguments[0].click();", element);
 
 	}
-	
-	public void EnterTextInFieldByJavascript(String id,String Text) {
+
+	public void EnterTextInFieldByJavascript(String id, String Text) {
 		System.out.println(Text);
-		//element.sendKeys(Text);
-		executeJavascript("document.getElementById('"+id+"').setAttribute('value', '"+Text+"')");
-        logMessage("Step : text entered as "+Text);
+		// element.sendKeys(Text);
+		executeJavascript("document.getElementById('" + id
+				+ "').setAttribute('value', '" + Text + "')");
+		logMessage("Step : text entered as " + Text);
 	}
-	
-	public void EnterTextInField(WebElement ele,String Text) {
+
+	public void EnterTextInField(WebElement ele, String Text) {
 		System.out.println(Text);
 		ele.click();
 		ele.clear();
 		ele.sendKeys(Text);
 
-        logMessage("Step : text entered as "+Text);
+		logMessage("Step : text entered as " + Text);
 	}
 
 	public void sendKeysUsingXpathInJavaScriptExecutor(WebElement element,
@@ -577,36 +579,71 @@ public class BaseUi {
 		if ((isBrowser("ie") || isBrowser("internetexplorer") || isBrowser("chrome"))) {
 			System.out.println("in authentication");
 			setClipboardData(uName);
-			Robot robot;
+			// Robot robot;
+			// try {
+			// robot = new Robot();
+			// setClipboardData(uName);
+			// robot.delay(2000);
+			// robot.keyPress(KeyEvent.VK_CONTROL);
+			// robot.keyPress(KeyEvent.VK_V);
+			// robot.keyRelease(KeyEvent.VK_V);
+			// robot.keyRelease(KeyEvent.VK_CONTROL);
+			// robot.delay(2000);
+			// robot.keyPress(KeyEvent.VK_TAB);
+			// robot.keyRelease(KeyEvent.VK_TAB);
+			// setClipboardData(password);
+			// robot.delay(2000);
+			// robot.keyPress(KeyEvent.VK_CONTROL);
+			// robot.keyPress(KeyEvent.VK_V);
+			// robot.keyRelease(KeyEvent.VK_V);
+			// robot.keyRelease(KeyEvent.VK_CONTROL);
+			// robot.delay(2000);
+			// robot.keyPress(KeyEvent.VK_ENTER);
+			// robot.keyRelease(KeyEvent.VK_ENTER);
+			// } catch (AWTException e) {
+			// e.printStackTrace();
+			// }
+
+			Robotil robotil;
 			try {
-				robot = new Robot();
+				String seleniumServer = ConfigPropertyReader
+						.getProperty("seleniumserver");
+				String seleniumserverhost = ConfigPropertyReader
+						.getProperty("seleniumserverhost");
+				if (seleniumServer.equalsIgnoreCase("local")) {
+					robotil = new Robotil("127.0.0.1", 6666);
+				} else {
+					robotil = new Robotil(
+							seleniumserverhost.split(":")[1].replaceAll("//",
+									""), 6666);
+				}
+
 				setClipboardData(uName);
-				robot.delay(2000);
-				robot.keyPress(KeyEvent.VK_CONTROL);
-				robot.keyPress(KeyEvent.VK_V);
-				robot.keyRelease(KeyEvent.VK_V);
-				robot.keyRelease(KeyEvent.VK_CONTROL);
-				robot.delay(2000);
-				robot.keyPress(KeyEvent.VK_TAB);
-				robot.keyRelease(KeyEvent.VK_TAB);
+				// robotil.wait(2000);
+				robotil.pressKey(KeyEvent.VK_CONTROL);
+				robotil.pressKey(KeyEvent.VK_V);
+				robotil.releaseKey(KeyEvent.VK_V);
+				robotil.releaseKey(KeyEvent.VK_CONTROL);
+				robotil.pressKey(KeyEvent.VK_TAB);
+				robotil.releaseKey(KeyEvent.VK_TAB);
 				setClipboardData(password);
-				robot.delay(2000);
-				robot.keyPress(KeyEvent.VK_CONTROL);
-				robot.keyPress(KeyEvent.VK_V);
-				robot.keyRelease(KeyEvent.VK_V);
-				robot.keyRelease(KeyEvent.VK_CONTROL);
-				robot.delay(2000);
-				robot.keyPress(KeyEvent.VK_ENTER);
-				robot.keyRelease(KeyEvent.VK_ENTER);
-			} catch (AWTException e) {
+				robotil.pressKey(KeyEvent.VK_CONTROL);
+				robotil.pressKey(KeyEvent.VK_V);
+				robotil.releaseKey(KeyEvent.VK_V);
+				robotil.releaseKey(KeyEvent.VK_CONTROL);
+				robotil.pressKey(KeyEvent.VK_ENTER);
+				robotil.releaseKey(KeyEvent.VK_ENTER);
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
+
 		}
 	}
-	
+
 	public void enterAuthenticationAutoIt() {
 		try {
-			Runtime.getRuntime().exec("./src/test/resources/PopUpHandlers/popup.exe");
+			Runtime.getRuntime().exec(
+					"./src/test/resources/PopUpHandlers/popup.exe");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -652,6 +689,7 @@ public class BaseUi {
 		return finalStr;
 
 	}
+
 	public boolean isFileDownloaded(String downloadPath, String fileName) {
 		boolean flag = false;
 		File dir = new File(downloadPath);
@@ -663,7 +701,7 @@ public class BaseUi {
 			if (dir_contents[i].getName().contains(fileName))
 				return flag = true;
 		}
-    
+
 		return flag;
 	}
 	

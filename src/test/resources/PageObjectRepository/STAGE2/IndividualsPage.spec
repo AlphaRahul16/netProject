@@ -45,6 +45,7 @@ btnArrowProdName                         xpath       //td[contains(text(),'${pro
 list_emailAddressType                    xpath         //tbody/tr/td[4]
 txt_emailID                             xpath          //tbody/tr[${rowNumber}]/td[5]
 link_addRecordEmail                     xpath          //a[@title='Add Record: e-mail addresses']
+link_editEmail                          xpath         (//a[@title='edit record']/i)[${1}]
 select_emailType                        id               eml_type
 inp_emailAddress                        id              eml_address
 btn_saveButton                          id             ButtonSave
@@ -61,4 +62,5 @@ btn_editAwardsEntry                     css               img[alt*='edit']
 txtarea_CitationRecommedation          xpath            //label[contains(text(),'${value}')]/preceding-sibling::textarea
 inp_presentposition                    xpath            //label[contains(text(),'present position')]/preceding-sibling::input
 drpdwn_industrytype                    css                select[id*='${value}']>option[selected]
+link_editEmail                         xpath              (//a[@title='edit record']/i)[${1}]
 ======================================================================================================================================

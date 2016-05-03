@@ -1957,7 +1957,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnSaveAndFinish();
 		switchToDefaultContent();
 		handleAlert();
-
 		waitForSpinner();
 		System.out.println("actual:-" + map().get("memberPackage"));
 		System.out.println("expected:-" + map().get("priceValue?"));
@@ -2290,9 +2289,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ " is verified for net balance\n");
 	}
 
-	public List<String> getCustomerLastNameAndContactID()
-	{
-		
+
+
+	public List<String> getCustomerLastNameAndContactID() {
+
 			clickOnEditNameAndAddress();
 			switchToFrame("iframe1");
 			customerLname = getNameFromEditNameAndAddressButton("lastName");
@@ -2302,11 +2302,25 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			customerContactId = element("txt_renewalContactId").getText();
 			memberDetails.add(customerLname);
 			memberDetails.add(customerContactId);
-		
-		
-		return memberDetails;
 
+
+		return memberDetails;
 	}
+	
+	public List<String> getCustomerLastNameAndContactIDForYellowBook() {
+		clickOnEditNameAndAddress();
+		switchToFrame("iframe1");
+		customerLname = getNameFromEditNameAndAddressButton("lastName");
+		clickOnCancelButton();
+		handleAlert();
+		switchToDefaultContent();
+		customerContactId = element("txt_ContactId").getText().trim();
+		logMessage("Customer Last Name::"+customerLname);
+		logMessage("Customer ACS Member Number::"+customerLname);
+		memberDetails.add(customerLname);
+		memberDetails.add(customerContactId);
+	return memberDetails;
+}
 
 	public List<String> getCustomerFullNameAndContactID() {
 

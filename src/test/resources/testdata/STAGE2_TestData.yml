@@ -333,7 +333,7 @@ ReinstateMemberIWEB:
          memberPackage: "Regular Member 2Y Dues C&EN-Electronic"
          jobTitle: NR-No Response
          industry: 2-Independent Consulting
-         batch: "ACS: QA TEST BATCH"
+         batch: "ACS: SELENIUM_BATCH"
          PaymentType: prepaid
          paymentMethod: Visa/MC
          cardNumber: 4111111111111111
@@ -357,7 +357,7 @@ SubscriptionFulfillment:
     queryName: "Selenium – Find Random Active Member"
     maxWaitTimeInMinutesForPreviewStatus: 30
     centralizedOrderEntry: 
-         batch: "ACS: QA_SUB_BATCH"
+         batch: "ACS: SELENIUM_BATCH"
          paymentType: prepaid
          paymentMethod: Visa/MC
          cardNumber: 4111111111111111

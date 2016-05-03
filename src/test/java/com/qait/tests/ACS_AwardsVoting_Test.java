@@ -20,22 +20,25 @@ import com.qait.automation.utils.YamlReader;
 import com.qait.automation.TestSessionInitiator;
 
 public class ACS_AwardsVoting_Test {
+
 	TestSessionInitiator test;
 	String app_url_IWEB, app_url_Awards;
 	String[] startEndDate;
-	private String caseID;
-	private String currentAwardName;
+	private String caseID, currentAwardName;
 	Map<String, List<String>> memberDetail = new HashMap<>();
 	List<String> memberDetails, nameOfJudges, rescusedJudges;
 	Set<String> numberOfNomineesInEntrants = new HashSet<>();
-	int numberOfDivisions;
+	int numberOfDivisions, maxPossibleNominees;
 	Map<String, String> mapAwardsNomination = new HashMap<String, String>();
 	Map<String, String> createMemberCredentials;
 	List<List<String>> listOfFirstAndLastName = new ArrayList<>();
+	int invocationCount = 0;
+	Map<Integer, String> nomineeRanks = new HashMap<Integer, String>();
+	Map<Integer, String> confirmNominees = new HashMap<Integer, String>();
+	List<Map<Integer, String>> listsOfRanks = new ArrayList<Map<Integer, String>>();
 
 	public ACS_AwardsVoting_Test() {
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "AwardsVoting";
-
 	}
 
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
@@ -58,7 +61,7 @@ public class ACS_AwardsVoting_Test {
 						.trim());
 	}
 
-	@Test
+	@Test(dependsOnMethods = "Step01_TC01_Launch_Iweb_And_Select_Award")
 	public void Step02_TC02_Verify_Nominees_And_Set_Start_End_Dates_Round_1() {
 		test.individualsPage.navigateToEntrantsMenuOnHoveringMore();
 		numberOfNomineesInEntrants = test.awardsPageAction
@@ -73,7 +76,7 @@ public class ACS_AwardsVoting_Test {
 		test.invoicePage.collapseDetailsMenu("award stages/rounds");
 	}
 
-	@Test
+	@Test(dependsOnMethods = "Step02_TC02_Verify_Nominees_And_Set_Start_End_Dates_Round_1")
 	public void Step03_TC03_Add_Judges_Fetch_Rescused_Status() {
 		test.invoicePage.expandDetailsMenu("award judges");
 		test.awardsPageAction.verifyNumberOfJudgesAndAdd();
@@ -81,6 +84,8 @@ public class ACS_AwardsVoting_Test {
 		test.invoicePage.collapseDetailsMenu("award judges");
 		test.invoicePage.expandDetailsMenu("award stages/rounds");
 		test.awardsPageAction.goToRecordForRound("1");
+		// test.invoicePage.expandDetailsMenu("acs award stage - entries in this stage");
+		test.awardsPageAction.verifyACSAwardStageEntriesInThisStageIsEmpty();
 		test.invoicePage.expandDetailsMenu("award judge");
 		rescusedJudges = test.awardsPageAction.getRecusedStatusForRounds("1");
 		test.awardsPageAction.clickOnAwardsName_RoundName(currentAwardName);
@@ -88,32 +93,99 @@ public class ACS_AwardsVoting_Test {
 		memberDetail = test.awardsPageAction.getJudgeDetails(nameOfJudges, "1");
 	}
 
-	@Test
+	@Test(invocationCount = 5, dependsOnMethods = "Step03_TC03_Add_Judges_Fetch_Rescused_Status")
 	public void Step04_TC04_Launch_Awards_Voting_Application() {
-		int i = 0;
+		test.homePageIWEB.addValuesInMap("AwardsVoting", caseID);
 		test.launchApplication(app_url_Awards);
+		// test.award_ewebPage.enterCredentials("ACSID");
 		test.award_ewebPage.enterCredentials_LastNameMemberNumber_ACSID(
-				test.award_ewebPage.map().get("LoginType"), nameOfJudges.get(i)
-						.trim(), memberDetail);
+				test.award_ewebPage.map().get("LoginType"),
+				nameOfJudges.get(invocationCount).trim(), memberDetail);
 		test.award_ewebPage
-				.verifyLoginInAwardApplicationSuccessfully(nameOfJudges.get(i));
-		test.award_ewebPage.verifyStatus(rescusedJudges, nameOfJudges.get(i));
+				.verifyLoginInAwardApplicationSuccessfully(nameOfJudges
+						.get(invocationCount));
+		// Status - Progress Saved 04/18/2016
+		// test.award_ewebPage.verifyStatus(rescusedJudges,
+		// nameOfJudges.get(invocationCount));
 		test.award_ewebPage.verifyAwardName(currentAwardName);
-		// test.award_ewebPage.verifyNumberOfDays(numberOfDays);
-		test.award_ewebPage.verifyNumberOfNominees(numberOfNomineesInEntrants
-				.size());
-//		test.award_ewebPage.verifySubmitBallotDate(startEndDate[1]);
-		test.award_ewebPage.clickOnFiveYearNomineeMemoLink();
-		test.award_ewebPage.clickOnViewNominationMaterialButton();
-		test.award_ewebPage.verifyCurrentTab("Select Nominees");
+		test.award_ewebPage.verifyNumberOfDays("MM/d/YYYY", startEndDate[1]);
+		// test.award_ewebPage.verifyNumberOfNominees(numberOfNomineesInEntrants
+		// .size());
+		test.award_ewebPage.verifySubmitBallotDate(startEndDate[1],
+				currentAwardName);
+		test.award_ewebPage.clickOnFiveYearNomineeMemoLink(currentAwardName);
+		maxPossibleNominees = test.award_ewebPage
+				.getNumberOfPossibleNominees(currentAwardName);
 		test.award_ewebPage
-				.verifyHeaderForUnselectedNominee("You have selected 0 out of 10 possible nominations to rank.");
-		listOfFirstAndLastName = test.award_ewebPage.selectRandomNominees(10);
+				.clickOnViewNominationMaterialButton(currentAwardName);
+		test.award_ewebPage.unselectAllNominees();
 		test.award_ewebPage
-				.verifyHeaderForSelectedNominee("You have selected 10 out of 10 possible nominations to rank.");
-		test.award_ewebPage.clickOnViewProfileLink(listOfFirstAndLastName
-				.get(1));
+				.verifyHeaderForUnselectedNominee("You have selected 0 out of "
+						+ maxPossibleNominees
+						+ " possible nominations to rank.");
+		listOfFirstAndLastName = test.award_ewebPage
+				.selectRandomNominees(maxPossibleNominees);
+		test.award_ewebPage.verifyHeaderForSelectedNominee("You have selected "
+				+ maxPossibleNominees + " out of " + maxPossibleNominees
+				+ " possible nominations to rank.");
+		test.award_ewebPage.provideComments(listOfFirstAndLastName,
+				test.award_ewebPage.map().get("Comment Text"));
+		test.award_ewebPage.clickOnViewProfileLink(listOfFirstAndLastName);
 		test.award_ewebPage.verifyAwardName_viewProfileLink(currentAwardName);
+		test.award_ewebPage
+				.verifyNominationDocuments_viewProfileLink(currentAwardName);
+		test.award_ewebPage.clickOnCloseButton();
+		test.award_ewebPage.clickOnRankNominees_Save("Rank Nominees");
+		// nomineeRanks = test.award_ewebPage
+		// .enterRankForNominee(maxPossibleNominees);
+		/*nomineeRanks = test.award_ewebPage
+				.enterRankForNominee_rank1ForFirstNominee(maxPossibleNominees,
+						nameOfJudges.get(invocationCount), invocationCount,
+						listOfFirstAndLastName, 1);*/
+		test.award_ewebPage.verifyConfirmBallotPage();
+		confirmNominees = test.award_ewebPage.verifyNomineeRankAndName(
+				nomineeRanks, maxPossibleNominees);
+		test.award_ewebPage.clickOnSubmit_EditBallot("Submit Ballot");
+
+		test.award_ewebPage.clickOnReturnToAwardDashboard();
+		test.award_ewebPage.verifyStatusAfterBallotSubmission(currentAwardName);
+		test.award_ewebPage
+				.submissionDateAfterBallotSubmission(currentAwardName);
+		invocationCount++;
+		System.out.println("value of i======================="
+				+ invocationCount);
+		listsOfRanks.add(nomineeRanks);
+	}
+
+	@Test(dependsOnMethods = "Step04_TC04_Launch_Awards_Voting_Application")
+	public void Step05_TC05_Launch_Awards_Voting_IWeb() {
+		test.launchApplication(app_url_IWEB);
+		test.homePageIWEB.clickOnModuleTab();
+		test.homePageIWEB.clickOnTab("Awards");
+		test.homePageIWEB.clickOnTab("Find Award");
+
+		test.individualsPage.enterFieldValue("Award Year",
+				DateUtil.getAnyDateForType("YYYY", 1, "year"));
+		test.individualsPage.clickGoButton();
+		test.individualsPage
+				.selectRandomGeneralAward_AwardNomination(currentAwardName
+						.trim());
+		test.invoicePage.expandDetailsMenu("award stages/rounds");
+		test.awardsPageAction.goToRecordForRound("1");
+		test.awardsPageAction
+				.verifyUpdateScoreMessageOnClickingUpdateScore(test.homePageIWEB
+						.map().get("Round1 Update Score Success Message?"));
+		test.awardsPageAction
+				.verifyClosedStatusOnUpdatingScore(test.homePageIWEB.map().get(
+						"Round1 Closed Status?"));
+		test.invoicePage
+				.expandDetailsMenu("acs award stage - entries in this stage");
+		test.invoicePage.expandDetailsMenu("acs entries not in this stage");
+		test.awardsPageAction.verifyNomineesWithRankOne(listsOfRanks,
+				confirmNominees);
+		// test.awardsPageAction.verifyNomineeWinnerStatus(test.homePageIWEB.map()
+		// .get("Round1 Winner Status?"),"nominee name");
+
 	}
 
 	@BeforeClass

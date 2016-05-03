@@ -61,5 +61,5 @@ txtarea_CitationRecommedation          xpath            //label[contains(text(),
 inp_presentposition                    xpath            //label[contains(text(),'present position')]/preceding-sibling::input
 drpdwn_industrytype                    css                select[id*='${value}']>option[selected]
 txt_gotorecordrenewal                  xpath            (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[3]/a/i 
-
+link_editEmail                          xpath            (//a[@title='edit record']/i)[${1}]
 ======================================================================================================================================
