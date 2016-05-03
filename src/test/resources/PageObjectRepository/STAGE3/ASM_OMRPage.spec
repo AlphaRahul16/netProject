@@ -48,4 +48,7 @@ drpdwn_degreeType                           css                                 
 btns_remove                                 xpath                                     //a[contains(text(),'remove')]
 rad_electronicCEN                           css                                       input[id*='rbElectronic']
 btn_printreceipt                            css                                       #print-invoice>input
+txt_priceValue                              xpath                                     //td[contains(text(),'${productName}')]//following-sibling::td[2]
+btn_logout                                  css                                       a[href*='logout']
+txt_renewalthankyoumsg                      xpath                                     //h3[contains(text(),'${message}')]
 =================================================================================================================================================

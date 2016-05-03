@@ -195,7 +195,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		handleAlert();
 		handleAlert();
 		hardWaitForIEBrowser(3);
-		isElementDisplayed("btn_editNameAndAddress");
+		//isElementDisplayed("btn_editNameAndAddress");
 		clickUsingXpathInJavaScriptExecutor(element("btn_editNameAndAddress"));
 		// element("btn_editNameAndAddress").click();
 		logMessage("Step : Click on edit name and address button in btn_editNameAndAddress\n");
@@ -1091,6 +1091,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("link_tabsOnModule", tabName);
 		element("link_tabsOnModule", tabName).click();
 		logMessage("STEP : " + tabName + " tab is clicked\n");
+
+	}
+	public void expandDetailsMenu(String menuName) {
+		isElementDisplayed("btn_detailsMenuAACT", menuName);
+		clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT",
+				menuName));
+		// element("btn_detailsMenuAACT", menuName).click();
+		logMessage("STEP : " + menuName + " bar is clicked to expand" + "\n");
+		waitForSpinner();
 
 	}
 
@@ -2281,9 +2290,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ " is verified for net balance\n");
 	}
 
-	public List<String> getCustomerLastNameAndContactID(
-			String SheetStatusForLogin) {
-		if (SheetStatusForLogin.equalsIgnoreCase("YES")) {
+	public List<String> getCustomerLastNameAndContactID()
+	{
+		
 			clickOnEditNameAndAddress();
 			switchToFrame("iframe1");
 			customerLname = getNameFromEditNameAndAddressButton("lastName");
@@ -2292,10 +2301,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			switchToDefaultContent();
 			customerContactId = element("txt_renewalContactId").getText();
 			memberDetails.add(customerLname);
-
 			memberDetails.add(customerContactId);
-			logMessage("Step : ");
-		}
+		
+		
 		return memberDetails;
 
 	}
@@ -2375,6 +2383,52 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	{
 		isElementDisplayed("link_customerName");
 		element("link_customerName").click();;
-		logMessage("Step : customer Name as is clicked\n");
+		handleAlert();
+		logMessage("Step : Customer Name as "+element("link_customerName").getText()+" is clicked\n");
 	}
+	public void selectMemberForRenewal(String membertype,Map<String, String> mapOMR) {
+		
+		switch(membertype)
+		{
+			case "Regular":		selectProvidedTextFromDropDown(element("drpdwn_memberType"),"ACS : Regular Member");break;
+			case "Student":     selectProvidedTextFromDropDown(element("drpdwn_memberType"),"ACS : Student Member - UnderGrad");break;
+			case "Emeritus":    selectProvidedTextFromDropDown(element("drpdwn_memberType"),"ACS : Emeritus Member");break;
+		}
+		clickOnGoButtonInRunQuery();
+		
+	}
+
+	public void selectValidUserForRenewal(Map<String, String> mapOMR) {
+		clickOnTab("Query Membership");
+		selectAndRunQuery("GWV - Renewal Query");
+		selectMemberForRenewal(mapOMR.get("Member_Status?"),mapOMR);
+		expandDetailsMenu("invoices");
+		
+	}
+	public void verifyTermStartDateAndEndDatesAreEmpty(Map<String, String> mapOMR) {
+	      isElementDisplayed("txt_termStartDaterenewal","1");
+	       isElementDisplayed("txt_termEndDaterenewal","1");
+	       if(element("txt_termStartDaterenewal","1").getText().length()!=1 && element("txt_termEndDaterenewal","1").getText().length()!=1)
+	       {
+	    	   selectValidUserForRenewal(mapOMR);
+	       }
+	       else
+	       {
+	      Assert.assertTrue(element("txt_termStartDaterenewal","1").getText().length()==1, "Term Start Date is not Empty");
+	      logMessage("ASSERT PASSED : Term Start date is empty\n");
+	      Assert.assertTrue(element("txt_termEndDaterenewal","1").getText().length()==1, "Term End Date is not Empty");
+	      logMessage("ASSERT PASSED : Term End date is empty\n");
+	       }
+			
+		}
+		public void verifyTermStartDateAndEndDatesAreNotEmpty() {
+		      isElementDisplayed("txt_termStartDaterenewal","1");
+		       isElementDisplayed("txt_termEndDaterenewal","1");
+		      Assert.assertFalse(element("txt_termStartDaterenewal","1").getText().length()==1, "Term Start Date is Empty");
+		      logMessage("ASSERT PASSED : Term Start date is not empty\n");
+		      Assert.assertFalse(element("txt_termEndDaterenewal","1").getText().length()==1, "Term End Date is Empty");
+		      logMessage("ASSERT PASSED : Term End date is not empty\n");
+				
+			}
+
 }

@@ -5,6 +5,7 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 import java.util.Date;
 import java.util.Map;
 
+import org.omg.CORBA.OMGVMCID;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -1602,32 +1603,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : Edit button on ACS Entry profile page clicked\n");
 
 	}
-
-	public void selectMemberForRenewal(String membertype,Map<String, String> mapOMR) {
 	
-		switch(membertype)
-		{
-			case "Regular":		selectFeildValue("Member Type","ACS : Regular Member");break;
-			case "Student":     selectFeildValue("Member Type","ACS : Student Member - UnderGrad");break;
-			case "Emeritus":    selectFeildValue("Member Type","ACS : Emeritus Member");break;
-		}
-		selectFeildValue("Member Status","ACS : Active Renewed-No Response");
-		clickGoButton();
-		
-	}
-
 	
-	public void verifyTermStartDateAndEndDatesAreEmpty() {
-      isElementDisplayed("txt_termStartDaterenewal","1");
-       isElementDisplayed("txt_termEndDaterenewal","1");
-     System.out.println("startdate"+element("txt_termStartDaterenewal","1").getText().length());
-      System.out.println("startdate"+element("txt_termEndDaterenewal","1").getText().length());
-      Assert.assertTrue(element("txt_termStartDaterenewal","1").getText().length()==1, "Term Start Date is not Empty");
-      logMessage("ASSERT PASSED : Term Start date is empty\n");
-      Assert.assertTrue(element("txt_termEndDaterenewal","1").getText().length()==1, "Term End Date is not Empty");
-      logMessage("ASSERT PASSED : Term End date is empty\n");
-		
-	}
 
 	public void clickGotoRecordForRenewal() {
 		isElementDisplayed("txt_gotorecordrenewal","1");

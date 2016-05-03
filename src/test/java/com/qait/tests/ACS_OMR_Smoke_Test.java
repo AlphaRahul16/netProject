@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.omg.CORBA.OMGVMCID;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -44,11 +45,10 @@ public class ACS_OMR_Smoke_Test {
 		mapOMR=test.homePageIWEB.addValuesInMap(sheetname, caseID);
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Membership");
-		test.homePageIWEB.clickOnTab("Find Members");
-		test.individualsPage.selectMemberForRenewal(mapOMR.get("Member_Status?"),mapOMR);
-		test.memberShipPage.clickOnAnyRandomMember();
-		test.invoicePage.expandDetailsMenu("invoices");
-		test.individualsPage.verifyTermStartDateAndEndDatesAreEmpty();
+		test.homePageIWEB.clickOnSideBarTab("Members");
+		test.memberShipPage.selectValidUserForRenewal(mapOMR);
+		test.memberShipPage.verifyTermStartDateAndEndDatesAreEmpty(mapOMR);
+		test.invoicePage.verifyPaymentStatusBeforeRenewal();	
 		test.individualsPage.clickGotoRecordForRenewal();
 		invoiceNumber=test.invoicePage.verifyInvoiceDetailsBeforeRenewal();
 		test.memberShipPage.clickOnCustomerNameAndNavigateToMembershipPage();
@@ -60,7 +60,6 @@ public class ACS_OMR_Smoke_Test {
 	public void Step02_TC01_launch_Eweb_And_Login_With_Valid_Credentials()
 	{
 		
-		mapOMR=test.homePageIWEB.addValuesInMap(sheetname, caseID);
 		test.launchApplication(app_url_OMR);
 		test.asm_OMR.loginIntoApplicationWithValidChoice(mapOMR,memDetails);
 		test.asm_OMR.OMRLogo("Online Membership Renewal");
@@ -68,6 +67,14 @@ public class ACS_OMR_Smoke_Test {
 		
 		test.asm_OMR.FillRequiredDetailsForStudentMember(mapOMR);
 		mapRenewedProductDetails=test.asm_OMR.addMembershipsForRegularMember(mapOMR);
+//		Iterator iterator = mapRenewedProductDetails.keySet().iterator();
+//
+//		while (iterator.hasNext()) {
+//		   String key = iterator.next().toString();
+//		   String value = mapRenewedProductDetails.get(key);
+//
+//		   System.out.println(key + " " + value);
+//		}
 		test.asm_OMR.submitPaymentDetails(mapOMR.get("CreditCard_Type"),(memDetails.get(0).split(" ")[1]+" "+memDetails.get(0).split(" ")[0]), mapOMR.get("CreditCard_Number")
 				, mapOMR.get("CreditCard_CVV_Number"), mapOMR.get("CreditCardExpiration_Month"), mapOMR.get("CreditCardExpiration_Year"));
 		test.asm_OMR.verifyRenewedProductsSummaryOnCheckOutPage(mapRenewedProductDetails);
@@ -79,11 +86,29 @@ public class ACS_OMR_Smoke_Test {
 	@Test
 	public void Step03_TC01_launch_Iweb_And_Verify_Renewal_Details()
 	{
+
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.clickOnSideBarTab("Invoice");
 		test.memberShipPage.clickOnSideBar("Find Invoice");
+		
 		test.individualsPage.enterFieldValue("Invoice Code",memDetails.get(2));
+		//test.individualsPage.enterFieldValue("Invoice Code","16294437");
+		
 		test.individualsPage.clickGoButton();
+		test.invoicePage.verifyInvoiceDetailsAfterRenewal();
+		test.invoicePage.expandDetailsMenu("line items");
+		test.invoicePage.verifyRenewedProductsPriceInsideLineItems(mapRenewedProductDetails);
+		test.invoicePage.collapseDetailsMenu("line items");
+	
+		test.invoicePage.verifyAdjustedLinesItemsForEmeritusMember(mapOMR.get("Member_Status?"),mapRenewedProductDetails);
+		
+		test.memberShipPage.clickOnCustomerNameAndNavigateToMembershipPage();
+		test.invoicePage.expandDetailsMenu("individual memberships");
+		test.memberShipPage.navigateToInvoicePageForFirstProduct();
+		test.invoicePage.verifyPaymentStatusAfterRenewal(mapOMR.get("Member_Status?"));
+		test.invoicePage.expandDetailsMenu("invoices");
+		test.memberShipPage.verifyTermStartDateAndEndDatesAreNotEmpty();
+		test.invoicePage.collapseDetailsMenu("invoices");
 	}
 
 

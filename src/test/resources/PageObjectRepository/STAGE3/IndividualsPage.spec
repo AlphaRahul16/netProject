@@ -60,8 +60,6 @@ btn_editAwardsEntry                     css               img[alt*='edit']
 txtarea_CitationRecommedation          xpath            //label[contains(text(),'${value}')]/preceding-sibling::textarea
 inp_presentposition                    xpath            //label[contains(text(),'present position')]/preceding-sibling::input
 drpdwn_industrytype                    css                select[id*='${value}']>option[selected]
-txt_termStartDaterenewal               xpath             (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[14]
-txt_termEndDaterenewal                 xpath             (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[15]
 txt_gotorecordrenewal                  xpath            (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[3]/a/i 
 
 ======================================================================================================================================
