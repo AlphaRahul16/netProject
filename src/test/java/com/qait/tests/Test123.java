@@ -1,5 +1,9 @@
 package com.qait.tests;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.testng.annotations.Test;
@@ -14,8 +18,47 @@ public class Test123 {
 	int a = 10;
 	String s1;
 	static String s2;
+	
+	public static void main(String...a){
+		String date="05/04/2016";
+//		System.out.println(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY"));
+//		String d=DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY");
+//		Date d1=DateUtil.convertStringToDate(d,"MM/dd/YYYY");
+//		String d2=new SimpleDateFormat("MM/dd/YYYY").format(d1);
+//		System.out.println(d2);
+//		
+		System.out.println(DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),"MM/dd/yyyy"));
+		System.out.println( DateUtil.convertStringToDate(date,"MM/dd/yyyy"));
+		System.out.println(DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),"MM/dd/yyyy").compareTo(
+				   DateUtil.convertStringToDate(date,"MM/dd/yyyy")));
+		
+//		String startDateString = "06/27/2007";
+//	    DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); 
+//	    Date startDate;
+//	    try {
+//	        startDate = df.parse(startDateString);
+//	        String newDateString = df.format(startDate);
+//	        System.out.println(newDateString);
+//	    } catch (ParseException e) {
+//	        e.printStackTrace();
+//	    }
+		//Date d1=DateUtil.convertStringToDate(d,"d/M/YYYY");
+//		Calendar bcal = Calendar.getInstance();
+//	    bcal.add(Calendar.YEAR, -1);
+//	    bcal.set(Calendar.DAY_OF_YEAR, 1);
+//	    
+//	    DateFormat formatter = new SimpleDateFormat("M/d/YYYY");
+//	    
+//	      System.out.println(formatter.format(bcal.getTime()));
+//	    bcal.add(Calendar.YEAR, -1);
+//	    bcal.set(Calendar.MONTH, 11);
+//	    bcal.set(Calendar.DAY_OF_MONTH, 31);
+//	    System.out.println(formatter.format(bcal.getTime()));
+	    //	      .contains(formatter.format(bcal.getTime())));"inp_search_max", field).getAttribute("value").trim()
 
-	@Test(invocationCount = 1)
+	}
+
+/*	@Test(invocationCount = 1)
 	public void avnish() {
 		System.out.println("You submitted your ballot on:\nApr 27, 2016");
 		System.out.println("You submitted your ballot on: Apr 27, 2016");
@@ -24,7 +67,7 @@ public class Test123 {
 				.getCurrentdateInStringWithGivenFormate("MMM dd, YYYY"));
 		DateUtil.numberOfDaysBetweenTwoDays("MM/d/YYYY", "4/25/2016",
 				"4/27/2016");
-	}
+	}*/
 }
 
 // // @org.testng.annotations.Test

@@ -147,6 +147,24 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : add individual link is clicked in link_addIndividuals\n");
 
 	}
-
+	
+	public void clickOnFindTab()
+	{
+		isElementDisplayed("lnk_findTab");
+	    element("lnk_findTab").click();
+	    logMessage("STEP : Find tab is clicked\n");
+	}
+    
+	public void clickOnCommitteeSetupPageLink(){
+		isElementDisplayed("btn_committeeSetupPage");
+		element("btn_committeeSetupPage").click();
+		logMessage("Info: Clicked on Committee Setup Page link");
+		verifyUserIsOnCommitteeSetupPage();
+	}
+	
+	public void verifyUserIsOnCommitteeSetupPage(){
+		isElementDisplayed("txt_committeeSetup");
+		logMessage("Test passed: User is on Committee Setup Page");
+	}
 
 }
