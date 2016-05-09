@@ -2,7 +2,6 @@ package com.qait.automation.utils;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -10,10 +9,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import com.google.common.base.Predicate;
 
 
 
@@ -59,7 +55,8 @@ public class SeleniumWait {
 		return wait.until(ExpectedConditions.titleContains(expectedPagetitle)) != null;
 	}
 
-	public WebElement waitForElementToBeVisible(WebElement element) throws NoSuchElementException {
+	public WebElement waitForElementToBeVisible(WebElement element)
+			throws NoSuchElementException {
 		WebElement webElement = (WebElement) wait.until(ExpectedConditions
 				.visibilityOf(element));
 		elementHighlight(webElement);
@@ -116,18 +113,18 @@ public class SeleniumWait {
 				i++;
 			}
 		} catch (Exception e) {
+			System.out.println("INFO : " + element + " is not appeared\n");
 		}
 		resetImplicitTimeout(timeout);
 	}
-	
 
 	public WebElement getWhenVisible(By locator, int timeout) {
-	    WebElement element = null;
-	    WebDriverWait wait = new WebDriverWait(driver, timeout);
-	    element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-	    return element;
+		WebElement element = null;
+		WebDriverWait wait = new WebDriverWait(driver, timeout);
+		element = wait.until(ExpectedConditions
+				.visibilityOfElementLocated(locator));
+		return element;
 	}
-	
 
 	public void resetImplicitTimeout(int newTimeOut) {
 		try {
