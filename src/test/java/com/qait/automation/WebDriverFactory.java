@@ -13,6 +13,7 @@ import java.util.Map;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -106,7 +107,7 @@ public class WebDriverFactory {
 	}
 
 	private static WebDriver getFirefoxDriver() {
-		String firefoxProfilePath = "./src/test/resources/Profile_"
+			String firefoxProfilePath = "./src/test/resources/Profile_"
 				+ ConfigPropertyReader.getProperty("tier");
 		FirefoxProfile profile;
 		String autoAuthPath = "src/test/resources/AddOn/autoauth-2.1-fx+fn.xpi";

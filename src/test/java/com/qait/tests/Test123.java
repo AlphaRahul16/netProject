@@ -1,6 +1,10 @@
 package com.qait.tests;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 import org.testng.annotations.Test;
 
@@ -15,15 +19,26 @@ public class Test123 {
 	String s1;
 	static String s2;
 
+	public String abc(String one) {
+		
+		return one;
+	}
+
 	@Test(invocationCount = 1)
 	public void avnish() {
-		System.out.println("You submitted your ballot on:\nApr 27, 2016");
-		System.out.println("You submitted your ballot on: Apr 27, 2016");
+		// List<Integer> a = new ArrayList<Integer>();
+		// a= ThreadLocalRandom.current()
+		// .ints(2, 10).distinct()
+		// .limit(10 - 1).boxed().collect(Collectors.toList());
+		// System.out.println(DateUtil
+		// .getCurrentdateInStringWithGivenFormate("MMM dd, YYYY"));
+		// DateUtil.numberOfDaysBetweenTwoDays("MM/d/YYYY", "4/25/2016",
+		// "4/27/2016");
+		for (int i = 1; i <= 4; i++) {
+			s1 = abc(i+"   :    "+s1);
+			System.out.println("s1::" + s1);
+		}
 
-		System.out.println(DateUtil
-				.getCurrentdateInStringWithGivenFormate("MMM dd, YYYY"));
-		DateUtil.numberOfDaysBetweenTwoDays("MM/d/YYYY", "4/25/2016",
-				"4/27/2016");
 	}
 }
 

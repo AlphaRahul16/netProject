@@ -13,8 +13,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
-
 public class SeleniumWait {
 
 	WebDriver driver;
@@ -56,7 +54,8 @@ public class SeleniumWait {
 		return wait.until(ExpectedConditions.titleContains(expectedPagetitle)) != null;
 	}
 
-	public WebElement waitForElementToBeVisible(WebElement element) throws NoSuchElementException {
+	public WebElement waitForElementToBeVisible(WebElement element)
+			throws NoSuchElementException {
 		WebElement webElement = (WebElement) wait.until(ExpectedConditions
 				.visibilityOf(element));
 		elementHighlight(webElement);
@@ -113,18 +112,18 @@ public class SeleniumWait {
 				i++;
 			}
 		} catch (Exception e) {
+			System.out.println("INFO : " + element + " is not appeared\n");
 		}
 		resetImplicitTimeout(timeout);
 	}
-	
 
 	public WebElement getWhenVisible(By locator, int timeout) {
-	    WebElement element = null;
-	    WebDriverWait wait = new WebDriverWait(driver, timeout);
-	    element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-	    return element;
+		WebElement element = null;
+		WebDriverWait wait = new WebDriverWait(driver, timeout);
+		element = wait.until(ExpectedConditions
+				.visibilityOfElementLocated(locator));
+		return element;
 	}
-	
 
 	public void resetImplicitTimeout(int newTimeOut) {
 		try {

@@ -579,71 +579,77 @@ public class BaseUi {
 		if ((isBrowser("ie") || isBrowser("internetexplorer") || isBrowser("chrome"))) {
 			System.out.println("in authentication");
 			setClipboardData(uName);
-			// Robot robot;
-			// try {
-			// robot = new Robot();
-			// setClipboardData(uName);
-			// robot.delay(2000);
-			// robot.keyPress(KeyEvent.VK_CONTROL);
-			// robot.keyPress(KeyEvent.VK_V);
-			// robot.keyRelease(KeyEvent.VK_V);
-			// robot.keyRelease(KeyEvent.VK_CONTROL);
-			// robot.delay(2000);
-			// robot.keyPress(KeyEvent.VK_TAB);
-			// robot.keyRelease(KeyEvent.VK_TAB);
-			// setClipboardData(password);
-			// robot.delay(2000);
-			// robot.keyPress(KeyEvent.VK_CONTROL);
-			// robot.keyPress(KeyEvent.VK_V);
-			// robot.keyRelease(KeyEvent.VK_V);
-			// robot.keyRelease(KeyEvent.VK_CONTROL);
-			// robot.delay(2000);
-			// robot.keyPress(KeyEvent.VK_ENTER);
-			// robot.keyRelease(KeyEvent.VK_ENTER);
-			// } catch (AWTException e) {
-			// e.printStackTrace();
-			// }
+			 Robot robot;
+			 try {
+			 robot = new Robot();
+			 setClipboardData(uName);
+			 robot.delay(2000);
+			 robot.keyPress(KeyEvent.VK_CONTROL);
+			 robot.keyPress(KeyEvent.VK_V);
+			 robot.keyRelease(KeyEvent.VK_V);
+			 robot.keyRelease(KeyEvent.VK_CONTROL);
+			 robot.delay(2000);
+			 robot.keyPress(KeyEvent.VK_TAB);
+			 robot.keyRelease(KeyEvent.VK_TAB);		
+			 setClipboardData(password);
+			 robot.delay(2000);
+			 robot.keyPress(KeyEvent.VK_CONTROL);
+			 robot.keyPress(KeyEvent.VK_V);
+			 robot.keyRelease(KeyEvent.VK_V);
+			 robot.keyRelease(KeyEvent.VK_CONTROL);
+			 robot.delay(2000);
+			 robot.keyPress(KeyEvent.VK_ENTER);
+			 robot.keyRelease(KeyEvent.VK_ENTER);
+			 } catch (AWTException e) {
+			 e.printStackTrace();
+			 }
 
-			Robotil robotil;
-			try {
-				String seleniumServer = ConfigPropertyReader
-						.getProperty("seleniumserver");
-				String seleniumserverhost = ConfigPropertyReader
-						.getProperty("seleniumserverhost");
-				if (seleniumServer.equalsIgnoreCase("local")) {
-					robotil = new Robotil("127.0.0.1", 6666);
-				} else {
-					robotil = new Robotil(
-							seleniumserverhost.split(":")[1].replaceAll("//",
-									""), 6666);
-				}
-
-				setClipboardData(uName);
-				// robotil.wait(2000);
-				robotil.pressKey(KeyEvent.VK_CONTROL);
-				robotil.pressKey(KeyEvent.VK_V);
-				robotil.releaseKey(KeyEvent.VK_V);
-				robotil.releaseKey(KeyEvent.VK_CONTROL);
-				robotil.pressKey(KeyEvent.VK_TAB);
-				robotil.releaseKey(KeyEvent.VK_TAB);
-				setClipboardData(password);
-				robotil.pressKey(KeyEvent.VK_CONTROL);
-				robotil.pressKey(KeyEvent.VK_V);
-				robotil.releaseKey(KeyEvent.VK_V);
-				robotil.releaseKey(KeyEvent.VK_CONTROL);
-				robotil.pressKey(KeyEvent.VK_ENTER);
-				robotil.releaseKey(KeyEvent.VK_ENTER);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+//			Robotil robotil;
+//			try {
+//				String seleniumServer = ConfigPropertyReader
+//						.getProperty("seleniumserver");
+//				String seleniumserverhost = ConfigPropertyReader
+//						.getProperty("seleniumserverhost");
+//				if (seleniumServer.equalsIgnoreCase("local")) {
+//					robotil = new Robotil("localhost", 6666);
+//				} else {
+//					robotil = new Robotil(
+//							seleniumserverhost.split(":")[1].replaceAll("//",
+//									""), 6666);
+//				}
+//
+//				setClipboardData(uName);
+//				robotil.wait(2000);
+//				robotil.pressKey(KeyEvent.VK_CONTROL);
+//				robotil.pressKey(KeyEvent.VK_V);
+//				robotil.releaseKey(KeyEvent.VK_V);
+//				robotil.releaseKey(KeyEvent.VK_CONTROL);
+//				robotil.pressKey(KeyEvent.VK_TAB);
+//				robotil.releaseKey(KeyEvent.VK_TAB);
+//				setClipboardData(password);
+//				robotil.pressKey(KeyEvent.VK_CONTROL);
+//				robotil.pressKey(KeyEvent.VK_V);
+//				robotil.releaseKey(KeyEvent.VK_V);
+//				robotil.releaseKey(KeyEvent.VK_CONTROL);
+//				robotil.pressKey(KeyEvent.VK_ENTER);
+//				robotil.releaseKey(KeyEvent.VK_ENTER);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
 
 		}
 	}
 
 	public void enterAuthenticationAutoIt() {
 		try {
+			if(isBrowser("chrome")){
 			Runtime.getRuntime().exec(
-					"./src/test/resources/PopUpHandlers/popup.exe");
+					"./src/test/resources/PopUpHandlers/popup.exe");}
+			else{if(isBrowser("ie")||isBrowser("internetExplorer")){
+				Runtime.getRuntime().exec(
+						"./src/test/resources/PopUpHandlers/windowPopUp_IE.exe");}
+			
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

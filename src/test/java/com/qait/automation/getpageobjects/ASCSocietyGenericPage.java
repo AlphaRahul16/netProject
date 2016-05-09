@@ -6,6 +6,7 @@ import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -279,5 +280,90 @@ public class ASCSocietyGenericPage extends GetPage {
 		return parsedText;
 	}
 
+	public static void extractAndCompareTextFromPdfFile(String filename,
+			   String texttocompare, int totalnumberofpages, String fileFrom ) {
+			  String textinpdf;
+			  try {
+			   textinpdf = extractFromPdf(filename, 1, fileFrom).trim();
+			   String textarray[] = texttocompare.trim().split(" ");
+			   for (int i = 0; i < textarray.length; i++) {
+			    System.out.println(textinpdf);
+			    System.out.println(textarray[i]);
+			    Assert.assertTrue(textinpdf.trim()
+			      .contains(textarray[i].trim()));}
+			    
+			   if(fileFrom == "downloads"||fileFrom == "System"){
+			    File dir = new File("./src/test/resources/DownloadedFiles/");
+			    System.out.println("directory" +dir.getName());
+			    String []myFiles = dir.list();
+			    int i=0;
+			   
+			    for(File f: dir.listFiles()){
+			     System.out.println("files in directory " +f.getName());
+			    
+			     if(f.getName().contains(filename)){
+			        
+			      FileWriter file = new FileWriter("./src/test/resources/DownloadedFiles/"+f.getName());
+			         File ff = new File("D:/"+f.getName());
+			      file.flush();
+			         file.close();
+			         ff.delete();
+			 
+			          
+			          break;
+			   }i++;
+			   }
+			    }}
+			   catch (FileNotFoundException e) {
+			   e.printStackTrace();
+			  } catch (IOException e) {
+			   e.printStackTrace();
+			  }
+			 }
 	
+	private static String extractFromPdf(String filename, int totalnumberofpages, String fileFrom )
+			   throws IOException {
+			  String filepath = null;
+			  if(fileFrom == "System"||fileFrom == "uploads"){
+			   filepath= "./src/test/resources/UploadFiles/"
+			    + filename + ".pdf";}
+			  else if(fileFrom == "WebApplication"||fileFrom == "downloads"){
+			    filepath = "./src/test/resources/DownloadedFiles/"
+			     + filename + ".pdf";
+			    }else{
+			     return null;
+			  }
+			  String parsedText = null;
+			  PDFTextStripper pdfStripper = null;
+			  PDDocument pdDoc = null;
+			  COSDocument cosDoc = null;
+			  PDFParser parser = null;
+			  File file = null;
+
+			  try {
+			   file = new File(filepath);
+			   parser = new PDFParser(
+			     new RandomAccessBufferedFileInputStream(file));
+			   parser.parse();
+			   cosDoc = parser.getDocument();
+			   pdfStripper = new PDFTextStripper();
+			   pdDoc = new PDDocument(cosDoc);
+			   pdfStripper.setStartPage(1);
+			   pdfStripper.setEndPage(2);
+			   parsedText = pdfStripper.getText(pdDoc);
+			   System.out.println(parsedText);
+			  } catch (FileNotFoundException e) {
+			   System.out.println("File not found");
+			  } finally {
+			   try {
+			    if (cosDoc != null)
+			     cosDoc.close();
+			    if (pdDoc != null)
+			     pdDoc.close();
+			   } catch (Exception e) {
+			    e.printStackTrace();
+			   }
+			  }
+			  return parsedText;
+			 }
 }
