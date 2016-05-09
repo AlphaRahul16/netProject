@@ -139,7 +139,7 @@ public class ACS_FellowNominate {
 	
 	@AfterClass
 	public void Close_Browser_Session() {
-		//test.closeBrowserSession();
+		test.closeBrowserSession();
 	}
 	
 	
