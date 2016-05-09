@@ -26,7 +26,7 @@ table_total                     xpath                 //a/../../following-siblin
 table_discount                  xpath                //a/../../following-sibling::tr/td[10]
 table_balance                   xpath                //a/../../following-sibling::tr/td[11]
 table_Shipping                  xpath                 .//a/../../following-sibling::tr/td[@id='UP17']
-img_spinner                     css                     #__UPIMG
+img_spinner                     id                     __UPIMG
 icon_up                         xpath                 //span[contains(text(),'${value}')]/preceding-sibling::a/i[@class='icon-chevron-up']
 txt_memberDetail_q              xpath                 //label[text()='${labelname}?']/preceding-sibling::span[1]
 txt_memberDetails               xpath                 //label[text()='${labelname}:']/preceding-sibling::span[1]

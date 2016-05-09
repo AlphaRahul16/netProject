@@ -125,6 +125,53 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		return startEndDate;
 	}
 
+	public void uncheckClosedCheckbox_VotingClosed(String awardName,
+			String roundNumber) {
+		goToRecordForRound("1");
+
+		boolean closedStatus = isClosedStatusOnAwardsStageProfile("Yes");
+		System.out.println("closed status : " + closedStatus);
+		if (closedStatus) {
+			logMessage("INFO : Awards Voting Is Already Closed For Award : "
+					+ awardName + " \n");
+			clickOnEditButtonInAwardsStageProfilePage();
+			switchToFrame("iframe1");
+			uncheckClosedCheckboxButton();
+			clickOnSaveButton();
+			switchToDefaultContent();
+			Assert.assertTrue(isClosedStatusOnAwardsStageProfile("No"),
+					"Is closed status is actual Yes and expected No\n");
+		} else
+			logMessage("INFO : Awards Voting is not closed\n");
+		clickOnAwardsName_RoundName(awardName);
+	}
+
+	public boolean isClosedStatusOnAwardsStageProfile(String closedStatus) {
+		isElementDisplayed("txt_withLabelOnAwardStageProfile", "closed?");
+		String actualClosedStatus = element("txt_withLabelOnAwardStageProfile",
+				"closed?").getText().trim();
+		Boolean flag = actualClosedStatus.equalsIgnoreCase("Yes");
+		logMessage("Step Closed status is " + actualClosedStatus + "\n");
+		return flag;
+	}
+
+	public void clickOnEditButtonInAwardsStageProfilePage() {
+		isElementDisplayed("btn_editAward");
+		element("btn_editAward").click();
+		logMessage("Step : click on edit button in awards profile page\n");
+	}
+
+	public void uncheckClosedCheckboxButton() {
+		isElementDisplayed("chk_closedCheckBox");
+		if (element("chk_closedCheckBox").isSelected())
+			element("chk_closedCheckBox").click();
+		else {
+			logMessage("Step : closed check box is already unchecked\n");
+		}
+
+		logMessage("Step : closed check box is unchecked\n");
+	}
+
 	public void clickOnSaveButton() {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("btn_saveButton");
@@ -470,7 +517,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void goToJudgeRecord(String judgeName) {
 		// wait.waitForPageToLoadCompletely();
-		wait.hardWait(1);
+		wait.hardWait(3);
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("link_goToJudgeRecord", judgeName.split("'")[0]);
 		if (judgeName.contains("'")) {
@@ -610,7 +657,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnEditJudgeButton() {
-		isElementDisplayed("btn_editAward");
+		isElementDisplayed("btn_editJudge");
 		element("btn_editJudge").click();
 		logMessage("Step : click on edit button on judge profile\n");
 	}

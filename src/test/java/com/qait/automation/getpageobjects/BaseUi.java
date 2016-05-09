@@ -576,33 +576,33 @@ public class BaseUi {
 	}
 
 	public void enterAuthentication(String uName, String password) {
-		if ((isBrowser("ie") || isBrowser("internetexplorer") || isBrowser("chrome"))) {
-			System.out.println("in authentication");
-			setClipboardData(uName);
-			 Robot robot;
-			 try {
-			 robot = new Robot();
-			 setClipboardData(uName);
-			 robot.delay(2000);
-			 robot.keyPress(KeyEvent.VK_CONTROL);
-			 robot.keyPress(KeyEvent.VK_V);
-			 robot.keyRelease(KeyEvent.VK_V);
-			 robot.keyRelease(KeyEvent.VK_CONTROL);
-			 robot.delay(2000);
-			 robot.keyPress(KeyEvent.VK_TAB);
-			 robot.keyRelease(KeyEvent.VK_TAB);		
-			 setClipboardData(password);
-			 robot.delay(2000);
-			 robot.keyPress(KeyEvent.VK_CONTROL);
-			 robot.keyPress(KeyEvent.VK_V);
-			 robot.keyRelease(KeyEvent.VK_V);
-			 robot.keyRelease(KeyEvent.VK_CONTROL);
-			 robot.delay(2000);
-			 robot.keyPress(KeyEvent.VK_ENTER);
-			 robot.keyRelease(KeyEvent.VK_ENTER);
-			 } catch (AWTException e) {
-			 e.printStackTrace();
-			 }
+//		if ((isBrowser("ie") || isBrowser("internetexplorer") || isBrowser("chrome"))) {
+//			System.out.println("in authentication");
+//			setClipboardData(uName);
+//			 Robot robot;
+//			 try {
+//			 robot = new Robot();
+//			 setClipboardData(uName);
+//			 robot.delay(2000);
+//			 robot.keyPress(KeyEvent.VK_CONTROL);
+//			 robot.keyPress(KeyEvent.VK_V);
+//			 robot.keyRelease(KeyEvent.VK_V);
+//			 robot.keyRelease(KeyEvent.VK_CONTROL);
+//			 robot.delay(2000);
+//			 robot.keyPress(KeyEvent.VK_TAB);
+//			 robot.keyRelease(KeyEvent.VK_TAB);		
+//			 setClipboardData(password);
+//			 robot.delay(2000);
+//			 robot.keyPress(KeyEvent.VK_CONTROL);
+//			 robot.keyPress(KeyEvent.VK_V);
+//			 robot.keyRelease(KeyEvent.VK_V);
+//			 robot.keyRelease(KeyEvent.VK_CONTROL);
+//			 robot.delay(2000);
+//			 robot.keyPress(KeyEvent.VK_ENTER);
+//			 robot.keyRelease(KeyEvent.VK_ENTER);
+//			 } catch (AWTException e) {
+//			 e.printStackTrace();
+//			 }
 
 //			Robotil robotil;
 //			try {
@@ -637,7 +637,7 @@ public class BaseUi {
 //				e.printStackTrace();
 //			}
 
-		}
+//		}
 	}
 
 	public void enterAuthenticationAutoIt() {
