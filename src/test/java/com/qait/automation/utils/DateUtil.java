@@ -53,6 +53,24 @@ public class DateUtil {
 		String[] date = { year, month, day };
 		return date;
 	}
+	
+	public static String getTommorrowsDate() {
+		  DateFormat formatter = new SimpleDateFormat("MM");
+		  SimpleDateFormat monthParse = new SimpleDateFormat("MM");
+		  DateFormat dformatter = new SimpleDateFormat("DD");
+		  SimpleDateFormat dateParse = new SimpleDateFormat("DD");
+		  Calendar cal = Calendar.getInstance();
+		  String month = Integer.toString(cal.get(Calendar.MONTH) + 1);
+		  String date = Integer.toString(cal.get(Calendar.DATE) + 1);
+		  try {
+		   month = formatter.format(monthParse.parse(month));
+		   date = dformatter.format(dateParse.parse(date));
+		  } catch (ParseException e) {
+		  }
+		  String year = Integer.toString(cal.get(Calendar.YEAR));
+		  String calDate = month + "/" + date + "/" + year;
+		  return calDate;
+		 }
 
 	public String[] getPreviousDate(String dateModule, int frequency) {
 		cal = Calendar.getInstance();

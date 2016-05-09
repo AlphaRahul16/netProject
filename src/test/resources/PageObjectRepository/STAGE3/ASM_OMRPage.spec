@@ -24,7 +24,7 @@ inp_cardNumber                                xpath                             
 inp_CVVNumber                                 xpath                                     //input[contains(@id,'CcvNumber')]     
 list_expirationDate                           xpath                                     //select[contains(@id,'ExpirationMonth')]
 list_expirationYear                           xpath                                     //select[contains(@id,'ExpirationYear')]
-btn_continue                                  id                                     btnContinue
+btn_continue                                  id                                        btnContinue
 txt_invalidCardErrorMessage                   id                                        lblError
 btn_submitPayment                             id                                        btnSubmitOmrPayment
 txt_navigation                                xpath                                     //ul[@title='Bread Crumbs']/li[3]
@@ -36,7 +36,19 @@ rad_undergraduate                           css                                 
 iframe_ewebframe                            css                                        #eWebFrame
 btn_addSubscription                          css                                        input[class='addItemButton'][value='${value}']
 txt_legend                                  xpath                                      //legend[contains(text(),'${value}')]
-btn_addToMemberships                        xpath                                      //span[contains(text(),'${value}')]/../../preceding-sibling::td/input[contains(@name,'${value1}')]
+btn_addToMemberships                        css                                     input[value*='Add to Membership']
 inp_contribution                            xpath                                      //span[contains(text(),'${value}')]/../../following-sibling::td//input
-btn_save                                    id                                         btnSave
+btn_saveToAddMembership                     xpath                                         //input[contains(@id,'btnSave')]
+txt_productamount                           xpath                                     //td[@class='category']/following-sibling::td[@class='amount']/span
+txt_productname                             xpath                                    //td[@class='category']/span[contains(@id,'InvoiceDisplay')]
+btn_removerenewals                          css                                      a[id*='${value}']
+txt_productFinalTotal                       xpath                                      //th[contains(text(),'${value}')]/following-sibling::td/span
+inp_graduationDate                          css                                       input[id*='GraduationDate']
+drpdwn_degreeType                           css                                       select[id*='ucDegree_ddDegree']
+btns_remove                                 xpath                                     //a[contains(text(),'remove')]
+rad_electronicCEN                           css                                       input[id*='rbElectronic']
+btn_printreceipt                            css                                       #print-invoice>input
+txt_priceValue                              xpath                                     //td[contains(text(),'${productName}')]//following-sibling::td[2]
+btn_logout                                  css                                       a[href*='logout']
+txt_renewalthankyoumsg                      xpath                                     //h3[contains(text(),'${message}')]
 =================================================================================================================================================

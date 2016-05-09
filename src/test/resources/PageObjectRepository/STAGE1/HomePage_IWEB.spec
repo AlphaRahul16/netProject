@@ -16,5 +16,7 @@ link_CRM                   xpath                 //a[text()='CRM']
 link_tabsOnModule          xpath                 //*[text()='${value}']
 link_addIndividuals        xpath                //a[@id='F1_HYPERLINK_4']
 lnk_FindNomination         id                   F1_HYPERLINK_1
-
+lnk_findTab                id                   F1_HYPERLINK_2
+btn_committeeSetupPage     id                   F1_HYPERLINK_16
+txt_committeeSetup         css                  #ChildDivDataFormHeader
 ==================================================================================================================================

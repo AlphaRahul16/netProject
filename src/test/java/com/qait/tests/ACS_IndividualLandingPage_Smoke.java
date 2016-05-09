@@ -74,7 +74,12 @@ public class ACS_IndividualLandingPage_Smoke {
 		memberLoginDetails = test.memberShipPage.loginUsingValueFromSheet(loginAs);
 		mapIwebProductDetails = test.asm_Donate.getUserAddressDetails(memberLoginDetails, "PhoneNo", "Email",
 				"Address");
+
+		if (mapSheetData.get("Login_via_MemberNumber").equalsIgnoreCase("YES"));
+		memberDetails = test.memberShipPage.getCustomerLastNameAndContactID();
+
 		//memberDetails = test.memberShipPage.getCustomerLastNameAndContactID(mapSheetData.get("Login_via_MemberNumber"));
+
 		test.launchApplication(mapSheetData.get("Application_Url"));
 		test.asm_Donate.verifyIndividualDonationDisplayOrder(donationcount, mapSheetData, mapFundOrder);
 		ProductNames = test.asm_Donate.donateAmountToSpecifiedFund(mapSheetData);

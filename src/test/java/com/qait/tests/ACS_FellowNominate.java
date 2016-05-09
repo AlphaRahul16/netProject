@@ -116,7 +116,6 @@ public class ACS_FellowNominate {
 		System.out.println("Fellow tupe "+FellowType);
 		test.individualsPage.selectFeildValue("Fellow Type",FellowType);
 		test.individualsPage.clickGoButton();
-		test.asm_FellowNomiate.printmap();
 		NomineeName=test.asm_FellowNomiate.selectNomineeForParticularFellowType(FellowType);
 		test.individualsPage.SelectFellowNominatorForVerification(NomineeName.trim(),memberDetails.get(0));
 		test.asm_FellowNomiate.verifyDetailsOnIwebForFellowNomination(FellowType);

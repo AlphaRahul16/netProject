@@ -53,6 +53,20 @@ public class GetPage extends BaseUi {
 		testPageLayout(Arrays.asList(getProperty("./Config.properties",
 				"browser")));
 	}
+	
+	protected boolean checkIfElementIsThere(String eleString) {
+	    boolean flag = false;
+	    try {
+	      if (webdriver.findElement(getLocator(eleString)).isDisplayed()) {
+	        flag = true;
+	      } else {
+	        flag = false;
+	      }
+	    } catch (NoSuchElementException ex) {
+	      flag = false;
+	    }
+	    return flag;
+	  }
 
 	// TODO: put this in right place, create dedicated class for frame and
 	// window handlers
@@ -104,6 +118,7 @@ public class GetPage extends BaseUi {
 		return wait.waitForElementsToBeVisible(webdriver
 				.findElements(getLocator(elementToken, replacement)));
 	}
+	
 
 	protected List<WebElement> elements(String elementToken) {
 		return elements(elementToken, "");

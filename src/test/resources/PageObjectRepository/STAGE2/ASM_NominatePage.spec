@@ -59,4 +59,9 @@ txt_NominationTooltip                         classname                    award
 inp_findbymembernumber                        id                           memberNumber_searchNominee
 txt_Nomineename                               classname                   nomineeName 
 rad_dynsafelabpractice                        xpath                        //span/following-sibling::input[@value='${value}']
+rad_disscusNomination                         xpath                        //div[@id='discussedWithNominee']/span[text()='${value}']/following-sibling::input
+btn_saveForLater                              css                         .saveData.later
+txt_awardStatus                               xpath                       //div[contains(text(),'${awardName}')]/following-sibling::table//td[@class='status']
+btn_editNominee                               classname                   editNominee
+btn_upload_item                               xpath                       //div[@id='${value}']//div[@class='qq-upload-button']
 =================================================================================================================================

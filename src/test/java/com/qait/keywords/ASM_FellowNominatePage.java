@@ -1132,17 +1132,6 @@ public class ASM_FellowNominatePage extends GetPage {
 		System.out.println("Map FelloeType " + mapFellowNomineeDetails.get("Nominee " + fellowType));
 		return mapFellowNomineeDetails.get("Nominee " + fellowType);
 	}
-
-	public void printmap() {
-		for (String name : mapFellowNomineeDetails.keySet()) {
-
-			String key = name.toString();
-			String value = mapFellowNomineeDetails.get(name).toString();
-			System.out.println(key + " " + value);
-
-		}
-	}
-
 	public void verifyUserIsAbleToViewSubmittedNominations() {
 
 		clickOnViewButtonForSavedNomination("Individual Nomination");

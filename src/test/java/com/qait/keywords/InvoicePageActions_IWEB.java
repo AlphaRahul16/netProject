@@ -402,12 +402,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	public void validateBalanceAndTotalForInvoice(
 			Map<String, String> TotalAmountMap) {
 		Iterator iterator = TotalAmountMap.keySet().iterator();
-		while (iterator.hasNext()) {
-			String key = iterator.next().toString();
-			String value = TotalAmountMap.get(key);
-			System.out.println(key + " keys " + value + " value");
-
-		}
+		
 		if (TotalAmountMap.size() != 4
 				&& !TotalAmountMap.get("IsProgramPledged").equals("1")) {
 			System.out.println("In bbbbbbb");
@@ -724,12 +719,74 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		verifyInvoiceProfile("proforma", "Yes");
 		verifyInvoiceProfile("paid in full", "No");
 		Assert.assertFalse(element("txt_invoiceValues", "balance").getText().trim()
-        .equalsIgnoreCase("0.00"),"Balance is not 0.00");
+        .equalsIgnoreCase("0.00"),"Balance is 0.00");
 		logMessage("ASSERT PASSED : Balance before renewal is not 0.00\n");
 		return element("inp_invoiceValue","invoice number").getText();
 
 
 	}
+	
+	public void verifyInvoiceDetailsAfterRenewal()
+	{
+		verifyInvoiceProfile("proforma", "No");
+		//verifyInvoiceProfile("paid in full", "Yes");
+		Assert.assertTrue(element("txt_invoiceValues", "balance").getText().trim()
+        .equalsIgnoreCase("0.00"),"Balance is not 0.00");
+		logMessage("ASSERT PASSED : Balance amount after renewal is 0.00\n");
+	
+	}
+	
+	public void verifyPaymentStatusAfterRenewal(String memberstatus)
+	{
+		System.out.println(element("txt_code","Payment Status").getText());
+		if(memberstatus.equals("Emeritus"))
+		{
+		Assert.assertTrue(element("txt_code","Payment Status").getText().equals("Free"));
+		logMessage("ASSERT PASSED : Payment status for "+memberstatus+" after renewal is Free");
+		}
+		else
+		{
+		Assert.assertTrue(element("txt_code","Payment Status").getText().equals("Paid"));
+		logMessage("ASSERT PASSED : Payment status for "+memberstatus+" after renewal is Free");
+		}
+		
+	
+		
+	}
+	public void verifyPaymentStatusBeforeRenewal()
+	{
+		Assert.assertTrue(element("txt_code","Payment Status").getText().equals("Unpaid"));
+		logMessage("ASSERT PASSED : Payment status before renewal is Free");
+	}
+	
+public void verifyRenewedProductsPriceInsideLineItems(Map<String, String> mapRenewedProductDetails) {
+		
+		for (String key : mapRenewedProductDetails.keySet() ) {
+			if(!key.equals("Voluntary Contribution To C&EN"))
+			{
+			System.out.println((mapRenewedProductDetails.get(key)).trim());
+			System.out.println(element("txt_priceValue",key).getText().trim());
+		   Assert.assertTrue((mapRenewedProductDetails.get(key)).trim().equals(element("txt_priceValue",key).getText().trim()));
+		   logMessage("ASSERT PASSED : "+key+" price inside line items verified as "+mapRenewedProductDetails.get(key));
+			}
+			
+		}
+		
+	}
+
+	public void verifyAdjustedLinesItemsForEmeritusMember(String membesstatus,Map<String, String> mapRenewedProductDetails) {
+		
+		if(membesstatus.equals("Emeritus"))
+		{
+		expandDetailsMenu("adjusted/voided line items");
+		   Assert.assertTrue((mapRenewedProductDetails.get("Voluntary Contribution To C&EN")).trim().equals(elements("txt_priceValue","Voluntary Contribution To C&EN").get(1).getText().trim()));
+		   logMessage("ASSERT PASSED : Voluntary Contribution To C&EN price inside line items verified as "+mapRenewedProductDetails.get("Voluntary Contribution To C&EN"));
+		collapseDetailsMenu("adjusted/voided line items");
+		}
+	}
+		
+
+	
 	
 	
 	

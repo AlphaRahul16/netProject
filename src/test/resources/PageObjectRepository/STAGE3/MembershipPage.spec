@@ -148,5 +148,9 @@ txt_expireDate_chapter                           xpath                          
 btn_addBatch                                     id                             inv_bat_key_oAddHyperLink
 inp_addBatchName                                 id                             bat_code
 list_batchSecurityGroup                          id                             gsc_grp_key
+drpdwn_memberType                                xpath                        //select[contains(@id,'QueryAsk')]
+btn_detailsMenuAACT                              xpath                        //span[text()='${menuName}']/../a[1]
+txt_termStartDaterenewal                         xpath                        (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[14]
+txt_termEndDaterenewal                           xpath                        (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[15]
 
 ==============================================================================================================================================

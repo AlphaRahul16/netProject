@@ -5,6 +5,7 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 import java.util.Date;
 import java.util.Map;
 
+import org.omg.CORBA.OMGVMCID;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -1635,37 +1636,91 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : Edit button on ACS Entry profile page clicked\n");
 
 	}
-
-	public void selectMemberForRenewal(String membertype,Map<String, String> mapOMR) {
 	
-		switch(membertype)
-		{
-			case "Regular":		selectFeildValue("Member Type","ACS : Regular Member");break;
-			case "Student":     selectFeildValue("Member Type","ACS : Student Member - UnderGrad");break;
-			case "Emeritus":    selectFeildValue("Member Type","ACS : Emeritus Member");break;
-		}
-		selectFeildValue("Member Status","ACS : Active Renewed-No Response");
-		clickGoButton();
-		
-	}
-
-	
-	public void verifyTermStartDateAndEndDatesAreEmpty() {
-      isElementDisplayed("txt_termStartDaterenewal","1");
-       isElementDisplayed("txt_termEndDaterenewal","1");
-     System.out.println("startdate"+element("txt_termStartDaterenewal","1").getText().length());
-      System.out.println("startdate"+element("txt_termEndDaterenewal","1").getText().length());
-      Assert.assertTrue(element("txt_termStartDaterenewal","1").getText().length()==1, "Term Start Date is not Empty");
-      logMessage("ASSERT PASSED : Term Start date is empty\n");
-      Assert.assertTrue(element("txt_termEndDaterenewal","1").getText().length()==1, "Term End Date is not Empty");
-      logMessage("ASSERT PASSED : Term End date is empty\n");
-		
-	}
-
 	public void clickGotoRecordForRenewal() {
 		isElementDisplayed("txt_gotorecordrenewal","1");
 		element("txt_gotorecordrenewal","1").click();
-		logMessage("Step : goto record is clicked for latest Invoice\n");
-		
+		logMessage("Step : goto record is clicked for latest Invoice\n");	
+	}
+	
+	public void verifyNomineeAddress(String expectedData){
+		handleAlert();
+		wait.waitForPageToLoadCompletely();
+		isElementDisplayed("txt_individualInfo");
+//		logMessage("Expected data:"+expectedData);
+//		logMessage("Actual data:"+element("txt_individualInfo").getText().trim());
+		Assert.assertTrue(element("txt_individualInfo").getText().trim().contains(expectedData), 
+				"Assertion Failed: Individual address is not correctly updated");
+		logMessage("Assertion Passed: Individual address is updated correctly");
+	}
+	
+	public void clickOnAcsBiographyImage(){
+		isElementDisplayed("img_biography");
+		element("img_biography").click();
+		logMessage("Info: Clicked on ACS Biography Image");
+	}
+	
+	public void verifyBioHonorsData(String expectedHonors){
+		wait.waitForPageToLoadCompletely();
+		switchToFrame("iframe1");
+		isElementDisplayed("txt_bioHonors");
+		logMessage("Expected Biography data: "+expectedHonors);
+		logMessage("Actual Biography data: "+element("txt_bioHonors").getText().trim());
+		Assert.assertTrue(expectedHonors.equals(element("txt_bioHonors").getText().trim()),
+				"Assertion Failed: Biography honors data does not matches");
+		logMessage("Assertion Passed: Biography honors data matches");
+		clickOnCancelButton();
+		switchToDefaultContent();
+	}
+	
+	public void clickOnCancelButton(){
+		element("btn_cancel").click();
+		logMessage("Info: Clicked on cancel button");
+	}
+	
+	public void verifyCommitteeMembersStatus(String name){
+        expandDetailsMenu("acsyb nominations");
+        for(WebElement ele: elements("txt_total",name)){
+        	Assert.assertTrue(ele.getText().trim().equals("Pending"),
+        			"Assertion Failed: Committee member status is not pending");
+        	logMessage("Assertion Passed: Committee member status is pending");
+        }
+	}
+	
+	public boolean verifyCommitteePreferenceDate(){
+		String preferenceEndDate,preferenceStartDate;
+		int max=0;
+		boolean value;
+		expandDetailsMenu("acs committee system options");
+		preferenceEndDate=element("txt_quantity","ACSYBCommiteePreferenceEndDate").getText().trim();
+        logMessage("preferenceEndDate   "+preferenceEndDate);
+        max=elements("link_pages").size();
+        logMessage("Page size: "+max);
+        isElementDisplayed("link_paging", String.valueOf(2));
+		clickUsingXpathInJavaScriptExecutor(element("link_paging",
+				String.valueOf(2)));
+		preferenceStartDate=element("txt_quantity","ACSYBCommiteePreferenceStartDate").getText().trim();
+        logMessage("preferenceStartDate   "+preferenceStartDate);
+        value=verfiyEndAndStartDate(preferenceEndDate,preferenceStartDate);
+        logMessage(value+"------");
+        return value;
+	}
+	
+	public boolean verfiyEndAndStartDate(String preferenceEndDate, String preferenceStartDate){
+        logMessage("Current Date:"+DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),"MM/dd/yyyy"));
+        logMessage("End Date:"+DateUtil.convertStringToDate(preferenceEndDate,"MM/dd/yyyy"));
+        int endDate,startDate;
+        endDate=DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),"MM/dd/yyyy")
+        		.compareTo(DateUtil.convertStringToDate(preferenceEndDate,"MM/dd/yyyy"));
+        
+        logMessage("Current Date:"+DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),"MM/dd/yyyy"));
+        logMessage("Start Date:"+DateUtil.convertStringToDate(preferenceStartDate,"MM/dd/yyyy"));
+        startDate=DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),"MM/dd/yyyy")
+        		.compareTo(DateUtil.convertStringToDate(preferenceStartDate,"MM/dd/yyyy")); 
+        
+        if(endDate==-1 && startDate==1)
+        	return true;
+        else
+        	return false;
 	}
 }
