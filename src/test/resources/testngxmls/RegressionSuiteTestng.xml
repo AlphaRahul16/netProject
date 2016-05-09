@@ -1,83 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="ACS Tests" preserve-order="true" thread-count="10" configfailurepolicy="continue" >
-	<test name="ACS AACT Smoke Test1"
-		group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_AwardsVoting_Test"></class>
-		</classes>
-	</test>
-	<test name="ACS AACT Smoke Test2"
-		group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_AwardsVoting_Test"></class>
-		</classes>
-	</test>
-	<test name="ACS AACT Smoke Test3"
-		group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_AwardsVoting_Test"></class>
-		</classes>
-	</test>
-	<test name="ACS AACT Smoke Test4"
-		group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_AwardsVoting_Test"></class>
-		</classes>
-	</test>
-	<test name="ACS AACT Smoke Test5"
-		group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_AwardsVoting_Test"></class>
-		</classes>
-	</test>
-	
-	<!-- <test name="ACS OMA Smoke Test"
-		group-by-instances="true">
+<suite name="ACS Tests" preserve-order="true" thread-count="2"
+	configfailurepolicy="continue" parallel="tests">
+
+
+
+	<test name="ACS OMA Smoke Test" group-by-instances="true">
 		<classes>
 			<class name="com.qait.tests.ACS_Create_Member_Test"></class>
 		</classes>
 	</test>
-	
+
 	<test name="ACS Subscription Fulfillment Smoke Test"
 		group-by-instances="true">
 		<classes>
 			<class name="com.qait.tests.Subscription_Fulfillment_Test"></class>
 		</classes>
 	</test>
-	
-	<test name="ACS Create Member IWEB Smoke Test"
-		group-by-instances="true">
+
+	<test name="ACS Create Member IWEB Smoke Test" group-by-instances="true">
 		<classes>
 			<class name="com.qait.tests.ACS_Create_Member_IWEB_Test"></class>
 		</classes>
 	</test>
-	
-	<test name="ACS Store Smoke Test"
-		group-by-instances="true">
+
+	<test name="ACS Store Smoke Test" group-by-instances="true">
 		<classes>
 			<class name="com.qait.tests.ACS_Store_Test"></class>
 		</classes>
 	</test>
-	
+
 	<test name="ACS Individual Landing Page Smoke Test"
 		group-by-instances="true">
 		<classes>
 			<class name="com.qait.tests.ACS_IndividualLandingPage_Smoke"></class>
 		</classes>
 	</test>
-	
-	<test name="ACS Giving Application Smoke Test"
-		group-by-instances="true">
+
+	<test name="ACS Giving Application Smoke Test" group-by-instances="true">
 		<classes>
 			<class name="com.qait.tests.ACS_GivingApplication_Smoke"></class>
 		</classes>
 	</test>
-	
+
 	<test name="ACS CCED_NCW_Member Nuber Lookup Smoke Test"
 		group-by-instances="true">
 		<classes>
 			<class name="com.qait.tests.ACS_CCED_NCW_MemberNumberLookup_Test"></class>
 		</classes>
-	</test> -->
+	</test>
+	
+	<test name="ACS_AACT_Smoke_Test"
+		group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_AACT_Smoke_Test"></class>
+		</classes>
+	</test>
+	
+	<test name="ACS_FellowNominate"
+		group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_FellowNominate"></class>
+		</classes>
+	</test>
+	
+	<test name="ACS_AwardsNomination_Test"
+		group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_AwardsNomination_Test"></class>
+		</classes>
+	</test>
+
+
+
 </suite>

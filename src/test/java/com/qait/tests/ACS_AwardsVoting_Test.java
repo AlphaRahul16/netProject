@@ -50,6 +50,7 @@ public class ACS_AwardsVoting_Test {
 
 	@Test
 	public void Step01_TC01_Launch_Iweb_And_Select_Award() {
+		
 		test.homePageIWEB.addValuesInMap("AwardsVoting", caseID);
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Awards");
@@ -65,6 +66,10 @@ public class ACS_AwardsVoting_Test {
 
 	@Test(dependsOnMethods = "Step01_TC01_Launch_Iweb_And_Select_Award")
 	public void Step02_TC02_Verify_Nominees_And_Set_Start_End_Dates_Round_1() {
+		test.invoicePage.expandDetailsMenu("award stages/rounds");
+		test.awardsPageAction.uncheckClosedCheckbox_VotingClosed(
+				currentAwardName, "1");
+		test.invoicePage.collapseDetailsMenu("award stages/rounds");
 		test.individualsPage.navigateToEntrantsMenuOnHoveringMore();
 		numberOfNomineesInEntrants = test.awardsPageAction
 				.allACSNomineesInEntrants();
@@ -125,8 +130,8 @@ public class ACS_AwardsVoting_Test {
 					currentAwardName);
 			test.award_ewebPage
 					.clickOnFiveYearNomineeMemoLink(currentAwardName);
-			test.award_ewebPage.extractAndCompareTextFromPdfFile("award_history "
-			 		, currentAwardName, 1, "downloads");
+//			test.award_ewebPage.extractAndCompareTextFromPdfFile(
+//					"award_history", currentAwardName, 1, "downloads");
 			maxPossibleNominees = test.award_ewebPage
 					.getNumberOfPossibleNominees(currentAwardName);
 			test.award_ewebPage
@@ -146,7 +151,7 @@ public class ACS_AwardsVoting_Test {
 			test.award_ewebPage.provideComments(listOfFirstAndLastName,
 					test.award_ewebPage.map().get("Comment Text"));
 			test.award_ewebPage.clickOnViewProfileLink(listOfFirstAndLastName);
-			test.award_ewebPage.clickOnProfilePdfLink(listOfFirstAndLastName);
+			test.award_ewebPage.clickOnProfilePdfLinkAndVerifyPdfContent(listOfFirstAndLastName);
 			test.award_ewebPage
 					.verifyAwardName_viewProfileLink(currentAwardName);
 			test.award_ewebPage
@@ -194,11 +199,11 @@ public class ACS_AwardsVoting_Test {
 		test.awardsPageAction
 				.verifyClosedStatusOnUpdatingScore(test.homePageIWEB.map().get(
 						"Round1 Closed Status?"));
-//		test.invoicePage
-//				.expandDetailsMenu("acs award stage - entries in this stage");
-//		test.invoicePage.expandDetailsMenu("acs entries not in this stage");
-//		test.awardsPageAction.verifyNomineesWithRankOne(listsOfRanks,
-//				confirmNominees);
+		// test.invoicePage
+		// .expandDetailsMenu("acs award stage - entries in this stage");
+		// test.invoicePage.expandDetailsMenu("acs entries not in this stage");
+		// test.awardsPageAction.verifyNomineesWithRankOne(listsOfRanks,
+		// confirmNominees);
 		// test.awardsPageAction.verifyNomineeWinnerStatus(test.homePageIWEB.map()
 		// .get("Round1 Winner Status?"),"nominee name");
 

@@ -43,4 +43,7 @@ btn_updateScoreClose                      xpath                //button[text()='
 txt_closedStatus                          classname            DataFormLabelErrorMessage
 list_stageEntriesRankOne                  xpath                //td[starts-with(text(),'${nomineeName}')]/following-sibling::td[2]
 txt_winnerStatusForNomineee               xpath               //td[starts-with(text(),'${nomineeName}')]/following-sibling::td[3]
+txt_withLabelOnAwardStageProfile          xpath                  //label[text()='${closed status}']/preceding-sibling::span
+btn_editAward                             id                    F1_HYPERLINK_0
+chk_closedCheckBox                        id                  aws_closed_flag_ext
 ========================================================================================================================================

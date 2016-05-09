@@ -132,7 +132,7 @@ public class ACS_OMR_Smoke_Test {
 		mapOMR=test.homePageIWEB.addValuesInMap(sheetname, caseID);
 	}
 
-	//@AfterClass
+	@AfterClass
 	public void close_Browser_Window()
 	{
 
