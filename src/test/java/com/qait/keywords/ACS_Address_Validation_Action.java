@@ -20,7 +20,6 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 	static String pagename = "ACS_Address_Validation";
 	WebDriver driver;
 	int timeOut;
-	
 
 	public ACS_Address_Validation_Action(WebDriver driver) {
 		super(driver, pagename);
@@ -57,8 +56,8 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 		isElementDisplayed("heading_individualName&Addr");
 		logMessage("STEP : User is navigated to Individual Name & Address Information Page" + "\n");
 	}
-	
-	public void verifyZipCode(String expectedZipCode){
+
+	public void verifyZipCode(String expectedZipCode) {
 		isElementDisplayed("input_zipcode");
 		Assert.assertTrue(expectedZipCode.equals(element("input_zipcode").getAttribute("value").trim()),
 				"ASSERT FAILED : Actual ZipCode " + element("input_zipcode").getAttribute("value")
@@ -82,32 +81,7 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 	}
 
 	public void verifyAddressVerificationWindow() {
-//	 handleAlert();
-		 
-//		getAlertText();
-
-	    wait.resetExplicitTimeout(60);
-	    wait.resetImplicitTimeout(60);
-			wait.hardWait(3);
-			logMessage("in try");		
-			Actions action = new Actions(driver); 
-        action.sendKeys(Keys.ENTER);
-logMessage("*******");         
-//		 Robot robot;
-//		    try {
-//		    	wait.resetImplicitTimeout(4);
-//		    	wait.resetExplicitTimeout(4);
-//		    robot = new Robot();
-//
-//		    robot.delay(2000);
-//		    obot.keyPress(KeyEvent.VK_ENTER);
-//		}catch(Exception e){
-//			logMessage("No Alert Present");
-//		}
-		    wait.resetExplicitTimeout(timeOut);
-		    wait.resetImplicitTimeout(timeOut);
-//		checkAlert();
-//		waitForAlertToAppear();
+		handleAlertPresent();
 		switchWindow();
 		isElementDisplayed("heading_address");
 		logMessage("STEP : User is navigated to Address Verification Window \n");
@@ -137,8 +111,8 @@ logMessage("*******");
 		verifyZipCode(expectedZipCode);
 		clickOnCancelButton();
 	}
-	
-	public void clickOnCancelButton(){
+
+	public void clickOnCancelButton() {
 		isElementDisplayed("btn_cancel");
 		element("btn_cancel").click();
 		logMessage("STEP : Clicked on Cancel button\n");
@@ -155,6 +129,36 @@ logMessage("*******");
 			// exception handling
 			logMessage("NO Alert Present!!!");
 		}
+	}
+
+	public void handleAlertPresent() {
+		// handleAlert();
+
+		// getAlertText();
+
+		wait.resetExplicitTimeout(60);
+		wait.resetImplicitTimeout(60);
+		wait.hardWait(3);
+		logMessage("in try");
+		Actions action = new Actions(driver);
+		action.sendKeys(Keys.ENTER);
+		logMessage("*******");
+		// Robot robot;
+		// try {
+		// wait.resetImplicitTimeout(4);
+		// wait.resetExplicitTimeout(4);
+		// robot = new Robot();
+		//
+		// robot.delay(2000);
+		// obot.keyPress(KeyEvent.VK_ENTER);
+		// }catch(Exception e){
+		// logMessage("No Alert Present");
+		// }
+		wait.resetExplicitTimeout(timeOut);
+		wait.resetImplicitTimeout(timeOut);
+		// checkAlert();
+		// waitForAlertToAppear();
+
 	}
 
 }
