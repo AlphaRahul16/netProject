@@ -23,13 +23,13 @@ import com.qait.automation.utils.DateUtil;
 
 /**
  *
- * @author prashantshukla
+ * @author QAIT
  */
 public class ReformatTestFile {
 
     String replacealltimestamp(String html) {
 
-        List<String> allMatches = new ArrayList<>();
+        List<String> allMatches = new ArrayList<String>();
         Matcher m = Pattern.compile("[0-9]{13}")
                 .matcher(html);
 

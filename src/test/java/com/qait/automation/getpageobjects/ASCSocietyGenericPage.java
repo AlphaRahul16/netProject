@@ -33,7 +33,7 @@ public class ASCSocietyGenericPage extends GetPage {
 	String csvSeparator = getYamlValue("csv-data-file.data-separator");
 	int timeOut, hiddenFieldTimeOut, numberOfColumns;
 	static int count;
-	ArrayList<String> listOfCaseIdToExecute = new ArrayList<>();
+	ArrayList<String> listOfCaseIdToExecute = new ArrayList<String>();
 	public static HashMap<String, String> hashMap = new HashMap<String, String>();
 
 	public ASCSocietyGenericPage(WebDriver driver, String pageName) {
