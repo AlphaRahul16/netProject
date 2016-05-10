@@ -20,7 +20,9 @@ import org.testng.Reporter;
 
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.TakeScreenshot;
+import com.qait.keywords.ACS_Address_Validation_Action;
 import com.qait.automation.utils.YamlReader;
+
 import com.qait.keywords.ACS_Awards_EWEB_PageActions;
 import com.qait.keywords.ASMErrorPage;
 import com.qait.keywords.ASM_AACTPage;
@@ -108,6 +110,7 @@ public class TestSessionInitiator {
 	public AwardsPageActions_IWEB awardsPageAction;
 	public ACS_Awards_EWEB_PageActions award_ewebPage;
 	public AcsYellowBookEwebPageActions acsYellowBookEwebPage;
+	public ACS_Address_Validation_Action acsAddressValidation;
 
 	public TakeScreenshot takescreenshot;
 
@@ -150,6 +153,7 @@ public class TestSessionInitiator {
 		awardsPageAction = new AwardsPageActions_IWEB(driver);
 		award_ewebPage = new ACS_Awards_EWEB_PageActions(driver);
 		acsYellowBookEwebPage = new AcsYellowBookEwebPageActions(driver);
+		acsAddressValidation = new ACS_Address_Validation_Action(driver);
 	}
 
 	/**

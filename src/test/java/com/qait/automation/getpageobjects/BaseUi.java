@@ -262,7 +262,8 @@ public class BaseUi {
 					"timeout"));
 			hiddenFieldTimeOut = Integer.parseInt(getProperty(
 					"Config.properties", "hiddenFieldTimeOut"));
-			wait.resetImplicitTimeout(0);
+			wait.hardWait(6);
+			wait.resetImplicitTimeout(4);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			Alert alert = driver.switchTo().alert();
 			String alertText = alert.getText();
@@ -270,7 +271,7 @@ public class BaseUi {
 			alert.accept();
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
-			return alertText;
+			return null;
 		} catch (Exception e) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
