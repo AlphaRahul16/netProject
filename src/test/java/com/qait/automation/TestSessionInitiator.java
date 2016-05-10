@@ -204,7 +204,7 @@ public class TestSessionInitiator {
 					"The test browser is :- "
 							+ _getSessionConfig().get("browser") + "\n", true);
 			deleteAllCookies();
-			if (!_getSessionConfig().get("browser").equalsIgnoreCase("ie")
+			if (_getSessionConfig().get("browser").equalsIgnoreCase("chrome")
 					|| _getSessionConfig().get("browser").equalsIgnoreCase(
 							"internetexplorer")) {
 				baseurl = baseurl
