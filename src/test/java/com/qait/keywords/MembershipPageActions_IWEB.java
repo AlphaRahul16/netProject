@@ -16,6 +16,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.DateUtil;
 import com.qait.automation.utils.YamlReader;
@@ -184,9 +185,19 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		handleAlert();
 		handleAlert();
 		hardWaitForIEBrowser(3);
-		// isElementDisplayed("btn_editNameAndAddress");
+		try{
+			wait.resetImplicitTimeout(4);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 		clickUsingXpathInJavaScriptExecutor(element("btn_editNameAndAddress"));
+		}
+		catch(NoSuchElementException e)
+		{
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+		}
 		// element("btn_editNameAndAddress").click();
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
 		logMessage("Step : Click on edit name and address button in btn_editNameAndAddress\n");
 	}
 
@@ -1601,6 +1612,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// element("btn_arrowRightCircle").click();
 		logMessage("Step : navigate to invoice profile page for first product in btn_arrowRightCircle\n");
 	}
+	
+	public void navigateToInvoicePageForRenewedProduct() {
+		isElementDisplayed("btn_gotorenewal");
+		element("btn_gotorenewal").click();
+		logMessage("Step : navigate to invoice profile page for Renewed product in btn_gotorenewal\n");
+		
+	}
 
 	public void getloginStatusFromSheet(String[] loginAs) {
 		List<String> loginList = new ArrayList<String>();
@@ -2072,6 +2090,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		Assert.assertTrue(netBalance.equalsIgnoreCase(String.valueOf(String.format("%.2f", netIndividualBalance))));
 		logMessage("ASSERT PASSED : " + netBalance + " is verified for net balance\n");
 	}
+	
+	public void collapseDetailsMenu(String menuName) {
+		isElementDisplayed("icon_up", menuName);
+		clickUsingXpathInJavaScriptExecutor(element("icon_up", menuName));
+		// element("icon_up", menuName).click();
+		waitForSpinner();
+		logMessage("STEP : " + menuName + " bar collapse bar clicked\n");
+		
+	}
 
 	public List<String> getCustomerLastNameAndContactID() {
 
@@ -2159,13 +2186,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		handleAlert();
 		switchToDefaultContent();
 		customerContactId = element("txt_renewalContactId").getText();
-		System.out.println(customerContactId);
-		System.out.println(customerLname);
 		memberDetails.add(customerLname);
-
 		memberDetails.add(customerContactId);
 		// memberDetails.add(getMemberWebLogin());
 		memberDetails.add(invoiceNumber);
+		logMessage("Step : Full Name of member is "+memberDetails.get(0));
+		logMessage("Step : Customer Id of member is "+memberDetails.get(1));
+		//memberDetails.add(getMemberWebLogin());
 		return memberDetails;
 
 	}
@@ -2178,23 +2205,18 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnCustomerNameAndNavigateToMembershipPage() {
 		isElementDisplayed("link_customerName");
 		element("link_customerName").click();
-		;
 		handleAlert();
 		logMessage("Step : Customer Name as " + element("link_customerName").getText() + " is clicked\n");
 	}
 
-	public void selectMemberForRenewal(String membertype, Map<String, String> mapOMR) {
-
-		switch (membertype) {
-		case "Regular":
-			selectProvidedTextFromDropDown(element("drpdwn_memberType"), "ACS : Regular Member");
-			break;
-		case "Student":
-			selectProvidedTextFromDropDown(element("drpdwn_memberType"), "ACS : Student Member - UnderGrad");
-			break;
-		case "Emeritus":
-			selectProvidedTextFromDropDown(element("drpdwn_memberType"), "ACS : Emeritus Member");
-			break;
+	
+	public void selectMemberForRenewal(String membertype) {
+		
+		switch(membertype)
+		{
+			case "Regular":		selectProvidedTextFromDropDown(element("drpdwn_memberType"),"ACS : Regular Member");break;
+			case "Student":     selectProvidedTextFromDropDown(element("drpdwn_memberType"),"ACS : Student Member - UnderGrad");break;
+			case "Emeritus":    selectProvidedTextFromDropDown(element("drpdwn_memberType"),"ACS : Emeritus Member");break;
 		}
 		clickOnGoButtonInRunQuery();
 
@@ -2202,28 +2224,33 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void selectValidUserForRenewal(Map<String, String> mapOMR) {
 		clickOnTab("Query Membership");
-		selectAndRunQuery("GWV - Renewal Query");
-		selectMemberForRenewal(mapOMR.get("Member_Status?"), mapOMR);
+		selectAndRunQuery("Selenium - Renewal Query");
+		selectMemberForRenewal(mapOMR.get("Member_Status?"));
 		expandDetailsMenu("invoices");
-
+		verifyTermStartDateAndEndDatesAreEmpty(mapOMR);
+		verifyPaymentStatusBeforeRenewal(mapOMR);
+		
+		
 	}
-
-	public void verifyTermStartDateAndEndDatesAreEmpty(Map<String, String> mapOMR) {
-		isElementDisplayed("txt_termStartDaterenewal", "1");
-		isElementDisplayed("txt_termEndDaterenewal", "1");
-		if (element("txt_termStartDaterenewal", "1").getText().length() != 1
-				&& element("txt_termEndDaterenewal", "1").getText().length() != 1) {
-			selectValidUserForRenewal(mapOMR);
-		} else {
-			Assert.assertTrue(element("txt_termStartDaterenewal", "1").getText().length() == 1,
-					"Term Start Date is not Empty");
-			logMessage("ASSERT PASSED : Term Start date is empty\n");
-			Assert.assertTrue(element("txt_termEndDaterenewal", "1").getText().length() == 1,
-					"Term End Date is not Empty");
-			logMessage("ASSERT PASSED : Term End date is empty\n");
+	public void verifyPaymentStatusBeforeRenewal(Map<String, String> mapOMR)
+	{
+		try
+		{
+			wait.resetImplicitTimeout(4);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+		Assert.assertTrue(element("txt_PaymentStatus","Payment Status").getText().equals("Unpaid"));
 		}
-
+		catch(AssertionError e)
+		{
+			logMessage("ASSERT PASSED : Payment status before renewal is not Unpaid, thus looping back\n");
+			selectValidUserForRenewal(mapOMR);
+		}
+		wait.resetExplicitTimeout(timeOut);
+		wait.resetImplicitTimeout(timeOut);
+		logMessage("ASSERT PASSED : Payment status before renewal is Unpaid");
+		
 	}
+
 
 	public void verifyTermStartDateAndEndDatesAreNotEmpty() {
 		isElementDisplayed("txt_termStartDaterenewal", "1");
@@ -2344,5 +2371,34 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("STEP : Clicked on Transfer Now button");
 		switchToDefaultContent();
 	}
+
+	 public void verifyTermStartDateAndEndDatesAreEmpty(Map<String, String> mapOMR) {
+		  try{
+		   
+		  wait.resetImplicitTimeout(4);
+		  wait.resetExplicitTimeout(hiddenFieldTimeOut);
+		       isElementDisplayed("txt_termStartDaterenewal","1");
+		        isElementDisplayed("txt_termEndDaterenewal","1");
+		  }
+		  catch(NoSuchElementException e)
+		  {
+		   expandDetailsMenu("invoices");
+		  }
+		  wait.resetImplicitTimeout(timeOut);
+		  wait.resetExplicitTimeout(timeOut);
+		        if(element("txt_termStartDaterenewal","1").getText().length()!=1 && element("txt_termEndDaterenewal","1").getText().length()!=1)
+		        {
+		         collapseDetailsMenu("invoices");
+		         selectValidUserForRenewal(mapOMR);
+		        }
+		        else
+		        {
+		       Assert.assertTrue(element("txt_termStartDaterenewal","1").getText().length()==1, "Term Start Date is not Empty");
+		       logMessage("ASSERT PASSED : Term Start date is empty\n");
+		       Assert.assertTrue(element("txt_termEndDaterenewal","1").getText().length()==1, "Term End Date is not Empty");
+		       logMessage("ASSERT PASSED : Term End date is empty\n");
+		        }
+		   
+		  } 
 
 }

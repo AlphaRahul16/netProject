@@ -80,7 +80,7 @@ public class ObjectFileReader {
 
 	private static ArrayList<String> getSpecSection(FileReader specfile) {
 		String readBuff = null;
-		ArrayList<String> elementLines = new ArrayList<>();
+		ArrayList<String> elementLines = new ArrayList<String>();
 
 		try {
 			BufferedReader buff = new BufferedReader(specfile);

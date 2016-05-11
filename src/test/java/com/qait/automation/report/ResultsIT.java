@@ -36,6 +36,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.qait.automation.utils.DateUtil;
 import com.qait.automation.utils.YamlReader;
 
 public class ResultsIT extends ReformatTestFile {
@@ -54,18 +55,31 @@ public class ResultsIT extends ReformatTestFile {
     final String projectName = "ACS Society";
     private String totaltest;
     private String passedResults;
+	private String testname;
     public static int count = 0;
 
     @BeforeClass
     void setupMailConfig() {
     	YamlReader.setYamlFilePath();
     }
+    public ResultsIT(String testname) {
+    	this.testname = testname;
+	}
 
     @Test
     public void changeTimeStamp() throws IOException  {
+    	System.out.println("Testname "+testname);
+    	if(testname.contains("Default"))
+    	{
+    	 testname=System.getProperty("testngxml", "null").replace(".xml", "").trim();
+    	}
         String html = readLargerTextFile("./target/surefire-reports/emailable-report.html");
+        String logspath="./Acslogs/"+DateUtil.getCurrentdateInStringWithGivenFormate("dd MMM yyyy")+"/"
+        +testname+" "+DateUtil.getCurrentdateInStringWithGivenFormate("HH_mm_ss_a")+"_emailable-report.html";
         html = replacealltimestamp(html);
         writeLargerTextFile("./target/surefire-reports/emailable-report.html", html);
+        System.out.println("=============Path==================="+logspath);
+       writeLargerTextFile(logspath, html);
     }
 
     @Test(dependsOnMethods = "changeTimeStamp")

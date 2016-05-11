@@ -33,7 +33,7 @@ public class ASCSocietyGenericPage extends GetPage {
 	String csvSeparator = getYamlValue("csv-data-file.data-separator");
 	int timeOut, hiddenFieldTimeOut, numberOfColumns;
 	static int count;
-	ArrayList<String> listOfCaseIdToExecute = new ArrayList<>();
+	ArrayList<String> listOfCaseIdToExecute = new ArrayList<String>();
 	public static HashMap<String, String> hashMap = new HashMap<String, String>();
 
 	public ASCSocietyGenericPage(WebDriver driver, String pageName) {
@@ -228,15 +228,14 @@ public class ASCSocietyGenericPage extends GetPage {
 		String textinpdf;
 		try {
 			textinpdf = extractFromPdf(filename, 1).trim();
-/*			String textarray[] = texttocompare.trim().split(" ");
-			for (int i = 0; i < textarray.length-1; i++) {
-*/				System.out.println(textinpdf);
-				System.out.println(texttocompare);
+			String textarray[] = texttocompare.trim().split(" ");
+			for (int i = 0; i < (textarray.length)-1; i++) {
+				System.out.println(textinpdf);
+				System.out.println(textarray[i]);
 				Assert.assertTrue(textinpdf.trim()
 						.contains(texttocompare));
-			
-
-		} catch (FileNotFoundException e) {
+		} 
+		}catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();

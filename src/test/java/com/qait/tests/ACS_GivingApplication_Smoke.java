@@ -49,7 +49,7 @@ public class ACS_GivingApplication_Smoke {
 	public void Step01_TC01_Launch_IWeb_Application_And_Navigate_To_Funds() {
 		Reporter.log("CASE ID : " + caseID, true);
 		mapSheetData = test.homePageIWEB.addValuesInMap("giving_donate", caseID);
-		test.navigateToIWEBUrlOnNewBrowserTab(app_url_IWEB);
+		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.enterAuthentication(
 				getYamlValue("Authentication.userName"),
 				getYamlValue("Authentication.password"));
@@ -79,8 +79,10 @@ public class ACS_GivingApplication_Smoke {
 		mapIwebProductDetails = test.asm_Donate.getUserAddressDetails(memberLoginDetails, "PhoneNo", "Email",
 				"Address");
 
-		if (mapSheetData.get("Login_via_MemberNumber").equalsIgnoreCase("YES"));
+		if (mapSheetData.get("Login_via_MemberNumber").equalsIgnoreCase("YES"))
+		{
 		memberDetails = test.memberShipPage.getCustomerLastNameAndContactID();
+		}
 
 	/*memberDetails = test.memberShipPage.getCustomerLastNameAndContactID(mapSheetData.get("Login_via_MemberNumber"));*/
 
@@ -163,7 +165,7 @@ public class ACS_GivingApplication_Smoke {
 	@Test
 	public void Step07_TC_07_Navigate_To_Iweb_And_Retreive_Lastest_Invoice_For_Donor() {
 		Reporter.log("CASE ID : " + caseID, true);
-		test.navigateToIWEBUrlOnNewBrowserTab(app_url_IWEB);
+		test.launchApplication(app_url_IWEB);
 		test.memberShipPage.navigateToMemberLatestInvoicePage(memberLoginDetails);
 		if (memberLoginDetails.get(0).equals("2")) {
 			test.homePageIWEB.clickFindForIndividualsSearch();
