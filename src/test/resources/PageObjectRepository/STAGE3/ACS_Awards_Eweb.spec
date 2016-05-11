@@ -46,5 +46,6 @@ txt_confirmationMessage                   xpath                          //div[@
 btn_returnToYourAwardDashboard            xpath                          //input[@value='<<Return to your Awards Dashboard']
 txt_ballotSubmissionDate                  xpath                         //h1[text()='${awardName}']/preceding-sibling::div[@class='awardrightcol']//p//em
 lnk_updateScore                           id                             F1_HYPERLINK_2
-img_dashboardLoader                       xpath                          img[@src='images/awards/loading.gif']
+img_dashboardLoader                       xpath                          img[contains(@src,'images/awards/loading.gif')]
+list_img_pdfProfileDownload				  xpath							 //*[@title='Download Full Profile']
 ================================================================================================================================

@@ -3,11 +3,17 @@ package com.qait.tests;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.testng.Reporter;
+import org.testng.SkipException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
@@ -21,7 +27,7 @@ public class ACS_Yellow_Book_Smoke_Test {
 	String app_url_eweb_yb;
 	String app_url_iweb_yb;
 	String app_url_iweb_nf;
-	
+	boolean value;
 	
 	List<String> customerList	= new ArrayList<String>();
 	List<String> committeesList	= new ArrayList<String>();
@@ -49,6 +55,8 @@ public class ACS_Yellow_Book_Smoke_Test {
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Committee");
 		test.homePageIWEB.verifyUserIsOnHomePage("Committee | Overview | Overview and Setup");
+		test.homePageIWEB.clickOnCommitteeSetupPageLink();
+		value=test.individualsPage.verifyCommitteePreferenceDate();
 	}
 	
 	@Test
@@ -73,13 +81,12 @@ public class ACS_Yellow_Book_Smoke_Test {
 	
 	@Test
 	public void Step06_Launch_Eweb_Application_For_Yellow_Book_And_Login_With_LastName_And_Member_ID_Than_Verify_User_Is_On_Home_Page(){
-		test.launchApplication(app_url_eweb_yb);
 		test.acsYellowBookEwebPage.loginWithLastNameAndMemberId(customerList.get(0),customerList.get(1));
 		test.acsYellowBookEwebPage.verifyUserIsOnHomePageOfYellowBookEweb();
 	}
 	
 	@Test
-	public void Step07_Update_Address_Field_And_Verify_On_Home_Page_Of_Yellow_Book_Eweb(){
+	public void Step07_Update_Address_Field_And_Verify_On_Home_Page_Of_Yellow_Book_Eweb(){   //changes made
 		test.acsYellowBookEwebPage.clickOnLinkOnHomePageYBEweb("contact");
 		test.acsYellowBookEwebPage.verifyUserNavigatedToParticularPage("Update My Yellow Book Contact Info");
 		test.acsYellowBookEwebPage.updateAddessField(test.homePageIWEB.map().get("Address field 2"));
@@ -96,6 +103,10 @@ public class ACS_Yellow_Book_Smoke_Test {
 	}
 	
 	@Test
+	public void Step09A_Verify_Presence_Of_edit_Link(){
+		test.acsYellowBookEwebPage.verifyEditLink(value);
+	}
+	@Test
 	public void Step09_Click_On_Committe_Preferences_Link_And_Choose_Four_Random_Committees_And_Verify_Selected_Committees_On_Yellow_Book_Eweb_Home_Page(){
 		test.acsYellowBookEwebPage.clickOnLinkOnHomePageYBEweb("committees");
 		committeesList = test.acsYellowBookEwebPage.selectFourRandomCommitteesFromCommitteesPreferencesPage(test.homePageIWEB.map().get("checkbox?"));
@@ -106,6 +117,26 @@ public class ACS_Yellow_Book_Smoke_Test {
 	public void Step10_Fill_The_Test_Data_In_Selected_Committee_Input_Box_And_Verify_Selected_Committees_On_Home_Page_Of_Yellow_Book_Eweb(){
 		test.acsYellowBookEwebPage.fillTheTestDataInSelectedCommitteeInputBoxAndClickOnSubmitButton();
 		test.acsYellowBookEwebPage.verifySelectedCommitteesOnYellowBookEwebHomePage(committeesList);
+	}
+	
+	@Test
+	public void Step11_Launch_Iweb_Application_For_Yellow_Book_And_Verify_Biography_Data(){
+		test.launchApplication(app_url_iweb_yb);
+		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
+				YamlReader.getYamlValue("Authentication.password"));
+		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
+		test.homePageIWEB.clickOnFindTab();
+		test.individualsPage.enterFieldValue("ACS member",customerList.get(1));  
+		test.individualsPage.clickGoButton();
+        test.individualsPage.verifyNomineeAddress(test.homePageIWEB.map().get("Address field 2"));
+        test.individualsPage.clickOnAcsBiographyImage();
+        test.individualsPage.verifyBioHonorsData(honorValue);
+	}
+	
+	@Test
+	public void Step12_Verify_Committee_Member_Status(){
+        test.individualsPage.navigateToGeneralMenuOnHoveringMore("Committees");
+        test.individualsPage.verifyCommitteeMembersStatus(customerList.get(0)); 
 	}
 	
 	@BeforeClass

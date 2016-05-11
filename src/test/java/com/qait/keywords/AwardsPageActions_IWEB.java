@@ -32,7 +32,6 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	List<String> listOfJudgesForRescused = new ArrayList<String>();
 	List<String> listOfJudgesName = new ArrayList<String>();
 
-	Map<String, List<String>> judgeDetailsMap = new HashMap<>();
 	Map<String, Integer> nomineesWithRankOne = new HashMap<>();
 
 	public AwardsPageActions_IWEB(WebDriver driver) {
@@ -124,6 +123,53 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		System.out.println("startDate :" + startDate);
 		System.out.println("endDate :" + endDate);
 		return startEndDate;
+	}
+
+	public void uncheckClosedCheckbox_VotingClosed(String awardName,
+			String roundNumber) {
+		goToRecordForRound("1");
+
+		boolean closedStatus = isClosedStatusOnAwardsStageProfile("Yes");
+		System.out.println("closed status : " + closedStatus);
+		if (closedStatus) {
+			logMessage("INFO : Awards Voting Is Already Closed For Award : "
+					+ awardName + " \n");
+			clickOnEditButtonInAwardsStageProfilePage();
+			switchToFrame("iframe1");
+			uncheckClosedCheckboxButton();
+			clickOnSaveButton();
+			switchToDefaultContent();
+			Assert.assertTrue(isClosedStatusOnAwardsStageProfile("No"),
+					"Is closed status is actual Yes and expected No\n");
+		} else
+			logMessage("INFO : Awards Voting is not closed\n");
+		clickOnAwardsName_RoundName(awardName);
+	}
+
+	public boolean isClosedStatusOnAwardsStageProfile(String closedStatus) {
+		isElementDisplayed("txt_withLabelOnAwardStageProfile", "closed?");
+		String actualClosedStatus = element("txt_withLabelOnAwardStageProfile",
+				"closed?").getText().trim();
+		Boolean flag = actualClosedStatus.equalsIgnoreCase("Yes");
+		logMessage("Step Closed status is " + actualClosedStatus + "\n");
+		return flag;
+	}
+
+	public void clickOnEditButtonInAwardsStageProfilePage() {
+		isElementDisplayed("btn_editAward");
+		element("btn_editAward").click();
+		logMessage("Step : click on edit button in awards profile page\n");
+	}
+
+	public void uncheckClosedCheckboxButton() {
+		isElementDisplayed("chk_closedCheckBox");
+		if (element("chk_closedCheckBox").isSelected())
+			element("chk_closedCheckBox").click();
+		else {
+			logMessage("Step : closed check box is already unchecked\n");
+		}
+
+		logMessage("Step : closed check box is unchecked\n");
 	}
 
 	public void clickOnSaveButton() {
@@ -278,29 +324,30 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnRandomPage() {
-		try {
-			wait.resetImplicitTimeout(2);
-			wait.resetExplicitTimeout(hiddenFieldTimeOut);
-			isElementDisplayed("list_pages");
-			wait.resetImplicitTimeout(timeOut);
-			wait.resetExplicitTimeout(timeOut);
-			int max = elements("list_pages").size() - 1, min = 2;
-			Random rand = new Random();
-			int randomNumber = rand.nextInt((max - min) + 1) + min;
-			// int randomNumber = (int) Math.random();
-			String randomNumberInString = String.valueOf(randomNumber);
-			isElementDisplayed("lnk_pages", randomNumberInString);
+		// try {
+		wait.waitForPageToLoadCompletely();
+		wait.resetImplicitTimeout(2);
+		wait.resetExplicitTimeout(hiddenFieldTimeOut);
+		isElementDisplayed("list_pages");
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
+		int max = elements("lnk_pages").size() - 1, min = 2;
+		Random rand = new Random();
+		int randomNumber = rand.nextInt((max - min) + 1) + min;
+		// int randomNumber = (int) Math.random();
+		String randomNumberInString = String.valueOf(randomNumber);
+		isElementDisplayed("lnk_pages", randomNumberInString);
 
-			clickUsingXpathInJavaScriptExecutor(element("lnk_pages",
-					randomNumberInString));
-			logMessage("Step : page at the position of " + randomNumberInString
-					+ " is clicked in lnk_pages\n");
-		} catch (NoSuchElementException exp) {
-			System.out
-					.println("=======random page is not clicked on not present");
-			wait.resetImplicitTimeout(timeOut);
-			wait.resetExplicitTimeout(timeOut);
-		}
+		clickUsingXpathInJavaScriptExecutor(element("lnk_pages",
+				randomNumberInString));
+		logMessage("Step : page at the position of " + randomNumberInString
+				+ " is clicked in lnk_pages\n");
+		// } catch (NoSuchElementException exp) {
+		// System.out
+		// .println("=======random page is not clicked on not present");
+		// wait.resetImplicitTimeout(timeOut);
+		// wait.resetExplicitTimeout(timeOut);
+		// }
 	}
 
 	public void enterDetailsToAddRound_Judge(String detailName,
@@ -327,7 +374,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 			int numberOfJudges = elements("list_awardJudge").size();
-			System.out.println("nu of judges" + numberOfJudges);
+			System.out.println("number of judges " + numberOfJudges);
 			if (numberOfJudges < 5) {
 				int numberOfJudgesToAdd = 5 - numberOfJudges;
 				System.out.println(numberOfJudgesToAdd);
@@ -349,15 +396,22 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 				}
 			}
 		}
-
 	}
 
 	public void addJudges(int roundNumber) {
+		System.out
+				.println("=======================add judge========================");
 		clickOnAddRoundButton("award judges");
 		switchToFrame("iframe1");
 		selectProvidedTextFromDropDown(element("list_selectRoundNumber"),
 				"Round " + roundNumber);
+		logMessage("Step : Round " + roundNumber
+				+ " is selected in list_selectRoundNumber\n");
 		clickOnSearchButtonOnEditRecord();
+		wait.hardWait(2);
+		switchToDefaultContent();
+		switchToFrame("iframe1");
+		clickOnRandomPage();
 		selectJudgeName();
 		clickOnSaveButton();
 		switchToDefaultContent();
@@ -403,16 +457,19 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			wait.resetImplicitTimeout(0);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("link_acsAwardEntries");
+			logMessage("Step : ACS Award Stage Entries In This Stage is not empty\n");
 			clickOnReopenSubmissionButton();
+
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
-			logMessage("ASSERT FAILED : ACS Award Stage Entries In This Stage is not empty\n");
 		} catch (Exception exp) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 			logMessage("Step : ACS Award Stage Entries In This Stage is empty \n");
 
 		}
+
+		navigateToBackPage();
 	}
 
 	public void clickOnReopenSubmissionButton() {
@@ -453,18 +510,24 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			listOfJudgesName.add(ele.getText().trim());
 		}
 		for (String s : listOfJudgesName) {
-			System.out.println(s);
+			System.out.println("judge name : " + s);
 		}
 		return listOfJudgesName;
 	}
 
 	public void goToJudgeRecord(String judgeName) {
 		// wait.waitForPageToLoadCompletely();
-		wait.hardWait(1);
+		wait.hardWait(3);
 		wait.waitForPageToLoadCompletely();
-		isElementDisplayed("link_goToJudgeRecord", judgeName);
-		clickUsingXpathInJavaScriptExecutor(element("link_goToJudgeRecord",
-				judgeName));
+		isElementDisplayed("link_goToJudgeRecord", judgeName.split("'")[0]);
+		if (judgeName.contains("'")) {
+			clickUsingXpathInJavaScriptExecutor(element("link_goToJudgeRecord",
+					judgeName.split("'")[1]));
+		} else {
+			clickUsingXpathInJavaScriptExecutor(element("link_goToJudgeRecord",
+					judgeName.split("'")[0]));
+		}
+
 		logMessage("Step : navigate to judge " + judgeName + " profile\n");
 
 	}
@@ -496,13 +559,15 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public Map<String, List<String>> getJudgeDetails(List<String> judgeNames,
 			String roundNumber) {
+		Map<String, List<String>> judgeDetailsMap = new HashMap<>();
 		System.out.println("judges name size: " + judgeNames.size());
 		for (String judgeName : judgeNames) {
 			List<String> judgeCustomerID_Weblogin = new ArrayList<String>();
 			String currentUrl = getCurrentURL();
+
 			goToJudgeRecord(judgeName);
 
-			deleteNominees();
+			// deleteNominees();
 
 			clickOnJudgeNameToNavigateOnProfilePage(judgeName);
 			waitForSpinner();
@@ -539,10 +604,18 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnJudgeNameToNavigateOnProfilePage(String judgeName) {
-		isElementDisplayed("lnk_judgeProfile", judgeName);
-		element("lnk_judgeProfile", judgeName).click();
-		logMessage("Step : click on judge name " + judgeName
-				+ " to navigate on profile page\n");
+		if (judgeName.contains("'")) {
+			isElementDisplayed("lnk_judgeProfile", judgeName.split("'")[1]);
+			element("lnk_judgeProfile", judgeName.split("'")[1]).click();
+			logMessage("Step : click on judge name " + judgeName.split("'")[1]
+					+ " to navigate on profile page\n");
+		} else {
+			isElementDisplayed("lnk_judgeProfile", judgeName);
+			element("lnk_judgeProfile", judgeName).click();
+			logMessage("Step : click on judge name " + judgeName
+					+ " to navigate on profile page\n");
+		}
+
 	}
 
 	public String getCustomerID(String judgeName) {
@@ -584,7 +657,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnEditJudgeButton() {
-		isElementDisplayed("btn_editAward");
+		isElementDisplayed("btn_editJudge");
 		element("btn_editJudge").click();
 		logMessage("Step : click on edit button on judge profile\n");
 	}

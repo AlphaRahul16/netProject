@@ -139,7 +139,9 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 
 	public void verifyUpdatedAddressOnYellowBookHomePage(String address) {
 		wait.waitForPageToLoadCompletely();
+		wait.hardWait(1);
 		isElementDisplayed("txt_updated_add");
+		logMessage(element("txt_updated_add").getText().trim());
 		Assert.assertTrue(element("txt_updated_add").getText().contains(address));
 		logMessage("[ASSERTION PASSED]:: Verified Updated Address" + address + " on Yellow Book Home Page");
 	}
@@ -230,7 +232,7 @@ private void _selectCommitteesWithoutWarningImage(int i) {
 			element("btn_cont").click();
 			logMessage("Clicked on I understand check box and continue button on Modal Pop up");
 		} else {
-			Assert.assertFalse(element("modal_popup").isDisplayed(),
+			Assert.assertFalse(checkIfElementIsThere("modal_popup"),
 					"[ASSERTION FAILED]::  Modal Box pop up is displayed with I Understand check box when selected committees have no conflicts");
 			logMessage(
 					"[ASSERTION PASSED]:: Verified Modal Box pop up is not displayed with I Understand check box when selected committees have conflicts");
@@ -262,6 +264,19 @@ private void _selectCommitteesWithoutWarningImage(int i) {
 			i++;
 		}
 		logMessage("[ASSERTION PASSED]:: Verified Selected Committees are displayed on Yellow Book Eweb Home Page");
+	}
+	
+	public void verifyEditLink(boolean value){
+		if(value){
+			isElementDisplayed("lnk_edit");
+			logMessage("Info: Current Date lies between Start and End Date");
+			logMessage("Info: Edit link is present for Committee Preferences");
+		}
+		else{
+			logMessage("Info: Current Date does not lies between Start and End Date");
+			logMessage("Info: Edit link is not present for Committee Preferences");
+		}
+			
 	}
 
 }

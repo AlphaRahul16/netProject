@@ -13,6 +13,7 @@ import java.util.Map;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -138,7 +139,7 @@ public class WebDriverFactory {
 				false);
 		profile.setPreference("browser.download.manager.alertOnEXEOpen", false);
 		profile.setPreference("pdfjs.disabled", true);
-
 		return new FirefoxDriver(profile);
+
 	}
 }

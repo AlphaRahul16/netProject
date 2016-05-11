@@ -20,6 +20,9 @@ import org.testng.Reporter;
 
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.TakeScreenshot;
+import com.qait.keywords.ACS_Address_Validation_Action;
+import com.qait.automation.utils.YamlReader;
+
 import com.qait.keywords.ACS_Awards_EWEB_PageActions;
 import com.qait.keywords.ASMErrorPage;
 import com.qait.keywords.ASM_AACTPage;
@@ -107,6 +110,7 @@ public class TestSessionInitiator {
 	public AwardsPageActions_IWEB awardsPageAction;
 	public ACS_Awards_EWEB_PageActions award_ewebPage;
 	public AcsYellowBookEwebPageActions acsYellowBookEwebPage;
+	public ACS_Address_Validation_Action acsAddressValidation;
 
 	public TakeScreenshot takescreenshot;
 
@@ -146,9 +150,10 @@ public class TestSessionInitiator {
 		addMember = new AddMemeber_IWEB(driver);
 		fundpofilePage = new FundProfilePage(driver);
 		memNumLookupPage = new MemberNumberLookupPage(driver);
-		awardsPageAction= new AwardsPageActions_IWEB(driver);
+		awardsPageAction = new AwardsPageActions_IWEB(driver);
 		award_ewebPage = new ACS_Awards_EWEB_PageActions(driver);
 		acsYellowBookEwebPage = new AcsYellowBookEwebPageActions(driver);
+		acsAddressValidation = new ACS_Address_Validation_Action(driver);
 	}
 
 	/**
@@ -169,27 +174,29 @@ public class TestSessionInitiator {
 	private void _configureBrowser() {
 		driver = wdfactory.getDriver(_getSessionConfig());
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Integer.parseInt(getProperty("timeout")), TimeUnit.SECONDS);
+		driver.manage()
+				.timeouts()
+				.implicitlyWait(Integer.parseInt(getProperty("timeout")),
+						TimeUnit.SECONDS);
 	}
 
-	 public Map<String, String> _getSessionConfig() {
-		    String[] configKeys = {"tier", "browser", "seleniumserver", "seleniumserverhost", "timeout", "driverpath"};
-		    Map<String, String> config = new HashMap<String, String>();
-		    for (String string : configKeys) {
-		      try {
-		        if (System.getProperty(string).isEmpty())
-		          config.put(string, getProperty("./Config.properties", string));
-		        else
-		          config.put(string, System.getProperty(string));
-		      } catch (NullPointerException e) {
-		        config.put(string, getProperty("./Config.properties", string));
-		      }
-		    }
-		    return config;
-		  }
-	
-
-	
+	public Map<String, String> _getSessionConfig() {
+		String[] configKeys = { "tier", "browser", "seleniumserver",
+				"seleniumserverhost", "timeout", "driverpath" };
+		Map<String, String> config = new HashMap<String, String>();
+		for (String string : configKeys) {
+			try {
+				if (System.getProperty(string).isEmpty())
+					config.put(string,
+							getProperty("./Config.properties", string));
+				else
+					config.put(string, System.getProperty(string));
+			} catch (NullPointerException e) {
+				config.put(string, getProperty("./Config.properties", string));
+			}
+		}
+		return config;
+	}
 
 	public void launchApplication() {
 		launchApplication(getYamlValue("baseurl"));
@@ -197,27 +204,49 @@ public class TestSessionInitiator {
 
 	public void launchApplication(String baseurl) {
 		try {
-			Reporter.log("The test browser is :- " + _getSessionConfig().get("browser") + "\n", true);
+			Reporter.log(
+					"The test browser is :- "
+							+ _getSessionConfig().get("browser") + "\n", true);
 			deleteAllCookies();
+			if (!_getSessionConfig().get("browser").equalsIgnoreCase("ie")
+					|| _getSessionConfig().get("browser").equalsIgnoreCase(
+							"internetexplorer")) {
+				baseurl = baseurl
+						.replaceAll(
+								"https://iwebtest",
+								"https://"
+										+ YamlReader
+												.getYamlValue("Authentication.userName")
+										+ ":"
+										+ YamlReader.getYamlValue(
+												"Authentication.password")
+												.replaceAll("@", "%40") + "@"
+										+ "iwebtest");
+			}
+
 			driver.get(baseurl);
 			Reporter.log("\nThe application url is :- " + baseurl, true);
 			if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/"))
-					&& (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
-							|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
-							|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer"))) {
+					&& (ConfigPropertyReader.getProperty("browser")
+							.equalsIgnoreCase("IE")
+							|| ConfigPropertyReader.getProperty("browser")
+									.equalsIgnoreCase("ie") || ConfigPropertyReader
+							.getProperty("browser").equalsIgnoreCase(
+									"internetexplorer"))) {
 				try {
 					Thread.sleep(8000);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
 			}
-			if (!baseurl.equalsIgnoreCase("https://iwebtest.acs.org/NFStage3/iweb")) {
+			if (!baseurl
+					.equalsIgnoreCase("https://iwebtest.acs.org/NFStage3/iweb")) {
 				handleSSLCertificateCondition(baseurl);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void openUrl(String url) {
@@ -242,9 +271,12 @@ public class TestSessionInitiator {
 			driver.get("javascript:document.getElementById('overridelink').click();");
 			System.out.println("Step : handle SSL certificate condition\n");
 			if (baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/")
-					&& ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
-					|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
-					|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer")) {
+					&& ConfigPropertyReader.getProperty("browser")
+							.equalsIgnoreCase("IE")
+					|| ConfigPropertyReader.getProperty("browser")
+							.equalsIgnoreCase("ie")
+					|| ConfigPropertyReader.getProperty("browser")
+							.equalsIgnoreCase("internetexplorer")) {
 				try {
 					Thread.sleep(5000);
 				} catch (InterruptedException e1) {
@@ -257,9 +289,12 @@ public class TestSessionInitiator {
 		}
 
 		if (baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/")
-				&& ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
-				|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
-				|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer")) {
+				&& ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("IE")
+				|| ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("ie")
+				|| ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("internetexplorer")) {
 			try {
 				Thread.sleep(5000);
 			} catch (InterruptedException e1) {
@@ -293,35 +328,36 @@ public class TestSessionInitiator {
 	}
 
 	public void navigateToIWEBUrlOnNewBrowserTab(String baseURL) {
-		if (_getSessionConfig().get("browser").equalsIgnoreCase("firefox")
-				|| _getSessionConfig().get("browser").equalsIgnoreCase("ie")) {
-			driver.manage().deleteAllCookies();
-			openUrl(baseURL);
-		} else if (_getSessionConfig().get("browser").equalsIgnoreCase("chrome")) {
-			Robot robot;
-			try {
-				robot = new Robot();
-				robot.delay(2000);
-				robot.keyPress(KeyEvent.VK_CONTROL);
-				robot.keyPress(KeyEvent.VK_T);
-				robot.keyRelease(KeyEvent.VK_CONTROL);
-				robot.keyRelease(KeyEvent.VK_T);
-				// String base = driver.getWindowHandle();
-				//
-				// Set<String> set = driver.getWindowHandles();
-				for (String s : driver.getWindowHandles()) {
-					driver.switchTo().window(s);
-				}
-				// set.remove(base);
-				// assert set.size() == 1;
-				// driver.switchTo().window((String) set.toArray()[0]);
-				driver.navigate().to(baseURL);
-				Reporter.log("\nThe application url is :- " + baseURL, true);
-			} catch (AWTException e) {
-				e.printStackTrace();
-			}
+		// if (_getSessionConfig().get("browser").equalsIgnoreCase("firefox")
+		// || _getSessionConfig().get("browser").equalsIgnoreCase("ie")) {
+		// driver.manage().deleteAllCookies();
+		// openUrl(baseURL);
+		// } else if (_getSessionConfig().get("browser")
+		// .equalsIgnoreCase("chrome")) {
+		// Robot robot;
+		// try {
+		// robot = new Robot();
+		// robot.delay(2000);
+		// robot.keyPress(KeyEvent.VK_CONTROL);
+		// robot.keyPress(KeyEvent.VK_T);
+		// robot.keyRelease(KeyEvent.VK_CONTROL);
+		// robot.keyRelease(KeyEvent.VK_T);
+		// // String base = driver.getWindowHandle();
+		// //
+		// // Set<String> set = driver.getWindowHandles();
+		// for (String s : driver.getWindowHandles()) {
+		// driver.switchTo().window(s);
+		// }
+		// // set.remove(base);
+		// // assert set.size() == 1;
+		// // driver.switchTo().window((String) set.toArray()[0]);
+		// driver.navigate().to(baseURL);
+		// Reporter.log("\nThe application url is :- " + baseURL, true);
+		// } catch (AWTException e) {
+		// e.printStackTrace();
+		// }
 
-		}
+		launchApplication(baseURL);
 
 		// else
 		// if(_getSessionConfig().get("browser").equalsIgnoreCase("chrome"))
@@ -352,9 +388,8 @@ public class TestSessionInitiator {
 
 		// }
 	}
-	
-	public void openApplicationInNewTab(String baseURL)
-	{
+
+	public void openApplicationInNewTab(String baseURL) {
 		Robot robot;
 		try {
 			robot = new Robot();

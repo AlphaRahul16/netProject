@@ -193,7 +193,7 @@ public class Subscription_Fulfillment_Test {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
 
-//	 @AfterClass(alwaysRun = true)
+	 @AfterClass(alwaysRun = true)
 	public void Close_Test_Session() {
 		test.closeBrowserSession();
 	}

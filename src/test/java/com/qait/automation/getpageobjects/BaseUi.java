@@ -35,7 +35,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.Reporter;
-
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.SeleniumWait;
 
@@ -261,7 +260,8 @@ public class BaseUi {
 					"timeout"));
 			hiddenFieldTimeOut = Integer.parseInt(getProperty(
 					"Config.properties", "hiddenFieldTimeOut"));
-			wait.resetImplicitTimeout(0);
+			wait.hardWait(6);
+			wait.resetImplicitTimeout(4);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			Alert alert = driver.switchTo().alert();
 			String alertText = alert.getText();
@@ -269,7 +269,7 @@ public class BaseUi {
 			alert.accept();
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
-			return alertText;
+			return null;
 		} catch (Exception e) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
@@ -575,6 +575,7 @@ public class BaseUi {
 	}
 
 	public void enterAuthentication(String uName, String password) {
+
 		if ((isBrowser("ie") || isBrowser("internetexplorer") || isBrowser("chrome"))) {
 			System.out.println("in authentication");
 			setClipboardData(uName);
@@ -605,12 +606,19 @@ public class BaseUi {
 
 			
 	}
+
 	}
 
 	public void enterAuthenticationAutoIt() {
 		try {
+			if(isBrowser("chrome")){
 			Runtime.getRuntime().exec(
-					"./src/test/resources/PopUpHandlers/popup.exe");
+					"./src/test/resources/PopUpHandlers/popup.exe");}
+			else{if(isBrowser("ie")||isBrowser("internetExplorer")){
+				Runtime.getRuntime().exec(
+						"./src/test/resources/PopUpHandlers/windowPopUp_IE.exe");}
+			
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

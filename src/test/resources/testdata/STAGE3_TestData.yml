@@ -501,6 +501,6 @@ ASM_zipCodeErrorMessage: "Zip code must be 5 digit or xxxxx-xxxx format"
       
                    
 email:
-  send: true
+  send: false
   recepients:
     recepient1: avnishrawat@qainfotech.net

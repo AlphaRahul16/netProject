@@ -9,10 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -33,9 +29,11 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 	List<Integer> ranks = new ArrayList<Integer>();
 	Map<Integer, String> nomineeRanks = new HashMap<Integer, String>();
-	
+
 	List<Integer> uniqueRandom = new ArrayList<Integer>();
 	Map<String, String> judgesRanks = new HashMap<String, String>();
+
+	Map<Integer, Map> listOfNomineeJudges_judgeRanks = new HashMap<>();
 
 	public ACS_Awards_EWEB_PageActions(WebDriver driver) {
 		super(driver, pagename);
@@ -45,11 +43,9 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	public void enterCredentials_LastNameMemberNumber_ACSID(
 			String credentialType, String nameOfJudge,
 			Map<String, List<String>> memberDetail) {
-		System.out.println("login credential:" + nameOfJudge.split(" ")[0]);
-		System.out
-				.println("contact id:" + memberDetail.get(nameOfJudge).get(0));
-		System.out
-				.println("web login::" + memberDetail.get(nameOfJudge).get(1));
+		logMessage("login credential:" + nameOfJudge.split(" ")[0]);
+		logMessage("contact id:" + memberDetail.get(nameOfJudge).get(0));
+		logMessage("web login::" + memberDetail.get(nameOfJudge).get(1));
 		checkCredentialType(credentialType);
 		if (credentialType.equalsIgnoreCase("lastNameMemberNumber")) {
 			enterCredential("credential1", nameOfJudge.split(" ")[0],
@@ -59,7 +55,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		} else if (credentialType.equalsIgnoreCase("ACSID")) {
 			enterCredential("credential1",
 					memberDetail.get(nameOfJudge).get(1), credentialType);
-			enterCredential("credential1", "beers418", credentialType);
+			// enterCredential("credential1", "beers418", credentialType);
 			enterCredential("credential2", "password", credentialType);
 		}
 		clickOnLoginButton();
@@ -104,10 +100,14 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	public void verifyLoginInAwardApplicationSuccessfully(String judgeName) {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("hd_welcome");
+		logMessage("Last name " + judgeName.split(" ")[0]);
+		logMessage("Heading" + element("hd_welcome").getText());
+
 		Assert.assertTrue(
 				element("hd_welcome").getText().contains(
 						judgeName.split(" ")[0]),
 				"Heading is not contains last name");
+		logMessage("First name " + judgeName.split(" ")[1]);
 		Assert.assertTrue(
 				element("hd_welcome").getText().contains(
 						judgeName.split(" ")[1]),
@@ -188,12 +188,17 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnFiveYearNomineeMemoLink(String awardName) {
+
 		wait.waitForPageToLoadCompletely();
-		isElementDisplayed("lnk_fiveYearNomineeMemo", awardName);
-		element("lnk_fiveYearNomineeMemo", awardName).click();
+		wait.hardWait(3);
+		
+		clickUsingXpathInJavaScriptExecutor(element("lnk_fiveYearNomineeMemo",
+				awardName));
 		logMessage("Step : click on five year nominee memo link\n");
+		
 	}
 
+	
 	public void clickOnViewNominationMaterialButton(String awardName) {
 		isElementDisplayed("inp_viewNominationMaterial", awardName);
 		element("inp_viewNominationMaterial", awardName).click();
@@ -244,10 +249,10 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			int sizeOfNominees = elements("list_nominees").size();
 			int min = 0, max = sizeOfNominees - 1;
 
-			System.out.println("min : ============:" + min
+			logMessage("min : ============:" + min
 					+ " max : ============ " + max);
 			int randomNumber = rand.nextInt((max - min) + 1) + min;
-			System.out.println("random number :----------" + randomNumber);
+			logMessage("random number :----------" + randomNumber);
 			elements("list_nominees").get(randomNumber).click();
 		}
 
@@ -262,11 +267,11 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		}
 
 		for (String selectedNomineeFirstName : selectedNomineeFirstNameList) {
-			System.out.println("first name : " + selectedNomineeFirstName);
+			logMessage("first name : " + selectedNomineeFirstName);
 		}
 
 		for (String selectedNomineeLastName : selectedNomineeLastNameList) {
-			System.out.println("last name : " + selectedNomineeLastName);
+			logMessage("last name : " + selectedNomineeLastName);
 		}
 
 		listOfFirstAndLastName.add(selectedNomineeFirstNameList);
@@ -308,9 +313,27 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		logMessage("Step : view profile link is clicked for "
 				+ nomineeFirstNames.get(1).get(randomNumber));
 		// wait.waitForElementToDisappear(element("img_viewProfileLoader"));
+//		 extractAndCompareTextFromPdfFile("award_history", awardName, 1, "downloads");
+//		  logMessage("Step : award history pdf verified \n");
 
 	}
 
+	public void clickOnProfilePdfLinkAndVerifyPdfContent(List<List<String>> nomineeFirstNames){
+		int max = nomineeFirstNames.size();
+		int min = 0;
+		Random rand = new Random();
+		int randomNumber = rand.nextInt((max - min) + 1) + min;
+		isElementDisplayed("list_img_pdfProfileDownload",
+				nomineeFirstNames.get(1).get(randomNumber));
+		element("list_img_pdfProfileDownload", nomineeFirstNames.get(1).get(randomNumber))
+				.click();
+		  logMessage("Step : Profile pdf link is clicked for "+nomineeFirstNames.get(1).get(randomNumber)+" user \n");
+//		 extractAndCompareTextFromPdfFile("AwardNomination"
+//		 		, nomineeFirstNames.get(1).get(randomNumber), 1, "downloads");
+//		  logMessage("Step : award history pdf verified for "+nomineeFirstNames.get(1).get(randomNumber)+" \n");
+		
+	}
+	
 	public void enterComments(String comment) {
 		isElementDisplayed("txtArea_commnetStickyNotes");
 		element("txtArea_commnetStickyNotes").sendKeys(comment);
@@ -392,84 +415,112 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	public void clickOnRankNominees_Save(String buttonName) {
 		isElementDisplayed("btn_rankNominees_save");
 		for (WebElement ele : elements("btn_rankNominees_save")) {
-			System.out.println("save btn text _________________________"
+			logMessage("save btn text _________________________"
 					+ ele.getAttribute("value"));
 			if (ele.getAttribute("value").contains(buttonName)) {
 				clickUsingXpathInJavaScriptExecutor(ele);
 				logMessage("Step :  " + buttonName + " button is clicked \n");
 			}
 		}
-
 	}
 
-	public void enterRankForNomineeInRound_1(int maxPossibleNominees) {
-		ranks =  ThreadLocalRandom.current()
-				.ints(2, maxPossibleNominees).distinct()
-				.limit(maxPossibleNominees - 1).boxed().collect(Collectors.toList());
+	public void enterRankForNomineeInRound_1(int maxPossibleNominees,
+			int roundNumber) {
+		// ranks = ThreadLocalRandom.current().ints(2, maxPossibleNominees)
+		// .distinct().limit(maxPossibleNominees - 1).boxed()
+		// .collect(Collectors.toList());
+		ranks = generateRandomNumber(maxPossibleNominees, roundNumber);
 		for (int i = 0; i < ranks.size(); i++) {
 			logMessage("----" + ranks.get(i));
 		}
 		logMessage("list size:" + ranks.size());
 		Select dropdown_rank = new Select(element("drpdwn_rank",
 				String.valueOf(1)));
+
 		dropdown_rank.selectByVisibleText(String.valueOf(1));
+
 		for (int i = 0; i < maxPossibleNominees; i++) { // 10
 			Select dropdown_rank1 = new Select(element("drpdwn_rank",
 					String.valueOf(i + 2)));
 			dropdown_rank1.selectByVisibleText(String.valueOf(ranks.get(i)));
+			logMessage("select : " + String.valueOf(ranks.get(i)));
 		}
 	}
 
-	
-	/*public void enterRankForNomineeForMultipleRounds(int maxPossibleNominees,
-			int invocationCount, String judges,
-			List<List<String>> FirstnameLastname) {
-		uniqueRandom =  ()ThreadLocalRandom.current()
-			    .ints(1, maxPossibleNominees).distinct()
-			    .limit(maxPossibleNominees).boxed().collect(Collectors.toList());
+	public void enterRankForNomineeForMultipleRounds(int maxPossibleNominees,
+			List<String> judges, int judgeNumber,
+			List<List<String>> FirstnameLastname, int roundNumber,
+			Map<String, String> judgesRanks) {
+		uniqueRandom = generateRandomNumber(maxPossibleNominees, roundNumber);
 
 		for (int j = 0; j < uniqueRandom.size(); j++) {
-			if (uniqueRandom.get(j) == 1) {
-				int flag = 0;
-				for (int k = 0; k < invocationCount; k++) {
-					flag = 0;
-					if (judgesRanks.get(k).equals(
-							FirstnameLastname.get(0).get(j) + " "
-									+ FirstnameLastname.get(1).get(j))) {
-						flag = 1;
-						break;
+			if (Integer.parseInt(uniqueRandom.get(j).toString()) == 1) {
+				int flag = 0, k = 0;
+				if (!judgesRanks.isEmpty()) {
+					while (k < judgeNumber) {
+						logMessage("judge registrant name "
+								+ judgesRanks.get(judges.get(k)));
+						logMessage("\n registrant name "
+								+ FirstnameLastname.get(0).get(j) + " "
+								+ FirstnameLastname.get(1).get(j));
+
+						if (judgesRanks.get(judges.get(k)).equals(
+								FirstnameLastname.get(0).get(j) + " "
+										+ FirstnameLastname.get(1).get(j))) {
+							flag = 1;
+							break;
+						}
+						k++;
 					}
 				}
 				if (flag == 1) {
+					if (j + 1 > uniqueRandom.size()) {
+						logMessage("Reached last after replacements\n");
+						enterRankForNomineeForMultipleRounds(
+								maxPossibleNominees, judges, judgeNumber,
+								FirstnameLastname, roundNumber, judgesRanks);
+					}
 					int temp = uniqueRandom.get(j + 1);
 					uniqueRandom.add(j + 1, uniqueRandom.get(j));
 					uniqueRandom.add(j, temp);
 				}
 			}
+
 			Select dropdown_rank1 = new Select(element("drpdwn_rank",
-					String.valueOf(j)));
+					String.valueOf(j + 1)));
 			dropdown_rank1.selectByVisibleText(String.valueOf(uniqueRandom
 					.get(j)));
+			logMessage("select : "
+					+ String.valueOf(uniqueRandom.get(j)));
 		}
-
 	}
 
-	public Map<Integer, String> enterRankForNominee_rank1ForFirstNominee(
-			int maxPossibleNominees, String judges, int invocationCount,
-			List<List<String>> FirstnameLastname, int roundNumber) {
+	public Map<Integer, Map> enterRankForNominee_rank1ForFirstNominee(
+			int maxPossibleNominees, List<String> judges, int judgeNumber,
+			List<List<String>> FirstnameLastname, int roundNumber,
+			Map<String, String> judgesRanks) {
+		logMessage("\n round number : " + roundNumber);
+		logMessage("\n judges number : " + judgeNumber);
+		logMessage("\n judges : " + judges);
 
 		switch (roundNumber) {
-		case 0:
-			enterRankForNomineeInRound_1(maxPossibleNominees);
-			break;
 		case 1:
-			enterRankForNomineeForMultipleRounds(maxPossibleNominees,
-					invocationCount, judges, FirstnameLastname);
+			enterRankForNomineeInRound_1(maxPossibleNominees, roundNumber);
 			break;
-		}*/
+		case 2:
+			enterRankForNomineeForMultipleRounds(maxPossibleNominees, judges,
+					judgeNumber, FirstnameLastname, roundNumber, judgesRanks);
+			break;
+		case 3:
+			enterRankForNomineeForMultipleRounds(maxPossibleNominees, judges,
+					judgeNumber, FirstnameLastname, roundNumber, judgesRanks);
+			break;
+		}
 
-		/*isElementDisplayed("heading_rankAward");
-		logMessage("Info: User is navigated to Rank Award Nominees Page");*/
+		/*
+		 * isElementDisplayed("heading_rankAward");
+		 * logMessage("Info: User is navigated to Rank Award Nominees Page");
+		 */
 
 		// uniqueRandom = (List<Integer>) ThreadLocalRandom.current().ints(1,
 		// 10).distinct().limit(10);
@@ -496,11 +547,15 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		// dropdown_rank1.selectByVisibleText(String.valueOf(uniqueRandom.get(j)));
 		// }
 		//
-	/*	nomineeRanks = enterNomineeRankAndData(maxPossibleNominees);
-		judgesRanks.put(judges, nomineeRanks.get(1));
+		nomineeRanks = enterNomineeRankAndData(maxPossibleNominees);
+		logMessage("\n registrant with rank 1 " + nomineeRanks.get(1));
+		judgesRanks.put(judges.get(judgeNumber), nomineeRanks.get(1));
 		clickOnConfirmBallotButton();
-		return nomineeRanks;
-	}*/
+		listOfNomineeJudges_judgeRanks.put(0, nomineeRanks);
+		listOfNomineeJudges_judgeRanks.put(1, judgesRanks);
+
+		return listOfNomineeJudges_judgeRanks;
+	}
 
 	// public Map<Integer, String> enterRankForNominee(int maxPossibleNominees)
 	// {
@@ -553,16 +608,29 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		logMessage("Info: Confirm Ballot Button is clicked\n");
 	}
 
-	public List<Integer> generateRandomNumber(int maxPossibleNominees) {
-		int max = maxPossibleNominees + 1, min = 1, num; // 11
+	public List<Integer> generateRandomNumber(int maxPossibleNominees,
+			int roundNumber) {
+		int max = maxPossibleNominees + 1, min = 0, num; // 11
+		switch (roundNumber) {
+		case 1:
+			min = 2;
+			break;
+		case 2:
+		case 3:
+			min = 1;
+			break;
+
+		}
 		Random random = new Random();
 		List<Integer> list = new ArrayList<Integer>();
-		while (list.size() < maxPossibleNominees) { // 10
+		while (list.size() < max - min && min != 0) { // 10
 			num = random.nextInt((max - min)) + min;
 			if (list.contains(num))
 				continue;
-			else
+			else {
+				System.out.println(num);
 				list.add(num);
+			}
 		}
 		return list;
 	}
@@ -594,7 +662,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		Iterator<Entry<Integer, String>> it = nomineeName.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();
-			System.out.println(pair.getKey() + " = " + pair.getValue());
+			logMessage(pair.getKey() + " = " + pair.getValue());
 		}
 		return nomineeName;
 	}
@@ -608,11 +676,18 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 					element("txt_confirmNomineeName", String.valueOf(i))
 							.getText());
 		}
+
+		Iterator<Entry<Integer, String>> it1 = expectedNomineeData.entrySet()
+				.iterator();
+		while (it1.hasNext()) {
+			Map.Entry pair = (Map.Entry) it1.next();
+			logMessage(pair.getKey() + " = " + pair.getValue());
+		}
 		Iterator<Entry<Integer, String>> it = actualNomineeData.entrySet()
 				.iterator();
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();
-			System.out.println(pair.getKey() + " = " + pair.getValue());
+			logMessage(pair.getKey() + " = " + pair.getValue());
 		}
 		Assert.assertTrue(expectedNomineeData.equals(actualNomineeData),
 				"Assertion Failed: Nominees are not having assigned ranks");
