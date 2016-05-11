@@ -45,6 +45,7 @@ public class ACS_Address_Validation_Test {
 	
 	@Test
 	public void Step04_Enetr_Bogus_ZipCode_And_Verify_ZipCode(){
+		test.memberShipPage.getCustomerLastNameAndContactIDForYellowBook();
 		expectedZipCode=test.acsAddressValidation.fetchZipCode();
         test.acsAddressValidation.clickOnEditNameAndAddressButton();
         test.acsAddressValidation.verifyIndividualNameAndAddressInformationPage();

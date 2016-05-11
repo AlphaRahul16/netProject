@@ -109,7 +109,7 @@ public class WebDriverFactory {
 	private static WebDriver getFirefoxDriver() {
 			String firefoxProfilePath = "./src/test/resources/Profile_"
 				+ ConfigPropertyReader.getProperty("tier");
-	/*	FirefoxProfile profile;
+		FirefoxProfile profile;
 		String autoAuthPath = "src/test/resources/AddOn/autoauth-2.1-fx+fn.xpi";
 		File firefoxProfile = new File(firefoxProfilePath);// path of firefox
 
@@ -141,7 +141,7 @@ public class WebDriverFactory {
 		profile.setPreference("pdfjs.disabled", true);
 				return new FirefoxDriver(profile);
 
-*/		return new FirefoxDriver();
+		
 
 	}
 }

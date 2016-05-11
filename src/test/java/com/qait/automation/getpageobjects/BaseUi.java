@@ -28,6 +28,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -227,7 +228,10 @@ public class BaseUi {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 			driver.switchTo().defaultContent();
-		} catch (Exception e) {
+		} catch(UnhandledAlertException e){
+			logMessage("UnHandledAlert Exception thrown");
+		}
+		catch (Exception e) {
 			System.out.println("No Alert window appeared...");
 		}
 		wait.resetImplicitTimeout(timeOut);
@@ -281,7 +285,7 @@ public class BaseUi {
 	}
 
 	protected Alert switchToAlert() {
-		WebDriverWait wait = new WebDriverWait(driver, 1);
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		return wait.until(ExpectedConditions.alertIsPresent());
 	}
 
