@@ -227,7 +227,7 @@ public class ASCSocietyGenericPage extends GetPage {
 		try {
 			textinpdf = extractFromPdf(filename, 1).trim();
 			String textarray[] = texttocompare.trim().split(" ");
-			for (int i = 0; i < textarray.length; i++) {
+			for (int i = 0; i < (textarray.length)-1; i++) {
 				System.out.println(textinpdf);
 				System.out.println(textarray[i]);
 				Assert.assertTrue(textinpdf.trim()

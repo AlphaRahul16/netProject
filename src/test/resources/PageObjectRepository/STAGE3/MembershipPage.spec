@@ -152,5 +152,8 @@ drpdwn_memberType                                xpath                        //
 btn_detailsMenuAACT                              xpath                        //span[text()='${menuName}']/../a[1]
 txt_termStartDaterenewal                         xpath                        (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[14]
 txt_termEndDaterenewal                           xpath                        (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[15]
+btn_gotorenewal                                  xpath                       (//td[contains(text(),'Active Renewed-No Response')]/preceding-sibling::td[3]//i)[1]
+txt_PaymentStatus                                xpath                        //td[contains(text(),'${productName}')]//following-sibling::td[1]
+icon_up                                          xpath                         //span[contains(text(),'${value}')]/preceding-sibling::a/i[@class='icon-chevron-up']
 
-==============================================================================================================================================
+=============================================================================================================================================================

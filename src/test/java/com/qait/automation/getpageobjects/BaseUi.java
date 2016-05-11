@@ -14,14 +14,11 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -39,10 +36,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.Reporter;
 
-import Client.Robotil;
-
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.SeleniumWait;
+
 
 /**
  * 
@@ -57,13 +53,14 @@ public class BaseUi {
 	int timeOut, hiddenFieldTimeOut;
 	boolean flag = false;;
 	static String lastWindow;
-
+	
 	protected BaseUi(WebDriver driver, String pageName) {
 		PageFactory.initElements(driver, this);
 		this.driver = driver;
 		this.pageName = pageName;
 		this.wait = new SeleniumWait(driver, Integer.parseInt(getProperty(
 				"Config.properties", "timeout")));
+		
 	}
 
 	protected String getPageTitle() {
@@ -72,6 +69,8 @@ public class BaseUi {
 
 	protected void logMessage(String message) {
 		Reporter.log(message, true);
+	
+	
 	}
 
 	public String getCurrentURL() {
@@ -579,65 +578,33 @@ public class BaseUi {
 		if ((isBrowser("ie") || isBrowser("internetexplorer") || isBrowser("chrome"))) {
 			System.out.println("in authentication");
 			setClipboardData(uName);
-			// Robot robot;
-			// try {
-			// robot = new Robot();
-			// setClipboardData(uName);
-			// robot.delay(2000);
-			// robot.keyPress(KeyEvent.VK_CONTROL);
-			// robot.keyPress(KeyEvent.VK_V);
-			// robot.keyRelease(KeyEvent.VK_V);
-			// robot.keyRelease(KeyEvent.VK_CONTROL);
-			// robot.delay(2000);
-			// robot.keyPress(KeyEvent.VK_TAB);
-			// robot.keyRelease(KeyEvent.VK_TAB);
-			// setClipboardData(password);
-			// robot.delay(2000);
-			// robot.keyPress(KeyEvent.VK_CONTROL);
-			// robot.keyPress(KeyEvent.VK_V);
-			// robot.keyRelease(KeyEvent.VK_V);
-			// robot.keyRelease(KeyEvent.VK_CONTROL);
-			// robot.delay(2000);
-			// robot.keyPress(KeyEvent.VK_ENTER);
-			// robot.keyRelease(KeyEvent.VK_ENTER);
-			// } catch (AWTException e) {
-			// e.printStackTrace();
-			// }
+			 Robot robot;
+			 try {
+			 robot = new Robot();
+			 setClipboardData(uName);
+			 robot.delay(2000);
+			 robot.keyPress(KeyEvent.VK_CONTROL);
+			 robot.keyPress(KeyEvent.VK_V);
+			 robot.keyRelease(KeyEvent.VK_V);
+			 robot.keyRelease(KeyEvent.VK_CONTROL);
+			 robot.delay(2000);
+			 robot.keyPress(KeyEvent.VK_TAB);
+			 robot.keyRelease(KeyEvent.VK_TAB);
+			 setClipboardData(password);
+			 robot.delay(2000);
+			 robot.keyPress(KeyEvent.VK_CONTROL);
+			 robot.keyPress(KeyEvent.VK_V);
+			 robot.keyRelease(KeyEvent.VK_V);
+			 robot.keyRelease(KeyEvent.VK_CONTROL);
+			 robot.delay(2000);
+			 robot.keyPress(KeyEvent.VK_ENTER);
+			 robot.keyRelease(KeyEvent.VK_ENTER);
+			 } catch (AWTException e) {
+			 e.printStackTrace();
+			 }
 
-			Robotil robotil;
-			try {
-				String seleniumServer = ConfigPropertyReader
-						.getProperty("seleniumserver");
-				String seleniumserverhost = ConfigPropertyReader
-						.getProperty("seleniumserverhost");
-				if (seleniumServer.equalsIgnoreCase("local")) {
-					robotil = new Robotil("127.0.0.1", 6666);
-				} else {
-					robotil = new Robotil(
-							seleniumserverhost.split(":")[1].replaceAll("//",
-									""), 6666);
-				}
-
-				setClipboardData(uName);
-				// robotil.wait(2000);
-				robotil.pressKey(KeyEvent.VK_CONTROL);
-				robotil.pressKey(KeyEvent.VK_V);
-				robotil.releaseKey(KeyEvent.VK_V);
-				robotil.releaseKey(KeyEvent.VK_CONTROL);
-				robotil.pressKey(KeyEvent.VK_TAB);
-				robotil.releaseKey(KeyEvent.VK_TAB);
-				setClipboardData(password);
-				robotil.pressKey(KeyEvent.VK_CONTROL);
-				robotil.pressKey(KeyEvent.VK_V);
-				robotil.releaseKey(KeyEvent.VK_V);
-				robotil.releaseKey(KeyEvent.VK_CONTROL);
-				robotil.pressKey(KeyEvent.VK_ENTER);
-				robotil.releaseKey(KeyEvent.VK_ENTER);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-		}
+			
+	}
 	}
 
 	public void enterAuthenticationAutoIt() {

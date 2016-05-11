@@ -342,7 +342,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		// element("icon_up", menuName).click();
 		waitForSpinner();
 		logMessage("STEP : " + menuName + " bar collapse bar clicked\n");
-
+		
 	}
 
 	public void verifyMemberDetailsOnInvoicePage(String proforma,
@@ -716,12 +716,18 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	
 	public String verifyInvoiceDetailsBeforeRenewal()
 	{
+		String invoiceNum;
 		verifyInvoiceProfile("proforma", "Yes");
 		verifyInvoiceProfile("paid in full", "No");
 		Assert.assertFalse(element("txt_invoiceValues", "balance").getText().trim()
         .equalsIgnoreCase("0.00"),"Balance is 0.00");
 		logMessage("ASSERT PASSED : Balance before renewal is not 0.00\n");
-		return element("inp_invoiceValue","invoice number").getText();
+		do{
+			invoiceNum=element("inp_invoiceValue","invoice number").getText();
+		System.out.println(invoiceNum);
+		}while(invoiceNum.equals(null));
+		logMessage("Step : Invoice number for which renewal is to be done is "+invoiceNum);
+		return invoiceNum;
 
 
 	}
@@ -729,7 +735,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyInvoiceDetailsAfterRenewal()
 	{
 		verifyInvoiceProfile("proforma", "No");
-		//verifyInvoiceProfile("paid in full", "Yes");
+		verifyInvoiceProfile("paid in full", "Yes");
 		Assert.assertTrue(element("txt_invoiceValues", "balance").getText().trim()
         .equalsIgnoreCase("0.00"),"Balance is not 0.00");
 		logMessage("ASSERT PASSED : Balance amount after renewal is 0.00\n");
@@ -753,12 +759,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	
 		
 	}
-	public void verifyPaymentStatusBeforeRenewal()
-	{
-		Assert.assertTrue(element("txt_code","Payment Status").getText().equals("Unpaid"));
-		logMessage("ASSERT PASSED : Payment status before renewal is Free");
-	}
-	
+
 public void verifyRenewedProductsPriceInsideLineItems(Map<String, String> mapRenewedProductDetails) {
 		
 		for (String key : mapRenewedProductDetails.keySet() ) {

@@ -47,8 +47,10 @@ inp_graduationDate                          css                                 
 drpdwn_degreeType                           css                                       select[id*='ucDegree_ddDegree']
 btns_remove                                 xpath                                     //a[contains(text(),'remove')]
 rad_electronicCEN                           css                                       input[id*='rbElectronic']
+rad_printCEN                                css                                       input[id*='rbPrint']
 btn_printreceipt                            css                                       #print-invoice>input
 txt_priceValue                              xpath                                     //td[contains(text(),'${productName}')]//following-sibling::td[2]
 btn_logout                                  css                                       a[href*='logout']
 txt_renewalthankyoumsg                      xpath                                     //h3[contains(text(),'${message}')]
+btn_applyForEmeritusNo                      css                                      input[id*='btnNo']
 =================================================================================================================================================

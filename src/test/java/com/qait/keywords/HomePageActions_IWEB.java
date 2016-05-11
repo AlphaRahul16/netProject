@@ -3,8 +3,8 @@ package com.qait.keywords;
 import org.openqa.selenium.WebDriver;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
-
 public class HomePageActions_IWEB extends ASCSocietyGenericPage {
+
 
 	WebDriver driver;
 	String pagename = "HomePage_IWEB";
@@ -130,6 +130,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnTab(String tabName) {
+		wait.hardWait(2);
 		isElementDisplayed("link_tabsOnModule", tabName);
 	    element("link_tabsOnModule", tabName).click();
 	    logMessage("STEP : "+tabName+" tab is clicked\n");

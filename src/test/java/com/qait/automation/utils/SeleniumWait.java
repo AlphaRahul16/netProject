@@ -146,6 +146,7 @@ public class SeleniumWait {
 
 	// TODO Implement Wait for page load for page synchronizations
 	public void waitForPageToLoadCompletely() {
+		
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By
 				.xpath("//*")));
 	}

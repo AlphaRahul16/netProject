@@ -6,7 +6,9 @@
 package com.qait.automation.report;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.file.Path;
@@ -18,6 +20,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.commons.io.FileUtils;
 
 import com.qait.automation.utils.DateUtil;
 
@@ -47,11 +51,14 @@ public class ReformatTestFile {
 
     void writeLargerTextFile(String aFileName, String html) throws IOException {
         Path path = Paths.get(aFileName);
+    	File file = new File(aFileName);
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(aFileName), "ISO-8859-1"))) {
             writer.write(html);
+ 
         }
     }
-
+    
+  
     String readLargerTextFile(String aFileName) throws IOException {
         String html = "";
         Path path = Paths.get(aFileName);
