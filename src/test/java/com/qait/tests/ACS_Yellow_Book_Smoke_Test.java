@@ -45,8 +45,7 @@ public class ACS_Yellow_Book_Smoke_Test {
 	@Test
 	public void Step01_Launch_Iweb_Application_For_Yellow_Book() {
 		test.launchApplication(app_url_iweb_yb);
-		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
-				YamlReader.getYamlValue("Authentication.password"));
+		
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 
@@ -86,7 +85,7 @@ public class ACS_Yellow_Book_Smoke_Test {
 	}
 	
 	@Test
-	public void Step07_Update_Address_Field_And_Verify_On_Home_Page_Of_Yellow_Book_Eweb(){   //changes made
+	public void Step07_Update_Address_Field_And_Verify_On_Home_Page_Of_Yellow_Book_Eweb(){   
 		test.acsYellowBookEwebPage.clickOnLinkOnHomePageYBEweb("contact");
 		test.acsYellowBookEwebPage.verifyUserNavigatedToParticularPage("Update My Yellow Book Contact Info");
 		test.acsYellowBookEwebPage.updateAddessField(test.homePageIWEB.map().get("Address field 2"));
@@ -122,8 +121,7 @@ public class ACS_Yellow_Book_Smoke_Test {
 	@Test
 	public void Step11_Launch_Iweb_Application_For_Yellow_Book_And_Verify_Biography_Data(){
 		test.launchApplication(app_url_iweb_yb);
-		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
-				YamlReader.getYamlValue("Authentication.password"));
+		
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 		test.homePageIWEB.clickOnFindTab();
 		test.individualsPage.enterFieldValue("ACS member",customerList.get(1));  

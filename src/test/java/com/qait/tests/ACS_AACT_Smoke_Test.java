@@ -136,9 +136,7 @@ public class ACS_AACT_Smoke_Test {
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 
 		test.navigateToIWEBUrlOnNewBrowserTab(app_url_IWEB);
-		test.homePageIWEB.enterAuthentication(
-				YamlReader.getYamlValue("Authentication.userName"),
-				YamlReader.getYamlValue("Authentication.password"));
+		
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}

@@ -101,14 +101,7 @@ public class ResultsIT extends ReformatTestFile {
         System.out.println("Reports emailed");
 
     }
-    /*@Test
-    public void printAllValues(Map<String,String> map)
-    {
-    	System.out.println("dgggggggggggggggggggggggg");
-    	System.out.println("testname "+testname);
-    	System.out.println(map.get("Member_Status?")+"\t"+map.get("Contribution_To_Add?"));
-    	 Reporter.log(map.get("Member_Status?")+"\t"+map.get("Contribution_To_Add?"),true);
-    }*/
+
    
 
     private Session getSession() {

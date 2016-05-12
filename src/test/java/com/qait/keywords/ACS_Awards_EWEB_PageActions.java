@@ -191,14 +191,13 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(3);
-		
+
 		clickUsingXpathInJavaScriptExecutor(element("lnk_fiveYearNomineeMemo",
 				awardName));
 		logMessage("Step : click on five year nominee memo link\n");
-		
+
 	}
 
-	
 	public void clickOnViewNominationMaterialButton(String awardName) {
 		isElementDisplayed("inp_viewNominationMaterial", awardName);
 		element("inp_viewNominationMaterial", awardName).click();
@@ -226,13 +225,14 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			wait.resetImplicitTimeout(5);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("list_selectedNomineesPrepopulated");
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
 			for (WebElement ele : elements("list_selectedNomineesPrepopulated")) {
 				isElementDisplayed("list_selectedNomineesPrepopulated");
 				ele.click();
 			}
 			logMessage("Step : Unselect all selected nominees\n");
-			wait.resetImplicitTimeout(timeOut);
-			wait.resetExplicitTimeout(timeOut);
+
 		} catch (Exception e) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
@@ -240,18 +240,27 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		}
 	}
 
-	public List<List<String>> selectRandomNominees(int numberOfNomineesToSelect) {
+	public List<List<String>> selectRandomNominees(int numberOfNomineesToSelect, int round) {
 		List<List<String>> listOfFirstAndLastName = new ArrayList<>();
-
-		for (int i = 1; i <= numberOfNomineesToSelect; i++) {
+		
+		int j=(round==1)?2:1;
+		if(j==2){
+			elements("list_nominees").get(0).click();
+		}
+		
+		for (int i = j; i <= numberOfNomineesToSelect; i++) {
 			Random rand = new Random();
 			isElementDisplayed("list_nominees");
 			int sizeOfNominees = elements("list_nominees").size();
-			int min = 0, max = sizeOfNominees - 1;
+			
+			
+			int min = j-1, max = sizeOfNominees ;
 
-			logMessage("min : ============:" + min
-					+ " max : ============ " + max);
+			logMessage("min : ============:" + min + " max : ============ "
+					+ max);
 			int randomNumber = rand.nextInt((max - min) + 1) + min;
+			
+
 			logMessage("random number :----------" + randomNumber);
 			elements("list_nominees").get(randomNumber).click();
 		}
@@ -313,31 +322,55 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		logMessage("Step : view profile link is clicked for "
 				+ nomineeFirstNames.get(1).get(randomNumber));
 		// wait.waitForElementToDisappear(element("img_viewProfileLoader"));
-//		 extractAndCompareTextFromPdfFile("award_history", awardName, 1, "downloads");
-//		  logMessage("Step : award history pdf verified \n");
+		// extractAndCompareTextFromPdfFile("award_history", awardName, 1,
+		// "downloads");
+		// logMessage("Step : award history pdf verified \n");
 
 	}
 
-	public void clickOnProfilePdfLinkAndVerifyPdfContent(List<List<String>> nomineeFirstNames){
+	public void clickOnProfilePdfLinkAndVerifyPdfContent(
+			List<List<String>> nomineeFirstNames) {
 		int max = nomineeFirstNames.size();
 		int min = 0;
 		Random rand = new Random();
 		int randomNumber = rand.nextInt((max - min) + 1) + min;
-		isElementDisplayed("list_img_pdfProfileDownload",
-				nomineeFirstNames.get(1).get(randomNumber));
-		element("list_img_pdfProfileDownload", nomineeFirstNames.get(1).get(randomNumber))
-				.click();
-		  logMessage("Step : Profile pdf link is clicked for "+nomineeFirstNames.get(1).get(randomNumber)+" user \n");
-//		 extractAndCompareTextFromPdfFile("AwardNomination"
-//		 		, nomineeFirstNames.get(1).get(randomNumber), 1, "downloads");
-//		  logMessage("Step : award history pdf verified for "+nomineeFirstNames.get(1).get(randomNumber)+" \n");
-		
+		isElementDisplayed("list_img_pdfProfileDownload", nomineeFirstNames
+				.get(1).get(randomNumber));
+		waitForLoaderToDisappear();
+		clickUsingXpathInJavaScriptExecutor(element(
+				"list_img_pdfProfileDownload",
+				nomineeFirstNames.get(1).get(randomNumber)));
+
+		logMessage("Step : Profile pdf link is clicked for "
+				+ nomineeFirstNames.get(1).get(randomNumber) + " user \n");
+		// extractAndCompareTextFromPdfFile("AwardNomination"
+		// , nomineeFirstNames.get(1).get(randomNumber), 1, "downloads");
+		// logMessage("Step : award history pdf verified for "+nomineeFirstNames.get(1).get(randomNumber)+" \n");
+
 	}
-	
+
 	public void enterComments(String comment) {
 		isElementDisplayed("txtArea_commnetStickyNotes");
 		element("txtArea_commnetStickyNotes").sendKeys(comment);
 		logMessage("Step : comment " + comment + " is entered in sticky notes");
+	}
+
+	public void waitForLoaderToDisappear() {
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
+		try {
+			wait.hardWait(4);
+			wait.waitForPageToLoadCompletely();
+			wait.resetImplicitTimeout(5);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("img_profileLinkLoader");
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+		} catch (Exception exp) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+		}
 	}
 
 	public void saveStickyNotes() {
@@ -464,9 +497,8 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 								+ FirstnameLastname.get(0).get(j) + " "
 								+ FirstnameLastname.get(1).get(j));
 
-						if (judgesRanks.get(judges.get(k)).equals(
-								FirstnameLastname.get(0).get(j) + " "
-										+ FirstnameLastname.get(1).get(j))) {
+						if (judgesRanks.get(judges.get(k)).contains(
+								FirstnameLastname.get(0).get(j)) && judgesRanks.get(judges.get(k)).contains(FirstnameLastname.get(1).get(j))) {
 							flag = 1;
 							break;
 						}
@@ -490,8 +522,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 					String.valueOf(j + 1)));
 			dropdown_rank1.selectByVisibleText(String.valueOf(uniqueRandom
 					.get(j)));
-			logMessage("select : "
-					+ String.valueOf(uniqueRandom.get(j)));
+			logMessage("select : " + String.valueOf(uniqueRandom.get(j)));
 		}
 	}
 

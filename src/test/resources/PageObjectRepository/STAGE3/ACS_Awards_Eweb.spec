@@ -48,4 +48,5 @@ txt_ballotSubmissionDate                  xpath                         //h1[tex
 lnk_updateScore                           id                             F1_HYPERLINK_2
 img_dashboardLoader                       xpath                          img[contains(@src,'images/awards/loading.gif')]
 list_img_pdfProfileDownload				  xpath							 //*[@title='Download Full Profile']
+img_profileLinkLoader                     xpath                          //img[contains(@src,'loadingAnimation.gif')]
 ================================================================================================================================

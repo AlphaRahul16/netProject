@@ -34,6 +34,7 @@ csv-data-file:
   path_OMR: ./src/test/resources/TestDataLibrary/OMR_Datasheet.csv
   path_GeneralAwardList: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument.txt
   path_AwardsVoting: ./src/test/resources/TestDataLibrary/Awards_Voting_Data_Sheet.csv
+  path_MYDTransfer: ./src/test/resources/TestDataLibrary/Multi_Year_Dues_Transfer_Sheet.csv
   data-separator: '\t'
   has-header: true
   
@@ -504,3 +505,6 @@ email:
   send: false
   recepients:
     recepient1: avnishrawat@qainfotech.net
+    
+membership:
+    queryName: Selenium - MYD Query

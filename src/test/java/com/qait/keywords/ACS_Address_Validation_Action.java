@@ -2,25 +2,19 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
-
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
-import com.thoughtworks.selenium.webdriven.commands.IsAlertPresent;
+
 
 public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 	static String pagename = "ACS_Address_Validation";
 	WebDriver driver;
 	int timeOut;
-	
 
 	public ACS_Address_Validation_Action(WebDriver driver) {
 		super(driver, pagename);
@@ -38,6 +32,8 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 
 	public String fetchZipCode() {
 		String address[], zipCode[];
+//		isElementDisplayed("txt_ContactId");
+//		logMessage(element("txt_ContactId").getText().trim());
 		address = element("txt_zipCode").getText().split(",");
 		zipCode = address[1].split(" ", 2);
 		zipCode = zipCode[1].split(" ");
@@ -57,8 +53,8 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 		isElementDisplayed("heading_individualName&Addr");
 		logMessage("STEP : User is navigated to Individual Name & Address Information Page" + "\n");
 	}
-	
-	public void verifyZipCode(String expectedZipCode){
+
+	public void verifyZipCode(String expectedZipCode) {
 		isElementDisplayed("input_zipcode");
 		Assert.assertTrue(expectedZipCode.equals(element("input_zipcode").getAttribute("value").trim()),
 				"ASSERT FAILED : Actual ZipCode " + element("input_zipcode").getAttribute("value")
@@ -75,39 +71,14 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 	}
 
-	public void clickOnSaveButton() {
+	public void clickOnSaveButton() {                          
 		isElementDisplayed("btn_save");
 		element("btn_save").click();
 		logMessage("STEP: Clicked on Save Button \n");
+		handleAlert();
 	}
 
-	public void verifyAddressVerificationWindow() {
-//	 handleAlert();
-		 
-//		getAlertText();
-
-	    wait.resetExplicitTimeout(60);
-	    wait.resetImplicitTimeout(60);
-			wait.hardWait(3);
-			logMessage("in try");		
-			Actions action = new Actions(driver); 
-        action.sendKeys(Keys.ENTER);
-logMessage("*******");         
-//		 Robot robot;
-//		    try {
-//		    	wait.resetImplicitTimeout(4);
-//		    	wait.resetExplicitTimeout(4);
-//		    robot = new Robot();
-//
-//		    robot.delay(2000);
-//		    obot.keyPress(KeyEvent.VK_ENTER);
-//		}catch(Exception e){
-//			logMessage("No Alert Present");
-//		}
-		    wait.resetExplicitTimeout(timeOut);
-		    wait.resetImplicitTimeout(timeOut);
-//		checkAlert();
-//		waitForAlertToAppear();
+	public void verifyAddressVerificationWindow() {              
 		switchWindow();
 		isElementDisplayed("heading_address");
 		logMessage("STEP : User is navigated to Address Verification Window \n");
@@ -135,10 +106,11 @@ logMessage("*******");
 		wait.waitForPageToLoadCompletely();
 		verifyIndividualNameAndAddressInformationPage();
 		verifyZipCode(expectedZipCode);
+		logMessage("STEP : The bogus ZipCode is replaced by the original ZipCode");
 		clickOnCancelButton();
 	}
-	
-	public void clickOnCancelButton(){
+
+	public void clickOnCancelButton() {
 		isElementDisplayed("btn_cancel");
 		element("btn_cancel").click();
 		logMessage("STEP : Clicked on Cancel button\n");
