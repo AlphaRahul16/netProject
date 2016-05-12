@@ -37,9 +37,7 @@ public class ACS_Create_Member_IWEB_Test {
 		Reporter.log("CASE ID : " + caseID, true);
 		test.homePageIWEB.addValuesInMap("createMember", caseID);
 		test.launchApplication(app_url_IWEB);
-		test.homePageIWEB.enterAuthentication(
-				getYamlValue("Authentication.userName"),
-				getYamlValue("Authentication.password"));
+		
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}

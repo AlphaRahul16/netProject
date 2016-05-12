@@ -44,7 +44,7 @@ public class ACS_FellowNominate {
 	@Test
 	public void Step01_TC01_CreateMember_As_A_Prerequisite_For_Fellow_Nomination() {
 		test.homePageIWEB.addValuesInMap("fellowNominate", "3");
-		test.homePageIWEB.enterAuthentication("C00616","Zx605@95");
+		
 		test.homePageIWEB.clickOnAddIndividual();
 		memDetails = test.addMember.enterMemberDetailsInAddIndividual();
 		test.memberShipPage.goToOrderEntry();
@@ -108,7 +108,7 @@ public class ACS_FellowNominate {
 	@Test(dataProvider = "test1")
 	public void Step06_TC06_Navigate_To_Iweb_And_Verify_Nomination_Details(String FellowType) {
 	     test.launchApplication(app_url_IWEB);
-	     test.homePageIWEB.enterAuthentication("C00616","Zx605@95");
+	     
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Fellows");
 		test.homePageIWEB.clickOnFindNominationTab();
