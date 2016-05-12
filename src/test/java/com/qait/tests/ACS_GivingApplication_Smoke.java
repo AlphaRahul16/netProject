@@ -54,6 +54,7 @@ public class ACS_GivingApplication_Smoke {
 				getYamlValue("Authentication.userName"),
 				getYamlValue("Authentication.password"));
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
+		 
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Fundraising");
 		test.homePageIWEB.clickOnSideBarTab("More...");

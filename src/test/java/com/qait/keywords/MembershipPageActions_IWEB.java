@@ -1843,6 +1843,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				logMessage("User will login as a Non - Member");
 
 			}
+			handleAlert();
 			memberStoreDetails
 					.add(getMemberDetailsOnMemberShipProfile("contact id"));
 			memberStoreDetails.add(getMemberWebLogin());

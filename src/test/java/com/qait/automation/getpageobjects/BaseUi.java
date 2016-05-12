@@ -474,6 +474,16 @@ public class BaseUi {
 			wait.hardWait(seconds);
 		}
 	}
+	
+	public void hardWaitForChromeBrowser(int seconds) {
+		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("chrome")
+				|| ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("ie")
+				|| ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("internetexplorer")) {
+			wait.hardWait(seconds);
+		}
+	}
 
 	public String getTestCaseID(String methodName) {
 		String[] split = methodName.split("_");
