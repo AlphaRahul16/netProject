@@ -13,7 +13,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 import com.qait.automation.TestSessionInitiator;
-import com.qait.automation.report.MyListner;
 import com.qait.automation.report.ResultsIT;
 import com.qait.automation.utils.YamlReader;
 

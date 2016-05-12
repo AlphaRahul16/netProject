@@ -1658,13 +1658,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				logMessage("User will login as a Non - Member");
 
 			}
-<<<<<<< HEAD
+
 			handleAlert();
 			memberStoreDetails
 					.add(getMemberDetailsOnMemberShipProfile("contact id"));
-=======
-			memberStoreDetails.add(getMemberDetailsOnMemberShipProfile("contact id"));
->>>>>>> 1c36ca57f4ec3f6ae42eda0ede4b9aba07193a39
 			memberStoreDetails.add(getMemberWebLogin());
 
 		} else if (count == 2) {
