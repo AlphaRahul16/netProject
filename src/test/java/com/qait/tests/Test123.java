@@ -18,7 +18,14 @@ import org.testng.annotations.Test;
 import com.qait.automation.utils.DateUtil;
 
 public class Test123 {
-
+	public static void main(String args[]){
+		
+	String memberPackage="ACS : Regular Member : Regular Member Dues C&EN-Print", amount="Balance Due: $197.00";
+    System.out.println(memberPackage.split(":",3)[2]);
+    String i=amount.split("\\$")[1];
+    double d= Double.parseDouble(i);
+    System.out.println(d);
+	}
 }
 //	public static void main(String...a){
 //		String date="05/04/2016";

@@ -71,7 +71,7 @@ table_lineItems                                   id                         UPD
 frame_selectProduct                              id                             menu_a83665ae18eb43488c5d83ce5f6027f8  
 list_billAddress                                 id                         inv_cxa_key   
 link_email                                       id                          F1_HYPERLINK_0     
-txt_contactId                                     id                        F1_cst_id
+txt_ContactId                                     id                        F1_cst_id
 txt_customerAddress                                id                          F1_cxa_mailing_label_html
 txt_addressType                                  id                           F1_cxa_adt_key_Display_Text_
 label_listMemberShip                             id                          LabelDataFormHeader
@@ -152,5 +152,18 @@ drpdwn_memberType                                xpath                        //
 btn_detailsMenuAACT                              xpath                        //span[text()='${menuName}']/../a[1]
 txt_termStartDaterenewal                         xpath                        (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[14]
 txt_termEndDaterenewal                           xpath                        (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[15]
+<<<<<<< HEAD
+heading_queryAskAtRunTime                        xpath                         //span[text()='Query - Ask At Run-Time Values']
+list_memberPackage1                               css                           .DataFormDropDownList
+btn_goPackage                                    id                             ButtonAskGo
+txt_memberInfo                                   xpath                        //label[contains(text(),'${value}')]/following-sibling::span  
+btn_mydTransfer                                  xpath                        //a[@id='F1_HYPERLINK_7']/img    
+txt_balanceAmount                                xpath                        //table[@id='TransferTable']//span
+list_term                                        id                            ord_ptr_key
+list_newPackage                                  id                            mbr_pak_prd_renewal_key
+heading_transferPackage                          id                            ui-id-3
+btn_transferNow                                  id                            TransferMembershipButtonID
+btn_gotorenewal                                  xpath                       (//td[contains(text(),'Active Renewed-No Response')]/preceding-sibling::td[3]//i)[1]
+txt_PaymentStatus                                xpath                        //td[contains(text(),'${productName}')]//following-sibling::td[1]
+icon_up                                          xpath                         //span[contains(text(),'${value}')]/preceding-sibling::a/i[@class='icon-chevron-up']
 
-==============================================================================================================================================

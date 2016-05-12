@@ -228,15 +228,14 @@ public class ASCSocietyGenericPage extends GetPage {
 		String textinpdf;
 		try {
 			textinpdf = extractFromPdf(filename, 1).trim();
-/*			String textarray[] = texttocompare.trim().split(" ");
-			for (int i = 0; i < textarray.length-1; i++) {
-*/				System.out.println(textinpdf);
-				System.out.println(texttocompare);
+			String textarray[] = texttocompare.trim().split(" ");
+			for (int i = 0; i < (textarray.length)-1; i++) {
+				System.out.println(textinpdf);
+				System.out.println(textarray[i]);
 				Assert.assertTrue(textinpdf.trim()
 						.contains(texttocompare));
-			
-
-		} catch (FileNotFoundException e) {
+		} 
+		}catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
