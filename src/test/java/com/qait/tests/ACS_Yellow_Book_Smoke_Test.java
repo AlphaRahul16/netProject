@@ -3,15 +3,11 @@ package com.qait.tests;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.testng.Reporter;
-import org.testng.SkipException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
@@ -21,7 +17,6 @@ import com.qait.automation.utils.YamlReader;
 public class ACS_Yellow_Book_Smoke_Test {
 
 	TestSessionInitiator test;
-	String honorValue;
 	String app_url_eweb_yb;
 	String app_url_iweb_yb;
 	String app_url_iweb_nf;
@@ -97,13 +92,13 @@ public class ACS_Yellow_Book_Smoke_Test {
 	public void Step08_Click_On_My_Biography_Link_And_Update_Biography_Fields_Than_Verify_Updated_Biography_On_Yellow_Book_Eweb_Home_Page(){
 		test.acsYellowBookEwebPage.clickOnLinkOnHomePageYBEweb("biography");
 		test.acsYellowBookEwebPage.verifyUserNavigatedToParticularPage("Update My Yellow Book Biography");
-		honorValue = test.acsYellowBookEwebPage.updateBiographyFields(test.homePageIWEB.map().get("Biography Honor field"));
-		test.acsYellowBookEwebPage.verifyUpdatedBiographyFieldOnYellowBookHomePage(honorValue);
+		test.acsYellowBookEwebPage.updateBiographyFields(test.homePageIWEB.map().get("Biography Honor field"));
+		test.acsYellowBookEwebPage.verifyUpdatedBiographyFieldOnYellowBookHomePage(test.homePageIWEB.map().get("Biography Honor field"));
 	}
 	
 	@Test
 	public void Step09A_Verify_Presence_Of_edit_Link(){
-		test.acsYellowBookEwebPage.verifyEditLink(value);
+		test.acsYellowBookEwebPage.verifyEditLinkIsDisplayed(value);
 	}
 	@Test
 	public void Step09_Click_On_Committe_Preferences_Link_And_Choose_Four_Random_Committees_And_Verify_Selected_Committees_On_Yellow_Book_Eweb_Home_Page(){
@@ -129,13 +124,13 @@ public class ACS_Yellow_Book_Smoke_Test {
 		test.individualsPage.clickGoButton();
         test.individualsPage.verifyNomineeAddress(test.homePageIWEB.map().get("Address field 2"));
         test.individualsPage.clickOnAcsBiographyImage();
-        test.individualsPage.verifyBioHonorsData(honorValue);
+        test.individualsPage.verifyBioHonorsData(test.homePageIWEB.map().get("Biography Honor field"));
 	}
 	
 	@Test
 	public void Step12_Verify_Committee_Member_Status(){
         test.individualsPage.navigateToGeneralMenuOnHoveringMore("Committees");
-        test.individualsPage.verifyCommitteeMembersStatus(customerList.get(0)); 
+        test.individualsPage.verifyCommitteeMembersStatus(committeesList); 
 	}
 	
 	@BeforeClass

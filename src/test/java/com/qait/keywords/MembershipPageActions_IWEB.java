@@ -2316,7 +2316,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 		customerContactId = element("txt_ContactId").getText().trim();
 		logMessage("Customer Last Name::"+customerLname);
-		logMessage("Customer ACS Member Number::"+customerLname);
+		logMessage("Customer ACS Member Number::"+customerContactId);
 		memberDetails.add(customerLname);
 		memberDetails.add(customerContactId);
 	return memberDetails;

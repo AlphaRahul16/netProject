@@ -3,6 +3,7 @@ package com.qait.keywords;
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.omg.CORBA.OMGVMCID;
@@ -1678,13 +1679,12 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Info: Clicked on cancel button");
 	}
 	
-	public void verifyCommitteeMembersStatus(String name){
+	public void verifyCommitteeMembersStatus(List<String> committeeList){
         expandDetailsMenu("acsyb nominations");
-        for(WebElement ele: elements("txt_total",name)){
-        	Assert.assertTrue(ele.getText().trim().equals("Pending"),
-        			"Assertion Failed: Committee member status is not pending");
-        	logMessage("Assertion Passed: Committee member status is pending");
-        }
+         for (String committee : committeeList) {
+			Assert.assertTrue(element("txt_quantity", committee).getText().trim().equalsIgnoreCase("Pending"));
+			logMessage("Assertion Passed: Committee "+committee+" status is pending");
+		}
 	}
 	
 	public boolean verifyCommitteePreferenceDate(){
@@ -1693,16 +1693,15 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		boolean value;
 		expandDetailsMenu("acs committee system options");
 		preferenceEndDate=element("txt_quantity","ACSYBCommiteePreferenceEndDate").getText().trim();
-        logMessage("preferenceEndDate   "+preferenceEndDate);
+        logMessage("preferenceEndDate ::  "+preferenceEndDate);
         max=elements("link_pages").size();
         logMessage("Page size: "+max);
         isElementDisplayed("link_paging", String.valueOf(2));
 		clickUsingXpathInJavaScriptExecutor(element("link_paging",
 				String.valueOf(2)));
 		preferenceStartDate=element("txt_quantity","ACSYBCommiteePreferenceStartDate").getText().trim();
-        logMessage("preferenceStartDate   "+preferenceStartDate);
+        logMessage("preferenceStartDate  :: "+preferenceStartDate);
         value=verfiyEndAndStartDate(preferenceEndDate,preferenceStartDate);
-        logMessage(value+"------");
         return value;
 	}
 	

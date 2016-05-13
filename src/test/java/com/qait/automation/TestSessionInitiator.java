@@ -19,7 +19,9 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Reporter;
 
 import com.qait.automation.utils.ConfigPropertyReader;
+import com.qait.automation.utils.EnviormentSetting;
 import com.qait.automation.utils.TakeScreenshot;
+import com.qait.automation.utils.YamlReader;
 import com.qait.keywords.ACS_Awards_EWEB_PageActions;
 import com.qait.keywords.ASMErrorPage;
 import com.qait.keywords.ASM_AACTPage;
@@ -107,6 +109,9 @@ public class TestSessionInitiator {
 	public AwardsPageActions_IWEB awardsPageAction;
 	public ACS_Awards_EWEB_PageActions award_ewebPage;
 	public AcsYellowBookEwebPageActions acsYellowBookEwebPage;
+	
+	protected static HashMap<String, String> book;
+	 protected static HashMap<String, String> setting;
 
 	public TakeScreenshot takescreenshot;
 
@@ -146,7 +151,7 @@ public class TestSessionInitiator {
 		addMember = new AddMemeber_IWEB(driver);
 		fundpofilePage = new FundProfilePage(driver);
 		memNumLookupPage = new MemberNumberLookupPage(driver);
-		awardsPageAction= new AwardsPageActions_IWEB(driver);
+		awardsPageAction = new AwardsPageActions_IWEB(driver);
 		award_ewebPage = new ACS_Awards_EWEB_PageActions(driver);
 		acsYellowBookEwebPage = new AcsYellowBookEwebPageActions(driver);
 	}
@@ -155,6 +160,11 @@ public class TestSessionInitiator {
 	 * Page object Initiation done
 	 */
 	public TestSessionInitiator(String testname) {
+		new EnviormentSetting("./data/Settings.xls","Book_Sheet");
+		book = EnviormentSetting.settings;
+		new EnviormentSetting("./data/Settings.xls",book.get("CurrentBook"));
+		setting = EnviormentSetting.settings;
+		  capabilities = new DesiredCapabilities();
 		wdfactory = new WebDriverFactory();
 		testInitiator(testname);
 	}
@@ -172,24 +182,21 @@ public class TestSessionInitiator {
 		driver.manage().timeouts().implicitlyWait(Integer.parseInt(getProperty("timeout")), TimeUnit.SECONDS);
 	}
 
-	 public Map<String, String> _getSessionConfig() {
-		    String[] configKeys = {"tier", "browser", "seleniumserver", "seleniumserverhost", "timeout", "driverpath"};
-		    Map<String, String> config = new HashMap<String, String>();
-		    for (String string : configKeys) {
-		      try {
-		        if (System.getProperty(string).isEmpty())
-		          config.put(string, getProperty("./Config.properties", string));
-		        else
-		          config.put(string, System.getProperty(string));
-		      } catch (NullPointerException e) {
-		        config.put(string, getProperty("./Config.properties", string));
-		      }
-		    }
-		    return config;
-		  }
-	
-
-	
+	public Map<String, String> _getSessionConfig() {
+		String[] configKeys = { "tier", "browser", "seleniumserver", "seleniumserverhost", "timeout", "driverpath" };
+		Map<String, String> config = new HashMap<String, String>();
+		for (String string : configKeys) {
+			try {
+				if (System.getProperty(string).isEmpty())
+					config.put(string, getProperty("./Config.properties", string));
+				else
+					config.put(string, System.getProperty(string));
+			} catch (NullPointerException e) {
+				config.put(string, getProperty("./Config.properties", string));
+			}
+		}
+		return config;
+	}
 
 	public void launchApplication() {
 		launchApplication(getYamlValue("baseurl"));
@@ -199,7 +206,22 @@ public class TestSessionInitiator {
 		try {
 			Reporter.log("The test browser is :- " + _getSessionConfig().get("browser") + "\n", true);
 			deleteAllCookies();
-			driver.get(baseurl);
+
+			if (_getSessionConfig().get("browser").equalsIgnoreCase("chrome") && baseurl.contains("iwebtest")) {
+				driver.get(baseurl.replaceAll("https://iwebtest",
+						"https://" + YamlReader.getYamlValue("Authentication.userName")+":"
+								+ YamlReader.getYamlValue("Authentication.password").replaceAll("@", "%40") + "@"
+								+ "iwebtest"));
+			}
+			// String s = "https:" +
+			// YamlReader.getYamlValue("Authentication.userName")
+			// +
+			// YamlReader.getYamlValue("Authentication.password").replaceAll("@",
+			// "%40") + "@" + "//iwebtest";
+			else {
+				driver.get(baseurl);
+			}
+
 			Reporter.log("\nThe application url is :- " + baseurl, true);
 			if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/"))
 					&& (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
@@ -217,7 +239,7 @@ public class TestSessionInitiator {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void openUrl(String url) {
@@ -352,9 +374,8 @@ public class TestSessionInitiator {
 
 		// }
 	}
-	
-	public void openApplicationInNewTab(String baseURL)
-	{
+
+	public void openApplicationInNewTab(String baseURL) {
 		Robot robot;
 		try {
 			robot = new Robot();
