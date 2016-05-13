@@ -14,20 +14,18 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -38,11 +36,9 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.Reporter;
-
-import Client.Robotil;
-
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.SeleniumWait;
+
 
 /**
  * 
@@ -57,13 +53,14 @@ public class BaseUi {
 	int timeOut, hiddenFieldTimeOut;
 	boolean flag = false;;
 	static String lastWindow;
-
+	
 	protected BaseUi(WebDriver driver, String pageName) {
 		PageFactory.initElements(driver, this);
 		this.driver = driver;
 		this.pageName = pageName;
 		this.wait = new SeleniumWait(driver, Integer.parseInt(getProperty(
 				"Config.properties", "timeout")));
+		
 	}
 
 	protected String getPageTitle() {
@@ -72,6 +69,8 @@ public class BaseUi {
 
 	protected void logMessage(String message) {
 		Reporter.log(message, true);
+	
+	
 	}
 
 	public String getCurrentURL() {
@@ -227,7 +226,10 @@ public class BaseUi {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 			driver.switchTo().defaultContent();
-		} catch (Exception e) {
+		} catch(UnhandledAlertException e){
+			logMessage("UnHandledAlert Exception thrown");
+		}
+		catch (Exception e) {
 			System.out.println("No Alert window appeared...");
 		}
 		wait.resetImplicitTimeout(timeOut);
@@ -262,7 +264,8 @@ public class BaseUi {
 					"timeout"));
 			hiddenFieldTimeOut = Integer.parseInt(getProperty(
 					"Config.properties", "hiddenFieldTimeOut"));
-			wait.resetImplicitTimeout(0);
+			wait.hardWait(6);
+			wait.resetImplicitTimeout(4);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			Alert alert = driver.switchTo().alert();
 			String alertText = alert.getText();
@@ -270,7 +273,7 @@ public class BaseUi {
 			alert.accept();
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
-			return alertText;
+			return null;
 		} catch (Exception e) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
@@ -280,7 +283,7 @@ public class BaseUi {
 	}
 
 	protected Alert switchToAlert() {
-		WebDriverWait wait = new WebDriverWait(driver, 1);
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		return wait.until(ExpectedConditions.alertIsPresent());
 	}
 
@@ -475,6 +478,16 @@ public class BaseUi {
 			wait.hardWait(seconds);
 		}
 	}
+	
+	public void hardWaitForChromeBrowser(int seconds) {
+		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("chrome")
+				|| ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("ie")
+				|| ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("internetexplorer")) {
+			wait.hardWait(seconds);
+		}
+	}
 
 	public String getTestCaseID(String methodName) {
 		String[] split = methodName.split("_");
@@ -575,75 +588,51 @@ public class BaseUi {
 				.setContents(stringSelection, null);
 	}
 
-	public void enterAuthentication(String uName, String password) {
-		if ((isBrowser("ie") || isBrowser("internetexplorer") || isBrowser("chrome"))) {
-			System.out.println("in authentication");
-			setClipboardData(uName);
-			// Robot robot;
-			// try {
-			// robot = new Robot();
-			// setClipboardData(uName);
-			// robot.delay(2000);
-			// robot.keyPress(KeyEvent.VK_CONTROL);
-			// robot.keyPress(KeyEvent.VK_V);
-			// robot.keyRelease(KeyEvent.VK_V);
-			// robot.keyRelease(KeyEvent.VK_CONTROL);
-			// robot.delay(2000);
-			// robot.keyPress(KeyEvent.VK_TAB);
-			// robot.keyRelease(KeyEvent.VK_TAB);
-			// setClipboardData(password);
-			// robot.delay(2000);
-			// robot.keyPress(KeyEvent.VK_CONTROL);
-			// robot.keyPress(KeyEvent.VK_V);
-			// robot.keyRelease(KeyEvent.VK_V);
-			// robot.keyRelease(KeyEvent.VK_CONTROL);
-			// robot.delay(2000);
-			// robot.keyPress(KeyEvent.VK_ENTER);
-			// robot.keyRelease(KeyEvent.VK_ENTER);
-			// } catch (AWTException e) {
-			// e.printStackTrace();
-			// }
+//	public void enterAuthentication(String uName, String password) {
 
-			Robotil robotil;
-			try {
-				String seleniumServer = ConfigPropertyReader
-						.getProperty("seleniumserver");
-				String seleniumserverhost = ConfigPropertyReader
-						.getProperty("seleniumserverhost");
-				if (seleniumServer.equalsIgnoreCase("local")) {
-					robotil = new Robotil("127.0.0.1", 6666);
-				} else {
-					robotil = new Robotil(
-							seleniumserverhost.split(":")[1].replaceAll("//",
-									""), 6666);
-				}
+//		if ((isBrowser("ie") || isBrowser("internetexplorer") || isBrowser("chrome"))) {
+//			System.out.println("in authentication");
+//			setClipboardData(uName);
+//			 Robot robot;
+//			 try {
+//			 robot = new Robot();
+//			 setClipboardData(uName);
+//			 robot.delay(2000);
+//			 robot.keyPress(KeyEvent.VK_CONTROL);
+//			 robot.keyPress(KeyEvent.VK_V);
+//			 robot.keyRelease(KeyEvent.VK_V);
+//			 robot.keyRelease(KeyEvent.VK_CONTROL);
+//			 robot.delay(2000);
+//			 robot.keyPress(KeyEvent.VK_TAB);
+//			 robot.keyRelease(KeyEvent.VK_TAB);
+//			 setClipboardData(password);
+//			 robot.delay(2000);
+//			 robot.keyPress(KeyEvent.VK_CONTROL);
+//			 robot.keyPress(KeyEvent.VK_V);
+//			 robot.keyRelease(KeyEvent.VK_V);
+//			 robot.keyRelease(KeyEvent.VK_CONTROL);
+//			 robot.delay(2000);
+//			 robot.keyPress(KeyEvent.VK_ENTER);
+//			 robot.keyRelease(KeyEvent.VK_ENTER);
+//			 } catch (AWTException e) {
+//			 e.printStackTrace();
+//			 }
+//
+//			
+//	}
 
-				setClipboardData(uName);
-				// robotil.wait(2000);
-				robotil.pressKey(KeyEvent.VK_CONTROL);
-				robotil.pressKey(KeyEvent.VK_V);
-				robotil.releaseKey(KeyEvent.VK_V);
-				robotil.releaseKey(KeyEvent.VK_CONTROL);
-				robotil.pressKey(KeyEvent.VK_TAB);
-				robotil.releaseKey(KeyEvent.VK_TAB);
-				setClipboardData(password);
-				robotil.pressKey(KeyEvent.VK_CONTROL);
-				robotil.pressKey(KeyEvent.VK_V);
-				robotil.releaseKey(KeyEvent.VK_V);
-				robotil.releaseKey(KeyEvent.VK_CONTROL);
-				robotil.pressKey(KeyEvent.VK_ENTER);
-				robotil.releaseKey(KeyEvent.VK_ENTER);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-		}
-	}
+//	}
 
 	public void enterAuthenticationAutoIt() {
 		try {
+			if(isBrowser("chrome")){
 			Runtime.getRuntime().exec(
-					"./src/test/resources/PopUpHandlers/popup.exe");
+					"./src/test/resources/PopUpHandlers/popup.exe");}
+			else{if(isBrowser("ie")||isBrowser("internetExplorer")){
+				Runtime.getRuntime().exec(
+						"./src/test/resources/PopUpHandlers/windowPopUp_IE.exe");}
+			
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

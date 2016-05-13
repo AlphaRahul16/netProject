@@ -6,6 +6,7 @@ import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +33,7 @@ public class ASCSocietyGenericPage extends GetPage {
 	String csvSeparator = getYamlValue("csv-data-file.data-separator");
 	int timeOut, hiddenFieldTimeOut, numberOfColumns;
 	static int count;
-	ArrayList<String> listOfCaseIdToExecute = new ArrayList<>();
+	ArrayList<String> listOfCaseIdToExecute = new ArrayList<String>();
 	public static HashMap<String, String> hashMap = new HashMap<String, String>();
 
 	public ASCSocietyGenericPage(WebDriver driver, String pageName) {
@@ -198,6 +199,7 @@ public class ASCSocietyGenericPage extends GetPage {
 
 	public HashMap<String, String> addValuesInMap(String sheetName,
 			String caseID) {
+
 		YamlReader.setYamlFilePath();
 		String csvLine = csvReaderRowSpecific(
 				getYamlValue("csv-data-file.path_" + sheetName), "false",
@@ -227,14 +229,13 @@ public class ASCSocietyGenericPage extends GetPage {
 		try {
 			textinpdf = extractFromPdf(filename, 1).trim();
 			String textarray[] = texttocompare.trim().split(" ");
-			for (int i = 0; i < textarray.length; i++) {
+			for (int i = 0; i < (textarray.length)-1; i++) {
 				System.out.println(textinpdf);
 				System.out.println(textarray[i]);
 				Assert.assertTrue(textinpdf.trim()
-						.contains(textarray[i].trim()));
-			}
-
-		} catch (FileNotFoundException e) {
+						.contains(texttocompare));
+		} 
+		}catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -279,5 +280,107 @@ public class ASCSocietyGenericPage extends GetPage {
 		return parsedText;
 	}
 
-	
+	public void extractAndCompareTextFromPdfFile(String filename,
+			String texttocompare, int totalnumberofpages, String fileFrom) {
+
+		try {
+			String textinpdf = extractFromPdf(filename, 1, fileFrom).trim();
+			String textarray[] = texttocompare.trim().split(" ");
+			for (int i = 0; i < textarray.length; i++) {
+				Assert.assertTrue(textinpdf.trim()
+						.contains(textarray[i].trim()), "ASSERT FAILED: "
+						+ texttocompare
+						+ " CONTENT IN THE PDF FILE IS NOT MATCHED\n ");
+				logMessage("ASSERT PASSED:" + texttocompare
+						+ " CONTENT IN THE PDF FILE IS MATCHED \n");
+			}
+
+			if (fileFrom == "downloads" || fileFrom == "System") {
+				File dir = new File("./src/test/resources/DownloadedFiles/");
+				System.out.println("directory" + dir.getName());
+				// String []myFiles = dir.list();
+
+				for (File f : dir.listFiles()) {
+					System.out.println("files in directory " + f.getName());
+
+					if (f.getName().contains(filename)) {
+
+						FileWriter file = new FileWriter(
+								"./src/test/resources/DownloadedFiles/"
+										+ f.getName());
+						File ff = new File("D:/" + f.getName());
+						file.flush();
+						file.close();
+						ff.delete();
+
+						break;
+					}
+				}
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private String extractFromPdf(String filename, int totalnumberofpages,
+			String fileFrom) throws IOException {
+		String filepath = null;
+		if (fileFrom == "System" || fileFrom == "uploads") {
+			filepath = "./src/test/resources/UploadFiles/" + filename + ".pdf";
+		} else if (fileFrom == "WebApplication" || fileFrom == "downloads") {
+			System.out.println("In downloads");
+			File dir=new File("./src/test/resources/DownloadedFiles");
+			System.out.println("directory name "+dir.getName());
+			for(File f: dir.listFiles()){
+				System.out.println("File name" +f.getName());
+				if(f.getName().startsWith(filename)){
+					filepath=f.toString();
+					System.out.println("file path"+filepath.toString());
+					break;
+				}
+			}
+		} else {
+			return null;
+		}
+		String parsedText = null;
+		PDFTextStripper pdfStripper = null;
+		PDDocument pdDoc = null;
+		COSDocument cosDoc = null;
+		PDFParser parser = null;
+		File file = null;
+
+		try {
+			file = new File(filepath);
+			while (!file.exists() && count < 10) {
+				wait.hardWait(2);
+				file = new File(filepath);
+				count++;
+			}
+			parser = new PDFParser(
+					new RandomAccessBufferedFileInputStream(file));
+			parser.parse();
+			cosDoc = parser.getDocument();
+			pdfStripper = new PDFTextStripper();
+			pdDoc = new PDDocument(cosDoc);
+			pdfStripper.setStartPage(1);
+			pdfStripper.setEndPage(2);
+			parsedText = pdfStripper.getText(pdDoc);
+			System.out.println(parsedText);
+		} 
+		catch (FileNotFoundException e) {
+			System.out.println("File not found");
+		} finally {
+			try {
+				if (cosDoc != null)
+					cosDoc.close();
+				if (pdDoc != null)
+					pdDoc.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return parsedText;
+	}
 }

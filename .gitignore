@@ -1,5 +1,6 @@
 target
 test-output
+Acslogs
 src\test\resources\Profile_Stage2
 src\test\resources\Profile_Stage3
 **/.~lock*
@@ -10,4 +11,4 @@ src\test\resources\Profile_Stage3
 .idea
 .log
 .DS_Store
-/target
+

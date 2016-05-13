@@ -21,10 +21,13 @@ list_selectRoundNumber                    id                  awj_aws_key
 btn_search                                classname           LookUpHyperLink
 img_goToJudge                             xpath               (//td[contains(text(),'@')]/preceding-sibling::td[7]//img)[${indexNumber}]
 link_goToRecord                           xpath               //td[starts-with(text(),'Round ${roundNumber}')]/preceding-sibling::td[1]/a[@title='goto record']
+list_judgeNames_awardJudges				  xpath				  //a[@title='goto record']/../following-sibling::td[1]
+text_judgeNames_awardJudges				  xpath				  (//a[@title='goto record']/../following-sibling::td[1])[${index}]
+list_judgesNames_goToRecord				  xpath				  (//span[contains(text(),'award judge')]/../../following-sibling::tr//a[@title='goto record']/i)[${index}]
 list_judgeName_rescused                    xpath               //img[contains(@src,'img_chkmk')]/../preceding-sibling::td[2]
 list_judgeName_Judges                     xpath                //a[starts-with(text(),'Name')]/../../following-sibling::tr/td[4]
-link_goToJudgeRecord                      xpath                (//td[starts-with(text(),'${judgeName}')]/preceding-sibling::td[1]/a[@title='goto record']/i)[last()]
-lnk_judgeProfile                          xpath               //a[text()='${judgeName}']
+link_goToJudgeRecord                      xpath                (//td[contains(text(),'${judgeName}')]/preceding-sibling::td[1]/a[@title='goto record']/i)[last()]
+lnk_judgeProfile                          xpath               //a[contains(text(),'${judgeName}')]
 txt_webLogin                              id                  F1_cst_web_login
 txt_customerId                            id                  F1_cst_id
 lnk_awardName_RoundName                   xpath               //a[text()='${awardName_roundName}']
@@ -36,11 +39,18 @@ heading_updateScoreAlert                  xpath               //span[text()='Edi
 lnk_updateScore                           id                  F1_HYPERLINK_2
 btn_updateScore                           id                  UpdateScoreForStageButton
 txt_updateScoreMessage                    id                  LabelMessage
-link_acsAwardEntries                      xpath               //a[contains(@id,'Nominee ASC')]
+link_acsAwardEntries                      xpath               //span[text()='acs award judge score']/../../following-sibling::tr//tbody/tr[position()>1]
 img_reOpenSubmission                      xpath               //div[@id='F1_ReopenJudging']/input
 list_deleteNominee                        classname           iconpro-remove
 btn_updateScoreClose                      xpath                //button[text()='Close']
 txt_closedStatus                          classname            DataFormLabelErrorMessage
 list_stageEntriesRankOne                  xpath                //td[starts-with(text(),'${nomineeName}')]/following-sibling::td[2]
 txt_winnerStatusForNomineee               xpath               //td[starts-with(text(),'${nomineeName}')]/following-sibling::td[3]
+txt_withLabelOnAwardStageProfile          xpath                  //label[text()='${closed status}']/preceding-sibling::span
+btn_editAward                             id                    F1_HYPERLINK_0
+chk_closedCheckBox                        id                  aws_closed_flag_ext
+list_acsAwardProfilesNomineesWithOnes				  xpath               (//a[contains(@title,'acs award stage - entries in this stage')]/../../following-sibling::tr//tr[position()>1])//td[6][starts-with(text(),'1')]/preceding-sibling::td[2]
+list_acsEntriesNotStage_ColWinnerStatus		  xpath				 //a[contains(@title,'acs entries not in this stage')]/../../following-sibling::tr//tr[position()>1]/td[7]
+list_acsEntriesNotStage_ColNominee			  xpath		         //a[contains(@title,'acs entries not in this stage')]/../../following-sibling::tr//tr[position()>1]/td[starts-with(text(),'${Winner Status}')]/preceding-sibling::td[3]
+
 ========================================================================================================================================

@@ -377,7 +377,7 @@ SubscriptionFulfillment:
          scheduledTaskCompleted: "Yes"
          previewStatus: preview complete
          commitScheduledTask: "No"
-         startLapTimeInMinutes: 5
+         startLapTimeInMinutes: 7
     subscriptionDetailsForCommitted:
          updateStartIssue: "Yes"
          fulfillmentType: Current 
@@ -386,7 +386,7 @@ SubscriptionFulfillment:
          previewStatusOnStartCommit: commit started
          previewStatus: committed
          commitScheduledTask: "Yes"
-         startLapTimeInMinutes: 5       
+         startLapTimeInMinutes: 7     
            
            
 ASM_URLRejectedErrorMsz: "The requested URL was rejected."

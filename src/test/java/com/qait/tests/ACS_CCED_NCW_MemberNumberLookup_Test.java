@@ -109,9 +109,7 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test {
 	public void Open_Browser_Window() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		test.launchApplication(app_url_IWEB);
-		test.homePageIWEB.enterAuthentication(
-				YamlReader.getYamlValue("Authentication.userName"),
-				YamlReader.getYamlValue("Authentication.password"));
+		
 		test.homePageIWEB.addValuesInMap("CCED_NCW_MemberNumberLookup", caseID);
 		test.homePageIWEB.EnterTestMethodNameToSkipInMap_MemberNumber_CCED_NCW(
 				skipTest,

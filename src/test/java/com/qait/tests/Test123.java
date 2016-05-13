@@ -1,10 +1,17 @@
 package com.qait.tests;
 
+
+import java.util.ArrayList;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 import org.testng.annotations.Test;
 
@@ -12,6 +19,7 @@ import com.qait.automation.utils.DateUtil;
 import com.qait.automation.utils.YamlReader;
 
 public class Test123 {
+
 	static int nextYear;
 	Date date;
 	private static final String VOICENAME = "kevin16";
@@ -20,21 +28,37 @@ public class Test123 {
 	String s1;
 	static String s2;
 	
-	public static void main(String...a){
+	
 		/*String date="05/04/2016";*/
+
+	public static void main(String args[]){
+		
+	String memberPackage="ACS : Regular Member : Regular Member Dues C&EN-Print", amount="Balance Due: $197.00";
+    System.out.println(memberPackage.split(":",3)[2]);
+    String i=amount.split("\\$")[1];
+    double d= Double.parseDouble(i);
+    System.out.println(d);
+	}
+	
+}
+
+//	public static void main(String...a){
+//		String date="05/04/2016";
+
 //		System.out.println(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY"));
 //		String d=DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY");
 //		Date d1=DateUtil.convertStringToDate(d,"MM/dd/YYYY");
 //		String d2=new SimpleDateFormat("MM/dd/YYYY").format(d1);
 //		System.out.println(d2);
+
 		
-		String baseurl = "https://iwebtest.acs.org/YBStage1/iWeb";
+		/*String baseurl = "https://iwebtest.acs.org/YBStage1/iWeb";
 		String uPs="C00616:Zx605@95";
 		String abc=baseurl.replaceAll("https://iwebtest",
 				"https://"+uPs.replaceAll("@", "%40")
 						+"@"
-						+ "iwebtest");
-		System.out.println(abc);
+						+ "iwebtest");*/
+		
 //		System.out.println(baseurl.replaceAll("https://iwebtest",
 //				"https:" + YamlReader.getYamlValue("Authentication.userName")+":"
 //						+ YamlReader.getYamlValue("Authentication.password").replaceAll("@", "%40") + "@"
@@ -44,6 +68,13 @@ public class Test123 {
 		System.out.println(DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),"MM/dd/yyyy").compareTo(
 				   DateUtil.convertStringToDate(date,"MM/dd/yyyy")));*/
 		
+//		
+//		System.out.println(DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),"MM/dd/yyyy"));
+//		System.out.println( DateUtil.convertStringToDate(date,"MM/dd/yyyy"));
+//		System.out.println(DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),"MM/dd/yyyy").compareTo(
+//				   DateUtil.convertStringToDate(date,"MM/dd/yyyy")));
+//		
+
 //		String startDateString = "06/27/2007";
 //	    DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); 
 //	    Date startDate;
@@ -68,19 +99,35 @@ public class Test123 {
 //	    System.out.println(formatter.format(bcal.getTime()));
 	    //	      .contains(formatter.format(bcal.getTime())));"inp_search_max", field).getAttribute("value").trim()
 
-	}
+
+
 
 /*	@Test(invocationCount = 1)
+>>>>>>> 59252f4434a2c438d3d76e13c8b42fc4d75d269d
 	public void avnish() {
-		System.out.println("You submitted your ballot on:\nApr 27, 2016");
-		System.out.println("You submitted your ballot on: Apr 27, 2016");
+		// List<Integer> a = new ArrayList<Integer>();
+		// a= ThreadLocalRandom.current()
+		// .ints(2, 10).distinct()
+		// .limit(10 - 1).boxed().collect(Collectors.toList());
+		// System.out.println(DateUtil
+		// .getCurrentdateInStringWithGivenFormate("MMM dd, YYYY"));
+		// DateUtil.numberOfDaysBetweenTwoDays("MM/d/YYYY", "4/25/2016",
+		// "4/27/2016");
+		for (int i = 1; i <= 4; i++) {
+			s1 = abc(i+"   :    "+s1);
+			System.out.println("s1::" + s1);
+		}
 
+<<<<<<< HEAD
+	}
+=======
 		System.out.println(DateUtil
 				.getCurrentdateInStringWithGivenFormate("MMM dd, YYYY"));
 		DateUtil.numberOfDaysBetweenTwoDays("MM/d/YYYY", "4/25/2016",
 				"4/27/2016");
 	}*/
-}
+
+
 
 // // @org.testng.annotations.Test
 // public void function1() {

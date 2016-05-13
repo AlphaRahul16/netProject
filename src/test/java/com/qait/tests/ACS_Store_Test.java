@@ -39,9 +39,7 @@ public class ACS_Store_Test {
 	public void Step01_TC01_Search_Product_Using_Product_key() {
 		String caseId = getStoreCaseId.get_ACSStoreCaseId("CASEID");
 		test.navigateToIWEBUrlOnNewBrowserTab(app_url_IWEB);
-		test.homePageIWEB.enterAuthentication(
-				getACSStore.getAuthenticationInfo("userName"),
-				getACSStore.getAuthenticationInfo("password"));
+		
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 		test.homePageIWEB.clickOnSideBarTab("Individuals");

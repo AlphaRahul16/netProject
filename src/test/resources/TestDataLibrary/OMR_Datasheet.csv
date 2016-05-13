@@ -1,4 +1,4 @@
-caseID	caseID Execute	Member_Status?	Login_With_AcsID?	Login_With_LastNameMemberNumber?	Login_With_LastNameNoticeNumber?	Stud_Degree_Type	Renew_For_Years?	Technical_Division_To_Add?	Publications_To_Add?	MemBenefits_To_Add?	Contribution_To_Add?	Contribution_Amount?	CreditCard_Type	CreditCard_Number	CreditCard_CVV_Number	CreditCardExpiration_Month	CreditCardExpiration_Year
-1		Regular		Yes			1			Yes	ACS Endowment Fund 	3	Visa/MC 	4111111111111111	123	6	2019
-2		Student			Yes	Bachelor		Yes		Yes	ACS Endowment Fund 	4	Visa/MC 	4111111111111111	123	6	2019
-3	Yes	Emeritus		Yes									Visa/MC 	4111111111111111	123	6	2019
+caseID	caseID Execute	Member_Status?	Login_With_AcsID?	Login_With_LastNameMemberNumber?	Login_With_LastNameNoticeNumber?	Stud_Degree_Type	Receive_C&EN?	Renew_For_Years?	Technical_Division_To_Add?	Publications_To_Add?	MemBenefits_To_Add?	Contribution_To_Add?	Contribution_Amount?	CreditCard_Type	CreditCard_Number	CreditCard_CVV_Number	CreditCardExpiration_Month	CreditCardExpiration_Year
+1	Yes	Regular		Yes			Print	1			Yes	ACS Endowment Fund 	3	Visa/MC 	4111111111111110	123	6	2019
+2		Student			Yes	Associate	Print		Yes	Yes		ACS Endowment Fund 	4	Visa/MC 	4111111111111110	123	6	2019
+3		Emeritus		Yes			Print							Visa/MC 	4111111111111110	123	6	2019

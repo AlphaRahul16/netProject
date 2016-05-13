@@ -114,32 +114,31 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public void editEmail_NCW_CCED(String emailType, String emailID, String position) {
-		  clickOnEditButton(position);
-		  switchToFrame("iframe1");
-		  selectEmailType(emailType);
-		  wait.waitForPageToLoadCompletely();
-		  wait.hardWait(2);
-		  enterEmailIDToAdd(emailID);
-		  clickOnSaveButton();
-		  switchToDefaultContent();
-		  handleAlert();
-		  verifyNCW_CCEDEmailPresent(emailType, emailID);
-		 }
-	
-	 public void clickOnEditButton(String position){
-//		  isElementDisplayed("link_editBtn",position);
-//		  element("link_editBtn",position).click();
-//		  logMessage("Step : edit button is clicked \n");
-		 
-		 isElementDisplayed("link_editEmail",position);
-		  element("link_editEmail",position).click();
-		  logMessage("Step : edit button is clicked \n");
-		 
-		 }
-		 
-		
-	
+	public void editEmail_NCW_CCED(String emailType, String emailID,
+			String position) {
+		clickOnEditButton(position);
+		switchToFrame("iframe1");
+		selectEmailType(emailType);
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
+		enterEmailIDToAdd(emailID);
+		clickOnSaveButton();
+		switchToDefaultContent();
+		handleAlert();
+		verifyNCW_CCEDEmailPresent(emailType, emailID);
+	}
+
+	public void clickOnEditButton(String position) {
+		// isElementDisplayed("link_editBtn",position);
+		// element("link_editBtn",position).click();
+		// logMessage("Step : edit button is clicked \n");
+
+		isElementDisplayed("link_editEmail", position);
+		element("link_editEmail", position).click();
+		logMessage("Step : edit button is clicked \n");
+
+	}
+
 	public void verifyMemberDetails_OMA(String fName, String lName, String add,
 			String city, String zipCode, String addressType, String contactId,
 			String userEmail, String caseId) {
@@ -884,6 +883,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			wait.hardWait(2);
 			wait.waitForPageToLoadCompletely();
 		} catch (StaleElementReferenceException stlEx) {
+			System.out
+					.println("Step : Stale element refrence exception is occured\n");
 			isElementDisplayed("img_moreMenu");
 			element("img_moreMenu").click();
 			isElementDisplayed("link_moreMenuName", menu);
@@ -1316,7 +1317,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			String NominatorName) {
 		// System.out.println(element("txt_NominatorName",
 		// NomineeName).getText());
-		if (element("txt_NominatorName", NomineeName).getText().equals(NominatorName)) {
+		if (element("txt_NominatorName", NomineeName).getText().equals(
+				NominatorName)) {
 			// click(element("txt_NominatorName", NomineeName));
 			// element("txt_NominatorName", NomineeName).click();
 			clickUsingXpathInJavaScriptExecutor(element("txt_NominatorName",
@@ -1365,39 +1367,39 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : add button is clicked \n");
 	}
 
-	 public void verifyNCW_CCEDEmailPresent(String emailType, String emailAddress) {
-		  isElementDisplayed("list_emailAddressType");
-		  for (int i = 0; i < elements("list_emailAddressType").size(); i++) {
-		   String typeName = elements("list_emailAddressType").get(i)
-		     .getText().trim();
-		   if (typeName.equalsIgnoreCase("ncw/cced")) {
-		      flag1 = true;
-		      isElementDisplayed("txt_emailID", String.valueOf(i + 2));
-		      String emailID = element("txt_emailID", String.valueOf(i + 2))
-		      .getText().trim();
-		      if (emailID.equalsIgnoreCase(map().get("ncw/cced_email"))) {
-		         flag = true;
-		         logMessage("ASSERT PASSED : email ID "
-		         + map().get("ncw/cced_email")
-		         + " is already present \n");
-		         break;
-		      } 
-		   }
-		 }
-		 if (!flag1) {
-		    addEmail_NCW_CCED(emailType, emailAddress);
-		  }
-		 if(flag1&&!flag){
-		   for (int i = 0; i < elements("list_emailAddressType").size(); i++) {
-		       String typeName = elements("list_emailAddressType").get(i)
-		      .getText().trim();
-		      if (typeName.equalsIgnoreCase("ncw/cced")) {
-		           String position = Integer.toString(i+1);
-		          editEmail_NCW_CCED(emailType, emailAddress, position);
-		       }
-		  }
+	public void verifyNCW_CCEDEmailPresent(String emailType, String emailAddress) {
+		isElementDisplayed("list_emailAddressType");
+		for (int i = 0; i < elements("list_emailAddressType").size(); i++) {
+			String typeName = elements("list_emailAddressType").get(i)
+					.getText().trim();
+			if (typeName.equalsIgnoreCase("ncw/cced")) {
+				flag1 = true;
+				isElementDisplayed("txt_emailID", String.valueOf(i + 2));
+				String emailID = element("txt_emailID", String.valueOf(i + 2))
+						.getText().trim();
+				if (emailID.equalsIgnoreCase(map().get("ncw/cced_email"))) {
+					flag = true;
+					logMessage("ASSERT PASSED : email ID "
+							+ map().get("ncw/cced_email")
+							+ " is already present \n");
+					break;
+				}
+			}
 		}
-}
+		if (!flag1) {
+			addEmail_NCW_CCED(emailType, emailAddress);
+		}
+		if (flag1 && !flag) {
+			for (int i = 0; i < elements("list_emailAddressType").size(); i++) {
+				String typeName = elements("list_emailAddressType").get(i)
+						.getText().trim();
+				if (typeName.equalsIgnoreCase("ncw/cced")) {
+					String position = Integer.toString(i + 1);
+					editEmail_NCW_CCED(emailType, emailAddress, position);
+				}
+			}
+		}
+	}
 
 	public String selectRandomGeneralAward_AwardNomination(String awardName) {
 		try {
@@ -1637,44 +1639,47 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : Edit button on ACS Entry profile page clicked\n");
 
 	}
-	
+
 	public void clickGotoRecordForRenewal() {
-		isElementDisplayed("txt_gotorecordrenewal","1");
-		element("txt_gotorecordrenewal","1").click();
-		logMessage("Step : goto record is clicked for latest Invoice\n");	
+		isElementDisplayed("txt_gotorecordrenewal", "1");
+		element("txt_gotorecordrenewal", "1").click();
+		logMessage("Step : goto record is clicked for latest Invoice\n");
 	}
-	
-	public void verifyNomineeAddress(String expectedData){
+
+	public void verifyNomineeAddress(String expectedData) {
 		handleAlert();
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("txt_individualInfo");
-//		logMessage("Expected data:"+expectedData);
-//		logMessage("Actual data:"+element("txt_individualInfo").getText().trim());
-		Assert.assertTrue(element("txt_individualInfo").getText().trim().contains(expectedData), 
+		// logMessage("Expected data:"+expectedData);
+		// logMessage("Actual data:"+element("txt_individualInfo").getText().trim());
+		Assert.assertTrue(element("txt_individualInfo").getText().trim()
+				.contains(expectedData),
 				"Assertion Failed: Individual address is not correctly updated");
 		logMessage("Assertion Passed: Individual address is updated correctly");
 	}
-	
-	public void clickOnAcsBiographyImage(){
+
+	public void clickOnAcsBiographyImage() {
 		isElementDisplayed("img_biography");
 		element("img_biography").click();
 		logMessage("Info: Clicked on ACS Biography Image");
 	}
-	
-	public void verifyBioHonorsData(String expectedHonors){
+
+	public void verifyBioHonorsData(String expectedHonors) {
 		wait.waitForPageToLoadCompletely();
 		switchToFrame("iframe1");
 		isElementDisplayed("txt_bioHonors");
-		logMessage("Expected Biography data: "+expectedHonors);
-		logMessage("Actual Biography data: "+element("txt_bioHonors").getText().trim());
-		Assert.assertTrue(expectedHonors.equals(element("txt_bioHonors").getText().trim()),
+		logMessage("Expected Biography data: " + expectedHonors);
+		logMessage("Actual Biography data: "
+				+ element("txt_bioHonors").getText().trim());
+		Assert.assertTrue(expectedHonors.equals(element("txt_bioHonors")
+				.getText().trim()),
 				"Assertion Failed: Biography honors data does not matches");
 		logMessage("Assertion Passed: Biography honors data matches");
 		clickOnCancelButton();
 		switchToDefaultContent();
 	}
-	
-	public void clickOnCancelButton(){
+
+	public void clickOnCancelButton() {
 		element("btn_cancel").click();
 		logMessage("Info: Clicked on cancel button");
 	}
@@ -1687,7 +1692,62 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 	}
 	
-	public boolean verifyCommitteePreferenceDate(){
+	public boolean verifyCommitteePreferenceDate() {
+		  String preferenceEndDate, preferenceStartDate;
+		  int max = 0;
+		  boolean value;
+		  expandDetailsMenu("acs committee system options");
+		  preferenceEndDate = element("txt_quantity",
+		    "ACSYBCommiteePreferenceEndDate").getText().trim();
+		  logMessage("preferenceEndDate   " + preferenceEndDate);
+		  max = elements("link_pages").size();
+		  logMessage("Page size: " + max);
+		  isElementDisplayed("link_paging", String.valueOf(2));
+		  clickUsingXpathInJavaScriptExecutor(element("link_paging",
+		    String.valueOf(2)));
+		  preferenceStartDate = element("txt_quantity",
+		    "ACSYBCommiteePreferenceStartDate").getText().trim();
+		  logMessage("preferenceStartDate   " + preferenceStartDate);
+		  value = verfiyEndAndStartDate(preferenceEndDate, preferenceStartDate);
+		  logMessage(value + "------");
+		  return value;
+		 }
+
+		 public boolean verfiyEndAndStartDate(String preferenceEndDate,
+		   String preferenceStartDate) {
+		  logMessage("Current Date:"
+		    + DateUtil.convertStringToDate(DateUtil
+		      .getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
+		      "MM/dd/yyyy"));
+		  logMessage("End Date:"
+		    + DateUtil.convertStringToDate(preferenceEndDate, "MM/dd/yyyy"));
+		  int endDate, startDate;
+		  endDate = DateUtil.convertStringToDate(
+		    DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
+		    "MM/dd/yyyy").compareTo(
+		    DateUtil.convertStringToDate(preferenceEndDate, "MM/dd/yyyy"));
+
+		  logMessage("Current Date:"
+		    + DateUtil.convertStringToDate(DateUtil
+		      .getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
+		      "MM/dd/yyyy"));
+		  logMessage("Start Date:"
+		    + DateUtil.convertStringToDate(preferenceStartDate,
+		      "MM/dd/yyyy"));
+		  startDate = DateUtil.convertStringToDate(
+		    DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
+		    "MM/dd/yyyy")
+		    .compareTo(
+		      DateUtil.convertStringToDate(preferenceStartDate,
+		        "MM/dd/yyyy"));
+
+		  if (endDate == -1 && startDate == 1)
+		   return true;
+		  else
+		   return false;
+		 }
+	
+/*	public boolean verifyCommitteePreferenceDate(){
 		String preferenceEndDate,preferenceStartDate;
 		int max=0;
 		boolean value;
@@ -1721,5 +1781,70 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
         	return true;
         else
         	return false;
+=======
+
+	public void verifyCommitteeMembersStatus(String name) {
+		expandDetailsMenu("acsyb nominations");
+		for (WebElement ele : elements("txt_total", name)) {
+			Assert.assertTrue(ele.getText().trim().equals("Pending"),
+					"Assertion Failed: Committee member status is not pending");
+			logMessage("Assertion Passed: Committee member status is pending");
+		}
 	}
+
+	public boolean verifyCommitteePreferenceDate() {
+		String preferenceEndDate, preferenceStartDate;
+		int max = 0;
+		boolean value;
+		expandDetailsMenu("acs committee system options");
+		preferenceEndDate = element("txt_quantity",
+				"ACSYBCommiteePreferenceEndDate").getText().trim();
+		logMessage("preferenceEndDate   " + preferenceEndDate);
+		max = elements("link_pages").size();
+		logMessage("Page size: " + max);
+		isElementDisplayed("link_paging", String.valueOf(2));
+		clickUsingXpathInJavaScriptExecutor(element("link_paging",
+				String.valueOf(2)));
+		preferenceStartDate = element("txt_quantity",
+				"ACSYBCommiteePreferenceStartDate").getText().trim();
+		logMessage("preferenceStartDate   " + preferenceStartDate);
+		value = verfiyEndAndStartDate(preferenceEndDate, preferenceStartDate);
+		logMessage(value + "------");
+		return value;
+	}
+
+	public boolean verfiyEndAndStartDate(String preferenceEndDate,
+			String preferenceStartDate) {
+		logMessage("Current Date:"
+				+ DateUtil.convertStringToDate(DateUtil
+						.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
+						"MM/dd/yyyy"));
+		logMessage("End Date:"
+				+ DateUtil.convertStringToDate(preferenceEndDate, "MM/dd/yyyy"));
+		int endDate, startDate;
+		endDate = DateUtil.convertStringToDate(
+				DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
+				"MM/dd/yyyy").compareTo(
+				DateUtil.convertStringToDate(preferenceEndDate, "MM/dd/yyyy"));
+
+		logMessage("Current Date:"
+				+ DateUtil.convertStringToDate(DateUtil
+						.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
+						"MM/dd/yyyy"));
+		logMessage("Start Date:"
+				+ DateUtil.convertStringToDate(preferenceStartDate,
+						"MM/dd/yyyy"));
+		startDate = DateUtil.convertStringToDate(
+				DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
+				"MM/dd/yyyy")
+				.compareTo(
+						DateUtil.convertStringToDate(preferenceStartDate,
+								"MM/dd/yyyy"));
+
+		if (endDate == -1 && startDate == 1)
+			return true;
+		else
+			return false;
+>>>>>>> bafcd3aaaa988807dc6ca4df86608e379bc30110
+	}*/
 }

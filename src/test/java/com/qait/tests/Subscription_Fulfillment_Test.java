@@ -183,9 +183,7 @@ public class Subscription_Fulfillment_Test {
 				mapSubscriptionFulfillment);
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		test.launchApplication(app_url_IWEB);
-		test.homePageIWEB.enterAuthentication(
-				getYamlValue("Authentication.userName"),
-				getYamlValue("Authentication.password"));
+		
 	}
 
 	@AfterMethod
@@ -193,7 +191,7 @@ public class Subscription_Fulfillment_Test {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
 
-//	 @AfterClass(alwaysRun = true)
+	 @AfterClass(alwaysRun = true)
 	public void Close_Test_Session() {
 		test.closeBrowserSession();
 	}

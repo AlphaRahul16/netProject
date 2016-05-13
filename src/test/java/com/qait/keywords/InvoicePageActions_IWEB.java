@@ -306,10 +306,14 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void expandDetailsMenu(String menuName) {
+		
+		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("btn_detailsMenuAACT", menuName);
-		clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT",
-				menuName));
-		// element("btn_detailsMenuAACT", menuName).click();
+		// clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT",
+		// menuName));
+		element("btn_detailsMenuAACT",
+				menuName).click();
+
 		logMessage("STEP : " + menuName + " bar is clicked to expand" + "\n");
 		waitForSpinner();
 
@@ -342,7 +346,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		// element("icon_up", menuName).click();
 		waitForSpinner();
 		logMessage("STEP : " + menuName + " bar collapse bar clicked\n");
-
+		
 	}
 
 	public void verifyMemberDetailsOnInvoicePage(String proforma,
@@ -402,7 +406,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	public void validateBalanceAndTotalForInvoice(
 			Map<String, String> TotalAmountMap) {
 		Iterator iterator = TotalAmountMap.keySet().iterator();
-		
+
 		if (TotalAmountMap.size() != 4
 				&& !TotalAmountMap.get("IsProgramPledged").equals("1")) {
 			System.out.println("In bbbbbbb");
@@ -713,52 +717,53 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		}
 	}
 
+
 	
 	public String verifyInvoiceDetailsBeforeRenewal()
 	{
+		String invoiceNum;
+
 		verifyInvoiceProfile("proforma", "Yes");
 		verifyInvoiceProfile("paid in full", "No");
-		Assert.assertFalse(element("txt_invoiceValues", "balance").getText().trim()
-        .equalsIgnoreCase("0.00"),"Balance is 0.00");
+		Assert.assertFalse(element("txt_invoiceValues", "balance").getText()
+				.trim().equalsIgnoreCase("0.00"), "Balance is 0.00");
 		logMessage("ASSERT PASSED : Balance before renewal is not 0.00\n");
-		return element("inp_invoiceValue","invoice number").getText();
+		do{
+			invoiceNum=element("inp_invoiceValue","invoice number").getText();
+		System.out.println(invoiceNum);
+		}while(invoiceNum.equals(null));
+		logMessage("Step : Invoice number for which renewal is to be done is "+invoiceNum);
+		return invoiceNum;
 
 
 	}
-	
-	public void verifyInvoiceDetailsAfterRenewal()
-	{
+
+	public void verifyInvoiceDetailsAfterRenewal() {
 		verifyInvoiceProfile("proforma", "No");
-		//verifyInvoiceProfile("paid in full", "Yes");
 		Assert.assertTrue(element("txt_invoiceValues", "balance").getText().trim()
         .equalsIgnoreCase("0.00"),"Balance is not 0.00");
+		 verifyInvoiceProfile("paid in full", "Yes");
 		logMessage("ASSERT PASSED : Balance amount after renewal is 0.00\n");
-	
+
 	}
-	
-	public void verifyPaymentStatusAfterRenewal(String memberstatus)
-	{
-		System.out.println(element("txt_code","Payment Status").getText());
-		if(memberstatus.equals("Emeritus"))
-		{
-		Assert.assertTrue(element("txt_code","Payment Status").getText().equals("Free"));
-		logMessage("ASSERT PASSED : Payment status for "+memberstatus+" after renewal is Free");
+
+	public void verifyPaymentStatusAfterRenewal(String memberstatus) {
+		System.out.println(element("txt_code", "Payment Status").getText());
+		if (memberstatus.equals("Emeritus")) {
+			Assert.assertTrue(element("txt_code", "Payment Status").getText()
+					.equals("Free"));
+			logMessage("ASSERT PASSED : Payment status for " + memberstatus
+					+ " after renewal is Free");
+		} else {
+			Assert.assertTrue(element("txt_code", "Payment Status").getText()
+					.equals("Paid"));
+			logMessage("ASSERT PASSED : Payment status for " + memberstatus
+					+ " after renewal is Free");
 		}
-		else
-		{
-		Assert.assertTrue(element("txt_code","Payment Status").getText().equals("Paid"));
-		logMessage("ASSERT PASSED : Payment status for "+memberstatus+" after renewal is Free");
-		}
-		
-	
-		
+
 	}
-	public void verifyPaymentStatusBeforeRenewal()
-	{
-		Assert.assertTrue(element("txt_code","Payment Status").getText().equals("Unpaid"));
-		logMessage("ASSERT PASSED : Payment status before renewal is Free");
-	}
-	
+
+
 public void verifyRenewedProductsPriceInsideLineItems(Map<String, String> mapRenewedProductDetails) {
 		
 		for (String key : mapRenewedProductDetails.keySet() ) {
@@ -769,28 +774,29 @@ public void verifyRenewedProductsPriceInsideLineItems(Map<String, String> mapRen
 		   Assert.assertTrue((mapRenewedProductDetails.get(key)).trim().equals(element("txt_priceValue",key).getText().trim()));
 		   logMessage("ASSERT PASSED : "+key+" price inside line items verified as "+mapRenewedProductDetails.get(key));
 			}
-			
 		}
-		
+}
+	public void verifyPaymentStatusBeforeRenewal() {
+		Assert.assertTrue(element("txt_code", "Payment Status").getText()
+				.equals("Unpaid"));
+		logMessage("ASSERT PASSED : Payment status before renewal is Free");
 	}
 
-	public void verifyAdjustedLinesItemsForEmeritusMember(String membesstatus,Map<String, String> mapRenewedProductDetails) {
-		
-		if(membesstatus.equals("Emeritus"))
-		{
-		expandDetailsMenu("adjusted/voided line items");
-		   Assert.assertTrue((mapRenewedProductDetails.get("Voluntary Contribution To C&EN")).trim().equals(elements("txt_priceValue","Voluntary Contribution To C&EN").get(1).getText().trim()));
-		   logMessage("ASSERT PASSED : Voluntary Contribution To C&EN price inside line items verified as "+mapRenewedProductDetails.get("Voluntary Contribution To C&EN"));
-		collapseDetailsMenu("adjusted/voided line items");
+	public void verifyAdjustedLinesItemsForEmeritusMember(String membesstatus,
+			Map<String, String> mapRenewedProductDetails) {
+
+		if (membesstatus.equals("Emeritus")) {
+			expandDetailsMenu("adjusted/voided line items");
+			Assert.assertTrue((mapRenewedProductDetails
+					.get("Voluntary Contribution To C&EN")).trim()
+					.equals(elements("txt_priceValue",
+							"Voluntary Contribution To C&EN").get(1).getText()
+							.trim()));
+			logMessage("ASSERT PASSED : Voluntary Contribution To C&EN price inside line items verified as "
+					+ mapRenewedProductDetails
+							.get("Voluntary Contribution To C&EN"));
+			collapseDetailsMenu("adjusted/voided line items");
 		}
 	}
-		
-
-	
-	
-	
-	
-
-
 
 }

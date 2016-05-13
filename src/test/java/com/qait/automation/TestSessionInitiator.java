@@ -7,7 +7,6 @@ import static com.qait.automation.utils.YamlReader.setYamlFilePath;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -22,6 +21,7 @@ import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.EnviormentSetting;
 import com.qait.automation.utils.TakeScreenshot;
 import com.qait.automation.utils.YamlReader;
+import com.qait.keywords.ACS_Address_Validation_Action;
 import com.qait.keywords.ACS_Awards_EWEB_PageActions;
 import com.qait.keywords.ASMErrorPage;
 import com.qait.keywords.ASM_AACTPage;
@@ -109,9 +109,11 @@ public class TestSessionInitiator {
 	public AwardsPageActions_IWEB awardsPageAction;
 	public ACS_Awards_EWEB_PageActions award_ewebPage;
 	public AcsYellowBookEwebPageActions acsYellowBookEwebPage;
-	
+
 	protected static HashMap<String, String> book;
-	 protected static HashMap<String, String> setting;
+	protected static HashMap<String, String> setting;
+
+	public ACS_Address_Validation_Action acsAddressValidation;
 
 	public TakeScreenshot takescreenshot;
 
@@ -154,17 +156,14 @@ public class TestSessionInitiator {
 		awardsPageAction = new AwardsPageActions_IWEB(driver);
 		award_ewebPage = new ACS_Awards_EWEB_PageActions(driver);
 		acsYellowBookEwebPage = new AcsYellowBookEwebPageActions(driver);
+		acsAddressValidation = new ACS_Address_Validation_Action(driver);
 	}
 
 	/**
 	 * Page object Initiation done
 	 */
 	public TestSessionInitiator(String testname) {
-		new EnviormentSetting("./data/Settings.xls","Book_Sheet");
-		book = EnviormentSetting.settings;
-		new EnviormentSetting("./data/Settings.xls",book.get("CurrentBook"));
-		setting = EnviormentSetting.settings;
-		  capabilities = new DesiredCapabilities();
+		capabilities = new DesiredCapabilities();
 		wdfactory = new WebDriverFactory();
 		testInitiator(testname);
 	}
@@ -209,7 +208,7 @@ public class TestSessionInitiator {
 
 			if (_getSessionConfig().get("browser").equalsIgnoreCase("chrome") && baseurl.contains("iwebtest")) {
 				driver.get(baseurl.replaceAll("https://iwebtest",
-						"https://" + YamlReader.getYamlValue("Authentication.userName")+":"
+						"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
 								+ YamlReader.getYamlValue("Authentication.password").replaceAll("@", "%40") + "@"
 								+ "iwebtest"));
 			}
@@ -222,6 +221,15 @@ public class TestSessionInitiator {
 				driver.get(baseurl);
 			}
 
+			if (!_getSessionConfig().get("browser").equalsIgnoreCase("ie")
+					|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer")) {
+				baseurl = baseurl.replaceAll("https://iwebtest",
+						"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
+								+ YamlReader.getYamlValue("Authentication.password").replaceAll("@", "%40") + "@"
+								+ "iwebtest");
+			}
+
+			driver.get(baseurl);
 			Reporter.log("\nThe application url is :- " + baseurl, true);
 			if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/"))
 					&& (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
@@ -315,35 +323,36 @@ public class TestSessionInitiator {
 	}
 
 	public void navigateToIWEBUrlOnNewBrowserTab(String baseURL) {
-		if (_getSessionConfig().get("browser").equalsIgnoreCase("firefox")
-				|| _getSessionConfig().get("browser").equalsIgnoreCase("ie")) {
-			driver.manage().deleteAllCookies();
-			openUrl(baseURL);
-		} else if (_getSessionConfig().get("browser").equalsIgnoreCase("chrome")) {
-			Robot robot;
-			try {
-				robot = new Robot();
-				robot.delay(2000);
-				robot.keyPress(KeyEvent.VK_CONTROL);
-				robot.keyPress(KeyEvent.VK_T);
-				robot.keyRelease(KeyEvent.VK_CONTROL);
-				robot.keyRelease(KeyEvent.VK_T);
-				// String base = driver.getWindowHandle();
-				//
-				// Set<String> set = driver.getWindowHandles();
-				for (String s : driver.getWindowHandles()) {
-					driver.switchTo().window(s);
-				}
-				// set.remove(base);
-				// assert set.size() == 1;
-				// driver.switchTo().window((String) set.toArray()[0]);
-				driver.navigate().to(baseURL);
-				Reporter.log("\nThe application url is :- " + baseURL, true);
-			} catch (AWTException e) {
-				e.printStackTrace();
-			}
+		// if (_getSessionConfig().get("browser").equalsIgnoreCase("firefox")
+		// || _getSessionConfig().get("browser").equalsIgnoreCase("ie")) {
+		// driver.manage().deleteAllCookies();
+		// openUrl(baseURL);
+		// } else if (_getSessionConfig().get("browser")
+		// .equalsIgnoreCase("chrome")) {
+		// Robot robot;
+		// try {
+		// robot = new Robot();
+		// robot.delay(2000);
+		// robot.keyPress(KeyEvent.VK_CONTROL);
+		// robot.keyPress(KeyEvent.VK_T);
+		// robot.keyRelease(KeyEvent.VK_CONTROL);
+		// robot.keyRelease(KeyEvent.VK_T);
+		// // String base = driver.getWindowHandle();
+		// //
+		// // Set<String> set = driver.getWindowHandles();
+		// for (String s : driver.getWindowHandles()) {
+		// driver.switchTo().window(s);
+		// }
+		// // set.remove(base);
+		// // assert set.size() == 1;
+		// // driver.switchTo().window((String) set.toArray()[0]);
+		// driver.navigate().to(baseURL);
+		// Reporter.log("\nThe application url is :- " + baseURL, true);
+		// } catch (AWTException e) {
+		// e.printStackTrace();
+		// }
 
-		}
+		launchApplication(baseURL);
 
 		// else
 		// if(_getSessionConfig().get("browser").equalsIgnoreCase("chrome"))

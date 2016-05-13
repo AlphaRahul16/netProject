@@ -145,10 +145,8 @@ public class ACS_Create_Member_Test {
 
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
-		test.navigateToIWEBUrlOnNewBrowserTab(app_url_IWEB);
-		test.homePageIWEB.enterAuthentication(
-				YamlReader.getYamlValue("Authentication.userName"),
-				YamlReader.getYamlValue("Authentication.password"));
+		test.launchApplication(app_url_IWEB);
+		
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}

@@ -112,6 +112,20 @@ public class GetPage extends BaseUi {
 		}
 		return elem;
 	}
+	
+	protected WebElement element(String elementToken, String replacement1,String replacement2,String replacement3)
+			throws NoSuchElementException {
+		WebElement elem = null;
+		By locator = getLocator(elementToken, replacement1,replacement2,replacement3);
+		try {
+			elem = wait.waitForElementToBeVisible(webdriver.findElement(locator));
+		} catch (TimeoutException excp) {
+			throw new NoSuchElementException("Element " + elementToken
+					+ " with locator " + locator.toString().substring(2)
+					+ " not found on the " + this.pageName + " !!!");
+		}
+		return elem;
+	}
 
 
 	protected List<WebElement> elements(String elementToken, String replacement) {
@@ -142,6 +156,16 @@ public class GetPage extends BaseUi {
 		return result;
 	}
 
+	protected boolean isElementDisplayed(String elementName,String elementTextReplace1,String elementTextReplace2,String elementTextReplace3) {
+		wait.waitForElementToBeVisible(element(elementName, elementTextReplace1,elementTextReplace2,elementTextReplace3));
+		boolean result = element(elementName, elementTextReplace1,elementTextReplace2,elementTextReplace3).isDisplayed();
+		assertTrue(result, "ASSERT FAILED: element '" + elementName
+				+ "with text " + elementTextReplace1+elementTextReplace2+elementTextReplace3 + "' is not displayed.");
+		logMessage("ASSERT PASSED: element " + elementName + " with text "
+				+  elementTextReplace1+elementTextReplace2+elementTextReplace3 + " is displayed.");
+		return result;
+	}
+	
 	protected void verifyElementText(String elementName, String expectedText) {
 		wait.waitForElementToBeVisible(element(elementName));
 		assertEquals(element(elementName).getText().trim(), expectedText,
@@ -200,11 +224,19 @@ public class GetPage extends BaseUi {
 	protected By getLocator(String elementToken, String replacement1, String replacement2) {
 		String[] locator = getELementFromFile(this.pageName, elementToken);
 		locator[2]=locator[2].replaceFirst("\\$\\{.+\\}", replacement1);
-		locator[2]=locator[2].replaceFirst("\\$\\{.+\\}", replacement2);
+		locator[2]=locator[2].replaceFirst("\\%\\{.+\\}", replacement2);
 		return getBy(locator[1].trim(), locator[2].trim());
 	}
 
-
+	protected By getLocator(String elementToken, String replacement1,String replacement2,  String replacement3) {
+		String[] locator = getELementFromFile(this.pageName, elementToken);
+		locator[2]=locator[2].replaceFirst("\\$\\{.+\\}", replacement1);
+		locator[2]=locator[2].replaceFirst("\\%\\{.+\\}", replacement2);
+		locator[2]=locator[2].replaceFirst("\\#\\{.+\\}", replacement3);
+		return getBy(locator[1].trim(), locator[2].trim());
+	}
+	
+	
 	private By getBy(String locatorType, String locatorValue) {
 		switch (Locators.valueOf(locatorType)) {
 		case id:

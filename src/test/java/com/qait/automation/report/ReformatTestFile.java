@@ -6,7 +6,9 @@
 package com.qait.automation.report;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.file.Path;
@@ -19,17 +21,19 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.io.FileUtils;
+
 import com.qait.automation.utils.DateUtil;
 
 /**
  *
- * @author prashantshukla
+ * @author QAIT
  */
 public class ReformatTestFile {
 
     String replacealltimestamp(String html) {
 
-        List<String> allMatches = new ArrayList<>();
+        List<String> allMatches = new ArrayList<String>();
         Matcher m = Pattern.compile("[0-9]{13}")
                 .matcher(html);
 
@@ -47,11 +51,16 @@ public class ReformatTestFile {
 
     void writeLargerTextFile(String aFileName, String html) throws IOException {
         Path path = Paths.get(aFileName);
+    	File file = new File(aFileName);
+    	file.getParentFile().mkdirs();
+    	file.createNewFile();
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(aFileName), "ISO-8859-1"))) {
             writer.write(html);
+ 
         }
     }
-
+    
+  
     String readLargerTextFile(String aFileName) throws IOException {
         String html = "";
         Path path = Paths.get(aFileName);

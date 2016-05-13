@@ -150,7 +150,7 @@ public class ACS_AwardsNomination_Test {
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		app_url_Nominate = getYamlValue("app_url_Nominate");
 		test.launchApplication(app_url_IWEB);
-	    test.homePageIWEB.enterAuthenticationAutoIt();
+	
 
 
 	}

@@ -49,7 +49,7 @@ public class ACS_IndividualLandingPage_Smoke {
 		Reporter.log("CASE ID : " + caseID, true);
 		mapSheetData = test.homePageIWEB.addValuesInMap("landingPage", caseID);
 		test.navigateToIWEBUrlOnNewBrowserTab(app_url_IWEB);
-		test.homePageIWEB.enterAuthentication("C00616", "ACS2016#");
+		
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Fundraising");
@@ -75,8 +75,10 @@ public class ACS_IndividualLandingPage_Smoke {
 		mapIwebProductDetails = test.asm_Donate.getUserAddressDetails(memberLoginDetails, "PhoneNo", "Email",
 				"Address");
 
-		if (mapSheetData.get("Login_via_MemberNumber").equalsIgnoreCase("YES"));
+		if (mapSheetData.get("Login_via_MemberNumber").equalsIgnoreCase("YES"))
+		{
 		memberDetails = test.memberShipPage.getCustomerLastNameAndContactID();
+		}
 
 		//memberDetails = test.memberShipPage.getCustomerLastNameAndContactID(mapSheetData.get("Login_via_MemberNumber"));
 

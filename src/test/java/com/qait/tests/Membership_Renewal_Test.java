@@ -155,9 +155,7 @@ public class Membership_Renewal_Test {
 		@SuppressWarnings("unchecked")
 		List<String> memberDetails = (List<String>) obj[invocationCount];
 		test.launchApplication(app_url_IWEB);
-		test.homePageIWEB.enterAuthentication(
-				getYamlValue("Authentication.userName"),
-				getYamlValue("Authentication.password"));
+		
 		test.homePageIWEB.GoToCRMModule();
 		test.homePageIWEB.clickFindForIndividualsSearch();
 		test.individualsPage.fillMemberDetailsAndSearch("Record Number",
@@ -195,9 +193,7 @@ public class Membership_Renewal_Test {
 		getMemRenewalInfo = new YamlInformationProvider(mapMemberShipRenewal);
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		test.launchApplication(app_url_IWEB);
-		test.homePageIWEB.enterAuthentication(
-				getYamlValue("Authentication.userName"),
-				getYamlValue("Authentication.password"));
+		
 	}
 
 	@AfterMethod

@@ -71,7 +71,12 @@
 	<artifactId>bcprov-jdk16</artifactId>
 	<version>1.45</version>
 </dependency>
-
+<dependency>
+  <groupId>org.assertj</groupId>
+  <artifactId>assertj-core</artifactId>
+  <version>3.4.1</version>
+  <scope>test</scope>
+</dependency>
 	</dependencies>
 
 	<build>
@@ -153,6 +158,8 @@
 						</goals>
 						<configuration>
 							<encoding>UTF-8</encoding>
+						
+                         <forkMode>never</forkMode>
 						</configuration>
 					</execution>
 				</executions>
