@@ -81,6 +81,7 @@ public class ResultsIT extends ReformatTestFile {
         System.out.println("=============Path==================="+logspath);
        writeLargerTextFile(logspath, html);
     }
+    
 
     @Test(dependsOnMethods = "changeTimeStamp")
     public void sendResultsMail() throws MessagingException, IOException {
@@ -100,6 +101,8 @@ public class ResultsIT extends ReformatTestFile {
         System.out.println("Reports emailed");
 
     }
+
+   
 
     private Session getSession() {
         Authenticator authenticator = new Authenticator(from, password);

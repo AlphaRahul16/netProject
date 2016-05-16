@@ -24,7 +24,8 @@ public class ACS_AwardsVoting_Test {
 	TestSessionInitiator test;
 	String app_url_IWEB, app_url_Awards;
 	String[] startEndDate;
-	private String caseID, currentAwardName;
+	private String caseID,
+			currentAwardName = "Earle B. Barnes Award for Leadership in Chemical Research Management:2017";
 	Map<String, List<String>> memberDetail = new HashMap<>();
 	List<String> memberDetails, nameOfJudges, rescusedJudges;
 	Set<String> numberOfNomineesInEntrants = new HashSet<>();
@@ -50,7 +51,7 @@ public class ACS_AwardsVoting_Test {
 
 	@Test
 	public void Step01_TC01_Launch_Iweb_And_Select_Award() {
-		
+
 		test.homePageIWEB.addValuesInMap("AwardsVoting", caseID);
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Awards");
@@ -96,22 +97,23 @@ public class ACS_AwardsVoting_Test {
 		test.awardsPageAction.goToJudgeRecord(nameOfJudges.get(0));
 		test.invoicePage.expandDetailsMenu("acs award judge score");
 		test.awardsPageAction.verifyACSAwardStageEntriesInThisStageIsEmpty();
-
+		test.awardsPageAction.navigateToBackPage();
 		test.invoicePage.expandDetailsMenu("award judge");
 		rescusedJudges = test.awardsPageAction.getRecusedStatusForRounds("1");
 		test.awardsPageAction.clickOnAwardsName_RoundName(currentAwardName);
 		test.invoicePage.expandDetailsMenu("award judges");
+		test.awardsPageAction.goToRecordForRound("1");
+		memberDetail = test.awardsPageAction.getJudgeDetails(nameOfJudges, "1");
 		memberDetail = test.awardsPageAction.getJudgeDetails(nameOfJudges, "1");
 	}
 
-	@SuppressWarnings({ "unchecked", "static-access" })
+	@SuppressWarnings({ "unchecked" })
 	public void Step04_TC04_Launch_Awards_Voting_Application(int round) {
 		listOfNomineeJudges_judgeRanks.put(0, nomineeRanks);
 		listOfNomineeJudges_judgeRanks.put(1, judgesRanks);
 		for (int i = 0; i < 5; i++) {
 			test.homePageIWEB.addValuesInMap("AwardsVoting", caseID);
 			test.launchApplication(app_url_Awards);
-			// test.award_ewebPage.enterCredentials("ACSID");
 			test.award_ewebPage.enterCredentials_LastNameMemberNumber_ACSID(
 					test.award_ewebPage.map().get("LoginType"), nameOfJudges
 							.get(i).trim(), memberDetail);
@@ -130,8 +132,8 @@ public class ACS_AwardsVoting_Test {
 					currentAwardName);
 			test.award_ewebPage
 					.clickOnFiveYearNomineeMemoLink(currentAwardName);
-//			test.award_ewebPage.extractAndCompareTextFromPdfFile(
-//					"award_history", currentAwardName, 1, "downloads");
+			// test.award_ewebPage.extractAndCompareTextFromPdfFile(
+			// "award_history", currentAwardName, 1, "downloads");
 			maxPossibleNominees = test.award_ewebPage
 					.getNumberOfPossibleNominees(currentAwardName);
 			test.award_ewebPage
@@ -141,8 +143,8 @@ public class ACS_AwardsVoting_Test {
 					.verifyHeaderForUnselectedNominee("You have selected 0 out of "
 							+ maxPossibleNominees
 							+ " possible nominations to rank.");
-			listOfFirstAndLastName = test.award_ewebPage
-					.selectRandomNominees(maxPossibleNominees);
+			listOfFirstAndLastName = test.award_ewebPage.selectRandomNominees(
+					maxPossibleNominees, round);
 			test.award_ewebPage
 					.verifyHeaderForSelectedNominee("You have selected "
 							+ maxPossibleNominees + " out of "
@@ -151,7 +153,8 @@ public class ACS_AwardsVoting_Test {
 			test.award_ewebPage.provideComments(listOfFirstAndLastName,
 					test.award_ewebPage.map().get("Comment Text"));
 			test.award_ewebPage.clickOnViewProfileLink(listOfFirstAndLastName);
-			test.award_ewebPage.clickOnProfilePdfLinkAndVerifyPdfContent(listOfFirstAndLastName);
+			// test.award_ewebPage
+			// .clickOnProfilePdfLinkAndVerifyPdfContent(listOfFirstAndLastName);
 			test.award_ewebPage
 					.verifyAwardName_viewProfileLink(currentAwardName);
 			test.award_ewebPage
@@ -176,15 +179,15 @@ public class ACS_AwardsVoting_Test {
 			test.award_ewebPage
 					.submissionDateAfterBallotSubmission(currentAwardName);
 			listsOfRanks.add(listOfNomineeJudges_judgeRanks.get(0));
+
 		}
 	}
 
-	public void Step05_TC05_Launch_Awards_Voting_IWeb() {
+	public void Step05_TC05_Launch_Awards_Voting_IWeb(int round,int votingRounds) {
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Awards");
 		test.homePageIWEB.clickOnTab("Find Award");
-
 		test.individualsPage.enterFieldValue("Award Year",
 				DateUtil.getAnyDateForType("YYYY", 1, "year"));
 		test.individualsPage.clickGoButton();
@@ -199,24 +202,35 @@ public class ACS_AwardsVoting_Test {
 		test.awardsPageAction
 				.verifyClosedStatusOnUpdatingScore(test.homePageIWEB.map().get(
 						"Round1 Closed Status?"));
-		// test.invoicePage
-		// .expandDetailsMenu("acs award stage - entries in this stage");
-		// test.invoicePage.expandDetailsMenu("acs entries not in this stage");
-		// test.awardsPageAction.verifyNomineesWithRankOne(listsOfRanks,
-		// confirmNominees);
-		// test.awardsPageAction.verifyNomineeWinnerStatus(test.homePageIWEB.map()
-		// .get("Round1 Winner Status?"),"nominee name");
 
+		
+		test.invoicePage
+				.expandDetailsMenu("acs award stage - entries in this stage");
+		test.invoicePage.expandDetailsMenu("acs entries not in this stage");
+		test.awardsPageAction.verifyNomineesWithRankOne(listOfFirstAndLastName);
+		test.awardsPageAction.verifyNomineeWinnerStatus(votingRounds);
+
+		// ============================================================
+
+		test.awardsPageAction.clickOnAwardsName_RoundName(currentAwardName);
+		test.awardsPageAction.expandDetailsMenu("award stages/rounds");
+		startEndDate = test.awardsPageAction.editStartAndEndDate_Round(String
+				.valueOf(round > 1 ? ++votingRounds: null));
+		test.awardsPageAction.clickOnSaveButton();
+		test.awardsPageAction.switchToDefaultContent();
+		test.awardsPageAction.expandDetailsMenu("award judges");
+		test.awardsPageAction.editStageRound(votingRounds-1);
 	}
 
 	@Test(dependsOnMethods = "Step03_TC03_Add_Judges_Fetch_Rescused_Status")
 	public void Step04_TC05_Awards_Voting_Awards_Voting_IWeb() {
 		int votingRounds = Integer.parseInt(test.homePageIWEB.map()
 				.get("Winner in rounds").replace("Round", ""));
-		System.out.println("voting rounds :============= " + votingRounds);
+		int count=1;
 		for (int round = votingRounds; round > 0; round--) {
+			System.out.println("voting rounds :============= " + round);
 			Step04_TC04_Launch_Awards_Voting_Application(round);
-			Step05_TC05_Launch_Awards_Voting_IWeb();
+			Step05_TC05_Launch_Awards_Voting_IWeb(round,count++);
 		}
 	}
 
@@ -226,10 +240,7 @@ public class ACS_AwardsVoting_Test {
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		app_url_Awards = getYamlValue("app_url_Awards");
 		test.launchApplication(app_url_IWEB);
-		// test.homePageIWEB.enterAuthenticationAutoIt();
-		test.homePageIWEB.enterAuthentication(
-				YamlReader.getYamlValue("Authentication.userName"),
-				"Authentication.password");
+
 
 	}
 

@@ -610,7 +610,6 @@ public class ASM_DonatePage extends GetPage {
 	
 
 	public void verifyProductNamesFromIweb(String[] productNameKey) {
-		wait.waitForPageToLoadCompletely();
 		for (int i = 0; i < 3; i++) {
 			System.out.println(productNameKey[i]);
 			isElementDisplayed("txt_DonateProgram", productNameKey[i]);

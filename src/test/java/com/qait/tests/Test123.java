@@ -18,8 +18,21 @@ import javax.xml.ws.LogicalMessage;
 import org.testng.annotations.Test;
 
 import com.qait.automation.utils.DateUtil;
+import com.qait.automation.utils.YamlReader;
 
 public class Test123 {
+
+	static int nextYear;
+	Date date;
+	private static final String VOICENAME = "kevin16";
+	int count;
+	int a = 10;
+	String s1;
+	static String s2;
+	
+	
+		/*String date="05/04/2016";*/
+
 	public static void main(String args[]){
 //		
 //	String memberPackage="ACS : Regular Member : Regular Member Dues C&EN-Print", amount="Balance Due: $197.00";
@@ -64,19 +77,40 @@ public class Test123 {
 	}
 	
 }
+
 //	public static void main(String...a){
 //		String date="05/04/2016";
+
 //		System.out.println(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY"));
 //		String d=DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY");
 //		Date d1=DateUtil.convertStringToDate(d,"MM/dd/YYYY");
 //		String d2=new SimpleDateFormat("MM/dd/YYYY").format(d1);
 //		System.out.println(d2);
+
+		
+		/*String baseurl = "https://iwebtest.acs.org/YBStage1/iWeb";
+		String uPs="C00616:Zx605@95";
+		String abc=baseurl.replaceAll("https://iwebtest",
+				"https://"+uPs.replaceAll("@", "%40")
+						+"@"
+						+ "iwebtest");*/
+		
+//		System.out.println(baseurl.replaceAll("https://iwebtest",
+//				"https:" + YamlReader.getYamlValue("Authentication.userName")+":"
+//						+ YamlReader.getYamlValue("Authentication.password").replaceAll("@", "%40") + "@"
+//						+ "//iwebtest"));
+		/*System.out.println(DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),"MM/dd/yyyy"));
+		System.out.println( DateUtil.convertStringToDate(date,"MM/dd/yyyy"));
+		System.out.println(DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),"MM/dd/yyyy").compareTo(
+				   DateUtil.convertStringToDate(date,"MM/dd/yyyy")));*/
+		
 //		
 //		System.out.println(DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),"MM/dd/yyyy"));
 //		System.out.println( DateUtil.convertStringToDate(date,"MM/dd/yyyy"));
 //		System.out.println(DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),"MM/dd/yyyy").compareTo(
 //				   DateUtil.convertStringToDate(date,"MM/dd/yyyy")));
 //		
+
 //		String startDateString = "06/27/2007";
 //	    DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); 
 //	    Date startDate;

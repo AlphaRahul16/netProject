@@ -146,15 +146,13 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 		logMessage("[ASSERTION PASSED]:: Verified Updated Address" + address + " on Yellow Book Home Page");
 	}
 
-	public String updateBiographyFields(String value) {
+	public void updateBiographyFields(String value) {
 		isElementDisplayed("inp_honor");
-		String honorValue = element("inp_honor").getText().trim() + value;
 		element("inp_honor").clear();
-		element("inp_honor").sendKeys(honorValue);
+		element("inp_honor").sendKeys(value);
 		isElementDisplayed("btn_submit");
 		element("btn_submit").click();
-		logMessage("Updated Honor field with value " + honorValue + " on Biography Page");
-		return honorValue;
+		logMessage("Updated Honor field with value " + value + " on Biography Page");
 	}
 
 	public void verifyUpdatedBiographyFieldOnYellowBookHomePage(String honorValue) {
@@ -166,38 +164,45 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 
 	public List<String> selectFourRandomCommitteesFromCommitteesPreferencesPage(String str) {
 		wait.waitForPageToLoadCompletely();
+		int i=0;
 		if (str.equalsIgnoreCase("Yes")) {
 			if(checkIfElementIsThere("txt_currentCommittee")){
 				logMessage("First committee pre-selected");
 			    _selectCommitteesWithoutWarningImage(2);
 			    _selectCommitteesWithWarningImage();
+			    i=3;
 			}
 			else{
 			    _selectCommitteesWithoutWarningImage(3);
 				_selectCommitteesWithWarningImage();	
+				i=4;
 			}
 		}
 		else{
 			if(checkIfElementIsThere("txt_currentCommittee")) {
 			   _selectCommitteesWithoutWarningImage(3);
+			   i=3;
 			}
 			else{
 				_selectCommitteesWithoutWarningImage(4);
+				i=4;
 			}
 		}	
-		return _getSelectedCommitteesList();
+		return _getSelectedCommitteesList(i);
 	}
 
-	private List<String> _getSelectedCommitteesList() {
+	private List<String> _getSelectedCommitteesList(int size) {
 		wait.waitForPageToLoadCompletely();
-		for (int i = 1; i <= 4; i++) {
-			System.out.println("committee" + i + "::" + element("txt_select_committee", "" + i).getText().trim());
+		for (int i = 1; i <= size; i++) {
+			logMessage("committee" + i + "::" + element("txt_select_committee", "" + i).getText().trim());
 			committees.add(element("txt_select_committee", "" + i).getText().trim());
 		}
 		return committees;
 	}
 	
 	private void _selectCommitteesWithWarningImage() {
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
 		Select dropdown_committee = new Select(element("drpdown_img_alert"));
 		dropdown_committee.selectByIndex(1);
 	//selectProvidedTextFromDropDown(element("drpdown_img_alert"), "1st");
@@ -206,7 +211,9 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 
 private void _selectCommitteesWithoutWarningImage(int i) {
 	int j=1;
+	wait.waitForPageToLoadCompletely();
 	for (WebElement element : elements("drpdown_select")) {
+		wait.hardWait(2);
 		Select dropdown_committee = new Select(element);
 		dropdown_committee.selectByIndex(1);
 //		selectDropDownValu("2nd");
@@ -266,7 +273,7 @@ private void _selectCommitteesWithoutWarningImage(int i) {
 		logMessage("[ASSERTION PASSED]:: Verified Selected Committees are displayed on Yellow Book Eweb Home Page");
 	}
 	
-	public void verifyEditLink(boolean value){
+	public void verifyEditLinkIsDisplayed(boolean value){
 		if(value){
 			isElementDisplayed("lnk_edit");
 			logMessage("Info: Current Date lies between Start and End Date");

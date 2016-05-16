@@ -478,6 +478,16 @@ public class BaseUi {
 			wait.hardWait(seconds);
 		}
 	}
+	
+	public void hardWaitForChromeBrowser(int seconds) {
+		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("chrome")
+				|| ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("ie")
+				|| ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("internetexplorer")) {
+			wait.hardWait(seconds);
+		}
+	}
 
 	public String getTestCaseID(String methodName) {
 		String[] split = methodName.split("_");
@@ -578,40 +588,40 @@ public class BaseUi {
 				.setContents(stringSelection, null);
 	}
 
-	public void enterAuthentication(String uName, String password) {
+//	public void enterAuthentication(String uName, String password) {
 
-		if ((isBrowser("ie") || isBrowser("internetexplorer") || isBrowser("chrome"))) {
-			System.out.println("in authentication");
-			setClipboardData(uName);
-			 Robot robot;
-			 try {
-			 robot = new Robot();
-			 setClipboardData(uName);
-			 robot.delay(2000);
-			 robot.keyPress(KeyEvent.VK_CONTROL);
-			 robot.keyPress(KeyEvent.VK_V);
-			 robot.keyRelease(KeyEvent.VK_V);
-			 robot.keyRelease(KeyEvent.VK_CONTROL);
-			 robot.delay(2000);
-			 robot.keyPress(KeyEvent.VK_TAB);
-			 robot.keyRelease(KeyEvent.VK_TAB);
-			 setClipboardData(password);
-			 robot.delay(2000);
-			 robot.keyPress(KeyEvent.VK_CONTROL);
-			 robot.keyPress(KeyEvent.VK_V);
-			 robot.keyRelease(KeyEvent.VK_V);
-			 robot.keyRelease(KeyEvent.VK_CONTROL);
-			 robot.delay(2000);
-			 robot.keyPress(KeyEvent.VK_ENTER);
-			 robot.keyRelease(KeyEvent.VK_ENTER);
-			 } catch (AWTException e) {
-			 e.printStackTrace();
-			 }
+//		if ((isBrowser("ie") || isBrowser("internetexplorer") || isBrowser("chrome"))) {
+//			System.out.println("in authentication");
+//			setClipboardData(uName);
+//			 Robot robot;
+//			 try {
+//			 robot = new Robot();
+//			 setClipboardData(uName);
+//			 robot.delay(2000);
+//			 robot.keyPress(KeyEvent.VK_CONTROL);
+//			 robot.keyPress(KeyEvent.VK_V);
+//			 robot.keyRelease(KeyEvent.VK_V);
+//			 robot.keyRelease(KeyEvent.VK_CONTROL);
+//			 robot.delay(2000);
+//			 robot.keyPress(KeyEvent.VK_TAB);
+//			 robot.keyRelease(KeyEvent.VK_TAB);
+//			 setClipboardData(password);
+//			 robot.delay(2000);
+//			 robot.keyPress(KeyEvent.VK_CONTROL);
+//			 robot.keyPress(KeyEvent.VK_V);
+//			 robot.keyRelease(KeyEvent.VK_V);
+//			 robot.keyRelease(KeyEvent.VK_CONTROL);
+//			 robot.delay(2000);
+//			 robot.keyPress(KeyEvent.VK_ENTER);
+//			 robot.keyRelease(KeyEvent.VK_ENTER);
+//			 } catch (AWTException e) {
+//			 e.printStackTrace();
+//			 }
+//
+//			
+//	}
 
-			
-	}
-
-	}
+//	}
 
 	public void enterAuthenticationAutoIt() {
 		try {
