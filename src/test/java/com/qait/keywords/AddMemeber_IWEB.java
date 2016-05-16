@@ -58,7 +58,7 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 
 		selectMemberDetails("individualType", "Individual");
 		selectMemberDetails("country", country);
-		waitForSpinner();
+		hardWaitForChromeBrowser(6);
 		enterMemberDetail("addressLine1", street);
 		enterMemberDetails("city/state/zip", city);
 		if (!(abrState.equalsIgnoreCase(""))) {
@@ -93,7 +93,7 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void enterMemberDetails(String detailName, String detailValue) {
-		wait.waitForPageToLoadCompletely();
+		//wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(2);
 		isElementDisplayed("inp_memberDetailInAdd", detailName);
 		element("inp_memberDetailInAdd", detailName).clear();
@@ -166,19 +166,25 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
 				"hiddenFieldTimeOut"));
+		System.out.println(isBrowser("chrome"));
+		System.out.println(System.getProperty("browser"));
+		if(!isBrowser("chrome"))
+		{
 		try {
 			handleAlert();
-			wait.resetImplicitTimeout(2);
+			wait.resetImplicitTimeout(6);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("img_spinner");
 			wait.waitForElementToDisappear(element("img_spinner"));
 			logMessage("STEP : Wait for spinner to be disappeared \n");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
-		} catch (NoSuchElementException | AssertionError | TimeoutException Exp) {
+		} /*catch (NoSuchElementException | AssertionError | TimeoutException  | StaleElementReferenceException Exp) {*/
+		catch(Exception e){
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 			logMessage("STEP : Spinner is not present \n");
+		}
 		}
 	}
 

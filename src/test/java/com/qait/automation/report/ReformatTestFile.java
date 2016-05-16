@@ -52,6 +52,8 @@ public class ReformatTestFile {
     void writeLargerTextFile(String aFileName, String html) throws IOException {
         Path path = Paths.get(aFileName);
     	File file = new File(aFileName);
+    	file.getParentFile().mkdirs();
+    	file.createNewFile();
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(aFileName), "ISO-8859-1"))) {
             writer.write(html);
  

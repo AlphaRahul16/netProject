@@ -1658,7 +1658,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				logMessage("User will login as a Non - Member");
 
 			}
-			memberStoreDetails.add(getMemberDetailsOnMemberShipProfile("contact id"));
+
+			handleAlert();
+			memberStoreDetails
+					.add(getMemberDetailsOnMemberShipProfile("contact id"));
 			memberStoreDetails.add(getMemberWebLogin());
 
 		} else if (count == 2) {
@@ -2124,8 +2127,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 		wait.waitForPageToLoadCompletely();
 		customerContactId = element("txt_ContactId").getText().trim();
-		logMessage("Customer Last Name::" + customerLname);
-		logMessage("Customer ACS Member Number::" + customerContactId);
+		logMessage("Customer Last Name::"+customerLname);
+		logMessage("Customer ACS Member Number::"+customerContactId);
 		memberDetails.add(customerLname);
 		memberDetails.add(customerContactId);
 		return memberDetails;

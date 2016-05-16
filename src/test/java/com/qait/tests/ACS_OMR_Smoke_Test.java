@@ -33,7 +33,6 @@ public class ACS_OMR_Smoke_Test {
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
 	public ACS_OMR_Smoke_Test(String caseID) {
 		this.caseID = caseID;
-
 	}
 
 	@Test
@@ -43,10 +42,10 @@ public class ACS_OMR_Smoke_Test {
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Membership");
 		test.homePageIWEB.clickOnSideBarTab("Members");
-		test.memberShipPage.selectValidUserForRenewal(mapOMR);
+		//test.memberShipPage.selectValidUserForRenewal(mapOMR);
 
 	}
-	@Test
+	/*@Test
 	public void Step02_TC01_Verify_Payment_Status_And_Invoice_Details_Before_Renewal()
 	{
 		test.individualsPage.clickGotoRecordForRenewal();
@@ -119,7 +118,7 @@ public class ACS_OMR_Smoke_Test {
 		test.memberShipPage.verifyTermStartDateAndEndDatesAreNotEmpty();
 		test.invoicePage.collapseDetailsMenu("invoices");
 	}
-
+*/
 
 	@AfterMethod
 	public void take_screenshot_on_failure(ITestResult result)
@@ -143,11 +142,12 @@ public class ACS_OMR_Smoke_Test {
 	}
 
 	@AfterClass
-	public void close_Browser_Window() throws IOException
+	public void close_Browser_Window()
 	{
 	
-//		ResultsIT r = new ResultsIT(getClass().getName().replace("com.qait.tests.", "").trim());
-//		r.changeTimeStamp();
+//	ResultsIT r = new ResultsIT(getClass().getName().replace("com.qait.tests.", "").trim());
+		//r.changeTimeStamp();
+		//r.printAllValues(mapOMR);
 		test.closeBrowserWindow();
 	}
 }

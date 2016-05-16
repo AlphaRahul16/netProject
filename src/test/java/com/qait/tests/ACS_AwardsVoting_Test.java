@@ -240,7 +240,7 @@ public class ACS_AwardsVoting_Test {
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		app_url_Awards = getYamlValue("app_url_Awards");
 		test.launchApplication(app_url_IWEB);
-		
+
 
 	}
 
