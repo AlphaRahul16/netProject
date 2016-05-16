@@ -34,7 +34,7 @@ public class ACS_Address_Validation_Test {
 	public void Step02_Select_Query_In_Query_Individual_Page(){
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Query Individual");
-		test.memberShipPage.selectAndRunQuery("Selenium - US Constituents");
+		test.memberShipPage.selectAndRunQuery(getYamlValue("AddressValidation.queryName"));
 	}
 	
 	@Test
@@ -42,11 +42,11 @@ public class ACS_Address_Validation_Test {
 		individualName=test.acsAddressValidation.verifyIndividualProfilePage();
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Individuals | "+individualName);
 	}
-	
+
 	@Test
-	public void Step04_Enetr_Bogus_ZipCode_And_Verify_ZipCode(){
-		test.memberShipPage.getCustomerLastNameAndContactIDForYellowBook();
-		expectedZipCode=test.acsAddressValidation.fetchZipCode();
+	public void Step04_Enter_ZipCode_And_Verify_ZipCode(){
+		test.memberShipPage.getContactIdOfUser("Contact");
+		expectedZipCode=test.acsAddressValidation.getZipCode();
         test.acsAddressValidation.clickOnEditNameAndAddressButton();
         test.acsAddressValidation.verifyIndividualNameAndAddressInformationPage();
         test.acsAddressValidation.verifyZipCode(expectedZipCode);

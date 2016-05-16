@@ -86,8 +86,8 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		//wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(6);
 		isElementDisplayed("hd_sideBar", tabName);
-		clickUsingXpathInJavaScriptExecutor(element("hd_sideBar", tabName));
-		// element("hd_sideBar", tabName).click();
+//		clickUsingXpathInJavaScriptExecutor(element("hd_sideBar", tabName));
+		element("hd_sideBar", tabName).click();
 		logMessage("STEP : Click on tab " + tabName + " in hd_sideBar \n");
 	}
 

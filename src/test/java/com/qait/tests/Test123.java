@@ -13,19 +13,56 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
+import javax.xml.ws.LogicalMessage;
+
 import org.testng.annotations.Test;
 
 import com.qait.automation.utils.DateUtil;
 
 public class Test123 {
 	public static void main(String args[]){
-		
-	String memberPackage="ACS : Regular Member : Regular Member Dues C&EN-Print", amount="Balance Due: $197.00";
-    System.out.println(memberPackage.split(":",3)[2]);
-    String i=amount.split("\\$")[1];
-    double d= Double.parseDouble(i);
-    System.out.println(d);
+//		
+//	String memberPackage="ACS : Regular Member : Regular Member Dues C&EN-Print", amount="Balance Due: $197.00";
+//    System.out.println(memberPackage.split(":",3)[2]);
+//    String i=amount.split("\\$")[1];
+//    int num=0;
+//    double d= Double.parseDouble(i);
+//    System.out.println(d);
+//    memberPackage="Regular Member Dues C&EN-Print";
+//    String member="Regular Member Dues C&EN-Print 3Y";
+//    String Year="1 Year";
+//    Year=Year.split(" ")[0];
+//	int newYear=Integer.parseInt(Year); 
+//    System.out.println(newYear+"-------");
+//    char ar2[];
+//    ar2=member.toCharArray();
+//    for(int k=0;k<ar2.length;k++){
+//    	if(ar2[k]=='2'||ar2[k]=='3')
+//    		 num = ar2[k]-48;
+//    }
+//    System.out.println("*********** "+num);
+//    String ar[],ar1[];
+//    ar=memberPackage.split(" ",8);
+////    ar1=member.split(" ",8);
+////    if(ar.length==ar1.length)
+////    	System.out.println("true");
+////    else
+////    	System.out.println("false");
+//    for(int j=0;j<ar.length;j++)
+//    	System.out.println(ar[j]+"----"+member.contains(ar[j]));
+////    System.out.println(member.contains(memberPackage));
+//    
+//    int index= member.indexOf("3Y");
+//    System.out.println(member.substring(index,index+1));
+//	}
+		String code="Dr Peter Christopher Ellingson Procter & Gamble WHBC, FCIC Mailbox 103 6110 Center Hill Ave Cincinnati, OH 45224-1706";
+		String ar[];
+		ar=code.split(" ");
+		System.out.println(ar[ar.length-1]);
+		for(int i=0;i<ar.length;i++)
+			System.out.println(ar[i]);
 	}
+	
 }
 //	public static void main(String...a){
 //		String date="05/04/2016";
