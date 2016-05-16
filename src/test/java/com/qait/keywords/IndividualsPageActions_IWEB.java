@@ -1118,7 +1118,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		element("lnk_lastName").click();
 	}
 
-	private void expandDetailsMenu(String menuName) {
+	public void expandDetailsMenu(String menuName) {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
 				"hiddenFieldTimeOut"));

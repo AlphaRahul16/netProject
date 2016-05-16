@@ -252,9 +252,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			Random rand = new Random();
 			isElementDisplayed("list_nominees");
 			int sizeOfNominees = elements("list_nominees").size();
-			
-			
-			int min = j-1, max = sizeOfNominees ;
+			int min = j-1, max = sizeOfNominees-1 ;
 
 			logMessage("min : ============:" + min + " max : ============ "
 					+ max);
@@ -285,9 +283,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 		listOfFirstAndLastName.add(selectedNomineeFirstNameList);
 		listOfFirstAndLastName.add(selectedNomineeLastNameList);
-
 		return listOfFirstAndLastName;
-
 	}
 
 	public void verifyHeaderForUnselectedNominee(String headerName) {
@@ -485,10 +481,11 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			List<List<String>> FirstnameLastname, int roundNumber,
 			Map<String, String> judgesRanks) {
 		uniqueRandom = generateRandomNumber(maxPossibleNominees, roundNumber);
-
+		System.out.println("size of unique nos. "+uniqueRandom.size());
 		for (int j = 0; j < uniqueRandom.size(); j++) {
+			int flag = 0, k = 0;
 			if (Integer.parseInt(uniqueRandom.get(j).toString()) == 1) {
-				int flag = 0, k = 0;
+				
 				if (!judgesRanks.isEmpty()) {
 					while (k < judgeNumber) {
 						logMessage("judge registrant name "
@@ -506,15 +503,14 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 					}
 				}
 				if (flag == 1) {
-					if (j + 1 > uniqueRandom.size()) {
+					if (j + 1 >= uniqueRandom.size()) {
 						logMessage("Reached last after replacements\n");
 						enterRankForNomineeForMultipleRounds(
 								maxPossibleNominees, judges, judgeNumber,
 								FirstnameLastname, roundNumber, judgesRanks);
 					}
-					int temp = uniqueRandom.get(j + 1);
-					uniqueRandom.add(j + 1, uniqueRandom.get(j));
-					uniqueRandom.add(j, temp);
+					uniqueRandom.add(j, uniqueRandom.get(j+1));
+					uniqueRandom.remove(j+2);
 				}
 			}
 
@@ -522,6 +518,8 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 					String.valueOf(j + 1)));
 			dropdown_rank1.selectByVisibleText(String.valueOf(uniqueRandom
 					.get(j)));
+			logMessage("select  position: " + String.valueOf(j));
+
 			logMessage("select : " + String.valueOf(uniqueRandom.get(j)));
 		}
 	}
