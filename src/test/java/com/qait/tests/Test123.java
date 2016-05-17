@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 import javax.xml.ws.LogicalMessage;
 
+import org.testng.Reporter;
 import org.testng.annotations.Test;
 
 import com.qait.automation.utils.DateUtil;
@@ -68,12 +69,16 @@ public class Test123 {
 //    int index= member.indexOf("3Y");
 //    System.out.println(member.substring(index,index+1));
 //	}
-		String code="Dr Peter Christopher Ellingson Procter & Gamble WHBC, FCIC Mailbox 103 6110 Center Hill Ave Cincinnati, OH 45224-1706";
-		String ar[];
-		ar=code.split(" ");
-		System.out.println(ar[ar.length-1]);
-		for(int i=0;i<ar.length;i++)
-			System.out.println(ar[i]);
+//		String code="Dr Peter Christopher Ellingson Procter & Gamble WHBC, FCIC Mailbox 103 6110 Center Hill Ave Cincinnati, OH 45224-1706";
+//		String ar[];
+//		ar=code.split(" ");
+//		System.out.println(ar[ar.length-1]);
+//		for(int i=0;i<ar.length;i++)
+//			System.out.println(ar[i]);
+		String str="https://C00616:Zx605%4095@iwebtest.acs.org/NFStage3/iweb";
+		Reporter.log("\nThe application url is :- " + str.replace(str.split("@")[0], "https://").replace("@", ""),true);
+		
+
 	}
 	
 }

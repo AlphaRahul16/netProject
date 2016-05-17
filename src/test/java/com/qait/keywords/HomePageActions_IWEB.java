@@ -91,7 +91,11 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		//wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(6);
 		isElementDisplayed("hd_sideBar", tabName);
+		try{
 		clickUsingXpathInJavaScriptExecutor(element("hd_sideBar", tabName));
+		}catch(Exception e){
+			System.out.println("In catch javascript");
+		}
 		// element("hd_sideBar", tabName).click();
 		logMessage("STEP : Click on tab " + tabName + " in hd_sideBar \n");
 	}
@@ -137,7 +141,8 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnTab(String tabName) {
 		wait.hardWait(2);
 		isElementDisplayed("link_tabsOnModule", tabName);
-	    element("link_tabsOnModule", tabName).click();
+		clickUsingXpathInJavaScriptExecutor(element("link_tabsOnModule", tabName));
+//	    element("link_tabsOnModule", tabName).click();
 	    logMessage("STEP : "+tabName+" tab is clicked\n");
 	}
 	public void clickOnFindNominationTab()

@@ -968,7 +968,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnTab(String tabName) {
 		isElementDisplayed("link_tabsOnModule", tabName);
-		element("link_tabsOnModule", tabName).click();
+		clickUsingXpathInJavaScriptExecutor(element("link_tabsOnModule", tabName));
+//		element("link_tabsOnModule", tabName).click();
 		logMessage("STEP : " + tabName + " tab is clicked\n");
 
 	}
@@ -2352,7 +2353,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	
 	public void clickOnMYDTransferButton(){
 		isElementDisplayed("btn_mydTransfer");
-		element("btn_mydTransfer").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_mydTransfer"));
+//		element("btn_mydTransfer").click();
 		logMessage("STEP : Clicked on MYD Transfer Button\n");
 	}
 	
