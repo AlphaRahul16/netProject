@@ -206,7 +206,7 @@ public class TestSessionInitiator {
 			Reporter.log("The test browser is :- " + _getSessionConfig().get("browser") + "\n", true);
 			deleteAllCookies();
 
-			if (_getSessionConfig().get("browser").equalsIgnoreCase("chrome") && baseurl.contains("iwebtest")) {
+			/*if (_getSessionConfig().get("browser").equalsIgnoreCase("chrome") && baseurl.contains("iwebtest")) {
 				driver.get(baseurl.replaceAll("https://iwebtest",
 						"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
 								+ YamlReader.getYamlValue("Authentication.password").replaceAll("@", "%40") + "@"
@@ -219,10 +219,10 @@ public class TestSessionInitiator {
 			// "%40") + "@" + "//iwebtest";
 			else {
 				driver.get(baseurl);
-			}
+			}*/
 
 			if (!_getSessionConfig().get("browser").equalsIgnoreCase("ie")
-					|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer")) {
+					|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer")&& baseurl.contains("iwebtest")) {
 				baseurl = baseurl.replaceAll("https://iwebtest",
 						"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
 								+ YamlReader.getYamlValue("Authentication.password").replaceAll("@", "%40") + "@"
