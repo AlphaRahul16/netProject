@@ -1,5 +1,9 @@
 package com.qait.keywords;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.Reporter;
 
@@ -92,6 +96,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		else
 		{
+
 		clickUsingXpathInJavaScriptExecutor(element("hd_sideBar", tabName));
 		}
 		logMessage("STEP : Click on tab " + tabName + " in hd_sideBar \n");
@@ -185,5 +190,40 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_committeeSetup");
 		logMessage("Test passed: User is on Committee Setup Page");
 	}
+	
+	public void enterAuthentication(String uName, String password) {
+
+		  if ((isBrowser("ie") || isBrowser("internetexplorer") || isBrowser("chrome"))) {
+		   System.out.println("in authentication");
+		   setClipboardData(uName);
+		    Robot robot;
+		    try {
+		    robot = new Robot();
+		    setClipboardData(uName);
+		    robot.delay(2000);
+		    robot.keyPress(KeyEvent.VK_CONTROL);
+		    robot.keyPress(KeyEvent.VK_V);
+		    robot.keyRelease(KeyEvent.VK_V);
+		    robot.keyRelease(KeyEvent.VK_CONTROL);
+		    robot.delay(2000);
+		    robot.keyPress(KeyEvent.VK_TAB);
+		    robot.keyRelease(KeyEvent.VK_TAB);
+		    setClipboardData(password);
+		    robot.delay(2000);
+		    robot.keyPress(KeyEvent.VK_CONTROL);
+		    robot.keyPress(KeyEvent.VK_V);
+		    robot.keyRelease(KeyEvent.VK_V);
+		    robot.keyRelease(KeyEvent.VK_CONTROL);
+		    robot.delay(2000);
+		    robot.keyPress(KeyEvent.VK_ENTER);
+		    robot.keyRelease(KeyEvent.VK_ENTER);
+		    } catch (AWTException e) {
+		    e.printStackTrace();
+		    }
+
+		   
+		 }
+
+		 }
 
 }

@@ -22,7 +22,7 @@ chkbox_understand			xpath						(.//input[@class='ACSCOICheckBox'])[2]
 btn_cont					xpath						(.//input[@value='Continue>>'])[2]
 modal_popup					xpath						.//*[@id='fancybox-content']
 inp_committee				xpath						.//div[@class='cmtInactiveText']/textarea
-bttn_return_to_yb			css							img[alt='Return to YellowBook Home']
+bttn_return_to_yb			xpath						.//img[@alt='Return to YellowBook Home']/..
 list_select_committees		xpath						.//div[contains(text(),'Committee Preferences')]/../..//td[2]
 txt_currentCommittee        css                         .cmtOrder
 lnk_edit                    xpath                       //div[contains(text(),'Committee Preferences')]//span

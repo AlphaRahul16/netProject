@@ -33,7 +33,6 @@ public class ACS_OMR_Smoke_Test {
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
 	public ACS_OMR_Smoke_Test(String caseID) {
 		this.caseID = caseID;
-
 	}
 
 	@Test

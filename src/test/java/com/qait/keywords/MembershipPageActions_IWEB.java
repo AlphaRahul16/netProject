@@ -2127,8 +2127,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 		wait.waitForPageToLoadCompletely();
 		customerContactId = element("txt_ContactId").getText().trim();
-		logMessage("Customer Last Name::" + customerLname);
-		logMessage("Customer ACS Member Number::" + customerContactId);
+		logMessage("Customer Last Name::"+customerLname);
+		logMessage("Customer ACS Member Number::"+customerContactId);
 		memberDetails.add(customerLname);
 		memberDetails.add(customerContactId);
 		return memberDetails;
@@ -2275,7 +2275,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step: Select the member package : "+memberPackage+"\n");
 		isElementDisplayed("list_memberPackage1");
 		selectProvidedTextFromDropDown(element("list_memberPackage1"), memberPackage);
-		clickOnGoButtonAfterPackageSelection();
 	}
 	
 	public void clickOnGoButtonAfterPackageSelection(){
@@ -2305,17 +2304,50 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : Term End date is empty\n");
 	}
 	
-	public void verfiyRenewalPackageAndMemberPackage(String memberPackage){
+//	public void verfiyRenewalPackageAndMemberPackage(String memberPackage,String renewalPackage,boolean newPackage){
+//		wait.waitForPageToLoadCompletely();
+//		wait.resetImplicitTimeout(4);
+//		wait.resetExplicitTimeout(hiddenFieldTimeOut);
+//		waitForSpinner();
+//		memberPackage=memberPackage.split(": ", 3)[2];
+//		isElementDisplayed("txt_memberInfo","member package");
+//		Assert.assertTrue(memberPackage.equals(element("txt_memberInfo","member package").getText().trim()),
+//				"ASSERT FAIL : Member Package is not "+memberPackage+"\n");
+//		logMessage("ASSERT PASS : Member Package is "+ memberPackage+"\n");
+//		
+//		if(!newPackage)
+//			renewalPackage=memberPackage;
+//		isElementDisplayed("txt_memberInfo","renewal package");
+////		logMessage("-------------"+element("txt_memberInfo","renewal package").getText().trim());
+//		Assert.assertTrue(renewalPackage.equals(element("txt_memberInfo","renewal package").getText().trim()),
+//				"ASSERT FAIL : Renewal Package is not "+renewalPackage+"\n");
+//		logMessage("ASSERT PASS : Renewal Package is "+ renewalPackage+"\n");
+//		wait.resetImplicitTimeout(timeOut);
+//	    wait.resetExplicitTimeout(timeOut);
+//	}
+	
+	public void verfiyMemberPackage(String memberPackage){
+		wait.waitForPageToLoadCompletely();
+		wait.resetImplicitTimeout(4);
+		wait.resetExplicitTimeout(hiddenFieldTimeOut);
+		waitForSpinner();
 		memberPackage=memberPackage.split(": ", 3)[2];
 		isElementDisplayed("txt_memberInfo","member package");
 		Assert.assertTrue(memberPackage.equals(element("txt_memberInfo","member package").getText().trim()),
 				"ASSERT FAIL : Member Package is not "+memberPackage+"\n");
 		logMessage("ASSERT PASS : Member Package is "+ memberPackage+"\n");
+	}
+	
+	public void verifyRenewalPackage(String renewalPackage){
+		if(renewalPackage.contains(":"))
+			renewalPackage=renewalPackage.split(": ", 3)[2];
 		
 		isElementDisplayed("txt_memberInfo","renewal package");
-		Assert.assertTrue(element("txt_memberInfo","member package").getText().trim().equals(element("txt_memberInfo","renewal package").getText().trim()),
-				"ASSERT FAIL : Renewal Package is not "+memberPackage+"\n");
-		logMessage("ASSERT PASS : Renewal Package is "+ memberPackage+"\n");
+		Assert.assertTrue(renewalPackage.equals(element("txt_memberInfo","renewal package").getText().trim()),
+				"ASSERT FAIL : Renewal Package is not "+renewalPackage+"\n");
+		logMessage("ASSERT PASS : Renewal Package is "+ renewalPackage+"\n");
+		wait.resetImplicitTimeout(timeOut);
+	    wait.resetExplicitTimeout(timeOut);
 	}
 	
 	public void clickOnMYDTransferButton(){
@@ -2326,21 +2358,22 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	
 	public void verifyTransferPackagePage(){
 		isElementDisplayed("heading_transferPackage");
-		logMessage("STEP : Member navigated to Transfer Package Page");
+		logMessage("STEP : Member navigated to Transfer Package Page\n");
 		switchToFrame("iframe1");
 	}
 	
 	public double getBalanceAmount(){
 		wait.waitForPageToLoadCompletely();
+		wait.hardWait(4);
 		String amount=element("txt_balanceAmount").getText().trim().split("\\$")[1];
 		double d= Double.parseDouble(amount);
-        logMessage("Balance Amount is : "+d);
+        logMessage("Balance Amount is : "+d+"\n");
         return d;
 	}
 	
 	public void selectTerm(String term){
 		isElementDisplayed("list_term");
-		logMessage("STEP : Select "+ term +" term from list");
+		logMessage("STEP : Select "+ term +" term from list\n");
 		selectProvidedTextFromDropDown(element("list_term"), term);
 	}
 	
@@ -2348,31 +2381,51 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(2);
 		isElementDisplayed("list_newPackage");
-		logMessage("STEP : Select "+ newPackage +" new package from list");
+		logMessage("STEP : Select "+ newPackage +" new package from list\n");
 		selectProvidedTextFromDropDown(element("list_newPackage"), newPackage);
 	}
 	
-	public void verifyChangeInAmountBalance(Double previousAmount, Double newAmount){
+	public void verifyChangeInAmountBalance(Double previousAmount, Double newAmount,String oldPackage, String Year){
 		wait.waitForPageToLoadCompletely();
-		wait.hardWait(4);
-		if(previousAmount<newAmount){
-		   Assert.assertTrue(true);
-		   logMessage("ASSERT TRUE : Balance Amount value has increased");
+		int newYear=Integer.parseInt(Year.split(" ")[0]);
+		int previousYear=getYearValue(oldPackage);
+		logMessage("STEP : Previous package renewal year : "+previousYear);
+		logMessage("STEP : New package renewal year : "+newYear);
+		if(previousYear<newYear){
+			if(previousAmount<newAmount)
+		       logMessage("PASS : Balance Amount value has increased\n");
 		}
-		else if(previousAmount>newAmount){
-			Assert.assertTrue(true);
-			logMessage("ASSERT TRUE : Balance Amount value has decreased");
+		else if(previousYear>newYear){
+			if(previousAmount>newAmount)
+				logMessage("PASS : Balance Amount value has decreased\n");
 		}
-		else{
-			Assert.assertTrue(false,"ASSERT FAIL : Balance Amount value has not changed");
+		else
+			Assert.assertTrue(false,"ASSERT FAIL : Balance Amount value has not changed\n");
+	}
+	
+	public int getYearValue(String oldPackage){
+		int year=0;
+		if(oldPackage.contains("2Y") || oldPackage.contains("3Y")){
+			char ar2[];
+		    ar2=oldPackage.toCharArray();
+		    for(int k=0;k<ar2.length;k++){
+		    	if(ar2[k]=='2'||ar2[k]=='3')
+		    		 year = ar2[k]-48;
+		    }
+//		    logMessage("STEP : Previous year is : "+year);
 		}
+		else
+			year=1;
+		return year;
 	}
 	
 	public void clickOnTransferNowButton(){
 		isElementDisplayed("btn_transferNow");
 		element("btn_transferNow").click();
-		logMessage("STEP : Clicked on Transfer Now button");
+		logMessage("STEP : Clicked on Transfer Now button\n");
 		switchToDefaultContent();
+		wait.waitForPageToLoadCompletely();
+//		wait.hardWait(4);
 	}
 
 	 public void verifyTermStartDateAndEndDatesAreEmpty(Map<String, String> mapOMR) {
@@ -2403,5 +2456,17 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		        }
 		   
 		  } 
+	 
+	 public void verifyProductPackage(String productPackage){
+		 isElementDisplayed("txt_productPackage");
+		 Assert.assertTrue(productPackage.equals(element("txt_productPackage").getText().trim()),
+				 "ASSERT FAIL : Product package does not matches with the new Renewal Package\n");
+		 logMessage("ASSERT PASS : Product package matches with the new Renewal Package\n");
+	 }
+	 
+	 public void getContactIdOfUser(String Member){
+		 isElementDisplayed("txt_ContactId");
+		 logMessage("STEP : "+Member+" Id is : "+element("txt_ContactId").getText().trim()+"\n");
+	 }
 
 }
