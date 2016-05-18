@@ -84,12 +84,16 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnSideBarTab(String tabName) {
 	   wait.hardWait(2);
-		//wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(6);
 		isElementDisplayed("hd_sideBar", tabName);
-	
+		if(isBrowser("chrome"))
+		{
+			element("hd_sideBar", tabName).click();
+		}
+		else
+		{
 		clickUsingXpathInJavaScriptExecutor(element("hd_sideBar", tabName));
-		// element("hd_sideBar", tabName).click();
+		}
 		logMessage("STEP : Click on tab " + tabName + " in hd_sideBar \n");
 	}
 
@@ -122,6 +126,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("btn_tabs");
 		wait.hardWait(1);
+		hardWaitForChromeBrowser(3);
 		executeJavascript("document.getElementsByClassName('dropdown-toggle')[3].click()");
 		// element("btn_tabs").click();
 		logMessage("STEP :  Module tab is clicked\n");
@@ -132,10 +137,21 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnTab(String tabName) {
-		wait.hardWait(2);
+		System.out.println("chrome"+isBrowser("chrome"));
+//		if(isBrowser("chrome"))
+//		{
+//			System.out.println(System.getProperty("browser"));
+//			launchUrl(element("link_tabsOnModule", tabName).getAttribute("href"));
+//			System.out.println("safsf");
+//		}
+//		else
+//		{
+
 		isElementDisplayed("link_tabsOnModule", tabName);
 	    element("link_tabsOnModule", tabName).click();
-	    logMessage("STEP : "+tabName+" tab is clicked\n");
+		System.out.println("inside"+System.getProperty("browser"));
+		
+		  logMessage("STEP : "+tabName+" tab is clicked\n");
 	}
 	public void clickOnFindNominationTab()
 	{

@@ -311,8 +311,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_detailsMenuAACT", menuName);
 		// clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT",
 		// menuName));
-		element("btn_detailsMenuAACT",
-				menuName).click();
+		element("btn_detailsMenuAACT",menuName).click();
 
 		logMessage("STEP : " + menuName + " bar is clicked to expand" + "\n");
 		waitForSpinner();

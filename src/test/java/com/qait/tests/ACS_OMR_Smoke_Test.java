@@ -43,10 +43,10 @@ public class ACS_OMR_Smoke_Test {
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Membership");
 		test.homePageIWEB.clickOnSideBarTab("Members");
-		//test.memberShipPage.selectValidUserForRenewal(mapOMR);
+		test.memberShipPage.selectValidUserForRenewal(mapOMR);
 
 	}
-	/*@Test
+	@Test
 	public void Step02_TC01_Verify_Payment_Status_And_Invoice_Details_Before_Renewal()
 	{
 		test.individualsPage.clickGotoRecordForRenewal();
@@ -119,7 +119,7 @@ public class ACS_OMR_Smoke_Test {
 		test.memberShipPage.verifyTermStartDateAndEndDatesAreNotEmpty();
 		test.invoicePage.collapseDetailsMenu("invoices");
 	}
-*/
+
 
 	@AfterMethod
 	public void take_screenshot_on_failure(ITestResult result)
@@ -134,21 +134,14 @@ public class ACS_OMR_Smoke_Test {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url_OMR = getYamlValue("app_url_OMR");
 		app_url_IWEB =getYamlValue("app_url_IWEB");
-		// DOMConfigurator.configure("log4j.xml");
 		test.launchApplication(app_url_IWEB);
-		test.homePageIWEB.enterAuthenticationAutoIt();
 		System.out.println(sheetname);
-		
-		mapOMR=test.homePageIWEB.addValuesInMap(sheetname, caseID);
 	}
 
 	@AfterClass
 	public void close_Browser_Window()
 	{
 	
-//	ResultsIT r = new ResultsIT(getClass().getName().replace("com.qait.tests.", "").trim());
-		//r.changeTimeStamp();
-		//r.printAllValues(mapOMR);
 		test.closeBrowserWindow();
 	}
 }
