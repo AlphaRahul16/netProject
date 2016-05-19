@@ -133,21 +133,14 @@ public class ACS_OMR_Smoke_Test {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url_OMR = getYamlValue("app_url_OMR");
 		app_url_IWEB =getYamlValue("app_url_IWEB");
-		// DOMConfigurator.configure("log4j.xml");
 		test.launchApplication(app_url_IWEB);
-		test.homePageIWEB.enterAuthenticationAutoIt();
 		System.out.println(sheetname);
-		
-		mapOMR=test.homePageIWEB.addValuesInMap(sheetname, caseID);
 	}
 
 	@AfterClass
 	public void close_Browser_Window()
 	{
 	
-//	ResultsIT r = new ResultsIT(getClass().getName().replace("com.qait.tests.", "").trim());
-		//r.changeTimeStamp();
-		//r.printAllValues(mapOMR);
 		test.closeBrowserWindow();
 	}
 }

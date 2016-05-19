@@ -501,7 +501,6 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		verifyProductDetails(caseId, priceValue);
 		verifyProductDetails(caseId, discount);
 		verifyProductDetails(caseId, description);
-
 		double totalPriceOfProduct = Double
 				.parseDouble(getACS_Store_SheetValue(caseId, "priceValue?").replace("$", "").trim())
 				* Integer.parseInt(element("txt_quantity").getAttribute("value"))

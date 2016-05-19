@@ -41,7 +41,7 @@ csv-data-file:
   
 Authentication: 
   userName: C00616
-  password: "Zx605@95"
+  password: "A9319161853@"
   
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt
@@ -499,12 +499,18 @@ ASM_URLRejectedErrorMsz: "We aren't able to complete your request in the staging
 #ASM_URLRejectedErrorMsz: "The requested URL was rejected. Please consult with your administrator."
 ASMErrorPageTitle: Request Rejected
 ASM_zipCodeErrorMessage: "Zip code must be 5 digit or xxxxx-xxxx format"     
-      
+  
+MYDTransfer:
+    queryName: Selenium - MYD Query
+AddressValidation:
+    queryName: Selenium - US Constituents          
                    
 email:
   send: false
   recepients:
     recepient1: avnishrawat@qainfotech.net
     
-membership:
+MYDTransfer:
     queryName: Selenium - MYD Query
+AddressValidation:
+    queryName: Selenium - US Constituents    

@@ -150,7 +150,7 @@ inp_addBatchName                                 id                             
 list_batchSecurityGroup                          id                             gsc_grp_key
 drpdwn_memberType                                xpath                        //select[contains(@id,'QueryAsk')]
 btn_detailsMenuAACT                              xpath                        //span[text()='${menuName}']/../a[1]
-txt_termStartDaterenewal                         xpath                        (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[14]
+txt_termStartDaterenewal                         xpath                         (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[14]
 txt_termEndDaterenewal                           xpath                        (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[15]
 heading_queryAskAtRunTime                        xpath                         //span[text()='Query - Ask At Run-Time Values']
 list_memberPackage1                               css                           .DataFormDropDownList
@@ -160,9 +160,9 @@ btn_mydTransfer                                  xpath                        //
 txt_balanceAmount                                xpath                        //table[@id='TransferTable']//span
 list_term                                        id                            ord_ptr_key
 list_newPackage                                  id                            mbr_pak_prd_renewal_key
-heading_transferPackage                          id                            ui-id-3
+heading_transferPackage                          xpath                         //span[text()='Transfer Package']
 btn_transferNow                                  id                            TransferMembershipButtonID
 btn_gotorenewal                                  xpath                       (//td[contains(text(),'Active Renewed-No Response')]/preceding-sibling::td[3]//i)[1]
 txt_PaymentStatus                                xpath                        //td[contains(text(),'${productName}')]//following-sibling::td[1]
 icon_up                                          xpath                         //span[contains(text(),'${value}')]/preceding-sibling::a/i[@class='icon-chevron-up']
-
+txt_productPackage                               xpath                        (//th/a)[2]/../../following-sibling::tr[1]//td[4]

@@ -11,6 +11,7 @@ package com.qait.automation.getpageobjects;
 public enum Tiers {
     PROD, prod, production, PRODUCTION, Production,
     Dev,dev,DEV,
+    Dev4,dev4,DEV4,
     STAGE4,Stage4,stage4,
     STAGE3,Stage3,stage3,
     STAGE2,Stage2,stage2,

@@ -17,6 +17,7 @@ import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.Reporter;
@@ -229,13 +230,12 @@ public class ASCSocietyGenericPage extends GetPage {
 		try {
 			textinpdf = extractFromPdf(filename, 1).trim();
 			String textarray[] = texttocompare.trim().split(" ");
-			for (int i = 0; i < (textarray.length)-1; i++) {
+			for (int i = 0; i < (textarray.length) - 1; i++) {
 				System.out.println(textinpdf);
 				System.out.println(textarray[i]);
-				Assert.assertTrue(textinpdf.trim()
-						.contains(texttocompare));
-		} 
-		}catch (FileNotFoundException e) {
+				Assert.assertTrue(textinpdf.trim().contains(texttocompare));
+			}
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -331,13 +331,13 @@ public class ASCSocietyGenericPage extends GetPage {
 			filepath = "./src/test/resources/UploadFiles/" + filename + ".pdf";
 		} else if (fileFrom == "WebApplication" || fileFrom == "downloads") {
 			System.out.println("In downloads");
-			File dir=new File("./src/test/resources/DownloadedFiles");
-			System.out.println("directory name "+dir.getName());
-			for(File f: dir.listFiles()){
-				System.out.println("File name" +f.getName());
-				if(f.getName().startsWith(filename)){
-					filepath=f.toString();
-					System.out.println("file path"+filepath.toString());
+			File dir = new File("./src/test/resources/DownloadedFiles");
+			System.out.println("directory name " + dir.getName());
+			for (File f : dir.listFiles()) {
+				System.out.println("File name" + f.getName());
+				if (f.getName().startsWith(filename)) {
+					filepath = f.toString();
+					System.out.println("file path" + filepath.toString());
 					break;
 				}
 			}
@@ -368,8 +368,7 @@ public class ASCSocietyGenericPage extends GetPage {
 			pdfStripper.setEndPage(2);
 			parsedText = pdfStripper.getText(pdDoc);
 			System.out.println(parsedText);
-		} 
-		catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
 		} finally {
 			try {
@@ -383,4 +382,72 @@ public class ASCSocietyGenericPage extends GetPage {
 		}
 		return parsedText;
 	}
+
+	public void expandDetailsMenu(String menuName) {
+		wait.waitForPageToLoadCompletely();
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
+		try {
+			wait.resetImplicitTimeout(2);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("btn_detailsMenuAACT", menuName);
+			// clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT",
+			// menuName));
+			element("btn_detailsMenuAACT", menuName).click();
+
+			logMessage("STEP : " + menuName + " bar is clicked to expand"
+					+ "\n");
+			waitForSpinner();
+		} catch (NoSuchElementException | AssertionError | TimeoutException Exp) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			logMessage("STEP : Spinner is not present \n");
+		}
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
+	}
+
+	public void waitForSpinner() {
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
+		try {
+			handleAlert();
+			wait.resetImplicitTimeout(2);
+			wait.resetExplicitTimeout(10);
+			isElementDisplayed("img_spinner");
+			wait.waitForElementToDisappear(element("img_spinner"));
+			logMessage("STEP : Wait for spinner to be disappeared \n");
+
+		} catch (NoSuchElementException | AssertionError | TimeoutException Exp) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			logMessage("STEP : Spinner is not present \n");
+		}
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
+	}
+
+	public void collapseDetailsMenu(String menuName) {
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
+		try {
+			wait.resetImplicitTimeout(2);
+			wait.resetExplicitTimeout(10);
+			isElementDisplayed("icon_up", menuName);
+			clickUsingXpathInJavaScriptExecutor(element("icon_up", menuName));
+			// element("icon_up", menuName).click();
+			waitForSpinner();
+			logMessage("STEP : " + menuName + " bar collapse bar clicked\n");
+		} catch (NoSuchElementException | AssertionError | TimeoutException Exp) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			logMessage("STEP : Spinner is not present \n");
+		}
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
+	}
+
 }

@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.qait.automation.utils.ConfigPropertyReader;
 
 
 public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
@@ -30,25 +31,24 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 		return name;
 	}
 
-	public String fetchZipCode() {
-		String address[], zipCode[];
-//		isElementDisplayed("txt_ContactId");
-//		logMessage(element("txt_ContactId").getText().trim());
-		address = element("txt_zipCode").getText().split(",");
-		zipCode = address[1].split(" ", 2);
-		zipCode = zipCode[1].split(" ");
-		logMessage("STEP: Zip code fetched is : " + zipCode[1] + "\n");
-		return zipCode[1];
+	public String getZipCode() {
+		String address[], zipCode;
+		address = element("txt_zipCode").getText().split(" ");
+		zipCode=address[address.length-1];
+		logMessage("STEP: Zip code fetched is : " + zipCode + "\n");
+		return zipCode;
 	}
 
-	public void clickOnEditNameAndAddressButton() {
+	public void clickOnEditNameAndAddressButton() {                    //javascript added
 		isElementDisplayed("btn_editName&Address");
-		element("btn_editName&Address").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_editName&Address"));
+//		element("btn_editName&Address").click();
 		logMessage("STEP: Edit Name & Address button is clicked" + "\n");
 	}
 
 	public void verifyIndividualNameAndAddressInformationPage() {
-		wait.waitForPageToLoadCompletely();
+		wait.hardWait(1);
+//		wait.waitForPageToLoadCompletely();
 		switchToFrame("iframe1");
 		isElementDisplayed("heading_individualName&Addr");
 		logMessage("STEP : User is navigated to Individual Name & Address Information Page" + "\n");
@@ -64,6 +64,13 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 	}
 
 	public void enterZipCode(String expectedZipCode, String bogusCode) {
+		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
+				|| ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("ie")
+				|| ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("internetexplorer")){
+			clickUsingXpathInJavaScriptExecutor(element("input_zipcode"));
+		}
 		element("input_zipcode").clear();
 		element("input_zipcode").sendKeys(bogusCode);
 		logMessage("STEP : Bogus code " + bogusCode + " is entered in ZipCode field" + "\n");
@@ -73,13 +80,16 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 
 	public void clickOnSaveButton() {                          
 		isElementDisplayed("btn_save");
-		element("btn_save").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
+//		element("btn_save").click();
 		logMessage("STEP: Clicked on Save Button \n");
 		handleAlert();
 	}
 
-	public void verifyAddressVerificationWindow() {              
-		switchWindow();
+	public void verifyAddressVerificationWindow() {         
+		hardWaitForIEBrowser(3);		
+//		switchWindow();
+		switchToWindowHavingIndex(1);
 		isElementDisplayed("heading_address");
 		logMessage("STEP : User is navigated to Address Verification Window \n");
 	}
@@ -93,27 +103,46 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 				+ element("txt_verificationZipCode").getAttribute("value") + " matches with the expected ZipCode "
 				+ expectedZipCode + "\n");
 		clickOnSaveButtonOnAddressVerficationPage();
-		switchWindow();
+		hardWaitForIEBrowser(3);
+		switchToWindowHavingIndex(0);
 	}
 
-	public void clickOnSaveButtonOnAddressVerficationPage() {
+	public void clickOnSaveButtonOnAddressVerficationPage() {            //else added
 		isElementDisplayed("btn_verificationSave");
-		element("btn_verificationSave").click();
-		logMessage("STEP : Clicked on Save Button present on Address Verification Window");
+		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
+				|| ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("ie")
+				|| ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("internetexplorer")){
+			clickUsingXpathInJavaScriptExecutor(element("btn_verificationSave"));
+		}
+		else
+		  element("btn_verificationSave").click();
+		logMessage("STEP : Clicked on Save Button on Address Verification Window");
 	}
 
 	public void verifyReplacementOfZipCode(String expectedZipCode) {
-		wait.waitForPageToLoadCompletely();
+//		wait.waitForPageToLoadCompletely();
+		wait.hardWait(1);
 		verifyIndividualNameAndAddressInformationPage();
 		verifyZipCode(expectedZipCode);
-		logMessage("STEP : The bogus ZipCode is replaced by the original ZipCode");
+		logMessage("STEP : The bogus ZipCode is replaced by the original ZipCode\n");
 		clickOnCancelButton();
 	}
 
-	public void clickOnCancelButton() {
+	public void clickOnCancelButton() {                               
 		isElementDisplayed("btn_cancel");
+		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
+				|| ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("ie")
+				|| ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("internetexplorer")){
+			clickUsingXpathInJavaScriptExecutor(element("btn_cancel"));
+		}
+		else{
 		element("btn_cancel").click();
 		logMessage("STEP : Clicked on Cancel button\n");
+		}
 		switchToDefaultContent();
 	}
 

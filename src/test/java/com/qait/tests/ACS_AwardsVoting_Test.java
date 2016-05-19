@@ -22,9 +22,9 @@ import com.qait.automation.TestSessionInitiator;
 public class ACS_AwardsVoting_Test {
 
 	TestSessionInitiator test;
-	String app_url_IWEB, app_url_Awards;
+	String app_url_IWEB, app_url_Awards,currentAwardName;
 	String[] startEndDate;
-	private String caseID, currentAwardName;
+	
 	Map<String, List<String>> memberDetail = new HashMap<>();
 	List<String> memberDetails, nameOfJudges, rescusedJudges;
 	Set<String> numberOfNomineesInEntrants = new HashSet<>();
@@ -38,7 +38,7 @@ public class ACS_AwardsVoting_Test {
 
 	Map<Integer, String> confirmNominees = new HashMap<Integer, String>();
 	List<Map<Integer, String>> listsOfRanks = new ArrayList<Map<Integer, String>>();
-
+	private String caseID;
 	public ACS_AwardsVoting_Test() {
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "AwardsVoting";
 	}
@@ -83,7 +83,7 @@ public class ACS_AwardsVoting_Test {
 		test.invoicePage.collapseDetailsMenu("award stages/rounds");
 	}
 
-	@Test(dependsOnMethods = "Step02_TC02_Verify_Nominees_And_Set_Start_End_Dates_Round_1")
+	//@Test(dependsOnMethods = "Step02_TC02_Verify_Nominees_And_Set_Start_End_Dates_Round_1")
 	public void Step03_TC03_Add_Judges_Fetch_Rescused_Status() {
 		test.invoicePage.expandDetailsMenu("award judges");
 		test.awardsPageAction.verifyNumberOfJudgesAndAdd();
@@ -91,22 +91,21 @@ public class ACS_AwardsVoting_Test {
 		test.invoicePage.collapseDetailsMenu("award judges");
 		test.invoicePage.expandDetailsMenu("award stages/rounds");
 		test.awardsPageAction.goToRecordForRound("1");
-
 		test.invoicePage.expandDetailsMenu("award judge");
 		test.awardsPageAction.goToJudgeRecord(nameOfJudges.get(0));
 		test.invoicePage.expandDetailsMenu("acs award judge score");
 		test.awardsPageAction.verifyACSAwardStageEntriesInThisStageIsEmpty();
-
+		test.awardsPageAction.navigateToBackPage();
 		test.invoicePage.expandDetailsMenu("award judge");
 		rescusedJudges = test.awardsPageAction.getRecusedStatusForRounds("1");
 		test.awardsPageAction.clickOnAwardsName_RoundName(currentAwardName);
 		test.invoicePage.expandDetailsMenu("award judges");
 		test.awardsPageAction.goToRecordForRound("1");
-		test.invoicePage.expandDetailsMenu("award judge");
 		memberDetail = test.awardsPageAction.getJudgeDetails(nameOfJudges, "1");
+		
 	}
 
-	@SuppressWarnings({ "unchecked", "static-access" })
+	@SuppressWarnings({ "unchecked" })
 	public void Step04_TC04_Launch_Awards_Voting_Application(int round) {
 		listOfNomineeJudges_judgeRanks.put(0, nomineeRanks);
 		listOfNomineeJudges_judgeRanks.put(1, judgesRanks);
@@ -142,8 +141,8 @@ public class ACS_AwardsVoting_Test {
 					.verifyHeaderForUnselectedNominee("You have selected 0 out of "
 							+ maxPossibleNominees
 							+ " possible nominations to rank.");
-			listOfFirstAndLastName = test.award_ewebPage
-					.selectRandomNominees(maxPossibleNominees,round);
+			listOfFirstAndLastName = test.award_ewebPage.selectRandomNominees(
+					maxPossibleNominees, round);
 			test.award_ewebPage
 					.verifyHeaderForSelectedNominee("You have selected "
 							+ maxPossibleNominees + " out of "
@@ -152,8 +151,8 @@ public class ACS_AwardsVoting_Test {
 			test.award_ewebPage.provideComments(listOfFirstAndLastName,
 					test.award_ewebPage.map().get("Comment Text"));
 			test.award_ewebPage.clickOnViewProfileLink(listOfFirstAndLastName);
-//			test.award_ewebPage
-//					.clickOnProfilePdfLinkAndVerifyPdfContent(listOfFirstAndLastName);
+			// test.award_ewebPage
+			// .clickOnProfilePdfLinkAndVerifyPdfContent(listOfFirstAndLastName);
 			test.award_ewebPage
 					.verifyAwardName_viewProfileLink(currentAwardName);
 			test.award_ewebPage
@@ -178,11 +177,12 @@ public class ACS_AwardsVoting_Test {
 			test.award_ewebPage
 					.submissionDateAfterBallotSubmission(currentAwardName);
 			listsOfRanks.add(listOfNomineeJudges_judgeRanks.get(0));
-			
+
 		}
 	}
 
-	public void Step05_TC05_Launch_Awards_Voting_IWeb(int round) {
+	public void Step05_TC05_Launch_Awards_Voting_IWeb(int round,
+			int votingRounds) {
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Awards");
@@ -202,32 +202,30 @@ public class ACS_AwardsVoting_Test {
 				.verifyClosedStatusOnUpdatingScore(test.homePageIWEB.map().get(
 						"Round1 Closed Status?"));
 
-		// ============================================================
 		test.invoicePage
 				.expandDetailsMenu("acs award stage - entries in this stage");
 		test.invoicePage.expandDetailsMenu("acs entries not in this stage");
-		test.awardsPageAction.verifyNomineesWithRankOne(listOfFirstAndLastName);
-		test.awardsPageAction.verifyNomineeWinnerStatus(round);
-
-		// ============================================================
-
+		// test.awardsPageAction.verifyNomineesWithRankOne(listOfFirstAndLastName);
+		test.awardsPageAction.verifyNomineeWinnerStatus(votingRounds);
 		test.awardsPageAction.clickOnAwardsName_RoundName(currentAwardName);
-		test.invoicePage.expandDetailsMenu("award stages/rounds");
+		test.awardsPageAction.expandDetailsMenu("award stages/rounds");
 		startEndDate = test.awardsPageAction.editStartAndEndDate_Round(String
-				.valueOf(round>1?5-round:null));
+				.valueOf(round > 1 ? ++votingRounds : null));
 		test.awardsPageAction.clickOnSaveButton();
 		test.awardsPageAction.switchToDefaultContent();
-
+		test.awardsPageAction.expandDetailsMenu("award judges");
+		test.awardsPageAction.editStageRound(votingRounds-1);
 	}
 
-	@Test(dependsOnMethods = "Step03_TC03_Add_Judges_Fetch_Rescused_Status")
+	//@Test(dependsOnMethods = "Step03_TC03_Add_Judges_Fetch_Rescused_Status")
 	public void Step04_TC05_Awards_Voting_Awards_Voting_IWeb() {
 		int votingRounds = Integer.parseInt(test.homePageIWEB.map()
 				.get("Winner in rounds").replace("Round", ""));
+		int count = 1;
 		for (int round = votingRounds; round > 0; round--) {
 			System.out.println("voting rounds :============= " + round);
 			Step04_TC04_Launch_Awards_Voting_Application(round);
-			Step05_TC05_Launch_Awards_Voting_IWeb(round);
+			Step05_TC05_Launch_Awards_Voting_IWeb(round, count++);
 		}
 	}
 
@@ -237,7 +235,6 @@ public class ACS_AwardsVoting_Test {
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		app_url_Awards = getYamlValue("app_url_Awards");
 		test.launchApplication(app_url_IWEB);
-
 
 	}
 

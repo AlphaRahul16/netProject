@@ -7,6 +7,7 @@ import static com.qait.automation.utils.YamlReader.setYamlFilePath;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -19,8 +20,9 @@ import org.testng.Reporter;
 
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.TakeScreenshot;
-import com.qait.automation.utils.YamlReader;
 import com.qait.keywords.ACS_Address_Validation_Action;
+import com.qait.automation.utils.YamlReader;
+
 import com.qait.keywords.ACS_Awards_EWEB_PageActions;
 import com.qait.keywords.ASMErrorPage;
 import com.qait.keywords.ASM_AACTPage;
@@ -108,11 +110,6 @@ public class TestSessionInitiator {
 	public AwardsPageActions_IWEB awardsPageAction;
 	public ACS_Awards_EWEB_PageActions award_ewebPage;
 	public AcsYellowBookEwebPageActions acsYellowBookEwebPage;
-
-	protected static HashMap<String, String> scenerios;
-	protected static HashMap<String, String> fieldDefinitions;
-	protected static HashMap<String, String> testLog;
-
 	public ACS_Address_Validation_Action acsAddressValidation;
 
 	public TakeScreenshot takescreenshot;
@@ -163,13 +160,6 @@ public class TestSessionInitiator {
 	 * Page object Initiation done
 	 */
 	public TestSessionInitiator(String testname) {
-		/*new EnviormentSetting("./src/test/resources/TestDataLibrary/Member Transfer.xlsx", "Scenerios");
-		scenerios = EnviormentSetting.settings;
-		new EnviormentSetting("./src/test/resources/TestDataLibrary/Member Transfer.xlsx", "Field Definitions");
-		fieldDefinitions = EnviormentSetting.settings;
-		new EnviormentSetting("./src/test/resources/TestDataLibrary/Member Transfer.xlsx", "Test Log");
-		testLog = EnviormentSetting.settings;*/
-		
 		capabilities = new DesiredCapabilities();
 		wdfactory = new WebDriverFactory();
 		testInitiator(testname);
@@ -185,16 +175,21 @@ public class TestSessionInitiator {
 	private void _configureBrowser() {
 		driver = wdfactory.getDriver(_getSessionConfig());
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Integer.parseInt(getProperty("timeout")), TimeUnit.SECONDS);
+		driver.manage()
+				.timeouts()
+				.implicitlyWait(Integer.parseInt(getProperty("timeout")),
+						TimeUnit.SECONDS);
 	}
 
 	public Map<String, String> _getSessionConfig() {
-		String[] configKeys = { "tier", "browser", "seleniumserver", "seleniumserverhost", "timeout", "driverpath" };
+		String[] configKeys = { "tier", "browser", "seleniumserver",
+				"seleniumserverhost", "timeout", "driverpath" };
 		Map<String, String> config = new HashMap<String, String>();
 		for (String string : configKeys) {
 			try {
 				if (System.getProperty(string).isEmpty())
-					config.put(string, getProperty("./Config.properties", string));
+					config.put(string,
+							getProperty("./Config.properties", string));
 				else
 					config.put(string, System.getProperty(string));
 			} catch (NullPointerException e) {
@@ -210,48 +205,73 @@ public class TestSessionInitiator {
 
 	public void launchApplication(String baseurl) {
 		try {
-			Reporter.log("The test browser is :- " + _getSessionConfig().get("browser") + "\n", true);
+			Reporter.log(
+					"The test browser is :- "
+							+ _getSessionConfig().get("browser") + "\n", true);
 			deleteAllCookies();
+			if (!_getSessionConfig().get("browser").equalsIgnoreCase("ie")
+					|| _getSessionConfig().get("browser").equalsIgnoreCase(
+							"internetexplorer")) {
+				baseurl = baseurl
+						.replaceAll(
+								"https://iwebtest",
+								"https://"
+										+ YamlReader
+												.getYamlValue("Authentication.userName")
+										+ ":"
+										+ YamlReader.getYamlValue(
+												"Authentication.password")
+										        .replaceAll("#", "%23")+ "@"
+//												.replaceAll("@", "%40") + "@"
+										+ "iwebtest");
 
-			if (_getSessionConfig().get("browser").equalsIgnoreCase("chrome") && baseurl.contains("iwebtest")) {
+
+			/*if (_getSessionConfig().get("browser").equalsIgnoreCase("chrome") && baseurl.contains("iwebtest")) {
 				driver.get(baseurl.replaceAll("https://iwebtest",
 						"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
 								+ YamlReader.getYamlValue("Authentication.password").replaceAll("@", "%40") + "@"
 								+ "iwebtest"));
 			}
-			// String s = "https:" +
-			// YamlReader.getYamlValue("Authentication.userName")
-			// +
-			// YamlReader.getYamlValue("Authentication.password").replaceAll("@",
-			// "%40") + "@" + "//iwebtest";
+			
 			else {
 				driver.get(baseurl);
-			}
+			}*/
 
-			if (!_getSessionConfig().get("browser").equalsIgnoreCase("ie")
-					|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer")) {
-				baseurl = baseurl.replaceAll("https://iwebtest",
-						"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
-								+ YamlReader.getYamlValue("Authentication.password").replaceAll("@", "%40") + "@"
-								+ "iwebtest");
-			}
+//			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")
+//					|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer"))&& baseurl.contains("iwebtest")) {
+//				baseurl = baseurl.replaceAll("https://iwebtest",
+//						"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
+//								+ YamlReader.getYamlValue("Authentication.password").replaceAll("@", "%40") + "@"
+//								+ "iwebtest");
+//
+//			}
 
 			driver.get(baseurl);
-			Reporter.log("\nThe application url is :- " + baseurl, true);
+			if(!_getSessionConfig().get("browser").equalsIgnoreCase("ie")){
+				if(baseurl.contains("iwebtest"))
+					Reporter.log("\nThe application url is :- " + baseurl.replace(baseurl.split("@")[0], "https://").replace("@", ""),true);
+				else
+					Reporter.log("\nThe application url is :- " + baseurl,true);
+			}
 			if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/"))
-					&& (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
-							|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
-							|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer"))) {
+					&& (ConfigPropertyReader.getProperty("browser")
+							.equalsIgnoreCase("IE")
+							|| ConfigPropertyReader.getProperty("browser")
+									.equalsIgnoreCase("ie") || ConfigPropertyReader
+							.getProperty("browser").equalsIgnoreCase(
+									"internetexplorer"))) {
 				try {
 					Thread.sleep(8000);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
 			}
-			if (!baseurl.equalsIgnoreCase("https://iwebtest.acs.org/NFStage3/iweb")) {
+			if (!baseurl
+					.equalsIgnoreCase("https://iwebtest.acs.org/NFStage3/iweb")) {
 				handleSSLCertificateCondition(baseurl);
 			}
-		} catch (Exception e) {
+		}
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -279,9 +299,12 @@ public class TestSessionInitiator {
 			driver.get("javascript:document.getElementById('overridelink').click();");
 			System.out.println("Step : handle SSL certificate condition\n");
 			if (baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/")
-					&& ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
-					|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
-					|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer")) {
+					&& ConfigPropertyReader.getProperty("browser")
+							.equalsIgnoreCase("IE")
+					|| ConfigPropertyReader.getProperty("browser")
+							.equalsIgnoreCase("ie")
+					|| ConfigPropertyReader.getProperty("browser")
+							.equalsIgnoreCase("internetexplorer")) {
 				try {
 					Thread.sleep(5000);
 				} catch (InterruptedException e1) {
@@ -294,9 +317,12 @@ public class TestSessionInitiator {
 		}
 
 		if (baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/")
-				&& ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
-				|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
-				|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer")) {
+				&& ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("IE")
+				|| ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("ie")
+				|| ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("internetexplorer")) {
 			try {
 				Thread.sleep(5000);
 			} catch (InterruptedException e1) {

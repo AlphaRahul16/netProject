@@ -64,4 +64,21 @@ btn_saveForLater                              css                         .saveD
 txt_awardStatus                               xpath                       //div[contains(text(),'${awardName}')]/following-sibling::table//td[@class='status']
 btn_editNominee                               classname                   editNominee
 btn_upload_item                               xpath                       //div[@id='${value}']//div[@class='qq-upload-button']
+link_open                                     xpath                       //div[@id='${nominationName}']//a[@class='download']
+chkbox_labPractice                            css                         .checkbox.selected
+txt_positionTitle                             css                          #positionTitle>span:nth-child(3)
+txt_industry                                  css                          #industry>span:nth-child(3)
+drpdwn_arrowAwards                            id                           showAll
+inp_AwardField                                id                           selectAward
+txt_confirmSuggestedCitation                  xpath                        //div[contains(text(),'Suggested Citation')]/..
+lnk_downloaddocumentsLink                     css                         img[alt='Download consolidated PDF file']
+txt_Nomineename                               classname                   nomineeName 
+txt_nomineeSelectError                        xpath                       //div[@class='personIneligible' and contains(text(),'This person is either a')]
+txt_supporterNames                           css                           .PersonSelected>.person
+inp_support1FindByNumber                        xpath                       (//input[contains(@id,'memberNumber_searchSupporter')])[1]
+inp_support2FindByNumber                        xpath                       (//input[contains(@id,'memberNumber_searchSupporter')])[2]
+btn_findSupporter1ByNumber                     xpath                        (//input[contains(@id,'doSearchByNumber_searchSupporter')])[1]
+btn_findSupporter2ByNumber                     xpath                        (//input[contains(@id,'doSearchByNumber_searchSupporter')])[2]
+btn_findMemberByNumber                         id                            doSearchByNumber_searchNominee
+img_submitnomination                           css                          .updating
 =================================================================================================================================

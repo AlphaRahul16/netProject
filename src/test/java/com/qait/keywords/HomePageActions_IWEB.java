@@ -8,12 +8,11 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Reporter;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
-public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 
+public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 
 	WebDriver driver;
 	String pagename = "HomePage_IWEB";
-   
 
 	public HomePageActions_IWEB(WebDriver driver) {
 		super(driver, "HomePage_IWEB");
@@ -23,22 +22,21 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyUserIsOnHomePage(String pageTitle) {
 		handleAlert();
 		verifyPageTitleContains(pageTitle);
-		logMessage("ASSERT PASSED: verified that user is on " + this.pagename
-				+ "\n");
-		
+		logMessage("ASSERT PASSED: verified that user is on " + this.pagename + "\n");
+
 	}
 
 	public void clickFindForIndividualsSearch() {
 		if (isIEBrowser()) {
 			wait.waitForPageToLoadCompletely();
-		    hardWaitForIEBrowser(3);
+			hardWaitForIEBrowser(3);
 			clickUsingXpathInJavaScriptExecutor(element("link_findIndividuals"));
 			hardWaitForIEBrowser(3);
 		} else {
 			isElementDisplayed("link_findIndividuals");
 			wait.hardWait(1);
 			clickUsingXpathInJavaScriptExecutor(element("link_findIndividuals"));
-			//element("link_findIndividuals").click();
+			// element("link_findIndividuals").click();
 		}
 		logMessage("STEP : Click find button for individual search\n");
 	}
@@ -87,14 +85,18 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	// }
 
 	public void clickOnSideBarTab(String tabName) {
-	   wait.hardWait(2);
-		//wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
 		hardWaitForIEBrowser(6);
 		isElementDisplayed("hd_sideBar", tabName);
-	
-		clickUsingXpathInJavaScriptExecutor(element("hd_sideBar", tabName));
-		// element("hd_sideBar", tabName).click();
+
+		if (isBrowser("chrome")) {
+			element("hd_sideBar", tabName).click();
+		} else {
+
+			clickUsingXpathInJavaScriptExecutor(element("hd_sideBar", tabName));
+		}
 		logMessage("STEP : Click on tab " + tabName + " in hd_sideBar \n");
+
 	}
 
 	public void clickOnMemberShipTab() {
@@ -126,6 +128,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("btn_tabs");
 		wait.hardWait(1);
+		hardWaitForChromeBrowser(3);
 		executeJavascript("document.getElementsByClassName('dropdown-toggle')[3].click()");
 		// element("btn_tabs").click();
 		logMessage("STEP :  Module tab is clicked\n");
@@ -136,77 +139,75 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnTab(String tabName) {
-		wait.hardWait(2);
+
 		isElementDisplayed("link_tabsOnModule", tabName);
-	    element("link_tabsOnModule", tabName).click();
-	    logMessage("STEP : "+tabName+" tab is clicked\n");
+		element("link_tabsOnModule", tabName).click();
+		System.out.println("inside" + System.getProperty("browser"));
+
+		logMessage("STEP : " + tabName + " tab is clicked\n");
 	}
-	public void clickOnFindNominationTab()
-	{
+
+	public void clickOnFindNominationTab() {
 		isElementDisplayed("lnk_FindNomination");
-	    element("lnk_FindNomination").click();
-	    logMessage("STEP : Find Nomination tab is clicked\n");
+		element("lnk_FindNomination").click();
+		logMessage("STEP : Find Nomination tab is clicked\n");
 	}
-	
+
 	public void clickOnAddIndividual() {
 		isElementDisplayed("link_addIndividuals");
 		clickUsingXpathInJavaScriptExecutor(element("link_addIndividuals"));
 		logMessage("Step : add individual link is clicked in link_addIndividuals\n");
 
 	}
-	
-	public void clickOnFindTab()
-	{
+
+	public void clickOnFindTab() {
 		isElementDisplayed("lnk_findTab");
-	    element("lnk_findTab").click();
-	    logMessage("STEP : Find tab is clicked\n");
+		element("lnk_findTab").click();
+		logMessage("STEP : Find tab is clicked\n");
 	}
-    
-	public void clickOnCommitteeSetupPageLink(){
+
+	public void clickOnCommitteeSetupPageLink() {
 		isElementDisplayed("btn_committeeSetupPage");
 		element("btn_committeeSetupPage").click();
 		logMessage("Info: Clicked on Committee Setup Page link");
 		verifyUserIsOnCommitteeSetupPage();
 	}
-	
-	public void verifyUserIsOnCommitteeSetupPage(){
+
+	public void verifyUserIsOnCommitteeSetupPage() {
 		isElementDisplayed("txt_committeeSetup");
 		logMessage("Test passed: User is on Committee Setup Page");
 	}
-	
+
 	public void enterAuthentication(String uName, String password) {
+		if ((isBrowser("ie") || isBrowser("internetexplorer") || isBrowser("chrome"))) {
+			System.out.println("in authentication");
+			setClipboardData(uName);
+			Robot robot;
+			try {
+				robot = new Robot();
+				setClipboardData(uName);
+				robot.delay(2000);
+				robot.keyPress(KeyEvent.VK_CONTROL);
+				robot.keyPress(KeyEvent.VK_V);
+				robot.keyRelease(KeyEvent.VK_V);
+				robot.keyRelease(KeyEvent.VK_CONTROL);
+				robot.delay(2000);
+				robot.keyPress(KeyEvent.VK_TAB);
+				robot.keyRelease(KeyEvent.VK_TAB);
+				setClipboardData(password);
+				robot.delay(2000);
+				robot.keyPress(KeyEvent.VK_CONTROL);
+				robot.keyPress(KeyEvent.VK_V);
+				robot.keyRelease(KeyEvent.VK_V);
+				robot.keyRelease(KeyEvent.VK_CONTROL);
+				robot.delay(2000);
+				robot.keyPress(KeyEvent.VK_ENTER);
+				robot.keyRelease(KeyEvent.VK_ENTER);
+			} catch (AWTException e) {
+				e.printStackTrace();
+			}
+		}
 
-		  if ((isBrowser("ie") || isBrowser("internetexplorer") || isBrowser("chrome"))) {
-		   System.out.println("in authentication");
-		   setClipboardData(uName);
-		    Robot robot;
-		    try {
-		    robot = new Robot();
-		    setClipboardData(uName);
-		    robot.delay(2000);
-		    robot.keyPress(KeyEvent.VK_CONTROL);
-		    robot.keyPress(KeyEvent.VK_V);
-		    robot.keyRelease(KeyEvent.VK_V);
-		    robot.keyRelease(KeyEvent.VK_CONTROL);
-		    robot.delay(2000);
-		    robot.keyPress(KeyEvent.VK_TAB);
-		    robot.keyRelease(KeyEvent.VK_TAB);
-		    setClipboardData(password);
-		    robot.delay(2000);
-		    robot.keyPress(KeyEvent.VK_CONTROL);
-		    robot.keyPress(KeyEvent.VK_V);
-		    robot.keyRelease(KeyEvent.VK_V);
-		    robot.keyRelease(KeyEvent.VK_CONTROL);
-		    robot.delay(2000);
-		    robot.keyPress(KeyEvent.VK_ENTER);
-		    robot.keyRelease(KeyEvent.VK_ENTER);
-		    } catch (AWTException e) {
-		    e.printStackTrace();
-		    }
-
-		   
-		 }
-
-		 }
+	}
 
 }

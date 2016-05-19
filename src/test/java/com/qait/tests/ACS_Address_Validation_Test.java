@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 import com.qait.automation.utils.YamlReader;
 import com.qait.automation.TestSessionInitiator;
 
-
 public class ACS_Address_Validation_Test {
 	
 	TestSessionInitiator test;
@@ -25,7 +24,6 @@ public class ACS_Address_Validation_Test {
 	@Test
 	public void Step01_Launch_Iweb_Application() {
 		test.launchApplication(app_url_IWEB);
-		
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 		
@@ -33,7 +31,7 @@ public class ACS_Address_Validation_Test {
 	public void Step02_Select_Query_In_Query_Individual_Page(){
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Query Individual");
-		test.memberShipPage.selectAndRunQuery("Selenium - US Constituents");
+		test.memberShipPage.selectAndRunQuery(getYamlValue("AddressValidation.queryName"));
 	}
 	
 	@Test
@@ -41,11 +39,11 @@ public class ACS_Address_Validation_Test {
 		individualName=test.acsAddressValidation.verifyIndividualProfilePage();
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Individuals | "+individualName);
 	}
-	
+
 	@Test
-	public void Step04_Enetr_Bogus_ZipCode_And_Verify_ZipCode(){
-		test.memberShipPage.getCustomerLastNameAndContactIDForYellowBook();
-		expectedZipCode=test.acsAddressValidation.fetchZipCode();
+	public void Step04_Enter_ZipCode_And_Verify_Replacement_Of_ZipCode(){
+		test.memberShipPage.getContactIdOfUser("Customer");
+		expectedZipCode=test.acsAddressValidation.getZipCode();
         test.acsAddressValidation.clickOnEditNameAndAddressButton();
         test.acsAddressValidation.verifyIndividualNameAndAddressInformationPage();
         test.acsAddressValidation.verifyZipCode(expectedZipCode);

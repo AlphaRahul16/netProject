@@ -44,7 +44,6 @@ public class ACS_FellowNominate {
 	@Test
 	public void Step01_TC01_CreateMember_As_A_Prerequisite_For_Fellow_Nomination() {
 		test.homePageIWEB.addValuesInMap("fellowNominate", "3");
-		
 		test.homePageIWEB.clickOnAddIndividual();
 		memDetails = test.addMember.enterMemberDetailsInAddIndividual();
 		test.memberShipPage.goToOrderEntry();
