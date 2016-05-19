@@ -92,7 +92,6 @@ public class ACS_AwardsVoting_Test {
 		test.invoicePage.collapseDetailsMenu("award judges");
 		test.invoicePage.expandDetailsMenu("award stages/rounds");
 		test.awardsPageAction.goToRecordForRound("1");
-
 		test.invoicePage.expandDetailsMenu("award judge");
 		test.awardsPageAction.goToJudgeRecord(nameOfJudges.get(0));
 		test.invoicePage.expandDetailsMenu("acs award judge score");
@@ -104,7 +103,7 @@ public class ACS_AwardsVoting_Test {
 		test.invoicePage.expandDetailsMenu("award judges");
 		test.awardsPageAction.goToRecordForRound("1");
 		memberDetail = test.awardsPageAction.getJudgeDetails(nameOfJudges, "1");
-		memberDetail = test.awardsPageAction.getJudgeDetails(nameOfJudges, "1");
+		
 	}
 
 	@SuppressWarnings({ "unchecked" })
@@ -183,7 +182,8 @@ public class ACS_AwardsVoting_Test {
 		}
 	}
 
-	public void Step05_TC05_Launch_Awards_Voting_IWeb(int round,int votingRounds) {
+	public void Step05_TC05_Launch_Awards_Voting_IWeb(int round,
+			int votingRounds) {
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Awards");
@@ -203,19 +203,15 @@ public class ACS_AwardsVoting_Test {
 				.verifyClosedStatusOnUpdatingScore(test.homePageIWEB.map().get(
 						"Round1 Closed Status?"));
 
-		
 		test.invoicePage
 				.expandDetailsMenu("acs award stage - entries in this stage");
 		test.invoicePage.expandDetailsMenu("acs entries not in this stage");
-		test.awardsPageAction.verifyNomineesWithRankOne(listOfFirstAndLastName);
+		// test.awardsPageAction.verifyNomineesWithRankOne(listOfFirstAndLastName);
 		test.awardsPageAction.verifyNomineeWinnerStatus(votingRounds);
-
-		// ============================================================
-
 		test.awardsPageAction.clickOnAwardsName_RoundName(currentAwardName);
 		test.awardsPageAction.expandDetailsMenu("award stages/rounds");
 		startEndDate = test.awardsPageAction.editStartAndEndDate_Round(String
-				.valueOf(round > 1 ? ++votingRounds: null));
+				.valueOf(round > 1 ? ++votingRounds : null));
 		test.awardsPageAction.clickOnSaveButton();
 		test.awardsPageAction.switchToDefaultContent();
 		test.awardsPageAction.expandDetailsMenu("award judges");
@@ -226,11 +222,11 @@ public class ACS_AwardsVoting_Test {
 	public void Step04_TC05_Awards_Voting_Awards_Voting_IWeb() {
 		int votingRounds = Integer.parseInt(test.homePageIWEB.map()
 				.get("Winner in rounds").replace("Round", ""));
-		int count=1;
+		int count = 1;
 		for (int round = votingRounds; round > 0; round--) {
 			System.out.println("voting rounds :============= " + round);
 			Step04_TC04_Launch_Awards_Voting_Application(round);
-			Step05_TC05_Launch_Awards_Voting_IWeb(round,count++);
+			Step05_TC05_Launch_Awards_Voting_IWeb(round, count++);
 		}
 	}
 
@@ -240,7 +236,6 @@ public class ACS_AwardsVoting_Test {
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		app_url_Awards = getYamlValue("app_url_Awards");
 		test.launchApplication(app_url_IWEB);
-
 
 	}
 

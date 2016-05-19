@@ -212,11 +212,7 @@ public class TestSessionInitiator {
 								+ YamlReader.getYamlValue("Authentication.password").replaceAll("@", "%40") + "@"
 								+ "iwebtest"));
 			}
-			// String s = "https:" +
-			// YamlReader.getYamlValue("Authentication.userName")
-			// +
-			// YamlReader.getYamlValue("Authentication.password").replaceAll("@",
-			// "%40") + "@" + "//iwebtest";
+			
 			else {
 				driver.get(baseurl);
 			}
