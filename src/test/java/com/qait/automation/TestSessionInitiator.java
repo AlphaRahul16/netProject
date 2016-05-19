@@ -160,6 +160,7 @@ public class TestSessionInitiator {
 	 * Page object Initiation done
 	 */
 	public TestSessionInitiator(String testname) {
+		capabilities = new DesiredCapabilities();
 		wdfactory = new WebDriverFactory();
 		testInitiator(testname);
 	}

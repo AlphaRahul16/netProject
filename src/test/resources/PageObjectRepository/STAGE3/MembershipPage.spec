@@ -86,7 +86,7 @@ btn_editNameAndAddress                           css                          #F
 inp_firstName                                    id                          ind_first_name
 inp_lastName                                    id                          ind_last_name
 inp_middleName                                  id                           ind_mid_name
-txt_numberOfyears                                xpath                         //td[contains(text(),'Total Years of Service')]/following-sibling::td
+txt_numberOfyears                                xpath                         //td[contains(text(),'Years of Service')]/following-sibling::td
 btn_cancel                                       id                           ButtonCancel
 list_memberStatusRenewal                        id                            ValueDropDownList4
 txt_renewalContactId                             id                           F1_cst_id

@@ -943,7 +943,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public String numberOfYearsForInactiveMember() {
 		isElementDisplayed("txt_numberOfyears");
-		String numberOfYears = element("txt_numberOfyears").getText();
+		String numberOfYears = element("txt_numberOfyears").getText().trim();
 		logMessage("Step : total years of services for inactive member is " + numberOfYears);
 		return numberOfYears;
 	}
@@ -1134,7 +1134,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : Customer ID is " + info + " \n");
 		return info;
 	}
-
+	
 	public String getPaymentStatus() {
 		isElementDisplayed("txt_paymentStatus");
 		String paymentStatus = element("txt_paymentStatus").getText().trim();
@@ -2456,8 +2456,27 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		       Assert.assertTrue(element("txt_termEndDaterenewal","1").getText().length()==1, "Term End Date is not Empty");
 		       logMessage("ASSERT PASSED : Term End date is empty\n");
 		        }
-		   
-		  } 
+		  }
+
+	public String getProductName() {
+		isElementDisplayed("");
+		return element("").getText().trim();
+	}
+
+	public String getPriceValue() {
+		isElementDisplayed("");
+		return element("").getText().trim();
+	}
+
+	public String getTermStartDate() {
+		isElementDisplayed("");
+		return element("").getText().trim();
+	}
+
+	public String getTermEndDate() {
+		isElementDisplayed("");
+		return element("").getText().trim();
+	} 
 	 
 	 public void verifyProductPackage(String productPackage){
 		 isElementDisplayed("txt_productPackage");
@@ -2470,5 +2489,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		 isElementDisplayed("txt_ContactId");
 		 logMessage("STEP : "+Member+" Id is : "+element("txt_ContactId").getText().trim()+"\n");
 	 }
+
 
 }
