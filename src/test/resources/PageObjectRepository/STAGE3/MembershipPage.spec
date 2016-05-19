@@ -160,7 +160,7 @@ btn_mydTransfer                                  xpath                        //
 txt_balanceAmount                                xpath                        //table[@id='TransferTable']//span
 list_term                                        id                            ord_ptr_key
 list_newPackage                                  id                            mbr_pak_prd_renewal_key
-heading_transferPackage                          id                            ui-id-3
+heading_transferPackage                          xpath                         //span[text()='Transfer Package']
 btn_transferNow                                  id                            TransferMembershipButtonID
 btn_gotorenewal                                  xpath                       (//td[contains(text(),'Active Renewed-No Response')]/preceding-sibling::td[3]//i)[1]
 txt_PaymentStatus                                xpath                        //td[contains(text(),'${productName}')]//following-sibling::td[1]

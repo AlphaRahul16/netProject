@@ -220,12 +220,20 @@ public class TestSessionInitiator {
 										+ ":"
 										+ YamlReader.getYamlValue(
 												"Authentication.password")
-												.replaceAll("@", "%40") + "@"
+										        .replaceAll("#", "%23")+ "@"
+//												.replaceAll("@", "%40") + "@"
 										+ "iwebtest");
 			}
 
 			driver.get(baseurl);
-			Reporter.log("\nThe application url is :- " + baseurl, true);
+			if(!_getSessionConfig().get("browser").equalsIgnoreCase("ie")){
+				if(baseurl.contains("iwebtest"))
+					Reporter.log("\nThe application url is :- " + baseurl.replace(baseurl.split("@")[0], "https://").replace("@", ""),true);
+				else
+					Reporter.log("\nThe application url is :- " + baseurl,true);
+			}
+//			Reporter.log("\nThe application url is :- " + baseurl.replace(baseurl.split("@")[0], "https://").replace("@", ""),true);
+//			Reporter.log("\nThe application url is :- " + baseurl, true);
 			if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/"))
 					&& (ConfigPropertyReader.getProperty("browser")
 							.equalsIgnoreCase("IE")

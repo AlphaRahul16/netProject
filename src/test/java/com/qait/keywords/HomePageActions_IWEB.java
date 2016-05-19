@@ -94,10 +94,10 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		try{
 		clickUsingXpathInJavaScriptExecutor(element("hd_sideBar", tabName));
 		}catch(Exception e){
-			System.out.println("In catch javascript");
+			element("hd_sideBar", tabName).click();
 		}
 		// element("hd_sideBar", tabName).click();
-		logMessage("STEP : Click on tab " + tabName + " in hd_sideBar \n");
+		logMessage("STEP : Clicked on tab " + tabName + " in hd_sideBar \n");
 	}
 
 	public void clickOnMemberShipTab() {
