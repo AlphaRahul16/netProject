@@ -18,7 +18,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Reporter;
 
 import com.qait.automation.utils.ConfigPropertyReader;
-import com.qait.automation.utils.EnviormentSetting;
 import com.qait.automation.utils.TakeScreenshot;
 import com.qait.automation.utils.YamlReader;
 import com.qait.keywords.ACS_Address_Validation_Action;
@@ -110,8 +109,9 @@ public class TestSessionInitiator {
 	public ACS_Awards_EWEB_PageActions award_ewebPage;
 	public AcsYellowBookEwebPageActions acsYellowBookEwebPage;
 
-	protected static HashMap<String, String> book;
-	protected static HashMap<String, String> setting;
+	protected static HashMap<String, String> scenerios;
+	protected static HashMap<String, String> fieldDefinitions;
+	protected static HashMap<String, String> testLog;
 
 	public ACS_Address_Validation_Action acsAddressValidation;
 
@@ -163,6 +163,13 @@ public class TestSessionInitiator {
 	 * Page object Initiation done
 	 */
 	public TestSessionInitiator(String testname) {
+		/*new EnviormentSetting("./src/test/resources/TestDataLibrary/Member Transfer.xlsx", "Scenerios");
+		scenerios = EnviormentSetting.settings;
+		new EnviormentSetting("./src/test/resources/TestDataLibrary/Member Transfer.xlsx", "Field Definitions");
+		fieldDefinitions = EnviormentSetting.settings;
+		new EnviormentSetting("./src/test/resources/TestDataLibrary/Member Transfer.xlsx", "Test Log");
+		testLog = EnviormentSetting.settings;*/
+		
 		capabilities = new DesiredCapabilities();
 		wdfactory = new WebDriverFactory();
 		testInitiator(testname);

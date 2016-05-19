@@ -86,7 +86,7 @@ btn_editNameAndAddress                           css                          #F
 inp_firstName                                    id                          ind_first_name
 inp_lastName                                    id                          ind_last_name
 inp_middleName                                  id                           ind_mid_name
-txt_numberOfyears                                xpath                         //td[contains(text(),'Total Years of Service')]/following-sibling::td
+txt_numberOfyears                                xpath                         //td[contains(text(),'Years of Service')]/following-sibling::td
 btn_cancel                                       id                           ButtonCancel
 list_memberStatusRenewal                        id                            ValueDropDownList4
 txt_renewalContactId                             id                           F1_cst_id
@@ -152,7 +152,6 @@ drpdwn_memberType                                xpath                        //
 btn_detailsMenuAACT                              xpath                        //span[text()='${menuName}']/../a[1]
 txt_termStartDaterenewal                         xpath                        (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[14]
 txt_termEndDaterenewal                           xpath                        (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[15]
-<<<<<<< HEAD
 heading_queryAskAtRunTime                        xpath                         //span[text()='Query - Ask At Run-Time Values']
 list_memberPackage1                               css                           .DataFormDropDownList
 btn_goPackage                                    id                             ButtonAskGo
