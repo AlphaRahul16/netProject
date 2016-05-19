@@ -1,0 +1,4 @@
+accounts.firefox.com:HSTS	0	16940	1479190562830,1,1
+stats.g.doubleclick.net:HSTS	0	16940	1474524946111,1,0
+self-repair.mozilla.org:HSTS	0	16940	1463642147301,1,1
+www.google-analytics.com:HSTS	0	16940	1474524942690,1,0

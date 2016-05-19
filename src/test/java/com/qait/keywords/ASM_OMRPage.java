@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.ws.Holder;
+
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -417,7 +419,6 @@ public class ASM_OMRPage extends GetPage {
 
 	public void switchToEwebRenewalFrame()
 	{
-		wait.waitForPageToLoadCompletely();
 		wait.hardWait(2);
 		switchToFrame(element("iframe_ewebframe"));
 	}
@@ -511,6 +512,7 @@ public class ASM_OMRPage extends GetPage {
 		{
 			clickAddMembershipButton("Add ACS Member Benefits");
 			//isElementDisplayed("txt_legend","My ACS Member Benefits");
+			holdScriptExecution();
 			selectAddToMembershipForParticularSubscription("BenefitAddToMembership");
 			clickSaveButtonToAddMembership();
 
@@ -570,27 +572,6 @@ public class ASM_OMRPage extends GetPage {
 	{
 		
 		wait.hardWait(8);
-//		Object length= executeJavascriptReturnValue("document.getElementById('eWebFrame').contentWindow.document.getElementsByClassName('add-to-cart add-to-cart-btn').length");
-//		System.out.println(length);
-//		int l1=((Long)length).intValue();
-//		System.out.println(l1);
-//		switchToDefaultContent();
-//		wait.hardWait(3);
-//		try
-//		{
-//			wait.resetImplicitTimeout(3);
-//			wait.resetExplicitTimeout(hiddenFieldTimeOut);
-//		executeJavascript("document.getElementById('eWebFrame').contentWindow.document.getElementsByClassName('add-to-cart add-to-cart-btn')["+YamlReader.generateRandomNumber(0,
-//				l1)+"].click()");
-//		}
-//		catch(Exception e)
-//		{
-//			switchToDefaultContent();
-//			executeJavascript("document.getElementById('eWebFrame').contentWindow.document.getElementsByClassName('add-to-cart add-to-cart-btn')[3].click()");
-//		}
-//		wait.resetImplicitTimeout(timeOut);
-//		
-//		wait.resetExplicitTimeout(timeOut);
 		switchToEwebRenewalFrame();
 		System.out.println(elements("btn_addToMemberships").size());
 		 elements("btn_addToMemberships").get(YamlReader.generateRandomNumber(0,(elements("btn_addToMemberships").size())-1)).click();

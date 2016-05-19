@@ -738,7 +738,7 @@ public class ASM_NominatePage extends GetPage {
 
 
 	private void verifyTooltipMessageAppearsAfterSelectingAward() {
-		wait.hardWait(2);
+		wait.hardWait(3);
 		isElementDisplayed("txt_NominationTooltip");
 		verifyElementTextContains("txt_NominationTooltip","Nominations must be submitted before");
 

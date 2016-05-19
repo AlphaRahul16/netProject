@@ -14,6 +14,7 @@ import java.util.Set;
 
 import org.mozilla.javascript.ast.Label;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -28,7 +29,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	boolean flag;
 	Set<String> nomineesNames = new HashSet<>();
 	int timeOut, hiddenFieldTimeOut;
-
+	String newJudgeName;
 	List<String> listOfJudgesForRescused = new ArrayList<String>();
 	List<String> listOfJudgesName = new ArrayList<String>();
 
@@ -372,6 +373,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnEditJudgesRoundButton(WebElement editJudgesRound) {
+		editJudgesRound.isDisplayed();
 		editJudgesRound.click();
 		logMessage("Step : edit button is clicked\n");
 
@@ -531,7 +533,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		return listOfJudgesName;
 	}
 
-	public void goToJudgeRecord(String judgeName) {
+	public String goToJudgeRecord(String judgeName) {
 		// wait.waitForPageToLoadCompletely();
 		wait.hardWait(3);
 		wait.waitForPageToLoadCompletely();
@@ -570,19 +572,15 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 		if (flag == 1) {
 			System.out.println("index " + i);
+			newJudgeName = element("text_judgeNames_awardJudges",
+					Integer.toString(i)).getText().trim();
 			clickUsingXpathInJavaScriptExecutor(element(
 					"list_judgesNames_goToRecord", Integer.toString(i)));
 
 		}
-		// if (judgeName.contains("'")) {
-		// clickUsingXpathInJavaScriptExecutor(element("link_goToJudgeRecord",
-		// judgeName.split("'")[1]));
-		// } else {
-		// clickUsingXpathInJavaScriptExecutor(element("link_goToJudgeRecord",
-		// judgeName.split("'")[0]));
-		// }
 
 		logMessage("Step : navigate to judge " + judgeName + " profile\n");
+		return newJudgeName;
 
 	}
 
@@ -620,10 +618,11 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			String currentUrl = getCurrentURL();
 
 			expandDetailsMenu("award judge");
-			goToJudgeRecord(judgeName);
+			String newJudgeName = goToJudgeRecord(judgeName);
 			expandDetailsMenu("acs award judge score");
 			verifyACSAwardStageEntriesInThisStageIsEmpty();
-			clickOnJudgeNameToNavigateOnProfilePage(judgeName);
+			wait.hardWait(2);
+			clickOnJudgeNameToNavigateOnProfilePage(newJudgeName);
 			waitForSpinner();
 			judgeCustomerID_Weblogin.add(getCustomerID(judgeName));
 			judgeCustomerID_Weblogin.add(getWebLogin(judgeName));
@@ -771,7 +770,6 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyNomineesWithRankOne(List<List<String>> nomineeNames) {
-
 		for (WebElement nomineeName : elements("list_acsAwardProfilesNomineesWithOnes")) {
 			int winners = 0;
 			boolean flag = false;
@@ -799,45 +797,12 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 					+ " present in the ones category\n");
 		}
 
-		// for (Map<Integer, String> map : listsOfRanks) {
-		// String nomineeWithRankOne = map.get("1");
-		// nomineesWithRankOne.put(nomineeWithRankOne, 0);
-		// }
-		//
-		// for (Map<Integer, String> map : listsOfRanks) {
-		// String nomineeWithRankOne = map.get("1");
-		// nomineesWithRankOne.put(nomineeWithRankOne,
-		// nomineesWithRankOne.get(nomineeWithRankOne) + 1);
-		// }
-		// isElementDisplayed("list_stageEntriesRankOne");
-		// for (String nomineeWithRankOne : nomineesWithRankOne.keySet()) {
-		// Assert.assertTrue(
-		// element("list_stageEntriesRankOne", nomineeWithRankOne)
-		// .getText()
-		// .trim()
-		// .equalsIgnoreCase(
-		// String.valueOf(nomineesWithRankOne
-		// .get(nomineeWithRankOne))),
-		// "ASSERT FAILED : Actual rank count for nominee "
-		// + nomineeWithRankOne
-		// + " is "
-		// + element("list_stageEntriesRankOne",
-		// nomineeWithRankOne).getText().trim()
-		// + " Expected rank count for nominee "
-		// + nomineeWithRankOne + " is "
-		// + nomineesWithRankOne.get(nomineeWithRankOne)
-		// + "\n");
-
-		// logMessage("ASSERT PASSED : Nominee " + nomineeWithRankOne
-		// + " with rank one is verified\n ");
-		//
-
 	}
 
 	public void verifyNomineeWinnerStatus(int round) {
 		int status = round;
-		System.out.println("Round" + status + " Winner Status? \n "
-				+ map().get("Round" + status + " Winner Status?"));
+		System.out.println("Round" + status + " winner Status? \n "
+				+ map().get("Round" + status + " winner Status?"));
 		for (WebElement winnerStatus : elements("list_acsEntriesNotStage_ColWinnerStatus")) {
 			Assert.assertTrue(
 					winnerStatus
@@ -846,7 +811,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 							.equalsIgnoreCase(
 									map().get(
 											"Round" + status
-													+ " Winner Status?")),
+													+ " winner Status?")),
 					"ASSERT FAILED: Error in winner status. Actual"
 							+ winnerStatus.getText().trim() + " and expected"
 							+ map().get("Round" + status + " Winner Status?")
@@ -857,44 +822,36 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 		for (WebElement winnerStatus : elements(
 				"list_acsEntriesNotStage_ColNominee",
-				map().get("Round" + status + " Winner Status?"))) {
+				map().get("Round" + status + " winner Status?"))) {
 			listOfAcsNomineesNotInStage.add(winnerStatus.getText());
 			logMessage("STEP: Acs nominee no in stage "
 					+ winnerStatus.getText());
 		}
 	}
 
-	// for(WebElement
-	// nomineeName:elements("list_acsAwardProfilesWithOnes","acs entries not in this stage")){
-	// isElementDisplayed("txt_winnerStatusForNomineee", nomineeName);
-	// Assert.assertTrue(
-	// element("txt_winnerStatusForNomineee", nomineeName).getText()
-	// .equalsIgnoreCase(status),
-	// "ASSERT FAILED : Actual status is "
-	// + element("txt_winnerStatusForNomineee", nomineeName)
-	// .getText() + " Expected status is " + status
-	// + " \n");
-	// logMessage("ASSERT PASSED : Winner status is verified as " + status
-	// + " \n");
-	// }
-	// }
-	//
-
 	public void editStageRound(int votingRound) {
 		System.out
-				.println("=======================edit judge========================"+votingRound);
+				.println("=======================edit judge========================"
+						+ votingRound);
 		String voting_Round = Integer.toString(votingRound);
 		String round = Integer.toString(votingRound + 1);
-
-		for (WebElement editButton : elements(
-				"list_links_awardJudgesEditRound", voting_Round)) {
-
-			clickOnEditJudgesRoundButton(editButton);
-
+		int size = elements("list_links_awardJudgesEditRound", voting_Round)
+				.size();
+		for (int index = 0; index < size; index++) {
+			try {
+				elements("list_links_awardJudgesEditRound", voting_Round)
+						.get(0).click();
+				// clickUsingXpathInJavaScriptExecutor(editButton);
+				// clickOnEditJudgesRoundButton(editButton);
+			} catch (StaleElementReferenceException ele) {
+				logMessage("INFO : Stale Element Reference Exception is handled\n");
+				// clickUsingXpathInJavaScriptExecutor(editButton);
+				elements("list_links_awardJudgesEditRound", voting_Round)
+						.get(0).click();
+			}
 			switchToFrame("iframe1");
-			selectProvidedTextFromDropDown(
-					element("list_selectRoundNumber"), "Round "
-							+ round);
+			selectProvidedTextFromDropDown(element("list_selectRoundNumber"),
+					"Round " + round);
 			logMessage("Step : Round " + round
 					+ " is selected in list_selectRoundNumber\n");
 			clickOnSaveButton();

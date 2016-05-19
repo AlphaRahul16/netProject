@@ -468,7 +468,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 		dropdown_rank.selectByVisibleText(String.valueOf(1));
 
-		for (int i = 0; i < maxPossibleNominees; i++) { // 10
+		for (int i = 0; i < maxPossibleNominees-1; i++) { // 10
 			Select dropdown_rank1 = new Select(element("drpdwn_rank",
 					String.valueOf(i + 2)));
 			dropdown_rank1.selectByVisibleText(String.valueOf(ranks.get(i)));

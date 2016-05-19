@@ -38,7 +38,7 @@ csv-data-file:
 
 Authentication: 
   userName: C00616
-  password: "Zx605@95"
+  password: "A9319161853@"
   
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt
@@ -322,7 +322,7 @@ ACS_Store:
     maxWaitTimeForPrintMessage: 30
     members:
          member1: 
-            CASEID: 1
+            CASEID: 2
 #         member2: 
 #            CASEID: 2
     

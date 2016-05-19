@@ -148,6 +148,11 @@ public class ObjectFileReader {
 		case dev:
 			tier = "Dev/";
 			break;
+		case Dev4:
+		case DEV4:
+		case dev4:
+			tier = "Dev4/";
+			break;
 		}
 	}
 }
