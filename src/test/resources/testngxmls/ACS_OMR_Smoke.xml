@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="ACS Tests" preserve-order="true" thread-count="1">
-<listeners>
-        <listener class-name="com.qait.automation.report.MyListner"/>
-    </listeners>
  <test name="ACS OMR Smoke Test" group-by-instances="true">
   <classes>
    <class name="com.qait.tests.ACS_OMR_Smoke_Test"></class>

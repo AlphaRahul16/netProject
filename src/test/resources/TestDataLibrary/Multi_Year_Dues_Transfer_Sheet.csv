@@ -1,25 +1,25 @@
-CASE ID	caseID Execute	Original MemberPackage	Years	New MemberPackage?
-1	No	ACS : Regular Member : Regular Member Dues C&EN-Print	2 year	Regular Member 2Y Dues C&EN-Print
-2	Yes	ACS : Regular Member : Regular Member Dues C&EN-Print	3 year	Regular Member 3Y Dues C&EN-Print
-3	No	ACS : Regular Member : Regular Member 2Y Dues C&EN-Print	1 year	Regular Member Dues C&EN-Print
-4	No	ACS : Regular Member : Regular Member 2Y Dues C&EN-Print	3 year	Regular Member 3Y Dues C&EN-Print
-5	No	ACS : Regular Member : Regular Member 3Y Dues C&EN-Print	1 year	Regular Member Dues C&EN-Print
-6	No	ACS : Regular Member : Regular Member 3Y Dues C&EN-Print	2 year	Regular Member 2Y Dues C&EN-Print
-7	No	ACS : Regular Member : Regular Member Dues C&EN-Print	2 year	Regular Member 2Y Dues C&EN-Electronic
-8	No	ACS : Regular Member : Regular Member Dues C&EN-Print	3 year	Regular Member 3Y Dues C&EN-Electronic
-9	No	ACS : Regular Member : Regular Member 2Y Dues C&EN-Print	1 year	Regular Member Dues C&EN-Electronic
-10	No	ACS : Regular Member : Regular Member 2Y Dues C&EN-Print	3 year	Regular Member 3Y Dues C&EN-Electronic
-11	No	ACS : Regular Member : Regular Member 3Y Dues C&EN-Print	1 year	Regular Member Dues C&EN-Electronic
-12	No	ACS : Regular Member : Regular Member 3Y Dues C&EN-Print	2 year	Regular Member 2Y Dues C&EN-Electronic
-13	No	ACS : Regular Member : Regular Member Dues C&EN-Electronic	2 year	Regular Member 2Y Dues C&EN-Electronic
-14	No	ACS : Regular Member : Regular Member Dues C&EN-Electronic	3 year	Regular Member 3Y Dues C&EN-Electronic
-15	No	ACS : Regular Member : Regular Member 2Y Dues C&EN-Electronic	1 year	Regular Member Dues C&EN-Electronic
-16	No	ACS : Regular Member : Regular Member 2Y Dues C&EN-Electronic	3 year	Regular Member 3Y Dues C&EN-Electronic
-17	No	ACS : Regular Member : Regular Member 3Y Dues C&EN-Electronic	1 year	Regular Member Dues C&EN-Electronic
-18	No	ACS : Regular Member : Regular Member 3Y Dues C&EN-Electronic	2 year	Regular Member 2Y Dues C&EN-Electronic
-19	No	ACS : Regular Member : Regular Member Dues C&EN-Electronic	2 year	Regular Member 2Y Dues C&EN-Print
-20	No	ACS : Regular Member : Regular Member Dues C&EN-Electronic	3 year	Regular Member 3Y Dues C&EN-Print
-21	No	ACS : Regular Member : Regular Member 2Y Dues C&EN-Electronic	1 year	Regular Member Dues C&EN-Print
-22	No	ACS : Regular Member : Regular Member 2Y Dues C&EN-Electronic	3 year	Regular Member 3Y Dues C&EN-Print
-23	No	ACS : Regular Member : Regular Member 3Y Dues C&EN-Electronic	1 year	Regular Member Dues C&EN-Print
-24	No	ACS : Regular Member : Regular Member 3Y Dues C&EN-Electronic	2 year	Regular Member 2Y Dues C&EN-Print
+CASE ID	caseID Execute	Original MemberPackage	Years	New MemberPackage?	Product Package?
+1	No	ACS : Regular Member : Regular Member Dues C&EN-Print	2 year	Regular Member 2Y Dues C&EN-Print	Regular Member Dues C&EN-Print 2Y
+2	No	ACS : Regular Member : Regular Member Dues C&EN-Print	3 year	Regular Member 3Y Dues C&EN-Print	Regular Member 3Y Dues C&EN-Print
+3	No	ACS : Regular Member : Regular Member 2Y Dues C&EN-Print	1 year	Regular Member Dues C&EN-Print	Regular Member Dues C&EN-Print
+4	No	ACS : Regular Member : Regular Member 2Y Dues C&EN-Print	3 year	Regular Member 3Y Dues C&EN-Print	Regular Member Dues C&EN-Print 3Y
+5	No	ACS : Regular Member : Regular Member 3Y Dues C&EN-Print	1 year	Regular Member Dues C&EN-Print	Regular Member Dues C&EN-Print
+6	No	ACS : Regular Member : Regular Member 3Y Dues C&EN-Print	2 year	Regular Member 2Y Dues C&EN-Print	Regular Member Dues C&EN-Print 2Y
+7	No	ACS : Regular Member : Regular Member Dues C&EN-Print	2 year	Regular Member 2Y Dues C&EN-Electronic	Regular Member Dues C&EN-Electronic 2Y
+8	No	ACS : Regular Member : Regular Member Dues C&EN-Print	3 year	Regular Member 3Y Dues C&EN-Electronic	Regular Member Dues C&EN-Electronic 3Y
+9	No	ACS : Regular Member : Regular Member 2Y Dues C&EN-Print	1 year	Regular Member Dues C&EN-Electronic	Regular Member Dues C&EN-Electronic
+10	No	ACS : Regular Member : Regular Member 2Y Dues C&EN-Print	3 year	Regular Member 3Y Dues C&EN-Electronic	Regular Member Dues C&EN-Electronic 3Y
+11	No	ACS : Regular Member : Regular Member 3Y Dues C&EN-Print	1 year	Regular Member Dues C&EN-Electronic	Regular Member Dues C&EN-Electronic
+12	No	ACS : Regular Member : Regular Member 3Y Dues C&EN-Print	2 year	Regular Member 2Y Dues C&EN-Electronic	Regular Member Dues C&EN-Electronic 2Y
+13	No	ACS : Regular Member : Regular Member Dues C&EN-Electronic	2 year	Regular Member 2Y Dues C&EN-Electronic	Regular Member Dues C&EN-Electronic 2Y
+14	No	ACS : Regular Member : Regular Member Dues C&EN-Electronic	3 year	Regular Member 3Y Dues C&EN-Electronic	Regular Member Dues C&EN-Electronic 3Y
+15	No	ACS : Regular Member : Regular Member 2Y Dues C&EN-Electronic	1 year	Regular Member Dues C&EN-Electronic	Regular Member Dues C&EN-Electronic
+16	No	ACS : Regular Member : Regular Member 2Y Dues C&EN-Electronic	3 year	Regular Member 3Y Dues C&EN-Electronic	Regular Member Dues C&EN-Electronic 3Y
+17	No	ACS : Regular Member : Regular Member 3Y Dues C&EN-Electronic	1 year	Regular Member Dues C&EN-Electronic	Regular Member Dues C&EN-Electronic
+18	No	ACS : Regular Member : Regular Member 3Y Dues C&EN-Electronic	2 year	Regular Member 2Y Dues C&EN-Electronic	Regular Member Dues C&EN-Electronic 2Y
+19	No	ACS : Regular Member : Regular Member Dues C&EN-Electronic	2 year	Regular Member 2Y Dues C&EN-Print	Regular Member Dues C&EN-Print 2Y
+20	No	ACS : Regular Member : Regular Member Dues C&EN-Electronic	3 year	Regular Member 3Y Dues C&EN-Print	Regular Member Dues C&EN-Print 3Y
+21	No	ACS : Regular Member : Regular Member 2Y Dues C&EN-Electronic	1 year	Regular Member Dues C&EN-Print	Regular Member Dues C&EN-Print
+22	Yes	ACS : Regular Member : Regular Member 2Y Dues C&EN-Electronic	3 year	Regular Member 3Y Dues C&EN-Print	Regular Member Dues C&EN-Print 3Y
+23	No	ACS : Regular Member : Regular Member 3Y Dues C&EN-Electronic	1 year	Regular Member Dues C&EN-Print	Regular Member Dues C&EN-Print
+24	No	ACS : Regular Member : Regular Member 3Y Dues C&EN-Electronic	2 year	Regular Member 2Y Dues C&EN-Print	Regular Member Dues C&EN-Print 2Y

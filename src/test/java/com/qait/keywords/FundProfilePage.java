@@ -54,6 +54,7 @@ public class FundProfilePage extends ASCSocietyGenericPage
 	}
 
 	public void clickAddDonationButton(String headingname) {
+		hardWaitForChromeBrowser(4);
 		isElementDisplayed("btn_addDonationAmount",headingname);
 		element("btn_addDonationAmount",headingname).click();
 		wait.waitForPageToLoadCompletely();
