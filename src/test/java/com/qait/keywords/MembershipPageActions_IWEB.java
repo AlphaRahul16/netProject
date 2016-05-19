@@ -2369,7 +2369,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(4);
 		String amount=element("txt_balanceAmount").getText().trim().split("\\$")[1];
 		double d= Double.parseDouble(amount);
-        logMessage("Balance Amount is : "+d+"\n");
+        logMessage("STEP : Balance Amount is : "+d+"\n");
         return d;
 	}
 	
@@ -2394,12 +2394,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("STEP : Previous package renewal year : "+previousYear);
 		logMessage("STEP : New package renewal year : "+newYear);
 		if(previousYear<newYear){
-			if(previousAmount<newAmount)
-		       logMessage("PASS : Balance Amount value has increased\n");
+			Assert.assertTrue(previousAmount<newAmount,"ASSERT FAILED : Balance Amount value has not increased\n");
+		       logMessage("ASSERT PASS : Balance Amount value has increased\n");
 		}
 		else if(previousYear>newYear){
-			if(previousAmount>newAmount)
-				logMessage("PASS : Balance Amount value has decreased\n");
+			Assert.assertTrue(previousAmount>newAmount,"ASSERT FAILED : Balance Amount value has not decreased\n");
+				logMessage("ASSERT PASS : Balance Amount value has decreased\n");
 		}
 		else
 			Assert.assertTrue(false,"ASSERT FAIL : Balance Amount value has not changed\n");

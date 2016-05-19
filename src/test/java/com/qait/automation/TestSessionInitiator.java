@@ -220,8 +220,8 @@ public class TestSessionInitiator {
 										+ ":"
 										+ YamlReader.getYamlValue(
 												"Authentication.password")
-										        .replaceAll("#", "%23")+ "@"
-//												.replaceAll("@", "%40") + "@"
+//										        .replaceAll("#", "%23")+ "@"
+												.replaceAll("@", "%40") + "@"
 										+ "iwebtest");
 
 
