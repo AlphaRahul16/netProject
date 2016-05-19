@@ -719,6 +719,7 @@ public class ASM_OMRPage extends GetPage {
 
 	private void verifyProductsIndividualAmount(Map<String, String> mapRenewedProductDetails) {
 		switchToEwebRenewalFrame();
+		wait.hardWait(5);
 		for(int i=0;i<elements("txt_productname").size();i++)
 		{
 			System.out.println(elements("txt_productname").get(i).getText());

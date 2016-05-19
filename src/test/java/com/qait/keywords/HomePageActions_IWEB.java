@@ -142,15 +142,8 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnTab(String tabName) {
-		System.out.println("chrome"+isBrowser("chrome"));
-//		if(isBrowser("chrome"))
-//		{
-//			System.out.println(System.getProperty("browser"));
-//			launchUrl(element("link_tabsOnModule", tabName).getAttribute("href"));
-//			System.out.println("safsf");
-//		}
-//		else
-//		{
+		
+
 
 		isElementDisplayed("link_tabsOnModule", tabName);
 	    element("link_tabsOnModule", tabName).click();
@@ -192,7 +185,6 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 	
 	public void enterAuthentication(String uName, String password) {
-
 		  if ((isBrowser("ie") || isBrowser("internetexplorer") || isBrowser("chrome"))) {
 		   System.out.println("in authentication");
 		   setClipboardData(uName);
@@ -220,8 +212,6 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		    } catch (AWTException e) {
 		    e.printStackTrace();
 		    }
-
-		   
 		 }
 
 		 }
