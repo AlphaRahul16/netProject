@@ -22,10 +22,9 @@ import com.qait.automation.TestSessionInitiator;
 public class ACS_AwardsVoting_Test {
 
 	TestSessionInitiator test;
-	String app_url_IWEB, app_url_Awards;
+	String app_url_IWEB, app_url_Awards,currentAwardName;
 	String[] startEndDate;
-	private String caseID,
-			currentAwardName = "Earle B. Barnes Award for Leadership in Chemical Research Management:2017";
+	
 	Map<String, List<String>> memberDetail = new HashMap<>();
 	List<String> memberDetails, nameOfJudges, rescusedJudges;
 	Set<String> numberOfNomineesInEntrants = new HashSet<>();
@@ -39,7 +38,7 @@ public class ACS_AwardsVoting_Test {
 
 	Map<Integer, String> confirmNominees = new HashMap<Integer, String>();
 	List<Map<Integer, String>> listsOfRanks = new ArrayList<Map<Integer, String>>();
-
+	private String caseID;
 	public ACS_AwardsVoting_Test() {
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "AwardsVoting";
 	}
@@ -84,7 +83,7 @@ public class ACS_AwardsVoting_Test {
 		test.invoicePage.collapseDetailsMenu("award stages/rounds");
 	}
 
-	@Test(dependsOnMethods = "Step02_TC02_Verify_Nominees_And_Set_Start_End_Dates_Round_1")
+	//@Test(dependsOnMethods = "Step02_TC02_Verify_Nominees_And_Set_Start_End_Dates_Round_1")
 	public void Step03_TC03_Add_Judges_Fetch_Rescused_Status() {
 		test.invoicePage.expandDetailsMenu("award judges");
 		test.awardsPageAction.verifyNumberOfJudgesAndAdd();
@@ -218,7 +217,7 @@ public class ACS_AwardsVoting_Test {
 		test.awardsPageAction.editStageRound(votingRounds-1);
 	}
 
-	@Test(dependsOnMethods = "Step03_TC03_Add_Judges_Fetch_Rescused_Status")
+	//@Test(dependsOnMethods = "Step03_TC03_Add_Judges_Fetch_Rescused_Status")
 	public void Step04_TC05_Awards_Voting_Awards_Voting_IWeb() {
 		int votingRounds = Integer.parseInt(test.homePageIWEB.map()
 				.get("Winner in rounds").replace("Round", ""));

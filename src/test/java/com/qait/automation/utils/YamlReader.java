@@ -23,19 +23,26 @@ public class YamlReader {
 	public static String yamlFilePath = "";
 
 	public static String setYamlFilePath() {
-		
-		String tier = "";
-	    try {
-	      if (System.getProperty("tier").contains("defaultTier") || System.getProperty("tier").isEmpty())
-	        tier = Tiers.valueOf(getProperty("Config.properties", "tier")).toString();
-	      else {
-	        tier = System.getProperty("tier");
-	      }
-	    } catch (NullPointerException e) {
-	      tier = Tiers.valueOf(getProperty("Config.properties", "tier")).toString();
 
-	    }
-		if (tier.equalsIgnoreCase("dev")) {
+		String tier = "";
+		try {
+			if (System.getProperty("tier").contains("defaultTier")
+					|| System.getProperty("tier").isEmpty())
+				tier = Tiers.valueOf(getProperty("Config.properties", "tier"))
+						.toString();
+			else {
+				tier = System.getProperty("tier");
+			}
+		} catch (NullPointerException e) {
+			tier = Tiers.valueOf(getProperty("Config.properties", "tier"))
+					.toString();
+
+		}
+
+		if (tier.equalsIgnoreCase("dev4")) {
+			yamlFilePath = "src/test/resources/testdata/DEV4_TestData.yml";
+
+		} else if (tier.equalsIgnoreCase("dev")) {
 			yamlFilePath = "src/test/resources/testdata/DEV_TestData.yml";
 
 		} else if (tier.equalsIgnoreCase("STAGE4")
@@ -46,8 +53,7 @@ public class YamlReader {
 				|| tier.equalsIgnoreCase("Stage3")
 				|| tier.equalsIgnoreCase("stage3")) {
 			yamlFilePath = "src/test/resources/testdata/STAGE3_TestData.yml";
-		}
-		else if (tier.equalsIgnoreCase("STAGE2")
+		} else if (tier.equalsIgnoreCase("STAGE2")
 				|| tier.equalsIgnoreCase("Stage2")
 				|| tier.equalsIgnoreCase("stage2")) {
 			yamlFilePath = "src/test/resources/testdata/STAGE2_TestData.yml";
@@ -55,8 +61,7 @@ public class YamlReader {
 				|| tier.equalsIgnoreCase("Stage1")
 				|| tier.equalsIgnoreCase("stage1")) {
 			yamlFilePath = "src/test/resources/testdata/STAGE1_TestData.yml";
-		}  
-		else if (tier.equalsIgnoreCase("prod")
+		} else if (tier.equalsIgnoreCase("prod")
 				|| tier.equalsIgnoreCase("production")) {
 			yamlFilePath = "src/test/resources/testdata/PROD_TestData.yml";
 		} else {
@@ -120,11 +125,11 @@ public class YamlReader {
 		}
 		return object;
 	}
-	
+
 	public static int generateRandomNumber(int MinRange, int MaxRange) {
 		int randomNumber = MinRange
 				+ (int) (Math.random() * ((MaxRange - MinRange) + 1));
 		return randomNumber;
 	}
-	
+
 }
