@@ -43,6 +43,8 @@ txt_subscriptionIssueFulfilled           xpath       (//th/a)[2]/../../following
 txt_subscriptionStartIssue               xpath       (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[10]
 btnArrowProdName                         xpath       //td[contains(text(),'${prodName}')][1]/preceding-sibling::td[2]//i
 list_emailAddressType                    xpath         //tbody/tr/td[4]
+inp_fieldSelect                          xpath       //span[starts-with(text(),'${fieldName}')]/../following-sibling::td//select
+txt_NominatorName                        xpath       .//*[@id='dgDynamicList']/tbody/tr/td[contains(text(),'${NomineeName}')]/following-sibling::td[4][contains(text(),'Submitted')]/following-sibling::td[3]    
 txt_emailID                             xpath          //tbody/tr[${rowNumber}]/td[5]
 link_addRecordEmail                     xpath          //a[@title='Add Record: e-mail addresses']
 link_editEmail                          xpath         (//a[@title='edit record']/i)[${1}]
@@ -63,4 +65,5 @@ txtarea_CitationRecommedation          xpath            //label[contains(text(),
 inp_presentposition                    xpath            //label[contains(text(),'present position')]/preceding-sibling::input
 drpdwn_industrytype                    css                select[id*='${value}']>option[selected]
 link_editEmail                         xpath              (//a[@title='edit record']/i)[${1}]
+txt_gotorecordrenewal                  xpath            (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[3]/a/i 
 ======================================================================================================================================

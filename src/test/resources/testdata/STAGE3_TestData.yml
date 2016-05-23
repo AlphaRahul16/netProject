@@ -508,9 +508,4 @@ AddressValidation:
 email:
   send: false
   recepients:
-    recepient1: avnishrawat@qainfotech.net
-    
-MYDTransfer:
-    queryName: Selenium - MYD Query
-AddressValidation:
-    queryName: Selenium - US Constituents    
+    recepient1: avnishrawat@qainfotech.net   
