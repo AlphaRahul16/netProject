@@ -17,7 +17,7 @@ list_mbrStatus                                       xpath                  //a[
 img_cross                                           xpath                  //img[@title='${memberDetailName}']
 btn_menuItems                                     xpath                    //a[contains(@title,'${menuName}')]/i
 img_orderEntry                                      xpath                   //img[contains(@alt,'Order Entry')]
-lnk_selectProduct                                   id                     HYPERLINK_17
+lnk_selectProduct                                   id                      HYPERLINK_17
 txt_menuItems                                      id                      HYPERLINK_20
 list_association                                    id                     mbr_asn_code
 list_memberType                                     id                     mbr_mbt_key
@@ -71,12 +71,13 @@ table_lineItems                                   id                         UPD
 frame_selectProduct                              id                             menu_a83665ae18eb43488c5d83ce5f6027f8  
 list_billAddress                                 id                         inv_cxa_key   
 link_email                                       id                          F1_HYPERLINK_0     
-txt_contactId                                     id                        F1_cst_id
+txt_ContactId                                     id                        F1_cst_id
 txt_customerAddress                                id                          F1_cxa_mailing_label_html
 txt_addressType                                  id                           F1_cxa_adt_key_Display_Text_
 label_listMemberShip                             id                          LabelDataFormHeader
 list_memberStatus                               xpath                        //a[starts-with(text(),'Member Status')]/../../following-sibling::tr/td[10]
 list_joindate                                   xpath                         //td[contains(text(),'active')]/following-sibling::td[1]       
+txt_effectiveDateForActive                       xpath                          //td[starts-with(text(),'Active')]/following-sibling::td[3]       
 inp_enterDetails                                xpath                         //span[contains(text(),'${detailName}')]/../following-sibling::td/input
 btn_go                                          id                           ButtonSearch
 btn_editContactInfo                              css                          #F1_HYPERLINK_1
@@ -147,4 +148,23 @@ txt_expireDate_chapter                           xpath                          
 btn_addBatch                                     id                             inv_bat_key_oAddHyperLink
 inp_addBatchName                                 id                             bat_code
 list_batchSecurityGroup                          id                             gsc_grp_key
+drpdwn_memberType                                xpath                        //select[contains(@id,'QueryAsk')]
+btn_detailsMenuAACT                              xpath                        //span[text()='${menuName}']/../a[1]
+txt_termStartDaterenewal                         xpath                         (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[14]
+txt_termEndDaterenewal                           xpath                        (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[15]
+heading_queryAskAtRunTime                        xpath                         //span[text()='Query - Ask At Run-Time Values']
+list_memberPackage1                               css                           .DataFormDropDownList
+btn_goPackage                                    id                             ButtonAskGo
+txt_memberInfo                                   xpath                        //label[contains(text(),'${value}')]/following-sibling::span  
+btn_mydTransfer                                  xpath                        //a[@id='F1_HYPERLINK_7']/img    
+txt_balanceAmount                                xpath                        //table[@id='TransferTable']//span
+list_term                                        id                            ord_ptr_key
+list_newPackage                                  id                            mbr_pak_prd_renewal_key
+heading_transferPackage                          xpath                         //span[text()='Transfer Package']
+btn_transferNow                                  id                            TransferMembershipButtonID
+btn_gotorenewal                                  xpath                       (//td[contains(text(),'Active Renewed-No Response')]/preceding-sibling::td[3]//i)[1]
+txt_PaymentStatus                                xpath                        //td[contains(text(),'${productName}')]//following-sibling::td[1]
+icon_up                                          xpath                         //span[contains(text(),'${value}')]/preceding-sibling::a/i[@class='icon-chevron-up']
+txt_productPackage                               xpath                        (//th/a)[2]/../../following-sibling::tr[1]//td[4]
+txt_ContactId                                     id                        F1_cst_id
 ==============================================================================================================================================

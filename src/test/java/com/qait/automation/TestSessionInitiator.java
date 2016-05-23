@@ -8,6 +8,7 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -219,12 +220,9 @@ public class TestSessionInitiator {
 										+ YamlReader
 												.getYamlValue("Authentication.userName")
 										+ ":"
-										+ YamlReader.getYamlValue(
-												"Authentication.password")
-//										        .replaceAll("#", "%23")+ "@"
-												.replaceAll("@", "%40") + "@"
-										+ "iwebtest");
-
+										+URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), 
+												"UTF-8")
+										+ "@iwebtest");
 
 			/*if (_getSessionConfig().get("browser").equalsIgnoreCase("chrome") && baseurl.contains("iwebtest")) {
 				driver.get(baseurl.replaceAll("https://iwebtest",
