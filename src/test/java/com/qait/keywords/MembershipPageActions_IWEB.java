@@ -20,6 +20,7 @@ import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.DateUtil;
 import com.qait.automation.utils.YamlReader;
+import com.thoughtworks.selenium.webdriven.commands.WaitForPageToLoad;
 
 public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	YamlInformationProvider getCenOrdEntry;
@@ -2134,6 +2135,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		memberDetails.add(customerContactId);
 		return memberDetails;
 	}
+	
+	public String getCustomerID(){
+		switchToDefaultContent();
+		wait.waitForPageToLoadCompletely();
+		customerContactId = element("txt_ContactId").getText().trim();
+		return customerContactId;
+	}
 
 	public List<String> getCustomerFullNameAndContactID() {
 
@@ -2459,23 +2467,23 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		  }
 
 	public String getProductName() {
-		isElementDisplayed("");
-		return element("").getText().trim();
+		isElementDisplayed("productname_txt", "1");
+		return element("productname_txt", "1").getText().trim();
 	}
 
 	public String getPriceValue() {
-		isElementDisplayed("");
-		return element("").getText().trim();
+		isElementDisplayed("pricevalue_txt","1");
+		return element("pricevalue_txt", "1").getText().trim();
 	}
 
 	public String getTermStartDate() {
-		isElementDisplayed("");
-		return element("").getText().trim();
+		isElementDisplayed("txt_termStartDaterenewal", "1");
+		return element("txt_termStartDaterenewal", "1").getText().trim();
 	}
 
 	public String getTermEndDate() {
-		isElementDisplayed("");
-		return element("").getText().trim();
+		isElementDisplayed("txt_termEndDaterenewal","1");
+		return element("txt_termEndDaterenewal","1").getText().trim();
 	} 
 	 
 	 public void verifyProductPackage(String productPackage){
@@ -2489,6 +2497,36 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		 isElementDisplayed("txt_ContactId");
 		 logMessage("STEP : "+Member+" Id is : "+element("txt_ContactId").getText().trim()+"\n");
 	 }
+
+	public void clickOnMemberTransferButton() {
+		isElementDisplayed("btn_transferMem");
+		element("btn_transferMem").click();
+		logMessage("STEP : Clicked on Transfer button\n");
+		switchToDefaultContent();
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(4);
+	}
+
+	public void updateInformationAfterClickingTransferButton(String option, String option2) {
+		switchToFrame(element("iframe"));
+		isElementDisplayed("drpdown_memtype");
+		selectProvidedTextFromDropDown(element("drpdown_memtype"), option);
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
+		isElementDisplayed("drpdown_invoice");
+		selectProvidedTextFromDropDown(element("drpdown_invoice"), "ACS: SELENIUM BATCH");
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
+		isElementDisplayed("drpdown_package");
+		selectProvidedTextFromDropDown(element("drpdown_package"), option2);
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
+		isElementDisplayed("btn_transferNow");
+		element("btn_transferNow").click();
+		switchToDefaultContent();
+		waitForSpinner();
+		logMessage("Clicked On Transfer Now Button");
+	}
 
 
 }
