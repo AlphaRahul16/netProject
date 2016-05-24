@@ -19,6 +19,7 @@ public class ACS_Member_Transfer_Smoke_Test {
 	TestSessionInitiator test;
 	String app_url_iweb, custId;
 	List<String> fieldDefinition = new ArrayList<String>();
+	List<String> fieldNameOnSpreadSheet = new ArrayList<String>();
 	HashMap<String, String> dataList = new HashMap<String, String>();
 	LinkedHashMap<String, String> BeforeList = new LinkedHashMap<String, String>();
 	LinkedHashMap<String, String> AfterList = new LinkedHashMap<String, String>();
@@ -31,6 +32,7 @@ public class ACS_Member_Transfer_Smoke_Test {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		dataList = XlsReader.getValuesFromDataSheet("Scenerios");
 		fieldDefinition = XlsReader.getValuesFromFieldDefinitionsSheet("Field Definitions", "Field Name on Page");
+		fieldNameOnSpreadSheet = XlsReader.getValuesFromFieldDefinitionsSheet("Field Definitions", "Field Name on Spreadsheet");
 		app_url_iweb = getYamlValue("app_url_IWEB");
 		test.launchApplication(app_url_iweb);
 	}
@@ -57,49 +59,49 @@ public class ACS_Member_Transfer_Smoke_Test {
 		}
 		
 		for (i = 0; i < 4; i++) {
-			BeforeList.put(fieldDefinition.get(i),
+			BeforeList.put(fieldNameOnSpreadSheet.get(i),
 					test.memberShipPage.getMemberInfoOnMemberShipProfile(fieldDefinition.get(i)));
 		}
 
 		for (j = i; j < 7; j++) {
-			BeforeList.put(fieldDefinition.get(j),
+			BeforeList.put(fieldNameOnSpreadSheet.get(j),
 					test.memberShipPage.getMemberDetailsOnMemberShipProfile(fieldDefinition.get(j)));
 		}
-		BeforeList.put(fieldDefinition.get(j), test.memberShipPage.numberOfYearsForInactiveMember());
+		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.memberShipPage.numberOfYearsForInactiveMember());
 		j++;
-		BeforeList.put(fieldDefinition.get(j), test.memberShipPage.getPaymentStatus());
+		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.memberShipPage.getPaymentStatus());
 		j++;
 		test.invoicePage.expandDetailsMenu("invoices");
-		BeforeList.put(fieldDefinition.get(j), test.memberShipPage.getProductName());
+		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.memberShipPage.getProductName());
 		j++;
-		BeforeList.put(fieldDefinition.get(j), test.memberShipPage.getPriceValue());
+		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.memberShipPage.getPriceValue());
 		j++;
-		BeforeList.put(fieldDefinition.get(j), test.memberShipPage.getTermStartDate());
+		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.memberShipPage.getTermStartDate());
 		j++;
-		BeforeList.put(fieldDefinition.get(j), test.memberShipPage.getTermEndDate());
+		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.memberShipPage.getTermEndDate());
 		j++;
 		test.memberShipPage.navigateToInvoicePageForFirstProduct();
 
-		BeforeList.put(fieldDefinition.get(j), test.invoicePage.getDataFromInvoiceProfilePage(fieldDefinition.get(j)));
+		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.invoicePage.getDataFromInvoiceProfilePage(fieldDefinition.get(j)));
 		j++;
-		BeforeList.put(fieldDefinition.get(j), test.invoicePage.getDataFromInvoiceProfilePage(fieldDefinition.get(j)));
+		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.invoicePage.getDataFromInvoiceProfilePage(fieldDefinition.get(j)));
 		j++;
-		BeforeList.put(fieldDefinition.get(j), test.invoicePage.getDataFromInvoiceProfilePage(fieldDefinition.get(j)));
+		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.invoicePage.getDataFromInvoiceProfilePage(fieldDefinition.get(j)));
 		j++;
 
 		test.memberShipPage.clickOnCustomerNameAndNavigateToMembershipPage();
 		custId = test.memberShipPage.getCustomerID();
 		test.invoicePage.expandDetailsMenu("individual memberships");
 
-		BeforeList.put(fieldDefinition.get(j), test.individualsPage.getMemberType());
+		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getMemberType());
 		j++;
-		BeforeList.put(fieldDefinition.get(j), test.individualsPage.getMemberStatus());
+		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getMemberStatus());
 		j++;
-		BeforeList.put(fieldDefinition.get(j), test.individualsPage.getJoinFieldValue());
+		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getJoinFieldValue());
 		j++;
-		BeforeList.put(fieldDefinition.get(j), test.individualsPage.getEffectiveFieldValue());
+		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getEffectiveFieldValue());
 		j++;
-		BeforeList.put(fieldDefinition.get(j), test.individualsPage.getExpireDate());
+		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getExpireDate());
 		test.invoicePage.collapseDetailsMenu("individual memberships");
 		
 		 for(Map.Entry m:BeforeList.entrySet()) {
@@ -114,48 +116,48 @@ public class ACS_Member_Transfer_Smoke_Test {
 	@Test
 	public void Step02_TC02_Fetch_Member_Details_After_Transfer() {
 		for (i = 0; i < 4; i++) {
-			AfterList.put(fieldDefinition.get(i),
+			AfterList.put(fieldNameOnSpreadSheet.get(i),
 					test.memberShipPage.getMemberInfoOnMemberShipProfile(fieldDefinition.get(i)));
 		}
 
 		for (j = i; j < 7; j++) {
-			AfterList.put(fieldDefinition.get(j),
+			AfterList.put(fieldNameOnSpreadSheet.get(j),
 					test.memberShipPage.getMemberDetailsOnMemberShipProfile(fieldDefinition.get(j)));
 		}
-		AfterList.put(fieldDefinition.get(j), test.memberShipPage.numberOfYearsForInactiveMember());
+		AfterList.put(fieldNameOnSpreadSheet.get(j), test.memberShipPage.numberOfYearsForInactiveMember());
 		j++;
-		AfterList.put(fieldDefinition.get(j), test.memberShipPage.getPaymentStatus());
+		AfterList.put(fieldNameOnSpreadSheet.get(j), test.memberShipPage.getPaymentStatus());
 		j++;
 		
-		AfterList.put(fieldDefinition.get(j), test.memberShipPage.getProductName());
+		AfterList.put(fieldNameOnSpreadSheet.get(j), test.memberShipPage.getProductName());
 		j++;
-		AfterList.put(fieldDefinition.get(j), test.memberShipPage.getPriceValue());
+		AfterList.put(fieldNameOnSpreadSheet.get(j), test.memberShipPage.getPriceValue());
 		j++;
-		AfterList.put(fieldDefinition.get(j), test.memberShipPage.getTermStartDate());
+		AfterList.put(fieldNameOnSpreadSheet.get(j), test.memberShipPage.getTermStartDate());
 		j++;
-		AfterList.put(fieldDefinition.get(j), test.memberShipPage.getTermEndDate());
+		AfterList.put(fieldNameOnSpreadSheet.get(j), test.memberShipPage.getTermEndDate());
 		j++;
 		test.memberShipPage.navigateToInvoicePageForFirstProduct();
 
-		AfterList.put(fieldDefinition.get(j), test.invoicePage.getDataFromInvoiceProfilePage(fieldDefinition.get(j)));
+		AfterList.put(fieldNameOnSpreadSheet.get(j), test.invoicePage.getDataFromInvoiceProfilePage(fieldDefinition.get(j)));
 		j++;
-		AfterList.put(fieldDefinition.get(j), test.invoicePage.getDataFromInvoiceProfilePage(fieldDefinition.get(j)));
+		AfterList.put(fieldNameOnSpreadSheet.get(j), test.invoicePage.getDataFromInvoiceProfilePage(fieldDefinition.get(j)));
 		j++;
-		AfterList.put(fieldDefinition.get(j), test.invoicePage.getDataFromInvoiceProfilePage(fieldDefinition.get(j)));
+		AfterList.put(fieldNameOnSpreadSheet.get(j), test.invoicePage.getDataFromInvoiceProfilePage(fieldDefinition.get(j)));
 		j++;
 
 		test.memberShipPage.clickOnCustomerNameAndNavigateToMembershipPage();
 		test.invoicePage.expandDetailsMenu("individual memberships");
 
-		AfterList.put(fieldDefinition.get(j), test.individualsPage.getMemberType());
+		AfterList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getMemberType());
 		j++;
-		AfterList.put(fieldDefinition.get(j), test.individualsPage.getMemberStatus());
+		AfterList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getMemberStatus());
 		j++;
-		AfterList.put(fieldDefinition.get(j), test.individualsPage.getJoinFieldValue());
+		AfterList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getJoinFieldValue());
 		j++;
-		AfterList.put(fieldDefinition.get(j), test.individualsPage.getEffectiveFieldValue());
+		AfterList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getEffectiveFieldValue());
 		j++;
-		AfterList.put(fieldDefinition.get(j), test.individualsPage.getExpireDate());
+		AfterList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getExpireDate());
 		test.invoicePage.collapseDetailsMenu("individual memberships");
 		
 		for(Map.Entry m:AfterList.entrySet()) {
@@ -165,6 +167,11 @@ public class ACS_Member_Transfer_Smoke_Test {
 		System.out.println("Customer ID ::"+custId);
 	}
 	
+	
+	@Test
+	public void Step03_TC03_Match_Before_Data_With_After_Data_According_To_Mentioned_Criteria() {
+		test.memberShipPage.matchBeforeDataWithAfterDataAccordingToMentionedCriteria(BeforeList,AfterList,dataList);
+	}
 	
 
 }

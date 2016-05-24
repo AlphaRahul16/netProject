@@ -95,15 +95,15 @@ public class XlsReader {
 		 
 		 int flag=0;
 		try {
-            file1  = new FileInputStream(new File("src/test/resources/TestDataLibrary/Member Transfer.xlsx"));
+            file1  = new FileInputStream(new File("src/test/resources/TestDataLibrary/Member Transfer.xls"));
              // Get the workbook instance for XLS file
              @SuppressWarnings("resource")
-             XSSFWorkbook workbook = new XSSFWorkbook(file1);
+             HSSFWorkbook workbook = new HSSFWorkbook(file1);
              // Get first sheet from the workbook
-             XSSFSheet sheet = workbook.getSheetAt(0);
+             HSSFSheet sheet = workbook.getSheetAt(0);
              // Iterate through each rows from first sheet
           /*   Iterator<Row> rowIterator = sheet.iterator();*/
-             XSSFRow header =  sheet.getRow(2);//Header Name
+             HSSFRow header =  sheet.getRow(2);//Header Name
              
              System.out.println("Number of Column::"+header.getPhysicalNumberOfCells());
              
@@ -229,11 +229,11 @@ public class XlsReader {
 		FileInputStream file = null;
 		int flag = 0;
 		try {
-            file  = new FileInputStream(new File("src/test/resources/TestDataLibrary/Member Transfer.xlsx"));
+            file  = new FileInputStream(new File("src/test/resources/TestDataLibrary/Member Transfer.xls"));
              @SuppressWarnings("resource")
-             XSSFWorkbook workbook = new XSSFWorkbook(file);
-             XSSFSheet sheet = workbook.getSheet(sheetName);
-             XSSFRow header =  sheet.getRow(2);
+             HSSFWorkbook workbook = new HSSFWorkbook(file);
+             HSSFSheet sheet = workbook.getSheet(sheetName);
+             HSSFRow header =  sheet.getRow(2);
              for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
  				if(header.getCell(i).getStringCellValue().equalsIgnoreCase(columnName)){
  					flag = i;
