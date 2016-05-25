@@ -80,6 +80,7 @@ list_joindate                                   xpath                         //
 txt_effectiveDateForActive                       xpath                          //td[starts-with(text(),'Active')]/following-sibling::td[3]       
 inp_enterDetails                                xpath                         //span[contains(text(),'${detailName}')]/../following-sibling::td/input
 btn_go                                          id                           ButtonAskGo
+btn_goask                                       id                           ButtonAskGo
 btn_editContactInfo                              css                          #F1_HYPERLINK_1
 inp_editEmail                                    id                           eml_address
 btn_editNameAndAddress                           css                          #F1_HYPERLINK_2

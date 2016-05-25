@@ -915,6 +915,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		element("btn_go").click();
 		logMessage("Step : Go button is clicked in btn_go\n");
 	}
+	
+	public void clickOnGoAskButton() {
+		isElementDisplayed("btn_goask");
+		element("btn_goask").click();
+		logMessage("Step : Go Ask button is clicked in btn_goask\n");
+	}
+
 
 	public void verifyMemberStatusIsActive() {
 		for (WebElement element : elements("list_memberStatus")) {
@@ -2534,13 +2541,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Clicked On Transfer Now Button");
 	}
 
-	public void matchBeforeDataWithAfterDataAccordingToMentionedCriteria(LinkedHashMap<String, String> beforeList,
+	public LinkedHashMap<String, String> matchBeforeDataWithAfterDataAccordingToMentionedCriteria(LinkedHashMap<String, String> beforeList,
 			LinkedHashMap<String, String> afterList, HashMap<String, String> criteriaList) {
 		LinkedHashMap<String, String> ResultList = new LinkedHashMap<String, String>();
 		Assert.assertEquals(beforeList.size(), afterList.size());
-		
-		
-		
 		/*Iterator it = beforeList.entrySet().iterator();
 		while (it.hasNext()) {
 		    Map.Entry pairs = (Map.Entry)it.next();
@@ -2695,6 +2699,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 						}else{
 							ResultList.put(criteria.getKey()+"","y");
 						}
+					}else if(criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")){
+						if (beforeList.get(criteria.getKey()).trim().equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
+							ResultList.put(criteria.getKey()+"","y");
+						}else{
+							ResultList.put(criteria.getKey()+"","n");
+						}
 					}
 				break;
 			case "MP End":
@@ -2709,6 +2719,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 						}else{
 							ResultList.put(criteria.getKey()+"","y");
 						}
+					}else if(criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")){
+						if (beforeList.get(criteria.getKey()).trim().equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
+							ResultList.put(criteria.getKey()+"","y");
+						}else{
+							ResultList.put(criteria.getKey()+"","n");
+						}
 					}
 				break;
 			case "IVP TX Date":
@@ -2722,6 +2738,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 							ResultList.put(criteria.getKey()+"","n");
 						}else{
 							ResultList.put(criteria.getKey()+"","y");
+						}
+					}else if(criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")){
+						if (beforeList.get(criteria.getKey()).trim().equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
+							ResultList.put(criteria.getKey()+"","y");
+						}else{
+							ResultList.put(criteria.getKey()+"","n");
 						}
 					}
 				break;
@@ -2793,6 +2815,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 					}else{
 						ResultList.put(criteria.getKey()+"","n");
 					}
+				}else if(criteriaList.get(criteria.getKey()).trim().contains("{NOT NULL}")){
+					if (afterList.get(criteria.getKey()).trim().isEmpty()) {
+						ResultList.put(criteria.getKey()+"","n");
+					}else{
+						ResultList.put(criteria.getKey()+"","y");
+					}
 				}
 				break;
 			default:
@@ -2800,12 +2828,28 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			}
 		}
 		
+	/*	for(Map.Entry result :ResultList.entrySet()) {
+			logMessage(result.getKey()+"\t"+result.getValue());
+		}*/
+		
+		logMessage("===========================Here Are the Complete Test Log================================");
+		logMessage("Case ID::"+criteriaList.get("ID"));
+		logMessage("Initial Conditions:");
+		logMessage("Initial Mbr Type::"+criteriaList.get("Initial Mbr Type"));
+		logMessage("Initial Mbr Status::"+criteriaList.get("Initial Mbr Status"));
+		logMessage("Initial Mbr Package::"+criteriaList.get("Initial Mbr Package"));
+		logMessage("Initial MP Exp Date::"+criteriaList.get("Initial MP Exp Date"));
+        logMessage("Target Mbr Type::"+criteriaList.get("Target Mbr Type"));
+        logMessage("Target Mbr Package::"+criteriaList.get("Target Mbr Package"));
+        logMessage("==========================================================================================");
+        logMessage("Test Result");
+        logMessage("Field\t\tBefore\t\tAfter\t\tCriteria\t\tPass?");
+        for(Map.Entry before :beforeList.entrySet()){
+			logMessage(before.getKey()+"\t\t"+before.getValue()+"\t\t"+afterList.get(before.getKey())+"\t\t"+criteriaList.get(before.getKey())+"\t\t"+ResultList.get(before.getKey()));
+		}
 		
 		System.out.println("After Validation");
-		
-		for(Map.Entry result :ResultList.entrySet()) {
-			System.out.println(result.getKey()+"  "+result.getValue());
-		}
+		return ResultList;
 	}
 
 	private String _getYOSIncrementedByNum(String yos, int i) {
@@ -2827,6 +2871,18 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			e.printStackTrace();
 		}
 		return formatter.format(c.getTime());
+	}
+
+	public void verifyResultListData(LinkedHashMap<String, String> resultList) {
+		boolean flag=true;
+		for(Map.Entry result :resultList.entrySet()) {
+			if (result.getValue().equals("n")) {
+				flag = false;
+			}
+			
+		}
+		Assert.assertTrue(flag,"[FAILED]:: Data for Before and After member transfer does not  match the criteria \n FINAL Test Result ::"+flag);
+		logMessage("[ASSERTION PASSED]:: Data for Before and After member transfer match the criteria \n FINAL Test Result ::"+flag);
 	}
 	
 	
