@@ -22,7 +22,9 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyUserIsOnHomePage(String pageTitle) {
 		handleAlert();
 		verifyPageTitleContains(pageTitle);
+
 		logMessage("ASSERT PASSED: verified that user is on " + this.pagename + "\n");
+
 
 	}
 
@@ -142,8 +144,6 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 
 		isElementDisplayed("link_tabsOnModule", tabName);
 		element("link_tabsOnModule", tabName).click();
-		System.out.println("inside" + System.getProperty("browser"));
-
 		logMessage("STEP : " + tabName + " tab is clicked\n");
 	}
 
