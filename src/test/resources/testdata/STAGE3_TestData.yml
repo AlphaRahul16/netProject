@@ -42,6 +42,7 @@ csv-data-file:
 Authentication: 
   userName: c00767
   password: "pZ6578%239"
+
   
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt
@@ -510,3 +511,4 @@ email:
   recepients:
     recepient1: avnishrawat@qainfotech.net
     
+

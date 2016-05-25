@@ -2,8 +2,14 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -20,6 +26,7 @@ import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.DateUtil;
 import com.qait.automation.utils.YamlReader;
+import com.thoughtworks.selenium.webdriven.commands.WaitForPageToLoad;
 
 public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	YamlInformationProvider getCenOrdEntry;
@@ -943,7 +950,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public String numberOfYearsForInactiveMember() {
 		isElementDisplayed("txt_numberOfyears");
-		String numberOfYears = element("txt_numberOfyears").getText();
+		String numberOfYears = element("txt_numberOfyears").getText().trim();
 		logMessage("Step : total years of services for inactive member is " + numberOfYears);
 		return numberOfYears;
 	}
@@ -968,7 +975,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnTab(String tabName) {
 		isElementDisplayed("link_tabsOnModule", tabName);
-		element("link_tabsOnModule", tabName).click();
+		clickUsingXpathInJavaScriptExecutor(element("link_tabsOnModule", tabName));
+//		element("link_tabsOnModule", tabName).click();
 		logMessage("STEP : " + tabName + " tab is clicked\n");
 
 	}
@@ -1133,7 +1141,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : Customer ID is " + info + " \n");
 		return info;
 	}
-
+	
 	public String getPaymentStatus() {
 		isElementDisplayed("txt_paymentStatus");
 		String paymentStatus = element("txt_paymentStatus").getText().trim();
@@ -2133,6 +2141,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		memberDetails.add(customerContactId);
 		return memberDetails;
 	}
+	
+	public String getCustomerID(){
+		switchToDefaultContent();
+		wait.waitForPageToLoadCompletely();
+		customerContactId = element("txt_ContactId").getText().trim();
+		return customerContactId;
+	}
 
 	public List<String> getCustomerFullNameAndContactID() {
 
@@ -2352,7 +2367,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	
 	public void clickOnMYDTransferButton(){
 		isElementDisplayed("btn_mydTransfer");
-		element("btn_mydTransfer").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_mydTransfer"));
+//		element("btn_mydTransfer").click();
 		logMessage("STEP : Clicked on MYD Transfer Button\n");
 	}
 	
@@ -2367,7 +2383,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(4);
 		String amount=element("txt_balanceAmount").getText().trim().split("\\$")[1];
 		double d= Double.parseDouble(amount);
-        logMessage("Balance Amount is : "+d+"\n");
+        logMessage("STEP : Balance Amount is : "+d+"\n");
         return d;
 	}
 	
@@ -2392,12 +2408,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("STEP : Previous package renewal year : "+previousYear);
 		logMessage("STEP : New package renewal year : "+newYear);
 		if(previousYear<newYear){
-			if(previousAmount<newAmount)
-		       logMessage("PASS : Balance Amount value has increased\n");
+			Assert.assertTrue(previousAmount<newAmount,"ASSERT FAILED : Balance Amount value has not increased\n");
+		       logMessage("ASSERT PASS : Balance Amount value has increased\n");
 		}
 		else if(previousYear>newYear){
-			if(previousAmount>newAmount)
-				logMessage("PASS : Balance Amount value has decreased\n");
+			Assert.assertTrue(previousAmount>newAmount,"ASSERT FAILED : Balance Amount value has not decreased\n");
+				logMessage("ASSERT PASS : Balance Amount value has decreased\n");
 		}
 		else
 			Assert.assertTrue(false,"ASSERT FAIL : Balance Amount value has not changed\n");
@@ -2454,8 +2470,27 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		       Assert.assertTrue(element("txt_termEndDaterenewal","1").getText().length()==1, "Term End Date is not Empty");
 		       logMessage("ASSERT PASSED : Term End date is empty\n");
 		        }
-		   
-		  } 
+		  }
+
+	public String getProductName() {
+		isElementDisplayed("productname_txt", "1");
+		return element("productname_txt", "1").getText().trim();
+	}
+
+	public String getPriceValue() {
+		isElementDisplayed("pricevalue_txt","1");
+		return element("pricevalue_txt", "1").getText().trim();
+	}
+
+	public String getTermStartDate() {
+		isElementDisplayed("txt_termStartDaterenewal", "1");
+		return element("txt_termStartDaterenewal", "1").getText().trim();
+	}
+
+	public String getTermEndDate() {
+		isElementDisplayed("txt_termEndDaterenewal","1");
+		return element("txt_termEndDaterenewal","1").getText().trim();
+	} 
 	 
 	 public void verifyProductPackage(String productPackage){
 		 isElementDisplayed("txt_productPackage");
@@ -2468,5 +2503,333 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		 isElementDisplayed("txt_ContactId");
 		 logMessage("STEP : "+Member+" Id is : "+element("txt_ContactId").getText().trim()+"\n");
 	 }
+
+	public void clickOnMemberTransferButton() {
+		isElementDisplayed("btn_transferMem");
+		element("btn_transferMem").click();
+		logMessage("STEP : Clicked on Transfer button\n");
+		switchToDefaultContent();
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(4);
+	}
+
+	public void updateInformationAfterClickingTransferButton(String option, String option2) {
+		switchToFrame(element("iframe"));
+		isElementDisplayed("drpdown_memtype");
+		selectProvidedTextFromDropDown(element("drpdown_memtype"), option);
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
+		isElementDisplayed("drpdown_invoice");
+		selectProvidedTextFromDropDown(element("drpdown_invoice"), "ACS: SELENIUM BATCH");
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
+		isElementDisplayed("drpdown_package");
+		selectProvidedTextFromDropDown(element("drpdown_package"), option2);
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
+		isElementDisplayed("btn_transferNow");
+		element("btn_transferNow").click();
+		switchToDefaultContent();
+		waitForSpinner();
+		logMessage("Clicked On Transfer Now Button");
+	}
+
+	public void matchBeforeDataWithAfterDataAccordingToMentionedCriteria(LinkedHashMap<String, String> beforeList,
+			LinkedHashMap<String, String> afterList, HashMap<String, String> criteriaList) {
+		LinkedHashMap<String, String> ResultList = new LinkedHashMap<String, String>();
+		Assert.assertEquals(beforeList.size(), afterList.size());
+		
+		
+		
+		/*Iterator it = beforeList.entrySet().iterator();
+		while (it.hasNext()) {
+		    Map.Entry pairs = (Map.Entry)it.next();
+		    System.out.println("Before Member Transfer Value Key::"+pairs.getKey()+" Value::"+beforeList.get(pairs.getKey()));
+		    System.out.println("After Member Transfer Value Key::"+pairs.getKey()+" Value::"+afterList.get(pairs.getKey()));
+		    switch (pairs.getKey()+"") {
+			case "member type":
+				Assert.assertEquals(dataList.get("MP Mbr Type").trim(), afterList.get(pairs.getKey()).trim());
+				logMessage("ASSERTION PASSED:: Criteria "+dataList.get("MP Mbr Type").trim()+" Matched with Member Type After Data Transfer "+afterList.get(pairs.getKey()).trim());
+				break;
+			case "member status":
+				Assert.assertEquals(dataList.get("MP Mbr Status").trim(), afterList.get(pairs.getKey()).trim());
+				logMessage("ASSERTION PASSED:: Criteria "+dataList.get("MP Mbr Type").trim()+" Matched with Member Status After Data Transfer "+afterList.get(pairs.getKey()).trim());
+				break;
+			case "member package":
+				Assert.assertEquals(dataList.get("MP Mbr Pkg").trim(), afterList.get(pairs.getKey()).trim());
+				logMessage("ASSERTION PASSED:: Criteria "+dataList.get("MP Mbr Type").trim()+" Matched with Member Package After Data Transfer "+afterList.get(pairs.getKey()).trim());
+				break;
+			case "renewal package":
+				Assert.assertEquals(dataList.get("MP Renewal Pkg").trim(), afterList.get(pairs.getKey()).trim());
+				logMessage("ASSERTION PASSED:: Criteria "+dataList.get("MP Renewal Pkg").trim()+" Matched with Member Renewal Package After Member Transfer "+afterList.get(pairs.getKey()).trim());
+				break;
+			case "join date":
+				if(dataList.get("MP Join Date").trim().contains("{NO CHANGE}")){
+					Assert.assertEquals(beforeList.get(pairs.getKey()).trim(), afterList.get(pairs.getKey()).trim());
+					logMessage("ASSERTION PASSED::  Verified Before Date "+beforeList.get(pairs.getKey()).trim()+" Matched with After Date After Member Transfer "+afterList.get(pairs.getKey()).trim()+" with criteria "+dataList.get("MP Join Date").trim());
+				}else if(dataList.get("MP Join Date").trim().contains("{+1Y}")){
+					Assert.assertEquals(_getBeforeDateIncrementedByNum(beforeList.get(pairs.getKey()).trim(),1), afterList.get(pairs.getKey()).trim());
+					logMessage("[ASSERTION PASSED]:: Verified Before Date "+beforeList.get(pairs.getKey()).trim()+" incremented By 1 and matched with After Date"+afterList.get(pairs.getKey()).trim()+" After Member Transfer with criteria "+dataList.get("MP Join Date").trim());
+				}
+				break;
+			default:
+				break;
+			}
+		}*/
+		for(Map.Entry criteria :criteriaList.entrySet()) {
+			switch (criteria.getKey()+"") {
+			case "MP Mbr Type":
+				if (afterList.get(criteria.getKey()).trim().equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
+					ResultList.put(criteria.getKey()+"","y");
+				}else{
+					ResultList.put(criteria.getKey()+"","n");
+				}
+				break;
+			case "MP Mbr Status":	
+				if (afterList.get(criteria.getKey()).trim().equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
+					ResultList.put(criteria.getKey()+"","y");
+				}else{
+					ResultList.put(criteria.getKey()+"","n");
+				}
+				break;
+			case "MP Mbr Pkg":	
+				if (afterList.get(criteria.getKey()).trim().equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
+					ResultList.put(criteria.getKey()+"","y");
+				}else{
+					ResultList.put(criteria.getKey()+"","n");
+				}
+				break;
+			case "MP Renewal Pkg":	
+				if (afterList.get(criteria.getKey()).trim().equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
+					ResultList.put(criteria.getKey()+"","y");
+				}else{
+					ResultList.put(criteria.getKey()+"","n");
+				}
+				break;
+			case "MP Join Date":
+				if(criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")){
+				if (beforeList.get(criteria.getKey()).trim().equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
+					ResultList.put(criteria.getKey()+"","y");
+				}else{
+					ResultList.put(criteria.getKey()+"","n");
+				}}else if(criteriaList.get(criteria.getKey()).trim().contains("{+1Y}")){
+					if (_getBeforeDateIncrementedByNum(beforeList.get(criteria.getKey()).trim(),1).equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
+						ResultList.put(criteria.getKey()+"","y");
+					}else{
+						ResultList.put(criteria.getKey()+"","n");
+					}
+				}
+				break;
+			case "MP Eff Date":
+				if(criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")){
+				if (beforeList.get(criteria.getKey()).trim().equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
+					ResultList.put(criteria.getKey()+"","y");
+				}else{
+					ResultList.put(criteria.getKey()+"","n");
+				}}else if(criteriaList.get(criteria.getKey()).trim().contains("{+1Y}")){
+					if (_getBeforeDateIncrementedByNum(beforeList.get(criteria.getKey()).trim(),1).equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
+						ResultList.put(criteria.getKey()+"","y");
+					}else{
+						ResultList.put(criteria.getKey()+"","n");
+					}
+				}
+				break;
+			case "MP Exp Date":
+				if(criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")){
+				if (beforeList.get(criteria.getKey()).trim().equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
+					ResultList.put(criteria.getKey()+"","y");
+				}else{
+					ResultList.put(criteria.getKey()+"","n");
+				}}else if(criteriaList.get(criteria.getKey()).trim().contains("{+1Y}")){
+					if (_getBeforeDateIncrementedByNum(beforeList.get(criteria.getKey()).trim(),1).equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
+						ResultList.put(criteria.getKey()+"","y");
+					}else{
+						ResultList.put(criteria.getKey()+"","n");
+					}
+				}
+				break;
+			case "MP YOS":
+				if(criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")){
+				if (beforeList.get(criteria.getKey()).trim().equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
+					ResultList.put(criteria.getKey()+"","y");
+				}else{
+					ResultList.put(criteria.getKey()+"","n");
+				}}else if(criteriaList.get(criteria.getKey()).trim().contains("{+1Y}")){
+					if (_getYOSIncrementedByNum(beforeList.get(criteria.getKey()).trim(),1).equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
+						ResultList.put(criteria.getKey()+"","y");
+					}else{
+						ResultList.put(criteria.getKey()+"","n");
+					}
+				}
+				break;
+			case "MP Pmt Status":
+				if (afterList.get(criteria.getKey()).trim().equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
+					ResultList.put(criteria.getKey()+"","y");
+				}else{
+					ResultList.put(criteria.getKey()+"","n");
+				}
+				break;
+			case "MP Product":
+				if (afterList.get(criteria.getKey()).trim().equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
+					ResultList.put(criteria.getKey()+"","y");
+				}else{
+					ResultList.put(criteria.getKey()+"","n");
+				}
+				break;
+			case "MP Balance":
+				if (afterList.get(criteria.getKey()).trim().contains(criteriaList.get(criteria.getKey()).trim())) {
+					ResultList.put(criteria.getKey()+"","y");
+				}else{
+					ResultList.put(criteria.getKey()+"","n");
+				}
+				break;
+			case "MP Start":
+				if(criteriaList.get(criteria.getKey()).trim().contains("{NOT NULL}")){
+					if (afterList.get(criteria.getKey()).trim().isEmpty()) {
+						ResultList.put(criteria.getKey()+"","n");
+					}else{
+						ResultList.put(criteria.getKey()+"","y");
+					}}else if(criteriaList.get(criteria.getKey()).trim().contains("{DATE CHANGE}")){
+						if (beforeList.get(criteria.getKey()).trim().equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
+							ResultList.put(criteria.getKey()+"","n");
+						}else{
+							ResultList.put(criteria.getKey()+"","y");
+						}
+					}
+				break;
+			case "MP End":
+				if(criteriaList.get(criteria.getKey()).trim().contains("{NOT NULL}")){
+					if (afterList.get(criteria.getKey()).trim().isEmpty()) {
+						ResultList.put(criteria.getKey()+"","n");
+					}else{
+						ResultList.put(criteria.getKey()+"","y");
+					}}else if(criteriaList.get(criteria.getKey()).trim().contains("{DATE CHANGE}")){
+						if (beforeList.get(criteria.getKey()).trim().equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
+							ResultList.put(criteria.getKey()+"","n");
+						}else{
+							ResultList.put(criteria.getKey()+"","y");
+						}
+					}
+				break;
+			case "IVP TX Date":
+				if(criteriaList.get(criteria.getKey()).trim().contains("{NOT NULL}")){
+					if (afterList.get(criteria.getKey()).trim().isEmpty()) {
+						ResultList.put(criteria.getKey()+"","n");
+					}else{
+						ResultList.put(criteria.getKey()+"","y");
+					}}else if(criteriaList.get(criteria.getKey()).trim().contains("{DATE CHANGE}")){
+						if (beforeList.get(criteria.getKey()).trim().equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
+							ResultList.put(criteria.getKey()+"","n");
+						}else{
+							ResultList.put(criteria.getKey()+"","y");
+						}
+					}
+				break;
+			case "IVP Proforma":
+				if (afterList.get(criteria.getKey()).trim().equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
+					ResultList.put(criteria.getKey()+"","y");
+				}else{
+					ResultList.put(criteria.getKey()+"","n");
+				}
+				break;
+			case "IVP Fully Paid":
+				if (afterList.get(criteria.getKey()).trim().equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
+					ResultList.put(criteria.getKey()+"","y");
+				}else{
+					ResultList.put(criteria.getKey()+"","n");
+				}
+				break;	
+			case "IDP Mbr Type":
+				if (afterList.get(criteria.getKey()).trim().equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
+					ResultList.put(criteria.getKey()+"","y");
+				}else{
+					ResultList.put(criteria.getKey()+"","n");
+				}
+				break;
+			case "IDP Mbr Status":
+				if (afterList.get(criteria.getKey()).trim().equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
+					ResultList.put(criteria.getKey()+"","y");
+				}else{
+					ResultList.put(criteria.getKey()+"","n");
+				}
+				break;
+			case "IDP Join Date":
+				if(criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")){
+				if (beforeList.get(criteria.getKey()).trim().equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
+					ResultList.put(criteria.getKey()+"","y");
+				}else{
+					ResultList.put(criteria.getKey()+"","n");
+				}}else if(criteriaList.get(criteria.getKey()).trim().contains("{+1Y}")){
+					if (_getBeforeDateIncrementedByNum(beforeList.get(criteria.getKey()).trim(),1).equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
+						ResultList.put(criteria.getKey()+"","y");
+					}else{
+						ResultList.put(criteria.getKey()+"","n");
+					}
+				}
+				break;
+			case "IDP Eff Date":
+				if(criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")){
+				if (beforeList.get(criteria.getKey()).trim().equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
+					ResultList.put(criteria.getKey()+"","y");
+				}else{
+					ResultList.put(criteria.getKey()+"","n");
+				}}else if(criteriaList.get(criteria.getKey()).trim().contains("{+1Y}")){
+					if (_getBeforeDateIncrementedByNum(beforeList.get(criteria.getKey()).trim(),1).equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
+						ResultList.put(criteria.getKey()+"","y");
+					}else{
+						ResultList.put(criteria.getKey()+"","n");
+					}
+				}
+				break;
+			case "IDP Exp Date":
+				if(criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")){
+				if (beforeList.get(criteria.getKey()).trim().equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
+					ResultList.put(criteria.getKey()+"","y");
+				}else{
+					ResultList.put(criteria.getKey()+"","n");
+				}}else if(criteriaList.get(criteria.getKey()).trim().contains("{+1Y}")){
+					if (_getBeforeDateIncrementedByNum(beforeList.get(criteria.getKey()).trim(),1).equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
+						ResultList.put(criteria.getKey()+"","y");
+					}else{
+						ResultList.put(criteria.getKey()+"","n");
+					}
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		
+		
+		System.out.println("After Validation");
+		
+		for(Map.Entry result :ResultList.entrySet()) {
+			System.out.println(result.getKey()+"  "+result.getValue());
+		}
+	}
+
+	private String _getYOSIncrementedByNum(String yos, int i) {
+		int j = Integer.parseInt(yos) + i;
+		return j+"";
+	}
+
+	private String _getBeforeDateIncrementedByNum(String sdate , int i) {
+		SimpleDateFormat formatter = new SimpleDateFormat("M/dd/yyyy");
+		Calendar c = Calendar.getInstance();
+		try {
+			Date d = formatter.parse(sdate);
+			c.setTime(d);
+			c.add(Calendar.YEAR, i);
+			System.out.println("Incremented Date::"+formatter.format(c.getTime()));
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return formatter.format(c.getTime());
+	}
+	
+	
+
 
 }

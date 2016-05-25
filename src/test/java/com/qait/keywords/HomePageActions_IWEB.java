@@ -22,8 +22,9 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyUserIsOnHomePage(String pageTitle) {
 		handleAlert();
 		verifyPageTitleContains(pageTitle);
-		logMessage("ASSERT PASSED: verified that user is on " + this.pagename
-				+ "\n");
+
+		logMessage("ASSERT PASSED: verified that user is on " + this.pagename + "\n");
+
 
 	}
 
@@ -89,6 +90,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 		hardWaitForIEBrowser(6);
 		isElementDisplayed("hd_sideBar", tabName);
+
 		if (isBrowser("chrome")) {
 			element("hd_sideBar", tabName).click();
 		} else {
@@ -96,6 +98,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 			clickUsingXpathInJavaScriptExecutor(element("hd_sideBar", tabName));
 		}
 		logMessage("STEP : Click on tab " + tabName + " in hd_sideBar \n");
+
 	}
 
 	public void clickOnMemberShipTab() {
@@ -141,7 +144,6 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 
 		isElementDisplayed("link_tabsOnModule", tabName);
 		element("link_tabsOnModule", tabName).click();
-
 		logMessage("STEP : " + tabName + " tab is clicked\n");
 	}
 
