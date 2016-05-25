@@ -65,6 +65,8 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 			selectMemberDetails("state", abrState);
 		}
 		enterMemberDetail("postalCode", inPostalCode);
+		waitForSpinner();
+		wait.hardWait(2);
 		// selectMemberDetails("phnCountry", phnCountry);
 		//
 		// enterMemberDetails("number", phnNumber);
