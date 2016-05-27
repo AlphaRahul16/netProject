@@ -59,4 +59,5 @@ icon_up                                   xpath                 //span[contains(
 list_links_awardJudgesEditRound           xpath                //span[starts-with(text(),'award judges')]/../../following-sibling::tr//td[starts-with(text(),'Round ${round}')]/preceding-sibling::td[2]//a[@title='edit record']/i
 lbl_alreadyExistJudgeMsz                   xpath               //span[contains(text(),'This record already exists and cannot be added.The statement has been terminated.')]
 inp_judgeName                             id                   cst_sort_name_dn
+btn_cancel                                id                   ButtonCancel                         
 ========================================================================================================================================

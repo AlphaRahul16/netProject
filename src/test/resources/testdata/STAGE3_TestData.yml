@@ -40,13 +40,20 @@ csv-data-file:
   
   
 Authentication: 
-  userName: c00569
-  password: "3r0P85&8"
+<<<<<<< HEAD
+  userName: C00767
+  password: "pZ6578#9"
+
+=======
+  userName: c00616
+  password: "A9319161853@"
+
 
   
+>>>>>>> e08e9f24121e2ab646ba0820a8e5918b226bcb09
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt
-  data-separator: '\t'  
+  data-separator: '\t' 
   
 creditCardInfo: 
   Type: Visa/MC
@@ -507,9 +514,9 @@ AddressValidation:
     queryName: Selenium - US Constituents          
                    
 email:
-  send: false
+  send: true
   recepients:
-    recepient1: avnishrawat@qainfotech.net
+    recepient1: avnishrawat@qainfotech.com
     recepient2: deepakkumar1@qainfotech.com
     
 

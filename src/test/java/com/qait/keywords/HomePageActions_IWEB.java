@@ -131,6 +131,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_tabs");
 		wait.hardWait(1);
 		hardWaitForChromeBrowser(3);
+		
 		executeJavascript("document.getElementsByClassName('dropdown-toggle')[3].click()");
 		// element("btn_tabs").click();
 		logMessage("STEP :  Module tab is clicked\n");
@@ -179,7 +180,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void enterAuthentication(String uName, String password) {
-		if ((isBrowser("ie") || isBrowser("internetexplorer") || isBrowser("chrome"))) {
+		if ((isBrowser("ie") || isBrowser("internetexplorer"))) {
 			System.out.println("in authentication");
 			setClipboardData(uName);
 			Robot robot;
