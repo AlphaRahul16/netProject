@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.omg.CORBA.OMGVMCID;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -1747,6 +1748,17 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		   return false;
 		 }
 
+		 public String getIndividualInformationWhichHasTerminateValueNull(int n){
+			 String value = null;
+			 for (WebElement element : elements("list_individualMem")) {
+				if(element.getText() == null){
+					value =  element.findElement(By.xpath("/..//td["+n+"]")).getText().trim();
+					break;
+				}
+			}
+			return value;
+		 }
+		 
 		public String getMemberType() {
 			isElementDisplayed("txt_subscriptionName","1");
 			return  element("txt_subscriptionName","1").getText().trim();	
