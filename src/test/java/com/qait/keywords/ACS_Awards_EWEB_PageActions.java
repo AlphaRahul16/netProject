@@ -20,7 +20,7 @@ import com.qait.automation.utils.DateUtil;
 
 public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	WebDriver driver;
-	static String pagename = "ACS_Awards_EWEB";
+	static String pagename = "ACS_Awards_Eweb";
 
 	int timeOut, hiddenFieldTimeOut;
 
@@ -176,7 +176,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_submitBallotDate", awardName);
 		Assert.assertTrue(
 				element("txt_submitBallotDate", awardName).getText()
-						.equalsIgnoreCase(date),
+						.contains(date),
 				"ASSERT FAILED : actual: "
 						+ element("txt_submitBallotDate", awardName).getText()
 						+ " expected: " + date);
@@ -227,6 +227,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			for (WebElement ele : elements("list_selectedNomineesPrepopulated")) {
 				isElementDisplayed("list_selectedNomineesPrepopulated");
 				ele.click();
+				wait.hardWait(2);
 			}
 			logMessage("Step : Unselect all selected nominees\n");
 
@@ -238,7 +239,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	}
 
 	public List<List<String>> selectRandomNominees(
-			int numberOfNomineesToSelect, int round,List<String>nameOfJudges,
+			int numberOfNomineesToSelect, int round, List<String> nameOfJudges,
 			Map<String, String> nominee_WithRankOne) {
 		int j = 0;
 		List<List<String>> listOfFirstAndLastName = new ArrayList<>();
@@ -246,23 +247,28 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		List<String> selectedNomineeFirstNameList = new ArrayList();
 		@SuppressWarnings("unchecked")
 		List<String> selectedNomineeLastNameList = new ArrayList();
-		System.out.println("Previous judge rank"+ nominee_WithRankOne.get(nameOfJudges.get(0)));
+		System.out.println("Previous judge rank"
+				+ nominee_WithRankOne.get(nameOfJudges.get(0)));
 		try {
-			if (nominee_WithRankOne!=null &&!nominee_WithRankOne.get(nameOfJudges.get(0)).isEmpty() && round == 1) {
+			if (nominee_WithRankOne != null
+					&& !nominee_WithRankOne.get(nameOfJudges.get(0)).isEmpty()
+					&& round == 1) {
 
 				for (WebElement nominee_FirstName : elements("list_unSelectNomineesFirstName")) {
 					System.out.println("nominees unselected"
 							+ nominee_FirstName.getText());
-					if (nominee_WithRankOne.get(nameOfJudges.get(0)).toString().contains(
-							nominee_FirstName.getText())) {
+					if (nominee_WithRankOne.get(nameOfJudges.get(0)).toString()
+							.contains(nominee_FirstName.getText())) {
 						System.out.println(nominee_FirstName.getText()
 								+ "matches"
-								+ nominee_WithRankOne.get(nameOfJudges.get(0)).toString());
+								+ nominee_WithRankOne.get(nameOfJudges.get(0))
+										.toString());
 						elements("list_nominees").get(j).click();
 						wait.hardWait(3);
 						numberOfNomineesToSelect -= 1;
 						break;
-					}j++;
+					}
+					j++;
 				}
 			}
 		} catch (Exception e) {
@@ -509,8 +515,8 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 					logMessage("\n registrant name "
 							+ elements("txt_rankNomineeName").get(j).getText());
 
-					if (elements("txt_rankNomineeName").get(j).getText().contains(
-							judgesRanks.get(judges.get(k)))) {
+					if (elements("txt_rankNomineeName").get(j).getText()
+							.contains(judgesRanks.get(judges.get(k)))) {
 						Select dropdown_rank1 = new Select(element(
 								"drpdwn_rank", String.valueOf(j + 1)));
 						dropdown_rank1.selectByVisibleText(String.valueOf(1));
@@ -837,7 +843,9 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	public void verifyStatusAfterBallotSubmission(String awardName) {
 		isElementDisplayed("txt_status", awardName);
 		Assert.assertTrue(element("txt_status", awardName).getText().trim()
-				.equalsIgnoreCase("Status - Ballot Submitted"),
+				.equalsIgnoreCase("Status - Ballot Submitted")
+				|| element("txt_status", awardName).getText().trim()
+						.equalsIgnoreCase("Status - Voting Closed"),
 				"actual status of judge is "
 						+ element("txt_status", awardName).getText()
 						+ " and expected is Status - Ballot submitted\n");

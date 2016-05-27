@@ -31,7 +31,6 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	int timeOut, hiddenFieldTimeOut;
 	String newJudgeName;
 	List<String> listOfJudgesForRescused = new ArrayList<String>();
-	List<String> listOfJudgesName = new ArrayList<String>();
 
 	Map<String, Integer> nomineesWithRankOne = new HashMap<>();
 	List<String> listOfAcsNomineesNotInStage = new ArrayList<String>();
@@ -449,6 +448,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 				"Round " + roundNumber);
 		logMessage("Step : Round " + roundNumber
 				+ " is selected in list_selectRoundNumber\n");
+		clearJudgeNameOnAdd();
 		clickOnSearchButtonOnEditRecord();
 		wait.hardWait(2);
 		switchToDefaultContent();
@@ -457,16 +457,17 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		selectJudgeName();
 		clickOnSaveButton();
 		if (verifyJudgeAlreadyExist()) {
-			clearJudgeNameOnAdd();
-			clickOnSearchButtonOnEditRecord();
-			wait.hardWait(2);
+			clickOnCancelButton();
 			switchToDefaultContent();
-			switchToFrame("iframe1");
-			clickOnRandomPage();
-			selectJudgeName();
-			clickOnSaveButton();
+			addJudges(roundNumber);
 		}
 		switchToDefaultContent();
+	}
+
+	public void clickOnCancelButton() {
+		isElementDisplayed("btn_cancel");
+		element("btn_cancel").click();
+		logMessage("Step : Cancel button is clicked\n");
 	}
 
 	public void clearJudgeNameOnAdd() {
@@ -565,6 +566,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public List<String> getJudgesName(String roundNumber) {
+		List<String> listOfJudgesName = new ArrayList<String>();
 		isElementDisplayed("list_judgeName_Judges", roundNumber);
 		for (WebElement ele : elements("list_judgeName_Judges", roundNumber)) {
 			listOfJudgesName.add(ele.getText().trim());

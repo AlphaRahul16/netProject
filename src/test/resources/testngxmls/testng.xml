@@ -4,7 +4,7 @@
 	<test name="ACS_Address_Validation_Test"
 		group-by-instances="true">
 		<classes>
-			<class name="com.qait.tests.ACS_Address_Validation_Test"></class>
+			<class name="com.qait.tests.ACS_Create_Member_Test"></class>
 		</classes>
 	</test>
 </suite>

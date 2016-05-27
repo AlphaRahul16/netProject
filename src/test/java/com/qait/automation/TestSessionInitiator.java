@@ -210,9 +210,9 @@ public class TestSessionInitiator {
 					"The test browser is :- "
 							+ _getSessionConfig().get("browser") + "\n", true);
 			deleteAllCookies();
-			if (!_getSessionConfig().get("browser").equalsIgnoreCase("ie")
+			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")
 					|| _getSessionConfig().get("browser").equalsIgnoreCase(
-							"internetexplorer")) {
+							"internetexplorer")) ){
 				 baseurl = baseurl
 					      .replaceAll(
 					        "https://iwebtest",
@@ -223,6 +223,7 @@ public class TestSessionInitiator {
 					          +URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), 
 					            "UTF-8")
 					          + "@iwebtest");
+			
 
 			/*if (_getSessionConfig().get("browser").equalsIgnoreCase("chrome") && baseurl.contains("iwebtest")) {
 				driver.get(baseurl.replaceAll("https://iwebtest",
