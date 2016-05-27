@@ -112,8 +112,9 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 	}
 
+	@SuppressWarnings("null")
 	public String[] editStartAndEndDate_Round(String roundNumber) {
-		if (roundNumber != null) {
+		if (roundNumber != null||!roundNumber.equalsIgnoreCase(null)||!roundNumber.isEmpty()) {
 			System.out.println("roundNumber " + roundNumber);
 			clickOnEditRecordButton(roundNumber);
 			switchToFrame("iframe1");
@@ -127,9 +128,12 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			String[] startEndDate = { startDate, endDate };
 			System.out.println("startDate :" + startDate);
 			System.out.println("endDate :" + endDate);
+			clickOnSaveButton();
+			switchToDefaultContent();
+			expandDetailsMenu("award judges");
 			return startEndDate;
 		} else {
-			System.out.println("round was null");
+			System.out.println("round number is null");
 			return null;
 		}
 	}
