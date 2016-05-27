@@ -1,4 +1,4 @@
-Page Title: ASM_CCEDPage
+Page Title: ACS_Awards_Eweb
 
 #Object Definitions
 ================================================================================================================================
@@ -18,6 +18,7 @@ inp_viewNominationMaterial                xpath                         //h1[con
 tab_currentTab                            classname                       progressStepOn
 list_nominees                             xpath                          //tr[@style='font-weight: normal;']/td[1]/input
 list_selectedNomineesFirstName            xpath                           //tr[@style='font-weight: bold;']/td[1]
+list_unSelectNomineesFirstName            xpath                          //tr[@style='font-weight: normal;']/td[1]
 list_selectedNomineesLastName             xpath                           //tr[@style='font-weight: bold;']/td[2]
 list_selectedNomineesPrepopulated         xpath                           //tr[@style='font-weight: bold;']/td[1]/input
 txt_unselectedNomineeHeader               classname                       info
@@ -32,13 +33,14 @@ txt_numberOfPossibleNominees              xpath                          //h1[co
 list_nominationsDocuments                 classname                       arrow    
 btn_close                                 classname                      closeModal    
 btn_rankNominees_save                     classname                      save
-drpdwn_rank                               xpath                          //table[@class='nomineesTable fullslots']//tr[${index}]/td[1]/select
+drpdwn_rank                               xpath                          //table[@class='nomineesTable fullslots']/tbody/tr[${index}]/td[1]/select
 txt_nomineeName                           xpath                          //tr[contains(@class,'mover')][${index}]/td[1]
 heading_rankAward                         xpath                          //div[@class='ListHeaderTitle' and contains(text(),'Rank Award Nominees')]
-dropdown_rank_nominee                     xpath                          //table[@class='nomineesTable fullslots']//tr/td[1]/select
+dropdown_rank_nominee                     xpath                          //table[@class='nomineesTable fullslots']/tbody/tr/td[1]/select
 btn_confirmBallot                         xpath                          //input[@class='saveRankings validate']
-txt_confirmNomineeName                    xpath                          //table[@class='nomineesTable']//tr[${index}]//td[2]
-txt_confirmNomineeRank                    xpath                          //table[@class='nomineesTable']//tr[${index}]//td[1]
+txt_confirmNomineeName                    xpath                          //table[@class='nomineesTable']/tbody/tr[${index}]//td[2]
+txt_confirmNomineeRank                    xpath                          //table[@class='nomineesTable']/tbody/tr[${index}]//td[1]
+txt_rankNomineeName						  xpath							 //table[@class='nomineesTable fullslots']/tbody/tr/td[1]
 txt_confirmBallotPage                     xpath                          //div[@class='ListHeaderTitle' and contains(text(),'My Award Ballot')]
 btn_submit_editBallot                     xpath                          //input[@value='${button name}']
 txt_ballotConfirmation                    xpath                          //div[@class='ListHeaderTitle' and contains(text(),'Ballot Confirmation')]
@@ -49,4 +51,5 @@ lnk_updateScore                           id                             F1_HYPE
 img_dashboardLoader                       xpath                          img[contains(@src,'images/awards/loading.gif')]
 list_img_pdfProfileDownload				  xpath							 //*[@title='Download Full Profile']
 img_profileLinkLoader                     xpath                          //img[contains(@src,'loadingAnimation.gif')]
+btn_cancel                                 id                            ButtonCancel
 ================================================================================================================================

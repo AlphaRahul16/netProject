@@ -24,7 +24,8 @@ public class ACS_Address_Validation_Test {
 	@Test
 	public void Step01_Launch_Iweb_Application() {
 		test.launchApplication(app_url_IWEB);
-		test.homePageIWEB.enterAuthentication("C00616", "A9319161853@");
+		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
+				YamlReader.getYamlValue("Authentication.password"));		
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 		

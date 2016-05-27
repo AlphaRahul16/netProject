@@ -37,7 +37,6 @@ public class ACS_Create_Member_IWEB_Test {
 		Reporter.log("CASE ID : " + caseID, true);
 		test.homePageIWEB.addValuesInMap("createMember", caseID);
 		test.launchApplication(app_url_IWEB);
-		
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
@@ -126,7 +125,7 @@ public class ACS_Create_Member_IWEB_Test {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
 
-	@AfterClass(alwaysRun = true)
+	//@AfterClass(alwaysRun = true)
 	public void Close_Test_Session() {
 		test.closeBrowserSession();
 	}

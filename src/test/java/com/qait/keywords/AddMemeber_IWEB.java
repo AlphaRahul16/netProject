@@ -65,9 +65,13 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 			selectMemberDetails("state", abrState);
 		}
 		enterMemberDetail("postalCode", inPostalCode);
+		waitForSpinner();
+		wait.hardWait(2);
 		// selectMemberDetails("phnCountry", phnCountry);
 		//
 		// enterMemberDetails("number", phnNumber);
+		waitForSpinner();
+		wait.hardWait(1);
 		clickOnSaveButton();
 
 		handleAlert1();
@@ -152,7 +156,8 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnSaveButton() {
 		isElementDisplayed("btn_save");
-		element("btn_save").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
+		//element("btn_save").click();
 		logMessage("Step : save button is clicked in btn_save\n");
 	}
 

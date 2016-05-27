@@ -109,6 +109,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 			String[] temp = degree.split("\\_");
 			int degreeCount = temp.length;
 			if (degreeCount <= 1) {
+				wait.hardWait(3);
 				if (!degreeWithPastDate.equalsIgnoreCase("Null")) {
 					fillDegree(temp[0], 2);
 					selectListOfDropdown("major", major, 2);

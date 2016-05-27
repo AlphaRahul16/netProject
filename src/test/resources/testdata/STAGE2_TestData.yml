@@ -30,6 +30,7 @@ csv-data-file:
   path_CCED_NCW_MemberNumberLookup: ./src/test/resources/TestDataLibrary/CCED_NCW_Data_Sheet.csv
   path_AwardNomination: ./src/test/resources/TestDataLibrary/AwardNominationDatasheet.csv
   path_GeneralAwardList: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument.txt
+  path_MYDTransfer: ./src/test/resources/TestDataLibrary/Multi_Year_Dues_Transfer_Sheet.csv
   data-separator: '\t'
   has-header: true
 
@@ -400,8 +401,13 @@ Acs_CreateMember_IWEB:
     cardNumber: 4111111111111111
     expireDate: 2016/12
     cvvNumber: 123    
-      
-                   
+
+MYDTransfer:
+    queryName: Selenium - MYD Query
+AddressValidation:
+    queryName: Selenium - US Constituents          
+
+                       
 email:
   send: true
   recepients:

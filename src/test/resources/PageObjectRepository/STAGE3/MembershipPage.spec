@@ -26,7 +26,7 @@ list_jobTitle                                        id                    mbr_t
 list_industry                                         id                    mbr_sin_key_ext
 inp_industryUpdateDate                              id                     mbr_sin_last_update_date_ext
 inp_jobTitleUpdateDate                               id                     mbr_jfn_last_update_date_ext
-btn_saveAndFinish                                    id                    Bottom_0
+btn_saveAndFinish                                    css                    input[id='Bottom_0']
 txt_itemsAdded                                      xpath                   //a[text()='${itemName}']
 list_batch                                          id                        inv_bat_key
 list_PaymentType                                     id                       inv_orig_trans_type
@@ -79,7 +79,8 @@ list_memberStatus                               xpath                        //a
 list_joindate                                   xpath                         //td[contains(text(),'active')]/following-sibling::td[1]
 txt_effectiveDateForActive                       xpath                          //td[starts-with(text(),'Active')]/following-sibling::td[3]       
 inp_enterDetails                                xpath                         //span[contains(text(),'${detailName}')]/../following-sibling::td/input
-btn_go                                          id                           ButtonSearch
+btn_go                                          id                           ButtonAskGo
+btn_goask                                       id                           ButtonAskGo
 btn_editContactInfo                              css                          #F1_HYPERLINK_1
 inp_editEmail                                    id                           eml_address
 btn_editNameAndAddress                           css                          #F1_HYPERLINK_2
@@ -152,6 +153,8 @@ drpdwn_memberType                                xpath                        //
 btn_detailsMenuAACT                              xpath                        //span[text()='${menuName}']/../a[1]
 txt_termStartDaterenewal                         xpath                         (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[14]
 txt_termEndDaterenewal                           xpath                        (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[15]
+productname_txt									 xpath							(//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[4]
+pricevalue_txt									 xpath							(//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[5]
 heading_queryAskAtRunTime                        xpath                         //span[text()='Query - Ask At Run-Time Values']
 list_memberPackage1                               css                           .DataFormDropDownList
 btn_goPackage                                    id                             ButtonAskGo
@@ -166,3 +169,8 @@ btn_gotorenewal                                  xpath                       (//
 txt_PaymentStatus                                xpath                        //td[contains(text(),'${productName}')]//following-sibling::td[1]
 icon_up                                          xpath                         //span[contains(text(),'${value}')]/preceding-sibling::a/i[@class='icon-chevron-up']
 txt_productPackage                               xpath                        (//th/a)[2]/../../following-sibling::tr[1]//td[4]
+btn_transferMem									xpath							.//*[@id='F1_HYPERLINK_6']/img
+drpdown_memtype									xpath							.//select[@id='mbr_mbt_key']
+drpdown_package									xpath							.//select[@id='mbr_pak_prd_renewal_key']
+drpdown_invoice									xpath							.//*[@id='inv_bat_key']
+iframe											id								iframe1

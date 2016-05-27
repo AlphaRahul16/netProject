@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -84,6 +85,96 @@ public class XlsReader {
 		XlsReader xls = new XlsReader(downloadFilePath + "Workflow", "Statuses");
 	}
 	
+	
+	
+	static public HashMap<String, String> addValuesInTheMap(String sheetName,int NumRow) {
+		 FileInputStream file1 = null;
+		 List<String> key = new ArrayList<String>();
+		 List<String> value = new ArrayList<String>();
+		 HashMap<String,String> dataList =new HashMap<String,String>();
+		try {
+            file1  = new FileInputStream(new File("src/test/resources/TestDataLibrary/Member Transfer.xls"));
+             @SuppressWarnings("resource")
+             HSSFWorkbook workbook = new HSSFWorkbook(file1);
+             HSSFSheet sheet = workbook.getSheetAt(0);
+             HSSFRow header =  sheet.getRow(2);//Header Name
+             System.out.println("Number of Column::"+header.getPhysicalNumberOfCells());
+             
+             for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
+ 				System.out.println("  "+header.getCell(i));
+ 				header.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
+        		 if(header.getCell(i).getStringCellValue() == null)
+        		 {
+        			 key.add("No data");
+        		 }
+        		 else if(header.getCell(i).getCellType() == Cell.CELL_TYPE_NUMERIC){
+  					key.add(header.getCell(i).getNumericCellValue()+"");
+  				 }else if (header.getCell(i).getCellType() == Cell.CELL_TYPE_STRING) {
+  					key.add(header.getCell(i).getStringCellValue());
+ 				}else if (header.getCell(i).getCellType() == Cell.CELL_TYPE_FORMULA) {
+ 					//System.out.println("Formula is " + header.getCell(i).getCellFormula());
+ 			        switch(header.getCell(i).getCachedFormulaResultType()) {
+ 			            case Cell.CELL_TYPE_NUMERIC:
+ 			               // System.out.println("Last evaluated as: " + header.getCell(i).getNumericCellValue());
+ 			                key.add(header.getCell(i).getNumericCellValue()+"");
+ 			                break;
+ 			            case Cell.CELL_TYPE_STRING:
+ 			                
+ 			                key.add(header.getCell(i).getStringCellValue());
+ 			                break;
+ 			        }
+ 				}
+ 			}
+             System.out.println("===========Value List=====================");
+             header =  sheet.getRow(NumRow);
+             for (int j = 0; j < header.getPhysicalNumberOfCells(); j++) {
+            	 System.out.println("  "+header.getCell(j));
+            	 header.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
+        		 if(header.getCell(j).getStringCellValue() == null)
+        		 {
+        			 value.add("No data");
+        		 } else if(header.getCell(j).getCellType() == Cell.CELL_TYPE_NUMERIC){
+ 					value.add(header.getCell(j).getNumericCellValue()+"");
+ 				 }else if (header.getCell(j).getCellType() == Cell.CELL_TYPE_STRING) {
+ 					value.add(header.getCell(j).getStringCellValue());
+				}else if (header.getCell(j).getCellType() == Cell.CELL_TYPE_FORMULA) {
+					System.out.println("Formula is " + header.getCell(j).getCellFormula());
+			        switch(header.getCell(j).getCachedFormulaResultType()) {
+			            case Cell.CELL_TYPE_NUMERIC:
+			                System.out.println("Last evaluated as: " + header.getCell(j).getNumericCellValue());
+			                value.add(header.getCell(j).getNumericCellValue()+"");
+			                break;
+			            case Cell.CELL_TYPE_STRING:
+			                System.out.println("Last evaluated as \"" + header.getCell(j).getRichStringCellValue() + "\"");
+			                value.add(header.getCell(j).getStringCellValue());
+			                break;
+			        }
+				}
+
+             }
+             
+             int k=0;
+             System.out.println("Size of Key List::"+key.size());
+             System.out.println("Size of value List::"+value.size());
+             
+             for (String val : value) {
+            	 dataList.put(key.get(k), val);
+            	 k++;
+			}
+             
+             System.out.println("===========================Final Data Map=========================");
+             
+             for(Map.Entry x:dataList.entrySet()){  
+           	  System.out.println(x.getKey()+" ==> "+x.getValue());
+             }
+       
+		}catch(Exception e){
+			
+		}
+		return dataList;
+		
+	}
+	
 	static public HashMap<String, String> getValuesFromDataSheet(String sheetName) {
 		/*Map<String, String> dataValues = new HashMap<String, String>();*/
 		 FileInputStream file1 = null;
@@ -95,15 +186,15 @@ public class XlsReader {
 		 
 		 int flag=0;
 		try {
-            file1  = new FileInputStream(new File("src/test/resources/TestDataLibrary/Member Transfer.xlsx"));
+            file1  = new FileInputStream(new File("src/test/resources/TestDataLibrary/Member Transfer.xls"));
              // Get the workbook instance for XLS file
              @SuppressWarnings("resource")
-             XSSFWorkbook workbook = new XSSFWorkbook(file1);
+             HSSFWorkbook workbook = new HSSFWorkbook(file1);
              // Get first sheet from the workbook
-             XSSFSheet sheet = workbook.getSheetAt(0);
+             HSSFSheet sheet = workbook.getSheetAt(0);
              // Iterate through each rows from first sheet
           /*   Iterator<Row> rowIterator = sheet.iterator();*/
-             XSSFRow header =  sheet.getRow(2);//Header Name
+             HSSFRow header =  sheet.getRow(2);//Header Name
              
              System.out.println("Number of Column::"+header.getPhysicalNumberOfCells());
              
@@ -229,11 +320,11 @@ public class XlsReader {
 		FileInputStream file = null;
 		int flag = 0;
 		try {
-            file  = new FileInputStream(new File("src/test/resources/TestDataLibrary/Member Transfer.xlsx"));
+            file  = new FileInputStream(new File("src/test/resources/TestDataLibrary/Member Transfer.xls"));
              @SuppressWarnings("resource")
-             XSSFWorkbook workbook = new XSSFWorkbook(file);
-             XSSFSheet sheet = workbook.getSheet(sheetName);
-             XSSFRow header =  sheet.getRow(2);
+             HSSFWorkbook workbook = new HSSFWorkbook(file);
+             HSSFSheet sheet = workbook.getSheet(sheetName);
+             HSSFRow header =  sheet.getRow(2);
              for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
  				if(header.getCell(i).getStringCellValue().equalsIgnoreCase(columnName)){
  					flag = i;
@@ -255,6 +346,59 @@ public class XlsReader {
 		}
 		return key;
 	}
+
+	public static List<Integer> getListOfRowsNumberToBeExecuted(String string) {
+		FileInputStream file1 = null;
+		List<Integer> rowNumList = new ArrayList<Integer>();
+		int flag=0;
+		try {
+            file1  = new FileInputStream(new File("src/test/resources/TestDataLibrary/Member Transfer.xls"));
+             @SuppressWarnings("resource")
+             HSSFWorkbook workbook = new HSSFWorkbook(file1);
+             HSSFSheet sheet = workbook.getSheetAt(0);
+             HSSFRow header =  sheet.getRow(2);
+             System.out.println("Number of Column::"+header.getPhysicalNumberOfCells());
+             for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
+				System.out.println("  "+header.getCell(i));
+				if(header.getCell(i).getStringCellValue().equalsIgnoreCase("Execute")){
+					flag = i;
+					break;
+				}
+				
+             }
+             
+             System.out.println("Flag::"+flag);
+             int rowCount = sheet.getPhysicalNumberOfRows();
+             
+             System.out.println("Number of rowcount: " + rowCount);
+             
+             try{
+             for (int i = 3; i <= rowCount; i++) {
+            	 Row row = sheet.getRow(i);
+            	 if(row.getCell(flag).getStringCellValue().trim().equalsIgnoreCase("y")){
+            	 //hm.put(i, row.getCell(flag).getStringCellValue().trim());
+            		 rowNumList.add(i);
+            	 }
+            	 
+             }
+             }
+             catch(NullPointerException e){
+            	 System.out.println("Caught Null Pointer");
+             }
+             
+             
+		
+		}catch(Exception e){
+       	 
+        }
+		
+		for (Integer integer : rowNumList) {
+			System.out.println("Row Num::"+integer);
+		}
+		
+		return rowNumList;
+	}
+	
 	
 }
             

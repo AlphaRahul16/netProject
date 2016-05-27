@@ -8,6 +8,7 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -209,32 +210,24 @@ public class TestSessionInitiator {
 					"The test browser is :- "
 							+ _getSessionConfig().get("browser") + "\n", true);
 			deleteAllCookies();
-			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")
-					|| _getSessionConfig().get("browser").equalsIgnoreCase(
-							"internetexplorer"))) {
-				String baseurl1 = baseurl
-						.replaceAll(
-								"https://iwebtest",
-								"https://"
-										+ YamlReader
-												.getYamlValue("Authentication.userName")
-										+ ":"
-										+ YamlReader.getYamlValue(
-												"Authentication.password")
-										        .replaceAll("#", "%23")+ "@"
-						//						.replaceAll("@", "%40") + "@"
-										+ "iwebtest");
-
-				System.out.println(baseurl);
-				driver.get(baseurl1);
-			}
-			
-			
-			else {
+			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer")))
+			{
+				baseurl= baseurl.replaceAll("https://iwebtest","https://"+ YamlReader.getYamlValue("Authentication.userName")+ ":"+ YamlReader.getYamlValue(
+				"Authentication.password") .replaceAll("#", "%23")+ "@");
 				System.out.println(baseurl);
 				driver.get(baseurl);
 				
+			}
+			else
+			{
+					driver.get(baseurl);
+			}
 
+			if(!_getSessionConfig().get("browser").equalsIgnoreCase("ie")){
+				if(baseurl.contains("iwebtest"))
+					Reporter.log("\nThe application url is :- " + baseurl.replace(baseurl.split("@")[0], "https://").replace("@", ""),true);
+				else
+					Reporter.log("\nThe application url is :- " + baseurl,true);
 			}
 			if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/"))
 					&& (ConfigPropertyReader.getProperty("browser")
