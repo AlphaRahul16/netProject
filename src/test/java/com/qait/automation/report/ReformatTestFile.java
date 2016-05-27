@@ -31,45 +31,55 @@ import com.qait.automation.utils.DateUtil;
  */
 public class ReformatTestFile {
 
-    String replacealltimestamp(String html) {
+	String replacealltimestamp(String html) {
 
-        List<String> allMatches = new ArrayList<String>();
-        Matcher m = Pattern.compile("[0-9]{13}")
-                .matcher(html);
+		List<String> allMatches = new ArrayList<String>();
+		Matcher m = Pattern.compile("[0-9]{13}").matcher(html);
 
-        while (m.find()) {
-            allMatches.add(m.group());
-        }
-        for (String entrySet : allMatches) {
-            for (int i = 1; i <= 10; i++) {
-                html = html.replace("<td rowspan=\"" + i + "\">" + entrySet + "</td>",
-                        "<td rowspan=\"" + i + "\">" + DateUtil.converttimestamp(entrySet) + "</td>");
-            }
-        }
-        return html;
-    }
+		while (m.find()) {
+			allMatches.add(m.group());
+		}
+		for (String entrySet : allMatches) {
+			for (int i = 1; i <= 10; i++) {
+				html = html.replace("<td rowspan=\"" + i + "\">" + entrySet + "</td>",
+						"<td rowspan=\"" + i + "\">" + DateUtil.converttimestamp(entrySet) + "</td>");
+			}
+		}
+		return html;
+	}
 
-    void writeLargerTextFile(String aFileName, String html) throws IOException {
-        Path path = Paths.get(aFileName);
-    	File file = new File(aFileName);
-    	file.getParentFile().mkdirs();
-    	file.createNewFile();
-        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(aFileName), "ISO-8859-1"))) {
-            writer.write(html);
- 
-        }
-    }
-    
-  
-    String readLargerTextFile(String aFileName) throws IOException {
-        String html = "";
-        Path path = Paths.get(aFileName);
-        try (Scanner scanner = new Scanner(path, "ISO-8859-1")) {
-            while (scanner.hasNextLine()) {
-                //process each line in some way
-                html = html + scanner.nextLine() + "\n";
-            }
-        }
-        return html;
-    }
+	public void writeLargerTextFile(String aFileName, String html) throws IOException {
+		Path path = Paths.get(aFileName);
+		File file = new File(aFileName);
+		file.getParentFile().mkdirs();
+		file.createNewFile();
+		try (BufferedWriter writer = new BufferedWriter(
+				new OutputStreamWriter(new FileOutputStream(aFileName), "ISO-8859-1"))) {
+			writer.write(html);
+
+		}
+	}
+
+	String readLargerTextFile(String aFileName) throws IOException {
+		String html = "";
+		Path path = Paths.get(aFileName);
+		try (Scanner scanner = new Scanner(path, "ISO-8859-1")) {
+			while (scanner.hasNextLine()) {
+				// process each line in some way
+				html = html + scanner.nextLine() + "\n";
+			}
+		}
+		return html;
+	}
+
+	public static void createMemberTransferCompleteTestLog(String aFileName, String html) {
+
+		try (BufferedWriter writer = new BufferedWriter(
+				new OutputStreamWriter(new FileOutputStream(aFileName+DateUtil.getCurrentdateInStringWithGivenFormate("HH_mm_ss_a")+".html"), "ISO-8859-1"))) {
+			writer.write(html);
+
+		} catch(Exception e){
+			
+		}
+	}
 }
