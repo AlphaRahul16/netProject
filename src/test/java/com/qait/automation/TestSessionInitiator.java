@@ -210,39 +210,19 @@ public class TestSessionInitiator {
 					"The test browser is :- "
 							+ _getSessionConfig().get("browser") + "\n", true);
 			deleteAllCookies();
-			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")
-					|| _getSessionConfig().get("browser").equalsIgnoreCase(
-							"internetexplorer"))) {
-				baseurl = baseurl
-						.replaceAll(
-								"https://iwebtest",
-								"https://"
-										+ YamlReader
-												.getYamlValue("Authentication.userName")
-										+ ":"
-										+URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), 
-												"UTF-8")
-										+ "@iwebtest");
+			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer")))
+			{
+				baseurl= baseurl.replaceAll("https://iwebtest","https://"+ YamlReader.getYamlValue("Authentication.userName")+ ":"+ YamlReader.getYamlValue(
+				"Authentication.password") .replaceAll("#", "%23")+ "@");
+				System.out.println(baseurl);
 				driver.get(baseurl);
-              
-
-
+				
 			}
-			
-			else {
-				driver.get(baseurl);
+			else
+			{
+					driver.get(baseurl);
 			}
 
-//			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")
-//					|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer"))&& baseurl.contains("iwebtest")) {
-//				baseurl = baseurl.replaceAll("https://iwebtest",
-//						"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
-//								+ YamlReader.getYamlValue("Authentication.password").replaceAll("@", "%40") + "@"
-//								+ "iwebtest");
-//
-//			}
-
-			
 			if(!_getSessionConfig().get("browser").equalsIgnoreCase("ie")){
 				if(baseurl.contains("iwebtest"))
 					Reporter.log("\nThe application url is :- " + baseurl.replace(baseurl.split("@")[0], "https://").replace("@", ""),true);

@@ -7,20 +7,16 @@ package com.qait.automation.getpageobjects;
 import static com.qait.automation.getpageobjects.ObjectFileReader.getPageTitleFromFile;
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
-import java.awt.AWTException;
-import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -38,6 +34,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.Reporter;
+
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.SeleniumWait;
 
@@ -704,7 +701,7 @@ public class BaseUi {
 //			System.out.println("windows data: "+window);
 		driver.switchTo().window(windows[i]);	 
     }
-	
+
 	protected void changeWindow(int i) {
 	    wait.hardWait(1);
 	    Set<String> windows = driver.getWindowHandles();
