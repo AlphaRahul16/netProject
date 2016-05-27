@@ -212,29 +212,26 @@ public class TestSessionInitiator {
 			deleteAllCookies();
 			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")
 					|| _getSessionConfig().get("browser").equalsIgnoreCase(
-							"internetexplorer")) ){
-				 baseurl = baseurl
-					      .replaceAll(
-					        "https://iwebtest",
-					        "https://"
-					          + YamlReader
-					            .getYamlValue("Authentication.userName")
-					          + ":"
-					          +URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), 
-					            "UTF-8")
-					          + "@iwebtest");
-			
+							"internetexplorer"))) {
+				baseurl = baseurl
+						.replaceAll(
+								"https://iwebtest",
+								"https://"
+										+ YamlReader
+												.getYamlValue("Authentication.userName")
+										+ ":"
+										+URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), 
+												"UTF-8")
+										+ "@iwebtest");
+				driver.get(baseurl);
+              
 
-			/*if (_getSessionConfig().get("browser").equalsIgnoreCase("chrome") && baseurl.contains("iwebtest")) {
-				driver.get(baseurl.replaceAll("https://iwebtest",
-						"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
-								+ YamlReader.getYamlValue("Authentication.password").replaceAll("@", "%40") + "@"
-								+ "iwebtest"));
+
 			}
 			
 			else {
 				driver.get(baseurl);
-			}*/
+			}
 
 //			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")
 //					|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer"))&& baseurl.contains("iwebtest")) {
@@ -245,7 +242,7 @@ public class TestSessionInitiator {
 //
 //			}
 
-			driver.get(baseurl);
+			
 			if(!_getSessionConfig().get("browser").equalsIgnoreCase("ie")){
 				if(baseurl.contains("iwebtest"))
 					Reporter.log("\nThe application url is :- " + baseurl.replace(baseurl.split("@")[0], "https://").replace("@", ""),true);
@@ -269,7 +266,7 @@ public class TestSessionInitiator {
 					.equalsIgnoreCase("https://iwebtest.acs.org/NFStage3/iweb")) {
 				handleSSLCertificateCondition(baseurl);
 			}
-		}
+		
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
