@@ -89,7 +89,8 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 	public void verifyAddressVerificationWindow() {         
 		hardWaitForIEBrowser(3);		
 //		switchWindow();
-		switchToWindowHavingIndex(1);
+		changeWindow(1);
+//		switchToWindowHavingIndex(1);
 		isElementDisplayed("heading_address");
 		logMessage("STEP : User is navigated to Address Verification Window \n");
 	}
@@ -103,8 +104,9 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 				+ element("txt_verificationZipCode").getAttribute("value") + " matches with the ZipCode "
 				+ expectedZipCode + "\n");
 		clickOnSaveButtonOnAddressVerficationPage();
-		hardWaitForIEBrowser(3);
-		switchToWindowHavingIndex(0);
+		
+	
+//		switchToWindowHavingIndex(0);
 	}
 
 	public void clickOnSaveButtonOnAddressVerficationPage() {            //else added
@@ -118,6 +120,9 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 		}
 		else
 		  element("btn_verificationSave").click();
+		
+		changeWindow(0);
+				
 		logMessage("STEP : Clicked on Save Button on Address Verification Window");
 	}
 

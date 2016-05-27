@@ -387,6 +387,7 @@ public class ASM_AACTPage extends ASCSocietyGenericPage {
 			verifyChemistryTeacherExpFieldVisibility(caseId);
 			verifyExpectedGraduationMonthFieldVisibility(caseId);
 			verifyExpectedGraduationYearFieldVisibility(caseId);
+			wait.hardWait(2);
 			enterDemographicDetail(
 					"YearsExp",
 					getAACT_OmaSheetValue(caseId,
