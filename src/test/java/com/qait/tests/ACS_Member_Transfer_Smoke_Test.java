@@ -8,7 +8,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.testng.ITestResult;
 import org.testng.Reporter;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -184,8 +187,19 @@ public class ACS_Member_Transfer_Smoke_Test {
 	
 	@Test
 	public void Step03_TC03_Match_Before_Data_With_After_Data_According_To_Mentioned_Criteria() {
-		resultList = test.memberShipPage.matchBeforeDataWithAfterDataAccordingToMentionedCriteria(BeforeList,AfterList,dataList);
-		test.memberShipPage.verifyResultListData(resultList);
+	/*	resultList = */test.memberShipPage.matchBeforeDataWithAfterDataAccordingToMentionedCriteria(BeforeList,AfterList,dataList,custId);
+		//test.memberShipPage.verifyResultListData(resultList);
+	}
+	
+
+	@AfterMethod
+	public void take_screenshot_on_failure(ITestResult result) {
+		test.takescreenshot.takeScreenShotOnException(result);
+	}
+
+	@AfterClass(alwaysRun = true)
+	public void Close_Test_Session() {
+	 test.closeBrowserSession();
 	}
 	
 

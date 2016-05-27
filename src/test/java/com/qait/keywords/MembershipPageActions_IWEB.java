@@ -22,7 +22,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
-
+import com.qait.automation.report.ReformatTestFile;
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.DateUtil;
 import com.qait.automation.utils.YamlReader;
@@ -46,6 +46,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public static HashMap<String, String> memberDetailsMap = new HashMap<String, String>();
 	Map<String, String> createMemberCredentials = new HashMap<String, String>();
 	private static int individualCount = 0;
+	String html = null;
 
 	public MembershipPageActions_IWEB(WebDriver driver) {
 		super(driver, pagename);
@@ -2541,8 +2542,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Clicked On Transfer Now Button");
 	}
 
-	public LinkedHashMap<String, String> matchBeforeDataWithAfterDataAccordingToMentionedCriteria(LinkedHashMap<String, String> beforeList,
-			LinkedHashMap<String, String> afterList, HashMap<String, String> criteriaList) {
+	public /*LinkedHashMap<String, String>*/ void  matchBeforeDataWithAfterDataAccordingToMentionedCriteria(LinkedHashMap<String, String> beforeList,
+			LinkedHashMap<String, String> afterList, HashMap<String, String> criteriaList, String custId) {
 		LinkedHashMap<String, String> ResultList = new LinkedHashMap<String, String>();
 		Assert.assertEquals(beforeList.size(), afterList.size());
 		/*Iterator it = beforeList.entrySet().iterator();
@@ -2832,9 +2833,26 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage(result.getKey()+"\t"+result.getValue());
 		}*/
 		
+		boolean flag1 = _verifyResultListData(ResultList);
+		
 		logMessage("===========================Here Are the Complete Test Log================================");
+		
+		
+		html = "<html><body><table border=1><tbody>"+"<tr><td>Case ID::</td><td>"+criteriaList.get("ID")+"<tr><td>Member/Customer Id::</td><td>"+custId;
+	    
+		if(flag1){
+			html = html+ "<tr><td>Test Case Status::</td><td bgcolor='green'>"+"PASS </td></tr><tr>";
+		}else{
+			html = html+ "<tr><td>Test Case Status::</td><td bgcolor='red'>"+"Fail </td></tr><tr>";
+		}
+		
+		html = html + "<td><h1>Initial Conditions</h1></td></tr><tr><td><b>Initial Mbr Type::</b></td><td>"+criteriaList.get("Initial Mbr Type")+"</td></tr><tr><td><b>Initial Mbr Status::</b></td><td>"+criteriaList.get("Initial Mbr Status")+"</td></tr>"
+				+ "<tr><td><b>Initial Mbr Package::</b></td><td>"+criteriaList.get("Initial Mbr Package")+"</td></tr><tr><td><b>Initial MP Exp Date::</b></td><td>"+criteriaList.get("Initial MP Exp Date")+"</td></tr><tr><td><b>Target Mbr Type::</b></td><td>"+criteriaList.get("Target Mbr Type")+"</td></tr>"
+						+ "<tr><td><b>Target Mbr Package::</b></td><td>"+criteriaList.get("Target Mbr Package")+"</td></tr><tr><td><h1>Test Result</h1></tr></td>"
+								+ "<tr><td><h2>Field</h2></td><td><h2>Before</h2></td><td><h2>After</h2></td><td><h2>Criteria</h2></td><td><h2>Pass?</h2></td></tr>";
 		logMessage("Case ID::"+criteriaList.get("ID"));
-		logMessage("Initial Conditions:");
+		logMessage("Member/Customer ID::"+custId);
+		logMessage("Initial Conditions>");
 		logMessage("Initial Mbr Type::"+criteriaList.get("Initial Mbr Type"));
 		logMessage("Initial Mbr Status::"+criteriaList.get("Initial Mbr Status"));
 		logMessage("Initial Mbr Package::"+criteriaList.get("Initial Mbr Package"));
@@ -2843,13 +2861,17 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
         logMessage("Target Mbr Package::"+criteriaList.get("Target Mbr Package"));
         logMessage("==========================================================================================");
         logMessage("Test Result");
-        logMessage("Field\t\tBefore\t\tAfter\t\tCriteria\t\tPass?");
+        logMessage("Field==>Before==>After==>Criteria==>Pass?");
         for(Map.Entry before :beforeList.entrySet()){
-			logMessage(before.getKey()+"\t\t"+before.getValue()+"\t\t"+afterList.get(before.getKey())+"\t\t"+criteriaList.get(before.getKey())+"\t\t"+ResultList.get(before.getKey()));
+        	html = html + "<tr><td>"+before.getKey()+"</td><td>"+before.getValue()+"</td><td>"+afterList.get(before.getKey())+"</td><td>"+criteriaList.get(before.getKey())+"</td><td>"+ResultList.get(before.getKey())+"</td></tr>";
+			logMessage(before.getKey()+"==>"+before.getValue()+"==>"+afterList.get(before.getKey())+"==>"+criteriaList.get(before.getKey())+"==>"+ResultList.get(before.getKey()));
 		}
-		
+        html = html + "</tbody></table></body></html>";
 		System.out.println("After Validation");
-		return ResultList;
+		ReformatTestFile.createMemberTransferCompleteTestLog("./src/test/resources/Member Transfer Test Logs/MT",html);
+		Assert.assertTrue(flag1,"[FAILED]:: Data for Before and After member transfer does not match the criteria for \n FINAL Test Result ::"+flag1);
+		logMessage("[ASSERTION PASSED]:: Data for Before and After member transfer match the criteria FINAL Test Result ::"+flag1);
+		/*return ResultList;*/
 	}
 
 	private String _getYOSIncrementedByNum(String yos, int i) {
@@ -2873,16 +2895,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		return formatter.format(c.getTime());
 	}
 
-	public void verifyResultListData(LinkedHashMap<String, String> resultList) {
+	private boolean _verifyResultListData(LinkedHashMap<String, String> resultList) {
 		boolean flag=true;
 		for(Map.Entry result :resultList.entrySet()) {
 			if (result.getValue().equals("n")) {
 				flag = false;
+				logMessage("Data for Before and After member transfer does not match according to criteria for field "+result.getKey());
 			}
-			
 		}
-		Assert.assertTrue(flag,"[FAILED]:: Data for Before and After member transfer does not  match the criteria \n FINAL Test Result ::"+flag);
-		logMessage("[ASSERTION PASSED]:: Data for Before and After member transfer match the criteria \n FINAL Test Result ::"+flag);
+		return flag;
 	}
 	
 	

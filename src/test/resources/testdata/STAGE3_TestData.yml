@@ -40,8 +40,8 @@ csv-data-file:
   
   
 Authentication: 
-  userName: c00767
-  password: "pZ6578%239"
+  userName: c00569
+  password: "3r0P85&8"
 
   
 ASM_Data_File: 
@@ -510,5 +510,6 @@ email:
   send: false
   recepients:
     recepient1: avnishrawat@qainfotech.net
+    recepient2: deepakkumar1@qainfotech.com
     
 
