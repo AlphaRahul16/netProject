@@ -125,20 +125,16 @@ public class ACS_AwardsVoting_Test {
 			test.award_ewebPage
 					.verifyLoginInAwardApplicationSuccessfully(nameOfJudges
 							.get(i));
-			// Status - Progress Saved 04/18/2016
-			// test.award_ewebPage.verifyStatus(rescusedJudges,
-			// nameOfJudges.get(invocationCount));
+			
 			test.award_ewebPage.verifyAwardName(currentAwardName);
 			test.award_ewebPage
 					.verifyNumberOfDays("MM/d/YYYY", startEndDate[1]);
-			test.award_ewebPage
-					.verifyNumberOfNominees(numberOfNomineesInEntrants.size());
+
 			test.award_ewebPage.verifySubmitBallotDate(startEndDate[1],
 					currentAwardName);
 			test.award_ewebPage
 					.clickOnFiveYearNomineeMemoLink(currentAwardName);
-			test.award_ewebPage.extractAndCompareTextFromPdfFile(
-					"award_history", currentAwardName, 1, "downloads");
+			
 			maxPossibleNominees = test.award_ewebPage
 					.getNumberOfPossibleNominees(currentAwardName);
 			test.award_ewebPage
@@ -219,8 +215,9 @@ public class ACS_AwardsVoting_Test {
 
 		test.awardsPageAction.clickOnAwardsName_RoundName(currentAwardName);
 		test.awardsPageAction.expandDetailsMenu("award stages/rounds");
-		startEndDate = test.awardsPageAction.editStartAndEndDate_Round(String
-				.valueOf(round > 1 ? ++votingRounds : null));
+		startEndDate = test.awardsPageAction
+				.editStartAndEnddateForRoundExceptOne(String
+						.valueOf(round > 1 ? ++votingRounds : null));
 	}
 
 	@Test(dependsOnMethods = "Step02_TC02_Verify_Nominees_And_Set_Start_End_Dates_For_Round1_IWEB_Application")

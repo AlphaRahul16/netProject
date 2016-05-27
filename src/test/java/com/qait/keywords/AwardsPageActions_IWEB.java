@@ -114,7 +114,8 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	@SuppressWarnings("null")
 	public String[] editStartAndEndDate_Round(String roundNumber) {
-		if (roundNumber != null||!roundNumber.equalsIgnoreCase(null)||!roundNumber.isEmpty()) {
+		if (roundNumber != null || !roundNumber.equalsIgnoreCase(null)
+				|| !roundNumber.isEmpty()) {
 			System.out.println("roundNumber " + roundNumber);
 			clickOnEditRecordButton(roundNumber);
 			switchToFrame("iframe1");
@@ -128,14 +129,20 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			String[] startEndDate = { startDate, endDate };
 			System.out.println("startDate :" + startDate);
 			System.out.println("endDate :" + endDate);
-			clickOnSaveButton();
-			switchToDefaultContent();
-			expandDetailsMenu("award judges");
+
 			return startEndDate;
 		} else {
 			System.out.println("round number is null");
 			return null;
 		}
+	}
+
+	public String[] editStartAndEnddateForRoundExceptOne(String roundNumber) {
+		String[] arr = editStartAndEndDate_Round(roundNumber);
+		clickOnSaveButton();
+		switchToDefaultContent();
+		expandDetailsMenu("award judges");
+		return arr;
 	}
 
 	public void uncheckClosedCheckbox_VotingClosed(String awardName,
