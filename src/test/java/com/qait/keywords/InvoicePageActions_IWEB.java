@@ -306,7 +306,6 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void expandDetailsMenu(String menuName) {
-		
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("btn_detailsMenuAACT", menuName);
 		// clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT",
@@ -796,6 +795,11 @@ public void verifyRenewedProductsPriceInsideLineItems(Map<String, String> mapRen
 							.get("Voluntary Contribution To C&EN"));
 			collapseDetailsMenu("adjusted/voided line items");
 		}
+	}
+
+	public String getDataFromInvoiceProfilePage(String field) {
+		isElementDisplayed("txt_invoiceValues",field);
+		return element("txt_invoiceValues",field).getText().trim();	
 	}
 
 }

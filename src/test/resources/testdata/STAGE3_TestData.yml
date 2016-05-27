@@ -40,8 +40,10 @@ csv-data-file:
   
   
 Authentication: 
-  userName: C00616
+  userName: c00616
   password: "A9319161853@"
+
+
   
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt
@@ -506,6 +508,9 @@ AddressValidation:
     queryName: Selenium - US Constituents          
                    
 email:
-  send: false
+  send: true
   recepients:
-    recepient1: avnishrawat@qainfotech.net   
+    recepient1: avnishrawat@qainfotech.com
+    recepient2: deepakkumar1@qainfotech.com
+    
+

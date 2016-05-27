@@ -20,11 +20,8 @@ import com.qait.automation.utils.DateUtil;
 
 public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	WebDriver driver;
-	static String pagename = "ACS_Awards_EWEB";
-	@SuppressWarnings("unchecked")
-	List<String> selectedNomineeFirstNameList = new ArrayList();
-	@SuppressWarnings("unchecked")
-	List<String> selectedNomineeLastNameList = new ArrayList();
+	static String pagename = "ACS_Awards_Eweb";
+
 	int timeOut, hiddenFieldTimeOut;
 
 	List<Integer> ranks = new ArrayList<Integer>();
@@ -179,7 +176,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_submitBallotDate", awardName);
 		Assert.assertTrue(
 				element("txt_submitBallotDate", awardName).getText()
-						.equalsIgnoreCase(date),
+						.contains(date),
 				"ASSERT FAILED : actual: "
 						+ element("txt_submitBallotDate", awardName).getText()
 						+ " expected: " + date);
@@ -230,6 +227,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			for (WebElement ele : elements("list_selectedNomineesPrepopulated")) {
 				isElementDisplayed("list_selectedNomineesPrepopulated");
 				ele.click();
+				wait.hardWait(2);
 			}
 			logMessage("Step : Unselect all selected nominees\n");
 
@@ -240,27 +238,57 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		}
 	}
 
-	public List<List<String>> selectRandomNominees(int numberOfNomineesToSelect, int round) {
+	public List<List<String>> selectRandomNominees(
+			int numberOfNomineesToSelect, int round, List<String> nameOfJudges,
+			Map<String, String> nominee_WithRankOne) {
+		int j = 0;
 		List<List<String>> listOfFirstAndLastName = new ArrayList<>();
-		
-		int j=(round==1)?2:1;
-		if(j==2){
-			elements("list_nominees").get(0).click();
+		@SuppressWarnings("unchecked")
+		List<String> selectedNomineeFirstNameList = new ArrayList();
+		@SuppressWarnings("unchecked")
+		List<String> selectedNomineeLastNameList = new ArrayList();
+		System.out.println("Previous judge rank"
+				+ nominee_WithRankOne.get(nameOfJudges.get(0)));
+		try {
+			if (nominee_WithRankOne != null
+					&& !nominee_WithRankOne.get(nameOfJudges.get(0)).isEmpty()
+					&& round == 1) {
+
+				for (WebElement nominee_FirstName : elements("list_unSelectNomineesFirstName")) {
+					System.out.println("nominees unselected"
+							+ nominee_FirstName.getText());
+					if (nominee_WithRankOne.get(nameOfJudges.get(0)).toString()
+							.contains(nominee_FirstName.getText())) {
+						System.out.println(nominee_FirstName.getText()
+								+ "matches"
+								+ nominee_WithRankOne.get(nameOfJudges.get(0))
+										.toString());
+						elements("list_nominees").get(j).click();
+						wait.hardWait(3);
+						numberOfNomineesToSelect -= 1;
+						break;
+					}
+					j++;
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("picking 1st nomiee ranodmly");
 		}
-		
-		for (int i = j; i <= numberOfNomineesToSelect; i++) {
+
+		for (int i = 0; i < numberOfNomineesToSelect; i++) {
 			Random rand = new Random();
 			isElementDisplayed("list_nominees");
 			int sizeOfNominees = elements("list_nominees").size();
-			int min = j-1, max = sizeOfNominees-1 ;
+			int min = 0, max = sizeOfNominees - 1;
 
 			logMessage("min : ============:" + min + " max : ============ "
 					+ max);
+
 			int randomNumber = rand.nextInt((max - min) + 1) + min;
-			
 
 			logMessage("random number :----------" + randomNumber);
 			elements("list_nominees").get(randomNumber).click();
+			wait.hardWait(3);
 		}
 
 		for (WebElement element : elements("list_selectedNomineesFirstName")) {
@@ -454,24 +482,79 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	}
 
 	public void enterRankForNomineeInRound_1(int maxPossibleNominees,
-			int roundNumber) {
+			int roundNumber, Map<String, String> judgesRanks,
+			List<String> judges, int judgeNumber,
+			List<List<String>> FirstnameLastname) {
 		// ranks = ThreadLocalRandom.current().ints(2, maxPossibleNominees)
 		// .distinct().limit(maxPossibleNominees - 1).boxed()
 		// .collect(Collectors.toList());
+		int k = 0, j = 0;
+		boolean flag = false;
 		ranks = generateRandomNumber(maxPossibleNominees, roundNumber);
 		for (int i = 0; i < ranks.size(); i++) {
 			logMessage("----" + ranks.get(i));
 		}
 		logMessage("list size:" + ranks.size());
-		Select dropdown_rank = new Select(element("drpdwn_rank",
-				String.valueOf(1)));
+		//
+		for (j = 0; j < maxPossibleNominees; j++) {
+			Select dropdown_rank1 = new Select(element("drpdwn_rank",
+					String.valueOf(1)));
+			dropdown_rank1.selectByIndex(0);
+			// dropdown_rank1.selectByVisibleText("");
+			wait.hardWait(2);
+			System.out.println("select blank:" + j);
+		}
 
-		dropdown_rank.selectByVisibleText(String.valueOf(1));
+		for (j = 0; j < maxPossibleNominees; j++) {
+			if (!judgesRanks.isEmpty() || judgesRanks == null) {
+				System.out.println("inside first if\n");
+				k = 0;
+				while (k < judgeNumber) {
+					logMessage("judge registrant name "
+							+ judgesRanks.get(judges.get(k)));
+					logMessage("\n registrant name "
+							+ elements("txt_rankNomineeName").get(j).getText());
 
-		for (int i = 0; i < maxPossibleNominees-1; i++) { // 10
+					if (elements("txt_rankNomineeName").get(j).getText()
+							.contains(judgesRanks.get(judges.get(k)))) {
+						Select dropdown_rank1 = new Select(element(
+								"drpdwn_rank", String.valueOf(j + 1)));
+						dropdown_rank1.selectByVisibleText(String.valueOf(1));
+						wait.hardWait(5);
+						flag = true;
+						logMessage("\n registrant name when matches "
+								+ elements("txt_rankNomineeName").get(j)
+										.getText());
+						System.out.println("breaking out of while loop");
+						break;
+					}
+					k++;
+				}
+
+			} else {
+				Select dropdown_rank1 = new Select(element("drpdwn_rank",
+						String.valueOf(j + 1)));
+				dropdown_rank1.selectByVisibleText(String.valueOf(1));
+				wait.hardWait(1);
+				System.out.println("value of j : " + j);
+				flag = true;
+				logMessage("\n registrant name for first time"
+						+ elements("txt_rankNomineeName").get(0).getText());
+				break;
+			}
+			if (flag) {
+				System.out.println("break from for");
+				break;
+			}
+		}
+
+		for (int i = 0; i < maxPossibleNominees - 1; i++) { // 10
 			Select dropdown_rank1 = new Select(element("drpdwn_rank",
 					String.valueOf(i + 2)));
+			logMessage("\n registrant name for all the remaining"
+					+ elements("txt_rankNomineeName").get(i + 1).getText());
 			dropdown_rank1.selectByVisibleText(String.valueOf(ranks.get(i)));
+			wait.hardWait(5);
 			logMessage("select : " + String.valueOf(ranks.get(i)));
 		}
 	}
@@ -481,21 +564,22 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			List<List<String>> FirstnameLastname, int roundNumber,
 			Map<String, String> judgesRanks) {
 		uniqueRandom = generateRandomNumber(maxPossibleNominees, roundNumber);
-		System.out.println("size of unique nos. "+uniqueRandom.size());
+		System.out.println("size of unique nos. " + uniqueRandom.size());
 		for (int j = 0; j < uniqueRandom.size(); j++) {
 			int flag = 0, k = 0;
 			if (Integer.parseInt(uniqueRandom.get(j).toString()) == 1) {
-				
+
 				if (!judgesRanks.isEmpty()) {
 					while (k < judgeNumber) {
 						logMessage("judge registrant name "
 								+ judgesRanks.get(judges.get(k)));
 						logMessage("\n registrant name "
-								+ FirstnameLastname.get(0).get(j) + " "
-								+ FirstnameLastname.get(1).get(j));
+								+ elements("txt_rankNomineeName").get(j)
+										.getText());
 
 						if (judgesRanks.get(judges.get(k)).contains(
-								FirstnameLastname.get(0).get(j)) && judgesRanks.get(judges.get(k)).contains(FirstnameLastname.get(1).get(j))) {
+								elements("txt_rankNomineeName").get(j)
+										.getText())) {
 							flag = 1;
 							break;
 						}
@@ -509,8 +593,8 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 								maxPossibleNominees, judges, judgeNumber,
 								FirstnameLastname, roundNumber, judgesRanks);
 					}
-					uniqueRandom.add(j, uniqueRandom.get(j+1));
-					uniqueRandom.remove(j+2);
+					uniqueRandom.add(j, uniqueRandom.get(j + 1));
+					uniqueRandom.remove(j + 2);
 				}
 			}
 
@@ -530,11 +614,12 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			Map<String, String> judgesRanks) {
 		logMessage("\n round number : " + roundNumber);
 		logMessage("\n judges number : " + judgeNumber);
-		logMessage("\n judges : " + judges);
+		logMessage("\n judges : " + judges.get(judgeNumber));
 
 		switch (roundNumber) {
 		case 1:
-			enterRankForNomineeInRound_1(maxPossibleNominees, roundNumber);
+			enterRankForNomineeInRound_1(maxPossibleNominees, roundNumber,
+					judgesRanks, judges, judgeNumber, FirstnameLastname);
 			break;
 		case 2:
 			enterRankForNomineeForMultipleRounds(maxPossibleNominees, judges,
@@ -758,7 +843,9 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	public void verifyStatusAfterBallotSubmission(String awardName) {
 		isElementDisplayed("txt_status", awardName);
 		Assert.assertTrue(element("txt_status", awardName).getText().trim()
-				.equalsIgnoreCase("Status - Ballot Submitted"),
+				.equalsIgnoreCase("Status - Ballot Submitted")
+				|| element("txt_status", awardName).getText().trim()
+						.equalsIgnoreCase("Status - Voting Closed"),
 				"actual status of judge is "
 						+ element("txt_status", awardName).getText()
 						+ " and expected is Status - Ballot submitted\n");

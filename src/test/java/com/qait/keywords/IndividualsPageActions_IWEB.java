@@ -1747,6 +1747,41 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		  else
 		   return false;
 		 }
+
+		public String getMemberType() {
+			isElementDisplayed("txt_subscriptionName","1");
+			return  element("txt_subscriptionName","1").getText().trim();	
+		}
+		
+		public String getMemberStatus() {
+			isElementDisplayed("txt_subscriptionPrice","1");
+			return  element("txt_subscriptionPrice","1").getText().trim();	
+		}
+
+		public String getJoinFieldValue() {
+			isElementDisplayed("txt_subscriptionStartDate","1");
+			return  element("txt_subscriptionStartDate","1").getText().trim();	
+		}
+
+		public String getEffectiveFieldValue() {
+			isElementDisplayed("txt_subscriptionIssueFulfilled","1");
+			return  element("txt_subscriptionIssueFulfilled","1").getText().trim();	
+		}
+
+		public String getExpireDate() {
+			isElementDisplayed("txt_subscriptionStartIssue","1");
+			return  element("txt_subscriptionStartIssue","1").getText().trim();	
+		}
+
+		public void enterValueInExpireInputField(String currentdateInStringWithGivenFormate) {
+			wait.hardWait(2);
+			isElementDisplayed("inp_expiredate");
+			element("inp_expiredate").clear();
+			element("inp_expiredate").sendKeys(currentdateInStringWithGivenFormate);
+
+			logMessage("STEP : " + currentdateInStringWithGivenFormate +
+					" is entered in expire input field\n");
+		}
 	
 /*	public boolean verifyCommitteePreferenceDate(){
 		String preferenceEndDate,preferenceStartDate;
