@@ -211,17 +211,17 @@ public class TestSessionInitiator {
 							+ _getSessionConfig().get("browser") + "\n", true);
 			deleteAllCookies();
 			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer")))
-			{
-				baseurl= baseurl.replaceAll("https://iwebtest","https://"+ YamlReader.getYamlValue("Authentication.userName")+ ":"+ YamlReader.getYamlValue(
-				"Authentication.password") .replaceAll("#", "%23")+ "@");
-				System.out.println(baseurl);
-				driver.get(baseurl);
-				
-			}
-			else
-			{
-					driver.get(baseurl);
-			}
+			   {
+			    baseurl= baseurl.replaceAll("https://iwebtest","https://"+ YamlReader.getYamlValue("Authentication.userName")+ ":"+URLEncoder.encode(YamlReader.getYamlValue(
+			    "Authentication.password"),"UTF-8")+"@iwebtest");
+			    System.out.println(baseurl);
+			    driver.get(baseurl);
+			    
+			   }
+			   else
+			   {
+			     driver.get(baseurl);
+			   }
 
 			if(!_getSessionConfig().get("browser").equalsIgnoreCase("ie")){
 				if(baseurl.contains("iwebtest"))
