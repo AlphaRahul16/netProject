@@ -57,7 +57,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void enterFieldValue(String fieldName, String fieldValue) {
-		wait.hardWait(2);
+		wait.hardWait(5);
 		isElementDisplayed("inp_fieldName", fieldName);
 		element("inp_fieldName", fieldName).sendKeys(fieldValue);
 

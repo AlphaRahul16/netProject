@@ -35,7 +35,7 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 		String address[], zipCode;
 		address = element("txt_zipCode").getText().split(" ");
 		zipCode=address[address.length-1];
-		logMessage("STEP: Zip code fetched is : " + zipCode + "\n");
+		logMessage("STEP: Zip code is : " + zipCode + "\n");
 		return zipCode;
 	}
 
@@ -56,11 +56,11 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 
 	public void verifyZipCode(String expectedZipCode) {
 		isElementDisplayed("input_zipcode");
+		logMessage("STEP : Expected Zipcode: "+expectedZipCode);
+		logMessage("STEP : Actual Zipcode: "+element("input_zipcode").getAttribute("value").trim());
 		Assert.assertTrue(expectedZipCode.equals(element("input_zipcode").getAttribute("value").trim()),
-				"ASSERT FAILED : Actual ZipCode " + element("input_zipcode").getAttribute("value")
-						+ " does not matches with the expected ZipCode " + expectedZipCode + "\n");
-		logMessage("ASSERT PASSED : Actual ZipCode " + element("input_zipcode").getAttribute("value")
-				+ " matches with the expected ZipCode " + expectedZipCode + "\n");
+				"ASSERT FAILED : The ZipCode does not matches\n");
+		logMessage("ASSERT PASSED : The ZipCode matches \n");
 	}
 
 	public void enterZipCode(String expectedZipCode, String bogusCode) {
@@ -86,9 +86,10 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 		handleAlert();
 	}
 
-	public void verifyAddressVerificationWindow() {              
-		switchWindow();
-		hardWaitForIEBrowser(3);
+	public void verifyAddressVerificationWindow() {         
+		hardWaitForIEBrowser(3);		
+//		switchWindow();
+		switchToWindowHavingIndex(1);
 		isElementDisplayed("heading_address");
 		logMessage("STEP : User is navigated to Address Verification Window \n");
 	}
@@ -97,12 +98,13 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 		Assert.assertTrue(expectedZipCode.equals(element("txt_verificationZipCode").getAttribute("value")),
 				"ASSERT FAILED : The ZipCode on Address Verification window "
 						+ element("txt_verificationZipCode").getAttribute("value")
-						+ " does not matches with the expected ZipCode " + expectedZipCode + "\n");
+						+ " does not matches with the ZipCode " + expectedZipCode + "\n");
 		logMessage("ASSERT PASSED : The ZipCode from Address Verification window "
-				+ element("txt_verificationZipCode").getAttribute("value") + " matches with the expected ZipCode "
+				+ element("txt_verificationZipCode").getAttribute("value") + " matches with the ZipCode "
 				+ expectedZipCode + "\n");
 		clickOnSaveButtonOnAddressVerficationPage();
-		switchWindow();
+		hardWaitForIEBrowser(3);
+		switchToWindowHavingIndex(0);
 	}
 
 	public void clickOnSaveButtonOnAddressVerficationPage() {            //else added
@@ -116,7 +118,7 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 		}
 		else
 		  element("btn_verificationSave").click();
-		logMessage("STEP : Clicked on Save Button present on Address Verification Window");
+		logMessage("STEP : Clicked on Save Button on Address Verification Window");
 	}
 
 	public void verifyReplacementOfZipCode(String expectedZipCode) {
@@ -128,7 +130,7 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 		clickOnCancelButton();
 	}
 
-	public void clickOnCancelButton() {                               // else added
+	public void clickOnCancelButton() {                               
 		isElementDisplayed("btn_cancel");
 		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
 				|| ConfigPropertyReader.getProperty("browser")

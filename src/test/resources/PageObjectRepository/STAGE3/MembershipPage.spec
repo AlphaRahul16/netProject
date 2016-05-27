@@ -86,7 +86,7 @@ btn_editNameAndAddress                           css                          #F
 inp_firstName                                    id                          ind_first_name
 inp_lastName                                    id                          ind_last_name
 inp_middleName                                  id                           ind_mid_name
-txt_numberOfyears                                xpath                         //td[contains(text(),'Total Years of Service')]/following-sibling::td
+txt_numberOfyears                                xpath                         //td[contains(text(),'Years of Service')]/following-sibling::td
 btn_cancel                                       id                           ButtonCancel
 list_memberStatusRenewal                        id                            ValueDropDownList4
 txt_renewalContactId                             id                           F1_cst_id
@@ -160,7 +160,7 @@ btn_mydTransfer                                  xpath                        //
 txt_balanceAmount                                xpath                        //table[@id='TransferTable']//span
 list_term                                        id                            ord_ptr_key
 list_newPackage                                  id                            mbr_pak_prd_renewal_key
-heading_transferPackage                          id                            ui-id-3
+heading_transferPackage                          xpath                         //span[text()='Transfer Package']
 btn_transferNow                                  id                            TransferMembershipButtonID
 btn_gotorenewal                                  xpath                       (//td[contains(text(),'Active Renewed-No Response')]/preceding-sibling::td[3]//i)[1]
 txt_PaymentStatus                                xpath                        //td[contains(text(),'${productName}')]//following-sibling::td[1]

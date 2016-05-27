@@ -26,6 +26,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	Map<String, Object> mapReinstateMember;
 	WebDriver driver;
 	static String pagename = "MembershipPage";
+	static int MemberTransferLoopCount=0;
 	static String index, selectedText, customerLname, customerFname, address, state, zipCode, customerEmail, city,
 			currentDate, customerContactId, customerEmailAcsOrg, customerAddressType, nextYearDate, displayName,
 			totalPrice;
@@ -943,7 +944,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public String numberOfYearsForInactiveMember() {
 		isElementDisplayed("txt_numberOfyears");
-		String numberOfYears = element("txt_numberOfyears").getText();
+		String numberOfYears = element("txt_numberOfyears").getText().trim();
 		logMessage("Step : total years of services for inactive member is " + numberOfYears);
 		return numberOfYears;
 	}
@@ -968,15 +969,27 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnTab(String tabName) {
 		isElementDisplayed("link_tabsOnModule", tabName);
-		element("link_tabsOnModule", tabName).click();
+		clickUsingXpathInJavaScriptExecutor(element("link_tabsOnModule", tabName));
+//		element("link_tabsOnModule", tabName).click();
 		logMessage("STEP : " + tabName + " tab is clicked\n");
 
 	}
 
 	public void expandDetailsMenu(String menuName) {
 		isElementDisplayed("btn_detailsMenuAACT", menuName);
+		try
+		{
+			wait.resetImplicitTimeout(9);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 		clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT", menuName));
 		// element("btn_detailsMenuAACT", menuName).click();
+		}
+		catch(Exception e)
+		{
+			element("btn_detailsMenuAACT", menuName).click();	
+		}
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
 		logMessage("STEP : " + menuName + " bar is clicked to expand" + "\n");
 		waitForSpinner();
 
@@ -1133,7 +1146,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : Customer ID is " + info + " \n");
 		return info;
 	}
-
+	
 	public String getPaymentStatus() {
 		isElementDisplayed("txt_paymentStatus");
 		String paymentStatus = element("txt_paymentStatus").getText().trim();
@@ -2207,7 +2220,18 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnCustomerNameAndNavigateToMembershipPage() {
 		isElementDisplayed("link_customerName");
+		try
+		{
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			wait.resetImplicitTimeout(5);
 		element("link_customerName").click();
+		}
+		catch(Exception e)
+		{
+			clickUsingXpathInJavaScriptExecutor(element("link_customerName"));
+		}
+		wait.resetExplicitTimeout(timeOut);
+		wait.resetImplicitTimeout(timeOut);
 		handleAlert();
 		logMessage("Step : Customer Name as " + element("link_customerName").getText() + " is clicked\n");
 	}
@@ -2226,12 +2250,22 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void selectValidUserForRenewal(Map<String, String> mapOMR) {
+		if(MemberTransferLoopCount<3)
+		{
 		clickOnTab("Query Membership");
 		selectAndRunQuery("Selenium - Renewal Query");
 		selectMemberForRenewal(mapOMR.get("Member_Status?"));
 		expandDetailsMenu("invoices");
 		verifyTermStartDateAndEndDatesAreEmpty(mapOMR);
 		verifyPaymentStatusBeforeRenewal(mapOMR);
+		MemberTransferLoopCount++;
+		}
+		else 
+		{
+			Assert.fail("ASSERT FAIL : Member is not selected after "+MemberTransferLoopCount+" attempts\n");
+			logMessage("ASSERT FAIL : Member is not selected after "+MemberTransferLoopCount+" attempts\n");
+		}
+		logMessage("Step : Member selected in "+MemberTransferLoopCount+" attempt\n");
 		
 		
 	}
@@ -2245,7 +2279,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		catch(AssertionError e)
 		{
-			logMessage("ASSERT PASSED : Payment status before renewal is not Unpaid, thus looping back\n");
+			logMessage("ASSERT PASSED : Payment status before renewal is not Unpaid for "+MemberTransferLoopCount+" attempt thus looping back\n");
 			selectValidUserForRenewal(mapOMR);
 		}
 		wait.resetExplicitTimeout(timeOut);
@@ -2352,7 +2386,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	
 	public void clickOnMYDTransferButton(){
 		isElementDisplayed("btn_mydTransfer");
-		element("btn_mydTransfer").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_mydTransfer"));
+//		element("btn_mydTransfer").click();
 		logMessage("STEP : Clicked on MYD Transfer Button\n");
 	}
 	
@@ -2367,7 +2402,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(4);
 		String amount=element("txt_balanceAmount").getText().trim().split("\\$")[1];
 		double d= Double.parseDouble(amount);
-        logMessage("Balance Amount is : "+d+"\n");
+        logMessage("STEP : Balance Amount is : "+d+"\n");
         return d;
 	}
 	
@@ -2392,12 +2427,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("STEP : Previous package renewal year : "+previousYear);
 		logMessage("STEP : New package renewal year : "+newYear);
 		if(previousYear<newYear){
-			if(previousAmount<newAmount)
-		       logMessage("PASS : Balance Amount value has increased\n");
+			Assert.assertTrue(previousAmount<newAmount,"ASSERT FAILED : Balance Amount value has not increased\n");
+		       logMessage("ASSERT PASS : Balance Amount value has increased\n");
 		}
 		else if(previousYear>newYear){
-			if(previousAmount>newAmount)
-				logMessage("PASS : Balance Amount value has decreased\n");
+			Assert.assertTrue(previousAmount>newAmount,"ASSERT FAILED : Balance Amount value has not decreased\n");
+				logMessage("ASSERT PASS : Balance Amount value has decreased\n");
 		}
 		else
 			Assert.assertTrue(false,"ASSERT FAIL : Balance Amount value has not changed\n");
@@ -2445,6 +2480,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		        if(element("txt_termStartDaterenewal","1").getText().length()!=1 && element("txt_termEndDaterenewal","1").getText().length()!=1)
 		        {
 		         collapseDetailsMenu("invoices");
+		         logMessage("Step : Term Start date and Term Endd Date are not empty for "+MemberTransferLoopCount+" attempt\n");
 		         selectValidUserForRenewal(mapOMR);
 		        }
 		        else
@@ -2454,8 +2490,27 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		       Assert.assertTrue(element("txt_termEndDaterenewal","1").getText().length()==1, "Term End Date is not Empty");
 		       logMessage("ASSERT PASSED : Term End date is empty\n");
 		        }
-		   
-		  } 
+		  }
+
+	public String getProductName() {
+		isElementDisplayed("");
+		return element("").getText().trim();
+	}
+
+	public String getPriceValue() {
+		isElementDisplayed("");
+		return element("").getText().trim();
+	}
+
+	public String getTermStartDate() {
+		isElementDisplayed("");
+		return element("").getText().trim();
+	}
+
+	public String getTermEndDate() {
+		isElementDisplayed("");
+		return element("").getText().trim();
+	} 
 	 
 	 public void verifyProductPackage(String productPackage){
 		 isElementDisplayed("txt_productPackage");
@@ -2468,5 +2523,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		 isElementDisplayed("txt_ContactId");
 		 logMessage("STEP : "+Member+" Id is : "+element("txt_ContactId").getText().trim()+"\n");
 	 }
+
 
 }
