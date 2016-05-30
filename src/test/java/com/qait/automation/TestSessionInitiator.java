@@ -201,9 +201,10 @@ public class TestSessionInitiator {
 	}
 
 	public void launchApplication() {
-		launchApplication(getYamlValue("baseurl"));
+		//launchApplication(getYamlValue("baseurl"));
+		driver.get("https://stag-12iweb/NFStage3/iweb");
 	}
-
+	
 	public void launchApplication(String baseurl) {
 		try {
 			Reporter.log(
@@ -213,6 +214,20 @@ public class TestSessionInitiator {
 			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")
 					|| _getSessionConfig().get("browser").equalsIgnoreCase(
 							"internetexplorer"))) {
+				if(baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage3/iweb")){
+					baseurl = baseurl
+							.replaceAll(
+									"https://stag",
+									"https://"
+											+ YamlReader
+													.getYamlValue("Authentication.userName")
+											+ ":"
+											+URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), 
+													"UTF-8")
+											+ "@stag");
+					driver.get(baseurl);	          
+				}
+				else{
 				baseurl = baseurl
 						.replaceAll(
 								"https://iwebtest",
@@ -224,9 +239,7 @@ public class TestSessionInitiator {
 												"UTF-8")
 										+ "@iwebtest");
 				driver.get(baseurl);
-              
-
-
+				}
 			}
 			
 			else {
@@ -244,7 +257,7 @@ public class TestSessionInitiator {
 
 			
 			if(!_getSessionConfig().get("browser").equalsIgnoreCase("ie")){
-				if(baseurl.contains("iwebtest"))
+				if(baseurl.contains("iweb"))
 					Reporter.log("\nThe application url is :- " + baseurl.replace(baseurl.split("@")[0], "https://").replace("@", ""),true);
 				else
 					Reporter.log("\nThe application url is :- " + baseurl,true);
