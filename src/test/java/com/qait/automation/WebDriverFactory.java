@@ -107,20 +107,21 @@ public class WebDriverFactory {
 	}
 
 	private static WebDriver getFirefoxDriver() {
-		String firefoxProfilePath = "./src/test/resources/Profile_"
-				+ ConfigPropertyReader.getProperty("tier");
+//		String firefoxProfilePath = "./src/test/resources/Profile_"
+//				+ ConfigPropertyReader.getProperty("tier");
 		FirefoxProfile profile;
-		String autoAuthPath = "src/test/resources/AddOn/autoauth-2.1-fx+fn.xpi";
-		File firefoxProfile = new File(firefoxProfilePath);// path of firefox
+//		String autoAuthPath = "src/test/resources/AddOn/autoauth-2.1-fx+fn.xpi";
+//		File firefoxProfile = new File(firefoxProfilePath);// path of firefox
 
-		profile = new FirefoxProfile(firefoxProfile);
-		File extension = new File(autoAuthPath);// path of AutoAuth
-		try {
-			profile.addExtension(extension);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		profile = new FirefoxProfile(firefoxProfile);
+//		File extension = new File(autoAuthPath);// path of AutoAuth
+//		try {
+//			profile.addExtension(extension);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		profile = new FirefoxProfile();
 		profile.setPreference("browser.download.useDownloadDir", true);
 		profile.setPreference("browser.cache.disk.enable", false);
 		profile.setPreference("browser.download.folderList", 2);
@@ -128,7 +129,7 @@ public class WebDriverFactory {
 
 		profile.setPreference(
 				"browser.helperApps.neverAsk.saveToDisk",
-				"application/pdf, application/csv, application/ris, text/csv,text/plain, application/zip, application/x-zip, application/x-zip-compressed, application/download, application/octet-stream");
+				"application/pdf, application/csv, application/ris, text/csv,text/plain, application/zip, application/x-zip, application/x-zip-compressed, application/download, application/octet-stream,text/csv,application/vnd.ms-excel");
 		profile.setPreference("browser.download.manager.showWhenStarting",
 				false);
 		profile.setPreference("browser.download.manager.focusWhenStarting",
@@ -137,8 +138,16 @@ public class WebDriverFactory {
 
 		profile.setPreference("browser.download.manager.showAlertOnComplete",
 				false);
+		
 		profile.setPreference("browser.download.manager.alertOnEXEOpen", false);
 		profile.setPreference("pdfjs.disabled", true);
+		
+		profile.setPreference("browser.download.manager.showAlertOnComplete",false);
+
+		profile.setPreference("browser.download.manager.showAlertOnComplete",false);
+		profile.setPreference("browser.download.manager.showWhenStartinge",false);
+		profile.setPreference("browser.download.panel.shown",false);
+		profile.setPreference("browser.download.useToolkitUI",true);
 		return new FirefoxDriver(profile);
 
 	}

@@ -132,8 +132,8 @@ public class ACS_AwardsVoting_Test {
 
 			test.award_ewebPage.verifySubmitBallotDate(startEndDate[1],
 					currentAwardName);
-			test.award_ewebPage
-					.clickOnFiveYearNomineeMemoLink(currentAwardName);
+//			test.award_ewebPage
+//					.clickOnFiveYearNomineeMemoLink(currentAwardName);
 			
 			maxPossibleNominees = test.award_ewebPage
 					.getNumberOfPossibleNominees(currentAwardName);
@@ -158,7 +158,6 @@ public class ACS_AwardsVoting_Test {
 			test.award_ewebPage.clickOnViewProfileLink(listOfFirstAndLastName);
 			test.award_ewebPage
 					.clickOnProfilePdfLinkAndVerifyPdfContent(listOfFirstAndLastName);
-
 			test.award_ewebPage
 					.verifyAwardName_viewProfileLink(currentAwardName);
 			test.award_ewebPage

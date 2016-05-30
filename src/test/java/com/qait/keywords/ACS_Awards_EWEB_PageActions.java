@@ -361,9 +361,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 		logMessage("Step : Profile pdf link is clicked for "
 				+ nomineeFirstNames.get(1).get(randomNumber) + " user \n");
-		// extractAndCompareTextFromPdfFile("AwardNomination"
-		// , nomineeFirstNames.get(1).get(randomNumber), 1, "downloads");
-		// logMessage("Step : award history pdf verified for "+nomineeFirstNames.get(1).get(randomNumber)+" \n");
+		
 
 	}
 
@@ -594,6 +592,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 					String.valueOf(j + 1)));
 			dropdown_rank1.selectByVisibleText(String.valueOf(uniqueRandom
 					.get(j)));
+			wait.hardWait(1);
 
 			logMessage("select : " + String.valueOf(uniqueRandom.get(j)) + "\n");
 		}

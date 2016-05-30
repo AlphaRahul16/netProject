@@ -112,10 +112,10 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 	}
 
-	@SuppressWarnings("null")
+
 	public String[] editStartAndEndDate_Round(String roundNumber) {
-		if (roundNumber != null || !roundNumber.equalsIgnoreCase(null)
-				|| !roundNumber.isEmpty()) {
+		if (roundNumber != null && !roundNumber.equalsIgnoreCase(null)
+				&& !roundNumber.isEmpty()) {
 			System.out.println("roundNumber " + roundNumber);
 			clickOnEditRecordButton(roundNumber);
 			switchToFrame("iframe1");
@@ -531,7 +531,6 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 					"Step : ACS Award Stage Entries In This Stage is empty \n");
 			logMessage("Step : ACS Award Stage Entries In This Stage is not empty\n");
 			clickOnReopenSubmissionButton();
-
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		} catch (Exception exp) {
