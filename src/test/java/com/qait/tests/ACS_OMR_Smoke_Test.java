@@ -60,7 +60,6 @@ public class ACS_OMR_Smoke_Test {
 	}
 
 
-
 	@Test
 	public void Step04_TC01_launch_Eweb_Renewal_Application_And_Login_With_Valid_Credentials()
 	{

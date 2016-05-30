@@ -719,6 +719,7 @@ public class ASM_OMRPage extends GetPage {
 
 	private void verifyProductsIndividualAmount(Map<String, String> mapRenewedProductDetails) {
 		switchToEwebRenewalFrame();
+		wait.hardWait(5);
 		for(int i=0;i<elements("txt_productname").size();i++)
 		{
 			System.out.println(elements("txt_productname").get(i).getText());
@@ -765,8 +766,11 @@ public class ASM_OMRPage extends GetPage {
 		switchToEwebRenewalFrame();
 		isElementDisplayed("inp_graduationDate");
 		System.out.println(DateUtil.getAnyDateForType("MM/dd/YYYY", 1, "year"));
+		wait.hardWait(2);
 		element("inp_graduationDate").click();
+		wait.hardWait(2);
 		element("inp_graduationDate").clear();
+		wait.hardWait(2);
 		element("inp_graduationDate").sendKeys(DateUtil.getAnyDateForType("MM/dd/YYYY", 1, "year"));
 		logMessage("Step : Graduation date for Associates/Bachelors Degree entered as "+DateUtil.getAnyDateForType("MM/dd/YYYY", 1, "year"));
 		switchToDefaultContent();

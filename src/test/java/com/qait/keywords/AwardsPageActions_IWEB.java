@@ -112,8 +112,10 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 	}
 
+
 	public String[] editStartAndEndDate_Round(String roundNumber) {
-		if (roundNumber != null) {
+		if (roundNumber != null && !roundNumber.equalsIgnoreCase(null)
+				&& !roundNumber.isEmpty()) {
 			System.out.println("roundNumber " + roundNumber);
 			clickOnEditRecordButton(roundNumber);
 			switchToFrame("iframe1");
@@ -127,11 +129,20 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			String[] startEndDate = { startDate, endDate };
 			System.out.println("startDate :" + startDate);
 			System.out.println("endDate :" + endDate);
+
 			return startEndDate;
 		} else {
-			System.out.println("round was null");
+			System.out.println("round number is null");
 			return null;
 		}
+	}
+
+	public String[] editStartAndEnddateForRoundExceptOne(String roundNumber) {
+		String[] arr = editStartAndEndDate_Round(roundNumber);
+		clickOnSaveButton();
+		switchToDefaultContent();
+		expandDetailsMenu("award judges");
+		return arr;
 	}
 
 	public void uncheckClosedCheckbox_VotingClosed(String awardName,
@@ -520,7 +531,6 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 					"Step : ACS Award Stage Entries In This Stage is empty \n");
 			logMessage("Step : ACS Award Stage Entries In This Stage is not empty\n");
 			clickOnReopenSubmissionButton();
-
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		} catch (Exception exp) {

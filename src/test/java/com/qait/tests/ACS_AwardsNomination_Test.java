@@ -125,8 +125,7 @@ public class ACS_AwardsNomination_Test {
 		test.invoicePage.expandDetailsMenu("acs nominee/ entry");
 
 		test.individualsPage
-				.selectNomineeEntryForVerification(createMemberCredentials.get(
-						"Nominee0Name").trim());
+				.selectNomineeEntryForVerification(createMemberCredentials.get("Nominee0Name").trim());
 		test.invoicePage.expandDetailsMenu("acs award entry supporter");
 		test.individualsPage.verifyDetailsForAwardsNomination(
 				mapAwardsNomination, createMemberCredentials);

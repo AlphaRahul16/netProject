@@ -255,7 +255,6 @@ public class TestSessionInitiator {
 //
 //			}
 
-			
 			if(!_getSessionConfig().get("browser").equalsIgnoreCase("ie")){
 				if(baseurl.contains("iweb"))
 					Reporter.log("\nThe application url is :- " + baseurl.replace(baseurl.split("@")[0], "https://").replace("@", ""),true);

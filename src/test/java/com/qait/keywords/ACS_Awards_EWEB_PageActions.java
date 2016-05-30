@@ -175,8 +175,8 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	public void verifySubmitBallotDate(String date, String awardName) {
 		isElementDisplayed("txt_submitBallotDate", awardName);
 		Assert.assertTrue(
-				element("txt_submitBallotDate", awardName).getText()
-						.contains(date),
+				element("txt_submitBallotDate", awardName).getText().contains(
+						date),
 				"ASSERT FAILED : actual: "
 						+ element("txt_submitBallotDate", awardName).getText()
 						+ " expected: " + date);
@@ -221,13 +221,14 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			wait.waitForPageToLoadCompletely();
 			wait.resetImplicitTimeout(5);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			wait.hardWait(2);
 			isElementDisplayed("list_selectedNomineesPrepopulated");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 			for (WebElement ele : elements("list_selectedNomineesPrepopulated")) {
 				isElementDisplayed("list_selectedNomineesPrepopulated");
 				ele.click();
-				wait.hardWait(2);
+				wait.hardWait(3);
 			}
 			logMessage("Step : Unselect all selected nominees\n");
 
@@ -255,14 +256,11 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 					&& round == 1) {
 
 				for (WebElement nominee_FirstName : elements("list_unSelectNomineesFirstName")) {
-					System.out.println("nominees unselected"
+					logMessage("nominees unselected"
 							+ nominee_FirstName.getText());
 					if (nominee_WithRankOne.get(nameOfJudges.get(0)).toString()
 							.contains(nominee_FirstName.getText())) {
-						System.out.println(nominee_FirstName.getText()
-								+ "matches"
-								+ nominee_WithRankOne.get(nameOfJudges.get(0))
-										.toString());
+						
 						elements("list_nominees").get(j).click();
 						wait.hardWait(3);
 						numberOfNomineesToSelect -= 1;
@@ -272,7 +270,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 				}
 			}
 		} catch (Exception e) {
-			System.out.println("picking 1st nomiee ranodmly");
+			logMessage("[INFO] : No previous nominee get rank 1 and nominee picking randomly\n");
 		}
 
 		for (int i = 0; i < numberOfNomineesToSelect; i++) {
@@ -281,14 +279,10 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			int sizeOfNominees = elements("list_nominees").size();
 			int min = 0, max = sizeOfNominees - 1;
 
-			logMessage("min : ============:" + min + " max : ============ "
-					+ max);
-
 			int randomNumber = rand.nextInt((max - min) + 1) + min;
 
-			logMessage("random number :----------" + randomNumber);
 			elements("list_nominees").get(randomNumber).click();
-			wait.hardWait(3);
+			wait.hardWait(2);
 		}
 
 		for (WebElement element : elements("list_selectedNomineesFirstName")) {
@@ -301,12 +295,12 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			selectedNomineeLastNameList.add(selectedNomineeLastName);
 		}
 
+		int i = 0;
 		for (String selectedNomineeFirstName : selectedNomineeFirstNameList) {
-			logMessage("first name : " + selectedNomineeFirstName);
-		}
-
-		for (String selectedNomineeLastName : selectedNomineeLastNameList) {
-			logMessage("last name : " + selectedNomineeLastName);
+			logMessage("[first name] : " + selectedNomineeFirstName
+					+ " ==== [last name] : "
+					+ selectedNomineeLastNameList.get(i));
+			i++;
 		}
 
 		listOfFirstAndLastName.add(selectedNomineeFirstNameList);
@@ -367,9 +361,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 		logMessage("Step : Profile pdf link is clicked for "
 				+ nomineeFirstNames.get(1).get(randomNumber) + " user \n");
-		// extractAndCompareTextFromPdfFile("AwardNomination"
-		// , nomineeFirstNames.get(1).get(randomNumber), 1, "downloads");
-		// logMessage("Step : award history pdf verified for "+nomineeFirstNames.get(1).get(randomNumber)+" \n");
+		
 
 	}
 
@@ -485,35 +477,31 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			int roundNumber, Map<String, String> judgesRanks,
 			List<String> judges, int judgeNumber,
 			List<List<String>> FirstnameLastname) {
-		// ranks = ThreadLocalRandom.current().ints(2, maxPossibleNominees)
-		// .distinct().limit(maxPossibleNominees - 1).boxed()
-		// .collect(Collectors.toList());
+
 		int k = 0, j = 0;
 		boolean flag = false;
 		ranks = generateRandomNumber(maxPossibleNominees, roundNumber);
-		for (int i = 0; i < ranks.size(); i++) {
-			logMessage("----" + ranks.get(i));
-		}
-		logMessage("list size:" + ranks.size());
-		//
+
 		for (j = 0; j < maxPossibleNominees; j++) {
 			Select dropdown_rank1 = new Select(element("drpdwn_rank",
 					String.valueOf(1)));
 			dropdown_rank1.selectByIndex(0);
-			// dropdown_rank1.selectByVisibleText("");
 			wait.hardWait(2);
-			System.out.println("select blank:" + j);
+
 		}
+
+		logMessage("[INFO] : cleared pre populated ranks \n");
 
 		for (j = 0; j < maxPossibleNominees; j++) {
 			if (!judgesRanks.isEmpty() || judgesRanks == null) {
-				System.out.println("inside first if\n");
+
 				k = 0;
 				while (k < judgeNumber) {
-					logMessage("judge registrant name "
-							+ judgesRanks.get(judges.get(k)));
-					logMessage("\n registrant name "
-							+ elements("txt_rankNomineeName").get(j).getText());
+					logMessage("Nominee name who had rank 1 by previous judge is ==== "
+							+ judgesRanks.get(judges.get(k)) + "\n");
+					logMessage("Current Nominee name to compare to provide the rank ====== "
+							+ elements("txt_rankNomineeName").get(j).getText()
+							+ "\n");
 
 					if (elements("txt_rankNomineeName").get(j).getText()
 							.contains(judgesRanks.get(judges.get(k)))) {
@@ -522,10 +510,11 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 						dropdown_rank1.selectByVisibleText(String.valueOf(1));
 						wait.hardWait(5);
 						flag = true;
-						logMessage("\n registrant name when matches "
+						logMessage("\n Previous Nominee name "
 								+ elements("txt_rankNomineeName").get(j)
-										.getText());
-						System.out.println("breaking out of while loop");
+										.getText()
+								+ " matches with current Nominee name to provide the rank 1 \n");
+
 						break;
 					}
 					k++;
@@ -536,22 +525,23 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 						String.valueOf(j + 1)));
 				dropdown_rank1.selectByVisibleText(String.valueOf(1));
 				wait.hardWait(1);
-				System.out.println("value of j : " + j);
+
 				flag = true;
-				logMessage("\n registrant name for first time"
-						+ elements("txt_rankNomineeName").get(0).getText());
+				logMessage("\n Select Moninee name "
+						+ elements("txt_rankNomineeName").get(0).getText()
+						+ " for first time\n");
 				break;
 			}
 			if (flag) {
-				System.out.println("break from for");
+
 				break;
 			}
 		}
 
-		for (int i = 0; i < maxPossibleNominees - 1; i++) { // 10
+		for (int i = 0; i < maxPossibleNominees - 1; i++) {
 			Select dropdown_rank1 = new Select(element("drpdwn_rank",
 					String.valueOf(i + 2)));
-			logMessage("\n registrant name for all the remaining"
+			logMessage("\n Provide ranks to nominee for the remaining nominee"
 					+ elements("txt_rankNomineeName").get(i + 1).getText());
 			dropdown_rank1.selectByVisibleText(String.valueOf(ranks.get(i)));
 			wait.hardWait(5);
@@ -564,18 +554,18 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			List<List<String>> FirstnameLastname, int roundNumber,
 			Map<String, String> judgesRanks) {
 		uniqueRandom = generateRandomNumber(maxPossibleNominees, roundNumber);
-		System.out.println("size of unique nos. " + uniqueRandom.size());
+
 		for (int j = 0; j < uniqueRandom.size(); j++) {
 			int flag = 0, k = 0;
 			if (Integer.parseInt(uniqueRandom.get(j).toString()) == 1) {
 
 				if (!judgesRanks.isEmpty()) {
 					while (k < judgeNumber) {
-						logMessage("judge registrant name "
-								+ judgesRanks.get(judges.get(k)));
-						logMessage("\n registrant name "
+						logMessage("Nominee name who had rank 1 by previous judge is ==== "
+								+ judgesRanks.get(judges.get(k)) + "\n");
+						logMessage("Current Nominee name to compare to provide the rank ====== "
 								+ elements("txt_rankNomineeName").get(j)
-										.getText());
+										.getText() + "\n");
 
 						if (judgesRanks.get(judges.get(k)).contains(
 								elements("txt_rankNomineeName").get(j)
@@ -588,7 +578,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 				}
 				if (flag == 1) {
 					if (j + 1 >= uniqueRandom.size()) {
-						logMessage("Reached last after replacements\n");
+
 						enterRankForNomineeForMultipleRounds(
 								maxPossibleNominees, judges, judgeNumber,
 								FirstnameLastname, roundNumber, judgesRanks);
@@ -602,9 +592,9 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 					String.valueOf(j + 1)));
 			dropdown_rank1.selectByVisibleText(String.valueOf(uniqueRandom
 					.get(j)));
-			logMessage("select  position: " + String.valueOf(j));
+			wait.hardWait(1);
 
-			logMessage("select : " + String.valueOf(uniqueRandom.get(j)));
+			logMessage("select : " + String.valueOf(uniqueRandom.get(j)) + "\n");
 		}
 	}
 
@@ -612,9 +602,9 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			int maxPossibleNominees, List<String> judges, int judgeNumber,
 			List<List<String>> FirstnameLastname, int roundNumber,
 			Map<String, String> judgesRanks) {
-		logMessage("\n round number : " + roundNumber);
-		logMessage("\n judges number : " + judgeNumber);
-		logMessage("\n judges : " + judges.get(judgeNumber));
+		logMessage("\n round number ===== " + roundNumber);
+		logMessage("\n judges number ===== " + judgeNumber + 1);
+		logMessage("\n current judge name ===== " + judges.get(judgeNumber));
 
 		switch (roundNumber) {
 		case 1:
@@ -631,36 +621,6 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			break;
 		}
 
-		/*
-		 * isElementDisplayed("heading_rankAward");
-		 * logMessage("Info: User is navigated to Rank Award Nominees Page");
-		 */
-
-		// uniqueRandom = (List<Integer>) ThreadLocalRandom.current().ints(1,
-		// 10).distinct().limit(10);
-		//
-		//
-		// for(int j=0;j<uniqueRandom.size();j++){
-		// if(uniqueRandom.get(j)==1){
-		// int flag=0;
-		// for(int k=0;k<invocationCount;k++){
-		// flag=0;
-		// if(judgesRanks.get(k).equals(FirstnameLastname.get(0).get(j)+" "+FirstnameLastname.get(1).get(j))){
-		// flag=1;
-		// break;
-		// }
-		// }
-		// if(flag==1){
-		// int temp= uniqueRandom.get(j+1);
-		// uniqueRandom.add(j+1, uniqueRandom.get(j));
-		// uniqueRandom.add(j,temp);
-		// }
-		// }
-		// Select dropdown_rank1 = new Select(element("drpdwn_rank",
-		// String.valueOf(j)));
-		// dropdown_rank1.selectByVisibleText(String.valueOf(uniqueRandom.get(j)));
-		// }
-		//
 		nomineeRanks = enterNomineeRankAndData(maxPossibleNominees);
 		logMessage("\n registrant with rank 1 " + nomineeRanks.get(1));
 		judgesRanks.put(judges.get(judgeNumber), nomineeRanks.get(1));
@@ -670,51 +630,6 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 		return listOfNomineeJudges_judgeRanks;
 	}
-
-	// public Map<Integer, String> enterRankForNominee(int maxPossibleNominees)
-	// {
-	// List<Integer> ranks = new ArrayList<Integer>();
-	// Map<Integer, String> nomineeRanks = new HashMap<Integer, String>();
-	// isElementDisplayed("heading_rankAward");
-	// logMessage("Info: User is navigated to Rank Award Nominees Page");
-	// ranks = generateRandomNumber(maxPossibleNominees);
-	// for (int i = 0; i < ranks.size(); i++) {
-	// logMessage("----" + ranks.get(i));
-	// }
-	// logMessage("list size:" + ranks.size());
-	// for (int i = 0; i < maxPossibleNominees; i++) { // 10
-	// Select dropdown_rank = new Select(element("drpdwn_rank",
-	// String.valueOf(i + 1)));
-	// dropdown_rank.selectByVisibleText(String.valueOf(ranks.get(i)));
-	// }
-	// nomineeRanks = enterNomineeRankAndData(maxPossibleNominees);
-	// clickOnConfirmBallotButton();
-	// return nomineeRanks;
-	// }
-	//
-	// public Map<Integer, String> enterRankForNominee_rank1ForFirstNominee(
-	// int maxPossibleNominees) {
-	// List<Integer> ranks = new ArrayList<Integer>();
-	// Map<Integer, String> nomineeRanks = new HashMap<Integer, String>();
-	// isElementDisplayed("heading_rankAward");
-	// logMessage("Info: User is navigated to Rank Award Nominees Page");
-	// ranks = generateRandomNumberExceptOne(maxPossibleNominees);
-	// for (int i = 0; i < ranks.size(); i++) {
-	// logMessage("----" + ranks.get(i));
-	// }
-	// logMessage("list size:" + ranks.size());
-	// Select dropdown_rank = new Select(element("drpdwn_rank",
-	// String.valueOf(1)));
-	// dropdown_rank.selectByVisibleText(String.valueOf(1));
-	// for (int i = 0; i < maxPossibleNominees; i++) { // 10
-	// Select dropdown_rank1 = new Select(element("drpdwn_rank",
-	// String.valueOf(i + 2)));
-	// dropdown_rank1.selectByVisibleText(String.valueOf(ranks.get(i)));
-	// }
-	// nomineeRanks = enterNomineeRankAndData(maxPossibleNominees);
-	// clickOnConfirmBallotButton();
-	// return nomineeRanks;
-	// }
 
 	public void clickOnConfirmBallotButton() {
 		isElementDisplayed("btn_confirmBallot");
@@ -794,14 +709,16 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		Iterator<Entry<Integer, String>> it1 = expectedNomineeData.entrySet()
 				.iterator();
 		while (it1.hasNext()) {
+			@SuppressWarnings("rawtypes")
 			Map.Entry pair = (Map.Entry) it1.next();
-			logMessage(pair.getKey() + " = " + pair.getValue());
+			logMessage(pair.getKey() + " = " + pair.getValue()+"\n");
 		}
 		Iterator<Entry<Integer, String>> it = actualNomineeData.entrySet()
 				.iterator();
 		while (it.hasNext()) {
+			@SuppressWarnings("rawtypes")
 			Map.Entry pair = (Map.Entry) it.next();
-			logMessage(pair.getKey() + " = " + pair.getValue());
+			logMessage(pair.getKey() + " = " + pair.getValue()+"\n");
 		}
 		Assert.assertTrue(expectedNomineeData.equals(actualNomineeData),
 				"Assertion Failed: Nominees are not having assigned ranks");
@@ -840,7 +757,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		logMessage("Info: Clicked on Returns To Your Award Dashboard\n");
 	}
 
-	public void verifyStatusAfterBallotSubmission(String awardName) {
+	public String verifyStatusAfterBallotSubmission(String awardName) {
 		isElementDisplayed("txt_status", awardName);
 		Assert.assertTrue(element("txt_status", awardName).getText().trim()
 				.equalsIgnoreCase("Status - Ballot Submitted")
@@ -850,29 +767,36 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 						+ element("txt_status", awardName).getText()
 						+ " and expected is Status - Ballot submitted\n");
 		logMessage("Assertion Passed: Actual status of Judge is Status-Ballot Submitted\n");
+		return element("txt_status", awardName).getText().trim();
 
 	}
 
-	public void submissionDateAfterBallotSubmission(String awardName) {
+	public void submissionDateAfterBallotSubmission(String awardName,
+			String status) {
 		isElementDisplayed("txt_ballotSubmissionDate", awardName);
-		Assert.assertTrue(
-				element("txt_ballotSubmissionDate", awardName)
-						.getText()
-						.trim()
-						.contains(
-								"You submitted your ballot on:\n"
-										+ DateUtil
-												.getCurrentdateInStringWithGivenFormate("MMM dd, YYYY")),
-				"Assertion Failed: actual submission date is "
-						+ element("txt_ballotSubmissionDate", awardName)
-								.getText().trim()
-						+ " and Expected is You submitted your ballot on:\n"
-						+ DateUtil
-								.getCurrentdateInStringWithGivenFormate("MMM dd, YYYY")
-						+ "\n");
-		logMessage("ASSERT PASSED : "
-				+ element("txt_ballotSubmissionDate", awardName).getText()
-						.trim());
+		if (status.contains("Status - Voting Closed")) {
+			logMessage("ASERT PASSED : Voting has been closed at this time.");
+		} else {
+			Assert.assertTrue(
+					element("txt_ballotSubmissionDate", awardName)
+							.getText()
+							.trim()
+							.contains(
+									"You submitted your ballot on:\n"
+											+ DateUtil
+													.getCurrentdateInStringWithGivenFormate("MMM dd, YYYY")),
+					"Assertion Failed: actual submission date is "
+							+ element("txt_ballotSubmissionDate", awardName)
+									.getText().trim()
+							+ " and Expected is You submitted your ballot on:\n"
+							+ DateUtil
+									.getCurrentdateInStringWithGivenFormate("MMM dd, YYYY")
+							+ "\n");
+			logMessage("ASSERT PASSED : "
+					+ element("txt_ballotSubmissionDate", awardName).getText()
+							.trim());
+		}
+
 	}
 
 	// public void

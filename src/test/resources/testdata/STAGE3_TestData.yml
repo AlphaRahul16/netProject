@@ -46,10 +46,9 @@ Authentication:
   password: "A9319161853@"
 
 
-  
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt
-  data-separator: '\t'  
+  data-separator: '\t' 
   
 creditCardInfo: 
   Type: Visa/MC
