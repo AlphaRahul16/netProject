@@ -110,15 +110,15 @@ public class ACS_Member_Transfer_Smoke_Test {
 		custId = test.memberShipPage.getCustomerID();
 		test.invoicePage.expandDetailsMenu("individual memberships");
 
-		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getMemberType());
+		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getIndividualInformationWhichHasTerminateValueNull(5));
 		j++;
-		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getMemberStatus());
+		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getIndividualInformationWhichHasTerminateValueNull(6));
 		j++;
-		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getJoinFieldValue());
+		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getIndividualInformationWhichHasTerminateValueNull(7));
 		j++;
-		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getEffectiveFieldValue());
+		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getIndividualInformationWhichHasTerminateValueNull(9));
 		j++;
-		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getExpireDate());
+		BeforeList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getIndividualInformationWhichHasTerminateValueNull(10));
 		test.invoicePage.collapseDetailsMenu("individual memberships");
 		
 		 for(Map.Entry m:BeforeList.entrySet()) {
@@ -166,15 +166,15 @@ public class ACS_Member_Transfer_Smoke_Test {
 		test.memberShipPage.clickOnCustomerNameAndNavigateToMembershipPage();
 		test.invoicePage.expandDetailsMenu("individual memberships");
 
-		AfterList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getMemberType());
+		AfterList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getIndividualInformationWhichHasTerminateValueNull(5));
 		j++;
-		AfterList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getMemberStatus());
+		AfterList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getIndividualInformationWhichHasTerminateValueNull(6));
 		j++;
-		AfterList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getJoinFieldValue());
+		AfterList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getIndividualInformationWhichHasTerminateValueNull(7));
 		j++;
-		AfterList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getEffectiveFieldValue());
+		AfterList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getIndividualInformationWhichHasTerminateValueNull(9));
 		j++;
-		AfterList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getExpireDate());
+		AfterList.put(fieldNameOnSpreadSheet.get(j), test.individualsPage.getIndividualInformationWhichHasTerminateValueNull(10));
 		test.invoicePage.collapseDetailsMenu("individual memberships");
 		
 		for(Map.Entry m:AfterList.entrySet()) {

@@ -2897,8 +2897,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
         logMessage("Test Result");
         logMessage("Field==>Before==>After==>Criteria==>Pass?");
         for(Map.Entry before :beforeList.entrySet()){
-        	html = html + "<tr><td>"+before.getKey()+"</td><td>"+before.getValue()+"</td><td>"+afterList.get(before.getKey())+"</td><td>"+criteriaList.get(before.getKey())+"</td><td>"+ResultList.get(before.getKey())+"</td></tr>";
-			logMessage(before.getKey()+"==>"+before.getValue()+"==>"+afterList.get(before.getKey())+"==>"+criteriaList.get(before.getKey())+"==>"+ResultList.get(before.getKey()));
+        	if(ResultList.get(before.getKey()).equalsIgnoreCase("n")){
+        	html = html + "<tr><td>"+before.getKey()+"</td><td>"+before.getValue()+"</td><td>"+afterList.get(before.getKey())+"</td><td>"+criteriaList.get(before.getKey())+"</td><td bgcolor='red'>"+ResultList.get(before.getKey())+"</td></tr>";
+        	}else{
+        		html = html + "<tr><td>"+before.getKey()+"</td><td>"+before.getValue()+"</td><td>"+afterList.get(before.getKey())+"</td><td>"+criteriaList.get(before.getKey())+"</td><td>"+ResultList.get(before.getKey())+"</td></tr>";
+        	}
+        	logMessage(before.getKey()+"==>"+before.getValue()+"==>"+afterList.get(before.getKey())+"==>"+criteriaList.get(before.getKey())+"==>"+ResultList.get(before.getKey()));
 		}
         html = html + "</tbody></table></body></html>";
 		System.out.println("After Validation");

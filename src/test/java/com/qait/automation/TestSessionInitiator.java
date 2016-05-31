@@ -115,6 +115,7 @@ public class TestSessionInitiator {
 	public AcsYellowBookEwebPageActions acsYellowBookEwebPage;
 	public ACS_Address_Validation_Action acsAddressValidation;
 	public ACS_BatchProcessingActions acsbatchProcessing;
+	public AwardsPageActions_IWEB AwardsPageActions_IWEB;
 
 	public TakeScreenshot takescreenshot;
 
@@ -154,7 +155,7 @@ public class TestSessionInitiator {
 		addMember = new AddMemeber_IWEB(driver);
 		fundpofilePage = new FundProfilePage(driver);
 		memNumLookupPage = new MemberNumberLookupPage(driver);
-		awardsPageAction = new AwardsPageActions_IWEB(driver);
+		AwardsPageActions_IWEB = new AwardsPageActions_IWEB(driver);
 		award_ewebPage = new ACS_Awards_EWEB_PageActions(driver);
 		acsYellowBookEwebPage = new AcsYellowBookEwebPageActions(driver);
 		acsAddressValidation = new ACS_Address_Validation_Action(driver);
@@ -207,30 +208,52 @@ public class TestSessionInitiator {
 	}
 
 	public void launchApplication() {
-		launchApplication(getYamlValue("baseurl"));
+		//launchApplication(getYamlValue("baseurl"));
+		driver.get("https://stag-12iweb/NFStage3/iweb");
 	}
-
+	
 	public void launchApplication(String baseurl) {
 		try {
 			Reporter.log(
 					"The test browser is :- "
 							+ _getSessionConfig().get("browser") + "\n", true);
 			deleteAllCookies();
-			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer")))
-			{
-				baseurl= baseurl.replaceAll("https://iwebtest","https://"+ YamlReader.getYamlValue("Authentication.userName")+ ":"+URLEncoder.encode(YamlReader.getYamlValue(
-				"Authentication.password"),"UTF-8")+"@iwebtest");
-				System.out.println(baseurl);
+			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")
+					|| _getSessionConfig().get("browser").equalsIgnoreCase(
+							"internetexplorer"))) {
+				if(baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage3/iweb")){
+					baseurl = baseurl
+							.replaceAll(
+									"https://stag",
+									"https://"
+											+ YamlReader
+													.getYamlValue("Authentication.userName")
+											+ ":"
+											+URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), 
+													"UTF-8")
+											+ "@stag");
+					driver.get(baseurl);	          
+				}
+				else{
 				driver.get(baseurl);
-				
+				}
 			}
-			else
-			{
-					driver.get(baseurl);
+			
+			else {
+				driver.get(baseurl);
 			}
 
+//			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")
+//					|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer"))&& baseurl.contains("iwebtest")) {
+//				baseurl = baseurl.replaceAll("https://iwebtest",
+//						"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
+//								+ YamlReader.getYamlValue("Authentication.password").replaceAll("@", "%40") + "@"
+//								+ "iwebtest");
+//
+//			}
+
 			if(!_getSessionConfig().get("browser").equalsIgnoreCase("ie")){
-				if(baseurl.contains("iwebtest"))
+				if(baseurl.contains("iweb"))
 					Reporter.log("\nThe application url is :- " + baseurl.replace(baseurl.split("@")[0], "https://").replace("@", ""),true);
 				else
 					Reporter.log("\nThe application url is :- " + baseurl,true);

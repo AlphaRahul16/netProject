@@ -221,13 +221,14 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			wait.waitForPageToLoadCompletely();
 			wait.resetImplicitTimeout(5);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			wait.hardWait(2);
 			isElementDisplayed("list_selectedNomineesPrepopulated");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 			for (WebElement ele : elements("list_selectedNomineesPrepopulated")) {
 				isElementDisplayed("list_selectedNomineesPrepopulated");
 				ele.click();
-				wait.hardWait(2);
+				wait.hardWait(3);
 			}
 			logMessage("Step : Unselect all selected nominees\n");
 
@@ -259,10 +260,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 							+ nominee_FirstName.getText());
 					if (nominee_WithRankOne.get(nameOfJudges.get(0)).toString()
 							.contains(nominee_FirstName.getText())) {
-						System.out.println(nominee_FirstName.getText()
-								+ "matches"
-								+ nominee_WithRankOne.get(nameOfJudges.get(0))
-										.toString());
+						
 						elements("list_nominees").get(j).click();
 						wait.hardWait(3);
 						numberOfNomineesToSelect -= 1;
@@ -363,9 +361,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 		logMessage("Step : Profile pdf link is clicked for "
 				+ nomineeFirstNames.get(1).get(randomNumber) + " user \n");
-		// extractAndCompareTextFromPdfFile("AwardNomination"
-		// , nomineeFirstNames.get(1).get(randomNumber), 1, "downloads");
-		// logMessage("Step : award history pdf verified for "+nomineeFirstNames.get(1).get(randomNumber)+" \n");
+		
 
 	}
 
@@ -596,6 +592,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 					String.valueOf(j + 1)));
 			dropdown_rank1.selectByVisibleText(String.valueOf(uniqueRandom
 					.get(j)));
+			wait.hardWait(1);
 
 			logMessage("select : " + String.valueOf(uniqueRandom.get(j)) + "\n");
 		}
