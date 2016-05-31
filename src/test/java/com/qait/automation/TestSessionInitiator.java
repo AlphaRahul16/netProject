@@ -291,7 +291,7 @@ public class TestSessionInitiator {
 	}
 
 	public void closeBrowserSession() {
-		driver.quit();
+		driver.close();
 	}
 
 	public void deleteAllCookies() {

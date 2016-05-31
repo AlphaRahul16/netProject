@@ -186,12 +186,8 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void enterAuthentication(String uName, String password) {
-<<<<<<< HEAD
 		System.out.println(isBrowser("firefox"));
 		if ((isBrowser("ie") || isBrowser("internetexplorer") || isBrowser("chrome"))) {
-=======
-		if ((isBrowser("ie") || isBrowser("internetexplorer"))) {
->>>>>>> 020b982bfd9fd36e7adc6057996904941ab6d351
 			System.out.println("in authentication");
 			setClipboardData(uName);
 			Robot robot;
