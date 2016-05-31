@@ -25,6 +25,7 @@ import com.qait.keywords.ACS_Address_Validation_Action;
 import com.qait.automation.utils.YamlReader;
 
 import com.qait.keywords.ACS_Awards_EWEB_PageActions;
+import com.qait.keywords.ACS_BatchProcessingActions;
 import com.qait.keywords.ASMErrorPage;
 import com.qait.keywords.ASM_AACTPage;
 import com.qait.keywords.ASM_CCEDPage;
@@ -58,6 +59,7 @@ import com.qait.keywords.MemberNumberLookupPage;
 import com.qait.keywords.MemberShipRenewalPage;
 import com.qait.keywords.MembershipPageActions_IWEB;
 import com.qait.keywords.SubscriptionPage;
+import com.qait.keywords.ACS_BatchProcessingActions;
 
 public class TestSessionInitiator {
 
@@ -112,6 +114,7 @@ public class TestSessionInitiator {
 	public ACS_Awards_EWEB_PageActions award_ewebPage;
 	public AcsYellowBookEwebPageActions acsYellowBookEwebPage;
 	public ACS_Address_Validation_Action acsAddressValidation;
+	public ACS_BatchProcessingActions acsbatchProcessing;
 
 	public TakeScreenshot takescreenshot;
 
@@ -155,7 +158,10 @@ public class TestSessionInitiator {
 		award_ewebPage = new ACS_Awards_EWEB_PageActions(driver);
 		acsYellowBookEwebPage = new AcsYellowBookEwebPageActions(driver);
 		acsAddressValidation = new ACS_Address_Validation_Action(driver);
+		acsbatchProcessing = new ACS_BatchProcessingActions(driver);
 	}
+
+
 
 	/**
 	 * Page object Initiation done
@@ -212,8 +218,8 @@ public class TestSessionInitiator {
 			deleteAllCookies();
 			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer")))
 			{
-				baseurl= baseurl.replaceAll("https://iwebtest","https://"+ YamlReader.getYamlValue("Authentication.userName")+ ":"+ YamlReader.getYamlValue(
-				"Authentication.password") .replaceAll("#", "%23")+ "@");
+				baseurl= baseurl.replaceAll("https://iwebtest","https://"+ YamlReader.getYamlValue("Authentication.userName")+ ":"+URLEncoder.encode(YamlReader.getYamlValue(
+				"Authentication.password"),"UTF-8")+"@iwebtest");
 				System.out.println(baseurl);
 				driver.get(baseurl);
 				
