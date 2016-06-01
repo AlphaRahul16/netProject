@@ -208,87 +208,93 @@ public class TestSessionInitiator {
 	}
 
 	public void launchApplication() {
-		//launchApplication(getYamlValue("baseurl"));
-		driver.get("https://stag-12iweb/NFStage3/iweb");
+		launchApplication(getYamlValue("baseurl"));
 	}
 	
 	public void launchApplication(String baseurl) {
-		try {
-			Reporter.log(
-					"The test browser is :- "
-							+ _getSessionConfig().get("browser") + "\n", true);
-			deleteAllCookies();
-			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")
-					|| _getSessionConfig().get("browser").equalsIgnoreCase(
-							"internetexplorer"))) {
-				if(baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage3/iweb")){
-					baseurl = baseurl
-							.replaceAll(
-									"https://stag",
-									"https://"
-											+ YamlReader
-													.getYamlValue("Authentication.userName")
-											+ ":"
-											+URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), 
-													"UTF-8")
-											+ "@stag");
-					driver.get(baseurl);	          
-				}
-				else{
-				driver.get(baseurl);
-				}
-			}
-			
-			else {
-				driver.get(baseurl);
-			}
+		  try {
+		   Reporter.log(
+		     "The test browser is :- "
+		       + _getSessionConfig().get("browser") + "\n", true);
+		   deleteAllCookies();
+		   if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer")))
+		      {
+		       baseurl= baseurl.replaceAll("https://iwebtest","https://"+ YamlReader.getYamlValue("Authentication.userName")+ ":"+URLEncoder.encode(YamlReader.getYamlValue(
+		       "Authentication.password"),"UTF-8")+"@iwebtest");
+		       System.out.println(baseurl);
+		       driver.get(baseurl);
+		       
+		      }
+		      else
+		      {
+		        driver.get(baseurl);
+		      }
+		    if(baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage3/iweb")){
+		     baseurl = baseurl
+		       .replaceAll(
+		         "https://stag",
+		         "https://"
+		           + YamlReader
+		             .getYamlValue("Authentication.userName")
+		           + ":"
+		           +URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), 
+		             "UTF-8")
+		           + "@stag");
+		     driver.get(baseurl);           
+		    }
+		    else{
+		    driver.get(baseurl);
+		    }
+		   
+		   
+		 
 
-//			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")
-//					|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer"))&& baseurl.contains("iwebtest")) {
-//				baseurl = baseurl.replaceAll("https://iwebtest",
-//						"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
-//								+ YamlReader.getYamlValue("Authentication.password").replaceAll("@", "%40") + "@"
-//								+ "iwebtest");
-//
-//			}
+		//   if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")
+//		     || _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer"))&& baseurl.contains("iwebtest")) {
+//		    baseurl = baseurl.replaceAll("https://iwebtest",
+//		      "https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
+//		        + YamlReader.getYamlValue("Authentication.password").replaceAll("@", "%40") + "@"
+//		        + "iwebtest");
+		//
+		//   }
 
-			if(!_getSessionConfig().get("browser").equalsIgnoreCase("ie")){
-				if(baseurl.contains("iweb"))
-					Reporter.log("\nThe application url is :- " + baseurl.replace(baseurl.split("@")[0], "https://").replace("@", ""),true);
-				else
-					Reporter.log("\nThe application url is :- " + baseurl,true);
-			}
-			if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/"))
-					&& (ConfigPropertyReader.getProperty("browser")
-							.equalsIgnoreCase("IE")
-							|| ConfigPropertyReader.getProperty("browser")
-									.equalsIgnoreCase("ie") || ConfigPropertyReader
-							.getProperty("browser").equalsIgnoreCase(
-									"internetexplorer"))) {
-				try {
-					Thread.sleep(8000);
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
-			}
-			if (!baseurl
-					.equalsIgnoreCase("https://iwebtest.acs.org/NFStage3/iweb")) {
-				handleSSLCertificateCondition(baseurl);
-			}
-		
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+		   if(!_getSessionConfig().get("browser").equalsIgnoreCase("ie")){
+		    if(baseurl.contains("iweb"))
+		     Reporter.log("\nThe application url is :- " + baseurl.replace(baseurl.split("@")[0], "https://").replace("@", ""),true);
+		    else
+		     Reporter.log("\nThe application url is :- " + baseurl,true);
+		   }
+		   if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/"))
+		     && (ConfigPropertyReader.getProperty("browser")
+		       .equalsIgnoreCase("IE")
+		       || ConfigPropertyReader.getProperty("browser")
+		         .equalsIgnoreCase("ie") || ConfigPropertyReader
+		       .getProperty("browser").equalsIgnoreCase(
+		         "internetexplorer"))) {
+		    try {
+		     Thread.sleep(8000);
+		    } catch (InterruptedException e1) {
+		     e1.printStackTrace();
+		    }
+		   }
+		   if (!baseurl
+		     .equalsIgnoreCase("https://iwebtest.acs.org/NFStage3/iweb")) {
+		    handleSSLCertificateCondition(baseurl);
+		   }
+		  
+		  }catch (Exception e) {
+		   e.printStackTrace();
+		  }
 
-	}
-
+		 }
+	
 	public void openUrl(String url) {
 		driver.navigate().to(url);
 		// driver.get(url);
 	}
 
 	public void closeBrowserSession() {
-		driver.close();
+		driver.quit();
 	}
 
 	public void deleteAllCookies() {
