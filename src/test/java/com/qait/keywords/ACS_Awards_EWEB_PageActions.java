@@ -23,7 +23,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	static String pagename = "ACS_Awards_Eweb";
 
 	int timeOut, hiddenFieldTimeOut;
-
+	static int count = 0;
 	List<Integer> ranks = new ArrayList<Integer>();
 	Map<Integer, String> nomineeRanks = new HashMap<Integer, String>();
 
@@ -221,7 +221,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			wait.waitForPageToLoadCompletely();
 			wait.resetImplicitTimeout(5);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
-			wait.hardWait(2);
+			wait.hardWait(5);
 			isElementDisplayed("list_selectedNomineesPrepopulated");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
@@ -231,7 +231,6 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 				wait.hardWait(3);
 			}
 			logMessage("Step : Unselect all selected nominees\n");
-
 		} catch (Exception e) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
@@ -260,7 +259,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 							+ nominee_FirstName.getText());
 					if (nominee_WithRankOne.get(nameOfJudges.get(0)).toString()
 							.contains(nominee_FirstName.getText())) {
-						
+
 						elements("list_nominees").get(j).click();
 						wait.hardWait(3);
 						numberOfNomineesToSelect -= 1;
@@ -361,7 +360,6 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 		logMessage("Step : Profile pdf link is clicked for "
 				+ nomineeFirstNames.get(1).get(randomNumber) + " user \n");
-		
 
 	}
 
@@ -462,6 +460,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnRankNominees_Save(String buttonName) {
+		wait.hardWait(2);
 		isElementDisplayed("btn_rankNominees_save");
 		for (WebElement ele : elements("btn_rankNominees_save")) {
 			logMessage("save btn text _________________________"
@@ -469,6 +468,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			if (ele.getAttribute("value").contains(buttonName)) {
 				clickUsingXpathInJavaScriptExecutor(ele);
 				logMessage("Step :  " + buttonName + " button is clicked \n");
+				wait.hardWait(2);
 			}
 		}
 	}
@@ -487,9 +487,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 					String.valueOf(1)));
 			dropdown_rank1.selectByIndex(0);
 			wait.hardWait(2);
-
 		}
-
 		logMessage("[INFO] : cleared pre populated ranks \n");
 
 		for (j = 0; j < maxPossibleNominees; j++) {
@@ -527,7 +525,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 				wait.hardWait(1);
 
 				flag = true;
-				logMessage("\n Select Moninee name "
+				logMessage("\n Select Nominee name "
 						+ elements("txt_rankNomineeName").get(0).getText()
 						+ " for first time\n");
 				break;
@@ -553,7 +551,17 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			List<String> judges, int judgeNumber,
 			List<List<String>> FirstnameLastname, int roundNumber,
 			Map<String, String> judgesRanks) {
+
 		uniqueRandom = generateRandomNumber(maxPossibleNominees, roundNumber);
+		for (int j = 0; j < maxPossibleNominees; j++) {
+			Select dropdown_rank1 = new Select(element("drpdwn_rank",
+					String.valueOf(1)));
+			dropdown_rank1.selectByIndex(0);
+			wait.hardWait(2);
+		}
+		if (count == judges.size()) {
+			Assert.fail("ASSERT FAILED : Number of nominees is less than the number of judges\n");
+		}
 
 		for (int j = 0; j < uniqueRandom.size(); j++) {
 			int flag = 0, k = 0;
@@ -582,6 +590,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 						enterRankForNomineeForMultipleRounds(
 								maxPossibleNominees, judges, judgeNumber,
 								FirstnameLastname, roundNumber, judgesRanks);
+						count++;
 					}
 					uniqueRandom.add(j, uniqueRandom.get(j + 1));
 					uniqueRandom.remove(j + 2);
@@ -592,8 +601,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 					String.valueOf(j + 1)));
 			dropdown_rank1.selectByVisibleText(String.valueOf(uniqueRandom
 					.get(j)));
-			wait.hardWait(1);
-
+			wait.hardWait(5);
 			logMessage("select : " + String.valueOf(uniqueRandom.get(j)) + "\n");
 		}
 	}
@@ -603,7 +611,8 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			List<List<String>> FirstnameLastname, int roundNumber,
 			Map<String, String> judgesRanks) {
 		logMessage("\n round number ===== " + roundNumber);
-		logMessage("\n judges number ===== " + judgeNumber + 1);
+		int actualJudgeNumber = judgeNumber + 1;
+		logMessage("\n judges number ===== " + actualJudgeNumber);
 		logMessage("\n current judge name ===== " + judges.get(judgeNumber));
 
 		switch (roundNumber) {
@@ -639,7 +648,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 	public List<Integer> generateRandomNumber(int maxPossibleNominees,
 			int roundNumber) {
-		int max = maxPossibleNominees + 1, min = 0, num; // 11
+		int max = maxPossibleNominees + 1, min = 0, num;
 		switch (roundNumber) {
 		case 1:
 			min = 2;
@@ -652,7 +661,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		}
 		Random random = new Random();
 		List<Integer> list = new ArrayList<Integer>();
-		while (list.size() < max - min && min != 0) { // 10
+		while (list.size() < max - min && min != 0) {
 			num = random.nextInt((max - min)) + min;
 			if (list.contains(num))
 				continue;
@@ -665,10 +674,10 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	}
 
 	public List<Integer> generateRandomNumberExceptOne(int maxPossibleNominees) {
-		int max = maxPossibleNominees + 1, min = 2, num; // 11
+		int max = maxPossibleNominees + 1, min = 2, num;
 		Random random = new Random();
 		List<Integer> list = new ArrayList<Integer>();
-		while (list.size() < maxPossibleNominees) { // 10
+		while (list.size() < maxPossibleNominees) {
 			num = random.nextInt((max - min)) + min;
 			if (list.contains(num))
 				continue;
@@ -711,14 +720,14 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		while (it1.hasNext()) {
 			@SuppressWarnings("rawtypes")
 			Map.Entry pair = (Map.Entry) it1.next();
-			logMessage(pair.getKey() + " = " + pair.getValue()+"\n");
+			logMessage(pair.getKey() + " = " + pair.getValue() + "\n");
 		}
 		Iterator<Entry<Integer, String>> it = actualNomineeData.entrySet()
 				.iterator();
 		while (it.hasNext()) {
 			@SuppressWarnings("rawtypes")
 			Map.Entry pair = (Map.Entry) it.next();
-			logMessage(pair.getKey() + " = " + pair.getValue()+"\n");
+			logMessage(pair.getKey() + " = " + pair.getValue() + "\n");
 		}
 		Assert.assertTrue(expectedNomineeData.equals(actualNomineeData),
 				"Assertion Failed: Nominees are not having assigned ranks");

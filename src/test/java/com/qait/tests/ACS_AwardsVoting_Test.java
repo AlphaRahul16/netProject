@@ -75,7 +75,7 @@ public class ACS_AwardsVoting_Test {
 		test.awardsPageAction.expandDetailsMenu("award stages/rounds");
 		test.awardsPageAction.verifyOrAddRoundsPresents();
 		test.awardsPageAction.ClearStartDateAndEndDate_AllRounds();
-		startEndDate = test.awardsPageAction.editStartAndEndDate_Round("1");
+		startEndDate = test.awardsPageAction.editStartAndEndDate_Round(1);
 		test.awardsPageAction.clickOnSaveButton();
 		test.awardsPageAction.switchToDefaultContent();
 		test.awardsPageAction.collapseDetailsMenu("award stages/rounds");
@@ -114,7 +114,6 @@ public class ACS_AwardsVoting_Test {
 		listOfNomineeJudges_judgeRanks.put(0, nomineeRanks);
 		listOfNomineeJudges_judgeRanks.put(1, judgesRanks);
 		for (int i = 0; i < 5; i++) {
-
 			Reporter.log("==========Login In To Awards Voting Application for round:- "
 					+ count + "=================");
 			test.homePageIWEB.addValuesInMap("AwardsVoting", caseID);
@@ -125,16 +124,15 @@ public class ACS_AwardsVoting_Test {
 			test.award_ewebPage
 					.verifyLoginInAwardApplicationSuccessfully(nameOfJudges
 							.get(i));
-			
+
 			test.award_ewebPage.verifyAwardName(currentAwardName);
 			test.award_ewebPage
 					.verifyNumberOfDays("MM/d/YYYY", startEndDate[1]);
 
 			test.award_ewebPage.verifySubmitBallotDate(startEndDate[1],
 					currentAwardName);
-//			test.award_ewebPage
-//					.clickOnFiveYearNomineeMemoLink(currentAwardName);
-			
+			// test.award_ewebPage
+			// .clickOnFiveYearNomineeMemoLink(currentAwardName);
 			maxPossibleNominees = test.award_ewebPage
 					.getNumberOfPossibleNominees(currentAwardName);
 			test.award_ewebPage
@@ -215,8 +213,8 @@ public class ACS_AwardsVoting_Test {
 		test.awardsPageAction.clickOnAwardsName_RoundName(currentAwardName);
 		test.awardsPageAction.expandDetailsMenu("award stages/rounds");
 		startEndDate = test.awardsPageAction
-				.editStartAndEnddateForRoundExceptOne(String
-						.valueOf(round > 1 ? ++votingRounds : null));
+				.editStartAndEnddateForRoundExceptOne(round > 1 ? ++votingRounds
+						: -1);
 	}
 
 	@Test(dependsOnMethods = "Step02_TC02_Verify_Nominees_And_Set_Start_End_Dates_For_Round1_IWEB_Application")
