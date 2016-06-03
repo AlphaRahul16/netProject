@@ -18,6 +18,7 @@ app_url_NCW: https://ewebtest12.acs.org/NFStage3/ncwlookup
 app_url_PUBS: https://ewebtest12.acs.org/NFStage3/pba
 app_url_Nominate: https://ewebtest12.acs.org/NFStage3/nominate
 app_url_Awards: https://ewebtest12.acs.org/NFStage3/awards
+app_url_IwebReporting: https://stag-12iweb/NFStage3/iweb
 
 
 csv-data-file:
@@ -35,13 +36,14 @@ csv-data-file:
   path_GeneralAwardList: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument.txt
   path_AwardsVoting: ./src/test/resources/TestDataLibrary/Awards_Voting_Data_Sheet.csv
   path_MYDTransfer: ./src/test/resources/TestDataLibrary/Multi_Year_Dues_Transfer_Sheet.csv
+  path_ScarfReporting: ./src/test/resources/TestDataLibrary/Scarf_Reporting_DataSheet.xls
   data-separator: '\t'
   has-header: true
   
   
 Authentication: 
-  userName: c00616
-  password: "A9319161853@"
+  userName: c00569
+  password: "3r0P85&8"
 
 
 ASM_Data_File: 

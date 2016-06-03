@@ -2556,17 +2556,19 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void updateInformationAfterClickingTransferButton(String option, String option2) {
+		System.out.println("Option Mem Type::"+option);
+		System.out.println("Option Mem Package::"+option2);
 		switchToFrame(element("iframe"));
 		isElementDisplayed("drpdown_memtype");
 		selectProvidedTextFromDropDown(element("drpdown_memtype"), option);
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(2);
-		isElementDisplayed("drpdown_invoice");
-		selectProvidedTextFromDropDown(element("drpdown_invoice"), "ACS: SELENIUM BATCH");
-		wait.waitForPageToLoadCompletely();
-		wait.hardWait(2);
 		isElementDisplayed("drpdown_package");
 		selectProvidedTextFromDropDown(element("drpdown_package"), option2);
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
+		isElementDisplayed("drpdown_invoice");
+		selectProvidedTextFromDropDown(element("drpdown_invoice"), "ACS: SELENIUM BATCH");
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(2);
 		isElementDisplayed("btn_transferNow");

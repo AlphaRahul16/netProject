@@ -147,6 +147,12 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		element("link_tabsOnModule", tabName).click();
 		logMessage("STEP : " + tabName + " tab is clicked\n");
 	}
+	
+	public void clickOnSacrfReportingModule(){
+		isElementDisplayed("lnk_ScarfReporting");
+		element("lnk_ScarfReporting").click();
+		logMessage("STEP : SCARF Reporting tab is clicked\n");
+	}
 
 	public void clickOnFindNominationTab() {
 		isElementDisplayed("lnk_FindNomination");
