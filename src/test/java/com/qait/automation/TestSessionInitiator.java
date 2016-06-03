@@ -115,7 +115,7 @@ public class TestSessionInitiator {
 	public AcsYellowBookEwebPageActions acsYellowBookEwebPage;
 	public ACS_Address_Validation_Action acsAddressValidation;
 	public ACS_BatchProcessingActions acsbatchProcessing;
-	public AwardsPageActions_IWEB AwardsPageActions_IWEB;
+	//public AwardsPageActions_IWEB AwardsPageActions_IWEB;
 
 	public TakeScreenshot takescreenshot;
 
@@ -155,7 +155,7 @@ public class TestSessionInitiator {
 		addMember = new AddMemeber_IWEB(driver);
 		fundpofilePage = new FundProfilePage(driver);
 		memNumLookupPage = new MemberNumberLookupPage(driver);
-		AwardsPageActions_IWEB = new AwardsPageActions_IWEB(driver);
+		awardsPageAction = new AwardsPageActions_IWEB(driver);
 		award_ewebPage = new ACS_Awards_EWEB_PageActions(driver);
 		acsYellowBookEwebPage = new AcsYellowBookEwebPageActions(driver);
 		acsAddressValidation = new ACS_Address_Validation_Action(driver);

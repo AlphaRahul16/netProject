@@ -416,7 +416,8 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyAwardName_viewProfileLink(String awardName) {
-		switchToFrame("TB_iframeContent");
+		switchToFrame(element("frm_viewProfile"));
+		//switchToFrame("TB_iframeContent");
 		isElementDisplayed("txt_viewProfileAwardName", awardName);
 		Assert.assertTrue(
 				element("txt_viewProfileAwardName", awardName).getText()
@@ -431,7 +432,8 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyNominationDocuments_viewProfileLink(String awardName) {
-		switchToFrame("TB_iframeContent");
+		switchToFrame(element("frm_viewProfile"));
+		//switchToFrame("TB_iframeContent");
 		isElementDisplayed("list_nominationsDocuments", awardName);
 		Assert.assertTrue(elements("list_nominationsDocuments", awardName)
 				.size() > 0,
