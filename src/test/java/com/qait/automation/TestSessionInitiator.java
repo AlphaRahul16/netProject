@@ -58,6 +58,7 @@ import com.qait.keywords.MemberNumberLookupPage;
 import com.qait.keywords.MemberShipRenewalPage;
 import com.qait.keywords.MembershipPageActions_IWEB;
 import com.qait.keywords.SubscriptionPage;
+import com.qait.keywords.ACS_Scarf_Reporting;
 
 public class TestSessionInitiator {
 
@@ -112,6 +113,7 @@ public class TestSessionInitiator {
 	public ACS_Awards_EWEB_PageActions award_ewebPage;
 	public AcsYellowBookEwebPageActions acsYellowBookEwebPage;
 	public ACS_Address_Validation_Action acsAddressValidation;
+	public ACS_Scarf_Reporting acsScarfReporting;
 
 	public TakeScreenshot takescreenshot;
 
@@ -155,6 +157,7 @@ public class TestSessionInitiator {
 		award_ewebPage = new ACS_Awards_EWEB_PageActions(driver);
 		acsYellowBookEwebPage = new AcsYellowBookEwebPageActions(driver);
 		acsAddressValidation = new ACS_Address_Validation_Action(driver);
+		acsScarfReporting= new ACS_Scarf_Reporting(driver);
 	}
 
 	/**
@@ -244,6 +247,7 @@ public class TestSessionInitiator {
 			
 			else {
 				driver.get(baseurl);
+				System.out.println("url is: "+baseurl);
 			}
 
 //			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")

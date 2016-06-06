@@ -513,7 +513,7 @@ public class XlsReader {
 			System.out.println("Size of value List::" + value.size());
 
 			for (String val : value) {
-				dataList.put(key.get(k), val);
+				dataList.put(key.get(k), val.trim());
 				k++;
 			}
 			System.out.println("===========================Final Data Map=========================");

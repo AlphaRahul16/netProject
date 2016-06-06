@@ -19,7 +19,7 @@ app_url_PUBS: https://ewebtest12.acs.org/NFStage3/pba
 app_url_Nominate: https://ewebtest12.acs.org/NFStage3/nominate
 app_url_Awards: https://ewebtest12.acs.org/NFStage3/awards
 app_url_IwebReporting: https://stag-12iweb/NFStage3/iweb
-
+app_url_EwebReporting: https://ewebtest12.acs.org/NFStage3/studentchaptersonline
 
 csv-data-file:
   path_OMA: ./src/test/resources/TestDataLibrary/OMA Business Rules.csv
