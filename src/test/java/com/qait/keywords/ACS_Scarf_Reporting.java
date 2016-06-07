@@ -4,6 +4,7 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,8 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 
 	WebDriver driver;
 	static String pagename = "Scarf_Reporting";
-	String reportingStartDate, reportingEndDate;
+	String reportingStartDate, reportingEndDate,chapterName,customerLname,customerFname;
+
 	Map<String,String>eventType=new HashMap<String, String>();
 	int timeOut = 60;
 
@@ -45,7 +47,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 					.equals("Yes")) {
 				reportingStartDate = element("txt_startDate", String.valueOf(i))
 						.getText();
-				reportingEndDate = element("txt_endDate", String.valueOf(i))
+				reportingEndDate = element("txt_endDate", String.valueOf(i),String.valueOf(9))
 						.getText();
 				index = i;
 				break;
@@ -289,7 +291,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		selectEventType(1, eventlist.get("Event" + i + "_Type"));
 		wait.hardWait(5);
 		selectEventType(2, eventlist.get("NCW/Mole Day/CCEW_" + i));
-		enterEventDetails(1, eventlist.get("Event"));
+		enterEventDetails(1, eventlist.get("Event")+i);
 		enterEventDetails(2, eventlist.get("Location"));
 		enterEventDetails(3, "4/22/2015");
 		enterDescriptionDetails(eventlist.get("Description"));
@@ -394,5 +396,99 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		element("btn_modalSubmit",value).click();
 		logMessage("STEP : Clicked on "+value+" button\n");
 	}
+	
+	public void clickOnSideBarTabStudentChapter(String tabName, int index){
+		isElementDisplayed("tab_sideBar",String.valueOf(index));
+		element("tab_sideBar",String.valueOf(index)).click();
+		logMessage("STEP : Clicked on "+tabName+" tab");
+	}
+	
+	public void clickOnSideBarSubTab(String subTab){
+		isElementDisplayed("hd_sideBar",subTab);
+		element("hd_sideBar",subTab).click();
+		logMessage("STEP : Clicked on "+subTab+" sub tab");
+	}
+	
+	public void selectARandomActiveStudentChapter(){
+		MembershipPageActions_IWEB obj =new MembershipPageActions_IWEB(driver);
+		obj.clickOnRandomPage();
+		obj.clickOnAnyRandomMember();
+		getChapterDetails();
+	}
+	
+	public List<String> getMemberDetails(){
+		List<String> memberDetails=new ArrayList<String>();
+		MembershipPageActions_IWEB obj =new MembershipPageActions_IWEB(driver);
+		memberDetails=obj.getMemberDetails();
+		memberDetails.add(obj.getMemberWebLogin());
+		System.out.println(memberDetails);
+		return memberDetails;
+	}
+	
+	public void getChapterDetails(){
+		MembershipPageActions_IWEB obj =new MembershipPageActions_IWEB(driver);
+        obj.clickOnEditNameAndAddress();
+		switchToFrame("iframe1");
+		chapterName=getChapterName();
+		obj.clickOnCancelButton();
+		handleAlert();
+		switchToDefaultContent();
+	}
+	
+	public void clickOnRelationsOptionUnderMoreMenu(){
+		MembershipPageActions_IWEB objMember =new MembershipPageActions_IWEB(driver);
+		IndividualsPageActions_IWEB object=new IndividualsPageActions_IWEB(driver);
+		object.navigateToGeneralMenuOnHoveringMore("Relations");
+		objMember.expandDetailsMenu("active student member undergrads");
+	}
+	
+	public String getChapterName(){
+		isElementDisplayed("txt_chapterName");
+		chapterName=element("txt_chapterName").getAttribute("value");
+		logMessage("STEP : Chapter Name is : "+chapterName+"\n");
+		return chapterName;
+	}
+	
+	public int selectStudentMember(){
+		boolean flag;
+		int i;
+		isElementDisplayed("table_rows");
+		for(i=1;i<=elements("table_rows").size();i++){
+			flag=verifyStudentMemberEndDate(i);
+			if(flag){
+				logMessage("ASSERT PASSED : Current date of student member"+element("txt_endDate",String.valueOf(i),String.valueOf(4)).
+				getText().trim()+" is equal to End Date");
+				clickOnStudentMemberName(i);
+				break;
+			}
+		}
+		return i;
+	}
+	
+	public boolean verifyStudentMemberEndDate(int i){
+		boolean flag=false;
+		logMessage("STEP : Current Date:"
+				+ DateUtil.convertStringToDate(DateUtil
+						.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
+						"MM/dd/yyyy"));
+		Date currDate=DateUtil.convertStringToDate(
+				DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"), "MM/dd/yyyy");
+		Date endDate=DateUtil.convertStringToDate(
+				element("txt_endDate",String.valueOf(i),String.valueOf(7)).getText().trim(),
+				"MM/dd/yyyy");
+		if(currDate.compareTo(endDate)==-1 || currDate.compareTo(endDate)==1){
+			flag=true;
+		}
+		return flag;
+	}
+	
+	public void clickOnStudentMemberName(int i){
+		wait.hardWait(2);
+		isElementDisplayed("arrow_selectMember",String.valueOf(i));
+		logMessage("STEP : Selected Student Member: "+element("txt_endDate",String.valueOf(i),String.valueOf(4)).
+				getText().trim());
+		element("arrow_selectMember",String.valueOf(i)).click();
+	}
+	
 
 }

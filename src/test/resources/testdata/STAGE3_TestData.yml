@@ -36,9 +36,11 @@ csv-data-file:
   path_GeneralAwardList: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument.txt
   path_AwardsVoting: ./src/test/resources/TestDataLibrary/Awards_Voting_Data_Sheet.csv
   path_MYDTransfer: ./src/test/resources/TestDataLibrary/Multi_Year_Dues_Transfer_Sheet.csv
-  path_ScarfReporting: ./src/test/resources/TestDataLibrary/Scarf_Reporting_DataSheet.xls
   data-separator: '\t'
   has-header: true
+
+excel-data-file:
+  path_ScarfReporting: ./src/test/resources/TestDataLibrary/Scarf_Reporting_DataSheet.xls
   
   
 Authentication: 
@@ -507,6 +509,8 @@ MYDTransfer:
     queryName: Selenium - MYD Query
 AddressValidation:
     queryName: Selenium - US Constituents          
+ScarfReporting:
+    queryName: "QAIT - Active Student Chapters"
                    
 email:
   send: true

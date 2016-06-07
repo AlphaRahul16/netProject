@@ -3,10 +3,10 @@ Page Title: Scarf_Reporting
 #Object Definitions
 =============================================================================================================================================
 lnk_StudentChapter                       xpath                       //a[text()="Student Chapter Reporting"]
-table_rows                               xpath                       //table[@id='UP1']//tr
+table_rows                               xpath                       //table[@class='table']//tr
 txt_current                              xpath                       (//th/a)[2]/../../following-sibling::tr[${index1}]//td[5]
 txt_startDate                            xpath                       (//th/a)[2]/../../following-sibling::tr[${index1}]//td[8]
-txt_endDate                              xpath                       (//th/a)[2]/../../following-sibling::tr[${index1}]//td[9]
+txt_endDate                              xpath                       (//th/a)[2]/../../following-sibling::tr[${index1}]//td[${index2}]
 heading_StudentReport                    css                          .header-title
 btn_editChapterInfo                      xpath                        //input[@value='Edit Chapter Info']
 btn_editChapterOfficers                  css                          #btnEdit
@@ -44,4 +44,11 @@ btn_submitReport                         id                           btnSubmit
 heading_reportComplete                   xpath                        //h2[contains(text(),'Report Complete')]
 btn_modalSubmit                          xpath                        //div[@class='modal-body']//input[@value='${value}']
 heading_confirmReport                    xpath                        //h3[contains(text(),'Confirm Chapter Report')]
+hd_sideBar                               xpath                        //a[text()='${value}']
+tab_sideBar                              xpath                        //h3[normalize-space(text()='Student Chapter Report')][${index}]
+txtbox_chapterName                       id                           ValueTextBox0
+drpdown_status                           id                           ValueDropDownList2
+btn_go                                   id                           ButtonSearch
+txt_chapterName                          id                           chp_name
+arrow_selectMember                       xpath                        (//th/a)[2]/../../following-sibling::tr[${index}]//td[3]//a
 =============================================================================================================================================

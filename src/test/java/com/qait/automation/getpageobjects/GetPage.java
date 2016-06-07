@@ -166,6 +166,17 @@ public class GetPage extends BaseUi {
 		return result;
 	}
 	
+	protected boolean isElementDisplayed(String elementName,
+			String elementTextReplace1,String elementTextReplace2) {
+		wait.waitForElementToBeVisible(element(elementName, elementTextReplace1,elementTextReplace2));
+		boolean result = element(elementName, elementTextReplace1,elementTextReplace2).isDisplayed();
+		assertTrue(result, "ASSERT FAILED: element '" + elementName
+				+ "with text " + elementTextReplace1+elementTextReplace2 + "' is not displayed.");
+		logMessage("ASSERT PASSED: element " + elementName + " with text "
+				+ elementTextReplace1+elementTextReplace2 + " is displayed.");
+		return result;
+	}
+	
 	protected void verifyElementText(String elementName, String expectedText) {
 		wait.waitForElementToBeVisible(element(elementName));
 		assertEquals(element(elementName).getText().trim(), expectedText,
