@@ -1445,7 +1445,6 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		preferenceStartDate = element("txt_quantity", "ACSYBCommiteePreferenceStartDate").getText().trim();
 		logMessage("preferenceStartDate   " + preferenceStartDate);
 		value = verfiyEndAndStartDate(preferenceEndDate, preferenceStartDate);
-		logMessage(value + "------");
 		return value;
 	}
 
@@ -1518,6 +1517,13 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		element("inp_expiredate").sendKeys(currentdateInStringWithGivenFormate);
 
 		logMessage("STEP : " + currentdateInStringWithGivenFormate + " is entered in expire input field\n");
+	}
+
+	public void enterValueInMemberStatusField(String dropdown , String option) {
+		wait.hardWait(2);
+		isElementDisplayed("select_member",dropdown);
+		selectProvidedTextFromDropDown(element("select_member",dropdown), option);
+		logMessage("STEP : Selected " + option + " from dropdown "+dropdown);
 	}
 
 	/*

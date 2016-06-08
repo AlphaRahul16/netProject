@@ -104,11 +104,13 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyUserIsOnHomePageOfYellowBookEweb() {
+		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("header_home", "YellowBook Home");
 		logMessage("[ASSERTION PASSED]:: Verified User Is On Home Page of Yellow Book Eweb");
 	}
 
 	public void clickOnLinkOnHomePageYBEweb(String link) {
+		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("link_header", link);
 		element("link_header", link).click();
 		logMessage("Clicked On My " + link + " on Home Page Of Yellow Book Eweb");
@@ -123,8 +125,11 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 
 	public void updateAddessField(String value) {
 		isElementDisplayed("inp_address2");
+		System.out.println("1::"+element("inp_address2").getAttribute("value"));
 		element("inp_address2").clear();
+		System.out.println("2::"+element("inp_address2").getAttribute("value"));
 		element("inp_address2").sendKeys(value);
+		System.out.println("3::"+element("inp_address2").getAttribute("value"));
 		logMessage("Updated Address field 2 with value " + value);
 	}
 
@@ -139,14 +144,14 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 
 	public void verifyUpdatedAddressOnYellowBookHomePage(String address) {
 		wait.waitForPageToLoadCompletely();
-		wait.hardWait(1);
 		isElementDisplayed("txt_updated_add");
-		logMessage(element("txt_updated_add").getText().trim());
+		//logMessage(element("txt_updated_add").getText().trim());
 		Assert.assertTrue(element("txt_updated_add").getText().contains(address));
 		logMessage("[ASSERTION PASSED]:: Verified Updated Address" + address + " on Yellow Book Home Page");
 	}
 
 	public void updateBiographyFields(String value) {
+		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("inp_honor");
 		element("inp_honor").clear();
 		element("inp_honor").sendKeys(value);

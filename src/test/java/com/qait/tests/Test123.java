@@ -11,6 +11,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import javax.xml.ws.LogicalMessage;
@@ -35,7 +37,26 @@ public class Test123 {
 		/*String date="05/04/2016";*/
 
 	public static void main(String args[]){
-		String sdate = "5/01/1998";
+		
+		
+		String line = "{+2Y}".toUpperCase();
+	      String pattern = "(\\d+)";
+
+	    //String pattern = "[\\{\\+[1-9]+Y\\}]";
+	    
+	    System.out.println(""+pattern);
+	    
+	    //System.out.println("Int Value::"+line.split("Y")[0].split("\\+")[1]);
+	    Pattern r = Pattern.compile(pattern);
+	      // Now create matcher object.
+	      Matcher m = r.matcher(line);
+	      if (m.find( )) {
+	    	  System.out.println("xyz");
+	      } else {
+	         System.out.println("NO MATCH");
+	      }
+		System.out.println(line.contains("[//d]"));
+		/*String sdate = "5/01/1998";
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("M/dd/yyyy");
 		Calendar c = Calendar.getInstance();
@@ -48,7 +69,7 @@ public class Test123 {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 //		
 //	String memberPackage="ACS : Regular Member : Regular Member Dues C&EN-Print", amount="Balance Due: $197.00";
 //    System.out.println(memberPackage.split(":",3)[2]);
