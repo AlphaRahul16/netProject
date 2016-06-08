@@ -137,6 +137,37 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		element("btn_addOfficer").click();
 		logMessage("STEP : Clicked on Add Officers button\n");
 	}
+	
+	public void verifyAlreadyPresentOfficerRole(String role){
+		boolean flag=false;
+		if(elements("lst_officerRoles").size()>1){
+			for(int i=1;i<elements("lst_officerRoles").size();i++){
+				if(elements("lst_officerRoles").get(i).getText().trim().equals(role)){
+					removeAlreadyAddedOfficer(i);
+					flag=true;
+					break;
+				}
+			}
+		}
+		if(flag)
+		    logMessage("STEP : Already added officer having role as "+role+" deleted");
+		else
+			logMessage("STEP : No officer was having role as : "+role);
+	}
+	
+	public void removeAlreadyAddedOfficer(int i){
+		isElementDisplayed("btn_removeOfficer",String.valueOf(i));
+		element("btn_removeOfficer",String.valueOf(i)).click();
+		logMessage("STEP : Clicked on cross button to remove officer");
+		confirmOfficerDeletion();
+	}
+	
+	public void confirmOfficerDeletion(){
+		wait.hardWait(3);
+		isElementDisplayed("btn_confirmDeletion");
+		element("btn_confirmDeletion");
+		logMessage("STEP : Clicked on Confirm button");
+	}
 
 	public void addChapterOfficer() {
 		isElementDisplayed("btn_searchOfficer");
@@ -413,7 +444,6 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		MembershipPageActions_IWEB obj =new MembershipPageActions_IWEB(driver);
 		obj.clickOnRandomPage();
 		obj.clickOnAnyRandomMember();
-		getChapterDetails();
 	}
 	
 	public List<String> getMemberDetails(){
@@ -425,7 +455,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		return memberDetails;
 	}
 	
-	public void getChapterDetails(){
+	public String getChapterDetails(){
 		MembershipPageActions_IWEB obj =new MembershipPageActions_IWEB(driver);
         obj.clickOnEditNameAndAddress();
 		switchToFrame("iframe1");
@@ -433,6 +463,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		obj.clickOnCancelButton();
 		handleAlert();
 		switchToDefaultContent();
+		return chapterName;
 	}
 	
 	public void clickOnRelationsOptionUnderMoreMenu(){
@@ -488,6 +519,23 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		logMessage("STEP : Selected Student Member: "+element("txt_endDate",String.valueOf(i),String.valueOf(4)).
 				getText().trim());
 		element("arrow_selectMember",String.valueOf(i)).click();
+	}
+	
+	public void findSubmiitedChapterReport(String chapName,String status){
+		enterChapterNameToSearchReport(chapName);
+		enterReportStatus(status);
+	}
+	
+	public void enterChapterNameToSearchReport(String chapName){
+		isElementDisplayed("txtbox_chapterName");
+		element("txtbox_chapterName").clear();
+		element("txtbox_chapterName").sendKeys(chapName);
+	}
+	
+	public void enterReportStatus(String status){
+		isElementDisplayed("drpdown_status");
+		Select dropdwn_status=new Select(element("drpdown_status"));
+		dropdwn_status.selectByVisibleText(status);
 	}
 	
 

@@ -19,7 +19,7 @@ import com.qait.automation.utils.YamlReader;
 public class ACS_Scarf_Reporting {
 	static String sheetName;
 	TestSessionInitiator test;
-	String app_url_iweb, custId, officerName;
+	String app_url_iweb, custId, officerName,chapterName;
 	List<Integer> rowNumberList = new ArrayList<Integer>();
 	List<String> memberDetails=new ArrayList<String>();
 	HashMap<String, String> dataList = new HashMap<String, String>();
@@ -45,13 +45,13 @@ public class ACS_Scarf_Reporting {
 		app_url_iweb = getYamlValue("app_url_IwebReporting");
 	}
 	
-	@Test
+//	@Test
 	public void Step01_Launch_Iweb_Application(){
 		test.launchApplication(app_url_iweb);
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 	
-	@Test
+//	@Test
 	public void Step02_Verify_User_Navigated_To_Scarf_Reporting_Page(){
 		Reporter.log("CASE ID : " + caseID, true);
 		test.homePageIWEB.clickOnModuleTab(); 
@@ -59,14 +59,14 @@ public class ACS_Scarf_Reporting {
 		test.homePageIWEB.verifyUserIsOnHomePage("Scarf Reporting | Overview | Student Chapter Reporting Setup");
 	}
 	
-	@Test
+//	@Test
 	public void Step03_Click_On_Student_Chapter_reporting_Link(){
 		test.acsScarfReporting.clickOnStudentChapterReportingLink();
 		test.memberShipPage.expandDetailsMenu("academic year");
 		test.acsScarfReporting.verifyReportingStartAndEndDate();
 	}
 	
-	@Test
+//	@Test
 	public void Step04_Verify_User_Navigated_To_Membership_Page_On_Clicking_Membership_Under_Modules_Tab(){
 		Reporter.log("CASE ID : " + caseID, true);
 		test.homePageIWEB.clickOnModuleTab();
@@ -74,7 +74,7 @@ public class ACS_Scarf_Reporting {
 		test.homePageIWEB.verifyUserIsOnHomePage("Membership | Overview | Overview and Setup");
 	}
 	
-	@Test
+//	@Test
 	public void Step05_Select_Query_In_Query_Chapter_Page(){
 		Reporter.log("CASE ID : " + caseID, true);
 		test.homePageIWEB.clickOnSideBarTab("Chapters");
@@ -85,9 +85,10 @@ public class ACS_Scarf_Reporting {
 	    test.memberShipPage.clickOnGoButtonAfterPackageSelection();
 	}
 	
-	@Test
+//	@Test
 	public void Step06_Select_Active_Student_Chapter_And_Get_Member_Details(){
 		test.acsScarfReporting.selectARandomActiveStudentChapter();
+		chapterName=test.acsScarfReporting.getChapterDetails();
 		test.acsScarfReporting.clickOnRelationsOptionUnderMoreMenu();
 		test.acsScarfReporting.selectStudentMember();
 		memberDetails=test.acsScarfReporting.getMemberDetails();
@@ -96,15 +97,16 @@ public class ACS_Scarf_Reporting {
 	@Test
 	public void Step07_Launch_Eweb_Application_For_Student_Chapter_Reporting_And_Login_With_LastName_And_Member_ID() {
 		test.launchApplication(getYamlValue("app_url_EwebReporting"));
-		test.acsScarfReporting.loginWithLastNameAndMemberId(memberDetails.get(0),memberDetails.get(1));	
+		test.acsScarfReporting.loginWithLastNameAndMemberId("Richard","30919509");	//memberDetails.get(0),memberDetails.get(1)
 		test.acsScarfReporting.verifyStudentChapterReportingPage();
 		test.acsScarfReporting.verifyReportStatus("Pending");
 	}
 	
-//	@Test
+	@Test
 	public void Step08_Add_Chapter_Officer(){
 		test.acsScarfReporting.clickOnEditChapterInfoButton();
 		test.acsScarfReporting.clickOnAddOrEditChapterOfficersButton();
+		test.acsScarfReporting.verifyAlreadyPresentOfficerRole(dataList.get("Officer Role"));
 		test.acsScarfReporting.clickOnAddOfficerButton();
 		test.acsScarfReporting.addChapterOfficer();
 		officerName=test.acsScarfReporting.selectChapterOfficer(1);
@@ -201,9 +203,10 @@ public class ACS_Scarf_Reporting {
 	}
 	
 //	@Test
-	public void Step19_Click_On_Find_Tab_And_Verify_Chapter_Report(){
+	public void Step19_Click_On_Find_Tab_And_Select_Submitted_Chapter_Report(){
 		test.acsScarfReporting.clickOnSideBarTabStudentChapter("Student Chapter Report",2);
 		test.acsScarfReporting.clickOnSideBarSubTab("Find");
+		test.acsScarfReporting.findSubmiitedChapterReport(chapterName, "Submitted");
 	}
 	
 }

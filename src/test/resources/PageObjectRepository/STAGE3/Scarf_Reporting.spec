@@ -51,4 +51,8 @@ drpdown_status                           id                           ValueDropD
 btn_go                                   id                           ButtonSearch
 txt_chapterName                          id                           chp_name
 arrow_selectMember                       xpath                        (//th/a)[2]/../../following-sibling::tr[${index}]//td[3]//a
+txt_roleList                             xpath                        (//div[@class='role'])[${index}]
+btn_removeOfficer                        xpath                         (//div[@class='role'])[${index}]/..//div[@class='remove-officer']
+btn_confirmDeletion                      xpath                         //a[text()='Confirm']
+lst_officerRoles                         css                           .role
 =============================================================================================================================================
