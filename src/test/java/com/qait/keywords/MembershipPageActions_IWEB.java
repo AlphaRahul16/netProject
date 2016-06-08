@@ -1239,6 +1239,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public List<String> selectMemberAndGetDetails() {
+		
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);
 		clickOnRandomPage();

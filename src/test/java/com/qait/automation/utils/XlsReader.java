@@ -391,13 +391,14 @@ public class XlsReader {
 		FileInputStream file1 = null;
 		List<Integer> rowNumList = new ArrayList<Integer>();
 		int flag = 0;
+		YamlReader.setYamlFilePath();
 		try {
-			file1 = new FileInputStream(new File("src/test/resources/TestDataLibrary/Scarf_Reporting_DataSheet.xls"));
+			file1 = new FileInputStream(new File(getYamlValue("excel-data-file.path_"+sheetname)));
 			@SuppressWarnings("resource")
 			HSSFWorkbook workbook = new HSSFWorkbook(file1);
 			HSSFSheet sheet = workbook.getSheetAt(0);
 			HSSFRow header = sheet.getRow(0);
-			System.out.println("Number of Column::" + header.getPhysicalNumberOfCells());
+			System.out.println("Number of Column ::" + header.getPhysicalNumberOfCells());
 			for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
 				System.out.println("  " + header.getCell(i));
 				if (header.getCell(i).getStringCellValue().equalsIgnoreCase("Execute")) {
@@ -436,6 +437,7 @@ public class XlsReader {
 	public static List<String> getExcelHeaderData(HSSFRow header) {
 		List<String> key = new ArrayList<String>();
 		for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
+			System.out.println("Excel Header data: ");
 			System.out.println("  " + header.getCell(i));
 			// header.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
 			if (header.getCell(i).getStringCellValue() == null) {
@@ -500,7 +502,7 @@ public class XlsReader {
 		HashMap<String, String> dataList = new HashMap<String, String>();
 		YamlReader.setYamlFilePath();
 		try {
-			file1 = new FileInputStream(new File(getYamlValue("csv-data-file.path_" + sheetName)));
+			file1 = new FileInputStream(new File(getYamlValue("excel-data-file.path_" + sheetName)));
 			@SuppressWarnings("resource")
 			HSSFWorkbook workbook = new HSSFWorkbook(file1);
 			HSSFSheet sheet = workbook.getSheetAt(0);
@@ -513,7 +515,7 @@ public class XlsReader {
 			System.out.println("Size of value List::" + value.size());
 
 			for (String val : value) {
-				dataList.put(key.get(k), val);
+				dataList.put(key.get(k), val.trim());
 				k++;
 			}
 			System.out.println("===========================Final Data Map=========================");

@@ -59,7 +59,9 @@ import com.qait.keywords.MemberNumberLookupPage;
 import com.qait.keywords.MemberShipRenewalPage;
 import com.qait.keywords.MembershipPageActions_IWEB;
 import com.qait.keywords.SubscriptionPage;
+import com.qait.keywords.ACS_Scarf_Reporting;
 import com.qait.keywords.ACS_BatchProcessingActions;
+
 
 public class TestSessionInitiator {
 
@@ -114,8 +116,9 @@ public class TestSessionInitiator {
 	public ACS_Awards_EWEB_PageActions award_ewebPage;
 	public AcsYellowBookEwebPageActions acsYellowBookEwebPage;
 	public ACS_Address_Validation_Action acsAddressValidation;
+	public ACS_Scarf_Reporting acsScarfReporting;
 	public ACS_BatchProcessingActions acsbatchProcessing;
-	public AwardsPageActions_IWEB AwardsPageActions_IWEB;
+	//public AwardsPageActions_IWEB AwardsPageActions_IWEB;
 
 	public TakeScreenshot takescreenshot;
 
@@ -155,10 +158,11 @@ public class TestSessionInitiator {
 		addMember = new AddMemeber_IWEB(driver);
 		fundpofilePage = new FundProfilePage(driver);
 		memNumLookupPage = new MemberNumberLookupPage(driver);
-		AwardsPageActions_IWEB = new AwardsPageActions_IWEB(driver);
+		awardsPageAction = new AwardsPageActions_IWEB(driver);
 		award_ewebPage = new ACS_Awards_EWEB_PageActions(driver);
 		acsYellowBookEwebPage = new AcsYellowBookEwebPageActions(driver);
 		acsAddressValidation = new ACS_Address_Validation_Action(driver);
+		acsScarfReporting= new ACS_Scarf_Reporting(driver);
 		acsbatchProcessing = new ACS_BatchProcessingActions(driver);
 	}
 
@@ -219,35 +223,28 @@ public class TestSessionInitiator {
 		   deleteAllCookies();
 		   if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer")))
 		      {
+			   if(baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage3/iweb")){
+				     baseurl = baseurl
+				       .replaceAll(
+				         "https://stag",
+				         "https://"
+				           + YamlReader
+				             .getYamlValue("Authentication.userName")
+				           + ":"
+				           +URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), 
+				             "UTF-8")
+				           + "@stag");
+				     driver.get(baseurl);           
+				    }
+			   else
 		       baseurl= baseurl.replaceAll("https://iwebtest","https://"+ YamlReader.getYamlValue("Authentication.userName")+ ":"+URLEncoder.encode(YamlReader.getYamlValue(
 		       "Authentication.password"),"UTF-8")+"@iwebtest");
-		       System.out.println(baseurl);
-		       driver.get(baseurl);
-		       
+		       driver.get(baseurl);		       
 		      }
 		      else
 		      {
 		        driver.get(baseurl);
-		      }
-		    if(baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage3/iweb")){
-		     baseurl = baseurl
-		       .replaceAll(
-		         "https://stag",
-		         "https://"
-		           + YamlReader
-		             .getYamlValue("Authentication.userName")
-		           + ":"
-		           +URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), 
-		             "UTF-8")
-		           + "@stag");
-		     driver.get(baseurl);           
-		    }
-		    else{
-		    driver.get(baseurl);
-		    }
-		   
-		   
-		 
+		      }	 
 
 		//   if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")
 //		     || _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer"))&& baseurl.contains("iwebtest")) {

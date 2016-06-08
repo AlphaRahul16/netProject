@@ -2,12 +2,11 @@ package com.qait.tests;
 
 
 import java.util.ArrayList;
-
+import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -57,6 +56,10 @@ public class Test123 {
 	      }
 		System.out.println(line.contains("[//d]"));
 		/*String sdate = "5/01/1998";
+		
+		System.out.println("--------"+System.getProperty("user.dir") + File.separator +
+				"src" + File.separator + "test" + File.separator + "resources" + File.separator + "UploadFiles"
+				+ File.separator + "test.jpeg");
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("M/dd/yyyy");
 		Calendar c = Calendar.getInstance();
