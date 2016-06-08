@@ -218,9 +218,18 @@ public class TestSessionInitiator {
 					"The test browser is :- "
 							+ _getSessionConfig().get("browser") + "\n", true);
 			deleteAllCookies();
-			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")
-					|| _getSessionConfig().get("browser").equalsIgnoreCase(
-							"internetexplorer"))) {
+			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer")))
+			   {
+			    baseurl= baseurl.replaceAll("https://iwebtest","https://"+ YamlReader.getYamlValue("Authentication.userName")+ ":"+URLEncoder.encode(YamlReader.getYamlValue(
+			    "Authentication.password"),"UTF-8")+"@iwebtest");
+			    System.out.println(baseurl);
+			    driver.get(baseurl);
+			    
+			   }
+			   else
+			   {
+			     driver.get(baseurl);
+			   }
 				if(baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage3/iweb")){
 					baseurl = baseurl
 							.replaceAll(
@@ -237,11 +246,9 @@ public class TestSessionInitiator {
 				else{
 				driver.get(baseurl);
 				}
-			}
 			
-			else {
-				driver.get(baseurl);
-			}
+			
+	
 
 //			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")
 //					|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer"))&& baseurl.contains("iwebtest")) {

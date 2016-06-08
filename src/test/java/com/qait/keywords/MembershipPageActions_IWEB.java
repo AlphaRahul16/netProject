@@ -148,8 +148,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			isElementDisplayed("img_spinner");
 			wait.waitForElementToDisappear(element("img_spinner"));
 			logMessage("STEP : wait for spinner to be disappeared \n");
-			wait.resetImplicitTimeout(timeOut);
-			wait.resetExplicitTimeout(timeOut);
 
 		} catch (Exception Exp) {
 
@@ -2872,7 +2870,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("===========================Here Are the Complete Test Log================================");
 		
 		
-		html = "<html><body><table border=1><tbody>"+"<tr><td>Case ID::</td><td>"+criteriaList.get("ID")+"<tr><td>Member/Customer Id::</td><td>"+custId;
+		html = "<html><head><link rel='stylesheet' href='MemberTransfer.css'></head><body><table border=1><tbody>"+"<tr><td>Case ID::</td><td>"+criteriaList.get("ID")+"<tr><td>Member/Customer Id::</td><td>"+custId;
 	    
 		if(flag1){
 			html = html+ "<tr><td>Test Case Status::</td><td bgcolor='green'>"+"PASS </td></tr><tr>";

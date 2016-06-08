@@ -254,6 +254,7 @@ public class BaseUi {
 			}
 		}
 		alert.accept();
+		System.out.println("accepted");
 		driver.switchTo().defaultContent();
 	}
 
@@ -322,6 +323,7 @@ public class BaseUi {
 			wait.waitForElementToBeVisible(element);
 			scrollDown(element);
 			element.click();
+			logMessage("Clicked Element " + element+"");
 		} catch (StaleElementReferenceException ex1) {
 			// wait.waitForElementToBeClickable(element);
 			// scrollDown(element);
@@ -457,7 +459,6 @@ public class BaseUi {
 		ele.click();
 		ele.clear();
 		ele.sendKeys(Text);
-
 		logMessage("Step : text entered as " + Text);
 	}
 
@@ -725,4 +726,20 @@ public class BaseUi {
 	    wait.hardWait(1);
 	    System.out.println("Title: " + driver.switchTo().window(wins[i]).getTitle());
 	  }
+	
+	protected void SwitchToPopUpWindowAndVerifyTitle() {
+		String parentWindowHandler = driver.getWindowHandle(); // Store your parent window
+		String subWindowHandler = null;
+
+		Set<String> handles = driver.getWindowHandles(); // get all window handles
+		Iterator<String> iterator = handles.iterator();
+		while (iterator.hasNext()){
+		    subWindowHandler = iterator.next();
+		}
+		driver.switchTo().window(subWindowHandler); // switch to popup window
+		                                            // perform operations on popup
+        System.out.println(getPageTitle());
+		driver.switchTo().window(parentWindowHandler); 
+		
+	}
 }
