@@ -35,20 +35,24 @@ public class Test123 {
 		/*String date="05/04/2016";*/
 
 	public static void main(String args[]){
-		String sdate = "5/01/1998";
 		
-		SimpleDateFormat formatter = new SimpleDateFormat("M/dd/yyyy");
-		Calendar c = Calendar.getInstance();
-		try {
-			Date d = formatter.parse(sdate);
-			c.setTime(d);
-			c.add(Calendar.YEAR, 1);
-			System.out.println("Incremented Date::"+formatter.format(c.getTime()));
-			
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		
+		
+//		String sdate = "5/01/1998";
+//		
+//		SimpleDateFormat formatter = new SimpleDateFormat("M/dd/yyyy");
+//		Calendar c = Calendar.getInstance();
+//		try {
+//			Date d = formatter.parse(sdate);
+//			c.setTime(d);
+//			c.add(Calendar.YEAR, 1);
+//			System.out.println("Incremented Date::"+formatter.format(c.getTime()));
+//			
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 //		
 //	String memberPackage="ACS : Regular Member : Regular Member Dues C&EN-Print", amount="Balance Due: $197.00";
 //    System.out.println(memberPackage.split(":",3)[2]);
