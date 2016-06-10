@@ -51,4 +51,18 @@ drpdown_status                           id                           ValueDropD
 btn_go                                   id                           ButtonSearch
 txt_chapterName                          id                           chp_name
 arrow_selectMember                       xpath                        (//th/a)[2]/../../following-sibling::tr[${index}]//td[3]//a
+txt_roleList                             xpath                        (//div[@class='role'])[${index}]
+btn_removeOfficer                        xpath                         (//div[@class='role'])[${index}]/..//div[@class='remove-officer']
+btn_confirmDeletion                      xpath                       //div[@id='deleteDialog']//div[@class='modal-footer']//a[text()='Confirm']
+lst_officerRoles                         css                           .role
+heading_removeOfficer                    xpath                           //div[@id='deleteDialog']//div[@class='modal-header']//h3
+btn_saveEvent                            xpath                          //input[@class='btn btn-blue' and @value='${value}']
+txt_iwebUndergrads                       xpath                          //span[@id='F1_sr1_undergraduates']
+txt_iwebFacultyCount                     id                            F1_sr1_faculty
+txt_iwebReportStatus                     id                            F1_sr1_status
+lnk_iwebReportPdf                        css                           #F1_HYPERLINK_2>img
+lnk_reportPages                          css                           #UP4>a
+txt_chapterFacultyAdvisor                xpath                         //span[text()='Chapter Faculty Advisor']/..//span[2] 
+txt_reportChapterName                    xpath                         //div[text()='${value}']
+txt_eventCategory                        xpath                         //div[@class='event_category']//span[2]
 =============================================================================================================================================
