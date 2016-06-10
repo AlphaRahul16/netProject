@@ -16,6 +16,7 @@ import org.mozilla.javascript.ast.Label;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
@@ -136,15 +137,15 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public String[] editStartAndEnddateForRoundExceptOne(int roundNumber) {
 		if (roundNumber != -1) {
-		String[] arr = editStartAndEndDate_Round(roundNumber);
-		clickOnSaveButton();
-		switchToDefaultContent();
-		expandDetailsMenu("award judges");
-		return arr;
-		}else{
+			String[] arr = editStartAndEndDate_Round(roundNumber);
+			clickOnSaveButton();
+			switchToDefaultContent();
+			expandDetailsMenu("award judges");
+			return arr;
+		} else {
 			return null;
 		}
-		
+
 	}
 
 	public void uncheckClosedCheckbox_VotingClosed(String awardName,
@@ -695,22 +696,24 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 			List<String> values = entry.getValue();
 			logMessage("Key = " + key);
-			
+
 			logMessage(values.size() + "___________________");
 			logMessage("Value1 = " + values.get(0) + "n");
 			logMessage("Value2 = " + values.get(1) + "n");
 		}
-
 		return judgeDetailsMap;
-
 	}
 
 	public void clickOnAwardsName_RoundName(String awards_roundName) {
 		isElementDisplayed("lnk_awardName_RoundName", awards_roundName);
-		// clickUsingXpathInJavaScriptExecutor(element("lnk_awardName_RoundName",
-		// awards_roundName));
-		 element("lnk_awardName_RoundName", awards_roundName).click();
-
+		try {
+			clickUsingXpathInJavaScriptExecutor(element(
+					"lnk_awardName_RoundName", awards_roundName));
+		} catch (WebDriverException webExp) {
+			if (webExp.getMessage().contains("Element is not clickable")) {
+				element("lnk_awardName_RoundName", awards_roundName).click();
+			}
+		}
 		logMessage("Step : click on awards name " + awards_roundName);
 	}
 
@@ -729,6 +732,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 					judgeName = name[0] + " " + name[1];
 				}
 				isElementDisplayed("lnk_judgeProfile", judgeName);
+				wait.hardWait(2);
 				clickUsingXpathInJavaScriptExecutor(element("lnk_judgeProfile",
 						judgeName));
 				// element("lnk_judgeProfile", judgeName).click();
@@ -885,7 +889,6 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 				flag = true;
 				break;
 			}
-
 			logMessage("ASSERT FAILED: Error in Winner status. Actual"
 					+ winnerStatus.getText().trim() + " and expected"
 					+ map().get("Round" + status + " Winner Status?") + "\n");

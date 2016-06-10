@@ -128,6 +128,16 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		element("btn_addOfficer").click();
 		logMessage("STEP : Clicked on Add Officers button\n");
 	}
+	
+	
+	public void removeAlreadyAddedOfficer(int i){
+		isElementDisplayed("btn_removeOfficer",String.valueOf(i));
+		element("btn_removeOfficer",String.valueOf(i)).click();
+		logMessage("STEP : Clicked on cross button to remove officer");
+		confirmOfficerDeletion();
+	}
+	
+
 
 	public void verifyAlreadyPresentOfficerRole(String role) {  // need correction
 		boolean flag = false;
@@ -156,12 +166,6 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 			logMessage("STEP : Officers are not previously added\n");
 	}
 
-	public void removeAlreadyAddedOfficer(int i) {
-		isElementDisplayed("btn_removeOfficer", String.valueOf(i));
-		element("btn_removeOfficer", String.valueOf(i)).click();
-		logMessage("STEP : Clicked on cross button to remove officer\n");
-		confirmOfficerDeletion();
-	}
 
 	public void confirmOfficerDeletion() {
 		wait.hardWait(2);
@@ -523,10 +527,10 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		System.out.println(memberDetails);
 		return memberDetails;
 	}
-
-	public String getChapterDetails() {
-		MembershipPageActions_IWEB obj = new MembershipPageActions_IWEB(driver);
-		obj.clickOnEditNameAndAddress();
+	
+	public String getChapterDetails(){
+		MembershipPageActions_IWEB obj =new MembershipPageActions_IWEB(driver);
+        obj.clickOnEditNameAndAddress();
 		switchToFrame("iframe1");
 		chapterName = getChapterName();
 		obj.clickOnCancelButton();
@@ -588,22 +592,8 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		element("arrow_selectMember", String.valueOf(i)).click();
 	}
 
-	public void findSubmiitedChapterReport(String chapName, String status) {
-		enterChapterNameToSearchReport(chapName);
-		enterReportStatus(status);
-	}
+	
 
-	public void enterChapterNameToSearchReport(String chapName) {
-		isElementDisplayed("txtbox_chapterName");
-		element("txtbox_chapterName").clear();
-		element("txtbox_chapterName").sendKeys(chapName);
-	}
-
-	public void enterReportStatus(String status) {
-		isElementDisplayed("drpdown_status");
-		Select dropdwn_status = new Select(element("drpdown_status"));
-		dropdwn_status.selectByVisibleText(status);
-	}
 	
 	public void clickOnGoButton(){
 		isElementDisplayed("btn_go");
@@ -611,6 +601,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		logMessage("STEP : Clicked on Go button\n");
 	}
 	
+
 	public void clearMultimap(){
 		reportAnswers.clear();
 	}
@@ -682,5 +673,24 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		    logMessage("ASSERT PASSED : Event name matches");
 		}
 	}
+
+	public void findSubmiitedChapterReport(String chapName,String status){
+		enterChapterNameToSearchReport(chapName);
+		enterReportStatus(status);
+	}
+	
+	public void enterChapterNameToSearchReport(String chapName){
+		isElementDisplayed("txtbox_chapterName");
+		element("txtbox_chapterName").clear();
+		element("txtbox_chapterName").sendKeys(chapName);
+	}
+	
+	public void enterReportStatus(String status){
+		isElementDisplayed("drpdown_status");
+		Select dropdwn_status=new Select(element("drpdown_status"));
+		dropdwn_status.selectByVisibleText(status);
+	}
+	
+
 
 }

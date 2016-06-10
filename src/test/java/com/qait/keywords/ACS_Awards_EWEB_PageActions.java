@@ -241,6 +241,13 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	public List<List<String>> selectRandomNominees(
 			int numberOfNomineesToSelect, int round, List<String> nameOfJudges,
 			Map<String, String> nominee_WithRankOne) {
+
+		if (numberOfNomineesToSelect < nameOfJudges.size()) {
+			Assert.fail("ASSERT FAILED : number of nominees <"
+					+ numberOfNomineesToSelect
+					+ "> is less than the number of judges <"
+					+ nameOfJudges.size() + ">");
+		}
 		int j = 0;
 		List<List<String>> listOfFirstAndLastName = new ArrayList<>();
 		@SuppressWarnings("unchecked")
@@ -338,10 +345,6 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 				.click();
 		logMessage("Step : view profile link is clicked for "
 				+ nomineeFirstNames.get(1).get(randomNumber));
-		// wait.waitForElementToDisappear(element("img_viewProfileLoader"));
-		// extractAndCompareTextFromPdfFile("award_history", awardName, 1,
-		// "downloads");
-		// logMessage("Step : award history pdf verified \n");
 
 	}
 
@@ -417,7 +420,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 	public void verifyAwardName_viewProfileLink(String awardName) {
 		switchToFrame(element("frm_viewProfile"));
-		//switchToFrame("TB_iframeContent");
+		// switchToFrame("TB_iframeContent");
 		isElementDisplayed("txt_viewProfileAwardName", awardName);
 		Assert.assertTrue(
 				element("txt_viewProfileAwardName", awardName).getText()
@@ -433,7 +436,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 	public void verifyNominationDocuments_viewProfileLink(String awardName) {
 		switchToFrame(element("frm_viewProfile"));
-		//switchToFrame("TB_iframeContent");
+		// switchToFrame("TB_iframeContent");
 		isElementDisplayed("list_nominationsDocuments", awardName);
 		Assert.assertTrue(elements("list_nominationsDocuments", awardName)
 				.size() > 0,
@@ -577,9 +580,9 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 								+ elements("txt_rankNomineeName").get(j)
 										.getText() + "\n");
 
-						if (judgesRanks.get(judges.get(k)).contains(
-								elements("txt_rankNomineeName").get(j)
-										.getText())) {
+						if (elements("txt_rankNomineeName").get(j)
+								.getText().contains(judgesRanks.get(judges.get(k))
+								)) {
 							flag = 1;
 							break;
 						}
@@ -644,7 +647,8 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 	public void clickOnConfirmBallotButton() {
 		isElementDisplayed("btn_confirmBallot");
-		element("btn_confirmBallot").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_confirmBallot"));
+		// element("btn_confirmBallot").click();
 		logMessage("Info: Confirm Ballot Button is clicked\n");
 	}
 
@@ -763,9 +767,16 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnReturnToAwardDashboard() {
-		isElementDisplayed("btn_returnToYourAwardDashboard");
-		element("btn_returnToYourAwardDashboard").click();
-		logMessage("Info: Clicked on Returns To Your Award Dashboard\n");
+		try {
+			isElementDisplayed("btn_returnToYourAwardDashboard");
+			element("btn_returnToYourAwardDashboard").click();
+			logMessage("Info: Clicked on Returns To Your Award Dashboard\n");
+		} catch (Exception e) {
+			pageRefresh();
+			clickOnSubmit_EditBallot("Submit Ballot");
+			clickOnReturnToAwardDashboard();
+		}
+
 	}
 
 	public String verifyStatusAfterBallotSubmission(String awardName) {
