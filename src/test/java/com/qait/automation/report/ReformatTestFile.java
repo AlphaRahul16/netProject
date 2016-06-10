@@ -72,10 +72,19 @@ public class ReformatTestFile {
 		return html;
 	}
 
-	public static void createMemberTransferCompleteTestLog(String aFileName, String html) {
-
+	public static void createMemberTransferCompleteTestLog(String aFileName, String html,String scenarioID) {
+		String filePath = aFileName + "/" + DateUtil.getCurrentdateInStringWithGivenFormate("dd MMM YYYY")+"/MT"+scenarioID+".html";
+		Path path = Paths.get(filePath);
+		File file = new File(filePath);
+		file.getParentFile().mkdirs();
+		try {
+			file.createNewFile();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try (BufferedWriter writer = new BufferedWriter(
-				new OutputStreamWriter(new FileOutputStream(aFileName+DateUtil.getCurrentdateInStringWithGivenFormate("HH_mm_ss_a")+".html"), "ISO-8859-1"))) {
+				new OutputStreamWriter(new FileOutputStream(filePath), "ISO-8859-1"))) {
 			writer.write(html);
 
 		} catch(Exception e){

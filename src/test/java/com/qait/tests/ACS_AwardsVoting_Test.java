@@ -133,6 +133,7 @@ public class ACS_AwardsVoting_Test {
 
 			test.award_ewebPage.verifySubmitBallotDate(startEndDate[1],
 					currentAwardName);
+
 			// test.award_ewebPage
 			// .clickOnFiveYearNomineeMemoLink(currentAwardName);
 			maxPossibleNominees = test.award_ewebPage

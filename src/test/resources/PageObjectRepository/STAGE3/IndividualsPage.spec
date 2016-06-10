@@ -4,6 +4,7 @@ Page Title: IndividualsPage
 ======================================================================================================================================
 inp_fieldName               xpath    //span[starts-with(text(),'${fieldName}')]/../following-sibling::td//input
 inp_expiredate				xpath		//*[@id='AskAtRunTimeTable']//input
+select_member				xpath		.//*[@id='AskAtRunTimeTable']//strong[contains(text(),'${field}')]/../..//select[@class='DataFormDropDownList']
 btn_Go                      xpath    //input[@id='ButtonSearch']
 btn_askGo                   xpath    //input[@id='ButtonAskGo']
 txt_userEmail                xpath    //a[text()='${email}']

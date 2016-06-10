@@ -796,15 +796,36 @@ public class ASM_FellowNominatePage extends GetPage {
 				+ ".contentWindow.document.getElementById('fuName').setAttribute('height','500');" + iframe
 				+ ".contentWindow.document.getElementById('fuName').setAttribute('width','200')");
 		switchToFrame("ifBridge" + frameName + "");
-		// WebElement element = (WebElement) executeJavascript1("return " +
-		// iframe
-		// + ".contentDocument.getElementById('fuName')");
 		isElementDisplayed("inp_upload");
 		element("inp_upload").sendKeys(filePath.getAbsolutePath());
 		switchToDefaultContent();
 		hardWaitForIEBrowser(2);
 		logMessage("Step : " + fileName + " is uploaded in " + fieldname + " \n");
 		verifyFileUploaded(fileName, fieldname);
+	}
+	
+	public void uploadFileUsingJavascipt(String filename,String frameName,String section){
+		String iframe = "document.getElementById('"+frameName+"')";
+		String path = "src" + File.separator + "test" + File.separator + "resources" + File.separator + "UploadFiles"
+				+ File.separator;
+		File filePath=new File(path+filename);
+		isElementDisplayed("btn_chooseFile");
+		
+		executeJavascript("document.getElementById('"+frameName+"');"+ 
+		        iframe+".style.visibility='visible';"+ iframe+".style.display='block';"+
+		        iframe+".setAttribute('height','500');"+ iframe+ ".setAttribute('width','500');"+
+		        iframe+".contentWindow.document.getElementById('fuName').style.visibility='visible';"+
+		        iframe+".contentWindow.document.getElementById('fuName').style.display='block';"+
+		        iframe+".contentWindow.document.getElementById('fuName').setAttribute('height','500');"+
+		        iframe+".contentWindow.document.getElementById('fuName').setAttribute('width','500')");
+		switchToFrame(frameName);
+		isElementDisplayed("inp_upload");
+		element("inp_upload").sendKeys(filePath.getAbsolutePath());
+        switchToDefaultContent();
+        wait.hardWait(4);
+        logMessage("STEP : "+ filename +" is uploaded\n");
+        isElementDisplayed("btn_deleteFile");
+        logMessage("ASSERT PASS : File is uploaded for "+section);
 	}
 
 	public static void uploadFile(String fileLocation) {

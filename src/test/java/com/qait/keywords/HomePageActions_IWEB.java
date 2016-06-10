@@ -210,6 +210,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 				robot.delay(2000);
 				robot.keyPress(KeyEvent.VK_ENTER);
 				robot.keyRelease(KeyEvent.VK_ENTER);
+				System.out.println("after authentication");
 			} catch (AWTException e) {
 				e.printStackTrace();
 			}
