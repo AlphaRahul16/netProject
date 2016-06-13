@@ -21,6 +21,7 @@ import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.GetPage;
 import com.qait.automation.utils.YamlReader;
+import com.thoughtworks.selenium.webdriven.commands.IsElementPresent;
 
 public class ASM_FellowNominatePage extends GetPage {
 	WebDriver driver;
@@ -809,6 +810,9 @@ public class ASM_FellowNominatePage extends GetPage {
 		String path = "src" + File.separator + "test" + File.separator + "resources" + File.separator + "UploadFiles"
 				+ File.separator;
 		File filePath=new File(path+filename);
+		if(checkIfElementIsThere("btn_deleteFile"))
+			logMessage("STEP : File already uploaded");
+		else{
 		isElementDisplayed("btn_chooseFile");
 		
 		executeJavascript("document.getElementById('"+frameName+"');"+ 
@@ -826,6 +830,7 @@ public class ASM_FellowNominatePage extends GetPage {
         logMessage("STEP : "+ filename +" is uploaded\n");
         isElementDisplayed("btn_deleteFile");
         logMessage("ASSERT PASS : File is uploaded for "+section);
+		}
 	}
 
 	public static void uploadFile(String fileLocation) {
