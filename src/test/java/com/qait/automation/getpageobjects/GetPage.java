@@ -166,6 +166,17 @@ public class GetPage extends BaseUi {
 		return result;
 	}
 	
+	protected boolean isElementDisplayed(String elementName,
+			String elementTextReplace1,String elementTextReplace2) {
+		wait.waitForElementToBeVisible(element(elementName, elementTextReplace1,elementTextReplace2));
+		boolean result = element(elementName, elementTextReplace1,elementTextReplace2).isDisplayed();
+		assertTrue(result, "ASSERT FAILED: element '" + elementName
+				+ "with text " + elementTextReplace1+elementTextReplace2 + "' is not displayed.");
+		logMessage("ASSERT PASSED: element " + elementName + " with text "
+				+ elementTextReplace1+elementTextReplace2 + " is displayed.");
+		return result;
+	}
+	
 	protected void verifyElementText(String elementName, String expectedText) {
 		wait.waitForElementToBeVisible(element(elementName));
 		assertEquals(element(elementName).getText().trim(), expectedText,
@@ -222,11 +233,14 @@ public class GetPage extends BaseUi {
 	}
 	
 	protected By getLocator(String elementToken, String replacement1, String replacement2) {
-		String[] locator = getELementFromFile(this.pageName, elementToken);
-		locator[2]=locator[2].replaceFirst("\\$\\{.+\\}", replacement1);
-		locator[2]=locator[2].replaceFirst("\\%\\{.+\\}", replacement2);
-		return getBy(locator[1].trim(), locator[2].trim());
-	}
+	    String[] locator = getELementFromFile(this.pageName, elementToken);
+		System.out.println("locator 0::"+locator[2]);
+	    locator[2] = locator[2].replaceFirst("\\$\\{.+?\\}", replacement1);
+		System.out.println("locator 1::"+locator[2]);
+	    locator[2] = locator[2].replaceFirst("\\$\\{.+?\\}", replacement2);
+		System.out.println("locator 2::"+locator[2]);
+	    return getBy(locator[1].trim(), locator[2].trim());
+	  }
 
 	protected By getLocator(String elementToken, String replacement1,String replacement2,  String replacement3) {
 		String[] locator = getELementFromFile(this.pageName, elementToken);

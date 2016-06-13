@@ -31,4 +31,26 @@ txt_navigation                                xpath                             
 chkConfirm                                      id                                     //input[contains(@id,'Confirm')]
 rad_No                                        xpath                                    //label[text()='No']/preceding-sibling::input
 txt_confirmPage                             xpath                                      //legend[text()='Confirm your information']
+chkbox_undergraduate                        css                                        input[id*='ucDegree_cbConfirm']
+rad_undergraduate                           css                                        input[value='${value}']
+iframe_ewebframe                            css                                        #eWebFrame
+btn_addSubscription                          css                                        input[class='addItemButton'][value='${value}']
+txt_legend                                  xpath                                      //legend[contains(text(),'${value}')]
+btn_addToMemberships                        css                                     input[value*='Add to Membership']
+inp_contribution                            xpath                                      //span[contains(text(),'${value}')]/../../following-sibling::td//input
+btn_saveToAddMembership                     xpath                                         //input[contains(@id,'btnSave')]
+txt_productamount                           xpath                                     //td[@class='category']/following-sibling::td[@class='amount']/span
+txt_productname                             xpath                                    //td[@class='category']/span[contains(@id,'InvoiceDisplay')]
+btn_removerenewals                          css                                      a[id*='${value}']
+txt_productFinalTotal                       xpath                                      //th[contains(text(),'${value}')]/following-sibling::td/span
+inp_graduationDate                          css                                       input[id*='GraduationDate']
+drpdwn_degreeType                           css                                       select[id*='ucDegree_ddDegree']
+btns_remove                                 xpath                                     //a[contains(text(),'remove')]
+rad_electronicCEN                           css                                       input[id*='rbElectronic']
+rad_printCEN                                css                                       input[id*='rbPrint']
+btn_printreceipt                            css                                       #print-invoice>input
+txt_priceValue                              xpath                                     //td[contains(text(),'${productName}')]//following-sibling::td[2]
+btn_logout                                  css                                       a[href*='logout']
+txt_renewalthankyoumsg                      xpath                                     //h3[contains(text(),'${message}')]
+btn_applyForEmeritusNo                      css                                      input[id*='btnNo']
 =================================================================================================================================================

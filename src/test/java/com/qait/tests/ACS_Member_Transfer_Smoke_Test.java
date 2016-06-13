@@ -62,11 +62,12 @@ public class ACS_Member_Transfer_Smoke_Test {
 		test.homePageIWEB.clickOnTab("Query Membership");
 		test.homePageIWEB.verifyUserIsOnHomePage("Query - Membership");
 		if (dataList.get("Initial MP Exp Date").equalsIgnoreCase("Future")) {
-			test.memberShipPage.selectAndRunQuery("GWV - Member Transfer Query - Future Expire");
+			test.memberShipPage.selectAndRunQuery("Selenium - Member Transfer Query - Future Expire");
 		} else if (dataList.get("Initial MP Exp Date").equalsIgnoreCase("Past")) {
-			test.memberShipPage.selectAndRunQuery("GWV - Member Transfer Query - Past Expire");
+			test.memberShipPage.selectAndRunQuery("Selenium - Member Transfer Query - Past Expire");
 		}
-		test.individualsPage.enterValueInExpireInputField(DateUtil.getCurrentdateInStringWithGivenFormate("M/dd/yyyy"));
+		test.individualsPage.enterValueInMemberStatusField("Member Status", "ACS : "+dataList.get("Initial Mbr Status"));
+		test.individualsPage.enterValueInExpireInputField(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy"));
 		test.memberShipPage.clickOnGoAskButton();
 		
 		String url = test.asm_CCEDPage.getCurrentURL();
@@ -127,7 +128,7 @@ public class ACS_Member_Transfer_Smoke_Test {
 
 		 test.navigateToURL(url);
 		 test.memberShipPage.clickOnMemberTransferButton();
-		 test.memberShipPage.updateInformationAfterClickingTransferButton(dataList.get("MP Mbr Type").trim(),"Regular Emeritus Dues C&EN - Print");
+		 test.memberShipPage.updateInformationAfterClickingTransferButton(dataList.get("Target Mbr Type").trim(),dataList.get("Target Mbr Package"));
 	}
 	
 	@Test

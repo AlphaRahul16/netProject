@@ -31,6 +31,7 @@ csv-data-file:
   path_AwardNomination: ./src/test/resources/TestDataLibrary/AwardNominationDatasheet.csv
   path_GeneralAwardList: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument.txt
   path_MYDTransfer: ./src/test/resources/TestDataLibrary/Multi_Year_Dues_Transfer_Sheet.csv
+  path_OMR: ./src/test/resources/TestDataLibrary/OMR_Datasheet.csv
   data-separator: '\t'
   has-header: true
 

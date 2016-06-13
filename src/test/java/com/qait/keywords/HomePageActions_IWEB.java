@@ -186,7 +186,6 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void enterAuthentication(String uName, String password) {
-
 		if ((isBrowser("ie") || isBrowser("internetexplorer"))) {
 			System.out.println("in authentication");
 			setClipboardData(uName);
@@ -211,6 +210,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 				robot.delay(2000);
 				robot.keyPress(KeyEvent.VK_ENTER);
 				robot.keyRelease(KeyEvent.VK_ENTER);
+				System.out.println("after authentication");
 			} catch (AWTException e) {
 				e.printStackTrace();
 			}

@@ -112,12 +112,10 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 	}
 
-
-	public String[] editStartAndEndDate_Round(String roundNumber) {
-		if (roundNumber != null && !roundNumber.equalsIgnoreCase(null)
-				&& !roundNumber.isEmpty()) {
+	public String[] editStartAndEndDate_Round(int roundNumber) {
+		if (roundNumber != -1) {
 			System.out.println("roundNumber " + roundNumber);
-			clickOnEditRecordButton(roundNumber);
+			clickOnEditRecordButton(String.valueOf(roundNumber));
 			switchToFrame("iframe1");
 			String startDate = DateUtil.getAnyDateForType("MM/dd/YYYY", -8,
 					"date");
@@ -129,7 +127,6 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			String[] startEndDate = { startDate, endDate };
 			System.out.println("startDate :" + startDate);
 			System.out.println("endDate :" + endDate);
-
 			return startEndDate;
 		} else {
 			System.out.println("round number is null");
@@ -137,12 +134,17 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 	}
 
-	public String[] editStartAndEnddateForRoundExceptOne(String roundNumber) {
+	public String[] editStartAndEnddateForRoundExceptOne(int roundNumber) {
+		if (roundNumber != -1) {
 		String[] arr = editStartAndEndDate_Round(roundNumber);
 		clickOnSaveButton();
 		switchToDefaultContent();
 		expandDetailsMenu("award judges");
 		return arr;
+		}else{
+			return null;
+		}
+		
 	}
 
 	public void uncheckClosedCheckbox_VotingClosed(String awardName,
@@ -692,12 +694,11 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			String key = entry.getKey();
 
 			List<String> values = entry.getValue();
-			System.out.println("Key = " + key);
-			System.out.println("akdfhbskdfd : "
-					+ entry.getValue().get(0).toString());
-			System.out.println(values.size() + "___________________");
-			System.out.println("Value1 = " + values.get(0) + "n");
-			System.out.println("Value2 = " + values.get(1) + "n");
+			logMessage("Key = " + key);
+			
+			logMessage(values.size() + "___________________");
+			logMessage("Value1 = " + values.get(0) + "n");
+			logMessage("Value2 = " + values.get(1) + "n");
 		}
 
 		return judgeDetailsMap;
@@ -706,9 +707,9 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnAwardsName_RoundName(String awards_roundName) {
 		isElementDisplayed("lnk_awardName_RoundName", awards_roundName);
-		clickUsingXpathInJavaScriptExecutor(element("lnk_awardName_RoundName",
-				awards_roundName));
-		// element("lnk_awardName_RoundName", awards_roundName).click();
+		// clickUsingXpathInJavaScriptExecutor(element("lnk_awardName_RoundName",
+		// awards_roundName));
+		 element("lnk_awardName_RoundName", awards_roundName).click();
 
 		logMessage("Step : click on awards name " + awards_roundName);
 	}

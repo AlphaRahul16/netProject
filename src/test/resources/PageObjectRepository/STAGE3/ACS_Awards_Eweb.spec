@@ -52,4 +52,5 @@ img_dashboardLoader                       xpath                          img[con
 list_img_pdfProfileDownload				  xpath							 //*[@title='Download Full Profile']
 img_profileLinkLoader                     xpath                          //img[contains(@src,'loadingAnimation.gif')]
 btn_cancel                                 id                            ButtonCancel
+frm_viewProfile                            id                            TB_iframeContent
 ================================================================================================================================

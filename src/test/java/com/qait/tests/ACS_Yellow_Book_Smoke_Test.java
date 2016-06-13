@@ -79,17 +79,17 @@ public class ACS_Yellow_Book_Smoke_Test {
 	public void Step07_Update_Address_Field_And_Verify_On_Home_Page_Of_Yellow_Book_Eweb() {
 		test.acsYellowBookEwebPage.clickOnLinkOnHomePageYBEweb("contact");
 		test.acsYellowBookEwebPage.verifyUserNavigatedToParticularPage("Update My Yellow Book Contact Info");
-		test.acsYellowBookEwebPage.updateAddessField(test.homePageIWEB.map().get("Address field 2"));
+		test.acsYellowBookEwebPage.updateAddessField(test.homePageIWEB.map().get("Address field 2").trim());
 		test.acsYellowBookEwebPage.clickOnCheckBoxAndThanClickOnSubmitButton(test.homePageIWEB.map().get("checkbox?"));
 		test.acsYellowBookEwebPage
-				.verifyUpdatedAddressOnYellowBookHomePage(test.homePageIWEB.map().get("Address field 2"));
+				.verifyUpdatedAddressOnYellowBookHomePage(test.homePageIWEB.map().get("Address field 2").trim());
 	}
 
-	@Test
+	/*@Test
 	public void Step08_Click_On_My_Biography_Link_And_Update_Biography_Fields_Than_Verify_Updated_Biography_On_Yellow_Book_Eweb_Home_Page() {
 		test.acsYellowBookEwebPage.clickOnLinkOnHomePageYBEweb("biography");
 		test.acsYellowBookEwebPage.verifyUserNavigatedToParticularPage("Update My Yellow Book Biography");
-		test.acsYellowBookEwebPage.updateBiographyFields(test.homePageIWEB.map().get("Biography Honor field"));
+		test.acsYellowBookEwebPage.updateBiographyFields(test.homePageIWEB.map().get("Biography Honor field").trim());
 		test.acsYellowBookEwebPage
 				.verifyUpdatedBiographyFieldOnYellowBookHomePage(test.homePageIWEB.map().get("Biography Honor field"));
 	}
@@ -129,7 +129,7 @@ public class ACS_Yellow_Book_Smoke_Test {
 	public void Step12_Verify_Committee_Member_Status() {
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Committees");
 		test.individualsPage.verifyCommitteeMembersStatus(committeesList);
-	}
+	}*/
 
 	@BeforeClass
 	public void Open_Browser_Window() {
@@ -141,9 +141,9 @@ public class ACS_Yellow_Book_Smoke_Test {
 		app_url_iweb_nf = getYamlValue("app_url_IWEB");
 	}
 
-	@AfterClass
+	/*@AfterClass
 	public void Close_Browser_Session() {
 		test.closeBrowserSession();
-	}
+	}*/
 
 }

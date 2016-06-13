@@ -4,6 +4,7 @@ Page Title: IndividualsPage
 ======================================================================================================================================
 inp_fieldName               xpath    //span[starts-with(text(),'${fieldName}')]/../following-sibling::td//input
 inp_expiredate				xpath		//*[@id='AskAtRunTimeTable']//input
+select_member				xpath		.//*[@id='AskAtRunTimeTable']//strong[contains(text(),'${field}')]/../..//select[@class='DataFormDropDownList']
 btn_Go                      xpath    //input[@id='ButtonSearch']
 btn_askGo                   xpath    //input[@id='ButtonAskGo']
 txt_userEmail                xpath    //a[text()='${email}']
@@ -64,5 +65,6 @@ inp_presentposition                    xpath            //label[contains(text(),
 drpdwn_industrytype                    css                select[id*='${value}']>option[selected]
 txt_gotorecordrenewal                  xpath            (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[3]/a/i 
 link_editEmail                          xpath            (//a[@title='edit record']/i)[${1}]
-list_individualMem						xpath				//a[contains(text(),'Terminate')]/../../following-sibling::tr[not (contains(@style,"none"))]/td[last()-1]
+list_individualMem						xpath				//span[contains(text(),'individual memberships')]/parent::td/parent::tr/following-sibling::tr/td/div/table/tbody/tr[not(contains(@style,'none'))]//td[11]
+individualmem_data					xpath					(//span[contains(text(),'individual memberships')]/parent::td/parent::tr/following-sibling::tr/td/div/table/tbody/tr[not(contains(@style,'none'))]//td[11]/..//td[11])[${value}]/..//td[${field}]
 ======================================================================================================================================
