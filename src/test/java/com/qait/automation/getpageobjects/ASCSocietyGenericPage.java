@@ -19,6 +19,7 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.Reporter;
 
@@ -448,6 +449,27 @@ public class ASCSocietyGenericPage extends GetPage {
 		}
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
+	}
+	
+public boolean isElementPresentOrNot(String elem){
+	boolean flag=false;
+	timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+	hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+			"hiddenFieldTimeOut"));
+	try {
+		wait.resetImplicitTimeout(2);
+		wait.resetExplicitTimeout(10);
+        element(elem).isDisplayed();		
+        logMessage("STEP : Element "+element(elem).toString()+" is displayed");
+        flag=true;
+        wait.resetImplicitTimeout(timeOut);
+    	wait.resetExplicitTimeout(timeOut);
+	} catch (NoSuchElementException | AssertionError | TimeoutException Exp) {
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
+		logMessage("STEP : Element "+elem+" is not present \n");
+	}
+    return flag;
 	}
 
 }
