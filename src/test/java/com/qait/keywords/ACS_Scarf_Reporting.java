@@ -4,12 +4,16 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
@@ -21,9 +25,13 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 
 	WebDriver driver;
 	static String pagename = "Scarf_Reporting";
-	String reportingStartDate, reportingEndDate,chapterName,customerLname,customerFname;
+	String reportingStartDate, reportingEndDate, chapterName, customerLname, customerFname;
+	Map<String,List<String>> reportAnswers=new HashMap<String,List<String>>();
+	Map<String,String> eventsMap=new HashMap<String,String>();
 
-	Map<String,String>eventType=new HashMap<String, String>();
+	List<String> answers=new ArrayList<String>();
+
+	Map<String, String> eventType = new HashMap<String, String>();
 	int timeOut = 60;
 
 	public ACS_Scarf_Reporting(WebDriver driver) {
@@ -43,50 +51,33 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		boolean value;
 		isElementDisplayed("table_rows");
 		for (int i = 1; i < elements("table_rows").size(); i++) {
-			if (element("txt_current", String.valueOf(i)).getText().trim()
-					.equals("Yes")) {
-				reportingStartDate = element("txt_startDate", String.valueOf(i))
-						.getText();
-				reportingEndDate = element("txt_endDate", String.valueOf(i),String.valueOf(9))
-						.getText();
+			if (element("txt_current", String.valueOf(i)).getText().trim().equals("Yes")) {
+				reportingStartDate = element("txt_startDate", String.valueOf(i)).getText();
+				reportingEndDate = element("txt_endDate", String.valueOf(i), String.valueOf(9)).getText();
 				index = i;
 				break;
 			}
 		}
 		value = verfiyEndAndStartDate(reportingEndDate, reportingStartDate);
-		Assert.assertTrue(
-				value,
-				"ASSERT FAIL : Current date does not lies within the Reporting start and end date\n");
+		Assert.assertTrue(value, "ASSERT FAIL : Current date does not lies within the Reporting start and end date\n");
 		logMessage("ASSERT PASS : Current date lies within the Reporting start and end date\n");
 	}
 
-	public boolean verfiyEndAndStartDate(String reportingEndDate,
-			String reportingStartDate) {
-		logMessage("Current Date:"
-				+ DateUtil.convertStringToDate(DateUtil
-						.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
-						"MM/dd/yyyy"));
-		logMessage("End Date:"
-				+ DateUtil.convertStringToDate(reportingEndDate, "MM/dd/yyyy"));
+	public boolean verfiyEndAndStartDate(String reportingEndDate, String reportingStartDate) {
+		logMessage("Current Date:" + DateUtil
+				.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"), "MM/dd/yyyy"));
+		logMessage("End Date:" + DateUtil.convertStringToDate(reportingEndDate, "MM/dd/yyyy"));
 		int endDate, startDate;
-		endDate = DateUtil.convertStringToDate(
-				DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
-				"MM/dd/yyyy").compareTo(
-				DateUtil.convertStringToDate(reportingEndDate, "MM/dd/yyyy"));
+		endDate = DateUtil
+				.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"), "MM/dd/yyyy")
+				.compareTo(DateUtil.convertStringToDate(reportingEndDate, "MM/dd/yyyy"));
 
-		logMessage("Current Date:"
-				+ DateUtil.convertStringToDate(DateUtil
-						.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
-						"MM/dd/yyyy"));
-		logMessage("Start Date:"
-				+ DateUtil.convertStringToDate(reportingStartDate,
-						"MM/dd/yyyy"));
-		startDate = DateUtil.convertStringToDate(
-				DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
-				"MM/dd/yyyy")
-				.compareTo(
-						DateUtil.convertStringToDate(reportingStartDate,
-								"MM/dd/yyyy"));
+		logMessage("Current Date:" + DateUtil
+				.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"), "MM/dd/yyyy"));
+		logMessage("Start Date:" + DateUtil.convertStringToDate(reportingStartDate, "MM/dd/yyyy"));
+		startDate = DateUtil
+				.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"), "MM/dd/yyyy")
+				.compareTo(DateUtil.convertStringToDate(reportingStartDate, "MM/dd/yyyy"));
 
 		if (endDate == -1 && startDate == 1)
 			return true;
@@ -103,8 +94,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		element("inp_ln_id", "Credential1").sendKeys(lastName);
 		element("inp_ln_id", "Credential2").sendKeys(id);
 		element("btn_login").click();
-		logMessage("Login With " + lastName + " and " + id
-				+ " and clicked on login button\n");
+		logMessage("Login With " + lastName + " and " + id + " and clicked on login button\n");
 	}
 
 	public void verifyStudentChapterReportingPage() {
@@ -114,16 +104,16 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 
 	public void verifyReportStatus(String status) {
 		isElementDisplayed("txt_reportStatus");
-		Assert.assertTrue(
-				element("txt_reportStatus").getText().trim().equals(status),
-				"ASSERT FAIL : Report Status is not "+status+"\n");
-		logMessage("ASSERT PASS : Report Status is "+status+"\n");
+		Assert.assertTrue(element("txt_reportStatus").getText().trim().equals(status),
+				"ASSERT FAIL : Report Status is not " + status + "\n");
+		logMessage("ASSERT PASS : Report Status is " + status + "\n");
 	}
 
 	public void clickOnEditChapterInfoButton() {
 		isElementDisplayed("btn_editChapterInfo");
 		element("btn_editChapterInfo").click();
 		logMessage("STEP : Clicked on Edit Chapter Information button\n");
+		clearMultimap();
 	}
 
 	public void clickOnAddOrEditChapterOfficersButton() {
@@ -133,27 +123,12 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnAddOfficerButton() {
+		// pageRefresh();
 		isElementDisplayed("btn_addOfficer");
 		element("btn_addOfficer").click();
 		logMessage("STEP : Clicked on Add Officers button\n");
 	}
 	
-	public void verifyAlreadyPresentOfficerRole(String role){
-		boolean flag=false;
-		if(elements("lst_officerRoles").size()>1){
-			for(int i=1;i<elements("lst_officerRoles").size();i++){
-				if(elements("lst_officerRoles").get(i).getText().trim().equals(role)){
-					removeAlreadyAddedOfficer(i);
-					flag=true;
-					break;
-				}
-			}
-		}
-		if(flag)
-		    logMessage("STEP : Already added officer having role as "+role+" deleted");
-		else
-			logMessage("STEP : No officer was having role as : "+role);
-	}
 	
 	public void removeAlreadyAddedOfficer(int i){
 		isElementDisplayed("btn_removeOfficer",String.valueOf(i));
@@ -162,11 +137,46 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		confirmOfficerDeletion();
 	}
 	
-	public void confirmOfficerDeletion(){
-		wait.hardWait(3);
+
+
+	public void verifyAlreadyPresentOfficerRole(String role) {  // need correction
+		boolean flag = false;
+		if (checkIfElementIsThere("lst_officerRoles")) {
+			int officersSize = elements("lst_officerRoles").size();
+			if (elements("lst_officerRoles").size() > 1) {
+				for (int i = 1; i < elements("lst_officerRoles").size(); i++) {
+					if (elements("lst_officerRoles").get(i).getText().trim().equals(role)) {
+						removeAlreadyAddedOfficer(i);
+						flag = true;
+						break;
+					}
+				}
+				wait.hardWait(2);
+				if(isElementPresentOrNot("lst_officerRoles")){  //-----
+				if (officersSize > elements("lst_officerRoles").size())
+					logMessage("STEP : Already added officer having role as " + role + " deleted\n");
+				else
+					logMessage("STEP : No officer was having role as : " + role + "\n");
+			}
+				else
+					logMessage("STEP : Already added officer having role as " + role + " deleted\n"
+							+ "STEP : Needed to add atleast 1 primary officer\n");
+			}		
+		} else
+			logMessage("STEP : Officers are not previously added\n");
+	}
+
+
+	public void confirmOfficerDeletion() {
+		wait.hardWait(2);
+		isElementDisplayed("heading_removeOfficer");
 		isElementDisplayed("btn_confirmDeletion");
-		element("btn_confirmDeletion");
-		logMessage("STEP : Clicked on Confirm button");
+		// element("btn_confirmDeletion").click();
+		// clickUsingXpathInJavaScriptExecutor(element("btn_confirmDeletion"));
+		Actions action = new Actions(driver);
+		action.moveToElement(element("btn_confirmDeletion"));
+		action.click().build().perform();
+		logMessage("STEP : Clicked on Confirm button\n");
 	}
 
 	public void addChapterOfficer() {
@@ -182,11 +192,9 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		isElementDisplayed("lst_officers");
 		size = elements("lst_officers").size();
 		if (officerIndex < size) {
-			name = element("lst_officerName", String.valueOf(officerIndex))
-					.getText();
-			logMessage("Officer selected is : "
-					+ element("lst_officerName", String.valueOf(officerIndex))
-							.getText() + "\n");
+			name = element("lst_officerName", String.valueOf(officerIndex)).getText();
+			logMessage("Officer selected is : " + element("lst_officerName", String.valueOf(officerIndex)).getText()
+					+ "\n");
 			element("btn_selectOfficer", String.valueOf(officerIndex)).click();
 			return name;
 		} else {
@@ -200,8 +208,10 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		isElementDisplayed("lst_officerRole");
 		Select drpdwn = new Select(element("lst_officerRole"));
 		drpdwn.selectByVisibleText(role);
+		wait.hardWait(2);
 		logMessage("STEP : Officer role selected :" + role + "\n");
 		selectPrimaryContact();
+		wait.hardWait(2);
 	}
 
 	public void selectPrimaryContact() {
@@ -211,6 +221,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnSaveButton() {
+		wait.hardWait(4);
 		isElementDisplayed("btn_save");
 		element("btn_save").click();
 		logMessage("STEP : Clicked on Save button\n");
@@ -218,12 +229,21 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 
 	public void verifyAdditionOfOfficer(String name) {
 		String ar[];
+		boolean flag = false;
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(3);
 		isElementDisplayed("txt_officerName");
-		ar=element("txt_officerName").getText().trim().split(" ");
-		Assert.assertTrue(name.contains(ar[0]) && name.contains(ar[1]),
-				"ASSERT FAIL : Officer cannot be added\n");
+		for (int i = 0; i <elements("txt_officerName").size(); i++) {
+			logMessage("------Checking officer: "+elements("txt_officerName").get(i).getText().trim());
+			ar = elements("txt_officerName").get(i).getText().trim().split(" ");
+			logMessage("----ar[0] :"+ar[0]);
+			logMessage("----ar[1] :"+ar[1]);
+			if (name.contains(ar[0]) && name.contains(ar[1])) {
+				flag = true;
+				break;
+			}
+		}
+		Assert.assertTrue(flag, "ASSERT Failed : Officer cannot be added\n");
 		logMessage("ASSERT PASS : Officer successfully added\n");
 	}
 
@@ -233,29 +253,24 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		logMessage("STEP : Clicked on Return button\n");
 	}
 
-	public void DepartmentAndInstitutionInformation(String undergraduates,
-			String chemMembers) {
+	public void DepartmentAndInstitutionInformation(String undergraduates, String chemMembers) {
 		EnterUndergraduatesMajoringInChemistry(undergraduates);
 		EnterChemistryFacultyMembers(chemMembers);
 	}
-	
-	public void EnterUndergraduatesMajoringInChemistry(String undergraduates){
+
+	public void EnterUndergraduatesMajoringInChemistry(String undergraduates) {
 		isElementDisplayed("txt_undergraduatesMajoring");
 		element("txt_undergraduatesMajoring").clear();
 		element("txt_undergraduatesMajoring").sendKeys(undergraduates);
-		logMessage("STEP : Entered Undergraduates Majoring in Chemistry: "
-				+ undergraduates + "\n");
+		logMessage("STEP : Entered Undergraduates Majoring in Chemistry: " + undergraduates + "\n");
 	}
-	
-	public void EnterChemistryFacultyMembers(String chemMembers){
+
+	public void EnterChemistryFacultyMembers(String chemMembers) {
 		isElementDisplayed("txt_chemistryFacultyMembers");
 		element("txt_chemistryFacultyMembers").clear();
 		element("txt_chemistryFacultyMembers").sendKeys(chemMembers);
-		logMessage("STEP : Entered Chemistry Faculty Members: " + chemMembers
-				+ "\n");
+		logMessage("STEP : Entered Chemistry Faculty Members: " + chemMembers + "\n");
 	}
-
-		
 
 	public void clickOnSaveChapterInformationButton() {
 		isElementDisplayed("btn_saveChapterInfo");
@@ -268,98 +283,152 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		wait.hardWait(4);
 		isElementDisplayed("btn_buildReport", tabName);
 		element("btn_buildReport", tabName).click();
-		logMessage("STEP : Clicked on "+tabName+" tab\n");
+		logMessage("STEP : Clicked on " + tabName + " tab\n");
 	}
 
-	public void verifyChapterStatus(String chapterName,String statusValue) {
+	public void verifyChapterStatus(String chapterName, String statusValue) {
 		wait.waitForPageToLoadCompletely();
-		Assert.assertTrue(
-				element("btn_status", chapterName).getAttribute("value")
-						.equals(statusValue), "ASSERT FAIL : " + chapterName
-						+ " status is not "+statusValue+"\n");
-		logMessage("ASSERT PASS : " + chapterName + " status is "+statusValue+"\n");
+		Assert.assertTrue(element("btn_status", chapterName).getAttribute("value").equals(statusValue),
+				"ASSERT FAIL : " + chapterName + " status is not " + statusValue + "\n");
+		logMessage("ASSERT PASS : " + chapterName + " status is " + statusValue + "\n");
 	}
 
-	public void clickOnNotStartedButtonForSection(String chapterName,String sectionStatus) {
-		Assert.assertTrue(
-				element("btn_status", chapterName).getAttribute("value")
-						.equals(sectionStatus), "ASSERT FAIL : " + chapterName
-						+ " status is not "+sectionStatus);
-		logMessage("ASSERT PASS : " + chapterName + " status is "+sectionStatus);
+	public void clickOnNotStartedButtonForSection(String chapterName, String sectionStatus) {
+		// Assert.assertTrue(
+		// element("btn_status", chapterName).getAttribute("value")
+		// .equals(sectionStatus), "ASSERT FAIL : " + chapterName
+		// + " status is not "+sectionStatus);
+		// logMessage("ASSERT PASS : " + chapterName + " status is
+		// "+sectionStatus);
+		isElementDisplayed("btn_status", chapterName);
 		element("btn_status", chapterName).click();
-		logMessage("STEP : Clicked on "+sectionStatus+" button under " + chapterName+"\n");
+		logMessage("STEP : Clicked on " + sectionStatus + " button under " + chapterName + "\n");
 	}
 
-	public void enterSectionDetails(String data, String sectionName,int index) {
-		logMessage("STEP : Entering details for "+sectionName+" section\n");
+	public void checkSectionStatus(String sectionName) {
+		wait.hardWait(2);
+		String sectionStatus = element("btn_status", sectionName).getAttribute("value");
+		switch (sectionStatus) {
+		case "Complete":
+			logMessage("STEP : The section is already completed\n" + "STEP : Updating the details");
+			break;
+		case "Not-Started":
+			logMessage("STEP : The section is Not-Started\n" + "STEP : Updating the details");
+			break;
+		case "In-progress":
+			logMessage("STEP : The section is in-progress\n" + "STEP : Updating the details");
+		}
+	}
+
+	public void enterSectionDetails(String data, String sectionName, int index) {
+		logMessage("STEP : Entering details for " + sectionName + " section\n");
 		for (int i = 1; i <= index; i++) {
 			wait.hardWait(2);
 			switchToFrame(element("lnk_frameAssessment", String.valueOf(i)));
 			addDetails(data);
 			switchToDefaultContent();
 		}
+		reportAnswers.put(sectionName, answers);
 	}
 	
-	public void addDetails(String data){
+	public void iterateThroughReportAnswers(){
+		int size;
+		boolean flag=false;
+		for (Map.Entry<String, List<String>> e : reportAnswers.entrySet()){
+		    System.out.println("Section: "+e.getKey());
+	            System.out.print( "Value: " + e.getValue()+ "\n" );
+		}
+		for(int i=1;i<=16;i++){
+			if(i==11)
+				element("lnk_reportPages").click();
+			size=reportAnswers.get(element("txt_endDate",String.valueOf(i),String.valueOf(4))).size();
+			for(int j=0;j<size;j++){
+				if(reportAnswers.get(element("txt_endDate",String.valueOf(i),String.valueOf(4))).get(j).
+						contains(element("txt_endDate",String.valueOf(i),String.valueOf(6)).getText())){
+					logMessage("ASSERT PASSED : Report answers matches for section");
+					flag=true;
+				}
+			}
+			if(flag)
+				logMessage("STEP PASSED : Report answers matches for section");
+			else
+				logMessage("STEP FAILED : Report answers matches for section");
+		}
+		
+	}
+
+	public void addDetails(String data) {
 		isElementDisplayed("txt_txtBox");
 		element("txt_txtBox").clear();
-		element("txt_txtBox").sendKeys(data+System.currentTimeMillis());
-		logMessage("STEP : Details added under questions : "+data+"\n");
+		data=data + System.currentTimeMillis();
+		element("txt_txtBox").sendKeys(data);
+		answers.add(data);
+		logMessage("STEP : Details added under questions : " + data + "\n");
 	}
 
 	public void clickOnSelfAssessmentSaveButton(String btnValue) {
-		isElementDisplayed("btn_saveAssessment",btnValue);
-		element("btn_saveAssessment",btnValue).click();
-		logMessage("STEP : Clicked on "+btnValue+" button\n");
+		isElementDisplayed("btn_saveEvent", btnValue);
+		element("btn_saveEvent", btnValue).click();
+		logMessage("STEP : Clicked on " + btnValue + " button\n");
 	}
 
-	public void createEvents(Map<String, String> eventlist,ASM_FellowNominatePage obj) {
+	public Map<String,String> createEvents(Map<String, String> eventlist, ASM_FellowNominatePage obj) {
 		int i = 1;
-		while(i<=5){
-		clickOnAddEvent();
-		logMessage("STEP : Creating Event "+i+"\n");
-		eventType.put("Event Type"+i,eventlist.get("Event" + i + "_Type"));
-		selectEventType(1, eventlist.get("Event" + i + "_Type"));
-		wait.hardWait(5);
-		selectEventType(2, eventlist.get("NCW/Mole Day/CCEW_" + i));
-		enterEventDetails(1, eventlist.get("Event")+i);
-		enterEventDetails(2, eventlist.get("Location"));
-		enterEventDetails(3, "4/22/2015");
-		enterDescriptionDetails(eventlist.get("Description"));
-		selectEventType(3, "My Student Chapter");
-		enterEventDetails(4, eventlist.get("No of ACS Student"));
-		enterEventDetails(5, eventlist.get("No of NON ACS Chapter Members"));
-		enterEventDetails(6, eventlist.get("No of Faculty"));
-		enterEventDetails(7, eventlist.get("People Served"));
-		selectIsThisGreenChemistryEvent();
-		obj.uploadFileUsingJavascipt("test.jpg","sm1", "Events");
-		clickOnSelfAssessmentSaveButton("Save");
-		i++;
-	  }
+		String category;
+		while (i <= 5) {
+			clickOnAddEvent();
+			logMessage("STEP : Creating Event " + i + "\n");
+			eventType.put("Event Type" + i, eventlist.get("Event" + i + "_Type"));
+			selectEventType(1, eventlist.get("Event" + i + "_Type"));
+			wait.hardWait(5);
+			category=getEventCategory();
+			selectEventType(2, eventlist.get("NCW/Mole Day/CCEW_" + i));
+			enterEventDetails(1, eventlist.get("Event") + i);
+			
+			eventsMap.put(category,eventlist.get("Event") + i);
+			enterEventDetails(2, eventlist.get("Location"));
+			enterEventDetails(3, "4/22/2015");
+			enterDescriptionDetails(eventlist.get("Description"));
+			selectEventType(3, "My Student Chapter");
+			enterEventDetails(4, eventlist.get("No of ACS Student"));
+			enterEventDetails(5, eventlist.get("No of NON ACS Chapter Members"));
+			enterEventDetails(6, eventlist.get("No of Faculty"));
+			enterEventDetails(7, eventlist.get("People Served"));
+			selectIsThisGreenChemistryEvent();
+			obj.uploadFileUsingJavascipt("test.jpg", "sm1", "Events");
+			clickOnSelfAssessmentSaveButton("Save");
+			i++;
+		}
+		return eventsMap;
+	}
+	
+	public String getEventCategory(){
+		wait.hardWait(2);
+		isElementDisplayed("txt_eventCategory");
+		return element("txt_eventCategory").getText().trim();
 	}
 
 	public void selectEventType(int i, String event) {
 		wait.hardWait(2);
 		isElementDisplayed("lst_selectEvents", String.valueOf(i));
-		Select dropdwnEventType = new Select(element("lst_selectEvents",
-				String.valueOf(i)));
+		Select dropdwnEventType = new Select(element("lst_selectEvents", String.valueOf(i)));
 		dropdwnEventType.selectByVisibleText(event);
-		logMessage("STEP : Event type info :"+event+"\n");
+		logMessage("STEP : Event type info :" + event + "\n");
 	}
 
-	public void enterEventDetails(int index, String info) {		
+	public void enterEventDetails(int index, String info) {
 		isElementDisplayed("txt_eventsInfo", String.valueOf(index));
 		element("txt_eventsInfo", String.valueOf(index)).clear();
-		wait.hardWait(2);
+		wait.hardWait(1);
 		sendKeysUsingXpathInJavaScriptExecutor(element("txt_eventsInfo", String.valueOf(index)), info);
-//		element("txt_eventsInfo", String.valueOf(index)).sendKeys(info);
-		logMessage("STEP : Event details entered : "+info+"\n");
+		// element("txt_eventsInfo", String.valueOf(index)).sendKeys(info);
+		logMessage("STEP : Event details entered : " + info + "\n");
 	}
-	
-	public void selectIsThisGreenChemistryEvent(){
-		isElementDisplayed("txt_eventsInfo",String.valueOf(11));
+
+	public void selectIsThisGreenChemistryEvent() {
+		isElementDisplayed("txt_eventsInfo", String.valueOf(11));
 		element("txt_eventsInfo", String.valueOf(11)).click();
-        logMessage("STEP : Clicked on Is this a Green Chemistry Event\n");
+		logMessage("STEP : Clicked on Is this a Green Chemistry Event\n");
 	}
 
 	public void clickOnAddEvent() {
@@ -367,89 +436,93 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		element("btn_addEvent").click();
 		logMessage("STEP : Clicked on Add Event button\n");
 	}
-	
-	public void enterDescriptionDetails(String descriptionData){
-		wait.hardWait(1);
+
+	public void enterDescriptionDetails(String descriptionData) {
+		wait.hardWait(5);
+		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("txt_eventDescription");
 		element("txt_eventDescription").clear();
 		element("txt_eventDescription").sendKeys(descriptionData);
-//		sendKeysUsingXpathInJavaScriptExecutor(element("txt_eventDescription"), descriptionData);
-		logMessage("STEP : Description data is: "+descriptionData+"\n");
+//		 sendKeysUsingXpathInJavaScriptExecutor(element("txt_eventDescription"),
+//		 descriptionData);
+		logMessage("STEP : Description data is: " + descriptionData + "\n");
 	}
 
-	public void uploadFile(){
+	public void uploadFile() {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(2);
 		isElementDisplayed("btn_chooseFile");
-		element("btn_chooseFile").sendKeys(System.getProperty("user.dir") + File.separator +
-				"src" + File.separator + "test" + File.separator + "resources" + File.separator + "UploadFiles"
-				+ File.separator + "test.jpeg");
+		element("btn_chooseFile")
+				.sendKeys(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+						+ File.separator + "resources" + File.separator + "UploadFiles" + File.separator + "test.jpeg");
 		logMessage("STEP : File Uploaded\n");
 	}
-	
-	public void clickOnGreenChemistryCheckbox(){
+
+	public void clickOnGreenChemistryCheckbox() {
 		isElementDisplayed("chkbox_greenChemistry");
 		element("chkbox_greenChemistry").click();
-		logMessage("STEP : Clicked on 'Check this box if you choose NOT to submit any green chemistry events.' checkbox\n");
+		logMessage(
+				"STEP : Clicked on 'Check this box if you choose NOT to submit any green chemistry events.' checkbox\n");
 	}
-	
-	public void verifyMergingOfSections(){
-		String sectionName []={"Chapter Information","Self-Assessment","Service","Professional Development",
-				"Chapter Development","Budget","Green Chemistry"};
+
+	public void verifyMergingOfSections() {
+		String sectionName[] = { "Chapter Information", "Self-Assessment", "Service", "Professional Development",
+				"Chapter Development", "Budget", "Green Chemistry" };
 		logMessage("STEP : Verfiying merging of all the completed sections under Review & Submit tab\n");
-		for(int index=0;index<sectionName.length;index++){
-			isElementDisplayed("btn_sectionStatus",sectionName[index]);
-			logMessage("ASSERT PASS : Status of "+sectionName[index]+" section is Complete\n");
+		for (int index = 0; index < sectionName.length; index++) {
+			isElementDisplayed("btn_sectionStatus", sectionName[index]);
+			logMessage("ASSERT PASS : Status of " + sectionName[index] + " section is Complete\n");
 		}
-	    logMessage("STEP : All the sections are merged successfully");
+		logMessage("STEP : All the sections are merged successfully\n");
 	}
-	
-	public void clickOnReportSubmitCheckbox(){
+
+	public void clickOnReportSubmitCheckbox() {
 		isElementDisplayed("chkbox_submitReport");
 		element("chkbox_submitReport").click();
 		logMessage("STEP : Clicked on checkbox for Report Submission\n");
 	}
-	
-	public void verifyReportCompletePage(){
+
+	public void verifyReportCompletePage() {
 		isElementDisplayed("heading_reportComplete");
-	    logMessage("ASSERT PASS : User is navigated to the Report Complete page\n");
+		logMessage("ASSERT PASS : User is navigated to the Report Complete page\n");
 	}
-	
-	public void verifyConfirmChapterAppearWindow(){
+
+	public void verifyConfirmChapterAppearWindow() {
 		wait.hardWait(2);
 		isElementDisplayed("heading_confirmReport");
 		logMessage("ASSERT PASSED : Confirm Chapter Report window appears\n");
 		clickOnSubmitReportButton("Submit");
 	}
-	
-	public void clickOnSubmitReportButton(String value){
-		isElementDisplayed("btn_modalSubmit",value);
-		element("btn_modalSubmit",value).click();
-		logMessage("STEP : Clicked on "+value+" button\n");
+
+	public void clickOnSubmitReportButton(String value) {
+		wait.hardWait(2);
+		isElementDisplayed("btn_modalSubmit", value);
+		element("btn_modalSubmit", value).click();
+		logMessage("STEP : Clicked on " + value + " button\n");
 	}
-	
-	public void clickOnSideBarTabStudentChapter(String tabName, int index){
-		isElementDisplayed("tab_sideBar",String.valueOf(index));
-		element("tab_sideBar",String.valueOf(index)).click();
-		logMessage("STEP : Clicked on "+tabName+" tab");
+
+	public void clickOnSideBarTabStudentChapter(String tabName, int index) {
+		isElementDisplayed("tab_sideBar", String.valueOf(index));
+		element("tab_sideBar", String.valueOf(index)).click();
+		logMessage("STEP : Clicked on " + tabName + " tab\n");
 	}
-	
-	public void clickOnSideBarSubTab(String subTab){
-		isElementDisplayed("hd_sideBar",subTab);
-		element("hd_sideBar",subTab).click();
-		logMessage("STEP : Clicked on "+subTab+" sub tab");
+
+	public void clickOnSideBarSubTab(String subTab) {
+		isElementDisplayed("hd_sideBar", subTab);
+		element("hd_sideBar", subTab).click();
+		logMessage("STEP : Clicked on " + subTab + " sub tab\n");
 	}
-	
-	public void selectARandomActiveStudentChapter(){
-		MembershipPageActions_IWEB obj =new MembershipPageActions_IWEB(driver);
+
+	public void selectARandomActiveStudentChapter() {
+		MembershipPageActions_IWEB obj = new MembershipPageActions_IWEB(driver);
 		obj.clickOnRandomPage();
 		obj.clickOnAnyRandomMember();
 	}
-	
-	public List<String> getMemberDetails(){
-		List<String> memberDetails=new ArrayList<String>();
-		MembershipPageActions_IWEB obj =new MembershipPageActions_IWEB(driver);
-		memberDetails=obj.getMemberDetails();
+
+	public List<String> getMemberDetails() {
+		List<String> memberDetails = new ArrayList<String>();
+		MembershipPageActions_IWEB obj = new MembershipPageActions_IWEB(driver);
+		memberDetails = obj.getMemberDetails();
 		memberDetails.add(obj.getMemberWebLogin());
 		System.out.println(memberDetails);
 		return memberDetails;
@@ -459,68 +532,148 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		MembershipPageActions_IWEB obj =new MembershipPageActions_IWEB(driver);
         obj.clickOnEditNameAndAddress();
 		switchToFrame("iframe1");
-		chapterName=getChapterName();
+		chapterName = getChapterName();
 		obj.clickOnCancelButton();
 		handleAlert();
 		switchToDefaultContent();
 		return chapterName;
 	}
-	
-	public void clickOnRelationsOptionUnderMoreMenu(){
-		MembershipPageActions_IWEB objMember =new MembershipPageActions_IWEB(driver);
-		IndividualsPageActions_IWEB object=new IndividualsPageActions_IWEB(driver);
+
+	public void clickOnRelationsOptionUnderMoreMenu() {
+		MembershipPageActions_IWEB objMember = new MembershipPageActions_IWEB(driver);
+		IndividualsPageActions_IWEB object = new IndividualsPageActions_IWEB(driver);
 		object.navigateToGeneralMenuOnHoveringMore("Relations");
 		objMember.expandDetailsMenu("active student member undergrads");
 	}
-	
-	public String getChapterName(){
+
+	public String getChapterName() {
 		isElementDisplayed("txt_chapterName");
-		chapterName=element("txt_chapterName").getAttribute("value");
-		logMessage("STEP : Chapter Name is : "+chapterName+"\n");
+		chapterName = element("txt_chapterName").getAttribute("value");
+		logMessage("STEP : Chapter Name is : " + chapterName + "\n");
 		return chapterName;
 	}
-	
-	public int selectStudentMember(){
+
+	public int selectStudentMember() {
 		boolean flag;
 		int i;
 		isElementDisplayed("table_rows");
-		for(i=1;i<=elements("table_rows").size();i++){
-			flag=verifyStudentMemberEndDate(i);
-			if(flag){
-				logMessage("ASSERT PASSED : Current date of student member"+element("txt_endDate",String.valueOf(i),String.valueOf(4)).
-				getText().trim()+" is equal to End Date");
+		for (i = 1; i <= elements("table_rows").size(); i++) {
+			flag = verifyStudentMemberEndDate(i);
+			if (flag) {
+				logMessage("ASSERT PASSED : Current date of student member"
+						+ element("txt_endDate", String.valueOf(i), String.valueOf(4)).getText().trim()
+						+ " is not equal to End Date\n");
 				clickOnStudentMemberName(i);
 				break;
 			}
 		}
 		return i;
 	}
-	
-	public boolean verifyStudentMemberEndDate(int i){
-		boolean flag=false;
-		logMessage("STEP : Current Date:"
-				+ DateUtil.convertStringToDate(DateUtil
-						.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
-						"MM/dd/yyyy"));
-		Date currDate=DateUtil.convertStringToDate(
-				DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"), "MM/dd/yyyy");
-		Date endDate=DateUtil.convertStringToDate(
-				element("txt_endDate",String.valueOf(i),String.valueOf(7)).getText().trim(),
+
+	public boolean verifyStudentMemberEndDate(int i) {
+		boolean flag = false;
+		logMessage("STEP : Current Date:" + DateUtil
+				.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"), "MM/dd/yyyy"));
+		Date currDate = DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
 				"MM/dd/yyyy");
-		if(currDate.compareTo(endDate)==-1 || currDate.compareTo(endDate)==1){
-			flag=true;
+		Date endDate = DateUtil.convertStringToDate(
+				element("txt_endDate", String.valueOf(i), String.valueOf(7)).getText().trim(), "MM/dd/yyyy");
+		if (currDate.compareTo(endDate) == -1 || currDate.compareTo(endDate) == 1) {
+			flag = true;
 		}
 		return flag;
 	}
-	
-	public void clickOnStudentMemberName(int i){
+
+	public void clickOnStudentMemberName(int i) {
 		wait.hardWait(2);
-		isElementDisplayed("arrow_selectMember",String.valueOf(i));
-		logMessage("STEP : Selected Student Member: "+element("txt_endDate",String.valueOf(i),String.valueOf(4)).
-				getText().trim());
-		element("arrow_selectMember",String.valueOf(i)).click();
+		isElementDisplayed("arrow_selectMember", String.valueOf(i));
+		logMessage("STEP : Selected Student Member: "
+				+ element("txt_endDate", String.valueOf(i), String.valueOf(4)).getText().trim());
+		element("arrow_selectMember", String.valueOf(i)).click();
+	}
+
+	
+
+	
+	public void clickOnGoButton(){
+		isElementDisplayed("btn_go");
+		element("btn_go").click();
+		logMessage("STEP : Clicked on Go button\n");
 	}
 	
+
+	public void clearMultimap(){
+		reportAnswers.clear();
+	}
+	
+	public void verifyChemistryUndergraduateMajorsInReport(String chemUndergrads){
+		isElementDisplayed("txt_iwebUndergrads");
+		Assert.assertTrue(chemUndergrads.equals(element("txt_iwebUndergrads").getText()), 
+				"ASSERT FAILED : Chemistry Undergraduate Majors does not matches on report\n");
+		logMessage("ASSERT PASSED : Chemistry Undergraduate Majors matches on report\n");
+	}
+	
+	public void verifyfacultyCountInReport(String facultyCount){
+		isElementDisplayed("txt_iwebFacultyCount");
+		Assert.assertTrue(facultyCount.equals(element("txt_iwebFacultyCount").getText()), 
+				"ASSERT FAILED : Faculty count does not matches on report\n");
+		logMessage("ASSERT PASSED : Faculty count matches on report\n");
+	}
+	
+	public void verifyIwebReportStatus(){
+		isElementDisplayed("txt_iwebReportStatus");
+		Assert.assertTrue(element("txt_iwebReportStatus").getText().trim().equals("Submitted"), 
+				"ASSERT FAILED : Report status is not submitted\n");
+		logMessage("ASSERT PASSED : Report status is Submitted\n");
+	}
+	
+	public void verifyPresenceOfReportPdf(String chapName){
+		isElementDisplayed("lnk_iwebReportPdf");
+		Assert.assertTrue(element("lnk_iwebReportPdf").getAttribute("src").contains("downloadpdf"),
+				"ASSERT FAILED : Report Pdf Cons is not displayed\n");
+		logMessage("ASSERT PASSED : Report Pdf Cons is displayed\n");
+//		switchWindow();
+//		wait.hardWait(4);
+//		isElementDisplayed("txt_reportChapterName");
+//		logMessage("ASSERT PASSED : Chapter name :"+chapName+" matches\n");
+//		switchToDefaultContent();
+	}
+	
+	public String getChapterFacultyAdvisor(){
+		isElementDisplayed("txt_chapterFacultyAdvisor");
+		logMessage("STEP : Chapter Faculty Advisor is :"+element("txt_chapterFacultyAdvisor").getText().trim());
+		return element("txt_chapterFacultyAdvisor").getText().trim();
+	}
+	
+	public void verifyChapterFacultyAdvisorOnReport(String facultyAdvisor){
+		String arFaculty[];
+		isElementDisplayed("table_rows");
+		for (int i = 1; i <= elements("table_rows").size(); i++) {
+			if(element("txt_endDate",String.valueOf(i),String.valueOf(5)).getText().trim().
+					equals("Chapter Faculty Advisor")){
+				arFaculty=element("txt_endDate",String.valueOf(i),String.valueOf(4)).getText().trim().split(" ");
+				Assert.assertTrue(facultyAdvisor.contains(arFaculty[0]) && facultyAdvisor.contains(arFaculty[1]), 
+						"ASSERT FAILED : Chapter Faculty Advisor Name Does not matches\n");
+				logMessage("ASSERT PASSED : Chapter Faculty Advisor Name matches\n");
+				break;
+			}
+		}		
+	}
+	
+	public void verifyEventsOnReport(Map<String,String> eventsMap){
+//		eventsMap.put("Professional Development", "Test1");
+//		eventsMap.put("Chapter Development", "Test2");
+		System.out.println("----"+eventsMap);
+		isElementDisplayed("table_rows");
+		for (int i = 1; i <elements("table_rows").size(); i++) {
+			logMessage("-------"+element("txt_endDate",String.valueOf(i),String.valueOf(4)).getText().trim());
+			String value=eventsMap.get(element("txt_endDate",String.valueOf(i),String.valueOf(4)).getText().trim());
+		    Assert.assertTrue(value.equals(element("txt_endDate",String.valueOf(i),String.valueOf(6)).getText().trim()),
+		    		"ASSERT FAILED : Events name does not matches");
+		    logMessage("ASSERT PASSED : Event name matches");
+		}
+	}
+
 	public void findSubmiitedChapterReport(String chapName,String status){
 		enterChapterNameToSearchReport(chapName);
 		enterReportStatus(status);
@@ -538,5 +691,6 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		dropdwn_status.selectByVisibleText(status);
 	}
 	
+
 
 }

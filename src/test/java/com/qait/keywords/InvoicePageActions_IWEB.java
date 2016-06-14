@@ -307,14 +307,24 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void expandDetailsMenu(String menuName) {
 		wait.waitForPageToLoadCompletely();
-		isElementDisplayed("btn_detailsMenuAACT", menuName);
-		// clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT",
-		// menuName));
-		element("btn_detailsMenuAACT",menuName).click();
-
-		logMessage("STEP : " + menuName + " bar is clicked to expand" + "\n");
-		waitForSpinner();
-
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
+		try {
+			isElementDisplayed("btn_detailsMenuAACT", menuName);
+			clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT",
+					menuName));
+			// element("btn_detailsMenuAACT", menuName).click();
+			logMessage("STEP : " + menuName + " bar is clicked to expand"
+					+ "\n");
+			waitForSpinner();
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+		} catch (NoSuchElementException | AssertionError | TimeoutException Exp) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			logMessage("STEP : Spinner is not present \n");
+		}
 	}
 
 	public void waitForSpinner() {
@@ -344,7 +354,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		// element("icon_up", menuName).click();
 		waitForSpinner();
 		logMessage("STEP : " + menuName + " bar collapse bar clicked\n");
-		
+
 	}
 
 	public void verifyMemberDetailsOnInvoicePage(String proforma,
@@ -715,10 +725,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		}
 	}
 
-
-	
-	public String verifyInvoiceDetailsBeforeRenewal()
-	{
+	public String verifyInvoiceDetailsBeforeRenewal() {
 		String invoiceNum;
 
 		verifyInvoiceProfile("proforma", "Yes");
@@ -726,21 +733,22 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		Assert.assertFalse(element("txt_invoiceValues", "balance").getText()
 				.trim().equalsIgnoreCase("0.00"), "Balance is 0.00");
 		logMessage("ASSERT PASSED : Balance before renewal is not 0.00\n");
-		do{
-			invoiceNum=element("inp_invoiceValue","invoice number").getText();
-		System.out.println(invoiceNum);
-		}while(invoiceNum.equals(null));
-		logMessage("Step : Invoice number for which renewal is to be done is "+invoiceNum);
+		do {
+			invoiceNum = element("inp_invoiceValue", "invoice number")
+					.getText();
+			System.out.println(invoiceNum);
+		} while (invoiceNum.equals(null));
+		logMessage("Step : Invoice number for which renewal is to be done is "
+				+ invoiceNum);
 		return invoiceNum;
-
 
 	}
 
 	public void verifyInvoiceDetailsAfterRenewal() {
 		verifyInvoiceProfile("proforma", "No");
-		Assert.assertTrue(element("txt_invoiceValues", "balance").getText().trim()
-        .equalsIgnoreCase("0.00"),"Balance is not 0.00");
-		 verifyInvoiceProfile("paid in full", "Yes");
+		Assert.assertTrue(element("txt_invoiceValues", "balance").getText()
+				.trim().equalsIgnoreCase("0.00"), "Balance is not 0.00");
+		verifyInvoiceProfile("paid in full", "Yes");
 		logMessage("ASSERT PASSED : Balance amount after renewal is 0.00\n");
 
 	}
@@ -761,19 +769,24 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
+	public void verifyRenewedProductsPriceInsideLineItems(
+			Map<String, String> mapRenewedProductDetails) {
 
-public void verifyRenewedProductsPriceInsideLineItems(Map<String, String> mapRenewedProductDetails) {
-		
-		for (String key : mapRenewedProductDetails.keySet() ) {
-			if(!key.equals("Voluntary Contribution To C&EN"))
-			{
-			System.out.println((mapRenewedProductDetails.get(key)).trim());
-			System.out.println(element("txt_priceValue",key).getText().trim());
-		   Assert.assertTrue((mapRenewedProductDetails.get(key)).trim().equals(element("txt_priceValue",key).getText().trim()));
-		   logMessage("ASSERT PASSED : "+key+" price inside line items verified as "+mapRenewedProductDetails.get(key));
+		for (String key : mapRenewedProductDetails.keySet()) {
+			if (!key.equals("Voluntary Contribution To C&EN")) {
+				System.out.println((mapRenewedProductDetails.get(key)).trim());
+				System.out.println(element("txt_priceValue", key).getText()
+						.trim());
+				Assert.assertTrue((mapRenewedProductDetails.get(key))
+						.trim()
+						.equals(element("txt_priceValue", key).getText().trim()));
+				logMessage("ASSERT PASSED : " + key
+						+ " price inside line items verified as "
+						+ mapRenewedProductDetails.get(key));
 			}
 		}
-}
+	}
+
 	public void verifyPaymentStatusBeforeRenewal() {
 		Assert.assertTrue(element("txt_code", "Payment Status").getText()
 				.equals("Unpaid"));
@@ -798,8 +811,8 @@ public void verifyRenewedProductsPriceInsideLineItems(Map<String, String> mapRen
 	}
 
 	public String getDataFromInvoiceProfilePage(String field) {
-		isElementDisplayed("txt_invoiceValues",field);
-		return element("txt_invoiceValues",field).getText().trim();	
+		isElementDisplayed("txt_invoiceValues", field);
+		return element("txt_invoiceValues", field).getText().trim();
 	}
 
 }
