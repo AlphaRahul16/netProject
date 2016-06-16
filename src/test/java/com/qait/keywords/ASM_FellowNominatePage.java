@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.text.WordUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -822,7 +823,8 @@ public class ASM_FellowNominatePage extends GetPage {
 		        iframe+".contentWindow.document.getElementById('fuName').style.display='block';"+
 		        iframe+".contentWindow.document.getElementById('fuName').setAttribute('height','500');"+
 		        iframe+".contentWindow.document.getElementById('fuName').setAttribute('width','500')");
-		switchToFrame(frameName);
+		System.out.println("javascript loaded");
+		switchToFrame(driver.findElement(By.cssSelector("#"+frameName)));
 		isElementDisplayed("inp_upload");
 		element("inp_upload").sendKeys(filePath.getAbsolutePath());
         switchToDefaultContent();

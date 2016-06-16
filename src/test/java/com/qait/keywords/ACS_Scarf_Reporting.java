@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -28,6 +29,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 	String reportingStartDate, reportingEndDate, chapterName, customerLname, customerFname;
 	Map<String,List<String>> reportAnswers=new HashMap<String,List<String>>();
 	Map<String,String> eventsMap=new HashMap<String,String>();
+	static int scarfReportIterationCount=1;
 
 	List<String> answers=new ArrayList<String>();
 
@@ -111,8 +113,11 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 
 	public void clickOnEditChapterInfoButton() {
 		isElementDisplayed("btn_editChapterInfo");
-		element("btn_editChapterInfo").click();
+		scrollDown(element("btn_editChapterInfo"));
+		wait.hardWait(10);
+		clickUsingXpathInJavaScriptExecutor(element("btn_editChapterInfo"));
 		logMessage("STEP : Clicked on Edit Chapter Information button\n");
+		wait.waitForPageToLoadCompletely();
 		clearMultimap();
 	}
 
@@ -332,19 +337,24 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 	}
 	
 	public void iterateThroughReportAnswers(){
-		int size;
+		int size,loopLength=16;
 		boolean flag=false;
 		for (Map.Entry<String, List<String>> e : reportAnswers.entrySet()){
 		    System.out.println("Section: "+e.getKey());
 	            System.out.print( "Value: " + e.getValue()+ "\n" );
 		}
-		for(int i=1;i<=16;i++){
-			if(i==11)
-				element("lnk_reportPages").click();
-			size=reportAnswers.get(element("txt_endDate",String.valueOf(i),String.valueOf(4))).size();
+		for(scarfReportIterationCount=1;scarfReportIterationCount<=loopLength;scarfReportIterationCount++){
+			if(scarfReportIterationCount==11)
+			{
+				loopLength=clickOnNextReportPages("2");
+			}
+			System.out.println(scarfReportIterationCount+" "+loopLength);
+			System.out.println(element("txt_endDate",String.valueOf(scarfReportIterationCount),String.valueOf(4)).getText().trim());
+			System.out.println(reportAnswers.get("Self-Assessment"));
+			size=reportAnswers.get(element("txt_endDate",String.valueOf(scarfReportIterationCount),String.valueOf(4)).getText().trim()).size();
 			for(int j=0;j<size;j++){
-				if(reportAnswers.get(element("txt_endDate",String.valueOf(i),String.valueOf(4))).get(j).
-						contains(element("txt_endDate",String.valueOf(i),String.valueOf(6)).getText())){
+				if(reportAnswers.get(element("txt_endDate",String.valueOf(scarfReportIterationCount),String.valueOf(4)).getText().trim()).get(j).
+						contains(element("txt_endDate",String.valueOf(scarfReportIterationCount),String.valueOf(6)).getText().trim())){
 					logMessage("ASSERT PASSED : Report answers matches for section");
 					flag=true;
 				}
@@ -355,6 +365,18 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 				logMessage("STEP FAILED : Report answers matches for section");
 		}
 		
+	}
+	public int clickOnNextReportPages(String pagecount)
+	{
+		int loopLength;
+		wait.hardWait(2);
+		isElementDisplayed("lnk_reportPages",pagecount);
+		element("lnk_reportPages",pagecount).click();
+		logMessage("Step : Page "+pagecount+" of report is clicked\n");
+		scarfReportIterationCount=1;
+		loopLength=6;
+		wait.hardWait(2);
+		return loopLength;
 	}
 
 	public void addDetails(String data) {
@@ -497,8 +519,15 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 	public void clickOnSubmitReportButton(String value) {
 		wait.hardWait(2);
 		isElementDisplayed("btn_modalSubmit", value);
-		element("btn_modalSubmit", value).click();
-		logMessage("STEP : Clicked on " + value + " button\n");
+		scrollDown(element("btn_modalSubmit", value));
+		clickUsingXpathInJavaScriptExecutor(element("btn_modalSubmit", value));
+	}
+	
+	public void clickOnSaveAndReturnToDashboardButton() {
+		wait.hardWait(2);
+		isElementDisplayed("btn_saveAndReturn");
+		clickUsingXpathInJavaScriptExecutor(element("btn_saveAndReturn"));
+		logMessage("Step : Save And Return to dashboard button is clicked");
 	}
 
 	public void clickOnSideBarTabStudentChapter(String tabName, int index) {
@@ -523,7 +552,6 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		List<String> memberDetails = new ArrayList<String>();
 		MembershipPageActions_IWEB obj = new MembershipPageActions_IWEB(driver);
 		memberDetails = obj.getMemberDetails();
-		memberDetails.add(obj.getMemberWebLogin());
 		System.out.println(memberDetails);
 		return memberDetails;
 	}
@@ -604,6 +632,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 
 	public void clearMultimap(){
 		reportAnswers.clear();
+		System.out.println("Clear Multi Map");
 	}
 	
 	public void verifyChemistryUndergraduateMajorsInReport(String chemUndergrads){
@@ -664,12 +693,29 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 //		eventsMap.put("Professional Development", "Test1");
 //		eventsMap.put("Chapter Development", "Test2");
 		System.out.println("----"+eventsMap);
+		String eventName;
 		isElementDisplayed("table_rows");
-		for (int i = 1; i <elements("table_rows").size(); i++) {
-			logMessage("-------"+element("txt_endDate",String.valueOf(i),String.valueOf(4)).getText().trim());
+		System.out.println((elements("table_rows").size() - 1));
+		for (int i = 1; i <(elements("table_rows").size()-1); i++) {
+			eventName=element("txt_endDate",String.valueOf(i),String.valueOf(4)).getText().trim();
+			logMessage("-------"+eventName);
 			String value=eventsMap.get(element("txt_endDate",String.valueOf(i),String.valueOf(4)).getText().trim());
-		    Assert.assertTrue(value.equals(element("txt_endDate",String.valueOf(i),String.valueOf(6)).getText().trim()),
-		    		"ASSERT FAILED : Events name does not matches");
+			System.out.println(value.trim());
+			System.out.println(elements("txt_eventIterateByName",eventName).size());
+			for(int j=0;j<elements("txt_eventIterateByName",eventName).size();j++)
+			{
+				if(elements("txt_eventIterateByName",eventName).get(j).getText().trim().equals(value))
+				{
+					System.out.println("matches name "+elements("txt_eventIterateByName",eventName).get(j).getText().trim());
+					System.out.println(value);
+				Assert.assertTrue(value.equals(elements("txt_eventIterateByName",eventName).get(j).getText().trim()),"ASSERT FAILED : Events name does not matches");
+			}
+			}
+			
+			
+//			System.out.println(element("txt_endDate",String.valueOf(i),String.valueOf(6)).getText().trim());
+//		    Assert.assertTrue(value.equals(element("txt_endDate",String.valueOf(i),String.valueOf(6)).getText().trim()),
+//		    		"ASSERT FAILED : Events name does not matches");
 		    logMessage("ASSERT PASSED : Event name matches");
 		}
 	}

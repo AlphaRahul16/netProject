@@ -81,6 +81,7 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 
 	public void clickOnBatchProcessButton(String btnName) {
 		isElementDisplayed("btn_ForProcesingBatch",btnName);
+		wait.hardWait(2);
 		element("btn_ForProcesingBatch",btnName).click();
 		logMessage("Step : "+btnName+" is clicked on batch processing page\n");
 		
@@ -96,7 +97,7 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
         clickOnBatchProcessButton("PreProcess");
 		verifyPopUpWindowVisibility();
 		clickOnBatchProcessButton("CloseButton");
-		handleAlert();
+		waitForAlertToAppear();
 		verifyPopUpWindowVisibility();
 		clickOnBatchProcessButton("PostButton");
 		verifyPopUpWindowVisibility();
@@ -135,6 +136,7 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 
 	private void verifyBatchSaleRequestAs(String field) {
 		isElementDisplayed("txt_closeDateAndSaleRequest",field);
+		wait.hardWait(5);
 		Assert.assertTrue(element("txt_closeDateAndSaleRequest",field).getText().equalsIgnoreCase("Yes"),"Batch Sale request is not Yes");;
 		logMessage("ASSERT PASSED : Batch Sale Request is displayed as Yes\n");
 		
