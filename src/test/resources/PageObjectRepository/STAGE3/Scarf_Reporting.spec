@@ -61,8 +61,10 @@ txt_iwebUndergrads                       xpath                          //span[@
 txt_iwebFacultyCount                     id                            F1_sr1_faculty
 txt_iwebReportStatus                     id                            F1_sr1_status
 lnk_iwebReportPdf                        css                           #F1_HYPERLINK_2>img
-lnk_reportPages                          css                           #UP4>a
+lnk_reportPages                          xpath                          //a[contains(text(),'${value}')]
 txt_chapterFacultyAdvisor                xpath                         //span[text()='Chapter Faculty Advisor']/..//span[2] 
 txt_reportChapterName                    xpath                         //div[text()='${value}']
 txt_eventCategory                        xpath                         //div[@class='event_category']//span[2]
+txt_eventIterateByName                   xpath                         //td[contains(text(),'${value}')]/following-sibling::td[2]
+btn_saveAndReturn                        css                           input[name*='btnSave']
 =============================================================================================================================================

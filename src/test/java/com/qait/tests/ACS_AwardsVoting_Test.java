@@ -61,7 +61,7 @@ public class ACS_AwardsVoting_Test {
 				.selectRandomGeneralAward_AwardNomination(DataProvider
 						.getRandomSpecificLineFromTextFile("GeneralAwardList")
 						.trim());
-		
+
 	}
 
 	@Test(dependsOnMethods = "Step01_TC01_Launch_Iweb_Application_And_Select_Award")
@@ -200,10 +200,12 @@ public class ACS_AwardsVoting_Test {
 		test.awardsPageAction.goToRecordForRound(String.valueOf(votingRounds));
 		test.awardsPageAction
 				.verifyUpdateScoreMessageOnClickingUpdateScore(test.homePageIWEB
-						.map().get("Round1 Update Score Success Message?"));
+						.map().get(
+								"Round" + votingRounds
+										+ " Update Score Success Message?"));
 		test.awardsPageAction
 				.verifyClosedStatusOnUpdatingScore(test.homePageIWEB.map().get(
-						"Round1 Closed Status?"));
+						"Round"+votingRounds+" Closed Status?"));
 		test.awardsPageAction
 				.expandDetailsMenu("acs award stage - entries in this stage");
 		test.awardsPageAction

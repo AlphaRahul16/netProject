@@ -95,7 +95,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public String getMemberWebLogin() {
-		isElementDisplayed("txt_webLogin");
+		//isElementDisplayed("txt_webLogin");
 		String info = element("txt_webLogin").getText().trim();
 		logMessage("Step : WebLogin is " + info + " \n");
 		return info;
@@ -150,8 +150,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			isElementDisplayed("img_spinner");
 			wait.waitForElementToDisappear(element("img_spinner"));
 			logMessage("STEP : wait for spinner to be disappeared \n");
-			wait.resetImplicitTimeout(timeOut);
-			wait.resetExplicitTimeout(timeOut);
 
 		} catch (Exception Exp) {
 
@@ -3061,27 +3059,22 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		boolean flag1 = _verifyResultListData(ResultList);
 
 		logMessage("===========================Here Are the Complete Test Log================================");
-
-		html = "<html><body><table border=1><tbody>" + "<tr><td>Case ID::</td><td>" + criteriaList.get("ID")
-				+ "<tr><td>Member/Customer Id::</td><td>" + custId;
-
-		if (flag1) {
-			html = html + "<tr><td>Test Case Status::</td><td bgcolor='green'>" + "PASS </td></tr><tr>";
-		} else {
-			html = html + "<tr><td>Test Case Status::</td><td bgcolor='red'>" + "Fail </td></tr><tr>";
+		
+		
+		html = "<html><head><style='text/stylesheet'></style></head><body><table border=1><tbody>"+"<tr><td>Case ID::</td><td>"+criteriaList.get("ID")+"<tr><td>Member/Customer Id::</td><td>"+custId;
+	    
+		if(flag1){
+			html = html+ "<tr><td>Test Case Status::</td><td bgcolor='green'>"+"PASS </td></tr><tr>";
+		}else{
+			html = html+ "<tr><td>Test Case Status::</td><td bgcolor='red'>"+"Fail </td></tr><tr>";
 		}
-
-		html = html + "<td><h1>Initial Conditions</h1></td></tr><tr><td><b>Initial Mbr Type::</b></td><td>"
-				+ criteriaList.get("Initial Mbr Type") + "</td></tr><tr><td><b>Initial Mbr Status::</b></td><td>"
-				+ criteriaList.get("Initial Mbr Status") + "</td></tr>"
-				+ "<tr><td><b>Initial Mbr Package::</b></td><td>" + criteriaList.get("Initial Mbr Package")
-				+ "</td></tr><tr><td><b>Initial MP Exp Date::</b></td><td>" + criteriaList.get("Initial MP Exp Date")
-				+ "</td></tr><tr><td><b>Target Mbr Type::</b></td><td>" + criteriaList.get("Target Mbr Type")
-				+ "</td></tr>" + "<tr><td><b>Target Mbr Package::</b></td><td>" + criteriaList.get("Target Mbr Package")
-				+ "</td></tr><tr><td><h1>Test Result</h1></tr></td>"
-				+ "<tr><td><h2>Field</h2></td><td><h2>Before</h2></td><td><h2>After</h2></td><td><h2>Criteria</h2></td><td><h2>Pass?</h2></td></tr>";
-		logMessage("Case ID::" + criteriaList.get("ID"));
-		logMessage("Member/Customer ID::" + custId);
+		
+		html = html + "<td><h1>Initial Conditions</h1></td></tr><tr><td><b>Initial Mbr Type::</b></td><td>"+criteriaList.get("Initial Mbr Type")+"</td></tr><tr><td><b>Initial Mbr Status::</b></td><td>"+criteriaList.get("Initial Mbr Status")+"</td></tr>"
+				+ "<tr><td><b>Initial Mbr Package::</b></td><td>"+criteriaList.get("Initial Mbr Package")+"</td></tr><tr><td><b>Initial MP Exp Date::</b></td><td>"+criteriaList.get("Initial MP Exp Date")+"</td></tr><tr><td><b>Target Mbr Type::</b></td><td>"+criteriaList.get("Target Mbr Type")+"</td></tr>"
+						+ "<tr><td><b>Target Mbr Package::</b></td><td>"+criteriaList.get("Target Mbr Package")+"</td></tr><tr><td><h1>Test Result</h1></tr></td>"
+								+ "<tr><td><h2>Field</h2></td><td><h2>Before</h2></td><td><h2>After</h2></td><td><h2>Criteria</h2></td><td><h2>Pass?</h2></td></tr>";
+		logMessage("Case ID::"+criteriaList.get("ID"));
+		logMessage("Member/Customer ID::"+custId);
 		logMessage("Initial Conditions>");
 		logMessage("Initial Mbr Type::" + criteriaList.get("Initial Mbr Type"));
 		logMessage("Initial Mbr Status::" + criteriaList.get("Initial Mbr Status"));
@@ -3149,6 +3142,25 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			}
 		}
 		return flag;
+	}
+
+	public void verifyDataBeforeTransferFullFilledTheCriteria(LinkedHashMap<String, String> beforeList,
+			HashMap<String, String> dataList, String ID) {
+		boolean flag = true;
+		for (Map.Entry before : beforeList.entrySet()) {
+			System.out.println("Before Key::"+before.getKey().toString().trim()+"1");
+			System.out.println("Data List Key Value::"+dataList.get(before.getKey().toString()+"1"));
+			if(!(dataList.get(before.getKey().toString()+"1").isEmpty())){
+				System.out.println("Before Value::"+before.getValue().toString().trim());
+			if (!(before.getValue().toString().trim().equalsIgnoreCase(dataList.get(before.getKey().toString().trim()+"1")))) {
+				flag = false;
+				logMessage("[FAILED]:: Data Before Member Transfer for Key "+before.getKey()+"::"+before.getValue()+" did not match with the data in the spreadsheet Key"+before.getKey()+"::"+dataList.get(before.getKey().toString().trim()+"1"));
+				break;
+			}
+			}
+		}
+		Assert.assertTrue(flag,"[FAILED]:: Can't do Member Transfer Now for CASE ID :: "+ID);
+		logMessage("[ASSERTION PASSED]:: Data Before Member Transfer matched with the data mentioned in spreadsheet, Can do Member Transfer Now for CASE ID "+ID);
 	}
 
 }

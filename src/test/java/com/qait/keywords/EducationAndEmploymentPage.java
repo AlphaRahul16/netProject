@@ -230,8 +230,9 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 
 	private void clickRadioButton_Detail(String detailtype, String detailValue) {
 		isElementDisplayed("rad_" + detailtype, detailValue);
-		clickUsingXpathInJavaScriptExecutor(element("rad_" + detailtype, detailValue));
-		//click(element("rad_" + detailtype, detailValue));
+		clickUsingXpathInJavaScriptExecutor(element("rad_" + detailtype,
+				detailValue));
+		// click(element("rad_" + detailtype, detailValue));
 		logMessage("Step: " + detailValue + " is checked in rad_" + detailtype
 				+ "\n");
 	}
@@ -316,7 +317,6 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 			wait.waitForPageToLoadCompletely();
 			selectEduAndEmpDetail("seasonDayTo",
 					getOmaSheetValue(caseId, "Select Summer mailing end day"));
-			
 
 			holdExecution(2000);
 			wait.waitForPageToLoadCompletely();
@@ -328,12 +328,11 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 					getOmaSheetValue(caseId, "Select  Summer country"));
 			if (!getOmaSheetValue(caseId, "Select  Summer country")
 					.equalsIgnoreCase("UNITED STATES"))
-				try{
-				wait.waitForElementToDisappear(element("list_state"));
+				try {
+					wait.waitForElementToDisappear(element("list_state"));
+				} catch (Exception E) {
+					logMessage("list_state does not exsist \n");
 				}
-			catch(Exception E){
-				logMessage("list_state does not exsist \n");
-			}
 			else
 				selectEduAndEmpDetail("state",
 						getOmaSheetValue(caseId, "Select  Summer state"));
@@ -439,7 +438,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 		if (!warningMessage.equalsIgnoreCase("")) {
 			isElementDisplayed("lbl_warnings");
 			String actualMsg = element("lbl_warnings").getText().trim();
-			System.out.println("actual msz: "+actualMsg);
+			System.out.println("actual msz: " + actualMsg);
 			if (element("lbl_warnings").getAttribute("id").contains("Warning")) {
 				messageType = "Warning";
 			} else if (element("lbl_warnings").getAttribute("id").contains(
@@ -449,8 +448,8 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 			logMessage(messageType + " message is displayed. Message : "
 					+ actualMsg);
 			boolean flag = actualMsg.equals(warningMessage);
-			
-			System.out.println("warning msz :"+warningMessage);
+
+			System.out.println("warning msz :" + warningMessage);
 			Assert.assertTrue(actualMsg.equals(warningMessage),
 					"Expected and Actual " + messageType
 							+ " messages differ. Message expected : "
@@ -470,9 +469,8 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 					Assert.fail("ASSERT FAILED : Expected error message occur while error message is empty in data sheet\n");
 
 				}
-			} 
-			catch (Exception e){
-			//catch (NoSuchElementException e) {
+			} catch (Exception e) {
+				// catch (NoSuchElementException e) {
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
 				logMessage("Step : Error message is empty\n");

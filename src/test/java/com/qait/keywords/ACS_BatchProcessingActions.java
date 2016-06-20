@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.qait.automation.utils.DateUtil;
 
 
 public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
@@ -59,7 +60,7 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 		logMessage("Step : Save button is clicked\n");
 		
 	}
-	public void enterDetailsForBatchProcessing()
+	public void enterDetailsForBatchProcessingAndClickSaveButton()
 	{
 		switchToFrame(element("iframe1"));
 		fillControlDetailsEqualToBatchDetails("Total",getBatchTotalAmount());
@@ -77,13 +78,79 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : Control "+type+" on batch summary info is equal to Batch "+type);
 	}
 	
-	public void clickButtonForBatchProcessing(String button)
-	{
-		isElementDisplayed("btn_ForProcesingBatch");
-	    element("btn_ForProcesingBatch",button).click();
-		wait.hardWait(4);
-		changeWindow(1);
-		System.out.println(getPageTitle());
+
+	public void clickOnBatchProcessButton(String btnName) {
+		isElementDisplayed("btn_ForProcesingBatch",btnName);
+		wait.hardWait(2);
+		element("btn_ForProcesingBatch",btnName).click();
+		logMessage("Step : "+btnName+" is clicked on batch processing page\n");
+		
+	}
+
+	public void verifyPopUpWindowVisibility() {
+		SwitchToPopUpWindowAndVerifyTitle();
+		wait.waitForPageToLoadCompletely();
+		
+	}
+
+	public void clickOnBatchProcessButtonsAndVerifyPopUpWindowAppears() {
+        clickOnBatchProcessButton("PreProcess");
+		verifyPopUpWindowVisibility();
+		clickOnBatchProcessButton("CloseButton");
+		waitForAlertToAppear();
+		verifyPopUpWindowVisibility();
+		clickOnBatchProcessButton("PostButton");
+		verifyPopUpWindowVisibility();
+		clickOnBatchProcessButton("ACSBatchSalesTaxButton");
+		
+	}
+
+	public void verifyBatchDetailsAfterProcessing() {
+		verifyBatchSaleRequestAs("sale request");
+		verifyCloseDateAndPostDateContainsCurrentSystemDate();
+		verifyClosedByAndPostByDateNotEmpty("close");
+		verifyClosedByAndPostByDateNotEmpty("post");
+		
+	}
+
+	private void verifyClosedByAndPostByDateNotEmpty(String fieldName) {
+		isElementDisplayed("txt_postedClosedUserDate",fieldName);
+		System.out.println(element("txt_postedClosedUserDate",fieldName).getText().length());
+
+		Assert.assertTrue(element("txt_postedClosedUserDate",fieldName).getText().length()!=1,fieldName+" date is null");
+		logMessage("ASSERT PASSED : "+fieldName+" date is not empty\n");
+		
+	}
+
+	private void verifyCloseDateAndPostDateContainsCurrentSystemDate() {
+		isElementDisplayed("txt_closeDateAndSaleRequest","close date");
+		isElementDisplayed("txt_postDate");
+		System.out.println(element("txt_closeDateAndSaleRequest","close date").getText().trim());
+		System.out.println(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY"));
+		Assert.assertTrue(element("txt_closeDateAndSaleRequest","close date").getText().trim().contains(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY")));
+		logMessage("ASSERT PASSED : Batch close date contains current Date\n");
+		Assert.assertTrue(element("txt_postDate").getText().trim().contains(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY")));
+		logMessage("ASSERT PASSED : Batch post date contains current Date\n");
+		
+	}
+
+	private void verifyBatchSaleRequestAs(String field) {
+		isElementDisplayed("txt_closeDateAndSaleRequest",field);
+		wait.hardWait(5);
+		Assert.assertTrue(element("txt_closeDateAndSaleRequest",field).getText().equalsIgnoreCase("Yes"),"Batch Sale request is not Yes");;
+		logMessage("ASSERT PASSED : Batch Sale Request is displayed as Yes\n");
+		
+	}
+
+	public String enterFieldsToAddNewBatch() {
+		String batchName;
+		isElementDisplayed("inp_batchAddFields","batch name");
+		batchName="Selenium_Batch_Processing_Test"+System.currentTimeMillis();
+		EnterTextInField(element("inp_batchAddFields","batch name"),batchName);
+		selectProvidedTextFromDropDown(element("drpdwn_securitygroup","security group"), "QA");
+		clickSaveButton();
+		return batchName;
+		
 	}
 	
 	

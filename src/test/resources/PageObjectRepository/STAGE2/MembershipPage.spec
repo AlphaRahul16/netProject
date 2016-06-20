@@ -167,4 +167,9 @@ txt_PaymentStatus                                xpath                        //
 icon_up                                          xpath                         //span[contains(text(),'${value}')]/preceding-sibling::a/i[@class='icon-chevron-up']
 txt_productPackage                               xpath                        (//th/a)[2]/../../following-sibling::tr[1]//td[4]
 txt_ContactId                                     id                        F1_cst_id
+btn_transferMem									xpath							.//*[@id='F1_HYPERLINK_6']/img
+drpdown_memtype									xpath							.//select[@id='mbr_mbt_key']
+drpdown_package									xpath							.//select[@id='mbr_pak_prd_renewal_key']
+drpdown_invoice									xpath							.//*[@id='inv_bat_key']
+iframe											id								iframe1
 ==============================================================================================================================================
