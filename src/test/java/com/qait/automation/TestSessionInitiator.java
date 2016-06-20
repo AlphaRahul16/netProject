@@ -26,6 +26,7 @@ import com.qait.automation.utils.YamlReader;
 
 import com.qait.keywords.ACS_Awards_EWEB_PageActions;
 import com.qait.keywords.ACS_BatchProcessingActions;
+import com.qait.keywords.ACS_ReportsActions;
 import com.qait.keywords.ASMErrorPage;
 import com.qait.keywords.ASM_AACTPage;
 import com.qait.keywords.ASM_CCEDPage;
@@ -118,6 +119,7 @@ public class TestSessionInitiator {
 	public ACS_Address_Validation_Action acsAddressValidation;
 	public ACS_Scarf_Reporting acsScarfReporting;
 	public ACS_BatchProcessingActions acsbatchProcessing;
+	public ACS_ReportsActions acsreportPage;
 	//public AwardsPageActions_IWEB AwardsPageActions_IWEB;
 
 	public TakeScreenshot takescreenshot;
@@ -164,6 +166,7 @@ public class TestSessionInitiator {
 		acsAddressValidation = new ACS_Address_Validation_Action(driver);
 		acsScarfReporting= new ACS_Scarf_Reporting(driver);
 		acsbatchProcessing = new ACS_BatchProcessingActions(driver);
+		acsreportPage = new ACS_ReportsActions(driver);
 	}
 
 
