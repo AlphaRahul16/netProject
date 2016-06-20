@@ -3144,4 +3144,23 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		return flag;
 	}
 
+	public void verifyDataBeforeTransferFullFilledTheCriteria(LinkedHashMap<String, String> beforeList,
+			HashMap<String, String> dataList, String ID) {
+		boolean flag = true;
+		for (Map.Entry before : beforeList.entrySet()) {
+			System.out.println("Before Key::"+before.getKey().toString().trim()+"1");
+			System.out.println("Data List Key Value::"+dataList.get(before.getKey().toString()+"1"));
+			if(!(dataList.get(before.getKey().toString()+"1").isEmpty())){
+				System.out.println("Before Value::"+before.getValue().toString().trim());
+			if (!(before.getValue().toString().trim().equalsIgnoreCase(dataList.get(before.getKey().toString().trim()+"1")))) {
+				flag = false;
+				logMessage("[FAILED]:: Data Before Member Transfer for Key "+before.getKey()+"::"+before.getValue()+" did not match with the data in the spreadsheet Key"+before.getKey()+"::"+dataList.get(before.getKey().toString().trim()+"1"));
+				break;
+			}
+			}
+		}
+		Assert.assertTrue(flag,"[FAILED]:: Can't do Member Transfer Now for CASE ID :: "+ID);
+		logMessage("[ASSERTION PASSED]:: Data Before Member Transfer matched with the data mentioned in spreadsheet, Can do Member Transfer Now for CASE ID "+ID);
+	}
+
 }
