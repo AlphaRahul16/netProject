@@ -142,7 +142,7 @@ public class ACS_Member_Transfer_Smoke_Test {
 			System.out.println(m.getKey() + " " + m.getValue());
 		}
 
-		test.memberShipPage.verifyDataBeforeTransferFullFilledTheCriteria(BeforeList, dataList,dataList.get("ID"));
+		test.memberShipPage.verifyDataBeforeTransferFullFilledTheCriteria(BeforeList, dataList,dataList.get("ID"),custId);
 	}
 
 	@Test(dependsOnMethods = "Step01_TC01_launch_Iweb_And_Fetch_Member_Details_Before_Transfer")

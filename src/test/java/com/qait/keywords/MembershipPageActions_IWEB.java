@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -163,6 +164,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyQueryTablePresent() {
 		wait.waitForPageToLoadCompletely();
+		wait.hardWait(4);
 		isElementDisplayed("table_query");
 	}
 
@@ -2758,8 +2760,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				}
 				break;
 			case "MP Pmt Status":
-				if (afterList.get(criteria.getKey()).trim()
-						.equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
+				if (/*afterList.get(criteria.getKey()).trim()
+						.contains(criteriaList.get(criteria.getKey()).trim())*/ criteriaList.get(criteria.getKey()).trim().contains(afterList.get(criteria.getKey()).trim().toLowerCase())) {
 					ResultList.put(criteria.getKey() + "", "y");
 				} else {
 					ResultList.put(criteria.getKey() + "", "n");
@@ -2823,7 +2825,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
-					}
+					}}else if (criteriaList.get(criteria.getKey()).trim().contains("{NULL}")) {
+							if (afterList.get(criteria.getKey()).trim().isEmpty()) {
+								ResultList.put(criteria.getKey() + "", "y");
+							} else {
+								ResultList.put(criteria.getKey() + "", "n");
+							}
 				}
 				break;
 			case "MP End":
@@ -2861,7 +2868,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
-					}
+					}}else if (criteriaList.get(criteria.getKey()).trim().contains("{NULL}")) {
+						if (afterList.get(criteria.getKey()).trim().isEmpty()) {
+							ResultList.put(criteria.getKey() + "", "y");
+						} else {
+							ResultList.put(criteria.getKey() + "", "n");
+						}
 				}
 				break;
 			case "IVP TX Date":
@@ -2911,12 +2923,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				}
 				break;
 			case "IVP Fully Paid":
-				if (afterList.get(criteria.getKey()).trim()
+				if (criteriaList.get(criteria.getKey()).trim().contains("{IGNORE}")) {
+					ResultList.put(criteria.getKey() + "", "y");	
+				}else if (afterList.get(criteria.getKey()).trim()
 						.equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
 					ResultList.put(criteria.getKey() + "", "y");
 				} else {
 					ResultList.put(criteria.getKey() + "", "n");
 				}
+				
 				break;
 			case "IDP Mbr Type":
 				if (afterList.get(criteria.getKey()).trim()
@@ -3063,6 +3078,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("===========================Here Are the Complete Test Log================================");
 
 		html = "<html><body><table border=1><tbody>" + "<tr><td>Case ID::</td><td>" + criteriaList.get("ID")
+				+ "<tr><td>Run Date::</td><td>" + DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy") +" "+DateUtil.getCurrentTime("hh:mm a" , "IST")
 				+ "<tr><td>Member/Customer Id::</td><td>" + custId;
 
 		if (flag1) {
@@ -3110,7 +3126,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		ReformatTestFile.createMemberTransferCompleteTestLog("./src/test/resources/Member Transfer Test Logs", html,
 				criteriaList.get("ID"));
 		Assert.assertTrue(flag1,
-				"[FAILED]:: Data for Before and After member transfer does not match the criteria for \n FINAL Test Result ::"
+				"[FAILED]:: Data for Before and After member transfer does not match the criteria FINAL Test Result ::"
 						+ flag1);
 		logMessage(
 				"[ASSERTION PASSED]:: Data for Before and After member transfer match the criteria FINAL Test Result ::"
@@ -3152,7 +3168,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyDataBeforeTransferFullFilledTheCriteria(LinkedHashMap<String, String> beforeList,
-			HashMap<String, String> dataList, String ID) {
+			HashMap<String, String> dataList, String ID, String custId) {
 		boolean flag = true;
 		for (Map.Entry before : beforeList.entrySet()) {
 			System.out.println("Before Key::"+before.getKey().toString().trim()+"1");
@@ -3166,7 +3182,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			}
 			}
 		}
-		Assert.assertTrue(flag,"[FAILED]:: Can't do Member Transfer Now for CASE ID :: "+ID);
+		Assert.assertTrue(flag,"[FAILED]:: Can't do Member Transfer Now for CASE ID :: "+ID+" for Customer ID::"+custId);
 		logMessage("[ASSERTION PASSED]:: Data Before Member Transfer matched with the data mentioned in spreadsheet, Can do Member Transfer Now for CASE ID "+ID);
 	}
 
