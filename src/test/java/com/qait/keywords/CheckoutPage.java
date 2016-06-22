@@ -312,7 +312,6 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 				getPriceSheetValue(caseId, "LSShipping?"), mutliYearInInteger);
 		verifyPriceType(getOmaSheetValue(caseId, "Iweb LS Name?"), "amount",
 				getPriceSheetValue(caseId, "LSDues?"), mutliYearInInteger);
-
 		verifyCENProductName("txt_cen_LSProduct",
 				getPriceSheetValue(caseId, "CENproductName?"));
 		verifyLSProductName("txt_cen_LSProduct",
@@ -324,7 +323,6 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		for (int i = 0; i < productName.length; i++) {
 			isElementDisplayed("txt_quantity", productName[i]);
 			quantity[i] = element("txt_quantity", productName[i]).getText();
-
 		}
 		return quantity;
 	}
@@ -341,7 +339,6 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 			logMessage("ASSERT PASSED : " + cenProductName + " is verified in "
 					+ elementName + "\n");
 		}
-
 	}
 
 	private void verifyLSProductName(String elementName, String LSProductName) {

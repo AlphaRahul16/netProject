@@ -47,13 +47,13 @@ public class ACS_Scarf_Reporting {
 		app_url_iweb = getYamlValue("app_url_IwebReporting");
 	}
 	
-//	@Test
+	@Test
 	public void Step01_Launch_Iweb_Application(){
 		test.launchApplication(app_url_iweb);
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 	
-//	@Test
+	@Test
 	public void Step02_Verify_User_Navigated_To_Scarf_Reporting_Page(){
 		Reporter.log("CASE ID : " + caseID, true);
 		test.homePageIWEB.clickOnModuleTab(); 
@@ -61,14 +61,14 @@ public class ACS_Scarf_Reporting {
 		test.homePageIWEB.verifyUserIsOnHomePage("Scarf Reporting | Overview | Student Chapter Reporting Setup");
 	}
 	
-//	@Test
+	@Test
 	public void Step03_Click_On_Student_Chapter_reporting_Link(){
 		test.acsScarfReporting.clickOnStudentChapterReportingLink();
 		test.memberShipPage.expandDetailsMenu("academic year");
 		test.acsScarfReporting.verifyReportingStartAndEndDate();
 	}
 	
-//	@Test
+	@Test
 	public void Step04_Verify_User_Navigated_To_Membership_Page_On_Clicking_Membership_Under_Modules_Tab(){
 		Reporter.log("CASE ID : " + caseID, true);
 		test.homePageIWEB.clickOnModuleTab();
@@ -76,18 +76,18 @@ public class ACS_Scarf_Reporting {
 		test.homePageIWEB.verifyUserIsOnHomePage("Membership | Overview | Overview and Setup");
 	}
 	
-//	@Test
+	@Test
 	public void Step05_Select_Query_In_Query_Chapter_Page(){
 		Reporter.log("CASE ID : " + caseID, true);
 		test.homePageIWEB.clickOnSideBarTab("Chapters");
 		test.memberShipPage.clickOnTab("Query Chapter");
 		test.memberShipPage.selectAndRunQuery(getYamlValue("ScarfReporting.queryName"));
 		test.memberShipPage.verifyOueryAskAtRunTimePage();
-//	    test.memberShipPage.selectMemberPackage(test.memberShipPage.map().get("Original MemberPackage"));
+      //  test.memberShipPage.selectMemberPackage(test.memberShipPage.map().get("Original MemberPackage"));
 	    test.memberShipPage.clickOnGoButtonAfterPackageSelection();
 	}
 	
-//	@Test
+@Test
 	public void Step06_Select_Active_Student_Chapter_And_Get_Member_Details(){
 		test.acsScarfReporting.selectARandomActiveStudentChapter();
 		chapterName=test.acsScarfReporting.getChapterDetails();
@@ -101,6 +101,7 @@ public class ACS_Scarf_Reporting {
 		test.launchApplication(getYamlValue("app_url_EwebReporting"));
 
 		test.acsScarfReporting.loginWithLastNameAndMemberId(memberDetails.get(0),memberDetails.get(1));	//"Davis","30761435""Wolf","30841333"
+		//test.acsScarfReporting.loginWithLastNameAndMemberId("Malyshka","30834271");	
 		test.acsScarfReporting.verifyStudentChapterReportingPage();
 		test.acsScarfReporting.verifyReportStatus("Pending");
 		chapFacultyAdvisor=test.acsScarfReporting.getChapterFacultyAdvisor();
@@ -200,7 +201,7 @@ public class ACS_Scarf_Reporting {
 		test.acsScarfReporting.clickOnSelfAssessmentSaveButton("Submit");
 		test.acsScarfReporting.verifyConfirmChapterAppearWindow();
 		test.acsScarfReporting.verifyReportCompletePage();
-		test.acsScarfReporting.clickOnSubmitReportButton("Save & Return to the Dashboard");
+		test.acsScarfReporting.clickOnSaveAndReturnToDashboardButton();
 		test.acsScarfReporting.verifyReportStatus("Submitted");
 	}
 	
@@ -217,7 +218,7 @@ public class ACS_Scarf_Reporting {
 	public void Step19_Click_On_Find_Tab_And_Select_Submitted_Chapter_Report(){
 		test.acsScarfReporting.clickOnSideBarTabStudentChapter("Student Chapter Report",2);
 		test.acsScarfReporting.clickOnSideBarSubTab("Find");
-		test.acsScarfReporting.findSubmiitedChapterReport(chapterName, "Submitted");//"Louisiana State University and Agricultural and Me"chapterName
+		test.acsScarfReporting.findSubmiitedChapterReport(chapterName, "Submitted");//"Minnesota State University Moorhead Student Chapter"chapterName
 		test.acsScarfReporting.clickOnGoButton();
 	}
 	

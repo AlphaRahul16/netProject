@@ -96,7 +96,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public String getMemberWebLogin() {
-		isElementDisplayed("txt_webLogin");
+		//isElementDisplayed("txt_webLogin");
 		String info = element("txt_webLogin").getText().trim();
 		logMessage("Step : WebLogin is " + info + " \n");
 		return info;
@@ -151,8 +151,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			isElementDisplayed("img_spinner");
 			wait.waitForElementToDisappear(element("img_spinner"));
 			logMessage("STEP : wait for spinner to be disappeared \n");
-			wait.resetImplicitTimeout(timeOut);
-			wait.resetExplicitTimeout(timeOut);
 
 		} catch (Exception Exp) {
 
