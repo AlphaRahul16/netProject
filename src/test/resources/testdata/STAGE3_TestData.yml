@@ -511,7 +511,7 @@ MYDTransfer:
 AddressValidation:
     queryName: Selenium - US Constituents          
 ScarfReporting:
-    queryName: "QAIT - Active Student Chapters"
+    queryName: "Selenium - Active Student Chapters"
                    
 email:
   send: true
