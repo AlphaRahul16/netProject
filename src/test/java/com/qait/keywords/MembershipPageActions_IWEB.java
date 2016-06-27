@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,6 +40,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	static String index, selectedText, customerLname, customerFname, address, state, zipCode, customerEmail, city,
 			currentDate, customerContactId, customerEmailAcsOrg, customerAddressType, nextYearDate, displayName,
 			totalPrice;
+	String reportingStartDate,reportingEndDate,chapterName;
 	boolean flag = false;
 	int timeOut, hiddenFieldTimeOut;
 	List<String> memberDetails = new ArrayList<>();
@@ -161,6 +163,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyQueryTablePresent() {
 		wait.waitForPageToLoadCompletely();
+		wait.hardWait(4);
 		isElementDisplayed("table_query");
 	}
 
@@ -1208,10 +1211,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(3);
 		try {
 			customerContactId = element("txt_renewalContactId").getText().trim();
-			logMessage("Step : Member cusomer ID is " + customerContactId);
+			logMessage("Step : Member customer ID is " + customerContactId);
 		} catch (StaleElementReferenceException stlExp) {
 			customerContactId = element("txt_renewalContactId").getText().trim();
-			logMessage("Step : Member cusomer ID is " + customerContactId);
+			logMessage("Step : Member customer ID is " + "'"+customerContactId+"'");
 		}
 		memberDetails.add(customerLname);
 		memberDetails.add(customerContactId);
@@ -1780,7 +1783,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		holdExecution(1000);
 		selectMemberInfo("memberType", map().get("memberType"));
 		// TODO Remove hard wait after handling stale element exception
-		holdExecution(1000);
+		holdExecution(3000);
 		// selectMemberInfo("memberStatusInAddMembership", "Active");
 		selectMemberInfo("memberPackage", map().get("memberPackage"));
 		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy");
@@ -2756,8 +2759,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				}
 				break;
 			case "MP Pmt Status":
-				if (afterList.get(criteria.getKey()).trim()
-						.equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
+				if (/*afterList.get(criteria.getKey()).trim()
+						.contains(criteriaList.get(criteria.getKey()).trim())*/ criteriaList.get(criteria.getKey()).trim().contains(afterList.get(criteria.getKey()).trim().toLowerCase())) {
 					ResultList.put(criteria.getKey() + "", "y");
 				} else {
 					ResultList.put(criteria.getKey() + "", "n");
@@ -2821,7 +2824,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
-					}
+					}}else if (criteriaList.get(criteria.getKey()).trim().contains("{NULL}")) {
+							if (afterList.get(criteria.getKey()).trim().isEmpty()) {
+								ResultList.put(criteria.getKey() + "", "y");
+							} else {
+								ResultList.put(criteria.getKey() + "", "n");
+							}
 				}
 				break;
 			case "MP End":
@@ -2859,7 +2867,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
-					}
+					}}else if (criteriaList.get(criteria.getKey()).trim().contains("{NULL}")) {
+						if (afterList.get(criteria.getKey()).trim().isEmpty()) {
+							ResultList.put(criteria.getKey() + "", "y");
+						} else {
+							ResultList.put(criteria.getKey() + "", "n");
+						}
 				}
 				break;
 			case "IVP TX Date":
@@ -2909,12 +2922,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				}
 				break;
 			case "IVP Fully Paid":
-				if (afterList.get(criteria.getKey()).trim()
+				if (criteriaList.get(criteria.getKey()).trim().contains("{IGNORE}")) {
+					ResultList.put(criteria.getKey() + "", "y");	
+				}else if (afterList.get(criteria.getKey()).trim()
 						.equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
 					ResultList.put(criteria.getKey() + "", "y");
 				} else {
 					ResultList.put(criteria.getKey() + "", "n");
 				}
+				
 				break;
 			case "IDP Mbr Type":
 				if (afterList.get(criteria.getKey()).trim()
@@ -3059,22 +3075,28 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		boolean flag1 = _verifyResultListData(ResultList);
 
 		logMessage("===========================Here Are the Complete Test Log================================");
-		
-		
-		html = "<html><head><style='text/stylesheet'></style></head><body><table border=1><tbody>"+"<tr><td>Case ID::</td><td>"+criteriaList.get("ID")+"<tr><td>Member/Customer Id::</td><td>"+custId;
-	    
-		if(flag1){
-			html = html+ "<tr><td>Test Case Status::</td><td bgcolor='green'>"+"PASS </td></tr><tr>";
-		}else{
-			html = html+ "<tr><td>Test Case Status::</td><td bgcolor='red'>"+"Fail </td></tr><tr>";
+
+		html = "<html><body><table border=1><tbody>" + "<tr><td>Case ID::</td><td>" + criteriaList.get("ID")
+				+ "<tr><td>Run Date::</td><td>" + DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy") +" "+DateUtil.getCurrentTime("hh:mm a" , "IST")
+				+ "<tr><td>Member/Customer Id::</td><td>" + custId;
+
+		if (flag1) {
+			html = html + "<tr><td>Test Case Status::</td><td bgcolor='green'>" + "PASS </td></tr><tr>";
+		} else {
+			html = html + "<tr><td>Test Case Status::</td><td bgcolor='red'>" + "Fail </td></tr><tr>";
 		}
-		
-		html = html + "<td><h1>Initial Conditions</h1></td></tr><tr><td><b>Initial Mbr Type::</b></td><td>"+criteriaList.get("Initial Mbr Type")+"</td></tr><tr><td><b>Initial Mbr Status::</b></td><td>"+criteriaList.get("Initial Mbr Status")+"</td></tr>"
-				+ "<tr><td><b>Initial Mbr Package::</b></td><td>"+criteriaList.get("Initial Mbr Package")+"</td></tr><tr><td><b>Initial MP Exp Date::</b></td><td>"+criteriaList.get("Initial MP Exp Date")+"</td></tr><tr><td><b>Target Mbr Type::</b></td><td>"+criteriaList.get("Target Mbr Type")+"</td></tr>"
-						+ "<tr><td><b>Target Mbr Package::</b></td><td>"+criteriaList.get("Target Mbr Package")+"</td></tr><tr><td><h1>Test Result</h1></tr></td>"
-								+ "<tr><td><h2>Field</h2></td><td><h2>Before</h2></td><td><h2>After</h2></td><td><h2>Criteria</h2></td><td><h2>Pass?</h2></td></tr>";
-		logMessage("Case ID::"+criteriaList.get("ID"));
-		logMessage("Member/Customer ID::"+custId);
+
+		html = html + "<td><h1>Initial Conditions</h1></td></tr><tr><td><b>Initial Mbr Type::</b></td><td>"
+				+ criteriaList.get("Initial Mbr Type") + "</td></tr><tr><td><b>Initial Mbr Status::</b></td><td>"
+				+ criteriaList.get("Initial Mbr Status") + "</td></tr>"
+				+ "<tr><td><b>Initial Mbr Package::</b></td><td>" + criteriaList.get("Initial Mbr Package")
+				+ "</td></tr><tr><td><b>Initial MP Exp Date::</b></td><td>" + criteriaList.get("Initial MP Exp Date")
+				+ "</td></tr><tr><td><b>Target Mbr Type::</b></td><td>" + criteriaList.get("Target Mbr Type")
+				+ "</td></tr>" + "<tr><td><b>Target Mbr Package::</b></td><td>" + criteriaList.get("Target Mbr Package")
+				+ "</td></tr><tr><td><h1>Test Result</h1></tr></td>"
+				+ "<tr><td><h2>Field</h2></td><td><h2>Before</h2></td><td><h2>After</h2></td><td><h2>Criteria</h2></td><td><h2>Pass?</h2></td></tr>";
+		logMessage("Case ID::" + criteriaList.get("ID"));
+		logMessage("Member/Customer ID::" + custId);
 		logMessage("Initial Conditions>");
 		logMessage("Initial Mbr Type::" + criteriaList.get("Initial Mbr Type"));
 		logMessage("Initial Mbr Status::" + criteriaList.get("Initial Mbr Status"));
@@ -3103,7 +3125,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		ReformatTestFile.createMemberTransferCompleteTestLog("./src/test/resources/Member Transfer Test Logs", html,
 				criteriaList.get("ID"));
 		Assert.assertTrue(flag1,
-				"[FAILED]:: Data for Before and After member transfer does not match the criteria for \n FINAL Test Result ::"
+				"[FAILED]:: Data for Before and After member transfer does not match the criteria FINAL Test Result ::"
 						+ flag1);
 		logMessage(
 				"[ASSERTION PASSED]:: Data for Before and After member transfer match the criteria FINAL Test Result ::"
@@ -3145,7 +3167,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyDataBeforeTransferFullFilledTheCriteria(LinkedHashMap<String, String> beforeList,
-			HashMap<String, String> dataList, String ID) {
+			HashMap<String, String> dataList, String ID, String custId) {
 		boolean flag = true;
 		for (Map.Entry before : beforeList.entrySet()) {
 			System.out.println("Before Key::"+before.getKey().toString().trim()+"1");
@@ -3159,8 +3181,105 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			}
 			}
 		}
-		Assert.assertTrue(flag,"[FAILED]:: Can't do Member Transfer Now for CASE ID :: "+ID);
+		Assert.assertTrue(flag,"[FAILED]:: Can't do Member Transfer Now for CASE ID :: "+ID+" for Customer ID::"+custId);
 		logMessage("[ASSERTION PASSED]:: Data Before Member Transfer matched with the data mentioned in spreadsheet, Can do Member Transfer Now for CASE ID "+ID);
+	}
+	
+	public void verifyReportingStartAndEndDate() {
+		int index;
+		boolean value;
+		isElementDisplayed("table_rows");
+		for (int i = 1; i < elements("table_rows").size(); i++) {
+			if (element("txt_current", String.valueOf(i)).getText().trim().equals("Yes")) {
+				reportingStartDate = element("txt_startDate", String.valueOf(i)).getText();
+				reportingEndDate = element("txt_endDate", String.valueOf(i), String.valueOf(9)).getText();
+				index = i;
+				break;
+			}
+		}
+		value = verfiyEndAndStartDate(reportingEndDate, reportingStartDate);
+		Assert.assertTrue(value, "ASSERT FAIL : Current date does not lies within the Reporting start and end date\n");
+		logMessage("ASSERT PASSED : Current date lies within the Reporting start and end date\n");
+	}
+	
+	public boolean verfiyEndAndStartDate(String reportingEndDate, String reportingStartDate) {
+		int endDate, startDate;
+		logMessage("Current Date:" + DateUtil.getCurrentdateInStringWithGivenFormate("M/dd/yyyy"));
+		logMessage("End Date:"+ reportingEndDate);
+		endDate = DateUtil
+				.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"), "MM/dd/yyyy")
+				.compareTo(DateUtil.convertStringToDate(reportingEndDate, "MM/dd/yyyy"));
+		logMessage("Current Date:" + DateUtil.getCurrentdateInStringWithGivenFormate("M/dd/yyyy"));
+//		logMessage("Start Date:" + DateUtil.convertStringToDate(reportingStartDate, "MM/dd/yyyy"));
+		logMessage("Start Date:" + reportingStartDate);
+		
+		startDate = DateUtil
+				.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"), "MM/dd/yyyy")
+				.compareTo(DateUtil.convertStringToDate(reportingStartDate, "MM/dd/yyyy"));
+
+		if (endDate == -1 && startDate == 1)
+			return true;
+		else
+			return false;
+	}
+	
+	public void selectARandomActiveStudentChapter() {
+	    clickOnRandomPage();
+		clickOnAnyRandomMember();
+	}
+	
+	public void clickOnRelationsOptionUnderMoreMenu() {
+		IndividualsPageActions_IWEB object = new IndividualsPageActions_IWEB(driver);
+		object.navigateToGeneralMenuOnHoveringMore("Relations");
+		expandDetailsMenu("active student member undergrads");
+	}
+
+	public String getChapterDetails(){
+		ACS_Scarf_Reporting obj = new ACS_Scarf_Reporting(driver);
+        clickOnEditNameAndAddress();
+		switchToFrame("iframe1");
+		chapterName = obj.getChapterName();
+		clickOnCancelButton();
+		handleAlert();
+		switchToDefaultContent();
+		return chapterName;
+	}
+	
+	public int selectStudentMember() {
+		boolean flag;
+		int i;
+		isElementDisplayed("table_rows");
+		for (i = 1; i <= elements("table_rows").size(); i++) {
+			flag = verifyStudentMemberEndDate(i);
+			if (flag) {
+				logMessage("ASSERT PASSED : End date for student member "+ element("txt_endDate", String.valueOf(i), String.valueOf(4)).getText().trim()+
+						"is not equal to Current Date\n");
+				clickOnStudentMemberName(i);
+				break;
+			}
+		}
+		return i;
+	}
+	
+	public boolean verifyStudentMemberEndDate(int i) {
+		boolean flag = false;
+		logMessage("STEP : Current Date:" + DateUtil.getCurrentdateInStringWithGivenFormate("M/dd/yyyy"));
+		Date currDate = DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
+				"MM/dd/yyyy");
+		Date endDate = DateUtil.convertStringToDate(
+				element("txt_endDate", String.valueOf(i), String.valueOf(7)).getText().trim(), "MM/dd/yyyy");
+		if (currDate.compareTo(endDate) == -1 || currDate.compareTo(endDate) == 1) {
+			flag = true;
+		}
+		return flag;
+	}
+	
+	public void clickOnStudentMemberName(int i) {
+		wait.hardWait(2);
+		isElementDisplayed("arrow_selectMember", String.valueOf(i));
+		logMessage("STEP : Selected Student Member: "
+				+ element("txt_endDate", String.valueOf(i), String.valueOf(4)).getText().trim());
+		element("arrow_selectMember", String.valueOf(i)).click();
 	}
 
 }

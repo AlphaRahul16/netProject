@@ -561,7 +561,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
 
 			isElementDisplayed("link_moreMenuName", "Subscriptions");
-			element("link_moreMenuName", "Subscriptions").click();
+//			element("link_moreMenuName", "Subscriptions").click();
+			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName", "Subscriptions"));
 			logMessage("Step : Subscription link is clicked\n");
 			waitForSpinner();
 			isElementDisplayed("btn_memberShip", "active subscriptions");

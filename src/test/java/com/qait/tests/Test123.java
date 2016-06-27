@@ -8,7 +8,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 
 import javax.xml.ws.LogicalMessage;
 
+import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.Test;
 
@@ -27,6 +30,8 @@ public class Test123 {
 	static int nextYear;
 	Date date;
 	private static final String VOICENAME = "kevin16";
+	private static Map<String,List<String>> eventsMap=new HashMap<String,List<String>>();
+
 	int count;
 	int a = 10;
 	String s1;
@@ -36,8 +41,60 @@ public class Test123 {
 		/*String date="05/04/2016";*/
 
 	public static void main(String args[]){
+        String category[]={"a","b","c","a"};
+		List<String>eventList,list2;
+		eventList=new ArrayList<>();
+		list2=new ArrayList<>();
+		for(int i=0;i<4;i++){
+			if(eventsMap.containsKey(category[i])){
+//				eventList.add(String.valueOf(i));
+//				System.out.println("####"+eventList);
+			    list2=eventsMap.get(category[i]);
+			    list2.add(String.valueOf(i));
+				eventsMap.put(category[i],list2);
 
+			}
+			else{
+				list2=new ArrayList<>();
+				list2.add(String.valueOf(i));
+				System.out.println("#### in else "+list2);
+				eventsMap.put(category[i],list2);
+			}
+		}
 		
+		for (String e : eventsMap.keySet()){
+		    System.out.println("----Event: "+e.toString());
+	            System.out.print( "----Value: " + eventsMap.get(e).toString()+ "\n" );
+	           
+		}
+		 System.out.println("value :"+eventsMap.get("a").get(1).trim());
+		 
+//		 int size,i,j;
+//			for (String e : eventsMap.keySet()){
+//			    System.out.println("Section: "+e.toString());
+//			    size=eventsMap.get(e.toString()).size();
+//			    for(i=0;i<size;i++){
+//			    	for(j=1;j<4;j++){
+//			    		if(eventsMap.get(e).get(i).equals(element("txt_endDate",String.valueOf(j),String.valueOf(6)).getText().trim())){
+//			    			flag=true;
+//			    			break;
+//			    		}
+//			    	}
+//			    	Assert.assertTrue(flag, "ASSERT FAILED : Event Name "+e.toString()+" having answer "+eventsMap.get(e.toString()+" is not verified\n"));
+//			    	logMessage("ASSERT PASSED : Event Name "+e.toString()+" having answer "+eventsMap.get(e.toString())+" is verified\n");
+//			    }
+//			}
+//	
+	
+//	key    list<String>
+//	1	    1 list
+//	2       2 list 
+//	
+//	if(2 is present){
+//		map.get(2).add
+//	}
+//	
+	
 		
 		
 //		String sdate = "5/01/1998";
@@ -56,24 +113,24 @@ public class Test123 {
 //		}
 
 		
-		
-		String line = "{+2Y}".toUpperCase();
-	      String pattern = "(\\d+)";
-
-	    //String pattern = "[\\{\\+[1-9]+Y\\}]";
-	    
-	    System.out.println(""+pattern);
-	    
-	    //System.out.println("Int Value::"+line.split("Y")[0].split("\\+")[1]);
-	    Pattern r = Pattern.compile(pattern);
-	      // Now create matcher object.
-	      Matcher m = r.matcher(line);
-	      if (m.find( )) {
-	    	  System.out.println("xyz");
-	      } else {
-	         System.out.println("NO MATCH");
-	      }
-		System.out.println(line.contains("[//d]"));
+//		
+//		String line = "{+2Y}".toUpperCase();
+//	      String pattern = "(\\d+)";
+//
+//	    //String pattern = "[\\{\\+[1-9]+Y\\}]";
+//	    
+//	    System.out.println(""+pattern);
+//	    
+//	    //System.out.println("Int Value::"+line.split("Y")[0].split("\\+")[1]);
+//	    Pattern r = Pattern.compile(pattern);
+//	      // Now create matcher object.
+//	      Matcher m = r.matcher(line);
+//	      if (m.find( )) {
+//	    	  System.out.println("xyz");
+//	      } else {
+//	         System.out.println("NO MATCH");
+//	      }
+//		System.out.println(line.contains("[//d]"));
 		/*String sdate = "5/01/1998";
 		
 		System.out.println("--------"+System.getProperty("user.dir") + File.separator +
@@ -133,8 +190,8 @@ public class Test123 {
 //		System.out.println(ar[ar.length-1]);
 //		for(int i=0;i<ar.length;i++)
 //			System.out.println(ar[i]);
-		String str="https://C00616:Zx605%4095@iwebtest.acs.org/NFStage3/iweb";
-		Reporter.log("\nThe application url is :- " + str.replace(str.split("@")[0], "https://").replace("@", ""),true);
+//		String str="https://C00616:Zx605%4095@iwebtest.acs.org/NFStage3/iweb";
+//		Reporter.log("\nThe application url is :- " + str.replace(str.split("@")[0], "https://").replace("@", ""),true);
 		
 
 	}
