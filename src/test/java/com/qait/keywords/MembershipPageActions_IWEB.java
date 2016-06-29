@@ -134,7 +134,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 
 		else {
-
 			selectProvidedTextFromDropDown(element("list_existingQuery"), queryName);
 
 		}
@@ -2758,8 +2757,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				}
 				break;
 			case "MP Pmt Status":
-				if (/*afterList.get(criteria.getKey()).trim()
-						.contains(criteriaList.get(criteria.getKey()).trim())*/ criteriaList.get(criteria.getKey()).trim().contains(afterList.get(criteria.getKey()).trim().toLowerCase())) {
+				if (criteriaList.get(criteria.getKey()).trim().toLowerCase().contains(afterList.get(criteria.getKey()).trim().toLowerCase())) {
 					ResultList.put(criteria.getKey() + "", "y");
 				} else {
 					ResultList.put(criteria.getKey() + "", "n");
@@ -3084,7 +3082,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		} else {
 			html = html + "<tr><td>Test Case Status::</td><td bgcolor='red'>" + "Fail </td></tr><tr>";
 		}
-
+		System.out.println("===>> Notes lenght::"+criteriaList.get("Notes").length());
+		if(criteriaList.get("Notes").length()!=0){
+			html = html + "<tr><td>Notes::</td><td bgcolor='yellow'>"+criteriaList.get("Notes")+"</td></tr><tr>";
+		}else{
+			html = html + "<tr><td>Notes::</td><td>None </td></tr><tr>";
+		}
+		
+		
 		html = html + "<td><h1>Initial Conditions</h1></td></tr><tr><td><b>Initial Mbr Type::</b></td><td>"
 				+ criteriaList.get("Initial Mbr Type") + "</td></tr><tr><td><b>Initial Mbr Status::</b></td><td>"
 				+ criteriaList.get("Initial Mbr Status") + "</td></tr>"
@@ -3093,7 +3098,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ "</td></tr><tr><td><b>Target Mbr Type::</b></td><td>" + criteriaList.get("Target Mbr Type")
 				+ "</td></tr>" + "<tr><td><b>Target Mbr Package::</b></td><td>" + criteriaList.get("Target Mbr Package")
 				+ "</td></tr><tr><td><h1>Test Result</h1></tr></td>"
-				+ "<tr><td><h2>Field</h2></td><td><h2>Before</h2></td><td><h2>After</h2></td><td><h2>Criteria</h2></td><td><h2>Pass?</h2></td></tr>";
+				+ "<tr><td><h2>Field</h2></td><td><h2>Before</h2></td><td><h2>After</h2></td><td><h2>Expected</h2></td><td><h2>Pass?</h2></td></tr>";
 		logMessage("Case ID::" + criteriaList.get("ID"));
 		logMessage("Member/Customer ID::" + custId);
 		logMessage("Initial Conditions>");
@@ -3105,7 +3110,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Target Mbr Package::" + criteriaList.get("Target Mbr Package"));
 		logMessage("==========================================================================================");
 		logMessage("Test Result");
-		logMessage("Field==>Before==>After==>Criteria==>Pass?");
+		logMessage("Field==>Before==>After==>Expected==>Pass?");
 		for (Map.Entry before : beforeList.entrySet()) {
 			if (ResultList.get(before.getKey()).equalsIgnoreCase("n")) {
 				html = html + "<tr><td>" + before.getKey() + "</td><td>" + before.getValue() + "</td><td>"
