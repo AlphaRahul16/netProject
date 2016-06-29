@@ -36,7 +36,6 @@ csv-data-file:
   path_GeneralAwardList: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument.txt
   path_AwardsVoting: ./src/test/resources/TestDataLibrary/Awards_Voting_Data_Sheet.csv
   path_MYDTransfer: ./src/test/resources/TestDataLibrary/Multi_Year_Dues_Transfer_Sheet.csv
-  path_Reports: ./src/test/resources/TestDataLibrary/ReportsDatasheet.csv
   data-separator: '\t'
   has-header: true
 
@@ -498,8 +497,17 @@ Acs_CreateMember_IWEB:
     paymentMethod: Visa/MC
     cardNumber: 4111111111111111
     expireDate: 2016/12
-    cvvNumber: 123            
-                 
+    cvvNumber: 123  
+    
+Acs_Reports:
+    module: CRM
+    category: All
+    report_Name: Individual Selenium Test Report
+    report_Heading: ACS regression testing report
+    email_Message: Test Report From Selenium Tests
+    email_To: R_Yadav@acs.org
+    delivery_Method: Run Immediately,Schedule Report
+
                   
 ASM_URLRejectedErrorMsz: "We aren't able to complete your request in the staging environment"
 #ASM_URLRejectedErrorMsz: "The requested URL was rejected. Please consult with your administrator."
@@ -511,7 +519,7 @@ MYDTransfer:
 AddressValidation:
     queryName: Selenium - US Constituents          
 ScarfReporting:
-    queryName: "QAIT - Active Student Chapters"
+    queryName: "Selenium - Active Student Chapters"
                    
 email:
   send: true

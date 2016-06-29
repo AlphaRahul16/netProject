@@ -40,6 +40,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	static String index, selectedText, customerLname, customerFname, address, state, zipCode, customerEmail, city,
 			currentDate, customerContactId, customerEmailAcsOrg, customerAddressType, nextYearDate, displayName,
 			totalPrice;
+	String reportingStartDate,reportingEndDate,chapterName;
 	boolean flag = false;
 	int timeOut, hiddenFieldTimeOut;
 	List<String> memberDetails = new ArrayList<>();
@@ -1209,10 +1210,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(3);
 		try {
 			customerContactId = element("txt_renewalContactId").getText().trim();
-			logMessage("Step : Member cusomer ID is " + customerContactId);
+			logMessage("Step : Member customer ID is " + customerContactId);
 		} catch (StaleElementReferenceException stlExp) {
 			customerContactId = element("txt_renewalContactId").getText().trim();
-			logMessage("Step : Member cusomer ID is " + customerContactId);
+			logMessage("Step : Member customer ID is " + "'"+customerContactId+"'");
 		}
 		memberDetails.add(customerLname);
 		memberDetails.add(customerContactId);
@@ -1781,7 +1782,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		holdExecution(1000);
 		selectMemberInfo("memberType", map().get("memberType"));
 		// TODO Remove hard wait after handling stale element exception
-		holdExecution(1000);
+		holdExecution(3000);
 		// selectMemberInfo("memberStatusInAddMembership", "Active");
 		selectMemberInfo("memberPackage", map().get("memberPackage"));
 		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy");
@@ -3187,6 +3188,103 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		Assert.assertTrue(flag,"[FAILED]:: Can't do Member Transfer Now for CASE ID :: "+ID+" for Customer ID::"+custId);
 		logMessage("[ASSERTION PASSED]:: Data Before Member Transfer matched with the data mentioned in spreadsheet, Can do Member Transfer Now for CASE ID "+ID);
+	}
+	
+	public void verifyReportingStartAndEndDate() {
+		int index;
+		boolean value;
+		isElementDisplayed("table_rows");
+		for (int i = 1; i < elements("table_rows").size(); i++) {
+			if (element("txt_current", String.valueOf(i)).getText().trim().equals("Yes")) {
+				reportingStartDate = element("txt_startDate", String.valueOf(i)).getText();
+				reportingEndDate = element("txt_endDate", String.valueOf(i), String.valueOf(9)).getText();
+				index = i;
+				break;
+			}
+		}
+		value = verfiyEndAndStartDate(reportingEndDate, reportingStartDate);
+		Assert.assertTrue(value, "ASSERT FAIL : Current date does not lies within the Reporting start and end date\n");
+		logMessage("ASSERT PASSED : Current date lies within the Reporting start and end date\n");
+	}
+	
+	public boolean verfiyEndAndStartDate(String reportingEndDate, String reportingStartDate) {
+		int endDate, startDate;
+		logMessage("Current Date:" + DateUtil.getCurrentdateInStringWithGivenFormate("M/dd/yyyy"));
+		logMessage("End Date:"+ reportingEndDate);
+		endDate = DateUtil
+				.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"), "MM/dd/yyyy")
+				.compareTo(DateUtil.convertStringToDate(reportingEndDate, "MM/dd/yyyy"));
+		logMessage("Current Date:" + DateUtil.getCurrentdateInStringWithGivenFormate("M/dd/yyyy"));
+//		logMessage("Start Date:" + DateUtil.convertStringToDate(reportingStartDate, "MM/dd/yyyy"));
+		logMessage("Start Date:" + reportingStartDate);
+		
+		startDate = DateUtil
+				.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"), "MM/dd/yyyy")
+				.compareTo(DateUtil.convertStringToDate(reportingStartDate, "MM/dd/yyyy"));
+
+		if (endDate == -1 && startDate == 1)
+			return true;
+		else
+			return false;
+	}
+	
+	public void selectARandomActiveStudentChapter() {
+	    clickOnRandomPage();
+		clickOnAnyRandomMember();
+	}
+	
+	public void clickOnRelationsOptionUnderMoreMenu() {
+		IndividualsPageActions_IWEB object = new IndividualsPageActions_IWEB(driver);
+		object.navigateToGeneralMenuOnHoveringMore("Relations");
+		expandDetailsMenu("active student member undergrads");
+	}
+
+	public String getChapterDetails(){
+		ACS_Scarf_Reporting obj = new ACS_Scarf_Reporting(driver);
+        clickOnEditNameAndAddress();
+		switchToFrame("iframe1");
+		chapterName = obj.getChapterName();
+		clickOnCancelButton();
+		handleAlert();
+		switchToDefaultContent();
+		return chapterName;
+	}
+	
+	public int selectStudentMember() {
+		boolean flag;
+		int i;
+		isElementDisplayed("table_rows");
+		for (i = 1; i <= elements("table_rows").size(); i++) {
+			flag = verifyStudentMemberEndDate(i);
+			if (flag) {
+				logMessage("ASSERT PASSED : End date for student member "+ element("txt_endDate", String.valueOf(i), String.valueOf(4)).getText().trim()+
+						"is not equal to Current Date\n");
+				clickOnStudentMemberName(i);
+				break;
+			}
+		}
+		return i;
+	}
+	
+	public boolean verifyStudentMemberEndDate(int i) {
+		boolean flag = false;
+		logMessage("STEP : Current Date:" + DateUtil.getCurrentdateInStringWithGivenFormate("M/dd/yyyy"));
+		Date currDate = DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
+				"MM/dd/yyyy");
+		Date endDate = DateUtil.convertStringToDate(
+				element("txt_endDate", String.valueOf(i), String.valueOf(7)).getText().trim(), "MM/dd/yyyy");
+		if (currDate.compareTo(endDate) == -1 || currDate.compareTo(endDate) == 1) {
+			flag = true;
+		}
+		return flag;
+	}
+	
+	public void clickOnStudentMemberName(int i) {
+		wait.hardWait(2);
+		isElementDisplayed("arrow_selectMember", String.valueOf(i));
+		logMessage("STEP : Selected Student Member: "
+				+ element("txt_endDate", String.valueOf(i), String.valueOf(4)).getText().trim());
+		element("arrow_selectMember", String.valueOf(i)).click();
 	}
 
 }

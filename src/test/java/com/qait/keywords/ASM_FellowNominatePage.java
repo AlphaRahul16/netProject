@@ -829,7 +829,7 @@ public class ASM_FellowNominatePage extends GetPage {
 		element("inp_upload").sendKeys(filePath.getAbsolutePath());
         switchToDefaultContent();
         wait.hardWait(4);
-        logMessage("STEP : "+ filename +" is uploaded\n");
+        logMessage("STEP : "+ filename +" file is uploaded\n");
         isElementDisplayed("btn_deleteFile");
         logMessage("ASSERT PASS : File is uploaded for "+section);
 		}

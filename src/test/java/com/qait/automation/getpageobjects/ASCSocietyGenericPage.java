@@ -460,7 +460,7 @@ public boolean isElementPresentOrNot(String elem){
 		wait.resetImplicitTimeout(2);
 		wait.resetExplicitTimeout(10);
         element(elem).isDisplayed();		
-        logMessage("STEP : Element "+element(elem).toString()+" is displayed");
+        System.out.println("STEP : Element "+element(elem).toString()+" is displayed");
         flag=true;
         wait.resetImplicitTimeout(timeOut);
     	wait.resetExplicitTimeout(timeOut);

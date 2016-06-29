@@ -259,6 +259,10 @@ public class YamlInformationProvider {
 		return getMapValue(this.userInfoMap, infoType);
 	}
 	
+	public String get_ACSReportsInfo(String infoType) {
+		return getMapValue(this.userInfoMap,infoType);
+	}
+	
 	
 
 }

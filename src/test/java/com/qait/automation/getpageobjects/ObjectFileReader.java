@@ -115,7 +115,21 @@ public class ObjectFileReader {
 	}
 
 	private static void setTier() {
-		switch (Tiers.valueOf(getProperty("Config.properties", "tier"))) {
+		
+		try {
+			if (System.getProperty("tier").contains("defaultTier")
+					|| System.getProperty("tier").isEmpty())
+				tier = Tiers.valueOf(getProperty("Config.properties", "tier"))
+						.toString();
+			else {
+				tier = System.getProperty("tier");
+			}
+		} catch (NullPointerException e) {
+			tier = Tiers.valueOf(getProperty("Config.properties", "tier"))
+					.toString();
+
+		}
+		switch (Tiers.valueOf(tier)) {
 		case production:
 		case PROD:
 		case PRODUCTION:
