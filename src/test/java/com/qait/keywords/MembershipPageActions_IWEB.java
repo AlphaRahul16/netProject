@@ -2557,7 +2557,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(2);
 		isElementDisplayed("drpdown_invoice");
-		selectProvidedTextFromDropDown(element("drpdown_invoice"), "ACS: 2016-05-16-BATCH-001Selenium_Batch");
+		selectProvidedTextFromDropDown(element("drpdown_invoice"), "ACS: SELENIUM_BATCH");
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(2);
 		isElementDisplayed("btn_transferNow");
