@@ -172,4 +172,11 @@ drpdown_memtype									xpath							.//select[@id='mbr_mbt_key']
 drpdown_package									xpath							.//select[@id='mbr_pak_prd_renewal_key']
 drpdown_invoice									xpath							.//*[@id='inv_bat_key']
 iframe											id								iframe1
+table_rows                                      xpath                           //table[@class='table']//tr
+txt_current                                     xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[5]
+txt_startDate                                   xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[8]
+txt_endDate                                     xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[${index2}]
+arrow_selectMember                              xpath                           (//th/a)[2]/../../following-sibling::tr[${index}]//td[3]//a
+productname_txt									 xpath							(//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[4]
+pricevalue_txt									 xpath							(//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[5]
 ==============================================================================================================================================

@@ -3281,5 +3281,33 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ element("txt_endDate", String.valueOf(i), String.valueOf(4)).getText().trim());
 		element("arrow_selectMember", String.valueOf(i)).click();
 	}
-
+	
+	public void verifyPayment(int index){
+		isElementDisplayed("txt_endDate",String.valueOf(index),String.valueOf(8));
+		String payment=element("txt_endDate",String.valueOf(index),String.valueOf(8)).getText().trim();
+		Assert.assertTrue(Double.parseDouble(payment)==0.00,"ASSERT FAILED : Payment value is not 0.00");
+		logMessage("ASSERT PASSED : Payment value is 0.00");
+	}
+	
+	public void verifyBalance(int index){
+		isElementDisplayed("txt_endDate",String.valueOf(index),String.valueOf(9));
+		String balance=element("txt_endDate",String.valueOf(index),String.valueOf(9)).getText().trim();
+		Assert.assertTrue(Double.parseDouble(balance)!=0.00,"ASSERT FAILED : Balance value is 0.00");
+		logMessage("ASSERT PASSED : Balance value is not 0.00");
+	}
+	
+	public int verifyProductUnderDetailsMenu(String productName){
+		int i;
+		flag=false;
+		for(i=1;i<=elements("table_rows").size();i++){
+			if(element("txt_endDate",String.valueOf(i),String.valueOf(4)).getText().trim()
+					.equals(productName)){
+				flag=true;
+				break;
+			}
+		}
+		Assert.assertTrue(flag,"ASSERT FAILED : "+productName+" product is not present under menu");
+		logMessage("ASSERT PASSED : "+productName+" product is present under invoices at index "+i);
+		return i;
+	}
 }

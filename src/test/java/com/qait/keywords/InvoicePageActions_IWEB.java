@@ -814,5 +814,16 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_invoiceValues", field);
 		return element("txt_invoiceValues", field).getText().trim();
 	}
+	
+	public void verifyBalanceIsNotNull(String detailName,double detailValue){
+		isElementDisplayed("txt_memberDetails", detailName);
+		System.out.println("actual : "
+				+ element("txt_memberDetails", detailName).getText().trim());
+		System.out.println("exp:" + detailValue);
+		Assert.assertTrue(Double.parseDouble(element("txt_memberDetails", detailName).getText()
+				.trim())!=(detailValue),"ASSERT FAILED : "+detailName+" is not "+detailName);
+		logMessage("ASSERT PASSED : " + detailValue + " is verified for "
+				+ detailName + " \n");
+	}
 
 }
