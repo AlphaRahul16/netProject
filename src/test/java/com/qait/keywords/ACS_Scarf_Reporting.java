@@ -551,7 +551,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		return eventsMap;
 	}
 
-	public String getEventCategory() {
+	public String getEventCategory(){
 		wait.hardWait(5);
 		isElementDisplayed("txt_eventCategory");
 		return element("txt_eventCategory").getText().trim();

@@ -80,13 +80,14 @@ list_joindate                                   xpath                         //
 txt_effectiveDateForActive                       xpath                          //td[starts-with(text(),'Active')]/following-sibling::td[3]       
 inp_enterDetails                                xpath                         //span[contains(text(),'${detailName}')]/../following-sibling::td/input
 btn_go                                          id                           ButtonSearch
+btn_goask                                       id                           ButtonAskGo
 btn_editContactInfo                              css                          #F1_HYPERLINK_1
 inp_editEmail                                    id                           eml_address
 btn_editNameAndAddress                           css                          #F1_HYPERLINK_2
 inp_firstName                                    id                          ind_first_name
 inp_lastName                                    id                          ind_last_name
 inp_middleName                                  id                           ind_mid_name
-txt_numberOfyears                                xpath                         //td[contains(text(),'Total Years of Service')]/following-sibling::td
+txt_numberOfyears                                xpath                         //td[contains(text(),'Years of Service')]/following-sibling::td
 btn_cancel                                       id                           ButtonCancel
 list_memberStatusRenewal                        id                            ValueDropDownList4
 txt_renewalContactId                             id                           F1_cst_id
@@ -152,6 +153,8 @@ drpdwn_memberType                                xpath                        //
 btn_detailsMenuAACT                              xpath                        //span[text()='${menuName}']/../a[1]
 txt_termStartDaterenewal                         xpath                         (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[14]
 txt_termEndDaterenewal                           xpath                        (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[15]
+productname_txt									 xpath							(//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[4]
+pricevalue_txt									 xpath							(//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[5]
 heading_queryAskAtRunTime                        xpath                         //span[text()='Query - Ask At Run-Time Values']
 list_memberPackage1                               css                           .DataFormDropDownList
 btn_goPackage                                    id                             ButtonAskGo
@@ -177,6 +180,8 @@ txt_current                                     xpath                           
 txt_startDate                                   xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[8]
 txt_endDate                                     xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[${index2}]
 arrow_selectMember                              xpath                           (//th/a)[2]/../../following-sibling::tr[${index}]//td[3]//a
+<<<<<<< HEAD
 productname_txt									 xpath							(//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[4]
 pricevalue_txt									 xpath							(//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[5]
+
 ==============================================================================================================================================

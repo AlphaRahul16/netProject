@@ -242,7 +242,7 @@ public class BaseUi {
 		while (i++ < 5) {
 			try {
 				alert = driver.switchTo().alert();
-				System.out.println("Switched to alert");
+				logMessage("Step : Switched to alert window");
 				break;
 			} catch (NoAlertPresentException e) {
 				try {
@@ -254,7 +254,7 @@ public class BaseUi {
 			}
 		}
 		alert.accept();
-		System.out.println("accepted");
+		logMessage("Step : Alert accepted");
 		driver.switchTo().defaultContent();
 	}
 
@@ -739,6 +739,7 @@ public class BaseUi {
 		driver.switchTo().window(subWindowHandler); // switch to popup window
 		                                            // perform operations on popup
         System.out.println(getPageTitle());
+        logMessage("Step : Switched to Pop Up Window, title is verified as "+getPageTitle());
 		driver.switchTo().window(parentWindowHandler); 
 		
 	}

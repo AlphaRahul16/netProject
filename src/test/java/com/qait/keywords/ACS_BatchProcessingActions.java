@@ -116,7 +116,6 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 	private void verifyClosedByAndPostByDateNotEmpty(String fieldName) {
 		isElementDisplayed("txt_postedClosedUserDate",fieldName);
 		System.out.println(element("txt_postedClosedUserDate",fieldName).getText().length());
-
 		Assert.assertTrue(element("txt_postedClosedUserDate",fieldName).getText().length()!=1,fieldName+" date is null");
 		logMessage("ASSERT PASSED : "+fieldName+" date is not empty\n");
 		
@@ -128,9 +127,9 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 		System.out.println(element("txt_closeDateAndSaleRequest","close date").getText().trim());
 		System.out.println(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY"));
 		Assert.assertTrue(element("txt_closeDateAndSaleRequest","close date").getText().trim().contains(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY")));
-		logMessage("ASSERT PASSED : Batch close date contains current Date\n");
+		logMessage("ASSERT PASSED : Batch close date contains current Date as "+element("txt_closeDateAndSaleRequest","close date").getText().trim());
 		Assert.assertTrue(element("txt_postDate").getText().trim().contains(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY")));
-		logMessage("ASSERT PASSED : Batch post date contains current Date\n");
+		logMessage("ASSERT PASSED : Batch post date contains current Date as "+element("txt_closeDateAndSaleRequest","close date").getText().trim());
 		
 	}
 
