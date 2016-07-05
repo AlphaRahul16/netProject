@@ -66,6 +66,7 @@ public class ACS_Reports {
 		mapReportDetails = YamlReader.getYamlValues("Acs_Reports");
 		getReportsDetails=new YamlInformationProvider(mapReportDetails);
 		test.launchApplication(app_url_IWEB);
+		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"), YamlReader.getYamlValue("Authentication.password"));
 
 	}
 

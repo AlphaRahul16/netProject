@@ -89,6 +89,7 @@ public class WebDriverFactory {
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--disable-extensions");
 		options.addArguments("test-type");
+		options.addArguments("--disable-impl-side-painting");
 
 		DesiredCapabilities cap = DesiredCapabilities.chrome();
 		cap.setCapability(ChromeOptions.CAPABILITY, options);

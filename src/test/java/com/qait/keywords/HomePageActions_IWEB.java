@@ -144,7 +144,9 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnTab(String tabName) {
 
 		isElementDisplayed("link_tabsOnModule", tabName);
+		hardWaitForIEBrowser(3);
 		element("link_tabsOnModule", tabName).click();
+		hardWaitForIEBrowser(3);
 		logMessage("STEP : " + tabName + " tab is clicked\n");
 	}
 	

@@ -705,8 +705,9 @@ public class ASM_OMRPage extends GetPage {
 		}
 
 		float subtotal=verifySubTotalForRenewedProducts(mapRenewedProductDetails);
+		wait.hardWait(2);
 		switchToEwebRenewalFrame();
-		float total=subtotal+Float.parseFloat(element("txt_productFinalTotal","Tax").getText().replace("$", "").trim())+
+		float total=subtotal+Float.parseFloat(element("txt_ProductTax").getText().replace("$", "").trim())+
 				Float.parseFloat(element("txt_productFinalTotal","Shipping").getText().replace("$", "").trim());
 		total= (float) (Math.round(total * 100.0) / 100.0);
 		Assert.assertTrue(Float.parseFloat(element("txt_productFinalTotal","Total").getText().replace("$", "").trim())==total);
@@ -719,22 +720,20 @@ public class ASM_OMRPage extends GetPage {
 
 	private void verifyProductsIndividualAmount(Map<String, String> mapRenewedProductDetails) {
 		switchToEwebRenewalFrame();
-		
+		int amountiterate=0;
 		wait.waitForElementToBeVisible(elements("txt_productname").get(0));
-		try {
-			Thread.sleep(15000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		System.out.println(elements("txt_productname").get(0).getText());
 		System.out.println(elements("txt_productname").size());
-		for(int i=0;i<elements("txt_productname").size();i++)
-		{
-			System.out.println(elements("txt_productname").get(i).getText());
-			System.out.println(elements("txt_productamount").get(i).getText().replace("$", "").trim());
-			Assert.assertTrue(mapRenewedProductDetails.get(elements("txt_productname").get(i).getText().trim()).equals(
-					elements("txt_productamount").get(i).getText().replace("$", "").trim()));
-			logMessage("ASSERT PASSED : Amount for "+elements("txt_productname").get(i).getText()+ " is verified as "+mapRenewedProductDetails.get(elements("txt_productname").get(i).getText().trim()));
+		switchToDefaultContent();
+		wait.hardWait(2);
+		switchToEwebRenewalFrame();
+		for (WebElement ele : elements("txt_productname")) {
+			System.out.println(ele.getText());
+			System.out.println(elements("txt_productamount").get(amountiterate).getText().replace("$", "").trim());
+			Assert.assertTrue(mapRenewedProductDetails.get(ele.getText().trim()).equals(
+					elements("txt_productamount").get(amountiterate).getText().replace("$", "").trim()));
+			logMessage("ASSERT PASSED : Amount for "+ele.getText()+ " is verified as "+mapRenewedProductDetails.get(ele.getText().trim()));
+			amountiterate++;
 		}
 		switchToDefaultContent();
 

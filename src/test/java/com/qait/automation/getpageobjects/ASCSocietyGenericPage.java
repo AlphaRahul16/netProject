@@ -101,7 +101,7 @@ public class ASCSocietyGenericPage extends GetPage {
 			try {
 				Reporter.log("Waiting for the element: " + element + " "
 						+ replacementText + " to not to show up\n", true);
-				wait.resetImplicitTimeout(0);
+				wait.resetImplicitTimeout(5);
 				wait.resetExplicitTimeout(hiddenFieldTimeOut);
 				isElementDisplayed(element, replacementText); // this is
 																// expected to
@@ -123,7 +123,8 @@ public class ASCSocietyGenericPage extends GetPage {
 			}
 		} else if (visibility.equalsIgnoreCase("show")) {
 			try {
-				wait.resetImplicitTimeout(0);
+				hardWaitForIEBrowser(4);
+				wait.resetImplicitTimeout(5);
 				wait.resetExplicitTimeout(hiddenFieldTimeOut);
 				isElementDisplayed(element, replacementText);
 				wait.resetImplicitTimeout(timeOut);

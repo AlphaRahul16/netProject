@@ -152,6 +152,45 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 		
 	}
 	
+	public void clickOnInputCheckbox(String checkboxName)
+	{
+		isElementDisplayed("inp_batchAddFields",checkboxName);
+		element("inp_batchAddFields",checkboxName).click();
+		logMessage("Step : input box "+checkboxName+" is clicked");
+		wait.waitForPageToLoadCompletely();
+	}
+	
+	public void searchStoreBatchesOnFindBatchPage()
+	{
+		clickOnInputCheckbox("Advanced View");
+		selectBatchSearchCriteria("Batch Name","Begins With");
+		enterBatchFieldsOnFindbatchPage("Batch Name","%store%");
+		clickOnBatchInputFields("Close Flag");
+		clickOnBatchInputFields("Posted");
+		
+	}
+
+	private void selectBatchSearchCriteria(String drpdownName, String drpdownValue) {
+		
+		isElementDisplayed("drodown_batchSearchCriteria",drpdownName);
+		selectProvidedTextFromDropDown(element("drodown_batchSearchCriteria",drpdownName), drpdownValue);
+		logMessage("Step : dropdown for "+drpdownName+" is selected as "+drpdownValue);
+	}
+	
+	private void clickOnBatchInputFields(String checkboxName)
+	{
+		isElementDisplayed("inp_batchEnterField",checkboxName);
+		element("inp_batchEnterField",checkboxName).click();
+		logMessage("Step : input box "+checkboxName+" is clicked");
+		wait.waitForPageToLoadCompletely();
+	}
+	private void enterBatchFieldsOnFindbatchPage(String fieldName,String Value)
+	{
+		isElementDisplayed("inp_batchEnterField",fieldName);
+		element("inp_batchEnterField").click();
+		element("inp_batchEnterField").sendKeys(Value);
+		logMessage("Step : "+fieldName+" is entered as "+Value);
+	}
 	
 
 }
