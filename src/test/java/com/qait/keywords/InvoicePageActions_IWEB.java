@@ -812,6 +812,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public String getDataFromInvoiceProfilePage(String field) {
 		isElementDisplayed("txt_invoiceValues", field);
+		logMessage("STEP : "+field+" is : "+element("txt_invoiceValues", field).getText().trim());
 		return element("txt_invoiceValues", field).getText().trim();
 	}
 	
@@ -825,5 +826,15 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : " + detailValue + " is verified for "
 				+ detailName + " \n");
 	}
+	
+//	public void verifyBalnceIsVoid(String detailName,double detailValue){
+//		isElementDisplayed("txt_memberDetails", detailName);
+//		System.out.println("actual : "
+//				+ element("txt_memberDetails", detailName).getText().trim());
+//		System.out.println("exp:" + detailValue);
+//		String balance=element("txt_endDate",String.valueOf(index),String.valueOf(9)).getText().trim();
+//		Assert.assertEquals(Double.parseDouble(balance), 0.00, 0.01, "ASSERT FAILED : Balance value is not 0.00");//(Double.parseDouble(balance)==0.00,"ASSERT FAILED : Balance value is 0.00");
+//		logMessage("ASSERT PASSED : Balance value is 0.00");
+//	}
 
 }

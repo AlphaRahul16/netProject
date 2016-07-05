@@ -3303,20 +3303,21 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyPayment(int index){
 		isElementDisplayed("txt_endDate",String.valueOf(index),String.valueOf(8));
 		String payment=element("txt_endDate",String.valueOf(index),String.valueOf(8)).getText().trim();
-		Assert.assertTrue(Double.parseDouble(payment)==0.00,"ASSERT FAILED : Payment value is not 0.00");
-		logMessage("ASSERT PASSED : Payment value is 0.00");
+		Assert.assertTrue(Double.parseDouble(payment)==0.00,"ASSERT FAILED : Payment value is not 0.00\n");
+		logMessage("ASSERT PASSED : Payment value is 0.00\n");
 	}
 	
 	public void verifyBalance(int index){
 		isElementDisplayed("txt_endDate",String.valueOf(index),String.valueOf(9));
 		String balance=element("txt_endDate",String.valueOf(index),String.valueOf(9)).getText().trim();
-		Assert.assertTrue(Double.parseDouble(balance)!=0.00,"ASSERT FAILED : Balance value is 0.00");
-		logMessage("ASSERT PASSED : Balance value is not 0.00");
+		Assert.assertNotEquals(Double.parseDouble(balance), 0.00, 0.01, "ASSERT FAILED : Balance value is null\n");//(Double.parseDouble(balance)==0.00,"ASSERT FAILED : Balance value is 0.00");
+		logMessage("ASSERT PASSED : Balance value is not null\n");
 	}
-	
+		
 	public int verifyProductUnderDetailsMenu(String productName){
 		int i;
 		flag=false;
+		waitForSpinner();
 		for(i=1;i<=elements("table_rows").size();i++){
 			if(element("txt_endDate",String.valueOf(i),String.valueOf(4)).getText().trim()
 					.equals(productName)){

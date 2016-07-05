@@ -26,6 +26,7 @@ import org.testng.Reporter;
 import com.qait.automation.utils.DataProvider;
 import com.qait.automation.utils.LayoutValidation;
 import com.qait.automation.utils.YamlReader;
+import com.qait.keywords.MembershipPageActions_IWEB;
 
 public class ASCSocietyGenericPage extends GetPage {
 
@@ -36,6 +37,7 @@ public class ASCSocietyGenericPage extends GetPage {
 	int timeOut, hiddenFieldTimeOut, numberOfColumns;
 	static int count;
 	ArrayList<String> listOfCaseIdToExecute = new ArrayList<String>();
+	MembershipPageActions_IWEB memPage;
 	public static HashMap<String, String> hashMap = new HashMap<String, String>();
 
 	public ASCSocietyGenericPage(WebDriver driver, String pageName) {
@@ -343,6 +345,7 @@ public class ASCSocietyGenericPage extends GetPage {
 	}
 
 	public void expandDetailsMenu(String menuName) {
+		memPage=new MembershipPageActions_IWEB(driver);
 		wait.waitForPageToLoadCompletely();
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
@@ -355,7 +358,7 @@ public class ASCSocietyGenericPage extends GetPage {
 			element("btn_detailsMenuAACT", menuName).click();
 
 			logMessage("STEP : " + menuName + " bar is clicked to expand" + "\n");
-			waitForSpinner();
+			memPage.waitForSpinner();
 		} catch (NoSuchElementException | AssertionError | TimeoutException Exp) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
@@ -365,27 +368,28 @@ public class ASCSocietyGenericPage extends GetPage {
 		wait.resetExplicitTimeout(timeOut);
 	}
 
-	public void waitForSpinner() {
-		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
-		try {
-			handleAlert();
-			wait.resetImplicitTimeout(2);
-			wait.resetExplicitTimeout(10);
-			isElementDisplayed("img_spinner");
-			wait.waitForElementToDisappear(element("img_spinner"));
-			logMessage("STEP : Wait for spinner to be disappeared \n");
-
-		} catch (NoSuchElementException | AssertionError | TimeoutException Exp) {
-			wait.resetImplicitTimeout(timeOut);
-			wait.resetExplicitTimeout(timeOut);
-			logMessage("STEP : Spinner is not present \n");
-		}
-		wait.resetImplicitTimeout(timeOut);
-		wait.resetExplicitTimeout(timeOut);
-	}
+//	public void waitForSpinner() {
+//		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+//		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
+//		try {
+//			handleAlert();
+//			wait.resetImplicitTimeout(2);
+//			wait.resetExplicitTimeout(10);
+//			isElementDisplayed("img_spinner");
+//			wait.waitForElementToDisappear(element("img_spinner"));
+//			logMessage("STEP : Wait for spinner to be disappeared \n");
+//
+//		} catch (NoSuchElementException | AssertionError | TimeoutException Exp) {
+//			wait.resetImplicitTimeout(timeOut);
+//			wait.resetExplicitTimeout(timeOut);
+//			logMessage("STEP : Spinner is not present \n");
+//		}
+//		wait.resetImplicitTimeout(timeOut);
+//		wait.resetExplicitTimeout(timeOut);
+//	}
 
 	public void collapseDetailsMenu(String menuName) {
+		memPage=new MembershipPageActions_IWEB(driver);
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
@@ -394,7 +398,7 @@ public class ASCSocietyGenericPage extends GetPage {
 			isElementDisplayed("icon_up", menuName);
 			clickUsingXpathInJavaScriptExecutor(element("icon_up", menuName));
 			// element("icon_up", menuName).click();
-			waitForSpinner();
+			memPage.waitForSpinner();
 			logMessage("STEP : " + menuName + " bar collapse bar clicked\n");
 		} catch (NoSuchElementException | AssertionError | TimeoutException Exp) {
 			wait.resetImplicitTimeout(timeOut);
@@ -426,10 +430,12 @@ public class ASCSocietyGenericPage extends GetPage {
 	}
 	
 	public void expandDetailsMenuIfAlreadyExpanded(String menuName) {
+		memPage=new MembershipPageActions_IWEB(driver);
 		wait.waitForPageToLoadCompletely();
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
 				"hiddenFieldTimeOut"));
+		wait.resetImplicitTimeout(4);
 		if(checkIfElementIsThere("icon_up", menuName)){
 			logMessage("STEP : "+menuName+" menu bar is already expanded\n");
 		}
@@ -440,11 +446,11 @@ public class ASCSocietyGenericPage extends GetPage {
 				isElementDisplayed("btn_detailsMenuAACT", menuName);
 				// clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT",
 				// menuName));
-				element("btn_detailsMenuAACT", menuName).click();
-
+                clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT", menuName));
+//				element("btn_detailsMenuAACT", menuName).click();
 				logMessage("STEP : " + menuName + " bar is clicked to expand"
 						+ "\n");
-				waitForSpinner();
+				memPage.waitForSpinner();
 			} catch (NoSuchElementException | AssertionError | TimeoutException Exp) {
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);

@@ -9,4 +9,10 @@ drpdwn_securityGroup                           xpath                            
 btn_save                                       id                                ButtonSave
 table_actions                                  xpath                             //table[@id='DGInvoiceNESTED']//tr
 drpdwn_invoiceAction                           xpath                             (//table[@id='DGInvoiceNESTED']//tr)[${index}]//select
+table_rows                                     xpath                              //table[@class='table']//tr
+iframe                                         xpath                              //iframe[@id="iframe2"]
+table_productName                              xpath                              //table[@class='table']//tr//td[${index}]
+txt_voidInvoice                                css                                .DataFormLabelErrorMessage
+txt_emptyLineItems                             css                                .DataFormFooterTD
+img_memberBenefits                             xpath                              //img[@id='F1_IMAGE_${index}']
 ======================================================================================================================================

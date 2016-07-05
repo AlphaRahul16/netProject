@@ -522,6 +522,8 @@ ScarfReporting:
     queryName: "Selenium - Active Student Chapters"
 VoidWithAdjustment:
     queryName: "Selenium - test open invoices"
+    voidMessage: "This invoice has been cancelled or voided"    
+    emptItemsMessage: "There are no results to display."   
                    
 email:
   send: true
