@@ -743,4 +743,14 @@ public class BaseUi {
 		driver.switchTo().window(parentWindowHandler); 
 		
 	}
+	
+	public boolean isSafariBrowser() {
+		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("Safari")
+				|| ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("safari")){
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

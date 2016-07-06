@@ -94,7 +94,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(6);
 		isElementDisplayed("hd_sideBar", tabName);
 
-		if (isBrowser("chrome")) {
+		if (isBrowser("chrome")||isBrowser("safari")) {
 			element("hd_sideBar", tabName).click();
 		} else {
 
@@ -134,9 +134,11 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_tabs");
 		wait.hardWait(1);
 		hardWaitForChromeBrowser(3);
+		if(isBrowser("safari"))
+			element("btn_tabs").click();
+		else
+		    executeJavascript("document.getElementsByClassName('dropdown-toggle')[3].click()");
 		
-		executeJavascript("document.getElementsByClassName('dropdown-toggle')[3].click()");
-		// element("btn_tabs").click();
 		logMessage("STEP :  Module tab is clicked\n");
 	}
 
@@ -146,9 +148,11 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnTab(String tabName) {
 
-		isElementDisplayed("link_tabsOnModule", tabName);
-		clickUsingXpathInJavaScriptExecutor(element("link_tabsOnModule", tabName));
-//		element("link_tabsOnModule", tabName).click();
+		isElementDisplayed("link_tabsOnModule", tabName);		
+		if(isBrowser("safari"))
+		    element("link_tabsOnModule", tabName).click();
+		else
+			clickUsingXpathInJavaScriptExecutor(element("link_tabsOnModule", tabName));
 		logMessage("STEP : " + tabName + " tab is clicked\n");
 	}
 	
