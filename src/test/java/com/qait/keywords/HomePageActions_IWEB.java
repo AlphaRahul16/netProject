@@ -23,8 +23,8 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		handleAlert();
 		verifyPageTitleContains(pageTitle);
 
-		logMessage("ASSERT PASSED: verified that user is on " + this.pagename + "\n");
-
+		logMessage("ASSERT PASSED: verified that user is on " + this.pagename
+				+ "\n");
 
 	}
 
@@ -94,7 +94,6 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		if (isBrowser("chrome")) {
 			element("hd_sideBar", tabName).click();
 		} else {
-
 			clickUsingXpathInJavaScriptExecutor(element("hd_sideBar", tabName));
 		}
 		logMessage("STEP : Click on tab " + tabName + " in hd_sideBar \n");
@@ -127,11 +126,11 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnModuleTab() {
+
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("btn_tabs");
 		wait.hardWait(1);
 		hardWaitForChromeBrowser(3);
-		
 		executeJavascript("document.getElementsByClassName('dropdown-toggle')[3].click()");
 		// element("btn_tabs").click();
 		logMessage("STEP :  Module tab is clicked\n");
@@ -144,11 +143,18 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnTab(String tabName) {
 
 		isElementDisplayed("link_tabsOnModule", tabName);
-		element("link_tabsOnModule", tabName).click();
-		logMessage("STEP : " + tabName + " tab is clicked\n");
+		if (isIEBrowser()) {
+			clickUsingXpathInJavaScriptExecutor(element("link_tabsOnModule",
+					tabName));
+			logMessage("Step : " + tabName + " tab is clicked\n");
+		} else {
+			element("link_tabsOnModule", tabName).click();
+			logMessage("Step : " + tabName + " tab is clicked\n");
+		}
+
 	}
-	
-	public void clickOnSacrfReportingModule(){
+
+	public void clickOnSacrfReportingModule() {
 		isElementDisplayed("lnk_ScarfReporting");
 		element("lnk_ScarfReporting").click();
 		logMessage("STEP : SCARF Reporting tab is clicked\n");

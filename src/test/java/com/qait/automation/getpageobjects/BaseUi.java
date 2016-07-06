@@ -41,7 +41,7 @@ import com.qait.automation.utils.SeleniumWait;
 
 /**
  * 
- * @author avnishrawat
+ * @author 
  * 
  */
 public class BaseUi {
@@ -212,7 +212,7 @@ public class BaseUi {
 		hoverOver.moveToElement(element).build().perform();
 	}
 
-	protected void handleAlert() {
+	public void handleAlert() {
 		try {
 			timeOut = Integer.parseInt(getProperty("Config.properties",
 					"timeout"));

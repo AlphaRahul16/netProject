@@ -398,9 +398,9 @@ public class GetPage extends BaseUi {
 	}
 
 	public void scriptExecutionController() {
-		if (ConfigPropertyReader.getProperty("mode").equalsIgnoreCase("debug")) {
-			wait.hardWait(1);
-		}
+//		if (ConfigPropertyReader.getProperty("mode").equalsIgnoreCase("debug")) {
+//			wait.hardWait(1);
+//		}
 	}
 
 	protected void verifyElementTextContent(String elementName,
@@ -438,4 +438,19 @@ public class GetPage extends BaseUi {
 			logMessage("Error: Invalid Application URL in DataSheet\n");
 		}
 	}
+	
+	
+	protected boolean checkIfElementIsThere(String eleString,String replacementEleString) {
+	     boolean flag = false;
+	     try {
+	       if (webdriver.findElement(getLocator(eleString,replacementEleString)).isDisplayed()) {
+	         flag = true;
+	       } else {
+	         flag = false;
+	       }
+	     } catch (NoSuchElementException ex) {
+	       flag = false;
+	     }
+	     return flag;
+	   }
 }

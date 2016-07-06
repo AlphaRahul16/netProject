@@ -12,12 +12,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import javax.xml.ws.LogicalMessage;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.Test;
@@ -39,8 +42,19 @@ public class Test123 {
 	
 	
 		/*String date="05/04/2016";*/
-
-	public static void main(String args[]){
+@Test
+	public void ABC(){
+		
+		WebDriver driver=new FirefoxDriver();
+		driver.manage().timeouts().setScriptTimeout(1, TimeUnit.SECONDS);
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		driver.get("//gmail.com");
         String category[]={"a","b","c","a"};
 		List<String>eventList,list2;
 		eventList=new ArrayList<>();
