@@ -30,6 +30,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 	WebDriver driver;
 	static String pagename = "Scarf_Reporting";
 	String reportingStartDate, reportingEndDate, chapterName, customerLname, customerFname;
+
 	Map<String, List<String>> reportAnswers = new HashMap<String, List<String>>();
 	Map<String, List<String>> eventsMap = new HashMap<String, List<String>>();
 	static int scarfReportIterationCount = 1;

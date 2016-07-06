@@ -413,9 +413,9 @@ public class GetPage extends BaseUi {
 	}
 
 	public void scriptExecutionController() {
-		if (ConfigPropertyReader.getProperty("mode").equalsIgnoreCase("debug")) {
-			wait.hardWait(1);
-		}
+//		if (ConfigPropertyReader.getProperty("mode").equalsIgnoreCase("debug")) {
+//			wait.hardWait(1);
+//		}
 	}
 
 	protected void verifyElementTextContent(String elementName,
@@ -453,4 +453,7 @@ public class GetPage extends BaseUi {
 			logMessage("Error: Invalid Application URL in DataSheet\n");
 		}
 	}
+	
+	
+	
 }

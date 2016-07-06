@@ -1121,6 +1121,10 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		selectProvidedTextFromDropDown(element("inp_fieldSelect", feildName), feildValue);
 		logMessage("STEP : " + feildValue + " as " + feildValue + " is entered in inp_fieldSelect\n");
 	}
+	
+	public void selectFieldValueToFindMember(String feildName, String feildValue){
+		selectFeildValue(feildName, feildValue);
+	}
 
 	public void SelectFellowNominatorForVerification(String NomineeName, String NominatorName) {
 		// System.out.println(element("txt_NominatorName",

@@ -26,8 +26,8 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		verifyPageTitleContains(pageTitle);
 
-		logMessage("ASSERT PASSED: verified that user is on " + this.pagename + "\n");
-
+		logMessage("ASSERT PASSED: verified that user is on " + this.pagename
+				+ "\n");
 
 	}
 
@@ -97,7 +97,6 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		if (isBrowser("chrome")||isBrowser("safari")) {
 			element("hd_sideBar", tabName).click();
 		} else {
-
 			clickUsingXpathInJavaScriptExecutor(element("hd_sideBar", tabName));
 		}
 		logMessage("STEP : Click on tab " + tabName + " in hd_sideBar \n");
@@ -130,6 +129,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnModuleTab() {
+
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("btn_tabs");
 		wait.hardWait(1);
@@ -138,7 +138,6 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 			element("btn_tabs").click();
 		else
 		    executeJavascript("document.getElementsByClassName('dropdown-toggle')[3].click()");
-		
 		logMessage("STEP :  Module tab is clicked\n");
 	}
 
@@ -147,16 +146,18 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnTab(String tabName) {
-
-		isElementDisplayed("link_tabsOnModule", tabName);		
-		if(isBrowser("safari"))
-		    element("link_tabsOnModule", tabName).click();
-		else
-			clickUsingXpathInJavaScriptExecutor(element("link_tabsOnModule", tabName));
-		logMessage("STEP : " + tabName + " tab is clicked\n");
+		isElementDisplayed("link_tabsOnModule", tabName);
+		if (isIEBrowser()) {
+			clickUsingXpathInJavaScriptExecutor(element("link_tabsOnModule",
+					tabName));
+			logMessage("Step : " + tabName + " tab is clicked\n");
+		} else {
+			element("link_tabsOnModule", tabName).click();
+			logMessage("Step : " + tabName + " tab is clicked\n");
+		}
 	}
-	
-	public void clickOnSacrfReportingModule(){
+
+	public void clickOnSacrfReportingModule() {
 		isElementDisplayed("lnk_ScarfReporting");
 		element("lnk_ScarfReporting").click();
 		logMessage("STEP : SCARF Reporting tab is clicked\n");

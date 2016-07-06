@@ -30,7 +30,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	List<Integer> uniqueRandom = new ArrayList<Integer>();
 	Map<String, String> judgesRanks = new HashMap<String, String>();
 
-	Map<Integer, Map> listOfNomineeJudges_judgeRanks = new HashMap<>();
+	Map<Integer, Map> listOfNomineeJudges_judgeRanks = new HashMap<Integer,Map>();
 
 	public ACS_Awards_EWEB_PageActions(WebDriver driver) {
 		super(driver, pagename);
@@ -249,7 +249,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 					+ nameOfJudges.size() + ">");
 		}
 		int j = 0;
-		List<List<String>> listOfFirstAndLastName = new ArrayList<>();
+		List<List<String>> listOfFirstAndLastName = new ArrayList<List<String>>();
 		@SuppressWarnings("unchecked")
 		List<String> selectedNomineeFirstNameList = new ArrayList();
 		@SuppressWarnings("unchecked")
