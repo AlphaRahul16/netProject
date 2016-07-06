@@ -121,7 +121,7 @@ public class BaseUi {
 			expectedPagetitle = getCurrentURL();
 		}
 		try {
-			wait.resetImplicitTimeout(2);
+			wait.resetImplicitTimeout(3);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			wait.waitForPageTitleToContain(expectedPagetitle);
 			wait.resetImplicitTimeout(timeOut);

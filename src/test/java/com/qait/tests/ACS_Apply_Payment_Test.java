@@ -44,7 +44,7 @@ public class ACS_Apply_Payment_Test {
 
 	@Test
 	public void Step02_Navigate_To_Product_Test() {
-		test.memberShipPage.expandDetailsMenu_AlreadyExpanded("invoices");
+		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("invoices");
 
 		// select member start end date
 		test.invoicePage.clickOnGoToArrowButton();
@@ -53,7 +53,7 @@ public class ACS_Apply_Payment_Test {
 		test.invoicePage.verifyBalanceInInvoice(test.invoicePage
 				.getMemberDetails("invoice total"));
 
-		test.memberShipPage.expandDetailsMenu_AlreadyExpanded("line items");
+		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("line items");
 		test.invoicePage.verifyPaidClosedValueNo();
 		test.invoicePage.clickOnAddPaymentIcon();
 		test.applyPayment.switchToFrame("iframe1");
@@ -72,7 +72,7 @@ public class ACS_Apply_Payment_Test {
 		test.invoicePage.verifyMemberDetails_question("paid in full", "Yes");
 		test.invoicePage.verifyBalanceInInvoice("0.00");
 
-		test.memberShipPage.expandDetailsMenu_AlreadyExpanded("line items");
+		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("line items");
 		test.invoicePage.verifyPaidClosedStatus_Yes();
 
 	}

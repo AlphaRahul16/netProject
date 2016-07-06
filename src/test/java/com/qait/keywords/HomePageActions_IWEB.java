@@ -21,6 +21,9 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyUserIsOnHomePage(String pageTitle) {
 		handleAlert();
+		if(isBrowser("ie")|| isBrowser("internet explorer")){
+			wait.hardWait(3);
+		}
 		verifyPageTitleContains(pageTitle);
 
 		logMessage("ASSERT PASSED: verified that user is on " + this.pagename
@@ -151,7 +154,6 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 			element("link_tabsOnModule", tabName).click();
 			logMessage("Step : " + tabName + " tab is clicked\n");
 		}
-
 	}
 
 	public void clickOnSacrfReportingModule() {

@@ -37,15 +37,15 @@ public class ASCSocietyGenericPage extends GetPage {
 	int timeOut, hiddenFieldTimeOut, numberOfColumns;
 	static int count;
 	ArrayList<String> listOfCaseIdToExecute = new ArrayList<String>();
-	public static HashMap<String, String> hashMap = new HashMap<String, String>();
 	MembershipPageActions_IWEB memPage;
+	public static HashMap<String, String> hashMap = new HashMap<String, String>();
 
 	public ASCSocietyGenericPage(WebDriver driver, String pageName) {
 		super(driver, pageName);
 		this.webdriver = driver;
 		this.pageName = pageName;
 		layouttest = new LayoutValidation(driver, pageName);
-		 
+
 	}
 
 	public void verifyFieldVisibility(String element, String visibility)
@@ -388,8 +388,9 @@ public class ASCSocietyGenericPage extends GetPage {
 	}
 
 	public void expandDetailsMenu(String menuName) {
-		memPage = new MembershipPageActions_IWEB(
-				webdriver);
+
+		memPage = new MembershipPageActions_IWEB(webdriver);
+
 		wait.waitForPageToLoadCompletely();
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
@@ -404,6 +405,7 @@ public class ASCSocietyGenericPage extends GetPage {
 
 			logMessage("STEP : " + menuName + " bar is clicked to expand"
 					+ "\n");
+
 			memPage.waitForSpinner();
 		} catch (NoSuchElementException | AssertionError | TimeoutException Exp) {
 			wait.resetImplicitTimeout(timeOut);
@@ -415,8 +417,8 @@ public class ASCSocietyGenericPage extends GetPage {
 	}
 
 	public void collapseDetailsMenu(String menuName) {
-		memPage = new MembershipPageActions_IWEB(
-				webdriver);
+		memPage = new MembershipPageActions_IWEB(driver);
+
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
 				"hiddenFieldTimeOut"));
@@ -446,8 +448,10 @@ public class ASCSocietyGenericPage extends GetPage {
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(10);
 			element(elem).isDisplayed();
+
 			System.out.println("STEP : Element " + element(elem).toString()
 					+ " is displayed");
+
 			flag = true;
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
@@ -459,23 +463,28 @@ public class ASCSocietyGenericPage extends GetPage {
 		return flag;
 	}
 
-	public void expandDetailsMenu_AlreadyExpanded(String menuName) {
-		memPage = new MembershipPageActions_IWEB(
-				webdriver);
+	public void expandDetailsMenuIfAlreadyExpanded(String menuName) {
+		memPage = new MembershipPageActions_IWEB(driver);
+
 		wait.waitForPageToLoadCompletely();
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
 				"hiddenFieldTimeOut"));
+
 		if (checkIfElementIsThere("icon_up", menuName)) {
 			logMessage("STEP : " + menuName + " menu bar is already expanded\n");
 		} else {
+
 			try {
 				wait.resetImplicitTimeout(2);
 				wait.resetExplicitTimeout(hiddenFieldTimeOut);
 				isElementDisplayed("btn_detailsMenuAACT", menuName);
 				// clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT",
 				// menuName));
-				element("btn_detailsMenuAACT", menuName).click();
+
+				clickUsingXpathInJavaScriptExecutor(element(
+						"btn_detailsMenuAACT", menuName));
+				// element("btn_detailsMenuAACT", menuName).click();
 
 				logMessage("STEP : " + menuName + " bar is clicked to expand"
 						+ "\n");

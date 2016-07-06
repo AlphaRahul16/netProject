@@ -2758,7 +2758,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				}
 				break;
 			case "MP Pmt Status":
-				if (criteriaList.get(criteria.getKey()).trim().toLowerCase().contains(afterList.get(criteria.getKey()).trim().toLowerCase())) {
+				if(criteriaList.get(criteria.getKey()).trim().toLowerCase().contains("unpaid|credit")){
+					String sp[] = criteriaList.get(criteria.getKey()).trim().toLowerCase().split("|");
+					if(afterList.get(criteria.getKey()).trim().toLowerCase().contains(sp[0]) || afterList.get(criteria.getKey()).trim().toLowerCase().contains(sp[1])){
+						ResultList.put(criteria.getKey() + "", "y");
+					}else{
+						ResultList.put(criteria.getKey() + "", "n");
+					}
+				}else if (criteriaList.get(criteria.getKey()).trim().equalsIgnoreCase((afterList.get(criteria.getKey()).trim()))) {
 					ResultList.put(criteria.getKey() + "", "y");
 				} else {
 					ResultList.put(criteria.getKey() + "", "n");
@@ -2785,7 +2792,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 					}else{
 						ResultList.put(criteria.getKey() + "", "n");
 					}
-				} 
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")) {
+					if (beforeList.get(criteria.getKey()).trim()
+							.contains(afterList.get(criteria.getKey()).trim())) {
+						ResultList.put(criteria.getKey() + "", "y");
+					} else {
+						ResultList.put(criteria.getKey() + "", "n");
+					}}
 				break;
 			case "MP Start":
 				line = criteriaList.get(criteria.getKey()).trim().toUpperCase();
@@ -3286,5 +3299,34 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ element("txt_endDate", String.valueOf(i), String.valueOf(4)).getText().trim());
 		element("arrow_selectMember", String.valueOf(i)).click();
 	}
-
+	
+	public void verifyPayment(int index){
+		isElementDisplayed("txt_endDate",String.valueOf(index),String.valueOf(8));
+		String payment=element("txt_endDate",String.valueOf(index),String.valueOf(8)).getText().trim();
+		Assert.assertTrue(Double.parseDouble(payment)==0.00,"ASSERT FAILED : Payment value is not 0.00\n");
+		logMessage("ASSERT PASSED : Payment value is 0.00\n");
+	}
+	
+	public void verifyBalance(int index){
+		isElementDisplayed("txt_endDate",String.valueOf(index),String.valueOf(9));
+		String balance=element("txt_endDate",String.valueOf(index),String.valueOf(9)).getText().trim();
+		Assert.assertNotEquals(Double.parseDouble(balance), 0.00, 0.01, "ASSERT FAILED : Balance value is null\n");//(Double.parseDouble(balance)==0.00,"ASSERT FAILED : Balance value is 0.00");
+		logMessage("ASSERT PASSED : Balance value is not null\n");
+	}
+		
+	public int verifyProductUnderDetailsMenu(String productName){
+		int i;
+		flag=false;
+		waitForSpinner();
+		for(i=1;i<=elements("table_rows").size();i++){
+			if(element("txt_endDate",String.valueOf(i),String.valueOf(4)).getText().trim()
+					.equals(productName)){
+				flag=true;
+				break;
+			}
+		}
+		Assert.assertTrue(flag,"ASSERT FAILED : "+productName+" product is not present under menu");
+		logMessage("ASSERT PASSED : "+productName+" product is present under invoices at index "+i);
+		return i;
+	}
 }
