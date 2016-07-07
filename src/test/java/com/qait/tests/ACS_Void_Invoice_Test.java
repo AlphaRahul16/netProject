@@ -17,7 +17,7 @@ import com.qait.automation.utils.YamlReader;
 public class ACS_Void_Invoice_Test {
 
 	TestSessionInitiator test;
-	String app_url_IWEB;
+	String app_url_IWEB,prodName="Regular Member Dues C&EN-Electronic";
 	int index;
 	List<String> productList=new ArrayList<String>();
 
@@ -45,14 +45,14 @@ public class ACS_Void_Invoice_Test {
 	public void Step03_Select_Query_In_Query_Membership_Page(){
 		test.homePageIWEB.clickOnSideBarTab("Members");
 		test.memberShipPage.clickOnTab("Query Membership");
-		test.memberShipPage.selectAndRunQuery(getYamlValue("VoidWithAdjustment.queryName"));
+		test.memberShipPage.selectAndRunQuery(YamlReader.getYamlValue("VoidWithAdjustment.queryName"));
 		test.homePageIWEB.verifyUserIsOnHomePage("Membership | Members | Membership Profile");
 	}
 	
 	@Test
 	public void Step04_Verify_Payment_And_Balance_Fields_Values(){
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("invoices");
-		index=test.memberShipPage.verifyProductUnderDetailsMenu("Regular Member Dues C&EN-Electronic");
+		index=test.memberShipPage.verifyProductUnderDetailsMenu(prodName);
 		test.memberShipPage.verifyPayment(index);
 		test.memberShipPage.verifyBalance(index);
 	}
@@ -64,7 +64,7 @@ public class ACS_Void_Invoice_Test {
 		test.invoicePage.verifyMemberDetails_question("paid in full", "No");
 		test.invoicePage.verifyBalanceIsNotNull("balance", 0.00);
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("line items");
-		test.acsVoidInvoice.verifyProductUnderLineItems("Regular Member Dues C&EN-Electronic",5);
+		test.acsVoidInvoice.verifyProductUnderLineItems(prodName,5);
 		productList=test.acsVoidInvoice.getProductsUnderLineItemsMenu(5);
 	}
 	
@@ -72,7 +72,6 @@ public class ACS_Void_Invoice_Test {
 	public void Step06_Creation_Of_New_Batch(){
 		test.invoicePage.getDataFromInvoiceProfilePage("invoice number");
 		test.acsVoidInvoice.clickOnVoidInvoiceButton("void invoice", 4);
-//		test.acsVoidInvoice.verifyPageTitle("Void Invoice");
 		test.acsVoidInvoice.createBatch(1,6,"QA");
 		test.acsVoidInvoice.enterActionValues("Void with Adjustment");
 		test.acsVoidInvoice.clickOnSaveButton();

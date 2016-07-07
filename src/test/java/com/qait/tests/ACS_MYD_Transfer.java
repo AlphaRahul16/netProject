@@ -71,7 +71,7 @@ public class ACS_MYD_Transfer {
 		test.homePageIWEB.verifyUserIsOnHomePage("Membership | Members | Membership Profile");
 		test.memberShipPage.getContactIdOfUser("Customer");
 		test.memberShipPage.verifyMemberTypeAndPackage("Regular Member","Active Renewed-No Response");
-		test.memberShipPage.expandDetailsMenu("invoices");
+		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("invoices");
 		test.memberShipPage.verifyTermEndDateAndStartDateIsEmpty();	
 		test.memberShipPage.verfiyMemberPackage(test.memberShipPage.map().get("Original MemberPackage"));
 		test.memberShipPage.verifyRenewalPackage(test.memberShipPage.map().get("Original MemberPackage"));

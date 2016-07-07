@@ -983,8 +983,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnTab(String tabName) {
 		isElementDisplayed("link_tabsOnModule", tabName);
-		clickUsingXpathInJavaScriptExecutor(element("link_tabsOnModule", tabName));
-		// element("link_tabsOnModule", tabName).click();
+		if(isBrowser("safari"))
+	        element("link_tabsOnModule", tabName).click();
+		else
+			clickUsingXpathInJavaScriptExecutor(element("link_tabsOnModule", tabName));
 		logMessage("STEP : " + tabName + " tab is clicked\n");
 
 	}
@@ -2342,6 +2344,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyTermEndDateAndStartDateIsEmpty() {
+		hardWaitForIEBrowser(2);
 		Assert.assertTrue(element("txt_termStartDaterenewal", "1").getText().length() == 1,
 				"Term Start Date is not Empty");
 		logMessage("ASSERT PASSED : Term Start date is empty\n");
@@ -2376,10 +2379,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	// }
 
 	public void verfiyMemberPackage(String memberPackage) {
+		System.out.println("-----");
 		wait.waitForPageToLoadCompletely();
 		wait.resetImplicitTimeout(4);
 		wait.resetExplicitTimeout(hiddenFieldTimeOut);
+		System.out.println("-----before spinner");
 		waitForSpinner();
+		System.out.println("-----before wait");
+		hardWaitForIEBrowser(3);
 		memberPackage = memberPackage.split(": ", 3)[2];
 		isElementDisplayed("txt_memberInfo", "member package");
 		Assert.assertTrue(memberPackage.equals(element("txt_memberInfo", "member package").getText().trim()),
@@ -2423,16 +2430,17 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void selectTerm(String term) {
 		isElementDisplayed("list_term");
-		logMessage("STEP : Select " + term + " term from list\n");
 		selectProvidedTextFromDropDown(element("list_term"), term);
+		logMessage("STEP : Select " + term + " term from list\n");
 	}
 
 	public void selectNewPackage(String newPackage) {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(2);
+		hardWaitForIEBrowser(2);
 		isElementDisplayed("list_newPackage");
-		logMessage("STEP : Select " + newPackage + " new package from list\n");
 		selectProvidedTextFromDropDown(element("list_newPackage"), newPackage);
+		logMessage("STEP : Select " + newPackage + " new package from list\n");
 	}
 
 	public void verifyChangeInAmountBalance(Double previousAmount, Double newAmount, String oldPackage, String Year) {
@@ -2470,8 +2478,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_transferNow");
 		element("btn_transferNow").click();
 		logMessage("STEP : Clicked on Transfer Now button\n");
+		System.out.println("----before switch");
 		switchToDefaultContent();
+		System.out.println("----after switch");
 		wait.waitForPageToLoadCompletely();
+		System.out.println("----after wait");
 		// wait.hardWait(4);
 	}
 

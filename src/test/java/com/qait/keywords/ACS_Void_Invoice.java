@@ -79,7 +79,7 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 			wait.hardWait(1);
 			hardWaitForIEBrowser(3);
 			selectProvidedTextFromDropDown(element("drpdwn_invoiceAction",String.valueOf(j)), actionValue);
-		   logMessage("STEP : Action value entered as "+actionValue+" for product "+j+"\n");
+		   logMessage("STEP : Action value entered as "+actionValue+" for product "+i+"\n");
 		   j++;
 		}
 	}
@@ -105,7 +105,7 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 			productList.add(ele.getText().trim());
 		}
 		for (String str : productList) {
-			System.out.println("-----"+str);
+			System.out.println(str);
 		}
 		return productList;
 	}
@@ -142,6 +142,7 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 	
 	public void verifyNotAMember(String index,String memberField){
 		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(2);
 		isElementDisplayed("img_memberBenefits",index);
 		logMessage("ASSERT PASSED : "+memberField+" field is closed\n");
 	}

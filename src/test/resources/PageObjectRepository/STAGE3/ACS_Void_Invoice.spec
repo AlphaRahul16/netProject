@@ -15,4 +15,6 @@ table_productName                              xpath                            
 txt_voidInvoice                                css                                .DataFormLabelErrorMessage
 txt_emptyLineItems                             css                                .DataFormFooterTD
 img_memberBenefits                             xpath                              //img[@id='F1_IMAGE_${index}']
+img_spinner                                    css                                #__UPIMG
+
 ======================================================================================================================================
