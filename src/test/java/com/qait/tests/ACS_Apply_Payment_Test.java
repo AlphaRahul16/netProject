@@ -52,7 +52,6 @@ public class ACS_Apply_Payment_Test {
 		test.invoicePage.verifyMemberDetails_question("paid in full", "No");
 		test.invoicePage.verifyBalanceInInvoice(test.invoicePage
 				.getMemberDetails("invoice total"));
-
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("line items");
 		test.invoicePage.verifyPaidClosedValueNo();
 		test.invoicePage.clickOnAddPaymentIcon();
@@ -68,13 +67,11 @@ public class ACS_Apply_Payment_Test {
 				"2017/07", "123");
 		test.applyPayment.clickOnSaveButton();
 		test.applyPayment.switchToDefaultContent();
-		test.invoicePage.verifyMemberDetails_question("proforma", "No");
+//		test.invoicePage.verifyMemberDetails_question("proforma", "No");
 		test.invoicePage.verifyMemberDetails_question("paid in full", "Yes");
 		test.invoicePage.verifyBalanceInInvoice("0.00");
-
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("line items");
 		test.invoicePage.verifyPaidClosedStatus_Yes();
-
 	}
 
 	@BeforeClass

@@ -371,6 +371,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyMemberDetails_question(String detailName,
 			String detailValue) {
+		hardWaitForIEBrowser(3);
 		isElementDisplayed("txt_memberDetail_q", detailName);
 		System.out.println("actual : "
 				+ element("txt_memberDetail_q", detailName).getText().trim());
@@ -825,30 +826,34 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public String getDataFromInvoiceProfilePage(String field) {
 		isElementDisplayed("txt_invoiceValues", field);
-		logMessage("STEP : "+field+" is : "+element("txt_invoiceValues", field).getText().trim());
+		logMessage("STEP : " + field + " is : "
+				+ element("txt_invoiceValues", field).getText().trim());
 		return element("txt_invoiceValues", field).getText().trim();
 	}
-	
-	public void verifyBalanceIsNotNull(String detailName,double detailValue){
+
+	public void verifyBalanceIsNotNull(String detailName, double detailValue) {
 		isElementDisplayed("txt_memberDetails", detailName);
 		System.out.println("actual : "
 				+ element("txt_memberDetails", detailName).getText().trim());
 		System.out.println("exp:" + detailValue);
-		Assert.assertTrue(Double.parseDouble(element("txt_memberDetails", detailName).getText()
-				.trim())!=(detailValue),"ASSERT FAILED : "+detailName+" is not "+detailName);
+		Assert.assertTrue(Double.parseDouble(element("txt_memberDetails",
+				detailName).getText().trim()) != (detailValue),
+				"ASSERT FAILED : " + detailName + " is not " + detailName);
 		logMessage("ASSERT PASSED : " + detailValue + " is verified for "
 				+ detailName + " \n");
 	}
-	
-//	public void verifyBalnceIsVoid(String detailName,double detailValue){
-//		isElementDisplayed("txt_memberDetails", detailName);
-//		System.out.println("actual : "
-//				+ element("txt_memberDetails", detailName).getText().trim());
-//		System.out.println("exp:" + detailValue);
-//		String balance=element("txt_endDate",String.valueOf(index),String.valueOf(9)).getText().trim();
-//		Assert.assertEquals(Double.parseDouble(balance), 0.00, 0.01, "ASSERT FAILED : Balance value is not 0.00");//(Double.parseDouble(balance)==0.00,"ASSERT FAILED : Balance value is 0.00");
-//		logMessage("ASSERT PASSED : Balance value is 0.00");
-//	}
+
+	// public void verifyBalnceIsVoid(String detailName,double detailValue){
+	// isElementDisplayed("txt_memberDetails", detailName);
+	// System.out.println("actual : "
+	// + element("txt_memberDetails", detailName).getText().trim());
+	// System.out.println("exp:" + detailValue);
+	// String
+	// balance=element("txt_endDate",String.valueOf(index),String.valueOf(9)).getText().trim();
+	// Assert.assertEquals(Double.parseDouble(balance), 0.00, 0.01,
+	// "ASSERT FAILED : Balance value is not 0.00");//(Double.parseDouble(balance)==0.00,"ASSERT FAILED : Balance value is 0.00");
+	// logMessage("ASSERT PASSED : Balance value is 0.00");
+	// }
 
 	public void verifyPaidClosedValueNo() {
 		isElementDisplayed("txt_paid_closed");
@@ -876,8 +881,14 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnAddPaymentIcon() {
 		isElementDisplayed("img_addPayment");
-		element("img_addPayment").click();
-		logMessage("Step : click on add payment icon\n");
+		if (isIEBrowser()) {
+			clickUsingXpathInJavaScriptExecutor(element("img_addPayment"));
+			logMessage("Step : click on add payment icon\n");
+		} else {
+			element("img_addPayment").click();
+			logMessage("Step : click on add payment icon\n");
+		}
+
 	}
 
 	public void clickOnGoToArrowButton() {
