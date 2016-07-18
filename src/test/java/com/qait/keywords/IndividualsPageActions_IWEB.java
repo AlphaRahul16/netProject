@@ -591,16 +591,21 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(3);
 		try {
+			hardWaitForIEBrowser(8);
 			isElementDisplayed("img_moreMenu");
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
+			logMessage("Step : More link is clicked\n");
 
+			hardWaitForIEBrowser(4);
 			isElementDisplayed("link_moreMenuName", "Issues");
 			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName", "Issues"));
 
 			logMessage("Step : Issues link is clicked\n");
 			waitForSpinner();
-			isElementDisplayed("btn_memberShip", "issues fulfilled");
-			clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", "issues fulfilled"));
+			clickAndHold(element("btn_memberShip", "issues fulfilled"));
+
+//			isElementDisplayed("btn_memberShip", "issues fulfilled");
+//			clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", "issues fulfilled"));
 
 			logMessage("Step : Navigate to Issues menu on clicking more button\n");
 
@@ -1006,7 +1011,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnArrowButtonForProductName(String productName) {
 		isElementDisplayed("btnArrowProdName", productName);
 		clickUsingXpathInJavaScriptExecutor(element("btnArrowProdName", productName));
-		// element("btnArrowProdName", productName).click();
+//		 element("btnArrowProdName", productName).click();
 		logMessage("Step : Arrow button is clicked for product name " + productName);
 	}
 

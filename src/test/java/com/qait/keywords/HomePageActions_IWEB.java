@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Reporter;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.qait.automation.utils.ConfigPropertyReader;
 
 public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 
@@ -90,8 +91,9 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	// }
 
 	public void clickOnSideBarTab(String tabName) {
+		wait.waitForPageToLoadCompletely();
 		wait.hardWait(2);
-		hardWaitForIEBrowser(6);
+		hardWaitForIEBrowser(10);
 		isElementDisplayed("hd_sideBar", tabName);
 
 		if (isBrowser("chrome")||isBrowser("safari")) {
@@ -128,8 +130,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("tab_tabArear");
 	}
 
-	public void clickOnModuleTab() {
-
+	public void clickOnModuleTab() {		
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("btn_tabs");
 		wait.hardWait(1);

@@ -124,7 +124,7 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 		isElementDisplayed("table_productName",String.valueOf(index));
 		for(WebElement ele: elements("table_productName",String.valueOf(index))){
 			for(int j=0; j<expectedProductList.size();j++){
-				if(expectedProductList.get(j).contains(ele.getText().trim())){
+				if(expectedProductList.get(j).equalsIgnoreCase(ele.getText().trim())){
 					flag= true;
 					break;
 				}
@@ -137,7 +137,7 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 	public void verifyMessageUnderLineItemsMenu(String msg){
 		isElementDisplayed("txt_emptyLineItems");
 		Assert.assertEquals(element("txt_emptyLineItems").getText().trim(), msg,"ASSERT FAILED : Message "+msg+" is not displayed\n");
-		logMessage("ASSERT PASSED : Message "+msg+" is displayed\n");
+		logMessage("ASSERT PASSED : Message '"+msg+"' is displayed\n");
 	}
 	
 	public void verifyNotAMember(String index,String memberField){

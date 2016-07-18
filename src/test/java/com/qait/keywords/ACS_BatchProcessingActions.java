@@ -4,12 +4,15 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.DateUtil;
 
 
@@ -25,8 +28,10 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 	}
 
 	public void clickEditButtonOnBatchProcessingPage() {
+		hardWaitForChromeBrowser(2);
 		isElementDisplayed("btn_edit");
-		element("btn_edit").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_edit"));
+//		element("btn_edit").click();
 		logMessage("Step : Edit button on batch Processing page is clicked\n");
 		
 	}
@@ -46,8 +51,12 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 	}
 
 	public void fillControlDetailsEqualToBatchDetails(String type,String value) {
+		if(isBrowser("ie") || (isBrowser("internet explorer")))
+			element("inp_control"+type).clear();
+		else{
 		element("inp_control"+type).click();
-		element("inp_control"+type).sendKeys(Keys.chord(Keys.CONTROL, "a"));
+	    element("inp_control"+type).sendKeys(Keys.chord(Keys.CONTROL, "a"));
+		}
 		element("inp_control"+type).sendKeys(value);
 		logMessage("Step : Control "+type+" as "+value+" is equal to Batch "+type);
 	}
@@ -56,53 +65,104 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 	public void clickSaveButton()
 	{
 		isElementDisplayed("btn_save");
-		element("btn_save").click();
+		if(isBrowser("ie")|| isBrowser("internet explorer"))
+			clickUsingXpathInJavaScriptExecutor(element("btn_save"));
+		else
+		    element("btn_save").click();
 		logMessage("Step : Save button is clicked\n");
 		
 	}
-	public void enterDetailsForBatchProcessingAndClickSaveButton()
+	public List<String> enterDetailsForBatchProcessingAndClickSaveButton()
 	{
-		switchToFrame(element("iframe1"));
-		fillControlDetailsEqualToBatchDetails("Total",getBatchTotalAmount());
-		fillControlDetailsEqualToBatchDetails("Count",getBatchTotalCount());
+		List<String> batchValues=new ArrayList<>();
+		if(isBrowser("ie")|| isBrowser("internet explorer")){
+			switchToFrame("iframe1");
+		}
+		else
+		    switchToFrame(element("iframe1"));
+		wait.hardWait(2);
+		String batchTotal=getBatchTotalAmount();
+		String batchCount=getBatchTotalCount();
+		batchValues.add(batchTotal);
+		batchValues.add(batchCount);
+		fillControlDetailsEqualToBatchDetails("Total",batchTotal);
+		fillControlDetailsEqualToBatchDetails("Count",batchCount);
 		clickSaveButton();
 		switchToDefaultContent();
+		return batchValues;
 	}
 	
-	public void verifyDetailsOnBatchSummaryInfo(String type)
+	public void verifyDetailsOnBatchSummaryInfo(String type,String batchTotal)
 	{
-		System.out.println(elements("txt_batchDetailsSummary",type).get(0).getText());
-		System.out.println(elements("txt_batchDetailsSummary",type).get(1).getText());
-		Assert.assertTrue(elements("txt_batchDetailsSummary",type).get(0).getText().equals(
-				elements("txt_batchDetailsSummary",type).get(1).getText()));
+		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(4);
+		Assert.assertTrue(pollTextForIe(type,batchTotal));
+//		Assert.assertTrue(elements("txt_batchDetailsSummary",type).get(0).getText().equals(
+//				elements("txt_batchDetailsSummary",type).get(1).getText()));
 		logMessage("ASSERT PASSED : Control "+type+" on batch summary info is equal to Batch "+type);
 	}
 	
 
 	public void clickOnBatchProcessButton(String btnName) {
 		isElementDisplayed("btn_ForProcesingBatch",btnName);
-		wait.hardWait(2);
-		element("btn_ForProcesingBatch",btnName).click();
-		logMessage("Step : "+btnName+" is clicked on batch processing page\n");
-		
+		String current = driver.getWindowHandle();
+		executeJavascript("window.oldConfirm = window.confirm; window.confirm = function(){return true;}");	
+		if(isBrowser("ie")||isBrowser("internetexplorer")){
+			clickUsingXpathInJavaScriptExecutor(element("btn_ForProcesingBatch",btnName));
+			wait.hardWait(2);
+            //logMessage("Step : Switched to Pop Up Window, title is verified as "+getPageTitle());
+	    }
+		else{
+		    element("btn_ForProcesingBatch",btnName).click();
+		    logMessage("Step : "+btnName+" is clicked on batch processing page\n");	
+		} 
+		switchWindow(current);
+	}
+	
+	public void switchWindow(String current){
+		Set<String> handles = driver.getWindowHandles();
+ 		for(String handle : handles){
+ 			if(!(handle.equalsIgnoreCase(current))){
+ 					driver.switchTo().window(handle);
+ 					break;
+ 			}
+ 		}  		
+        System.out.println("In "+getPageTitle());
+        driver.switchTo().window(current);
+	}
+	
+	public boolean pollTextForIe(String type,String batchValue){
+		boolean flag=false;
+		int pollingTimeOut=Integer.parseInt(ConfigPropertyReader.getProperty("pollingTimeOut"));
+		for(int i=1;i<=pollingTimeOut;i++){
+			try {
+				Thread.sleep(1000);
+			if(elements("txt_batchDetailsSummary",type).get(0).getText().equals(batchValue)){
+				flag=true;
+				break;
+			}
+			} catch (InterruptedException e) {
+				logMessage("STEP : Interrupted exception" );
+			}
+		}
+		return flag;	
 	}
 
 	public void verifyPopUpWindowVisibility() {
 		SwitchToPopUpWindowAndVerifyTitle();
-		wait.waitForPageToLoadCompletely();
+		//wait.waitForPageToLoadCompletely();
 		
 	}
 
 	public void clickOnBatchProcessButtonsAndVerifyPopUpWindowAppears() {
         clickOnBatchProcessButton("PreProcess");
-		verifyPopUpWindowVisibility();
-		clickOnBatchProcessButton("CloseButton");
-		waitForAlertToAppear();
-		verifyPopUpWindowVisibility();
+		//verifyPopUpWindowVisibility();
+		clickOnBatchProcessButton("CloseButton");    
+//		waitForAlertToAppear();
+//		verifyPopUpWindowVisibility();
 		clickOnBatchProcessButton("PostButton");
-		verifyPopUpWindowVisibility();
-		clickOnBatchProcessButton("ACSBatchSalesTaxButton");
-		
+//		verifyPopUpWindowVisibility();
+		clickOnBatchProcessButton("ACSBatchSalesTaxButton");	
 	}
 
 	public void verifyBatchDetailsAfterProcessing() {

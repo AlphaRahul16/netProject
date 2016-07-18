@@ -83,6 +83,10 @@ public class Test123 {
 		}
 		 System.out.println("value :"+eventsMap.get("a").get(1).trim());
 		 
+		 String str="unpaid|credit";
+		 String str1[];
+		 str1=str.split("|");
+		 System.out.println("---------"+str1[0]+"-------"+str1[1]);
 		 
 		 
 //		 int size,i,j;

@@ -47,8 +47,10 @@ public class ACS_IndividualLandingPage_Smoke {
 	@Test
 	public void Step01_TC01_Launch_IWeb_Application_And_Navigate_To_Funds() {
 		Reporter.log("CASE ID : " + caseID, true);
-		mapSheetData = test.homePageIWEB.addValuesInMap("landingPage", caseID);
+		mapSheetData = test.homePageIWEB.addValuesInMap("landingPage", caseID);	
 		test.navigateToIWEBUrlOnNewBrowserTab(app_url_IWEB);
+		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
+				YamlReader.getYamlValue("Authentication.password"));	
 		
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 		test.homePageIWEB.clickOnModuleTab();

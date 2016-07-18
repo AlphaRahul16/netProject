@@ -378,7 +378,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		Assert.assertTrue(element("txt_memberDetail_q", detailName).getText()
 				.trim().equalsIgnoreCase(detailValue));
 		logMessage("ASSERT PASSED : " + detailValue + " is verified for "
-				+ detailName + " in txt_memberDetail_q\n");
+				+ detailName + " field\n");
 	}
 
 	public void verifyMemberDetails(String detailName, String detailValue) {
@@ -833,11 +833,9 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_memberDetails", detailName);
 		System.out.println("actual : "
 				+ element("txt_memberDetails", detailName).getText().trim());
-		System.out.println("exp:" + detailValue);
 		Assert.assertTrue(Double.parseDouble(element("txt_memberDetails", detailName).getText()
-				.trim())!=(detailValue),"ASSERT FAILED : "+detailName+" is not "+detailName);
-		logMessage("ASSERT PASSED : " + detailValue + " is verified for "
-				+ detailName + " \n");
+				.trim())!=(detailValue),"ASSERT FAILED : "+detailName+" is not verified\n");
+		logMessage("ASSERT PASSED : " + detailName + " is verified as not null\n");
 	}
 	
 //	public void verifyBalnceIsVoid(String detailName,double detailValue){
