@@ -27,8 +27,14 @@ public class ACS_Apply_Payment_Actions extends ASCSocietyGenericPage {
 
 	public void clickOnNextButton() {
 		isElementDisplayed("btn_next");
-		element("btn_next").click();
-		logMessage("Step : Clicked on next button\n");
+		if (isIEBrowser()) {
+			clickUsingXpathInJavaScriptExecutor(element("btn_next"));
+			logMessage("Step : Clicked on next button\n");
+		} else {
+			element("btn_next").click();
+			logMessage("Step : Clicked on next button\n");
+		}
+
 	}
 
 	public void verifyTabName(String tabName) {
@@ -73,8 +79,14 @@ public class ACS_Apply_Payment_Actions extends ASCSocietyGenericPage {
 
 	public void clickOnSaveButton() {
 		isElementDisplayed("btn_Save");
-		element("btn_Save").click();
-		logMessage("Step : save button is clicked\n");
+		if (isIEBrowser()) {
+			clickUsingXpathInJavaScriptExecutor(element("btn_Save"));
+			logMessage("Step : save button is clicked\n");
+		} else {
+			element("btn_Save").click();
+			logMessage("Step : save button is clicked\n");
+		}
+
 		waitForSpinner();
 	}
 
