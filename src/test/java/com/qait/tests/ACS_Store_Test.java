@@ -38,7 +38,8 @@ public class ACS_Store_Test {
 	@Test
 	public void Step01_TC01_Search_Product_Using_Product_key() {
 		String caseId = getStoreCaseId.get_ACSStoreCaseId("CASEID");
-		test.navigateToIWEBUrlOnNewBrowserTab(app_url_IWEB);
+		test.launchApplication(app_url_IWEB);
+		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"), YamlReader.getYamlValue("Authentication.password"));
 		
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
@@ -118,7 +119,7 @@ public class ACS_Store_Test {
 
 	@Test
 	public void Step06_TC06_Launch_IWEB_Application_Under_Test() {
-		test.navigateToIWEBUrlOnNewBrowserTab(app_url_IWEB);
+		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 

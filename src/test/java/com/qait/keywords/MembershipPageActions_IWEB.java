@@ -2349,7 +2349,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyTermEndDateAndStartDateIsEmpty() {
-		hardWaitForIEBrowser(2);
+		hardWaitForIEBrowser(6);
 		Assert.assertTrue(element("txt_termStartDaterenewal", "1").getText().length() == 1,
 				"Term Start Date is not Empty");
 		logMessage("ASSERT PASSED : Term Start date is empty\n");
