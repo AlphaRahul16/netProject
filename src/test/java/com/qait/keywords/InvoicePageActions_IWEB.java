@@ -19,7 +19,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	WebDriver driver;
 	String pagename = "InvoicePage_IWEB";
 	String invoiceTotal, LSDues;
-	int timeOut, hiddenFieldTimeOut;
+	int timeOut, hiddenFieldTimeOut, count;
 
 	public InvoicePageActions_IWEB(WebDriver driver) {
 		super(driver, "InvoicePage_IWEB");
@@ -371,6 +371,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyMemberDetails_question(String detailName,
 			String detailValue) {
+		hardWaitForIEBrowser(3);
 		isElementDisplayed("txt_memberDetail_q", detailName);
 		System.out.println("actual : "
 				+ element("txt_memberDetail_q", detailName).getText().trim());
@@ -378,7 +379,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		Assert.assertTrue(element("txt_memberDetail_q", detailName).getText()
 				.trim().equalsIgnoreCase(detailValue));
 		logMessage("ASSERT PASSED : " + detailValue + " is verified for "
-				+ detailName + " in txt_memberDetail_q\n");
+				+ detailName + " field\n");
 	}
 
 	public void verifyMemberDetails(String detailName, String detailValue) {
@@ -390,6 +391,19 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 				.trim().equalsIgnoreCase(detailValue));
 		logMessage("ASSERT PASSED : " + detailValue + " is verified for "
 				+ detailName + " \n");
+	}
+
+	public void verifyBalanceInInvoice(String balanceAmount) {
+		verifyMemberDetails("balance", balanceAmount);
+	}
+
+	public String getMemberDetails(String detailName) {
+		isElementDisplayed("txt_memberDetails", detailName);
+		String value = element("txt_memberDetails", detailName).getText()
+				.trim();
+
+		logMessage("Step : The value for " + detailName + " is " + value + "\n");
+		return value;
 	}
 
 	public void verifyBatchAtRenewal(String batchName) {
@@ -812,7 +826,79 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public String getDataFromInvoiceProfilePage(String field) {
 		isElementDisplayed("txt_invoiceValues", field);
+		logMessage("STEP : " + field + " is : "
+				+ element("txt_invoiceValues", field).getText().trim() + "\n");
 		return element("txt_invoiceValues", field).getText().trim();
 	}
 
+	public void verifyBalanceIsNotNull(String detailName, double detailValue) {
+		isElementDisplayed("txt_memberDetails", detailName);
+		System.out.println("actual : "
+				+ element("txt_memberDetails", detailName).getText().trim());
+		System.out.println("exp:" + detailValue);
+		Assert.assertTrue(Double.parseDouble(element("txt_memberDetails",
+				detailName).getText().trim()) != (detailValue),
+				"ASSERT FAILED : " + detailName + " is not " + detailName);
+		logMessage("ASSERT PASSED : " + detailValue + " is verified for "
+				+ detailName + " \n");
+	}
+
+	public void verifyPaidClosedValueNo() {
+		isElementDisplayed("txt_paid_closed");
+		for (WebElement element : elements("txt_paid_closed")) {
+			if (element.getText().trim().equalsIgnoreCase("N")) {
+				count++;
+			}
+		}
+		if (count <= 0) {
+			Assert.fail("ASSERT FAILED : Paid/Closed status are Yes for all\n ");
+		}
+		logMessage("Step : At least one payment paid/closed status is N\n");
+	}
+
+	public void verifyPaidClosedStatus_Yes() {
+		isElementDisplayed("txt_paid_closed");
+		for (WebElement element : elements("txt_paid_closed")) {
+			if (element.getText().trim().equalsIgnoreCase("N")) {
+				Assert.fail("ASSERT FAILED : paid/closed status contains N/n");
+			}
+		}
+
+		logMessage("ASSERT PASSED : Paid/Closed is verified as Yes in line itmes\n");
+	}
+
+	public void clickOnAddPaymentIcon() {
+		isElementDisplayed("img_addPayment");
+		if (isIEBrowser()) {
+			clickUsingXpathInJavaScriptExecutor(element("img_addPayment"));
+			logMessage("Step : click on add payment icon\n");
+		} else {
+			element("img_addPayment").click();
+			logMessage("Step : click on add payment icon\n");
+		}
+
+	}
+
+	public void clickOnGoToArrowButton() {
+		isElementDisplayed("txt_termStartDate");
+		isElementDisplayed("txt_termEndDate");
+		int size = elements("txt_termStartDate").size();
+		for (int i = 0; i < size; i++) {
+			System.out.println("start date :"
+					+ elements("txt_termStartDate").get(i).getText() + ":");
+			System.out.println("end date :"
+					+ elements("txt_termEndDate").get(i).getText() + ":");
+			if (elements("txt_termStartDate").get(i).getText()
+					.equalsIgnoreCase(" ")
+					&& elements("txt_termEndDate").get(i).getText()
+							.equalsIgnoreCase(" ")) {
+				isElementDisplayed("btn_goToArrow");
+				element("btn_goToArrow", String.valueOf(i)).click();
+				logMessage("Step : Go To Arrow button is clicked for empty term start and end date\n");
+				break;
+			}
+
+		}
+
+	}
 }

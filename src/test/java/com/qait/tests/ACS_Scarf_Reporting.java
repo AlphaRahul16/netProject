@@ -96,14 +96,14 @@ public class ACS_Scarf_Reporting {
 		chapterName = test.memberShipPage.getChapterDetails();
 		test.memberShipPage.clickOnRelationsOptionUnderMoreMenu();
 		test.memberShipPage.selectStudentMember();
-		memberDetails = test.acsScarfReporting.getMemberDetails();
+		memberDetails = test.memberShipPage.getMemberDetails();
 	}
 
 	@Test
 	public void Step06_Login_Into_Student_Chapter_Eweb_Application_And_Verify_Report_Status() {
 		test.launchApplication(getYamlValue("app_url_EwebReporting"));
 		test.acsScarfReporting.loginWithLastNameAndMemberId(memberDetails.get(0), memberDetails.get(1));// "McKinley","30938296" "Davis","30761435""Wolf","308413336
-//        test.acsScarfReporting.loginWithLastNameAndMemberId("Tchalla","30926975");
+//        test.acsScarfReporting.loginWithLastNameAndMemberId("Landrum","30793155");//"Tchalla","30926975"
 		test.acsScarfReporting.verifyStudentChapterReportingPage();
 		test.acsScarfReporting.verifyReportStatus("Pending");
 		chapFacultyAdvisor = test.acsScarfReporting.getChapterFacultyAdvisor();
@@ -204,12 +204,13 @@ public class ACS_Scarf_Reporting {
 	public void Step18_Search_For_The_Submitted_Chapter_Report() {
 		test.acsScarfReporting.clickOnSideBarTabStudentChapter("Student Chapter Report", 2);
 		test.acsScarfReporting.clickOnSideBarSubTab("Find");
-		test.acsScarfReporting.findSubmiitedChapterReport(chapterName, "Submitted");
+		test.acsScarfReporting.findSubmiitedChapterReport(chapterName, "Submitted");// chapterName "Kennesaw State University Student Chapter"
 		test.acsScarfReporting.clickOnGoButton();
 	}
 
 	@Test
 	public void Step19_Verify_Submitted_Report_Details() {
+//		eventsMap=test.acsScarfReporting.addevents();
 		test.acsScarfReporting.verifyIwebReportStatus();
 		test.acsScarfReporting
 				.verifyChemistryUndergraduateMajorsInReport(dataList.get("Undergraduates Majoring in Chemistry"));
@@ -218,14 +219,14 @@ public class ACS_Scarf_Reporting {
 		test.acsScarfReporting.verifyChapterFacultyAdvisorOnReport(chapFacultyAdvisor);
 		test.memberShipPage.collapseDetailsMenu("individual relationships");
 		test.memberShipPage.expandDetailsMenu("event list");
-		test.acsScarfReporting.verifyEventsOnReport(eventsMap);
+		test.acsScarfReporting.verifyEvents(eventsMap);
 		test.acsScarfReporting.verifyPresenceOfReportPdf(chapterName);
 		test.memberShipPage.collapseDetailsMenu("event list");
 		test.memberShipPage.expandDetailsMenu("report answers");
 		test.acsScarfReporting.iterateThroughReportAnswers();
 	}
 
-	@AfterClass
+//	@AfterClass
 	public void Close_Browser_Session() {
 		test.closeBrowserSession();
 	}
