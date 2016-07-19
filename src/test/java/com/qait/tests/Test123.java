@@ -41,7 +41,16 @@ public class Test123 {
 		/*String date="05/04/2016";*/
 
 	public static void main(String args[]){
-        String category[]={"a","b","c","a"};
+		
+		String s= "unpaid|credit";
+		String sp[];
+		//= s.replace("|", " ");
+		sp= s.split("\\|");
+		
+		System.out.println(""+sp[0]);
+		System.out.println(""+sp[1]);
+		
+        /*String category[]={"a","b","c","a"};
 		List<String>eventList,list2;
 		eventList=new ArrayList<>();
 		list2=new ArrayList<>();
@@ -67,7 +76,7 @@ public class Test123 {
 	            System.out.print( "----Value: " + eventsMap.get(e).toString()+ "\n" );
 	           
 		}
-		 System.out.println("value :"+eventsMap.get("a").get(1).trim());
+	*/
 		 
 //		 int size,i,j;
 //			for (String e : eventsMap.keySet()){
