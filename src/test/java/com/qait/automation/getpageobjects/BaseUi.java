@@ -125,7 +125,7 @@ public class BaseUi {
 			expectedPagetitle = getCurrentURL();
 		}
 		try {
-			wait.resetImplicitTimeout(2);
+			wait.resetImplicitTimeout(3);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			wait.waitForPageTitleToContain(expectedPagetitle);
 			wait.resetImplicitTimeout(timeOut);
@@ -184,6 +184,7 @@ public class BaseUi {
 		wait.waitForElementToBeVisible(element);
 		driver.switchTo().frame(element);
 	}
+
 
 	public void switchToFrame(int i) {
 		driver.switchTo().frame(i);

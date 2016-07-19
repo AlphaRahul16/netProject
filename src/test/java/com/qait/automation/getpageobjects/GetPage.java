@@ -67,6 +67,21 @@ public class GetPage extends BaseUi {
 	    }
 	    return flag;
 	  }
+	
+	protected boolean checkIfElementIsThere(String eleString,String replacementEleString) {
+	    boolean flag = false;
+	    try {
+	      if (webdriver.findElement(getLocator(eleString,replacementEleString)).isDisplayed()) {
+	        flag = true;
+	      } else {
+	        flag = false;
+	      }
+	    } catch (NoSuchElementException ex) {
+	      flag = false;
+	    }
+	    return flag;
+	  }
+
 
 	// TODO: put this in right place, create dedicated class for frame and
 	// window handlers

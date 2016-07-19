@@ -3,10 +3,14 @@ package com.qait.keywords;
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
@@ -154,8 +158,10 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 	
 	public void clickOnInputCheckbox(String checkboxName)
 	{
-		isElementDisplayed("inp_batchAddFields",checkboxName);
-		element("inp_batchAddFields",checkboxName).click();
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(3);
+		isElementDisplayed("inp_batchAdvanceView",checkboxName);
+		element("inp_batchAdvanceView",checkboxName).click();
 		logMessage("Step : input box "+checkboxName+" is clicked");
 		wait.waitForPageToLoadCompletely();
 	}
@@ -171,7 +177,8 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 	}
 
 	private void selectBatchSearchCriteria(String drpdownName, String drpdownValue) {
-		
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
 		isElementDisplayed("drodown_batchSearchCriteria",drpdownName);
 		selectProvidedTextFromDropDown(element("drodown_batchSearchCriteria",drpdownName), drpdownValue);
 		logMessage("Step : dropdown for "+drpdownName+" is selected as "+drpdownValue);
@@ -192,5 +199,57 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 		logMessage("Step : "+fieldName+" is entered as "+Value);
 	}
 	
+	public void uncheckAllRefundCCACHCheckboxes()
+	{
+		int size=elements("chkbox_RefundCC").size();
+		for (int i=0;size>0;i++,size--) {
+			System.out.println(elements("chkbox_RefundCC").size());
+			System.out.println(i);
+			System.out.println("before"+elements("chkbox_RefundCC").get(0).getAttribute("checked"));
+			scrollDown(elements("chkbox_RefundCC").get(0));
+			elements("chkbox_RefundCC").get(0).click();
+			wait.waitForPageToLoadCompletely();
+			wait.hardWait(1);
+	
+		}
+	}
+		
+		public ArrayList<String> getRefundAmountInfo()
+		{
+			ArrayList<String> refundInfo = new ArrayList();
+			for (WebElement ele : elements("txt_Refundamount")) {
+				refundInfo.add(ele.getAttribute("value"));
+				
+				logMessage("Step : fetched refund amount with value "+ele.getAttribute("value"));
+			}
+			
+			return refundInfo;
+		}
 
-}
+		public void handelRefundAlert() {
+			waitForAlertToAppear();
+			
+		}
+		
+		public void verifyFtpReportButtonIsInactive()
+		{
+			System.out.println(element("btn_ftpReport").getAttribute("disabled"));
+		}
+
+	
+
+		public void verifyRefundDetails(ArrayList<String> refundInfo,String type) {
+			wait.hardWait(2);
+			for (WebElement ele : elements("tbl_RefundTotal",type)) {
+				System.out.println(ele.getText().trim());
+				Assert.assertTrue(refundInfo.contains(ele.getText().trim()),"amount "+ele.getText().trim()+"not present on "+type+" page\n");
+			    logMessage("ASSERT PASSED : "+type+" amount verified as "+ele.getText().trim());
+			}
+
+		}
+		
+	
+	}
+	
+
+

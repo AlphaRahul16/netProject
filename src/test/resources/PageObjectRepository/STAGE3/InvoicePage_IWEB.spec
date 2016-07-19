@@ -16,6 +16,7 @@ txt_total                       xpath                  //td[contains(text(),'${p
 txt_discount                    xpath                  //td[contains(text(),'${productName}')]//following-sibling::td[5]
 txt_balance                     xpath                  //td[contains(text(),'${productName}')]//following-sibling::td[6]
 btn_detailsMenu                 xpath                 //span[text()='${menuName}']/preceding-sibling::input
+txt_invoiceValues               xpath                 //label[contains(text(),'${invoice value}')]/preceding-sibling::span
 btn_detailsMenuAACT             xpath                 //span[text()='${menuName}']/../a[1]
 table_description               xpath                 //a/../../following-sibling::tr/td[5]
 table_code                      xpath                 //a/../../following-sibling::tr/td[6]

@@ -135,7 +135,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 
 		else {
-
 			selectProvidedTextFromDropDown(element("list_existingQuery"), queryName);
 
 		}
@@ -2559,7 +2558,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(2);
 		isElementDisplayed("drpdown_invoice");
-		selectProvidedTextFromDropDown(element("drpdown_invoice"), "ACS: 2016-05-16-BATCH-001Selenium_Batch");
+		selectProvidedTextFromDropDown(element("drpdown_invoice"), "ACS: SELENIUM_BATCH");
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(2);
 		isElementDisplayed("btn_transferNow");
@@ -2760,8 +2759,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				}
 				break;
 			case "MP Pmt Status":
-				if (/*afterList.get(criteria.getKey()).trim()
-						.contains(criteriaList.get(criteria.getKey()).trim())*/ criteriaList.get(criteria.getKey()).trim().contains(afterList.get(criteria.getKey()).trim().toLowerCase())) {
+				if(criteriaList.get(criteria.getKey()).trim().toLowerCase().contains("unpaid|credit")){
+					String sp[] = criteriaList.get(criteria.getKey()).trim().toLowerCase().split("|");
+					if(afterList.get(criteria.getKey()).trim().toLowerCase().contains(sp[0]) || afterList.get(criteria.getKey()).trim().toLowerCase().contains(sp[1])){
+						ResultList.put(criteria.getKey() + "", "y");
+					}else{
+						ResultList.put(criteria.getKey() + "", "n");
+					}
+				}else if (criteriaList.get(criteria.getKey()).trim().equalsIgnoreCase((afterList.get(criteria.getKey()).trim()))) {
 					ResultList.put(criteria.getKey() + "", "y");
 				} else {
 					ResultList.put(criteria.getKey() + "", "n");
@@ -2788,7 +2793,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 					}else{
 						ResultList.put(criteria.getKey() + "", "n");
 					}
-				} 
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")) {
+					if (beforeList.get(criteria.getKey()).trim()
+							.contains(afterList.get(criteria.getKey()).trim())) {
+						ResultList.put(criteria.getKey() + "", "y");
+					} else {
+						ResultList.put(criteria.getKey() + "", "n");
+					}}
 				break;
 			case "MP Start":
 				line = criteriaList.get(criteria.getKey()).trim().toUpperCase();
@@ -3086,7 +3097,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		} else {
 			html = html + "<tr><td>Test Case Status::</td><td bgcolor='red'>" + "Fail </td></tr><tr>";
 		}
-
+		System.out.println("===>> Notes lenght::"+criteriaList.get("Notes").length());
+		if(criteriaList.get("Notes").length()!=0){
+			html = html + "<tr><td>Notes::</td><td bgcolor='yellow'>"+criteriaList.get("Notes")+"</td></tr><tr>";
+		}else{
+			html = html + "<tr><td>Notes::</td><td>None </td></tr><tr>";
+		}
+		
+		
 		html = html + "<td><h1>Initial Conditions</h1></td></tr><tr><td><b>Initial Mbr Type::</b></td><td>"
 				+ criteriaList.get("Initial Mbr Type") + "</td></tr><tr><td><b>Initial Mbr Status::</b></td><td>"
 				+ criteriaList.get("Initial Mbr Status") + "</td></tr>"
@@ -3095,7 +3113,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ "</td></tr><tr><td><b>Target Mbr Type::</b></td><td>" + criteriaList.get("Target Mbr Type")
 				+ "</td></tr>" + "<tr><td><b>Target Mbr Package::</b></td><td>" + criteriaList.get("Target Mbr Package")
 				+ "</td></tr><tr><td><h1>Test Result</h1></tr></td>"
-				+ "<tr><td><h2>Field</h2></td><td><h2>Before</h2></td><td><h2>After</h2></td><td><h2>Criteria</h2></td><td><h2>Pass?</h2></td></tr>";
+				+ "<tr><td><h2>Field</h2></td><td><h2>Before</h2></td><td><h2>After</h2></td><td><h2>Expected</h2></td><td><h2>Pass?</h2></td></tr>";
 		logMessage("Case ID::" + criteriaList.get("ID"));
 		logMessage("Member/Customer ID::" + custId);
 		logMessage("Initial Conditions>");
@@ -3107,7 +3125,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Target Mbr Package::" + criteriaList.get("Target Mbr Package"));
 		logMessage("==========================================================================================");
 		logMessage("Test Result");
-		logMessage("Field==>Before==>After==>Criteria==>Pass?");
+		logMessage("Field==>Before==>After==>Expected==>Pass?");
 		for (Map.Entry before : beforeList.entrySet()) {
 			if (ResultList.get(before.getKey()).equalsIgnoreCase("n")) {
 				html = html + "<tr><td>" + before.getKey() + "</td><td>" + before.getValue() + "</td><td>"
@@ -3282,5 +3300,34 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ element("txt_endDate", String.valueOf(i), String.valueOf(4)).getText().trim());
 		element("arrow_selectMember", String.valueOf(i)).click();
 	}
-
+	
+	public void verifyPayment(int index){
+		isElementDisplayed("txt_endDate",String.valueOf(index),String.valueOf(8));
+		String payment=element("txt_endDate",String.valueOf(index),String.valueOf(8)).getText().trim();
+		Assert.assertTrue(Double.parseDouble(payment)==0.00,"ASSERT FAILED : Payment value is not 0.00\n");
+		logMessage("ASSERT PASSED : Payment value is 0.00\n");
+	}
+	
+	public void verifyBalance(int index){
+		isElementDisplayed("txt_endDate",String.valueOf(index),String.valueOf(9));
+		String balance=element("txt_endDate",String.valueOf(index),String.valueOf(9)).getText().trim();
+		Assert.assertNotEquals(Double.parseDouble(balance), 0.00, 0.01, "ASSERT FAILED : Balance value is null\n");//(Double.parseDouble(balance)==0.00,"ASSERT FAILED : Balance value is 0.00");
+		logMessage("ASSERT PASSED : Balance value is not null\n");
+	}
+		
+	public int verifyProductUnderDetailsMenu(String productName){
+		int i;
+		flag=false;
+		waitForSpinner();
+		for(i=1;i<=elements("table_rows").size();i++){
+			if(element("txt_endDate",String.valueOf(i),String.valueOf(4)).getText().trim()
+					.equals(productName)){
+				flag=true;
+				break;
+			}
+		}
+		Assert.assertTrue(flag,"ASSERT FAILED : "+productName+" product is not present under menu");
+		logMessage("ASSERT PASSED : "+productName+" product is present under invoices at index "+i);
+		return i;
+	}
 }

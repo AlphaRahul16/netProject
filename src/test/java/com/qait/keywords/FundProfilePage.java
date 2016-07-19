@@ -170,12 +170,10 @@ public class FundProfilePage extends ASCSocietyGenericPage
 		wait.resetImplicitTimeout(timeOut);
 		for(int i=0;i<displayorder.size();i++)
 		{
-			System.out.println(i);
-			System.out.println("Display order "+displayorder.get(i));
+	
             wait.waitForPageToLoadCompletely();
 			toString();
-			System.out.println(element("txt_fundNameByOrder",String.valueOf(displayorder.get(i))).getText().replace(",",""));
-			toString();
+			wait.hardWait(2);
 			mapFundOrder.put("Amount"+i,element("txt_fundNameByOrder", String.valueOf(displayorder.get(i))).getText().replace(",",""));
 		}
 		return mapFundOrder;

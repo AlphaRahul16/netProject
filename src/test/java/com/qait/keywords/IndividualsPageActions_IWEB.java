@@ -5,6 +5,7 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.omg.CORBA.OMGVMCID;
 import org.openqa.selenium.By;
@@ -73,6 +74,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			element("btn_Go").click();
 		}
 		logMessage("STEP:  go button is clicked in btn_Go\n");
+
 	}
 
 	public void verifyMemberDetails(String fName, String lName, String add, String city, String zipCode,
@@ -1525,6 +1527,21 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("select_member",dropdown);
 		selectProvidedTextFromDropDown(element("select_member",dropdown), option);
 		logMessage("STEP : Selected " + option + " from dropdown "+dropdown);
+	}
+
+	public void verifyTableUnderExpandedBarIsNotEmpty(String barName) {
+		Assert.assertTrue(elements("btn_invoicearrow").size()>0,"Table under"+barName+" is empty");
+		logMessage("Table umder "+barName+" is not empty\n");
+		
+	}
+
+	public void selectRandomGotoRecord(String barName) {
+		Random rand = new Random();
+		int randomNumber = rand.nextInt(((elements("btn_invoicearrow").size()-1) - 0) + 1) + 0;
+		System.out.println(randomNumber);
+		elements("btn_invoicearrow").get(randomNumber).click();
+		logMessage("Step : "+barName+" number "+randomNumber+" is selected from the list\n");
+
 	}
 
 	/*
