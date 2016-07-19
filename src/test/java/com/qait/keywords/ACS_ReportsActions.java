@@ -59,13 +59,16 @@ public class ACS_ReportsActions extends ASCSocietyGenericPage  {
 		wait.hardWait(3);
 		if(DeliveryMethod.equalsIgnoreCase("Run Immediately"))
 		{
-		changeWindow(1);
+//		changeWindow(1);
+		switchToWindowHavingIndex(1);
 		isElementDisplayed("txt_reportResult",reportHeading);
 		isElementDisplayed("tbl_report");
 		logMessage("Step : Table is displayed in report result");
 		Assert.assertTrue(element("txt_reportResult",reportHeading).isDisplayed(),"Report Status is fail");
 		logMessage("ASSERT PASSED  : Report is successfully received\n");
 		driver.close();
+		wait.hardWait(5);
+//		switchToWindowHavingIndex(0);
 		changeWindow(0);
 		}
 		

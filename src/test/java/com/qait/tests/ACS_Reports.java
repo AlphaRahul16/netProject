@@ -35,7 +35,8 @@ public class ACS_Reports {
 	@Test
 	public void Step01_Navigate_To_Reports_Module()
 	{
-
+		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
+				YamlReader.getYamlValue("Authentication.password"));		
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Reports");
 

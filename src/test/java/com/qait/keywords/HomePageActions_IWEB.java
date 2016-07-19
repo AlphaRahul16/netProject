@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Reporter;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.qait.automation.utils.ConfigPropertyReader;
 
 public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 
@@ -26,8 +27,8 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		verifyPageTitleContains(pageTitle);
 
-		logMessage("ASSERT PASSED: verified that user is on " + this.pagename + "\n");
-
+		logMessage("ASSERT PASSED: verified that user is on " + this.pagename
+				+ "\n");
 
 	}
 
@@ -90,14 +91,14 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	// }
 
 	public void clickOnSideBarTab(String tabName) {
+		wait.waitForPageToLoadCompletely();
 		wait.hardWait(2);
-		hardWaitForIEBrowser(6);
+		hardWaitForIEBrowser(10);
 		isElementDisplayed("hd_sideBar", tabName);
 
-		if (isBrowser("chrome")) {
+		if (isBrowser("chrome")||isBrowser("safari")) {
 			element("hd_sideBar", tabName).click();
 		} else {
-
 			clickUsingXpathInJavaScriptExecutor(element("hd_sideBar", tabName));
 		}
 		logMessage("STEP : Click on tab " + tabName + " in hd_sideBar \n");
@@ -129,14 +130,15 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("tab_tabArear");
 	}
 
-	public void clickOnModuleTab() {
+	public void clickOnModuleTab() {		
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("btn_tabs");
 		wait.hardWait(1);
 		hardWaitForChromeBrowser(3);
-		
-		executeJavascript("document.getElementsByClassName('dropdown-toggle')[3].click()");
-		// element("btn_tabs").click();
+		if(isBrowser("safari"))
+			element("btn_tabs").click();
+		else
+		    executeJavascript("document.getElementsByClassName('dropdown-toggle')[3].click()");
 		logMessage("STEP :  Module tab is clicked\n");
 	}
 
@@ -145,15 +147,18 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnTab(String tabName) {
-
 		isElementDisplayed("link_tabsOnModule", tabName);
-		hardWaitForIEBrowser(3);
-		clickUsingXpathInJavaScriptExecutor(element("link_tabsOnModule", tabName));
-
-		logMessage("STEP : " + tabName + " tab is clicked\n");
+		if (isIEBrowser()) {
+			clickUsingXpathInJavaScriptExecutor(element("link_tabsOnModule",
+					tabName));
+			logMessage("Step : " + tabName + " tab is clicked\n");
+		} else {
+			element("link_tabsOnModule", tabName).click();
+			logMessage("Step : " + tabName + " tab is clicked\n");
+		}
 	}
-	
-	public void clickOnSacrfReportingModule(){
+
+	public void clickOnSacrfReportingModule() {
 		isElementDisplayed("lnk_ScarfReporting");
 		element("lnk_ScarfReporting").click();
 		logMessage("STEP : SCARF Reporting tab is clicked\n");

@@ -113,6 +113,7 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 			wait.hardWait(1);
 			hardWaitForIEBrowser(3);
 			selectProvidedTextFromDropDown(element("drpdwn_invoiceAction",String.valueOf(j)), actionValue);
+
 			logMessage("STEP : Action value entered as "+actionValue+" for product "+j+"\n");
 			j++;
 		}
@@ -139,7 +140,7 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 			productList.add(ele.getText().trim());
 		}
 		for (String str : productList) {
-			System.out.println("-----"+str);
+			System.out.println(str);
 		}
 		return productList;
 	}
@@ -159,7 +160,7 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 		isElementDisplayed("table_productName",String.valueOf(index));
 		for(WebElement ele: elements("table_productName",String.valueOf(index))){
 			for(int j=0; j<expectedProductList.size();j++){
-				if(expectedProductList.get(j).contains(ele.getText().trim())){
+				if(expectedProductList.get(j).equalsIgnoreCase(ele.getText().trim())){
 					flag= true;
 					break;
 				}
@@ -172,11 +173,12 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 	public void verifyMessageUnderLineItemsMenu(String msg){
 		isElementDisplayed("txt_emptyLineItems");
 		Assert.assertEquals(element("txt_emptyLineItems").getText().trim(), msg,"ASSERT FAILED : Message "+msg+" is not displayed\n");
-		logMessage("ASSERT PASSED : Message "+msg+" is displayed\n");
+		logMessage("ASSERT PASSED : Message '"+msg+"' is displayed\n");
 	}
 
 	public void verifyNotAMember(String index,String memberField){
 		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(2);
 		isElementDisplayed("img_memberBenefits",index);
 		logMessage("ASSERT PASSED : "+memberField+" field is closed\n");
 	}

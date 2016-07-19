@@ -3,6 +3,7 @@ package com.qait.tests;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
@@ -19,6 +20,7 @@ public class ACS_ReturnCancelRefund {
 	String creditbatchName,refundbatchname;
 	String invoiceTotal;
 	ArrayList<String> refundInfo;
+	List<String> batchValues=new ArrayList<>();
 	
 	@Test
 	public void Step01_Navigate_To_Find_Batch_Tab_Under_Accounting_Module()
@@ -73,10 +75,10 @@ public class ACS_ReturnCancelRefund {
 		test.acsVoidInvoice.clickOnGotoCreditRecord(creditbatchName);
 		test.acsVoidInvoice.NavigateToBatchProfilePageByClickingOnBatchName(creditbatchName);
 		test.acsbatchProcessing.clickEditButtonOnBatchProcessingPage();
-		test.acsbatchProcessing.enterDetailsForBatchProcessingAndClickSaveButton();
-		test.acsbatchProcessing.verifyDetailsOnBatchSummaryInfo("count");
+		batchValues=test.acsbatchProcessing.enterDetailsForBatchProcessingAndClickSaveButton();
+		test.acsbatchProcessing.verifyDetailsOnBatchSummaryInfo("count",batchValues.get(1));
 		test.acsbatchProcessing.clickOnBatchProcessButtonsAndVerifyPopUpWindowAppears();	
-		test.acsbatchProcessing.verifyDetailsOnBatchSummaryInfo("total");
+		test.acsbatchProcessing.verifyDetailsOnBatchSummaryInfo("total",batchValues.get(0));
 	}
 
 	@Test

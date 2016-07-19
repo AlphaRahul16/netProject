@@ -10,9 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-
-
+import org.testng.Reporter;
 
 public class SeleniumWait {
 
@@ -83,7 +81,7 @@ public class SeleniumWait {
 		return (WebElement) wait.until(ExpectedConditions
 				.elementToBeClickable(element));
 	}
-	
+
 	public void clickWhenReady(By locator) {
 		WebElement element = (WebElement) wait.until(ExpectedConditions
 				.elementToBeClickable(locator));
@@ -143,9 +141,23 @@ public class SeleniumWait {
 
 	// TODO Implement Wait for page load for page synchronizations
 	public void waitForPageToLoadCompletely() {
-		
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By
-				.xpath("//*")));
+		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase(
+				"internetexplorer")
+				|| ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("ie")
+				|| ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("IE")) {
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By
+					.xpath("//*")));
+		}
+
 	}
 
 	public void hardWait(int seconds) {

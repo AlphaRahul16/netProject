@@ -2,6 +2,9 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -17,6 +20,7 @@ public class ACS_Batch_Processing {
 	String app_url_iweb;
 	String batchName;
 	int numberOfDivisions;
+	List<String> batchValues=new ArrayList<>();
 	
 
 	@Test
@@ -39,9 +43,9 @@ public class ACS_Batch_Processing {
 	public void Step_03_Edit_Batch_Control_Details_And_Verify_Total_And_Count()
 	{
 		test.acsbatchProcessing.clickEditButtonOnBatchProcessingPage();
-		test.acsbatchProcessing.enterDetailsForBatchProcessingAndClickSaveButton();
-		test.acsbatchProcessing.verifyDetailsOnBatchSummaryInfo("total");
-		test.acsbatchProcessing.verifyDetailsOnBatchSummaryInfo("count");
+		batchValues=test.acsbatchProcessing.enterDetailsForBatchProcessingAndClickSaveButton();
+		test.acsbatchProcessing.verifyDetailsOnBatchSummaryInfo("total",batchValues.get(0));
+		test.acsbatchProcessing.verifyDetailsOnBatchSummaryInfo("count",batchValues.get(1));
 	}
 	
 	@Test
@@ -71,9 +75,11 @@ public class ACS_Batch_Processing {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url_iweb =getYamlValue("app_url_IWEB");
 		test.launchApplication(app_url_iweb);
+		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
+				YamlReader.getYamlValue("Authentication.password"));		
 	}
 
-	@AfterClass
+//	@AfterClass
 	public void close_Browser_Window()
 	{
 	

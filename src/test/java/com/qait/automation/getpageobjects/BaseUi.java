@@ -40,12 +40,13 @@ import org.testng.Reporter;
 
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.SeleniumWait;
+import com.thoughtworks.selenium.webdriven.commands.IsAlertPresent;
 
 
 
 /**
  * 
- * @author avnishrawat
+ * @author 
  * 
  */
 public class BaseUi {
@@ -217,7 +218,7 @@ public class BaseUi {
 		hoverOver.moveToElement(element).build().perform();
 	}
 
-	protected void handleAlert() {
+	public void handleAlert() {
 		try {
 			timeOut = Integer.parseInt(getProperty("Config.properties",
 					"timeout"));
@@ -265,15 +266,18 @@ public class BaseUi {
 
 	protected String getAlertText() {
 		try {
+			System.out.println("----in alert");
 			timeOut = Integer.parseInt(getProperty("Config.properties",
 					"timeout"));
 			hiddenFieldTimeOut = Integer.parseInt(getProperty(
 					"Config.properties", "hiddenFieldTimeOut"));
-			wait.hardWait(6);
+			wait.hardWait(2);
 			wait.resetImplicitTimeout(4);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+		    
 			Alert alert = driver.switchTo().alert();
 			String alertText = alert.getText();
+			
 			logMessage("Alert message is " + alertText);
 			alert.accept();
 			wait.resetImplicitTimeout(timeOut);
@@ -448,7 +452,6 @@ public class BaseUi {
 	public void clickUsingXpathInJavaScriptExecutor(WebElement element) {
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].click();", element);
-
 	}
 
 	public void EnterTextInFieldByJavascript(String id, String Text) {
@@ -703,21 +706,21 @@ public class BaseUi {
 		Set<String> ar=driver.getWindowHandles(); 
 		System.out.println("windows size: "+ar.size());
 		String windows[]=ar.toArray(new String[ar.size()]);
-//		for(String window:windows)
-//			System.out.println("windows data: "+window);
+		for(String window:windows)
+			System.out.println("windows data: "+window);
 		driver.switchTo().window(windows[i]);	 
     }
 
 	protected void changeWindow(int i) {
-	    wait.hardWait(1);
+	    //wait.hardWait(1);
 	    Set<String> windows = driver.getWindowHandles();
 	    if (i > 0) {
 	      for (int j = 0; j < 9; j++) {
 	        System.out.println("Windows: " + windows.size());
-	        wait.hardWait(1);
+	       
 	        if (windows.size() >= 2) {
 	          try {
-	            Thread.sleep(5000);
+	            Thread.sleep(1000);
 	          } catch (Exception ex) {
 	            ex.printStackTrace();
 	          }
@@ -733,19 +736,35 @@ public class BaseUi {
 	  }
 	
 	protected void SwitchToPopUpWindowAndVerifyTitle() {
-		String parentWindowHandler = driver.getWindowHandle(); // Store your parent window
-		String subWindowHandler = null;
-
-		Set<String> handles = driver.getWindowHandles(); // get all window handles
-		Iterator<String> iterator = handles.iterator();
-		while (iterator.hasNext()){
-		    subWindowHandler = iterator.next();
-		}
-		driver.switchTo().window(subWindowHandler); // switch to popup window
-		                                            // perform operations on popup
+		changeWindow(1);
         System.out.println(getPageTitle());
-        logMessage("Step : Switched to Pop Up Window, title is verified as "+getPageTitle());
-		driver.switchTo().window(parentWindowHandler); 
+        logMessage("Step : Switched to Pop Up Window, title is "+getPageTitle());
+        changeWindow(0);
+		
+	}
+	
+	public boolean isSafariBrowser() {
+		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("Safari")
+				|| ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("safari")){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public void handleAlertUsingRobot(){
+		Robot robot;
+		try {
+			robot = new Robot();
+			robot.keyPress(java.awt.event.KeyEvent.VK_ENTER);
+			robot.keyRelease(java.awt.event.KeyEvent.VK_ENTER);
+			System.out.println("---alert accepeted");
+		} catch (AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("---no alert present");
+		}
 		
 	}
 }

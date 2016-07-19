@@ -15,6 +15,7 @@ table_productName                              xpath                            
 txt_voidInvoice                                css                                .DataFormLabelErrorMessage
 txt_emptyLineItems                             css                                .DataFormFooterTD
 img_memberBenefits                             xpath                              //img[@id='F1_IMAGE_${index}']
+<<<<<<< HEAD
 txt_creditBatchDate                            xpath                              //td[contains(text(),'${value}')]/preceding-sibling::td[3]
 txt_creditbatchName                            xpath                              (//th/a)[2]/../../following-sibling::tr/td[8]
 txt_CreditTotal                                xpath                              //td[contains(text(),'${value}')]/following-sibling::td[1]
@@ -22,4 +23,5 @@ btn_gotoCreditRecord                           xpath                            
 lnk_batchName                                  xpath                              //a[contains(text(),'${value}')]
 inp_creditDate                                  id                                dtb${'type'}Date
 btn_searchRefund                                id                                ACSDateRangeButton
+img_spinner                                    css                                #__UPIMG
 ======================================================================================================================================
