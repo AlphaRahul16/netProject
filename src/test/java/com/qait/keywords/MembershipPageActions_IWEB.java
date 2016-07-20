@@ -2,6 +2,7 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -3159,7 +3160,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		html = html + "</tbody></table></body></html>";
 		System.out.println("After Validation");
-		ReformatTestFile.createMemberTransferCompleteTestLog("./src/test/resources/Member Transfer Test Logs", html,
+		String Fpath = System.getProperty("user.dir")+ File.separator+"test-output"+File.separator+"Member Transfer Test Logs";
+		ReformatTestFile.createMemberTransferCompleteTestLog(Fpath, html,
 				criteriaList.get("ID"));
 		Assert.assertTrue(flag1,
 				"[FAILED]:: Data for Before and After member transfer does not match the criteria FINAL Test Result ::"
