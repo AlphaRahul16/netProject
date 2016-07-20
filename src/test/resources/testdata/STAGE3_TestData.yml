@@ -20,6 +20,7 @@ app_url_Nominate: https://ewebtest12.acs.org/NFStage3/nominate
 app_url_Awards: https://ewebtest12.acs.org/NFStage3/awards
 app_url_IwebReporting: https://stag-12iweb/NFStage3/iweb
 app_url_EwebReporting: https://ewebtest12.acs.org/NFStage3/studentchaptersonline
+app_url_ScarfReviewing: https://www.ewebtest.acs.org/NFStage3/studentchaptersreview
 
 csv-data-file:
   path_OMA: ./src/test/resources/TestDataLibrary/OMA Business Rules.csv
@@ -41,10 +42,11 @@ csv-data-file:
 
 excel-data-file:
   path_ScarfReporting: ./src/test/resources/TestDataLibrary/Scarf_Reporting_DataSheet.xls
+  path_ScarfReviewing: ./src/test/resources/TestDataLibrary/Scarf_Reviewing.xls
   
   
 Authentication: 
-  userName: C00616
+  userName: c00616
   password: "A9319161853@"
 
 

@@ -180,7 +180,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnEditButtonInAwardsStageProfilePage() {
 		isElementDisplayed("btn_editAward");
 		element("btn_editAward").click();
-		logMessage("Step : click on edit button in awards profile page\n");
+		logMessage("Step : click on Batch name on invoice profile page\n");
 	}
 
 	public void uncheckClosedCheckboxButton() {

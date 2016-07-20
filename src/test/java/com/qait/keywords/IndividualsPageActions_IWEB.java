@@ -971,7 +971,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		hardWaitForIEBrowser(10);
 		try {
-			wait.resetImplicitTimeout(0);
+			wait.resetImplicitTimeout(3);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("btn_memberShip", menuName);
 			clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", menuName));
@@ -1126,7 +1126,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 		isElementDisplayed("inp_fieldSelect", feildName);
 		selectProvidedTextFromDropDown(element("inp_fieldSelect", feildName), feildValue);
-		logMessage("STEP : " + feildValue + " as " + feildValue + " is entered in inp_fieldSelect\n");
+		logMessage("STEP : " + feildValue + " is entered as " + feildName + "  in inp_fieldSelect\n");
 	}
 	
 	public void selectFieldValueToFindMember(String feildName, String feildValue){
