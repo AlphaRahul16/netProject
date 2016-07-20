@@ -36,7 +36,10 @@ public class FundProfilePage extends ASCSocietyGenericPage
 		{
 	    wait.waitForPageToLoadCompletely();
 	    wait.hardWait(2);
-		elements("btn_removeDonation").get(0).click();
+	    if(isBrowser("ie")||isBrowser("internet explorer"))
+	    	clickUsingXpathInJavaScriptExecutor(elements("btn_removeDonation").get(0));
+	    else
+		    elements("btn_removeDonation").get(0).click();
 		Alert alert = driver.switchTo().alert();
 		alert.accept();
 		}
@@ -56,7 +59,10 @@ public class FundProfilePage extends ASCSocietyGenericPage
 	public void clickAddDonationButton(String headingname) {
 		hardWaitForChromeBrowser(4);
 		isElementDisplayed("btn_addDonationAmount",headingname);
-		element("btn_addDonationAmount",headingname).click();
+		if(isBrowser("ie")|| (isBrowser("internet explorer")))
+			clickUsingXpathInJavaScriptExecutor(element("btn_addDonationAmount",headingname));
+		else
+		    element("btn_addDonationAmount",headingname).click();
 		wait.waitForPageToLoadCompletely();
 		logMessage("Step : Add Donation button clicked\n");
 		
@@ -170,12 +176,10 @@ public class FundProfilePage extends ASCSocietyGenericPage
 		wait.resetImplicitTimeout(timeOut);
 		for(int i=0;i<displayorder.size();i++)
 		{
-			System.out.println(i);
-			System.out.println("Display order "+displayorder.get(i));
+	
             wait.waitForPageToLoadCompletely();
 			toString();
-			System.out.println(element("txt_fundNameByOrder",String.valueOf(displayorder.get(i))).getText().replace(",",""));
-			toString();
+			wait.hardWait(2);
 			mapFundOrder.put("Amount"+i,element("txt_fundNameByOrder", String.valueOf(displayorder.get(i))).getText().replace(",",""));
 		}
 		return mapFundOrder;

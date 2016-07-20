@@ -50,6 +50,8 @@ public class ACS_GivingApplication_Smoke {
 		Reporter.log("CASE ID : " + caseID, true);
 		mapSheetData = test.homePageIWEB.addValuesInMap("giving_donate", caseID);
 		test.launchApplication(app_url_IWEB);
+		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
+				YamlReader.getYamlValue("Authentication.password"));		
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Fundraising");

@@ -172,12 +172,12 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
 				"hiddenFieldTimeOut"));
 		System.out.println(isBrowser("chrome"));
-		System.out.println(System.getProperty("browser"));
+
 		if(!isBrowser("chrome"))
 		{
 		try {
 			handleAlert();
-			wait.resetImplicitTimeout(6);
+			wait.resetImplicitTimeout(3);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("img_spinner");
 			wait.waitForElementToDisappear(element("img_spinner"));

@@ -646,6 +646,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void selectOrderEntryInfo(String orderEntryInfo, String value) {
+		hardWaitForIEBrowser(2);
 		isElementDisplayed("list_" + orderEntryInfo);
 		selectProvidedTextFromDropDown(element("list_" + orderEntryInfo), value);
 		logMessage("Step : " + value + " is selected in " + orderEntryInfo + "\n");
@@ -1395,10 +1396,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			String cardNumber, String expireDate, String cvvNumber) {
 		// wait.waitForPageToLoadCompletely();
 		holdExecution(2000);
+		System.out.println("----"+batchName);
 		if (verifyBatchIsPresent(batchName)) {
 			selectOrderEntryInfo("batch", batchName);
 		} else {
-			addBatch("Selenium_Batch", "QA");
+			addBatch(batchName.replaceAll("ACS: ", ""), "QA");
 		}
 		waitForSpinner();
 		selectOrderEntryInfo("PaymentType", paymentType);
@@ -1416,6 +1418,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public boolean verifyBatchIsPresent(String batchName) {
+		hardWaitForIEBrowser(2);
+		System.out.println("-----in verify batch:"+batchName);
 		isElementDisplayed("list_batch");
 		flag = isDropDownValuePresent(element("list_batch").findElements(By.xpath("//option")), batchName);
 		return flag;
@@ -1430,6 +1434,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : add batch button is clicked \n");
 		switchToFrame("iframe1");
 		isElementDisplayed("inp_addBatchName");
+		element("inp_addBatchName").clear();
 		element("inp_addBatchName").sendKeys(batchName);
 		logMessage("Step : enter batch name " + batchName + "\n");
 		isElementDisplayed("list_batchSecurityGroup");
@@ -2344,7 +2349,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyTermEndDateAndStartDateIsEmpty() {
-		hardWaitForIEBrowser(2);
+		hardWaitForIEBrowser(6);
 		Assert.assertTrue(element("txt_termStartDaterenewal", "1").getText().length() == 1,
 				"Term Start Date is not Empty");
 		logMessage("ASSERT PASSED : Term Start date is empty\n");
@@ -2770,8 +2775,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				break;
 			case "MP Pmt Status":
 				if(criteriaList.get(criteria.getKey()).trim().toLowerCase().contains("unpaid|credit")){
-					String sp[] = criteriaList.get(criteria.getKey()).trim().toLowerCase().split("|");
-					if(afterList.get(criteria.getKey()).trim().toLowerCase().contains(sp[0]) || afterList.get(criteria.getKey()).trim().toLowerCase().contains(sp[1])){
+					System.out.println("SpreadSheet data:: "+criteriaList.get(criteria.getKey()).trim().toLowerCase());
+					String sp[] = criteriaList.get(criteria.getKey()).trim().toLowerCase().split("\\|");
+					System.out.println("SP 0:: "+sp[0]);
+					System.out.println("SP 1:: "+sp[1]);
+					if((afterList.get(criteria.getKey()).trim().toLowerCase().contains(sp[0])) || (afterList.get(criteria.getKey()).trim().toLowerCase().contains(sp[1]))){
 						ResultList.put(criteria.getKey() + "", "y");
 					}else{
 						ResultList.put(criteria.getKey() + "", "n");
@@ -3306,7 +3314,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnStudentMemberName(int i) {
 		wait.hardWait(2);
 		isElementDisplayed("arrow_selectMember", String.valueOf(i));
-		logMessage("STEP : Selected Student Member: "
+		logMessage("STEP : Selected Student Member is : "
 				+ element("txt_endDate", String.valueOf(i), String.valueOf(4)).getText().trim());
 		element("arrow_selectMember", String.valueOf(i)).click();
 	}

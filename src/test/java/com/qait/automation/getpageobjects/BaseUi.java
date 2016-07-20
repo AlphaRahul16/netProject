@@ -7,8 +7,11 @@ package com.qait.automation.getpageobjects;
 import static com.qait.automation.getpageobjects.ObjectFileReader.getPageTitleFromFile;
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -37,6 +40,8 @@ import org.testng.Reporter;
 
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.SeleniumWait;
+import com.thoughtworks.selenium.webdriven.commands.IsAlertPresent;
+
 
 
 /**
@@ -181,6 +186,7 @@ public class BaseUi {
 		driver.switchTo().frame(element);
 	}
 
+
 	public void switchToFrame(int i) {
 		driver.switchTo().frame(i);
 	}
@@ -260,15 +266,18 @@ public class BaseUi {
 
 	protected String getAlertText() {
 		try {
+			System.out.println("----in alert");
 			timeOut = Integer.parseInt(getProperty("Config.properties",
 					"timeout"));
 			hiddenFieldTimeOut = Integer.parseInt(getProperty(
 					"Config.properties", "hiddenFieldTimeOut"));
-			wait.hardWait(6);
+			wait.hardWait(2);
 			wait.resetImplicitTimeout(4);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+		    
 			Alert alert = driver.switchTo().alert();
 			String alertText = alert.getText();
+			
 			logMessage("Alert message is " + alertText);
 			alert.accept();
 			wait.resetImplicitTimeout(timeOut);
@@ -443,7 +452,6 @@ public class BaseUi {
 	public void clickUsingXpathInJavaScriptExecutor(WebElement element) {
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].click();", element);
-
 	}
 
 	public void EnterTextInFieldByJavascript(String id, String Text) {
@@ -588,40 +596,40 @@ public class BaseUi {
 				.setContents(stringSelection, null);
 	}
 
-//	public void enterAuthentication(String uName, String password) {
+	public void enterAuthentication(String uName, String password) {
 
-//		if ((isBrowser("ie") || isBrowser("internetexplorer") || isBrowser("chrome"))) {
-//			System.out.println("in authentication");
-//			setClipboardData(uName);
-//			 Robot robot;
-//			 try {
-//			 robot = new Robot();
-//			 setClipboardData(uName);
-//			 robot.delay(2000);
-//			 robot.keyPress(KeyEvent.VK_CONTROL);
-//			 robot.keyPress(KeyEvent.VK_V);
-//			 robot.keyRelease(KeyEvent.VK_V);
-//			 robot.keyRelease(KeyEvent.VK_CONTROL);
-//			 robot.delay(2000);
-//			 robot.keyPress(KeyEvent.VK_TAB);
-//			 robot.keyRelease(KeyEvent.VK_TAB);
-//			 setClipboardData(password);
-//			 robot.delay(2000);
-//			 robot.keyPress(KeyEvent.VK_CONTROL);
-//			 robot.keyPress(KeyEvent.VK_V);
-//			 robot.keyRelease(KeyEvent.VK_V);
-//			 robot.keyRelease(KeyEvent.VK_CONTROL);
-//			 robot.delay(2000);
-//			 robot.keyPress(KeyEvent.VK_ENTER);
-//			 robot.keyRelease(KeyEvent.VK_ENTER);
-//			 } catch (AWTException e) {
-//			 e.printStackTrace();
-//			 }
-//
-//			
-//	}
+		if ((isBrowser("ie") || isBrowser("internetexplorer"))) {
+			System.out.println("in authentication");
+			setClipboardData(uName);
+			 Robot robot;
+			 try {
+			 robot = new Robot();
+			 setClipboardData(uName);
+			 robot.delay(2000);
+			 robot.keyPress(KeyEvent.VK_CONTROL);
+			 robot.keyPress(KeyEvent.VK_V);
+			 robot.keyRelease(KeyEvent.VK_V);
+			 robot.keyRelease(KeyEvent.VK_CONTROL);
+			 robot.delay(2000);
+			 robot.keyPress(KeyEvent.VK_TAB);
+			 robot.keyRelease(KeyEvent.VK_TAB);
+			 setClipboardData(password);
+			 robot.delay(2000);
+			 robot.keyPress(KeyEvent.VK_CONTROL);
+			 robot.keyPress(KeyEvent.VK_V);
+			 robot.keyRelease(KeyEvent.VK_V);
+			 robot.keyRelease(KeyEvent.VK_CONTROL);
+			 robot.delay(2000);
+			 robot.keyPress(KeyEvent.VK_ENTER);
+			 robot.keyRelease(KeyEvent.VK_ENTER);
+			 } catch (AWTException e) {
+			 e.printStackTrace();
+			 }
 
-//	}
+			
+	}
+
+	}
 
 	public void enterAuthenticationAutoIt() {
 		try {
@@ -698,21 +706,21 @@ public class BaseUi {
 		Set<String> ar=driver.getWindowHandles(); 
 		System.out.println("windows size: "+ar.size());
 		String windows[]=ar.toArray(new String[ar.size()]);
-//		for(String window:windows)
-//			System.out.println("windows data: "+window);
+		for(String window:windows)
+			System.out.println("windows data: "+window);
 		driver.switchTo().window(windows[i]);	 
     }
 
 	protected void changeWindow(int i) {
-	    wait.hardWait(1);
+	    //wait.hardWait(1);
 	    Set<String> windows = driver.getWindowHandles();
 	    if (i > 0) {
 	      for (int j = 0; j < 9; j++) {
 	        System.out.println("Windows: " + windows.size());
-	        wait.hardWait(1);
+	       
 	        if (windows.size() >= 2) {
 	          try {
-	            Thread.sleep(5000);
+	            Thread.sleep(1000);
 	          } catch (Exception ex) {
 	            ex.printStackTrace();
 	          }
@@ -728,19 +736,10 @@ public class BaseUi {
 	  }
 	
 	protected void SwitchToPopUpWindowAndVerifyTitle() {
-		String parentWindowHandler = driver.getWindowHandle(); // Store your parent window
-		String subWindowHandler = null;
-
-		Set<String> handles = driver.getWindowHandles(); // get all window handles
-		Iterator<String> iterator = handles.iterator();
-		while (iterator.hasNext()){
-		    subWindowHandler = iterator.next();
-		}
-		driver.switchTo().window(subWindowHandler); // switch to popup window
-		                                            // perform operations on popup
+		changeWindow(1);
         System.out.println(getPageTitle());
-        logMessage("Step : Switched to Pop Up Window, title is verified as "+getPageTitle());
-		driver.switchTo().window(parentWindowHandler); 
+        logMessage("Step : Switched to Pop Up Window, title is "+getPageTitle());
+        changeWindow(0);
 		
 	}
 	
@@ -752,5 +751,20 @@ public class BaseUi {
 		} else {
 			return false;
 		}
+	}
+	
+	public void handleAlertUsingRobot(){
+		Robot robot;
+		try {
+			robot = new Robot();
+			robot.keyPress(java.awt.event.KeyEvent.VK_ENTER);
+			robot.keyRelease(java.awt.event.KeyEvent.VK_ENTER);
+			System.out.println("---alert accepeted");
+		} catch (AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("---no alert present");
+		}
+		
 	}
 }

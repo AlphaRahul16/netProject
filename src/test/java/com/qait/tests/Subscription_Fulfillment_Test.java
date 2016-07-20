@@ -26,6 +26,8 @@ public class Subscription_Fulfillment_Test {
 
 	@Test
 	public void Step00_Launch_Application_Under_Test() {
+		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
+				YamlReader.getYamlValue("Authentication.password"));	
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
@@ -57,7 +59,7 @@ public class Subscription_Fulfillment_Test {
 	}
 
 	@Test
-	public void Step03_Edit_Subscription_And_Verify_Preview_Status_For_Scheduled_Test() {
+	public void Step03_Edit_Subscription_And_Verify_Preview_Status_For_Scheduled_Test() {		
 		taskStartTime = test.subscriptionPage.editSubscription(
 				subscriptionName, getSubscriptionInfo
 						.getSubsFul_PreviewComplete("startLapTimeInMinutes"),
@@ -162,7 +164,7 @@ public class Subscription_Fulfillment_Test {
 		test.homePageIWEB.GoToCRMModule();
 		test.homePageIWEB.clickFindForIndividualsSearch();
 		test.individualsPage.fillMemberDetailsAndSearch("Record Number",
-				memberDetails.get(1));
+				memberDetails.get(1));//"30182478"
 		test.individualsPage.navigateToSubscriptionMenuOnHoveringMore();
 		test.subscriptionPage.verifySubscriptionAdded(subscriptionName);
 		test.individualsPage.clickOnArrowButtonForProductName(subscriptionName);
@@ -191,8 +193,9 @@ public class Subscription_Fulfillment_Test {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
 
-	 @AfterClass(alwaysRun = true)
+	@AfterClass(alwaysRun = true)
 	public void Close_Test_Session() {
-		test.closeBrowserSession();
+	 test.closeBrowserSession();
 	}
+	
 }

@@ -379,7 +379,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		Assert.assertTrue(element("txt_memberDetail_q", detailName).getText()
 				.trim().equalsIgnoreCase(detailValue));
 		logMessage("ASSERT PASSED : " + detailValue + " is verified for "
-				+ detailName + " in txt_memberDetail_q\n");
+				+ detailName + " field\n");
 	}
 
 	public void verifyMemberDetails(String detailName, String detailValue) {

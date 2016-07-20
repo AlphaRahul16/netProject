@@ -48,6 +48,7 @@ public class ACS_ReportsActions extends ASCSocietyGenericPage  {
 	public void clickGoReportButtonForReport(String reportName) {
 		isElementDisplayed("txt_reportName",reportName);
 		isElementDisplayed("btn_goReport",reportName);
+		hardWaitForIEBrowser(3);
 		element("btn_goReport",reportName).click();
 		logMessage("Step : Go Button for Report "+reportName+" is clicked\n");
 		
@@ -58,13 +59,16 @@ public class ACS_ReportsActions extends ASCSocietyGenericPage  {
 		wait.hardWait(3);
 		if(DeliveryMethod.equalsIgnoreCase("Run Immediately"))
 		{
-		changeWindow(1);
+//		changeWindow(1);
+		switchToWindowHavingIndex(1);
 		isElementDisplayed("txt_reportResult",reportHeading);
 		isElementDisplayed("tbl_report");
 		logMessage("Step : Table is displayed in report result");
 		Assert.assertTrue(element("txt_reportResult",reportHeading).isDisplayed(),"Report Status is fail");
 		logMessage("ASSERT PASSED  : Report is successfully received\n");
 		driver.close();
+		wait.hardWait(5);
+//		switchToWindowHavingIndex(0);
 		changeWindow(0);
 		}
 		

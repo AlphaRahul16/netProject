@@ -42,6 +42,7 @@ public class SubscriptionPage extends GetPage {
 	}
 
 	public void selectFulfillmentType(String type) {
+		hardWaitForIEBrowser(5);
 		isElementDisplayed("list_fulfillmentType");
 		selectProvidedTextFromDropDown(element("list_fulfillmentType"), type);
 		logMessage("Step : Select " + type + " as fulfillment type \n");
@@ -60,7 +61,7 @@ public class SubscriptionPage extends GetPage {
 		}
 		String startTime = editTaskStartTime(timeSlab);
 		clickOnSaveButton();
-		wait.hardWait(2);
+		wait.hardWait(5);
 		isElementDisplayed("icon_printReports");
 		if (Integer.parseInt(DateUtil.getCurrentTime("ss", "EST5EDT")) < Integer
 				.parseInt(currentSeconds)) {
@@ -80,6 +81,8 @@ public class SubscriptionPage extends GetPage {
 	}
 
 	public String editTaskStartTime(String timeSlab) {
+		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(10);
 		isElementDisplayed("inp_tskStartTime");
 		String currentDate = DateUtil.getCurrentTime("hh:mma", "EST5EDT");
 		currentSeconds = DateUtil.getCurrentTime("ss", "EST5EDT");
@@ -127,6 +130,7 @@ public class SubscriptionPage extends GetPage {
 
 	public void verifyPreviewStatusInListForFirst(String previewStatus,
 			String waitTime) {
+		hardWaitForIEBrowser(4);
 		isElementDisplayed("txt_firstPreviewStatusInList");
 		if (element("txt_firstPreviewStatusInList").getText().trim()
 				.equalsIgnoreCase(previewStatus)) {
@@ -177,6 +181,8 @@ public class SubscriptionPage extends GetPage {
 	}
 
 	public void verifyAddSubscriptionFulfillmentBatchHeading(String headingName) {
+		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(10);
 		isElementDisplayed("hd_subscriptionBatch");
 		verifyElementText("hd_subscriptionBatch", headingName);
 	}
@@ -207,7 +213,10 @@ public class SubscriptionPage extends GetPage {
 
 	public void clickOnFirstSubscriptionTaskInList() {
 		isElementDisplayed("link_firstSubsTask");
-		element("link_firstSubsTask").click();
+		if(isBrowser("ie")||isBrowser("internet explorer"))
+			clickUsingXpathInJavaScriptExecutor(element("link_firstSubsTask"));
+		else
+		    element("link_firstSubsTask").click();
 		logMessage("Step : first subscription task is clicked in link_firstSubsTask\n");
 	}
 
@@ -266,6 +275,7 @@ public class SubscriptionPage extends GetPage {
 
 	public void verifySubscriptionDetail(String detailName, String detailValue) {
 		try {
+			hardWaitForIEBrowser(5);
 			isElementDisplayed("label_subscriptionDetail", detailName);
 			System.out
 					.println("actual : "
@@ -326,7 +336,10 @@ public class SubscriptionPage extends GetPage {
 
 	public void clickOnCommitPreviewButton() {
 		isElementDisplayed("btn_commitPreviewButton");
-		element("btn_commitPreviewButton").click();
+		if(isBrowser("ie")||isBrowser("internet explorer"))
+			clickUsingXpathInJavaScriptExecutor(element("btn_commitPreviewButton"));
+		else
+		    element("btn_commitPreviewButton").click();
 		logMessage("Step : commit preview button is clicked in btn_commitPreviewButton\n");
 	}
 
@@ -354,8 +367,12 @@ public class SubscriptionPage extends GetPage {
 	public void verifyIssueInSubscriptionFulfillmentBatchSummary(
 			String issueName) {
 		isElementDisplayed("subscriptionFulfillmentBacthSummary");
-		element("subscriptionFulfillmentBacthSummary").click();
+		if(isBrowser("ie")||isBrowser("internet explorer"))
+			clickUsingXpathInJavaScriptExecutor(element("subscriptionFulfillmentBacthSummary"));
+		else
+		    element("subscriptionFulfillmentBacthSummary").click();
 		waitForSpinner();
+		hardWaitForIEBrowser(2);
 		isElementDisplayed("td_subscriptionRow");
 		logMessage("ASSERT PASSED : One row is added in subscription fulfillment batch summary ");
 	}
@@ -395,6 +412,7 @@ public class SubscriptionPage extends GetPage {
 	}
 
 	public void verifyFulfillmentDate(String subscriptionName) {
+		hardWaitForIEBrowser(3);
 		isElementDisplayed("txt_fulfillmentDate", subscriptionName);
 		Assert.assertTrue(element("txt_fulfillmentDate", subscriptionName)
 				.getText()

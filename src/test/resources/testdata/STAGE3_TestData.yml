@@ -420,7 +420,7 @@ SubscriptionFulfillment:
          scheduledTaskCompleted: "Yes"
          previewStatus: preview complete
          commitScheduledTask: "No"
-         startLapTimeInMinutes: 4
+         startLapTimeInMinutes: 7
     subscriptionDetailsForCommitted:
          updateStartIssue: "Yes"
          fulfillmentType: Current 
@@ -429,7 +429,7 @@ SubscriptionFulfillment:
          previewStatusOnStartCommit: commit started
          previewStatus: committed
          commitScheduledTask: "Yes"
-         startLapTimeInMinutes: 4
+         startLapTimeInMinutes: 7
          
          
 MemberShipRenewal: 
@@ -523,6 +523,12 @@ ScarfReporting:
 VoidWithAdjustment:
     queryName: "Selenium - test open invoices"
     voidMessage: "This invoice has been cancelled or voided"    
+    emptyItemsMessage: "There are no results to display."   
+    invoices: invoices
+    memberDetailsQuestion1: paid in full
+    memberDetailsQuestion2: balance
+    actionValue: Void with Adjustment
+    prodName: "Regular Member Dues C&EN-Electronic"
     emptItemsMessage: "There are no results to display."  
     
     
@@ -541,12 +547,7 @@ ACS_ApplyPayment:
         balance: "0.00"
     Batch: "ACS: SELENIUM_BATCH"
     CreditCardExpiration: 2018/07 
-        
-        
-        
-        
-             
-                   
+               
 email:
   send: true
   recepients:

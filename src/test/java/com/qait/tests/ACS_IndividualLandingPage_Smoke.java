@@ -47,9 +47,10 @@ public class ACS_IndividualLandingPage_Smoke {
 	@Test
 	public void Step01_TC01_Launch_IWeb_Application_And_Navigate_To_Funds() {
 		Reporter.log("CASE ID : " + caseID, true);
+
 		mapSheetData = test.homePageIWEB.addValuesInMap("landingPage", caseID);
-		test.navigateToIWEBUrlOnNewBrowserTab(app_url_IWEB);
-		
+		test.launchApplication(app_url_IWEB);
+		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"), YamlReader.getYamlValue("Authentication.password"));
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Fundraising");
@@ -143,7 +144,7 @@ public class ACS_IndividualLandingPage_Smoke {
 	@Test
 	public void Step06_TC06_Navigate_To_Iweb_And_Retreive_Lastest_Invoice_For_Donor() {
 		Reporter.log("CASE ID : " + caseID, true);
-		test.navigateToIWEBUrlOnNewBrowserTab(app_url_IWEB);
+		test.launchApplication(app_url_IWEB);
 		test.memberShipPage.navigateToMemberLatestInvoicePage(memberLoginDetails);
 		if (memberLoginDetails.get(0).equals("2")) {
 			test.homePageIWEB.clickFindForIndividualsSearch();
