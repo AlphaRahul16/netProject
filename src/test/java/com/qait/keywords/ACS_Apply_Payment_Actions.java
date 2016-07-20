@@ -46,15 +46,15 @@ public class ACS_Apply_Payment_Actions extends ASCSocietyGenericPage {
 	public void enterDetailsForPayment(String paymentMethod, String ccNumber,
 			String expDate, String CVV) {
 		selectCardDetails("payment method", paymentMethod);
-		waitForSpinner();
+		//waitForSpinner();
 		wait.waitForPageToLoadCompletely();
 		enterCardDetails("cc number", ccNumber);
-		waitForSpinner();
+		//waitForSpinner();
 
 		selectCardDetails("expiration date", expDate);
-		waitForSpinner();
+		//waitForSpinner();
 		enterCardDetails("CVV", CVV);
-		waitForSpinner();
+		//waitForSpinner();
 
 	}
 

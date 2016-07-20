@@ -70,6 +70,8 @@ public class GetPage extends BaseUi {
 	
 	protected boolean checkIfElementIsThere(String eleString,String replacementEleString) {
 	    boolean flag = false;
+	    wait.resetImplicitTimeout(2);
+		wait.resetExplicitTimeout(10);
 	    try {
 	      if (webdriver.findElement(getLocator(eleString,replacementEleString)).isDisplayed()) {
 	        flag = true;
@@ -188,7 +190,7 @@ public class GetPage extends BaseUi {
 		assertTrue(result, "ASSERT FAILED: element '" + elementName
 				+ "with text " + elementTextReplace1+elementTextReplace2 + "' is not displayed.");
 		logMessage("ASSERT PASSED: element " + elementName + " with text "
-				+ elementTextReplace1+elementTextReplace2 + " is displayed.");
+				+ elementTextReplace1+","+elementTextReplace2 + " is displayed.");
 		return result;
 	}
 	
