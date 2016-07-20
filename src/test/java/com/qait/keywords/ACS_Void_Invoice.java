@@ -84,15 +84,18 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 		String batchName="SELENIUM_BATCH"+System.currentTimeMillis();
 		//		sendKeysUsingXpathInJavaScriptExecutor(element("txt_batchDetails",String.valueOf(i)), batchName);
 		element("txt_batchDetails",String.valueOf(i)).sendKeys(batchName);
-		logMessage("STEP : Batch name is entered as : "+batchName+"\n");
+
+		logMessage("STEP : Batch name is entered as "+batchName+"\n");
+
 		return batchName;
+
 	}
 
 	public void enterSecurityGroup(int index,String securityGroup){
 		isElementDisplayed("drpdwn_securityGroup",String.valueOf(index));
 		Select drpdwn_security= new Select(element("drpdwn_securityGroup",String.valueOf(index)));
 		drpdwn_security.selectByVisibleText(securityGroup);
-		logMessage("STEP : Security Group entered as :"+securityGroup+"\n");
+		logMessage("STEP : Security Group entered as "+securityGroup+"\n");
 	}
 
 	public void clickOnSaveButton(){
