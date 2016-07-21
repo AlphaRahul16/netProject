@@ -58,6 +58,22 @@ creditCardInfo:
   cvv-number: 123
   CreditCardExpiration: 06/2017
             
+            
+creditCardDetails: 
+  PaymentMethod: 
+        Select: "BOA - Check"
+        Unselect: "Visa/MC"
+  paymentMethodVisaMC: 
+    Type: Visa/MC
+    Holder-name: FIRSTNAME LASTNAME
+    Number: "4111111111111111"
+    cvv-number: 123
+    CreditCardExpiration: 06/2018 
+  paymentMethodBOACheck:
+    Type: "BOA - Check"
+    CheckNumber: 123456
+            
+            
 reinstateUsers: 
     user1: 
         contact-information:
@@ -361,15 +377,21 @@ ReinstateMemberIWEB:
 SubscriptionFulfillment: 
     productCode: 2300
     fulfillmentType: Current
-    queryName: "Selenium – Find Random Active Member"
+    queryName: Selenium – Find Random Active Member
     maxWaitTimeInMinutesForPreviewStatus: 30
     centralizedOrderEntry: 
          batch: "ACS: SELENIUM_BATCH"
+         PaymentMethod: 
+              Select: "BOA - Check"
+              Unselect: "Visa/MC"
          paymentType: prepaid
-         paymentMethod: Visa/MC
-         cardNumber: 4111111111111111
-         expireDate: 2016/12
-         cvvNumber: 123 
+         paymentMethodVisaMC: 
+              paymentMethod: Visa/MC
+              cardNumber: 4111111111111111
+              expireDate: 2018/12
+              cvvNumber: 123
+         paymentMethodBOACheck:    
+              checkNumber: 1234    
     subscriptionDetailsForSchedule: 
          updateStartIssue: "Yes"
          fulfillmentType: Current
@@ -393,8 +415,9 @@ SubscriptionFulfillment:
          previewStatusOnStartCommit: commit started
          previewStatus: committed
          commitScheduledTask: "Yes"
-         startLapTimeInMinutes: 7     
-           
+         startLapTimeInMinutes: 7
+         
+  
            
 ASM_URLRejectedErrorMsz: "The requested URL was rejected."
 ASMErrorPageTitle: Request Rejected
@@ -413,7 +436,29 @@ MYDTransfer:
 AddressValidation:
     queryName: Selenium - US Constituents    
 ScarfReporting:
-    queryName: "Selenium - Active Student Chapters"          
+    queryName: "Selenium - Active Student Chapters"   
+    
+    
+ACS_ApplyPayment: 
+    DetailsToFindMember:  
+        Association: ACS
+        MemberType: "ACS : Regular Member"
+        MemberStatus: "ACS : Active Renewed-No Response" 
+        MemberPackage: "ACS : Regular Member : Regular Member Dues C&EN-Print"
+    BeforeApplyPayment: 
+        proforma: "Yes"
+        paidInFull: "No"
+    AfterApplyPayment: 
+        proforma: "No"
+        paidInFull: "Yes"
+        balance: "0.00"
+    Batch: "ACS: SELENIUM_BATCH"
+    CreditCardExpiration: 2018/07 
+    PaymentMethod: 
+        Select: "BOA - Check"
+        Unselect: "Visa/MC"   
+
+      
 
 email:
   send: true

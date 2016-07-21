@@ -62,6 +62,9 @@ creditCardInfo:
   CreditCardExpiration: 06/2018 
   
 creditCardDetails: 
+  PaymentMethod: 
+        Select: "BOA - Check"
+        Unselect: "Visa/MC"
   paymentMethodVisaMC: 
     Type: Visa/MC
     Holder-name: FIRSTNAME LASTNAME
@@ -414,11 +417,17 @@ SubscriptionFulfillment:
     maxWaitTimeInMinutesForPreviewStatus: 30
     centralizedOrderEntry: 
          batch: "ACS: QA_SUB_BATCH"
+         PaymentMethod: 
+              Select: "BOA - Check"
+              Unselect: "Visa/MC"
          paymentType: prepaid
-         paymentMethod: Visa/MC
-         cardNumber: 4111111111111111
-         expireDate: 2016/12
-         cvvNumber: 123 
+         paymentMethodVisaMC: 
+              paymentMethod: Visa/MC
+              cardNumber: 4111111111111111
+              expireDate: 2018/12
+              cvvNumber: 123
+         paymentMethodBOACheck:    
+              checkNumber: 1234    
     subscriptionDetailsForSchedule: 
          updateStartIssue: "Yes"
          fulfillmentType: Current
