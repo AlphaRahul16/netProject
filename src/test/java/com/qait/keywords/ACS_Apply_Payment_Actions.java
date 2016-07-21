@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.qait.automation.utils.YamlReader;
 
 public class ACS_Apply_Payment_Actions extends ASCSocietyGenericPage {
 	WebDriver driver;
@@ -43,18 +44,41 @@ public class ACS_Apply_Payment_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : verify tab name " + tabName + "\n");
 	}
 
-	public void enterDetailsForPayment(String paymentMethod, String ccNumber,
-			String expDate, String CVV) {
-		selectCardDetails("payment method", paymentMethod);
-		//waitForSpinner();
-		wait.waitForPageToLoadCompletely();
-		enterCardDetails("cc number", ccNumber);
-		//waitForSpinner();
+	public void enterDetailsForPayment(String paymentMethod) {
+		logMessage("Step : payment method to apply the payment is "
+				+ paymentMethod);
+		if (paymentMethod.equalsIgnoreCase("BOA - Check")) {
+			selectCardDetails(
+					"payment method",
+					YamlReader
+							.getYamlValue("creditCardDetails.paymentMethodBOACheck.Type"));
+			waitForSpinner();
+			enterCardDetails(
+					"check number",
+					YamlReader
+							.getYamlValue("creditCardDetails.paymentMethodBOACheck.CheckNumber"));
+		} else if (paymentMethod.equalsIgnoreCase("Visa/MC")) {
+			String type = YamlReader
+					.getYamlValue("creditCardDetails.paymentMethodVisaMC.Type");
+			String ccNumber = YamlReader
+					.getYamlValue("creditCardDetails.paymentMethodVisaMC.Number");
+			String expDate = YamlReader
+					.getYamlValue("ACS_ApplyPayment.CreditCardExpiration");
+			String CVV = YamlReader
+					.getYamlValue("creditCardDetails.paymentMethodVisaMC.cvv-number");
 
-		selectCardDetails("expiration date", expDate);
-		//waitForSpinner();
-		enterCardDetails("CVV", CVV);
-		//waitForSpinner();
+			selectCardDetails("payment method", type);
+			// waitForSpinner();
+			wait.waitForPageToLoadCompletely();
+			enterCardDetails("cc number", ccNumber);
+			// waitForSpinner();
+
+			selectCardDetails("expiration date", expDate);
+			// waitForSpinner();
+			enterCardDetails("CVV", CVV);
+			// waitForSpinner();"
+
+		}
 
 	}
 

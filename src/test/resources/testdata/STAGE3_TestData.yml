@@ -57,7 +57,18 @@ creditCardInfo:
   Holder-name: FIRSTNAME LASTNAME
   Number: "4111111111111111"
   cvv-number: 123
-  CreditCardExpiration: 06/2018     
+  CreditCardExpiration: 06/2018 
+  
+creditCardDetails: 
+  paymentMethodVisaMC: 
+    Type: Visa/MC
+    Holder-name: FIRSTNAME LASTNAME
+    Number: "4111111111111111"
+    cvv-number: 123
+    CreditCardExpiration: 06/2018 
+  paymentMethodBOACheck:
+    Type: "BOA - Check"
+    CheckNumber: 123456
 
 
             
@@ -547,6 +558,9 @@ ACS_ApplyPayment:
         balance: "0.00"
     Batch: "ACS: SELENIUM_BATCH"
     CreditCardExpiration: 2018/07 
+    PaymentMethod: 
+        Select: "BOA - Check"
+        Unselect: "Visa/MC"
                
 email:
   send: true

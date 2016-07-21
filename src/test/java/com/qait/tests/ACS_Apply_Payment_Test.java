@@ -85,11 +85,7 @@ public class ACS_Apply_Payment_Test {
 
 		test.applyPayment.selectBatch(YamlReader
 				.getYamlValue("ACS_ApplyPayment.Batch"));
-		test.applyPayment.enterDetailsForPayment(
-				YamlReader.getYamlValue("creditCardInfo.Type"),
-				YamlReader.getYamlValue("creditCardInfo.Number"),
-				YamlReader.getYamlValue("ACS_ApplyPayment.CreditCardExpiration"),
-				YamlReader.getYamlValue("creditCardInfo.cvv-number"));
+		test.applyPayment.enterDetailsForPayment(YamlReader.getYamlValue("ACS_ApplyPayment.PaymentMethod.Select"));
 		test.applyPayment.clickOnSaveButton();
 		test.applyPayment.switchToDefaultContent();
 		// test.invoicePage.verifyMemberDetails_question("proforma", YamlReader
@@ -116,7 +112,7 @@ public class ACS_Apply_Payment_Test {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
 
-	 @AfterClass(alwaysRun = true)
+	//@AfterClass(alwaysRun = true)
 	public void Close_Test_Session() {
 		test.closeBrowserSession();
 	}
