@@ -768,4 +768,16 @@ public class BaseUi {
 		}
 		
 	}
+	
+	public void switchWindow(String current){
+		Set<String> handles = driver.getWindowHandles();
+ 		for(String handle : handles){
+ 			if(!(handle.equalsIgnoreCase(current))){
+ 					driver.switchTo().window(handle);
+ 					break;
+ 			}
+ 		}  		
+        System.out.println("In "+getPageTitle());
+        driver.switchTo().window(current);
+	}
 }

@@ -24,7 +24,7 @@ public class ACS_ReportsActions extends ASCSocietyGenericPage  {
 	
 
 	public void selectModulesAndCategoryonReportCentralPage(String Module, String Category,String DeliveryMethod) {
-		
+		hardWaitForIEBrowser(5);
 	    selectDropdownOptions(Module,"Module");
 	    selectDropdownOptions(Category,"Category");
 	    selectDropdownOptions(DeliveryMethod,"Delivery Method");
@@ -55,7 +55,7 @@ public class ACS_ReportsActions extends ASCSocietyGenericPage  {
 	}
 
 
-	public void verifyReceivedReport(String DeliveryMethod,String reportHeading) {
+	public void verifyReceivedReport(String DeliveryMethod,String reportHeading,String current) {
 		wait.hardWait(3);
 		if(DeliveryMethod.equalsIgnoreCase("Run Immediately"))
 		{
@@ -69,10 +69,12 @@ public class ACS_ReportsActions extends ASCSocietyGenericPage  {
 		driver.close();
 		wait.hardWait(5);
 //		switchToWindowHavingIndex(0);
-		changeWindow(0);
-		}
-		
-	
+		if(isBrowser("ie")||(isBrowser("internetexplorer"))){
+			driver.switchTo().window(current);
+			}
+		else
+			changeWindow(0);
+		}	
 	}
 	
 	private void enterEmailDetails(String fieldName,String fielddata)
@@ -91,15 +93,22 @@ public class ACS_ReportsActions extends ASCSocietyGenericPage  {
 		logMessage("Step : Go button is clicked\n");
 	}
 	
-	public void enterEmailDetailsForScheduleReport(String Deliverytype,String fielddata_To,String fielddata_Subject)
+	public String enterEmailDetailsForScheduleReport(String Deliverytype,String fielddata_To,String fielddata_Subject)
 	{
+		String current = "";
 		if(Deliverytype.equalsIgnoreCase("Schedule Report"))
 		{
-			changeWindow(1);
+			if(isBrowser("ie")||(isBrowser("internetexplorer"))){
+			current= driver.getWindowHandle();
+			switchWindow(current);
+			}
+			else
+			   changeWindow(1);
 			enterEmailDetails("E-mail To",fielddata_To);
 			enterEmailDetails("E-mail Subject",fielddata_Subject);
 			clickGoButton();
 		}
+		return current;
 			
 	}
 }
