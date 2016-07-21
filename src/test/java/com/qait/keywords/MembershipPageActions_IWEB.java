@@ -3348,4 +3348,32 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : "+productName+" product is present under invoices at index "+i);
 		return i;
 	}
+
+	public void clickCurrentYearPencilButton() {
+		isElementDisplayed("btn_CurrentYearPencil");
+		element("btn_CurrentYearPencil").click();
+		logMessage("Step : Edit Pencil button for current year is clicked\n");
+		
+	}
+
+	public void verifyStartAndEndDatesForAllModesOfReview() {
+		switchToFrame(element("iframe"));
+		verifyStartAndEndDateForReviewerType("online faculty reviewer");
+		verifyStartAndEndDateForReviewerType("faculty decision panel");
+		verifyStartAndEndDateForReviewerType("green chemistry reviewer");
+		clickOnSaveButtonForBillingAddress();
+		switchToDefaultContent();
+		
+		
+	}
+
+	private void verifyStartAndEndDateForReviewerType(String reviewerType) {
+		String reviewingStartDate=reviewerType+" start date";
+		String reviewingEndDate=reviewerType+" end date";
+		reviewingStartDate = element("inp_dateForReviewModes", reviewingStartDate).getAttribute("value");
+		reviewingEndDate = element("inp_dateForReviewModes", reviewingEndDate).getAttribute("value");
+		Assert.assertTrue(verfiyEndAndStartDate(reviewingEndDate, reviewingStartDate), "ASSERT FAIL : Current date does not lies within the "+reviewerType+" start and end date\n");
+		logMessage("ASSERT PASSED : Current date lies within the "+reviewerType+" start and end date\n");
+		
+	}
 }

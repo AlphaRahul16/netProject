@@ -179,3 +179,5 @@ txt_current                                     xpath                           
 txt_startDate                                   xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[8]
 txt_endDate                                     xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[${index2}]
 arrow_selectMember                              xpath                           (//th/a)[2]/../../following-sibling::tr[${index}]//td[3]//a
+btn_CurrentYearPencil                           xpath                           //td[contains(text(),'Yes')]/preceding-sibling::td//i
+inp_dateForReviewModes                          xpath                           //input[@title='${reviewtitle}']

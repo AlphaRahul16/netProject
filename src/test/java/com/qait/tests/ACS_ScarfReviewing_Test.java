@@ -66,7 +66,19 @@ public class ACS_ScarfReviewing_Test {
 	@Test
 	public void Step03_User_Reviewing_Date_Is_Open_In_Current_Year_For_All_Reviewing_Modes()
 	{
+		test.memberShipPage.verifyReportingStartAndEndDate();
+		test.memberShipPage.clickCurrentYearPencilButton();
+		test.memberShipPage.verifyStartAndEndDatesForAllModesOfReview();
+		//test.individualsPage.clickOnSaveButton();
 		
+	}
+	
+	@Test
+	public void Step04_Select_Assign_Reviewer_Option_And_Choose_Two_Online_Reviewers()
+	{
+		test.homePageIWEB.clickOnLeftMenuTab("Reviewers");
+		test.homePageIWEB.clickOnTab("Assign Reviewer");
+		test.acsScarfReviewPage.assignReviewerToAChapter("Online Reviewer",0);
 	}
 	
 	
