@@ -1477,7 +1477,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		String customerID = customerId;
 		element("inp_customerId").clear();
 		element("inp_customerId").sendKeys(customerID);
-		logMessage("Step : enter customer ID as " + customerID + " \n");
+		logMessage("Step : Text entered as " + customerID + " \n");
 		clickOnGoButtonInRunQuery();
 
 	}
