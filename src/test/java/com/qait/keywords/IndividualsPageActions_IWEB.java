@@ -971,7 +971,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		hardWaitForIEBrowser(10);
 		try {
-			wait.resetImplicitTimeout(0);
+			wait.resetImplicitTimeout(3);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("btn_memberShip", menuName);
 			clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", menuName));

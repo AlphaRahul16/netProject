@@ -2,6 +2,7 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -3159,7 +3160,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		html = html + "</tbody></table></body></html>";
 		System.out.println("After Validation");
-		ReformatTestFile.createMemberTransferCompleteTestLog("./src/test/resources/Member Transfer Test Logs", html,
+		String Fpath = System.getProperty("user.dir")+ File.separator+"test-output"+File.separator+"Member Transfer Test Logs";
+		ReformatTestFile.createMemberTransferCompleteTestLog(Fpath, html,
 				criteriaList.get("ID"));
 		Assert.assertTrue(flag1,
 				"[FAILED]:: Data for Before and After member transfer does not match the criteria FINAL Test Result ::"
@@ -3347,5 +3349,33 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		Assert.assertTrue(flag,"ASSERT FAILED : "+productName+" product is not present under menu");
 		logMessage("ASSERT PASSED : "+productName+" product is present under invoices at index "+i);
 		return i;
+	}
+
+	public void clickCurrentYearPencilButton() {
+		isElementDisplayed("btn_CurrentYearPencil");
+		element("btn_CurrentYearPencil").click();
+		logMessage("Step : Edit Pencil button for current year is clicked\n");
+		
+	}
+
+	public void verifyStartAndEndDatesForAllModesOfReview() {
+		switchToFrame(element("iframe"));
+		verifyStartAndEndDateForReviewerType("online faculty reviewer");
+		verifyStartAndEndDateForReviewerType("faculty decision panel");
+		verifyStartAndEndDateForReviewerType("green chemistry reviewer");
+		clickOnSaveButtonForBillingAddress();
+		switchToDefaultContent();
+		
+		
+	}
+
+	private void verifyStartAndEndDateForReviewerType(String reviewerType) {
+		String reviewingStartDate=reviewerType+" start date";
+		String reviewingEndDate=reviewerType+" end date";
+		reviewingStartDate = element("inp_dateForReviewModes", reviewingStartDate).getAttribute("value");
+		reviewingEndDate = element("inp_dateForReviewModes", reviewingEndDate).getAttribute("value");
+		Assert.assertTrue(verfiyEndAndStartDate(reviewingEndDate, reviewingStartDate), "ASSERT FAIL : Current date does not lies within the "+reviewerType+" start and end date\n");
+		logMessage("ASSERT PASSED : Current date lies within the "+reviewerType+" start and end date\n");
+		
 	}
 }

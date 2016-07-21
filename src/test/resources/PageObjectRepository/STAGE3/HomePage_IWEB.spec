@@ -17,4 +17,5 @@ link_tabsOnModule          xpath                 //a[text()='${value}']
 link_addIndividuals        xpath                //a[@id='F1_HYPERLINK_4']
 lnk_FindNomination         id                   F1_HYPERLINK_1
 lnk_ScarfReporting         xpath                //a[@title='Student Chapter Reporting']
+tab_leftSidebar            xpath                 //h3[contains(text(),'${tabname}')]
 ==================================================================================================================================
