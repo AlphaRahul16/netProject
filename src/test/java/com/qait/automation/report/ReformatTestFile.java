@@ -73,7 +73,7 @@ public class ReformatTestFile {
 	}
 
 	public static void createMemberTransferCompleteTestLog(String aFileName, String html,String scenarioID) {
-		String filePath = aFileName + "/" + DateUtil.getCurrentdateInStringWithGivenFormate("dd MMM YYYY")+"/MT"+scenarioID+".html";
+		String filePath = aFileName + File.separator + DateUtil.getCurrentdateInStringWithGivenFormate("dd MMM YYYY")+File.separator +"MT"+scenarioID+".html";
 		Path path = Paths.get(filePath);
 		File file = new File(filePath);
 		file.getParentFile().mkdirs();
