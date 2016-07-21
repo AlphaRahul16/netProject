@@ -47,6 +47,7 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 		batchName=enterBatchName(index1);
 		enterSecurityGroup(index2,group);
 		clickOnSaveButton();
+		wait.hardWait(1);
 		return batchName;
 	}
 
@@ -85,11 +86,8 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 		String batchName="SELENIUM_BATCH"+System.currentTimeMillis();
 		//		sendKeysUsingXpathInJavaScriptExecutor(element("txt_batchDetails",String.valueOf(i)), batchName);
 		element("txt_batchDetails",String.valueOf(i)).sendKeys(batchName);
-
 		logMessage("STEP : Batch name is entered as "+batchName+"\n");
-
 		return batchName;
-
 	}
 
 	public void enterSecurityGroup(int index,String securityGroup){
@@ -128,12 +126,12 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 		size=elements("table_actions").size();
 		for(int i=1;i<size;i++){
 			isElementDisplayed("drpdwn_invoiceAction",String.valueOf(j));
-			wait.hardWait(1);
+			wait.hardWait(2);
 			hardWaitForIEBrowser(3);
 			selectProvidedTextFromDropDown(element("drpdwn_invoiceAction",String.valueOf(j)), actionValue);
-
-			logMessage("STEP : Action value entered as "+actionValue+" for product "+j+"\n");
-			j++;
+		   wait.hardWait(1);
+			logMessage("STEP : Action value entered as "+actionValue+" for product "+i+"\n");
+		   j++;
 		}
 	}
 
@@ -168,6 +166,7 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 		//waitForSpinner();
 		wait.hardWait(2);
 		hardWaitForIEBrowser(4);
+
 		try
 		{
 			wait.resetImplicitTimeout(2);
@@ -186,10 +185,11 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 
 	public void verifyItemsUnderVoidedLineItemsMenu(List<String>expectedProductList,int index){
 		boolean flag=false;
+		wait.hardWait(2);
 		isElementDisplayed("table_productName",String.valueOf(index));
 		for(WebElement ele: elements("table_productName",String.valueOf(index))){
 			for(int j=0; j<expectedProductList.size();j++){
-				if(expectedProductList.get(j).equalsIgnoreCase(ele.getText().trim())){
+				if(expectedProductList.get(j).contains(ele.getText().trim())){
 					flag= true;
 					break;
 				}

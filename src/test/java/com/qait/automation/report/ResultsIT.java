@@ -133,7 +133,6 @@ public class ResultsIT extends ReformatTestFile {
         mailtext = mailtext
                 + "<br><b><font style = Courier, color = green>Test Name: </font></b>"
                 + getTestName();
-
         mailtext = mailtext
                 + "<br><b><font color = green>Browser: </font></b>"
                 + getProperty("./Config.properties", "browser").toUpperCase();
