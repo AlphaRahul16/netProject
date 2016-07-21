@@ -2,6 +2,7 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -2349,7 +2350,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyTermEndDateAndStartDateIsEmpty() {
-		hardWaitForIEBrowser(2);
+		hardWaitForIEBrowser(6);
 		Assert.assertTrue(element("txt_termStartDaterenewal", "1").getText().length() == 1,
 				"Term Start Date is not Empty");
 		logMessage("ASSERT PASSED : Term Start date is empty\n");
@@ -2775,8 +2776,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				break;
 			case "MP Pmt Status":
 				if(criteriaList.get(criteria.getKey()).trim().toLowerCase().contains("unpaid|credit")){
-					String sp[] = criteriaList.get(criteria.getKey()).trim().toLowerCase().split("|");
-					if(afterList.get(criteria.getKey()).trim().toLowerCase().contains(sp[0]) || afterList.get(criteria.getKey()).trim().toLowerCase().contains(sp[1])){
+					System.out.println("SpreadSheet data:: "+criteriaList.get(criteria.getKey()).trim().toLowerCase());
+					String sp[] = criteriaList.get(criteria.getKey()).trim().toLowerCase().split("\\|");
+					System.out.println("SP 0:: "+sp[0]);
+					System.out.println("SP 1:: "+sp[1]);
+					if((afterList.get(criteria.getKey()).trim().toLowerCase().contains(sp[0])) || (afterList.get(criteria.getKey()).trim().toLowerCase().contains(sp[1]))){
 						ResultList.put(criteria.getKey() + "", "y");
 					}else{
 						ResultList.put(criteria.getKey() + "", "n");
@@ -3156,7 +3160,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		html = html + "</tbody></table></body></html>";
 		System.out.println("After Validation");
-		ReformatTestFile.createMemberTransferCompleteTestLog("./src/test/resources/Member Transfer Test Logs", html,
+		String Fpath = System.getProperty("user.dir")+ File.separator+"test-output"+File.separator+"Member Transfer Test Logs";
+		ReformatTestFile.createMemberTransferCompleteTestLog(Fpath, html,
 				criteriaList.get("ID"));
 		Assert.assertTrue(flag1,
 				"[FAILED]:: Data for Before and After member transfer does not match the criteria FINAL Test Result ::"
@@ -3348,19 +3353,45 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 //	}
 	
 	public int verifyProductUnderDetailsMenu(String productName){
-		  int i;
-		  flag=false;
-		  waitForSpinner();
-//		  wait.hardWait(3);
-		  for(i=1;i<=elements("table_rows").size();i++){
-		   if(element("txt_endDate",String.valueOf(i),String.valueOf(4)).getText().trim()
-		     .equals(productName)){
-		    flag=true;
-		    break;
-		   }
-		  }
-		  Assert.assertTrue(flag,"ASSERT FAILED : "+productName+" product is not present under menu");
-		  logMessage("ASSERT PASSED : "+productName+" product is present under invoices at index "+i);
-		  return i;
-		 }
+		int i;
+		flag=false;
+		waitForSpinner();
+		for(i=1;i<=elements("table_rows").size();i++){
+			if(element("txt_endDate",String.valueOf(i),String.valueOf(4)).getText().trim()
+					.equals(productName)){
+				flag=true;
+				break;
+			}
+		}
+		Assert.assertTrue(flag,"ASSERT FAILED : "+productName+" product is not present under menu");
+		logMessage("ASSERT PASSED : "+productName+" product is present under invoices at index "+i);
+		return i;
+	}
+
+	public void clickCurrentYearPencilButton() {
+		isElementDisplayed("btn_CurrentYearPencil");
+		element("btn_CurrentYearPencil").click();
+		logMessage("Step : Edit Pencil button for current year is clicked\n");
+		
+	}
+
+	public void verifyStartAndEndDatesForAllModesOfReview() {
+		switchToFrame(element("iframe"));
+		verifyStartAndEndDateForReviewerType("online faculty reviewer");
+		verifyStartAndEndDateForReviewerType("faculty decision panel");
+		verifyStartAndEndDateForReviewerType("green chemistry reviewer");
+		clickOnSaveButtonForBillingAddress();
+		switchToDefaultContent();
+		
+		
+	}
+
+	private void verifyStartAndEndDateForReviewerType(String reviewerType) {
+		String reviewingStartDate=reviewerType+" start date";
+		String reviewingEndDate=reviewerType+" end date";
+		reviewingStartDate = element("inp_dateForReviewModes", reviewingStartDate).getAttribute("value");
+		reviewingEndDate = element("inp_dateForReviewModes", reviewingEndDate).getAttribute("value");
+		Assert.assertTrue(verfiyEndAndStartDate(reviewingEndDate, reviewingStartDate), "ASSERT FAIL : Current date does not lies within the "+reviewerType+" start and end date\n");
+		logMessage("ASSERT PASSED : Current date lies within the "+reviewerType+" start and end date\n");		
+	}
 }

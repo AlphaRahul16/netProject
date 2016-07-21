@@ -22,8 +22,8 @@ import org.testng.Reporter;
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.TakeScreenshot;
 import com.qait.keywords.ACS_Address_Validation_Action;
-import com.qait.automation.utils.YamlReader;
 import com.qait.keywords.ACS_Apply_Payment_Actions;
+import com.qait.automation.utils.YamlReader;
 import com.qait.keywords.ACS_Awards_EWEB_PageActions;
 import com.qait.keywords.ACS_BatchProcessingActions;
 import com.qait.keywords.ACS_ReportsActions;
@@ -61,8 +61,8 @@ import com.qait.keywords.MemberShipRenewalPage;
 import com.qait.keywords.MembershipPageActions_IWEB;
 import com.qait.keywords.SubscriptionPage;
 import com.qait.keywords.ACS_Scarf_Reporting;
+import com.qait.keywords.ACS_Scarf_ReviewingActions;
 import com.qait.keywords.ACS_Void_Invoice;
-import com.qait.keywords.ACS_BatchProcessingActions;
 
 
 public class TestSessionInitiator {
@@ -123,6 +123,7 @@ public class TestSessionInitiator {
 	public ACS_ReportsActions acsreportPage;
 	public ACS_Apply_Payment_Actions applyPayment;
 	public ACS_Void_Invoice acsVoidInvoice;
+	public ACS_Scarf_ReviewingActions acsScarfReviewPage;
 
 	//public AwardsPageActions_IWEB AwardsPageActions_IWEB;
 
@@ -173,6 +174,7 @@ public class TestSessionInitiator {
 		acsreportPage = new ACS_ReportsActions(driver);
 		applyPayment = new ACS_Apply_Payment_Actions(driver);
 		acsVoidInvoice= new ACS_Void_Invoice(driver);
+		acsScarfReviewPage = new ACS_Scarf_ReviewingActions(driver);
 	}
 
 
@@ -281,7 +283,7 @@ public class TestSessionInitiator {
 	      try {
 	       Thread.sleep(8000);
 	      } catch (InterruptedException e1) {
-	       e1.printStackTrace();
+	      
 	      }
 	     }
 	     if (!baseurl
@@ -290,7 +292,7 @@ public class TestSessionInitiator {
 	     }
 	    
 	    }catch (Exception e) {
-	     e.printStackTrace();
+	      
 	    }
 
 	   }
@@ -368,67 +370,13 @@ public class TestSessionInitiator {
 		Reporter.log("\nThe application url is :- " + baseURL, true);
 	}
 
-	public void navigateToIWEBUrlOnNewBrowserTab(String baseURL) {
-		// if (_getSessionConfig().get("browser").equalsIgnoreCase("firefox")
-		// || _getSessionConfig().get("browser").equalsIgnoreCase("ie")) {
-		// driver.manage().deleteAllCookies();
-		// openUrl(baseURL);
-		// } else if (_getSessionConfig().get("browser")
-		// .equalsIgnoreCase("chrome")) {
-		// Robot robot;
-		// try {
-		// robot = new Robot();
-		// robot.delay(2000);
-		// robot.keyPress(KeyEvent.VK_CONTROL);
-		// robot.keyPress(KeyEvent.VK_T);
-		// robot.keyRelease(KeyEvent.VK_CONTROL);
-		// robot.keyRelease(KeyEvent.VK_T);
-		// // String base = driver.getWindowHandle();
-		// //
-		// // Set<String> set = driver.getWindowHandles();
-		// for (String s : driver.getWindowHandles()) {
-		// driver.switchTo().window(s);
-		// }
-		// // set.remove(base);
-		// // assert set.size() == 1;
-		// // driver.switchTo().window((String) set.toArray()[0]);
-		// driver.navigate().to(baseURL);
-		// Reporter.log("\nThe application url is :- " + baseURL, true);
-		// } catch (AWTException e) {
-		// e.printStackTrace();
-		// }
-
-		launchApplication(baseURL);
-
-		// else
-		// if(_getSessionConfig().get("browser").equalsIgnoreCase("chrome"))
-		// {
-		// Robot robot;
-		// try {
-		// System.out.println("Open URL 4");
-		// robot = new Robot();
-		// robot.delay(2000);
-		// robot.keyPress(KeyEvent.VK_CONTROL);
-		// robot.keyPress(KeyEvent.VK_T);
-		// robot.keyRelease(KeyEvent.VK_CONTROL);
-		// robot.keyRelease(KeyEvent.VK_T);
-		// String base = driver.getWindowHandle();
-		// Set<String> set = driver.getWindowHandles();
-		// Assert.assertTrue(closeAllOtherWindows(base));
-		// // set.remove(base);
-		// // assert set.size() == 1;
-		// // driver.switchTo().window((String) set.toArray()[0]);
-		// driver.get(baseURL);
-		// Reporter.log("\nThe application url is :- " + baseURL, true);
-		// }
-		// catch (AWTException e) {
-		// System.out.println("Open URL 5");
-		// driver.get(baseURL);
-		// e.printStackTrace();
-		// }
-
-		// }
-	}
+//	public void navigateToIWEBUrlOnNewBrowserTab(String baseURL) {
+//
+//		launchApplication(baseURL);
+//		
+//
+//		
+//	}
 
 	public void openApplicationInNewTab(String baseURL) {
 		Robot robot;
@@ -454,4 +402,7 @@ public class TestSessionInitiator {
 			e.printStackTrace();
 		}
 	}
+
+
+	
 }

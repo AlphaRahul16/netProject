@@ -190,7 +190,7 @@ public class GetPage extends BaseUi {
 		assertTrue(result, "ASSERT FAILED: element '" + elementName
 				+ "with text " + elementTextReplace1+elementTextReplace2 + "' is not displayed.");
 		logMessage("ASSERT PASSED: element " + elementName + " with text "
-				+ elementTextReplace1+elementTextReplace2 + " is displayed.");
+				+ elementTextReplace1+","+elementTextReplace2 + " is displayed.");
 		return result;
 	}
 	

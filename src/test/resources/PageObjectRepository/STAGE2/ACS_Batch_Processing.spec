@@ -16,4 +16,7 @@ txt_BatchCount                              id                             TEXT_
 iframe1                                     id                             iframe1
 drpdwn_securitygroup                        xpath                          //label[contains(text(),'${value}')]/following-sibling::select
 inp_batchAddFields                          xpath                          //label[contains(text(),'${value}')]/following-sibling::input
+inp_batchAdvanceView                        xpath                          //label[contains(text(),'${value}')]/preceding-sibling::input
+inp_batchEnterField                         xpath                         //span[contains(text(),'${batchName}')]/../following-sibling::td//input
+drodown_batchSearchCriteria                 xpath                          //span[contains(text(),'${batchName}')]/../following-sibling::td//select
 ======================================================================================================================================

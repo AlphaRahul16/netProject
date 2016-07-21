@@ -15,8 +15,8 @@ txt_quantity                    xpath                  //td[contains(text(),'${p
 txt_total                       xpath                  //td[contains(text(),'${productName}')]//following-sibling::td[4]
 txt_discount                    xpath                  //td[contains(text(),'${productName}')]//following-sibling::td[5]
 txt_balance                     xpath                  //td[contains(text(),'${productName}')]//following-sibling::td[6]
-txt_invoiceValues               xpath                 //label[contains(text(),'${invoice value}')]/preceding-sibling::span
 btn_detailsMenu                 xpath                 //span[text()='${menuName}']/preceding-sibling::input
+txt_invoiceValues               xpath                 //label[contains(text(),'${invoice value}')]/preceding-sibling::span
 btn_detailsMenuAACT             xpath                 //span[text()='${menuName}']/../a[1]
 table_description               xpath                 //a/../../following-sibling::tr/td[5]
 table_code                      xpath                 //a/../../following-sibling::tr/td[6]

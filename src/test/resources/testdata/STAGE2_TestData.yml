@@ -56,7 +56,7 @@ creditCardInfo:
   Holder-name: FIRSTNAME LASTNAME
   Number: "4111111111111111"
   cvv-number: 123
-  CreditCardExpiration: 06/2016
+  CreditCardExpiration: 06/2017
             
 reinstateUsers: 
     user1: 

@@ -828,7 +828,8 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_invoiceValues", field);
 		logMessage("STEP : " + field + " is "
 				+ element("txt_invoiceValues", field).getText().trim() + "\n");
-		return element("txt_invoiceValues", field).getText().trim();
+		String invoicedata=element("txt_invoiceValues", field).getText().trim();
+		return invoicedata;
 	}
 
 	public void verifyBalanceIsNotNull(String detailName, double detailValue) {

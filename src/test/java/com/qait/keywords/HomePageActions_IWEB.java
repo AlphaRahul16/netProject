@@ -104,6 +104,16 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("STEP : Click on tab " + tabName + " in hd_sideBar \n");
 
 	}
+	
+	
+	public void clickOnLeftMenuTab(String tabName) {
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
+		isElementDisplayed("tab_leftSidebar", tabName);
+	    element("tab_leftSidebar", tabName).click();
+		logMessage("STEP : Click on tab " + tabName + " in tab_leftSidebar \n");
+
+	}
 
 	public void clickOnMemberShipTab() {
 		handleAlert();

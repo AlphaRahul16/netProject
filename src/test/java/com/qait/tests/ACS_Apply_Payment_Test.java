@@ -116,7 +116,7 @@ public class ACS_Apply_Payment_Test {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
 
-	// @AfterClass(alwaysRun = true)
+	 @AfterClass(alwaysRun = true)
 	public void Close_Test_Session() {
 		test.closeBrowserSession();
 	}
