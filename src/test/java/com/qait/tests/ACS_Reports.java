@@ -48,8 +48,8 @@ public class ACS_Reports {
 		test.acsreportPage.selectModulesAndCategoryonReportCentralPage(getReportsDetails.get_ACSReportsInfo("module"),
 		getReportsDetails.get_ACSReportsInfo("category"),DeliveryMethod);
 		test.acsreportPage.clickGoReportButtonForReport(getReportsDetails.get_ACSReportsInfo("report_Name"));
-		test.acsreportPage.enterEmailDetailsForScheduleReport(DeliveryMethod,getReportsDetails.get_ACSReportsInfo("email_To"),getReportsDetails.get_ACSReportsInfo("email_Message"));
-		test.acsreportPage.verifyReceivedReport(DeliveryMethod,getReportsDetails.get_ACSReportsInfo("report_Heading"));
+		String current=test.acsreportPage.enterEmailDetailsForScheduleReport(DeliveryMethod,getReportsDetails.get_ACSReportsInfo("email_To"),getReportsDetails.get_ACSReportsInfo("email_Message"));
+		test.acsreportPage.verifyReceivedReport(DeliveryMethod,getReportsDetails.get_ACSReportsInfo("report_Heading"),current);
 	}
 
 

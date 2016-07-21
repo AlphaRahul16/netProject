@@ -70,6 +70,8 @@ public class GetPage extends BaseUi {
 	
 	protected boolean checkIfElementIsThere(String eleString,String replacementEleString) {
 	    boolean flag = false;
+	    wait.resetImplicitTimeout(2);
+		wait.resetExplicitTimeout(10);
 	    try {
 	      if (webdriver.findElement(getLocator(eleString,replacementEleString)).isDisplayed()) {
 	        flag = true;

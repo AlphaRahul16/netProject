@@ -3311,7 +3311,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnStudentMemberName(int i) {
 		wait.hardWait(2);
 		isElementDisplayed("arrow_selectMember", String.valueOf(i));
-		logMessage("STEP : Selected Student Member is : "
+		logMessage("STEP : Selected Student Member is "
 				+ element("txt_endDate", String.valueOf(i), String.valueOf(4)).getText().trim());
 		element("arrow_selectMember", String.valueOf(i)).click();
 	}
@@ -3330,19 +3330,37 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : Balance value is not null\n");
 	}
 		
+//	public int verifyProductUnderDetailsMenu(String productName){
+//		int i;
+//		flag=false;
+//		waitForSpinner();
+//		for(i=1;i<=elements("table_rows").size();i++){
+//			System.out.println("--------"+element("txt_endDate",String.valueOf(i),String.valueOf(4)).getText().trim());
+//			if(element("txt_endDate",String.valueOf(i),String.valueOf(4)).getText().trim()
+//					.equals(productName)){
+//				flag=true;
+//				break;
+//			}
+//		}
+//		Assert.assertTrue(flag,"ASSERT FAILED : "+productName+" product is not present under menu");
+//		logMessage("ASSERT PASSED : "+productName+" product is present under invoices at index "+i);
+//		return i;
+//	}
+	
 	public int verifyProductUnderDetailsMenu(String productName){
-		int i;
-		flag=false;
-		waitForSpinner();
-		for(i=1;i<=elements("table_rows").size();i++){
-			if(element("txt_endDate",String.valueOf(i),String.valueOf(4)).getText().trim()
-					.equals(productName)){
-				flag=true;
-				break;
-			}
-		}
-		Assert.assertTrue(flag,"ASSERT FAILED : "+productName+" product is not present under menu");
-		logMessage("ASSERT PASSED : "+productName+" product is present under invoices at index "+i);
-		return i;
-	}
+		  int i;
+		  flag=false;
+		  waitForSpinner();
+//		  wait.hardWait(3);
+		  for(i=1;i<=elements("table_rows").size();i++){
+		   if(element("txt_endDate",String.valueOf(i),String.valueOf(4)).getText().trim()
+		     .equals(productName)){
+		    flag=true;
+		    break;
+		   }
+		  }
+		  Assert.assertTrue(flag,"ASSERT FAILED : "+productName+" product is not present under menu");
+		  logMessage("ASSERT PASSED : "+productName+" product is present under invoices at index "+i);
+		  return i;
+		 }
 }
