@@ -4,7 +4,6 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import org.apache.xalan.templates.ElemNumber;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.server.handler.SwitchToFrame;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;

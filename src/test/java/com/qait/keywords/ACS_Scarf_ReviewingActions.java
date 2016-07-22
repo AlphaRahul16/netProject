@@ -10,11 +10,11 @@ import org.openqa.selenium.WebDriver;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 
 public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
-	ArrayList<String> assignedChapterNameList = new ArrayList<String>() ;
+	String assignedChapterNameList;
 	ArrayList<String> reviewerNameList = new ArrayList<String>() ;
 	WebDriver driver;
 	static String pagename = "Scarf_Reviewing";
-	 String[] custmerSortNames = null ;
+	 String[] custmerSortNames = new String[4] ;
 	int timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));;
 	int hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 
@@ -44,10 +44,11 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 	public void assignReviewerToAChapter(String reviewertype, int reviewercount) {
 		selectDropDownValue(reviewertype);
 		 waitForSpinner();
-		 wait.hardWait(3);
-
+		 wait.hardWait(4);
+         element("list_reviewerOptions",toString().valueOf(reviewercount+1)).click();
+   	     wait.hardWait(3);
+        System.out.println("name "+reviewercount+" "+element("list_reviewerOptions",toString().valueOf(reviewercount+1)).getText());
         reviewerNameList.add(element("list_reviewerOptions",toString().valueOf(reviewercount+1)).getText().trim());
-        element("list_reviewerOptions",toString().valueOf(reviewercount+1)).click();
         waitForSpinner();
 
 		//logMessage("Step : "+reviewerNameList.get(reviewercount)+" is selected as a "+reviewertype);
@@ -67,30 +68,30 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 		
 	}
 
-	private ArrayList<String> getAssignedChapterName(ArrayList<String> assignedChapterNameList) {
+	private String getAssignedChapterName(String assignedChapterNameList) {
 		isElementDisplayed("txt_AssignedchapterName");
-		assignedChapterNameList.add(element("txt_AssignedchapterName").getText().trim());
-		System.out.println(assignedChapterNameList.get(0));
+		assignedChapterNameList=element("txt_AssignedchapterName").getText().trim();
+		System.out.println(assignedChapterNameList);
 		return assignedChapterNameList;
 		 
 	}
 
 
-	public void getCustomerSortName(ArrayList<String> reviewerNameList) {
+	public String[] getCustomerSortName(ArrayList<String> reviewerNameList) {
 	   
+		System.out.println(reviewerNameList.size());
 		for (int i = 0; i < reviewerNameList.size(); i++) {
 			System.out.println(reviewerNameList.get(i));
-			
-			custmerSortNames[i]=reviewerNameList.get(i).split(" ")[2];
+			int size=reviewerNameList.get(i).split(" ").length;
+			custmerSortNames[i]=reviewerNameList.get(i).split(" ")[size-1];
 			System.out.println(custmerSortNames[i]);
-			
-		
 		}
+		return custmerSortNames;
 	}
 
-	public void clickOnQueryTab(String tabName) {
-		isElementDisplayed("tab_QueryName",tabName);
-		elements("tab_QueryName",tabName).get(1).click();
+	public void clickOnQueryTabForScarfModule(String tabName) {
+		isElementDisplayed("tab_QueryName");
+		element("tab_QueryName").click();
 		logMessage("Step : "+tabName+" is clicked\n");
 		
 	}

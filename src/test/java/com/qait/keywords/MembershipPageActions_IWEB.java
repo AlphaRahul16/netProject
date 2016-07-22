@@ -25,6 +25,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.report.ReformatTestFile;
 import com.qait.automation.utils.ConfigPropertyReader;
@@ -2366,7 +2367,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public List<String> getCustomerLastNameAndContactID() {
-
+		List<String> memberDetails1 = new ArrayList<String>();
 		clickOnEditNameAndAddress();
 		switchToFrame("iframe1");
 		customerLname = getNameFromEditNameAndAddressButton("lastName");
@@ -2374,10 +2375,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		handleAlert();
 		switchToDefaultContent();
 		customerContactId = element("txt_renewalContactId").getText();
-		memberDetails.add(customerLname);
-		memberDetails.add(customerContactId);
-
-		return memberDetails;
+		memberDetails1.add(customerLname);
+		memberDetails1.add(customerContactId);
+		return memberDetails1;
 	}
 
 	public List<String> getCustomerLastNameAndContactIDForYellowBook() {
@@ -2403,8 +2403,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		return customerContactId;
 	}
 
-	public List<String> getCustomerFullNameAndContactID() {
-
+	public List<String> getCustomerFullNameAndContactID() 
+	{
 		clickOnEditNameAndAddress();
 		switchToFrame("iframe1");
 		customerLname = getNameFromEditNameAndAddressButton("lastName") + " "
@@ -2420,9 +2420,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		memberDetails.add(customerContactId);
 		// memberDetails.add(getMemberWebLogin());
-		logMessage("Step : ");
+		logMessage("Step : Customer contact id fetched as "+customerContactId);
 		return memberDetails;
 
+	}
+	
+	public void fetchScarfReviewerLoginDetails(Map<String,List<String>> reviewerloginMap, int reviewerNumber)
+	{
+		reviewerloginMap.put("reviewer"+reviewerNumber, getCustomerLastNameAndContactID());
+		logMessage("Step : Reviewer name is fetched as "+reviewerloginMap.get("reviewer"+reviewerNumber));
 	}
 
 	public void getIndividualFullNameForAwardsNomination() {
@@ -3960,4 +3966,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : Current date lies within the "
 				+ reviewerType + " start and end date\n");
 	}
+	
+	
 }

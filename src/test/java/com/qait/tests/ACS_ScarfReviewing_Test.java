@@ -13,6 +13,7 @@ import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
@@ -23,25 +24,18 @@ import com.qait.automation.utils.YamlReader;
 public class ACS_ScarfReviewing_Test {
 	static String sheetName;
 	TestSessionInitiator test;
-	//HashMap<String, String> ReviewMap = new HashMap<String, String>();
+	
+	Map<String,List<String>> ReviewerLoginMap = new HashMap<String, List<String>>();
 
 	String app_url_iweb;
-
+    String[] customerSortNames;
 	private int caseID;
 	
-	/*public ACS_ScarfReviewing_Test() {
-		sheetName = com.qait.tests.Data_Provider_Factory_Class_Xml.sheetName = "ScarfReviewing";
-	}
-	
-	@Factory(dataProviderClass = com.qait.tests.Data_Provider_Factory_Class_Xml.class, dataProvider = "data")
-	public ACS_ScarfReviewing_Test(int caseID) {
-		this.caseID = caseID;
-	}*/
+
 	
 	@BeforeClass
 	public void open_Browser_Window() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
-		//ReviewMap = XlsReader.addValuesInTheMapForExcel(sheetName, caseID);
 		app_url_iweb = getYamlValue("app_url_IWEB");
 	}
 	
@@ -69,7 +63,6 @@ public class ACS_ScarfReviewing_Test {
 		test.memberShipPage.verifyReportingStartAndEndDate();
 		test.memberShipPage.clickCurrentYearPencilButton();
 		test.memberShipPage.verifyStartAndEndDatesForAllModesOfReview();
-		//test.individualsPage.clickOnSaveButton();
 		
 	}
 	
@@ -82,20 +75,30 @@ public class ACS_ScarfReviewing_Test {
 		test.acsScarfReviewPage.assignReviewerToAChapter("Online Reviewer",1);
 		test.acsScarfReviewPage.assignReviewerToAChapter("Faculty Decision Panel Reviewer", 0);
 		test.acsScarfReviewPage.assignReviewerToAChapter("Green Chemistry Reviewer", 0);
-		//test.acsScarfReviewPage.getReviewerNameList();
-	}
-	
-	@Test
-	public void Step05_Execute_Scarf_Reviewer_Query_And_Fetch_Login_Details()
-	{
-		test.acsScarfReviewPage.clickOnQueryTab("Query");
-		test.memberShipPage.selectAndRunQuery("BP - Reviewers");
-		test.acsScarfReviewPage.getCustomerSortName(test.acsScarfReviewPage.getReviewerNameList());
-		//test.memberShipPage.enterSingleCustomerIdInRunQuery("");
+		customerSortNames=test.acsScarfReviewPage.getCustomerSortName(test.acsScarfReviewPage.getReviewerNameList());
 		
 	}
 	
+	@Test(dataProvider="loginDetails")
+	public void Step05_Execute_Scarf_Reviewer_Query_And_Fetch_Login_Details(int reviewerCount)
+	{
+		test.acsScarfReviewPage.clickOnQueryTabForScarfModule("Query");
+		test.memberShipPage.selectAndRunQuery("BP - Reviewers");
+		test.memberShipPage.enterSingleCustomerIdInRunQuery(customerSortNames[reviewerCount]);
+		test.individualsPage.NavigateToIndividualProfilePageFromScarfReviewList(test.acsScarfReviewPage.getReviewerNameList().get(reviewerCount));
+		test.memberShipPage.fetchScarfReviewerLoginDetails(ReviewerLoginMap,reviewerCount);
+		test.homePageIWEB.clickOnModuleTab();
+		test.homePageIWEB.clickOnSacrfReportingModule();
+		test.homePageIWEB.clickOnLeftMenuTab("Reviewers");
+		test.acsScarfReviewPage.clickOnQueryTabForScarfModule("Query");
+	}
 	
+	@DataProvider(name = "loginDetails")
+	public static Object[][] Reviewer_Details() {
+		
+		int[] reviewerCount={0,1,2,3};
+			return new Object[][] {{reviewerCount[0]},{reviewerCount[1]},{reviewerCount[2]}, {reviewerCount[3]}};
+	}
 	
 	@AfterMethod
 	public void take_screenshot_on_failure(ITestResult result)
