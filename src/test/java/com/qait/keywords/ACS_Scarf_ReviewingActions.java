@@ -89,8 +89,8 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnQueryTab(String tabName) {
-		isElementDisplayed("tab_QueryName");
-		elements("tab_QueryName").get(1).click();
+		isElementDisplayed("tab_QueryName",tabName);
+		elements("tab_QueryName",tabName).get(1).click();
 		logMessage("Step : "+tabName+" is clicked\n");
 		
 	}

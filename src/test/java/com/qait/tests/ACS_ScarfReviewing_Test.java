@@ -78,15 +78,15 @@ public class ACS_ScarfReviewing_Test {
 	{
 		test.homePageIWEB.clickOnLeftMenuTab("Reviewers");
 		test.homePageIWEB.clickOnTab("Assign Reviewer");
-		//test.acsScarfReviewPage.assignReviewerToAChapter("Online Reviewer",0);
-		//test.acsScarfReviewPage.assignReviewerToAChapter("Online Reviewer",1);
+		test.acsScarfReviewPage.assignReviewerToAChapter("Online Reviewer",0);
+		test.acsScarfReviewPage.assignReviewerToAChapter("Online Reviewer",1);
 		test.acsScarfReviewPage.assignReviewerToAChapter("Faculty Decision Panel Reviewer", 0);
 		test.acsScarfReviewPage.assignReviewerToAChapter("Green Chemistry Reviewer", 0);
 		//test.acsScarfReviewPage.getReviewerNameList();
 	}
 	
 	@Test
-	public void Step05_Execute_Scarf_Reviewer_Query_And_Fetch_Login_Details(String counter)
+	public void Step05_Execute_Scarf_Reviewer_Query_And_Fetch_Login_Details()
 	{
 		test.acsScarfReviewPage.clickOnQueryTab("Query");
 		test.memberShipPage.selectAndRunQuery("BP - Reviewers");

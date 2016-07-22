@@ -8,6 +8,6 @@ list_reviewerOptions                            xpath                        //s
 txt_AssignedchapterName                         xpath                      (//table[@class='OTIGrid']//td[2])[1]
 btn_AssignChapter                               xpath                      //td[contains(text(),'${chaptername}')]/following-sibling::td/input
 img_spinner                                     css                        img[scr*='updating']       
-tab_QueryName                                   xpath                      //a[text()='${tabName}']               
+tab_QueryName                                   xpath                      (//a[text()='Query'])[2]              
 
 =============================================================================================================================================
