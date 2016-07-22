@@ -25,8 +25,7 @@ public class ACS_ReturnCancelRefund {
 	@Test
 	public void Step01_Navigate_To_Find_Batch_Tab_Under_Accounting_Module()
 	{
-		//test.homePageIWEB.clickOnModuleTab();
-//		test.homePageIWEB.clickOnTab("Accounting");
+
 		test.homePageIWEB.clickOnSideBarTab("Invoice");
 		test.homePageIWEB.clickOnTab("Query Invoice");
 	}
@@ -34,22 +33,17 @@ public class ACS_ReturnCancelRefund {
 	@Test
 	public void Step02_Search_For_Store_Batches_And_Navigate_To_Invoice_Profile_Page()
 	{
-//		test.acsbatchProcessing.searchStoreBatchesOnFindBatchPage();
-//		test.individualsPage.clickGoButton();
-//		test.memberShipPage.selectARandomActiveStudentChapter();
+
 		
 		test.memberShipPage.selectAndRunQuery("Selenium return/cancel");
-		//test.awardsPageAction.clickOnEditButtonInAwardsStageProfilePage();
-		//test.individualsPage.navigateToGeneralMenuOnHoveringMore("Invoices");
+
 		
 	}
 	
 	@Test
 	public void Step03_Select_Random_Invoice_Record_And_Fetch_Data_For_That_Invoice()
 	{
-		//test.individualsPage.expandDetailsMenu("invoices");
-		//test.individualsPage.verifyTableUnderExpandedBarIsNotEmpty("Invoice");
-		//test.individualsPage.selectRandomGotoRecord("Invoice");
+
 		invoiceTotal=test.invoicePage.getDataFromInvoiceProfilePage("invoice total");
 		
 	}
@@ -103,8 +97,7 @@ public class ACS_ReturnCancelRefund {
 		refundbatchname=test.acsVoidInvoice.createBatchForRefunds(1,6,"QA");
 		test.acsbatchProcessing.uncheckAllRefundCCACHCheckboxes();
 		refundInfo=test.acsbatchProcessing.getRefundAmountInfo();	
-		test.acsVoidInvoice.clickOnSaveButton();
-		test.acsbatchProcessing.handelRefundAlert();
+		test.acsVoidInvoice.clickOnSaveButtonAndHandelAlert();
 	}
 		
 

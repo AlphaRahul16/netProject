@@ -1552,6 +1552,28 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : "+barName+" number "+randomNumber+" is selected from the list\n");
 
 	}
+	
+	public void NavigateToIndividualProfilePageFromScarfReviewList(String customerName)
+	{
+		try
+		{
+			wait.resetImplicitTimeout(3);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+		isElementDisplayed("btn_scarfReviewerUserList",customerName,DateUtil.getAnyDateForType("YYYY", 0, "year"));
+		element("btn_scarfReviewerUserList", "",DateUtil.getAnyDateForType("YYYY", 0, "year")).click();
+		logMessage("Step : Customer as "+customerName+" is selected from list, user is on student chapter Review profile page\n");
+		}
+		catch(NoSuchElementException e)
+		{
+			logMessage("Result list does not appeared, user is on student chapter Review profile page");
+		}
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
+		element("txt_userEmail",customerName).click();
+		handleAlert();
+		logMessage("Step : customer Name as "+customerName+" is clicked on student chapter Review profile page\n");
+		
+	}
 
 	/*
 	 * public boolean verifyCommitteePreferenceDate(){ String
