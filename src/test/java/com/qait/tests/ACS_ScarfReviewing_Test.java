@@ -31,19 +31,11 @@ public class ACS_ScarfReviewing_Test {
     String[] customerSortNames;
 	private int caseID;
 	
-	/*public ACS_ScarfReviewing_Test() {
-		sheetName = com.qait.tests.Data_Provider_Factory_Class_Xml.sheetName = "ScarfReviewing";
-	}
-	
-	@Factory(dataProviderClass = com.qait.tests.Data_Provider_Factory_Class_Xml.class, dataProvider = "data")
-	public ACS_ScarfReviewing_Test(int caseID) {
-		this.caseID = caseID;
-	}*/
+
 	
 	@BeforeClass
 	public void open_Browser_Window() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
-		//ReviewMap = XlsReader.addValuesInTheMapForExcel(sheetName, caseID);
 		app_url_iweb = getYamlValue("app_url_IWEB");
 	}
 	
@@ -71,7 +63,6 @@ public class ACS_ScarfReviewing_Test {
 		test.memberShipPage.verifyReportingStartAndEndDate();
 		test.memberShipPage.clickCurrentYearPencilButton();
 		test.memberShipPage.verifyStartAndEndDatesForAllModesOfReview();
-		//test.individualsPage.clickOnSaveButton();
 		
 	}
 	
@@ -84,7 +75,6 @@ public class ACS_ScarfReviewing_Test {
 		test.acsScarfReviewPage.assignReviewerToAChapter("Online Reviewer",1);
 		test.acsScarfReviewPage.assignReviewerToAChapter("Faculty Decision Panel Reviewer", 0);
 		test.acsScarfReviewPage.assignReviewerToAChapter("Green Chemistry Reviewer", 0);
-		//test.acsScarfReviewPage.getReviewerNameList();
 		customerSortNames=test.acsScarfReviewPage.getCustomerSortName(test.acsScarfReviewPage.getReviewerNameList());
 		
 	}
