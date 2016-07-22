@@ -5,6 +5,7 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -97,12 +98,26 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnSaveButton(){
-		wait.hardWait(2);
+		wait.hardWait(6);
+		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("btn_save");
-		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
+		element("btn_save").click();
+		//clickUsingXpathInJavaScriptExecutor(element("btn_save"));
 		logMessage("STEP : Clicked on Save button\n");
 		switchToDefaultContent();
 	}
+	
+	public void clickOnSaveButtonAndHandelAlert(){
+		wait.hardWait(6);
+		wait.waitForPageToLoadCompletely();
+		isElementDisplayed("btn_save");
+		element("btn_save").click();
+		waitForAlertToAppear();
+		//clickUsingXpathInJavaScriptExecutor(element("btn_save"));
+		logMessage("STEP : Clicked on Save button\n");
+		switchToDefaultContent();
+	}
+	
 
 	public void enterActionValues(String actionValue){   
 		int j=2,size;
@@ -150,10 +165,21 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 	public void verifyVoidInvoiceMessage(String msg){
 		wait.waitForPageToLoadCompletely();
 		//waitForSpinner();
-		wait.hardWait(4);
-		hardWaitForIEBrowser(4);
 		wait.hardWait(2);
+		hardWaitForIEBrowser(4);
+
+		try
+		{
+			wait.resetImplicitTimeout(2);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 		isElementDisplayed("txt_voidInvoice");
+		}
+		catch(NoSuchElementException e)
+		{
+			saveChangesForReturnCancel();
+		}
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
 		Assert.assertEquals(element("txt_voidInvoice").getText().trim(), msg,"ASSERT PASSED : Message '"+msg+"' is not displayed\n");
 		logMessage("ASSERT PASSED : Message '"+msg+"' is displayed\n");
 	}
@@ -226,6 +252,7 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 	}
 
 	public void saveChangesForReturnCancel() {
+		switchToDefaultContent();
 		switchToFrame("iframe1");
 		clickOnSaveButton();
 

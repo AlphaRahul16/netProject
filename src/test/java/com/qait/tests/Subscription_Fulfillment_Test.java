@@ -23,23 +23,27 @@ public class Subscription_Fulfillment_Test {
 	Map<String, Object> mapSubscriptionFulfillment;
 	static String taskStartTime, commitStartTime;
 	List<String> memberDetails;
+	String cardNumber, paymentMethod, expireDate, cvvNumber, checkNumber;
 
 	@Test
 	public void Step00_Launch_Application_Under_Test() {
-		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
-				YamlReader.getYamlValue("Authentication.password"));	
+		System.out.println("payment method " + paymentMethod);
+		test.homePageIWEB.enterAuthentication(
+				YamlReader.getYamlValue("Authentication.userName"),
+				YamlReader.getYamlValue("Authentication.password"));
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 
 	@Test
 	public void Step01_Search_Member_In_Individual_Test() {
-		 test.homePageIWEB.clickOnSideBarTab("Individuals");
-		 test.memberShipPage.selectAndRunQueryMembership("Query Individual",getSubscriptionInfo.getSubscriptionInfo("queryName"));
-		 memberDetails = test.memberShipPage.getMemberDetails();
-		//test.homePageIWEB.clickFindForIndividualsSearch();
-		//test.individualsPage.checkMemberDetailsAndSearch("Member Flag");
-//		memberDetails = test.memberShipPage.selectMemberAndGetDetails();
+		test.homePageIWEB.clickOnSideBarTab("Individuals");
+		test.memberShipPage.selectAndRunQueryMembership("Query Individual",
+				getSubscriptionInfo.getSubscriptionInfo("queryName"));
+		memberDetails = test.memberShipPage.getMemberDetails();
+		// test.homePageIWEB.clickFindForIndividualsSearch();
+		// test.individualsPage.checkMemberDetailsAndSearch("Member Flag");
+		// memberDetails = test.memberShipPage.selectMemberAndGetDetails();
 	}
 
 	@Test
@@ -51,15 +55,14 @@ public class Subscription_Fulfillment_Test {
 		test.memberShipPage.selectBatchAndPaymentDetails_subscription(
 				getSubscriptionInfo.getSubsFul_cenOrdEntry("batch"),
 				getSubscriptionInfo.getSubsFul_cenOrdEntry("paymentType"),
-				getSubscriptionInfo.getSubsFul_cenOrdEntry("paymentMethod"),
-				getSubscriptionInfo.getSubsFul_cenOrdEntry("cardNumber"),
-				getSubscriptionInfo.getSubsFul_cenOrdEntry("expireDate"),
-				getSubscriptionInfo.getSubsFul_cenOrdEntry("cvvNumber"));
+				paymentMethod, cardNumber, expireDate, cvvNumber, checkNumber
+
+		);
 		test.homePageIWEB.GoToSubscriptionModule();
 	}
 
 	@Test
-	public void Step03_Edit_Subscription_And_Verify_Preview_Status_For_Scheduled_Test() {		
+	public void Step03_Edit_Subscription_And_Verify_Preview_Status_For_Scheduled_Test() {
 		taskStartTime = test.subscriptionPage.editSubscription(
 				subscriptionName, getSubscriptionInfo
 						.getSubsFul_PreviewComplete("startLapTimeInMinutes"),
@@ -164,7 +167,7 @@ public class Subscription_Fulfillment_Test {
 		test.homePageIWEB.GoToCRMModule();
 		test.homePageIWEB.clickFindForIndividualsSearch();
 		test.individualsPage.fillMemberDetailsAndSearch("Record Number",
-				memberDetails.get(1));//"30182478"
+				memberDetails.get(1));// "30182478"
 		test.individualsPage.navigateToSubscriptionMenuOnHoveringMore();
 		test.subscriptionPage.verifySubscriptionAdded(subscriptionName);
 		test.individualsPage.clickOnArrowButtonForProductName(subscriptionName);
@@ -185,7 +188,17 @@ public class Subscription_Fulfillment_Test {
 				mapSubscriptionFulfillment);
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		test.launchApplication(app_url_IWEB);
-		
+		cardNumber = YamlReader
+				.getYamlValue("SubscriptionFulfillment.centralizedOrderEntry.paymentMethodVisaMC.cardNumber");
+		expireDate = YamlReader
+				.getYamlValue("SubscriptionFulfillment.centralizedOrderEntry.paymentMethodVisaMC.expireDate");
+		cvvNumber = YamlReader
+				.getYamlValue("SubscriptionFulfillment.centralizedOrderEntry.paymentMethodVisaMC.cvvNumber");
+		paymentMethod = YamlReader
+				.getYamlValue("SubscriptionFulfillment.centralizedOrderEntry.PaymentMethod.Select");
+		checkNumber = YamlReader
+				.getYamlValue("SubscriptionFulfillment.centralizedOrderEntry.paymentMethodBOACheck.checkNumber");
+
 	}
 
 	@AfterMethod
@@ -195,7 +208,7 @@ public class Subscription_Fulfillment_Test {
 
 	@AfterClass(alwaysRun = true)
 	public void Close_Test_Session() {
-	 test.closeBrowserSession();
+		test.closeBrowserSession();
 	}
-	
+
 }

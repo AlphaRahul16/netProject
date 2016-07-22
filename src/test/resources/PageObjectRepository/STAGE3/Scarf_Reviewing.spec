@@ -6,7 +6,6 @@ drpdwn_selectReviewer                           css                        selec
 drpdwn_Reviwerlist                              css                        select[id*='lstReviewer']
 list_reviewerOptions                            css                        select[id*='lstReviewer']>option
 txt_AssignedchapterName                         xpath                      (//table[@class='OTIGrid']//td[2])[1]
-btn_AssignChapter                               css                        input[value='Assign']
 txt_ChapterName                                 xpath                      //td[@class='LayoutCell']//tbody//tr[${index1}]//td[${index2}]
 list_ChapterList                                xpath                      //td[@class='LayoutCell']//tbody//tr
 list_ratingOptions                              xpath                      //div[@class='boxed-body-padded']//select
@@ -19,4 +18,5 @@ heading_sectionName                             xpath                      (//sp
 list_overallRating                              xpath                      //td[@class='LayoutCell']//${value}
 btn_submit                                      xpath                      //input[@value='Submit']
 btn_returnToDashboard                           xpath                      //input[@value='Return to Dashboard']
+btn_AssignChapter                               xpath                      //td[contains(text(),'${chaptername}')]/following-sibling::td/input
 =============================================================================================================================================

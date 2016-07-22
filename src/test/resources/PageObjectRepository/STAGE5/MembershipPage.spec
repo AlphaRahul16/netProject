@@ -33,7 +33,6 @@ list_PaymentType                                     id                       in
 list_paymentMethod                                   id                       pin_apm_key
 inp_cardNumber                                       id                       pin_cc_number
 list_expireDate                                      id                       pin_cc_expire
-inp_checkNumber                                      id                       pin_check_number
 inp_cvvNumber                                        id                       pin_cc_security_code
 txt_rejoinDateForActive                              xpath                    //td[contains(text(),'Active')]/following-sibling::td[2]
 img_ticked                                           xpath                    //img[@id='F1_IMAGE_${index}']
@@ -77,10 +76,10 @@ txt_customerAddress                                id                          F
 txt_addressType                                  id                           F1_cxa_adt_key_Display_Text_
 label_listMemberShip                             id                          LabelDataFormHeader
 list_memberStatus                               xpath                        //a[starts-with(text(),'Member Status')]/../../following-sibling::tr/td[10]
-list_joindate                                   xpath                         //td[contains(text(),'active')]/following-sibling::td[1]       
+list_joindate                                   xpath                         //td[contains(text(),'active')]/following-sibling::td[1]
 txt_effectiveDateForActive                       xpath                          //td[starts-with(text(),'Active')]/following-sibling::td[3]       
 inp_enterDetails                                xpath                         //span[contains(text(),'${detailName}')]/../following-sibling::td/input
-btn_go                                          id                           ButtonSearch
+btn_go                                          id                           ButtonAskGo
 btn_goask                                       id                           ButtonAskGo
 btn_editContactInfo                              css                          #F1_HYPERLINK_1
 inp_editEmail                                    id                           eml_address
@@ -96,7 +95,7 @@ chk_advanceNew                                    id                           c
 list_advanceNewDropDown                           xpath                        //span[contains(text(),'${headingName}')]/../following-sibling::td[1]/select
 inp_advanceNewInput                               xpath                         //span[contains(text(),'${headingName}')]/../following-sibling::td[2]/input
 list_advanceNewInput                               xpath                        //span[contains(text(),'${headingName}')]/../following-sibling::td[2]/select
-link_subscriptionInSelectProduct                  id                          HYPERLINK_2
+link_subscriptionInSelectProduct                  id                            HYPERLINK_2
 inp_prdCode                                       id                           prd_code
 inp_searchDisplayButton                           id                           Look_Up_prc_display_name
 inp_displayName                                   id                           prc_display_name
@@ -120,7 +119,7 @@ txt_recordNumberAtMemberQuery                    classname                      
 txt_loadOnExistingQueryLabel                      id                            LoadQueryLabel
 link_pagesAvailable                              classname                      DataFormChildDataGridPagerLink
 lnk_invoice_number                                 xpath                        //table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3][contains(text(),'${value}')]
-lnk_first_invoice_number                           xpath                        (//table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[1]/a/img)[1]
+lnk_first_invoice_number                           xpath                        (//table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3])[1] 
 txt_webLogin                                       id                            F1_cst_web_login
 btn_arrowRightCircle                             xpath                          (//i[@class='iconpro-circle-arrow-right'])[1]
 link_tabsOnModule                                 xpath                          //a[text()='${value}']
@@ -170,7 +169,6 @@ btn_gotorenewal                                  xpath                       (//
 txt_PaymentStatus                                xpath                        //td[contains(text(),'${productName}')]//following-sibling::td[1]
 icon_up                                          xpath                         //span[contains(text(),'${value}')]/preceding-sibling::a/i[@class='icon-chevron-up']
 txt_productPackage                               xpath                        (//th/a)[2]/../../following-sibling::tr[1]//td[4]
-txt_ContactId                                     id                        F1_cst_id
 btn_transferMem									xpath							.//*[@id='F1_HYPERLINK_6']/img
 drpdown_memtype									xpath							.//select[@id='mbr_mbt_key']
 drpdown_package									xpath							.//select[@id='mbr_pak_prd_renewal_key']

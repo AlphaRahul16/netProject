@@ -16,7 +16,7 @@ import com.qait.automation.utils.YamlReader;
 public class ACS_Create_Member_IWEB_Test {
 
 	TestSessionInitiator test;
-	
+
 	private String caseID;
 	public String contactID;
 	private String[] memDetails;
@@ -85,13 +85,21 @@ public class ACS_Create_Member_IWEB_Test {
 	public void Step07_Verify_NetPrice_Amount_And_Make_Payment() {
 		Reporter.log("CASE ID : " + caseID, true);
 		test.memberShipPage.verifyNetPriceValue("netbalance");
-		test.memberShipPage.selectBatchAndPaymentDetails_subscription(
-				YamlReader.getYamlValue("Acs_CreateMember_IWEB.batch"),
-				YamlReader.getYamlValue("Acs_CreateMember_IWEB.PaymentType"),
-				YamlReader.getYamlValue("Acs_CreateMember_IWEB.paymentMethod"),
-				YamlReader.getYamlValue("Acs_CreateMember_IWEB.cardNumber"),
-				YamlReader.getYamlValue("Acs_CreateMember_IWEB.expireDate"),
-				YamlReader.getYamlValue("Acs_CreateMember_IWEB.cvvNumber"));
+		test.memberShipPage
+				.selectBatchAndPaymentDetails_subscription(
+						YamlReader.getYamlValue("Acs_CreateMember_IWEB.batch"),
+						YamlReader
+								.getYamlValue("Acs_CreateMember_IWEB.PaymentType"),
+						YamlReader
+								.getYamlValue("creditCardDetails.PaymentMethod.Select"),
+						YamlReader
+								.getYamlValue("creditCardDetails.paymentMethodVisaMC.Number"),
+						YamlReader
+								.getYamlValue("Acs_CreateMember_IWEB.expireDate"),
+						YamlReader
+								.getYamlValue("creditCardDetails.paymentMethodVisaMC.cvv-number"),
+						YamlReader
+								.getYamlValue("creditCardDetails.paymentMethodBOACheck.CheckNumber"));
 	}
 
 	@Test
@@ -125,7 +133,7 @@ public class ACS_Create_Member_IWEB_Test {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
 
-	//@AfterClass(alwaysRun = true)
+	 @AfterClass(alwaysRun = true)
 	public void Close_Test_Session() {
 		test.closeBrowserSession();
 	}
