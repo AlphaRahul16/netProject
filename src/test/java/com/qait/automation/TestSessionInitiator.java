@@ -62,6 +62,7 @@ import com.qait.keywords.MembershipPageActions_IWEB;
 import com.qait.keywords.SubscriptionPage;
 import com.qait.keywords.ACS_Scarf_Reporting;
 import com.qait.keywords.ACS_Scarf_ReviewingActions;
+import com.qait.keywords.ACS_Scarf_Reviewing_Eweb_Action;
 import com.qait.keywords.ACS_Void_Invoice;
 
 
@@ -124,6 +125,7 @@ public class TestSessionInitiator {
 	public ACS_Apply_Payment_Actions applyPayment;
 	public ACS_Void_Invoice acsVoidInvoice;
 	public ACS_Scarf_ReviewingActions acsScarfReviewPage;
+	public ACS_Scarf_Reviewing_Eweb_Action acsScarfReviewing;
 
 	//public AwardsPageActions_IWEB AwardsPageActions_IWEB;
 
@@ -175,6 +177,7 @@ public class TestSessionInitiator {
 		applyPayment = new ACS_Apply_Payment_Actions(driver);
 		acsVoidInvoice= new ACS_Void_Invoice(driver);
 		acsScarfReviewPage = new ACS_Scarf_ReviewingActions(driver);
+		acsScarfReviewing = new ACS_Scarf_Reviewing_Eweb_Action(driver);
 	}
 
 

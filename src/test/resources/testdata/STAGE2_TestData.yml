@@ -436,9 +436,18 @@ MYDTransfer:
 AddressValidation:
     queryName: Selenium - US Constituents    
 ScarfReporting:
-    queryName: "Selenium - Active Student Chapters"   
-    
-    
+    queryName: "Selenium - Active Student Chapters"     
+VoidWithAdjustment:
+    queryName: "Selenium - test open invoices"
+    voidMessage: "This invoice has been cancelled or voided"    
+    emptyItemsMessage: "There are no results to display."   
+    invoices: invoices
+    memberDetailsQuestion1: paid in full
+    memberDetailsQuestion2: balance
+    actionValue: Void with Adjustment
+    prodName: "Regular Member Dues C&EN-Electronic"
+    emptItemsMessage: "There are no results to display."       
+   
 ACS_ApplyPayment: 
     DetailsToFindMember:  
         Association: ACS
@@ -457,8 +466,6 @@ ACS_ApplyPayment:
     PaymentMethod: 
         Select: "BOA - Check"
         Unselect: "Visa/MC"   
-
-      
 
 email:
   send: true

@@ -137,6 +137,7 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 
 	public void verifyProductUnderLineItems(String productName,int index){
 		boolean flag=false;int i=0;
+		wait.hardWait(3);
 		isElementDisplayed("table_productName",String.valueOf(index));
 		for(WebElement ele: elements("table_productName",String.valueOf(index))){
 			if(ele.getText().trim().equals(productName)){
