@@ -36,5 +36,10 @@ table_productPrice              xpath                 //td[contains(text(),'${va
 txt_givingInvoiceEmailPost      xpath                 //a[contains(@id,'Email/Post ')]/../../following-sibling::tr/td[5]
 txt_givingInvoiceOtherProgram   xpath                 //a[contains(@id,'Other Fund Name')]/../../following-sibling::tr/td[6]
 txt_emailStatus                 xpath                 //label[@id='Caption_F1_inv_email_confirm_sent_flag']/preceding-sibling::span
+txt_paid_closed                 xpath                 //a[contains(text(),'Paid/Closed')]/../../../tr[position()>1]/td[12]
+img_addPayment                  id                    F1_HYPERLINK_11
+txt_termStartDate               xpath                    //table[@class='table']//tr/td[14]
+txt_termEndDate                 xpath                    //table[@class='table']//tr/td[15]
+btn_goToArrow                   xpath                 (//a/i[@class='iconpro-circle-arrow-right'])[1]
 ====================================================================================================================================
 
