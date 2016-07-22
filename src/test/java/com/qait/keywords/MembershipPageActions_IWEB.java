@@ -2420,9 +2420,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		memberDetails.add(customerContactId);
 		// memberDetails.add(getMemberWebLogin());
-		logMessage("Step : ");
+		logMessage("Step : Customer contact id fetched as "+customerContactId);
 		return memberDetails;
 
+	}
+	
+	public void fetchScarfReviewerLoginDetails(Map<String,List<String>> reviewerloginMap, int reviewerNumber)
+	{
+		reviewerloginMap.put("reviewer"+reviewerNumber, getCustomerFullNameAndContactID());
+		logMessage("Step : Reviewer name is fetched as "+reviewerloginMap.get("reviewer"+reviewerNumber));
 	}
 
 	public void getIndividualFullNameForAwardsNomination() {
@@ -3960,4 +3966,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : Current date lies within the "
 				+ reviewerType + " start and end date\n");
 	}
+	
+	
 }

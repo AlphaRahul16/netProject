@@ -67,4 +67,5 @@ txt_gotorecordrenewal                     xpath                 (//th/a)[2]/../.
 link_editEmail                            xpath                 (//a[@title='edit record']/i)[${1}]
 list_individualMem						  xpath				    //span[contains(text(),'individual memberships')]/parent::td/parent::tr/following-sibling::tr/td/div/table/tbody/tr[not(contains(@style,'none'))]//td[11]
 individualmem_data					      xpath					(//span[contains(text(),'individual memberships')]/parent::td/parent::tr/following-sibling::tr/td/div/table/tbody/tr[not(contains(@style,'none'))]//td[11]/..//td[11])[${value}]/..//td[${field}]
+btn_scarfReviewerUserList                 xpath                 (//td[starts-with(text(),'${fullname}')]/following-sibling::td[1][contains(text(),'${currentYear}')]/preceding-sibling::td//img)[1]
 ======================================================================================================================================

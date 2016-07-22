@@ -13,6 +13,7 @@ import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
@@ -23,10 +24,11 @@ import com.qait.automation.utils.YamlReader;
 public class ACS_ScarfReviewing_Test {
 	static String sheetName;
 	TestSessionInitiator test;
-	//HashMap<String, String> ReviewMap = new HashMap<String, String>();
+	
+	Map<String,List<String>> ReviewerLoginMap = new HashMap<String, List<String>>();
 
 	String app_url_iweb;
-
+    String[] customerSortNames;
 	private int caseID;
 	
 	/*public ACS_ScarfReviewing_Test() {
@@ -83,19 +85,30 @@ public class ACS_ScarfReviewing_Test {
 		test.acsScarfReviewPage.assignReviewerToAChapter("Faculty Decision Panel Reviewer", 0);
 		test.acsScarfReviewPage.assignReviewerToAChapter("Green Chemistry Reviewer", 0);
 		//test.acsScarfReviewPage.getReviewerNameList();
-	}
-	
-	@Test
-	public void Step05_Execute_Scarf_Reviewer_Query_And_Fetch_Login_Details()
-	{
-		test.acsScarfReviewPage.clickOnQueryTab("Query");
-		test.memberShipPage.selectAndRunQuery("BP - Reviewers");
-		test.acsScarfReviewPage.getCustomerSortName(test.acsScarfReviewPage.getReviewerNameList());
-		//test.memberShipPage.enterSingleCustomerIdInRunQuery("");
+		customerSortNames=test.acsScarfReviewPage.getCustomerSortName(test.acsScarfReviewPage.getReviewerNameList());
 		
 	}
 	
+	@Test(dataProvider="loginDetails")
+	public void Step05_Execute_Scarf_Reviewer_Query_And_Fetch_Login_Details(int reviewerCount)
+	{
+		test.acsScarfReviewPage.clickOnQueryTabForScarfModule("Query");
+		test.memberShipPage.selectAndRunQuery("BP - Reviewers");
+		test.memberShipPage.enterSingleCustomerIdInRunQuery(customerSortNames[reviewerCount]);
+		test.individualsPage.NavigateToIndividualProfilePageFromScarfReviewList(test.acsScarfReviewPage.getReviewerNameList().get(reviewerCount));
+		test.memberShipPage.fetchScarfReviewerLoginDetails(ReviewerLoginMap,reviewerCount);
+		test.homePageIWEB.clickOnModuleTab();
+		test.homePageIWEB.clickOnSacrfReportingModule();
+		test.homePageIWEB.clickOnLeftMenuTab("Reviewers");
+		test.acsScarfReviewPage.clickOnQueryTabForScarfModule("Query");
+	}
 	
+	@DataProvider(name = "loginDetails")
+	public static Object[][] Reviewer_Details() {
+		
+		int[] reviewerCount={0,1,2,3};
+			return new Object[][] {{reviewerCount[0]},{reviewerCount[1]},{reviewerCount[2]}, {reviewerCount[3]}};
+	}
 	
 	@AfterMethod
 	public void take_screenshot_on_failure(ITestResult result)

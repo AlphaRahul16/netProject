@@ -240,12 +240,9 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 				logMessage("ASSERT PASSED : Batch name is present in the list as "+batchName);
 			}
 		}
-		System.out.println(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYY"));
-		System.out.println(element("txt_creditBatchDate",batchName).getText());
+
 		Assert.assertTrue(element("txt_creditBatchDate",batchName).getText().trim().equals(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYY").trim()));
 		logMessage("Step : credit date is verify as "+DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYY"));
-		System.out.println(totalCredit);
-		System.out.println(element("txt_CreditTotal",batchName).getText());
 		Assert.assertTrue(element("txt_CreditTotal",batchName).getText().trim().equals(totalCredit),"Amount credit is not as expected");
 		logMessage("ASSERT PASSED : Credited amount successfully verified as "+totalCredit);
 	}
