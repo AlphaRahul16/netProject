@@ -51,9 +51,9 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
         reviewerNameList.add(element("list_reviewerOptions",toString().valueOf(reviewercount+1)).getText().trim());
         waitForSpinner();
 
-		//logMessage("Step : "+reviewerNameList.get(reviewercount)+" is selected as a "+reviewertype);
+		logMessage("Step : "+reviewerNameList.get(reviewercount)+" is selected as a "+reviewertype);
 		//getAssignedChapterName(assignedChapterNameList);
-		//clickAssignButtonToassignReviewerToChapter(getAssignedChapterName(assignedChapterNameList).get(0));
+		clickAssignButtonToassignReviewerToChapter(getAssignedChapterName(assignedChapterNameList));
 
 	}
 	public ArrayList<String> getReviewerNameList()
