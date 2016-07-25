@@ -59,8 +59,7 @@ public class ACS_ScarfReviewing_Test {
 	{
 		test.memberShipPage.verifyReportingStartAndEndDate();
 		test.memberShipPage.clickCurrentYearPencilButton();
-		test.memberShipPage.verifyStartAndEndDatesForAllModesOfReview();
-		
+		test.memberShipPage.verifyStartAndEndDatesForAllModesOfReview();		
 	}
 	
 	@Test
@@ -134,8 +133,37 @@ public class ACS_ScarfReviewing_Test {
         Step08_Submit_Reviews_And_Verify_Review_Status();
 	}
 	
+
+
+	public void Step12_Launch_Eweb_Application_And_Enter_Reviews_By_FDP_Reviewer(){
+		test.launchApplication(app_url_eweb);
+		test.acsScarfReporting.loginWithLastNameAndMemberId(ReviewerLoginMap.get("reviewer"+i).get(0),ReviewerLoginMap.get("reviewer"+i).get(1)); //"Hare","2250525"
+		test.acsScarfReviewing.verifyReviewerTypeWindow("Faculty Decision Panel Reviewer");
+		index=test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton(assignedchaptername,"list_notStartedChapters");//  Belmont University Student Chapter  .....Arcadia University Student Chapter"
+	    test.acsScarfReviewing.selectChapterReviewImage(index);
+		test.acsScarfReporting.clickOnNotStartedButtonForSection("Self-Assessment", "Start");
+	}
+	
+	@Test(dataProvider="Sections")
+	public void Step13_Enter_Reviewes_For_Fdp_Reviewer_Sections(String sectionName){
+		test.acsScarfReviewing.enterCommentsForSectionsByFdpReviewer(sectionName,1);
+		test.acsScarfReviewing.clickOnNextButton();
+	}
+	
 	@Test
-	public void Step12_Verify_Chapter_Review_Status_On_Iweb()
+	public void Step14_Submit_Reviews_And_Verify_Review_Status_By_Second_Online_Reviewer(){
+		test.acsScarfReviewing.enterOverallRating("Outstanding");
+		test.acsScarfReviewing.clickOnSubmitButton();
+		test.acsScarfReviewing.enterOverallReview("nice work test data");
+		test.acsScarfReviewing.clickOnSubmitButton();
+		test.acsScarfReviewing.clickOnReturnToDashboardButton();
+	    test.acsScarfReviewing.clickOnSubmittedChaptersTab("Submitted"); 	
+		test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton(assignedchaptername,"list_notStartedChapters");
+	}
+	
+	@Test
+
+	public void Step15_Verify_Chapter_Review_Status_On_Iweb()
 	{
 		Step01_Launch_Iweb_Application();
 		test.homePageIWEB.clickOnModuleTab();
