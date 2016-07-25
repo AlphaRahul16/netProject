@@ -56,6 +56,7 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 		assignedchaptername=getAssignedChapterName();
 		clickAssignButtonToassignReviewerToChapter(getAssignedChapterName());
         return assignedchaptername;
+
 	}
 	public ArrayList<String> getReviewerNameList()
 	{
