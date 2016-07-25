@@ -11,6 +11,8 @@ import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 
 public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 	String assignedChapterNameList;
+	String assignedchaptername;
+	int reviewerNameCount=0;
 	ArrayList<String> reviewerNameList = new ArrayList<String>() ;
 	WebDriver driver;
 	static String pagename = "Scarf_Reviewing";
@@ -42,7 +44,7 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 	}
 
 	public String assignReviewerToAChapter(String reviewertype, int reviewercount) {
-		String assignedchaptername;
+		
 		selectDropDownValue(reviewertype);
 		 waitForSpinner();
 		 wait.hardWait(4);
@@ -51,10 +53,14 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
         System.out.println("name "+reviewercount+" "+element("list_reviewerOptions",toString().valueOf(reviewercount+1)).getText());
         reviewerNameList.add(element("list_reviewerOptions",toString().valueOf(reviewercount+1)).getText().trim());
         waitForSpinner();
-
-		logMessage("Step : "+reviewerNameList.get(reviewercount)+" is selected as a "+reviewertype);
-		assignedchaptername=getAssignedChapterName()+" Student Chapter";	
-		clickAssignButtonToassignReviewerToChapter(getAssignedChapterName());
+		logMessage("Step : "+reviewerNameList.get(reviewerNameCount)+" is selected as a "+reviewertype);
+		if((reviewertype.equals("Online Reviewer"))&&(reviewercount==0))
+		{
+			assignedchaptername=getAssignedChapterName()+" Student Chapter";;
+		}
+		System.out.println(assignedchaptername);
+		clickAssignButtonToassignReviewerToChapter(assignedchaptername);
+		reviewerNameCount++;
         return assignedchaptername;
 
 	}
