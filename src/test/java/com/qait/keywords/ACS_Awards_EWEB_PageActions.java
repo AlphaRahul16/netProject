@@ -30,7 +30,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	List<Integer> uniqueRandom = new ArrayList<Integer>();
 	Map<String, String> judgesRanks = new HashMap<String, String>();
 
-	Map<Integer, Map> listOfNomineeJudges_judgeRanks = new HashMap<Integer,Map>();
+	Map<Integer, Map> listOfNomineeJudges_judgeRanks = new HashMap<Integer, Map>();
 
 	public ACS_Awards_EWEB_PageActions(WebDriver driver) {
 		super(driver, pagename);
@@ -373,21 +373,27 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	}
 
 	public void waitForLoaderToDisappear() {
-		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
-				"hiddenFieldTimeOut"));
-		try {
-			wait.hardWait(4);
-			wait.waitForPageToLoadCompletely();
-			wait.resetImplicitTimeout(5);
-			wait.resetExplicitTimeout(hiddenFieldTimeOut);
-			isElementDisplayed("img_profileLinkLoader");
-			wait.resetImplicitTimeout(timeOut);
-			wait.resetExplicitTimeout(timeOut);
-		} catch (Exception exp) {
-			wait.resetImplicitTimeout(timeOut);
-			wait.resetExplicitTimeout(timeOut);
-		}
+		// timeOut = Integer.parseInt(getProperty("Config.properties",
+		// "timeout"));
+		// hiddenFieldTimeOut =
+		// Integer.parseInt(getProperty("Config.properties",
+		// "hiddenFieldTimeOut"));
+		// try {
+		//
+		//
+		// wait.hardWait(4);
+		// wait.waitForPageToLoadCompletely();
+		// wait.resetImplicitTimeout(5);
+		// wait.resetExplicitTimeout(hiddenFieldTimeOut);
+		// isElementDisplayed("img_profileLinkLoader");
+		// wait.resetImplicitTimeout(timeOut);
+		// wait.resetExplicitTimeout(timeOut);
+		// } catch (Exception exp) {
+		// wait.resetImplicitTimeout(timeOut);
+		// wait.resetExplicitTimeout(timeOut);
+		// }
+
+		wait.waitForElementToDisappear(element("img_profileLinkLoader"));
 	}
 
 	public void saveStickyNotes() {
@@ -580,9 +586,8 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 								+ elements("txt_rankNomineeName").get(j)
 										.getText() + "\n");
 
-						if (elements("txt_rankNomineeName").get(j)
-								.getText().contains(judgesRanks.get(judges.get(k))
-								)) {
+						if (elements("txt_rankNomineeName").get(j).getText()
+								.contains(judgesRanks.get(judges.get(k)))) {
 							flag = 1;
 							break;
 						}

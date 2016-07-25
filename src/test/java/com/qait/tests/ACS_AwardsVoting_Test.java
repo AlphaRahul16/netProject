@@ -15,12 +15,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
+import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.utils.DataProvider;
 import com.qait.automation.utils.DateUtil;
-import com.qait.automation.utils.YamlReader;
-import com.qait.automation.TestSessionInitiator;
-
-import freemarker.debug.Debugger;
 
 public class ACS_AwardsVoting_Test {
 
@@ -205,7 +202,7 @@ public class ACS_AwardsVoting_Test {
 										+ " Update Score Success Message?"));
 		test.awardsPageAction
 				.verifyClosedStatusOnUpdatingScore(test.homePageIWEB.map().get(
-						"Round"+votingRounds+" Closed Status?"));
+						"Round" + votingRounds + " Closed Status?"));
 		test.awardsPageAction
 				.expandDetailsMenu("acs award stage - entries in this stage");
 		test.awardsPageAction
@@ -244,7 +241,7 @@ public class ACS_AwardsVoting_Test {
 
 	}
 
-	// @AfterClass
+//	@AfterClass
 	public void Close_Browser_Session() {
 		test.closeBrowserSession();
 	}

@@ -27,7 +27,8 @@ public class ACS_ScarfReviewing_Test {
 	
 	Map<String,List<String>> ReviewerLoginMap = new HashMap<String, List<String>>();
 
-	String app_url_iweb;
+	String app_url_iweb,app_url_eweb,assignedchaptername;
+	int index,i=0;
     String[] customerSortNames;
 	private int caseID;
 	
@@ -37,6 +38,7 @@ public class ACS_ScarfReviewing_Test {
 	public void open_Browser_Window() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url_iweb = getYamlValue("app_url_IWEB");
+		app_url_eweb = getYamlValue("app_url_ScarfReviewing");
 	}
 	
 	@Test
@@ -71,7 +73,7 @@ public class ACS_ScarfReviewing_Test {
 	{
 		test.homePageIWEB.clickOnLeftMenuTab("Reviewers");
 		test.homePageIWEB.clickOnTab("Assign Reviewer");
-		test.acsScarfReviewPage.assignReviewerToAChapter("Online Reviewer",0);
+		assignedchaptername=test.acsScarfReviewPage.assignReviewerToAChapter("Online Reviewer",0);
 		test.acsScarfReviewPage.assignReviewerToAChapter("Online Reviewer",1);
 		test.acsScarfReviewPage.assignReviewerToAChapter("Faculty Decision Panel Reviewer", 0);
 		test.acsScarfReviewPage.assignReviewerToAChapter("Green Chemistry Reviewer", 0);
@@ -93,6 +95,50 @@ public class ACS_ScarfReviewing_Test {
 		test.acsScarfReviewPage.clickOnQueryTabForScarfModule("Query");
 	}
 	
+	@Test  
+	public void Step06_Launch_Eweb_Application_And_Enter_Reviews_By_First_Online_Reviewer(){
+		test.launchApplication(app_url_eweb);
+		test.acsScarfReporting.loginWithLastNameAndMemberId(ReviewerLoginMap.get("reviewer"+i).get(0),ReviewerLoginMap.get("reviewer"+i).get(1)); //"Easter", "2175095"
+		test.acsScarfReporting.verifyStudentChapterReportingPage();
+		index=test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton(assignedchaptername,"list_ChapterList");//Arcadia University Student Chapter"
+	    test.acsScarfReviewing.verifyChapterStatus("Not Started",index); //In Progress
+	    test.acsScarfReviewing.selectChapterReviewImage(index);
+		test.acsScarfReporting.clickOnNotStartedButtonForSection("Self-Assessment", "Start");
+		i++;
+	}
+	
+	@Test(dataProvider="Sections")
+	public void Step07_Enter_Reviews_For_All_The_Sections(String sectionName){
+        test.acsScarfReviewing.enterRating("Commendable",sectionName); //Outstanding
+        test.acsScarfReviewing.enterCommentsForSections(sectionName,"test data");
+		test.acsScarfReviewing.clickOnNextButton();
+	}
+	
+	@Test
+	public void Step08_Submit_Reviews_And_Verify_Review_Status(){
+		test.acsScarfReviewing.enterOverallRating("Outstanding");
+		test.acsScarfReviewing.clickOnSubmitButton();
+		test.acsScarfReviewing.enterOverallReview("nice work test data");
+		test.acsScarfReviewing.clickOnSubmitButton();
+		test.acsScarfReviewing.clickOnReturnToDashboardButton();
+	    test.acsScarfReviewing.verifyChapterStatus("Submitted",index); //Not Started
+	}
+	
+	@Test
+	public void Step09_Launch_Eweb_Application_And_Enter_Reviews_By_Second_Online_Reviewer(){
+		Step06_Launch_Eweb_Application_And_Enter_Reviews_By_First_Online_Reviewer();
+	}
+	
+	@Test(dataProvider="Sections")
+	public void Step10_Enter_Reviews_For_All_Sections(String sectionName){
+		Step07_Enter_Reviews_For_All_The_Sections(sectionName);
+	}
+	
+	@Test
+	public void Step11_Submit_Reviews_And_Verify_Review_Status_By_Second_Online_Reviewer(){
+        Step08_Submit_Reviews_And_Verify_Review_Status();
+	}
+	
 	@DataProvider(name = "loginDetails")
 	public static Object[][] Reviewer_Details() {
 		
@@ -100,17 +146,20 @@ public class ACS_ScarfReviewing_Test {
 			return new Object[][] {{reviewerCount[0]},{reviewerCount[1]},{reviewerCount[2]}, {reviewerCount[3]}};
 	}
 	
+	@DataProvider(name="Sections")
+	public static Object[][] provideSectionNames(){
+		return new Object[][] {{"Self-Assessment"},{"Service"},{"Professional Development"},{"Chapter Development"},{"Budget"},{"Overall Report Assessment"}};
+	}
+	
 	@AfterMethod
 	public void take_screenshot_on_failure(ITestResult result)
 	{
 		test.takescreenshot.takeScreenShotOnException(result);
-
 	}
 	
 //	@AfterClass
 	public void close_Browser_Window()
-	{
-	
+	{	
 		test.closeBrowserWindow();
 	}
 	
