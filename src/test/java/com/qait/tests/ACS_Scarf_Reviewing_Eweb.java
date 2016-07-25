@@ -36,49 +36,49 @@ public class ACS_Scarf_Reviewing_Eweb {
 		credentials.put("user1",arList1);
     }
 	
-//	@Test  
-//	public void Step01_Launch_Eweb_Application_And_Enter_Reviews_By_First_Online_Reviewer(){
-//		test.launchApplication(app_url_eweb);
-//		test.acsScarfReporting.loginWithLastNameAndMemberId(credentials.get("user"+i).get(0),credentials.get("user"+i).get(1)); //"Easter", "2175095"
-//		test.acsScarfReporting.verifyStudentChapterReportingPage();
-//		index=test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton("Belmont University Student Chapter","list_ChapterList");//Arcadia University Student Chapter"
-//	    test.acsScarfReviewing.verifyChapterStatus("Not Started",index); //In Progress
-//	    test.acsScarfReviewing.selectChapterReviewImage(index);
-//		test.acsScarfReporting.clickOnNotStartedButtonForSection("Self-Assessment", "Start");
-//		i++;
-//	}
-//
-//	@Test(dataProvider="Sections")
-//	public void Step02_Enter_Reviews_For_All_The_Sections(String sectionName){
-//        test.acsScarfReviewing.enterRating("Commendable",sectionName); //Outstanding
-//        test.acsScarfReviewing.enterCommentsForSections(sectionName,"test data");
-//		test.acsScarfReviewing.clickOnNextButton();
-//	}
-//	
-//	@Test
-//	public void Step03_Submit_Reviews_And_Verify_Review_Status(){
-//		test.acsScarfReviewing.enterOverallRating("Outstanding");
-//		test.acsScarfReviewing.clickOnSubmitButton();
-//		test.acsScarfReviewing.enterOverallReview("nice work test data");
-//		test.acsScarfReviewing.clickOnSubmitButton();
-//		test.acsScarfReviewing.clickOnReturnToDashboardButton();
-//	    test.acsScarfReviewing.verifyChapterStatus("Submitted",index); //Not Started
-//	}
-//	
-//	@Test
-//	public void Step04_Launch_Eweb_Application_And_Enter_Reviews_By_Second_Online_Reviewer(){
-//		Step01_Launch_Eweb_Application_And_Enter_Reviews_By_First_Online_Reviewer();
-//	}
-//	
-//	@Test(dataProvider="Sections")
-//	public void Step05_Enter_Reviews_For_All_Sections(String sectionName){
-//		Step02_Enter_Reviews_For_All_The_Sections(sectionName);
-//	}
-//	
-//	@Test
-//	public void Step06_Submit_Reviews_And_Verify_Review_Status_By_Second_Online_Reviewer(){
-//        Step03_Submit_Reviews_And_Verify_Review_Status();
-//	}
+	@Test  
+	public void Step01_Launch_Eweb_Application_And_Enter_Reviews_By_First_Online_Reviewer(){
+		test.launchApplication(app_url_eweb);
+		test.acsScarfReporting.loginWithLastNameAndMemberId(credentials.get("user"+i).get(0),credentials.get("user"+i).get(1)); //"Easter", "2175095"
+		test.acsScarfReporting.verifyStudentChapterReportingPage();
+		index=test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton("Belmont University Student Chapter","list_ChapterList");//Arcadia University Student Chapter"
+	    test.acsScarfReviewing.verifyChapterStatus("Not Started",index); //In Progress
+	    test.acsScarfReviewing.selectChapterReviewImage(index);
+		test.acsScarfReporting.clickOnNotStartedButtonForSection("Self-Assessment", "Start");
+		i++;
+	}
+
+	@Test(dataProvider="Sections")
+	public void Step02_Enter_Reviews_For_All_The_Sections(String sectionName){
+        test.acsScarfReviewing.enterRating("Commendable",sectionName); //Outstanding
+        test.acsScarfReviewing.enterCommentsForSections(sectionName,"test data");
+		test.acsScarfReviewing.clickOnNextButton();
+	}
+	
+	@Test
+	public void Step03_Submit_Reviews_And_Verify_Review_Status(){
+		test.acsScarfReviewing.enterOverallRating("Outstanding");
+		test.acsScarfReviewing.clickOnSubmitButton();
+		test.acsScarfReviewing.enterOverallReview("nice work test data");
+		test.acsScarfReviewing.clickOnSubmitButton();
+		test.acsScarfReviewing.clickOnReturnToDashboardButton();
+	    test.acsScarfReviewing.verifyChapterStatus("Submitted",index); //Not Started
+	}
+	
+	@Test
+	public void Step04_Launch_Eweb_Application_And_Enter_Reviews_By_Second_Online_Reviewer(){
+		Step01_Launch_Eweb_Application_And_Enter_Reviews_By_First_Online_Reviewer();
+	}
+	
+	@Test(dataProvider="Sections")
+	public void Step05_Enter_Reviews_For_All_Sections(String sectionName){
+		Step02_Enter_Reviews_For_All_The_Sections(sectionName);
+	}
+	
+	@Test
+	public void Step06_Submit_Reviews_And_Verify_Review_Status_By_Second_Online_Reviewer(){
+        Step03_Submit_Reviews_And_Verify_Review_Status();
+	}
 	
 	@Test
 	public void Step07_Launch_Eweb_Application_And_Enter_Reviews_By_FDP_Reviewer(){

@@ -238,7 +238,8 @@ public class TestSessionInitiator {
 	     if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer")))
 	        {
 	      if(baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage3/iweb") || 
-	    		  baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage2/iweb")){
+	    		  baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage2/iweb")||
+	    		  baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage5/iweb")){
 	         baseurl = baseurl
 	           .replaceAll(
 	             "https://stag",

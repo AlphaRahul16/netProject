@@ -2429,6 +2429,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	{
 		reviewerloginMap.put("reviewer"+reviewerNumber, getCustomerLastNameAndContactID());
 		logMessage("Step : Reviewer name is fetched as "+reviewerloginMap.get("reviewer"+reviewerNumber));
+	    logMessage("-----last name:"+reviewerloginMap.get("reviewer"+reviewerNumber).get(0)
+	    		+"-----member number:"+reviewerloginMap.get("reviewer"+reviewerNumber).get(1));
 	}
 
 	public void getIndividualFullNameForAwardsNomination() {

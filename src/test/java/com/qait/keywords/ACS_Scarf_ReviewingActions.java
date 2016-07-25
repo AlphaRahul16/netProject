@@ -41,7 +41,8 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 		wait.resetExplicitTimeout(timeOut);
 	}
 
-	public void assignReviewerToAChapter(String reviewertype, int reviewercount) {
+	public String assignReviewerToAChapter(String reviewertype, int reviewercount) {
+		String assignedchaptername;
 		selectDropDownValue(reviewertype);
 		 waitForSpinner();
 		 wait.hardWait(4);
@@ -51,10 +52,10 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
         reviewerNameList.add(element("list_reviewerOptions",toString().valueOf(reviewercount+1)).getText().trim());
         waitForSpinner();
 
-		//logMessage("Step : "+reviewerNameList.get(reviewercount)+" is selected as a "+reviewertype);
-		//getAssignedChapterName(assignedChapterNameList);
-		//clickAssignButtonToassignReviewerToChapter(getAssignedChapterName(assignedChapterNameList).get(0));
-
+		logMessage("Step : "+reviewerNameList.get(reviewercount)+" is selected as a "+reviewertype);
+		assignedchaptername=getAssignedChapterName();
+		clickAssignButtonToassignReviewerToChapter(getAssignedChapterName());
+        return assignedchaptername;
 	}
 	public ArrayList<String> getReviewerNameList()
 	{
@@ -62,17 +63,20 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 	}
 
 	private void clickAssignButtonToassignReviewerToChapter(String chapterName) {
-		isElementDisplayed("btn_AssignChapter",chapterName);
+		isElementDisplayed("btn_AssignChapter",chapterName);		
+		executeJavascript("scroll(3000,0);");
+		wait.hardWait(3);
 		element("btn_AssignChapter",chapterName).click();
+		waitForSpinner();
 		logMessage("Step : Reviewer Assigned to chapter "+chapterName);
 		
 	}
 
-	private String getAssignedChapterName(String assignedChapterNameList) {
+	private String getAssignedChapterName() {
 		isElementDisplayed("txt_AssignedchapterName");
-		assignedChapterNameList=element("txt_AssignedchapterName").getText().trim();
-		System.out.println(assignedChapterNameList);
-		return assignedChapterNameList;
+		String assignedChapterName=element("txt_AssignedchapterName").getText().trim();
+	
+		return assignedChapterName;
 		 
 	}
 
