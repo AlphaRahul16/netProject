@@ -53,7 +53,7 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
         waitForSpinner();
 
 		logMessage("Step : "+reviewerNameList.get(reviewercount)+" is selected as a "+reviewertype);
-		assignedchaptername=getAssignedChapterName();
+		assignedchaptername=getAssignedChapterName()+" Student Chapter";	
 		clickAssignButtonToassignReviewerToChapter(getAssignedChapterName());
         return assignedchaptername;
 

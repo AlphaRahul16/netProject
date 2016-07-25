@@ -2,6 +2,9 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.xalan.templates.ElemNumber;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -12,6 +15,8 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 
 	WebDriver driver;
 	static String pagename = "Scarf_Reviewing";
+	Map<String,Map<String,String>> reviewerComments=new HashMap<String,Map<String,String>>();
+	Map<String,String> reviewerSections=new HashMap<String,String>();
 	int timeOut=60;
 	
 	public ACS_Scarf_Reviewing_Eweb_Action(WebDriver driver) {
@@ -79,6 +84,11 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 			comments=comments+System.currentTimeMillis();
 			enterComments(comments);
 		}
+		reviewerSections.put(sectionName, comments);		
+	}
+	
+	public void addReviewerComments(String reviewerMode){	
+		reviewerComments.put(reviewerMode,reviewerSections);
 	}
 	
 	public void clickOnNextButton(){
