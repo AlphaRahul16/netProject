@@ -2,6 +2,10 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.xalan.templates.ElemNumber;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
@@ -11,6 +15,8 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 
 	WebDriver driver;
 	static String pagename = "Scarf_Reviewing";
+	Map<String,Map<String,String>> reviewerComments=new HashMap<String,Map<String,String>>();
+	Map<String,String> reviewerSections=new HashMap<String,String>();
 	int timeOut=60;
 	
 	public ACS_Scarf_Reviewing_Eweb_Action(WebDriver driver) {
@@ -19,11 +25,12 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 	}
 	
-	public int verifyChapterOnTheReviewPageAndClickOnreviewButton(String chapterName){
+	public int verifyChapterOnTheReviewPageAndClickOnreviewButton(String chapterName,String elem){
 		boolean flag=false;
 		int i;
-		isElementDisplayed("list_ChapterList");
-		for(i=2;i<=elements("list_ChapterList").size();i++){
+		wait.waitForPageToLoadCompletely();
+		isElementDisplayed(elem);
+		for(i=2;i<=elements(elem).size();i++){
 			if(chapterName.equalsIgnoreCase(element("txt_ChapterName",String.valueOf(i),String.valueOf(1)).getText().trim())){
 				flag=true;
 				break;
@@ -77,6 +84,11 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 			comments=comments+System.currentTimeMillis();
 			enterComments(comments);
 		}
+		reviewerSections.put(sectionName, comments);		
+	}
+	
+	public void addReviewerComments(String reviewerMode){	
+		reviewerComments.put(reviewerMode,reviewerSections);
 	}
 	
 	public void clickOnNextButton(){
@@ -128,4 +140,53 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 		element("btn_returnToDashboard").click();
 		logMessage("STEP : Clicked on Return To Dashboard button\n");
 	}
+	
+	public void verifyReviewerTypeWindow(String reviewerType){
+		wait.waitForPageToLoadCompletely();
+		isElementDisplayed("heading_reviewerType");
+		logMessage("ASSERt PASSED : Pop-up window is displayed for selecting Reviewer type\n");
+		selectTypeOfReviewer(reviewerType);
+	}
+	
+	public void selectTypeOfReviewer(String reviewerType){  
+		isElementDisplayed("btn_fdpReviewer",reviewerType);
+		element("btn_fdpReviewer",reviewerType).click();
+		logMessage("STEP : Reviewer type selected as "+reviewerType+"\n");
+	}
+	
+	public void enterCommentsForSectionsByFdpReviewer(String sectionName,int index){
+		logMessage("*********Entering review comments for "+sectionName+" section*********\n");
+		if(sectionName.equalsIgnoreCase("Service")||sectionName.equalsIgnoreCase("Professional Development")){
+			clickOnCannedAnswersButton();
+			enterCommentsViaCannedAnswers();
+		}
+		else{
+			copyCommentsToFdp(index);
+		    verifyRviewerCommentIsCopied(index);
+		}
+	}
+	
+	public void copyCommentsToFdp(int index){
+		isElementDisplayed("btn_copyComments",String.valueOf(index));
+		logMessage("-----comment added----"+element("txt_reveiwerComment",String.valueOf(index)).getText().trim());
+		element("btn_copyComments",String.valueOf(index)).click();
+	}
+	
+	public void verifyRviewerCommentIsCopied(int index){
+		String expected;
+		expected=element("txt_reveiwerComment",String.valueOf(index)).getText().trim();
+		switchToFrame(element("lnk_iframe"));
+		isElementDisplayed("txt_commentsTextbox");
+		Assert.assertEquals(element("txt_commentsTextbox").getText().trim(), expected,
+				"ASSERT FAILED : Reviewer comments are not copied properly\n");
+		logMessage("ASSERT PASSED : Reviewer comments are copied properly\n");
+		switchToDefaultContent();
+	}
+	
+	public void clickOnSubmittedChaptersTab(String tabName){
+		isElementDisplayed("tab_chapterStatus",tabName);
+		element("tab_chapterStatus",tabName).click();
+		logMessage("STEP : Clicked on Submitted Tab\n");
+	}
+
 }

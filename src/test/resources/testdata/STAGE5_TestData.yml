@@ -1,5 +1,7 @@
 app_url_IWEB: https://iwebtest.acs.org/NFStage5/iweb
+app_url_IwebReporting: https://stag-12iweb/NFStage5/iweb
 app_url_ScarfReviewing: https://www.ewebtest.acs.org/NFStage5/studentchaptersreview
+app_url_EwebReporting: https://ewebtest12.acs.org/NFStage5/studentchaptersonline
 
 csv-data-file:
   path_OMA: ./src/test/resources/TestDataLibrary/OMA Business Rules.csv
@@ -500,7 +502,7 @@ MYDTransfer:
 AddressValidation:
     queryName: Selenium - US Constituents          
 ScarfReporting:
-    queryName: "Selenium - Active Student Chapters"
+    queryName: "QAIT - Active Student Chapters"
 VoidWithAdjustment:
     queryName: "Selenium - test open invoices"
     voidMessage: "This invoice has been cancelled or voided"    
@@ -511,6 +513,13 @@ VoidWithAdjustment:
     actionValue: Void with Adjustment
     prodName: "Regular Member Dues C&EN-Electronic"
     emptItemsMessage: "There are no results to display."  
+    
+ScarfReviewer:
+    queryName: "BP - Reviewers"
+    reviewRating: Commendable
+    reviewComments: test comments
+    overallRating: Outstanding
+    overallReviewComment: outstanding test data
     
     
 ACS_ApplyPayment: 
