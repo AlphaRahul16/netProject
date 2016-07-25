@@ -1,24 +1,19 @@
 package com.qait.tests;
 
-import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
+
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
-
 import com.qait.automation.TestSessionInitiator;
-import com.qait.automation.utils.XlsReader;
 import com.qait.automation.utils.YamlReader;
 
 public class ACS_ScarfReviewing_Test {
@@ -139,6 +134,17 @@ public class ACS_ScarfReviewing_Test {
         Step08_Submit_Reviews_And_Verify_Review_Status();
 	}
 	
+	@Test
+	public void Step12_Verify_Chapter_Review_Status_On_Iweb()
+	{
+		Step01_Launch_Iweb_Application();
+		test.homePageIWEB.clickOnModuleTab();
+		test.homePageIWEB.clickOnSacrfReportingModule();
+		test.homePageIWEB.clickOnLeftMenuTab("Report");
+		test.homePageIWEB.clickOnTab("Find");
+		//test.invoicePage.enter
+	}
+	
 	@DataProvider(name = "loginDetails")
 	public static Object[][] Reviewer_Details() {
 		
@@ -154,6 +160,7 @@ public class ACS_ScarfReviewing_Test {
 	@AfterMethod
 	public void take_screenshot_on_failure(ITestResult result)
 	{
+		
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
 	
