@@ -64,8 +64,7 @@ public class ACS_ScarfReviewing_Test {
 	{
 		test.memberShipPage.verifyReportingStartAndEndDate();
 		test.memberShipPage.clickCurrentYearPencilButton();
-		test.memberShipPage.verifyStartAndEndDatesForAllModesOfReview();
-		
+		test.memberShipPage.verifyStartAndEndDatesForAllModesOfReview();		
 	}
 	
 	@Test
