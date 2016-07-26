@@ -56,10 +56,10 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 		logMessage("Step : "+reviewerNameList.get(reviewerNameCount)+" is selected as a "+reviewertype);
 		if((reviewertype.equals("Online Reviewer"))&&(reviewercount==0))
 		{
-			assignedchaptername=getAssignedChapterName()+" Student Chapter";;
+			assignedchaptername=getAssignedChapterName();
 		}
 		System.out.println(assignedchaptername);
-		clickAssignButtonToassignReviewerToChapter(assignedchaptername);
+		clickAssignButtonToassignReviewerToChapter(reviewertype,assignedchaptername);
 		reviewerNameCount++;
         return assignedchaptername;
 
@@ -69,11 +69,17 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 		return reviewerNameList;
 	}
 
-	private void clickAssignButtonToassignReviewerToChapter(String chapterName) {
-		isElementDisplayed("btn_AssignChapter",chapterName);		
+	private void clickAssignButtonToassignReviewerToChapter(String reviewertype,String chapterName) {
+		isElementDisplayed("btn_AssignChapter",chapterName);	
+		if(reviewertype.equalsIgnoreCase("Faculty Decision Panel Reviewer"))
+		{
 		executeJavascript("scroll(3000,0);");
 		wait.hardWait(3);
-		element("btn_AssignChapter",chapterName).click();
+		}
+		wait.hardWait(2);
+		scrollDown(element("btn_AssignChapter",chapterName));
+		wait.waitForElementToBeClickable(element("btn_AssignChapter",chapterName));
+		hoverClick(element("btn_AssignChapter",chapterName));
 		waitForSpinner();
 		logMessage("Step : Reviewer Assigned to chapter "+chapterName);
 		
