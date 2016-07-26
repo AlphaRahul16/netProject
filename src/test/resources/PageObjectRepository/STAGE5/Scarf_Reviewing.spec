@@ -19,7 +19,7 @@ btn_cannedAnswers                               xpath                      //a[t
 txt_cannedAnswers                               xpath                      //table[@id='gvwCannedAnswers2']//tr[2]//td
 heading_sectionName                             xpath                      (//span[contains(text(),"${value}")])[1]
 list_overallRating                              xpath                      //td[@class='LayoutCell']//${value}
-btn_submit                                      xpath                      //input[@value='Submit']
+btn_submit                                      xpath                      //input[@value='${value}']
 btn_returnToDashboard                           xpath                      //input[@value='Return to Dashboard']
 btn_fdpReviewer                                 xpath                      //a[text()='${value}']
 heading_reviewerType                            xpath                      //h3[text()='Choose the Dashboard to View']
@@ -27,4 +27,5 @@ list_notStartedChapters                         xpath                      //div
 btn_copyComments                                xpath                      (//input[@value='Copy to Faculty Decision Panel Comments'])[${index}]
 txt_reveiwerComment                             xpath                      //span[@id='txtReviewer${index}Answer']         
 tab_chapterStatus                               xpath                      //a[@href='#${value}']
+list_ratingGreenChemistry                       xpath                      //span[text()='Please Select a Rating: ']/..//select
 =============================================================================================================================================

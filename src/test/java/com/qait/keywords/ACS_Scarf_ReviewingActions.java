@@ -48,21 +48,26 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 		selectDropDownValue(reviewertype);
 		 waitForSpinner();
 		 wait.hardWait(4);
-         element("list_reviewerOptions",toString().valueOf(reviewercount+1)).click();
+         toString();
+		element("list_reviewerOptions",String.valueOf(reviewercount+1)).click();
    	     wait.hardWait(3);
-        System.out.println("name "+reviewercount+" "+element("list_reviewerOptions",toString().valueOf(reviewercount+1)).getText());
-        reviewerNameList.add(element("list_reviewerOptions",toString().valueOf(reviewercount+1)).getText().trim());
+        toString();
+		System.out.println("name "+reviewercount+" "+element("list_reviewerOptions",String.valueOf(reviewercount+1)).getText());
+        toString();
+		reviewerNameList.add(element("list_reviewerOptions",String.valueOf(reviewercount+1)).getText().trim());
         waitForSpinner();
 		logMessage("Step : "+reviewerNameList.get(reviewerNameCount)+" is selected as a "+reviewertype);
 		if((reviewertype.equals("Online Reviewer"))&&(reviewercount==0))
 		{
-			assignedchaptername=getAssignedChapterName()+" Student Chapter";;
+			assignedchaptername=getAssignedChapterName();
+			clickAssignButtonToassignReviewerToChapter(assignedchaptername);
 		}
+		else
+			clickAssignButtonToassignReviewerToChapter(assignedchaptername);
 		System.out.println(assignedchaptername);
-		clickAssignButtonToassignReviewerToChapter(assignedchaptername);
+		assignedchaptername=assignedchaptername;
 		reviewerNameCount++;
         return assignedchaptername;
-
 	}
 	public ArrayList<String> getReviewerNameList()
 	{
@@ -70,10 +75,14 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 	}
 
 	private void clickAssignButtonToassignReviewerToChapter(String chapterName) {
+		System.out.println("--------****chapter name is:"+chapterName);
 		isElementDisplayed("btn_AssignChapter",chapterName);		
 		executeJavascript("scroll(3000,0);");
 		wait.hardWait(3);
-		element("btn_AssignChapter",chapterName).click();
+		  wait.waitForElementToBeClickable(element("btn_AssignChapter",chapterName));
+		  hoverClick(element("btn_AssignChapter",chapterName));
+//		
+//		element("btn_AssignChapter",chapterName).click();
 		waitForSpinner();
 		logMessage("Step : Reviewer Assigned to chapter "+chapterName);
 		
