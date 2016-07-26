@@ -91,6 +91,7 @@ public class ACS_ScarfReviewing_Test {
 	
 	@Test  
 	public void Step06_Launch_Eweb_Application_And_Enter_Reviews_By_First_Online_Reviewer(){
+		assignedchaptername=assignedchaptername+" Student Chapter";
 		test.launchApplication(app_url_eweb);
 		test.acsScarfReporting.loginWithLastNameAndMemberId(ReviewerLoginMap.get("reviewer"+i).get(0),ReviewerLoginMap.get("reviewer"+i).get(1)); //"Easter", "2175095"
 		test.acsScarfReporting.verifyStudentChapterReportingPage();
@@ -114,9 +115,9 @@ public class ACS_ScarfReviewing_Test {
 	public void Step08_Submit_Reviews_And_Verify_Review_Status(){
 		test.acsScarfReviewing.addReviewerComments("Reviewer"+i);
 		test.acsScarfReviewing.enterOverallRating(YamlReader.getYamlValue("ScarfReviewer.overallRating"));
-		test.acsScarfReviewing.clickOnSubmitButton();
+		test.acsScarfReviewing.clickOnSubmitButton("Submit");
 		test.acsScarfReviewing.enterOverallReview(YamlReader.getYamlValue("ScarfReviewer.overallReviewComment"));
-		test.acsScarfReviewing.clickOnSubmitButton();
+		test.acsScarfReviewing.clickOnSubmitButton("Submit");
 		test.acsScarfReviewing.clickOnReturnToDashboardButton();
 	    test.acsScarfReviewing.verifyChapterStatus("Submitted",index); //Not Started
 	}
@@ -158,9 +159,9 @@ public class ACS_ScarfReviewing_Test {
 	public void Step14_Submit_Reviews_And_Verify_Review_Status_By_Second_Online_Reviewer(){
 		test.acsScarfReviewing.addReviewerComments("Reviewer"+i);
 		test.acsScarfReviewing.enterOverallRating(YamlReader.getYamlValue("ScarfReviewer.overallRating"));
-		test.acsScarfReviewing.clickOnSubmitButton();
+		test.acsScarfReviewing.clickOnSubmitButton("Submit");
 		test.acsScarfReviewing.enterOverallReview(YamlReader.getYamlValue("ScarfReviewer.overallReviewComment"));
-		test.acsScarfReviewing.clickOnSubmitButton();
+		test.acsScarfReviewing.clickOnSubmitButton("Submit");
 		test.acsScarfReviewing.clickOnReturnToDashboardButton();
 	    test.acsScarfReviewing.clickOnSubmittedChaptersTab("Submitted"); 	
 		test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton(assignedchaptername,"list_notStartedChapters");
