@@ -220,7 +220,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			wait.hardWait(4);
 			wait.waitForPageToLoadCompletely();
 			wait.resetImplicitTimeout(5);
-			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			wait.resetExplicitTimeout(10);
 			wait.hardWait(5);
 			isElementDisplayed("list_selectedNomineesPrepopulated");
 			wait.resetImplicitTimeout(timeOut);
