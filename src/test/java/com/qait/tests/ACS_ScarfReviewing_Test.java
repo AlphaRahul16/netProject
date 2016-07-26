@@ -79,7 +79,7 @@ public class ACS_ScarfReviewing_Test {
 	public void Step05_Execute_Scarf_Reviewer_Query_And_Fetch_Login_Details(int reviewerCount)
 	{
 		test.acsScarfReviewPage.clickOnQueryTabForScarfModule("Query");
-		test.memberShipPage.selectAndRunQuery("BP - Reviewers");
+		test.memberShipPage.selectAndRunQuery(YamlReader.getYamlValue("ScarfReviewer.queryName"));
 		test.memberShipPage.enterSingleCustomerIdInRunQuery(customerSortNames[reviewerCount]);
 		test.individualsPage.NavigateToIndividualProfilePageFromScarfReviewList(test.acsScarfReviewPage.getReviewerNameList().get(reviewerCount));
 		test.memberShipPage.fetchScarfReviewerLoginDetails(ReviewerLoginMap,reviewerCount);
@@ -103,16 +103,19 @@ public class ACS_ScarfReviewing_Test {
 	
 	@Test(dataProvider="Sections")
 	public void Step07_Enter_Reviews_For_All_The_Sections(String sectionName){
-        test.acsScarfReviewing.enterRating("Commendable",sectionName); //Outstanding
-        test.acsScarfReviewing.enterCommentsForSections(sectionName,"test data");
+        test.acsScarfReviewing.enterRating(YamlReader.getYamlValue("ScarfReviewer.reviewRating"),
+        		sectionName); //Outstanding
+        test.acsScarfReviewing.enterCommentsForSections(sectionName,
+        		YamlReader.getYamlValue("ScarfReviewer.reviewComments"));
 		test.acsScarfReviewing.clickOnNextButton();
 	}
 	
 	@Test
 	public void Step08_Submit_Reviews_And_Verify_Review_Status(){
-		test.acsScarfReviewing.enterOverallRating("Outstanding");
+		test.acsScarfReviewing.addReviewerComments("Reviewer"+i);
+		test.acsScarfReviewing.enterOverallRating(YamlReader.getYamlValue("ScarfReviewer.overallRating"));
 		test.acsScarfReviewing.clickOnSubmitButton();
-		test.acsScarfReviewing.enterOverallReview("nice work test data");
+		test.acsScarfReviewing.enterOverallReview(YamlReader.getYamlValue("ScarfReviewer.overallReviewComment"));
 		test.acsScarfReviewing.clickOnSubmitButton();
 		test.acsScarfReviewing.clickOnReturnToDashboardButton();
 	    test.acsScarfReviewing.verifyChapterStatus("Submitted",index); //Not Started
@@ -142,6 +145,7 @@ public class ACS_ScarfReviewing_Test {
 		index=test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton(assignedchaptername,"list_notStartedChapters");//  Belmont University Student Chapter  .....Arcadia University Student Chapter"
 	    test.acsScarfReviewing.selectChapterReviewImage(index);
 		test.acsScarfReporting.clickOnNotStartedButtonForSection("Self-Assessment", "Start");
+		i++;
 	}
 	
 	@Test(dataProvider="Sections")
@@ -152,9 +156,10 @@ public class ACS_ScarfReviewing_Test {
 	
 	@Test
 	public void Step14_Submit_Reviews_And_Verify_Review_Status_By_Second_Online_Reviewer(){
-		test.acsScarfReviewing.enterOverallRating("Outstanding");
+		test.acsScarfReviewing.addReviewerComments("Reviewer"+i);
+		test.acsScarfReviewing.enterOverallRating(YamlReader.getYamlValue("ScarfReviewer.overallRating"));
 		test.acsScarfReviewing.clickOnSubmitButton();
-		test.acsScarfReviewing.enterOverallReview("nice work test data");
+		test.acsScarfReviewing.enterOverallReview(YamlReader.getYamlValue("ScarfReviewer.overallReviewComment"));
 		test.acsScarfReviewing.clickOnSubmitButton();
 		test.acsScarfReviewing.clickOnReturnToDashboardButton();
 	    test.acsScarfReviewing.clickOnSubmittedChaptersTab("Submitted"); 	

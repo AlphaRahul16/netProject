@@ -514,6 +514,13 @@ VoidWithAdjustment:
     prodName: "Regular Member Dues C&EN-Electronic"
     emptItemsMessage: "There are no results to display."  
     
+ScarfReviewer:
+    queryName: "BP - Reviewers"
+    reviewRating: Commendable
+    reviewComments: test comments
+    overallRating: Outstanding
+    overallReviewComment: outstanding test data
+    
     
 ACS_ApplyPayment: 
     DetailsToFindMember:  
