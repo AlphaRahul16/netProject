@@ -102,7 +102,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public String getMemberWebLogin() {
-		// isElementDisplayed("txt_webLogin");
+		 isElementDisplayed("txt_webLogin");
 		String info = element("txt_webLogin").getText().trim();
 		logMessage("Step : WebLogin is " + info + " \n");
 		return info;
@@ -2400,6 +2400,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 		wait.waitForPageToLoadCompletely();
 		customerContactId = element("txt_ContactId").getText().trim();
+		logMessage("STEP : customer id is " + customerContactId + " \n");
 		return customerContactId;
 	}
 
