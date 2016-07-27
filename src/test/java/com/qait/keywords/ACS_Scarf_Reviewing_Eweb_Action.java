@@ -122,9 +122,9 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 		wait.waitForPageToLoadCompletely();
 	}
 	
-	public void clickOnSubmitButton(){
-		isElementDisplayed("btn_submit");
-		element("btn_submit").click();
+	public void clickOnSubmitButton(String btnValue){
+		isElementDisplayed("btn_submit",btnValue);
+		element("btn_submit",btnValue).click();
 		logMessage("STEP : Clicked on Submit button\n");
 	}
 	
@@ -188,6 +188,36 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 		isElementDisplayed("tab_chapterStatus",tabName);
 		element("tab_chapterStatus",tabName).click();
 		logMessage("STEP : Clicked on Submitted Tab\n");
+	}
+	
+	public void enterRatingByGreenChemistryReviewer(String rating){
+		isElementDisplayed("list_ratingGreenChemistry");
+		selectProvidedTextFromDropDown(element("list_ratingGreenChemistry"), rating);
+		logMessage("STEP : Rating selected as :"+rating+"\n");
+	}
+	
+	public void verifyFinalReview(String review,int index){
+		isElementDisplayed("txt_ChapterName",String.valueOf(index),String.valueOf(3));
+		Assert.assertEquals(element("txt_ChapterName",String.valueOf(index),String.valueOf(3)).getText().trim(), 
+				review,"ASSERT FAILED : Final Review by Green Chemistry Reviewer is not "+review+"\n");
+		logMessage("ASSERT PASSED : Final Review by Green Chemistry Reviewer is "+review+"\n");
+	}
+	
+	public int verifyChapterOnReviewPageForGCReviewer(String chapterName,String elem){
+		boolean flag=false;
+		int i;
+		wait.waitForPageToLoadCompletely();
+		isElementDisplayed(elem);
+		for(i=2;i<=elements(elem).size();i++){
+			if(chapterName.equalsIgnoreCase(element("txt_ChapterName",String.valueOf(i),String.valueOf(1)).getText().trim())
+					&& element("txt_ChapterName",String.valueOf(i),String.valueOf(2)).getText().trim().equalsIgnoreCase("Not Started")){
+				flag=true;
+				break;
+			}
+		}
+		Assert.assertTrue(flag,"ASSERT FAILED : Chapter Name does not exist in the list\n");
+		logMessage("ASSERT PASSED : Chapter Name exist in the list\n");
+		return i;
 	}
 
 }

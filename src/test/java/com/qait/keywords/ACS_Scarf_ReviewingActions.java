@@ -49,28 +49,29 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 		selectDropDownValue(reviewertype);
 		 waitForSpinner();
 		 wait.hardWait(4);
-         element("list_reviewerOptions",toString().valueOf(reviewercount+1)).click();
+         toString();
+		element("list_reviewerOptions",String.valueOf(reviewercount+1)).click();
    	     wait.hardWait(3);
-   	  assignedchaptername="Spring Hill College";
-        System.out.println("name "+reviewercount+" "+element("list_reviewerOptions",toString().valueOf(reviewercount+1)).getText());
-        reviewerNameList.add(element("list_reviewerOptions",toString().valueOf(reviewercount+1)).getText().trim());
+		System.out.println("name "+reviewercount+" "+element("list_reviewerOptions",String.valueOf(reviewercount+1)).getText());
+        toString();
+		reviewerNameList.add(element("list_reviewerOptions",String.valueOf(reviewercount+1)).getText().trim());
         waitForSpinner();
 		logMessage("Step : "+reviewerNameList.get(reviewerNameCount)+" is selected as a "+reviewertype);
 		if((reviewertype.equals("Online Reviewer"))&&(reviewercount==0))
 		{
-			//assignedchaptername=getAssignedChapterName();
+			assignedchaptername=getAssignedChapterName();
 			
 		}
 		System.out.println(assignedchaptername);
 		clickAssignButtonToassignReviewerToChapter(reviewertype,assignedchaptername);
 		reviewerNameCount++;
         return assignedchaptername;
-
 	}
 	public ArrayList<String> getReviewerNameList()
 	{
 		return reviewerNameList;
 	}
+
 
 	private void clickAssignButtonToassignReviewerToChapter(String reviewertype,String chapterName) {
 		isElementDisplayed("btn_AssignChapter",chapterName);	

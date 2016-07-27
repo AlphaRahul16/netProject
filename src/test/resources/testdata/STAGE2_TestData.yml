@@ -408,7 +408,7 @@ SubscriptionFulfillment:
          scheduledTaskCompleted: "Yes"
          previewStatus: preview complete
          commitScheduledTask: "No"
-         startLapTimeInMinutes: 7
+         startLapTimeInMinutes: 15
     subscriptionDetailsForCommitted:
          updateStartIssue: "Yes"
          fulfillmentType: Current 
@@ -417,7 +417,7 @@ SubscriptionFulfillment:
          previewStatusOnStartCommit: commit started
          previewStatus: committed
          commitScheduledTask: "Yes"
-         startLapTimeInMinutes: 7
+         startLapTimeInMinutes: 15
          
   
            
