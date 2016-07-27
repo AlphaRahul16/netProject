@@ -5,6 +5,7 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -24,6 +25,8 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnVoidInvoiceButton(String btnName,int index){
+		
+	
 		isElementDisplayed("btn_invoiceAction",String.valueOf(index));
 		clickUsingXpathInJavaScriptExecutor(element("btn_invoiceAction",String.valueOf(index)));
 		logMessage("STEP : Clicked on "+btnName+" button\n");
@@ -46,6 +49,7 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 		batchName=enterBatchName(index1);
 		enterSecurityGroup(index2,group);
 		clickOnSaveButton();
+		wait.hardWait(1);
 		return batchName;
 	}
 
@@ -84,11 +88,8 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 		String batchName="SELENIUM_BATCH"+System.currentTimeMillis();
 		//		sendKeysUsingXpathInJavaScriptExecutor(element("txt_batchDetails",String.valueOf(i)), batchName);
 		element("txt_batchDetails",String.valueOf(i)).sendKeys(batchName);
-
 		logMessage("STEP : Batch name is entered as "+batchName+"\n");
-
 		return batchName;
-
 	}
 
 	public void enterSecurityGroup(int index,String securityGroup){
@@ -99,12 +100,26 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnSaveButton(){
-		wait.hardWait(2);
+		wait.hardWait(6);
+		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("btn_save");
-		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
+		element("btn_save").click();
+		//clickUsingXpathInJavaScriptExecutor(element("btn_save"));
 		logMessage("STEP : Clicked on Save button\n");
 		switchToDefaultContent();
 	}
+	
+	public void clickOnSaveButtonAndHandelAlert(){
+		wait.hardWait(6);
+		wait.waitForPageToLoadCompletely();
+		isElementDisplayed("btn_save");
+		element("btn_save").click();
+		waitForAlertToAppear();
+		//clickUsingXpathInJavaScriptExecutor(element("btn_save"));
+		logMessage("STEP : Clicked on Save button\n");
+		switchToDefaultContent();
+	}
+	
 
 	public void enterActionValues(String actionValue){   
 		int j=2,size;
@@ -113,17 +128,18 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 		size=elements("table_actions").size();
 		for(int i=1;i<size;i++){
 			isElementDisplayed("drpdwn_invoiceAction",String.valueOf(j));
-			wait.hardWait(1);
+			wait.hardWait(2);
 			hardWaitForIEBrowser(3);
 			selectProvidedTextFromDropDown(element("drpdwn_invoiceAction",String.valueOf(j)), actionValue);
-
-			logMessage("STEP : Action value entered as "+actionValue+" for product "+j+"\n");
-			j++;
+		   wait.hardWait(1);
+			logMessage("STEP : Action value entered as "+actionValue+" for product "+i+"\n");
+		   j++;
 		}
 	}
 
 	public void verifyProductUnderLineItems(String productName,int index){
 		boolean flag=false;int i=0;
+		wait.hardWait(3);
 		isElementDisplayed("table_productName",String.valueOf(index));
 		for(WebElement ele: elements("table_productName",String.valueOf(index))){
 			if(ele.getText().trim().equals(productName)){
@@ -151,19 +167,32 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 	public void verifyVoidInvoiceMessage(String msg){
 		wait.waitForPageToLoadCompletely();
 		//waitForSpinner();
-		wait.hardWait(4);
+		wait.hardWait(2);
 		hardWaitForIEBrowser(4);
+
+		try
+		{
+			wait.resetImplicitTimeout(2);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 		isElementDisplayed("txt_voidInvoice");
+		}
+		catch(NoSuchElementException e)
+		{
+			saveChangesForReturnCancel();
+		}
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
 		Assert.assertEquals(element("txt_voidInvoice").getText().trim(), msg,"ASSERT PASSED : Message '"+msg+"' is not displayed\n");
 		logMessage("ASSERT PASSED : Message '"+msg+"' is displayed\n");
 	}
 
 	public void verifyItemsUnderVoidedLineItemsMenu(List<String>expectedProductList,int index){
 		boolean flag=false;
+		wait.hardWait(2);
 		isElementDisplayed("table_productName",String.valueOf(index));
 		for(WebElement ele: elements("table_productName",String.valueOf(index))){
 			for(int j=0; j<expectedProductList.size();j++){
-				if(expectedProductList.get(j).equalsIgnoreCase(ele.getText().trim())){
+				if(expectedProductList.get(j).contains(ele.getText().trim())){
 					flag= true;
 					break;
 				}
@@ -214,17 +243,15 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 				logMessage("ASSERT PASSED : Batch name is present in the list as "+batchName);
 			}
 		}
-		System.out.println(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYY"));
-		System.out.println(element("txt_creditBatchDate",batchName).getText());
+
 		Assert.assertTrue(element("txt_creditBatchDate",batchName).getText().trim().equals(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYY").trim()));
 		logMessage("Step : credit date is verify as "+DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYY"));
-		System.out.println(totalCredit);
-		System.out.println(element("txt_CreditTotal",batchName).getText());
 		Assert.assertTrue(element("txt_CreditTotal",batchName).getText().trim().equals(totalCredit),"Amount credit is not as expected");
 		logMessage("ASSERT PASSED : Credited amount successfully verified as "+totalCredit);
 	}
 
 	public void saveChangesForReturnCancel() {
+		switchToDefaultContent();
 		switchToFrame("iframe1");
 		clickOnSaveButton();
 

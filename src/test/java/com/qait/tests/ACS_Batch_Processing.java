@@ -79,7 +79,7 @@ public class ACS_Batch_Processing {
 				YamlReader.getYamlValue("Authentication.password"));		
 	}
 
-//	@AfterClass
+	@AfterClass
 	public void close_Browser_Window()
 	{
 	

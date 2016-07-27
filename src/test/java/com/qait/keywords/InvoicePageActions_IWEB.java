@@ -826,7 +826,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public String getDataFromInvoiceProfilePage(String field) {
 		isElementDisplayed("txt_invoiceValues", field);
-		logMessage("STEP : " + field + " is : "
+		logMessage("STEP : " + field + " is "
 				+ element("txt_invoiceValues", field).getText().trim() + "\n");
 		String invoicedata=element("txt_invoiceValues", field).getText().trim();
 		return invoicedata;

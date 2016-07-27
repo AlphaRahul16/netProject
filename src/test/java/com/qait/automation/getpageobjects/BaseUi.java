@@ -714,6 +714,8 @@ public class BaseUi {
 	protected void changeWindow(int i) {
 	    //wait.hardWait(1);
 	    Set<String> windows = driver.getWindowHandles();
+        System.out.println("Windows: " + windows.size());
+
 	    if (i > 0) {
 	      for (int j = 0; j < 9; j++) {
 	        System.out.println("Windows: " + windows.size());
@@ -753,6 +755,7 @@ public class BaseUi {
 		}
 	}
 	
+	
 	public void handleAlertUsingRobot(){
 		Robot robot;
 		try {
@@ -766,5 +769,18 @@ public class BaseUi {
 			System.out.println("---no alert present");
 		}
 		
+	}
+	
+	public void switchWindow(String current){
+		Set<String> handles = driver.getWindowHandles();
+ 		for(String handle : handles){
+ 			System.out.println("------current handler:"+handle);
+ 			if(!(handle.equalsIgnoreCase(current))){
+ 					driver.switchTo().window(handle);
+ 					break;
+ 			}
+ 		}  		
+        System.out.println("In "+getPageTitle());
+        driver.switchTo().window(current);
 	}
 }

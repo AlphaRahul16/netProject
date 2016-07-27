@@ -1,16 +1,53 @@
 package com.qait.keywords;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.GetPage;
+import com.qait.automation.utils.YamlReader;
 
 public class ASM_PUBSPage extends GetPage {
 	WebDriver driver;
 	static String pagename = "ASM_PUBSPage";
-
+	public List<String> productName;
+	public List<Double> productAmount;
+	String taxAmount;
 	public ASM_PUBSPage(WebDriver driver) {
 		super(driver, pagename);
 		this.driver = driver;
+	}
+
+	public void SavingProductNameAndAmount() {
+		productName = new ArrayList<String>();
+		productAmount = new ArrayList<Double>();
+		for(int i=1;i<=3;i++)
+			{
+			productName.add(getProductName(i));
+			}
+		for(int i=1;i<=7;i=i+3)
+			{
+			
+			productAmount.add(getProductAmount(i));
+			}
+	}
+	
+
+	private String getProductName(int index) {
+		String productName = element("txt_productName", String.valueOf(index))
+				.getText();
+		logMessage("Step : get product Name "+productName+" !!");
+		return productName;
+	}
+
+	private Double getProductAmount(int index) {
+		String productAmount = element("txt_productAmount", String.valueOf(index))
+				.getText();
+		productAmount = productAmount.substring(1);
+		logMessage("Step : get product Amount "+productAmount+" !!");
+		return Double.parseDouble(productAmount);
 	}
 
 	public void loginInToApplication(String userName, String password) {
@@ -28,7 +65,9 @@ public class ASM_PUBSPage extends GetPage {
 	public void enterPassword(String password) {
 		isElementDisplayed("inp_password");
 		element("inp_password").sendKeys(password);
-		logMessage("Step : " + password + " is entered in inp_password\n");
+		logMessage("Step : "
+				+ password
+				+ " is entered in inp_passworclickOnAddAnESubscriptionButtond\n");
 	}
 
 	public void clickOnVerifyButton() {
@@ -48,6 +87,76 @@ public class ASM_PUBSPage extends GetPage {
 		clickOnSaveButton();
 	}
 
+	public void clickOnAddAnEPassportButton() {
+		isElementDisplayed("btn_passportAdd");
+		element("btn_passportAdd").click();
+		logMessage("Step : add an e-passport button is clicked in btn_passportAdd\n");
+
+	}
+
+	public void clickOnAddButtonInPassport() {
+		isElementDisplayed("btn_add");
+		element("btn_add").click();
+		logMessage("Step : add button is clicked in btn_add \n");
+		wait.waitForPageToLoadCompletely();
+
+	}
+
+	public String passportValue() {
+		isElementDisplayed("txt_amount");
+		String passportAmountValue = element("txt_amount").getText();
+		passportAmountValue = passportAmountValue.substring(passportAmountValue
+				.indexOf("$") + 1);
+		logMessage("Step : passportAmountValue " + passportAmountValue
+				+ " is saved \n");
+		return passportAmountValue;
+	}
+
+	public String subscriptionValue() {
+		isElementDisplayed("txt_amount");
+		String subscriptionAmountValue = element("txt_amount").getText();
+		subscriptionAmountValue = subscriptionAmountValue
+				.substring(subscriptionAmountValue.indexOf("$") + 1);
+		logMessage("Step : subscriptionAmountValue " + subscriptionAmountValue
+				+ " is saved \n");
+		return subscriptionAmountValue;
+	}
+
+
+	public void verifyTotalValue() {
+		Double total=0.0;
+		for(int i=0;i<productAmount.size();i++)
+		{
+			total+=productAmount.get(i);
+		}
+		taxAmount=element("txt_taxAmount").getText();
+		taxAmount=taxAmount.substring(1);
+		total+=Double.parseDouble(taxAmount);
+		
+		String invoiceValue = element("txt_invoiceValue").getText();
+		invoiceValue = invoiceValue.substring(invoiceValue.indexOf("$") + 1);
+		Double double_invoiceValue =(Double) Double.parseDouble(invoiceValue);
+	
+		total=setPrecision(total, 2);
+		double_invoiceValue=setPrecision(double_invoiceValue, 2);
+		
+		logMessage("Step : total from previous page =" + total
+				+ " & invoice from this page =" + double_invoiceValue);
+		Assert.assertEquals(total, double_invoiceValue);
+		logMessage("Assert Pass : verify invoice value !!");
+		
+	}
+
+	public Double setPrecision(Double value,int precisionLength)
+	{
+		int number=10;
+		number=(int) Math.pow(number, precisionLength);
+		value = value*number;
+		value = (double) Math.round(value);
+		value = value /number;
+		return value;
+	}
+	
 	public void clickOnAddAnESubscriptionButton() {
 		isElementDisplayed("btn_subscriptionAdd");
 		element("btn_subscriptionAdd").click();
@@ -64,6 +173,10 @@ public class ASM_PUBSPage extends GetPage {
 		logMessage("Step : add button is clicked in btn_add \n");
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);
+		isElementDisplayed("chk_archive");
+		element("chk_archive").click();
+		logMessage("Step : add button is clicked in chk_archive \n");
+
 		// verifySubcriptionAdded();
 	}
 
@@ -149,6 +262,7 @@ public class ASM_PUBSPage extends GetPage {
 	}
 
 	public void verifyPaymentPage() {
+
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(2);
 		isElementDisplayed("txt_paymentPage");

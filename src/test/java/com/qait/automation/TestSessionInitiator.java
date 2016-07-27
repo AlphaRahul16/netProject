@@ -61,6 +61,8 @@ import com.qait.keywords.MemberShipRenewalPage;
 import com.qait.keywords.MembershipPageActions_IWEB;
 import com.qait.keywords.SubscriptionPage;
 import com.qait.keywords.ACS_Scarf_Reporting;
+import com.qait.keywords.ACS_Scarf_ReviewingActions;
+import com.qait.keywords.ACS_Scarf_Reviewing_Eweb_Action;
 import com.qait.keywords.ACS_Void_Invoice;
 
 
@@ -122,6 +124,8 @@ public class TestSessionInitiator {
 	public ACS_ReportsActions acsreportPage;
 	public ACS_Apply_Payment_Actions applyPayment;
 	public ACS_Void_Invoice acsVoidInvoice;
+	public ACS_Scarf_ReviewingActions acsScarfReviewPage;
+	public ACS_Scarf_Reviewing_Eweb_Action acsScarfReviewing;
 
 	//public AwardsPageActions_IWEB AwardsPageActions_IWEB;
 
@@ -172,6 +176,8 @@ public class TestSessionInitiator {
 		acsreportPage = new ACS_ReportsActions(driver);
 		applyPayment = new ACS_Apply_Payment_Actions(driver);
 		acsVoidInvoice= new ACS_Void_Invoice(driver);
+		acsScarfReviewPage = new ACS_Scarf_ReviewingActions(driver);
+		acsScarfReviewing = new ACS_Scarf_Reviewing_Eweb_Action(driver);
 	}
 
 
@@ -232,7 +238,8 @@ public class TestSessionInitiator {
 	     if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer")))
 	        {
 	      if(baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage3/iweb") || 
-	    		  baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage2/iweb")){
+	    		  baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage2/iweb")||
+	    		  baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage5/iweb")){
 	         baseurl = baseurl
 	           .replaceAll(
 	             "https://stag",

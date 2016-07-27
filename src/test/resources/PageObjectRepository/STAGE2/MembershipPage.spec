@@ -33,6 +33,7 @@ list_PaymentType                                     id                       in
 list_paymentMethod                                   id                       pin_apm_key
 inp_cardNumber                                       id                       pin_cc_number
 list_expireDate                                      id                       pin_cc_expire
+inp_checkNumber                                      id                       pin_check_number
 inp_cvvNumber                                        id                       pin_cc_security_code
 txt_rejoinDateForActive                              xpath                    //td[contains(text(),'Active')]/following-sibling::td[2]
 img_ticked                                           xpath                    //img[@id='F1_IMAGE_${index}']
@@ -180,7 +181,5 @@ txt_current                                     xpath                           
 txt_startDate                                   xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[8]
 txt_endDate                                     xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[${index2}]
 arrow_selectMember                              xpath                           (//th/a)[2]/../../following-sibling::tr[${index}]//td[3]//a
-productname_txt									 xpath							(//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[4]
-pricevalue_txt									 xpath							(//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[5]
-
-==============================================================================================================================================
+btn_CurrentYearPencil                           xpath                           //td[contains(text(),'Yes')]/preceding-sibling::td//i
+inp_dateForReviewModes                          xpath                           //input[@title='${reviewtitle}']
