@@ -22,6 +22,7 @@ import com.qait.automation.utils.YamlReader;
 
 public class ACS_ScarfReviewing_Test {
 	static String sheetName;
+	String app_url_eweb_rev;
 	TestSessionInitiator test;
 	HashMap<String, String> ReviewMap = new HashMap<String, String>();
 
@@ -68,7 +69,6 @@ public class ACS_ScarfReviewing_Test {
 	{
 		
 	}
-	
 	
 	
 	@AfterMethod
