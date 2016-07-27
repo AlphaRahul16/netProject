@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 
@@ -51,7 +52,6 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
          toString();
 		element("list_reviewerOptions",String.valueOf(reviewercount+1)).click();
    	     wait.hardWait(3);
-        toString();
 		System.out.println("name "+reviewercount+" "+element("list_reviewerOptions",String.valueOf(reviewercount+1)).getText());
         toString();
 		reviewerNameList.add(element("list_reviewerOptions",String.valueOf(reviewercount+1)).getText().trim());
@@ -60,6 +60,7 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 		if((reviewertype.equals("Online Reviewer"))&&(reviewercount==0))
 		{
 			assignedchaptername=getAssignedChapterName();
+			
 		}
 		System.out.println(assignedchaptername);
 		clickAssignButtonToassignReviewerToChapter(reviewertype,assignedchaptername);
@@ -82,7 +83,16 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 		scrollDown(element("btn_AssignChapter",chapterName));
 		wait.waitForElementToBeClickable(element("btn_AssignChapter",chapterName));
-		hoverClick(element("btn_AssignChapter",chapterName));
+		try
+		{
+		//hoverClick(element("btn_AssignChapter",chapterName));
+		wait.hardWait(3);
+		clickUsingXpathInJavaScriptExecutor(element("btn_AssignChapter",chapterName));
+		}
+		catch(WebDriverException e)
+		{
+			clickUsingXpathInJavaScriptExecutor(element("btn_AssignChapter",chapterName));
+		}
 		waitForSpinner();
 		logMessage("Step : Reviewer Assigned to chapter "+chapterName);
 		
