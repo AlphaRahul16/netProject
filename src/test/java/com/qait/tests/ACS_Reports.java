@@ -78,5 +78,11 @@ public class ACS_Reports {
 			return new Object[][] {{getReportsDetails.get_ACSReportsInfo("delivery_Method").split(",")[0].trim()}, 
 				{getReportsDetails.get_ACSReportsInfo("delivery_Method").split(",")[1].trim()}};
 	}
+	
+	@AfterClass
+	public void close_Browser_Window()
+	{	
+		test.closeBrowserWindow();
+	}
 
 }

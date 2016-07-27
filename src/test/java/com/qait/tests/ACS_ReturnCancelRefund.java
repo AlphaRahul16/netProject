@@ -140,7 +140,7 @@ public class ACS_ReturnCancelRefund {
 		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"), YamlReader.getYamlValue("Authentication.password"));
 	}
 
-	//@AfterClass
+	@AfterClass
 	public void close_Browser_Window()
 	{
 
