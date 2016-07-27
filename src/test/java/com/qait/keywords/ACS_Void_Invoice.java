@@ -25,6 +25,8 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnVoidInvoiceButton(String btnName,int index){
+		
+	
 		isElementDisplayed("btn_invoiceAction",String.valueOf(index));
 		clickUsingXpathInJavaScriptExecutor(element("btn_invoiceAction",String.valueOf(index)));
 		logMessage("STEP : Clicked on "+btnName+" button\n");

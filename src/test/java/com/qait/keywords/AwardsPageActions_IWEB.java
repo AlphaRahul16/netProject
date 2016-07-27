@@ -501,6 +501,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnSearchButtonOnEditRecord() {
 		isElementDisplayed("btn_search");
+		wait.waitForElementToBeClickable(element("btn_search"));
 		element("btn_search").click();
 		logMessage("Step : search button is clicked \n");
 	}

@@ -88,13 +88,14 @@ public class SubscriptionPage extends GetPage {
 		currentSeconds = DateUtil.getCurrentTime("ss", "EST5EDT");
 
 		Date dateInDate = DateUtil.convertStringToDate(currentDate, "hh:mma");
+		System.out.println("actual time:" + dateInDate);
 		Date dateAfterMinutesAdded = DateUtils.addMinutes(dateInDate,
 				Integer.parseInt(timeSlab));
 
 		element("inp_tskStartTime").clear();
 		SimpleDateFormat sdf = new SimpleDateFormat("hh:mma");
 		String dateWithTimeSlabInString = sdf.format(dateAfterMinutesAdded);
-
+		System.out.println("date after added :" + dateWithTimeSlabInString);
 		if (dateWithTimeSlabInString.startsWith("0")) {
 			element("inp_tskStartTime").sendKeys(
 					dateWithTimeSlabInString.replaceFirst("0", ""));
@@ -174,8 +175,9 @@ public class SubscriptionPage extends GetPage {
 
 	public void clickOnSubLinkSideBar(String linkName) {
 		isElementDisplayed("link_subTabSidebar", linkName);
-		clickUsingXpathInJavaScriptExecutor(element("link_subTabSidebar", linkName));
-	//	element("link_subTabSidebar", linkName).click();
+		clickUsingXpathInJavaScriptExecutor(element("link_subTabSidebar",
+				linkName));
+		// element("link_subTabSidebar", linkName).click();
 		logMessage("Step : sublink " + linkName
 				+ " is clicked in link_subTabSidebar\n");
 	}
@@ -189,15 +191,16 @@ public class SubscriptionPage extends GetPage {
 
 	public void checkSubscriptionName(String subscriptionName) {
 		isElementDisplayed("chk_subscription", subscriptionName);
-		clickUsingXpathInJavaScriptExecutor(element("chk_subscription", subscriptionName));
-		//element("chk_subscription", subscriptionName).click();
+		clickUsingXpathInJavaScriptExecutor(element("chk_subscription",
+				subscriptionName));
+		// element("chk_subscription", subscriptionName).click();
 		logMessage("Step : subscription " + subscriptionName + " is checked\n");
 	}
 
 	public void clickOnSaveButton() {
 		isElementDisplayed("btn_save");
 		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
-		//element("btn_save").click();
+		// element("btn_save").click();
 		logMessage("Step : save button is clicked in btn_save\n");
 	}
 
@@ -213,10 +216,10 @@ public class SubscriptionPage extends GetPage {
 
 	public void clickOnFirstSubscriptionTaskInList() {
 		isElementDisplayed("link_firstSubsTask");
-		if(isBrowser("ie")||isBrowser("internet explorer"))
+		if (isBrowser("ie") || isBrowser("internet explorer"))
 			clickUsingXpathInJavaScriptExecutor(element("link_firstSubsTask"));
 		else
-		    element("link_firstSubsTask").click();
+			element("link_firstSubsTask").click();
 		logMessage("Step : first subscription task is clicked in link_firstSubsTask\n");
 	}
 
@@ -234,7 +237,7 @@ public class SubscriptionPage extends GetPage {
 				.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY",
 						"EST5EDT");
 
-    //		verifySubscriptionDetail("start date:", currentDateEST);
+		// verifySubscriptionDetail("start date:", currentDateEST);
 		// verifySubscriptionDetail("time:", time);
 		verifySubscriptionDetail("scheduled task completed?",
 				scheduledTaskCompleted);
@@ -336,10 +339,10 @@ public class SubscriptionPage extends GetPage {
 
 	public void clickOnCommitPreviewButton() {
 		isElementDisplayed("btn_commitPreviewButton");
-		if(isBrowser("ie")||isBrowser("internet explorer"))
+		if (isBrowser("ie") || isBrowser("internet explorer"))
 			clickUsingXpathInJavaScriptExecutor(element("btn_commitPreviewButton"));
 		else
-		    element("btn_commitPreviewButton").click();
+			element("btn_commitPreviewButton").click();
 		logMessage("Step : commit preview button is clicked in btn_commitPreviewButton\n");
 	}
 
@@ -367,10 +370,10 @@ public class SubscriptionPage extends GetPage {
 	public void verifyIssueInSubscriptionFulfillmentBatchSummary(
 			String issueName) {
 		isElementDisplayed("subscriptionFulfillmentBacthSummary");
-		if(isBrowser("ie")||isBrowser("internet explorer"))
+		if (isBrowser("ie") || isBrowser("internet explorer"))
 			clickUsingXpathInJavaScriptExecutor(element("subscriptionFulfillmentBacthSummary"));
 		else
-		    element("subscriptionFulfillmentBacthSummary").click();
+			element("subscriptionFulfillmentBacthSummary").click();
 		waitForSpinner();
 		hardWaitForIEBrowser(2);
 		isElementDisplayed("td_subscriptionRow");
@@ -446,7 +449,7 @@ public class SubscriptionPage extends GetPage {
 								.contains(
 										DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone(
 												"MM/d/YYYY", "EST5EDT"))) {
-							
+
 							element("lnk_arrow", String.valueOf(i + 1)).click();
 							logMessage("Step : Go to record button is clicked \n");
 							flag = true;

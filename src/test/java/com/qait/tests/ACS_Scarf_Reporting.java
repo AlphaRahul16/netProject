@@ -226,7 +226,7 @@ public class ACS_Scarf_Reporting {
 		test.acsScarfReporting.iterateThroughReportAnswers();
 	}
 
-//	@AfterClass
+	@AfterClass
 	public void Close_Browser_Session() {
 		test.closeBrowserSession();
 	}

@@ -6,11 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 
 public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 	String assignedChapterNameList;
+	String assignedchaptername;
+	int reviewerNameCount=0;
 	ArrayList<String> reviewerNameList = new ArrayList<String>() ;
 	WebDriver driver;
 	static String pagename = "Scarf_Reviewing";
@@ -41,38 +44,65 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 		wait.resetExplicitTimeout(timeOut);
 	}
 
-	public void assignReviewerToAChapter(String reviewertype, int reviewercount) {
+	public String assignReviewerToAChapter(String reviewertype, int reviewercount) {
+		
 		selectDropDownValue(reviewertype);
 		 waitForSpinner();
 		 wait.hardWait(4);
-         element("list_reviewerOptions",toString().valueOf(reviewercount+1)).click();
+         toString();
+		element("list_reviewerOptions",String.valueOf(reviewercount+1)).click();
    	     wait.hardWait(3);
-        System.out.println("name "+reviewercount+" "+element("list_reviewerOptions",toString().valueOf(reviewercount+1)).getText());
-        reviewerNameList.add(element("list_reviewerOptions",toString().valueOf(reviewercount+1)).getText().trim());
+		System.out.println("name "+reviewercount+" "+element("list_reviewerOptions",String.valueOf(reviewercount+1)).getText());
+        toString();
+		reviewerNameList.add(element("list_reviewerOptions",String.valueOf(reviewercount+1)).getText().trim());
         waitForSpinner();
-
-		//logMessage("Step : "+reviewerNameList.get(reviewercount)+" is selected as a "+reviewertype);
-		//getAssignedChapterName(assignedChapterNameList);
-		//clickAssignButtonToassignReviewerToChapter(getAssignedChapterName(assignedChapterNameList).get(0));
-
+		logMessage("Step : "+reviewerNameList.get(reviewerNameCount)+" is selected as a "+reviewertype);
+		if((reviewertype.equals("Online Reviewer"))&&(reviewercount==0))
+		{
+			assignedchaptername=getAssignedChapterName();
+			
+		}
+		System.out.println(assignedchaptername);
+		clickAssignButtonToassignReviewerToChapter(reviewertype,assignedchaptername);
+		reviewerNameCount++;
+        return assignedchaptername;
 	}
 	public ArrayList<String> getReviewerNameList()
 	{
 		return reviewerNameList;
 	}
 
-	private void clickAssignButtonToassignReviewerToChapter(String chapterName) {
-		isElementDisplayed("btn_AssignChapter",chapterName);
-		element("btn_AssignChapter",chapterName).click();
+
+	private void clickAssignButtonToassignReviewerToChapter(String reviewertype,String chapterName) {
+		isElementDisplayed("btn_AssignChapter",chapterName);	
+		if(reviewertype.equalsIgnoreCase("Faculty Decision Panel Reviewer"))
+		{
+		executeJavascript("scroll(3000,0);");
+		wait.hardWait(3);
+		}
+		wait.hardWait(2);
+		scrollDown(element("btn_AssignChapter",chapterName));
+		wait.waitForElementToBeClickable(element("btn_AssignChapter",chapterName));
+		try
+		{
+		//hoverClick(element("btn_AssignChapter",chapterName));
+		wait.hardWait(3);
+		clickUsingXpathInJavaScriptExecutor(element("btn_AssignChapter",chapterName));
+		}
+		catch(WebDriverException e)
+		{
+			clickUsingXpathInJavaScriptExecutor(element("btn_AssignChapter",chapterName));
+		}
+		waitForSpinner();
 		logMessage("Step : Reviewer Assigned to chapter "+chapterName);
 		
 	}
 
-	private String getAssignedChapterName(String assignedChapterNameList) {
+	private String getAssignedChapterName() {
 		isElementDisplayed("txt_AssignedchapterName");
-		assignedChapterNameList=element("txt_AssignedchapterName").getText().trim();
-		System.out.println(assignedChapterNameList);
-		return assignedChapterNameList;
+		String assignedChapterName=element("txt_AssignedchapterName").getText().trim();
+	
+		return assignedChapterName;
 		 
 	}
 
