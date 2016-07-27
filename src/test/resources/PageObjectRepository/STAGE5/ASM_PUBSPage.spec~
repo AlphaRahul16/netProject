@@ -23,8 +23,8 @@ txt_paymentPage                            xpath                              //
 btn_passportAdd                            xpath                              //input[contains(@id,'btnAddPassport')]
 txt_amount                                 xpath                              //*[@id='page-subtotal']/p
 chk_archive                                xpath                              .//span[contains(text(),'Accts of Chem Res Mbr Web Archive')]/..//input[@title='Add to Membership']
+txt_totalAmount                            xpath                              .//*[@id='lblInvoice']
 txt_invoiceValue                           xpath                              .//*[@id='lblInvoice']
 txt_productName                            xpath                              (//td[@class='inv-details'])[${index}]//span[2]//span
-txt_productAmount                          xpath                              (//td[@class='std-cell std-td'])[${index}]//span
-txt_taxAmount                              xpath                              .//*[@id='lblTax']
+txt_productAmount                                 xpath                              (//td[@class='std-cell std-td'])[${index}]//span
 ===========================================================================================================================================

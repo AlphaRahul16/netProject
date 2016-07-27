@@ -19,6 +19,7 @@ import com.qait.automation.utils.YamlReader;
 
 public class ACS_ScarfReviewing_Test {
 	static String sheetName;
+	String app_url_eweb_rev;
 	TestSessionInitiator test;
 	
 	Map<String,List<String>> ReviewerLoginMap = new HashMap<String, List<String>>();
