@@ -137,8 +137,7 @@ public class ACS_ScarfReviewing_Test {
         Step08_Submit_Reviews_And_Verify_Review_Status();
 	}
 	
-
-
+    @Test
 	public void Step12_Launch_Eweb_Application_And_Enter_Reviews_By_FDP_Reviewer(){
 		test.launchApplication(app_url_eweb);
 		test.acsScarfReporting.loginWithLastNameAndMemberId(ReviewerLoginMap.get("reviewer"+i).get(0),ReviewerLoginMap.get("reviewer"+i).get(1)); //"Hare","2250525"
@@ -167,9 +166,24 @@ public class ACS_ScarfReviewing_Test {
 		test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton(assignedchaptername,"list_notStartedChapters");
 	}
 	
+	@Test  
+	public void Step15_Launch_Eweb_Application_And_Enter_Reviews_By_Green_Chemistry_Reviewer(){
+		test.launchApplication(app_url_eweb);
+		test.acsScarfReporting.loginWithLastNameAndMemberId(ReviewerLoginMap.get("reviewer"+i).get(0),ReviewerLoginMap.get("reviewer"+i).get(1)); //"Constable","00816994"
+		test.acsScarfReporting.verifyStudentChapterReportingPage();
+		index=test.acsScarfReviewing.verifyChapterOnReviewPageForGCReviewer("Aquinas College Student Chapter","list_ChapterList");
+	    test.acsScarfReviewing.verifyChapterStatus("Not Started",index);
+	    test.acsScarfReviewing.selectChapterReviewImage(index);
+	    test.acsScarfReviewing.enterRatingByGreenChemistryReviewer("Yes");
+		test.acsScarfReviewing.enterComments(YamlReader.getYamlValue("ScarfReviewer.reviewComments"));
+		test.acsScarfReviewing.clickOnSubmitButton("Save & Submit");
+	    test.acsScarfReviewing.verifyChapterStatus("Submitted",index); 
+		test.acsScarfReviewing.verifyFinalReview("Yes", index);
+	    i++;
+	}
+	
 	@Test
-
-	public void Step15_Verify_Chapter_Review_Status_On_Iweb()
+	public void Step16_Verify_Chapter_Review_Status_On_Iweb()
 	{
 		Step01_Launch_Iweb_Application();
 		test.homePageIWEB.clickOnModuleTab();
