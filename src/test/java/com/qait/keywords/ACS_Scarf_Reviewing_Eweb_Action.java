@@ -64,6 +64,7 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 			System.out.println("no rating for overall report assessment section");;
 	}
 	
+
 	public void enterComments(String comments){
 		wait.hardWait(2);
 		switchToFrame(element("lnk_iframe"));
