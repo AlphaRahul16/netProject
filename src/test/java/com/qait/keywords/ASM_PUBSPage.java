@@ -6,9 +6,11 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+
+import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.getpageobjects.GetPage;
 
-public class ASM_PUBSPage extends GetPage {
+public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	WebDriver driver;
 	static String pagename = "ASM_PUBSPage";
 	public List<String> productName;
@@ -29,6 +31,14 @@ public class ASM_PUBSPage extends GetPage {
 
 		for (WebElement amount : elements("list_productAmount")) {
 			productAmount.add(amount.getAttribute("textContent").trim());
+		}
+		System.out.println("============================Product Name And Amount List===========================================");
+		
+		for (String name : productName) {
+			System.out.println(name);
+		}
+		for (String amount : productAmount) {
+			System.out.println(amount);
 		}
 	}
 
@@ -68,6 +78,28 @@ public class ASM_PUBSPage extends GetPage {
 
 		}
 
+	}
+	
+	public void clockOnPrintOrderReceipt()
+	{
+		isElementDisplayed("btn_printReceipt");
+		element("btn_printReceipt").click();
+		logMessage("Step: click on print order receipt !!");
+		wait.hardWait(5);
+	}
+	
+	public void verifyDataFromPdfFile()
+	{
+
+		for (String product_Name : productName) {
+			System.out.println("In PDF Method::"+product_Name);
+			extractAndCompareTextFromPdfFile("report", product_Name, 1);
+		}
+		
+		for (String product_Amount : productAmount) {
+			System.out.println("In PDF Method::"+product_Amount);
+			extractAndCompareTextFromPdfFile("report", product_Amount, 1);
+		}
 	}
 
 	public void loginInToApplication(String userName, String password) {
@@ -291,7 +323,6 @@ public class ASM_PUBSPage extends GetPage {
 		isElementDisplayed("inp_password");
 		isElementDisplayed("btn_verify");
 		logMessage("[ASSERTION PASSED]:: Verified User Is On Eweb Login Page");
-
 	}
 
 	public void verifyUserIsOnHomePageForEwebPBA(String individualName) {
