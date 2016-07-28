@@ -3,7 +3,9 @@ package com.qait.keywords;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.GetPage;
@@ -13,7 +15,7 @@ public class ASM_PUBSPage extends GetPage {
 	WebDriver driver;
 	static String pagename = "ASM_PUBSPage";
 	public List<String> productName;
-	public List<Double> productAmount;
+	public List<String> productAmount;
 	String taxAmount;
 	public ASM_PUBSPage(WebDriver driver) {
 		super(driver, pagename);
@@ -22,31 +24,18 @@ public class ASM_PUBSPage extends GetPage {
 
 	public void SavingProductNameAndAmount() {
 		productName = new ArrayList<String>();
-		productAmount = new ArrayList<Double>();
-		for(int i=1;i<=3;i++)
-			{
-			productName.add(getProductName(i));
-			}
-		for(int i=1;i<=7;i=i+3)
-			{
-			
-			productAmount.add(getProductAmount(i));
-			}
-	}
-	
-
-	private String getProductName(int index) {
-		String productName = element("txt_productName", String.valueOf(index))
-				.getText();
-		logMessage("Step : get product Name "+productName+" !!");
-		return productName;
+		productAmount = new ArrayList<String>();
+		for (WebElement product : elements("list_productName")) {
+			productName.add(product.getAttribute("textContent").trim());
+		}
+		
+		for (WebElement amount : elements("list_productAmount")) {
+			productAmount.add(amount.getAttribute("textContent").trim());
+		}
 	}
 
-	private Double getProductAmount(int index) {
-		String productAmount = element("txt_productAmount", String.valueOf(index))
-				.getText();
-		productAmount = productAmount.substring(1);
-		logMessage("Step : get product Amount "+productAmount+" !!");
+	private Double getProductAmount(String productAmount) {
+		productAmount = productAmount.substring(productAmount.indexOf('$')+1);
 		return Double.parseDouble(productAmount);
 	}
 
@@ -123,14 +112,14 @@ public class ASM_PUBSPage extends GetPage {
 	}
 
 
-	public void verifyTotalValue() {
+	public void verifyTotalAmountForAddedProducts() {
 		Double total=0.0;
 		for(int i=0;i<productAmount.size();i++)
 		{
-			total+=productAmount.get(i);
+			total+=getProductAmount(productAmount.get(i));
 		}
 		taxAmount=element("txt_taxAmount").getText();
-		taxAmount=taxAmount.substring(1);
+		taxAmount=taxAmount.substring(taxAmount.indexOf('$')+1);
 		total+=Double.parseDouble(taxAmount);
 		
 		String invoiceValue = element("txt_invoiceValue").getText();
@@ -143,7 +132,7 @@ public class ASM_PUBSPage extends GetPage {
 		logMessage("Step : total from previous page =" + total
 				+ " & invoice from this page =" + double_invoiceValue);
 		Assert.assertEquals(total, double_invoiceValue);
-		logMessage("Assert Pass : verify invoice value !!");
+		logMessage("[ASSERTION PASSED]: Verified Total Invoice Amount!!");
 		
 	}
 
@@ -262,9 +251,27 @@ public class ASM_PUBSPage extends GetPage {
 	}
 
 	public void verifyPaymentPage() {
-
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(2);
 		isElementDisplayed("txt_paymentPage");
+	}
+
+	public void verifyUserIsOnEwebLoginPage() {
+		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(2);
+		isElementDisplayed("inp_userName");
+		isElementDisplayed("inp_password");
+		isElementDisplayed("btn_verify");
+		logMessage("[ASSERTION PASSED]:: Verified User Is On Eweb Login Page");
+		
+	}
+
+	public void verifyUserIsOnHomePageForEwebPBA(String individualName) {
+		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(2);
+		wait.hardWait(2);
+		String s = (String) executeJavascriptReturnValue("document.getElementsByTagName('span')[3].innerHTML;");
+		Assert.assertEquals(s.trim(), individualName);
+		logMessage("[ASSERTION PASSED]:: Verified User Is On Home Page for Eweb Application");
 	}
 }
