@@ -36,8 +36,8 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 				break;
 			}
 		}
-		Assert.assertTrue(flag,"ASSERT FAILED : Chapter Name does not exist in the list\n");
-		logMessage("ASSERT PASSED : Chapter Name exist in the list\n");
+		Assert.assertTrue(flag,"ASSERT FAILED : Chapter Name "+chapterName+" does not exist in the list\n");
+		logMessage("ASSERT PASSED : Chapter Name "+chapterName+" exist in the list\n");
 		return i;
 	}
 	
@@ -80,16 +80,28 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 		if(sectionName.equalsIgnoreCase("Service")||sectionName.equalsIgnoreCase("Professional Development")||sectionName.equalsIgnoreCase("Chapter Development")){
 			clickOnCannedAnswersButton();
 			enterCommentsViaCannedAnswers();
+			reviewerSections.put(sectionName, getCannedAnswersComments());		
 		}
 		else{
 			comments=comments+System.currentTimeMillis();
 			enterComments(comments);
+			reviewerSections.put(sectionName, comments);		
 		}
-		reviewerSections.put(sectionName, comments);		
+	}
+	
+	public String getCannedAnswersComments(){
+		wait.hardWait(2);
+		switchToFrame(element("lnk_iframe"));
+		isElementDisplayed("txt_commentsTextbox");
+		String answers=element("txt_commentsTextbox").getText().trim();
+		logMessage("STEP : Canned Answers Comments are "+answers+"\n");
+		switchToDefaultContent();
+		return answers;
 	}
 	
 	public void addReviewerComments(String reviewerMode){	
 		reviewerComments.put(reviewerMode,reviewerSections);
+		System.out.println("------comments :"+reviewerComments.get(reviewerMode));
 	}
 	
 	public void clickOnNextButton(){
@@ -185,6 +197,7 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 	}
 	
 	public void clickOnSubmittedChaptersTab(String tabName){
+		wait.hardWait(2);
 		isElementDisplayed("tab_chapterStatus",tabName);
 		element("tab_chapterStatus",tabName).click();
 		logMessage("STEP : Clicked on Submitted Tab\n");

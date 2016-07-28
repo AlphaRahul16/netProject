@@ -9,6 +9,7 @@ import java.util.Map;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.SkipException;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -220,7 +221,7 @@ public class ACS_Reinstate_Member_EWEB_Test {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
 
-	// @AfterClass(alwaysRun = true)
+	@AfterClass(alwaysRun = true)
 	public void Close_Test_Session() {
 		test.closeBrowserSession();
 	}

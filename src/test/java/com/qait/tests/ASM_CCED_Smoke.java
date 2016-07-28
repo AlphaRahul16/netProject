@@ -65,10 +65,7 @@ public class ASM_CCED_Smoke {
 	@AfterMethod
 	public void take_screenshot_on_failure(ITestResult result) {
 		test.takescreenshot.takeScreenShotOnException(result);
+		test.closeBrowserSession();
 	}
 
-	@AfterClass(alwaysRun = true)
-	public void Close_Test_Session() {
-//		test.closeBrowserSession();
-	}
 }

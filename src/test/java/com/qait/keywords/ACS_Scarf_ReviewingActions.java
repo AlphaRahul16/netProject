@@ -121,7 +121,8 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 
 	public void clickOnQueryTabForScarfModule(String tabName) {
 		isElementDisplayed("tab_QueryName");
-		element("tab_QueryName").click();
+//		element("tab_QueryName").click();
+		clickUsingXpathInJavaScriptExecutor(element("tab_QueryName"));
 		logMessage("Step : "+tabName+" is clicked\n");
 		
 	}
