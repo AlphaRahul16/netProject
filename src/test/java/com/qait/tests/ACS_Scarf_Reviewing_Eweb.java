@@ -116,7 +116,7 @@ public class ACS_Scarf_Reviewing_Eweb {
 		test.launchApplication(app_url_eweb);
 		test.acsScarfReporting.loginWithLastNameAndMemberId("Constable","00816994"); 
 		test.acsScarfReporting.verifyStudentChapterReportingPage();
-		index=test.acsScarfReviewing.verifyChapterOnReviewPageForGCReviewer("Aquinas College Student Chapter","list_ChapterList");
+//		index=test.acsScarfReviewing.verifyChapterOnReviewPageForGCReviewer("Aquinas College Student Chapter","list_ChapterList");
 	    test.acsScarfReviewing.verifyChapterStatus("Not Started",index);
 	    test.acsScarfReviewing.selectChapterReviewImage(index);
 	    test.acsScarfReviewing.enterRatingByGreenChemistryReviewer("Yes");

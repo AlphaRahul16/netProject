@@ -1575,6 +1575,13 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		
 	}
 
+	public void enterChapterNameAndStatusAndClickGoButton(String chapterName,String chapterStatus) {
+		enterFieldValue("Chapter Name", chapterName);
+		selectDropDownValue(chapterStatus);
+		clickGoButton();
+		
+	}
+
 	/*
 	 * public boolean verifyCommitteePreferenceDate(){ String
 	 * preferenceEndDate,preferenceStartDate; int max=0; boolean value;

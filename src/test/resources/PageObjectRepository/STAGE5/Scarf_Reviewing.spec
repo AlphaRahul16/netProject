@@ -29,4 +29,7 @@ txt_reveiwerComment                             xpath                      //spa
 tab_chapterStatus                               xpath                      //a[@href='#${value}']
 list_ratingGreenChemistry                       xpath                      //span[text()='Please Select a Rating: ']/..//select
 txt_submittedChapter                            xpath                      //div[@id='submitted']//tbody//tr[${index1}]//td[${index2}]
+list_reviewerNameOptions                        xpath                        //select[contains(@id,'lstReviewer')]//option
+txt_answersReview                               xpath                        //td[contains(text(),'${value1}')]/following-sibling::td[1][contains(text(),'${reviewername}')]/following-sibling::td[2]
+lnk_PageNumber                                  xpath                       //a[contains(text(),'${value}')]
 =============================================================================================================================================
