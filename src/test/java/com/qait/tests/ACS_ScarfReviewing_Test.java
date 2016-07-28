@@ -2,13 +2,12 @@ package com.qait.tests;
 
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
-
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.testng.ITestResult;
 import org.testng.Reporter;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -16,14 +15,17 @@ import org.testng.annotations.Test;
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.utils.YamlReader;
 
-public class ACS_ScarfReviewing_Test {
+public class ACS_ScarfReviewing_Test  {
 	static String sheetName;
+	String app_url_eweb_rev;
 	TestSessionInitiator test;
 	
 	Map<String,List<String>> ReviewerLoginMap = new HashMap<String, List<String>>();
+	Map<String,Map<String,String>> reviewerComments;
 
 	String app_url_iweb,app_url_eweb,assignedchaptername;
 	int index,i=0;
+	int reviewAnswersCount=1;
     String[] customerSortNames;
 	private int caseID;
 	
@@ -72,7 +74,7 @@ public class ACS_ScarfReviewing_Test {
 		test.acsScarfReviewPage.assignReviewerToAChapter("Faculty Decision Panel Reviewer", 0);
 		test.acsScarfReviewPage.assignReviewerToAChapter("Green Chemistry Reviewer", 0);
 		customerSortNames=test.acsScarfReviewPage.getCustomerSortName(test.acsScarfReviewPage.getReviewerNameList());
-		
+		assignedchaptername=assignedchaptername+" Student Chapter";
 	}
 	
 	@Test(dataProvider="loginDetails")
@@ -91,12 +93,11 @@ public class ACS_ScarfReviewing_Test {
 	
 	@Test  
 	public void Step06_Launch_Eweb_Application_And_Enter_Reviews_By_First_Online_Reviewer(){
-		assignedchaptername=assignedchaptername+" Student Chapter";
 		test.launchApplication(app_url_eweb);
 		test.acsScarfReporting.loginWithLastNameAndMemberId(ReviewerLoginMap.get("reviewer"+i).get(0),ReviewerLoginMap.get("reviewer"+i).get(1)); //"Easter", "2175095"
 		test.acsScarfReporting.verifyStudentChapterReportingPage();
 		index=test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton(assignedchaptername,"list_ChapterList");//Arcadia University Student Chapter"
-	    test.acsScarfReviewing.verifyChapterStatus("Not Started",index); //In Progress
+	    test.acsScarfReviewing.verifyChapterStatus("Not Started",index); 
 	    test.acsScarfReviewing.selectChapterReviewImage(index);
 		test.acsScarfReporting.clickOnNotStartedButtonForSection("Self-Assessment", "Start");
 		i++;
@@ -105,7 +106,7 @@ public class ACS_ScarfReviewing_Test {
 	@Test(dataProvider="Sections")
 	public void Step07_Enter_Reviews_For_All_The_Sections(String sectionName){
         test.acsScarfReviewing.enterRating(YamlReader.getYamlValue("ScarfReviewer.reviewRating"),
-        		sectionName); //Outstanding
+        		sectionName); 
         test.acsScarfReviewing.enterCommentsForSections(sectionName,
         		YamlReader.getYamlValue("ScarfReviewer.reviewComments"));
 		test.acsScarfReviewing.clickOnNextButton();
@@ -119,7 +120,7 @@ public class ACS_ScarfReviewing_Test {
 		test.acsScarfReviewing.enterOverallReview(YamlReader.getYamlValue("ScarfReviewer.overallReviewComment"));
 		test.acsScarfReviewing.clickOnSubmitButton("Submit");
 		test.acsScarfReviewing.clickOnReturnToDashboardButton();
-	    test.acsScarfReviewing.verifyChapterStatus("Submitted",index); //Not Started
+	    test.acsScarfReviewing.verifyChapterStatus("Submitted",index); 
 	}
 	
 	@Test
@@ -137,8 +138,7 @@ public class ACS_ScarfReviewing_Test {
         Step08_Submit_Reviews_And_Verify_Review_Status();
 	}
 	
-
-
+    @Test
 	public void Step12_Launch_Eweb_Application_And_Enter_Reviews_By_FDP_Reviewer(){
 		test.launchApplication(app_url_eweb);
 		test.acsScarfReporting.loginWithLastNameAndMemberId(ReviewerLoginMap.get("reviewer"+i).get(0),ReviewerLoginMap.get("reviewer"+i).get(1)); //"Hare","2250525"
@@ -156,49 +156,119 @@ public class ACS_ScarfReviewing_Test {
 	}
 	
 	@Test
-	public void Step14_Submit_Reviews_And_Verify_Review_Status_By_Second_Online_Reviewer(){
+	public void Step14_Submit_Reviews_And_Verify_Review_Status_By_FDP_Reviewer(){
 		test.acsScarfReviewing.addReviewerComments("Reviewer"+i);
 		test.acsScarfReviewing.enterOverallRating(YamlReader.getYamlValue("ScarfReviewer.overallRating"));
 		test.acsScarfReviewing.clickOnSubmitButton("Submit");
 		test.acsScarfReviewing.enterOverallReview(YamlReader.getYamlValue("ScarfReviewer.overallReviewComment"));
 		test.acsScarfReviewing.clickOnSubmitButton("Submit");
 		test.acsScarfReviewing.clickOnReturnToDashboardButton();
-	    test.acsScarfReviewing.clickOnSubmittedChaptersTab("Submitted"); 	
+	    test.acsScarfReviewing.clickOnSubmittedChaptersTab("submitted"); 	
 		test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton(assignedchaptername,"list_notStartedChapters");
 	}
 	
+	@Test  
+	public void Step15_Launch_Eweb_Application_And_Enter_Reviews_By_Green_Chemistry_Reviewer(){
+		test.launchApplication(app_url_eweb);
+		test.acsScarfReporting.loginWithLastNameAndMemberId(ReviewerLoginMap.get("reviewer"+i).get(0),ReviewerLoginMap.get("reviewer"+i).get(1)); //"Constable","00816994"
+		test.acsScarfReporting.verifyStudentChapterReportingPage();
+		index=test.acsScarfReviewing.verifyChapterOnReviewPageForGCReviewer("Aquinas College Student Chapter","list_ChapterList");
+	    test.acsScarfReviewing.verifyChapterStatus("Not Started",index);
+	    test.acsScarfReviewing.selectChapterReviewImage(index);
+	    test.acsScarfReviewing.enterRatingByGreenChemistryReviewer("Yes");
+		test.acsScarfReviewing.enterComments(YamlReader.getYamlValue("ScarfReviewer.reviewComments"));
+		test.acsScarfReviewing.clickOnSubmitButton("Save & Submit");
+	    test.acsScarfReviewing.verifyChapterStatus("Submitted",index); 
+		test.acsScarfReviewing.verifyFinalReview("Yes", index);
+	    i++;
+	}
+	
 	@Test
-
-	public void Step15_Verify_Chapter_Review_Status_On_Iweb()
+	public void Step16_Verify_Chapter_Review_Status_On_Iweb()
 	{
 		Step01_Launch_Iweb_Application();
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnSacrfReportingModule();
 		test.homePageIWEB.clickOnLeftMenuTab("Report");
 		test.homePageIWEB.clickOnTab("Find");
-		//test.invoicePage.enter
+		test.individualsPage.enterChapterNameAndStatusAndClickGoButton("Texas Southern University Student Chapter","Submitted");
+		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Report Review");
+		test.invoicePage.verifyMemberDetails("status", "Submitted");
+		
 	}
+	
+	@Test
+	public void Step17_Verify_Online_Reviewers_Comments_And_Review_Status_On_Iweb()
+	{
+		reviewerComments=test.acsScarfReviewing.getReviewerCommentsMap();
+		test.invoicePage.expandDetailsMenu("report online reviewer");
+        test.invoicePage.verifyScarfReviewerCommentsAndStatus(test.acsScarfReviewPage.getReviewerNameList().get(0),YamlReader.getYamlValue("ScarfReviewer.overallRating"),"Submitted");
+        test.invoicePage.verifyScarfReviewerCommentsAndStatus(test.acsScarfReviewPage.getReviewerNameList().get(1),YamlReader.getYamlValue("ScarfReviewer.overallRating"),"Submitted");
+        test.invoicePage.collapseDetailsMenu("report online reviewer");
+        test.invoicePage.expandDetailsMenu("report online reviewer answer");  
+	}
+	
+	@Test(dataProvider="Sections")
+	public void Step18_Verify_Online_Reviewers_Answers_On_Iweb(String sectionName)
+	{
+        test.acsScarfReviewing.verifyReviewerAnswers(reviewerComments,1,sectionName,test.acsScarfReviewPage.getReviewerNameList().get(0));
+        test.acsScarfReviewing.verifyReviewerAnswers(reviewerComments,2,sectionName,test.acsScarfReviewPage.getReviewerNameList().get(1));
+        
+	}
+	
+	@Test
+	public void Step19_Verify_Faculty_Panel_Reviewer_Comments_And_Review_Status_On_Iweb()
+	{
+		test.invoicePage.collapseDetailsMenu("report online reviewer answer");
+		test.invoicePage.expandDetailsMenu("report faculty decision panel reviewer");
+        test.invoicePage.verifyScarfReviewerCommentsAndStatus(test.acsScarfReviewPage.getReviewerNameList().get(2),YamlReader.getYamlValue("ScarfReviewer.overallRating"),"Submitted");
+        test.invoicePage.collapseDetailsMenu("report faculty decision panel reviewer");
+        test.invoicePage.expandDetailsMenu("report faculty decision panel answer");
+	}
+	
+	@Test(dataProvider="Sections")
+	public void Step20_Verify_Faculty_Panel_Reviewer_Answers_On_Iweb(String sectionName)
+	{
+        test.acsScarfReviewing.verifyReviewerAnswers(reviewerComments,3,sectionName,test.acsScarfReviewPage.getReviewerNameList().get(2));
+	}
+	
+	//@Test
+	public void Step19_Verify_Green_Chemistry_Reviewer_Comments_And_Review_Status_On_Iweb()
+	{
+        
+        test.invoicePage.collapseDetailsMenu("report faculty decision panel answer");
+		test.invoicePage.expandDetailsMenu("report green chemistry reviewer");
+        test.invoicePage.verifyScarfReviewerCommentsAndStatus(test.acsScarfReviewPage.getReviewerNameList().get(3),YamlReader.getYamlValue("ScarfReviewer.overallRating"),"Submitted");
+        test.invoicePage.collapseDetailsMenu("report green chemistry reviewer");
+        test.invoicePage.expandDetailsMenu("report green chemistry reviewer answer");
+	}
+	
+	@Test(dataProvider="Sections")
+	public void Step21_Verify_Green_Chemistry_Reviewer_Answers_On_Iweb(String sectionName)
+	{
+        test.acsScarfReviewing.verifyReviewerAnswers(reviewerComments,4,sectionName,test.acsScarfReviewPage.getReviewerNameList().get(3));
+	}
+	
 	
 	@DataProvider(name = "loginDetails")
 	public static Object[][] Reviewer_Details() {
 		
 		int[] reviewerCount={0,1,2,3};
-			return new Object[][] {{reviewerCount[0]},{reviewerCount[1]},{reviewerCount[2]}, {reviewerCount[3]}};
+			return new Object[][] {{reviewerCount[0]},{reviewerCount[1]},{reviewerCount[2]},{reviewerCount[3]}};
 	}
 	
 	@DataProvider(name="Sections")
 	public static Object[][] provideSectionNames(){
-		return new Object[][] {{"Self-Assessment"},{"Service"},{"Professional Development"},{"Chapter Development"},{"Budget"},{"Overall Report Assessment"}};
+		return new Object[][] {{"Self-Assessment"},{"Service"},{"Professional Development"},{"Chapter Development"},{"Budget"},{"Online Reviewer Assessment"}};
 	}
 	
 	@AfterMethod
 	public void take_screenshot_on_failure(ITestResult result)
-	{
-		
+	{	
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
 	
-//	@AfterClass
+	@AfterClass
 	public void close_Browser_Window()
 	{	
 		test.closeBrowserWindow();

@@ -9,8 +9,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -241,9 +243,15 @@ public class ACS_AwardsVoting_Test {
 
 	}
 
-//	@AfterClass
+	@AfterClass
 	public void Close_Browser_Session() {
 		test.closeBrowserSession();
+	}
+	
+	@AfterMethod
+	public void take_screenshot_on_failure(ITestResult result)
+	{	
+		test.takescreenshot.takeScreenShotOnException(result);
 	}
 
 }

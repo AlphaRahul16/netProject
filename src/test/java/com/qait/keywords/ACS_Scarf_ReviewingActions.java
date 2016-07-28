@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.qait.automation.utils.YamlReader;
 
 public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 	String assignedChapterNameList;
@@ -49,12 +50,13 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 		selectDropDownValue(reviewertype);
 		 waitForSpinner();
 		 wait.hardWait(4);
-         toString();
-		element("list_reviewerOptions",String.valueOf(reviewercount+1)).click();
+   
+        int reviwerListSize= elements("list_reviewerNameOptions").size();
+        System.out.println(reviwerListSize);
+        element("list_reviewerOptions",toString().valueOf(YamlReader.generateRandomNumber(0,reviwerListSize-1))).click();
    	     wait.hardWait(3);
-		System.out.println("name "+reviewercount+" "+element("list_reviewerOptions",String.valueOf(reviewercount+1)).getText());
         toString();
-		reviewerNameList.add(element("list_reviewerOptions",String.valueOf(reviewercount+1)).getText().trim());
+		reviewerNameList.add(element("list_reviewerOptions",toString().valueOf(YamlReader.generateRandomNumber(0,reviwerListSize-1))).getText().trim());
         waitForSpinner();
 		logMessage("Step : "+reviewerNameList.get(reviewerNameCount)+" is selected as a "+reviewertype);
 		if((reviewertype.equals("Online Reviewer"))&&(reviewercount==0))
@@ -121,7 +123,8 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 
 	public void clickOnQueryTabForScarfModule(String tabName) {
 		isElementDisplayed("tab_QueryName");
-		element("tab_QueryName").click();
+//		element("tab_QueryName").click();
+		clickUsingXpathInJavaScriptExecutor(element("tab_QueryName"));
 		logMessage("Step : "+tabName+" is clicked\n");
 		
 	}

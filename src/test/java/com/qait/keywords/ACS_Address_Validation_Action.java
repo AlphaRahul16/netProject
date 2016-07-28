@@ -14,6 +14,7 @@ import com.qait.automation.utils.ConfigPropertyReader;
 
 public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 	static String pagename = "ACS_Address_Validation";
+	String currentWindow;
 	WebDriver driver;
 	int timeOut;
 
@@ -74,6 +75,10 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 		element("input_zipcode").clear();
 		element("input_zipcode").sendKeys(bogusCode);
 		logMessage("STEP : Bogus code " + bogusCode + " is entered in ZipCode field" + "\n");
+		
+		currentWindow = driver.getWindowHandle();
+		System.out.println("-------current window is:"+currentWindow);
+		
 		clickOnSaveButton();
 		switchToDefaultContent();
 	}
@@ -88,7 +93,6 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 
 	public void verifyAddressVerificationWindow() {         
 		hardWaitForIEBrowser(3);		
-//		switchWindow();
 		changeWindow(1);
 //		switchToWindowHavingIndex(1);
 		isElementDisplayed("heading_address");
@@ -103,13 +107,11 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : The ZipCode from Address Verification window "
 				+ element("txt_verificationZipCode").getAttribute("value") + " matches with the ZipCode "
 				+ expectedZipCode + "\n");
-		clickOnSaveButtonOnAddressVerficationPage();
-		
-	
+		clickOnSaveButtonOnAddressVerficationPage();	
 //		switchToWindowHavingIndex(0);
 	}
 
-	public void clickOnSaveButtonOnAddressVerficationPage() {            //else added
+	public void clickOnSaveButtonOnAddressVerficationPage() {            
 		isElementDisplayed("btn_verificationSave");
 		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
 				|| ConfigPropertyReader.getProperty("browser")
@@ -117,13 +119,15 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 				|| ConfigPropertyReader.getProperty("browser")
 						.equalsIgnoreCase("internetexplorer")){
 			clickUsingXpathInJavaScriptExecutor(element("btn_verificationSave"));
+			logMessage("STEP : Clicked on Save Button on Address Verification Window");
+			hardWaitForIEBrowser(2);
+			changeWindow(0);
 		}
-		else
+		else{
 		  element("btn_verificationSave").click();
-		
-		changeWindow(0);
-				
-		logMessage("STEP : Clicked on Save Button on Address Verification Window");
+		  logMessage("STEP : Clicked on Save Button on Address Verification Window");
+		  changeWindow(0);
+		}
 	}
 
 	public void verifyReplacementOfZipCode(String expectedZipCode) {
