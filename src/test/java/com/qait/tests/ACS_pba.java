@@ -1,6 +1,10 @@
 package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
+
+import org.testng.ITestResult;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import com.qait.automation.TestSessionInitiator;
@@ -48,6 +52,7 @@ public class ACS_pba {
 
 	@Test
 	public void Step04_Login_in_IWEB() {
+		//webLogin="hnaik";
 		app_url_PUBS = getYamlValue("app_url_PUBS");
 		test.launchApplication(app_url_PUBS);
 		test.asm_PUBSPage.loginInToApplication(webLogin, getYamlValue("password"));
@@ -86,7 +91,48 @@ public class ACS_pba {
 				YamlReader.getYamlValue("Acs_CreateMember_IWEB.yearValue"));
 		test.asm_PUBSPage.clickOnPlaceOrder();
 	}
-
+	
+	@Test
+	public void Step08_Verify_With_Eweb_Data()
+	{
+	//	customerId="2209315";
+		test.launchApplication(app_url_IWEB);
+		test.homePageIWEB
+		.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
+		test.homePageIWEB.clickOnSideBarTab("Individuals");
+		test.memberShipPage.clickOnTab("Find Individual");
+		test.asm_PUBSPage.clickOnGoButtonWithCustomerLoginId(customerId);
+		test.asm_PUBSPage.clickOnActiveSubscription();
+		test.asm_PUBSPage.verifyDataFromInitialPage();
+	}
+	
+	@Test
+	public void Step09_Verify_With_PDF_Data()
+	{
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	@AfterMethod
+	public void take_screenshot_on_failure(ITestResult result)
+	{
+		test.takescreenshot.takeScreenShotOnException(result);
+	}
+	
+	@AfterClass
+	public void Close_Browser_Session() {
+		test.closeBrowserWindow();
+	}
+	
+	
+	
+	
+	
 	
 
 }

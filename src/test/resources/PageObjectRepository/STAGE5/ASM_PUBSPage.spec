@@ -27,4 +27,14 @@ txt_invoiceValue                           xpath                              ./
 txt_productName                            xpath                              (//td[@class='inv-details'])[${index}]//span[2]//span
 txt_productAmount                          xpath                              (//td[@class='std-cell std-td'])[${index}]//span
 txt_taxAmount                              xpath                              .//*[@id='lblTax']
+btn_printOrderReceipt                      xpath                              .//*[@id='print-invoice']/span/input\
+txt_recordNumber                           id                                 ValueTextBox0
+btn_search                                 id                                 ButtonSearch
+lnk_moreTab                                id                                 ProfileTabMenuImage_TS0
+lnk_subscriptionTab                        xpath                              .//*[@class='ProfileTitleLight']//a[text()='Subscriptions']
+lnk_activeSubscription                     xpath                              (.//*[@class='icon-chevron-down'])[1]
+td_subscription				   xpath                              //td[contains(text(),'${productName}')]/..//td[contains(text(),'${productAmount}')]
+
+
+
 ===========================================================================================================================================

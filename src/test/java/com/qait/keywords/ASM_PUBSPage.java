@@ -1,13 +1,10 @@
 package com.qait.keywords;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-
 import com.qait.automation.getpageobjects.GetPage;
-import com.qait.automation.utils.YamlReader;
+
 
 public class ASM_PUBSPage extends GetPage {
 	WebDriver driver;
@@ -33,7 +30,6 @@ public class ASM_PUBSPage extends GetPage {
 			productAmount.add(getProductAmount(i));
 			}
 	}
-	
 
 	private String getProductName(int index) {
 		String productName = element("txt_productName", String.valueOf(index))
@@ -50,6 +46,49 @@ public class ASM_PUBSPage extends GetPage {
 		return Double.parseDouble(productAmount);
 	}
 
+	public void clickOnGoButtonWithCustomerLoginId(String customerID)
+	{
+		isElementDisplayed("txt_recordNumber");
+		element("txt_recordNumber").sendKeys(customerID);
+		logMessage("Step : send customer id  "+customerID+" to text field !!");
+		isElementDisplayed("btn_search");
+		element("btn_search").click();
+		logMessage("Step : click to the search button !!");
+	}
+	
+	
+	
+	
+	
+	public void clickOnActiveSubscription()
+	{
+		isElementDisplayed("lnk_moreTab");
+		element("lnk_moreTab").click();
+		logMessage("step: more tab is expanded !!");
+		isElementDisplayed("lnk_subscriptionTab");
+		element("lnk_subscriptionTab").click();
+		logMessage("subscription tab is selected in expanded more option !!");
+		wait.hardWait(6);
+		isElementDisplayed("lnk_activeSubscription");
+		element("lnk_activeSubscription").click();
+		logMessage("Step: active subscription expanded !!");	
+		wait.hardWait(2);
+	}
+	
+	
+	
+	public void verifyDataFromInitialPage()
+	{
+		for(int i=0;i<productName.size();i++)
+		{
+			isElementDisplayed("td_subscription", productName.get(i), String.valueOf(productAmount.get(i)));
+			
+		}
+		
+	}
+	
+	
+	
 	public void loginInToApplication(String userName, String password) {
 		enterUserName(userName);
 		enterPassword(password);
