@@ -21,10 +21,10 @@ public class ACS_ScarfReviewing_Test {
 	static String sheetName;
 	String app_url_eweb_rev;
 	TestSessionInitiator test;
-	
-	Map<String,List<String>> ReviewerLoginMap = new HashMap<String, List<String>>();
 
-	String app_url_iweb,app_url_eweb,assignedchaptername;
+	Map<String,List<String>> ReviewerLoginMap = new HashMap<String, List<String>>();
+	String app_url_iweb,app_url_eweb;
+	String assignedchaptername;  //=ACS_Scarf_Reporting.chapterName;
 	int index,i=0;
     String[] customerSortNames;
 	private int caseID;
@@ -96,7 +96,7 @@ public class ACS_ScarfReviewing_Test {
 		test.launchApplication(app_url_eweb);
 		test.acsScarfReporting.loginWithLastNameAndMemberId(ReviewerLoginMap.get("reviewer"+i).get(0),ReviewerLoginMap.get("reviewer"+i).get(1)); //"Easter", "2175095"
 		test.acsScarfReporting.verifyStudentChapterReportingPage();
-		index=test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton(assignedchaptername,"list_ChapterList");//Arcadia University Student Chapter"
+		index=test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton(assignedchaptername,"list_ChapterList","LayoutCell");//Arcadia University Student Chapter"
 	    test.acsScarfReviewing.verifyChapterStatus("Not Started",index); 
 	    test.acsScarfReviewing.selectChapterReviewImage(index);
 		test.acsScarfReporting.clickOnNotStartedButtonForSection("Self-Assessment", "Start");
@@ -143,7 +143,7 @@ public class ACS_ScarfReviewing_Test {
 		test.launchApplication(app_url_eweb);
 		test.acsScarfReporting.loginWithLastNameAndMemberId(ReviewerLoginMap.get("reviewer"+i).get(0),ReviewerLoginMap.get("reviewer"+i).get(1)); //"Hare","2250525"
 		test.acsScarfReviewing.verifyReviewerTypeWindow("Faculty Decision Panel Reviewer");
-		index=test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton(assignedchaptername,"list_notStartedChapters");//  Belmont University Student Chapter  .....Arcadia University Student Chapter"
+		index=test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton(assignedchaptername,"list_notStartedChapters","notStarted");//  Belmont University Student Chapter  .....Arcadia University Student Chapter"
 	    test.acsScarfReviewing.selectChapterReviewImage(index);
 		test.acsScarfReporting.clickOnNotStartedButtonForSection("Self-Assessment", "Start");
 		i++;
@@ -164,7 +164,7 @@ public class ACS_ScarfReviewing_Test {
 		test.acsScarfReviewing.clickOnSubmitButton("Submit");
 		test.acsScarfReviewing.clickOnReturnToDashboardButton();
 	    test.acsScarfReviewing.clickOnSubmittedChaptersTab("submitted"); 	
-		test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton(assignedchaptername,"list_notStartedChapters");
+		test.acsScarfReviewing.verifySubmittedChapterOnTheReviewPage(assignedchaptername,"list_notStartedChapters","submitted");
 	}
 	
 	@Test  
@@ -172,7 +172,7 @@ public class ACS_ScarfReviewing_Test {
 		test.launchApplication(app_url_eweb);
 		test.acsScarfReporting.loginWithLastNameAndMemberId(ReviewerLoginMap.get("reviewer"+i).get(0),ReviewerLoginMap.get("reviewer"+i).get(1)); //"Constable","00816994"
 		test.acsScarfReporting.verifyStudentChapterReportingPage();
-		index=test.acsScarfReviewing.verifyChapterOnReviewPageForGCReviewer("Aquinas College Student Chapter","list_ChapterList");
+		index=test.acsScarfReviewing.verifyChapterOnReviewPageForGCReviewer(assignedchaptername,"list_ChapterList","LayoutCell");
 	    test.acsScarfReviewing.verifyChapterStatus("Not Started",index);
 	    test.acsScarfReviewing.selectChapterReviewImage(index);
 	    test.acsScarfReviewing.enterRatingByGreenChemistryReviewer("Yes");

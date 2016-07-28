@@ -21,9 +21,8 @@ import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.utils.DataProvider;
 import com.qait.automation.utils.DateUtil;
 
-public class ACS_AwardsVoting_Test {
+public class ACS_AwardsVoting_Test extends BaseTest{
 
-	TestSessionInitiator test;
 	String app_url_IWEB, app_url_Awards, currentAwardName;
 	String[] startEndDate;
 	Map<String, List<String>> memberDetail = new HashMap<>();
@@ -242,16 +241,4 @@ public class ACS_AwardsVoting_Test {
 		test.launchApplication(app_url_IWEB);
 
 	}
-
-	@AfterClass
-	public void Close_Browser_Session() {
-		test.closeBrowserSession();
-	}
-	
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result)
-	{	
-		test.takescreenshot.takeScreenShotOnException(result);
-	}
-
 }

@@ -24,7 +24,8 @@ public class ACS_Scarf_Reporting {
 	static String sheetName;
 	TestSessionInitiator test;
 
-	String app_url_iweb, custId, officerName, chapterName, chapFacultyAdvisor;
+	String app_url_iweb, custId, officerName, chapFacultyAdvisor;
+	String chapterName;
 	List<Integer> rowNumberList = new ArrayList<Integer>();
 	List<String> memberDetails = new ArrayList<String>();
 	HashMap<String, String> dataList = new HashMap<String, String>();
@@ -62,6 +63,7 @@ public class ACS_Scarf_Reporting {
 		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
+//		chapterName="Monroe Community College Student Chapter";
 	}
 
 	@Test
@@ -230,6 +232,8 @@ public class ACS_Scarf_Reporting {
 
 	@AfterClass
 	public void Close_Browser_Session() {
+//		test.getDriver();
+		test.acsScarfReviewPage.assignChapterName(chapterName);
 		test.closeBrowserSession();
 	}
 	
