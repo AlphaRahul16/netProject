@@ -233,7 +233,7 @@ public class ACS_ScarfReviewing_Test  {
 	}
 	
 	//@Test
-	public void Step19_Verify_Green_Chemistry_Reviewer_Comments_And_Review_Status_On_Iweb()
+	public void Step21_Verify_Green_Chemistry_Reviewer_Comments_And_Review_Status_On_Iweb()
 	{
         
         test.invoicePage.collapseDetailsMenu("report faculty decision panel answer");
@@ -244,7 +244,7 @@ public class ACS_ScarfReviewing_Test  {
 	}
 	
 	@Test(dataProvider="Sections")
-	public void Step21_Verify_Green_Chemistry_Reviewer_Answers_On_Iweb(String sectionName)
+	public void Step22_Verify_Green_Chemistry_Reviewer_Answers_On_Iweb(String sectionName)
 	{
         test.acsScarfReviewing.verifyReviewerAnswers(reviewerComments,4,sectionName,test.acsScarfReviewPage.getReviewerNameList().get(3));
 	}

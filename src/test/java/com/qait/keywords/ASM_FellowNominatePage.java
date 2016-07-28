@@ -864,7 +864,7 @@ public class ASM_FellowNominatePage extends GetPage {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
-			wait.resetImplicitTimeout(0);
+			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("link_delete", nominationFieldName);
 			element("link_delete", nominationFieldName).click();
