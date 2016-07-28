@@ -545,7 +545,7 @@ MYDTransfer:
 AddressValidation:
     queryName: Selenium - US Constituents          
 ScarfReporting:
-    queryName: "Selenium - Active Student Chapters"
+    queryName: "QAIT - Active Student Chapters"
 PBA:
     queryName: "Selenium - Find Active Regular Member"
 

@@ -2,8 +2,6 @@ package com.qait.tests;
 
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
-
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,15 +15,17 @@ import org.testng.annotations.Test;
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.utils.YamlReader;
 
-public class ACS_ScarfReviewing_Test {
+public class ACS_ScarfReviewing_Test  {
 	static String sheetName;
 	String app_url_eweb_rev;
 	TestSessionInitiator test;
 	
 	Map<String,List<String>> ReviewerLoginMap = new HashMap<String, List<String>>();
+	Map<String,Map<String,String>> reviewerComments;
 
 	String app_url_iweb,app_url_eweb,assignedchaptername;
 	int index,i=0;
+	int reviewAnswersCount=1;
     String[] customerSortNames;
 	private int caseID;
 	
@@ -191,8 +191,64 @@ public class ACS_ScarfReviewing_Test {
 		test.homePageIWEB.clickOnSacrfReportingModule();
 		test.homePageIWEB.clickOnLeftMenuTab("Report");
 		test.homePageIWEB.clickOnTab("Find");
-		//test.invoicePage.enter
+		test.individualsPage.enterChapterNameAndStatusAndClickGoButton("Texas Southern University Student Chapter","Submitted");
+		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Report Review");
+		test.invoicePage.verifyMemberDetails("status", "Submitted");
+		
 	}
+	
+	@Test
+	public void Step17_Verify_Online_Reviewers_Comments_And_Review_Status_On_Iweb()
+	{
+		reviewerComments=test.acsScarfReviewing.getReviewerCommentsMap();
+		test.invoicePage.expandDetailsMenu("report online reviewer");
+        test.invoicePage.verifyScarfReviewerCommentsAndStatus(test.acsScarfReviewPage.getReviewerNameList().get(0),YamlReader.getYamlValue("ScarfReviewer.overallRating"),"Submitted");
+        test.invoicePage.verifyScarfReviewerCommentsAndStatus(test.acsScarfReviewPage.getReviewerNameList().get(1),YamlReader.getYamlValue("ScarfReviewer.overallRating"),"Submitted");
+        test.invoicePage.collapseDetailsMenu("report online reviewer");
+        test.invoicePage.expandDetailsMenu("report online reviewer answer");  
+	}
+	
+	@Test(dataProvider="Sections")
+	public void Step18_Verify_Online_Reviewers_Answers_On_Iweb(String sectionName)
+	{
+        test.acsScarfReviewing.verifyReviewerAnswers(reviewerComments,1,sectionName,test.acsScarfReviewPage.getReviewerNameList().get(0));
+        test.acsScarfReviewing.verifyReviewerAnswers(reviewerComments,2,sectionName,test.acsScarfReviewPage.getReviewerNameList().get(1));
+        
+	}
+	
+	@Test
+	public void Step19_Verify_Faculty_Panel_Reviewer_Comments_And_Review_Status_On_Iweb()
+	{
+		test.invoicePage.collapseDetailsMenu("report online reviewer answer");
+		test.invoicePage.expandDetailsMenu("report faculty decision panel reviewer");
+        test.invoicePage.verifyScarfReviewerCommentsAndStatus(test.acsScarfReviewPage.getReviewerNameList().get(2),YamlReader.getYamlValue("ScarfReviewer.overallRating"),"Submitted");
+        test.invoicePage.collapseDetailsMenu("report faculty decision panel reviewer");
+        test.invoicePage.expandDetailsMenu("report faculty decision panel answer");
+	}
+	
+	@Test(dataProvider="Sections")
+	public void Step20_Verify_Faculty_Panel_Reviewer_Answers_On_Iweb(String sectionName)
+	{
+        test.acsScarfReviewing.verifyReviewerAnswers(reviewerComments,3,sectionName,test.acsScarfReviewPage.getReviewerNameList().get(2));
+	}
+	
+	//@Test
+	public void Step19_Verify_Green_Chemistry_Reviewer_Comments_And_Review_Status_On_Iweb()
+	{
+        
+        test.invoicePage.collapseDetailsMenu("report faculty decision panel answer");
+		test.invoicePage.expandDetailsMenu("report green chemistry reviewer");
+        test.invoicePage.verifyScarfReviewerCommentsAndStatus(test.acsScarfReviewPage.getReviewerNameList().get(3),YamlReader.getYamlValue("ScarfReviewer.overallRating"),"Submitted");
+        test.invoicePage.collapseDetailsMenu("report green chemistry reviewer");
+        test.invoicePage.expandDetailsMenu("report green chemistry reviewer answer");
+	}
+	
+	@Test(dataProvider="Sections")
+	public void Step21_Verify_Green_Chemistry_Reviewer_Answers_On_Iweb(String sectionName)
+	{
+        test.acsScarfReviewing.verifyReviewerAnswers(reviewerComments,4,sectionName,test.acsScarfReviewPage.getReviewerNameList().get(3));
+	}
+	
 	
 	@DataProvider(name = "loginDetails")
 	public static Object[][] Reviewer_Details() {
@@ -203,7 +259,7 @@ public class ACS_ScarfReviewing_Test {
 	
 	@DataProvider(name="Sections")
 	public static Object[][] provideSectionNames(){
-		return new Object[][] {{"Self-Assessment"},{"Service"},{"Professional Development"},{"Chapter Development"},{"Budget"},{"Overall Report Assessment"}};
+		return new Object[][] {{"Self-Assessment"},{"Service"},{"Professional Development"},{"Chapter Development"},{"Budget"},{"Online Reviewer Assessment"}};
 	}
 	
 	@AfterMethod

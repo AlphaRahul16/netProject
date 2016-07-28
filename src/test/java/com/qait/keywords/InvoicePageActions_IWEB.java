@@ -902,4 +902,16 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		}
 
 	}
+	
+	public void verifyScarfReviewerCommentsAndStatus(String reviewerName,String reviewerComment,String reviewerStatus)
+	{
+		isElementDisplayed("txt_code",reviewerName);
+		isElementDisplayed("txt_priceValue",reviewerName);
+		Assert.assertTrue(element("txt_code",reviewerName).getText().trim().equals(reviewerComment),"reviewer "+reviewerName+" comments as "+reviewerComment+" not present on iweb\n");
+		logMessage("ASSERT PASSED : Reviewer "+reviewerName+"comments as "+reviewerName+" is verified on iweb\n");
+		Assert.assertTrue(element("txt_priceValue",reviewerName).getText().trim().equals(reviewerStatus)," reviewer "+reviewerName+" Status as "+reviewerStatus+" not present on iweb\n");
+		logMessage("ASSERT PASSED : Reviewer "+reviewerName+" Status as <b>"+reviewerStatus+"</b> is verified on iweb\n");
+	}
+
+
 }
