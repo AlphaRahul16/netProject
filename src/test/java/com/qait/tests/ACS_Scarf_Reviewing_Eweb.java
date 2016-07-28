@@ -36,12 +36,12 @@ public class ACS_Scarf_Reviewing_Eweb {
 		credentials.put("user1",arList1);
     }
 	
-/*	@Test  
+	@Test  
 	public void Step01_Launch_Eweb_Application_And_Enter_Reviews_By_First_Online_Reviewer(){
 		test.launchApplication(app_url_eweb);
 		test.acsScarfReporting.loginWithLastNameAndMemberId(credentials.get("user"+i).get(0),credentials.get("user"+i).get(1)); //"Easter", "2175095"
 		test.acsScarfReporting.verifyStudentChapterReportingPage();
-		index=test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton("Belmont University Student Chapter","list_ChapterList");//Arcadia University Student Chapter"
+		index=test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton("Old Dominion University Student Chapter","list_ChapterList");//Arcadia University Student Chapter"
 	    test.acsScarfReviewing.verifyChapterStatus("Not Started",index); //In Progress
 	    test.acsScarfReviewing.selectChapterReviewImage(index);
 		test.acsScarfReporting.clickOnNotStartedButtonForSection("Self-Assessment", "Start");
@@ -57,6 +57,7 @@ public class ACS_Scarf_Reviewing_Eweb {
 	
 	@Test
 	public void Step03_Submit_Reviews_And_Verify_Review_Status(){
+		test.acsScarfReviewing.addReviewerComments("Reviewer"+i);
 		test.acsScarfReviewing.enterOverallRating("Outstanding");
 		test.acsScarfReviewing.clickOnSubmitButton("Submit");
 		test.acsScarfReviewing.enterOverallReview("nice work test data");
@@ -65,7 +66,7 @@ public class ACS_Scarf_Reviewing_Eweb {
 	    test.acsScarfReviewing.verifyChapterStatus("Submitted",index); //Not Started
 	}
 	
-	@Test
+/*	@Test
 	public void Step04_Launch_Eweb_Application_And_Enter_Reviews_By_Second_Online_Reviewer(){
 		Step01_Launch_Eweb_Application_And_Enter_Reviews_By_First_Online_Reviewer();
 	}
@@ -105,7 +106,7 @@ public class ACS_Scarf_Reviewing_Eweb {
 		test.acsScarfReviewing.clickOnReturnToDashboardButton();
 	    test.acsScarfReviewing.clickOnSubmittedChaptersTab("Submitted"); 	
 		test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton("Bard College Student Chapter","list_notStartedChapters");
-	} */
+	} 
 	
 	@Test  
 	public void Step10_Launch_Eweb_Application_And_Enter_Reviews_By_Green_Chemistry_Reviewer(){
@@ -121,7 +122,7 @@ public class ACS_Scarf_Reviewing_Eweb {
 	    test.acsScarfReviewing.verifyChapterStatus("Submitted",index); 
 		test.acsScarfReviewing.verifyFinalReview("Yes", index);
 	    i++;
-	}
+	}*/
 
 	
 	@DataProvider(name="Sections")

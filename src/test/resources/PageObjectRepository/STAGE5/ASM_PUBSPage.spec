@@ -24,8 +24,9 @@ btn_passportAdd                            xpath                              //
 txt_amount                                 xpath                              //*[@id='page-subtotal']/p
 chk_archive                                xpath                              .//span[contains(text(),'Accts of Chem Res Mbr Web Archive')]/..//input[@title='Add to Membership']
 txt_invoiceValue                           xpath                              .//*[@id='lblInvoice']
-txt_productName                            xpath                              (//td[@class='inv-details'])[${index}]//span[2]//span
-txt_productAmount                          xpath                              (//td[@class='std-cell std-td'])[${index}]//span
+list_productName                           css                              .inv-details>span:nth-child(2)>span
+list_productAmount                        xpath                              .//*[@class='inv-details']/following-sibling::td[1]/span
+txt_welcome									css								#welcome-msg>span>h2>span
 txt_taxAmount                              xpath                              .//*[@id='lblTax']
 btn_printOrderReceipt                      xpath                              .//*[@id='print-invoice']/span/input\
 txt_recordNumber                           id                                 ValueTextBox0

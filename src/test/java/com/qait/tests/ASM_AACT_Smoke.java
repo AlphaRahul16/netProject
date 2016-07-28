@@ -643,9 +643,4 @@ public class ASM_AACT_Smoke {
 		test.closeBrowserSession();
 	}
 
-	 @AfterClass(alwaysRun = true)
-	public void Close_Test_Session() {
-		test.closeBrowserSession();
-	}
-
 }

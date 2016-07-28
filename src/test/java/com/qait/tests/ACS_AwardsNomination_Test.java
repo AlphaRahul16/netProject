@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -149,14 +151,17 @@ public class ACS_AwardsNomination_Test {
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		app_url_Nominate = getYamlValue("app_url_Nominate");
 		test.launchApplication(app_url_IWEB);
-	
-
-
 	}
 
 	@AfterClass
 	public void Close_Browser_Session() {
 		test.closeBrowserSession();
+	}
+	
+	@AfterMethod
+	public void take_screenshot_on_failure(ITestResult result)
+	{	
+		test.takescreenshot.takeScreenShotOnException(result);
 	}
 
 }
