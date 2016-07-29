@@ -73,11 +73,11 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 
 	public void verifyDataFromInitialPage() {
 		for (int i = 0; i < productName.size(); i++) {
+			System.out.println("Product Name::"+productName.get(i));
+			System.out.println("Product Name::"+productAmount.get(i));
 			isElementDisplayed("td_subscription", productName.get(i),
 					String.valueOf(productAmount.get(i)));
-
 		}
-
 	}
 	
 	public void clockOnPrintOrderReceipt()
