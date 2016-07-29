@@ -20,8 +20,8 @@ import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.YamlReader;
 
-public class ACS_CCED_NCW_MemberNumberLookup_Test {
-	TestSessionInitiator test;
+public class ACS_CCED_NCW_MemberNumberLookup_Test extends BaseTest {
+
 	String app_url, caseID;
 	String app_url_IWEB = getYamlValue("app_url_IWEB");
 	static Map<String, String> memberDetailsMap;
@@ -128,15 +128,5 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test {
 		if (skipTest.get(method.getName())) {
 			throw new SkipException("Tests Skipped for expected work flows!");
 		}
-	}
-
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result) {
-		test.takescreenshot.takeScreenShotOnException(result);
-	}
-
-	@AfterClass(alwaysRun = true)
-	public void Close_Test_Session() {
-		test.closeBrowserSession();
 	}
 }

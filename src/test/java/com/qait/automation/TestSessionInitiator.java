@@ -408,9 +408,7 @@ public class TestSessionInitiator {
 	}
 	
 	  public void printMethodName(String testName) {
-		    Reporter.log(" ", true);
-		    Reporter.log("Method name:- " + testName.toUpperCase(), true);
-		    Reporter.log(" ", true);
+		    Reporter.log("\nMethod name:- " + testName.toUpperCase()+"\n", true);
 		  }
 
 

@@ -14,9 +14,8 @@ import com.qait.automation.utils.YamlReader;
 import com.qait.automation.TestSessionInitiator;
 
 
-public class ACS_MYD_Transfer {
+public class ACS_MYD_Transfer extends BaseTest{
 	
-	TestSessionInitiator test;
 	String app_url_IWEB;
 	private String caseID;
 	double previousAmount, newAmount;
@@ -98,16 +97,5 @@ public class ACS_MYD_Transfer {
 		test.memberShipPage.verifyRenewalPackage(test.memberShipPage.map().get("New MemberPackage?"));
 		test.memberShipPage.verifyProductPackage(test.memberShipPage.map().get("Product Package?"));
 		test.memberShipPage.verifyTermEndDateAndStartDateIsEmpty();	
-	}
-	
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result)
-	{
-		test.takescreenshot.takeScreenShotOnException(result);
-	}
-	
-	@AfterClass
-	public void Close_Browser_Session() {
-		test.closeBrowserWindow();
 	}
 }
