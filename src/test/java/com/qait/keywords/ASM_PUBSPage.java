@@ -1,7 +1,11 @@
 package com.qait.keywords;
 
+import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.bcel.generic.IUSHR;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,8 +19,9 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	static String pagename = "ASM_PUBSPage";
 	public List<String> productName;
 	public List<String> productAmount;
-	String taxAmount;
-
+	String taxAmount,shippingAmount;
+	int timeOut, hiddenFieldTimeOut;
+	
 	public ASM_PUBSPage(WebDriver driver) {
 		super(driver, pagename);
 		this.driver = driver;
@@ -32,14 +37,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		for (WebElement amount : elements("list_productAmount")) {
 			productAmount.add(amount.getAttribute("textContent").trim());
 		}
-		System.out.println("============================Product Name And Amount List===========================================");
 		
-		for (String name : productName) {
-			System.out.println(name);
-		}
-		for (String amount : productAmount) {
-			System.out.println(amount);
-		}
 	}
 
 	private Double getProductAmount(String productAmount) {
@@ -64,20 +62,45 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		isElementDisplayed("lnk_subscriptionTab");
 		element("lnk_subscriptionTab").click();
 		logMessage("subscription tab is selected in expanded more option !!");
-		wait.hardWait(6);
+		wait.waitForPageToLoadCompletely();
+		waitForSpinner();
 		isElementDisplayed("lnk_activeSubscription");
 		element("lnk_activeSubscription").click();
 		logMessage("Step: active subscription expanded !!");
-		wait.hardWait(2);
+		wait.waitForPageToLoadCompletely();
+		waitForSpinner();
 	}
 
 	public void verifyDataFromInitialPage() {
-		for (int i = 0; i < productName.size(); i++) {
-			isElementDisplayed("td_subscription", productName.get(i),
-					String.valueOf(productAmount.get(i)));
-
+		wait.waitForPageToLoadCompletely();
+		int i=0;
+		for (String name:productName) {
+			wait.hardWait(1);
+			isElementDisplayed("td_subscription",name,String.valueOf(getProductAmount(productAmount.get(i))));
+			i++;
 		}
-
+	}
+	
+	public void waitForSpinner() {
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
+		try {
+			handleAlert();
+			wait.resetImplicitTimeout(3);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("img_spinner");
+			wait.waitForElementToDisappear(element("img_spinner"));
+			logMessage("STEP : Wait for spinner to be disappeared \n");
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+		}
+		catch(Exception e){
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			logMessage("STEP : Spinner is not present \n");
+		
+		}
 	}
 	
 	public void clockOnPrintOrderReceipt()
@@ -179,14 +202,27 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		for (int i = 0; i < productAmount.size(); i++) {
 			total += getProductAmount(productAmount.get(i));
 		}
+		isElementDisplayed("txt_taxAmount");
 		taxAmount = element("txt_taxAmount").getText();
 		taxAmount = taxAmount.substring(taxAmount.indexOf('$') + 1);
 		total += Double.parseDouble(taxAmount);
-
+		logMessage("Step: taxAmount $"+taxAmount+" is retrieved !!");
+		wait.hardWait(1);
+		
+		isElementDisplayed("txt_shippingAmount");
+		shippingAmount=element("txt_shippingAmount").getText();
+		shippingAmount=shippingAmount.substring(shippingAmount.indexOf('$')+1);
+		total +=Double.parseDouble(shippingAmount);
+		logMessage("Step: shippingAmount $"+shippingAmount+" is retrieved !!");
+		wait.hardWait(1);
+		
+		isElementDisplayed("txt_invoiceValue");
 		String invoiceValue = element("txt_invoiceValue").getText();
 		invoiceValue = invoiceValue.substring(invoiceValue.indexOf("$") + 1);
 		Double double_invoiceValue = (Double) Double.parseDouble(invoiceValue);
-
+		logMessage("Step: invoiceAmount $"+double_invoiceValue+" is retrieved !!");
+		wait.hardWait(1);
+		
 		total = setPrecision(total, 2);
 		double_invoiceValue = setPrecision(double_invoiceValue, 2);
 
@@ -226,7 +262,6 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		element("chk_archive").click();
 		logMessage("Step : add button is clicked in chk_archive \n");
 
-		// verifySubcriptionAdded();
 	}
 
 	public void clickOnSaveButton() {
@@ -330,7 +365,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(2);
 		wait.hardWait(2);
 		String s = (String) executeJavascriptReturnValue("document.getElementsByTagName('span')[3].innerHTML;");
-		Assert.assertEquals(s.trim(), individualName);
+		Assert.assertTrue(individualName.contains(s));
 		logMessage("[ASSERTION PASSED]:: Verified User Is On Home Page for Eweb Application");
 	}
 }
