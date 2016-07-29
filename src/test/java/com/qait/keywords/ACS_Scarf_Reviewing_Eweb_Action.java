@@ -27,13 +27,29 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 		hiddenfieldtimeout =  Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 	}
 	
-	public int verifyChapterOnTheReviewPageAndClickOnreviewButton(String chapterName,String elem){
+	public int verifyChapterOnTheReviewPageAndClickOnreviewButton(String chapterName,String elem,String elementValue){
 		boolean flag=false;
 		int i;
 		wait.waitForPageToLoadCompletely();
-		isElementDisplayed(elem);
-		for(i=2;i<=elements(elem).size();i++){
+		isElementDisplayed(elem,elementValue);
+		for(i=2;i<=elements(elem,elementValue).size();i++){
 			if(chapterName.equalsIgnoreCase(element("txt_ChapterName",String.valueOf(i),String.valueOf(1)).getText().trim())){
+				flag=true;
+				break;
+			}
+		}
+		Assert.assertTrue(flag,"ASSERT FAILED : Chapter Name "+chapterName+" does not exist in the list\n");
+		logMessage("ASSERT PASSED : Chapter Name "+chapterName+" exist in the list\n");
+		return i;
+	}
+	
+	public int verifySubmittedChapterOnTheReviewPage(String chapterName,String elem,String elementValue){
+		boolean flag=false;
+		int i;
+		wait.waitForPageToLoadCompletely();
+		isElementDisplayed(elem,elementValue);
+		for(i=2;i<=elements(elem,elementValue).size();i++){
+			if(chapterName.equalsIgnoreCase(element("txt_submittedChapter",String.valueOf(i),String.valueOf(1)).getText().trim())){
 				flag=true;
 				break;
 			}
@@ -223,12 +239,12 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 		logMessage("ASSERT PASSED : Final Review by Green Chemistry Reviewer is "+review+"\n");
 	}
 	
-	public int verifyChapterOnReviewPageForGCReviewer(String chapterName,String elem){
+	public int verifyChapterOnReviewPageForGCReviewer(String chapterName,String elem,String elementValue){
 		boolean flag=false;
 		int i;
 		wait.waitForPageToLoadCompletely();
-		isElementDisplayed(elem);
-		for(i=2;i<=elements(elem).size();i++){
+		isElementDisplayed(elem,elementValue);
+		for(i=2;i<=elements(elem,elementValue).size();i++){
 			if(chapterName.equalsIgnoreCase(element("txt_ChapterName",String.valueOf(i),String.valueOf(1)).getText().trim())
 					&& element("txt_ChapterName",String.valueOf(i),String.valueOf(2)).getText().trim().equalsIgnoreCase("Not Started")){
 				flag=true;

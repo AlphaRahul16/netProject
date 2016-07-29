@@ -16,8 +16,8 @@ import com.qait.automation.utils.DataProvider;
 import com.qait.automation.utils.DateUtil;
 import com.qait.automation.TestSessionInitiator;
 
-public class ACS_AwardsNomination_Test {
-	TestSessionInitiator test;
+public class ACS_AwardsNomination_Test extends BaseTest{
+	
 	String app_url_Nominate, app_url_IWEB, app_url_nominateFellow;
 	private String caseID;
 	private String currentAwardName;
@@ -152,16 +152,4 @@ public class ACS_AwardsNomination_Test {
 		app_url_Nominate = getYamlValue("app_url_Nominate");
 		test.launchApplication(app_url_IWEB);
 	}
-
-	@AfterClass
-	public void Close_Browser_Session() {
-		test.closeBrowserSession();
-	}
-	
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result)
-	{	
-		test.takescreenshot.takeScreenShotOnException(result);
-	}
-
 }

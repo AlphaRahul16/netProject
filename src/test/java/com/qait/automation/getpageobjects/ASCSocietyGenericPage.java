@@ -498,5 +498,11 @@ public class ASCSocietyGenericPage extends GetPage {
 		}
 
 	}
+	
+	public static int generateRandomNumberWithInRange(int MinRange, int MaxRange) {
+		int randomNumber = MinRange
+				+ (int) (Math.random() * ((MaxRange - MinRange) + 1));
+		return randomNumber;
+	}
 
 }

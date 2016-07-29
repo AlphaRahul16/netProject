@@ -18,9 +18,7 @@ import org.testng.annotations.Test;
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.utils.YamlReader;
 
-public class ACS_Create_Member_Test {
-
-	TestSessionInitiator test;
+public class ACS_Create_Member_Test extends BaseTest {
 
 	private String caseID;
 	String memberName, productSubTotal, Total, userEmail;
@@ -193,16 +191,4 @@ public class ACS_Create_Member_Test {
 					"Tests Skipped due to expected error found!");
 		}
 	}
-
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result) {
-		test.takescreenshot.takeScreenShotOnException(result);
-	}
-
-
-	 @AfterClass(alwaysRun = true)
-	public void Close_Test_Session() {
-		test.closeBrowserSession();
-	}
-
 }

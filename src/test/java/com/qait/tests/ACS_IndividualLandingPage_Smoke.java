@@ -17,8 +17,8 @@ import org.testng.annotations.Test;
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.utils.YamlReader;
 
-public class ACS_IndividualLandingPage_Smoke {
-	TestSessionInitiator test;
+public class ACS_IndividualLandingPage_Smoke extends BaseTest {
+
 	String app_url_IWEB;
 	private String caseID;
 	static String uniquelastname;
@@ -181,14 +181,4 @@ public class ACS_IndividualLandingPage_Smoke {
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 
 	}
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result) {
-		test.takescreenshot.takeScreenShotOnException(result);
-	}
-
-	 @AfterClass()
-	public void Close_Test_Session() {
-		test.closeBrowserSession();
-	}
-
 }
