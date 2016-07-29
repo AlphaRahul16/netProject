@@ -132,10 +132,10 @@ public class YamlReader {
 		return object;
 	}
 
-	public static int generateRandomNumber(int MinRange, int MaxRange) {
-		int randomNumber = MinRange
-				+ (int) (Math.random() * ((MaxRange - MinRange) + 1));
-		return randomNumber;
-	}
+//	public static int generateRandomNumber(int MinRange, int MaxRange) {
+//		int randomNumber = MinRange
+//				+ (int) (Math.random() * ((MaxRange - MinRange) + 1));
+//		return randomNumber;
+//	}
 
 }

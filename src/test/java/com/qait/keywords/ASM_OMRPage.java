@@ -13,12 +13,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
+import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.getpageobjects.GetPage;
 import com.qait.automation.utils.DateUtil;
 import com.qait.automation.utils.YamlReader;
 
 
-public class ASM_OMRPage extends GetPage {
+public class ASM_OMRPage extends ASCSocietyGenericPage {
 
 	WebDriver driver;
 	static String pagename = "ASM_OMRPage";
@@ -574,7 +575,7 @@ public class ASM_OMRPage extends GetPage {
 		wait.hardWait(8);
 		switchToEwebRenewalFrame();
 		System.out.println(elements("btn_addToMemberships").size());
-		 elements("btn_addToMemberships").get(YamlReader.generateRandomNumber(0,(elements("btn_addToMemberships").size())-1)).click();
+		 elements("btn_addToMemberships").get(generateRandomNumberWithInRange(0,(elements("btn_addToMemberships").size())-1)).click();
 		logMessage("Step : Button Add to membership is clicked for "+value);
 		switchToDefaultContent();
 	}
