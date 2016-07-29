@@ -238,9 +238,9 @@ public class ASCSocietyGenericPage extends GetPage {
 			textinpdf = extractFromPdf(filename, 1).trim();
 			String textarray[] = texttocompare.trim().split(" ");
 			for (int i = 0; i < (textarray.length) - 1; i++) {
-				System.out.println(textinpdf);
-				System.out.println(textarray[i]);
-				Assert.assertTrue(textinpdf.trim().contains(texttocompare));
+				System.out.println("textarray[i]= "+ textarray[i]);
+				System.out.println();
+				Assert.assertTrue(textinpdf.trim().contains(textarray[i]));
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -251,7 +251,7 @@ public class ASCSocietyGenericPage extends GetPage {
 
 	private static String extractFromPdf(String filename, int totalnumberofpages)
 			throws IOException {
-		String uploadedfilepath = "./src/test/resources/UploadFiles/"
+		String uploadedfilepath = "./src/test/resources/DownloadedFiles/"
 				+ filename + ".pdf";
 		String parsedText = null;
 		PDFTextStripper pdfStripper = null;

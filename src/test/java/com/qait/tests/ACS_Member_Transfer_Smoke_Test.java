@@ -19,9 +19,8 @@ import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.utils.DateUtil;
 import com.qait.automation.utils.XlsReader;
 
-public class ACS_Member_Transfer_Smoke_Test {
+public class ACS_Member_Transfer_Smoke_Test extends BaseTest{
 
-	TestSessionInitiator test;
 	String app_url_iweb, custId;
 	String url;
 	List<Integer> rowNumberList = new ArrayList<Integer>();
@@ -217,16 +216,6 @@ public class ACS_Member_Transfer_Smoke_Test {
 		/* resultList = */test.memberShipPage.matchBeforeDataWithAfterDataAccordingToMentionedCriteria(BeforeList,
 				AfterList, dataList, custId);
 		// test.memberShipPage.verifyResultListData(resultList);
-	}
-
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result) {
-		test.takescreenshot.takeScreenShotOnException(result);
-	}
-
-	@AfterClass(alwaysRun = true)
-	public void Close_Test_Session() {
-		test.closeBrowserSession();
 	}
 
 }

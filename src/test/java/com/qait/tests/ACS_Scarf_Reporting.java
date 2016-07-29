@@ -7,8 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;
@@ -22,7 +24,8 @@ public class ACS_Scarf_Reporting {
 	static String sheetName;
 	TestSessionInitiator test;
 
-	String app_url_iweb, custId, officerName, chapterName, chapFacultyAdvisor;
+	String app_url_iweb, custId, officerName, chapFacultyAdvisor;
+	String chapterName;
 	List<Integer> rowNumberList = new ArrayList<Integer>();
 	List<String> memberDetails = new ArrayList<String>();
 	HashMap<String, String> dataList = new HashMap<String, String>();
@@ -60,6 +63,7 @@ public class ACS_Scarf_Reporting {
 		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
+//		chapterName="Monroe Community College Student Chapter";
 	}
 
 	@Test
@@ -175,7 +179,7 @@ public class ACS_Scarf_Reporting {
 		test.acsScarfReporting.checkSectionStatus("Green Chemistry");
 		test.acsScarfReporting.clickOnNotStartedButtonForSection("Green Chemistry", "In-progress");
 		test.acsScarfReporting.enterSectionDetails(dataList.get("Answers"), "Green Chemistry", 1);
-		test.acsScarfReporting.clickOnGreenChemistryCheckbox();
+//		test.acsScarfReporting.clickOnGreenChemistryCheckbox();
 		test.acsScarfReporting.clickOnSelfAssessmentSaveButton("Save");
 		test.acsScarfReporting.verifyChapterStatus("Green Chemistry", "Complete");
 	}
@@ -226,9 +230,17 @@ public class ACS_Scarf_Reporting {
 		test.acsScarfReporting.iterateThroughReportAnswers();
 	}
 
-//	@AfterClass
+	@AfterClass
 	public void Close_Browser_Session() {
+//		test.getDriver();
+		test.acsScarfReviewPage.assignChapterName(chapterName);
 		test.closeBrowserSession();
+	}
+	
+	@AfterMethod
+	public void take_screenshot_on_failure(ITestResult result)
+	{	
+		test.takescreenshot.takeScreenShotOnException(result);
 	}
 
 }

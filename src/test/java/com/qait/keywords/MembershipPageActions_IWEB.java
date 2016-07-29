@@ -102,7 +102,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public String getMemberWebLogin() {
-		// isElementDisplayed("txt_webLogin");
+		 isElementDisplayed("txt_webLogin");
 		String info = element("txt_webLogin").getText().trim();
 		logMessage("Step : WebLogin is " + info + " \n");
 		return info;
@@ -2400,6 +2400,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 		wait.waitForPageToLoadCompletely();
 		customerContactId = element("txt_ContactId").getText().trim();
+		logMessage("STEP : customer id is " + customerContactId + " \n");
 		return customerContactId;
 	}
 
@@ -3124,19 +3125,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				}
 				break;
 			case "MP Pmt Status":
-				if (criteriaList.get(criteria.getKey()).trim().toLowerCase()
-						.contains("unpaid|credit")) {
-					System.out.println("SpreadSheet data:: "
-							+ criteriaList.get(criteria.getKey()).trim()
-									.toLowerCase());
-					String sp[] = criteriaList.get(criteria.getKey()).trim()
-							.toLowerCase().split("\\|");
-					System.out.println("SP 0:: " + sp[0]);
-					System.out.println("SP 1:: " + sp[1]);
-					if ((afterList.get(criteria.getKey()).trim().toLowerCase()
-							.contains(sp[0]))
-							|| (afterList.get(criteria.getKey()).trim()
-									.toLowerCase().contains(sp[1]))) {
+				if (criteriaList.get(criteria.getKey()).trim().contains("{IGNORE}")) {
+					ResultList.put(criteria.getKey() + "", "y");	
+				}else if(criteriaList.get(criteria.getKey()).trim().toLowerCase().contains("unpaid|credit")){
+					System.out.println("SpreadSheet data:: "+criteriaList.get(criteria.getKey()).trim().toLowerCase());
+					String sp[] = criteriaList.get(criteria.getKey()).trim().toLowerCase().split("\\|");
+					System.out.println("SP 0:: "+sp[0]);
+					System.out.println("SP 1:: "+sp[1]);
+					if((afterList.get(criteria.getKey()).trim().toLowerCase().contains(sp[0])) || (afterList.get(criteria.getKey()).trim().toLowerCase().contains(sp[1]))){
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");

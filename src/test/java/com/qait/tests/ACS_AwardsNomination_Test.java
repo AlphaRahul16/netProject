@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -14,8 +16,8 @@ import com.qait.automation.utils.DataProvider;
 import com.qait.automation.utils.DateUtil;
 import com.qait.automation.TestSessionInitiator;
 
-public class ACS_AwardsNomination_Test {
-	TestSessionInitiator test;
+public class ACS_AwardsNomination_Test extends BaseTest{
+	
 	String app_url_Nominate, app_url_IWEB, app_url_nominateFellow;
 	private String caseID;
 	private String currentAwardName;
@@ -149,14 +151,5 @@ public class ACS_AwardsNomination_Test {
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		app_url_Nominate = getYamlValue("app_url_Nominate");
 		test.launchApplication(app_url_IWEB);
-	
-
-
 	}
-
-	@AfterClass
-	public void Close_Browser_Session() {
-		test.closeBrowserSession();
-	}
-
 }

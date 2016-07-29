@@ -9,8 +9,7 @@ import org.testng.annotations.Test;
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.utils.YamlReader;
 
-public class ACS_Apply_Payment_Test {
-	TestSessionInitiator test;
+public class ACS_Apply_Payment_Test extends BaseTest{
 	String app_url_IWEB;
 
 	@Test
@@ -107,13 +106,4 @@ public class ACS_Apply_Payment_Test {
 		app_url_IWEB = YamlReader.getYamlValue("app_url_IWEB");
 	}
 
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result) {
-		test.takescreenshot.takeScreenShotOnException(result);
-	}
-
-	//@AfterClass(alwaysRun = true)
-	public void Close_Test_Session() {
-		test.closeBrowserSession();
-	}
 }

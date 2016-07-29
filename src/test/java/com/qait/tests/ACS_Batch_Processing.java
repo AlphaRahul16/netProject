@@ -15,8 +15,8 @@ import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.utils.YamlReader;
 import com.thoughtworks.selenium.webdriven.commands.IsEditable;
 
-public class ACS_Batch_Processing {
-	TestSessionInitiator test;
+public class ACS_Batch_Processing extends BaseTest {
+	
 	String app_url_iweb;
 	String batchName;
 	int numberOfDivisions;
@@ -62,13 +62,6 @@ public class ACS_Batch_Processing {
 	test.acsbatchProcessing.verifyBatchDetailsAfterProcessing();
 	}
 	
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result)
-	{
-		test.takescreenshot.takeScreenShotOnException(result);
-
-	}
-	
 	@BeforeClass
 	public void open_Browser_Window()
 	{
@@ -79,10 +72,4 @@ public class ACS_Batch_Processing {
 				YamlReader.getYamlValue("Authentication.password"));		
 	}
 
-	@AfterClass
-	public void close_Browser_Window()
-	{
-	
-		test.closeBrowserWindow();
-	}
 }

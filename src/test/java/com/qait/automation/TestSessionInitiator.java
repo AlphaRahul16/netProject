@@ -406,6 +406,10 @@ public class TestSessionInitiator {
 			e.printStackTrace();
 		}
 	}
+	
+	  public void printMethodName(String testName) {
+		    Reporter.log("\nMethod name:- " + testName.toUpperCase()+"\n", true);
+		  }
 
 
 	

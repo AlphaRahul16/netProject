@@ -17,27 +17,45 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 	static String pagename = "Scarf_Reviewing";
 	Map<String,Map<String,String>> reviewerComments=new HashMap<String,Map<String,String>>();
 	Map<String,String> reviewerSections=new HashMap<String,String>();
-	int timeOut=60;
+	int timeOut;
+	int hiddenfieldtimeout;
 	
 	public ACS_Scarf_Reviewing_Eweb_Action(WebDriver driver) {
 		super(driver, pagename);
 		this.driver = driver;
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenfieldtimeout =  Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 	}
 	
-	public int verifyChapterOnTheReviewPageAndClickOnreviewButton(String chapterName,String elem){
+	public int verifyChapterOnTheReviewPageAndClickOnreviewButton(String chapterName,String elem,String elementValue){
 		boolean flag=false;
 		int i;
 		wait.waitForPageToLoadCompletely();
-		isElementDisplayed(elem);
-		for(i=2;i<=elements(elem).size();i++){
+		isElementDisplayed(elem,elementValue);
+		for(i=2;i<=elements(elem,elementValue).size();i++){
 			if(chapterName.equalsIgnoreCase(element("txt_ChapterName",String.valueOf(i),String.valueOf(1)).getText().trim())){
 				flag=true;
 				break;
 			}
 		}
-		Assert.assertTrue(flag,"ASSERT FAILED : Chapter Name does not exist in the list\n");
-		logMessage("ASSERT PASSED : Chapter Name exist in the list\n");
+		Assert.assertTrue(flag,"ASSERT FAILED : Chapter Name "+chapterName+" does not exist in the list\n");
+		logMessage("ASSERT PASSED : Chapter Name "+chapterName+" exist in the list\n");
+		return i;
+	}
+	
+	public int verifySubmittedChapterOnTheReviewPage(String chapterName,String elem,String elementValue){
+		boolean flag=false;
+		int i;
+		wait.waitForPageToLoadCompletely();
+		isElementDisplayed(elem,elementValue);
+		for(i=2;i<=elements(elem,elementValue).size();i++){
+			if(chapterName.equalsIgnoreCase(element("txt_submittedChapter",String.valueOf(i),String.valueOf(1)).getText().trim())){
+				flag=true;
+				break;
+			}
+		}
+		Assert.assertTrue(flag,"ASSERT FAILED : Chapter Name "+chapterName+" does not exist in the list\n");
+		logMessage("ASSERT PASSED : Chapter Name "+chapterName+" exist in the list\n");
 		return i;
 	}
 	
@@ -56,14 +74,15 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 	
 	public void enterRating(String rating,String sectionName){
 		logMessage("*********Entering review comments for "+sectionName+" section*********\n");
-		if(!sectionName.equalsIgnoreCase("Overall Report Assessment")){
+		if(!sectionName.equalsIgnoreCase("Overall Reviewer Assessment")){
 		selectProvidedTextFromDropDown(element("list_ratingOptions"), rating);
 		logMessage("STEP : Rating value entered as "+rating+"\n");
 		}
 		else
-			System.out.println("no rating for overall report assessment section");;
+			System.out.println("no rating for overall Reviewer assessment section");;
 	}
 	
+
 	public void enterComments(String comments){
 		wait.hardWait(2);
 		switchToFrame(element("lnk_iframe"));
@@ -79,16 +98,33 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 		if(sectionName.equalsIgnoreCase("Service")||sectionName.equalsIgnoreCase("Professional Development")||sectionName.equalsIgnoreCase("Chapter Development")){
 			clickOnCannedAnswersButton();
 			enterCommentsViaCannedAnswers();
+			reviewerSections.put(sectionName, getCannedAnswersComments());		
 		}
 		else{
 			comments=comments+System.currentTimeMillis();
 			enterComments(comments);
+			reviewerSections.put(sectionName, comments);		
 		}
-		reviewerSections.put(sectionName, comments);		
+	}
+	
+	public String getCannedAnswersComments(){
+		wait.hardWait(2);
+		switchToFrame(element("lnk_iframe"));
+		isElementDisplayed("txt_commentsTextbox");
+		String answers=element("txt_commentsTextbox").getText().trim();
+		logMessage("STEP : Canned Answers Comments are "+answers+"\n");
+		switchToDefaultContent();
+		return answers;
 	}
 	
 	public void addReviewerComments(String reviewerMode){	
 		reviewerComments.put(reviewerMode,reviewerSections);
+		System.out.println("------comments :"+reviewerComments.get(reviewerMode));
+	}
+	
+	public Map<String, Map<String, String>> getReviewerCommentsMap()
+	{
+		return reviewerComments;
 	}
 	
 	public void clickOnNextButton(){
@@ -184,6 +220,7 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 	}
 	
 	public void clickOnSubmittedChaptersTab(String tabName){
+		wait.hardWait(2);
 		isElementDisplayed("tab_chapterStatus",tabName);
 		element("tab_chapterStatus",tabName).click();
 		logMessage("STEP : Clicked on Submitted Tab\n");
@@ -202,12 +239,12 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 		logMessage("ASSERT PASSED : Final Review by Green Chemistry Reviewer is "+review+"\n");
 	}
 	
-	public int verifyChapterOnReviewPageForGCReviewer(String chapterName,String elem){
+	public int verifyChapterOnReviewPageForGCReviewer(String chapterName,String elem,String elementValue){
 		boolean flag=false;
 		int i;
 		wait.waitForPageToLoadCompletely();
-		isElementDisplayed(elem);
-		for(i=2;i<=elements(elem).size();i++){
+		isElementDisplayed(elem,elementValue);
+		for(i=2;i<=elements(elem,elementValue).size();i++){
 			if(chapterName.equalsIgnoreCase(element("txt_ChapterName",String.valueOf(i),String.valueOf(1)).getText().trim())
 					&& element("txt_ChapterName",String.valueOf(i),String.valueOf(2)).getText().trim().equalsIgnoreCase("Not Started")){
 				flag=true;
@@ -217,6 +254,26 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 		Assert.assertTrue(flag,"ASSERT FAILED : Chapter Name does not exist in the list\n");
 		logMessage("ASSERT PASSED : Chapter Name exist in the list\n");
 		return i;
+	}
+
+
+	public void verifyReviewerAnswers(Map<String, Map<String, String>> reviewerCommentsMap,int reviewerNumber,String sectionName,String ReviewerName) {
+	System.out.println(reviewerCommentsMap.get("Reviewer" + reviewerNumber).get(sectionName));
+	try
+	{
+		wait.resetExplicitTimeout(hiddenfieldtimeout);
+		wait.resetImplicitTimeout(2);
+	isElementDisplayed("txt_answersReview", sectionName, ReviewerName);
+	System.out.println(element("txt_answersReview", sectionName, ReviewerName).getText().trim());
+	}
+	catch(Exception e)
+	{
+		element("lnk_PageNumber","2").click();
+		System.out.println(element("txt_answersReview", sectionName, ReviewerName).getText().trim());
+	}
+	wait.resetExplicitTimeout(hiddenfieldtimeout);
+	wait.resetImplicitTimeout(2);
+		
 	}
 
 }

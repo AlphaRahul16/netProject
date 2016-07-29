@@ -2,26 +2,27 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.lang.reflect.Method;
+
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.qait.automation.utils.YamlReader;
 import com.qait.automation.TestSessionInitiator;
 
-public class ACS_Address_Validation_Test {
+public class ACS_Address_Validation_Test extends BaseTest {
 	
-	TestSessionInitiator test;
-	String app_url_IWEB, expectedZipCode="", individualName ;
+	String app_url_IWEB,expectedZipCode="", individualName ;
+	
 	@BeforeClass
 	public void Open_Browser_Window() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url_IWEB = getYamlValue("app_url_IWEB");
-	}
-	
-	
+	}	
 	@Test
 	public void Step01_Launch_Iweb_Application() {
 		test.launchApplication(app_url_IWEB);
@@ -54,18 +55,6 @@ public class ACS_Address_Validation_Test {
         test.acsAddressValidation.verifyAddressVerificationWindow();
         test.acsAddressValidation.verifyAddressVerificationPageZipCode(expectedZipCode);
         test.acsAddressValidation.verifyReplacementOfZipCode(expectedZipCode);
-	}
-	
-	
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result)
-	{
-		test.takescreenshot.takeScreenShotOnException(result);
-	}
-	
-	@AfterClass
-	public void Close_Browser_Session() {
-		test.closeBrowserWindow();
 	}
 
 }

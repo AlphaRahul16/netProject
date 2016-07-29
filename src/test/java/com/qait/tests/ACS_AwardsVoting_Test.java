@@ -9,8 +9,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -19,9 +21,8 @@ import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.utils.DataProvider;
 import com.qait.automation.utils.DateUtil;
 
-public class ACS_AwardsVoting_Test {
+public class ACS_AwardsVoting_Test extends BaseTest{
 
-	TestSessionInitiator test;
 	String app_url_IWEB, app_url_Awards, currentAwardName;
 	String[] startEndDate;
 	Map<String, List<String>> memberDetail = new HashMap<>();
@@ -240,10 +241,4 @@ public class ACS_AwardsVoting_Test {
 		test.launchApplication(app_url_IWEB);
 
 	}
-
-//	@AfterClass
-	public void Close_Browser_Session() {
-		test.closeBrowserSession();
-	}
-
 }

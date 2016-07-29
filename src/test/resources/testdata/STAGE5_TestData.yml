@@ -1,7 +1,28 @@
+app_url_OMA: https://ewebtest12.acs.org/NFStage5/oma
 app_url_IWEB: https://iwebtest.acs.org/NFStage5/iweb
+app_url_CCED: https://ewebtest12.acs.org/NFStage5/ccedlookup
+app_url_Store: https://ewebtest12.acs.org/NFStage5/store/
+app_url_AACT: https://ewebtest12.acs.org/NFStage5/aactoma
+app_url_email: https://ewebtest12.acs.org/NFStage5/emailcenter
+app_url_nominateFellow: https://ewebtest12.acs.org/NFStage5/nominatefellow
+app_url_egift: https://ewebtest12.acs.org/NFStage5/egift
+app_url_givingDonate: https://ewebtest12.acs.org/NFStage5/donate   
+app_url_givingGreen: https://ewebtest12.acs.org/NFStage5/green
+app_url_givingScholars: https://ewebtest12.acs.org/NFStage5/scholars/
+app_url_givingSeed: https://ewebtest12.acs.org/NFStage5/seed
+app_url_OMR: https://ewebtest12.acs.org/NFStage5/renew
+app_url_MGM: https://ewebtest12.acs.org/NFStage5/mgm
+app_url_Meeting: https://ewebtest12.acs.org/NFStage5/meetings/2012gcec
+app_url_MemberNumberLookup: https://ewebtest12.acs.org/NFStage5/membernumberlookup
+app_url_NCW: https://ewebtest12.acs.org/NFStage5/ncwlookup
+app_url_PUBS: https://ewebtest12.acs.org/NFStage5/pba
+app_url_Nominate: https://ewebtest12.acs.org/NFStage5/nominate
+app_url_Awards: https://ewebtest12.acs.org/NFStage5/awards
 app_url_IwebReporting: https://stag-12iweb/NFStage5/iweb
 app_url_ScarfReviewing: https://www.ewebtest.acs.org/NFStage5/studentchaptersreview
 app_url_EwebReporting: https://ewebtest12.acs.org/NFStage5/studentchaptersonline
+
+password: "password"
 
 csv-data-file:
   path_OMA: ./src/test/resources/TestDataLibrary/OMA Business Rules.csv
@@ -40,7 +61,21 @@ creditCardInfo:
   Holder-name: FIRSTNAME LASTNAME
   Number: "4111111111111111"
   cvv-number: 123
-  CreditCardExpiration: 06/2018     
+  CreditCardExpiration: 06/2018 
+  
+creditCardDetails: 
+  PaymentMethod: 
+        Select: "BOA - Check"
+        Unselect: "Visa/MC"
+  paymentMethodVisaMC: 
+    Type: Visa/MC
+    Holder-name: FIRSTNAME LASTNAME
+    Number: "4111111111111111"
+    cvv-number: 123
+    CreditCardExpiration: 06/2018 
+  paymentMethodBOACheck:
+    Type: "BOA - Check"
+    CheckNumber: 123456
 
 
             
@@ -384,11 +419,17 @@ SubscriptionFulfillment:
     maxWaitTimeInMinutesForPreviewStatus: 30
     centralizedOrderEntry: 
          batch: "ACS: QA_SUB_BATCH"
+         PaymentMethod: 
+              Select: "BOA - Check"
+              Unselect: "Visa/MC"
          paymentType: prepaid
-         paymentMethod: Visa/MC
-         cardNumber: 4111111111111111
-         expireDate: 2016/12
-         cvvNumber: 123 
+         paymentMethodVisaMC: 
+              paymentMethod: Visa/MC
+              cardNumber: 4111111111111111
+              expireDate: 2018/12
+              cvvNumber: 123
+         paymentMethodBOACheck:    
+              checkNumber: 1234    
     subscriptionDetailsForSchedule: 
          updateStartIssue: "Yes"
          fulfillmentType: Current
@@ -481,6 +522,8 @@ Acs_CreateMember_IWEB:
     cardNumber: 4111111111111111
     expireDate: 2016/12
     cvvNumber: 123  
+    holderName: firstName lastName
+    yearValue: 2017
     
 Acs_Reports:
     module: CRM
@@ -503,6 +546,9 @@ AddressValidation:
     queryName: Selenium - US Constituents          
 ScarfReporting:
     queryName: "QAIT - Active Student Chapters"
+PBA:
+    queryName: "Selenium - Find Active Regular Member"
+
 VoidWithAdjustment:
     queryName: "Selenium - test open invoices"
     voidMessage: "This invoice has been cancelled or voided"    
@@ -537,6 +583,9 @@ ACS_ApplyPayment:
         balance: "0.00"
     Batch: "ACS: SELENIUM_BATCH"
     CreditCardExpiration: 2018/07 
+    PaymentMethod: 
+        Select: "BOA - Check"
+        Unselect: "Visa/MC"
                
 email:
   send: true
@@ -545,4 +594,5 @@ email:
     recepient2: deepakkumar1@qainfotech.com
     recepient3: kanikasharma@qainfotech.com
     
+
 

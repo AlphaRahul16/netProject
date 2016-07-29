@@ -41,8 +41,9 @@ public class ACS_Scarf_Reviewing_Eweb {
 		test.launchApplication(app_url_eweb);
 		test.acsScarfReporting.loginWithLastNameAndMemberId(credentials.get("user"+i).get(0),credentials.get("user"+i).get(1)); //"Easter", "2175095"
 		test.acsScarfReporting.verifyStudentChapterReportingPage();
-		index=test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton("Belmont University Student Chapter","list_ChapterList");//Arcadia University Student Chapter"
-	    test.acsScarfReviewing.verifyChapterStatus("Not Started",index); //In Progress
+//		index=test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton(");//Arcadia University Student Chapter"
+		index=test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton("Old Dominion University Student Chapter","list_ChapterList","LayoutCell");//Arcadia University Student Chapter"
+		test.acsScarfReviewing.verifyChapterStatus("Not Started",index); //In Progress
 	    test.acsScarfReviewing.selectChapterReviewImage(index);
 		test.acsScarfReporting.clickOnNotStartedButtonForSection("Self-Assessment", "Start");
 		i++;
@@ -57,6 +58,7 @@ public class ACS_Scarf_Reviewing_Eweb {
 	
 	@Test
 	public void Step03_Submit_Reviews_And_Verify_Review_Status(){
+		test.acsScarfReviewing.addReviewerComments("Reviewer"+i);
 		test.acsScarfReviewing.enterOverallRating("Outstanding");
 		test.acsScarfReviewing.clickOnSubmitButton("Submit");
 		test.acsScarfReviewing.enterOverallReview("nice work test data");
@@ -79,13 +81,15 @@ public class ACS_Scarf_Reviewing_Eweb {
 	public void Step06_Submit_Reviews_And_Verify_Review_Status_By_Second_Online_Reviewer(){
         Step03_Submit_Reviews_And_Verify_Review_Status();
 	}
-	
+	*/
 	@Test
 	public void Step07_Launch_Eweb_Application_And_Enter_Reviews_By_FDP_Reviewer(){
 		test.launchApplication(app_url_eweb);
 		test.acsScarfReporting.loginWithLastNameAndMemberId("Hare","2250525"); 
 		test.acsScarfReviewing.verifyReviewerTypeWindow("Faculty Decision Panel Reviewer");
-		index=test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton("Bard College Student Chapter","list_notStartedChapters");//  Belmont University Student Chapter  .....Arcadia University Student Chapter"
+		index=test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton("Keene State College Student Chapter","list_notStartedChapters","notStarted");//  Belmont University Student Chapter  .....Arcadia University Student Chapter"
+
+//		index=test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton("Bard College Student Chapter","list_notStartedChapters");//  Belmont University Student Chapter  .....Arcadia University Student Chapter"
 	    test.acsScarfReviewing.selectChapterReviewImage(index);
 		test.acsScarfReporting.clickOnNotStartedButtonForSection("Self-Assessment", "Start");
 	}
@@ -103,16 +107,16 @@ public class ACS_Scarf_Reviewing_Eweb {
 		test.acsScarfReviewing.enterOverallReview("nice work test data");
 		test.acsScarfReviewing.clickOnSubmitButton("Submit");
 		test.acsScarfReviewing.clickOnReturnToDashboardButton();
-	    test.acsScarfReviewing.clickOnSubmittedChaptersTab("Submitted"); 	
-		test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton("Bard College Student Chapter","list_notStartedChapters");
-	} */
+	    test.acsScarfReviewing.clickOnSubmittedChaptersTab("submitted"); 	
+		test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton("Keene State College Student Chapter","list_notStartedChapters","submitted");
+	} 
 	
-	@Test  
+//	@Test  
 	public void Step10_Launch_Eweb_Application_And_Enter_Reviews_By_Green_Chemistry_Reviewer(){
 		test.launchApplication(app_url_eweb);
 		test.acsScarfReporting.loginWithLastNameAndMemberId("Constable","00816994"); 
 		test.acsScarfReporting.verifyStudentChapterReportingPage();
-		index=test.acsScarfReviewing.verifyChapterOnReviewPageForGCReviewer("Aquinas College Student Chapter","list_ChapterList");
+//		index=test.acsScarfReviewing.verifyChapterOnReviewPageForGCReviewer("Aquinas College Student Chapter","list_ChapterList");
 	    test.acsScarfReviewing.verifyChapterStatus("Not Started",index);
 	    test.acsScarfReviewing.selectChapterReviewImage(index);
 	    test.acsScarfReviewing.enterRatingByGreenChemistryReviewer("Yes");
