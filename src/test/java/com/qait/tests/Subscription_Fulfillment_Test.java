@@ -12,12 +12,12 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 import com.qait.keywords.YamlInformationProvider;
 
-public class Subscription_Fulfillment_Test {
+public class Subscription_Fulfillment_Test extends BaseTest{
 
-	TestSessionInitiator test;
 	String app_url_IWEB, subscriptionName;
 	YamlInformationProvider getSubscriptionInfo;
 	Map<String, Object> mapSubscriptionFulfillment;
@@ -199,16 +199,6 @@ public class Subscription_Fulfillment_Test {
 		checkNumber = YamlReader
 				.getYamlValue("SubscriptionFulfillment.centralizedOrderEntry.paymentMethodBOACheck.checkNumber");
 
-	}
-
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result) {
-		test.takescreenshot.takeScreenShotOnException(result);
-	}
-
-	@AfterClass(alwaysRun = true)
-	public void Close_Test_Session() {
-		test.closeBrowserSession();
 	}
 
 }

@@ -13,12 +13,12 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 import com.qait.keywords.YamlInformationProvider;
 
-public class ACS_Void_Invoice_Test {
+public class ACS_Void_Invoice_Test extends BaseTest{
 
-	TestSessionInitiator test;
 	String app_url_IWEB;
 	int index;
 	List<String> productList = new ArrayList<String>();
@@ -100,16 +100,6 @@ public class ACS_Void_Invoice_Test {
 		test.memberShipPage.clickOnCustomerName();
 		test.acsVoidInvoice.verifyNotAMember("2", "receives member benefits");
 		test.acsVoidInvoice.verifyNotAMember("5", "member");
-	}
-
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result) {
-		test.takescreenshot.takeScreenShotOnException(result);
-	}
-
-	@AfterClass(alwaysRun = true)
-	public void Close_Test_Session() {
-		test.closeBrowserSession();
 	}
 
 }

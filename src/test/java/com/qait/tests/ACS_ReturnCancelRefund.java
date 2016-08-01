@@ -12,10 +12,11 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
-public class ACS_ReturnCancelRefund {
-	TestSessionInitiator test;
+public class ACS_ReturnCancelRefund extends BaseTest{
+	
 	String app_url_IWEB;
 	String creditbatchName,refundbatchname;
 	String invoiceTotal;
@@ -122,15 +123,7 @@ public class ACS_ReturnCancelRefund {
 		test.acsbatchProcessing.clickOnBatchProcessButtonsAndVerifyPopUpWindowAppears();
 		test.acsbatchProcessing.verifyFtpReportButtonIsInactive();
 	}
-		
-	
 
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result)
-	{
-		test.takescreenshot.takeScreenShotOnException(result);
-
-	}
 	@BeforeClass
 	public void open_Browser_Window()
 	{
@@ -140,11 +133,5 @@ public class ACS_ReturnCancelRefund {
 		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"), YamlReader.getYamlValue("Authentication.password"));
 	}
 
-	@AfterClass
-	public void close_Browser_Window()
-	{
-
-		test.closeBrowserWindow();
-	}
 
 }
