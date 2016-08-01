@@ -31,7 +31,7 @@ import com.qait.automation.utils.DateUtil;
  */
 public class ReformatTestFile {
 
-	String replacealltimestamp(String html) {
+	public String replacealltimestamp(String html) {
 
 		List<String> allMatches = new ArrayList<String>();
 		Matcher m = Pattern.compile("[0-9]{13}").matcher(html);
@@ -60,7 +60,7 @@ public class ReformatTestFile {
 		}
 	}
 
-	String readLargerTextFile(String aFileName) throws IOException {
+protected	String readLargerTextFile(String aFileName) throws IOException {
 		String html = "";
 		Path path = Paths.get(aFileName);
 		try (Scanner scanner = new Scanner(path, "ISO-8859-1")) {

@@ -12,6 +12,8 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.LineIterator;
 
+import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+
 public class DataProvider {
 	static String ASM_dataSheet = YamlReader.getYamlValue("ASM_Data_File.path");
 	static String ASM_dataSheetSeparator = YamlReader
@@ -314,7 +316,8 @@ public class DataProvider {
 
 			e1.printStackTrace();
 		}
-		lines = YamlReader.generateRandomNumber(1, lines);
+
+		lines = ASCSocietyGenericPage.generateRandomNumberWithInRange(1, lines);
 
 		for (int lineNumber = 0; it.hasNext(); lineNumber++) {
 			line = (String) it.next();

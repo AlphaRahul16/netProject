@@ -208,7 +208,7 @@ public class ACS_ScarfReviewing_Test  {
         test.invoicePage.expandDetailsMenu("report online reviewer answer");  
 	}
 	
-	@Test(dataProvider="Sections")
+	@Test(dataProvider="ReviewerSections")
 	public void Step18_Verify_Online_Reviewers_Answers_On_Iweb(String sectionName)
 	{
         test.acsScarfReviewing.verifyReviewerAnswers(reviewerComments,1,sectionName,test.acsScarfReviewPage.getReviewerNameList().get(0));
@@ -226,7 +226,7 @@ public class ACS_ScarfReviewing_Test  {
         test.invoicePage.expandDetailsMenu("report faculty decision panel answer");
 	}
 	
-	@Test(dataProvider="Sections")
+	@Test(dataProvider="ReviewerSections")
 	public void Step20_Verify_Faculty_Panel_Reviewer_Answers_On_Iweb(String sectionName)
 	{
         test.acsScarfReviewing.verifyReviewerAnswers(reviewerComments,3,sectionName,test.acsScarfReviewPage.getReviewerNameList().get(2));
@@ -243,7 +243,7 @@ public class ACS_ScarfReviewing_Test  {
         test.invoicePage.expandDetailsMenu("report green chemistry reviewer answer");
 	}
 	
-	@Test(dataProvider="Sections")
+	@Test(dataProvider="ReviewerSections")
 	public void Step22_Verify_Green_Chemistry_Reviewer_Answers_On_Iweb(String sectionName)
 	{
         test.acsScarfReviewing.verifyReviewerAnswers(reviewerComments,4,sectionName,test.acsScarfReviewPage.getReviewerNameList().get(3));
@@ -259,6 +259,11 @@ public class ACS_ScarfReviewing_Test  {
 	
 	@DataProvider(name="Sections")
 	public static Object[][] provideSectionNames(){
+		return new Object[][] {{"Self-Assessment"},{"Service"},{"Professional Development"},{"Chapter Development"},{"Budget"},{"Online Report Assessment"}};
+	}
+	
+	@DataProvider(name="ReviewerSections")
+	public static Object[][] provideReviewerSectionNames(){
 		return new Object[][] {{"Self-Assessment"},{"Service"},{"Professional Development"},{"Chapter Development"},{"Budget"},{"Online Reviewer Assessment"}};
 	}
 	

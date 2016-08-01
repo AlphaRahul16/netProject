@@ -43,7 +43,7 @@ public class WebDriverFactory {
 				return getFirefoxDriver();
 			} else if (browser.equalsIgnoreCase("chrome")) {
 				return getChromeDriver(seleniumconfig.get("driverpath")
-						+ "chromedriver.exe");
+						+ "chromedriver");
 			} else if (browser.equalsIgnoreCase("Safari")) {
 				return getSafariDriver();
 			} else if ((browser.equalsIgnoreCase("ie"))
