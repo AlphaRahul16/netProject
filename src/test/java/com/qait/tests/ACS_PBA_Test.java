@@ -2,6 +2,8 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.util.List;
+
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -13,6 +15,7 @@ import com.qait.automation.utils.YamlReader;
 public class ACS_PBA_Test {
 
 	TestSessionInitiator test;
+	List<String> customerFullNameList;
 	String app_url_IWEB, individualName, webLogin, app_url_PUBS,
 			passportAmountValue, subscriptionsAmountValue, totalAmount,customerId;
 
@@ -40,6 +43,7 @@ public class ACS_PBA_Test {
 		test.memberShipPage.selectAndRunQuery(getYamlValue("PBA.queryName"));
 		individualName = test.acsAddressValidation
 				.verifyIndividualProfilePage();
+		customerFullNameList=test.memberShipPage.getCustomerFullNameAndContactID();
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Individuals | "
 				+ individualName);
 	}
@@ -55,6 +59,7 @@ public class ACS_PBA_Test {
 	@Test
 	public void Step04_Login_To_Eweb_Application_Using_WebLogin_And_Password_And_Verify_User_Is_On_Home_Page_Of_Eweb_PBA() {
 		test.asm_PUBSPage.loginInToApplication(webLogin, getYamlValue("password"));
+		System.out.println("individual =  "+individualName);
 		test.asm_PUBSPage.verifyUserIsOnHomePageForEwebPBA(individualName);
 	}
 
@@ -76,14 +81,14 @@ public class ACS_PBA_Test {
 	public void Step06_Fill_Billing_Information_And_Place_Order() {
 		test.asm_PUBSPage.submitPaymentDetails(
 				YamlReader.getYamlValue("Acs_CreateMember_IWEB.paymentMethod"),
-				YamlReader.getYamlValue("Acs_CreateMember_IWEB.holderName"),
+				customerFullNameList.get(0).split(" ")[1]+" "+customerFullNameList.get(0).split(" ")[0],
 				YamlReader.getYamlValue("Acs_CreateMember_IWEB.cardNumber"),
 				YamlReader.getYamlValue("Acs_CreateMember_IWEB.cvvNumber"),
 				YamlReader.getYamlValue("Acs_CreateMember_IWEB.yearValue"));
 		test.asm_PUBSPage.clickOnPlaceOrder();
 	}
 	
-	@Test
+	//@Test
 	public void Step07_Verify_ProductName_And_ProductAmount_With_Downloaded_PDF_Receipt()
 	{
 	test.asm_PUBSPage.clockOnPrintOrderReceipt();
@@ -103,14 +108,13 @@ public class ACS_PBA_Test {
 		test.asm_PUBSPage.verifyDataFromInitialPage();
 	}
 	
-	
 	@AfterMethod
 	public void take_screenshot_on_failure(ITestResult result)
 	{
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
 	
-	//@AfterClass
+	@AfterClass
 	public void Close_Browser_Session() {
 		test.closeBrowserWindow();
 	}

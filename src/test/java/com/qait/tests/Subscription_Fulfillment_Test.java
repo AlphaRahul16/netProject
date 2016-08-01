@@ -24,7 +24,7 @@ public class Subscription_Fulfillment_Test {
 	static String taskStartTime, commitStartTime;
 	List<String> memberDetails;
 	String cardNumber, paymentMethod, expireDate, cvvNumber, checkNumber;
-
+	
 	@Test
 	public void Step00_Launch_Application_Under_Test() {
 		System.out.println("payment method " + paymentMethod);

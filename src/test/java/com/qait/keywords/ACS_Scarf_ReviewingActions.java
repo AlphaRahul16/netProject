@@ -53,7 +53,7 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
    
         int reviwerListSize= elements("list_reviewerNameOptions").size();
    	    wait.hardWait(2);
-        int randomReviewer=YamlReader.generateRandomNumber(0,reviwerListSize-1);
+        int randomReviewer=ASCSocietyGenericPage.generateRandomNumberWithInRange(0,reviwerListSize-1);
         System.out.println(reviwerListSize);
         elements("list_reviewerNameOptions").get(randomReviewer).click();
    	     wait.hardWait(3);
