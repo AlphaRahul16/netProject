@@ -37,7 +37,7 @@ lst_selectEvents                         xpath                        //div[@cla
 txt_eventsInfo                           xpath                        //div[@class='event_profile_content']//input[${index}]
 txt_eventDescription                     xpath                        //div[@class='event_profile_content']//textarea[1]
 btn_chooseFile                           xpath                        (//a[@id='aBrowse'])[1]
-chkbox_greenChemistry                    xpath                        //label[contains(text(),'green chemistry events')]
+chkbox_greenChemistry                    xpath                        //input[@type='checkbox']
 btn_sectionStatus                        xpath                        //span[text()='${value}']/../..//input[@value='Complete']
 chkbox_submitReport                      id                           chkRptSubAck
 btn_submitReport                         id                           btnSubmit

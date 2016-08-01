@@ -5,6 +5,7 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 
@@ -57,8 +58,16 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
         System.out.println(reviwerListSize);
         elements("list_reviewerNameOptions").get(randomReviewer).click();
    	     wait.hardWait(3);
-        toString();
+   	     try
+   	     {
 		reviewerNameList.add(elements("list_reviewerNameOptions").get(randomReviewer).getText().trim());
+   	     }
+   	     catch(StaleElementReferenceException e)
+   	     {
+   	    	 System.out.println("In Catch");
+   	    	reviewerNameList.add(elements("list_reviewerNameOptions").get(randomReviewer).getText().trim());
+   	     }
+   	     
         waitForSpinner();
 		logMessage("Step : "+reviewerNameList.get(reviewerNameCount)+" is selected as a "+reviewertype);
 		if((reviewertype.equals("Online Reviewer"))&&(reviewercount==0)&&(assignedchaptername==null))
