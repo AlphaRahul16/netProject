@@ -34,7 +34,6 @@ list_paymentMethod                                   id                       pi
 inp_cardNumber                                       id                       pin_cc_number
 list_expireDate                                      id                       pin_cc_expire
 inp_cvvNumber                                        id                       pin_cc_security_code
-inp_checkNumber                                      id                       pin_check_number
 txt_rejoinDateForActive                              xpath                    //td[contains(text(),'Active')]/following-sibling::td[2]
 img_ticked                                           xpath                    //img[@id='F1_IMAGE_${index}']
 list_billingAdd                                    xpath                      //select[@id='inv_cxa_key']/option      

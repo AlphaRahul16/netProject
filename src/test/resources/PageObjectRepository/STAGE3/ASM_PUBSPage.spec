@@ -20,4 +20,23 @@ btn_ConfirmOrder                            xpath                              /
 btn_placeOrder                             id                                 btnPlaceOrder
 txt_receipt                                xpath                              //span[text()='Receipt']
 txt_paymentPage                            xpath                              //legend[text()='Billing Information']
+btn_passportAdd                            xpath                              //input[contains(@id,'btnAddPassport')]
+txt_amount                                 xpath                              //*[@id='page-subtotal']/p
+chk_archive                                xpath                              .//span[contains(text(),'Accts of Chem Res Mbr Web Archive')]/..//input[@title='Add to Membership']
+txt_invoiceValue                           xpath                              .//*[@id='lblInvoice']
+list_productName                           css                              .inv-details>span:nth-child(2)>span
+list_productAmount                        xpath                              .//*[@class='inv-details']/following-sibling::td[1]/span
+txt_welcome									css								#welcome-msg>span>h2>span
+txt_taxAmount                              xpath                              .//*[@id='lblTax']
+txt_shippingAmount                         xpath                              .//*[@id='lblShipping']
+btn_printOrderReceipt                      xpath                              .//*[@id='print-invoice']/span/input\
+txt_recordNumber                           id                                 ValueTextBox0
+btn_search                                 id                                 ButtonSearch
+lnk_moreTab                                id                                 ProfileTabMenuImage_TS0
+lnk_subscriptionTab                        xpath                              .//*[@class='ProfileTitleLight']//a[text()='Subscriptions']
+lnk_activeSubscription                     xpath                              (.//*[@class='icon-chevron-down'])[1]
+td_subscription				   xpath                              //td[contains(text(),'${productName}')]/..//td[contains(text(),'${productAmount}')]
+btn_printReceipt                           xpath                              .//*[@id='print-invoice']/span/input
+img_spinner                                 css                           #__UPIMG
+
 ===========================================================================================================================================

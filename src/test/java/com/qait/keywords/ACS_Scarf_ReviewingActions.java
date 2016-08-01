@@ -57,7 +57,7 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
         System.out.println(reviwerListSize);
         elements("list_reviewerNameOptions").get(randomReviewer).click();
    	     wait.hardWait(3);
-        toString();
+     	 wait.hardWait(3);
 		reviewerNameList.add(elements("list_reviewerNameOptions").get(randomReviewer).getText().trim());
         waitForSpinner();
 		logMessage("Step : "+reviewerNameList.get(reviewerNameCount)+" is selected as a "+reviewertype);

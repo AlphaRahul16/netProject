@@ -191,7 +191,7 @@ public class ACS_ScarfReviewing_Test  {
 		test.homePageIWEB.clickOnSacrfReportingModule();
 		test.homePageIWEB.clickOnLeftMenuTab("Report");
 		test.homePageIWEB.clickOnTab("Find");
-		test.individualsPage.enterChapterNameAndStatusAndClickGoButton("Texas Southern University Student Chapter","Submitted");
+		test.individualsPage.enterChapterNameAndStatusAndClickGoButton(assignedchaptername,"Submitted");
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Report Review");
 		test.invoicePage.verifyMemberDetails("status", "Submitted");
 		
