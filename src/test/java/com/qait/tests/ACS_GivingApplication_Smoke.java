@@ -17,9 +17,8 @@ import org.testng.annotations.Test;
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.utils.YamlReader;
 
-public class ACS_GivingApplication_Smoke {
+public class ACS_GivingApplication_Smoke extends BaseTest{
 
-	TestSessionInitiator test;
 	String app_url_givingDonate;
 	String app_url_IWEB;
 
@@ -204,16 +203,5 @@ public class ACS_GivingApplication_Smoke {
 		app_url_givingDonate = getYamlValue("app_url_givingDonate");
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 
-	}
-
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult e) {
-		test.takescreenshot.takeScreenShotOnException(e);
-
-	}
-
-	@AfterClass
-	public void Close_Browser_Session() {
-		test.closeBrowserSession();
 	}
 }

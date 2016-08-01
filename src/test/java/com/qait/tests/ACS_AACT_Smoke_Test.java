@@ -20,11 +20,8 @@ import org.testng.annotations.Test;
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.utils.YamlReader;
 
-public class ACS_AACT_Smoke_Test {
-
-	TestSessionInitiator test;
+public class ACS_AACT_Smoke_Test extends BaseTest {
 	
-
 	String csvdatafilepath_AACT_OMA = getYamlValue("csv-data-file.path_AACT_OMA");
 	String csvSeparator = getYamlValue("csv-data-file.data-separator");
 	private String caseID;
@@ -197,16 +194,6 @@ public class ACS_AACT_Smoke_Test {
 		if (individualMember.get(method.getName())) {
 			throw new SkipException("Tests Skipped for expected work flows!");
 		}
-	}
-
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result) {
-		test.takescreenshot.takeScreenShotOnException(result);
-	}
-
-	@AfterClass(alwaysRun = true)
-	public void Close_Test_Session() {
-	 test.closeBrowserSession();
 	}
 
 }

@@ -18,8 +18,8 @@ import com.qait.automation.utils.DateUtil;
 import com.qait.automation.utils.YamlReader;
 import com.qait.keywords.YamlInformationProvider;
 
-public class ACS_FellowNominate {
-	TestSessionInitiator test;
+public class ACS_FellowNominate extends BaseTest{
+
 	String app_url_nominateFellow;
 	private String[] memDetails;
 	int numberOfDivisions;
@@ -157,17 +157,6 @@ public class ACS_FellowNominate {
 		app_url_nominateFellow = getYamlValue("app_url_nominateFellow");
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.enterAuthenticationAutoIt();
-	}
-
-	@AfterClass
-	public void Close_Browser_Session() {
-		test.closeBrowserSession();
-	}
-
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result) {
-		test.takescreenshot.takeScreenShotOnException(result);
-
 	}
 
 	@DataProvider(name = "test1")

@@ -35,7 +35,7 @@ lnk_moreTab                                id                                 Pr
 lnk_subscriptionTab                        xpath                              .//*[@class='ProfileTitleLight']//a[text()='Subscriptions']
 lnk_activeSubscription                     xpath                              (.//*[@class='icon-chevron-down'])[1]
 td_subscription				   xpath                              //td[contains(text(),'${productName}')]/..//td[contains(text(),'${productAmount}')]
-
+btn_printReceipt                           xpath                              .//*[@id='print-invoice']/span/input
 
 
 ===========================================================================================================================================

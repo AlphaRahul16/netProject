@@ -84,6 +84,13 @@ public class ACS_PBA_Test {
 	}
 	
 	@Test
+	public void Step07_Verify_ProductName_And_ProductAmount_With_Downloaded_PDF_Receipt()
+	{
+	test.asm_PUBSPage.clockOnPrintOrderReceipt();
+	test.asm_PUBSPage.verifyDataFromPdfFile();
+	}
+	
+	@Test
 	public void Step08_Verify_Selected_Products_With_Amount_On_Iweb_Application()
 	{
 		test.launchApplication(app_url_IWEB);
@@ -96,15 +103,6 @@ public class ACS_PBA_Test {
 		test.asm_PUBSPage.verifyDataFromInitialPage();
 	}
 	
-	@Test
-	public void Step07_Verify_With_PDF_Data()
-	{
-		
-		
-		
-	}
-	
-	
 	
 	@AfterMethod
 	public void take_screenshot_on_failure(ITestResult result)
@@ -112,7 +110,7 @@ public class ACS_PBA_Test {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
 	
-	@AfterClass
+	//@AfterClass
 	public void Close_Browser_Session() {
 		test.closeBrowserWindow();
 	}

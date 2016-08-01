@@ -13,7 +13,7 @@ import com.qait.automation.utils.YamlReader;
 
 public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 	String assignedChapterNameList;
-	String assignedchaptername;
+	static String assignedchaptername;
 	int reviewerNameCount=0;
 	ArrayList<String> reviewerNameList = new ArrayList<String>() ;
 	WebDriver driver;
@@ -49,22 +49,24 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 		
 		selectDropDownValue(reviewertype);
 		 waitForSpinner();
-		 wait.hardWait(4);
+		 wait.hardWait(2);
    
         int reviwerListSize= elements("list_reviewerNameOptions").size();
+   	    wait.hardWait(2);
+        int randomReviewer=YamlReader.generateRandomNumber(0,reviwerListSize-1);
         System.out.println(reviwerListSize);
-        element("list_reviewerOptions",toString().valueOf(YamlReader.generateRandomNumber(0,reviwerListSize-1))).click();
+        elements("list_reviewerNameOptions").get(randomReviewer).click();
    	     wait.hardWait(3);
         toString();
-		reviewerNameList.add(element("list_reviewerOptions",toString().valueOf(YamlReader.generateRandomNumber(0,reviwerListSize-1))).getText().trim());
+		reviewerNameList.add(elements("list_reviewerNameOptions").get(randomReviewer).getText().trim());
         waitForSpinner();
 		logMessage("Step : "+reviewerNameList.get(reviewerNameCount)+" is selected as a "+reviewertype);
-		if((reviewertype.equals("Online Reviewer"))&&(reviewercount==0))
+		if((reviewertype.equals("Online Reviewer"))&&(reviewercount==0)&&(assignedchaptername==null))
 		{
 			assignedchaptername=getAssignedChapterName();
 			
 		}
-		System.out.println(assignedchaptername);
+		System.out.println("----"+assignedchaptername);
 		clickAssignButtonToassignReviewerToChapter(reviewertype,assignedchaptername);
 		reviewerNameCount++;
         return assignedchaptername;
@@ -127,6 +129,14 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 		clickUsingXpathInJavaScriptExecutor(element("tab_QueryName"));
 		logMessage("Step : "+tabName+" is clicked\n");
 		
+	}
+	
+	public void assignChapterName(String chapterName){
+		if(chapterName.contains("Student Chapter")){
+			assignedchaptername=chapterName.split("Student Chapter")[0].trim();
+		}
+		else
+		   assignedchaptername=chapterName;
 	}
 
 }
