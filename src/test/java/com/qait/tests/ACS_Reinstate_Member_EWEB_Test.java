@@ -16,13 +16,13 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.keywords.YamlInformationProvider;
 
-public class ACS_Reinstate_Member_EWEB_Test {
+public class ACS_Reinstate_Member_EWEB_Test extends BaseTest{
 
 	static String invoiceNumber, yearsOfService;
 	List<String> memberContactDetails;
-	TestSessionInitiator test;
 	YamlInformationProvider getKeyValue;
 	String csvdatafilepath_OMA = getYamlValue("csv-data-file.path_OMA");
 	String csvdatafilepath_PriceValues = getYamlValue("csv-data-file.path_PriceValue");
@@ -214,16 +214,6 @@ public class ACS_Reinstate_Member_EWEB_Test {
 			throw new SkipException(
 					"Tests Skipped due to expected error found!");
 		}
-	}
-
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result) {
-		test.takescreenshot.takeScreenShotOnException(result);
-	}
-
-	@AfterClass(alwaysRun = true)
-	public void Close_Test_Session() {
-		test.closeBrowserSession();
 	}
 
 }

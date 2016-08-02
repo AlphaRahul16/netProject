@@ -74,7 +74,7 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 	
 	public void enterRating(String rating,String sectionName){
 		logMessage("*********Entering review comments for "+sectionName+" section*********\n");
-		if(!sectionName.equalsIgnoreCase("Overall Reviewer Assessment")){
+		if(!sectionName.equalsIgnoreCase("Online Report Assessment")){ //Overall Report Assessment
 		selectProvidedTextFromDropDown(element("list_ratingOptions"), rating);
 		logMessage("STEP : Rating value entered as "+rating+"\n");
 		}

@@ -13,11 +13,12 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 import com.qait.keywords.YamlInformationProvider;
 
-public class ACS_Store_Test {
-	TestSessionInitiator test;
+public class ACS_Store_Test extends BaseTest{
+
 	String app_url_Store;
 	String app_url_IWEB;
 	String headerName = this.getClass().getSimpleName();
@@ -156,16 +157,6 @@ public class ACS_Store_Test {
 		test.invoicePage.expandDetailsMenu("shipping");
 		test.invoicePage.verifyInvoiceDetails_LineItems(
 				mapGetMemberDetailsInStore, "Shipping");
-	}
-
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult e) {
-		test.takescreenshot.takeScreenShotOnException(e);
-	}
-
-	@AfterClass
-	public void Close_Browser_Session() {
-		test.closeBrowserSession();
 	}
 
 	@BeforeClass
