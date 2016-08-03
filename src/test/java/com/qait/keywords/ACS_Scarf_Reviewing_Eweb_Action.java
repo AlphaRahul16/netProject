@@ -32,6 +32,7 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 		boolean flag=false;
 		int i;
 		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
 		isElementDisplayed(elem,elementValue);
 		for(i=2;i<=elements(elem,elementValue).size();i++){
 			if(chapterName.equalsIgnoreCase(element("txt_ChapterName",String.valueOf(i),String.valueOf(1)).getText().trim())){
@@ -198,15 +199,26 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 			enterCommentsViaCannedAnswers();
 		}
 		else{
-			copyCommentsToFdp(index);
+			index=copyCommentsToFdp(index);
 		    verifyRviewerCommentIsCopied(index);
 		}
 	}
 	
-	public void copyCommentsToFdp(int index){
+	public int copyCommentsToFdp(int index){
 		isElementDisplayed("btn_copyComments",String.valueOf(index));
-		logMessage("-----comment added----"+element("txt_reveiwerComment",String.valueOf(index)).getText().trim());
-		element("btn_copyComments",String.valueOf(index)).click();
+		if(checkIfElementIsThere("txt_reveiwerComment",String.valueOf(index))){
+			System.out.println("------in if");
+			logMessage("-----comment added----"+element("txt_reveiwerComment",String.valueOf(index)).getText().trim());
+			element("btn_copyComments",String.valueOf(index)).click();
+			
+		}
+		else{
+			System.out.println("------in else");
+			index++;
+			logMessage("-----comment added----"+element("txt_reveiwerComment",String.valueOf(index)).getText().trim());
+			element("btn_copyComments",String.valueOf(index)).click();
+		}
+		return index;
 	}
 	
 	public void verifyRviewerCommentIsCopied(int index){
