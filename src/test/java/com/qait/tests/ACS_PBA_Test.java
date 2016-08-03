@@ -16,8 +16,8 @@ public class ACS_PBA_Test {
 
 	TestSessionInitiator test;
 	List<String> customerFullNameList;
-	String app_url_IWEB, individualName, webLogin, app_url_PUBS,
-			passportAmountValue, subscriptionsAmountValue, totalAmount,customerId;
+	String app_url_IWEB, individualName, webLogin, app_url_PUBS, passportAmountValue, subscriptionsAmountValue,
+			totalAmount, customerId;
 
 	@BeforeClass
 	public void Open_Browser_Window() {
@@ -29,11 +29,9 @@ public class ACS_PBA_Test {
 	@Test
 	public void Step01_Launch_Iweb_Application_And_Verify_User_Is_On_Home_Page() {
 		test.launchApplication(app_url_IWEB);
-		test.homePageIWEB.enterAuthentication(
-				YamlReader.getYamlValue("Authentication.userName"),
+		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
-		test.homePageIWEB
-				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
+		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 
 	@Test
@@ -41,17 +39,15 @@ public class ACS_PBA_Test {
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Query Individual");
 		test.memberShipPage.selectAndRunQuery(getYamlValue("PBA.queryName"));
-		individualName = test.acsAddressValidation
-				.verifyIndividualProfilePage();
-		customerFullNameList=test.memberShipPage.getCustomerFullNameAndContactID();
-		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Individuals | "
-				+ individualName);
+		individualName = test.acsAddressValidation.verifyIndividualProfilePage();
+		customerFullNameList = test.memberShipPage.getCustomerFullNameAndContactID();
+		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Individuals | " + individualName);
 	}
 
 	@Test
 	public void Step03_Fetch_WebLogin_And_Customer_Id_From_Individual_Profile_Page_And_Launch_Eweb_PBA_Application_Verify_User_Is_On_Eweb_Login_Page() {
 		webLogin = test.memberShipPage.getMemberWebLogin();
-		customerId=test.memberShipPage.getCustomerID();
+		customerId = test.memberShipPage.getCustomerID();
 		test.launchApplication(app_url_PUBS);
 		test.asm_PUBSPage.verifyUserIsOnEwebLoginPage();
 	}
@@ -59,7 +55,7 @@ public class ACS_PBA_Test {
 	@Test
 	public void Step04_Login_To_Eweb_Application_Using_WebLogin_And_Password_And_Verify_User_Is_On_Home_Page_Of_Eweb_PBA() {
 		test.asm_PUBSPage.loginInToApplication(webLogin, getYamlValue("password"));
-		System.out.println("individual =  "+individualName);
+		System.out.println("individual =  " + individualName);
 		test.asm_PUBSPage.verifyUserIsOnHomePageForEwebPBA(individualName);
 	}
 
@@ -76,53 +72,42 @@ public class ACS_PBA_Test {
 		test.asm_PUBSPage.SavingProductNameAndAmount();
 		test.asm_PUBSPage.verifyTotalAmountForAddedProducts();
 	}
-	
+
 	@Test
 	public void Step06_Fill_Billing_Information_And_Place_Order() {
-		test.asm_PUBSPage.submitPaymentDetails(
-				YamlReader.getYamlValue("Acs_CreateMember_IWEB.paymentMethod"),
-				customerFullNameList.get(0).split(" ")[1]+" "+customerFullNameList.get(0).split(" ")[0],
+		test.asm_PUBSPage.submitPaymentDetails(YamlReader.getYamlValue("Acs_CreateMember_IWEB.paymentMethod"),
+				customerFullNameList.get(0).split(" ")[1] + " " + customerFullNameList.get(0).split(" ")[0],
 				YamlReader.getYamlValue("Acs_CreateMember_IWEB.cardNumber"),
 				YamlReader.getYamlValue("Acs_CreateMember_IWEB.cvvNumber"),
 				YamlReader.getYamlValue("Acs_CreateMember_IWEB.yearValue"));
 		test.asm_PUBSPage.clickOnPlaceOrder();
 	}
-	
+
 	//@Test
-	public void Step07_Verify_ProductName_And_ProductAmount_With_Downloaded_PDF_Receipt()
-	{
-	test.asm_PUBSPage.clockOnPrintOrderReceipt();
-	test.asm_PUBSPage.verifyDataFromPdfFile();
+	public void Step07_Verify_ProductName_And_ProductAmount_With_Downloaded_PDF_Receipt() {
+		test.asm_PUBSPage.clickOnPrintOrderReceipt();
+		test.asm_PUBSPage.verifyDataFromPdfFile();
 	}
-	
-	@Test
-	public void Step08_Verify_Selected_Products_With_Amount_On_Iweb_Application()
-	{
+
+	//@Test
+	public void Step08_Verify_Selected_Products_With_Amount_On_Iweb_Application() {
 		test.launchApplication(app_url_IWEB);
-		test.homePageIWEB
-		.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
+		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Find Individual");
 		test.asm_PUBSPage.clickOnGoButtonWithCustomerLoginId(customerId);
 		test.asm_PUBSPage.clickOnActiveSubscription();
 		test.asm_PUBSPage.verifyDataFromInitialPage();
 	}
-	
+
 	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result)
-	{
+	public void take_screenshot_on_failure(ITestResult result) {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
-	
-	@AfterClass
+
+	//@AfterClass
 	public void Close_Browser_Session() {
 		test.closeBrowserWindow();
 	}
-	
-	
-	
-	
-	
-	
 
 }
