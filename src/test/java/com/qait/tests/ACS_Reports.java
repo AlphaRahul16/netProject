@@ -15,11 +15,12 @@ import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 import com.qait.keywords.YamlInformationProvider;
 
-public class ACS_Reports {
-	TestSessionInitiator test;
+public class ACS_Reports extends BaseTest{
+	
 	String app_url_IWEB;
 	static String sheetname;
 	private String caseID;
@@ -52,13 +53,6 @@ public class ACS_Reports {
 		test.acsreportPage.verifyReceivedReport(DeliveryMethod,getReportsDetails.get_ACSReportsInfo("report_Heading"),current);
 	}
 
-
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result)
-	{
-		test.takescreenshot.takeScreenShotOnException(result);
-
-	}
 	@BeforeClass
 	public void open_Browser_Window()
 	{
@@ -78,11 +72,4 @@ public class ACS_Reports {
 			return new Object[][] {{getReportsDetails.get_ACSReportsInfo("delivery_Method").split(",")[0].trim()}, 
 				{getReportsDetails.get_ACSReportsInfo("delivery_Method").split(",")[1].trim()}};
 	}
-	
-	@AfterClass
-	public void close_Browser_Window()
-	{	
-		test.closeBrowserWindow();
-	}
-
 }

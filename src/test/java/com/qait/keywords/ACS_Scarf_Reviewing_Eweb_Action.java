@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.xalan.templates.ElemNumber;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
@@ -74,7 +75,7 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 	
 	public void enterRating(String rating,String sectionName){
 		logMessage("*********Entering review comments for "+sectionName+" section*********\n");
-		if(!sectionName.equalsIgnoreCase("Overall Report Assessment")){
+		if(!sectionName.equalsIgnoreCase("Online Report Assessment")){ //Overall Report Assessment
 		selectProvidedTextFromDropDown(element("list_ratingOptions"), rating);
 		logMessage("STEP : Rating value entered as "+rating+"\n");
 		}
@@ -264,12 +265,17 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 		wait.resetExplicitTimeout(hiddenfieldtimeout);
 		wait.resetImplicitTimeout(2);
 	isElementDisplayed("txt_answersReview", sectionName, ReviewerName);
-	System.out.println(element("txt_answersReview", sectionName, ReviewerName).getText().trim());
+	Assert.assertTrue(element("txt_answersReview", sectionName, ReviewerName).getText().trim().equals(reviewerCommentsMap.get("Reviewer" + reviewerNumber).get(sectionName)));
+	logMessage("ASSERT PASSED : Reviewer "+ReviewerName+" answers for "+sectionName+" is verified as "+reviewerCommentsMap.get("Reviewer" + reviewerNumber).get(sectionName));
 	}
-	catch(Exception e)
+	catch(NoSuchElementException e)
 	{
-		element("lnk_PageNumber","2").click();
-		System.out.println(element("txt_answersReview", sectionName, ReviewerName).getText().trim());
+	element("lnk_PageNumber","2").click();
+	logMessage("Step : page 2 is clicked in the list\n");
+	Assert.assertTrue(element("txt_answersReview", sectionName, ReviewerName).getText().trim().equals(reviewerCommentsMap.get("Reviewer" + reviewerNumber).get(sectionName)));
+	logMessage("ASSERT PASSED : Reviewer "+ReviewerName+" answers for "+sectionName+" is verified as "+reviewerCommentsMap.get("Reviewer" + reviewerNumber).get(sectionName));
+	element("lnk_PageNumber","1").click();
+	logMessage("Step : page 2 is clicked in the list\n");
 	}
 	wait.resetExplicitTimeout(hiddenfieldtimeout);
 	wait.resetImplicitTimeout(2);

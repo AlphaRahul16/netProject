@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 
 import com.qait.automation.utils.YamlReader;
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.getpageobjects.BaseTest;
 
 
 public class ACS_MYD_Transfer extends BaseTest{

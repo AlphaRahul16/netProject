@@ -12,12 +12,12 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 import com.qait.keywords.YamlInformationProvider;
 
-public class Membership_Renewal_Test {
+public class Membership_Renewal_Test extends BaseTest{
 
-	TestSessionInitiator test;
 	String app_url_IWEB, name, time, runTaskDateTime;
 	YamlInformationProvider getMemRenewalInfo;
 	Map<String, Object> mapMemberShipRenewal;
@@ -195,15 +195,5 @@ public class Membership_Renewal_Test {
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		test.launchApplication(app_url_IWEB);
 		
-	}
-
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result) {
-		test.takescreenshot.takeScreenShotOnException(result);
-	}
-
-	 @AfterClass(alwaysRun = true)
-	public void Close_Test_Session() {
-		test.closeBrowserSession();
 	}
 }
