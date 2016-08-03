@@ -465,7 +465,8 @@ public class SubscriptionPage extends GetPage {
 				}
 			}
 		} else {
-
+               
+			wait.hardWait(3);
 			int size = elements("rows_table").size();
 			for (int i = 1; i < size; i++) {
 				if (element("txt_subscriptionName", String.valueOf(i + 1))

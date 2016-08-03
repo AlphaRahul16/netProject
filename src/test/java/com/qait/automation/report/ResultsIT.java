@@ -120,11 +120,18 @@ public class ResultsIT extends ReformatTestFile {
 
     @SuppressWarnings("static-access")
     private String setBodyText() throws IOException {
+    	String browserValue;
         List<String> failedResultsList = printFailedTestInformation();
         String[] failedResultArray = new String[failedResultsList.size()];
         for (int i = 0; i < failedResultArray.length; i++) {
             failedResultArray[i] = failedResultsList.get(i);
         }
+        if(System.getProperty("browser").equals(null)){
+        	browserValue= getProperty("./Config.properties", "browser");        	
+        }
+        else
+        	browserValue=System.getProperty("browser");
+        
         String mailtext = "";
 
         mailtext = "Hi All,<br>";
@@ -135,7 +142,7 @@ public class ResultsIT extends ReformatTestFile {
                 + getTestName();
         mailtext = mailtext
                 + "<br><b><font color = green>Browser: </font></b>"
-                + getProperty("./Config.properties", "browser").toUpperCase();
+                + browserValue.toUpperCase();
         mailtext = mailtext
                 + "<br><b><font color = green>Test Case Executed By: </font></b>"
                 + projectName + " Automation Team";

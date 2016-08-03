@@ -141,9 +141,10 @@ public class ACS_ScarfReviewing_Test  {
     @Test
 	public void Step12_Launch_Eweb_Application_And_Enter_Reviews_By_FDP_Reviewer(){
 		test.launchApplication(app_url_eweb);
-		test.acsScarfReporting.loginWithLastNameAndMemberId(ReviewerLoginMap.get("reviewer"+i).get(0),ReviewerLoginMap.get("reviewer"+i).get(1)); //"Hare","2250525"
+//		test.acsScarfReporting.loginWithLastNameAndMemberId("Hare","2250525");//"Keirstead","30037352"); // "Keirstead","30037352"
+        test.acsScarfReporting.loginWithLastNameAndMemberId(ReviewerLoginMap.get("reviewer"+i).get(0),ReviewerLoginMap.get("reviewer"+i).get(1)); //"Hare","2250525"
 		test.acsScarfReviewing.verifyReviewerTypeWindow("Faculty Decision Panel Reviewer");
-		index=test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton(assignedchaptername,"list_notStartedChapters","notStarted");//  Belmont University Student Chapter  .....Arcadia University Student Chapter"
+		index=test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton(assignedchaptername,"list_notStartedChapters","notStarted");//notStarted  Belmont University Student Chapter  .....Arcadia University Student Chapter"
 	    test.acsScarfReviewing.selectChapterReviewImage(index);
 		test.acsScarfReporting.clickOnNotStartedButtonForSection("Self-Assessment", "Start");
 		i++;
