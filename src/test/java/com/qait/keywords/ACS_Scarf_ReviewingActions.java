@@ -58,6 +58,7 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
         System.out.println(reviwerListSize);
         elements("list_reviewerNameOptions").get(randomReviewer).click();
    	     wait.hardWait(3);
+
    	     try
    	     {
 		reviewerNameList.add(elements("list_reviewerNameOptions").get(randomReviewer).getText().trim());

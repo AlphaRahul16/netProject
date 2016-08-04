@@ -167,7 +167,7 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 	public void verifyVoidInvoiceMessage(String msg){
 		wait.waitForPageToLoadCompletely();
 		//waitForSpinner();
-		wait.hardWait(2);
+		wait.hardWait(5);
 		hardWaitForIEBrowser(4);
 
 		try
