@@ -2,10 +2,13 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.bcel.generic.IUSHR;
+import org.hamcrest.generator.qdox.tools.QDoxTester.Reporter;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,6 +16,7 @@ import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.getpageobjects.GetPage;
+import com.qait.automation.utils.YamlReader;
 
 public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	WebDriver driver;
@@ -78,6 +82,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 			isElementDisplayed("td_subscription", name, String.valueOf(getProductAmount(productAmount.get(i))));
 			i++;
 		}
+		logMessage("[ASSERTION PASSED]:: Verified Product Names and amount under Active Subscription on IWEB");
 	}
 
 	public void waitForSpinner() {
@@ -102,24 +107,49 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	public void clickOnPrintOrderReceipt() {
 		isElementDisplayed("btn_printReceipt");
 		element("btn_printReceipt").click();
-		logMessage("Step: click on print order receipt !!");
-		wait.hardWait(5);
-		changeWindow(1);
+		logMessage("Step: Clicked on print order receipt !!");
+		wait.hardWait(8);
 	}
 
-	public void verifyDataFromPdfFile() {
-		isElementDisplayed("txt_pdf_productName");
-		driver.close();
-		changeWindow(0);
-		/*for (String product_Name : productName) {
+	public void verifyDataFromPdfFile() throws IOException {
+		System.out.println("===================================================================================");
+		String pdfContent = extractFromPdf("report", 1);
+		System.out.println("PDF Content::" + pdfContent);
+
+		for (String product_Name : productName) {
 			System.out.println("In PDF Method::" + product_Name);
-			extractAndCompareTextFromPdfFile("report", product_Name, 1);
 		}
 
+		System.out.println("====================================================================================");
+
 		for (String product_Amount : productAmount) {
-			System.out.println("In PDF Method::" + product_Amount);
-			extractAndCompareTextFromPdfFile("report", product_Amount, 1);
-		}*/
+			System.out.println("In PDF Method for Amount::" + product_Amount);
+			Assert.assertTrue(pdfContent.contains(product_Amount));
+			logMessage("[ASSERTION PASSED]:: Verified Product Amounts in Invoice Receipt PDF file");
+		}
+
+		for (String product_Name : productName) {
+			System.out.println("In PDF Method::" + product_Name);
+			if (product_Name.contains(YamlReader.getYamlValue("ACS_PBA_Product.shortName"))) {
+				Assert.assertTrue(pdfContent.contains(YamlReader.getYamlValue("ACS_PBA_Product.fullName")));
+			} else {
+				Assert.assertTrue(pdfContent.contains(product_Name));
+			}
+			logMessage("[ASSERTION PASSED]:: Verified Product Names in Invoice Receipt PDF file");
+		}
+
+	}
+
+	private void _deleteExistingFIleFile(String fileName) {
+		String source = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + fileName
+				+ ".pdf";
+
+		File sourceFile = new File(source);
+		if (sourceFile.exists()) {
+			sourceFile.delete();
+			logMessage("Already Exits File is deleted from location " + sourceFile.getAbsolutePath());
+		}
 	}
 
 	public void loginInToApplication(String userName, String password) {
@@ -323,7 +353,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	public void clickOnPlaceOrder() {
 		isElementDisplayed("btn_placeOrder");
 		element("btn_placeOrder").click();
-		logMessage("Step : click on place order in btn_placeOrder\n");
+		logMessage("Step : click on place order button");
 	}
 
 	public void verifyReceiptPage() {
@@ -348,6 +378,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	}
 
 	public void verifyUserIsOnHomePageForEwebPBA(String individualName) {
+		_deleteExistingFIleFile("report");
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(2);
 		wait.hardWait(2);

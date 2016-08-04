@@ -2,6 +2,7 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.testng.ITestResult;
@@ -15,9 +16,11 @@ import com.qait.automation.utils.YamlReader;
 public class ACS_PBA_Test {
 
 	TestSessionInitiator test;
-	List<String> customerFullNameList;
+	List<String> memDetails;
 	String app_url_IWEB, individualName, webLogin, app_url_PUBS, passportAmountValue, subscriptionsAmountValue,
 			totalAmount, customerId;
+	String fName,LName;
+	
 
 	@BeforeClass
 	public void Open_Browser_Window() {
@@ -40,7 +43,7 @@ public class ACS_PBA_Test {
 		test.memberShipPage.clickOnTab("Query Individual");
 		test.memberShipPage.selectAndRunQuery(getYamlValue("PBA.queryName"));
 		individualName = test.acsAddressValidation.verifyIndividualProfilePage();
-		customerFullNameList = test.memberShipPage.getCustomerFullNameAndContactID();
+		memDetails = test.memberShipPage.getCustomerFullNameAndContactID();
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Individuals | " + individualName);
 	}
 
@@ -75,21 +78,20 @@ public class ACS_PBA_Test {
 
 	@Test
 	public void Step06_Fill_Billing_Information_And_Place_Order() {
-		test.asm_PUBSPage.submitPaymentDetails(YamlReader.getYamlValue("Acs_CreateMember_IWEB.paymentMethod"),
-				customerFullNameList.get(0).split(" ")[1] + " " + customerFullNameList.get(0).split(" ")[0],
+		test.asm_PUBSPage.submitPaymentDetails(YamlReader.getYamlValue("Acs_CreateMember_IWEB.paymentMethod"),memDetails.get(0).split(" ")[1]+" "+memDetails.get(0).split(" ")[0],
 				YamlReader.getYamlValue("Acs_CreateMember_IWEB.cardNumber"),
 				YamlReader.getYamlValue("Acs_CreateMember_IWEB.cvvNumber"),
 				YamlReader.getYamlValue("Acs_CreateMember_IWEB.yearValue"));
 		test.asm_PUBSPage.clickOnPlaceOrder();
 	}
 
-	//@Test
-	public void Step07_Verify_ProductName_And_ProductAmount_With_Downloaded_PDF_Receipt() {
+	@Test
+	public void Step07_Verify_ProductName_And_ProductAmount_With_Downloaded_PDF_Receipt() throws IOException {
 		test.asm_PUBSPage.clickOnPrintOrderReceipt();
 		test.asm_PUBSPage.verifyDataFromPdfFile();
 	}
 
-	//@Test
+	@Test
 	public void Step08_Verify_Selected_Products_With_Amount_On_Iweb_Application() {
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
@@ -105,7 +107,7 @@ public class ACS_PBA_Test {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
 
-	//@AfterClass
+	@AfterClass
 	public void Close_Browser_Session() {
 		test.closeBrowserWindow();
 	}

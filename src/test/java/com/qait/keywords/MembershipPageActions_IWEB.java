@@ -181,7 +181,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnRunQuery() {
 		isElementDisplayed("btn_runQuery");
 		clickUsingXpathInJavaScriptExecutor(element("btn_runQuery"));
-		logMessage("STEP : Click on run query button in btn_runQuery \n");
+		logMessage("STEP : Click on run query button \n");
 		wait.hardWait(2);
 		// wait.waitForPageToLoadCompletely();
 		waitForSpinner();
@@ -220,7 +220,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// element("btn_editNameAndAddress").click();
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
-		logMessage("Step : Click on edit name and address button in btn_editNameAndAddress\n");
+		logMessage("Step : Click on edit name and address button On Individual Profile Page\n");
 	}
 
 	public String editEmailIdToAcsOrg(String existingEmail) {
@@ -2421,7 +2421,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		memberDetails.add(customerContactId);
 		// memberDetails.add(getMemberWebLogin());
-		logMessage("Step : Customer contact id fetched as "+customerContactId);
+		logMessage("Step : Customer or contact id fetched as "+customerContactId);
 		return memberDetails;
 
 	}
