@@ -94,12 +94,15 @@ public class ACS_ScarfReviewing_Test  {
 	@Test  
 	public void Step06_Launch_Eweb_Application_And_Enter_Reviews_By_First_Online_Reviewer(){
 		test.launchApplication(app_url_eweb);
+//		test.acsScarfReporting.loginWithLastNameAndMemberId("Abrams","2346003"); //"Easter", "2175095"
 		test.acsScarfReporting.loginWithLastNameAndMemberId(ReviewerLoginMap.get("reviewer"+i).get(0),ReviewerLoginMap.get("reviewer"+i).get(1)); //"Easter", "2175095"
+		test.acsScarfReviewing.verifyReviewerTypeWindow("Online Reviewer");		
 		test.acsScarfReporting.verifyStudentChapterReportingPage();
 		index=test.acsScarfReviewing.verifyChapterOnTheReviewPageAndClickOnreviewButton(assignedchaptername,"list_ChapterList","LayoutCell");//Arcadia University Student Chapter"
 	    test.acsScarfReviewing.verifyChapterStatus("Not Started",index); 
 	    test.acsScarfReviewing.selectChapterReviewImage(index);
 		test.acsScarfReporting.clickOnNotStartedButtonForSection("Self-Assessment", "Start");
+        test.acsScarfReviewing.initializeMap();
 		i++;
 	}
 	
@@ -140,7 +143,8 @@ public class ACS_ScarfReviewing_Test  {
 	
     @Test
 	public void Step12_Launch_Eweb_Application_And_Enter_Reviews_By_FDP_Reviewer(){
-		test.launchApplication(app_url_eweb);
+        test.acsScarfReviewing.initializeMap();
+    	test.launchApplication(app_url_eweb);
 //		test.acsScarfReporting.loginWithLastNameAndMemberId("Hare","2250525");//"Keirstead","30037352"); // "Keirstead","30037352"
         test.acsScarfReporting.loginWithLastNameAndMemberId(ReviewerLoginMap.get("reviewer"+i).get(0),ReviewerLoginMap.get("reviewer"+i).get(1)); //"Hare","2250525"
 		test.acsScarfReviewing.verifyReviewerTypeWindow("Faculty Decision Panel Reviewer");
@@ -170,14 +174,17 @@ public class ACS_ScarfReviewing_Test  {
 	
 	@Test  
 	public void Step15_Launch_Eweb_Application_And_Enter_Reviews_By_Green_Chemistry_Reviewer(){
+        test.acsScarfReviewing.initializeMap();
 		test.launchApplication(app_url_eweb);
 		test.acsScarfReporting.loginWithLastNameAndMemberId(ReviewerLoginMap.get("reviewer"+i).get(0),ReviewerLoginMap.get("reviewer"+i).get(1)); //"Constable","00816994"
+		i++;
 		test.acsScarfReporting.verifyStudentChapterReportingPage();
 		index=test.acsScarfReviewing.verifyChapterOnReviewPageForGCReviewer(assignedchaptername,"list_ChapterList","LayoutCell");
 	    test.acsScarfReviewing.verifyChapterStatus("Not Started",index);
 	    test.acsScarfReviewing.selectChapterReviewImage(index);
 	    test.acsScarfReviewing.enterRatingByGreenChemistryReviewer("Yes");
 		test.acsScarfReviewing.enterComments(YamlReader.getYamlValue("ScarfReviewer.reviewComments"));
+		test.acsScarfReviewing.addReviewerComments("Reviewer"+i);
 		test.acsScarfReviewing.clickOnSubmitButton("Save & Submit");
 	    test.acsScarfReviewing.verifyChapterStatus("Submitted",index); 
 		test.acsScarfReviewing.verifyFinalReview("Yes", index);
@@ -202,7 +209,7 @@ public class ACS_ScarfReviewing_Test  {
 	public void Step17_Verify_Online_Reviewers_Comments_And_Review_Status_On_Iweb()
 	{
 		reviewerComments=test.acsScarfReviewing.getReviewerCommentsMap();
-		test.invoicePage.expandDetailsMenu("report online reviewer");
+		test.invoicePage.expandDetailsMenu("report online reviewer");		
         test.invoicePage.verifyScarfReviewerCommentsAndStatus(test.acsScarfReviewPage.getReviewerNameList().get(0),YamlReader.getYamlValue("ScarfReviewer.overallRating"),"Submitted");
         test.invoicePage.verifyScarfReviewerCommentsAndStatus(test.acsScarfReviewPage.getReviewerNameList().get(1),YamlReader.getYamlValue("ScarfReviewer.overallRating"),"Submitted");
         test.invoicePage.collapseDetailsMenu("report online reviewer");
@@ -211,7 +218,7 @@ public class ACS_ScarfReviewing_Test  {
 	
 	@Test(dataProvider="ReviewerSections")
 	public void Step18_Verify_Online_Reviewers_Answers_On_Iweb(String sectionName)
-	{
+	{	        
         test.acsScarfReviewing.verifyReviewerAnswers(reviewerComments,1,sectionName,test.acsScarfReviewPage.getReviewerNameList().get(0));
         test.acsScarfReviewing.verifyReviewerAnswers(reviewerComments,2,sectionName,test.acsScarfReviewPage.getReviewerNameList().get(1));
         
@@ -239,15 +246,15 @@ public class ACS_ScarfReviewing_Test  {
         
         test.invoicePage.collapseDetailsMenu("report faculty decision panel answer");
 		test.invoicePage.expandDetailsMenu("report green chemistry reviewer");
-        test.invoicePage.verifyScarfReviewerCommentsAndStatus(test.acsScarfReviewPage.getReviewerNameList().get(3),YamlReader.getYamlValue("ScarfReviewer.overallRating"),"Submitted");
+        test.invoicePage.verifyScarfReviewerCommentsAndStatus(test.acsScarfReviewPage.getReviewerNameList().get(3),YamlReader.getYamlValue("ScarfReviewer.overallGCRating"),"Submitted");
         test.invoicePage.collapseDetailsMenu("report green chemistry reviewer");
         test.invoicePage.expandDetailsMenu("report green chemistry reviewer answer");
 	}
 	
-	@Test(dataProvider="ReviewerSections")
-	public void Step22_Verify_Green_Chemistry_Reviewer_Answers_On_Iweb(String sectionName)
+	@Test
+	public void Step22_Verify_Green_Chemistry_Reviewer_Answers_On_Iweb()
 	{
-        test.acsScarfReviewing.verifyReviewerAnswers(reviewerComments,4,sectionName,test.acsScarfReviewPage.getReviewerNameList().get(3));
+        test.acsScarfReviewing.verifyReviewerAnswers(reviewerComments,4,"Green Chemistry",test.acsScarfReviewPage.getReviewerNameList().get(3));
 	}
 	
 	
@@ -260,7 +267,7 @@ public class ACS_ScarfReviewing_Test  {
 	
 	@DataProvider(name="Sections")
 	public static Object[][] provideSectionNames(){
-		return new Object[][] {{"Self-Assessment"},{"Service"},{"Professional Development"},{"Chapter Development"},{"Budget"},{"Online Report Assessment"}};
+		return new Object[][] {{"Self-Assessment"},{"Service"},{"Professional Development"},{"Chapter Development"},{"Budget"},{"Online Reviewer Assessment"}};
 	}
 	
 	@DataProvider(name="ReviewerSections")

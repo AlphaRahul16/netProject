@@ -1128,6 +1128,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void expandDetailsMenu(String menuName) {
+		hardWaitForChromeBrowser(2);
 		isElementDisplayed("btn_detailsMenuAACT", menuName);
 		try {
 			wait.resetImplicitTimeout(9);

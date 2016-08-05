@@ -560,6 +560,7 @@ ScarfReviewer:
     reviewRating: Commendable
     reviewComments: test comments
     overallRating: Outstanding
+    overallGCRating: "Yes"
     overallReviewComment: outstanding test data
     
     
