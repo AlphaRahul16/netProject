@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.utils.YamlReader;
 
-public class ACS_Apply_Payment_Test extends BaseTest{
+public class ACS_Apply_Payment_Test extends BaseTest {
 	String app_url_IWEB;
 
 	@Test
@@ -84,7 +84,8 @@ public class ACS_Apply_Payment_Test extends BaseTest{
 
 		test.applyPayment.selectBatch(YamlReader
 				.getYamlValue("ACS_ApplyPayment.Batch"));
-		test.applyPayment.enterDetailsForPayment(YamlReader.getYamlValue("ACS_ApplyPayment.PaymentMethod.Select"));
+		test.applyPayment.enterDetailsForPayment(YamlReader
+				.getYamlValue("ACS_ApplyPayment.PaymentMethod.Select"));
 		test.applyPayment.clickOnSaveButton();
 		test.applyPayment.switchToDefaultContent();
 		// test.invoicePage.verifyMemberDetails_question("proforma", YamlReader
