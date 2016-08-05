@@ -4,7 +4,6 @@ Page Title: Scarf_Reviewing
 =============================================================================================================================================
 drpdwn_selectReviewer                           css                        select[id*='ReviewerRole']
 drpdwn_Reviwerlist                              css                        select[id*='lstReviewer']
-list_reviewerOptions                            xpath                        //select[contains(@id,'lstReviewer')]//option[${value}]
 txt_AssignedchapterName                         xpath                      (//table[@class='OTIGrid']//td[2])[1]
 btn_AssignChapter                               xpath                      //td[contains(text(),'${chaptername}')]/following-sibling::td/input
 img_spinner                                     css                        img[scr*='updating']       
@@ -25,7 +24,7 @@ btn_fdpReviewer                                 xpath                      //a[t
 heading_reviewerType                            xpath                      //h3[text()='Choose the Dashboard to View']
 list_notStartedChapters                         xpath                      //div[@id='${value}']//tbody//tr
 btn_copyComments                                xpath                      (//input[@value='Copy to Faculty Decision Panel Comments'])[${index}]
-txt_reveiwerComment                             xpath                      //span[@id='txtReviewer${index}Answer']         
+txt_reveiwerComment                             xpath                      //span[@id='txtReviewer${index}Answer']//p         
 tab_chapterStatus                               xpath                      //a[@href='#${value}']
 list_ratingGreenChemistry                       xpath                      //span[text()='Please Select a Rating: ']/..//select
 txt_submittedChapter                            xpath                      //div[@id='submitted']//tbody//tr[${index1}]//td[${index2}]

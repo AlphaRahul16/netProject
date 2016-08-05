@@ -1,15 +1,17 @@
 package com.qait.tests;
 
-import org.testng.ITestResult;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
+
 public class ACS_Apply_Payment_Test extends BaseTest {
+
+
+
 	String app_url_IWEB;
 
 	@Test

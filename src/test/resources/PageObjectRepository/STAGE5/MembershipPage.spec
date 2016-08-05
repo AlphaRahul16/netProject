@@ -150,7 +150,7 @@ btn_addBatch                                     id                             
 inp_addBatchName                                 id                             bat_code
 list_batchSecurityGroup                          id                             gsc_grp_key
 drpdwn_memberType                                xpath                        //select[contains(@id,'QueryAsk')]
-btn_detailsMenuAACT                              xpath                        //span[text()='${menuName}']/../a[1]
+btn_detailsMenuAACT                              xpath                        //span[text()='${menuName}']/../a[1]/i[@class='icon-chevron-down']
 txt_termStartDaterenewal                         xpath                         (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[14]
 txt_termEndDaterenewal                           xpath                        (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[15]
 productname_txt									 xpath							(//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[4]
@@ -181,3 +181,4 @@ txt_endDate                                     xpath                           
 arrow_selectMember                              xpath                           (//th/a)[2]/../../following-sibling::tr[${index}]//td[3]//a
 btn_CurrentYearPencil                           xpath                           //td[contains(text(),'Yes')]/preceding-sibling::td//i
 inp_dateForReviewModes                          xpath                           //input[@title='${reviewtitle}']
+mbr_autoPay                                     css                             img[title*='mbr_auto_pay'][src*='${value}']

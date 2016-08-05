@@ -1,7 +1,14 @@
 package com.qait.keywords;
 
+import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.bcel.generic.IUSHR;
+import org.hamcrest.generator.qdox.tools.QDoxTester.Reporter;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,13 +16,15 @@ import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.getpageobjects.GetPage;
+import com.qait.automation.utils.YamlReader;
 
 public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	WebDriver driver;
 	static String pagename = "ASM_PUBSPage";
 	public List<String> productName;
 	public List<String> productAmount;
-	String taxAmount;
+	String taxAmount, shippingAmount;
+	int timeOut, hiddenFieldTimeOut;
 
 	public ASM_PUBSPage(WebDriver driver) {
 		super(driver, pagename);
@@ -32,14 +41,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		for (WebElement amount : elements("list_productAmount")) {
 			productAmount.add(amount.getAttribute("textContent").trim());
 		}
-		System.out.println("============================Product Name And Amount List===========================================");
-		
-		for (String name : productName) {
-			System.out.println(name);
-		}
-		for (String amount : productAmount) {
-			System.out.println(amount);
-		}
+
 	}
 
 	private Double getProductAmount(String productAmount) {
@@ -50,8 +52,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	public void clickOnGoButtonWithCustomerLoginId(String customerID) {
 		isElementDisplayed("txt_recordNumber");
 		element("txt_recordNumber").sendKeys(customerID);
-		logMessage("Step : send customer id  " + customerID
-				+ " to text field !!");
+		logMessage("Step : send customer id  " + customerID + " to text field !!");
 		isElementDisplayed("btn_search");
 		element("btn_search").click();
 		logMessage("Step : click to the search button !!");
@@ -64,41 +65,90 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		isElementDisplayed("lnk_subscriptionTab");
 		element("lnk_subscriptionTab").click();
 		logMessage("subscription tab is selected in expanded more option !!");
-		wait.hardWait(6);
+		wait.waitForPageToLoadCompletely();
+		waitForSpinner();
 		isElementDisplayed("lnk_activeSubscription");
 		element("lnk_activeSubscription").click();
 		logMessage("Step: active subscription expanded !!");
-		wait.hardWait(2);
+		wait.waitForPageToLoadCompletely();
+		waitForSpinner();
 	}
 
 	public void verifyDataFromInitialPage() {
-		for (int i = 0; i < productName.size(); i++) {
-			isElementDisplayed("td_subscription", productName.get(i),
-					String.valueOf(productAmount.get(i)));
-
+		wait.waitForPageToLoadCompletely();
+		int i = 0;
+		for (String name : productName) {
+			wait.hardWait(1);
+			isElementDisplayed("td_subscription", name, String.valueOf(getProductAmount(productAmount.get(i))));
+			i++;
 		}
-
+		logMessage("[ASSERTION PASSED]:: Verified Product Names and amount under Active Subscription on IWEB");
 	}
-	
-	public void clockOnPrintOrderReceipt()
-	{
+
+	public void waitForSpinner() {
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
+		try {
+			handleAlert();
+			wait.resetImplicitTimeout(3);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("img_spinner");
+			wait.waitForElementToDisappear(element("img_spinner"));
+			logMessage("STEP : Wait for spinner to be disappeared \n");
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+		} catch (Exception e) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			logMessage("STEP : Spinner is not present \n");
+		}
+	}
+
+	public void clickOnPrintOrderReceipt() {
 		isElementDisplayed("btn_printReceipt");
 		element("btn_printReceipt").click();
-		logMessage("Step: click on print order receipt !!");
-		wait.hardWait(5);
+		logMessage("Step: Clicked on print order receipt !!");
+		wait.hardWait(8);
 	}
-	
-	public void verifyDataFromPdfFile()
-	{
+
+	public void verifyDataFromPdfFile() throws IOException {
+		System.out.println("===================================================================================");
+		String pdfContent = extractFromPdf("report", 1);
+		System.out.println("PDF Content::" + pdfContent);
 
 		for (String product_Name : productName) {
-			System.out.println("In PDF Method::"+product_Name);
-			extractAndCompareTextFromPdfFile("report", product_Name, 1);
+			System.out.println("In PDF Method::" + product_Name);
 		}
-		
+
+		System.out.println("====================================================================================");
+
 		for (String product_Amount : productAmount) {
-			System.out.println("In PDF Method::"+product_Amount);
-			extractAndCompareTextFromPdfFile("report", product_Amount, 1);
+			System.out.println("In PDF Method for Amount::" + product_Amount);
+			Assert.assertTrue(pdfContent.contains(product_Amount));
+			logMessage("[ASSERTION PASSED]:: Verified Product Amounts in Invoice Receipt PDF file");
+		}
+
+		for (String product_Name : productName) {
+			System.out.println("In PDF Method::" + product_Name);
+			if (product_Name.contains(YamlReader.getYamlValue("ACS_PBA_Product.shortName"))) {
+				Assert.assertTrue(pdfContent.contains(YamlReader.getYamlValue("ACS_PBA_Product.fullName")));
+			} else {
+				Assert.assertTrue(pdfContent.contains(product_Name));
+			}
+			logMessage("[ASSERTION PASSED]:: Verified Product Names in Invoice Receipt PDF file");
+		}
+
+	}
+
+	private void _deleteExistingFIleFile(String fileName) {
+		String source = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + fileName
+				+ ".pdf";
+
+		File sourceFile = new File(source);
+		if (sourceFile.exists()) {
+			sourceFile.delete();
+			logMessage("Already Exits File is deleted from location " + sourceFile.getAbsolutePath());
 		}
 	}
 
@@ -117,9 +167,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	public void enterPassword(String password) {
 		isElementDisplayed("inp_password");
 		element("inp_password").sendKeys(password);
-		logMessage("Step : "
-				+ password
-				+ " is entered in inp_passworclickOnAddAnESubscriptionButtond\n");
+		logMessage("Step : " + password + " is entered in inp_passworclickOnAddAnESubscriptionButtond\n");
 	}
 
 	public void clickOnVerifyButton() {
@@ -157,20 +205,16 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	public String passportValue() {
 		isElementDisplayed("txt_amount");
 		String passportAmountValue = element("txt_amount").getText();
-		passportAmountValue = passportAmountValue.substring(passportAmountValue
-				.indexOf("$") + 1);
-		logMessage("Step : passportAmountValue " + passportAmountValue
-				+ " is saved \n");
+		passportAmountValue = passportAmountValue.substring(passportAmountValue.indexOf("$") + 1);
+		logMessage("Step : passportAmountValue " + passportAmountValue + " is saved \n");
 		return passportAmountValue;
 	}
 
 	public String subscriptionValue() {
 		isElementDisplayed("txt_amount");
 		String subscriptionAmountValue = element("txt_amount").getText();
-		subscriptionAmountValue = subscriptionAmountValue
-				.substring(subscriptionAmountValue.indexOf("$") + 1);
-		logMessage("Step : subscriptionAmountValue " + subscriptionAmountValue
-				+ " is saved \n");
+		subscriptionAmountValue = subscriptionAmountValue.substring(subscriptionAmountValue.indexOf("$") + 1);
+		logMessage("Step : subscriptionAmountValue " + subscriptionAmountValue + " is saved \n");
 		return subscriptionAmountValue;
 	}
 
@@ -179,19 +223,31 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		for (int i = 0; i < productAmount.size(); i++) {
 			total += getProductAmount(productAmount.get(i));
 		}
+		isElementDisplayed("txt_taxAmount");
 		taxAmount = element("txt_taxAmount").getText();
 		taxAmount = taxAmount.substring(taxAmount.indexOf('$') + 1);
 		total += Double.parseDouble(taxAmount);
+		logMessage("Step: taxAmount $" + taxAmount + " is retrieved !!");
+		wait.hardWait(1);
 
+		isElementDisplayed("txt_shippingAmount");
+		shippingAmount = element("txt_shippingAmount").getText();
+		shippingAmount = shippingAmount.substring(shippingAmount.indexOf('$') + 1);
+		total += Double.parseDouble(shippingAmount);
+		logMessage("Step: shippingAmount $" + shippingAmount + " is retrieved !!");
+		wait.hardWait(1);
+
+		isElementDisplayed("txt_invoiceValue");
 		String invoiceValue = element("txt_invoiceValue").getText();
 		invoiceValue = invoiceValue.substring(invoiceValue.indexOf("$") + 1);
 		Double double_invoiceValue = (Double) Double.parseDouble(invoiceValue);
+		logMessage("Step: invoiceAmount $" + double_invoiceValue + " is retrieved !!");
+		wait.hardWait(1);
 
 		total = setPrecision(total, 2);
 		double_invoiceValue = setPrecision(double_invoiceValue, 2);
 
-		logMessage("Step : total from previous page =" + total
-				+ " & invoice from this page =" + double_invoiceValue);
+		logMessage("Step : total from previous page =" + total + " & invoice from this page =" + double_invoiceValue);
 		Assert.assertEquals(total, double_invoiceValue);
 		logMessage("[ASSERTION PASSED]: Verified Total Invoice Amount!!");
 
@@ -226,7 +282,6 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		element("chk_archive").click();
 		logMessage("Step : add button is clicked in chk_archive \n");
 
-		// verifySubcriptionAdded();
 	}
 
 	public void clickOnSaveButton() {
@@ -247,8 +302,8 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		isElementDisplayed("tr_saved");
 	}
 
-	public void submitPaymentDetails(String cardType, String cardholderName,
-			String cardNumber, String cvvNumber, String year_Value) {
+	public void submitPaymentDetails(String cardType, String cardholderName, String cardNumber, String cvvNumber,
+			String year_Value) {
 		verifyPaymentPage();
 		selectCreditCardType(cardType);
 		enterCreditCardHolderName(cardholderName);
@@ -268,8 +323,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	public void enterCreditCardHolderName(String cardholderName) {
 		isElementDisplayed("inp_cardHolderName");
 		element("inp_cardHolderName").sendKeys(cardholderName);
-		logMessage("Step : " + cardholderName
-				+ " is entered in inp_cardHolderName\n");
+		logMessage("Step : " + cardholderName + " is entered in inp_cardHolderName\n");
 	}
 
 	public void enterCreditCardNumber(String cardNumber) {
@@ -286,10 +340,8 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 
 	public void selectExpirationYear(String yearValue) {
 		isElementDisplayed("list_expirationYear");
-		selectProvidedTextFromDropDown(element("list_expirationYear"),
-				yearValue);
-		logMessage("Step : " + yearValue
-				+ " is selected for in list_expirationYear\n");
+		selectProvidedTextFromDropDown(element("list_expirationYear"), yearValue);
+		logMessage("Step : " + yearValue + " is selected for in list_expirationYear\n");
 	}
 
 	public void clickOnConfirmOrderButton() {
@@ -301,7 +353,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	public void clickOnPlaceOrder() {
 		isElementDisplayed("btn_placeOrder");
 		element("btn_placeOrder").click();
-		logMessage("Step : click on place order in btn_placeOrder\n");
+		logMessage("Step : click on place order button");
 	}
 
 	public void verifyReceiptPage() {
@@ -326,11 +378,12 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	}
 
 	public void verifyUserIsOnHomePageForEwebPBA(String individualName) {
+		_deleteExistingFIleFile("report");
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(2);
 		wait.hardWait(2);
 		String s = (String) executeJavascriptReturnValue("document.getElementsByTagName('span')[3].innerHTML;");
-		Assert.assertEquals(s.trim(), individualName);
+		Assert.assertTrue(individualName.contains(s));
 		logMessage("[ASSERTION PASSED]:: Verified User Is On Home Page for Eweb Application");
 	}
 }

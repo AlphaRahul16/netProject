@@ -28,6 +28,7 @@ list_productName                           css                              .inv
 list_productAmount                        xpath                              .//*[@class='inv-details']/following-sibling::td[1]/span
 txt_welcome									css								#welcome-msg>span>h2>span
 txt_taxAmount                              xpath                              .//*[@id='lblTax']
+txt_shippingAmount                         xpath                              .//*[@id='lblShipping']
 btn_printOrderReceipt                      xpath                              .//*[@id='print-invoice']/span/input\
 txt_recordNumber                           id                                 ValueTextBox0
 btn_search                                 id                                 ButtonSearch
@@ -36,6 +37,7 @@ lnk_subscriptionTab                        xpath                              ./
 lnk_activeSubscription                     xpath                              (.//*[@class='icon-chevron-down'])[1]
 td_subscription				   xpath                              //td[contains(text(),'${productName}')]/..//td[contains(text(),'${productAmount}')]
 btn_printReceipt                           xpath                              .//*[@id='print-invoice']/span/input
-
+img_spinner                                 css                           #__UPIMG
+txt_pdf_productName							xpath							.//xhtml:div[contains(text(),'ACS Member E-Passport: 250')]
 
 ===========================================================================================================================================

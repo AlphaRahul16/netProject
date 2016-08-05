@@ -14,11 +14,11 @@ import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
-public class ACS_Yellow_Book_Smoke_Test {
+public class ACS_Yellow_Book_Smoke_Test extends BaseTest{
 
-	TestSessionInitiator test;
 	String app_url_eweb_yb;
 	String app_url_iweb_yb;
 	String app_url_iweb_nf;
@@ -143,16 +143,4 @@ public class ACS_Yellow_Book_Smoke_Test {
 		app_url_iweb_yb = getYamlValue("app_url_iweb_yb");
 		app_url_iweb_nf = getYamlValue("app_url_IWEB");
 	}
-
-	@AfterClass
-	public void Close_Browser_Session() {
-		test.closeBrowserSession();
-	}
-	
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result)
-	{	
-		test.takescreenshot.takeScreenShotOnException(result);
-	}
-
 }

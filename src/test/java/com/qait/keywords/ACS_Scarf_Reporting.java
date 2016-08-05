@@ -427,7 +427,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 						// wait.hardWait(2);
 					}
 					for (j = 1; j < (elements("table_rows").size() - 1); j++) {
-						wait.hardWait(1);
+						wait.hardWait(2);
 						if (eventsMap.get(e).get(i).equals(
 								element("txt_endDate", String.valueOf(j), String.valueOf(6)).getText().trim())) {
 							flag = true;
@@ -607,10 +607,13 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnGreenChemistryCheckbox() {
-		isElementDisplayed("chkbox_greenChemistry");
+//		isElementDisplayed("chkbox_greenChemistry");
+		System.out.println("----status:"+element("chkbox_greenChemistry").isSelected());
+		if(element("chkbox_greenChemistry").isSelected()){
 		element("chkbox_greenChemistry").click();
 		logMessage(
-				"STEP : Clicked on 'Check this box if you choose NOT to submit any green chemistry events.' checkbox\n");
+				"STEP : Unchecked the 'Check this box if you choose NOT to submit any green chemistry events.' checkbox\n");
+		}
 	}
 
 	public void verifyMergingOfSections() {

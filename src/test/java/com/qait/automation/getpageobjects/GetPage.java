@@ -23,6 +23,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import com.itextpdf.text.log.SysoCounter;
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.LayoutValidation;
 import com.qait.automation.utils.YamlReader;

@@ -355,7 +355,11 @@ ASM_MemberNumberLookup_SmokeChecklistData:
 ASM_PUBS_SmokeChecklistData: 
     userName: tscherer
     password: password
-    expirationYear: 2023   
+    expirationYear: 2023  
+    
+ACS_PBA_Product:
+    shortName: Accts of Chem Res Mbr Web Archive
+    fullName: Accounts of Chemical Research Member Web Archive - Member 
 
 ASM_Nominate_SmokeChecklistData: 
     lastName: Burnham
@@ -586,6 +590,10 @@ ACS_ApplyPayment:
     PaymentMethod: 
         Select: "BOA - Check"
         Unselect: "Visa/MC"
+        
+         
+ACS_AutoRenewal_Selection_In_OMR:
+    AutoRenewal_Query: Selenium - Find Active Regular Member with Proforma
                
 email:
   send: true

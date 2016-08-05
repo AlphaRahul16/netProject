@@ -161,10 +161,10 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
         clickOnBatchProcessButton("PreProcess");
 		//verifyPopUpWindowVisibility();
 		clickOnBatchProcessButton("CloseButton");    
-//		waitForAlertToAppear();
-//		verifyPopUpWindowVisibility();
+		//waitForAlertToAppear();
+		//verifyPopUpWindowVisibility();
 		clickOnBatchProcessButton("PostButton");
-//		verifyPopUpWindowVisibility();
+	   // verifyPopUpWindowVisibility();
 		clickOnBatchProcessButton("ACSBatchSalesTaxButton");	
 	}
 

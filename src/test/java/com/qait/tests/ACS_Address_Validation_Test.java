@@ -13,6 +13,7 @@ import org.testng.annotations.Test;
 
 import com.qait.automation.utils.YamlReader;
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.getpageobjects.BaseTest;
 
 public class ACS_Address_Validation_Test extends BaseTest {
 	
