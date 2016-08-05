@@ -272,6 +272,34 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 
 	}
+	
+
+	public void submitPaymentDetailsForAutoRenewal(String cardType, String cardholderName,
+			String cardNumber, String cvvNumber, String date_Value,
+			String year_Value) {
+		switchToDefaultContent();
+		switchToFrame("eWebFrame");
+		selectCreditCardType(cardType);
+		enterCreditCardHolderName(cardholderName);
+		enterCreditCardNumber(cardNumber);
+		enterCVVNumber(cvvNumber);
+		wait.hardWait(1);
+		// selectExpirationDate_Year("Date", date_Value);
+		selectExpirationDate_Year("Year", year_Value);
+		checkAutoRenewalBox();
+		clickOnContinueButton();
+		switchToDefaultContent();
+
+	}
+	
+	
+
+	private void checkAutoRenewalBox() {
+		isElementDisplayed("chk_Autorenewal");
+		element("chk_Autorenewal").click();
+		logMessage("Step : Auto Renewal Checkbox is selected\n");
+		
+	}
 
 	public void selectCreditCardType(String cardType) {
 		isElementDisplayed("list_cardType");
@@ -416,6 +444,10 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 			loginIntoApplication_LastName_NoticeNumber(memDetails.get(0).split(" ")[0], memDetails.get(2));
 		}
 		wait.waitForPageToLoadCompletely();
+	}
+	
+	public void loginIntoOMRApplication(List<String> memDetails) {
+		loginIntoApplication_LastName_MemberNumber(memDetails.get(0).split(" ")[0], memDetails.get(1));
 	}
 
 	public void switchToEwebRenewalFrame()
@@ -590,7 +622,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 
 	}
 
-	private Map<String, String> saveProductsWithRespectiveRenewalAmount() 
+	public Map<String, String> saveProductsWithRespectiveRenewalAmount() 
 	{
 		switchToDefaultContent();
 		wait.hardWait(2);
@@ -820,6 +852,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	
 		switchToDefaultContent();
 	}
+	
+
 
 
 }

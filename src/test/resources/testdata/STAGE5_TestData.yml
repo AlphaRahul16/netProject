@@ -586,6 +586,10 @@ ACS_ApplyPayment:
     PaymentMethod: 
         Select: "BOA - Check"
         Unselect: "Visa/MC"
+        
+         
+ACS_AutoRenewal_Selection_In_OMR:
+    AutoRenewal_Query: Selenium - Find Active Regular Member with Proforma
                
 email:
   send: true
