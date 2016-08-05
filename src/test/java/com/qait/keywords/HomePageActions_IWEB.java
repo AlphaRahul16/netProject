@@ -101,7 +101,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		} else {
 			clickUsingXpathInJavaScriptExecutor(element("hd_sideBar", tabName));
 		}
-		logMessage("STEP : Click on tab " + tabName + " in hd_sideBar \n");
+		logMessage("STEP : Click on tab " + tabName + " From Left Panel \n");
 	}
 	
 	
