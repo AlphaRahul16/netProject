@@ -905,6 +905,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	
 	public void verifyScarfReviewerCommentsAndStatus(String reviewerName,String reviewerComment,String reviewerStatus)
 	{
+		System.out.println("---reviewer name is:"+reviewerName);
 		isElementDisplayed("txt_code",reviewerName);
 		isElementDisplayed("txt_priceValue",reviewerName);
 		Assert.assertTrue(element("txt_code",reviewerName).getText().trim().equals(reviewerComment),"reviewer "+reviewerName+" comments as "+reviewerComment+" not present on iweb\n");

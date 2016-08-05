@@ -1128,7 +1128,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void expandDetailsMenu(String menuName) {
-		
+		isElementDisplayed("btn_detailsMenuAACT", menuName);
 		try {
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
