@@ -31,6 +31,7 @@ txt_itemsAdded                                      xpath                   //a[
 list_batch                                          id                        inv_bat_key
 list_PaymentType                                     id                       inv_orig_trans_type
 list_paymentMethod                                   id                       pin_apm_key
+inp_checkNumber                                      id                       pin_check_number
 inp_cardNumber                                       id                       pin_cc_number
 list_expireDate                                      id                       pin_cc_expire
 inp_cvvNumber                                        id                       pin_cc_security_code
