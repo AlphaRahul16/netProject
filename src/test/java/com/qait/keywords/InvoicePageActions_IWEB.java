@@ -26,6 +26,26 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		this.driver = driver;
 	}
 
+
+	public void clickOnGoToRecord()
+	{
+		isElementDisplayed("arrow_selectMember","1");
+		element("arrow_selectMember","1").click();
+		logMessage("Step: goto record button is clicked");
+	}
+	public void verifyInvoiceProfile(String paidInFull)
+	{
+		clickOnGoToRecord();
+		verifyMemberDetails_question("paid in full", paidInFull);
+		verifyMemberDetails("transaction date",
+				DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY"));
+	}
+	public void verifyProductCodeInlineItem()
+	{
+		hardWaitForIEBrowser(3);
+		expandDetailsMenu("line items");
+		hardWaitForIEBrowser(10);
+	}
 	public void verifyInvoicedDetails(String caseId, String menuName,
 			String invoiceNumber, String[] quantities, String Total) {
 
