@@ -182,7 +182,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnRunQuery() {
 		isElementDisplayed("btn_runQuery");
 		clickUsingXpathInJavaScriptExecutor(element("btn_runQuery"));
-		logMessage("STEP : Click on run query button in btn_runQuery \n");
+		logMessage("STEP : Click on run query button \n");
 		wait.hardWait(2);
 		// wait.waitForPageToLoadCompletely();
 		waitForSpinner();
@@ -221,7 +221,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// element("btn_editNameAndAddress").click();
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
-		logMessage("Step : Click on edit name and address button in btn_editNameAndAddress\n");
+		logMessage("Step : Click on edit name and address button On Individual Profile Page\n");
 	}
 
 	public String editEmailIdToAcsOrg(String existingEmail) {
@@ -1154,13 +1154,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void expandDetailsMenu(String menuName) {
 		isElementDisplayed("btn_detailsMenuAACT", menuName);
 		try {
-			wait.resetImplicitTimeout(9);
+			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("btn_detailsMenuAACT", menuName);
 			clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT",
 					menuName));
 			// element("btn_detailsMenuAACT", menuName).click();
 		} catch (Exception e) {
-			element("btn_detailsMenuAACT", menuName).click();
+			logMessage("Bar "+menuName+" already expanded");
 		}
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
@@ -2447,7 +2448,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		memberDetails.add(customerContactId);
 		// memberDetails.add(getMemberWebLogin());
-		logMessage("Step : Customer contact id fetched as "+customerContactId);
+		logMessage("Step : Customer or contact id fetched as "+customerContactId);
 		return memberDetails;
 
 	}
@@ -2579,6 +2580,24 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("ASSERT PASSED : Payment status before renewal is not Unpaid for "
 					+ MemberTransferLoopCount + " attempt thus looping back\n");
 			selectValidUserForRenewal(mapOMR);
+		}
+		wait.resetExplicitTimeout(timeOut);
+		wait.resetImplicitTimeout(timeOut);
+		logMessage("ASSERT PASSED : Payment status before renewal is Unpaid");
+
+	}
+	
+	public void verifyPaymentStatusBeforeAutoRenewal(String query,String queryPageUrl) {
+		try {
+			wait.resetImplicitTimeout(4);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			Assert.assertTrue(element("txt_PaymentStatus", "Payment Status")
+					.getText().equals("Unpaid"));
+		} catch (AssertionError e) {
+			logMessage("ASSERT PASSED : Payment status before renewal is not Unpaid for "
+					+ MemberTransferLoopCount + " attempt thus looping back\n");
+			MemberTransferLoopCount++;
+			selectValidUserForAutoRenewal(query,queryPageUrl);
 		}
 		wait.resetExplicitTimeout(timeOut);
 		wait.resetImplicitTimeout(timeOut);
@@ -2802,6 +2821,36 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("Step : Term Start date and Term Endd Date are not empty for "
 					+ MemberTransferLoopCount + " attempt\n");
 			selectValidUserForRenewal(mapOMR);
+		} else {
+			Assert.assertTrue(element("txt_termStartDaterenewal", "1")
+					.getText().length() == 1, "Term Start Date is not Empty");
+			logMessage("ASSERT PASSED : Term Start date is empty\n");
+			Assert.assertTrue(element("txt_termEndDaterenewal", "1").getText()
+					.length() == 1, "Term End Date is not Empty");
+			logMessage("ASSERT PASSED : Term End date is empty\n");
+		}
+	}
+	
+	public void verifyTermStartDateAndEndDatesAreEmptyForAutoRenewal(
+			String Query,String queryPageUrl) {
+		try {
+
+			wait.resetImplicitTimeout(4);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("txt_termStartDaterenewal", "1");
+			isElementDisplayed("txt_termEndDaterenewal", "1");
+		} catch (NoSuchElementException e) {
+			expandDetailsMenu("invoices");
+		}
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
+		if (element("txt_termStartDaterenewal", "1").getText().length() != 1
+				&& element("txt_termEndDaterenewal", "1").getText().length() != 1) {
+			collapseDetailsMenu("invoices");
+			logMessage("Step : Term Start date and Term Endd Date are not empty for "
+					+ MemberTransferLoopCount + " attempt\n");
+			MemberTransferLoopCount++;
+			selectValidUserForAutoRenewal(Query,queryPageUrl);
 		} else {
 			Assert.assertTrue(element("txt_termStartDaterenewal", "1")
 					.getText().length() == 1, "Term Start Date is not Empty");
@@ -4045,8 +4094,48 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		getProductNameFromCOEPage();
 		clickOnSaveAndFinish();
 		switchToDefaultContent();
+	}
+
+	public void selectValidUserForAutoRenewal(String AutoRenewalquery,String queryPageUrl) {
+		if (MemberTransferLoopCount < 3) {
+			System.out.println(AutoRenewalquery);
+		launchUrl(queryPageUrl);
+		selectAndRunQuery(AutoRenewalquery);
+		expandDetailsMenu("individual memberships");
+		navigateToInvoicePageForRenewedProduct();
+		expandDetailsMenu("invoices");
+		verifyTermStartDateAndEndDatesAreEmptyForAutoRenewal(AutoRenewalquery,queryPageUrl);
+		//verifyPaymentStatusBeforeAutoRenewal(AutoRenewalquery,queryPageUrl);
+		MemberTransferLoopCount++;
+	} else {
+		Assert.fail("ASSERT FAIL : Member is not selected after "
+				+ MemberTransferLoopCount + " attempts\n");
+		logMessage("ASSERT FAIL : Member is not selected after "
+				+ MemberTransferLoopCount + " attempts\n");
+	}
+	logMessage("Step : Member selected in " + MemberTransferLoopCount
+			+ " attempt\n");
+
+}
+	
+	public void verifyAutoPayStatusAfterAutoRenewal(String value)
+	{
+		isElementDisplayed("mbr_autoPay",value);
+		Assert.assertTrue(isElementDisplayed("mbr_autoPay",value),"Auto Pay renewal image is not checked\n");
+		logMessage("Step : Auto Pay renewal image is checked\n");
+	}
+
+
+	public void verifyStorePaymentInformationChildFormIsPopulated(String firstName) {
+		isElementDisplayed("txt_code",firstName);
+		isElementDisplayed("txt_priceValue",firstName);
+		System.out.println(element("txt_code", firstName).getText().isEmpty());
+		System.out.println(element("txt_code", firstName).getText().isEmpty());
+		
+		
+	}
 		
 	}
 	
 	
-}
+

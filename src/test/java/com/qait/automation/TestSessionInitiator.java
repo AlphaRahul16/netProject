@@ -263,14 +263,7 @@ public class TestSessionInitiator {
 	          driver.get(baseurl);
 	        }  
 
-	  //   if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")
-//	       || _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer"))&& baseurl.contains("iwebtest")) {
-//	      baseurl = baseurl.replaceAll("https://iwebtest",
-//	        "https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
-//	          + YamlReader.getYamlValue("Authentication.password").replaceAll("@", "%40") + "@"
-//	          + "iwebtest");
-	  //
-	  //   }
+
 
 	     if(!_getSessionConfig().get("browser").equalsIgnoreCase("ie")){
 	      if(baseurl.contains("iweb"))
