@@ -22,7 +22,7 @@ import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.DataProvider;
 import com.qait.automation.utils.DateUtil;
 
-public class ACS_AwardsVoting_Test extends BaseTest{
+public class ACS_AwardsVoting_Test extends BaseTest {
 
 	String app_url_IWEB, app_url_Awards, currentAwardName;
 	String[] startEndDate;
@@ -53,18 +53,22 @@ public class ACS_AwardsVoting_Test extends BaseTest{
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Awards");
 		test.homePageIWEB.clickOnTab("Find Award");
+		// test.individualsPage.enterFieldValue("Award Name","F. Albert Cotton Award in Synthetic Inorganic Chemistry");
+		// test.individualsPage.enterFieldValue("Award Year","2018");
 		test.individualsPage.enterFieldValue("Award Year",
-				DateUtil.getAnyDateForType("YYYY", 1, "year"));
+				DateUtil.getAnyDateForType("YYYY", 2, "year"));
 		test.individualsPage.clickGoButton();
+		// currentAwardName =
+		// "F. Albert Cotton Award in Synthetic Inorganic Chemistry:2018";
 		currentAwardName = test.individualsPage
 				.selectRandomGeneralAward_AwardNomination(DataProvider
-						.getRandomSpecificLineFromTextFile("GeneralAwardList")
-						.trim());
-
+						.getRandomSpecificLineFromTextFile(
+								"GeneralAwardList_2018").trim());
 	}
 
 	@Test(dependsOnMethods = "Step01_TC01_Launch_Iweb_Application_And_Select_Award")
 	public void Step02_TC02_Verify_Nominees_And_Set_Start_End_Dates_For_Round1_IWEB_Application() {
+		test.awardsPageAction.editAwardStartAndEndDate();
 		test.awardsPageAction.expandDetailsMenu("award stages/rounds");
 		test.awardsPageAction.uncheckClosedCheckbox_VotingClosed(
 				currentAwardName, "1");
@@ -190,7 +194,9 @@ public class ACS_AwardsVoting_Test extends BaseTest{
 		test.homePageIWEB.clickOnTab("Awards");
 		test.homePageIWEB.clickOnTab("Find Award");
 		test.individualsPage.enterFieldValue("Award Year",
-				DateUtil.getAnyDateForType("YYYY", 1, "year"));
+				DateUtil.getAnyDateForType("YYYY", 2, "year"));
+		// test.individualsPage.enterFieldValue("Award Name","F. Albert Cotton Award in Synthetic Inorganic Chemistry");
+		// test.individualsPage.enterFieldValue("Award Year","2018");
 		test.individualsPage.clickGoButton();
 		test.individualsPage
 				.selectRandomGeneralAward_AwardNomination(currentAwardName

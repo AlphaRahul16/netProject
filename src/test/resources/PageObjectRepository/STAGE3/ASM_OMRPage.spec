@@ -53,4 +53,5 @@ txt_priceValue                              xpath                               
 btn_logout                                  css                                       a[href*='logout']
 txt_renewalthankyoumsg                      xpath                                     //h3[contains(text(),'${message}')]
 btn_applyForEmeritusNo                      css                                      input[id*='btnNo']
+chk_Autorenewal                             css                                      input[id*='chkAutoRenewal']
 =================================================================================================================================================

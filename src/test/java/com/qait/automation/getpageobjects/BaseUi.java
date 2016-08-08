@@ -76,6 +76,11 @@ public class BaseUi {
 	
 	
 	}
+	
+	public void launchUrl(String url)
+	{
+		driver.get(url);
+	}
 
 	public String getCurrentURL() {
 		return driver.getCurrentUrl();

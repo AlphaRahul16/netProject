@@ -31,6 +31,7 @@ txt_itemsAdded                                      xpath                   //a[
 list_batch                                          id                        inv_bat_key
 list_PaymentType                                     id                       inv_orig_trans_type
 list_paymentMethod                                   id                       pin_apm_key
+inp_checkNumber                                      id                       pin_check_number
 inp_cardNumber                                       id                       pin_cc_number
 list_expireDate                                      id                       pin_cc_expire
 inp_cvvNumber                                        id                       pin_cc_security_code
@@ -150,7 +151,7 @@ btn_addBatch                                     id                             
 inp_addBatchName                                 id                             bat_code
 list_batchSecurityGroup                          id                             gsc_grp_key
 drpdwn_memberType                                xpath                        //select[contains(@id,'QueryAsk')]
-btn_detailsMenuAACT                              xpath                        //span[text()='${menuName}']/../a[1]
+btn_detailsMenuAACT                              xpath                        //span[text()='${menuName}']/../a[1]/i[@class='icon-chevron-down']
 txt_termStartDaterenewal                         xpath                         (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[14]
 txt_termEndDaterenewal                           xpath                        (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[15]
 productname_txt									 xpath							(//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[4]
@@ -173,7 +174,7 @@ btn_transferMem									xpath							.//*[@id='F1_HYPERLINK_6']/img
 drpdown_memtype									xpath							.//select[@id='mbr_mbt_key']
 drpdown_package									xpath							.//select[@id='mbr_pak_prd_renewal_key']
 drpdown_invoice									xpath							.//*[@id='inv_bat_key']
-iframe											id								iframe1
+iframe1											id								iframe1
 table_rows                                      xpath                           //table[@class='table']//tr
 txt_current                                     xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[5]
 txt_startDate                                   xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[8]
@@ -181,3 +182,15 @@ txt_endDate                                     xpath                           
 arrow_selectMember                              xpath                           (//th/a)[2]/../../following-sibling::tr[${index}]//td[3]//a
 btn_CurrentYearPencil                           xpath                           //td[contains(text(),'Yes')]/preceding-sibling::td//i
 inp_dateForReviewModes                          xpath                           //input[@title='${reviewtitle}']
+<<<<<<< HEAD
+inp_checkNumber                                   id                    	  	 pin_check_number
+link_merchandise								xpath							//a[text()='merchandise']
+txt_prod_code									id								prd_code
+txt_prod_name									id								prc_display_name
+img_look_up										css							   .LookUpHyperLink
+txt_avl_qty										css							#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(8)
+txt_price										css							#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(7)
+========================================================================================================================================================================
+=======
+mbr_autoPay                                     css                             img[title*='mbr_auto_pay'][src*='${value}']
+>>>>>>> 0e4447e617218015f4ad1629785d82876fa9dd4c
