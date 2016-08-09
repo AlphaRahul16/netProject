@@ -548,6 +548,9 @@ ScarfReporting:
     queryName: "QAIT - Active Student Chapters"
 PBA:
     queryName: "Selenium - Find Active Regular Member"
+    
+OMR:
+     queryName: "Selenium - Find Active Regular Member with Proforma"
 
 VoidWithAdjustment:
     queryName: "Selenium - test open invoices"

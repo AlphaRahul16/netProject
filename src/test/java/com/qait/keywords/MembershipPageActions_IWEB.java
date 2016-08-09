@@ -2415,8 +2415,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		handleAlert();
 		switchToDefaultContent();
 		customerContactId = element("txt_renewalContactId").getText();
-		System.out.println(customerContactId);
-		System.out.println(customerLname);
 		memberDetails.add(customerLname);
 
 		memberDetails.add(customerContactId);

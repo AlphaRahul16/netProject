@@ -95,7 +95,7 @@ public class ACS_PBA_Test {
 	test.asm_PUBSPage.verifyDataFromPdfFile();
 	}
 	
-	@Test
+	//@Test
 	public void Step08_Verify_Selected_Products_With_Amount_On_Iweb_Application()
 	{
 		test.launchApplication(app_url_IWEB);
