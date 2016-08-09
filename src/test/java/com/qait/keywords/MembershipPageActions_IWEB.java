@@ -55,6 +55,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	Map<String, String> createMemberCredentials = new HashMap<String, String>();
 	private static int individualCount = 0;
 	String html = null;
+	String productName=null;
 
 	public MembershipPageActions_IWEB(WebDriver driver) {
 		super(driver, pagename);
@@ -612,7 +613,28 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ " is clicked in link_randomMemberInList\n");
 	}
 
-	public void verifyMemberStatus(String memberStatus) {
+	public void clickOnAnyRandomMember1() {
+		wait.hardWait(5);
+		hardWaitForIEBrowser(5);
+		wait.waitForPageToLoadCompletely();
+		int max = 12, min = 3;
+		Random rand = new Random();
+		int randomNumber = rand.nextInt((max - min) + 1) + min;
+		String randomNumberInString = String.valueOf(randomNumber);
+		isElementDisplayed("link_randomMemberInList", randomNumberInString);
+		String avlQty=element("txt_avl_qty",randomNumberInString).getText();
+		String price=element("price_txt",randomNumberInString).getText();
+		System.out.println("Price: "+price);	
+		if((avlQty.contains("N/A"))||(avlQty.contains("0"))||(price.contains("0.00")))
+		{
+			clickOnAnyRandomMember1();
+		}
+		element("link_randomMemberInList",randomNumberInString).click();
+		logMessage("Step : Member icon at the position of "
+				+ randomNumberInString
+				+ " is clicked in link_randomMemberInList\n");
+	}
+		public void verifyMemberStatus(String memberStatus) {
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);
 		isElementDisplayed("txt_memberStatus");
@@ -1428,7 +1450,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			isElementDisplayed("lnk_pages", "2");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
-			int max = 6, min = 2;
+			int max = 20, min = 12;
 			Random rand = new Random();
 			int randomNumber = rand.nextInt((max - min) + 1) + min;
 			// int randomNumber = (int) Math.random();
@@ -1569,6 +1591,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		waitForSpinner();
 		selectOrderEntryInfo("paymentMethod", paymentMethod);
 		waitForSpinner();
+		System.out.println("check number"+ checkNumber);
+		
 		if (paymentMethod.equalsIgnoreCase("Visa/MC")) {
 			enterCardDetails("cardNumber", cardNumber);
 			selectMemberInfo("expireDate", expireDate);
@@ -1977,7 +2001,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		}
 	}
-
+	
 	public void goToAddMembershipAndFillDetails_membership() {
 		wait.waitForPageToLoadCompletely();
 		clickOnSelectProduct();
@@ -2241,7 +2265,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 					map().get("Sub" + i + "_SalePrice?"));
 		}
 	}
-
+	
 	public void selectAddMembershipInSelectProductLink() {
 		isElementDisplayed("link_addMemership");
 		clickUsingXpathInJavaScriptExecutor(element("link_addMemership"));
@@ -4013,6 +4037,67 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : Current date lies within the "
 				+ reviewerType + " start and end date\n");
 	}
+	public void verifyCentralizedOrderEntryPage(String title)
+	{
+		Assert.assertEquals(title,getPageTitle());
+		logMessage("Step : title for Centralized Order Entry Page is verified as "+title);
+	}
+	
+	
+	public void verifyProductNameInLineItem(String productName)
+	{
+		switchToDefaultContent();
+		waitForSpinner();
+		isElementDisplayed("txt_itemsAdded",productName);
+		String prodName=element("txt_itemsAdded",productName).getText();
+	
+		Assert.assertTrue(productName.contains(prodName));
+		logMessage("Step: Selected Product is added in Line Items \n");
+	}
+	public void verifyInvoiceIsAdded(String customerName)
+	{
+		isElementDisplayed("txt_effectiveDateMemberType",customerName);
+		String actual=element("txt_effectiveDateMemberType",customerName).getText().trim();
+		String expected=DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY");
+		Assert.assertEquals(actual, expected);
+		logMessage("Step: Customer "+customerName+" is added with current date "+DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY"));
+	}
+	public void selectMerchandise()
+	{
+		wait.waitForPageToLoadCompletely();
+		holdExecution(3000);
+		switchToFrame(element("frame_selectProduct"));
+		isElementDisplayed("link_merchandise");
+		clickUsingXpathInJavaScriptExecutor(element("link_merchandise"));
+		logMessage("Step : Merchandise link is clicked in link_merchandise \n");
+	}
+	public String getProductCodeFromCOEPage()
+	{
+
+		switchToDefaultContent();
+		switchToFrame("iframe1");
+		String productCode=element("txt_prod_code").getAttribute("value"); 
+		logMessage("STEP: "+productCode+" is selected");
+		return productCode;
+	}
+	public String getProductNameFromCOEPage()
+	{
+		switchToDefaultContent();
+		switchToFrame("iframe1");
+		productName=element("inp_displayName").getAttribute("value"); 
+		logMessage("STEP: "+productName+" is selected");
+		return productName;
+		
+	}
+	public void selectRandomProduct()
+	{
+		selectMerchandise();
+		switchToDefaultContent();
+		switchToFrame(element("iframe1"));
+		clickOnSearchDisplayNameButton();
+		clickOnRandomPage();
+		clickOnAnyRandomMember1();
+	}
 
 	public void selectValidUserForAutoRenewal(String AutoRenewalquery,String queryPageUrl) {
 		if (MemberTransferLoopCount < 3) {
@@ -4052,9 +4137,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		
 		
 	}
-
-
-		
 		
 	}
 	

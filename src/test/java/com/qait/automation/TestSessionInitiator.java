@@ -7,7 +7,6 @@ import static com.qait.automation.utils.YamlReader.setYamlFilePath;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,12 +20,16 @@ import org.testng.Reporter;
 
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.TakeScreenshot;
+import com.qait.automation.utils.YamlReader;
 import com.qait.keywords.ACS_Address_Validation_Action;
 import com.qait.keywords.ACS_Apply_Payment_Actions;
-import com.qait.automation.utils.YamlReader;
 import com.qait.keywords.ACS_Awards_EWEB_PageActions;
 import com.qait.keywords.ACS_BatchProcessingActions;
 import com.qait.keywords.ACS_ReportsActions;
+import com.qait.keywords.ACS_Scarf_Reporting;
+import com.qait.keywords.ACS_Scarf_ReviewingActions;
+import com.qait.keywords.ACS_Scarf_Reviewing_Eweb_Action;
+import com.qait.keywords.ACS_Void_Invoice;
 import com.qait.keywords.ASMErrorPage;
 import com.qait.keywords.ASM_AACTPage;
 import com.qait.keywords.ASM_CCEDPage;
@@ -60,10 +63,6 @@ import com.qait.keywords.MemberNumberLookupPage;
 import com.qait.keywords.MemberShipRenewalPage;
 import com.qait.keywords.MembershipPageActions_IWEB;
 import com.qait.keywords.SubscriptionPage;
-import com.qait.keywords.ACS_Scarf_Reporting;
-import com.qait.keywords.ACS_Scarf_ReviewingActions;
-import com.qait.keywords.ACS_Scarf_Reviewing_Eweb_Action;
-import com.qait.keywords.ACS_Void_Invoice;
 
 
 public class TestSessionInitiator {
@@ -126,6 +125,7 @@ public class TestSessionInitiator {
 	public ACS_Void_Invoice acsVoidInvoice;
 	public ACS_Scarf_ReviewingActions acsScarfReviewPage;
 	public ACS_Scarf_Reviewing_Eweb_Action acsScarfReviewing;
+	
 
 	//public AwardsPageActions_IWEB AwardsPageActions_IWEB;
 
@@ -136,6 +136,7 @@ public class TestSessionInitiator {
 	}
 
 	private void _initPage() {
+		
 		ContactInfoPage = new ContactInformationPage(driver);
 		homePage = new HomePageActions(driver);
 		EduAndEmpPage = new EducationAndEmploymentPage(driver);

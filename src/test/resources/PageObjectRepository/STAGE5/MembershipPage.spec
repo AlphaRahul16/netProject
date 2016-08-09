@@ -174,7 +174,7 @@ btn_transferMem									xpath							.//*[@id='F1_HYPERLINK_6']/img
 drpdown_memtype									xpath							.//select[@id='mbr_mbt_key']
 drpdown_package									xpath							.//select[@id='mbr_pak_prd_renewal_key']
 drpdown_invoice									xpath							.//*[@id='inv_bat_key']
-iframe											id								iframe1
+iframe1											id								iframe1
 table_rows                                      xpath                           //table[@class='table']//tr
 txt_current                                     xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[5]
 txt_startDate                                   xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[8]
@@ -182,4 +182,12 @@ txt_endDate                                     xpath                           
 arrow_selectMember                              xpath                           (//th/a)[2]/../../following-sibling::tr[${index}]//td[3]//a
 btn_CurrentYearPencil                           xpath                           //td[contains(text(),'Yes')]/preceding-sibling::td//i
 inp_dateForReviewModes                          xpath                           //input[@title='${reviewtitle}']
+inp_checkNumber                                   id                    	  	 pin_check_number
+link_merchandise								xpath							//a[text()='merchandise']
+txt_prod_code									id								prd_code
+txt_prod_name									id								prc_display_name
+img_look_up										css							   .LookUpHyperLink
 mbr_autoPay                                     css                             img[title*='mbr_auto_pay'][src*='${value}']
+txt_avl_qty										css							#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(8)
+price_txt										css							#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(7)
+========================================================================================================================================================================
