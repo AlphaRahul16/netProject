@@ -68,6 +68,8 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step01_TC01_Launch_Iweb_Application_And_Select_Award")
 	public void Step02_TC02_Verify_Nominees_And_Set_Start_End_Dates_For_Round1_IWEB_Application() {
+		int votingRounds = Integer.parseInt(test.homePageIWEB.map()
+				.get("Winner in rounds").replace("Round", ""));
 		test.awardsPageAction.editAwardStartAndEndDate();
 		test.awardsPageAction.expandDetailsMenu("award stages/rounds");
 		test.awardsPageAction.uncheckClosedCheckbox_VotingClosed(
@@ -79,7 +81,7 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("General");
 		test.awardsPageAction.expandDetailsMenu("award stages/rounds");
 		test.awardsPageAction.verifyOrAddRoundsPresents();
-		test.awardsPageAction.ClearStartDateAndEndDate_AllRounds();
+		test.awardsPageAction.ClearStartDateAndEndDate_AllRounds(votingRounds);
 		startEndDate = test.awardsPageAction.editStartAndEndDate_Round(1);
 		test.awardsPageAction.clickOnSaveButton();
 		test.awardsPageAction.switchToDefaultContent();
