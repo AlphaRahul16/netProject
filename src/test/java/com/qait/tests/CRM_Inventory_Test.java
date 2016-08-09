@@ -15,6 +15,7 @@ public class CRM_Inventory_Test extends BaseTest {
 
 	String app_url_IWEB, individualName;
 	List<String> customerFullNameList;
+	String productName=null,productCode=null;
 
 	@BeforeClass
 	public void OpenBrowserWindow() {
@@ -51,12 +52,16 @@ public class CRM_Inventory_Test extends BaseTest {
 
 		test.memberShipPage.clickOnSelectProduct();
 		test.memberShipPage.selectRandomProduct();
+		productName=test.memberShipPage.getProductNameFromCOEPage();
+		productCode=test.memberShipPage.getProductCodeFromCOEPage();
+		test.memberShipPage.clickOnSaveAndFinish();
+		
 	}
 
 	@Test
 	public void Step05_Verify_that_the_selected_item_is_added_into_Line_Items() {
-		test.memberShipPage.verifyProductNameInLineItem();
-
+		
+		test.memberShipPage.verifyProductNameInLineItem(productName);
 	}
 
 	@Test
@@ -82,7 +87,8 @@ public class CRM_Inventory_Test extends BaseTest {
 	@Test
 	public void step09_verify_Invoice_profile_page_Verify_paid_in_full_is_Yes_trancation_date_with_current_date_and_product_code()
 	{
+		test.memberShipPage.clickOnStudentMemberName(1);
 		test.invoicePage.verifyInvoiceProfile("Yes");
-		test.invoicePage.verifyProductCodeInlineItem();
+		test.invoicePage.verifyProductCodeInlineItem(productCode);
 	}
 }
