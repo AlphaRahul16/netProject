@@ -623,20 +623,18 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		String randomNumberInString = String.valueOf(randomNumber);
 		isElementDisplayed("link_randomMemberInList", randomNumberInString);
 		String avlQty=element("txt_avl_qty",randomNumberInString).getText();
-		String price=element("txt_price",randomNumberInString).getText();
-		System.out.println("Price: "+price);
-		clickUsingXpathInJavaScriptExecutor(element("link_randomMemberInList",
-				randomNumberInString));
-		
-		if((avlQty=="N/A")||(avlQty=="0")||(price=="0.00"))
+		String price=element("price_txt",randomNumberInString).getText();
+		System.out.println("Price: "+price);	
+		if((avlQty.contains("N/A"))||(avlQty.contains("0"))||(price.contains("0.00")))
 		{
 			clickOnAnyRandomMember1();
 		}
+		element("link_randomMemberInList",randomNumberInString).click();
 		logMessage("Step : Member icon at the position of "
 				+ randomNumberInString
 				+ " is clicked in link_randomMemberInList\n");
 	}
-	public void verifyMemberStatus(String memberStatus) {
+		public void verifyMemberStatus(String memberStatus) {
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);
 		isElementDisplayed("txt_memberStatus");
@@ -1452,7 +1450,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			isElementDisplayed("lnk_pages", "2");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
-			int max = 6, min = 2;
+			int max = 20, min = 12;
 			Random rand = new Random();
 			int randomNumber = rand.nextInt((max - min) + 1) + min;
 			// int randomNumber = (int) Math.random();
@@ -4045,16 +4043,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : title for Centralized Order Entry Page is verified as "+title);
 	}
 	
-
-	public void verifyProductNameInLineItem()
+	
+	public void verifyProductNameInLineItem(String productName)
 	{
 		switchToDefaultContent();
 		waitForSpinner();
 		isElementDisplayed("txt_itemsAdded",productName);
 		String prodName=element("txt_itemsAdded",productName).getText();
+	
 		Assert.assertTrue(productName.contains(prodName));
-		System.out.println(prodName);
-		//Assert.assertEquals(productName, prodName);
 		logMessage("Step: Selected Product is added in Line Items \n");
 	}
 	public void verifyInvoiceIsAdded(String customerName)
@@ -4063,7 +4060,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		String actual=element("txt_effectiveDateMemberType",customerName).getText().trim();
 		String expected=DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY");
 		Assert.assertEquals(actual, expected);
-		//Assert.assertTrue(element("txt_effectiveDateMemberType",customerName).getText().equals(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY")));
 		logMessage("Step: Customer "+customerName+" is added with current date "+DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY"));
 	}
 	public void selectMerchandise()
@@ -4075,12 +4071,22 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickUsingXpathInJavaScriptExecutor(element("link_merchandise"));
 		logMessage("Step : Merchandise link is clicked in link_merchandise \n");
 	}
-	public void getProductNameFromCOEPage()
+	public String getProductCodeFromCOEPage()
+	{
+
+		switchToDefaultContent();
+		switchToFrame("iframe1");
+		String productCode=element("txt_prod_code").getAttribute("value"); 
+		logMessage("STEP: "+productCode+" is selected");
+		return productCode;
+	}
+	public String getProductNameFromCOEPage()
 	{
 		switchToDefaultContent();
 		switchToFrame("iframe1");
 		productName=element("inp_displayName").getAttribute("value"); 
 		logMessage("STEP: "+productName+" is selected");
+		return productName;
 		
 	}
 	public void selectRandomProduct()
@@ -4091,9 +4097,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnSearchDisplayNameButton();
 		clickOnRandomPage();
 		clickOnAnyRandomMember1();
-		getProductNameFromCOEPage();
-		clickOnSaveAndFinish();
-		switchToDefaultContent();
 	}
 
 	public void selectValidUserForAutoRenewal(String AutoRenewalquery,String queryPageUrl) {
