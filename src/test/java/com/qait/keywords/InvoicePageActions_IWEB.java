@@ -26,6 +26,24 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		this.driver = driver;
 	}
 
+	public void verifyInvoiceProfile(String paidInFull)
+	{
+		verifyMemberDetails_question("paid in full", paidInFull);
+		verifyMemberDetails("transaction date",
+				DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY"));
+	}
+	
+	public void verifyProductCodeInlineItem(String prodCode)
+	{
+		hardWaitForIEBrowser(3);
+		expandDetailsMenu("line items");
+		hardWaitForIEBrowser(10);
+		String productCode=element("txt_code").getText().trim();
+		System.out.println("P code"+productCode);
+		Assert.assertTrue(productCode.contains(prodCode));
+		logMessage("ASSERT PASSED: Product Code is matched in Line Item");
+		
+	}
 	public void verifyInvoicedDetails(String caseId, String menuName,
 			String invoiceNumber, String[] quantities, String Total) {
 

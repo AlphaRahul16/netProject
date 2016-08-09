@@ -59,9 +59,11 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnActiveSubscription() {
+		hardWaitForChromeBrowser(3);
 		isElementDisplayed("lnk_moreTab");
 		element("lnk_moreTab").click();
 		logMessage("step: more tab is expanded !!");
+		hardWaitForChromeBrowser(2);
 		isElementDisplayed("lnk_subscriptionTab");
 		element("lnk_subscriptionTab").click();
 		logMessage("subscription tab is selected in expanded more option !!");
@@ -108,8 +110,17 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_printReceipt");
 		element("btn_printReceipt").click();
 		logMessage("Step: Clicked on print order receipt !!");
-		wait.hardWait(8);
+		wait.hardWait(10);
+		_verifyPDFFileIsDownloaded("report");
 	}
+
+	private void _verifyPDFFileIsDownloaded(String fileName) {
+		String source = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + fileName
+				+ ".pdf";
+		File sourceFile = new File(source);
+		Assert.assertTrue(sourceFile.exists());
+		}
 
 	public void verifyDataFromPdfFile() throws IOException {
 		System.out.println("===================================================================================");
@@ -195,6 +206,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnAddButtonInPassport() {
+		hardWaitForChromeBrowser(3);
 		isElementDisplayed("btn_add");
 		element("btn_add").click();
 		logMessage("Step : add button is clicked in btn_add \n");
@@ -273,6 +285,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnFirstAddButton() {
+		hardWaitForChromeBrowser(3);
 		isElementDisplayed("btn_add");
 		element("btn_add").click();
 		logMessage("Step : add button is clicked in btn_add \n");
