@@ -249,11 +249,11 @@ public class ASCSocietyGenericPage extends GetPage {
 		}
 	}
 
-	private static String extractFromPdf(String filename, int totalnumberofpages)
+	public static String extractFromPdf(String filename, int totalnumberofpages)
 			throws IOException {
 		String uploadedfilepath = "./src/test/resources/DownloadedFiles/"
 				+ filename + ".pdf";
-		String parsedText = null;
+		String parsedText = "";
 		PDFTextStripper pdfStripper = null;
 		PDDocument pdDoc = null;
 		COSDocument cosDoc = null;
@@ -271,7 +271,7 @@ public class ASCSocietyGenericPage extends GetPage {
 			pdfStripper.setStartPage(1);
 			pdfStripper.setEndPage(2);
 			parsedText = pdfStripper.getText(pdDoc);
-			System.out.println(parsedText);
+			System.out.println("Parsed Text::"+parsedText);
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
 		} finally {
@@ -284,7 +284,8 @@ public class ASCSocietyGenericPage extends GetPage {
 				e.printStackTrace();
 			}
 		}
-		return parsedText;
+		parsedText = parsedText.replaceAll(System.getProperty("line.separator"), "");
+        return parsedText;
 	}
 
 	public void extractAndCompareTextFromPdfFile(String filename,

@@ -43,7 +43,7 @@ public class WebDriverFactory {
 				return getFirefoxDriver();
 			} else if (browser.equalsIgnoreCase("chrome")) {
 				return getChromeDriver(seleniumconfig.get("driverpath")
-						+ "chromedriver");
+						+ "chromedriver.exe");
 			} else if (browser.equalsIgnoreCase("Safari")) {
 				return getSafariDriver();
 			} else if ((browser.equalsIgnoreCase("ie"))
@@ -131,6 +131,7 @@ public class WebDriverFactory {
 		profile.setPreference(
 				"browser.helperApps.neverAsk.saveToDisk",
 				"application/pdf, application/csv, application/ris, text/csv,text/plain, application/zip, application/x-zip, application/x-zip-compressed, application/download, application/octet-stream,text/csv,application/vnd.ms-excel");
+		profile.setPreference("plugin.disable_full_page_plugin_for_types", "application/pdf,application/vnd.adobe.xfdf,application/vnd.fdf,application/vnd.adobe.xdp+xml");
 		profile.setPreference("browser.download.manager.showWhenStarting",
 				false);
 		profile.setPreference("browser.download.manager.focusWhenStarting",

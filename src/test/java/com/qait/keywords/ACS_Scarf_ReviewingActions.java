@@ -5,6 +5,7 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 
@@ -46,24 +47,35 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 	}
 
 	public String assignReviewerToAChapter(String reviewertype, int reviewercount) {
-		
+		hardWaitForChromeBrowser(2);
 		selectDropDownValue(reviewertype);
 		 waitForSpinner();
-		 wait.hardWait(4);
+		 wait.hardWait(2);
    
         int reviwerListSize= elements("list_reviewerNameOptions").size();
+   	    wait.hardWait(2);
+        int randomReviewer=ASCSocietyGenericPage.generateRandomNumberWithInRange(0,reviwerListSize-1);
         System.out.println(reviwerListSize);
-        element("list_reviewerOptions",toString().valueOf(generateRandomNumberWithInRange(0,reviwerListSize-1))).click();
+        elements("list_reviewerNameOptions").get(randomReviewer).click();
    	     wait.hardWait(3);
-        toString();
-		reviewerNameList.add(element("list_reviewerOptions",toString().valueOf(generateRandomNumberWithInRange(0,reviwerListSize-1))).getText().trim());
+
+   	     try
+   	     {
+		reviewerNameList.add(elements("list_reviewerNameOptions").get(randomReviewer).getText().trim());
+   	     }
+   	     catch(StaleElementReferenceException e)
+   	     {
+   	    	 System.out.println("In Catch");
+   	    	reviewerNameList.add(elements("list_reviewerNameOptions").get(randomReviewer).getText().trim());
+   	     }
+   	     
         waitForSpinner();
 		logMessage("Step : "+reviewerNameList.get(reviewerNameCount)+" is selected as a "+reviewertype);
-//		if((reviewertype.equals("Online Reviewer"))&&(reviewercount==0))
-//		{
-//			assignedchaptername=getAssignedChapterName();
-//			
-//		}
+		if((reviewertype.equals("Online Reviewer"))&&(reviewercount==0)&&(assignedchaptername==null))
+		{
+			assignedchaptername=getAssignedChapterName();
+			
+		}
 		System.out.println("----"+assignedchaptername);
 		clickAssignButtonToassignReviewerToChapter(reviewertype,assignedchaptername);
 		reviewerNameCount++;
@@ -110,12 +122,22 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 
 
 	public String[] getCustomerSortName(ArrayList<String> reviewerNameList) {
-	   
+		String ComplexReviewerName;
+		String[] complexNameArray;
 		System.out.println(reviewerNameList.size());
 		for (int i = 0; i < reviewerNameList.size(); i++) {
 			System.out.println(reviewerNameList.get(i));
-			int size=reviewerNameList.get(i).split(" ").length;
-			custmerSortNames[i]=reviewerNameList.get(i).split(" ")[size-1];
+			if(reviewerNameList.get(i).contains(","))
+			{
+				ComplexReviewerName=reviewerNameList.get(i).split(",")[0].trim();
+			}
+			else
+			{
+				ComplexReviewerName=reviewerNameList.get(i);
+			}
+			complexNameArray=ComplexReviewerName.split(" ");
+			int size=complexNameArray.length;
+			custmerSortNames[i]=complexNameArray[size-1];
 			System.out.println(custmerSortNames[i]);
 		}
 		return custmerSortNames;

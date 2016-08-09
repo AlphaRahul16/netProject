@@ -3,9 +3,11 @@ package com.qait.keywords;
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.xalan.templates.ElemNumber;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
@@ -15,8 +17,8 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 
 	WebDriver driver;
 	static String pagename = "Scarf_Reviewing";
-	Map<String,Map<String,String>> reviewerComments=new HashMap<String,Map<String,String>>();
-	Map<String,String> reviewerSections=new HashMap<String,String>();
+	Map<String,Map<String,String>> reviewerComments=new LinkedHashMap<String,Map<String,String>>();
+	Map<String,String> reviewerSections;
 	int timeOut;
 	int hiddenfieldtimeout;
 	
@@ -31,6 +33,7 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 		boolean flag=false;
 		int i;
 		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
 		isElementDisplayed(elem,elementValue);
 		for(i=2;i<=elements(elem,elementValue).size();i++){
 			if(chapterName.equalsIgnoreCase(element("txt_ChapterName",String.valueOf(i),String.valueOf(1)).getText().trim())){
@@ -64,6 +67,7 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 		Assert.assertEquals(element("txt_ChapterName",String.valueOf(index),String.valueOf(2)).getText().trim()
 				, status,"ASSERT FAILED : The status of the chapter is not "+status+"\n");
 		logMessage("ASSERT PASSED : The status of the chapter is "+status+"\n");
+		System.out.println("-----map is:"+reviewerComments);
 	}
 	
 	public void selectChapterReviewImage(int index){
@@ -74,7 +78,7 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 	
 	public void enterRating(String rating,String sectionName){
 		logMessage("*********Entering review comments for "+sectionName+" section*********\n");
-		if(!sectionName.equalsIgnoreCase("Overall Reviewer Assessment")){
+		if(!sectionName.equalsIgnoreCase("Online Reviewer Assessment")){ //Overall Report Assessment
 		selectProvidedTextFromDropDown(element("list_ratingOptions"), rating);
 		logMessage("STEP : Rating value entered as "+rating+"\n");
 		}
@@ -92,6 +96,7 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 		logMessage("STEP : Comments entered as "+comments+"\n");
 		element("txt_commentsTextbox").sendKeys(comments);
 		switchToDefaultContent();
+		reviewerSections.put("Green Chemistry", comments);
 	}
 	
 	public void enterCommentsForSections(String sectionName,String comments){
@@ -117,6 +122,10 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 		return answers;
 	}
 	
+	public void initializeMap(){
+		reviewerSections=new HashMap<String,String>();
+	}
+	
 	public void addReviewerComments(String reviewerMode){	
 		reviewerComments.put(reviewerMode,reviewerSections);
 		System.out.println("------comments :"+reviewerComments.get(reviewerMode));
@@ -124,6 +133,7 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 	
 	public Map<String, Map<String, String>> getReviewerCommentsMap()
 	{
+		System.out.println("-----original map is:"+reviewerComments);
 		return reviewerComments;
 	}
 	
@@ -179,9 +189,10 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 	
 	public void verifyReviewerTypeWindow(String reviewerType){
 		wait.waitForPageToLoadCompletely();
-		isElementDisplayed("heading_reviewerType");
-		logMessage("ASSERt PASSED : Pop-up window is displayed for selecting Reviewer type\n");
+		if(checkIfElementIsThere("heading_reviewerType")){
+		logMessage("ASSERT PASSED : Pop-up window is displayed for selecting Reviewer type\n");
 		selectTypeOfReviewer(reviewerType);
+		}
 	}
 	
 	public void selectTypeOfReviewer(String reviewerType){  
@@ -195,28 +206,43 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 		if(sectionName.equalsIgnoreCase("Service")||sectionName.equalsIgnoreCase("Professional Development")){
 			clickOnCannedAnswersButton();
 			enterCommentsViaCannedAnswers();
+			reviewerSections.put(sectionName, getCannedAnswersComments());	
 		}
 		else{
-			copyCommentsToFdp(index);
-		    verifyRviewerCommentIsCopied(index);
+			index=copyCommentsToFdp(index);
+		    String comments=verifyRviewerCommentIsCopied(index);
+			reviewerSections.put(sectionName, comments);		
 		}
 	}
 	
-	public void copyCommentsToFdp(int index){
+	public int copyCommentsToFdp(int index){
 		isElementDisplayed("btn_copyComments",String.valueOf(index));
-		logMessage("-----comment added----"+element("txt_reveiwerComment",String.valueOf(index)).getText().trim());
-		element("btn_copyComments",String.valueOf(index)).click();
+		if(checkIfElementIsThere("txt_reveiwerComment",String.valueOf(index))){
+			System.out.println("------in if");
+			logMessage("-----comment added----"+element("txt_reveiwerComment",String.valueOf(index)).getText().trim());
+			element("btn_copyComments",String.valueOf(index)).click();
+			
+		}
+		else{
+			System.out.println("------in else");
+			index++;
+			logMessage("-----comment added----"+element("txt_reveiwerComment",String.valueOf(index)).getText().trim());
+			element("btn_copyComments",String.valueOf(index)).click();
+		}
+		return index;
 	}
 	
-	public void verifyRviewerCommentIsCopied(int index){
-		String expected;
+	public String verifyRviewerCommentIsCopied(int index){
+		String expected,actual;
 		expected=element("txt_reveiwerComment",String.valueOf(index)).getText().trim();
 		switchToFrame(element("lnk_iframe"));
 		isElementDisplayed("txt_commentsTextbox");
-		Assert.assertEquals(element("txt_commentsTextbox").getText().trim(), expected,
+		actual=element("txt_commentsTextbox").getText().trim();
+		Assert.assertEquals(actual, expected,
 				"ASSERT FAILED : Reviewer comments are not copied properly\n");
 		logMessage("ASSERT PASSED : Reviewer comments are copied properly\n");
 		switchToDefaultContent();
+		return actual;
 	}
 	
 	public void clickOnSubmittedChaptersTab(String tabName){
@@ -258,18 +284,28 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 
 
 	public void verifyReviewerAnswers(Map<String, Map<String, String>> reviewerCommentsMap,int reviewerNumber,String sectionName,String ReviewerName) {
-	System.out.println(reviewerCommentsMap.get("Reviewer" + reviewerNumber).get(sectionName));
+		
+		System.out.println("-----original map is:"+reviewerComments);
+
+		System.out.println(reviewerCommentsMap.get("Reviewer" + reviewerNumber).get(sectionName));
+	System.out.println(reviewerCommentsMap.get("Reviewer" + reviewerNumber));
 	try
 	{
 		wait.resetExplicitTimeout(hiddenfieldtimeout);
 		wait.resetImplicitTimeout(2);
-	isElementDisplayed("txt_answersReview", sectionName, ReviewerName);
-	System.out.println(element("txt_answersReview", sectionName, ReviewerName).getText().trim());
-	}
-	catch(Exception e)
-	{
-		element("lnk_PageNumber","2").click();
 		System.out.println(element("txt_answersReview", sectionName, ReviewerName).getText().trim());
+	isElementDisplayed("txt_answersReview", sectionName, ReviewerName);
+	Assert.assertTrue(element("txt_answersReview", sectionName, ReviewerName).getText().trim().equals(reviewerCommentsMap.get("Reviewer" + reviewerNumber).get(sectionName)));
+	logMessage("ASSERT PASSED : Reviewer "+ReviewerName+" answers for "+sectionName+" is verified as "+reviewerCommentsMap.get("Reviewer" + reviewerNumber).get(sectionName));
+	}
+	catch(NoSuchElementException e)
+	{
+	element("lnk_PageNumber","2").click();
+	logMessage("Step : page 2 is clicked in the list\n");
+	Assert.assertTrue(element("txt_answersReview", sectionName, ReviewerName).getText().trim().equals(reviewerCommentsMap.get("Reviewer" + reviewerNumber).get(sectionName)));
+	logMessage("ASSERT PASSED : Reviewer "+ReviewerName+" answers for "+sectionName+" is verified as "+reviewerCommentsMap.get("Reviewer" + reviewerNumber).get(sectionName));
+	element("lnk_PageNumber","1").click();
+	logMessage("Step : page 2 is clicked in the list\n");
 	}
 	wait.resetExplicitTimeout(hiddenfieldtimeout);
 	wait.resetImplicitTimeout(2);

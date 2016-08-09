@@ -26,6 +26,26 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		this.driver = driver;
 	}
 
+
+	public void clickOnGoToRecord()
+	{
+		isElementDisplayed("arrow_selectMember","1");
+		element("arrow_selectMember","1").click();
+		logMessage("Step: goto record button is clicked");
+	}
+	public void verifyInvoiceProfile(String paidInFull)
+	{
+		clickOnGoToRecord();
+		verifyMemberDetails_question("paid in full", paidInFull);
+		verifyMemberDetails("transaction date",
+				DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY"));
+	}
+	public void verifyProductCodeInlineItem()
+	{
+		hardWaitForIEBrowser(3);
+		expandDetailsMenu("line items");
+		hardWaitForIEBrowser(10);
+	}
 	public void verifyInvoicedDetails(String caseId, String menuName,
 			String invoiceNumber, String[] quantities, String Total) {
 
@@ -905,6 +925,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	
 	public void verifyScarfReviewerCommentsAndStatus(String reviewerName,String reviewerComment,String reviewerStatus)
 	{
+		System.out.println("---reviewer name is:"+reviewerName);
 		isElementDisplayed("txt_code",reviewerName);
 		isElementDisplayed("txt_priceValue",reviewerName);
 		Assert.assertTrue(element("txt_code",reviewerName).getText().trim().equals(reviewerComment),"reviewer "+reviewerName+" comments as "+reviewerComment+" not present on iweb\n");

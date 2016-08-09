@@ -355,7 +355,11 @@ ASM_MemberNumberLookup_SmokeChecklistData:
 ASM_PUBS_SmokeChecklistData: 
     userName: tscherer
     password: password
-    expirationYear: 2023   
+    expirationYear: 2023  
+    
+ACS_PBA_Product:
+    shortName: Accts of Chem Res Mbr Web Archive
+    fullName: Accounts of Chemical Research Member Web Archive - Member 
 
 ASM_Nominate_SmokeChecklistData: 
     lastName: Burnham
@@ -549,8 +553,13 @@ ScarfReporting:
 PBA:
     queryName: "Selenium - Find Active Regular Member"
     
+<<<<<<< HEAD
 OMR:
      queryName: "Selenium - Find Active Regular Member with Proforma"
+=======
+CMR_Inventory:
+    queryName: "Selenium - Find Active Regular Member" 
+>>>>>>> a3bb5927363b93d09e15e1580cb547d33dde3381
 
 VoidWithAdjustment:
     queryName: "Selenium - test open invoices"
@@ -568,6 +577,7 @@ ScarfReviewer:
     reviewRating: Commendable
     reviewComments: test comments
     overallRating: Outstanding
+    overallGCRating: Yes
     overallReviewComment: outstanding test data
     
     
@@ -589,6 +599,10 @@ ACS_ApplyPayment:
     PaymentMethod: 
         Select: "BOA - Check"
         Unselect: "Visa/MC"
+        
+         
+ACS_AutoRenewal_Selection_In_OMR:
+    AutoRenewal_Query: Selenium - Find Active Regular Member with Proforma
                
 email:
   send: true
@@ -597,5 +611,9 @@ email:
     recepient2: deepakkumar1@qainfotech.com
     recepient3: kanikasharma@qainfotech.com
     
-
-
+CRM_Inventory:
+  batch: "Selenium Testing"
+  productCode: "209-116-1000"
+  PaymentType: prepaid
+  paymentMethod: "BOA - Check"
+  checkNumber: "1111"

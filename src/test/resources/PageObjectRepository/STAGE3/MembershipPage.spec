@@ -33,8 +33,8 @@ list_PaymentType                                     id                       in
 list_paymentMethod                                   id                       pin_apm_key
 inp_cardNumber                                       id                       pin_cc_number
 list_expireDate                                      id                       pin_cc_expire
-inp_cvvNumber                                        id                       pin_cc_security_code
 inp_checkNumber                                      id                       pin_check_number
+inp_cvvNumber                                        id                       pin_cc_security_code
 txt_rejoinDateForActive                              xpath                    //td[contains(text(),'Active')]/following-sibling::td[2]
 img_ticked                                           xpath                    //img[@id='F1_IMAGE_${index}']
 list_billingAdd                                    xpath                      //select[@id='inv_cxa_key']/option      
@@ -151,7 +151,7 @@ btn_addBatch                                     id                             
 inp_addBatchName                                 id                             bat_code
 list_batchSecurityGroup                          id                             gsc_grp_key
 drpdwn_memberType                                xpath                        //select[contains(@id,'QueryAsk')]
-btn_detailsMenuAACT                              xpath                        //span[text()='${menuName}']/../a[1]
+btn_detailsMenuAACT                              xpath                        //span[text()='${menuName}']/../a[1]/i[@class='icon-chevron-down']
 txt_termStartDaterenewal                         xpath                         (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[14]
 txt_termEndDaterenewal                           xpath                        (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[15]
 productname_txt									 xpath							(//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[4]
@@ -182,3 +182,4 @@ txt_endDate                                     xpath                           
 arrow_selectMember                              xpath                           (//th/a)[2]/../../following-sibling::tr[${index}]//td[3]//a
 btn_CurrentYearPencil                           xpath                           //td[contains(text(),'Yes')]/preceding-sibling::td//i
 inp_dateForReviewModes                          xpath                           //input[@title='${reviewtitle}']
+mbr_autoPay                                     css                             img[title*='mbr_auto_pay'][src*='${value}']

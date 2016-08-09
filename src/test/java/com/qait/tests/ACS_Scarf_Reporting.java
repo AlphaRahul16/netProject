@@ -105,8 +105,8 @@ public class ACS_Scarf_Reporting {
 
 	@Test
 	public void Step06_Login_Into_Student_Chapter_Eweb_Application_And_Verify_Report_Status() {
-		test.launchApplication(getYamlValue("app_url_EwebReporting"));
-		test.acsScarfReporting.loginWithLastNameAndMemberId(memberDetails.get(0), memberDetails.get(1));// "McKinley","30938296" "Davis","30761435""Wolf","308413336
+		test.launchApplication(getYamlValue("app_url_EwebReporting")); //"McKinley","30938296" "LaRoe", "30845095"
+        test.acsScarfReporting.loginWithLastNameAndMemberId(memberDetails.get(0), memberDetails.get(1));// "McKinley","30938296" "Davis","30761435""Wolf","308413336
 //        test.acsScarfReporting.loginWithLastNameAndMemberId("Landrum","30793155");//"Tchalla","30926975"
 		test.acsScarfReporting.verifyStudentChapterReportingPage();
 		test.acsScarfReporting.verifyReportStatus("Pending");
@@ -175,11 +175,11 @@ public class ACS_Scarf_Reporting {
 	}
 
 	@Test
-	public void Step15_Enter_Details_For_Green_Chemistry_Section() {
+	public void Step15_Enter_Details_For_Green_Chemistry_Section() {		
 		test.acsScarfReporting.checkSectionStatus("Green Chemistry");
 		test.acsScarfReporting.clickOnNotStartedButtonForSection("Green Chemistry", "In-progress");
 		test.acsScarfReporting.enterSectionDetails(dataList.get("Answers"), "Green Chemistry", 1);
-//		test.acsScarfReporting.clickOnGreenChemistryCheckbox();
+		test.acsScarfReporting.clickOnGreenChemistryCheckbox();
 		test.acsScarfReporting.clickOnSelfAssessmentSaveButton("Save");
 		test.acsScarfReporting.verifyChapterStatus("Green Chemistry", "Complete");
 	}

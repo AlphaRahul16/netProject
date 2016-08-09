@@ -38,5 +38,6 @@ lnk_activeSubscription                     xpath                              (.
 td_subscription				   xpath                              //td[contains(text(),'${productName}')]/..//td[contains(text(),'${productAmount}')]
 btn_printReceipt                           xpath                              .//*[@id='print-invoice']/span/input
 img_spinner                                 css                           #__UPIMG
+txt_pdf_productName							xpath							.//xhtml:div[contains(text(),'ACS Member E-Passport: 250')]
 
 ===========================================================================================================================================

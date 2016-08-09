@@ -37,6 +37,7 @@ csv-data-file:
   path_AwardNomination: ./src/test/resources/TestDataLibrary/AwardNominationDatasheet.csv
   path_OMR: ./src/test/resources/TestDataLibrary/OMR_Datasheet.csv
   path_GeneralAwardList: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument.txt
+  path_GeneralAwardList_2018: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument_2018.txt
   path_AwardsVoting: ./src/test/resources/TestDataLibrary/Awards_Voting_Data_Sheet.csv
   path_MYDTransfer: ./src/test/resources/TestDataLibrary/Multi_Year_Dues_Transfer_Sheet.csv
   data-separator: '\t'
@@ -48,8 +49,8 @@ excel-data-file:
   
   
 Authentication: 
-  userName: c00616
-  password: "A9319161853@"
+  userName: c00569
+  password: "3r0P85&8"
 
 
 ASM_Data_File: 
@@ -555,6 +556,14 @@ VoidWithAdjustment:
     prodName: "Regular Member Dues C&EN-Electronic"
     emptItemsMessage: "There are no results to display."  
     
+ScarfReviewer:
+    queryName: "BP - Reviewers"
+    reviewRating: Commendable
+    reviewComments: test comments
+    overallRating: Outstanding
+    overallGCRating: "Yes"
+    overallReviewComment: outstanding test data
+    
     
 ACS_ApplyPayment: 
     DetailsToFindMember:  
@@ -574,6 +583,9 @@ ACS_ApplyPayment:
     PaymentMethod: 
         Select: "BOA - Check"
         Unselect: "Visa/MC"
+        
+ACS_AutoRenewal_Selection_In_OMR:
+    AutoRenewal_Query: Selenium – Find Random Active Member with Proforma
                
 email:
   send: true

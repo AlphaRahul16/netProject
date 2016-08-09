@@ -1,3 +1,0 @@
-# PSM Certificate Override Settings file
-# This is a generated file!  Do not edit.
-dev-eweb12:443	OID.2.16.840.1.101.3.4.2.1	80:55:AD:B8:45:20:E8:C4:AA:A5:0F:F7:69:07:E0:54:B2:FA:26:AD:E7:8D:92:4B:A4:4B:66:FD:81:AB:76:90	MUT	AAAAAAAAAAAAAAAQAAAAH2TLWXTX6/GJRbbM+gaqcsowHTEbMBkGA1UEAxMSREVW  LUVXRUIxMi5hY3Mub3Jn

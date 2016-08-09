@@ -50,6 +50,13 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		ClearEndDateEmpty_Round("1");
 		ClearEndDateEmpty_Round("2");
 		ClearEndDateEmpty_Round("3");
+
+	}
+
+	public void resetWinnerType() {
+		isElementDisplayed("list_resetWinnerStatus");
+		selectProvidedTextFromDropDown(element("list_resetWinnerStatus"),
+				"Please select");
 	}
 
 	public void ClearStartDateEmpty_Round(String roundNumber) {
@@ -128,6 +135,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			String[] startEndDate = { startDate, endDate };
 			System.out.println("startDate :" + startDate);
 			System.out.println("endDate :" + endDate);
+			// resetWinnerType();
 			return startEndDate;
 		} else {
 			System.out.println("round number is null");
@@ -151,6 +159,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void uncheckClosedCheckbox_VotingClosed(String awardName,
 			String roundNumber) {
 		goToRecordForRound("1");
+
 		boolean closedStatus = isClosedStatusOnAwardsStageProfile_Yes("Yes");
 		System.out.println("closed status : " + closedStatus);
 		if (closedStatus) {
@@ -166,6 +175,38 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		} else
 			logMessage("INFO : Awards Voting is not closed\n");
 		clickOnAwardsName_RoundName(awardName);
+	}
+
+	public void clickOnEditButtonForAwards() {
+		isElementDisplayed("btn_editAwards");
+		element("btn_editAwards").click();
+		logMessage("Step : edit awards button is clicked \n");
+	}
+
+	public void enterStartEndDateInEditAwards(String labelName,
+			String inputDateValue) {
+		isElementDisplayed("inp_editDateInEditAwards", labelName);
+		element("inp_editDateInEditAwards", labelName).clear();
+		element("inp_editDateInEditAwards", labelName).sendKeys(inputDateValue);
+		logMessage("Step : enter " + inputDateValue + " for " + labelName
+				+ " in edit awards page \n");
+	}
+
+	public void editAwardStartAndEndDate() {
+		clickOnEditButtonForAwards();
+		switchToFrame("iframe1");
+		enterStartEndDateInEditAwards("application start date",
+				DateUtil.getAddYearWithLessOnedayInStringWithGivenFormate(
+						"MM/dd/YYYY", "-1", "EST5EDT"));
+		enterStartEndDateInEditAwards("application end date",
+				DateUtil.getAddYearWithLessOnedayInStringWithGivenFormate(
+						"MM/dd/YYYY", "2", "EST5EDT"));
+		enterStartEndDateInEditAwards("remove from web",
+				DateUtil.getAddYearWithLessOnedayInStringWithGivenFormate(
+						"MM/dd/YYYY", "2", "EST5EDT"));
+
+		clickOnSaveButton();
+		switchToDefaultContent();
 	}
 
 	public boolean isClosedStatusOnAwardsStageProfile_Yes(String closedStatus) {
@@ -269,6 +310,9 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			System.out.println(nominee);
 		}
 		System.out.println("nominees size :" + nomineesNames.size());
+		if (nomineesNames.size() < 10) {
+			Assert.fail("ASSERT FAILED : Nominees Size is not greater than equal to 10\n");
+		}
 		return nomineesNames;
 	}
 
@@ -381,7 +425,9 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnAddRoundButton(String tabName) {
 		isElementDisplayed("btn_addRounds_judges", tabName);
-		element("btn_addRounds_judges", tabName).click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_addRounds_judges",
+				tabName));
+		// element("btn_addRounds_judges", tabName).click();
 		logMessage("Step : add button for " + tabName + " is clicked\n");
 	}
 
@@ -436,7 +482,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			wait.resetExplicitTimeout(timeOut);
 			logMessage("INFO : Judges are not present in the list of judges \n");
 			int numberOfJudges = 0;
-			System.out.println("nu of judges" + numberOfJudges);
+			System.out.println("number of judges" + numberOfJudges);
 			if (numberOfJudges < 5) {
 				int numberOfJudgesToAdd = 5 - numberOfJudges;
 				System.out.println(numberOfJudgesToAdd);
@@ -462,7 +508,9 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 				"Round " + roundNumber);
 		logMessage("Step : Round " + roundNumber
 				+ " is selected in list_selectRoundNumber\n");
+		waitForSpinner();
 		clearJudgeNameOnAdd();
+		clickOnStageAwardLabel();
 		clickOnSearchButtonOnEditRecord();
 		wait.hardWait(2);
 		switchToDefaultContent();
@@ -476,6 +524,12 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			addJudges(roundNumber);
 		}
 		switchToDefaultContent();
+	}
+
+	public void clickOnStageAwardLabel() {
+		isElementDisplayed("lbl_stageAwardInEdit");
+		element("lbl_stageAwardInEdit").click();
+		logMessage("Step : Name label is clicked on edit judge page \n");
 	}
 
 	public void clickOnCancelButton() {
@@ -500,9 +554,12 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnSearchButtonOnEditRecord() {
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
 		isElementDisplayed("btn_search");
 		wait.waitForElementToBeClickable(element("btn_search"));
-		element("btn_search").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_search"));
+		// element("btn_search").click();
 		logMessage("Step : search button is clicked \n");
 	}
 
