@@ -34,11 +34,18 @@ public class ACS_Email_Preferences_Test {
 		
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Marketing");
-		
-		
+		test.homePageIWEB
+		.verifyUserIsOnHomePage("Marketing | Overview | Overview");    
+	}
+	
+	@Test
+	public void Step03_Click_On_MarkettingSetupPage_Link_Then_Click_On_PlusSign_Button_Of_MailingList_Tab_And_Verify_Popup()
+	{
+		test.homePageIWEB.clickOnTab("Marketing Setup page.");
 		
 		
 	}
+	
 	
 	
 	

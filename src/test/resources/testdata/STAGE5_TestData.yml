@@ -553,13 +553,11 @@ ScarfReporting:
 PBA:
     queryName: "Selenium - Find Active Regular Member"
     
-<<<<<<< HEAD
 OMR:
      queryName: "Selenium - Find Active Regular Member with Proforma"
-=======
+     
 CMR_Inventory:
     queryName: "Selenium - Find Active Regular Member" 
->>>>>>> a3bb5927363b93d09e15e1580cb547d33dde3381
 
 VoidWithAdjustment:
     queryName: "Selenium - test open invoices"
