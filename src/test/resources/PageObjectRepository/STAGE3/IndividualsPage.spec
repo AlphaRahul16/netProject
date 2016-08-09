@@ -68,4 +68,13 @@ link_editEmail                            xpath                 (//a[@title='edi
 list_individualMem						  xpath				    //span[contains(text(),'individual memberships')]/parent::td/parent::tr/following-sibling::tr/td/div/table/tbody/tr[not(contains(@style,'none'))]//td[11]
 individualmem_data					      xpath					(//span[contains(text(),'individual memberships')]/parent::td/parent::tr/following-sibling::tr/td/div/table/tbody/tr[not(contains(@style,'none'))]//td[11]/..//td[11])[${value}]/..//td[${field}]
 btn_scarfReviewerUserList                 xpath                 (//td[starts-with(text(),'${fullname}')]/following-sibling::td[1][contains(text(),'${currentYear}')]/preceding-sibling::td//img)[1]
+txt_memberDetailsForChapter               xpath                 (//span[text()='${name}']/parent::td/parent::tr/following-sibling::tr/td/div/table/tbody/tr[not(contains(@style,'none'))]//td[%{index1}])[#{index2}]
+list_memberDetails                        xpath                 //span[text()='${tabName}']/parent::td/parent::tr/following-sibling::tr/td/div/table/tbody/tr[not(contains(@style,'none'))]
+btn_plusIcon                              xpath                 (//a[contains(@title,'${tabName}')]/i)[${index}]  
+inp_addressDetails                        xpath                 //input[contains(@title,'${field}')]
+select_state                              id                    adr_state
+select_addressType                        id                    cxa_adt_key
+chkbox_primary                            xpath                 //span[contains(@title,'${field}')]//input
+img_primary                               xpath                 (//span[text()='${name}']/parent::td/parent::tr/following-sibling::tr/td/div/table/tbody/tr[not(contains(@style,'none'))]//td[%{index1}])[#{index2}]//img
+
 ======================================================================================================================================

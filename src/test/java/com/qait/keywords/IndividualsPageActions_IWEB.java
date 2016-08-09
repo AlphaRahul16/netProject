@@ -2,7 +2,9 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -563,7 +565,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
 
 			isElementDisplayed("link_moreMenuName", "Subscriptions");
-//			element("link_moreMenuName", "Subscriptions").click();
+			// element("link_moreMenuName", "Subscriptions").click();
 			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName", "Subscriptions"));
 			logMessage("Step : Subscription link is clicked\n");
 			waitForSpinner();
@@ -606,8 +608,9 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			waitForSpinner();
 			clickAndHold(element("btn_memberShip", "issues fulfilled"));
 
-//			isElementDisplayed("btn_memberShip", "issues fulfilled");
-//			clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", "issues fulfilled"));
+			// isElementDisplayed("btn_memberShip", "issues fulfilled");
+			// clickUsingXpathInJavaScriptExecutor(element("btn_memberShip",
+			// "issues fulfilled"));
 
 			logMessage("Step : Navigate to Issues menu on clicking more button\n");
 
@@ -764,7 +767,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void navigateToGeneralMenuOnHoveringMore(String menu) {
 		try {
 			isElementDisplayed("img_moreMenu");
-			element("img_moreMenu").click();
+			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
+//			element("img_moreMenu").click();
 			isElementDisplayed("link_moreMenuName", menu);
 			element("link_moreMenuName", menu).click();
 			logMessage("Step : " + menu + " link is clicked\n");
@@ -1013,7 +1017,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnArrowButtonForProductName(String productName) {
 		isElementDisplayed("btnArrowProdName", productName);
 		clickUsingXpathInJavaScriptExecutor(element("btnArrowProdName", productName));
-//		 element("btnArrowProdName", productName).click();
+		// element("btnArrowProdName", productName).click();
 		logMessage("Step : Arrow button is clicked for product name " + productName);
 	}
 
@@ -1128,8 +1132,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		selectProvidedTextFromDropDown(element("inp_fieldSelect", feildName), feildValue);
 		logMessage("STEP : " + feildValue + " is entered as " + feildName + "  in inp_fieldSelect\n");
 	}
-	
-	public void selectFieldValueToFindMember(String feildName, String feildValue){
+
+	public void selectFieldValueToFindMember(String feildName, String feildValue) {
 		selectFeildValue(feildName, feildValue);
 	}
 
@@ -1483,17 +1487,17 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public String getIndividualInformationWhichHasTerminateValueNull(int n) {
-		int i=1;
+		int i = 1;
 		String value = null;
-			for (WebElement element : elements("list_individualMem")) {
-				System.out.println("Lenght::"+element.getText().length());
-			 if(element.getText().length() == 1){
-				 value = element("individualmem_data",toString().valueOf(i),toString().valueOf(n)).getText().trim();
-					break;
-				}
-			 i++;
+		for (WebElement element : elements("list_individualMem")) {
+			System.out.println("Length::" + element.getText().length());
+			if (element.getText().length() == 1) {
+				value = element("individualmem_data", toString().valueOf(i), toString().valueOf(n)).getText().trim();
+				break;
 			}
-			System.out.println("Value=="+value);
+			i++;
+		}
+		System.out.println("Value==" + value);
 		return value;
 	}
 
@@ -1531,55 +1535,254 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("STEP : " + currentdateInStringWithGivenFormate + " is entered in expire input field\n");
 	}
 
-	public void enterValueInMemberStatusField(String dropdown , String option) {
+	public void enterValueInMemberStatusField(String dropdown, String option) {
 		wait.hardWait(2);
-		isElementDisplayed("select_member",dropdown);
-		selectProvidedTextFromDropDown(element("select_member",dropdown), option);
-		logMessage("STEP : Selected " + option + " from dropdown "+dropdown);
+		isElementDisplayed("select_member", dropdown);
+		selectProvidedTextFromDropDown(element("select_member", dropdown), option);
+		logMessage("STEP : Selected " + option + " from dropdown " + dropdown);
 	}
 
 	public void verifyTableUnderExpandedBarIsNotEmpty(String barName) {
-		Assert.assertTrue(elements("btn_invoicearrow").size()>0,"Table under"+barName+" is empty");
-		logMessage("Table umder "+barName+" is not empty\n");
-		
+		Assert.assertTrue(elements("btn_invoicearrow").size() > 0, "Table under" + barName + " is empty");
+		logMessage("Table umder " + barName + " is not empty\n");
+
 	}
 
 	public void selectRandomGotoRecord(String barName) {
 		Random rand = new Random();
-		int randomNumber = rand.nextInt(((elements("btn_invoicearrow").size()-1) - 0) + 1) + 0;
+		int randomNumber = rand.nextInt(((elements("btn_invoicearrow").size() - 1) - 0) + 1) + 0;
 		System.out.println(randomNumber);
 		elements("btn_invoicearrow").get(randomNumber).click();
-		logMessage("Step : "+barName+" number "+randomNumber+" is selected from the list\n");
+		logMessage("Step : " + barName + " number " + randomNumber + " is selected from the list\n");
 
 	}
-	
-	public void NavigateToIndividualProfilePageFromScarfReviewList(String customerName)
-	{
-		try
-		{
+
+	public void NavigateToIndividualProfilePageFromScarfReviewList(String customerName) {
+		try {
 			wait.resetImplicitTimeout(3);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
-		isElementDisplayed("btn_scarfReviewerUserList",customerName,DateUtil.getAnyDateForType("YYYY", 0, "year"));
-		element("btn_scarfReviewerUserList", "",DateUtil.getAnyDateForType("YYYY", 0, "year")).click();
-		logMessage("Step : Customer as "+customerName+" is selected from list, user is on student chapter Review profile page\n");
-		}
-		catch(NoSuchElementException e)
-		{
+			isElementDisplayed("btn_scarfReviewerUserList", customerName,
+					DateUtil.getAnyDateForType("YYYY", 0, "year"));
+			element("btn_scarfReviewerUserList", "", DateUtil.getAnyDateForType("YYYY", 0, "year")).click();
+			logMessage("Step : Customer as " + customerName
+					+ " is selected from list, user is on student chapter Review profile page\n");
+		} catch (NoSuchElementException e) {
 			logMessage("Result list does not appeared, user is on student chapter Review profile page");
 		}
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
-		element("txt_userEmail",customerName).click();
+		element("txt_userEmail", customerName).click();
 		handleAlert();
-		logMessage("Step : customer Name as "+customerName+" is clicked on student chapter Review profile page\n");
-		
+		logMessage("Step : customer Name as " + customerName + " is clicked on student chapter Review profile page\n");
+
 	}
 
-	public void enterChapterNameAndStatusAndClickGoButton(String chapterName,String chapterStatus) {
+	public void enterChapterNameAndStatusAndClickGoButton(String chapterName, String chapterStatus) {
 		enterFieldValue("Chapter Name", chapterName);
 		selectDropDownValue(chapterStatus);
 		clickGoButton();
-		
+
+	}
+
+	public Map<String, String> getParticularMemberDetails(String tabName, String status) {
+		Map<String, String> membershipDateList = new HashMap<String, String>();
+		String date;
+		isElementDisplayed("list_memberDetails",tabName);
+		int size = elements("list_memberDetails",tabName).size();
+		System.out.println("-----size:" + size);
+		for (int i = 1; i < size; i++) {
+			if (element("txt_memberDetailsForChapter", tabName, String.valueOf(6), String.valueOf(i)).getText().trim()
+					.equalsIgnoreCase(status)) {
+				date = getMemberDetails(tabName, 9, i);
+				logMessage("STEP: " + tabName + " Effective date is " + date+"\n");
+				membershipDateList.put("Effective Date", date);
+				date = getMemberDetails(tabName, 10, i);
+				logMessage("STEP: " + tabName + " Expire date is " + date+"\n");
+				membershipDateList.put("Expire Date", date);
+				break;
+			}
+		}
+		return membershipDateList;
+	}
+
+	public String getMemberDetails(String tabName, int index1, int index2) {
+		isElementDisplayed("txt_memberDetailsForChapter", tabName, String.valueOf(index1), String.valueOf(index2));
+		String date=DateUtil.convertStringToParticularDateFormat(element("txt_memberDetailsForChapter", tabName, String.valueOf(index1), String.valueOf(index2)).getText()
+				.trim(), "MM/dd/yyyy");
+		System.out.println("date:"+date);
+		return date;
+	}
+	
+	public String matchEffectiveAndExpiryDate(Map<String, String> membershipDateList,String tabName){
+		isElementDisplayed("list_memberDetails",tabName);
+		int i,size = elements("list_memberDetails",tabName).size();
+		System.out.println("----size in:"+size);
+		for (i = 1; i < size; i++) {
+			if(element("txt_memberDetailsForChapter", tabName, String.valueOf(9), String.valueOf(i)).getText().trim().equals(membershipDateList.get("Effective Date"))
+					&& element("txt_memberDetailsForChapter", tabName, String.valueOf(10), String.valueOf(i)).getText().trim().equals(membershipDateList.get("Expire Date"))
+					&& element("txt_memberDetailsForChapter", tabName, String.valueOf(5), String.valueOf(i)).getText().trim().equals("Local Section Member")){
+				logMessage("STEP : Chapter selected is "+element("txt_memberDetailsForChapter", tabName, String.valueOf(4), String.valueOf(i)).getText().trim()+"\n");
+				Assert.assertTrue(checkTerminateDateIsNull(i,tabName,"",11),"ASSERT FAILED : Terminate date is not null\n");
+				logMessage("ASSERT PASSED : Terminate date is null\n");
+				Assert.assertTrue(checkTerminateDateIsNull(i,tabName,"Active-chp",6),"ASSERT FAILED : Member status is not Active-chp\n");
+				logMessage("ASSERT PASSED : Member status is Active-chp\n");
+				break;
+			}
+		}
+		return element("txt_memberDetailsForChapter", tabName, String.valueOf(4), String.valueOf(i)).getText().trim();
+	}
+	
+	public boolean checkTerminateDateIsNull(int index,String tabName,String expectedValue,int index1){
+		if(element("txt_memberDetailsForChapter", tabName, String.valueOf(index1), String.valueOf(index)).getText().trim().equals(expectedValue)){
+			return true;
+		}
+		else 
+			return false;
+	}
+	
+	
+	public List<String> verifyAddressType(String tabName){
+		int i;
+		List<String> addressType=new ArrayList<>();
+		addressType.add("work");
+		addressType.add("work 2");
+		addressType.add("work 3");
+		isElementDisplayed("list_memberDetails",tabName);
+		System.out.println("size:"+elements("list_memberDetails",tabName).size());
+		for(i=1;i<elements("list_memberDetails",tabName).size();i++){
+			String addressMode=element("txt_memberDetailsForChapter",tabName,String.valueOf(4),String.valueOf(i)).getText().trim();
+			switch (addressMode) {
+			case "work": addressType.remove(addressMode);
+			             logMessage("STEP : Address type "+addressMode+" is already present");
+			             break;
+			case "work 2": addressType.remove(addressMode);
+                           logMessage("STEP : Address type "+addressMode+" is already present");
+			               break;
+			case "work 3": addressType.remove(addressMode);
+                           logMessage("STEP : Address type "+addressMode+" is already present");
+                           break;
+			}
+		}
+		System.out.println(addressType);
+		return addressType;
+	}
+	
+	public void clickOnPlusSign(String tabName,int index){
+		isElementDisplayed("btn_plusIcon",tabName,String.valueOf(index));
+//		element("btn_plusIcon",tabName,String.valueOf(index)).click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_plusIcon",tabName,String.valueOf(index)));
+		logMessage("STEP : Clicked on plus icon of "+tabName+" tab\n");
+	}
+	
+	public void addNewAddress(String organization,String dept,String address,String city,String postalCode,String state,List<String> addressType){
+		switchToFrame("iframe1");
+		hardWaitForIEBrowser(3);
+		enterNewAddressDetails("organization",organization);
+		enterNewAddressDetails("department",dept);
+		enterNewAddressDetails("address line 1",address);
+		enterNewAddressDetails("city",city);
+		enterNewAddressDetails("postal code",postalCode);
+		selectAddressType(addressType.get(0));
+		selectAddressState(state);
+		selectAddressCheckboxes("primary");
+		selectAddressCheckboxes("billing");
+		selectAddressCheckboxes("do not validate");
+		clickOnSaveButton();
+		switchToDefaultContent();
+	}
+	
+	public void enterNewAddressDetails(String field, String addressDetails){
+		isElementDisplayed("inp_addressDetails",field);
+		element("inp_addressDetails",field).sendKeys(addressDetails);
+		logMessage("STEP : "+field+" value entered as "+addressDetails+"\n");
+	}
+	
+	public void selectAddressType(String addressType){
+		selectProvidedTextFromDropDown(element("select_addressType"),addressType);
+		logMessage("STEP : Address Type entered as "+addressType+"\n");
+	}
+	
+	public void selectAddressState(String state){
+		wait.hardWait(1);
+		hardWaitForIEBrowser(2);
+		selectProvidedTextFromDropDown(element("select_state"),state);
+		logMessage("STEP : State entered as "+state+"\n");
+	}
+	
+	public void selectAddressCheckboxes(String field){
+		hardWaitForIEBrowser(2);
+		isElementDisplayed("chkbox_primary",field);
+//		element("chkbox_primary",field).click();
+		clickUsingXpathInJavaScriptExecutor(element("chkbox_primary",field));
+		if(!element("chkbox_primary",field).isSelected()){
+//			element("chkbox_primary",field).click();
+			clickUsingXpathInJavaScriptExecutor(element("chkbox_primary",field));
+		}	
+		logMessage("STEP : "+field+" checkbox is selected\n");
+	}
+	
+	public void verifyAdditionOfNewAddress(String addressType,String tabName){
+		int i;
+		boolean flag=false;
+		waitForSpinner();
+		System.out.println("-----before wait");
+		wait.waitForPageToLoadCompletely();
+//		wait.hardWait(2);
+		System.out.println("-----after wait");
+		isElementDisplayed("list_memberDetails",tabName);
+		for(i=1;i<elements("list_memberDetails",tabName).size();i++){
+			if(element("txt_memberDetailsForChapter",tabName,String.valueOf(4),String.valueOf(i)).getText().trim().
+					equals(addressType)){
+				flag=true;
+				break;
+			}	
+		}
+		Assert.assertTrue(flag,"ASSERT FAILED : new address "+addressType+" cannot be added\n");
+		logMessage("ASSERT PASSED : new address "+addressType+" is added\n");
+		verifyPrimaryFlagIsSet(tabName,8,i,"primary");
+		verifyPrimaryFlagIsSet(tabName,9,i,"billing");
+		wait.hardWait(2);
+	}
+	
+	public void verifyPrimaryFlagIsSet(String tabName,int index1,int index2,String field){
+		isElementDisplayed("img_primary",tabName,String.valueOf(index1),String.valueOf(index2));
+		logMessage("ASSERT PASSED : "+field+" flag is set\n");
+	}
+	
+	public void verifyChapterStatusIsTransferred(String tabName,String chpName){
+		int i;
+		isElementDisplayed("list_memberDetails",tabName);
+		for(i=1;i<elements("list_memberDetails",tabName).size();i++){
+			if(element("txt_memberDetailsForChapter",tabName,String.valueOf(4),String.valueOf(i)).getText().trim().
+					equals(chpName)){
+				flag=true;
+				break;
+			}	
+		}
+		Assert.assertTrue(checkTerminateDateIsNull(i,tabName,"Transferred",6),"ASSERT FAILED : Mbr Status of Chapter "+chpName+" is not changed to Transferred\n");
+		logMessage("ASSERT PASSED : Mbr Status of Chapter "+chpName+" is changed to Transferred\n");
+		String currentDate=DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy");
+		Assert.assertTrue(checkTerminateDateIsNull(i,tabName,currentDate,11),"ASSERT FAILED : Terminate date is not equal to current date\n");
+		logMessage("ASSERT PASSED : Terminate date "+element("txt_memberDetailsForChapter", tabName, String.valueOf(11), String.valueOf(i)).getText().trim()+" is equal to current date "+
+				currentDate+"\n");
+	}
+	
+	public void verifyNewChapterIsAdded(String tabName){
+		isElementDisplayed("list_memberDetails",tabName);
+		int i,size = elements("list_memberDetails",tabName).size();
+		System.out.println("----size in:"+size);
+		for (i = 1; i < size; i++) {
+			System.out.println("-----i:"+i);
+			if(element("txt_memberDetailsForChapter", tabName, String.valueOf(9), String.valueOf(i)).getText().trim().equals(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"))
+					&& element("txt_memberDetailsForChapter", tabName, String.valueOf(5), String.valueOf(i)).getText().trim().equals("Local Section Member")){
+				Assert.assertTrue(checkTerminateDateIsNull(i,tabName,"",11),"ASSERT FAILED : Terminate date is not null");
+				logMessage("ASSERT PASSED : Terminate date is null");
+				Assert.assertTrue(checkTerminateDateIsNull(i,tabName,"Active-chp",6),"ASSERT FAILED : Member status is not Active-chp");
+				logMessage("ASSERT PASSED : Member status is Active-chp");
+				logMessage("STEP : New Chapter added is "+element("txt_memberDetailsForChapter", tabName, String.valueOf(4), String.valueOf(i)).getText().trim());
+				break;
+			}
+		}
 	}
 
 	/*
