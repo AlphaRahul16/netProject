@@ -2685,7 +2685,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	// }
 
 	public void verfiyMemberPackage(String memberPackage) {
-		System.out.println("-----");
 		wait.waitForPageToLoadCompletely();
 		wait.resetImplicitTimeout(4);
 		wait.resetExplicitTimeout(hiddenFieldTimeOut);
@@ -3872,7 +3871,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// logMessage("Start Date:" +
 		// DateUtil.convertStringToDate(reportingStartDate, "MM/dd/yyyy"));
 		logMessage("Start Date:" + reportingStartDate);
-
 		startDate = DateUtil.convertStringToDate(
 				DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
 				"MM/dd/yyyy").compareTo(
@@ -4133,9 +4131,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_code",firstName);
 		isElementDisplayed("txt_priceValue",firstName);
 		System.out.println(element("txt_code", firstName).getText().isEmpty());
-		System.out.println(element("txt_code", firstName).getText().isEmpty());
-		
-		
+		System.out.println(element("txt_code", firstName).getText().isEmpty());		
 	}
 		
 	}
