@@ -60,6 +60,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 
 	public void clickOnActiveSubscription() {
 		hardWaitForChromeBrowser(3);
+		handleAlert();
 		isElementDisplayed("lnk_moreTab");
 		element("lnk_moreTab").click();
 		logMessage("step: more tab is expanded !!");
@@ -110,7 +111,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_printReceipt");
 		element("btn_printReceipt").click();
 		logMessage("Step: Clicked on print order receipt !!");
-		wait.hardWait(10);
+		wait.hardWait(15);
 		_verifyPDFFileIsDownloaded("report");
 	}
 
@@ -136,7 +137,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		for (String product_Amount : productAmount) {
 			System.out.println("In PDF Method for Amount::" + product_Amount);
 			Assert.assertTrue(pdfContent.contains(product_Amount));
-			logMessage("[ASSERTION PASSED]:: Verified Product Amounts in Invoice Receipt PDF file");
+			logMessage("[ASSERTION PASSED]:: Verified Product Amount "+product_Amount+" in Invoice Receipt");
 		}
 
 		for (String product_Name : productName) {
@@ -146,7 +147,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 			} else {
 				Assert.assertTrue(pdfContent.contains(product_Name));
 			}
-			logMessage("[ASSERTION PASSED]:: Verified Product Names in Invoice Receipt PDF file");
+			logMessage("[ASSERTION PASSED]:: Verified Product Name "+product_Name+" is available in Invoice Receipt");
 		}
 
 	}
@@ -178,7 +179,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	public void enterPassword(String password) {
 		isElementDisplayed("inp_password");
 		element("inp_password").sendKeys(password);
-		logMessage("Step : " + password + " is entered in inp_passworclickOnAddAnESubscriptionButtond\n");
+		logMessage("Step : " + password + " is entered in inp_password\n");
 	}
 
 	public void clickOnVerifyButton() {

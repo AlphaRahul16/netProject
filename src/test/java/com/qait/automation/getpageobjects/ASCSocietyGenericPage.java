@@ -271,6 +271,7 @@ public class ASCSocietyGenericPage extends GetPage {
 			pdfStripper.setStartPage(1);
 			pdfStripper.setEndPage(2);
 			parsedText = pdfStripper.getText(pdDoc);
+			Reporter.log("Invoice Reciept Is::"+parsedText);
 			System.out.println("Parsed Text::"+parsedText);
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");

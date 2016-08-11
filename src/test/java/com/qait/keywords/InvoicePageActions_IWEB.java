@@ -33,12 +33,13 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 				DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY"));
 	}
 	
-	public void verifyProductCodeInlineItem(String prodCode)
+	public void verifyProductCodeInlineItem(String prodCode, String prodName)
 	{
 		hardWaitForIEBrowser(3);
 		expandDetailsMenu("line items");
 		hardWaitForIEBrowser(10);
-		String productCode=element("txt_code").getText().trim();
+		isElementDisplayed("txt_code",prodName);
+		String productCode=element("txt_code",prodName).getText().trim();
 		System.out.println("P code"+productCode);
 		Assert.assertTrue(productCode.contains(prodCode));
 		logMessage("ASSERT PASSED: Product Code is matched in Line Item");
