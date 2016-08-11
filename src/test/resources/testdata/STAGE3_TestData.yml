@@ -564,6 +564,17 @@ ScarfReviewer:
     overallGCRating: "Yes"
     overallReviewComment: outstanding test data
     
+AddressChange:
+    queryName: "Selenium – Find Random Active Member USA"
+    organization: "Selenium Test"
+    department: "Department"
+    address: "1155 16th St NW"
+    city: "Washington"
+    postalCode: "20036"
+    state: "DC"
+    
+    
+    
     
 ACS_ApplyPayment: 
     DetailsToFindMember:  

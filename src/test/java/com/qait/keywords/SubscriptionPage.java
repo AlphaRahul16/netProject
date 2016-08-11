@@ -9,10 +9,11 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
+import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.getpageobjects.GetPage;
 import com.qait.automation.utils.DateUtil;
 
-public class SubscriptionPage extends GetPage {
+public class SubscriptionPage extends ASCSocietyGenericPage {
 	WebDriver driver;
 	static String pagename = "SubscriptionPage";
 	static String commitStartTime, currentSeconds;
@@ -411,6 +412,7 @@ public class SubscriptionPage extends GetPage {
 			verifySubName("Journal of the American Chemical Society");
 		}
 		verifyRemainingIsOneLessThanIssues();
+		expandDetailsMenu("issues fulfilled");
 		verifyFulfillmentDate(subName);
 	}
 

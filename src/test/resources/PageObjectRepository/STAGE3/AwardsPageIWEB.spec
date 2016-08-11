@@ -63,5 +63,8 @@ btn_cancel                                id                   ButtonCancel
 lbl_stageAwardInEdit                      id                   Caption_aws_stage_code
 list_resetWinnerStatus                    id                     aws_winner_aww_key_ext  
 btn_editAwards                            id                   F1_HYPERLINK_0   
-inp_editDateInEditAwards                  xpath                //label[text()='${labelname}:']/preceding-sibling::span/span/input                
+inp_editDateInEditAwards                  xpath                //label[text()='${labelname}:']/preceding-sibling::span/span/input
+btn_plusIconNominee                       xpath                //span[text()="${tabName}"]/../following-sibling::td//a//i
+btn_searchNominee                         xpath                (//input[@class='LookUpHyperLink'])[${index}]
+inp_entryDate                             xpath                //label[text()='${field}:']/preceding-sibling::span//input
 ========================================================================================================================================
