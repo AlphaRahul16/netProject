@@ -4117,7 +4117,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	{
 
 		switchToDefaultContent();
-		switchToFrame("iframe");
+		switchToFrame(element("iframe"));
 		String productCode=element("txt_prod_code").getAttribute("value"); 
 		logMessage("STEP: "+productCode+" is selected");
 		return productCode;
@@ -4125,7 +4125,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public String getProductNameFromCOEPage()
 	{
 		switchToDefaultContent();
-		switchToFrame("iframe1");
+		switchToFrame(element("iframe"));
 		productName=element("productName_inp").getText().trim(); 
 		logMessage("STEP: "+productName+" is selected");
 		return productName;
@@ -4134,6 +4134,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	
 	public String selectRandomProductForCRMInventory()
 	{
+		selectMerchandise("merchandise");
 		switchToDefaultContent();
 		switchToFrame(element("iframe"));
 		clickOnSearchDisplayNameButton();

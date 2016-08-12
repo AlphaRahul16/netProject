@@ -188,3 +188,5 @@ txt_prod_name									id								prc_display_name
 img_look_up										css							   .LookUpHyperLink
 txt_avl_qty										css							#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(8)
 price_txt										css							#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(7)
+th_lookup										xpath						.//*[@id='dgDynamicList']//th/a[contains(text(),'${field}')]
+productName_inp									css							#prd_name
