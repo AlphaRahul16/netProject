@@ -613,7 +613,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ " is clicked in link_randomMemberInList\n");
 	}
 
-	public void clickOnAnyRandomMember1() {
+	public String clickOnAnyRandomMember1() {
 		wait.hardWait(5);
 		hardWaitForIEBrowser(5);
 		wait.waitForPageToLoadCompletely();
@@ -625,7 +625,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		String avlQty=element("txt_avl_qty",randomNumberInString).getText();
 		String price=element("price_txt",randomNumberInString).getText();
 		System.out.println("Price: "+price);	
-		if((avlQty.contains("N/A"))||(avlQty.contains("0"))||(price.contains("0.00")))
+		if((avlQty.contains("N/A"))||(avlQty.contains("0")))
 		{
 			clickOnAnyRandomMember1();
 		}
@@ -633,8 +633,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : Member icon at the position of "
 				+ randomNumberInString
 				+ " is clicked in link_randomMemberInList\n");
+		return price;
 	}
-		public void verifyMemberStatus(String memberStatus) {
+	
+	public void verifyMemberStatus(String memberStatus) {
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);
 		isElementDisplayed("txt_memberStatus");
@@ -1605,6 +1607,48 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 					+ " is not correct \n");
 		}
 
+		selectBillingAddressIfNotPrePopulated();
+		clickOnSaveAndFinish();
+		handleAlert();
+
+		verifyPageTitleContains("CRM | Individuals |");
+	}
+	
+	
+	public void selectBatchAndPaymentDetailsForCRMInventory(String batchName,
+			String paymentType, String paymentMethod, String cardNumber,
+			String expireDate, String cvvNumber, String checkNumber, String price) {
+
+		// wait.waitForPageToLoadCompletely();
+		holdExecution(2000);
+
+		if (verifyBatchIsPresent(batchName)) {
+			selectOrderEntryInfo("batch", batchName);
+		} else {
+			addBatch(batchName.replaceAll("ACS: ", ""), "QA");
+		}
+		waitForSpinner();
+		selectOrderEntryInfo("PaymentType", paymentType);
+		if(price.contains("0.00")){
+			
+		}else{
+		waitForSpinner();
+		selectOrderEntryInfo("paymentMethod", paymentMethod);
+		waitForSpinner();
+		System.out.println("check number"+ checkNumber);
+		
+		if (paymentMethod.equalsIgnoreCase("Visa/MC")) {
+			enterCardDetails("cardNumber", cardNumber);
+			selectMemberInfo("expireDate", expireDate);
+			enterCardDetails("cvvNumber", cvvNumber);
+		} else if (paymentMethod.equalsIgnoreCase("BOA - Check")) {
+			enterCardDetails("checkNumber", checkNumber);
+
+		} else {
+			Assert.fail("ASSERT FAILED : Payment method " + paymentMethod
+					+ " is not correct \n");
+		}
+	}
 		selectBillingAddressIfNotPrePopulated();
 		clickOnSaveAndFinish();
 		handleAlert();
@@ -4082,19 +4126,34 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	{
 		switchToDefaultContent();
 		switchToFrame("iframe1");
-		productName=element("inp_displayName").getAttribute("value"); 
+		productName=element("productName_inp").getText().trim(); 
 		logMessage("STEP: "+productName+" is selected");
 		return productName;
 		
 	}
-	public void selectRandomProduct()
+	public String selectRandomProductForCRMInventory()
 	{
 		selectMerchandise();
 		switchToDefaultContent();
 		switchToFrame(element("iframe1"));
 		clickOnSearchDisplayNameButton();
-		clickOnRandomPage();
-		clickOnAnyRandomMember1();
+		_clickOnAvailableQuantityForSorting("Available Quantity");
+		_selectPage(10);
+		return clickOnAnyRandomMember1();
+	}
+
+	private void _clickOnAvailableQuantityForSorting(String tableHeading) {
+		isElementDisplayed("th_lookup",tableHeading);
+		element("th_lookup",tableHeading).click();
+		logMessage("Step: Clicked on "+tableHeading+" for Sorting");
+	}
+
+	private void _selectPage(int randomNumberInString) {
+		isElementDisplayed("lnk_pages", String.valueOf(randomNumberInString));
+		clickUsingXpathInJavaScriptExecutor(element("lnk_pages",
+				 String.valueOf(randomNumberInString)));
+		logMessage("Step : page at the position of " + randomNumberInString
+				+ " is clicked in lnk_pages\n");
 	}
 
 	public void selectValidUserForAutoRenewal(String AutoRenewalquery,String queryPageUrl) {
