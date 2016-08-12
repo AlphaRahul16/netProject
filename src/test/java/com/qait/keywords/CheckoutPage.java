@@ -76,13 +76,13 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	}
 
 	public void verifyMemberName(String caseId) {
-		if (getOmaSheetValue(caseId, "Member Type?").equalsIgnoreCase("")) {
+		if (map().get( "Member Type?").equalsIgnoreCase("")) {
 			logMessage("Step : member name is not present in data sheet\n");
 		} else {
 			verifyElementText("txt_memberName",
-					getOmaSheetValue(caseId, "Member Type?"));
+					map().get( "Member Type?"));
 			logMessage("ASSERT PASSED : "
-					+ getOmaSheetValue(caseId, "Member Type?")
+					+ map().get( "Member Type?")
 					+ " is verified in  txt_memberName\n");
 		}
 
@@ -102,8 +102,8 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	}
 
 	public void verifyMemberDetail(String caseId) {
-		MemberDetails("memberName", getOmaSheetValue(caseId, "Member Type?"));
-		MemberDetails("productName", getOmaSheetValue(caseId, "Product?"));
+		MemberDetails("memberName", map().get( "Member Type?"));
+		MemberDetails("productName", map().get( "Product?"));
 	}
 
 	public void verifyMemberDetail_AACTOMA(String caseId) {
@@ -111,7 +111,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		MemberDetails("memberName",
 				getAACT_OmaSheetValue(caseId, "Member Type?"));
-		// MemberDetails("productName", getOmaSheetValue(caseId, "Product?"));
+		// MemberDetails("productName", map().get( "Product?"));
 	}
 
 	public void MemberDetails(String memberDetail, String memberDetailvalue) {
@@ -133,26 +133,26 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	}
 
 	public void verifyTechnicalDivision(String caseId) {
-		if (getOmaSheetValue(caseId, "Technical Division").equalsIgnoreCase("")) {
+		if (map().get( "Technical Division").equalsIgnoreCase("")) {
 			logMessage("Step : division name is not present in data sheet\n");
 		} else {
 			isElementDisplayed("txt_technicalDivision",
-					getOmaSheetValue(caseId, "Technical Division"));
+					map().get( "Technical Division"));
 			logMessage("ASSERT PASSED : "
-					+ getOmaSheetValue(caseId, "Technical Division")
+					+ map().get( "Technical Division")
 					+ " is verified in  txt_technicalDivision\n");
 		}
 
 	}
 
 	public void verifyPublication(String caseId) {
-		if (getOmaSheetValue(caseId, "PublicationName").equalsIgnoreCase("")) {
+		if (map().get( "PublicationName").equalsIgnoreCase("")) {
 			logMessage("Step : publication name is not present in data sheet\n");
 		} else {
 			isElementDisplayed("txt_publication",
-					getOmaSheetValue(caseId, "PublicationName"));
+					map().get( "PublicationName"));
 			logMessage("ASSERT PASSED : "
-					+ getOmaSheetValue(caseId, "PublicationName")
+					+ map().get( "PublicationName")
 					+ " is verified in  txt_publication\n");
 		}
 
@@ -218,20 +218,20 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
 				"hiddenFieldTimeOut"));
-		String[] productNames = { getOmaSheetValue(caseId, "Product?"),
-				getOmaSheetValue(caseId, "Iweb Pub Name?"),
-				getOmaSheetValue(caseId, "Iweb Division Name?"),
+		String[] productNames = { map().get( "Product?"),
+				map().get( "Iweb Pub Name?"),
+				map().get( "Iweb Division Name?"),
 				getPriceSheetValue(caseId, "LSproductName?"),
 				getPriceSheetValue(caseId, "CENproductName?") };
-		verifyMultiYearShow_Hide(getOmaSheetValue(caseId, "multiYearFlag?"));
-		if (!getOmaSheetValue(caseId, "multiYearDecision").equalsIgnoreCase("")) {
-			mutliYearInInteger = Integer.parseInt(getOmaSheetValue(caseId,
+		verifyMultiYearShow_Hide(map().get( "multiYearFlag?"));
+		if (!map().get( "multiYearDecision").equalsIgnoreCase("")) {
+			mutliYearInInteger = Integer.parseInt(map().get(
 					"multiYearDecision"));
 		} else {
 			mutliYearInInteger = 0;
 		}
-		if (getOmaSheetValue(caseId, "multiYearFlag?").equalsIgnoreCase("SHOW")) {
-			if (getOmaSheetValue(caseId, "multiYearDecision").equalsIgnoreCase(
+		if (map().get( "multiYearFlag?").equalsIgnoreCase("SHOW")) {
+			if (map().get( "multiYearDecision").equalsIgnoreCase(
 					"2")) {
 				multiYearDecisionValue = "Two";
 				clickUsingXpathInJavaScriptExecutor(element("rad_multiYear", multiYearDecisionValue));
@@ -254,7 +254,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 					logMessage("Image not present");
 					//wait.waitForElementToDisappear(element("txt_multiYearWait"));
 				}
-			} else if (getOmaSheetValue(caseId, "multiYearDecision")
+			} else if (map().get( "multiYearDecision")
 					.equalsIgnoreCase("3")) {
 				multiYearDecisionValue = "Three";
 				clickUsingXpathInJavaScriptExecutor(element("rad_multiYear", multiYearDecisionValue));
@@ -274,28 +274,28 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 			}
 		}
 
-		// verifyPriceType(getOmaSheetValue(caseId, "Iweb Pub Name?"),
+		// verifyPriceType(map().get( "Iweb Pub Name?"),
 		// "Tax",
 		// getPriceSheetValue(caseId, "pubsTax?"), 1);
-		// verifyPriceType(getOmaSheetValue(caseId, "Iweb Pub Name?"),
+		// verifyPriceType(map().get( "Iweb Pub Name?"),
 		// "amount", getPriceSheetValue(caseId, "pubsPrice?"), 1);
-		verifyPriceType(getOmaSheetValue(caseId, "Iweb Pub Name?"), "shipping",
+		verifyPriceType(map().get( "Iweb Pub Name?"), "shipping",
 				getPriceSheetValue(caseId, "pubsShipping?"), 1);
 
-		verifyPriceType(getOmaSheetValue(caseId, "Iweb Division Name?"), "Tax",
+		verifyPriceType(map().get( "Iweb Division Name?"), "Tax",
 				getPriceSheetValue(caseId, "divisionTax?"), mutliYearInInteger);
-		verifyPriceType(getOmaSheetValue(caseId, "Iweb Division Name?"),
+		verifyPriceType(map().get( "Iweb Division Name?"),
 				"amount", getPriceSheetValue(caseId, "divisionPrice?"),
 				mutliYearInInteger);
-		verifyPriceType(getOmaSheetValue(caseId, "Iweb Division Name?"),
+		verifyPriceType(map().get( "Iweb Division Name?"),
 				"shipping", getPriceSheetValue(caseId, "divisionShipping?"),
 				mutliYearInInteger);
-		verifyPriceType(getOmaSheetValue(caseId, "Product?"), "Tax",
+		verifyPriceType(map().get( "Product?"), "Tax",
 				getPriceSheetValue(caseId, "productTax?"), mutliYearInInteger);
 		wait.hardWait(3);
-		verifyPriceType(getOmaSheetValue(caseId, "Product?"), "amount",
+		verifyPriceType(map().get( "Product?"), "amount",
 				getPriceSheetValue(caseId, "Price value?"), mutliYearInInteger);
-		verifyPriceType(getOmaSheetValue(caseId, "Product?"), "shipping",
+		verifyPriceType(map().get( "Product?"), "shipping",
 				getPriceSheetValue(caseId, "productShipping?"),
 				mutliYearInInteger);
 		verifyPriceType(getPriceSheetValue(caseId, "CENproductName?"), "Tax",
@@ -306,16 +306,16 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		verifyPriceType(getPriceSheetValue(caseId, "CENproductName?"),
 				"shipping", getPriceSheetValue(caseId, "CENShipping?"),
 				mutliYearInInteger);
-		verifyPriceType(getOmaSheetValue(caseId, "Iweb LS Name?"), "Tax",
+		verifyPriceType(map().get( "Iweb LS Name?"), "Tax",
 				getPriceSheetValue(caseId, "LSTax?"), mutliYearInInteger);
-		verifyPriceType(getOmaSheetValue(caseId, "Iweb LS Name?"), "shipping",
+		verifyPriceType(map().get( "Iweb LS Name?"), "shipping",
 				getPriceSheetValue(caseId, "LSShipping?"), mutliYearInInteger);
-		verifyPriceType(getOmaSheetValue(caseId, "Iweb LS Name?"), "amount",
+		verifyPriceType(map().get( "Iweb LS Name?"), "amount",
 				getPriceSheetValue(caseId, "LSDues?"), mutliYearInInteger);
 		verifyCENProductName("txt_cen_LSProduct",
 				getPriceSheetValue(caseId, "CENproductName?"));
 		verifyLSProductName("txt_cen_LSProduct",
-				getOmaSheetValue(caseId, "Iweb LS Name?"));
+				map().get( "Iweb LS Name?"));
 		return getProductQuantity(productNames);
 	}
 

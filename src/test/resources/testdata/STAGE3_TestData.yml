@@ -40,6 +40,7 @@ csv-data-file:
   path_GeneralAwardList_2018: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument_2018.txt
   path_AwardsVoting: ./src/test/resources/TestDataLibrary/Awards_Voting_Data_Sheet.csv
   path_MYDTransfer: ./src/test/resources/TestDataLibrary/Multi_Year_Dues_Transfer_Sheet.csv
+  path_GCS_OMA: ./src/test/resources/TestDataLibrary/GCS-OMA_data_sheet.csv
   data-separator: '\t'
   has-header: true
 
@@ -564,6 +565,17 @@ ScarfReviewer:
     overallGCRating: "Yes"
     overallReviewComment: outstanding test data
     
+AddressChange:
+    queryName: "Selenium – Find Random Active Member USA"
+    organization: "Selenium Test"
+    department: "Department"
+    address: "1155 16th St NW"
+    city: "Washington"
+    postalCode: "20036"
+    state: "DC"
+    
+    
+    
     
 ACS_ApplyPayment: 
     DetailsToFindMember:  
@@ -594,4 +606,10 @@ email:
     recepient2: deepakkumar1@qainfotech.com
     recepient3: kanikasharma@qainfotech.com
     
-
+CRM_Inventory:
+  batch: "Selenium Testing"
+  productCode: "209-116-1000"
+  PaymentType: prepaid
+  paymentMethod: "BOA - Check"
+  checkNumber: "1111"   
+  queryName: "Selenium - Find Active Regular Member"

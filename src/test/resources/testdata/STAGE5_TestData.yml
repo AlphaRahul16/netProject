@@ -557,11 +557,15 @@ ScarfReporting:
 PBA:
     queryName: "Selenium - Find Active Regular Member"
     
+<<<<<<< HEAD
 OMR:
      queryName: "Selenium - Find Active Regular Member with Proforma"
      
 CMR_Inventory:
     queryName: "Selenium - Find Active Regular Member" 
+=======
+
+>>>>>>> 2ae2d8e0ddaf43ff5cf42e0802d1f87c218efe05
 
 VoidWithAdjustment:
     queryName: "Selenium - test open invoices"
@@ -619,3 +623,4 @@ CRM_Inventory:
   PaymentType: prepaid
   paymentMethod: "BOA - Check"
   checkNumber: "1111"
+  queryName: "Selenium - Find Active Regular Member" 

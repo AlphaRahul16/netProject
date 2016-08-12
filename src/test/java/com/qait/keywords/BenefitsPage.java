@@ -66,7 +66,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 	public void verifyCENPresent(String caseId) {
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
 				"hiddenFieldTimeOut"));
-		if (getOmaSheetValue(caseId, "C&EN Status").equalsIgnoreCase("Y")) {
+		if (map().get( "C&EN Status").equalsIgnoreCase("Y")) {
 			try {
 				wait.resetImplicitTimeout(0);
 				wait.resetExplicitTimeout(hiddenFieldTimeOut);
@@ -81,7 +81,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 
 			}
 
-			if (getOmaSheetValue(caseId, "CENtype").equalsIgnoreCase("print")) {
+			if (map().get( "CENtype").equalsIgnoreCase("print")) {
 				//wait.waitForPageToLoadCompletely();
 				hardWaitForIEBrowser(10);
 				isElementDisplayed("rad_CENType", "Print");
@@ -89,7 +89,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 						"Print"));
 				// click(element("rad_CENType", "Print"));
 				logMessage("Step:  rad_CENType is clicked\n");
-			} else if (getOmaSheetValue(caseId, "CENtype").equalsIgnoreCase(
+			} else if (map().get( "CENtype").equalsIgnoreCase(
 					"electronic")) {
 				isElementDisplayed("rad_CENType", "Email");
 				clickUsingXpathInJavaScriptExecutor(element("rad_CENType",
@@ -100,7 +100,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 				logMessage("Step : CENType is invalid in data sheet\n");
 				Assert.fail("ASSERT FAIL : CENType in data sheet is not valid\n");
 			}
-		} else if (getOmaSheetValue(caseId, "C&EN Status")
+		} else if (map().get( "C&EN Status")
 				.equalsIgnoreCase("N")) {
 			clickUsingXpathInJavaScriptExecutor(element("rad_dues_cenPackage", "Dues Only Package"));
 			//click(element("rad_dues_cenPackage", "Dues Only Package"));
@@ -173,8 +173,8 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 
 	public void addACSPublicationAndTechnicalDivision(String caseId) {
 		wait.hardWait(3);
-		addACSTechnicalDivision(getOmaSheetValue(caseId, "Technical Division"));
-		addACSPublication(getOmaSheetValue(caseId, "PublicationName"));
+		addACSTechnicalDivision(map().get("Technical Division"));
+		addACSPublication(map().get( "PublicationName"));
 
 	}
 
