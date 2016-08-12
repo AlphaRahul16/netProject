@@ -23,7 +23,6 @@ app_url_EwebReporting: https://ewebtest12.acs.org/NFStage3/studentchaptersonline
 app_url_ScarfReviewing: https://www.ewebtest.acs.org/NFStage3/studentchaptersreview
 
 
-
 csv-data-file:
   path_OMA: ./src/test/resources/TestDataLibrary/OMA Business Rules.csv
   path_PriceValue: ./src/test/resources/TestDataLibrary/PriceValues.csv
@@ -40,6 +39,7 @@ csv-data-file:
   path_GeneralAwardList_2018: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument_2018.txt
   path_AwardsVoting: ./src/test/resources/TestDataLibrary/Awards_Voting_Data_Sheet.csv
   path_MYDTransfer: ./src/test/resources/TestDataLibrary/Multi_Year_Dues_Transfer_Sheet.csv
+  path_GCS_OMA: ./src/test/resources/TestDataLibrary/GCS-OMA_data_sheet.csv
   data-separator: '\t'
   has-header: true
 
@@ -605,4 +605,10 @@ email:
     recepient2: deepakkumar1@qainfotech.com
     recepient3: kanikasharma@qainfotech.com
     
-
+CRM_Inventory:
+  batch: "Selenium Testing"
+  productCode: "209-116-1000"
+  PaymentType: prepaid
+  paymentMethod: "BOA - Check"
+  checkNumber: "1111"   
+  queryName: "Selenium - Find Active Regular Member"

@@ -36,6 +36,7 @@ csv-data-file:
   path_AwardsVoting: ./src/test/resources/TestDataLibrary/Awards_Voting_Data_Sheet.csv
   path_MYDTransfer: ./src/test/resources/TestDataLibrary/Multi_Year_Dues_Transfer_Sheet.csv
   path_OMR: ./src/test/resources/TestDataLibrary/OMR_Datasheet.csv
+  path_GCS-OMA: ./src/test/resources/TestDataLibrary/GCS-OMA data sheet.csv
   data-separator: '\t'
   has-header: true
 

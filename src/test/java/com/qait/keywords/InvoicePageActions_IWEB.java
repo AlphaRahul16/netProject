@@ -33,13 +33,16 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 				DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY"));
 	}
 	
-	public void verifyProductCodeInlineItem(String prodCode)
+
+	public void verifyProductCodeInlineItem(String prodCode, String prodName)
 	{
 		hardWaitForIEBrowser(3);
 		expandDetailsMenu("line items");
 		hardWaitForIEBrowser(10);
-		String productCode=element("txt_code").getText().trim();
-		System.out.println("P code"+productCode);
+
+		isElementDisplayed("txt_code",prodName);
+		String productCode=element("txt_code",prodName).getText().trim();
+
 		Assert.assertTrue(productCode.contains(prodCode));
 		logMessage("ASSERT PASSED: Product Code is matched in Line Item");
 		
@@ -56,45 +59,45 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		expandDetailsMenu("line items");
 		hardWaitForIEBrowser(10);
 		verifyInvoiceDetails("priceValue",
-				getOmaSheetValue(caseId, "Iweb Product Name?"),
+				map().get( "Iweb Product Name?"),
 				getPriceSheetValue(caseId, "Price value?"),
-				getOmaSheetValue(caseId, "multiYearDecision"));
+				map().get( "multiYearDecision"));
 		verifyInvoiceDetails("balance",
-				getOmaSheetValue(caseId, "Iweb Product Name?"), "0.00",
-				getOmaSheetValue(caseId, "multiYearDecision"));
+				map().get( "Iweb Product Name?"), "0.00",
+				map().get( "multiYearDecision"));
 		verifyInvoiceDetails("discount",
-				getOmaSheetValue(caseId, "Iweb Product Name?"), "0.00",
-				getOmaSheetValue(caseId, "multiYearDecision"));
+				map().get( "Iweb Product Name?"), "0.00",
+				map().get( "multiYearDecision"));
 
 		verifyInvoiceDetails("priceValue",
-				getOmaSheetValue(caseId, "Iweb Pub Name?"),
+				map().get( "Iweb Pub Name?"),
 				getPriceSheetValue(caseId, "pubsPrice?"), "1");
 		verifyInvoiceDetails("discount",
-				getOmaSheetValue(caseId, "Iweb Pub Name?"), "0.00", "1");
+				map().get( "Iweb Pub Name?"), "0.00", "1");
 		verifyInvoiceDetails("balance",
-				getOmaSheetValue(caseId, "Iweb Pub Name?"), "0.00", "1");
+				map().get( "Iweb Pub Name?"), "0.00", "1");
 
 		verifyInvoiceDetails("priceValue",
-				getOmaSheetValue(caseId, "Iweb Division Name?"),
+				map().get( "Iweb Division Name?"),
 				getPriceSheetValue(caseId, "divisionPrice?"),
-				getOmaSheetValue(caseId, "multiYearDecision"));
+				map().get( "multiYearDecision"));
 		verifyInvoiceDetails("balance",
-				getOmaSheetValue(caseId, "Iweb Division Name?"), "0.00",
-				getOmaSheetValue(caseId, "multiYearDecision"));
+				map().get( "Iweb Division Name?"), "0.00",
+				map().get( "multiYearDecision"));
 		verifyInvoiceDetails("discount",
-				getOmaSheetValue(caseId, "Iweb Division Name?"), "0.00",
-				getOmaSheetValue(caseId, "multiYearDecision"));
+				map().get( "Iweb Division Name?"), "0.00",
+				map().get( "multiYearDecision"));
 
 		verifyInvoiceDetails("priceValue",
-				getOmaSheetValue(caseId, "Iweb CEN Product Name?"),
+				map().get( "Iweb CEN Product Name?"),
 				getPriceSheetValue(caseId, "CENprice?"),
-				getOmaSheetValue(caseId, "multiYearDecision"));
+				map().get( "multiYearDecision"));
 		verifyInvoiceDetails("discount",
-				getOmaSheetValue(caseId, "Iweb CEN Product Name?"), "0.00",
-				getOmaSheetValue(caseId, "multiYearDecision"));
+				map().get( "Iweb CEN Product Name?"), "0.00",
+				map().get( "multiYearDecision"));
 		verifyInvoiceDetails("balance",
-				getOmaSheetValue(caseId, "Iweb CEN Product Name?"), "0.00",
-				getOmaSheetValue(caseId, "multiYearDecision"));
+				map().get( "Iweb CEN Product Name?"), "0.00",
+				map().get( "multiYearDecision"));
 
 		Float a1 = Float.parseFloat(quantities[0]);
 		Float a2 = Float.parseFloat(quantities[1]);
@@ -114,30 +117,30 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		String quantity_cenProductname = String.valueOf(quantity_cenPrd);
 
 		verifyInvoiceDetails("priceValue",
-				getOmaSheetValue(caseId, "Iweb LS Name?"),
+				map().get( "Iweb LS Name?"),
 				getPriceSheetValue(caseId, "LSDues?"),
-				getOmaSheetValue(caseId, "multiYearDecision"));
+				map().get( "multiYearDecision"));
 		verifyInvoiceDetails("discount",
-				getOmaSheetValue(caseId, "Iweb LS Name?"), "0.00",
-				getOmaSheetValue(caseId, "multiYearDecision"));
+				map().get( "Iweb LS Name?"), "0.00",
+				map().get( "multiYearDecision"));
 		verifyInvoiceDetails("balance",
-				getOmaSheetValue(caseId, "Iweb LS Name?"), "0.00",
-				getOmaSheetValue(caseId, "multiYearDecision"));
+				map().get( "Iweb LS Name?"), "0.00",
+				map().get( "multiYearDecision"));
 
 		verifyInvoiceDetails("quantity",
-				getOmaSheetValue(caseId, "Iweb Product Name?"),
+				map().get( "Iweb Product Name?"),
 				quantity_Product, "1");
 		verifyInvoiceDetails("quantity",
-				getOmaSheetValue(caseId, "Iweb Pub Name?"),
+				map().get( "Iweb Pub Name?"),
 				quantity_PublicationName, "1");
 		verifyInvoiceDetails("quantity",
-				getOmaSheetValue(caseId, "Iweb Division Name?"),
+				map().get( "Iweb Division Name?"),
 				quantity_TechnicalDivision, "1");
 		verifyInvoiceDetails("quantity",
 				getPriceSheetValue(caseId, "Iweb CEN Product Name?"),
 				quantity_cenProductname, "1");
 		verifyInvoiceDetails("quantity",
-				getOmaSheetValue(caseId, "Iweb LS Name?"), quantity_IWEBLSName,
+				map().get( "Iweb LS Name?"), quantity_IWEBLSName,
 				"1");
 	}
 
@@ -178,11 +181,11 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	// private void selectMenuInInvoiceTab(String menuName) {
-	// hover(element("tab_invoice"));
-	// element("txt_invoiceMenu", menuName).click();
-	// logMessage("Step : " + menuName + " is clicked in txt_invoiceMenu\n");
-	// }
+	 public void selectMenuInInvoiceTab(String menuName) {
+	 hover(element("tab_invoice"));
+	 element("txt_invoiceMenu", menuName).click();
+	 logMessage("Step : " + menuName + " is clicked in txt_invoiceMenu\n");
+	 }
 
 	private void enterInvoiceNumber(String invoiceNumber) {
 		// wait.waitForPageToLoadCompletely();

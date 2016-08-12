@@ -812,7 +812,7 @@ public class ASM_NominatePage extends GetPage {
 	public void FillEligibilityQuestionsDetails_AwardsNomination(Map<String,String> mapAwardsNomination)
 	{
 		verifyCurrentTab("Verify Eligibility");
-		selectNoForYearOfExperience();
+		//selectNoForYearOfExperience();
 		selectSafeLabPracticesRadioButton(mapAwardsNomination.get("SafeLabPractices?"));
 		selectValueForDiscussedAwardNominationRadioButton(mapAwardsNomination.get("DisscussAwardNomination?"));
 		enterNomineePosition(mapAwardsNomination.get("EligibilityQuestions_NomineePosition"));
