@@ -86,8 +86,7 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.EduAndEmpPage.enterEducationAndEmploymentInformation_123();
 		test.ContactInfoPage.clickContinue();
-		isErrorMessage = test.EduAndEmpPage.verifyDisplayedMessage(caseID);
-		errorMap.put(caseID, isErrorMessage);
+
 	}
 
 	@Test(dependsOnMethods = "Step03_Enter_Education_And_Employment_Info")
@@ -104,10 +103,13 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step04_Enter_Benefits_Info")
 	public void Step05_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page() {
-
+		test.checkoutPage.selectCurrency("Indian Rupee");
+		test.checkoutPage.verifyMultiYearShow_Hide(test.checkoutPage.map().get(
+				"multiYearFlag?"));
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
-		quantities = test.checkoutPage.verifyPriceValues(caseID);
+
+		//quantities = test.checkoutPage.verifyPriceValues(caseID);
 		test.checkoutPage.verifyMemberDetail(caseID);
 		test.checkoutPage.verifyMemberEmail(userEmail);
 		productSubTotal = test.checkoutPage.verifyProductSubTotal("4",
