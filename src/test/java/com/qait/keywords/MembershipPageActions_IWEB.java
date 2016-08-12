@@ -866,7 +866,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		nextYearDate = DateUtil
 				.getAddYearWithLessOnedayInStringWithGivenFormate("M/D/YYYY",
 						"EST5EDT",
-						getOmaSheetValue(caseId, "multiYearDecision"));
+						map().get( "multiYearDecision"));
 
 		if (nextYearDate.startsWith("0")) {
 			String newCurrentDate = nextYearDate.substring(1);
