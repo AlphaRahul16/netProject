@@ -477,6 +477,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnPlusIcon(String tabName) {
+		wait.hardWait(6);
 		isElementDisplayed("btn_plusIconNominee", tabName);
 		element("btn_plusIconNominee", tabName).click();
 		logMessage("STEP : Clicked on plus icon under " + tabName);
@@ -491,6 +492,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnSearchIcon(int index) {
+		wait.waitForElementToBeVisible(element("btn_searchNominee", String.valueOf(index)));
 		isElementDisplayed("btn_searchNominee", String.valueOf(index));
 		element("btn_searchNominee", String.valueOf(index)).click();
 		logMessage("STEP : Clicked on Search icon");

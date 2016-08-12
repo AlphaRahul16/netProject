@@ -25,6 +25,7 @@ import com.qait.keywords.ACS_Address_Validation_Action;
 import com.qait.keywords.ACS_Apply_Payment_Actions;
 import com.qait.keywords.ACS_Awards_EWEB_PageActions;
 import com.qait.keywords.ACS_BatchProcessingActions;
+import com.qait.keywords.ACS_MarketingPage_IWEB;
 import com.qait.keywords.ACS_ReportsActions;
 import com.qait.keywords.ACS_Scarf_Reporting;
 import com.qait.keywords.ACS_Scarf_ReviewingActions;
@@ -125,10 +126,8 @@ public class TestSessionInitiator {
 	public ACS_Void_Invoice acsVoidInvoice;
 	public ACS_Scarf_ReviewingActions acsScarfReviewPage;
 	public ACS_Scarf_Reviewing_Eweb_Action acsScarfReviewing;
-	
-
+	public ACS_MarketingPage_IWEB acsMarketingPageIweb;
 	//public AwardsPageActions_IWEB AwardsPageActions_IWEB;
-
 	public TakeScreenshot takescreenshot;
 
 	public WebDriver getDriver() {
@@ -136,7 +135,7 @@ public class TestSessionInitiator {
 	}
 
 	private void _initPage() {
-		
+		acsMarketingPageIweb=new ACS_MarketingPage_IWEB(driver);
 		ContactInfoPage = new ContactInformationPage(driver);
 		homePage = new HomePageActions(driver);
 		EduAndEmpPage = new EducationAndEmploymentPage(driver);

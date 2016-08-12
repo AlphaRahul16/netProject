@@ -77,6 +77,10 @@ creditCardDetails:
     Type: "BOA - Check"
     CheckNumber: 123456
 
+mailingListName: "SeleniumList"
+mailingListType: "Meetings"
+dateFormat : "MM/dd/YYYY"
+
 
             
 reinstateUsers: 
