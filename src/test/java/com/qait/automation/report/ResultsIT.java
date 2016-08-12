@@ -36,6 +36,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.DateUtil;
 import com.qait.automation.utils.YamlReader;
 
@@ -108,6 +109,7 @@ public class ResultsIT extends ReformatTestFile {
     private Session getSession() {
     	 Authenticator authenticator = new Authenticator(from, password);
         Properties properties = new Properties();
+        System.out.println("-----in get session");
         properties.setProperty("mail.transport.protocol", "smtps");
         properties.put("mail.smtps.auth", "true");
         properties.setProperty("mail.smtp.submitter", authenticator
@@ -126,8 +128,8 @@ public class ResultsIT extends ReformatTestFile {
         for (int i = 0; i < failedResultArray.length; i++) {
             failedResultArray[i] = failedResultsList.get(i);
         }
-        if(System.getProperty("browser").equals(null)){
-        	browserValue= getProperty("./Config.properties", "browser");        	
+        if(System.getProperty("browser")==null){
+        	browserValue= getProperty("./Config.properties", "browser");
         }
         else
         	browserValue=System.getProperty("browser");
@@ -178,7 +180,7 @@ public class ResultsIT extends ReformatTestFile {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(
                     val.toString()));
         }
-        message.addRecipient(Message.RecipientType.BCC, new InternetAddress("rahulyadav@qainfotech.net"));
+        message.addRecipient(Message.RecipientType.BCC, new InternetAddress("rahulyadav@qainfotech.com"));
 
     }
 

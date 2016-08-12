@@ -219,14 +219,14 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 		isElementDisplayed("btn_copyComments",String.valueOf(index));
 		if(checkIfElementIsThere("txt_reveiwerComment",String.valueOf(index))){
 			System.out.println("------in if");
-			logMessage("-----comment added----"+element("txt_reveiwerComment",String.valueOf(index)).getText().trim());
+			System.out.println("-----comment added----"+element("txt_reveiwerComment",String.valueOf(index)).getText().trim());
 			element("btn_copyComments",String.valueOf(index)).click();
 			
 		}
 		else{
 			System.out.println("------in else");
 			index++;
-			logMessage("-----comment added----"+element("txt_reveiwerComment",String.valueOf(index)).getText().trim());
+			System.out.println("-----comment added----"+element("txt_reveiwerComment",String.valueOf(index)).getText().trim());
 			element("btn_copyComments",String.valueOf(index)).click();
 		}
 		return index;
@@ -309,7 +309,6 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 	}
 	wait.resetExplicitTimeout(hiddenfieldtimeout);
 	wait.resetImplicitTimeout(2);
-		
 	}
 
 }
