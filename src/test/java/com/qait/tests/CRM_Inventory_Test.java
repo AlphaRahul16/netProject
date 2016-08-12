@@ -36,7 +36,7 @@ public class CRM_Inventory_Test extends BaseTest {
 	public void Step02_Select_And_Run_Query_And_Verify_User_Is_On_Individual_Profile_Page() {
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Query Individual");
-		test.memberShipPage.selectAndRunQuery(getYamlValue("CMR_Inventory.queryName"));
+		test.memberShipPage.selectAndRunQuery(getYamlValue("CRM_Inventory.queryName"));
 		individualName = test.acsAddressValidation.verifyIndividualProfilePage();
 		 customerFullNameList =test.memberShipPage.getCustomerFullNameAndContactID();
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Individuals | " + individualName);
@@ -52,7 +52,7 @@ public class CRM_Inventory_Test extends BaseTest {
 	public void Step04_Click_Select_Product_And_Merchandise_Option_and_verify_Centralized_Order_Entry_Merchandise_window() {
 
 		test.memberShipPage.clickOnSelectProduct();
-		test.memberShipPage.selectRandomProduct();
+		test.memberShipPage.selectRandomProduct("merchandise");
 		productName=test.memberShipPage.getProductNameFromCOEPage();
 		productCode=test.memberShipPage.getProductCodeFromCOEPage();
 		test.memberShipPage.clickOnSaveAndFinish();

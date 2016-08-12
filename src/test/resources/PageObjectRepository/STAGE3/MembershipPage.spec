@@ -183,3 +183,8 @@ arrow_selectMember                              xpath                           
 btn_CurrentYearPencil                           xpath                           //td[contains(text(),'Yes')]/preceding-sibling::td//i
 inp_dateForReviewModes                          xpath                           //input[@title='${reviewtitle}']
 mbr_autoPay                                     css                             img[title*='mbr_auto_pay'][src*='${value}']
+txt_prod_code									id								prd_code
+txt_prod_name									id								prc_display_name
+img_look_up										css							   .LookUpHyperLink
+txt_avl_qty										css							#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(8)
+price_txt										css							#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(7)

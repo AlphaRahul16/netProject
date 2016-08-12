@@ -594,4 +594,10 @@ email:
     recepient2: deepakkumar1@qainfotech.com
     recepient3: kanikasharma@qainfotech.com
     
-
+CRM_Inventory:
+  batch: "Selenium Testing"
+  productCode: "209-116-1000"
+  PaymentType: prepaid
+  paymentMethod: "BOA - Check"
+  checkNumber: "1111"   
+  queryName: "Selenium - Find Active Regular Member"

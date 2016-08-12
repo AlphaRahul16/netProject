@@ -4062,20 +4062,20 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		Assert.assertEquals(actual, expected);
 		logMessage("Step: Customer "+customerName+" is added with current date "+DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY"));
 	}
-	public void selectMerchandise()
+	public void selectMerchandise(String merchandise)
 	{
 		wait.waitForPageToLoadCompletely();
 		holdExecution(3000);
 		switchToFrame(element("frame_selectProduct"));
-		isElementDisplayed("link_merchandise");
-		clickUsingXpathInJavaScriptExecutor(element("link_merchandise"));
+		isElementDisplayed("txt_itemsAdded",merchandise);
+		clickUsingXpathInJavaScriptExecutor(element("txt_itemsAdded",merchandise));
 		logMessage("Step : Merchandise link is clicked in link_merchandise \n");
 	}
 	public String getProductCodeFromCOEPage()
 	{
 
 		switchToDefaultContent();
-		switchToFrame("iframe1");
+		switchToFrame("iframe");
 		String productCode=element("txt_prod_code").getAttribute("value"); 
 		logMessage("STEP: "+productCode+" is selected");
 		return productCode;
@@ -4083,17 +4083,17 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public String getProductNameFromCOEPage()
 	{
 		switchToDefaultContent();
-		switchToFrame("iframe1");
+		switchToFrame("iframe");
 		productName=element("inp_displayName").getAttribute("value"); 
 		logMessage("STEP: "+productName+" is selected");
 		return productName;
 		
 	}
-	public void selectRandomProduct()
+	public void selectRandomProduct(String merchandise)
 	{
-		selectMerchandise();
+		selectMerchandise(merchandise);
 		switchToDefaultContent();
-		switchToFrame(element("iframe1"));
+		switchToFrame(element("iframe"));
 		clickOnSearchDisplayNameButton();
 		clickOnRandomPage();
 		clickOnAnyRandomMember1();
