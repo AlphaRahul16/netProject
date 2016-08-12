@@ -164,11 +164,23 @@ public class DateUtil {
 		DateFormat sourceFormat = new SimpleDateFormat(formate);
 		try {
 			date = sourceFormat.parse(dateString);
+			System.out.println(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return date;
+	}
+	
+	public static String convertStringToParticularDateFormat(String dateString,String formate){
+		try {
+			Date date= new SimpleDateFormat(formate).parse(dateString);
+	      
+			return new SimpleDateFormat(formate).format(date);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return date;
+		return null;
 	}
 
 	public static String getCurrentTime(String timeFormat, String timeZone) {

@@ -14,13 +14,13 @@ import com.qait.automation.utils.YamlReader;
 public class CRM_Inventory_Test extends BaseTest {
 
 	String app_url_IWEB, individualName;
+	String price;
 	List<String> customerFullNameList;
 	String productName=null,productCode=null;
 
 	@BeforeClass
 	public void OpenBrowserWindow() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
-		// app_url_givingDonate = getYamlValue("app_url_givingDonate");
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 	}
 
@@ -43,7 +43,7 @@ public class CRM_Inventory_Test extends BaseTest {
 	}
 
 	@Test
-	public void Step03_Click_on_order_entry_button_and_verify_Centralized_Order_Entry_Page() {
+	public void Step03_Click_On_Order_Entry_Button_And_Verify_Centralized_Order_Entry_Page() {
 		test.memberShipPage.clickOnOrderEntryIcon();
 		test.memberShipPage.verifyCentralizedOrderEntryPage("Centralized Order Entry");
 	}
@@ -52,7 +52,7 @@ public class CRM_Inventory_Test extends BaseTest {
 	public void Step04_Click_Select_Product_And_Merchandise_Option_and_verify_Centralized_Order_Entry_Merchandise_window() {
 
 		test.memberShipPage.clickOnSelectProduct();
-		test.memberShipPage.selectRandomProduct("merchandise");
+		price = test.memberShipPage.selectRandomProductForCRMInventory();
 		productName=test.memberShipPage.getProductNameFromCOEPage();
 		productCode=test.memberShipPage.getProductCodeFromCOEPage();
 		test.memberShipPage.clickOnSaveAndFinish();
@@ -61,17 +61,16 @@ public class CRM_Inventory_Test extends BaseTest {
 
 	@Test
 	public void Step05_Verify_that_the_selected_item_is_added_into_Line_Items() {
-		
 		test.memberShipPage.verifyProductNameInLineItem(productName);
 	}
 
 	@Test
 	public void Step06_Create_batch_named_Selenium_Testing_and_enter_QA_in_Security_Group_and_Verify_Centralized_Order_Entry_page() {
-		test.memberShipPage.selectBatchAndPaymentDetails_subscription(
+		test.memberShipPage.selectBatchAndPaymentDetailsForCRMInventory(
 				YamlReader.getYamlValue("Acs_CreateMember_IWEB.batch"),
 				YamlReader.getYamlValue("CRM_Inventory.PaymentType"),
 				YamlReader.getYamlValue("CRM_Inventory.paymentMethod"), "", "", "",
-				YamlReader.getYamlValue("CRM_Inventory.checkNumber"));
+				YamlReader.getYamlValue("CRM_Inventory.checkNumber"),price);
 	}
 
 	@Test
@@ -90,6 +89,6 @@ public class CRM_Inventory_Test extends BaseTest {
 	{
 		test.memberShipPage.clickOnStudentMemberName(1);
 		test.invoicePage.verifyInvoiceProfile("Yes");
-		test.invoicePage.verifyProductCodeInlineItem(productCode);
+		test.invoicePage.verifyProductCodeInlineItem(productCode,productName);
 	}
 }
