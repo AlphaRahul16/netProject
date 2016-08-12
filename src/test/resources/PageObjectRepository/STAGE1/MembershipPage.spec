@@ -149,5 +149,45 @@ txt_expireDate_chapter                           xpath                          
 btn_addBatch                                     id                             inv_bat_key_oAddHyperLink
 inp_addBatchName                                 id                             bat_code
 list_batchSecurityGroup                          id                             gsc_grp_key
-
+drpdwn_memberType                                xpath                        //select[contains(@id,'QueryAsk')]
+btn_detailsMenuAACT                              xpath                        //span[text()='${menuName}']/../a[1]/i[@class='icon-chevron-down']
+txt_termStartDaterenewal                         xpath                         (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[14]
+txt_termEndDaterenewal                           xpath                        (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[15]
+productname_txt									 xpath							(//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[4]
+pricevalue_txt									 xpath							(//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[5]
+heading_queryAskAtRunTime                        xpath                         //span[text()='Query - Ask At Run-Time Values']
+list_memberPackage1                               css                           .DataFormDropDownList
+btn_goPackage                                    id                             ButtonAskGo
+txt_memberInfo                                   xpath                        //label[contains(text(),'${value}')]/following-sibling::span  
+btn_mydTransfer                                  xpath                        //a[@id='F1_HYPERLINK_7']/img    
+txt_balanceAmount                                xpath                        //table[@id='TransferTable']//span
+list_term                                        id                            ord_ptr_key
+list_newPackage                                  id                            mbr_pak_prd_renewal_key
+heading_transferPackage                          xpath                         //span[text()='Transfer Package']
+btn_transferNow                                  id                            TransferMembershipButtonID
+btn_gotorenewal                                  xpath                       (//td[contains(text(),'Active Renewed-No Response')]/preceding-sibling::td[3]//i)[1]
+txt_PaymentStatus                                xpath                        //td[contains(text(),'${productName}')]//following-sibling::td[1]
+icon_up                                          xpath                         //span[contains(text(),'${value}')]/preceding-sibling::a/i[@class='icon-chevron-up']
+txt_productPackage                               xpath                        (//th/a)[2]/../../following-sibling::tr[1]//td[4]
+btn_transferMem									xpath							.//*[@id='F1_HYPERLINK_6']/img
+drpdown_memtype									xpath							.//select[@id='mbr_mbt_key']
+drpdown_package									xpath							.//select[@id='mbr_pak_prd_renewal_key']
+drpdown_invoice									xpath							.//*[@id='inv_bat_key']
+iframe1											id								iframe1
+table_rows                                      xpath                           //table[@class='table']//tr
+txt_current                                     xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[5]
+txt_startDate                                   xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[8]
+txt_endDate                                     xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[${index2}]
+arrow_selectMember                              xpath                           (//th/a)[2]/../../following-sibling::tr[${index}]//td[3]//a
+btn_CurrentYearPencil                           xpath                           //td[contains(text(),'Yes')]/preceding-sibling::td//i
+inp_dateForReviewModes                          xpath                           //input[@title='${reviewtitle}']
+inp_checkNumber                                   id                    	  	 pin_check_number
+link_merchandise								xpath							//a[text()='merchandise']
+txt_prod_code									id								prd_code
+txt_prod_name									id								prc_display_name
+img_look_up										css							   .LookUpHyperLink
+mbr_autoPay                                     css                             img[title*='mbr_auto_pay'][src*='${value}']
+txt_avl_qty										css							#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(8)
+price_txt										css							#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(7)
+=====
 ==============================================================================================================================================

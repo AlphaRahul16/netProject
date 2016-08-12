@@ -58,7 +58,7 @@ img_submitnomination                           css                          .upd
 txt_NominationTooltip                         classname                    awardDeadline  
 inp_findbymembernumber                        id                           memberNumber_searchNominee
 txt_Nomineename                               classname                   nomineeName 
-rad_dynsafelabpractice                        xpath                        //span/following-sibling::input[@value='${value}']
+rad_dynsafelabpractice                        xpath                       //div[@id='safetyProtocol']/input[@value='${value}']
 rad_disscusNomination                         xpath                        //div[@id='discussedWithNominee']/span[text()='${value}']/following-sibling::input
 btn_saveForLater                              css                         .saveData.later
 txt_awardStatus                               xpath                       //div[contains(text(),'${awardName}')]/following-sibling::table//td[@class='status']

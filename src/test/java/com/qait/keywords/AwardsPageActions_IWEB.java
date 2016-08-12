@@ -291,10 +291,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			nomineesNames.add(nominees.getText());
 		}
 
-		// if (nomineesNames.size() < 0) {
-		// Assert.fail("ASSERT FAILED : " + nomineesNames.size()
-		// + " Nominees are exists in award selected\n");
-		// }
+
 		return nomineesNames;
 	}
 
@@ -479,11 +476,12 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnPlusIcon(String tabName) {
+
 		isElementDisplayed("btn_plusIconNominee", tabName);
 		wait.waitForElementToBeClickable(element("btn_plusIconNominee", tabName));
 		clickUsingXpathInJavaScriptExecutor(element("btn_plusIconNominee",
 				tabName));
-		// element("btn_plusIconNominee", tabName).click();
+	
 		logMessage("STEP : Clicked on plus icon under " + tabName);
 	}
 
@@ -496,6 +494,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnSearchIcon(int index) {
+
 		waitForSpinner();
 		isElementDisplayed("btn_searchNominee", String.valueOf(index));
 		clickUsingXpathInJavaScriptExecutor(element("btn_searchNominee",
@@ -503,6 +502,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		// element("btn_searchNominee", String.valueOf(index)).click();
 		logMessage("STEP : Clicked on Search icon");
 		wait.waitForPageToLoadCompletely();
+
 	}
 
 	public boolean verifyJudgeAlreadyExist() {
@@ -810,7 +810,9 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			expandDetailsMenuIfAlreadyExpanded("award judge");
 			String newJudgeName = goToJudgeRecord(judgeName);
 			deleteNominees();
+
 			expandDetailsMenuIfAlreadyExpanded("acs award judge score");
+
 			verifyACSAwardStageEntriesInThisStageIsEmpty();
 			wait.hardWait(2);
 			clickOnJudgeNameToNavigateOnProfilePage(newJudgeName);

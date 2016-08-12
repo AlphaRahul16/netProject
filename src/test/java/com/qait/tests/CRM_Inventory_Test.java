@@ -36,7 +36,7 @@ public class CRM_Inventory_Test extends BaseTest {
 	public void Step02_Select_And_Run_Query_And_Verify_User_Is_On_Individual_Profile_Page() {
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Query Individual");
-		test.memberShipPage.selectAndRunQuery(getYamlValue("CMR_Inventory.queryName"));
+		test.memberShipPage.selectAndRunQuery(getYamlValue("CRM_Inventory.queryName"));
 		individualName = test.acsAddressValidation.verifyIndividualProfilePage();
 		 customerFullNameList =test.memberShipPage.getCustomerFullNameAndContactID();
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Individuals | " + individualName);
@@ -45,14 +45,16 @@ public class CRM_Inventory_Test extends BaseTest {
 	@Test
 	public void Step03_Click_On_Order_Entry_Button_And_Verify_Centralized_Order_Entry_Page() {
 		test.memberShipPage.clickOnOrderEntryIcon();
-		//test.memberShipPage.verifyCentralizedOrderEntryPage("Centralized Order Entry");
+		test.memberShipPage.verifyCentralizedOrderEntryPage("Centralized Order Entry");
 	}
 
 	@Test
 	public void Step04_Click_Select_Product_And_Merchandise_Option_and_verify_Centralized_Order_Entry_Merchandise_window() {
 
 		test.memberShipPage.clickOnSelectProduct();
+
 		price = test.memberShipPage.selectRandomProductForCRMInventory();
+
 		productName=test.memberShipPage.getProductNameFromCOEPage();
 		productCode=test.memberShipPage.getProductCodeFromCOEPage();
 		test.memberShipPage.clickOnSaveAndFinish();
@@ -89,6 +91,8 @@ public class CRM_Inventory_Test extends BaseTest {
 	{
 		test.memberShipPage.clickOnStudentMemberName(1);
 		test.invoicePage.verifyInvoiceProfile("Yes");
+
 		test.invoicePage.verifyProductCodeInlineItem(productCode,productName);
+
 	}
 }

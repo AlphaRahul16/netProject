@@ -33,14 +33,16 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 				DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY"));
 	}
 	
+
 	public void verifyProductCodeInlineItem(String prodCode, String prodName)
 	{
 		hardWaitForIEBrowser(3);
 		expandDetailsMenu("line items");
 		hardWaitForIEBrowser(10);
+
 		isElementDisplayed("txt_code",prodName);
 		String productCode=element("txt_code",prodName).getText().trim();
-		System.out.println("P code"+productCode);
+
 		Assert.assertTrue(productCode.contains(prodCode));
 		logMessage("ASSERT PASSED: Product Code is matched in Line Item");
 		
@@ -179,11 +181,11 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	// private void selectMenuInInvoiceTab(String menuName) {
-	// hover(element("tab_invoice"));
-	// element("txt_invoiceMenu", menuName).click();
-	// logMessage("Step : " + menuName + " is clicked in txt_invoiceMenu\n");
-	// }
+	 public void selectMenuInInvoiceTab(String menuName) {
+	 hover(element("tab_invoice"));
+	 element("txt_invoiceMenu", menuName).click();
+	 logMessage("Step : " + menuName + " is clicked in txt_invoiceMenu\n");
+	 }
 
 	private void enterInvoiceNumber(String invoiceNumber) {
 		// wait.waitForPageToLoadCompletely();

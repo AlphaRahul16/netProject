@@ -79,6 +79,9 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
+
+	
+	
 	public void verifyMemberDetails(String fName, String lName, String add, String city, String zipCode,
 			String addressType, String contactId, String userEmail) {
 		verifyElementTextContains("txt_memberDetails", fName);
@@ -354,7 +357,6 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		} else {
 			logMessage("Value in Is Create Only Individual? column is null\n");
 		}
-
 	}
 
 	public void verifyMemberIsNotCreated() {
@@ -1014,6 +1016,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
+	
+	
 	public void clickOnArrowButtonForProductName(String productName) {
 		isElementDisplayed("btnArrowProdName", productName);
 		clickUsingXpathInJavaScriptExecutor(element("btnArrowProdName", productName));
