@@ -15,11 +15,11 @@ public class CRM_Inventory_Test extends BaseTest {
 
 	String app_url_IWEB, individualName;
 	List<String> customerFullNameList;
+	String productName=null,productCode=null;
 
 	@BeforeClass
 	public void OpenBrowserWindow() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
-		// app_url_givingDonate = getYamlValue("app_url_givingDonate");
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 	}
 
@@ -42,7 +42,7 @@ public class CRM_Inventory_Test extends BaseTest {
 	}
 
 	@Test
-	public void Step03_Click_on_order_entry_button_and_verify_Centralized_Order_Entry_Page() {
+	public void Step03_Click_On_Order_Entry_Button_And_Verify_Centralized_Order_Entry_Page() {
 		test.memberShipPage.clickOnOrderEntryIcon();
 		test.memberShipPage.verifyCentralizedOrderEntryPage("Centralized Order Entry");
 	}
@@ -52,12 +52,16 @@ public class CRM_Inventory_Test extends BaseTest {
 
 		test.memberShipPage.clickOnSelectProduct();
 		test.memberShipPage.selectRandomProduct();
+		productName=test.memberShipPage.getProductNameFromCOEPage();
+		productCode=test.memberShipPage.getProductCodeFromCOEPage();
+		test.memberShipPage.clickOnSaveAndFinish();
+		
 	}
 
 	@Test
 	public void Step05_Verify_that_the_selected_item_is_added_into_Line_Items() {
-		test.memberShipPage.verifyProductNameInLineItem();
-
+		
+		test.memberShipPage.verifyProductNameInLineItem(productName);
 	}
 
 	@Test
@@ -76,8 +80,6 @@ public class CRM_Inventory_Test extends BaseTest {
 
 	@Test
 	public void Step08_verify_invoice_is_added_in_the_invoices_open_batch_with_trancation_date_is_current_date() {
-		/*String productName=test.cmrInventoryActions.getProductName();
-		int index=test.memberShipPage.verifyProductUnderDetailsMenu(productName);*/
 		test.memberShipPage.verifyInvoiceIsAdded(customerFullNameList.get(0).trim());
 		
 	}
@@ -85,7 +87,8 @@ public class CRM_Inventory_Test extends BaseTest {
 	@Test
 	public void step09_verify_Invoice_profile_page_Verify_paid_in_full_is_Yes_trancation_date_with_current_date_and_product_code()
 	{
+		test.memberShipPage.clickOnStudentMemberName(1);
 		test.invoicePage.verifyInvoiceProfile("Yes");
-		test.invoicePage.verifyProductCodeInlineItem();
+		test.invoicePage.verifyProductCodeInlineItem(productCode);
 	}
 }

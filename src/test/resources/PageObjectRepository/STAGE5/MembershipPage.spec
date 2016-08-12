@@ -182,15 +182,12 @@ txt_endDate                                     xpath                           
 arrow_selectMember                              xpath                           (//th/a)[2]/../../following-sibling::tr[${index}]//td[3]//a
 btn_CurrentYearPencil                           xpath                           //td[contains(text(),'Yes')]/preceding-sibling::td//i
 inp_dateForReviewModes                          xpath                           //input[@title='${reviewtitle}']
-<<<<<<< HEAD
 inp_checkNumber                                   id                    	  	 pin_check_number
 link_merchandise								xpath							//a[text()='merchandise']
 txt_prod_code									id								prd_code
 txt_prod_name									id								prc_display_name
 img_look_up										css							   .LookUpHyperLink
-txt_avl_qty										css							#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(8)
-txt_price										css							#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(7)
-========================================================================================================================================================================
-=======
 mbr_autoPay                                     css                             img[title*='mbr_auto_pay'][src*='${value}']
->>>>>>> 0e4447e617218015f4ad1629785d82876fa9dd4c
+txt_avl_qty										css							#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(8)
+price_txt										css							#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(7)
+========================================================================================================================================================================

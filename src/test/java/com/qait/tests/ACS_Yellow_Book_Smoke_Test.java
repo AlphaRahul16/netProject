@@ -88,7 +88,7 @@ public class ACS_Yellow_Book_Smoke_Test extends BaseTest{
 				.verifyUpdatedAddressOnYellowBookHomePage(test.homePageIWEB.map().get("Address field 2").trim());
 	}
 
-	/*@Test
+	@Test
 	public void Step08_Click_On_My_Biography_Link_And_Update_Biography_Fields_Than_Verify_Updated_Biography_On_Yellow_Book_Eweb_Home_Page() {
 		test.acsYellowBookEwebPage.clickOnLinkOnHomePageYBEweb("biography");
 		test.acsYellowBookEwebPage.verifyUserNavigatedToParticularPage("Update My Yellow Book Biography");
@@ -103,7 +103,7 @@ public class ACS_Yellow_Book_Smoke_Test extends BaseTest{
 	}
 
 	@Test
-	public void Step09_Click_On_Committe_Preferences_Link_And_Choose_Four_Random_Committees_And_Verify_Selected_Committees_On_Yellow_Book_Eweb_Home_Page() {
+	public void Step10_Click_On_Committe_Preferences_Link_And_Choose_Four_Random_Committees_And_Verify_Selected_Committees_On_Yellow_Book_Eweb_Home_Page() {
 		test.acsYellowBookEwebPage.clickOnLinkOnHomePageYBEweb("committees");
 		committeesList = test.acsYellowBookEwebPage
 				.selectFourRandomCommitteesFromCommitteesPreferencesPage(test.homePageIWEB.map().get("checkbox?"));
@@ -111,13 +111,13 @@ public class ACS_Yellow_Book_Smoke_Test extends BaseTest{
 	}
 
 	@Test
-	public void Step10_Fill_The_Test_Data_In_Selected_Committee_Input_Box_And_Verify_Selected_Committees_On_Home_Page_Of_Yellow_Book_Eweb() {
+	public void Step11_Fill_The_Test_Data_In_Selected_Committee_Input_Box_And_Verify_Selected_Committees_On_Home_Page_Of_Yellow_Book_Eweb() {
 		test.acsYellowBookEwebPage.fillTheTestDataInSelectedCommitteeInputBoxAndClickOnSubmitButton();
 		test.acsYellowBookEwebPage.verifySelectedCommitteesOnYellowBookEwebHomePage(committeesList);
 	}
 
 	@Test
-	public void Step11_Launch_Iweb_Application_For_Yellow_Book_And_Verify_Biography_Data() {
+	public void Step12_Launch_Iweb_Application_For_Yellow_Book_And_Verify_Biography_Data() {
 		test.launchApplication(app_url_iweb_yb);
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 		test.homePageIWEB.clickOnFindTab();
@@ -129,10 +129,10 @@ public class ACS_Yellow_Book_Smoke_Test extends BaseTest{
 	}
 
 	@Test
-	public void Step12_Verify_Committee_Member_Status() {
+	public void Step13_Verify_Committee_Member_Status() {
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Committees");
 		test.individualsPage.verifyCommitteeMembersStatus(committeesList);
-	}*/
+	}
 
 	@BeforeClass
 	public void Open_Browser_Window() {
