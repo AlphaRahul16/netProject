@@ -412,7 +412,11 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 			verifySubName("Journal of the American Chemical Society");
 		}
 		verifyRemainingIsOneLessThanIssues();
+
 		expandDetailsMenu("issues fulfilled");
+
+		expandDetailsMenuIfAlreadyExpanded("issues fulfilled");
+
 		verifyFulfillmentDate(subName);
 	}
 

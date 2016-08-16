@@ -11,11 +11,11 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
-public class ACS_AddressChangeTermsInvoice_Test {
+public class ACS_AddressChangeTermsInvoice_Test extends BaseTest {
 	
-	TestSessionInitiator test;
 	String app_url_iweb,chpName;
 	Map<String, String> membershipDateList = new HashMap<String, String>();
 	List<String> addressType=new ArrayList<>();
@@ -30,6 +30,7 @@ public class ACS_AddressChangeTermsInvoice_Test {
 	@Test
 	public void Step01_Launch_Iweb_Application(){
 		test.launchApplication(app_url_iweb);
+		test.acsAddressValidation.waitForPageReadyState();
 		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");

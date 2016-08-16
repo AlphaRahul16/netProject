@@ -27,4 +27,6 @@ txt_selectedProductName             xpath                               //div[@c
 txt_categoryName                    xpath                              //h3[text()='${productName}']/..
 subCategory                        xpath                               //div[@data-category-id='${categoryId}' AND contains(@id,'subscription')]
 txt_subscribeToAll                 xpath                               //div[@data-category-id='${categoryId}']/div[3]
+btn_newsletterAction           xpath                         //div/h2[text()='${list name}']//..//following-sibling::div[4]/button
+btn_newslettedHeading          xpath                         //div/h2[text()='${list name}']
 =======================================================================================================================================================================================

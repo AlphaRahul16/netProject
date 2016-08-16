@@ -39,6 +39,7 @@ csv-data-file:
   path_AwardsVoting: ./src/test/resources/TestDataLibrary/Awards_Voting_Data_Sheet.csv
   path_MYDTransfer: ./src/test/resources/TestDataLibrary/Multi_Year_Dues_Transfer_Sheet.csv
   path_OMR: ./src/test/resources/TestDataLibrary/OMR_Datasheet.csv
+  path_GCS-OMA: ./src/test/resources/TestDataLibrary/GCS-OMA data sheet.csv
   data-separator: '\t'
   has-header: true
 
@@ -138,7 +139,7 @@ ASM_StoreSmokeChecklist_Data:
               
               
 ACS_fellowNominatedData: 
-    NomineeName: Cal,Don,Edd,Eva,Fed,Kim,Lee,Leo,Jan,May,Meg,Mia,Tom,Pan,Sue,Ova,Pet
+    NomineeName: jon,Edd,Eva,Fed,Kim,Lee,Leo,Jan,May,Meg,Mia,Tom,Pan,Sue,Ova,Pet
     EducationDetails: 
          Institution: TestInstitution
          Degree: AssociateDegree
@@ -476,6 +477,23 @@ ACS_ApplyPayment:
     PaymentMethod: 
         Select: "BOA - Check"
         Unselect: "Visa/MC"   
+        
+AddressChange:
+    queryName: "Selenium – Find Random Active Member USA"
+    organization: "Selenium Test"
+    department: "Department"
+    address: "1155 16th St NW"
+    city: "Washington"
+    postalCode: "20036"
+    state: "DC"
+
+ScarfReviewer:
+    queryName: "BP - Reviewers"
+    reviewRating: Commendable
+    reviewComments: test comments
+    overallRating: Outstanding
+    overallGCRating: "Yes"
+    overallReviewComment: outstanding test data
 
 email:
   send: true

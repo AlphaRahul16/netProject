@@ -55,7 +55,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	Map<String, String> createMemberCredentials = new HashMap<String, String>();
 	private static int individualCount = 0;
 	String html = null;
-	String productName=null;
+	String productName = null;
 
 	public MembershipPageActions_IWEB(WebDriver driver) {
 		super(driver, pagename);
@@ -103,7 +103,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public String getMemberWebLogin() {
-		 isElementDisplayed("txt_webLogin");
+		isElementDisplayed("txt_webLogin");
 		String info = element("txt_webLogin").getText().trim();
 		logMessage("Step : WebLogin is " + info + " \n");
 		return info;
@@ -622,21 +622,22 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		int randomNumber = rand.nextInt((max - min) + 1) + min;
 		String randomNumberInString = String.valueOf(randomNumber);
 		isElementDisplayed("link_randomMemberInList", randomNumberInString);
-		String avlQty=element("txt_avl_qty",randomNumberInString).getText();
-		String price=element("price_txt",randomNumberInString).getText();
-		System.out.println("Price: "+price);	
-		if((avlQty.contains("N/A"))||(avlQty.contains("0")))
-		{
+		String avlQty = element("txt_avl_qty", randomNumberInString).getText();
+		String price = element("price_txt", randomNumberInString).getText();
+		System.out.println("Price: " + price);
+
+		if ((avlQty.contains("N/A")) || (avlQty.contains("0"))) {
 			clickOnAnyRandomMember1();
 		}
-		element("link_randomMemberInList",randomNumberInString).click();
+		element("link_randomMemberInList", randomNumberInString).click();
 		logMessage("Step : Member icon at the position of "
 				+ randomNumberInString
 				+ " is clicked in link_randomMemberInList\n");
 		return price;
 	}
-	
+
 	public void verifyMemberStatus(String memberStatus) {
+
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);
 		isElementDisplayed("txt_memberStatus");
@@ -867,8 +868,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		nextYearDate = DateUtil
 				.getAddYearWithLessOnedayInStringWithGivenFormate("M/D/YYYY",
-						"EST5EDT",
-						getOmaSheetValue(caseId, "multiYearDecision"));
+						"EST5EDT", map().get("multiYearDecision"));
 
 		if (nextYearDate.startsWith("0")) {
 			String newCurrentDate = nextYearDate.substring(1);
@@ -1161,7 +1161,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 					menuName));
 			// element("btn_detailsMenuAACT", menuName).click();
 		} catch (Exception e) {
-			logMessage("Bar "+menuName+" already expanded");
+			logMessage("Bar " + menuName + " already expanded");
 		}
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
@@ -1593,8 +1593,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		waitForSpinner();
 		selectOrderEntryInfo("paymentMethod", paymentMethod);
 		waitForSpinner();
-		System.out.println("check number"+ checkNumber);
-		
+		System.out.println("check number" + checkNumber);
+
 		if (paymentMethod.equalsIgnoreCase("Visa/MC")) {
 			enterCardDetails("cardNumber", cardNumber);
 			selectMemberInfo("expireDate", expireDate);
@@ -1613,11 +1613,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		verifyPageTitleContains("CRM | Individuals |");
 	}
-	
-	
+
 	public void selectBatchAndPaymentDetailsForCRMInventory(String batchName,
 			String paymentType, String paymentMethod, String cardNumber,
-			String expireDate, String cvvNumber, String checkNumber, String price) {
+			String expireDate, String cvvNumber, String checkNumber,
+			String price) {
 
 		// wait.waitForPageToLoadCompletely();
 		holdExecution(2000);
@@ -1629,26 +1629,26 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		waitForSpinner();
 		selectOrderEntryInfo("PaymentType", paymentType);
-		if(price.contains("0.00")){
-			
-		}else{
-		waitForSpinner();
-		selectOrderEntryInfo("paymentMethod", paymentMethod);
-		waitForSpinner();
-		System.out.println("check number"+ checkNumber);
-		
-		if (paymentMethod.equalsIgnoreCase("Visa/MC")) {
-			enterCardDetails("cardNumber", cardNumber);
-			selectMemberInfo("expireDate", expireDate);
-			enterCardDetails("cvvNumber", cvvNumber);
-		} else if (paymentMethod.equalsIgnoreCase("BOA - Check")) {
-			enterCardDetails("checkNumber", checkNumber);
+		if (price.contains("0.00")) {
 
 		} else {
-			Assert.fail("ASSERT FAILED : Payment method " + paymentMethod
-					+ " is not correct \n");
+			waitForSpinner();
+			selectOrderEntryInfo("paymentMethod", paymentMethod);
+			waitForSpinner();
+			System.out.println("check number" + checkNumber);
+
+			if (paymentMethod.equalsIgnoreCase("Visa/MC")) {
+				enterCardDetails("cardNumber", cardNumber);
+				selectMemberInfo("expireDate", expireDate);
+				enterCardDetails("cvvNumber", cvvNumber);
+			} else if (paymentMethod.equalsIgnoreCase("BOA - Check")) {
+				enterCardDetails("checkNumber", checkNumber);
+
+			} else {
+				Assert.fail("ASSERT FAILED : Payment method " + paymentMethod
+						+ " is not correct \n");
+			}
 		}
-	}
 		selectBillingAddressIfNotPrePopulated();
 		clickOnSaveAndFinish();
 		handleAlert();
@@ -2045,7 +2045,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		}
 	}
-	
+
 	public void goToAddMembershipAndFillDetails_membership() {
 		wait.waitForPageToLoadCompletely();
 		clickOnSelectProduct();
@@ -2309,7 +2309,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 					map().get("Sub" + i + "_SalePrice?"));
 		}
 	}
-	
+
 	public void selectAddMembershipInSelectProductLink() {
 		isElementDisplayed("link_addMemership");
 		clickUsingXpathInJavaScriptExecutor(element("link_addMemership"));
@@ -2473,8 +2473,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		return customerContactId;
 	}
 
-	public List<String> getCustomerFullNameAndContactID() 
-	{
+	public List<String> getCustomerFullNameAndContactID() {
 		clickOnEditNameAndAddress();
 		switchToFrame("iframe1");
 		customerLname = getNameFromEditNameAndAddressButton("lastName") + " "
@@ -2484,13 +2483,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		handleAlert();
 		switchToDefaultContent();
 		customerContactId = element("txt_renewalContactId").getText();
-		System.out.println(customerContactId);
-		System.out.println(customerLname);
 		memberDetails.add(customerLname);
 
 		memberDetails.add(customerContactId);
 		// memberDetails.add(getMemberWebLogin());
-		logMessage("Step : Customer or contact id fetched as "+customerContactId);
+		logMessage("Step : Customer or contact id fetched as "
+				+ customerContactId);
 		return memberDetails;
 
 	}
@@ -2499,7 +2497,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	{
 		reviewerloginMap.put("reviewer"+reviewerNumber, getCustomerLastNameAndContactID());
 		logMessage("Step : Reviewer name is fetched as "+reviewerloginMap.get("reviewer"+reviewerNumber));
-	    logMessage("-----last name:"+reviewerloginMap.get("reviewer"+reviewerNumber).get(0)
+	    System.out.println("-----last name:"+reviewerloginMap.get("reviewer"+reviewerNumber).get(0)
 	    		+"-----member number:"+reviewerloginMap.get("reviewer"+reviewerNumber).get(1));
 	}
 
@@ -2628,8 +2626,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : Payment status before renewal is Unpaid");
 
 	}
-	
-	public void verifyPaymentStatusBeforeAutoRenewal(String query,String queryPageUrl) {
+
+	public void verifyPaymentStatusBeforeAutoRenewal(String query,
+			String queryPageUrl) {
 		try {
 			wait.resetImplicitTimeout(4);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
@@ -2639,7 +2638,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("ASSERT PASSED : Payment status before renewal is not Unpaid for "
 					+ MemberTransferLoopCount + " attempt thus looping back\n");
 			MemberTransferLoopCount++;
-			selectValidUserForAutoRenewal(query,queryPageUrl);
+			selectValidUserForAutoRenewal(query, queryPageUrl);
 		}
 		wait.resetExplicitTimeout(timeOut);
 		wait.resetImplicitTimeout(timeOut);
@@ -2871,9 +2870,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("ASSERT PASSED : Term End date is empty\n");
 		}
 	}
-	
+
 	public void verifyTermStartDateAndEndDatesAreEmptyForAutoRenewal(
-			String Query,String queryPageUrl) {
+			String Query, String queryPageUrl) {
 		try {
 
 			wait.resetImplicitTimeout(4);
@@ -2891,7 +2890,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("Step : Term Start date and Term Endd Date are not empty for "
 					+ MemberTransferLoopCount + " attempt\n");
 			MemberTransferLoopCount++;
-			selectValidUserForAutoRenewal(Query,queryPageUrl);
+			selectValidUserForAutoRenewal(Query, queryPageUrl);
 		} else {
 			Assert.assertTrue(element("txt_termStartDaterenewal", "1")
 					.getText().length() == 1, "Term Start Date is not Empty");
@@ -2979,7 +2978,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		Matcher m;
 		LinkedHashMap<String, String> ResultList = new LinkedHashMap<String, String>();
 		Assert.assertEquals(beforeList.size(), afterList.size());
-		for (@SuppressWarnings("rawtypes") Map.Entry criteria : criteriaList.entrySet()) {
+		for (@SuppressWarnings("rawtypes")
+		Map.Entry criteria : criteriaList.entrySet()) {
 			switch (criteria.getKey() + "") {
 			case "MP Mbr Type":
 				if (afterList
@@ -3241,14 +3241,22 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				}
 				break;
 			case "MP Pmt Status":
-				if (criteriaList.get(criteria.getKey()).trim().contains("{IGNORE}")) {
-					ResultList.put(criteria.getKey() + "", "y");	
-				}else if(criteriaList.get(criteria.getKey()).trim().toLowerCase().contains("unpaid|credit")){
-					System.out.println("SpreadSheet data:: "+criteriaList.get(criteria.getKey()).trim().toLowerCase());
-					String sp[] = criteriaList.get(criteria.getKey()).trim().toLowerCase().split("\\|");
-					System.out.println("SP 0:: "+sp[0]);
-					System.out.println("SP 1:: "+sp[1]);
-					if((afterList.get(criteria.getKey()).trim().toLowerCase().contains(sp[0])) || (afterList.get(criteria.getKey()).trim().toLowerCase().contains(sp[1]))){
+				if (criteriaList.get(criteria.getKey()).trim()
+						.contains("{IGNORE}")) {
+					ResultList.put(criteria.getKey() + "", "y");
+				} else if (criteriaList.get(criteria.getKey()).trim()
+						.toLowerCase().contains("unpaid|credit")) {
+					System.out.println("SpreadSheet data:: "
+							+ criteriaList.get(criteria.getKey()).trim()
+									.toLowerCase());
+					String sp[] = criteriaList.get(criteria.getKey()).trim()
+							.toLowerCase().split("\\|");
+					System.out.println("SP 0:: " + sp[0]);
+					System.out.println("SP 1:: " + sp[1]);
+					if ((afterList.get(criteria.getKey()).trim().toLowerCase()
+							.contains(sp[0]))
+							|| (afterList.get(criteria.getKey()).trim()
+									.toLowerCase().contains(sp[1]))) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
@@ -4079,121 +4087,131 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : Current date lies within the "
 				+ reviewerType + " start and end date\n");
 	}
-	public void verifyCentralizedOrderEntryPage(String title)
-	{
-		Assert.assertEquals(title,getPageTitle());
-		logMessage("Step : title for Centralized Order Entry Page is verified as "+title);
+
+	public void verifyCentralizedOrderEntryPage(String title) {
+		Assert.assertEquals(title, getPageTitle());
+		logMessage("Step : title for Centralized Order Entry Page is verified as "
+				+ title);
 	}
-	
-	
-	public void verifyProductNameInLineItem(String productName)
-	{
+
+	public void verifyProductNameInLineItem(String productName) {
 		switchToDefaultContent();
 		waitForSpinner();
-		isElementDisplayed("txt_itemsAdded",productName);
-		String prodName=element("txt_itemsAdded",productName).getText();
-	
+		isElementDisplayed("txt_itemsAdded", productName);
+		String prodName = element("txt_itemsAdded", productName).getText();
+
 		Assert.assertTrue(productName.contains(prodName));
 		logMessage("Step: Selected Product is added in Line Items \n");
 	}
-	public void verifyInvoiceIsAdded(String customerName)
-	{
-		isElementDisplayed("txt_effectiveDateMemberType",customerName);
-		String actual=element("txt_effectiveDateMemberType",customerName).getText().trim();
-		String expected=DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY");
+
+	public void verifyInvoiceIsAdded(String customerName) {
+		isElementDisplayed("txt_effectiveDateMemberType", customerName);
+		String actual = element("txt_effectiveDateMemberType", customerName)
+				.getText().trim();
+		String expected = DateUtil
+				.getCurrentdateInStringWithGivenFormate("M/d/YYYY");
 		Assert.assertEquals(actual, expected);
-		logMessage("Step: Customer "+customerName+" is added with current date "+DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY"));
+		logMessage("Step: Customer " + customerName
+				+ " is added with current date "
+				+ DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY"));
 	}
-	public void selectMerchandise()
-	{
+
+	public void selectMerchandise(String merchandise) {
 		wait.waitForPageToLoadCompletely();
 		holdExecution(3000);
 		switchToFrame(element("frame_selectProduct"));
-		isElementDisplayed("link_merchandise");
-		clickUsingXpathInJavaScriptExecutor(element("link_merchandise"));
+		isElementDisplayed("txt_itemsAdded", merchandise);
+		clickUsingXpathInJavaScriptExecutor(element("txt_itemsAdded",
+				merchandise));
 		logMessage("Step : Merchandise link is clicked in link_merchandise \n");
 	}
+
 	public String getProductCodeFromCOEPage()
+
 	{
 
 		switchToDefaultContent();
 		switchToFrame("iframe1");
-		String productCode=element("txt_prod_code").getAttribute("value"); 
-		logMessage("STEP: "+productCode+" is selected");
+		String productCode = element("txt_prod_code").getAttribute("value");
+		logMessage("STEP: " + productCode + " is selected");
 		return productCode;
 	}
-	public String getProductNameFromCOEPage()
-	{
+
+	public String getProductNameFromCOEPage() {
 		switchToDefaultContent();
-		switchToFrame("iframe1");
-		productName=element("productName_inp").getText().trim(); 
-		logMessage("STEP: "+productName+" is selected");
+		switchToFrame(element("iframe"));
+		productName = element("productName_inp").getText().trim();
+		logMessage("STEP: " + productName + " is selected");
 		return productName;
-		
+
 	}
-	public String selectRandomProductForCRMInventory()
-	{
-		selectMerchandise();
+
+	public String selectRandomProductForCRMInventory() {
+		selectMerchandise("merchandise");
 		switchToDefaultContent();
-		switchToFrame(element("iframe1"));
+		switchToFrame(element("iframe"));
 		clickOnSearchDisplayNameButton();
+
+		clickOnRandomPage();
+		clickOnAnyRandomMember1();
+
 		_clickOnAvailableQuantityForSorting("Available Quantity");
 		_selectPage(10);
 		return clickOnAnyRandomMember1();
 	}
 
 	private void _clickOnAvailableQuantityForSorting(String tableHeading) {
-		isElementDisplayed("th_lookup",tableHeading);
-		element("th_lookup",tableHeading).click();
-		logMessage("Step: Clicked on "+tableHeading+" for Sorting");
+		isElementDisplayed("th_lookup", tableHeading);
+		element("th_lookup", tableHeading).click();
+		logMessage("Step: Clicked on " + tableHeading + " for Sorting");
 	}
 
 	private void _selectPage(int randomNumberInString) {
 		isElementDisplayed("lnk_pages", String.valueOf(randomNumberInString));
 		clickUsingXpathInJavaScriptExecutor(element("lnk_pages",
-				 String.valueOf(randomNumberInString)));
+				String.valueOf(randomNumberInString)));
 		logMessage("Step : page at the position of " + randomNumberInString
 				+ " is clicked in lnk_pages\n");
+
 	}
 
-	public void selectValidUserForAutoRenewal(String AutoRenewalquery,String queryPageUrl) {
+	public void selectValidUserForAutoRenewal(String AutoRenewalquery,
+			String queryPageUrl) {
 		if (MemberTransferLoopCount < 3) {
 			System.out.println(AutoRenewalquery);
-		launchUrl(queryPageUrl);
-		selectAndRunQuery(AutoRenewalquery);
-		expandDetailsMenu("individual memberships");
-		navigateToInvoicePageForRenewedProduct();
-		expandDetailsMenu("invoices");
-		verifyTermStartDateAndEndDatesAreEmptyForAutoRenewal(AutoRenewalquery,queryPageUrl);
-		//verifyPaymentStatusBeforeAutoRenewal(AutoRenewalquery,queryPageUrl);
-		MemberTransferLoopCount++;
-	} else {
-		Assert.fail("ASSERT FAIL : Member is not selected after "
-				+ MemberTransferLoopCount + " attempts\n");
-		logMessage("ASSERT FAIL : Member is not selected after "
-				+ MemberTransferLoopCount + " attempts\n");
-	}
-	logMessage("Step : Member selected in " + MemberTransferLoopCount
-			+ " attempt\n");
+			launchUrl(queryPageUrl);
+			selectAndRunQuery(AutoRenewalquery);
+			expandDetailsMenu("individual memberships");
+			navigateToInvoicePageForRenewedProduct();
+			expandDetailsMenu("invoices");
+			verifyTermStartDateAndEndDatesAreEmptyForAutoRenewal(
+					AutoRenewalquery, queryPageUrl);
+			// verifyPaymentStatusBeforeAutoRenewal(AutoRenewalquery,queryPageUrl);
+			MemberTransferLoopCount++;
+		} else {
+			Assert.fail("ASSERT FAIL : Member is not selected after "
+					+ MemberTransferLoopCount + " attempts\n");
+			logMessage("ASSERT FAIL : Member is not selected after "
+					+ MemberTransferLoopCount + " attempts\n");
+		}
+		logMessage("Step : Member selected in " + MemberTransferLoopCount
+				+ " attempt\n");
 
-}
-	
-	public void verifyAutoPayStatusAfterAutoRenewal(String value)
-	{
-		isElementDisplayed("mbr_autoPay",value);
-		Assert.assertTrue(isElementDisplayed("mbr_autoPay",value),"Auto Pay renewal image is not checked\n");
+	}
+
+	public void verifyAutoPayStatusAfterAutoRenewal(String value) {
+		isElementDisplayed("mbr_autoPay", value);
+		Assert.assertTrue(isElementDisplayed("mbr_autoPay", value),
+				"Auto Pay renewal image is not checked\n");
 		logMessage("Step : Auto Pay renewal image is checked\n");
 	}
 
-
-	public void verifyStorePaymentInformationChildFormIsPopulated(String firstName) {
-		isElementDisplayed("txt_code",firstName);
-		isElementDisplayed("txt_priceValue",firstName);
+	public void verifyStorePaymentInformationChildFormIsPopulated(
+			String firstName) {
+		isElementDisplayed("txt_code", firstName);
+		isElementDisplayed("txt_priceValue", firstName);
 		System.out.println(element("txt_code", firstName).getText().isEmpty());
-		System.out.println(element("txt_code", firstName).getText().isEmpty());		
+		System.out.println(element("txt_code", firstName).getText().isEmpty());
 	}
-		
-	}
-	
-	
 
+}

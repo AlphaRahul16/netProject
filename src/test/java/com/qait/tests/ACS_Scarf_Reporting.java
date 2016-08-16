@@ -122,7 +122,7 @@ public class ACS_Scarf_Reporting {
 		test.acsScarfReporting.verifypresenceOfMoreThanTwoPrimaryContact(flag);
 		test.acsScarfReporting.clickOnAddOfficerButton();
 		test.acsScarfReporting.addChapterOfficer();
-		officerName = test.acsScarfReporting.selectChapterOfficer(1);
+		officerName = test.acsScarfReporting.selectChapterOfficer(0);
 		test.acsScarfReporting.selectOfficerRole(dataList.get("Officer Role"));
 		test.acsScarfReporting.clickOnSaveButton();
 		test.acsScarfReporting.verifyAdditionOfOfficer(officerName);
@@ -137,6 +137,7 @@ public class ACS_Scarf_Reporting {
 		test.acsScarfReporting.verifyStudentChapterReportingPage();
 		test.acsScarfReporting.clickOnReportTab("report");
 		test.acsScarfReporting.verifyChapterStatus("Chapter Information", "Complete");
+//		test.acsScarfReporting.verifyNotSubmitReportCheckboxIsUnslected();
 	}
 
 	@Test
