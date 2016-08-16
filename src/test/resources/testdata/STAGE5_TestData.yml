@@ -77,6 +77,10 @@ creditCardDetails:
     Type: "BOA - Check"
     CheckNumber: 123456
 
+mailingListName: "SeleniumList"
+mailingListType: "Meetings"
+dateFormat : "MM/dd/YYYY"
+
 
             
 reinstateUsers: 
@@ -552,6 +556,16 @@ ScarfReporting:
     queryName: "QAIT - Active Student Chapters"
 PBA:
     queryName: "Selenium - Find Active Regular Member"
+    
+<<<<<<< HEAD
+OMR:
+     queryName: "Selenium - Find Active Regular Member with Proforma"
+     
+CMR_Inventory:
+    queryName: "Selenium - Find Active Regular Member" 
+=======
+
+>>>>>>> 2ae2d8e0ddaf43ff5cf42e0802d1f87c218efe05
 
 VoidWithAdjustment:
     queryName: "Selenium - test open invoices"
@@ -569,6 +583,7 @@ ScarfReviewer:
     reviewRating: Commendable
     reviewComments: test comments
     overallRating: Outstanding
+    overallGCRating: Yes
     overallReviewComment: outstanding test data
     
     
@@ -602,5 +617,10 @@ email:
     recepient2: deepakkumar1@qainfotech.com
     recepient3: kanikasharma@qainfotech.com
     
-
-
+CRM_Inventory:
+  batch: "Selenium Testing"
+  productCode: "209-116-1000"
+  PaymentType: prepaid
+  paymentMethod: "BOA - Check"
+  checkNumber: "1111"
+  queryName: "Selenium - Find Active Regular Member" 

@@ -47,7 +47,7 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 	}
 
 	public String assignReviewerToAChapter(String reviewertype, int reviewercount) {
-		
+		hardWaitForChromeBrowser(2);
 		selectDropDownValue(reviewertype);
 		 waitForSpinner();
 		 wait.hardWait(2);
@@ -122,12 +122,22 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 
 
 	public String[] getCustomerSortName(ArrayList<String> reviewerNameList) {
-	   
+		String ComplexReviewerName;
+		String[] complexNameArray;
 		System.out.println(reviewerNameList.size());
 		for (int i = 0; i < reviewerNameList.size(); i++) {
 			System.out.println(reviewerNameList.get(i));
-			int size=reviewerNameList.get(i).split(" ").length;
-			custmerSortNames[i]=reviewerNameList.get(i).split(" ")[size-1];
+			if(reviewerNameList.get(i).contains(","))
+			{
+				ComplexReviewerName=reviewerNameList.get(i).split(",")[0].trim();
+			}
+			else
+			{
+				ComplexReviewerName=reviewerNameList.get(i);
+			}
+			complexNameArray=ComplexReviewerName.split(" ");
+			int size=complexNameArray.length;
+			custmerSortNames[i]=complexNameArray[size-1];
 			System.out.println(custmerSortNames[i]);
 		}
 		return custmerSortNames;

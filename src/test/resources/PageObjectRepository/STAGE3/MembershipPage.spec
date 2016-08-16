@@ -33,6 +33,7 @@ list_PaymentType                                     id                       in
 list_paymentMethod                                   id                       pin_apm_key
 inp_cardNumber                                       id                       pin_cc_number
 list_expireDate                                      id                       pin_cc_expire
+inp_checkNumber                                      id                       pin_check_number
 inp_cvvNumber                                        id                       pin_cc_security_code
 txt_rejoinDateForActive                              xpath                    //td[contains(text(),'Active')]/following-sibling::td[2]
 img_ticked                                           xpath                    //img[@id='F1_IMAGE_${index}']
@@ -182,3 +183,10 @@ arrow_selectMember                              xpath                           
 btn_CurrentYearPencil                           xpath                           //td[contains(text(),'Yes')]/preceding-sibling::td//i
 inp_dateForReviewModes                          xpath                           //input[@title='${reviewtitle}']
 mbr_autoPay                                     css                             img[title*='mbr_auto_pay'][src*='${value}']
+txt_prod_code									id								prd_code
+txt_prod_name									id								prc_display_name
+img_look_up										css							   .LookUpHyperLink
+txt_avl_qty										css							#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(8)
+price_txt										css							#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(7)
+th_lookup										xpath						.//*[@id='dgDynamicList']//th/a[contains(text(),'${field}')]
+productName_inp									css							#prd_name

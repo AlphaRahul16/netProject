@@ -3,6 +3,7 @@ package com.qait.keywords;
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -165,6 +166,16 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 			// exception handling
 			logMessage("NO Alert Present!!!");
 		}
+	}
+	
+	public void waitForPageReadyState(){
+		System.out.println("----"+String.valueOf(((JavascriptExecutor) driver).executeScript("return document.readyState")));
+		while(String.valueOf(((JavascriptExecutor) driver).executeScript("return document.readyState")).equalsIgnoreCase("interactive") || 
+				String.valueOf(((JavascriptExecutor) driver).executeScript("return document.readyState")).equalsIgnoreCase("loading")){
+		System.out.println("****interactive");
+		wait.hardWait(1);
+		}
+		System.out.println(String.valueOf(((JavascriptExecutor) driver).executeScript("return document.readyState")));
 	}
 
 }

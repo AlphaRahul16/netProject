@@ -18,6 +18,37 @@ public class ASM_emailPage extends GetPage {
 		this.driver = driver;
 	}
 
+	public void verifyMailingListInNewspaperHeading(String listName)
+	{
+		isElementDisplayed("btn_newslettedHeading", listName);
+		logMessage("Step list name "+listName+ " is displayed in newspaper heading !!");
+	}
+	
+	public String getNewsletterActionValue(String listName)
+	{
+		isElementDisplayed("btn_newsletterAction",listName);
+		return element("btn_newsletterAction",listName).getText();		
+	}
+	
+	public void verifyMailListIsSubscribed(String listName)
+	{
+		String actionValue=getNewsletterActionValue(listName);
+		logMessage("Step : News letter action value "+ actionValue+" is retrieved !!");
+		Assert.assertEquals(actionValue, "unsubscribe");
+		logMessage("ASSERT PASSED : verify user is subscribed !!");
+	}
+	
+	
+	
+	public void changeNewsLetterActionValue(String listName)
+	{
+		element("btn_newsletterAction",listName).click();
+		logMessage("Step : change the newsletter action value !!");
+		
+	}
+	
+	
+	
 	public void loginInToApplication(String username, String password) {
 		enterCredencial("username", username);
 		enterCredencial("password", password);

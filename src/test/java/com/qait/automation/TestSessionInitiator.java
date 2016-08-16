@@ -7,7 +7,6 @@ import static com.qait.automation.utils.YamlReader.setYamlFilePath;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,12 +20,17 @@ import org.testng.Reporter;
 
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.TakeScreenshot;
+import com.qait.automation.utils.YamlReader;
 import com.qait.keywords.ACS_Address_Validation_Action;
 import com.qait.keywords.ACS_Apply_Payment_Actions;
-import com.qait.automation.utils.YamlReader;
 import com.qait.keywords.ACS_Awards_EWEB_PageActions;
 import com.qait.keywords.ACS_BatchProcessingActions;
+import com.qait.keywords.ACS_MarketingPage_IWEB;
 import com.qait.keywords.ACS_ReportsActions;
+import com.qait.keywords.ACS_Scarf_Reporting;
+import com.qait.keywords.ACS_Scarf_ReviewingActions;
+import com.qait.keywords.ACS_Scarf_Reviewing_Eweb_Action;
+import com.qait.keywords.ACS_Void_Invoice;
 import com.qait.keywords.ASMErrorPage;
 import com.qait.keywords.ASM_AACTPage;
 import com.qait.keywords.ASM_CCEDPage;
@@ -61,11 +65,6 @@ import com.qait.keywords.MemberNumberLookupPage;
 import com.qait.keywords.MemberShipRenewalPage;
 import com.qait.keywords.MembershipPageActions_IWEB;
 import com.qait.keywords.SubscriptionPage;
-import com.qait.keywords.ACS_Scarf_Reporting;
-import com.qait.keywords.ACS_Scarf_ReviewingActions;
-import com.qait.keywords.ACS_Scarf_Reviewing_Eweb_Action;
-import com.qait.keywords.ACS_Void_Invoice;
-
 
 public class TestSessionInitiator {
 
@@ -131,6 +130,9 @@ public class TestSessionInitiator {
 
 	//public AwardsPageActions_IWEB AwardsPageActions_IWEB;
 
+	public ACS_MarketingPage_IWEB acsMarketingPageIweb;
+
+
 	public TakeScreenshot takescreenshot;
 
 	public WebDriver getDriver() {
@@ -173,17 +175,17 @@ public class TestSessionInitiator {
 		award_ewebPage = new ACS_Awards_EWEB_PageActions(driver);
 		acsYellowBookEwebPage = new AcsYellowBookEwebPageActions(driver);
 		acsAddressValidation = new ACS_Address_Validation_Action(driver);
-		acsScarfReporting= new ACS_Scarf_Reporting(driver);
+		acsScarfReporting = new ACS_Scarf_Reporting(driver);
 		acsbatchProcessing = new ACS_BatchProcessingActions(driver);
 		acsreportPage = new ACS_ReportsActions(driver);
 		applyPayment = new ACS_Apply_Payment_Actions(driver);
-		acsVoidInvoice= new ACS_Void_Invoice(driver);
+		acsVoidInvoice = new ACS_Void_Invoice(driver);
 		acsScarfReviewPage = new ACS_Scarf_ReviewingActions(driver);
 		acsScarfReviewing = new ACS_Scarf_Reviewing_Eweb_Action(driver);
 		gcs_paymentPage = new ACS_Scarf_Reviewing_Eweb_Action(driver);
+
+
 	}
-
-
 
 	/**
 	 * Page object Initiation done
@@ -231,78 +233,82 @@ public class TestSessionInitiator {
 	public void launchApplication() {
 		launchApplication(getYamlValue("baseurl"));
 	}
-	
+
 	public void launchApplication(String baseurl) {
-	    try {
-	     Reporter.log(
-	       "The test browser is :- "
-	         + _getSessionConfig().get("browser") + "\n", true);
-	     deleteAllCookies();
-	     if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer")))
-	        {
-	      if(baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage3/iweb") || 
-	    		  baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage2/iweb")||
-	    		  baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage5/iweb")){
-	         baseurl = baseurl
-	           .replaceAll(
-	             "https://stag",
-	             "https://"
-	               + YamlReader
-	                 .getYamlValue("Authentication.userName")
-	               + ":"
-	               +URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), 
-	                 "UTF-8")
-	               + "@stag");
-	         driver.get(baseurl);           
-	        }
-	      else
-	         baseurl= baseurl.replaceAll("https://iwebtest","https://"+ YamlReader.getYamlValue("Authentication.userName")+ ":"+URLEncoder.encode(YamlReader.getYamlValue(
-	         "Authentication.password"),"UTF-8")+"@iwebtest");
-	         driver.get(baseurl);         
-	        }
-	        else
-	        {
-	          driver.get(baseurl);
-	        }  
+		try {
+			Reporter.log(
+					"The test browser is :- "
+							+ _getSessionConfig().get("browser") + "\n", true);
+			deleteAllCookies();
+			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie") || _getSessionConfig()
+					.get("browser").equalsIgnoreCase("internetexplorer"))) {
+				if (baseurl
+						.equalsIgnoreCase("https://stag-12iweb/NFStage3/iweb")
+						|| baseurl
+								.equalsIgnoreCase("https://stag-12iweb/NFStage2/iweb")
+						|| baseurl
+								.equalsIgnoreCase("https://stag-12iweb/NFStage5/iweb")) {
+					baseurl = baseurl
+							.replaceAll(
+									"https://stag",
+									"https://"
+											+ YamlReader
+													.getYamlValue("Authentication.userName")
+											+ ":"
+											+ URLEncoder.encode(
+													YamlReader
+															.getYamlValue("Authentication.password"),
+													"UTF-8") + "@stag");
+					driver.get(baseurl);
+				} else
+					baseurl = baseurl
+							.replaceAll(
+									"https://iwebtest",
+									"https://"
+											+ YamlReader
+													.getYamlValue("Authentication.userName")
+											+ ":"
+											+ URLEncoder.encode(
+													YamlReader
+															.getYamlValue("Authentication.password"),
+													"UTF-8") + "@iwebtest");
+				driver.get(baseurl);
+			} else {
+				driver.get(baseurl);
+			}
 
-	  //   if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")
-//	       || _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer"))&& baseurl.contains("iwebtest")) {
-//	      baseurl = baseurl.replaceAll("https://iwebtest",
-//	        "https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
-//	          + YamlReader.getYamlValue("Authentication.password").replaceAll("@", "%40") + "@"
-//	          + "iwebtest");
-	  //
-	  //   }
+			if (!_getSessionConfig().get("browser").equalsIgnoreCase("ie")) {
+				if (baseurl.contains("iweb"))
+					Reporter.log("\nThe application url is :- "
+							+ baseurl
+									.replace(baseurl.split("@")[0], "https://")
+									.replace("@", ""), true);
+				else
+					Reporter.log("\nThe application url is :- " + baseurl, true);
+			}
+			if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/"))
+					&& (ConfigPropertyReader.getProperty("browser")
+							.equalsIgnoreCase("IE")
+							|| ConfigPropertyReader.getProperty("browser")
+									.equalsIgnoreCase("ie") || ConfigPropertyReader
+							.getProperty("browser").equalsIgnoreCase(
+									"internetexplorer"))) {
+				try {
+					Thread.sleep(8000);
+				} catch (InterruptedException e1) {
 
-	     if(!_getSessionConfig().get("browser").equalsIgnoreCase("ie")){
-	      if(baseurl.contains("iweb"))
-	       Reporter.log("\nThe application url is :- " + baseurl.replace(baseurl.split("@")[0], "https://").replace("@", ""),true);
-	      else
-	       Reporter.log("\nThe application url is :- " + baseurl,true);
-	     }
-	     if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/"))
-	       && (ConfigPropertyReader.getProperty("browser")
-	         .equalsIgnoreCase("IE")
-	         || ConfigPropertyReader.getProperty("browser")
-	           .equalsIgnoreCase("ie") || ConfigPropertyReader
-	         .getProperty("browser").equalsIgnoreCase(
-	           "internetexplorer"))) {
-	      try {
-	       Thread.sleep(8000);
-	      } catch (InterruptedException e1) {
-	      
-	      }
-	     }
-	     if (!baseurl
-	       .equalsIgnoreCase("https://iwebtest.acs.org/NFStage3/iweb")) {
-	      handleSSLCertificateCondition(baseurl);
-	     }
-	    
-	    }catch (Exception e) {
-	      
-	    }
+				}
+			}
+			if (!baseurl
+					.equalsIgnoreCase("https://iwebtest.acs.org/NFStage3/iweb")) {
+				handleSSLCertificateCondition(baseurl);
+			}
 
-	   }
+		} catch (Exception e) {
+
+		}
+
+	}
 
 	public void closeBrowserSession() {
 		driver.quit();
@@ -377,13 +383,13 @@ public class TestSessionInitiator {
 		Reporter.log("\nThe application url is :- " + baseURL, true);
 	}
 
-//	public void navigateToIWEBUrlOnNewBrowserTab(String baseURL) {
-//
-//		launchApplication(baseURL);
-//		
-//
-//		
-//	}
+	// public void navigateToIWEBUrlOnNewBrowserTab(String baseURL) {
+	//
+	// launchApplication(baseURL);
+	//
+	//
+	//
+	// }
 
 	public void openApplicationInNewTab(String baseURL) {
 		Robot robot;
@@ -409,11 +415,9 @@ public class TestSessionInitiator {
 			e.printStackTrace();
 		}
 	}
-	
-	  public void printMethodName(String testName) {
-		    Reporter.log("\nMethod name:- " + testName.toUpperCase()+"\n", true);
-		  }
 
+	public void printMethodName(String testName) {
+		Reporter.log("\nMethod name:- " + testName.toUpperCase() + "\n", true);
+	}
 
-	
 }

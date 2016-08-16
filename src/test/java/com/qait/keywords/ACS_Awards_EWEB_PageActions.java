@@ -220,7 +220,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			wait.hardWait(4);
 			wait.waitForPageToLoadCompletely();
 			wait.resetImplicitTimeout(5);
-			wait.resetExplicitTimeout(10);
+			wait.resetExplicitTimeout(30);
 			wait.hardWait(5);
 			isElementDisplayed("list_selectedNomineesPrepopulated");
 			wait.resetImplicitTimeout(timeOut);
@@ -237,6 +237,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			logMessage("Step : Nominees are not selected\n");
 		}
 	}
+
 
 	public List<List<String>> selectRandomNominees(
 			int numberOfNomineesToSelect, int round, List<String> nameOfJudges,

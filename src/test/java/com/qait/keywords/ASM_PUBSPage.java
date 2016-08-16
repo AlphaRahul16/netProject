@@ -59,9 +59,12 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnActiveSubscription() {
+		hardWaitForChromeBrowser(3);
+		handleAlert();
 		isElementDisplayed("lnk_moreTab");
 		element("lnk_moreTab").click();
 		logMessage("step: more tab is expanded !!");
+		hardWaitForChromeBrowser(2);
 		isElementDisplayed("lnk_subscriptionTab");
 		element("lnk_subscriptionTab").click();
 		logMessage("subscription tab is selected in expanded more option !!");
@@ -108,8 +111,17 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_printReceipt");
 		element("btn_printReceipt").click();
 		logMessage("Step: Clicked on print order receipt !!");
-		wait.hardWait(8);
+		wait.hardWait(15);
+		_verifyPDFFileIsDownloaded("report");
 	}
+
+	private void _verifyPDFFileIsDownloaded(String fileName) {
+		String source = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + fileName
+				+ ".pdf";
+		File sourceFile = new File(source);
+		Assert.assertTrue(sourceFile.exists());
+		}
 
 	public void verifyDataFromPdfFile() throws IOException {
 		System.out.println("===================================================================================");
@@ -125,7 +137,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		for (String product_Amount : productAmount) {
 			System.out.println("In PDF Method for Amount::" + product_Amount);
 			Assert.assertTrue(pdfContent.contains(product_Amount));
-			logMessage("[ASSERTION PASSED]:: Verified Product Amounts in Invoice Receipt PDF file");
+			logMessage("[ASSERTION PASSED]:: Verified Product Amount "+product_Amount+" in Invoice Receipt");
 		}
 
 		for (String product_Name : productName) {
@@ -135,7 +147,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 			} else {
 				Assert.assertTrue(pdfContent.contains(product_Name));
 			}
-			logMessage("[ASSERTION PASSED]:: Verified Product Names in Invoice Receipt PDF file");
+			logMessage("[ASSERTION PASSED]:: Verified Product Name "+product_Name+" is available in Invoice Receipt");
 		}
 
 	}
@@ -167,7 +179,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	public void enterPassword(String password) {
 		isElementDisplayed("inp_password");
 		element("inp_password").sendKeys(password);
-		logMessage("Step : " + password + " is entered in inp_passworclickOnAddAnESubscriptionButtond\n");
+		logMessage("Step : " + password + " is entered in inp_password\n");
 	}
 
 	public void clickOnVerifyButton() {
@@ -195,6 +207,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnAddButtonInPassport() {
+		hardWaitForChromeBrowser(3);
 		isElementDisplayed("btn_add");
 		element("btn_add").click();
 		logMessage("Step : add button is clicked in btn_add \n");
@@ -273,6 +286,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnFirstAddButton() {
+		hardWaitForChromeBrowser(3);
 		isElementDisplayed("btn_add");
 		element("btn_add").click();
 		logMessage("Step : add button is clicked in btn_add \n");

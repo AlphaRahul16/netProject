@@ -57,9 +57,9 @@ btn_findMemberByNumber                         id                            doS
 img_submitnomination                           css                          .updating
 txt_NominationTooltip                         classname                    awardDeadline  
 inp_findbymembernumber                        id                           memberNumber_searchNominee
-txt_Nomineename_123                               xpath                   //div[@class='ListDiv']//span 
-rad_dynsafelabpractice                        xpath                        //span/following-sibling::input[@value='${value}']
-rad_disscusNomination                         xpath                        //div[@id='discussedWithNominee']/span[text()='${value}']/following-sibling::input
+txt_Nomineename                               xpath                   //div[@class='ListDiv']/div[1]/span 
+rad_dynsafelabpractice                        xpath                       //div[@id='safetyProtocol']/input[@value='${value}']
+rad_disscusNomination                         xpath                        //div[@id='discussedWithNominee']/span[text()='${value}']/following-sibling::input[1]
 btn_saveForLater                              css                         .saveData.later
 txt_awardStatus                               xpath                       //div[contains(text(),'${awardName}')]/following-sibling::table//td[@class='status']
 btn_editNominee                               classname                   editNominee

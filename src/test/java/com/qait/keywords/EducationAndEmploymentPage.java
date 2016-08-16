@@ -143,6 +143,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 
 	private void isMajorChemistry(String chemistryTeacherStatus,
 			String hasChemistryTeacher) {
+		System.out.println("has chem ------------" + hasChemistryTeacher);
 		majorInChemistryValue = "No";
 		clickRadioButton_Detail("majorInChemistry", majorInChemistryValue);
 		verifyFieldVisibility("lbl_chemistryTeacher", hasChemistryTeacher);
@@ -266,26 +267,26 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 	}
 
 	public void enterEmployerDetails(String caseId) {
-		verifyEmployerNameFieldVisibility(getOmaSheetValue(caseId,
+		verifyEmployerNameFieldVisibility(map().get(
 				"Has Employer?"));
-		if (getOmaSheetValue(caseId, "Has Employer?").equalsIgnoreCase("Show")) {
-			employerNameUnique = getOmaSheetValue(caseId, "Enter Employer Name")
+		if (map().get( "Has Employer?").equalsIgnoreCase("Show")) {
+			employerNameUnique = map().get( "Enter Employer Name")
 					+ System.currentTimeMillis();
 			enterEduAndEmpDetail("employerName", employerNameUnique);
 		}
-		verifyIndustryTypeFieldVisibility(getOmaSheetValue(caseId,
+		verifyIndustryTypeFieldVisibility(map().get(
 				"Has Employer Industry category?"));
-		if (getOmaSheetValue(caseId, "Has Employer Industry category?")
+		if (map().get( "Has Employer Industry category?")
 				.equalsIgnoreCase("Show")) {
 			selectEduAndEmpDetail("industryType",
-					getOmaSheetValue(caseId, "Select Industry Category"));
+					map().get( "Select Industry Category"));
 		}
-		verifyPrimaryTitleFieldVisibility(getOmaSheetValue(caseId,
+		verifyPrimaryTitleFieldVisibility(map().get(
 				"Has Primary title category"));
-		if (getOmaSheetValue(caseId, "Has Primary title category")
+		if (map().get( "Has Primary title category")
 				.equalsIgnoreCase("Show")) {
 			selectEduAndEmpDetail("occupationTitle",
-					getOmaSheetValue(caseId, "Select Primary Title"));
+					map().get( "Select Primary Title"));
 		} else {
 			logMessage("Step: employer details not present \n");
 		}
@@ -296,37 +297,37 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 	}
 
 	public void isSummerMailingAddress(String caseId) {
-		if (getOmaSheetValue(caseId, "Has Summer mailing address?")
+		if (map().get( "Has Summer mailing address?")
 				.equalsIgnoreCase("Show")) {
 			summerMaillingAdd = "Yes";
 			isElementDisplayed("txt_summerMailingAdd");
 			clickRadioButton_Detail("summerMaillingAdd", summerMaillingAdd);
 			selectEduAndEmpDetail(
 					"seasonMonthFrom",
-					getOmaSheetValue(caseId,
+					map().get(
 							"Select Summer mailing  start month"));
 			holdExecution(3000);
 			wait.waitForPageToLoadCompletely();
 			selectEduAndEmpDetail("seasonDayFrom",
-					getOmaSheetValue(caseId, "Select Summer mailing start day"));
+					map().get( "Select Summer mailing start day"));
 			holdExecution(2000);
 			wait.waitForPageToLoadCompletely();
 			selectEduAndEmpDetail("seasonMonthTo",
-					getOmaSheetValue(caseId, "Select Summer mailing end month"));
+					map().get( "Select Summer mailing end month"));
 			holdExecution(2000);
 			wait.waitForPageToLoadCompletely();
 			selectEduAndEmpDetail("seasonDayTo",
-					getOmaSheetValue(caseId, "Select Summer mailing end day"));
+					map().get( "Select Summer mailing end day"));
 
 			holdExecution(2000);
 			wait.waitForPageToLoadCompletely();
 			enterEduAndEmpDetail("address",
-					getOmaSheetValue(caseId, "Enter Summer mailing address"));
+					map().get( "Enter Summer mailing address"));
 			enterEduAndEmpDetail("city",
-					getOmaSheetValue(caseId, "Enter  Summer city"));
+					map().get( "Enter  Summer city"));
 			selectEduAndEmpDetail("country",
-					getOmaSheetValue(caseId, "Select  Summer country"));
-			if (!getOmaSheetValue(caseId, "Select  Summer country")
+					map().get( "Select  Summer country"));
+			if (!map().get( "Select  Summer country")
 					.equalsIgnoreCase("UNITED STATES"))
 				try {
 					wait.waitForElementToDisappear(element("list_state"));
@@ -335,9 +336,9 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 				}
 			else
 				selectEduAndEmpDetail("state",
-						getOmaSheetValue(caseId, "Select  Summer state"));
+						map().get( "Select  Summer state"));
 			enterEduAndEmpDetail("zipCode",
-					getOmaSheetValue(caseId, "Enter  Summer zip code"));
+					map().get( "Enter  Summer zip code"));
 		} else {
 			logMessage("Step: summer mailing address not present \n");
 		}
@@ -347,63 +348,114 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 	public void enterEducationAndEmploymentInformation(String caseId) {
 		date1 = new DateUtil();
 		try {
-			year = date1.getDate(getOmaSheetValue(caseId,
+			year = date1.getDate(map().get(
 					"Evaluate degree type and enter past/future date"))[0];
-			month = date1.getDate(getOmaSheetValue(caseId,
+			month = date1.getDate(map().get(
 					"Evaluate degree type and enter past/future date"))[1];
 		} catch (NullPointerException ex) {
 			logMessage("date not present to enter or not applicable in data sheet\n");
 		}
 
-		if (getOmaSheetValue(caseId, "Current Student Status")
+		if (map().get( "Current Student Status")
 				.equalsIgnoreCase("Y")) {
 			currentStudentYes(
-					getOmaSheetValue(caseId, "Enter University Name"),
+					map().get( "Enter University Name"),
 					"universityName",
-					getOmaSheetValue(caseId, "Has College or University ?"));
-		} else if (getOmaSheetValue(caseId, "Current Student Status")
+					map().get( "Has College or University ?"));
+		} else if (map().get( "Current Student Status")
 				.equalsIgnoreCase("N")) {
-			currentStudentNo(getOmaSheetValue(caseId,
+			currentStudentNo(map().get(
 					"Has College or University ?"));
 		} else {
 			logMessage("student status is invalid in data sheet");
 			Assert.fail("ASSERT FAILED: current student status is not valid in data sheet");
 		}
-		if (getOmaSheetValue(caseId, "Chemistry Major Status")
+		if (map().get("Chemistry Major Status")
 				.equalsIgnoreCase("Y")) {
 			isMajorChemistry(
-					getOmaSheetValue(caseId, "Select Degree(s) with past date"),
-					getOmaSheetValue(caseId,
+					map().get( "Select Degree(s) with past date"),
+					map().get(
 							"Select Degree(s) with future date"),
-					getOmaSheetValue(caseId, "Select Chemistry Major value"),
+					map().get( "Select Chemistry Major value"),
 					month,
 					year,
-					getOmaSheetValue(caseId, "Has Chemistry teacher?"),
-					getOmaSheetValue(caseId,
+					map().get( "Has Chemistry teacher?"),
+					map().get(
 							"Evaluate degree type and enter past/future date"));
-		} else if (getOmaSheetValue(caseId, "Chemistry Major Status")
+		} else if (map().get( "Chemistry Major Status")
 				.equalsIgnoreCase("N")) {
 			isMajorChemistry(
-					getOmaSheetValue(caseId, "Chemistry Teacher Status"),
-					getOmaSheetValue(caseId, "Has Chemistry teacher?"));
+					map().get("Chemistry Teacher Status"),
+					map().get("Has Chemistry teacher?"));
+
 		} else {
 			logMessage("chemistry status is invalid in data sheet");
 			Assert.fail("ASSERT FAILED: chemistry major status is not valid in data sheet");
 		}
-		verifySummerMailingAddressFiledVisibility(getOmaSheetValue(caseId,
+		verifySummerMailingAddressFiledVisibility(map().get(
 				"Has Summer mailing address?"));
 		isSummerMailingAddress(caseId);
 		enterEmployerDetails(caseId);
-		verifyJobExpFieldVisibility(getOmaSheetValue(caseId,
+		verifyJobExpFieldVisibility(map().get(
 				"Has Chemistry professional experience?"));
 		enterJobExperience(
-				getOmaSheetValue(caseId,
+				map().get(
 						"Has Chemistry professional experience?"),
-				getOmaSheetValue(caseId, "Enter Job Experience Value"));
+				map().get( "Enter Job Experience Value"));
 	}
 
 	private void verifyIndustryTypeFieldVisibility(String hasIndustryCategory) {
 		verifyFieldVisibility("list_industryType", hasIndustryCategory);
+	}
+
+	public void enterEducationAndEmploymentInformation_123() {
+		date1 = new DateUtil();
+		try {
+			year = date1.getDate(map().get(
+					"Evaluate degree type and enter past/future date"))[0];
+			month = date1.getDate(map().get(
+					"Evaluate degree type and enter past/future date"))[1];
+		} catch (NullPointerException ex) {
+			logMessage("date not present to enter or not applicable in data sheet\n");
+		}
+
+		if (map().get("Current Student Status").equalsIgnoreCase("Y")) {
+			currentStudentYes(map().get("Enter University Name"),
+					"universityName", map().get("Has College or University ?"));
+		} else if (map().get("Current Student Status").equalsIgnoreCase("N")) {
+			currentStudentNo(map().get("Has College or University ?"));
+		} else {
+			logMessage("student status is invalid in data sheet");
+			Assert.fail("ASSERT FAILED: current student status is not valid in data sheet");
+		}
+		if (map().get("Chemistry Major Status").equalsIgnoreCase("Y")) {
+			isMajorChemistry(
+					map().get("Select Degree(s) with past date"),
+					map().get("Select Degree(s) with future date"),
+					map().get("Select Chemistry Major value"),
+					month,
+					year,
+					map().get("Has Chemistry teacher?"),
+					map().get("Evaluate degree type and enter past/future date"));
+		} else if (map().get("Chemistry Major Status").equalsIgnoreCase("N")) {
+			System.out.println("chemistry teacher ----------------"
+					+ map().get("Chemistry Teacher Status"));
+			System.out.println("-----------"
+					+ map().get("Has Chemistry teacher?"));
+			isMajorChemistry(map().get("Chemistry Teacher Status"),
+					map().get("Has Chemistry teacher?"));
+		} else {
+			logMessage("chemistry status is invalid in data sheet");
+			Assert.fail("ASSERT FAILED: chemistry major status is not valid in data sheet");
+		}
+		verifySummerMailingAddressFiledVisibility(map().get(
+				"Has Summer mailing address?"));
+		isSummerMailingAddress("1");
+		enterEmployerDetails("1");
+		verifyJobExpFieldVisibility(map().get(
+				"Has Chemistry professional experience?"));
+		enterJobExperience(map().get("Has Chemistry professional experience?"),
+				map().get("Enter Job Experience Value"));
 	}
 
 	private void verifyPrimaryTitleFieldVisibility(String hasPrimaryTitle) {
@@ -433,7 +485,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
 				"hiddenFieldTimeOut"));
-		warningMessage = getOmaSheetValue(caseId, "Error messaging?");
+		warningMessage = map().get("Error messaging?");
 		String messageType = "No";
 		if (!warningMessage.equalsIgnoreCase("")) {
 			isElementDisplayed("lbl_warnings");

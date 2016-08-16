@@ -59,6 +59,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		isElementDisplayed("radio_lastName");
 		element("radio_lastName").click();
 		logMessage("STEP : Selected Login with Last Name/Member Number\n");
+		hardWaitForChromeBrowser(3);
 		enterMemberLastName_Id(lastName, "Credential1", "Last Name");
 		enterMemberLastName_Id(id, "Credential2", "Member Number");
 		clickOnLoginButton();
@@ -83,6 +84,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 	}
 
 	public void verifyStudentChapterReportingPage() {
+		hardWaitForChromeBrowser(2);
 		isElementDisplayed("heading_StudentReport");
 		logMessage("STEP : User is navigated to Student Chapters Annual Report Submission page\n");
 	}
@@ -126,6 +128,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 
 	public boolean verifyAlreadyPresentOfficerRole(String role) {
 		boolean flag = false;
+		hardWaitForChromeBrowser(3);
 		if (checkIfElementIsThere("lst_officerRoles")) {
 			int officersSize = elements("lst_officerRoles").size();
 			if (elements("lst_officerRoles").size() > 1) {
@@ -497,7 +500,8 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 	public void clickOnSelfAssessmentSaveButton(String btnValue) {
 		wait.hardWait(1);
 		isElementDisplayed("btn_saveEvent", btnValue);
-		element("btn_saveEvent", btnValue).click();
+//		element("btn_saveEvent", btnValue).click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_saveEvent", btnValue));
 		logMessage("STEP : Clicked on " + btnValue + " button\n");
 	}
 
@@ -560,6 +564,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 
 	public void selectEventType(int i, String event, String type) {
 		wait.hardWait(2);
+		hardWaitForChromeBrowser(2);
 		isElementDisplayed("lst_selectEvents", String.valueOf(i));
 		Select dropdwnEventType = new Select(element("lst_selectEvents", String.valueOf(i)));
 		dropdwnEventType.selectByVisibleText(event);
@@ -581,6 +586,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnAddEvent() {
+		hardWaitForChromeBrowser(2);
 		isElementDisplayed("btn_addEvent");
 		element("btn_addEvent").click();
 		logMessage("STEP : Clicked on Add Event button\n");
@@ -621,6 +627,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 				"Chapter Development", "Budget", "Green Chemistry" };
 		logMessage("STEP : Verfiying merging of all the completed sections under Review & Submit tab\n");
 		for (int index = 0; index < sectionName.length; index++) {
+			hardWaitForChromeBrowser(2);
 			isElementDisplayed("btn_sectionStatus", sectionName[index]);
 			logMessage("ASSERT PASSED : Status of " + sectionName[index] + " section is Complete\n");
 		}
@@ -841,6 +848,12 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 			System.out.println("value:" + eventsMap.get(e));
 		}
 		return eventsMap;
+	}
+	
+	public void verifyNotSubmitReportCheckboxIsUnslected(){
+		if(element("chkbox_notSubmitReport").isSelected()){
+			element("chkbox_notSubmitReport").click();
+		}
 	}
 
 }

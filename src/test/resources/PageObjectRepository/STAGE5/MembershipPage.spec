@@ -31,6 +31,7 @@ txt_itemsAdded                                      xpath                   //a[
 list_batch                                          id                        inv_bat_key
 list_PaymentType                                     id                       inv_orig_trans_type
 list_paymentMethod                                   id                       pin_apm_key
+inp_checkNumber                                      id                       pin_check_number
 inp_cardNumber                                       id                       pin_cc_number
 list_expireDate                                      id                       pin_cc_expire
 inp_cvvNumber                                        id                       pin_cc_security_code
@@ -181,4 +182,16 @@ txt_endDate                                     xpath                           
 arrow_selectMember                              xpath                           (//th/a)[2]/../../following-sibling::tr[${index}]//td[3]//a
 btn_CurrentYearPencil                           xpath                           //td[contains(text(),'Yes')]/preceding-sibling::td//i
 inp_dateForReviewModes                          xpath                           //input[@title='${reviewtitle}']
+inp_checkNumber                                   id                    	  	 pin_check_number
+txt_prod_code									id								prd_code
+txt_prod_name									id								prc_display_name
+img_look_up										css							   .LookUpHyperLink
 mbr_autoPay                                     css                             img[title*='mbr_auto_pay'][src*='${value}']
+txt_avl_qty										css							#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(8)
+price_txt										css							#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(7)
+<<<<<<< HEAD
+=======
+th_lookup										xpath						.//*[@id='dgDynamicList']//th/a[contains(text(),'${field}')]
+productName_inp									css							#prd_name
+>>>>>>> 2ae2d8e0ddaf43ff5cf42e0802d1f87c218efe05
+========================================================================================================================================================================
