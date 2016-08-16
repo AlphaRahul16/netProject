@@ -16,7 +16,7 @@ public class CRM_Inventory_Test extends BaseTest {
 	String app_url_IWEB, individualName;
 	String price;
 	List<String> customerFullNameList;
-	String productName=null,productCode=null;
+	String productName = null, productCode = null;
 
 	@BeforeClass
 	public void OpenBrowserWindow() {
@@ -38,7 +38,7 @@ public class CRM_Inventory_Test extends BaseTest {
 		test.memberShipPage.clickOnTab("Query Individual");
 		test.memberShipPage.selectAndRunQuery(getYamlValue("CRM_Inventory.queryName"));
 		individualName = test.acsAddressValidation.verifyIndividualProfilePage();
-		 customerFullNameList =test.memberShipPage.getCustomerFullNameAndContactID();
+		customerFullNameList = test.memberShipPage.getCustomerFullNameAndContactID();
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Individuals | " + individualName);
 	}
 
@@ -52,11 +52,13 @@ public class CRM_Inventory_Test extends BaseTest {
 	public void Step04_Click_Select_Product_And_Merchandise_Option_and_verify_Centralized_Order_Entry_Merchandise_window() {
 
 		test.memberShipPage.clickOnSelectProduct();
+
 		price = test.memberShipPage.selectRandomProductForCRMInventory();
-		productName=test.memberShipPage.getProductNameFromCOEPage();
-		productCode=test.memberShipPage.getProductCodeFromCOEPage();
+
+		productName = test.memberShipPage.getProductNameFromCOEPage();
+		productCode = test.memberShipPage.getProductCodeFromCOEPage();
 		test.memberShipPage.clickOnSaveAndFinish();
-		
+
 	}
 
 	@Test
@@ -70,7 +72,7 @@ public class CRM_Inventory_Test extends BaseTest {
 				YamlReader.getYamlValue("Acs_CreateMember_IWEB.batch"),
 				YamlReader.getYamlValue("CRM_Inventory.PaymentType"),
 				YamlReader.getYamlValue("CRM_Inventory.paymentMethod"), "", "", "",
-				YamlReader.getYamlValue("CRM_Inventory.checkNumber"),price);
+				YamlReader.getYamlValue("CRM_Inventory.checkNumber"), price);
 	}
 
 	@Test
@@ -81,14 +83,15 @@ public class CRM_Inventory_Test extends BaseTest {
 	@Test
 	public void Step08_verify_invoice_is_added_in_the_invoices_open_batch_with_trancation_date_is_current_date() {
 		test.memberShipPage.verifyInvoiceIsAdded(customerFullNameList.get(0).trim());
-		
+
 	}
-	
+
 	@Test
-	public void step09_verify_Invoice_profile_page_Verify_paid_in_full_is_Yes_trancation_date_with_current_date_and_product_code()
-	{
+	public void step09_verify_Invoice_profile_page_Verify_paid_in_full_is_Yes_trancation_date_with_current_date_and_product_code() {
 		test.memberShipPage.clickOnStudentMemberName(1);
 		test.invoicePage.verifyInvoiceProfile("Yes");
-		test.invoicePage.verifyProductCodeInlineItem(productCode,productName);
+
+		test.invoicePage.verifyProductCodeInlineItem(productCode, productName);
+
 	}
 }

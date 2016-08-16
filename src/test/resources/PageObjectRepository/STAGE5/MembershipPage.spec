@@ -186,8 +186,12 @@ inp_checkNumber                                   id                    	  	 pin
 txt_prod_code									id								prd_code
 txt_prod_name									id								prc_display_name
 img_look_up										css							   .LookUpHyperLink
+mbr_autoPay                                     css                             img[title*='mbr_auto_pay'][src*='${value}']
 txt_avl_qty										css							#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(8)
 price_txt										css							#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(7)
+<<<<<<< HEAD
+=======
 th_lookup										xpath						.//*[@id='dgDynamicList']//th/a[contains(text(),'${field}')]
 productName_inp									css							#prd_name
+>>>>>>> 2ae2d8e0ddaf43ff5cf42e0802d1f87c218efe05
 ========================================================================================================================================================================

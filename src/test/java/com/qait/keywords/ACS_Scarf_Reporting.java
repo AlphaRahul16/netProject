@@ -849,5 +849,11 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		}
 		return eventsMap;
 	}
+	
+	public void verifyNotSubmitReportCheckboxIsUnslected(){
+		if(element("chkbox_notSubmitReport").isSelected()){
+			element("chkbox_notSubmitReport").click();
+		}
+	}
 
 }
