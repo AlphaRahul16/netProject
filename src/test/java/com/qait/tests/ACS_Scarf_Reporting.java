@@ -68,7 +68,7 @@ public class ACS_Scarf_Reporting {
 
 	@Test
 	public void Step02_User_Navigated_To_Scarf_Reporting_Page() {
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnSacrfReportingModule();
 		test.homePageIWEB.verifyUserIsOnHomePage("Scarf Reporting | Overview | Student Chapter Reporting Setup");
@@ -83,7 +83,7 @@ public class ACS_Scarf_Reporting {
 
 	@Test
 	public void Step04_User_Navigated_To_Membership_Page_And_Select_Query_To_Find_Active_Student_Chapter() {
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Membership");
 		test.homePageIWEB.verifyUserIsOnHomePage("Membership | Overview | Overview and Setup");

@@ -47,7 +47,7 @@ public class ACS_GivingApplication_Smoke extends BaseTest{
 
 	@Test
 	public void Step01_TC01_Launch_IWeb_Application_And_Navigate_To_Funds() {
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		mapSheetData = test.homePageIWEB.addValuesInMap("giving_donate", caseID);
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
@@ -62,7 +62,7 @@ public class ACS_GivingApplication_Smoke extends BaseTest{
 	@Test
 	public void Step02_TC02_Retreive_Donate_All_Program_Details_And_Get_Login_Status_From_Sheet() {
 
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		test.homePageIWEB.clickOnTab("Query Fund");
 		test.memberShipPage.selectAndRunQuery("Selenium - Find funds on Donate All Programs Page");
 		productNameKey = test.asm_Donate.retreiveProductDetails();
@@ -70,7 +70,7 @@ public class ACS_GivingApplication_Smoke extends BaseTest{
 			System.out.println(productNameKey[i]);
 		}
 
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		String[] loginAs = { mapSheetData.get("Login as Member?"), mapSheetData.get("Login as Non Member?"),
 				mapSheetData.get("Continue as Guest?") };
 
@@ -90,7 +90,7 @@ public class ACS_GivingApplication_Smoke extends BaseTest{
 	@Test
 	public void Step03_TC03_Launch_Eweb_And_Donate_Amount_To_Programs() {
 
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		test.launchApplication(app_url_givingDonate);
 		String Amount[] = { mapSheetData.get("Program1 Donate Amount"), mapSheetData.get("Program2 Donate Amount"),
 				mapSheetData.get("Program3 Donate Amount"), mapSheetData.get("Other Program Donate Amount") };
@@ -105,7 +105,7 @@ public class ACS_GivingApplication_Smoke extends BaseTest{
 
 	@Test
 	public void Step04_TC04_Navigate_To_ContactInfo_Page_And_Login() {
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		uniquelastname = mapSheetData.get("Guest_LastName") + System.currentTimeMillis();
 		test.asm_Donate.clickOnLoginButtonForSpecifiedUser(memberLoginDetails, mapSheetData.get("ValidEmailAddress"),
 				mapSheetData.get("Login_via_MemberNumber"), memberDetails);
@@ -118,7 +118,7 @@ public class ACS_GivingApplication_Smoke extends BaseTest{
 	@Test
 
 	public void Step05_TC05_Navigate_To_Confirm_Your_Donation_Page_And_Verify_Details() {
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		String Amount[] = { mapSheetData.get("Program1 Donate Amount"), mapSheetData.get("Program2 Donate Amount"),
 				mapSheetData.get("Program3 Donate Amount"), mapSheetData.get("Other Program Donate Amount") };
 
@@ -149,7 +149,7 @@ public class ACS_GivingApplication_Smoke extends BaseTest{
 
 	@Test
 	public void Step06_TC06_Verify_ThankyouMessage_At_Confirm_Your_Donation_Page() {
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		String Amount[] = { mapSheetData.get("Program1 Donate Amount"), mapSheetData.get("Program2 Donate Amount"),
 				mapSheetData.get("Program3 Donate Amount"), mapSheetData.get("Other Program Donate Amount") };
 
@@ -163,7 +163,7 @@ public class ACS_GivingApplication_Smoke extends BaseTest{
 
 	@Test
 	public void Step07_TC_07_Navigate_To_Iweb_And_Retreive_Lastest_Invoice_For_Donor() {
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		test.launchApplication(app_url_IWEB);
 		test.memberShipPage.navigateToMemberLatestInvoicePage(memberLoginDetails);
 		if (memberLoginDetails.get(0).equals("2")) {
@@ -181,7 +181,7 @@ public class ACS_GivingApplication_Smoke extends BaseTest{
 
 	@Test
 	public void Step08_TC_08_Navigate_To_Iweb_And_verify_Lastest_Invoice_For_User() {
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		String Amount[] = { mapSheetData.get("Program1 Donate Amount"), mapSheetData.get("Program2 Donate Amount"),
 				mapSheetData.get("Program3 Donate Amount"), mapSheetData.get("Other Program Donate Amount") };
 		test.invoicePage.validateBalanceAndTotalForInvoice(TotalAmountMap);

@@ -34,6 +34,10 @@ csv-data-file:
   path_AwardNomination: ./src/test/resources/TestDataLibrary/AwardNominationDatasheet.csv
   path_yellowBook: ./src/test/resources/TestDataLibrary/YellowBook.csv
   path_GeneralAwardList: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument.txt
+  path_GCS_OMA: ./src/test/resources/TestDataLibrary/GCS-OMA_data_sheet.csv
+  path_GeneralAwardList_2018: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument_2018.txt
+  path_AwardsVoting: ./src/test/resources/TestDataLibrary/Awards_Voting_Data_Sheet.csv
+  path_MYDTransfer: ./src/test/resources/TestDataLibrary/Multi_Year_Dues_Transfer_Sheet.csv
   data-separator: '\t'
   has-header: true
 

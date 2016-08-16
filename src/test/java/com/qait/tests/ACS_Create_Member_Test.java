@@ -28,7 +28,7 @@ public class ACS_Create_Member_Test extends BaseTest {
 	Map<String, Object> userInfo = null;
 	String app_url = getYamlValue("app_url_OMA");
 	String app_url_IWEB = getYamlValue("app_url_IWEB");
-
+	static String currency = "$";
 	static Map<String, Boolean> errorMap = new HashMap<String, Boolean>(); // To
 																			// Save
 																			// the
@@ -52,15 +52,13 @@ public class ACS_Create_Member_Test extends BaseTest {
 	@Test
 	public void Step01_Launch_Application_Under_Test() {
 		test.homePageIWEB.addValuesInMap("OMA", caseID);
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+
 		test.launchApplication(app_url);
 		test.homePage.verifyUserIsOnHomePage("");
 	}
 
 	@Test(dependsOnMethods = "Step01_Launch_Application_Under_Test")
 	public void Step02_Enter_Contact_Information() {
-
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 
 		userDetail = test.ContactInfoPage.enterContactInformation(
 				test.homePageIWEB.map().get("Email"), test.homePageIWEB.map()
@@ -80,9 +78,8 @@ public class ACS_Create_Member_Test extends BaseTest {
 	@Test(dependsOnMethods = "Step02_Enter_Contact_Information")
 	public void Step03_Enter_Education_And_Employment_Info() {
 
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
-		test.EduAndEmpPage.enterEducationAndEmploymentInformation(caseID);
+		test.EduAndEmpPage.enterEducationAndEmploymentInformation();
 		test.ContactInfoPage.clickContinue();
 		isErrorMessage = test.EduAndEmpPage.verifyDisplayedMessage(caseID);
 		errorMap.put(caseID, isErrorMessage);
@@ -91,7 +88,6 @@ public class ACS_Create_Member_Test extends BaseTest {
 	@Test(dependsOnMethods = "Step03_Enter_Education_And_Employment_Info")
 	public void Step04_Enter_Benefits_Info() {
 
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.homePage.verifyCurrentTab("Benefits");
 		test.BenefitsPage.addACSPublicationAndTechnicalDivision(caseID);
@@ -103,19 +99,18 @@ public class ACS_Create_Member_Test extends BaseTest {
 	@Test(dependsOnMethods = "Step04_Enter_Benefits_Info")
 	public void Step05_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page() {
 
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		quantities = test.checkoutPage.verifyPriceValues(caseID);
 		test.checkoutPage.verifyMemberDetail(caseID);
 		test.checkoutPage.verifyMemberEmail(userEmail);
 		productSubTotal = test.checkoutPage.verifyProductSubTotal("4",
 				"Product Subtotal");
-		Total = test.checkoutPage.verifyTotal();
+		Total = test.checkoutPage.verifyTotal(currency);
 		test.checkoutPage.verifyTechnicalDivision(caseID);
 		test.checkoutPage.verifyPublication(caseID);
 		test.checkoutPage.enterPaymentInfo(
-				YamlReader.getYamlValue("creditCardInfo.Type"), userDetail[1] + " "
-						+ userDetail[2],
+				YamlReader.getYamlValue("creditCardInfo.Type"), userDetail[1]
+						+ " " + userDetail[2],
 				YamlReader.getYamlValue("creditCardInfo.Number"),
 				YamlReader.getYamlValue("creditCardInfo.cvv-number"));
 		test.checkoutPage.clickAtTestStatement();
@@ -127,7 +122,6 @@ public class ACS_Create_Member_Test extends BaseTest {
 	@Test(dependsOnMethods = "Step05_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page")
 	public void Step06_Verify_Details_At_Confirmation_Page() {
 
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		memberDetail = test.confirmationPage.verifyMemberDetails(
 				test.homePageIWEB.map().get("City"), test.homePageIWEB.map()
@@ -142,17 +136,18 @@ public class ACS_Create_Member_Test extends BaseTest {
 	@Test(dependsOnMethods = "Step06_Verify_Details_At_Confirmation_Page")
 	public void Step07_Launch_Application_Under_Test() {
 
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.launchApplication(app_url_IWEB);
-		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"), YamlReader.getYamlValue("Authentication.password"));
+		test.homePage.enterAuthentication(
+				YamlReader.getYamlValue("Authentication.userName"),
+				YamlReader.getYamlValue("Authentication.password"));
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 
 	@Test(dependsOnMethods = "Step07_Launch_Application_Under_Test")
 	public void Step08_Search_Member_In_Individual_Test() {
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		String invoiceNumber = memberDetail[1];
 		test.homePageIWEB.clickFindForIndividualsSearch();

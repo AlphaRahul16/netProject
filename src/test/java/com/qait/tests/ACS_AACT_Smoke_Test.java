@@ -58,7 +58,7 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 	@Test
 	public void Step01_Launch_Application_Under_Test() {
 		test.homePageIWEB.addValuesInMap("AACT_OMA", caseID);
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+		 
 		test.launchApplication(app_url_AACT_OMA);
 		test.homePage.verifyUserIsOnHomePage("");
 
@@ -67,7 +67,7 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 	@Test
 	public void Step02_Enter_Contact_Information() {
 
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+		 
 		userUniqueDetail = test.ContactInfoPage
 				.enterContactInformation_AACT(caseID);
 		test.ContactInfoPage.clickContinue();
@@ -82,7 +82,7 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 
 	@Test
 	public void Step03_Enter_Member_Details_In_About_You_Page() {
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+		 
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.asm_aactPage.enterMemberDetailsAtAboutYouPage(caseID);
 		test.ContactInfoPage.clickContinue();
@@ -92,7 +92,7 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 
 	@Test
 	public void Step04_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page() {
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+		 
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 
 		test.checkoutPage.verifyMemberDetail_AACTOMA(caseID);
@@ -116,7 +116,7 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 	@Test
 	public void Step05_Verify_Details_At_Confirmation_Page() {
 
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+		 
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		memberDetail = test.confirmationPage.verifyMemberDetails_AACTOMA(
 				caseID, userUniqueDetail.get(1), userUniqueDetail.get(2));
@@ -130,7 +130,7 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 
 	@Test
 	public void Step06_Launch_Application_Under_Test() {
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+		 
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 
 		test.launchApplication(app_url_IWEB);
@@ -142,7 +142,7 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 	@Test
 	public void Step07_Search_Member_In_IWEB_Application_And_Verify_Member_Details() {
 
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+		 
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 
 		test.homePageIWEB.clickFindForIndividualsSearch();
@@ -166,7 +166,7 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 	@Test
 	public void Step08_Search_Individual_In_IWEB_Application_And_Verify_Details() {
 
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+		 
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.homePageIWEB.clickFindForIndividualsSearch();
 		test.individualsPage.fillMemberDetailsAndSearch("E-Mail Address",

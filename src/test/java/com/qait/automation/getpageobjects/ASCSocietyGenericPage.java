@@ -106,7 +106,6 @@ public class ASCSocietyGenericPage extends GetPage {
 						+ replacementText + " to not to show up\n", true);
 				wait.resetImplicitTimeout(5);
 
-
 				wait.resetExplicitTimeout(hiddenFieldTimeOut);
 				isElementDisplayed(element, replacementText); // this is
 																// expected to
@@ -218,7 +217,7 @@ public class ASCSocietyGenericPage extends GetPage {
 		numberOfColumns = csvLine.split(csvSeparator).length;
 		for (int i = 1; i < numberOfColumns; i++) {
 
-			hashMap.put(csvLine.split(csvSeparator)[i], DataProvider
+			hashMap.put(csvLine.split(csvSeparator)[i].trim(), DataProvider
 					.getSpecificColumnFromCsvLine(csvLine1, csvSeparator, i)
 					.trim());
 		}
@@ -238,7 +237,7 @@ public class ASCSocietyGenericPage extends GetPage {
 			textinpdf = extractFromPdf(filename, 1).trim();
 			String textarray[] = texttocompare.trim().split(" ");
 			for (int i = 0; i < (textarray.length) - 1; i++) {
-				System.out.println("textarray[i]= "+ textarray[i]);
+				System.out.println("textarray[i]= " + textarray[i]);
 				System.out.println();
 				Assert.assertTrue(textinpdf.trim().contains(textarray[i]));
 			}
@@ -271,8 +270,8 @@ public class ASCSocietyGenericPage extends GetPage {
 			pdfStripper.setStartPage(1);
 			pdfStripper.setEndPage(2);
 			parsedText = pdfStripper.getText(pdDoc);
-			Reporter.log("Invoice Reciept Is::"+parsedText);
-			System.out.println("Parsed Text::"+parsedText);
+			Reporter.log("Invoice Reciept Is::" + parsedText);
+			System.out.println("Parsed Text::" + parsedText);
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
 		} finally {
@@ -285,8 +284,9 @@ public class ASCSocietyGenericPage extends GetPage {
 				e.printStackTrace();
 			}
 		}
-		parsedText = parsedText.replaceAll(System.getProperty("line.separator"), "");
-        return parsedText;
+		parsedText = parsedText.replaceAll(
+				System.getProperty("line.separator"), "");
+		return parsedText;
 	}
 
 	public void extractAndCompareTextFromPdfFile(String filename,
@@ -500,7 +500,7 @@ public class ASCSocietyGenericPage extends GetPage {
 		}
 
 	}
-	
+
 	public static int generateRandomNumberWithInRange(int MinRange, int MaxRange) {
 		int randomNumber = MinRange
 				+ (int) (Math.random() * ((MaxRange - MinRange) + 1));

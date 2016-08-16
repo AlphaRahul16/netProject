@@ -1,12 +1,15 @@
 package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
+
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
-public class ACS_Email_Preferences_Test {
+public class ACS_Email_Preferences_Test extends BaseTest{
 
 	TestSessionInitiator test;
 	String app_url_IWEB, webLogin, app_url_email, mailingListName,
@@ -19,10 +22,9 @@ public class ACS_Email_Preferences_Test {
 		app_url_email = getYamlValue("app_url_email");
 		 mailingListName = getYamlValue("mailingListName")
 		 + System.currentTimeMillis();
-		//mailingListName = "SeleniumList1470899353901";
-		//userName = "a a";
+	
 		mailingListType = getYamlValue("mailingListType");
-		//webLogin = "box4trash";
+		
 	}
 
 	@Test

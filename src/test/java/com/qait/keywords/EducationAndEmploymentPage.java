@@ -267,26 +267,24 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 	}
 
 	public void enterEmployerDetails(String caseId) {
-		verifyEmployerNameFieldVisibility(map().get(
-				"Has Employer?"));
-		if (map().get( "Has Employer?").equalsIgnoreCase("Show")) {
-			employerNameUnique = map().get( "Enter Employer Name")
+		verifyEmployerNameFieldVisibility(map().get("Has Employer?"));
+		if (map().get("Has Employer?").equalsIgnoreCase("Show")) {
+			employerNameUnique = map().get("Enter Employer Name")
 					+ System.currentTimeMillis();
 			enterEduAndEmpDetail("employerName", employerNameUnique);
 		}
 		verifyIndustryTypeFieldVisibility(map().get(
 				"Has Employer Industry category?"));
-		if (map().get( "Has Employer Industry category?")
-				.equalsIgnoreCase("Show")) {
+		if (map().get("Has Employer Industry category?").equalsIgnoreCase(
+				"Show")) {
 			selectEduAndEmpDetail("industryType",
-					map().get( "Select Industry Category"));
+					map().get("Select Industry Category"));
 		}
 		verifyPrimaryTitleFieldVisibility(map().get(
 				"Has Primary title category"));
-		if (map().get( "Has Primary title category")
-				.equalsIgnoreCase("Show")) {
+		if (map().get("Has Primary title category").equalsIgnoreCase("Show")) {
 			selectEduAndEmpDetail("occupationTitle",
-					map().get( "Select Primary Title"));
+					map().get("Select Primary Title"));
 		} else {
 			logMessage("Step: employer details not present \n");
 		}
@@ -297,55 +295,50 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 	}
 
 	public void isSummerMailingAddress(String caseId) {
-		if (map().get( "Has Summer mailing address?")
-				.equalsIgnoreCase("Show")) {
+		if (map().get("Has Summer mailing address?").equalsIgnoreCase("Show")) {
 			summerMaillingAdd = "Yes";
 			isElementDisplayed("txt_summerMailingAdd");
 			clickRadioButton_Detail("summerMaillingAdd", summerMaillingAdd);
-			selectEduAndEmpDetail(
-					"seasonMonthFrom",
-					map().get(
-							"Select Summer mailing  start month"));
+			selectEduAndEmpDetail("seasonMonthFrom",
+					map().get("Select Summer mailing  start month"));
 			holdExecution(3000);
 			wait.waitForPageToLoadCompletely();
 			selectEduAndEmpDetail("seasonDayFrom",
-					map().get( "Select Summer mailing start day"));
+					map().get("Select Summer mailing start day"));
 			holdExecution(2000);
 			wait.waitForPageToLoadCompletely();
 			selectEduAndEmpDetail("seasonMonthTo",
-					map().get( "Select Summer mailing end month"));
+					map().get("Select Summer mailing end month"));
 			holdExecution(2000);
 			wait.waitForPageToLoadCompletely();
 			selectEduAndEmpDetail("seasonDayTo",
-					map().get( "Select Summer mailing end day"));
+					map().get("Select Summer mailing end day"));
 
 			holdExecution(2000);
 			wait.waitForPageToLoadCompletely();
 			enterEduAndEmpDetail("address",
-					map().get( "Enter Summer mailing address"));
-			enterEduAndEmpDetail("city",
-					map().get( "Enter  Summer city"));
-			selectEduAndEmpDetail("country",
-					map().get( "Select  Summer country"));
-			if (!map().get( "Select  Summer country")
-					.equalsIgnoreCase("UNITED STATES"))
+					map().get("Enter Summer mailing address"));
+			enterEduAndEmpDetail("city", map().get("Enter  Summer city"));
+			selectEduAndEmpDetail("country", map()
+					.get("Select  Summer country"));
+			if (!map().get("Select  Summer country").equalsIgnoreCase(
+					"UNITED STATES"))
 				try {
 					wait.waitForElementToDisappear(element("list_state"));
 				} catch (Exception E) {
 					logMessage("list_state does not exsist \n");
 				}
 			else
-				selectEduAndEmpDetail("state",
-						map().get( "Select  Summer state"));
-			enterEduAndEmpDetail("zipCode",
-					map().get( "Enter  Summer zip code"));
+				selectEduAndEmpDetail("state", map()
+						.get("Select  Summer state"));
+			enterEduAndEmpDetail("zipCode", map().get("Enter  Summer zip code"));
 		} else {
 			logMessage("Step: summer mailing address not present \n");
 		}
 
 	}
 
-	public void enterEducationAndEmploymentInformation(String caseId) {
+	public void enterEducationAndEmploymentInformation() {
 		date1 = new DateUtil();
 		try {
 			year = date1.getDate(map().get(
@@ -356,51 +349,40 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 			logMessage("date not present to enter or not applicable in data sheet\n");
 		}
 
-		if (map().get( "Current Student Status")
-				.equalsIgnoreCase("Y")) {
-			currentStudentYes(
-					map().get( "Enter University Name"),
-					"universityName",
-					map().get( "Has College or University ?"));
-		} else if (map().get( "Current Student Status")
-				.equalsIgnoreCase("N")) {
-			currentStudentNo(map().get(
-					"Has College or University ?"));
+		if (map().get("Current Student Status").equalsIgnoreCase("Y")) {
+			currentStudentYes(map().get("Enter University Name"),
+					"universityName", map().get("Has College or University ?"));
+		} else if (map().get("Current Student Status").equalsIgnoreCase("N")) {
+			currentStudentNo(map().get("Has College or University ?"));
 		} else {
 			logMessage("student status is invalid in data sheet");
 			Assert.fail("ASSERT FAILED: current student status is not valid in data sheet");
 		}
-		if (map().get( "Chemistry Major Status")
-				.equalsIgnoreCase("Y")) {
+		if (map().get("Chemistry Major Status").equalsIgnoreCase("Y")) {
 			isMajorChemistry(
-					map().get( "Select Degree(s) with past date"),
-					map().get(
-							"Select Degree(s) with future date"),
-					map().get( "Select Chemistry Major value"),
+					map().get("Select Degree(s) with past date"),
+					map().get("Select Degree(s) with future date"),
+					map().get("Select Chemistry Major value"),
 					month,
 					year,
-					map().get( "Has Chemistry teacher?"),
-					map().get(
-							"Evaluate degree type and enter past/future date"));
-		} else if (map().get( "Chemistry Major Status")
-				.equalsIgnoreCase("N")) {
-			isMajorChemistry(
-					map().get( "Chemistry Teacher Status"),
-					map().get( "Has Chemistry teacher?"));
+					map().get("Has Chemistry teacher?"),
+					map().get("Evaluate degree type and enter past/future date"));
+		} else if (map().get("Chemistry Major Status").equalsIgnoreCase("N")) {
+			isMajorChemistry(map().get("Chemistry Teacher Status"),
+					map().get("Has Chemistry teacher?"));
 		} else {
 			logMessage("chemistry status is invalid in data sheet");
 			Assert.fail("ASSERT FAILED: chemistry major status is not valid in data sheet");
 		}
 		verifySummerMailingAddressFiledVisibility(map().get(
 				"Has Summer mailing address?"));
-		isSummerMailingAddress(caseId);
-		enterEmployerDetails(caseId);
+		System.out.println("case id :-" + map().get("CASE ID"));
+		isSummerMailingAddress(map().get("CASE ID"));
+		enterEmployerDetails(map().get("CASE ID"));
 		verifyJobExpFieldVisibility(map().get(
 				"Has Chemistry professional experience?"));
-		enterJobExperience(
-				map().get(
-						"Has Chemistry professional experience?"),
-				map().get( "Enter Job Experience Value"));
+		enterJobExperience(map().get("Has Chemistry professional experience?"),
+				map().get("Enter Job Experience Value"));
 	}
 
 	private void verifyIndustryTypeFieldVisibility(String hasIndustryCategory) {
