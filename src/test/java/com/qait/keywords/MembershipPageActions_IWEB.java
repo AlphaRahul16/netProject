@@ -145,10 +145,23 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 
 		else {
+			try
+			{
+				wait.resetImplicitTimeout(2);
+				wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			selectProvidedTextFromDropDown(element("list_existingQuery"),
 					queryName);
+			}
+			catch(StaleElementReferenceException e)
+			{
+				wait.hardWait(2);
+				selectProvidedTextFromDropDown(element("list_existingQuery"),
+						queryName);
+			}
 
 		}
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
 		logMessage("STEP : Select existing query " + queryName);
 	}
 
@@ -4015,22 +4028,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void selectValidUserForAutoRenewal(String AutoRenewalquery,String queryPageUrl) {
-		if (MemberTransferLoopCount < 3) {
+		wait.hardWait(2);
 			System.out.println(AutoRenewalquery);
-		launchUrl(queryPageUrl);
 		selectAndRunQuery(AutoRenewalquery);
 		expandDetailsMenu("individual memberships");
 		navigateToInvoicePageForRenewedProduct();
 		expandDetailsMenu("invoices");
 		verifyTermStartDateAndEndDatesAreEmptyForAutoRenewal(AutoRenewalquery,queryPageUrl);
 		//verifyPaymentStatusBeforeAutoRenewal(AutoRenewalquery,queryPageUrl);
-		MemberTransferLoopCount++;
-	} else {
-		Assert.fail("ASSERT FAIL : Member is not selected after "
-				+ MemberTransferLoopCount + " attempts\n");
-		logMessage("ASSERT FAIL : Member is not selected after "
-				+ MemberTransferLoopCount + " attempts\n");
-	}
 	logMessage("Step : Member selected in " + MemberTransferLoopCount
 			+ " attempt\n");
 
@@ -4048,7 +4053,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_code",firstName);
 		isElementDisplayed("txt_priceValue",firstName);
 		System.out.println(element("txt_code", firstName).getText().isEmpty());
-		System.out.println(element("txt_code", firstName).getText().isEmpty());
+		System.out.println(element("txt_priceValue", firstName).getText().isEmpty());
+		Assert.assertFalse(element("txt_code", firstName).getText().isEmpty());
+		Assert.assertFalse(element("txt_priceValue", firstName).getText().isEmpty());
+		logMessage("ASSERT PASSED : Child form is populated under stored payment information for "+firstName);
 		
 		
 	}

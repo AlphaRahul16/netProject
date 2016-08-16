@@ -802,8 +802,8 @@ public class ASM_NominatePage extends GetPage {
 //	}
 
 	private String saveNomineeInformation() {
-        
-		String NomineeName = ReverseStringWords(element("txt_Nomineename").getText());
+        wait.hardWait(5);
+		String NomineeName = ReverseStringWords(element("txt_Nomineename_123").getText());
 		System.out.println("Nominee Name " + NomineeName);
 		logMessage("Step : Nominator Name is "+NomineeName);
         return NomineeName;
@@ -812,7 +812,7 @@ public class ASM_NominatePage extends GetPage {
 	public void FillEligibilityQuestionsDetails_AwardsNomination(Map<String,String> mapAwardsNomination)
 	{
 		verifyCurrentTab("Verify Eligibility");
-		selectNoForYearOfExperience();
+	//	selectNoForYearOfExperience(); // Button deleted in New Build, verified date 11/08/2016
 		selectSafeLabPracticesRadioButton(mapAwardsNomination.get("SafeLabPractices?"));
 		selectValueForDiscussedAwardNominationRadioButton(mapAwardsNomination.get("DisscussAwardNomination?"));
 		enterNomineePosition(mapAwardsNomination.get("EligibilityQuestions_NomineePosition"));

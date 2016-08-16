@@ -1022,6 +1022,7 @@ public class ASM_FellowNominatePage extends GetPage {
 	}
 
 	public void verifyEligibilitySectionWithContinueAndCancelButtons() {
+		wait.hardWait(3);
 		verifyTabOnDashboard("Eligibility");
 		isElementDisplayed("btn_countinueWithNomination");
 		isElementDisplayed("btn_CancelEligibity");
