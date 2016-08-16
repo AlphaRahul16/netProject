@@ -45,7 +45,7 @@ public class CRM_Inventory_Test extends BaseTest {
 	@Test
 	public void Step03_Click_On_Order_Entry_Button_And_Verify_Centralized_Order_Entry_Page() {
 		test.memberShipPage.clickOnOrderEntryIcon();
-		//test.memberShipPage.verifyCentralizedOrderEntryPage("Centralized Order Entry");
+		test.memberShipPage.verifyCentralizedOrderEntryPage("Centralized Order Entry");
 	}
 
 	@Test

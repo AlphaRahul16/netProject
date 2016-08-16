@@ -18,8 +18,11 @@ app_url_Nominate: https://ewebtest.acs.org/NFStage2/nominate
 app_url_MemberNumberLookup: https://ewebtest.acs.org/NFStage2/membernumberlookup
 app_url_NCW: https://ewebtest.acs.org/NFStage2/ncwlookup
 app_url_IwebReporting: https://stag-12iweb/NFStage2/iweb
+app_url_PUBS: https://ewebtest12.acs.org/NFStage2/pba
 app_url_EwebReporting: https://ewebtest12.acs.org/NFStage2/studentchaptersonline
 app_url_Awards: https://ewebtest12.acs.org/NFStage2/awards
+
+password: "password"
 
 csv-data-file:
   path_OMA: ./src/test/resources/TestDataLibrary/OMA Business Rules.csv
@@ -46,8 +49,8 @@ excel-data-file:
   path_ScarfReporting: ./src/test/resources/TestDataLibrary/Scarf_Reporting_DataSheet.xls
 
 Authentication: 
-  userName: C00616
-  password: "A9319161853@"
+  userName: C00569
+  password: "3r0P85&8"
   
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt
@@ -59,7 +62,10 @@ creditCardInfo:
   Number: "4111111111111111"
   cvv-number: 123
   CreditCardExpiration: 06/2017
-            
+   
+ACS_PBA_Product:
+    shortName: Accts of Chem Res Mbr Web Archive
+    fullName: Accounts of Chemical Research Member Web Archive - Member    
             
 creditCardDetails: 
   PaymentMethod: 
@@ -74,8 +80,7 @@ creditCardDetails:
   paymentMethodBOACheck:
     Type: "BOA - Check"
     CheckNumber: 123456
-            
-            
+              
 reinstateUsers: 
     user1: 
         contact-information:
@@ -431,8 +436,11 @@ Acs_CreateMember_IWEB:
     paymentMethod: Visa/MC
     cardNumber: 4111111111111111
     expireDate: 2016/12
-    cvvNumber: 123    
-
+    cvvNumber: 123 
+    yearValue: 2017   
+    
+PBA:
+    queryName: "Selenium - Find Active Regular Member"
 MYDTransfer:
     queryName: Selenium - MYD Query
 AddressValidation:
