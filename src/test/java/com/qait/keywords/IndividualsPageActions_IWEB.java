@@ -1692,6 +1692,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		selectAddressCheckboxes("billing");
 		selectAddressCheckboxes("do not validate");
 		clickOnSaveButton();
+		ACS_Address_Validation_Action obj=new ACS_Address_Validation_Action(driver);
+		obj.waitForPageReadyState();
 		switchToDefaultContent();
 	}
 	
@@ -1729,10 +1731,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		int i;
 		boolean flag=false;
 		waitForSpinner();
-		System.out.println("-----before wait");
 		wait.waitForPageToLoadCompletely();
 //		wait.hardWait(2);
-		System.out.println("-----after wait");
 		isElementDisplayed("list_memberDetails",tabName);
 		for(i=1;i<elements("list_memberDetails",tabName).size();i++){
 			if(element("txt_memberDetailsForChapter",tabName,String.valueOf(4),String.valueOf(i)).getText().trim().
@@ -1755,18 +1755,19 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	
 	public void verifyChapterStatusIsTransferred(String tabName,String chpName){
 		int i;
+		String currentDate=DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy");
 		isElementDisplayed("list_memberDetails",tabName);
 		for(i=1;i<elements("list_memberDetails",tabName).size();i++){
 			if(element("txt_memberDetailsForChapter",tabName,String.valueOf(4),String.valueOf(i)).getText().trim().
-					equals(chpName)){
+					equals(chpName) && 	checkTerminateDateIsNull(i,tabName,currentDate,11)){
 				flag=true;
 				break;
 			}	
 		}
+//		Assert.assertTrue(flag,"ASSERT FAILED : Mbr Status of Chapter "+chpName+" is not changed to Transferred\n");
 		Assert.assertTrue(checkTerminateDateIsNull(i,tabName,"Transferred",6),"ASSERT FAILED : Mbr Status of Chapter "+chpName+" is not changed to Transferred\n");
 		logMessage("ASSERT PASSED : Mbr Status of Chapter "+chpName+" is changed to Transferred\n");
-		String currentDate=DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy");
-		Assert.assertTrue(checkTerminateDateIsNull(i,tabName,currentDate,11),"ASSERT FAILED : Terminate date is not equal to current date\n");
+//		Assert.assertTrue(checkTerminateDateIsNull(i,tabName,currentDate,11),"ASSERT FAILED : Terminate date is not equal to current date\n");
 		logMessage("ASSERT PASSED : Terminate date "+element("txt_memberDetailsForChapter", tabName, String.valueOf(11), String.valueOf(i)).getText().trim()+" is equal to current date "+
 				currentDate+"\n");
 	}

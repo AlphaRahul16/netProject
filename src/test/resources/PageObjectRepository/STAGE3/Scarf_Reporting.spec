@@ -72,4 +72,5 @@ checkbox_primaryContact                  css                           .primary 
 list_answers                             xpath                         (//th/a)[2]/../../following-sibling::tr
 list_pageNos                             xpath                          //td[@id='UP4']//a
 list_page                                xpath                          //td[@id='UP4']//a[${index}]
+chkbox_notSubmitReport                   xpath                          //input[@id='cbNotSubmitting']
 =============================================================================================================================================

@@ -54,4 +54,5 @@ btn_logout                                  css                                 
 txt_renewalthankyoumsg                      xpath                                     //h3[contains(text(),'${message}')]
 btn_applyForEmeritusNo                      css                                      input[id*='btnNo']
 txt_ProductTax                              xpath                                    //span[text()='Tax']/../following-sibling::td//span
+btn_payInINR                                css                                      input[value='Pay in INR']
 =================================================================================================================================================

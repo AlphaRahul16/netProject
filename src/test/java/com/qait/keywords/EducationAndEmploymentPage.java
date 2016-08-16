@@ -358,18 +358,22 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 			logMessage("student status is invalid in data sheet");
 			Assert.fail("ASSERT FAILED: current student status is not valid in data sheet");
 		}
+
 		if (map().get("Chemistry Major Status").equalsIgnoreCase("Y")) {
+
 			isMajorChemistry(
 					map().get("Select Degree(s) with past date"),
 					map().get("Select Degree(s) with future date"),
 					map().get("Select Chemistry Major value"),
 					month,
 					year,
+
 					map().get("Has Chemistry teacher?"),
 					map().get("Evaluate degree type and enter past/future date"));
 		} else if (map().get("Chemistry Major Status").equalsIgnoreCase("N")) {
 			isMajorChemistry(map().get("Chemistry Teacher Status"),
 					map().get("Has Chemistry teacher?"));
+
 		} else {
 			logMessage("chemistry status is invalid in data sheet");
 			Assert.fail("ASSERT FAILED: chemistry major status is not valid in data sheet");

@@ -62,7 +62,9 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 		selectLoginRadioButton("LNMemNo");
 		wait.hardWait(2);
+		wait.waitForPageToLoadCompletely();
 		enterUserName_lastName(lastName);
+		wait.hardWait(2);
 		enterPassword_mem_notice(memberNumber);
 		clickOnVerifyButton();
 		wait.waitForPageToLoadCompletely();
@@ -287,6 +289,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		// selectExpirationDate_Year("Date", date_Value);
 		selectExpirationDate_Year("Year", year_Value);
 		checkAutoRenewalBox();
+		checkEula();
 		clickOnContinueButton();
 		switchToDefaultContent();
 
@@ -448,6 +451,9 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	
 	public void loginIntoOMRApplication(List<String> memDetails) {
 		loginIntoApplication_LastName_MemberNumber(memDetails.get(0).split(" ")[0], memDetails.get(1));
+		
+		
+		//loginIntoApplication_LastName_MemberNumber("Palmgren", "00371659");
 	}
 
 	public void switchToEwebRenewalFrame()
@@ -625,21 +631,25 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	public Map<String, String> saveProductsWithRespectiveRenewalAmount() 
 	{
 		switchToDefaultContent();
-		wait.hardWait(2);
-		wait.hardWait(2);
-		switchToEwebRenewalFrame();
+	
+		
+		
 		try {
-			Thread.sleep(10000);
+			Thread.sleep(8000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		switchToEwebRenewalFrame();
+		wait.hardWait(2);
+		wait.hardWait(2);
 		scrollDown(elements("txt_productname").get(0));
 		System.out.println(elements("txt_productname").size());
-		for(int i=0;i<elements("txt_productname").size();i++)
+		List<WebElement> productName= elements("txt_productname");
+		for(int i=0;i<productName.size();i++)
 		{
-			mapRenewedProductDetails.put(elements("txt_productname").get(i).getText().trim(), 
-					elements("txt_productamount").get(i).getText().replace("$", "").trim());
-			System.out.println(mapRenewedProductDetails.get(elements("txt_productname").get(i).getText()));
+			mapRenewedProductDetails.put(productName.get(i).getText().trim(), 
+					productName.get(i).getText().replace("$", "").trim());
+			System.out.println(mapRenewedProductDetails.get(productName.get(i).getText()));
 		}
 		return mapRenewedProductDetails;
 	}
@@ -753,21 +763,24 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 
 	private void verifyProductsIndividualAmount(Map<String, String> mapRenewedProductDetails) {
 		switchToEwebRenewalFrame();
-		int amountiterate=0;
 		wait.waitForElementToBeVisible(elements("txt_productname").get(0));
 		System.out.println(elements("txt_productname").get(0).getText());
+		int size=elements("txt_productname").size();
 		System.out.println(elements("txt_productname").size());
-		switchToDefaultContent();
-		wait.hardWait(2);
-		switchToEwebRenewalFrame();
-		for (WebElement ele : elements("txt_productname")) {
-			System.out.println(ele.getText());
-			System.out.println(elements("txt_productamount").get(amountiterate).getText().replace("$", "").trim());
-			Assert.assertTrue(mapRenewedProductDetails.get(ele.getText().trim()).equals(
-					elements("txt_productamount").get(amountiterate).getText().replace("$", "").trim()));
-			logMessage("ASSERT PASSED : Amount for "+ele.getText()+ " is verified as "+mapRenewedProductDetails.get(ele.getText().trim()));
-			amountiterate++;
+		//switchToDefaultContent();
+		wait.hardWait(3);
+		//switchToEwebRenewalFrame();
+		for(int i = 0;i<size;i++)
+		{
+		wait.waitForElementsToBeVisible(elements("txt_productname"));
+		
+           System.out.println(elements("txt_productname").get(i).getText().trim());
+           System.out.println(mapRenewedProductDetails.get(elements("txt_productname").get(i).getText().trim()));
+			Assert.assertTrue(mapRenewedProductDetails.get(elements("txt_productname").get(i).getText().trim()).equals(
+					elements("txt_productamount").get(i).getText().replace("$", "").trim()));
+			logMessage("ASSERT PASSED : Amount for "+elements("txt_productname").get(i).getText()+ " is verified as "+mapRenewedProductDetails.get(elements("txt_productname").get(i).getText().trim()));
 		}
+		
 		switchToDefaultContent();
 
 	}
@@ -852,6 +865,16 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	
 		switchToDefaultContent();
 	}
+	
+	public void clickPayInINRButtonForOMR()
+	{
+		isElementDisplayed("btn_payInINR");
+		scrollDown(elements("btn_payInINR").get(1));
+		elements("btn_payInINR").get(1).click();
+		wait.waitForPageToLoadCompletely();
+		logMessage("Step : Pay in INR button is clicked\n");
+	}
+
 	
 
 
