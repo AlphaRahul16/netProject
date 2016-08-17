@@ -20,6 +20,8 @@ app_url_NCW: https://ewebtest.acs.org/NFStage2/ncwlookup
 app_url_IwebReporting: https://stag-12iweb/NFStage2/iweb
 app_url_EwebReporting: https://ewebtest12.acs.org/NFStage2/studentchaptersonline
 app_url_Awards: https://ewebtest12.acs.org/NFStage2/awards
+app_url_ScarfReviewing: https://www.ewebtest.acs.org/NFStage2/studentchaptersreview
+
 
 csv-data-file:
   path_OMA: ./src/test/resources/TestDataLibrary/OMA Business Rules.csv

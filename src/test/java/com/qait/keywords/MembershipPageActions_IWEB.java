@@ -718,6 +718,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("select Element " + memberInfo
 					+ " after catching Stale Element Exception\n");
 		}
+		
 	}
 
 	public void enterDate(String dateType, String date) {
