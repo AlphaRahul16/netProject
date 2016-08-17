@@ -1,21 +1,17 @@
 package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import com.qait.automation.TestSessionInitiator;
-import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
 public class ACS_Email_Preferences_Test {
 
 	TestSessionInitiator test;
 	String app_url_IWEB, webLogin, app_url_email, mailingListName,
-			mailingListType, userName;
+			mailingListType,customerId,userName;
 	List<String> mailingListCategories;
 
 	@BeforeClass
@@ -25,7 +21,6 @@ public class ACS_Email_Preferences_Test {
 		app_url_email = getYamlValue("app_url_email");
 		mailingListName = getYamlValue("mailingListName")
 				+ System.currentTimeMillis();
-		
 		mailingListType = getYamlValue("mailingListType");
 	}
 
@@ -58,13 +53,8 @@ public class ACS_Email_Preferences_Test {
 
 	@Test
 	public void Step04_Send_Information_In_Popup_And_Save_Them_Then_Verify_Popup_Is_Closed() {
-
-		test.acsMarketingPageIweb.switchToFrame(1);
 		test.acsMarketingPageIweb.sendListInformationToMailingListPopUp(
 				mailingListName, mailingListType);
-		test.acsMarketingPageIweb
-				.clickOnSaveButtonDisplayedOnMailingListPopUp();
-		test.acsMarketingPageIweb.switchToDefaultContent();
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("Marketing | Overview | Overview");
 	}
@@ -83,14 +73,12 @@ public class ACS_Email_Preferences_Test {
 		test.acsMarketingPageIweb
 				.gotoListFromMailingListRecord(mailingListName);
 		test.awardsPageAction.clickOnPlusIcon("list members");
-		test.acsMarketingPageIweb.switchToFrame(1);
 		test.acsMarketingPageIweb.clickOnLookUpOption();
 		test.memberShipPage.selectRandomUserOnAscendingHeader("Web Login");
 		userName = test.acsMarketingPageIweb
 				.getUserNameFromAddUserPopUpTextField();
 		test.acsMarketingPageIweb
 				.clickOnSaveButtonDisplayedOnMailingListPopUp();
-		test.acsMarketingPageIweb.switchToDefaultContent();
 		test.acsMarketingPageIweb.verifyUserNameInList();
 	}
 
@@ -98,15 +86,14 @@ public class ACS_Email_Preferences_Test {
 	public void Step07_Goto_Added_User_Profile_Page_Then_Goto_Comm_Prefs_And_Verify_MailingList_Is_In_The_Respectabls_Tab_And_Subscribed() {
 		test.acsMarketingPageIweb.gotoArrowOfGivenUser();
 		webLogin = test.memberShipPage.getMemberWebLogin();
+		customerId=test.memberShipPage.getCustomerID();
 		test.acsMarketingPageIweb
 				.clickOnAdditionaInfortmationIcon("Communication Preferences");
-		test.acsMarketingPageIweb.changeWindow(1);
 		test.acsMarketingPageIweb.expandListTypeInComm_Pref(mailingListType);
 		test.acsMarketingPageIweb
-				.verifyMailingListIsSubscribed(mailingListName);
+				.verifyMailingListIsSubscribedOrUnsubscribedInExpandedListType(mailingListName,"subscribed");
 		test.acsMarketingPageIweb
 				.clickOnCancelButtonInCommunicationPreferencesPopUp();
-		test.acsMarketingPageIweb.changeWindow(0);
 	}
 
 	@Test
@@ -116,8 +103,9 @@ public class ACS_Email_Preferences_Test {
 		test.asm_emailPage.verifyMailingListInNewspaperHeading(mailingListName);
 		test.asm_emailPage.verifyMailListIsSubscribed(mailingListName);
 		test.asm_emailPage.changeNewsLetterActionValue(mailingListName);
+		
 	}
-
+	
 	@Test
 	public void Step09_Goto_User_Profile_In_Iweb_Application_Then_Goto_Comm_Prefs_And_Verify_MailingList_Is_In_The_Respectabls_Tab_And_UnSubscribed() {
 
@@ -126,17 +114,14 @@ public class ACS_Email_Preferences_Test {
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Find Individual");
-		test.individualsPage.fillMemberDetailsAndSearchInAdvancedView(
-				"Web Login", "Is Equal To", webLogin);
+		test.individualsPage.fillMemberDetailsAndSearch("Record Number", customerId);
 		test.acsMarketingPageIweb
 				.clickOnAdditionaInfortmationIcon("Communication Preferences");
-		test.acsMarketingPageIweb.changeWindow(1);
 		test.acsMarketingPageIweb.expandListTypeInComm_Pref(mailingListType);
 		test.acsMarketingPageIweb
-				.verifyMailingListIsUnSubscribed(mailingListName);
+				.verifyMailingListIsSubscribedOrUnsubscribedInExpandedListType(mailingListName,"unsubscribed");
 		test.acsMarketingPageIweb
 				.clickOnCancelButtonInCommunicationPreferencesPopUp();
-		test.acsMarketingPageIweb.changeWindow(0);
 	}
 
 	@Test
@@ -152,8 +137,8 @@ public class ACS_Email_Preferences_Test {
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Find Individual");
-		test.individualsPage.fillMemberDetailsAndSearchInAdvancedView(
-				"Web Login", "Is Equal To", webLogin);
+		test.individualsPage.fillMemberDetailsAndSearch("Record Number", customerId);
+
 		test.acsMarketingPageIweb
 				.clickOnAdditionaInfortmationIcon("Communication Preferences");
 		test.acsMarketingPageIweb

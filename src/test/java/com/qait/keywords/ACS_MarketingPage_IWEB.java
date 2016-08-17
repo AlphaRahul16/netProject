@@ -1,5 +1,7 @@
 package com.qait.keywords;
 
+import static com.qait.automation.utils.YamlReader.getYamlValue;
+
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
@@ -14,6 +16,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage{
 	WebDriver driver;
 	String pagename = "MarketingPage";
 	String titleName,userName;
+	boolean flag;
 	
 	public ACS_MarketingPage_IWEB(WebDriver driver)
 	{
@@ -21,7 +24,16 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage{
 		this.driver=driver;
 	}
 	
+	
+	public String getMailingListName()
+	{
+		return getYamlValue("mailingListName")
+				+ System.currentTimeMillis();
+		
+	}
+	
 	public void verifyTitleNameForMailingListPopUpIsDisplayed() {
+		System.out.println("hello !!!");
 		Assert.assertTrue(isElementDisplayed("txt_titleName"),"Title is not displayed for mailing list pop up");
 		titleName=element("txt_titleName").getText();
 		logMessage("ASSERT PASSED : title is displayed as "+titleName);
@@ -67,12 +79,14 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage{
    }
     
 	public void sendListInformationToMailingListPopUp(String listName, String listType) {
-
+		switchToFrame(1);
 		sendNameInCreateMailingListPopUp(listName);
 		sendListTypeInCreateMailingListPopUp(listType);
 		selectShowOnlineInCreateMailingListPopUp();
 		sendStartDateInCreateMailingListPopUpWithFormat("MM/dd/YYYY");
 		sendEndDateInCreateMailingListPopUpWithFormat("MM/dd/YYYY");
+		clickOnSaveButtonDisplayedOnMailingListPopUp();
+
 	}
 
 	public void clickOnSaveButtonDisplayedOnMailingListPopUp()
@@ -80,6 +94,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage{
 		isElementDisplayed("btn_save");
 		element("btn_save").click();
 		logMessage("Step : Click on save button in create mailiung list pop up !!\n");
+		switchToDefaultContent();
 	}
 	
 	public void verifyListNameInMailingListRecord(String listName)
@@ -99,6 +114,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage{
 
 	public void clickOnLookUpOption()
 	{
+		    switchToFrame(1);
 			wait.waitForElementToBeVisible(element("btn_searchLookup"));
 			isElementDisplayed("btn_searchLookup");
 			element("btn_searchLookup").click();
@@ -137,6 +153,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage{
 		isElementDisplayed("btn_cancelInComm.Pref");
 		element("btn_cancelInComm.Pref").click();
 		logMessage("Step : click on cancel button under Communication Preferences");
+		changeWindow(0);
 	}
 	
 	public void clickOnAdditionaInfortmationIcon(String infoName)
@@ -148,7 +165,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage{
 	
 	public void expandListTypeInComm_Pref(String listType)
 	{
-		
+		changeWindow(1);
 		isElementDisplayed("btn_listTypeInComm.Pref",listType);
 		element("btn_listTypeInComm.Pref",listType).click();
 		logMessage("Step : list Type "+listType+"is expanded !!\n");
@@ -160,32 +177,17 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage{
 		logMessage("ASSERT PASSED : list name "+listName+"is displayed in given list type !!");
 	}
 	
-	public void verifyMailingListIsSubscribedInExpandedListType(String listName)
-	{
-		isElementDisplayed("chk_listInComm.Pref",listName);
-		Assert.assertEquals(element("chk_listInComm.Pref",listName).isSelected(), true);
-		logMessage("ASSERT PASSED : mailing list is subscribed !!");
-	}
 	
-	public void verifyMailingListIsUnSubscribedInExpandedListType(String listName)
-	{
-		isElementDisplayed("chk_listInComm.Pref",listName);
-		Assert.assertEquals(element("chk_listInComm.Pref",listName).isSelected(), false);
-		logMessage("ASSERT PASSED : mailing list is Unsubscribed !!");
-	}
-	
-	public void verifyMailingListIsSubscribed(String listName)
+	public void verifyMailingListIsSubscribedOrUnsubscribedInExpandedListType(String listName,String unsubscribed_subscribed)
 	{
 		verifyMailingListIsDisplayedInExpandedListType(listName);
-		verifyMailingListIsSubscribedInExpandedListType(listName);
-		
-	}
-	public void verifyMailingListIsUnSubscribed(String listName)
-	{
-		verifyMailingListIsDisplayedInExpandedListType(listName);
-		verifyMailingListIsUnSubscribedInExpandedListType(listName);
-		wait.hardWait(4);
-		
+		if(unsubscribed_subscribed.equals("unsubscribed"))
+			flag=false;
+		else
+			flag=true;
+		isElementDisplayed("chk_listInComm.Pref",listName);
+		Assert.assertEquals(element("chk_listInComm.Pref",listName).isSelected(), flag);
+		logMessage("ASSERT PASSED : mailing list is "+unsubscribed_subscribed);
 	}
 	
 

@@ -49,7 +49,7 @@ excel-data-file:
   
 Authentication: 
   userName: c00616
-  password: "A9319161853@"
+  password: "ACS2016qa!"
 
 
 ASM_Data_File: 
@@ -556,16 +556,8 @@ ScarfReporting:
     queryName: "QAIT - Active Student Chapters"
 PBA:
     queryName: "Selenium - Find Active Regular Member"
-    
-<<<<<<< HEAD
 OMR:
      queryName: "Selenium - Find Active Regular Member with Proforma"
-     
-CMR_Inventory:
-    queryName: "Selenium - Find Active Regular Member" 
-=======
-
->>>>>>> 2ae2d8e0ddaf43ff5cf42e0802d1f87c218efe05
 
 VoidWithAdjustment:
     queryName: "Selenium - test open invoices"
@@ -618,8 +610,6 @@ email:
     recepient3: kanikasharma@qainfotech.com
     
 CRM_Inventory:
-  batch: "Selenium Testing"
-  productCode: "209-116-1000"
   PaymentType: prepaid
   paymentMethod: "BOA - Check"
   checkNumber: "1111"
