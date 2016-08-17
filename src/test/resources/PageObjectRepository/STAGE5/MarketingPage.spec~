@@ -20,6 +20,7 @@ btn_iconOnAdditionalInfo       xpath                        //a/img[@alt='${icon
 btn_listTypeInComm.Pref        xpath                         //span[text()='${list type}']//following-sibling::input[1]
 txt_listInComm.Pref            xpath                         //label[text()='${user name}']
 chk_listInComm.Pref            xpath                         //label[text()='${user name}']//../input
-   
-
+btn_cancelInComm.Pref                      id                            CommCancel
+lnk_columnInMailingType        xpath                         //a[contains(text(),'${index}')]
+arrow_selectMember              xpath                ((//td[contains(text(),'${list type}')])[1]/preceding-sibling::td/a)[1]
 ============================================================================================================================

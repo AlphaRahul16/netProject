@@ -21,5 +21,6 @@ btn_listTypeInComm.Pref        xpath                         //span[text()='${li
 txt_listInComm.Pref            xpath                         //label[text()='${user name}']
 chk_listInComm.Pref            xpath                         //label[text()='${user name}']//../input
 btn_cancelInComm.Pref                      id                            CommCancel
-
+lnk_columnInMailingType        xpath                         //a[contains(text(),'${index}')]
+arrow_selectListType              xpath                ((//td[contains(text(),'${list type}')])[1]/preceding-sibling::td/a)[1]
 ============================================================================================================================

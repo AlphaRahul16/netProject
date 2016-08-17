@@ -54,4 +54,5 @@ btn_logout                                  css                                 
 txt_renewalthankyoumsg                      xpath                                     //h3[contains(text(),'${message}')]
 btn_applyForEmeritusNo                      css                                      input[id*='btnNo']
 chk_Autorenewal                             css                                      input[id*='chkAutoRenewal']
+txt_ProductTax                              xpath                                    //span[text()='Tax']/../following-sibling::td//span
 =================================================================================================================================================

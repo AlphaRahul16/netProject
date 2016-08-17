@@ -52,8 +52,7 @@ public class ACS_AwardsNomination_Test extends BaseTest{
 
 	@Test
 	public void Step02_TC02_Launch_Iweb_And_Select_General_Award() {
-		mapAwardsNomination = test.homePageIWEB.addValuesInMap(
-				"AwardNomination", caseID);
+		mapAwardsNomination = test.homePageIWEB.addValuesInMap("AwardNomination", caseID);
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Awards");
 		test.homePageIWEB.clickOnTab("Find Award");
@@ -62,8 +61,7 @@ public class ACS_AwardsNomination_Test extends BaseTest{
 		test.individualsPage.clickGoButton();
 		currentAwardName = test.individualsPage
 				.selectRandomGeneralAward_AwardNomination(DataProvider
-						.getRandomSpecificLineFromTextFile("GeneralAwardList")
-						.trim());
+						.getRandomSpecificLineFromTextFile("GeneralAwardList").trim());
 		test.fundpofilePage
 				.editpostToWebAndRemoveFromWebDates_AwardNomination();
 		test.invoicePage.expandDetailsMenu("award stages/rounds");

@@ -19,6 +19,7 @@ btn_ArrowProdName              xpath                        (//td[contains(text(
 btn_iconOnAdditionalInfo       xpath                        //a/img[@alt='${icon name}']
 btn_listTypeInComm.Pref        xpath                         //span[text()='${list type}']//following-sibling::input[1]
 txt_listInComm.Pref            xpath                         //label[text()='${user name}']
-chk_listInComm.Pref            xpath                         //label[text()='${user name}']//../input
+chk_listInComm.Pref            xpath                         //label[text()='${list name}']/../input
 btn_cancelInComm.Pref                      id                            CommCancel
+list_allMailsInListType        xpath                         //span[text()='${list type}']/../following-sibling::div//span/input
 ============================================================================================================================

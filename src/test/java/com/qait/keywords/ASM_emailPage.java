@@ -1,5 +1,7 @@
 package com.qait.keywords;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,37 +20,42 @@ public class ASM_emailPage extends GetPage {
 		this.driver = driver;
 	}
 
-	public void verifyMailingListInNewspaperHeading(String listName)
-	{
-		isElementDisplayed("btn_newslettedHeading", listName);
-		logMessage("Step list name "+listName+ " is displayed in newspaper heading !!");
+	public List<String> getAllCategoryOfMailingList() {
+		List<String> list = new ArrayList<String>();
+		for (WebElement element : elements("list_mailingListCategory")) {
+			list.add(element.getText());
+		}
+		return list;
 	}
-	
-	public String getNewsletterActionValue(String listName)
-	{
-		isElementDisplayed("btn_newsletterAction",listName);
-		return element("btn_newsletterAction",listName).getText();		
+
+	public void verifyMailingListInNewspaperHeading(String listName) {
+		Assert.assertTrue(
+				isElementDisplayed("btn_newslettedHeading", listName),
+				"Mailing list is not displayed in NewsPaper heading");
+		logMessage("ASSERT PASSED : " + listName
+				+ " is displayed in newspaper heading !!\n");
 	}
-	
-	public void verifyMailListIsSubscribed(String listName)
-	{
-		String actionValue=getNewsletterActionValue(listName);
-		logMessage("Step : News letter action value "+ actionValue+" is retrieved !!");
+
+	public String getNewsletterActionValue(String listName) {
+		isElementDisplayed("btn_newsletterAction", listName);
+		return element("btn_newsletterAction", listName).getText();
+	}
+
+	public void verifyMailListIsSubscribed(String listName) {
+		String actionValue = getNewsletterActionValue(listName);
+		logMessage("Step : News letter action value " + actionValue
+				+ " is retrieved !!");
 		Assert.assertEquals(actionValue, "unsubscribe");
 		logMessage("ASSERT PASSED : verify user is subscribed !!");
 	}
-	
-	
-	
-	public void changeNewsLetterActionValue(String listName)
-	{
-		element("btn_newsletterAction",listName).click();
-		logMessage("Step : change the newsletter action value !!");
-		
+
+	public void changeNewsLetterActionValue(String listName) {
+		isElementDisplayed("btn_newsletterAction", listName);
+		element("btn_newsletterAction", listName).click();
+		logMessage("Step : change the newsletter action value !!\n");
+
 	}
-	
-	
-	
+
 	public void loginInToApplication(String username, String password) {
 		enterCredencial("username", username);
 		enterCredencial("password", password);

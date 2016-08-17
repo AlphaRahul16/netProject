@@ -46,12 +46,12 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest{
 	}
 	
 	@Test
-	public void Step03_TC01_Verify_Renewal_Summary_On_CheckoutPage()
+	public void Step03_Verify_Renewal_Summary_On_CheckoutPage()
 	{
 		System.out.println(YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[0]);
 		System.out.println(YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[1]);
 		mapRenewedProductDetails=test.asm_OMR.saveProductsWithRespectiveRenewalAmount();
-		test.asm_OMR.submitPaymentDetailsForAutoRenewal(YamlReader.getYamlValue("creditCardInfo.Type"),(memDetails.get(0).split(" ")[1]+" "+memDetails.get(0).split(" ")[0]), YamlReader.getYamlValue("creditCardInfo.Number")
+		test.asm_OMR.submitPaymentDetailsForAutoRenewal(YamlReader.getYamlValue("creditCardInfo.Type"),	(memDetails.get(0).split(" ")[1]+" "+memDetails.get(0).split(" ")[0]), YamlReader.getYamlValue("creditCardInfo.Number")
 				, YamlReader.getYamlValue("creditCardInfo.cvv-number"),YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[0], YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[1]);
 		test.asm_OMR.verifyRenewedProductsSummaryOnCheckOutPage(mapRenewedProductDetails);
 		test.asm_OMR.clickOnSubmitPayment();
@@ -59,7 +59,7 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest{
 	}
 	
 	@Test
-	public void Step05_TC01_Launch_Iweb_To_Verify_Details()
+	public void Step04_Launch_Iweb_To_Verify_Details()
 	{
 	test.launchApplication(app_url_IWEB);
 	test.homePageIWEB.clickOnSideBarTab("Individuals");
@@ -69,7 +69,7 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest{
 	test.memberShipPage.expandDetailsMenu("individual memberships");
 	test.memberShipPage.navigateToInvoicePageForRenewedProduct();
 	test.memberShipPage.verifyAutoPayStatusAfterAutoRenewal("chkmk");
-	test.memberShipPage.collapseDetailsMenu("invoices");
+	//test.memberShipPage.collapseDetailsMenu("invoices");
 	test.memberShipPage.expandDetailsMenu("stored payment information");
 	
 	test.memberShipPage.verifyStorePaymentInformationChildFormIsPopulated(memDetails.get(0).split(" ")[1]);

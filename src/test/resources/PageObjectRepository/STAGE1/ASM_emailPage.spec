@@ -29,4 +29,5 @@ subCategory                        xpath                               //div[@da
 txt_subscribeToAll                 xpath                               //div[@data-category-id='${categoryId}']/div[3]
 btn_newsletterAction           xpath                         //div/h2[text()='${list name}']//..//following-sibling::div[4]/button
 btn_newslettedHeading          xpath                         //div/h2[text()='${list name}']
+list_mailingListCategory            css                       div[id*=category]>h3
 =======================================================================================================================================================================================

@@ -39,7 +39,7 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test extends BaseTest {
 
 	@Test
 	public void Step00_Member_Number_Lookup_Test() {
-		Reporter.log("CaseID Under Test Is : " + caseID, true);
+		 
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
@@ -64,7 +64,7 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test extends BaseTest {
 
 	@Test
 	public void Step01_Verify_Email_Address_IWEB_Test() {
-		Reporter.log("CaseID Under Test Is : " + caseID, true);
+		 
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 		test.homePageIWEB.clickFindForIndividualsSearch();
@@ -77,9 +77,9 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test extends BaseTest {
 
 	@Test
 	public void Step02_CCED_Lookup_Test() {
-		Reporter.log("CaseID Under Test Is : " + caseID, true);
+		 
 		test.launchApplication(test.asm_CCEDPage.map().get("Application URL")
-				.replaceAll("Stage3", ConfigPropertyReader.getProperty("tier")));
+				.replaceAll("Stage2", ConfigPropertyReader.getProperty("tier")));
 		test.asm_CCEDPage.verifyPageTitle("Chemists Celebrate Earth Day");
 		test.asm_CCEDPage
 				.selectSearchTypeAndNavigateToCoordinator(test.asm_CCEDPage
@@ -92,7 +92,7 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test extends BaseTest {
 
 	@Test
 	public void Step03_NCW_Lookup_Test() {
-		Reporter.log("CaseID Under Test Is : " + caseID, true);
+		 
 
 		test.launchApplication(test.asm_NCWPage.map().get("Application URL")
 				.replaceAll("Stage3", ConfigPropertyReader.getProperty("tier")));

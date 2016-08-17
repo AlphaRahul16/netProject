@@ -717,7 +717,7 @@ public class BaseUi {
 		driver.switchTo().window(windows[i]);	 
     }
 
-	protected void changeWindow(int i) {
+	public void changeWindow(int i) {
 	    //wait.hardWait(1);
 	    Set<String> windows = driver.getWindowHandles();
         System.out.println("Windows: " + windows.size());
