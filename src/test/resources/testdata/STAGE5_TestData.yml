@@ -556,7 +556,6 @@ ScarfReporting:
 PBA:
     queryName: "Selenium - Find Active Regular Member"
     
-
 OMR:
      queryName: "Selenium - Find Active Regular Member with Proforma"
 
@@ -611,8 +610,6 @@ email:
     recepient3: kanikasharma@qainfotech.com
     
 CRM_Inventory:
-  batch: "Selenium Testing"
-  productCode: "209-116-1000"
   PaymentType: prepaid
   paymentMethod: "BOA - Check"
   checkNumber: "1111"

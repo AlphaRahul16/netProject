@@ -15,7 +15,7 @@ txt_listName                   xpath                          //td[contains(text
 btn_searchLookup               id                          Look_Up_cst_sort_name_dn
 lnk_next                       xpath                         //a[text()='Next >']
 txt_name                       xpath                        //span[text()='name:']//following-sibling::span[@id='Span_cst_sort_name_dn__UP']//input[@id='cst_sort_name_dn']
-btn_ArrowProdName              xpath                        (//td[contains(text(),'${userName}')][1]/preceding-sibling::td[2]//i)[3]
+btn_ArrowProdName              xpath                        (//td[contains(text(),'${userName}')][1]/preceding-sibling::td[1]//i)[3]
 btn_iconOnAdditionalInfo       xpath                        //a/img[@alt='${icon name}']
 btn_listTypeInComm.Pref        xpath                         //span[text()='${list type}']//following-sibling::input[1]
 txt_listInComm.Pref            xpath                         //label[text()='${user name}']
@@ -23,4 +23,5 @@ chk_listInComm.Pref            xpath                         //label[text()='${u
 btn_cancelInComm.Pref                      id                            CommCancel
 lnk_columnInMailingType        xpath                         //a[contains(text(),'${index}')]
 arrow_selectListType              xpath                ((//td[contains(text(),'${list type}')])[1]/preceding-sibling::td/a)[1]
+list_allMailsInListType        xpath                         //span[text()='${list type}']/../following-sibling::div//span/input
 ============================================================================================================================

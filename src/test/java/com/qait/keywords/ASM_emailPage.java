@@ -23,7 +23,12 @@ public class ASM_emailPage extends GetPage {
 	public List<String> getAllCategoryOfMailingList() {
 		List<String> list = new ArrayList<String>();
 		for (WebElement element : elements("list_mailingListCategory")) {
-			list.add(element.getText());
+			if (element.getText().equals(
+					"American Association of Chemistry Teachers")) {
+				list.add("AACT");
+			} else {
+				list.add(element.getText());
+			}
 		}
 		return list;
 	}
@@ -52,8 +57,14 @@ public class ASM_emailPage extends GetPage {
 	public void changeNewsLetterActionValue(String listName) {
 		isElementDisplayed("btn_newsletterAction", listName);
 		element("btn_newsletterAction", listName).click();
-		logMessage("Step : change the newsletter action value !!\n");
-
+		
+		if(element("btn_newsletterAction", listName).getText().equals("subscribe"))
+			logMessage("Step: unsubscribe the mailing list !!\n");
+		else
+			logMessage("Step : subscribe the mailing list !!\n");
+		//wait.hardWait(3);
+		handleAlert();
+		
 	}
 
 	public void loginInToApplication(String username, String password) {
