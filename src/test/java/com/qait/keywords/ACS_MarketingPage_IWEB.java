@@ -79,7 +79,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage{
 	{
 		isElementDisplayed("btn_save");
 		element("btn_save").click();
-		logMessage("Step : Click on save button in create mailiung list pop up !!\n");
+		logMessage("Step : Click on save button in create mailing list pop up !!\n");
 	}
 	
 	public void verifyListNameInMailingListRecord(String listName)
