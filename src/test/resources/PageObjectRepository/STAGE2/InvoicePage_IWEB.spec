@@ -20,11 +20,11 @@ btn_detailsMenu                 xpath                 //span[text()='${menuName}
 btn_detailsMenuAACT             xpath                 //span[text()='${menuName}']/../a[1]
 img_spinner                     css                     #__UPIMG
 table_description               xpath                 //a/../../following-sibling::tr/td[5]
+table_code                      xpath                 //a/../../following-sibling::tr/td[6]
 table_priceValue                xpath                 //a/../../following-sibling::tr/td[7]
 table_quantity                  xpath                //a/../../following-sibling::tr/td[8]
 table_total                     xpath                 //a/../../following-sibling::tr/td[9]
 table_discount                  xpath                //a/../../following-sibling::tr/td[10]
-table_code                      xpath                 //a/../../following-sibling::tr/td[6]
 table_balance                   xpath                //a/../../following-sibling::tr/td[11]
 table_Shipping                  xpath                 .//a/../../following-sibling::tr/td[@id='UP17']
 icon_up                         xpath                 //span[contains(text(),'${value}')]/preceding-sibling::a/i[@class='icon-chevron-up']

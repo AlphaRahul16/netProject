@@ -80,13 +80,12 @@ public class ACS_Void_Invoice_Test extends BaseTest{
 		test.acsVoidInvoice.clickOnVoidInvoiceButton("void invoice", 4);
 		test.acsVoidInvoice.createBatch(1, 6, "QA");
 		test.acsVoidInvoice.enterActionValues(YamlReader.getYamlValue("VoidWithAdjustment.actionValue"));
-		test.acsAddressValidation.waitForPageReadyState();
 		test.acsVoidInvoice.clickOnSaveButton();
 	}
 
 	@Test
 	public void Step07_Verify_Void_Invoice_Message_And_Voided_Line_Items() {
-		test.acsAddressValidation.waitForPageReadyState();
+//		test.acsAddressValidation.waitForPageReadyState();
 		test.acsVoidInvoice.verifyVoidInvoiceMessage(getYamlValue("VoidWithAdjustment.voidMessage"));
 		test.acsVoidInvoice.verifyMessageUnderLineItemsMenu(getYamlValue("VoidWithAdjustment.emptyItemsMessage"));
 		test.invoicePage.verifyMemberDetails(YamlReader.getYamlValue("VoidWithAdjustment.memberDetailsQuestion2"),
