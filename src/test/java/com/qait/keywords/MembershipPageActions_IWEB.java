@@ -146,10 +146,23 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 
 		else {
+			try
+			{
+				wait.resetImplicitTimeout(2);
+				wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			selectProvidedTextFromDropDown(element("list_existingQuery"),
 					queryName);
+			}
+			catch(StaleElementReferenceException e)
+			{
+				wait.hardWait(2);
+				selectProvidedTextFromDropDown(element("list_existingQuery"),
+						queryName);
+			}
 
 		}
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
 		logMessage("STEP : Select existing query " + queryName);
 	}
 
@@ -2492,17 +2505,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		return memberDetails;
 
 	}
-
-	public void fetchScarfReviewerLoginDetails(
-			Map<String, List<String>> reviewerloginMap, int reviewerNumber) {
-		reviewerloginMap.put("reviewer" + reviewerNumber,
-				getCustomerLastNameAndContactID());
-		logMessage("Step : Reviewer name is fetched as "
-				+ reviewerloginMap.get("reviewer" + reviewerNumber));
-		logMessage("-----last name:"
-				+ reviewerloginMap.get("reviewer" + reviewerNumber).get(0)
-				+ "-----member number:"
-				+ reviewerloginMap.get("reviewer" + reviewerNumber).get(1));
+	
+	public void fetchScarfReviewerLoginDetails(Map<String,List<String>> reviewerloginMap, int reviewerNumber)
+	{
+		reviewerloginMap.put("reviewer"+reviewerNumber, getCustomerLastNameAndContactID());
+		logMessage("Step : Reviewer name is fetched as "+reviewerloginMap.get("reviewer"+reviewerNumber));
+	    System.out.println("-----last name:"+reviewerloginMap.get("reviewer"+reviewerNumber).get(0)
+	    		+"-----member number:"+reviewerloginMap.get("reviewer"+reviewerNumber).get(1));
 	}
 
 	public void getIndividualFullNameForAwardsNomination() {
@@ -4092,6 +4101,19 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ reviewerType + " start and end date\n");
 	}
 
+
+	public void selectValidUserForAutoRenewal(String AutoRenewalquery,String queryPageUrl) {
+		wait.hardWait(2);
+			System.out.println(AutoRenewalquery);
+		selectAndRunQuery(AutoRenewalquery);
+		expandDetailsMenu("individual memberships");
+		navigateToInvoicePageForRenewedProduct();
+		expandDetailsMenu("invoices");
+		verifyTermStartDateAndEndDatesAreEmptyForAutoRenewal(AutoRenewalquery,queryPageUrl);
+		//verifyPaymentStatusBeforeAutoRenewal(AutoRenewalquery,queryPageUrl);
+	logMessage("Step : Member selected in " + MemberTransferLoopCount
+			+ " attempt\n");
+	}
 	public void verifyCentralizedOrderEntryPage(String title) {
 		Assert.assertEquals(title, getPageTitle());
 		logMessage("Step : title for Centralized Order Entry Page is verified as "
@@ -4131,13 +4153,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public String getProductCodeFromCOEPage()
-
 	{
-
 		switchToDefaultContent();
 		switchToFrame("iframe1");
 		String productCode = element("txt_prod_code").getAttribute("value");
-		logMessage("STEP: " + productCode + " is selected");
+		logMessage("STEP: " + productCode + " is selected\n");
 		return productCode;
 	}
 
@@ -4147,7 +4167,18 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		productName = element("productName_inp").getText().trim();
 		logMessage("STEP: " + productName + " is selected");
 		return productName;
+	}
 
+
+	public void verifyStorePaymentInformationChildFormIsPopulated(String firstName) {
+		isElementDisplayed("txt_code",firstName);
+		isElementDisplayed("txt_priceValue",firstName);
+		System.out.println(element("txt_code", firstName).getText().isEmpty());
+		System.out.println(element("txt_priceValue", firstName).getText().isEmpty());
+		Assert.assertFalse(element("txt_code", firstName).getText().isEmpty());
+		Assert.assertFalse(element("txt_priceValue", firstName).getText().isEmpty());
+		logMessage("ASSERT PASSED : Child form is populated under stored payment information for "+firstName);
+		
 	}
 
 	public String selectRandomProductForCRMInventory() {
@@ -4189,29 +4220,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public void selectValidUserForAutoRenewal(String AutoRenewalquery,
-			String queryPageUrl) {
-		if (MemberTransferLoopCount < 3) {
-			System.out.println(AutoRenewalquery);
-			launchUrl(queryPageUrl);
-			selectAndRunQuery(AutoRenewalquery);
-			expandDetailsMenu("individual memberships");
-			navigateToInvoicePageForRenewedProduct();
-			expandDetailsMenu("invoices");
-			verifyTermStartDateAndEndDatesAreEmptyForAutoRenewal(
-					AutoRenewalquery, queryPageUrl);
-			// verifyPaymentStatusBeforeAutoRenewal(AutoRenewalquery,queryPageUrl);
-			MemberTransferLoopCount++;
-		} else {
-			Assert.fail("ASSERT FAIL : Member is not selected after "
-					+ MemberTransferLoopCount + " attempts\n");
-			logMessage("ASSERT FAIL : Member is not selected after "
-					+ MemberTransferLoopCount + " attempts\n");
-		}
-		logMessage("Step : Member selected in " + MemberTransferLoopCount
-				+ " attempt\n");
-
-	}
 
 	public void verifyAutoPayStatusAfterAutoRenewal(String value) {
 		isElementDisplayed("mbr_autoPay", value);
@@ -4220,12 +4228,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : Auto Pay renewal image is checked\n");
 	}
 
-	public void verifyStorePaymentInformationChildFormIsPopulated(
-			String firstName) {
-		isElementDisplayed("txt_code", firstName);
-		isElementDisplayed("txt_priceValue", firstName);
-		System.out.println(element("txt_code", firstName).getText().isEmpty());
-		System.out.println(element("txt_code", firstName).getText().isEmpty());
-	}
+
 
 }

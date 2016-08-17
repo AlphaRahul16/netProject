@@ -77,7 +77,7 @@ txt_customerAddress                                id                          F
 txt_addressType                                  id                           F1_cxa_adt_key_Display_Text_
 label_listMemberShip                             id                          LabelDataFormHeader
 list_memberStatus                               xpath                        //a[starts-with(text(),'Member Status')]/../../following-sibling::tr/td[10]
-list_joindate                                   xpath                         //td[contains(text(),'active')]/following-sibling::td[1]       
+list_joindate                                   xpath                         //td[contains(text(),'active')]/following-sibling::td[1]
 txt_effectiveDateForActive                       xpath                          //td[starts-with(text(),'Active')]/following-sibling::td[3]       
 inp_enterDetails                                xpath                         //span[contains(text(),'${detailName}')]/../following-sibling::td/input
 btn_go                                          id                           ButtonSearch
@@ -183,3 +183,4 @@ txt_endDate                                     xpath                           
 arrow_selectMember                              xpath                           (//th/a)[2]/../../following-sibling::tr[${index}]//td[3]//a
 btn_CurrentYearPencil                           xpath                           //td[contains(text(),'Yes')]/preceding-sibling::td//i
 inp_dateForReviewModes                          xpath                           //input[@title='${reviewtitle}']
+mbr_autoPay                                     css                             img[title*='mbr_auto_pay'][src*='${value}']

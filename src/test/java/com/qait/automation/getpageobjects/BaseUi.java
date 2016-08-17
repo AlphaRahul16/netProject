@@ -788,4 +788,11 @@ public class BaseUi {
         System.out.println("In "+getPageTitle());
         driver.switchTo().window(current);
 	}
+	
+	
+	public void waitForPageToLoad(){
+		while(!executeJavascript1("document.readyState").equals("complete")){
+			
+		}
+	}
 }

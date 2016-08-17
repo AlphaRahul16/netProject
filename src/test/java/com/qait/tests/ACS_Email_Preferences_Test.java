@@ -25,6 +25,7 @@ public class ACS_Email_Preferences_Test {
 		app_url_email = getYamlValue("app_url_email");
 		mailingListName = getYamlValue("mailingListName")
 				+ System.currentTimeMillis();
+		
 		mailingListType = getYamlValue("mailingListType");
 	}
 
