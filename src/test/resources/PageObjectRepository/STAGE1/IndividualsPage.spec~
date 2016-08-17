@@ -72,6 +72,6 @@ link_pages                               css              *[class*='GridPagerLin
 link_nextPage                           css               *[class*='GridPagerLink'] :nth-child(1) 
 link_paging                               xpath               //table[@class='DataFormChildTABLE']//table//tr[1]//a[starts-with(text(),'${page no}')]
 chk_advancedView                         xpath              //span//label[text()='Advanced View']//../input
-drpdwn_selectSearchvalue                 xpath              //span[starts-with(text(),'${search option}')]/../following-sibling::td/select
-txt_enterSearchValue                     xpath            //span[starts-with(text(),'${search option}')]/../following-sibling::td/input
+drpdwn_selectSearchvalue                 xpath              //span[starts-with(text(),'${search criteria}')]/../following-sibling::td/select
+txt_enterSearchValue                     xpath            //span[starts-with(text(),'${search criteria}')]/../following-sibling::td/input
 ======================================================================================================================================

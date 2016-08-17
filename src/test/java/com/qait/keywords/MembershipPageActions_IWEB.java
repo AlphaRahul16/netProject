@@ -4164,7 +4164,17 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		return clickOnAnyRandomMember1();
 	}
 
-	private void _clickOnAvailableQuantityForSorting(String tableHeading) {
+	
+	public void selectRandomUserOnAscendingHeader(String headerName )
+	{
+		_clickOnAvailableQuantityForSorting(headerName);
+		_clickOnAvailableQuantityForSorting(headerName);
+		clickOnAnyRandomMember();
+		wait.hardWait(4);
+	}
+	
+	
+	void _clickOnAvailableQuantityForSorting(String tableHeading) {
 		isElementDisplayed("th_lookup", tableHeading);
 		element("th_lookup", tableHeading).click();
 		logMessage("Step: Clicked on " + tableHeading + " for Sorting");

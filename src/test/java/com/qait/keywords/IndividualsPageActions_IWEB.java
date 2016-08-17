@@ -34,6 +34,37 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		this.driver = driver;
 	}
 
+	
+	public void clickOnAdvancedViewCheckBox()
+	{
+		isElementDisplayed("chk_advancedView");
+		element("chk_advancedView").click();
+		logMessage("Step: click on checkbox of advanced view \n");
+	}
+	
+	public void selectAdvancedSearchValue(String fieldName,String searchCriteria)
+	{
+		
+		selectProvidedTextFromDropDown(element("drpdwn_selectSearchvalue",fieldName), searchCriteria);
+		logMessage("Step : select advance search value as "+searchCriteria+" for "+fieldName);
+	}
+	
+	public void enterSearchValueInAdvancedViewText(String fieldName, String fieldValue)
+	{
+		isElementDisplayed("txt_enterSearchValue",fieldName);
+		element("txt_enterSearchValue",fieldName).sendKeys(fieldValue);
+		logMessage("Step : "+fieldValue+" is entered for "+fieldName);
+		
+	}
+	
+	public void fillMemberDetailsAndSearchInAdvancedView(String fieldName,String searchCriteria, String fieldValue)
+	{
+		clickOnAdvancedViewCheckBox();
+		selectAdvancedSearchValue(fieldName,searchCriteria);
+		enterSearchValueInAdvancedViewText(fieldName,fieldValue);
+		clickGoButton();
+	}
+	
 	public void fillMemberDetailsAndSearch(String fieldName, String fieldValue) {
 		hardWaitForIEBrowser(4);
 		enterFieldValue(fieldName, fieldValue);
