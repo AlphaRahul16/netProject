@@ -20,10 +20,10 @@ btn_selectNomineeSupport1                     xpath                       (//inp
 btn_selectNomineeSupport2                     xpath                       (//input[@class='selectNominee'])[10] 
 tab_currentTab                                xpath                       //span[@class='progressStepOn']  
 inp_nomineePosition                           xpath                       //div[@id='nomineePosition']/input  
-rad_safeLabPractices                          xpath                       //div[@id='safetyProtocol']/input[3]  
+rad_safeLabPractices                          xpath                       //div[@id='safetyProtocol']/input[@value='${value}']  
 rad_discussedAwardNomination                  xpath                       //div[@id='discussedWithNominee']/input[2] 
 rad_yearOfExperience                          xpath                       //div[@id='experienceFlag']//input[1] 
-list_selectDiscipline                         name                        n01_nominee_a58_key_ext     
+list_selectDiscipline                         css                         #nomineeIndustry>select     
 btn_continue                                  xpath                       //input[@class='saveData']
 btn_confirm_PrepareNomination                 xpath                       //button[text()='Confirm'] 
 txtAr_suggestedCitation                       id                          n01_citation  
@@ -57,9 +57,9 @@ btn_findMemberByNumber                         id                            doS
 img_submitnomination                           css                          .updating
 txt_NominationTooltip                         classname                    awardDeadline  
 inp_findbymembernumber                        id                           memberNumber_searchNominee
-txt_Nomineename                               classname                   nomineeName 
+txt_Nomineename                               xpath                   //div[@class='ListDiv']/div[1]/span 
 rad_dynsafelabpractice                        xpath                       //div[@id='safetyProtocol']/input[@value='${value}']
-rad_disscusNomination                         xpath                        //div[@id='discussedWithNominee']/span[text()='${value}']/following-sibling::input
+rad_disscusNomination                         xpath                        //div[@id='discussedWithNominee']/span[text()='${value}']/following-sibling::input[1]
 btn_saveForLater                              css                         .saveData.later
 txt_awardStatus                               xpath                       //div[contains(text(),'${awardName}')]/following-sibling::table//td[@class='status']
 btn_editNominee                               classname                   editNominee

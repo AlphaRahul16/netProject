@@ -35,6 +35,7 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest {
 
 	@Test
 	public void Step02_TC01_Launch_Eweb_OMR() {
+
 		test.launchApplication(app_url_OMR);
 		test.asm_OMR.loginIntoOMRApplication(memDetails);
 		test.asm_OMR.OMRLogo("Online Membership Renewal");
@@ -42,7 +43,7 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest {
 	}
 
 	@Test
-	public void Step03_TC01_Verify_Renewal_Summary_On_CheckoutPage() {
+	public void Step03_Verify_Renewal_Summary_On_CheckoutPage() {
 		System.out.println(YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[0]);
 		System.out.println(YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[1]);
 		mapRenewedProductDetails = test.asm_OMR.saveProductsWithRespectiveRenewalAmount();
@@ -57,7 +58,7 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest {
 	}
 
 	@Test
-	public void Step05_TC01_Launch_Iweb_To_Verify_Details() {
+	public void Step04_Launch_Iweb_To_Verify_Details() {
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnSideBar("Find Individual");
@@ -66,10 +67,10 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest {
 		test.memberShipPage.expandDetailsMenu("individual memberships");
 		test.memberShipPage.navigateToInvoicePageForRenewedProduct();
 		test.memberShipPage.verifyAutoPayStatusAfterAutoRenewal("chkmk");
-		test.memberShipPage.collapseDetailsMenu("invoices");
+		// test.memberShipPage.collapseDetailsMenu("invoices");
 		test.memberShipPage.expandDetailsMenu("stored payment information");
 
-		test.memberShipPage.verifyStorePaymentInformationChildFormIsPopulated(memDetails.get(0).split(" ")[1]);
+		test.invoicePage.verifyStorePaymentInformationChildFormIsPopulated(memDetails.get(0).split(" ")[1]);
 
 		test.memberShipPage.collapseDetailsMenu("stored payment information");
 	}
@@ -83,5 +84,4 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest {
 		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
 	}
-
 }

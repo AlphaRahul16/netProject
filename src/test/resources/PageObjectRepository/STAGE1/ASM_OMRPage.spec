@@ -24,13 +24,13 @@ inp_cardNumber                                xpath                             
 inp_CVVNumber                                 xpath                                     //input[contains(@id,'CcvNumber')]     
 list_expirationDate                           xpath                                     //select[contains(@id,'ExpirationMonth')]
 list_expirationYear                           xpath                                     //select[contains(@id,'ExpirationYear')]
-btn_continue                                  id                                     btnContinue
+btn_continue                                  id                                        btnContinue
 txt_invalidCardErrorMessage                   id                                        lblError
 btn_submitPayment                             id                                        btnSubmitOmrPayment
 txt_navigation                                xpath                                     //ul[@title='Bread Crumbs']/li[3]
-chkConfirm                                      id                                     //input[contains(@id,'Confirm')]
+chkConfirm                                     id                                     //input[contains(@id,'Confirm')]
 rad_No                                        xpath                                    //label[text()='No']/preceding-sibling::input
-txt_confirmPage                             xpath                                      //legend[text()='Confirm your information']
+txt_confirmPage                              xpath                                      //legend[text()='Confirm your information']
 chkbox_undergraduate                        css                                        input[id*='ucDegree_cbConfirm']
 rad_undergraduate                           css                                        input[value='${value}']
 iframe_ewebframe                            css                                        #eWebFrame
@@ -39,4 +39,5 @@ txt_legend                                  xpath                               
 btn_addToMemberships                        xpath                                      //span[contains(text(),'${value}')]/../../preceding-sibling::td/input[contains(@name,'${value1}')]
 inp_contribution                            xpath                                      //span[contains(text(),'${value}')]/../../following-sibling::td//input
 btn_save                                    id                                         btnSave
+btn_payment                                css                                        input[value='${buttonName}']
 =================================================================================================================================================

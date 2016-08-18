@@ -48,7 +48,7 @@ public class ACS_ScarfReviewing_Test  {
 	
 	@Test
 	public void Step02_User_Navigated_To_Student_Chapter_Reporting_Link() {
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnSacrfReportingModule();
 		test.homePageIWEB.verifyUserIsOnHomePage("Scarf Reporting | Overview | Student Chapter Reporting Setup");

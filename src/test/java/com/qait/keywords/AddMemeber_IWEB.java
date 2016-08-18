@@ -87,7 +87,7 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		}
 		if (!outPostalCode.equalsIgnoreCase("")
 				&& country.equalsIgnoreCase("UNITED STATES")) {
-			getAndVerifyMemberDetail("postalCode", outPostalCode);
+			//getAndVerifyMemberDetail("postalCode", outPostalCode);
 			clickOnSaveButton();
 		}
 
