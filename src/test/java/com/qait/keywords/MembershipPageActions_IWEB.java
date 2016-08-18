@@ -4151,10 +4151,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 		switchToFrame(element("iframe"));
 		clickOnSearchDisplayNameButton();
-
 		clickOnRandomPage();
-		clickOnAnyRandomMember1();
-
 		_clickOnAvailableQuantityForSorting("Available Quantity");
 		_selectPage(10);
 		return clickOnAnyRandomMember1();
