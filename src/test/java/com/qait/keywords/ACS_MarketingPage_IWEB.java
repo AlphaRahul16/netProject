@@ -33,7 +33,6 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage{
 	}
 	
 	public void verifyTitleNameForMailingListPopUpIsDisplayed() {
-		System.out.println("hello !!!");
 		Assert.assertTrue(isElementDisplayed("txt_titleName"),"Title is not displayed for mailing list pop up");
 		titleName=element("txt_titleName").getText();
 		logMessage("ASSERT PASSED : title is displayed as "+titleName);
@@ -44,21 +43,21 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage{
 	{
 		isElementDisplayed("inptxt_mailingListName");
 		element("inptxt_mailingListName").sendKeys(listName);
-		logMessage("Step : send list name "+listName+" in name field of in create mailiung list pop up!!\n");
+		logMessage("Step : Mailing list name is entered as "+listName+"\n");
 	}
 
     public void sendListTypeInCreateMailingListPopUp(String listType)
     {
     	isElementDisplayed("drpdwn_mailingListType", listType);
 		element("drpdwn_mailingListType", listType).click();
-		logMessage("Step : Enter list type as "+listType+" in create mailiung list pop up\n");
+		logMessage("Step : Mailing list typeis entered as "+listType+"\n");
     }
 	
 	public void selectShowOnlineInCreateMailingListPopUp()
 	{
 		isElementDisplayed("chk_showOnline");
 		element("chk_showOnline").click();
-		logMessage("Step : Click on Show online Chechbox in create mailiung list pop up!!\n");
+		logMessage("Step : Show online Chechbox is clickied\n");
 	}
     
 	public void sendStartDateInCreateMailingListPopUpWithFormat(String format)
@@ -66,7 +65,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage{
 		isElementDisplayed("txt_startDate");
 		element("txt_startDate").sendKeys(
 				DateUtil.getCurrentdateInStringWithGivenFormate(format));
-		logMessage("Step : Start date filled in create mailiung list pop up!!\n");	
+		logMessage("Step : Start date is entered as "+DateUtil.getCurrentdateInStringWithGivenFormate(format)+"\n");	
 	}
 	
    public void 	sendEndDateInCreateMailingListPopUpWithFormat(String format)
@@ -86,21 +85,20 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage{
 		sendStartDateInCreateMailingListPopUpWithFormat("MM/dd/YYYY");
 		sendEndDateInCreateMailingListPopUpWithFormat("MM/dd/YYYY");
 		clickOnSaveButtonDisplayedOnMailingListPopUp();
-
 	}
 
 	public void clickOnSaveButtonDisplayedOnMailingListPopUp()
 	{
 		isElementDisplayed("btn_save");
 		element("btn_save").click();
-		logMessage("Step : Click on save button in create mailiung list pop up !!\n");
+		logMessage("Step : Save button is clicked\n");
 		switchToDefaultContent();
 	}
 	
 	public void verifyListNameInMailingListRecord(String listName)
 	{
 		Assert.assertTrue(isElementDisplayed("txt_listName",listName),"Created List Name is not displayed");
-		logMessage("ASSERT PASSED : List Name "+listName+"is Displayed !! ");
+		logMessage("ASSERT PASSED : List Name "+listName+" is displayed in the mailing list\n");
 	}
 
 	
@@ -128,7 +126,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage{
 	{
 		isElementDisplayed("txt_name");
 		userName=element("txt_name").getAttribute("value");
-		logMessage("Step : Added user name "+userName+"is retrieved !!\n");
+		logMessage("Step : Added user name is "+userName+"\n");
 		return userName;
 		
 	}
@@ -136,15 +134,15 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage{
 	public void verifyUserNameInList()
 	{
 		MembershipPageActions_IWEB obj = new MembershipPageActions_IWEB(driver);
-		obj.expandDetailsMenu("list members");
+		obj.expandDetailsMenuIfAlreadyExpanded("list members");
 		Assert.assertTrue(isElementDisplayed("btn_ArrowProdName",userName));
-		logMessage("ASSERT PASSED : verify userName in List");
+		logMessage("ASSERT PASSED : Member "+userName+" is successfully added in the list");
 	}
 	
 	public void gotoArrowOfGivenUser()
 	{
 		element("btn_ArrowProdName",userName).click();
-		logMessage("Step : Arrow with "+userName+"is clicked !!");
+		logMessage("Step : Member "+userName+"is selected \n");
 		
 	}
 	
@@ -152,7 +150,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage{
 	{
 		isElementDisplayed("btn_cancelInComm.Pref");
 		element("btn_cancelInComm.Pref").click();
-		logMessage("Step : click on cancel button under Communication Preferences");
+		logMessage("Step : Cancel button under Communication Preferences is clicked\n");
 		changeWindow(0);
 	}
 	
@@ -160,7 +158,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage{
 	{
 		isElementDisplayed("btn_iconOnAdditionalInfo",infoName);
 		element("btn_iconOnAdditionalInfo",infoName).click();
-		logMessage("Step : btn with additional info "+infoName+" is clicked !!\n");
+		logMessage("Step : "+infoName+" button is clicked \n");
 	}
 	
 	public void expandListTypeInComm_Pref(String listType)
@@ -168,7 +166,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage{
 		changeWindow(1);
 		isElementDisplayed("btn_listTypeInComm.Pref",listType);
 		element("btn_listTypeInComm.Pref",listType).click();
-		logMessage("Step : list Type "+listType+"is expanded !!\n");
+		logMessage("Step : list Type "+listType+" is expanded\n");
 	}
 	
 	public void verifyMailingListIsDisplayedInExpandedListType(String listName)
@@ -193,13 +191,18 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage{
 
 	public void verifyListsInGivenCategoryIsUnsubscribed(String listType)
 	{
+		flag=true;
 		for(WebElement element:elements("list_allMailsInListType",listType))
 		{
 			if(element.isSelected())
 			{
 				Assert.fail("Mailing list is subscribed !!");
+				flag=false;
+				break;
 			}
 		}
+		Assert.assertTrue(flag,"ASSERT FAILED : The mailing list is not unsubscribed\n");
+		logMessage("ASSERT PASSED : All the mailing lists are unsubscribed\n");
 	}
 	
 	
@@ -213,9 +216,8 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage{
 			expandListTypeInComm_Pref(list.get(i));
 			verifyListsInGivenCategoryIsUnsubscribed(list.get(i));
 		}
-		logMessage("ASSERT PASSED : Verified All Mailing List Is Unsubscribed !!");
+		logMessage("Step : Verified All Mailing List Is Unsubscribed");
 		clickOnCancelButtonInCommunicationPreferencesPopUp();
-		changeWindow(0);
 	}
 	
 	

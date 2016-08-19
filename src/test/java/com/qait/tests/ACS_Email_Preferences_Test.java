@@ -55,7 +55,7 @@ public class ACS_Email_Preferences_Test {
 
 	public void Step04_Send_Information_In_Popup_And_Save_Them_Then_Verify_Popup_Is_Closed() {
 		test.acsMarketingPageIweb.sendListInformationToMailingListPopUp(
-				mailingListName, mailingListType);
+				mailingListName, mailingListType);     //--
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("Marketing | Overview | Overview");
 	}
@@ -102,7 +102,7 @@ public class ACS_Email_Preferences_Test {
 		test.launchApplication(app_url_email);
 		test.asm_emailPage.loginInToApplication(webLogin, "password");
 		test.asm_emailPage.verifyMailingListInNewspaperHeading(mailingListName);
-		test.asm_emailPage.verifyMailListIsSubscribed(mailingListName);
+		test.asm_emailPage.verifyMailListIsSubscribed(mailingListName);  //
 		test.asm_emailPage.changeNewsLetterActionValue(mailingListName);
 	}
 	
