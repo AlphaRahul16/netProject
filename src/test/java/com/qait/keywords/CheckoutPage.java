@@ -63,6 +63,12 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		// cancelOutPopUp();
 	}
 
+	public void clickOnPayInINRButton() {
+		isElementDisplayed("btn_payInINR");
+		element("btn_payInINR").click();
+		logMessage("STEP : Pay In INR button is clicked at checkout page \n");
+	}
+
 	public void clickSubmitButton() {
 		isElementDisplayed("btn_submitBottom");
 		click(element("btn_submitBottom"));

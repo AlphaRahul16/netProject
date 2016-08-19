@@ -32,4 +32,8 @@ list_deliveryOptions     xpath       //select[@id='ddlChemMatters']/option
 list_deliveryMethods     id       ddlChemMatters 
 list_AACTNationalMem     xpath    //td[@class='category']/span[1]  
 select_currency          xpath      //select[contains(@id,'CurrencySelector_ddlCurrencies')]
+btn_payInINR            xpath   //input[contains(@id,'btnSubmit')]
+
+
+
 ======================================================================================================================================

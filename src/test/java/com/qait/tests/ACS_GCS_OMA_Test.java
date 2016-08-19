@@ -99,14 +99,15 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 		Total = test.checkoutPage.verifyTotal(currency);
 		test.checkoutPage.verifyTechnicalDivision(caseID);
 		test.checkoutPage.verifyPublication(caseID);
-		test.checkoutPage.enterPaymentInfo(
-				YamlReader.getYamlValue("creditCardInfo.Type"), userDetail[1]
-						+ " " + userDetail[2],
-				YamlReader.getYamlValue("creditCardInfo.Number"),
-				YamlReader.getYamlValue("creditCardInfo.cvv-number"));
 		test.checkoutPage.clickAtTestStatement();
-		test.ContactInfoPage.clickContinue();
-		test.checkoutPage.clickSubmitButtonAtBottom();
+//		test.checkoutPage.enterPaymentInfo(
+//				YamlReader.getYamlValue("creditCardInfo.Type"), userDetail[1]
+//						+ " " + userDetail[2],
+//				YamlReader.getYamlValue("creditCardInfo.Number"),
+//				YamlReader.getYamlValue("creditCardInfo.cvv-number"));
+		
+		test.checkoutPage.clickOnPayInINRButton();
+		
 		test.homePage.verifyCurrentTab("Confirmation");
 	}
 
