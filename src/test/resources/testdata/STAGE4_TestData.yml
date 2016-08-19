@@ -13,7 +13,7 @@ csv-data-file:
   
 Authentication: 
   userName: C00616
-  password: "ACS2016#"
+  password: "ACS2016qa!"
   
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt

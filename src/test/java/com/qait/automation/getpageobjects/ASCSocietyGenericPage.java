@@ -34,7 +34,9 @@ public class ASCSocietyGenericPage extends GetPage {
 	String pageName;
 	LayoutValidation layouttest;
 	String csvSeparator = getYamlValue("csv-data-file.data-separator");
-	int timeOut, hiddenFieldTimeOut, numberOfColumns;
+	protected int timeOut;
+	protected int hiddenFieldTimeOut;
+	int numberOfColumns;
 	static int count;
 	ArrayList<String> listOfCaseIdToExecute = new ArrayList<String>();
 	MembershipPageActions_IWEB memPage;

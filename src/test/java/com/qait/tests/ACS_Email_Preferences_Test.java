@@ -46,19 +46,21 @@ public class ACS_Email_Preferences_Test {
 	@Test
 	public void Step03_Go_To_Marketing_Setup_Page_Link_And_Verify_Mailing_List_Popup_Is_Displayed() {
 		test.homePageIWEB.clickOnTab("Marketing Setup page.");
-		test.awardsPageAction.clickOnPlusIcon("mailing lists");
-		test.acsMarketingPageIweb
-				.verifyTitleNameForMailingListPopUpIsDisplayed();
+		test.acsMarketingPageIweb.verifyVisibilityOfGivenListCategory(mailingListType);
+		//test.awardsPageAction.clickOnPlusIcon("mailing lists");
+		//test.acsMarketingPageIweb
+			//	.verifyTitleNameForMailingListPopUpIsDisplayed();
 	}
 
-	@Test
 
+	@Test
 	public void Step04_Send_Information_In_Popup_And_Save_Them_Then_Verify_Popup_Is_Closed() {
 		test.acsMarketingPageIweb.sendListInformationToMailingListPopUp(
 				mailingListName, mailingListType);     //--
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("Marketing | Overview | Overview");
 	}
+
 
 	@Test
 	public void Step05_Nevigate_To_Marketting_Module_And_Verify_Addition_Of_Created_List() {
@@ -83,6 +85,7 @@ public class ACS_Email_Preferences_Test {
 		test.acsMarketingPageIweb.verifyUserNameInList();
 	}
 
+
 	@Test
 	public void Step07_Verify_MailingList_Is_Added_In_Email_Communication_Preferences_Form_And_Is_Subscribed() {
 		test.acsMarketingPageIweb.gotoArrowOfGivenUser();
@@ -97,7 +100,7 @@ public class ACS_Email_Preferences_Test {
 				.clickOnCancelButtonInCommunicationPreferencesPopUp();
 	}
 
-	@Test
+	//@Test
 	public void Step08_Login_Into_Eweb_And_Verify_Mailing_List_Is_Subscribed_Under_The_Mailing_List_Type_Tab_And_Unsubscribe_The_User() {
 		test.launchApplication(app_url_email);
 		test.asm_emailPage.loginInToApplication(webLogin, "password");
@@ -106,6 +109,7 @@ public class ACS_Email_Preferences_Test {
 		test.asm_emailPage.changeNewsLetterActionValue(mailingListName);
 	}
 	
+
 	@Test
 	public void Step09_Navigate_To_Iweb_Application_And_Verify_MailingList_Is_UnSubscribed() {
 
@@ -123,6 +127,7 @@ public class ACS_Email_Preferences_Test {
 		test.acsMarketingPageIweb
 				.clickOnCancelButtonInCommunicationPreferencesPopUp();
 		}
+
 
 	@Test
 	public void Step10_Login_Into_Eweb_And_Unsubscribe_All_Mailing_List_And_Verify_In_Iweb() {

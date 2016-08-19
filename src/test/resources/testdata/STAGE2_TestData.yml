@@ -53,7 +53,7 @@ excel-data-file:
 
 Authentication: 
   userName: C00569
-  password: "3r0P85&8"
+  password: "ACS2016qa!"
   
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt
