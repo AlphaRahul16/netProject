@@ -49,25 +49,21 @@ public class CRM_Inventory_Test extends BaseTest {
 	}
 
 	@Test
-	public void Step04_Click_Select_Product_And_Merchandise_Option_and_verify_Centralized_Order_Entry_Merchandise_window() {
-
+	public void Step04_Click_Select_Product_And_Merchandise_Option_and_Verify_Centralized_Order_Entry_Merchandise_Window() {
 		test.memberShipPage.clickOnSelectProduct();
-
 		price = test.memberShipPage.selectRandomProductForCRMInventory();
-
 		productName = test.memberShipPage.getProductNameFromCOEPage();
 		productCode = test.memberShipPage.getProductCodeFromCOEPage();
 		test.memberShipPage.clickOnSaveAndFinish();
-
 	}
 
 	@Test
-	public void Step05_Verify_that_the_selected_item_is_added_into_Line_Items() {
+	public void Step05_Verify_that_Selected_Item_Is_Added_Into_Line_Items() {
 		test.memberShipPage.verifyProductNameInLineItem(productName);
 	}
 
 	@Test
-	public void Step06_Create_batch_named_Selenium_Testing_and_enter_QA_in_Security_Group_and_Verify_Centralized_Order_Entry_page() {
+	public void Step06_Select_Selenium_Batch_And_Payment_Details_For_CRM_Inventory_And_Verify_Centralized_Order_Entry_page() {
 		test.memberShipPage.selectBatchAndPaymentDetailsForCRMInventory(
 				YamlReader.getYamlValue("Acs_CreateMember_IWEB.batch"),
 				YamlReader.getYamlValue("CRM_Inventory.PaymentType"),
@@ -76,22 +72,20 @@ public class CRM_Inventory_Test extends BaseTest {
 	}
 
 	@Test
-	public void Step07_Click_on_More_tab_and_Select_Invoices_option_and_Expand_invoices_open_batch() {
+	public void Step07_Click_on_More_tab_And_Select_Invoices_Option_and_Expand_Invoices_Open_Batch() {
 		test.individualsPage.navigateToInvoicesMenuOnHoveringMore();
 	}
 
 	@Test
-	public void Step08_verify_invoice_is_added_in_the_invoices_open_batch_with_trancation_date_is_current_date() {
+	public void Step08_Verify_Invoice_Added_In_Invoices_With_Current_Date_As_Trancation_Date() {
 		test.memberShipPage.verifyInvoiceIsAdded(customerFullNameList.get(0).trim());
-
 	}
 
 	@Test
-	public void step09_verify_Invoice_profile_page_Verify_paid_in_full_is_Yes_trancation_date_with_current_date_and_product_code() {
+	public void Step09_Verify_Paid_In_Full_Yes_And_Current_Date_As_Transaction_Date_And_Product_Code_On_Invoice_Profile_Page() {
 		test.memberShipPage.clickOnStudentMemberName(1);
 		test.invoicePage.verifyInvoiceProfile("Yes");
-
 		test.invoicePage.verifyProductCodeInlineItem(productCode, productName);
-
 	}
+	
 }

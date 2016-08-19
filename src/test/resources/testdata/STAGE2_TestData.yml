@@ -21,6 +21,8 @@ app_url_IwebReporting: https://stag-12iweb/NFStage2/iweb
 app_url_PUBS: https://ewebtest12.acs.org/NFStage2/pba
 app_url_EwebReporting: https://ewebtest12.acs.org/NFStage2/studentchaptersonline
 app_url_Awards: https://ewebtest12.acs.org/NFStage2/awards
+app_url_ScarfReviewing: https://www.ewebtest.acs.org/NFStage2/studentchaptersreview
+
 
 password: "password"
 
@@ -51,7 +53,7 @@ excel-data-file:
 
 Authentication: 
   userName: C00569
-  password: "3r0P85&8"
+  password: "ACS2016qa!"
   
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt

@@ -36,7 +36,7 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest {
 
 	}
 
-	@Test(dependsOnMethods = "Step01_TC01_launch_Iweb_And_Select_Valid_User_For_AutoRenewal_In_OMR")
+	@Test
 	public void Step02_TC01_Launch_Eweb_OMR() {
 
 		test.launchApplication(app_url_OMR);
@@ -45,7 +45,7 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest {
 		test.asm_OMR.verifyWelcomePage();
 	}
 
-	@Test(dependsOnMethods = "Step02_TC01_Launch_Eweb_OMR")
+	@Test
 	public void Step03_Verify_Renewal_Summary_On_CheckoutPage() {
 		System.out.println(YamlReader.getYamlValue(
 				"creditCardInfo.CreditCardExpiration").split("\\/")[0]);
@@ -69,7 +69,7 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest {
 		test.asm_OMR.verifyPrintReceiptMessageAfterPayment();
 	}
 
-	@Test(dependsOnMethods = "Step03_Verify_Renewal_Summary_On_CheckoutPage")
+	@Test
 	public void Step04_Launch_Iweb_To_Verify_Details() {
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
@@ -83,7 +83,7 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest {
 		// test.memberShipPage.collapseDetailsMenu("invoices");
 		test.memberShipPage.expandDetailsMenu("stored payment information");
 
-		test.memberShipPage
+		test.invoicePage
 				.verifyStorePaymentInformationChildFormIsPopulated(memDetails
 						.get(0).split(" ")[1]);
 
@@ -100,5 +100,4 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest {
 				YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
 	}
-
 }

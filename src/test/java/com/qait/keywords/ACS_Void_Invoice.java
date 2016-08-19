@@ -100,8 +100,8 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnSaveButton(){
-//		wait.hardWait(6);
-//		wait.waitForPageToLoadCompletely();
+		wait.hardWait(6);
+		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("btn_save");
 //		element("btn_save").click();
 		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
@@ -166,9 +166,9 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 
 	public void verifyVoidInvoiceMessage(String msg){
 		wait.waitForPageToLoadCompletely();
-		//waitForSpinner();
-//		wait.hardWait(5);
-//		hardWaitForIEBrowser(4);
+		waitForSpinner();
+		wait.hardWait(5);
+		hardWaitForIEBrowser(4);
 
 		try
 		{

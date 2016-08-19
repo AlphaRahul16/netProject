@@ -77,10 +77,9 @@ creditCardDetails:
     Type: "BOA - Check"
     CheckNumber: 123456
 
-mailingListName: "SeleniumList"
-mailingListType: "Meetings"
-dateFormat : "MM/dd/YYYY"
-
+EmailCommunicationPreferences:
+    mailingListName: "SeleniumList"
+    mailingListType: "Meetings"
 
             
 reinstateUsers: 
@@ -559,7 +558,7 @@ PBA:
     
 OMR:
      queryName: "Selenium - Find Active Regular Member with Proforma"
-     
+
 VoidWithAdjustment:
     queryName: "Selenium - test open invoices"
     voidMessage: "This invoice has been cancelled or voided"    
@@ -611,8 +610,6 @@ email:
     recepient3: kanikasharma@qainfotech.com
     
 CRM_Inventory:
-  batch: "Selenium Testing"
-  productCode: "209-116-1000"
   PaymentType: prepaid
   paymentMethod: "BOA - Check"
   checkNumber: "1111"

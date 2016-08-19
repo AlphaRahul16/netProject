@@ -183,7 +183,7 @@ public class TestSessionInitiator {
 		acsScarfReviewPage = new ACS_Scarf_ReviewingActions(driver);
 		acsScarfReviewing = new ACS_Scarf_Reviewing_Eweb_Action(driver);
 		gcs_paymentPage = new ACS_Scarf_Reviewing_Eweb_Action(driver);
-
+		acsMarketingPageIweb=new ACS_MarketingPage_IWEB(driver);
 
 	}
 
