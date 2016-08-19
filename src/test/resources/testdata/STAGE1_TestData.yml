@@ -45,7 +45,7 @@ csv-data-file:
   has-header: true
 
 Authentication: 
-  userName: C00616
+  userName: C00569
   password: "ACS2016qa!"
   
 ASM_Data_File: 
@@ -60,9 +60,9 @@ creditCardInfo:
   CreditCardExpiration: 06/2016
   
   
-mailingListName: "SeleniumList"
-mailingListType: "Meetings"
-dateFormat : "MM/dd/YYYY"
+EmailCommunicationPreferences:
+    mailingListName: "SeleniumList"
+    mailingListType: "Meetings"
   
             
 reinstateUsers: 

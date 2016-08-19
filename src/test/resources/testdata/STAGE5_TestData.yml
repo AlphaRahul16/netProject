@@ -77,10 +77,9 @@ creditCardDetails:
     Type: "BOA - Check"
     CheckNumber: 123456
 
-mailingListName: "SeleniumList"
-mailingListType: "Meetings"
-dateFormat : "MM/dd/YYYY"
-
+EmailCommunicationPreferences:
+    mailingListName: "SeleniumList"
+    mailingListType: "Meetings"
 
             
 reinstateUsers: 
@@ -556,6 +555,7 @@ ScarfReporting:
     queryName: "QAIT - Active Student Chapters"
 PBA:
     queryName: "Selenium - Find Active Regular Member"
+    
 OMR:
      queryName: "Selenium - Find Active Regular Member with Proforma"
 
