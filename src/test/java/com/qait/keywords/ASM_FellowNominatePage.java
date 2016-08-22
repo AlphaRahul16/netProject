@@ -22,7 +22,7 @@ import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.GetPage;
 import com.qait.automation.utils.YamlReader;
-import com.thoughtworks.selenium.webdriven.commands.IsElementPresent;
+
 
 public class ASM_FellowNominatePage extends GetPage {
 	WebDriver driver;

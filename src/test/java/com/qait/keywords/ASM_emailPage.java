@@ -33,6 +33,7 @@ public class ASM_emailPage extends GetPage {
 	}
 
 	public void verifyMailingListInNewspaperHeading(String listName) {
+		wait.waitForPageToLoadCompletely();
 		Assert.assertTrue(isElementDisplayed("btn_newslettedHeading", listName),
 				"Mailing list is not displayed in NewsPaper heading");
 		logMessage("ASSERT PASSED : " + listName + " list is displayed in newspaper heading \n");
@@ -56,13 +57,17 @@ public class ASM_emailPage extends GetPage {
 
 	public void changeNewsLetterActionValue(String listName) {
 		isElementDisplayed("btn_newsletterAction", listName);
-		element("btn_newsletterAction", listName).click();
-
 		wait.hardWait(3);
-		if (element("btn_newsletterAction", listName).getText().equals("subscribe"))
-			logMessage("Step: The mailing list is now unsubscribed\n");
-		else
-			logMessage("Step : The mailing list is now subscribed\n");
+		if (element("btn_newsletterAction", listName).getText().equals("subscribe")){
+			element("btn_newsletterAction", listName).click();
+			logMessage("Step: Clicked on Subscribe button\n");
+			logMessage("Step: The mailing list is now subscribed\n");
+		}	
+		else{
+			element("btn_newsletterAction", listName).click();
+			logMessage("Step: Clicked on Unsubscribe button\n");
+			logMessage("Step : The mailing list is now unsubscribed\n");
+		}
 		handleAlert();
 
 	}
@@ -141,13 +146,12 @@ public class ASM_emailPage extends GetPage {
 	public void clickOnUnsubscribeAllButton() {
 		try {
 			isElementDisplayed("btn_unsubscribeAll");
-//			click(element("btn_unsubscribeAll"));
 			element("btn_unsubscribeAll").click();
 			logMessage("Step : unsubscribe all button is clicked\n");
 		} catch (Exception exp) {
 			clickOnFirstSubscribeButton();
+			wait.hardWait(1);
 			isElementDisplayed("btn_unsubscribeAll");
-//			click(element("btn_unsubscribeAll"));
 			element("btn_unsubscribeAll").click();
 			logMessage("Step : unsubscribe all button is clicked\n");
 		}
@@ -158,6 +162,7 @@ public class ASM_emailPage extends GetPage {
 //		click(element("btn_unsubscribeConfirm"));
 		element("btn_unsubscribeConfirm").click();
 		logMessage("Step : Unsubscribe all confirm button is clicked\n");
+		handleAlert();
 	}
 
 	public void verifyUnsubscribeOnclickingUnsubscribeAllButton() {

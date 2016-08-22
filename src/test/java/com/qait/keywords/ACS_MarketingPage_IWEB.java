@@ -33,17 +33,28 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 		switchToFrame(1);
 		if (!element("chk_showOnlineInListCategory").isSelected()) {
 			element("chk_showOnlineInListCategory").click();
+			logMessage("Step: Show online checkbox is already selected\n");
 		}
-		switchToDefaultContent();
+		else
+			logMessage("Step: Show online checkbox is alredy selected\n");
+	}
+	
+	public void clickOnCancelButton(){
+		isElementDisplayed("btn_cancelEditMailingList");
+//		element("btn_cancel").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_cancelEditMailingList"));
+		logMessage("STEP: Clicked on Cancel button\n");
 	}
 
 	public boolean verifyVisibility(String listType) {
 		boolean flag = false;
 		for (WebElement element : elements("list_categoriesInMailingList")) {
 			if (element.getText().trim().equalsIgnoreCase(listType)) {
-				element("arrow_selectListType").click();
+				element("arrow_selectListType",listType).click();
 				wait.hardWait(3);
 				makeMailingListVisible();
+				clickOnCancelButton();
+				switchToDefaultContent();
 				flag = true;
 				break;
 			}
@@ -57,40 +68,30 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
 				"hiddenFieldTimeOut"));
-		try {
-
 			wait.resetImplicitTimeout(5);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("list_pageLinks");
 			int sizeOfPage = elements("list_pageLinks").size() ;
 			System.out.println("page size:" + sizeOfPage);
-			int page = 0;
-			int pageCount = page + 1;
+			int page = 1;
 			
 			if (!verifyVisibility(listType)) {
 				do {
 					System.out.println("page number :" + page);
 					page++;
-					isElementDisplayed("link_page", String.valueOf(page + 1));
+					isElementDisplayed("link_page", String.valueOf(page));
 					// element("link_paging", String.valueOf(page + 1)).click();
 					clickUsingXpathInJavaScriptExecutor(element("link_page",
-							String.valueOf(page + 1)));
+							String.valueOf(page)));
 					waitForSpinner();
-					logMessage("Step : page number " + page + 1
+					logMessage("Step : page number " + page
 							+ " is clicked\n");
-					System.out.println("page no.:" + page);
 					if (verifyVisibility(listType))
 						break;
-				} while (pageCount < sizeOfPage);
+				} while (page <= sizeOfPage);
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
 			}
-		} catch (Exception exp) {
-			wait.resetImplicitTimeout(timeOut);
-			wait.resetExplicitTimeout(timeOut);
-			verifyVisibility(listType);
-			logMessage("Step : Paging is not present for awards selecting\n");
-		}
 
 	}
 
@@ -129,14 +130,14 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 	public void sendListTypeInCreateMailingListPopUp(String listType) {
 		isElementDisplayed("drpdwn_mailingListType", listType);
 		element("drpdwn_mailingListType", listType).click();
-		logMessage("Step : Mailing list typeis entered as "+listType+"\n");
+		logMessage("Step : Mailing list type is entered as "+listType+"\n");
     }
 
 	public void selectShowOnlineInCreateMailingListPopUp() {
 
 		isElementDisplayed("chk_showOnline");
 		element("chk_showOnline").click();
-		logMessage("Step : Show online Chechbox is clickied\n");
+		logMessage("Step : Show online Chechbox is selected\n");
 	}
 
 	public void sendStartDateInCreateMailingListPopUpWithFormat(String format) {
@@ -150,7 +151,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_endDate");
 		element("txt_endDate").sendKeys(
 				DateUtil.getAnyDateForType(format, 1, "month"));
-		logMessage("Step : End date filled in create mailiung list pop up !!\n");
+		logMessage("Step : End date filled is entered as "+DateUtil.getAnyDateForType(format, 1, "month"));
 
 	}
 
@@ -206,6 +207,8 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 
 
 	public void verifyUserNameInList() {
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
 		MembershipPageActions_IWEB obj = new MembershipPageActions_IWEB(driver);
 
 		obj.expandDetailsMenuIfAlreadyExpanded("list members");

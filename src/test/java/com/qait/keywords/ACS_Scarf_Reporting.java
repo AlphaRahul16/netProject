@@ -4,26 +4,17 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Callable;
 
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.ConfigPropertyReader;
-import com.qait.automation.utils.DateUtil;
-import com.sun.jna.platform.mac.Carbon.EventTypeSpec;
-import com.thoughtworks.selenium.webdriven.commands.IsElementPresent;
 
 public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 	List<String> answers;

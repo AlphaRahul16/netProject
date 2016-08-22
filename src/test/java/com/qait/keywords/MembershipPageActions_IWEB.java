@@ -25,7 +25,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.report.ReformatTestFile;
 import com.qait.automation.utils.ConfigPropertyReader;
@@ -1155,6 +1154,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnTab(String tabName) {
+		wait.hardWait(2);
 		isElementDisplayed("link_tabsOnModule", tabName);
 		if (isBrowser("safari"))
 			element("link_tabsOnModule", tabName).click();
@@ -4198,6 +4198,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	{
 		_clickOnAvailableQuantityForSorting(headerName);
 		_clickOnAvailableQuantityForSorting(headerName);
+		clickOnRandomPage(10,1);
 		clickOnAnyRandomMember();
 		wait.hardWait(4);
 	}
@@ -4224,6 +4225,29 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		Assert.assertTrue(isElementDisplayed("mbr_autoPay", value),
 				"Auto Pay renewal image is not checked\n");
 		logMessage("Step : Auto Pay renewal image is checked\n");
+	}
+	
+	public void clickOnRandomPage(int max,int min) {       //10,1
+		try {
+			wait.resetImplicitTimeout(2);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("lnk_pages", "2");
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			Random rand = new Random();
+			int randomNumber = rand.nextInt((max - min)+1) + min;
+			String randomNumberInString = String.valueOf(randomNumber);
+			isElementDisplayed("lnk_pages", randomNumberInString);
+
+			clickUsingXpathInJavaScriptExecutor(element("lnk_pages",
+					randomNumberInString));
+			logMessage("Step : page at the position of " + randomNumberInString
+					+ " is clicked in lnk_pages\n");
+
+		} catch (NoSuchElementException exp) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+		}
 	}
 
 
