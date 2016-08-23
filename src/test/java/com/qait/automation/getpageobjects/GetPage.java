@@ -23,10 +23,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
-import com.itextpdf.text.log.SysoCounter;
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.LayoutValidation;
-import com.qait.automation.utils.YamlReader;
 
 public class GetPage extends BaseUi {
 
@@ -54,37 +52,38 @@ public class GetPage extends BaseUi {
 		testPageLayout(Arrays.asList(getProperty("./Config.properties",
 				"browser")));
 	}
-	
-	protected boolean checkIfElementIsThere(String eleString) {
-	    boolean flag = false;
-	    try {
-	      if (webdriver.findElement(getLocator(eleString)).isDisplayed()) {
-	        flag = true;
-	      } else {
-	        flag = false;
-	      }
-	    } catch (NoSuchElementException ex) {
-	      flag = false;
-	    }
-	    return flag;
-	  }
-	
-	protected boolean checkIfElementIsThere(String eleString,String replacementEleString) {
-	    boolean flag = false;
-	    wait.resetImplicitTimeout(2);
-		wait.resetExplicitTimeout(10);
-	    try {
-	      if (webdriver.findElement(getLocator(eleString,replacementEleString)).isDisplayed()) {
-	        flag = true;
-	      } else {
-	        flag = false;
-	      }
-	    } catch (NoSuchElementException ex) {
-	      flag = false;
-	    }
-	    return flag;
-	  }
 
+	protected boolean checkIfElementIsThere(String eleString) {
+		boolean flag = false;
+		try {
+			if (webdriver.findElement(getLocator(eleString)).isDisplayed()) {
+				flag = true;
+			} else {
+				flag = false;
+			}
+		} catch (NoSuchElementException ex) {
+			flag = false;
+		}
+		return flag;
+	}
+
+	protected boolean checkIfElementIsThere(String eleString,
+			String replacementEleString) {
+		boolean flag = false;
+		wait.resetImplicitTimeout(2);
+		wait.resetExplicitTimeout(10);
+		try {
+			if (webdriver.findElement(
+					getLocator(eleString, replacementEleString)).isDisplayed()) {
+				flag = true;
+			} else {
+				flag = false;
+			}
+		} catch (NoSuchElementException ex) {
+			flag = false;
+		}
+		return flag;
+	}
 
 	// TODO: put this in right place, create dedicated class for frame and
 	// window handlers
@@ -117,26 +116,13 @@ public class GetPage extends BaseUi {
 		return elem;
 	}
 
-	protected WebElement element(String elementToken, String replacement1,String replacement2)
-			throws NoSuchElementException {
+	protected WebElement element(String elementToken, String replacement1,
+			String replacement2) throws NoSuchElementException {
 		WebElement elem = null;
-		By locator = getLocator(elementToken, replacement1,replacement2);
+		By locator = getLocator(elementToken, replacement1, replacement2);
 		try {
-			elem = wait.waitForElementToBeVisible(webdriver.findElement(locator));
-		} catch (TimeoutException excp) {
-			throw new NoSuchElementException("Element " + elementToken
-					+ " with locator " + locator.toString().substring(2)
-					+ " not found on the " + this.pageName + " !!!");
-		}
-		return elem;
-	}
-	
-	protected WebElement element(String elementToken, String replacement1,String replacement2,String replacement3)
-			throws NoSuchElementException {
-		WebElement elem = null;
-		By locator = getLocator(elementToken, replacement1,replacement2,replacement3);
-		try {
-			elem = wait.waitForElementToBeVisible(webdriver.findElement(locator));
+			elem = wait.waitForElementToBeVisible(webdriver
+					.findElement(locator));
 		} catch (TimeoutException excp) {
 			throw new NoSuchElementException("Element " + elementToken
 					+ " with locator " + locator.toString().substring(2)
@@ -145,12 +131,27 @@ public class GetPage extends BaseUi {
 		return elem;
 	}
 
+	protected WebElement element(String elementToken, String replacement1,
+			String replacement2, String replacement3)
+			throws NoSuchElementException {
+		WebElement elem = null;
+		By locator = getLocator(elementToken, replacement1, replacement2,
+				replacement3);
+		try {
+			elem = wait.waitForElementToBeVisible(webdriver
+					.findElement(locator));
+		} catch (TimeoutException excp) {
+			throw new NoSuchElementException("Element " + elementToken
+					+ " with locator " + locator.toString().substring(2)
+					+ " not found on the " + this.pageName + " !!!");
+		}
+		return elem;
+	}
 
 	protected List<WebElement> elements(String elementToken, String replacement) {
 		return wait.waitForElementsToBeVisible(webdriver
 				.findElements(getLocator(elementToken, replacement)));
 	}
-	
 
 	protected List<WebElement> elements(String elementToken) {
 		return elements(elementToken, "");
@@ -174,27 +175,37 @@ public class GetPage extends BaseUi {
 		return result;
 	}
 
-	protected boolean isElementDisplayed(String elementName,String elementTextReplace1,String elementTextReplace2,String elementTextReplace3) {
-		wait.waitForElementToBeVisible(element(elementName, elementTextReplace1,elementTextReplace2,elementTextReplace3));
-		boolean result = element(elementName, elementTextReplace1,elementTextReplace2,elementTextReplace3).isDisplayed();
-		assertTrue(result, "ASSERT FAILED: element '" + elementName
-				+ "with text " + elementTextReplace1+elementTextReplace2+elementTextReplace3 + "' is not displayed.");
-		logMessage("ASSERT PASSED: element " + elementName + " with text "
-				+  elementTextReplace1+elementTextReplace2+elementTextReplace3 + " is displayed.");
-		return result;
-	}
-	
 	protected boolean isElementDisplayed(String elementName,
-			String elementTextReplace1,String elementTextReplace2) {
-		wait.waitForElementToBeVisible(element(elementName, elementTextReplace1,elementTextReplace2));
-		boolean result = element(elementName, elementTextReplace1,elementTextReplace2).isDisplayed();
+			String elementTextReplace1, String elementTextReplace2,
+			String elementTextReplace3) {
+		wait.waitForElementToBeVisible(element(elementName,
+				elementTextReplace1, elementTextReplace2, elementTextReplace3));
+		boolean result = element(elementName, elementTextReplace1,
+				elementTextReplace2, elementTextReplace3).isDisplayed();
 		assertTrue(result, "ASSERT FAILED: element '" + elementName
-				+ "with text " + elementTextReplace1+elementTextReplace2 + "' is not displayed.");
+				+ "with text " + elementTextReplace1 + elementTextReplace2
+				+ elementTextReplace3 + "' is not displayed.");
 		logMessage("ASSERT PASSED: element " + elementName + " with text "
-				+ elementTextReplace1+","+elementTextReplace2 + " is displayed.");
+				+ elementTextReplace1 + elementTextReplace2
+				+ elementTextReplace3 + " is displayed.");
 		return result;
 	}
-	
+
+	protected boolean isElementDisplayed(String elementName,
+			String elementTextReplace1, String elementTextReplace2) {
+		wait.waitForElementToBeVisible(element(elementName,
+				elementTextReplace1, elementTextReplace2));
+		boolean result = element(elementName, elementTextReplace1,
+				elementTextReplace2).isDisplayed();
+		assertTrue(result, "ASSERT FAILED: element '" + elementName
+				+ "with text " + elementTextReplace1 + elementTextReplace2
+				+ "' is not displayed.");
+		logMessage("ASSERT PASSED: element " + elementName + " with text "
+				+ elementTextReplace1 + "," + elementTextReplace2
+				+ " is displayed.");
+		return result;
+	}
+
 	protected void verifyElementText(String elementName, String expectedText) {
 		wait.waitForElementToBeVisible(element(elementName));
 		assertEquals(element(elementName).getText().trim(), expectedText,
@@ -247,26 +258,27 @@ public class GetPage extends BaseUi {
 	protected By getLocator(String elementToken, String replacement) {
 		String[] locator = getELementFromFile(this.pageName, elementToken);
 		locator[2] = locator[2].replaceAll("\\$\\{.+\\}", replacement);
-		//System.out.println("Locator "+locator[2]);
+		// System.out.println("Locator "+locator[2]);
 		return getBy(locator[1].trim(), locator[2].trim());
 	}
-	
-	protected By getLocator(String elementToken, String replacement1, String replacement2) {
-	    String[] locator = getELementFromFile(this.pageName, elementToken);
-	    locator[2] = locator[2].replaceFirst("\\$\\{.+?\\}", replacement1);
-	    locator[2] = locator[2].replaceFirst("\\$\\{.+?\\}", replacement2);
-	    return getBy(locator[1].trim(), locator[2].trim());
-	  }
 
-	protected By getLocator(String elementToken, String replacement1,String replacement2,  String replacement3) {
+	protected By getLocator(String elementToken, String replacement1,
+			String replacement2) {
 		String[] locator = getELementFromFile(this.pageName, elementToken);
-		locator[2]=locator[2].replaceFirst("\\$\\{.+?\\}", replacement1);
-		locator[2]=locator[2].replaceFirst("\\%\\{.+?\\}", replacement2);
-		locator[2]=locator[2].replaceFirst("\\#\\{.+?\\}", replacement3);
+		locator[2] = locator[2].replaceFirst("\\$\\{.+?\\}", replacement1);
+		locator[2] = locator[2].replaceFirst("\\$\\{.+?\\}", replacement2);
 		return getBy(locator[1].trim(), locator[2].trim());
 	}
-	
-	
+
+	protected By getLocator(String elementToken, String replacement1,
+			String replacement2, String replacement3) {
+		String[] locator = getELementFromFile(this.pageName, elementToken);
+		locator[2] = locator[2].replaceFirst("\\$\\{.+?\\}", replacement1);
+		locator[2] = locator[2].replaceFirst("\\%\\{.+?\\}", replacement2);
+		locator[2] = locator[2].replaceFirst("\\#\\{.+?\\}", replacement3);
+		return getBy(locator[1].trim(), locator[2].trim());
+	}
+
 	private By getBy(String locatorType, String locatorValue) {
 		switch (Locators.valueOf(locatorType)) {
 		case id:
@@ -417,9 +429,11 @@ public class GetPage extends BaseUi {
 	}
 
 	public void scriptExecutionController() {
-//		if (ConfigPropertyReader.getProperty("mode").equalsIgnoreCase("debug")) {
-//			wait.hardWait(1);
-//		}
+		// if
+		// (ConfigPropertyReader.getProperty("mode").equalsIgnoreCase("debug"))
+		// {
+		// wait.hardWait(1);
+		// }
 	}
 
 	protected void verifyElementTextContent(String elementName,
@@ -436,28 +450,24 @@ public class GetPage extends BaseUi {
 			Map<String, Boolean> skipTest, String AppUrl) {
 		String url = ConfigPropertyReader.getProperty("tier");
 
-		String case1 = "https://ewebtest12.acs.org/NF" + url
+		String case1 = "https://ewebtest.acs.org/NF" + url
 				+ "/membernumberlookup/";
-		String case2 = "https://ewebtest12.acs.org/NF" + url + "/ccedlookup";
-		String case3 = "https://ewebtest12.acs.org/NF" + url + "/ncwlookup";
-		
+		String case2 = "https://ewebtest.acs.org/NF" + url + "/ccedlookup";
+		String case3 = "https://ewebtest.acs.org/NF" + url + "/ncwlookup";
+	
 		if (AppUrl.equalsIgnoreCase(case1)) {
 			skipTest.put("Step01_Verify_Email_Address_IWEB_Test", true);
 			skipTest.put("Step02_CCED_Lookup_Test", true);
 			skipTest.put("Step03_NCW_Lookup_Test", true);
-		}
-		if (AppUrl.equalsIgnoreCase(case2)) {
+		} else if (AppUrl.equalsIgnoreCase(case2)) {
 			skipTest.put("Step00_Member_Number_Lookup_Test", true);
 			skipTest.put("Step03_NCW_Lookup_Test", true);
-		}
-		if (AppUrl.equalsIgnoreCase(case3)) {
+		} else if (AppUrl.equalsIgnoreCase(case3)) {
 			skipTest.put("Step00_Member_Number_Lookup_Test", true);
 			skipTest.put("Step02_CCED_Lookup_Test", true);
 		} else {
 			logMessage("Error: Invalid Application URL in DataSheet\n");
 		}
 	}
-	
-	
-	
+
 }

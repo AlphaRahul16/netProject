@@ -2,16 +2,8 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.testng.ITestResult;
 import org.testng.Reporter;
-import org.testng.SkipException;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
@@ -107,8 +99,9 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 //				YamlReader.getYamlValue("creditCardInfo.cvv-number"));
 		
 		test.checkoutPage.clickOnPayInINRButton();
+		test.checkoutPage.verifyHeadingAtCheckoutPage();
+		test.checkoutPage.clickOnPaymentTypeButton("");
 		
-		test.homePage.verifyCurrentTab("Confirmation");
 	}
 
 	@Test(dependsOnMethods = "Step05_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page")

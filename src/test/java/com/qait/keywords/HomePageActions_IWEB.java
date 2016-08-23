@@ -5,10 +5,8 @@ import java.awt.Robot;
 import java.awt.event.KeyEvent;
 
 import org.openqa.selenium.WebDriver;
-import org.testng.Reporter;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
-import com.qait.automation.utils.ConfigPropertyReader;
 
 public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 

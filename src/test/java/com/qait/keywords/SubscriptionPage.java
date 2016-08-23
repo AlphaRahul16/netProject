@@ -10,7 +10,6 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
-import com.qait.automation.getpageobjects.GetPage;
 import com.qait.automation.utils.DateUtil;
 
 public class SubscriptionPage extends ASCSocietyGenericPage {

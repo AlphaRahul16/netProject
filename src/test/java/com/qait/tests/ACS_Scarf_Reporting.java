@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.testng.ITestResult;
-import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -17,10 +16,11 @@ import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.XlsReader;
 import com.qait.automation.utils.YamlReader;
 
-public class ACS_Scarf_Reporting {
+public class ACS_Scarf_Reporting extends BaseTest{
 	static String sheetName;
 	TestSessionInitiator test;
 
@@ -238,10 +238,6 @@ public class ACS_Scarf_Reporting {
 		test.closeBrowserSession();
 	}
 	
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result)
-	{	
-		test.takescreenshot.takeScreenShotOnException(result);
-	}
+	
 
 }

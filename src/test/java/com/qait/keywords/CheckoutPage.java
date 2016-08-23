@@ -661,4 +661,18 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		}
 	}
 
+	public void verifyHeadingAtCheckoutPage() {
+		isElementDisplayed("hd_confirmCurrencyPayment");
+		Assert.assertEquals(element("hd_confirmCurrencyPayment").getText()
+				.trim(), "Confirm Currency Payment");
+
+		logMessage("ASSERT PASSED : Confirm currency payment heading is displayed\n");
+	}
+
+	public void clickOnPaymentTypeButton(String paymentType) {
+		isElementDisplayed("btn_paymentType", paymentType);
+		element("btn_paymentType", paymentType).click();
+		logMessage("Step : click on " + paymentType + " button \n");
+	}
+
 }

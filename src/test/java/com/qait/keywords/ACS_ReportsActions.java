@@ -2,10 +2,6 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
-import java.util.Iterator;
-import java.util.Map;
-
-import org.apache.pdfbox.contentstream.operator.state.SetLineJoinStyle;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 

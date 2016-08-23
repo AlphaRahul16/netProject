@@ -5,15 +5,11 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 
-import org.mozilla.javascript.ast.Label;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -291,7 +287,6 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			nomineesNames.add(nominees.getText());
 		}
 
-
 		return nomineesNames;
 	}
 
@@ -464,15 +459,23 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		MembershipPageActions_IWEB obj = new MembershipPageActions_IWEB(driver);
 		clickOnPlusIcon(tabName);
 		switchToFrame("iframe1");
+		clickOnHeading("Nominator details");
 		clickOnSearchIcon(1);
 		obj.clickOnRandomPage();
-		obj.clickOnAnyRandomMember();
+		obj.clickOnAnyRandomNominee();
+		clickOnHeading("Nominator details");
 		clickOnSearchIcon(2);
 		obj.clickOnRandomPage();
-		obj.clickOnAnyRandomMember();
+		obj.clickOnAnyRandomNominee();
 		enterEntryDate("entry date");
 		clickOnSaveButton();
 		switchToDefaultContent();
+	}
+
+	public void clickOnHeading(String heading) {
+		isElementDisplayed("hd_awards", heading);
+		element("hd_awards", heading).click();
+		logMessage("Step : click on heading " + heading + " \n");
 	}
 
 	public void clickOnPlusIcon(String tabName) {
@@ -481,7 +484,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.waitForElementToBeClickable(element("btn_plusIconNominee", tabName));
 		clickUsingXpathInJavaScriptExecutor(element("btn_plusIconNominee",
 				tabName));
-	
+
 		logMessage("STEP : Clicked on plus icon under " + tabName);
 	}
 
@@ -496,6 +499,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnSearchIcon(int index) {
 
 		waitForSpinner();
+
 		isElementDisplayed("btn_searchNominee", String.valueOf(index));
 		clickUsingXpathInJavaScriptExecutor(element("btn_searchNominee",
 				String.valueOf(index)));
@@ -550,6 +554,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 				for (int i = 1; i <= numberOfJudgesToAdd; i++) {
 					addJudges(roundNumber);
 				}
+				
 			}
 		} catch (Exception e) {
 			wait.resetImplicitTimeout(timeOut);
@@ -593,6 +598,8 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		selectJudgeName();
 		clickOnSaveButton();
 		if (verifyJudgeAlreadyExist()) {
+			
+			System.out.println("========Already exists ==============");
 			clickOnCancelButton();
 			switchToDefaultContent();
 			addJudges(roundNumber);
@@ -732,7 +739,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 		int flag = 0, i = 1;
 		for (; i <= elements("list_judgeNames_awardJudges").size(); i++) {
-			System.out.println("in for : ");
+
 			int size = 0;
 			flag = 0;
 			while (size < name.length) {

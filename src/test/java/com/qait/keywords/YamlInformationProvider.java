@@ -5,8 +5,6 @@ import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.util.Map;
 
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
-
 public class YamlInformationProvider {
 
 	Map<String, Object> userInfoMap;

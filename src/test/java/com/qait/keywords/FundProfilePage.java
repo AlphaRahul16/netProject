@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;

@@ -1,9 +1,12 @@
 package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
+
 import java.util.List;
+
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.utils.YamlReader;
 

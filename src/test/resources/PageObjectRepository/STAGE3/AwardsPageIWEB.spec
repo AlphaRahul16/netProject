@@ -67,4 +67,5 @@ inp_editDateInEditAwards                  xpath                //label[text()='$
 btn_plusIconNominee                       xpath                //span[text()="${tabName}"]/../following-sibling::td//a//i
 btn_searchNominee                         xpath                (//input[@class='LookUpHyperLink'])[${index}]
 inp_entryDate                             xpath                //label[text()='${field}:']/preceding-sibling::span//input
+hd_awards                                 xpath                //span[text()='Nominator details']
 ========================================================================================================================================
