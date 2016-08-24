@@ -169,8 +169,8 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 					.clickOnProfilePdfLinkAndVerifyPdfContent(listOfFirstAndLastName);
 			test.award_ewebPage
 					.verifyAwardName_viewProfileLink(currentAwardName);
-			test.award_ewebPage
-					.verifyNominationDocuments_viewProfileLink(currentAwardName);
+//			test.award_ewebPage
+//					.verifyNominationDocuments_viewProfileLink(currentAwardName);
 			test.award_ewebPage.clickOnCloseButton();
 			test.award_ewebPage.clickOnRankNominees_Save("Rank Nominees");
 			listOfNomineeJudges_judgeRanks = test.award_ewebPage

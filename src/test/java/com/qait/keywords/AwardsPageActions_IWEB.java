@@ -501,8 +501,9 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		waitForSpinner();
 
 		isElementDisplayed("btn_searchNominee", String.valueOf(index));
-		clickUsingXpathInJavaScriptExecutor(element("btn_searchNominee",
-				String.valueOf(index)));
+		// clickUsingXpathInJavaScriptExecutor(element("btn_searchNominee",
+		// String.valueOf(index)));
+		hoverClick(element("btn_searchNominee", String.valueOf(index)));
 		// element("btn_searchNominee", String.valueOf(index)).click();
 		logMessage("STEP : Clicked on Search icon");
 		wait.waitForPageToLoadCompletely();
@@ -554,7 +555,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 				for (int i = 1; i <= numberOfJudgesToAdd; i++) {
 					addJudges(roundNumber);
 				}
-				
+
 			}
 		} catch (Exception e) {
 			wait.resetImplicitTimeout(timeOut);
@@ -596,9 +597,10 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToFrame("iframe1");
 		clickOnRandomPage();
 		selectJudgeName();
+		System.out.println("judge name selected :-"
+				+ element("inp_judgeName").getText().trim());
 		clickOnSaveButton();
 		if (verifyJudgeAlreadyExist()) {
-			
 			System.out.println("========Already exists ==============");
 			clickOnCancelButton();
 			switchToDefaultContent();
