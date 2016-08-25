@@ -5,22 +5,34 @@ import static com.qait.automation.utils.YamlReader.getYamlValue;
 import java.util.List;
 
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
-public class CRM_Inventory_Test extends BaseTest {
+public class COE_Inventory_Test extends BaseTest {
 
 	String app_url_IWEB, individualName;
 	String price;
 	List<String> customerFullNameList;
 	String productName = null, productCode = null;
+	private String caseID;
+
+	public COE_Inventory_Test() {
+		com.qait.tests.DataProvider_FactoryClass.sheetName = "COE_Inventory";
+	}
+
+	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
+	public COE_Inventory_Test(String caseID) {
+		this.caseID = caseID;
+	}
 
 	@BeforeClass
 	public void OpenBrowserWindow() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
+		test.homePageIWEB.addValuesInMap("COE_Inventory", caseID);
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 	}
 
@@ -36,7 +48,7 @@ public class CRM_Inventory_Test extends BaseTest {
 	public void Step02_Select_And_Run_Query_And_Verify_User_Is_On_Individual_Profile_Page() {
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Query Individual");
-		test.memberShipPage.selectAndRunQuery(getYamlValue("CRM_Inventory.queryName"));
+		test.memberShipPage.selectAndRunQuery(getYamlValue("COE_Inventory.queryName"));
 		individualName = test.acsAddressValidation.verifyIndividualProfilePage();
 		customerFullNameList = test.memberShipPage.getCustomerFullNameAndContactID();
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Individuals | " + individualName);
@@ -66,9 +78,12 @@ public class CRM_Inventory_Test extends BaseTest {
 	public void Step06_Select_Selenium_Batch_And_Payment_Details_For_CRM_Inventory_And_Verify_Centralized_Order_Entry_page() {
 		test.memberShipPage.selectBatchAndPaymentDetailsForCRMInventory(
 				YamlReader.getYamlValue("Acs_CreateMember_IWEB.batch"),
-				YamlReader.getYamlValue("CRM_Inventory.PaymentType"),
-				YamlReader.getYamlValue("CRM_Inventory.paymentMethod"), "", "", "",
-				YamlReader.getYamlValue("CRM_Inventory.checkNumber"), price);
+				YamlReader.getYamlValue("COE_Inventory.PaymentType"),
+				test.homePageIWEB.map().get("paymentmethod?").trim(),
+				test.homePageIWEB.map().get("Card Number?").trim(), YamlReader
+				.getYamlValue("Acs_CreateMember_IWEB.expireDate"), 
+				test.homePageIWEB.map().get("CVV?").trim(),
+				YamlReader.getYamlValue("COE_Inventory.checkNumber"));
 	}
 
 	@Test
@@ -87,5 +102,5 @@ public class CRM_Inventory_Test extends BaseTest {
 		test.invoicePage.verifyInvoiceProfile("Yes");
 		test.invoicePage.verifyProductCodeInlineItem(productCode, productName);
 	}
-	
+
 }

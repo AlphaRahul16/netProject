@@ -1630,8 +1630,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void selectBatchAndPaymentDetailsForCRMInventory(String batchName,
 			String paymentType, String paymentMethod, String cardNumber,
-			String expireDate, String cvvNumber, String checkNumber,
-			String price) {
+			String expireDate, String cvvNumber, String checkNumber) {
 
 		// wait.waitForPageToLoadCompletely();
 		holdExecution(2000);
@@ -1643,13 +1642,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		waitForSpinner();
 		selectOrderEntryInfo("PaymentType", paymentType);
-		if (price.contains("0.00")) {
-
-		} else {
-			waitForSpinner();
-			selectOrderEntryInfo("paymentMethod", paymentMethod);
-			waitForSpinner();
-			System.out.println("check number" + checkNumber);
+		waitForSpinner();
+		selectOrderEntryInfo("paymentMethod", paymentMethod);
+		waitForSpinner();
 
 			if (paymentMethod.equalsIgnoreCase("Visa/MC")) {
 				enterCardDetails("cardNumber", cardNumber);
@@ -1662,7 +1657,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				Assert.fail("ASSERT FAILED : Payment method " + paymentMethod
 						+ " is not correct \n");
 			}
-		}
 		selectBillingAddressIfNotPrePopulated();
 		clickOnSaveAndFinish();
 		handleAlert();
@@ -4116,6 +4110,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			+ " attempt\n");
 	}
 	public void verifyCentralizedOrderEntryPage(String title) {
+		wait.waitForPageToLoadCompletely();
 		Assert.assertEquals(title, getPageTitle());
 		logMessage("Step : title for Centralized Order Entry Page is verified as "
 				+ title);
@@ -4226,6 +4221,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : Auto Pay renewal image is checked\n");
 	}
 
+	
 
 
 }
