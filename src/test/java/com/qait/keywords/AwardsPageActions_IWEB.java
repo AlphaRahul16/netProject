@@ -332,12 +332,38 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		if (sizeOfNominee < 10) {
 			int numberOfNomineeToAdd = 10 - sizeOfNominee;
 			for (int i = 1; i <= numberOfNomineeToAdd; i++) {
-				addNominees("acs nominee/ entry");
+				// addNominees("acs nominee/ entry");
 			}
 
 			// Assert.fail("ASSERT FAILED : Nominees Size is not greater than equal to 10\n");
 		}
 		return nomineesNames;
+	}
+
+	public void editWinnerNomineesFromJudges() {
+		if (checkIfElementIsThere("btn_editChild", "acs award winner")) {
+			int sizeOfNominees = elements("btn_editChild", "acs award winner")
+					.size();
+			System.out.println("sizeOfNominees: " + sizeOfNominees);
+			if (sizeOfNominees > 0) {
+				isElementDisplayed("btn_editChild", "acs award winner");
+				for (WebElement ele : elements("btn_editChild",
+						"acs award winner")) {
+					ele.click();
+					wait.hardWait(1);
+					wait.waitForPageToLoadCompletely();
+					switchToFrame("iframe1");
+					selectProvidedTextFromDropDown(
+							element("drpdwn_selectWinnerCategory"),
+							"Please select");
+					clickOnSaveButton();
+					switchToDefaultContent();
+					logMessage("Step : edit winner nominees from judges\n");
+
+				}
+			}
+		}
+
 	}
 
 	public void waitForSpinner() {
@@ -460,13 +486,35 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnPlusIcon(tabName);
 		switchToFrame("iframe1");
 		clickOnHeading("Nominator details");
-		clickOnSearchIcon(1);
-		obj.clickOnRandomPage();
-		obj.clickOnAnyRandomNominee();
-		clickOnHeading("Nominator details");
 		clickOnSearchIcon(2);
 		obj.clickOnRandomPage();
 		obj.clickOnAnyRandomNominee();
+
+		clickOnHeading("Nominator details");
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(5);
+		isElementDisplayed("inp_lookUpSelect");
+		// if (getSearchedText() == null) {
+		// clickOnSearchIcon(2);
+		// obj.clickOnRandomPage();
+		// obj.clickOnAnyRandomNominee();
+		// clickOnHeading("Nominator details");
+		// }
+		clickOnSearchIcon(1);
+		obj.clickOnRandomPage();
+		obj.clickOnAnyRandomNominee();
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
+		clickOnHeading("Nominator details");
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(5);
+		isElementDisplayed("inp_lookUpSelect");
+		// if (getSearchedText() == null) {
+		// clickOnSearchIcon(1);
+		// obj.clickOnRandomPage();
+		// obj.clickOnAnyRandomNominee();
+		// clickOnHeading("Nominator details");
+		// }
 		enterEntryDate("entry date");
 		clickOnSaveButton();
 		switchToDefaultContent();
@@ -497,17 +545,15 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnSearchIcon(int index) {
-
 		waitForSpinner();
-
+		wait.hardWait(3);
 		isElementDisplayed("btn_searchNominee", String.valueOf(index));
 		// clickUsingXpathInJavaScriptExecutor(element("btn_searchNominee",
 		// String.valueOf(index)));
-		hoverClick(element("btn_searchNominee", String.valueOf(index)));
-		// element("btn_searchNominee", String.valueOf(index)).click();
+		// hoverClick(element("btn_searchNominee", String.valueOf(index)));
+		element("btn_searchNominee", String.valueOf(index)).click();
 		logMessage("STEP : Clicked on Search icon");
 		wait.waitForPageToLoadCompletely();
-
 	}
 
 	public boolean verifyJudgeAlreadyExist() {
@@ -536,6 +582,55 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
+	public void deleteJudges() {
+		if (checkIfElementIsThere("btnList_yellowPointerExpand")) {
+			isElementDisplayed("btnList_yellowPointerExpand");
+			int sizeOfPointer = elements("btnList_yellowPointerExpand").size();
+			System.out.println("sizeOfPointer :" + sizeOfPointer);
+			for (int i = sizeOfPointer; i >= 1; i--) {
+				System.out.println("i-1 :" + i);
+				clickUsingXpathInJavaScriptExecutor(elements(
+						"btnList_yellowPointerExpand").get(i - 1));
+				logMessage("Step : expand yellow pointer\n");
+				for (WebElement ele : elements("btn_editJudges")) {
+					wait.hardWait(1);
+					ele.click();
+					switchToFrame("iframe1");
+					logMessage("Step : click to edit judge");
+					clickOnDeleteJudgeButton();
+					waitForAlertToAppear();
+					switchToDefaultContent();
+					clickUsingXpathInJavaScriptExecutor(elements(
+							"btnList_yellowPointerExpand").get(i - 2));
+					logMessage("Step : expand yellow pointer\n");
+				}
+				isElementDisplayed("btnList_yellowPointerCollapse");
+				elements("btnList_yellowPointerCollapse").get(0).click();
+				logMessage("Step : collapse yellow pointer\n");
+			}
+
+			// isElementDisplayed("btn_deleteAwards");
+			// int numberOfJudges = elements("list_awardJudge",
+			// Integer.toString(1))
+			// .size();
+			// System.out.println("Step : number of judges " + numberOfJudges);
+			// for (WebElement element : elements("btn_deleteAwards")) {
+			// element.click();
+			// logMessage("Step : click to Delete judge");
+			// waitForAlertToAppear();
+			// }
+		} else {
+			logMessage("Step : Yellow folder for nominees are not present\n");
+		}
+
+	}
+
+	public void clickOnDeleteJudgeButton() {
+		isElementDisplayed("btn_deleteJudge");
+		element("btn_deleteJudge").click();
+		logMessage("Step : Click on delete judge button \n");
+	}
+
 	public void verifyNumberOfJudgesAndAdd(int roundNumber) {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
@@ -549,6 +644,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			int numberOfJudges = elements("list_awardJudge",
 					Integer.toString(roundNumber)).size();
 			System.out.println("number of judges " + numberOfJudges);
+
 			if (numberOfJudges < 5) {
 				int numberOfJudgesToAdd = 5 - numberOfJudges;
 				System.out.println(numberOfJudgesToAdd);
@@ -563,6 +659,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("INFO : Judges are not present in the list of judges \n");
 			int numberOfJudges = 0;
 			System.out.println("number of judges" + numberOfJudges);
+
 			if (numberOfJudges < 5) {
 				int numberOfJudgesToAdd = 5 - numberOfJudges;
 				System.out.println(numberOfJudgesToAdd);
@@ -597,6 +694,8 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToFrame("iframe1");
 		clickOnRandomPage();
 		selectJudgeName();
+		getSearchedName();
+
 		System.out.println("judge name selected :-"
 				+ element("inp_judgeName").getText().trim());
 		clickOnSaveButton();
@@ -607,6 +706,13 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			addJudges(roundNumber);
 		}
 		switchToDefaultContent();
+	}
+
+	public String getSearchedText() {
+		isElementDisplayed("inp_lookUpSelect");
+		String searchedName = element("inp_lookUpSelect").getAttribute("value");
+		logMessage("Step : Searched name is " + searchedName + "\n");
+		return searchedName;
 	}
 
 	public void clickOnStageAwardLabel() {
@@ -625,6 +731,13 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("inp_judgeName");
 		element("inp_judgeName").clear();
 		logMessage("Step : judge name is cleared\n");
+	}
+
+	public String getSearchedName() {
+		isElementDisplayed("inp_judgeName");
+		String searchedName = element("inp_judgeName").getAttribute("value");
+		logMessage("Step : searched name is " + searchedName + "\n");
+		return searchedName;
 	}
 
 	public void addRounds() {
