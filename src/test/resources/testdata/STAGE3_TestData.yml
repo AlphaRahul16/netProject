@@ -53,7 +53,6 @@ Authentication:
   userName: c00687
   password: "N73w258%"
 
-
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt
   data-separator: '\t' 
@@ -573,9 +572,7 @@ AddressChange:
     city: "Washington"
     postalCode: "20036"
     state: "DC"
-    
-    
-    
+   
     
 ACS_ApplyPayment: 
     DetailsToFindMember:  

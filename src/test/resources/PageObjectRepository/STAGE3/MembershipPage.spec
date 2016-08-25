@@ -11,6 +11,7 @@ table_query                                          id                    Displ
 btn_runQuery                                         id                   SaveGoButton
 img_firstInactiveRegularMember                       css                 #dgDynamicList > tbody > tr:nth-child(3) > td:nth-child(1) > a
 link_randomMemberInList                              css                 #dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(1) > a
+link_randomMemberFromList                            xpath                (//a[@class='DataFormListTDDataGridItemLink']/img)[${random number}]
 link_customerName                                    id                    F1_HYPERLINK_4
 txt_memberStatus                                     xpath                   //label[contains(text(),'member status')]/following-sibling::span
 list_mbrStatus                                       xpath                  //a[contains(text(),'Mbr Status')]/../../following-sibling::tr/td[6]
@@ -190,3 +191,4 @@ txt_avl_qty										css							#dgDynamicList > tbody > tr:nth-child(${randomNum
 price_txt										css							#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(7)
 th_lookup										xpath						.//*[@id='dgDynamicList']//th/a[contains(text(),'${field}')]
 productName_inp									css							#prd_name
+inp_checkNumber                                   id                    	  	 pin_check_number

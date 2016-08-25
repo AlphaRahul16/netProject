@@ -8,13 +8,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.testng.ITestResult;
 import org.testng.Reporter;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
+
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.DateUtil;

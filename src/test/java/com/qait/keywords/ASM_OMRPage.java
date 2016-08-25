@@ -6,17 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.ws.Holder;
-
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
-import com.qait.automation.getpageobjects.GetPage;
 import com.qait.automation.utils.DateUtil;
-import com.qait.automation.utils.YamlReader;
 
 
 public class ASM_OMRPage extends ASCSocietyGenericPage {
@@ -292,6 +288,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		checkEula();
 		clickOnContinueButton();
 		switchToDefaultContent();
+		wait.hardWait(4);
+		wait.waitForPageToLoadCompletely();
 
 	}
 	
@@ -376,13 +374,10 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnSubmitPayment() {
-		switchToFrame("eWebFrame");
-		isElementDisplayed("btn_submitPayment");
-		scrollDown(element("btn_submitPayment"));
-		element("btn_submitPayment").click();
-		logMessage("STEP : click on submit button at txt_errorMessage\n");
-		switchToDefaultContent();
 		wait.waitForPageToLoadCompletely();
+		wait.hardWait(14);
+		executeJavascript("document.getElementById('eWebFrame').contentWindow.document.getElementById('btnSubmitOmrPaymentTop').click()");
+		logMessage("STEP : click on submit button at txt_errorMessage\n");
 	}
 
 	public void verifyNavigationPage(String navigationPageName) {
@@ -647,8 +642,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		List<WebElement> productName= elements("txt_productname");
 		for(int i=0;i<productName.size();i++)
 		{
-			mapRenewedProductDetails.put(productName.get(i).getText().trim(), 
-					productName.get(i).getText().replace("$", "").trim());
+			mapRenewedProductDetails.put(productName.get(i).getText().trim(),
+					elements("txt_productamount").get(i).getText().replace("$", "").trim());
 			System.out.println(mapRenewedProductDetails.get(productName.get(i).getText()));
 		}
 		return mapRenewedProductDetails;
@@ -777,7 +772,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
            System.out.println(elements("txt_productname").get(i).getText().trim());
            System.out.println(mapRenewedProductDetails.get(elements("txt_productname").get(i).getText().trim()));
 			Assert.assertTrue(mapRenewedProductDetails.get(elements("txt_productname").get(i).getText().trim()).equals(
-					elements("txt_productamount").get(i).getText().replace("$", "").trim()));
+			elements("txt_productamount").get(i).getText().replace("$", "").trim()));
 			logMessage("ASSERT PASSED : Amount for "+elements("txt_productname").get(i).getText()+ " is verified as "+mapRenewedProductDetails.get(elements("txt_productname").get(i).getText().trim()));
 		}
 		
@@ -838,9 +833,11 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	}
 
 	public void verifyPrintReceiptMessageAfterPayment() {
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(4);
 		switchToEwebRenewalFrame();
 		isElementDisplayed("btn_printreceipt");
-		logMessage("Step : Printn Renewal Receipt button is verified\n");
+		logMessage("Step : Print Renewal Receipt button is verifiedn");
 		verifyElementTextContains("txt_legend", "Membership & Subscription Renewal - ");
 		switchToDefaultContent();
 

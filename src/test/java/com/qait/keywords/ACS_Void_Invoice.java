@@ -13,7 +13,6 @@ import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DateUtil;
-import com.sun.jna.platform.win32.WinNT.LARGE_INTEGER.LowHigh;
 
 public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 

@@ -2,12 +2,8 @@ package com.qait.keywords;
 
 
 import java.util.ArrayList;
-
 import java.util.List;
-
 import java.util.Set;
-
-
 
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;

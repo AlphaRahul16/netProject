@@ -176,6 +176,8 @@ public class ACS_Create_Member_Test extends BaseTest {
 
 	@BeforeMethod
 	public void skip_tests_if_error_message() {
+		if (caseID != null)
+			Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 
 		if (!errorMap.containsKey(caseID)) {
 			errorMap.put(caseID, false);

@@ -5,7 +5,6 @@
 package com.qait.automation;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
@@ -13,7 +12,6 @@ import java.util.Map;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -21,8 +19,6 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
-
-import com.qait.automation.utils.ConfigPropertyReader;
 
 public class WebDriverFactory {
 	private static String browser;
@@ -132,6 +128,10 @@ public class WebDriverFactory {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+		//System.setProperty("webdriver.firefox.binary",
+          //      "C:"+File.separator+"Program Files (x86)"+File.separator+"Mozilla Firefox"+File.separator+"firefox.exe");
+//        FirefoxBinary binary=new FirefoxBinary();
+//        binary.setEnvironmentProperty("binary", "C:"+File.separator+"Program Files (x86)"+File.separator+"Mozilla Firefox"+File.separator+"firefox.exe");
 		profile = new FirefoxProfile();
 		profile.setPreference("browser.download.useDownloadDir", true);
 		profile.setPreference("browser.cache.disk.enable", false);
@@ -160,7 +160,7 @@ public class WebDriverFactory {
 		profile.setPreference("browser.download.manager.showWhenStartinge",false);
 		profile.setPreference("browser.download.panel.shown",false);
 		profile.setPreference("browser.download.useToolkitUI",true);
+//		return new FirefoxDriver(binary,profile);
 		return new FirefoxDriver(profile);
-
 	}
 }

@@ -36,7 +36,6 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.DateUtil;
 import com.qait.automation.utils.YamlReader;
 

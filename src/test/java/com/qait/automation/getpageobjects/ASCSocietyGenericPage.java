@@ -19,7 +19,6 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.Reporter;
 
@@ -34,7 +33,9 @@ public class ASCSocietyGenericPage extends GetPage {
 	String pageName;
 	LayoutValidation layouttest;
 	String csvSeparator = getYamlValue("csv-data-file.data-separator");
-	int timeOut, hiddenFieldTimeOut, numberOfColumns;
+	protected int timeOut;
+	protected int hiddenFieldTimeOut;
+	int numberOfColumns;
 	static int count;
 	ArrayList<String> listOfCaseIdToExecute = new ArrayList<String>();
 	MembershipPageActions_IWEB memPage;
