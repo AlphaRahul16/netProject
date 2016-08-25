@@ -12,6 +12,7 @@ import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
+
 public class ACS_AutoRenewalSelectionOMR extends BaseTest{
 
 
@@ -38,11 +39,14 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest{
 		test.individualsPage.clickGotoRecordForRenewal();
 		test.memberShipPage.clickOnCustomerNameAndNavigateToMembershipPage();
 		memDetails=test.memberShipPage.getCustomerFullNameAndContactID();
+
 	}
-	
+
 	@Test
+
 	public void Step03_Launch_OMR_Eweb_And_Verify_OMR_Homepage_Is_Displayed()
 	{
+
 		test.launchApplication(app_url_OMR);
 		test.asm_OMR.loginIntoOMRApplication(memDetails);
 		test.asm_OMR.OMRLogo("Online Membership Renewal");
@@ -50,15 +54,15 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest{
 	}
 
 	@Test
+
 	public void Step04_Save_Respective_Products_Amounts_And_Submit_Payment_Details()
 	{
 
 		mapRenewedProductDetails=test.asm_OMR.saveProductsWithRespectiveRenewalAmount();
 		test.asm_OMR.submitPaymentDetailsForAutoRenewal(YamlReader.getYamlValue("creditCardInfo.Type"),	(memDetails.get(0).split(" ")[1]+" "+memDetails.get(0).split(" ")[0]), YamlReader.getYamlValue("creditCardInfo.Number")
 				, YamlReader.getYamlValue("creditCardInfo.cvv-number"),YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[0], YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[1]);
-		test.asm_OMR.clickOnSubmitPayment();
-	}
 
+	}
 	@Test
 	public void Step05_Verify_Print_Receipt_Message_On_Summary_Page()
 	{
@@ -91,16 +95,17 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest{
 	
 		test.memberShipPage.expandDetailsMenu("stored payment information");
 		test.invoicePage.verifyStorePaymentInformationChildFormIsPopulated(memDetails.get(0).split(" ")[1]);
-		test.memberShipPage.collapseDetailsMenu("stored payment information");
-	}
-	@BeforeClass
-	public void open_Browser_Window()
-	{
-		test = new TestSessionInitiator(this.getClass().getSimpleName());
-		app_url_OMR = getYamlValue("app_url_OMR");
-		app_url_IWEB =getYamlValue("app_url_IWEB");
-		test.launchApplication(app_url_IWEB);
-		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"), YamlReader.getYamlValue("Authentication.password"));
 	}
 
+
+	@BeforeClass
+	public void open_Browser_Window() {
+		test = new TestSessionInitiator(this.getClass().getSimpleName());
+		app_url_OMR = getYamlValue("app_url_OMR");
+		app_url_IWEB = getYamlValue("app_url_IWEB");
+		test.launchApplication(app_url_IWEB);
+		test.homePage.enterAuthentication(
+				YamlReader.getYamlValue("Authentication.userName"),
+				YamlReader.getYamlValue("Authentication.password"));
+	}
 }

@@ -2,14 +2,7 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
-import java.lang.reflect.Method;
-
-import org.testng.ITestResult;
-import org.testng.Reporter;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
@@ -36,7 +29,7 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 
 	@Test
 	public void Step01_Launch_IWEB_Application_Under_Test() {
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		test.homePageIWEB.addValuesInMap("createMember", caseID);
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB
@@ -45,14 +38,14 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 
 	@Test
 	public void Step02_Add_Individual() {
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		test.homePageIWEB.clickOnAddIndividual();
 		memDetails = test.addMember.enterMemberDetailsInAddIndividual();
 	}
 
 	@Test
 	public void Step03_Verify_Individual_Details() {
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		contactID = test.individualsPage
 				.verifyMemberDetails_InAddIndividual(memDetails);
 		test.individualsPage.verifyMemberIsNotCreated();
@@ -61,7 +54,7 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 
 	@Test
 	public void Step04_Navigate_To_Order_Entry_And_Sell_Membership() {
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		test.memberShipPage.goToOrderEntry();
 		test.memberShipPage.goToAddMembershipAndFillDetails_membership();
 		test.memberShipPage.goToAddMemebrshipAndFillDetails_LocalSection();
@@ -69,7 +62,7 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 
 	@Test
 	public void Step05_Sell_Division() {
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		numberOfDivisions = test.memberShipPage.getDivisionNumbers();
 		test.memberShipPage
 				.goToAddMembershipAndFillDetails_Division(numberOfDivisions);
@@ -77,7 +70,7 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 
 	@Test
 	public void Step06_Sell_Subscription() {
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		numberOfSubscriptions = test.memberShipPage.getSubscriptionNumbers();
 		test.memberShipPage
 				.navigateToSubscriptionInSelectLinkAndSellSubscription(numberOfSubscriptions);
@@ -85,7 +78,7 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 
 	@Test
 	public void Step07_Verify_NetPrice_Amount_And_Make_Payment() {
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		test.memberShipPage.verifyNetPriceValue("netbalance");
 		test.memberShipPage
 				.selectBatchAndPaymentDetails_subscription(
@@ -106,7 +99,7 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 
 	@Test
 	public void Step08_Verify_Member_Details_In_Individual_And_Chapter_Memberships() {
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		test.individualsPage.verifyMemberDetails_MemberProfile(memDetails[1],
 				memDetails[2]);
 		test.memberShipPage.verifyMemberDetails_IWEB("individual memberships",
@@ -117,7 +110,7 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 
 	@Test
 	public void Step09_Verify_Member_Details_In_Subscriptions() {
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		test.individualsPage
 				.navigateToSubscriptionAndVerifySubscriptionDetails(numberOfSubscriptions);
 	}

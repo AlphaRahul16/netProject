@@ -4,8 +4,6 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.util.ArrayList;
 
-
-
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
@@ -66,31 +64,31 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 	public void verifyCENPresent(String caseId) {
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
 				"hiddenFieldTimeOut"));
-		if (map().get( "C&EN Status").equalsIgnoreCase("Y")) {
+		if (map().get("C&EN Status").equalsIgnoreCase("Y")) {
 			try {
 				wait.resetImplicitTimeout(0);
 				wait.resetExplicitTimeout(hiddenFieldTimeOut);
 				boolean flag = element("rad_dues_cenPackage", "C&EN Package")
 						.isDisplayed();
 				if (flag)
-					clickUsingXpathInJavaScriptExecutor(element("rad_dues_cenPackage", "C&EN Package"));
-					//click(element("rad_dues_cenPackage", "C&EN Package"));
+					clickUsingXpathInJavaScriptExecutor(element(
+							"rad_dues_cenPackage", "C&EN Package"));
+				// click(element("rad_dues_cenPackage", "C&EN Package"));
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
 			} catch (Exception exp) {
 
 			}
 
-			if (map().get( "CENtype").equalsIgnoreCase("print")) {
-				//wait.waitForPageToLoadCompletely();
+			if (map().get("CENtype").equalsIgnoreCase("print")) {
+				// wait.waitForPageToLoadCompletely();
 				hardWaitForIEBrowser(10);
 				isElementDisplayed("rad_CENType", "Print");
 				clickUsingXpathInJavaScriptExecutor(element("rad_CENType",
 						"Print"));
 				// click(element("rad_CENType", "Print"));
 				logMessage("Step:  rad_CENType is clicked\n");
-			} else if (map().get( "CENtype").equalsIgnoreCase(
-					"electronic")) {
+			} else if (map().get("CENtype").equalsIgnoreCase("electronic")) {
 				isElementDisplayed("rad_CENType", "Email");
 				clickUsingXpathInJavaScriptExecutor(element("rad_CENType",
 						"Email"));
@@ -100,10 +98,10 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 				logMessage("Step : CENType is invalid in data sheet\n");
 				Assert.fail("ASSERT FAIL : CENType in data sheet is not valid\n");
 			}
-		} else if (map().get( "C&EN Status")
-				.equalsIgnoreCase("N")) {
-			clickUsingXpathInJavaScriptExecutor(element("rad_dues_cenPackage", "Dues Only Package"));
-			//click(element("rad_dues_cenPackage", "Dues Only Package"));
+		} else if (map().get("C&EN Status").equalsIgnoreCase("N")) {
+			clickUsingXpathInJavaScriptExecutor(element("rad_dues_cenPackage",
+					"Dues Only Package"));
+			// click(element("rad_dues_cenPackage", "Dues Only Package"));
 			logMessage("Step:  rad_duesOnlyPackage is clicked\n");
 		} else {
 			logMessage("Step:  CEN status value is not valid in data sheet\n");
@@ -117,7 +115,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(25);
 		isElementDisplayed("btn_ACSPublication");
 		clickUsingXpathInJavaScriptExecutor(element("btn_ACSPublication"));
-		//click(element("btn_ACSPublication"));
+		// click(element("btn_ACSPublication"));
 		logMessage("Step:  btn_ACSPublication is clicked\n");
 	}
 
@@ -174,7 +172,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 	public void addACSPublicationAndTechnicalDivision(String caseId) {
 		wait.hardWait(3);
 		addACSTechnicalDivision(map().get("Technical Division"));
-		addACSPublication(map().get( "PublicationName"));
+		addACSPublication(map().get("PublicationName"));
 
 	}
 

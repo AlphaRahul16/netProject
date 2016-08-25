@@ -40,7 +40,6 @@ import org.testng.Reporter;
 
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.SeleniumWait;
-import com.thoughtworks.selenium.webdriven.commands.IsAlertPresent;
 
 
 
@@ -665,7 +664,8 @@ public class BaseUi {
 
 	public void checkCheckbox(WebElement ele) {
 		if (!ele.isSelected()) {
-			ele.click();
+//			ele.click();
+			clickUsingXpathInJavaScriptExecutor(ele);
 			logMessage("Step : check checkbox \n");
 		} else {
 			logMessage("Step : check box is already selected\n");
@@ -716,7 +716,7 @@ public class BaseUi {
 		driver.switchTo().window(windows[i]);	 
     }
 
-	protected void changeWindow(int i) {
+	public void changeWindow(int i) {
 	    //wait.hardWait(1);
 	    Set<String> windows = driver.getWindowHandles();
         System.out.println("Windows: " + windows.size());

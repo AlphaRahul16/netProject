@@ -18,9 +18,11 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 			TechnicalDivision, multiYearDecisionValue, priceValues,
 			amountValue, cenStatus;
 	boolean flag;
+	static char currency;
 	String[] quantity = new String[5];
 	String[] productNames = new String[5];
 	float amountInFloat;
+	Double amountInDouble = 0.0d;
 	int currentMonthInInteger = Calendar.getInstance().get(Calendar.MONTH) + 1;
 	static int mutliYearInInteger = 0;
 	int nextYearInInteger = Calendar.getInstance().get(Calendar.YEAR) + 1;
@@ -59,6 +61,12 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		// click(element("btn_submitBottom"));
 		logMessage("Step: submit button at bottom is clicked in  btn_submitBottom\n");
 		// cancelOutPopUp();
+	}
+
+	public void clickOnPayInINRButton() {
+		isElementDisplayed("btn_payInINR");
+		element("btn_payInINR").click();
+		logMessage("STEP : Pay In INR button is clicked at checkout page \n");
 	}
 
 	public void clickSubmitButton() {
@@ -397,13 +405,52 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 				+ " is verified in txt_paymentError\n");
 	}
 
+	// private String getTotalAmountValue(String totalPriceName) {
+	// for (WebElement element : elements("list_Totalvalues", totalPriceName)) {
+	// currency = element.getText().charAt(0);
+	// amountValue = element.getText().replaceAll(
+	// "\\" + String.valueOf(currency), "");
+	// amountInFloat = amountInFloat + Float.parseFloat(amountValue);
+	// }
+	// String formatedPrice = String.format("%.02f", amountInFloat);
+	// String amountInString = String.valueOf(currency)
+	// + String.valueOf(formatedPrice);
+	// return amountInString;
+	// }
+	//
+	// public String verifyProductSubTotal(String totalPriceName,
+	// String subtotalName) {
+	// String totalAmountExpected = getTotalAmountValue(totalPriceName);
+	// String totalAmountActual = getTotal(subtotalName);
+	// Assert.assertEquals(totalAmountExpected, totalAmountActual);
+	// logMessage("ASSERT PASSED : " + totalAmountExpected + " and "
+	// + totalAmountActual + " is equal in txt_paymentError\n");
+	// return totalAmountActual;
+	// }
+
+	// private String getTotal(String value) {
+	// if (value.equalsIgnoreCase("Tax")) {
+	// isElementDisplayed("txt_taxTotal", value);
+	// return element("txt_taxTotal", value).getText();
+	// } else {
+	// isElementDisplayed("txt_total", value);
+	// return element("txt_total", value).getText();
+	// }
+	// }
+
+	// =================
 	private String getTotalAmountValue(String totalPriceName) {
 		for (WebElement element : elements("list_Totalvalues", totalPriceName)) {
-			amountValue = element.getText().replaceAll("\\$", "");
-			amountInFloat = amountInFloat + Float.parseFloat(amountValue);
+			currency = element.getText().charAt(0);
+			amountValue = element.getText().replaceAll(
+					"\\" + String.valueOf(currency), "");
+			System.out.println("amountValue:-" + amountValue);
+			amountInDouble = amountInDouble
+					+ Double.parseDouble(amountValue.replaceAll(",", ""));
 		}
-		String formatedPrice = String.format("%.02f", amountInFloat);
-		String amountInString = "$" + String.valueOf(formatedPrice);
+		String formatedPrice = String.format("%.02f", amountInDouble);
+		String amountInString = String.valueOf(currency)
+				+ String.valueOf(formatedPrice);
 		return amountInString;
 	}
 
@@ -411,10 +458,12 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 			String subtotalName) {
 		String totalAmountExpected = getTotalAmountValue(totalPriceName);
 		String totalAmountActual = getTotal(subtotalName);
-		Assert.assertEquals(totalAmountExpected, totalAmountActual);
+		Assert.assertEquals(totalAmountExpected,
+				totalAmountActual.replaceAll(",", ""));
 		logMessage("ASSERT PASSED : " + totalAmountExpected + " and "
-				+ totalAmountActual + " is equal in txt_paymentError\n");
-		return totalAmountActual;
+				+ totalAmountActual.replaceAll(",", "")
+				+ " is equal in txt_paymentError\n");
+		return totalAmountActual.replaceAll(",", "");
 	}
 
 	private String getTotal(String value) {
@@ -427,22 +476,46 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		}
 	}
 
-	public String verifyTotal() {
-		float productSubTotalInfloat = Float.parseFloat(getTotal(
-				"Product Subtotal").replaceAll("\\$", ""));
-		float shippingTotalInfloat = Float.parseFloat(getTotal("Shipping")
-				.replaceAll("\\$", ""));
-		float taxTotalInfloat = Float.parseFloat(getTotal("Tax").replaceAll(
-				"\\$", ""));
-		float TotalInfloat = Float.parseFloat(getTotal("Total").replaceAll(
-				"\\$", ""));
-		float totalPrice = productSubTotalInfloat + shippingTotalInfloat
-				+ taxTotalInfloat;
-		Assert.assertEquals(totalPrice, TotalInfloat);
-		logMessage("ASSERT PASSED : total price value " + totalPrice
+	// public String verifyTotal(String currency) {
+	// System.out.println("currency :-" + currency);
+	// float productSubTotalInfloat = Float.parseFloat(getTotal(
+	// "Product Subtotal").replaceAll("\\" + currency, ""));
+	// float shippingTotalInfloat = Float.parseFloat(getTotal("Shipping")
+	// .replaceAll("\\" + currency, ""));
+	// float taxTotalInfloat = Float.parseFloat(getTotal("Tax").replaceAll(
+	// "\\" + currency, ""));
+	// float TotalInfloat = Float.parseFloat(getTotal("Total").replaceAll(
+	// "\\" + currency, ""));
+	// float totalPrice = productSubTotalInfloat + shippingTotalInfloat
+	// + taxTotalInfloat;
+	// Assert.assertEquals(totalPrice, TotalInfloat);
+	// logMessage("ASSERT PASSED : total price value " + totalPrice
+	// + " is verified \n");
+	// String formatedPrice = String.format("%.02f", TotalInfloat);
+	// String totalInString = "" + currency + String.valueOf(formatedPrice);
+	// return totalInString;
+	// }
+
+	public String verifyTotal(String currency) {
+		System.out.println("currency :-" + currency);
+		double productSubTotalInfloat = Double.parseDouble(getTotal(
+				"Product Subtotal").replaceAll("\\" + currency, "").replaceAll(
+				",", ""));
+		double shippingTotalInfloat = Double.parseDouble(getTotal("Shipping")
+				.replaceAll("\\" + currency, "").replaceAll(",", ""));
+		double taxTotalInDouble = Double.parseDouble(getTotal("Tax")
+				.replaceAll("\\" + currency, "").replaceAll(",", ""));
+		double TotalInDouble = Double.parseDouble(getTotal("Total").replaceAll(
+				"\\" + currency, "").replaceAll(",", ""));
+		String formatedPrice = String.format("%.02f", TotalInDouble);
+		String totalInString = "" + currency + String.valueOf(formatedPrice);
+		double totalPrice = productSubTotalInfloat + shippingTotalInfloat
+				+ taxTotalInDouble;
+		String formatedTotalPrice = String.format("%.02f", totalPrice);
+		Assert.assertEquals(formatedTotalPrice, formatedPrice);
+		logMessage("ASSERT PASSED : total price value " + formatedTotalPrice
 				+ " is verified \n");
-		String formatedPrice = String.format("%.02f", TotalInfloat);
-		String totalInString = "$" + String.valueOf(formatedPrice);
+
 		return totalInString;
 	}
 
@@ -586,6 +659,20 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 			logMessage("Image not present");
 
 		}
+	}
+
+	public void verifyHeadingAtCheckoutPage() {
+		isElementDisplayed("hd_confirmCurrencyPayment");
+		Assert.assertEquals(element("hd_confirmCurrencyPayment").getText()
+				.trim(), "Confirm Currency Payment");
+
+		logMessage("ASSERT PASSED : Confirm currency payment heading is displayed\n");
+	}
+
+	public void clickOnPaymentTypeButton(String paymentType) {
+		isElementDisplayed("btn_paymentType", paymentType);
+		element("btn_paymentType", paymentType).click();
+		logMessage("Step : click on " + paymentType + " button \n");
 	}
 
 }

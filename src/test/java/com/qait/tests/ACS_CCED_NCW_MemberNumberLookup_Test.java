@@ -6,11 +6,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.testng.ITestResult;
-import org.testng.Reporter;
 import org.testng.SkipException;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
@@ -19,7 +15,6 @@ import org.testng.annotations.Test;
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.ConfigPropertyReader;
-import com.qait.automation.utils.YamlReader;
 
 public class ACS_CCED_NCW_MemberNumberLookup_Test extends BaseTest {
 
@@ -39,7 +34,7 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test extends BaseTest {
 
 	@Test
 	public void Step00_Member_Number_Lookup_Test() {
-		Reporter.log("CaseID Under Test Is : " + caseID, true);
+
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
@@ -47,7 +42,7 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test extends BaseTest {
 				"Selenium - Find Active Regular Member");
 		memberDetailsMap = test.memberShipPage.getMemberDetails_Iweb();
 		test.navigateToURL(test.homePageIWEB.map().get("Application URL")
-				.replaceAll("Stage3", ConfigPropertyReader.getProperty("tier")));
+				.replaceAll("Stage2", ConfigPropertyReader.getProperty("tier")));
 		test.memNumLookupPage.enterMemberDetailsInMemberNumberLookup(
 				memberDetailsMap.get("firstName"),
 				memberDetailsMap.get("lastName"),
@@ -64,7 +59,7 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test extends BaseTest {
 
 	@Test
 	public void Step01_Verify_Email_Address_IWEB_Test() {
-		Reporter.log("CaseID Under Test Is : " + caseID, true);
+
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 		test.homePageIWEB.clickFindForIndividualsSearch();
@@ -77,9 +72,9 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test extends BaseTest {
 
 	@Test
 	public void Step02_CCED_Lookup_Test() {
-		Reporter.log("CaseID Under Test Is : " + caseID, true);
+
 		test.launchApplication(test.asm_CCEDPage.map().get("Application URL")
-				.replaceAll("Stage3", ConfigPropertyReader.getProperty("tier")));
+				.replaceAll("Stage2", ConfigPropertyReader.getProperty("tier")));
 		test.asm_CCEDPage.verifyPageTitle("Chemists Celebrate Earth Day");
 		test.asm_CCEDPage
 				.selectSearchTypeAndNavigateToCoordinator(test.asm_CCEDPage
@@ -92,10 +87,9 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test extends BaseTest {
 
 	@Test
 	public void Step03_NCW_Lookup_Test() {
-		Reporter.log("CaseID Under Test Is : " + caseID, true);
 
 		test.launchApplication(test.asm_NCWPage.map().get("Application URL")
-				.replaceAll("Stage3", ConfigPropertyReader.getProperty("tier")));
+				.replaceAll("Stage2", ConfigPropertyReader.getProperty("tier")));
 		test.asm_NCWPage.verifyPageTitle("National Chemistry Week");
 		test.asm_NCWPage
 				.selectSearchTypeAndNavigateToCoordinator(test.asm_NCWPage
@@ -110,15 +104,11 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test extends BaseTest {
 	public void Open_Browser_Window() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		test.launchApplication(app_url_IWEB);
-		
+
 		test.homePageIWEB.addValuesInMap("CCED_NCW_MemberNumberLookup", caseID);
+		System.out.println(test.asm_NCWPage.map().get("Application URL"));
 		test.homePageIWEB.EnterTestMethodNameToSkipInMap_MemberNumber_CCED_NCW(
-				skipTest,
-				test.asm_NCWPage
-						.map()
-						.get("Application URL")
-						.replaceAll("Stage3",
-								ConfigPropertyReader.getProperty("tier")));
+				skipTest, test.asm_NCWPage.map().get("Application URL"));
 	}
 
 	@BeforeMethod

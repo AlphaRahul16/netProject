@@ -21,6 +21,8 @@ app_url_IwebReporting: https://stag-12iweb/NFStage2/iweb
 app_url_PUBS: https://ewebtest12.acs.org/NFStage2/pba
 app_url_EwebReporting: https://ewebtest12.acs.org/NFStage2/studentchaptersonline
 app_url_Awards: https://ewebtest12.acs.org/NFStage2/awards
+app_url_ScarfReviewing: https://www.ewebtest.acs.org/NFStage2/studentchaptersreview
+
 
 password: "password"
 
@@ -36,6 +38,7 @@ csv-data-file:
   path_CCED_NCW_MemberNumberLookup: ./src/test/resources/TestDataLibrary/CCED_NCW_Data_Sheet.csv
   path_AwardNomination: ./src/test/resources/TestDataLibrary/AwardNominationDatasheet.csv
   path_GeneralAwardList: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument.txt
+  path_GeneralAwardList_2018: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument_2018.txt
   path_AwardsVoting: ./src/test/resources/TestDataLibrary/Awards_Voting_Data_Sheet.csv
   path_MYDTransfer: ./src/test/resources/TestDataLibrary/Multi_Year_Dues_Transfer_Sheet.csv
   path_OMR: ./src/test/resources/TestDataLibrary/OMR_Datasheet.csv
@@ -52,6 +55,7 @@ excel-data-file:
 Authentication: 
   userName: C00616
   password: "Sx!3M24GS"
+
   
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt

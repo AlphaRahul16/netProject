@@ -5,17 +5,12 @@ import static com.qait.automation.utils.YamlReader.getYamlValue;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.testng.ITestResult;
-import org.testng.Reporter;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
-import com.qait.keywords.YamlInformationProvider;
 
 public class ACS_Void_Invoice_Test extends BaseTest{
 
@@ -80,13 +75,12 @@ public class ACS_Void_Invoice_Test extends BaseTest{
 		test.acsVoidInvoice.clickOnVoidInvoiceButton("void invoice", 4);
 		test.acsVoidInvoice.createBatch(1, 6, "QA");
 		test.acsVoidInvoice.enterActionValues(YamlReader.getYamlValue("VoidWithAdjustment.actionValue"));
-		test.acsAddressValidation.waitForPageReadyState();
 		test.acsVoidInvoice.clickOnSaveButton();
 	}
 
 	@Test
 	public void Step07_Verify_Void_Invoice_Message_And_Voided_Line_Items() {
-		test.acsAddressValidation.waitForPageReadyState();
+//		test.acsAddressValidation.waitForPageReadyState();
 		test.acsVoidInvoice.verifyVoidInvoiceMessage(getYamlValue("VoidWithAdjustment.voidMessage"));
 		test.acsVoidInvoice.verifyMessageUnderLineItemsMenu(getYamlValue("VoidWithAdjustment.emptyItemsMessage"));
 		test.invoicePage.verifyMemberDetails(YamlReader.getYamlValue("VoidWithAdjustment.memberDetailsQuestion2"),

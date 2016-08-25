@@ -9,11 +9,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,13 +23,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.report.ReformatTestFile;
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.DateUtil;
 import com.qait.automation.utils.YamlReader;
-import com.thoughtworks.selenium.webdriven.commands.WaitForPageToLoad;
 
 public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	YamlInformationProvider getCenOrdEntry;
@@ -146,15 +142,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 
 		else {
-			try
-			{
+			try {
 				wait.resetImplicitTimeout(2);
 				wait.resetExplicitTimeout(hiddenFieldTimeOut);
-			selectProvidedTextFromDropDown(element("list_existingQuery"),
-					queryName);
-			}
-			catch(StaleElementReferenceException e)
-			{
+				selectProvidedTextFromDropDown(element("list_existingQuery"),
+						queryName);
+			} catch (StaleElementReferenceException e) {
 				wait.hardWait(2);
 				selectProvidedTextFromDropDown(element("list_existingQuery"),
 						queryName);
@@ -610,6 +603,21 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : first member icon is clicked in img_firstInactiveRegularMember\n");
 	}
 
+	public void clickOnAnyRandomNominee() {
+		wait.hardWait(5);
+		hardWaitForIEBrowser(5);
+		wait.waitForPageToLoadCompletely();
+		int max = 12, min = 3;
+		Random rand = new Random();
+		int randomNumber = rand.nextInt((max - min) + 1) + min;
+		String randomNumberInString = String.valueOf(randomNumber);
+		isElementDisplayed("link_randomMemberFromList", randomNumberInString);
+
+		element("link_randomMemberFromList", randomNumberInString).click();
+		logMessage("Step : Member icon at the position of "
+				+ randomNumberInString
+				+ " is clicked in link_randomMemberInList\n");
+	}
 	public void clickOnAnyRandomMember() {
 		wait.hardWait(5);
 		hardWaitForIEBrowser(5);
@@ -619,8 +627,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		int randomNumber = rand.nextInt((max - min) + 1) + min;
 		String randomNumberInString = String.valueOf(randomNumber);
 		isElementDisplayed("link_randomMemberInList", randomNumberInString);
-		clickUsingXpathInJavaScriptExecutor(element("link_randomMemberInList",
-				randomNumberInString));
+
+		element("link_randomMemberInList", randomNumberInString).click();
 		logMessage("Step : Member icon at the position of "
 				+ randomNumberInString
 				+ " is clicked in link_randomMemberInList\n");
@@ -731,6 +739,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("select Element " + memberInfo
 					+ " after catching Stale Element Exception\n");
 		}
+
 	}
 
 	public void enterDate(String dateType, String date) {
@@ -1154,6 +1163,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnTab(String tabName) {
+		wait.hardWait(2);
 		isElementDisplayed("link_tabsOnModule", tabName);
 		if (isBrowser("safari"))
 			element("link_tabsOnModule", tabName).click();
@@ -1472,8 +1482,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			String randomNumberInString = String.valueOf(randomNumber);
 			isElementDisplayed("lnk_pages", randomNumberInString);
 
-			clickUsingXpathInJavaScriptExecutor(element("lnk_pages",
-					randomNumberInString));
+			element("lnk_pages", randomNumberInString).click();
 			logMessage("Step : page at the position of " + randomNumberInString
 					+ " is clicked in lnk_pages\n");
 
@@ -2506,13 +2515,17 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	
 
 	}
-	
-	public void fetchScarfReviewerLoginDetails(Map<String,List<String>> reviewerloginMap, int reviewerNumber)
-	{
-		reviewerloginMap.put("reviewer"+reviewerNumber, getCustomerLastNameAndContactID());
-		logMessage("Step : Reviewer name is fetched as "+reviewerloginMap.get("reviewer"+reviewerNumber));
-	    System.out.println("-----last name:"+reviewerloginMap.get("reviewer"+reviewerNumber).get(0)
-	    		+"-----member number:"+reviewerloginMap.get("reviewer"+reviewerNumber).get(1));
+
+	public void fetchScarfReviewerLoginDetails(
+			Map<String, List<String>> reviewerloginMap, int reviewerNumber) {
+		reviewerloginMap.put("reviewer" + reviewerNumber,
+				getCustomerLastNameAndContactID());
+		logMessage("Step : Reviewer name is fetched as "
+				+ reviewerloginMap.get("reviewer" + reviewerNumber));
+		System.out.println("-----last name:"
+				+ reviewerloginMap.get("reviewer" + reviewerNumber).get(0)
+				+ "-----member number:"
+				+ reviewerloginMap.get("reviewer" + reviewerNumber).get(1));
 	}
 
 	public void getIndividualFullNameForAwardsNomination() {
@@ -4102,10 +4115,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ reviewerType + " start and end date\n");
 	}
 
-
-	public void selectValidUserForAutoRenewal(String AutoRenewalquery,String queryPageUrl) {
+	public void selectValidUserForAutoRenewal(String AutoRenewalquery,
+			String queryPageUrl) {
 		wait.hardWait(2);
-			System.out.println(AutoRenewalquery);
+		System.out.println(AutoRenewalquery);
 		selectAndRunQuery(AutoRenewalquery);
 		expandDetailsMenu("individual memberships");
 		navigateToInvoicePageForRenewedProduct();
@@ -4114,7 +4127,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		//verifyPaymentStatusBeforeAutoRenewal(AutoRenewalquery,queryPageUrl);
 	logMessage("Step : Member selected in " + MemberTransferLoopCount+1
 			+ " attempt\n");
+
 	}
+
 	public void verifyCentralizedOrderEntryPage(String title) {
 		Assert.assertEquals(title, getPageTitle());
 		logMessage("Step : title for Centralized Order Entry Page is verified as "
@@ -4153,8 +4168,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : Merchandise link is clicked in link_merchandise \n");
 	}
 
-	public String getProductCodeFromCOEPage()
-	{
+	public String getProductCodeFromCOEPage() {
 		switchToDefaultContent();
 		switchToFrame("iframe1");
 		String productCode = element("txt_prod_code").getAttribute("value");
@@ -4170,22 +4184,42 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		return productName;
 	}
 
+	public void verifyStorePaymentInformationChildFormIsPopulated(
+			String firstName) {
+		isElementDisplayed("txt_code", firstName);
+		isElementDisplayed("txt_priceValue", firstName);
+		System.out.println(element("txt_code", firstName).getText().isEmpty());
+		System.out.println(element("txt_priceValue", firstName).getText()
+				.isEmpty());
+		Assert.assertFalse(element("txt_code", firstName).getText().isEmpty());
+		Assert.assertFalse(element("txt_priceValue", firstName).getText()
+				.isEmpty());
+		logMessage("ASSERT PASSED : Child form is populated under stored payment information for "
+				+ firstName);
+
+	}
+
 
 	public String selectRandomProductForCRMInventory() {
 		selectMerchandise("merchandise");
 		switchToDefaultContent();
 		switchToFrame(element("iframe"));
 		clickOnSearchDisplayNameButton();
-
 		clickOnRandomPage();
-		clickOnAnyRandomMember1();
-
 		_clickOnAvailableQuantityForSorting("Available Quantity");
 		_selectPage(10);
 		return clickOnAnyRandomMember1();
 	}
 
-	private void _clickOnAvailableQuantityForSorting(String tableHeading) {
+	public void selectRandomUserOnAscendingHeader(String headerName) {
+		_clickOnAvailableQuantityForSorting(headerName);
+		_clickOnAvailableQuantityForSorting(headerName);
+		clickOnRandomPage(10,1);
+		clickOnAnyRandomMember();
+		wait.hardWait(4);
+	}
+
+	void _clickOnAvailableQuantityForSorting(String tableHeading) {
 		isElementDisplayed("th_lookup", tableHeading);
 		element("th_lookup", tableHeading).click();
 		logMessage("Step: Clicked on " + tableHeading + " for Sorting");
@@ -4200,14 +4234,34 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-
 	public void verifyAutoPayStatusAfterAutoRenewal(String value) {
 		isElementDisplayed("mbr_autoPay", value);
 		Assert.assertTrue(isElementDisplayed("mbr_autoPay", value),
 				"Auto Pay renewal image is not checked\n");
 		logMessage("ASSERT PASSED : <b>AutoPay Renewal image is checked</b>\n");
 	}
+	
+	public void clickOnRandomPage(int max,int min) {       //10,1
+		try {
+			wait.resetImplicitTimeout(2);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("lnk_pages", "2");
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			Random rand = new Random();
+			int randomNumber = rand.nextInt((max - min)+1) + min;
+			String randomNumberInString = String.valueOf(randomNumber);
+			isElementDisplayed("lnk_pages", randomNumberInString);
 
+			clickUsingXpathInJavaScriptExecutor(element("lnk_pages",
+					randomNumberInString));
+			logMessage("Step : page at the position of " + randomNumberInString
+					+ " is clicked in lnk_pages\n");
 
+		} catch (NoSuchElementException exp) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+		}
+	}
 
 }

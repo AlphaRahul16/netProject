@@ -7,11 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.SkipException;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
@@ -22,7 +19,7 @@ import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
 public class ACS_AACT_Smoke_Test extends BaseTest {
-	
+
 	String csvdatafilepath_AACT_OMA = getYamlValue("csv-data-file.path_AACT_OMA");
 	String csvSeparator = getYamlValue("csv-data-file.data-separator");
 	private String caseID;
@@ -44,9 +41,8 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 	boolean isIndividualMember; // To Save the individual member state for
 								// recovery
 
-
 	ACS_AACT_Smoke_Test() {
-		
+
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "AACT_OMA";
 	}
 
@@ -58,7 +54,7 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 	@Test
 	public void Step01_Launch_Application_Under_Test() {
 		test.homePageIWEB.addValuesInMap("AACT_OMA", caseID);
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+
 		test.launchApplication(app_url_AACT_OMA);
 		test.homePage.verifyUserIsOnHomePage("");
 
@@ -67,7 +63,6 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 	@Test
 	public void Step02_Enter_Contact_Information() {
 
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		userUniqueDetail = test.ContactInfoPage
 				.enterContactInformation_AACT(caseID);
 		test.ContactInfoPage.clickContinue();
@@ -82,17 +77,17 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 
 	@Test
 	public void Step03_Enter_Member_Details_In_About_You_Page() {
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.asm_aactPage.enterMemberDetailsAtAboutYouPage(caseID);
 		test.ContactInfoPage.clickContinue();
-		//test.homePage.verifyCheckoutPage(caseId);
+		// test.homePage.verifyCheckoutPage(caseId);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 	}
 
 	@Test
 	public void Step04_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page() {
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 
 		test.checkoutPage.verifyMemberDetail_AACTOMA(caseID);
@@ -116,25 +111,26 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 	@Test
 	public void Step05_Verify_Details_At_Confirmation_Page() {
 
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		memberDetail = test.confirmationPage.verifyMemberDetails_AACTOMA(
 				caseID, userUniqueDetail.get(1), userUniqueDetail.get(2));
 		test.checkoutPage.verifyAACTNationalMembership(caseID);
 		test.checkoutPage.verifyPriceValues_AACT(caseID);
-//		test.confirmationPage.verifyPrintReceiptContent(caseID,
-//				memberDetail[0], memberDetail[1], userUniqueDetail.get(1),
-//				userUniqueDetail.get(2));
+		// test.confirmationPage.verifyPrintReceiptContent(caseID,
+		// memberDetail[0], memberDetail[1], userUniqueDetail.get(1),
+		// userUniqueDetail.get(2));
 
 	}
 
 	@Test
 	public void Step06_Launch_Application_Under_Test() {
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 
 		test.launchApplication(app_url_IWEB);
-		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"), YamlReader.getYamlValue("Authentication.password"));
+		test.homePage.enterAuthentication(
+				YamlReader.getYamlValue("Authentication.userName"),
+				YamlReader.getYamlValue("Authentication.password"));
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
@@ -142,7 +138,6 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 	@Test
 	public void Step07_Search_Member_In_IWEB_Application_And_Verify_Member_Details() {
 
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 
 		test.homePageIWEB.clickFindForIndividualsSearch();
@@ -166,7 +161,6 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 	@Test
 	public void Step08_Search_Individual_In_IWEB_Application_And_Verify_Details() {
 
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.homePageIWEB.clickFindForIndividualsSearch();
 		test.individualsPage.fillMemberDetailsAndSearch("E-Mail Address",
@@ -188,6 +182,10 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 
 	@BeforeMethod
 	public void Skip_Tests_For_Expected_Member_Created(Method method) {
+		test.printMethodName(method.getName());
+		if (caseID != null)
+			Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+
 		if (!individualMember.containsKey(method.getName())) {
 			individualMember.put(method.getName(), false);
 		}

@@ -3,14 +3,12 @@ package com.qait.keywords;
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
-import com.qait.automation.utils.YamlReader;
 
 public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 	String assignedChapterNameList;

@@ -4,6 +4,8 @@
  */
 package com.qait.automation.utils;
 
+import static com.qait.automation.utils.YamlReader.getYamlValue;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,7 +21,6 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 
 public class XlsReader {

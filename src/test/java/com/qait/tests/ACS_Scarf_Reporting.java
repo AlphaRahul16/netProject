@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.testng.ITestResult;
-import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -17,10 +16,11 @@ import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.XlsReader;
 import com.qait.automation.utils.YamlReader;
 
-public class ACS_Scarf_Reporting {
+public class ACS_Scarf_Reporting extends BaseTest{
 	static String sheetName;
 	TestSessionInitiator test;
 
@@ -68,7 +68,7 @@ public class ACS_Scarf_Reporting {
 
 	@Test
 	public void Step02_User_Navigated_To_Scarf_Reporting_Page() {
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnSacrfReportingModule();
 		test.homePageIWEB.verifyUserIsOnHomePage("Scarf Reporting | Overview | Student Chapter Reporting Setup");
@@ -83,7 +83,7 @@ public class ACS_Scarf_Reporting {
 
 	@Test
 	public void Step04_User_Navigated_To_Membership_Page_And_Select_Query_To_Find_Active_Student_Chapter() {
-		Reporter.log("CASE ID : " + caseID, true);
+		 
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Membership");
 		test.homePageIWEB.verifyUserIsOnHomePage("Membership | Overview | Overview and Setup");
@@ -238,10 +238,6 @@ public class ACS_Scarf_Reporting {
 		test.closeBrowserSession();
 	}
 	
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result)
-	{	
-		test.takescreenshot.takeScreenShotOnException(result);
-	}
+	
 
 }

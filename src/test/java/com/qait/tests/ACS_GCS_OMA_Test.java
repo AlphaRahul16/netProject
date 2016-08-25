@@ -2,16 +2,8 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.testng.ITestResult;
 import org.testng.Reporter;
-import org.testng.SkipException;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
@@ -21,48 +13,32 @@ import com.qait.automation.utils.YamlReader;
 
 public class ACS_GCS_OMA_Test extends BaseTest {
 
-	private String caseID;
-	String memberName, productSubTotal, Total, userEmail;
+	String memberName, productSubTotal, Total, userEmail, currency = "₹";
 	String[] userDetail;
 	String[] memberDetail, quantities;
-	Map<String, Object> userInfo = null;
+
 	String app_url = getYamlValue("app_url_OMA");
 	String app_url_IWEB = getYamlValue("app_url_IWEB");
 
-	static Map<String, Boolean> errorMap = new HashMap<String, Boolean>(); // To
-																			// Save
-																			// the
-																			// error
-																			// state
-																			// for
-																			// recovery
-
-	boolean isErrorMessage; // To Save the error state for recovery
-
 	ACS_GCS_OMA_Test() {
-
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "GCS_OMA";
 	}
 
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
 	public ACS_GCS_OMA_Test(String caseID) {
-		this.caseID = caseID;
+		BaseTest.caseID = caseID;
 	}
 
 	@Test
 	public void Step01_Launch_Application_Under_Test() {
-		test.homePageIWEB.addValuesInMap("GCS_OMA", caseID);
-		System.out.println(test.homePageIWEB.map().get("Notes"));
 
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+		test.homePageIWEB.addValuesInMap("GCS_OMA", caseID);
 		test.launchApplication(app_url);
 		test.homePage.verifyUserIsOnHomePage("");
 	}
 
 	@Test(dependsOnMethods = "Step01_Launch_Application_Under_Test")
 	public void Step02_Enter_Contact_Information() {
-
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 
 		userDetail = test.ContactInfoPage.enterContactInformation(
 				test.homePageIWEB.map().get("Email"), test.homePageIWEB.map()
@@ -82,9 +58,8 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 	@Test(dependsOnMethods = "Step02_Enter_Contact_Information")
 	public void Step03_Enter_Education_And_Employment_Info() {
 
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
-		test.EduAndEmpPage.enterEducationAndEmploymentInformation_123();
+		test.EduAndEmpPage.enterEducationAndEmploymentInformation();
 		test.ContactInfoPage.clickContinue();
 
 	}
@@ -92,7 +67,6 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 	@Test(dependsOnMethods = "Step03_Enter_Education_And_Employment_Info")
 	public void Step04_Enter_Benefits_Info() {
 
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.homePage.verifyCurrentTab("Benefits");
 		test.BenefitsPage.addACSPublicationAndTechnicalDivision(caseID);
@@ -106,26 +80,28 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 		test.checkoutPage.selectCurrency("Indian Rupee");
 		test.checkoutPage.verifyMultiYearShow_Hide(test.checkoutPage.map().get(
 				"multiYearFlag?"));
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 
-		//quantities = test.checkoutPage.verifyPriceValues(caseID);
+		// quantities = test.checkoutPage.verifyPriceValues(caseID);
 		test.checkoutPage.verifyMemberDetail(caseID);
 		test.checkoutPage.verifyMemberEmail(userEmail);
 		productSubTotal = test.checkoutPage.verifyProductSubTotal("4",
 				"Product Subtotal");
-		Total = test.checkoutPage.verifyTotal();
+		Total = test.checkoutPage.verifyTotal(currency);
 		test.checkoutPage.verifyTechnicalDivision(caseID);
 		test.checkoutPage.verifyPublication(caseID);
-		test.checkoutPage.enterPaymentInfo(
-				YamlReader.getYamlValue("creditCardInfo.Type"), userDetail[1]
-						+ " " + userDetail[2],
-				YamlReader.getYamlValue("creditCardInfo.Number"),
-				YamlReader.getYamlValue("creditCardInfo.cvv-number"));
 		test.checkoutPage.clickAtTestStatement();
-		test.ContactInfoPage.clickContinue();
-		test.checkoutPage.clickSubmitButtonAtBottom();
-		test.homePage.verifyCurrentTab("Confirmation");
+//		test.checkoutPage.enterPaymentInfo(
+//				YamlReader.getYamlValue("creditCardInfo.Type"), userDetail[1]
+//						+ " " + userDetail[2],
+//				YamlReader.getYamlValue("creditCardInfo.Number"),
+//				YamlReader.getYamlValue("creditCardInfo.cvv-number"));
+		
+		test.checkoutPage.clickOnPayInINRButton();
+		test.checkoutPage.verifyHeadingAtCheckoutPage();
+		test.checkoutPage.clickOnPaymentTypeButton("");
+		
 	}
 
 	@Test(dependsOnMethods = "Step05_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page")
@@ -146,7 +122,7 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 	@Test(dependsOnMethods = "Step06_Verify_Details_At_Confirmation_Page")
 	public void Step07_Launch_Application_Under_Test() {
 
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+		
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.launchApplication(app_url_IWEB);
 		test.homePage.enterAuthentication(
@@ -158,7 +134,7 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step07_Launch_Application_Under_Test")
 	public void Step08_Search_Member_In_Individual_Test() {
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+		
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		String invoiceNumber = memberDetail[1];
 		test.homePageIWEB.clickFindForIndividualsSearch();
@@ -187,15 +163,4 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 	}
 
-	@BeforeMethod
-	public void skip_tests_if_error_message() {
-
-		if (!errorMap.containsKey(caseID)) {
-			errorMap.put(caseID, false);
-		}
-		if (errorMap.get(caseID)) {
-			throw new SkipException(
-					"Tests Skipped due to expected error found!");
-		}
-	}
 }

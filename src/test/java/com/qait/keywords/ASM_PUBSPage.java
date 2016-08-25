@@ -7,15 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.bcel.generic.IUSHR;
-import org.hamcrest.generator.qdox.tools.QDoxTester.Reporter;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
-import com.qait.automation.getpageobjects.GetPage;
 import com.qait.automation.utils.YamlReader;
 
 public class ASM_PUBSPage extends ASCSocietyGenericPage {

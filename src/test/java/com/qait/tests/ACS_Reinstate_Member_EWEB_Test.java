@@ -6,11 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.SkipException;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -19,9 +16,9 @@ import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.keywords.YamlInformationProvider;
 
-public class ACS_Reinstate_Member_EWEB_Test extends BaseTest{
+public class ACS_Reinstate_Member_EWEB_Test extends BaseTest {
 
-	static String invoiceNumber, yearsOfService;
+	static String invoiceNumber, yearsOfService, currency = "$";
 	List<String> memberContactDetails;
 	YamlInformationProvider getKeyValue;
 	String csvdatafilepath_OMA = getYamlValue("csv-data-file.path_OMA");
@@ -58,8 +55,8 @@ public class ACS_Reinstate_Member_EWEB_Test extends BaseTest{
 	@Test
 	public void Step01_Get_Inactive_Regular_Member_List() {
 		test.homePageIWEB.GoToMemberShipModule();
-		test.memberShipPage
-				.selectAndRunQueryMembership("Query Membership","SELENIUM - Find Inactive Regular Member");
+		test.memberShipPage.selectAndRunQueryMembership("Query Membership",
+				"SELENIUM - Find Inactive Regular Member");
 	}
 
 	@Test
@@ -93,8 +90,7 @@ public class ACS_Reinstate_Member_EWEB_Test extends BaseTest{
 	public void Step05_Enter_Education_And_Employment_Info() {
 		String caseId = getKeyValue.getEduEmpInfo("CASEID");
 		Reporter.log("****** TEST CASE ID : " + caseId + " ******\n", true);
-		test.EduAndEmpPage.enterEducationAndEmploymentInformation(getKeyValue
-				.getEduEmpInfo("CASEID"));
+		test.EduAndEmpPage.enterEducationAndEmploymentInformation();
 		test.ContactInfoPage.clickContinue();
 		isErrorMessage = test.EduAndEmpPage.verifyDisplayedMessage(getKeyValue
 				.getEduEmpInfo("CASEID"));
@@ -125,7 +121,7 @@ public class ACS_Reinstate_Member_EWEB_Test extends BaseTest{
 		test.checkoutPage.verifyMemberEmail(emailIdAcsOrg);
 		productSubTotal = test.checkoutPage.verifyProductSubTotal("4",
 				"Product Subtotal");
-		Total = test.checkoutPage.verifyTotal();
+		Total = test.checkoutPage.verifyTotal(currency);
 		test.checkoutPage.verifyTechnicalDivision(getKeyValue
 				.getEduEmpInfo("CASEID"));
 		test.checkoutPage
@@ -206,6 +202,9 @@ public class ACS_Reinstate_Member_EWEB_Test extends BaseTest{
 
 	@BeforeMethod
 	public void skip_tests_if_error_message() {
+		if (caseID != null)
+			Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+
 		String caseId = getKeyValue.getEduEmpInfo("CASEID");
 		if (!errorMap.containsKey(caseId)) {
 			errorMap.put(caseId, false);
