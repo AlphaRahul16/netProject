@@ -4,7 +4,6 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.util.Iterator;
 import java.util.Map;
-
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 

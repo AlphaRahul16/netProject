@@ -10,10 +10,12 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
-public class ACS_PBA_Test {
+public class ACS_PBA_Test extends BaseTest{
 
 	TestSessionInitiator test;
 	List<String> memDetails;
@@ -103,14 +105,6 @@ public class ACS_PBA_Test {
 		test.asm_PUBSPage.verifyDataFromInitialPage();
 	}
 
-	@AfterMethod
-	public void take_screenshot_on_failure(ITestResult result) {
-		test.takescreenshot.takeScreenShotOnException(result);
-	}
-
-	@AfterClass
-	public void Close_Browser_Session() {
-		test.closeBrowserWindow();
-	}
+	
 
 }

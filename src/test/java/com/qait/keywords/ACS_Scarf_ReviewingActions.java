@@ -3,7 +3,6 @@ package com.qait.keywords;
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;

@@ -1,16 +1,12 @@
 package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -19,7 +15,6 @@ import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.getpageobjects.GetPage;
-import com.qait.automation.utils.DateUtil;
 
 public class ASM_NominatePage extends GetPage {
 	WebDriver driver;
