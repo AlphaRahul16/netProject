@@ -2500,9 +2500,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		memberDetails.add(customerContactId);
 		// memberDetails.add(getMemberWebLogin());
-		logMessage("Step : Customer or contact id fetched as "
+		logMessage("Step : Customer Contact Id fetched as "
 				+ customerContactId);
 		return memberDetails;
+	
 
 	}
 	
@@ -4111,7 +4112,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		expandDetailsMenu("invoices");
 		verifyTermStartDateAndEndDatesAreEmptyForAutoRenewal(AutoRenewalquery,queryPageUrl);
 		//verifyPaymentStatusBeforeAutoRenewal(AutoRenewalquery,queryPageUrl);
-	logMessage("Step : Member selected in " + MemberTransferLoopCount
+	logMessage("Step : Member selected in " + MemberTransferLoopCount+1
 			+ " attempt\n");
 	}
 	public void verifyCentralizedOrderEntryPage(String title) {
@@ -4170,17 +4171,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 
-	public void verifyStorePaymentInformationChildFormIsPopulated(String firstName) {
-		isElementDisplayed("txt_code",firstName);
-		isElementDisplayed("txt_priceValue",firstName);
-		System.out.println(element("txt_code", firstName).getText().isEmpty());
-		System.out.println(element("txt_priceValue", firstName).getText().isEmpty());
-		Assert.assertFalse(element("txt_code", firstName).getText().isEmpty());
-		Assert.assertFalse(element("txt_priceValue", firstName).getText().isEmpty());
-		logMessage("ASSERT PASSED : Child form is populated under stored payment information for "+firstName);
-		
-	}
-
 	public String selectRandomProductForCRMInventory() {
 		selectMerchandise("merchandise");
 		switchToDefaultContent();
@@ -4215,7 +4205,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("mbr_autoPay", value);
 		Assert.assertTrue(isElementDisplayed("mbr_autoPay", value),
 				"Auto Pay renewal image is not checked\n");
-		logMessage("Step : Auto Pay renewal image is checked\n");
+		logMessage("ASSERT PASSED : <b>AutoPay Renewal image is checked</b>\n");
 	}
 
 

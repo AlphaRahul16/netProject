@@ -49,8 +49,8 @@ excel-data-file:
   
   
 Authentication: 
-  userName: c00569
-  password: "3r0P85&8"
+  userName: C00687
+  password: "N73w258%"
 
 
 ASM_Data_File: 
@@ -572,9 +572,7 @@ AddressChange:
     city: "Washington"
     postalCode: "20036"
     state: "DC"
-    
-    
-    
+   
     
 ACS_ApplyPayment: 
     DetailsToFindMember:  

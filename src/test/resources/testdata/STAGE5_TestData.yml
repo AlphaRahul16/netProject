@@ -48,8 +48,8 @@ excel-data-file:
   
   
 Authentication: 
-  userName: c00616
-  password: "A9319161853@"
+  userName: c00569
+  password: "ACS2016qa!"
 
 
 ASM_Data_File: 
@@ -557,15 +557,13 @@ ScarfReporting:
 PBA:
     queryName: "Selenium - Find Active Regular Member"
     
-<<<<<<< HEAD
+
 OMR:
-     queryName: "Selenium - Find Active Regular Member with Proforma"
+   queryName: "Selenium - Find Active Regular Member with Proforma"
      
 CMR_Inventory:
     queryName: "Selenium - Find Active Regular Member" 
-=======
 
->>>>>>> 2ae2d8e0ddaf43ff5cf42e0802d1f87c218efe05
 
 VoidWithAdjustment:
     queryName: "Selenium - test open invoices"

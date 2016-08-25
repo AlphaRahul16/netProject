@@ -85,6 +85,7 @@ protected	String readLargerTextFile(String aFileName) throws IOException {
 		}
 		try (BufferedWriter writer = new BufferedWriter(
 				new OutputStreamWriter(new FileOutputStream(filePath), "ISO-8859-1"))) {
+		
 			writer.write(html);
 
 		} catch(Exception e){

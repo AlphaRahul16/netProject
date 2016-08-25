@@ -26,7 +26,7 @@ list_expirationDate                           xpath                             
 list_expirationYear                           xpath                                     //select[contains(@id,'ExpirationYear')]
 btn_continue                                  id                                        btnContinue
 txt_invalidCardErrorMessage                   id                                        lblError
-btn_submitPayment                             id                                        btnSubmitOmrPayment
+btn_submitPayment                             css                                        #btnSubmitOmrPaymentTop
 txt_navigation                                xpath                                     //ul[@title='Bread Crumbs']/li[3]
 chkConfirm                                      id                                     //input[contains(@id,'Confirm')]
 rad_No                                        xpath                                    //label[text()='No']/preceding-sibling::input
