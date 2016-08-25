@@ -1,8 +1,13 @@
 package com.qait.keywords;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.tools.ant.taskdefs.condition.HasMethod;
+import org.eclipse.jetty.util.MultiMap;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -14,6 +19,7 @@ public class ASM_emailPage extends GetPage {
 	String pagename = "ASM_emailPage";
 	static boolean flag = false;
 	String[] productNames;
+	List<String> mailingCategories=new ArrayList<>();
 
 	public ASM_emailPage(WebDriver driver) {
 		super(driver, "ASM_emailPage");
@@ -29,6 +35,7 @@ public class ASM_emailPage extends GetPage {
 				list.add(element.getText());
 			}
 		}
+		System.out.println(list);
 		return list;
 	}
 
@@ -297,6 +304,41 @@ public class ASM_emailPage extends GetPage {
 			}
 			break;
 		}
+	}
+	
+	public Map<String,List<String>> getMailingTypesList(List<String> categoryList){
+		Map<String,List<String>> mailingListMap=new HashMap<String,List<String>>();
+		List<String> subscriptionList;
+		for(String list: categoryList){
+			if (list.equals("AACT")){
+				clickOnMailingCategory("American Association of Chemistry Teachers");
+			}
+			else
+			    clickOnMailingCategory(list);
+			subscriptionList=new ArrayList<>();
+			if(checkIfElementIsThere("heading_mailingLists")){
+			for(WebElement elem: elements("heading_mailingLists")){
+				subscriptionList.add(elem.getText());
+				mailingCategories.add(list);
+			}
+			logMessage("STEP: Mailing lists are present\n");
+			mailingListMap.put(list, subscriptionList);
+		  }
+			else{
+//				subscriptionList.add("");
+//				mailingListMap.put(list,subscriptionList);
+				logMessage("STEP: Mailing list is not present\n");
+			}					
+		}	
+		System.out.println("----map is:"+mailingListMap);
+		return mailingListMap;
+	}
+	
+	public void clickOnMailingCategory(String list){
+		wait.hardWait(2);
+		isElementDisplayed("btn_mailingCategory",list);
+		element("btn_mailingCategory",list).click();
+		logMessage("STEP: Clicked on "+list+" mailing type button");
 	}
 
 }

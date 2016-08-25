@@ -132,6 +132,10 @@ public class WebDriverFactory {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+		//System.setProperty("webdriver.firefox.binary",
+          //      "C:"+File.separator+"Program Files (x86)"+File.separator+"Mozilla Firefox"+File.separator+"firefox.exe");
+//        FirefoxBinary binary=new FirefoxBinary();
+//        binary.setEnvironmentProperty("binary", "C:"+File.separator+"Program Files (x86)"+File.separator+"Mozilla Firefox"+File.separator+"firefox.exe");
 		profile = new FirefoxProfile();
 		profile.setPreference("browser.download.useDownloadDir", true);
 		profile.setPreference("browser.cache.disk.enable", false);
@@ -160,7 +164,7 @@ public class WebDriverFactory {
 		profile.setPreference("browser.download.manager.showWhenStartinge",false);
 		profile.setPreference("browser.download.panel.shown",false);
 		profile.setPreference("browser.download.useToolkitUI",true);
+//		return new FirefoxDriver(binary,profile);
 		return new FirefoxDriver(profile);
-
 	}
 }

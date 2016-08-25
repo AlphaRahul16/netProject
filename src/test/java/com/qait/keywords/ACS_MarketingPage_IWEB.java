@@ -3,7 +3,9 @@ package com.qait.keywords;
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -30,18 +32,19 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void makeMailingListVisible() {
-		switchToFrame(1);
+//		switchToFrame(1);
+		switchToFrame("iframe1");
 		if (!element("chk_showOnlineInListCategory").isSelected()) {
 			element("chk_showOnlineInListCategory").click();
 			logMessage("Step: Show online checkbox is already selected\n");
 		}
 		else
-			logMessage("Step: Show online checkbox is alredy selected\n");
+			logMessage("Step: Show online checkbox is already selected\n");
 	}
 	
 	public void clickOnCancelButton(){
 		isElementDisplayed("btn_cancelEditMailingList");
-//		element("btn_cancel").click();
+//		element("btn_cancelEditMailingList").click();
 		clickUsingXpathInJavaScriptExecutor(element("btn_cancelEditMailingList"));
 		logMessage("STEP: Clicked on Cancel button\n");
 	}
@@ -50,7 +53,8 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 		boolean flag = false;
 		for (WebElement element : elements("list_categoriesInMailingList")) {
 			if (element.getText().trim().equalsIgnoreCase(listType)) {
-				element("arrow_selectListType",listType).click();
+//				element("arrow_selectListType",listType).click();
+				clickUsingXpathInJavaScriptExecutor(element("arrow_selectListType",listType));
 				wait.hardWait(3);
 				makeMailingListVisible();
 				clickOnCancelButton();
@@ -62,9 +66,8 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 		return flag;
 	}
 
-	public void verifyVisibilityOfGivenListCategory(String listType) {
-		MembershipPageActions_IWEB obj = new MembershipPageActions_IWEB(driver);
-		obj.expandDetailsMenu("mailing list type");
+	public List<String> verifyVisibilityOfGivenListCategory(String listType) {
+		List<String> categoryList=new ArrayList<>();
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
 				"hiddenFieldTimeOut"));
@@ -86,13 +89,14 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 					waitForSpinner();
 					logMessage("Step : page number " + page
 							+ " is clicked\n");
+					categoryList=getMailingCategoryList("mailing list type");
 					if (verifyVisibility(listType))
 						break;
 				} while (page <= sizeOfPage);
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
 			}
-
+      return categoryList;
 	}
 
 	public void waitForSpinner() {
@@ -116,6 +120,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyTitleNameForMailingListPopUpIsDisplayed() {
+		wait.waitForPageToLoadCompletely();
 		Assert.assertTrue(isElementDisplayed("txt_titleName"),"Title is not displayed for mailing list pop up");
 		titleName=element("txt_titleName").getText();
 		logMessage("ASSERT PASSED : title is displayed as "+titleName);
@@ -238,7 +243,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 		changeWindow(1);
 		isElementDisplayed("btn_listTypeInComm.Pref",listType);
 		element("btn_listTypeInComm.Pref",listType).click();
-		logMessage("Step : list Type "+listType+" is expanded\n");
+		logMessage("STEP : List Type "+listType+" is expanded\n");
 	}
 	
 	public void verifyMailingListIsDisplayedInExpandedListType(String listName)
@@ -246,14 +251,6 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 		Assert.assertTrue(isElementDisplayed("txt_listInComm.Pref",listName),"Mailing list is not displayed in given list type");
 		logMessage("ASSERT PASSED : list name "+listName+"is displayed in given list type");
 	}
-	
-	
-//	public void verifyMailingListIsSubscribedOrUnsubscribedInExpandedListType(String listName,String unsubscribed_subscribed)
-//	{
-//		isElementDisplayed("btn_listTypeInComm.Pref", listType);
-//		element("btn_listTypeInComm.Pref", listType).click();
-//		logMessage("Step : list Type " + listType + "is expanded !!\n");
-//	}
 
 	public void verifyMailingListIsSubscribedOrUnsubscribedInExpandedListType(
 			String listName, String unsubscribed_subscribed) {
@@ -264,31 +261,60 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 			flag=true;
 		isElementDisplayed("chk_listInComm.Pref",listName);
 		Assert.assertEquals(element("chk_listInComm.Pref",listName).isSelected(), flag);
-		logMessage("ASSERT PASSED : mailing list is "+unsubscribed_subscribed);
+		logMessage("ASSERT PASSED : mailing list "+listName+" is "+unsubscribed_subscribed);
 	}
 	
-
-	public void verifyListsInGivenCategoryIsUnsubscribed(String listType)
+	public void verifyListsInGivenCategoryIsUnsubscribed(String listType,Map<String,List<String>> mailingListMap)
 	{
 		flag=true;
-		for(WebElement element:elements("list_allMailsInListType",listType))
+		int index=0;
+		for(WebElement element:elements("list_allSubscription",listType))
 		{
-			if(element.isSelected()){
-				Assert.fail("Mailing list is subscribed !!");
-				flag=false;
-				break;
+			index++;
+			if(mailingListMap.get(listType).contains(element.getText().trim())){
+				if(element("list_allMailsInListType",listType,String.valueOf(index)).isSelected()){
+					Assert.fail("Mailing list is subscribed !!");
+					flag=false;
+					break;
+				}
 			}
 		}
-		Assert.assertTrue(flag,"ASSERT FAILED : The mailing list is not unsubscribed\n");
-		logMessage("ASSERT PASSED : All the mailing lists are unsubscribed\n");
+		Assert.assertTrue(flag,"ASSERT FAILED : The mailing list "+listType+" is not unsubscribed\n");
+		logMessage("ASSERT PASSED : All the mailing lists under "+listType+" are unsubscribed\n");
 	}
 
-	public void verifyAllListIsSubscribed(List<String> list) {
+//	public void verifyAllListIsSubscribed(List<String> list) {
+//		changeWindow(1);
+//
+//		for (int i = 0; i < list.size(); i++) {
+//			expandListTypeInComm_Pref(list.get(i));
+//			verifyListsInGivenCategoryIsUnsubscribed(list.get(i));
+//		}
+//		logMessage("Step : Verified All Mailing List Is Unsubscribed");
+//		clickOnCancelButtonInCommunicationPreferencesPopUp();
+//	}
+	
+	public List<String> getMailingCategoryList(String tabName){
+		List<String>categoryList=new ArrayList<>();
+		isElementDisplayed("list_categoriesInMailingList");
+		System.out.println("----size is:"+elements("list_categoriesInMailingList").size());
+		for(int i=1;i<=elements("list_categoriesInMailingList").size();i++){
+			if(!element("txt_listData",tabName,String.valueOf(5),String.valueOf(i)).getText().
+					equals(" ")){
+				categoryList.add(element("txt_listData",tabName,String.valueOf(4),String.valueOf(i)).getText().trim());
+			}
+		}
+		System.out.println("list is"+categoryList);
+		return categoryList;
+	}
+	
+	public void verifyAllListIsUnsubscribedOnIweb(Map<String,List<String>> mailingListMap,List<String> list){
 		changeWindow(1);
-
-		for (int i = 0; i < list.size(); i++) {
-			expandListTypeInComm_Pref(list.get(i));
-			verifyListsInGivenCategoryIsUnsubscribed(list.get(i));
+		for(int i = 0; i < list.size(); i++){
+			if(mailingListMap.containsKey(list.get(i))){
+			expandListTypeInComm_Pref((list.get(i)));
+			verifyListsInGivenCategoryIsUnsubscribed(list.get(i),mailingListMap);
+			}
 		}
 		logMessage("Step : Verified All Mailing List Is Unsubscribed");
 		clickOnCancelButtonInCommunicationPreferencesPopUp();

@@ -22,11 +22,15 @@ txt_listInComm.Pref            xpath                         //label[text()='${u
 chk_listInComm.Pref            xpath                         //label[text()='${user name}']//../input
 btn_cancelInComm.Pref          id                            CommCancel
 arrow_selectListType           xpath                        ((//td[contains(text(),'${list type}')])[1]/preceding-sibling::td/a)[1]
-list_allMailsInListType        xpath                         //span[text()='${list type}']/../following-sibling::div//span/input
+list_allMailsInListType        xpath                        (//span[text()='${list type}']/../following-sibling::div//span/input)[${index}]
 list_categoriesInMailingList   xpath                        (//table[@class='table'])[1]//tr[position()>2]/td[4]
 list_pageLinks                 xpath                        //a[@class='DataFormChildDataGridPagerLink']
 link_page                      xpath                        //a[starts-with(text(),'${page no}')]
 img_spinner                    id                           __UPIMG
 chk_showOnlineInListCategory   id                           mlt_show_online_ext
 btn_cancelEditMailingList      id                           ButtonCancel
+txt_listData                   xpath                        (//span[text()='${tabName}']/parent::td/parent::tr/following-sibling::tr//tr[not(contains(@style,'none'))]//td[%{index1}])[#{index2}]
+table_rows                     xpath                        //table[@class='table']//tr
+list_allSubscription           xpath                        //span[text()='${mailingList}']/../following-sibling::div//span/label
+
 ============================================================================================================================
