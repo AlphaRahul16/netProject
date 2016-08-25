@@ -1163,6 +1163,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnTab(String tabName) {
+		wait.hardWait(2);
 		isElementDisplayed("link_tabsOnModule", tabName);
 		if (isBrowser("safari"))
 			element("link_tabsOnModule", tabName).click();
@@ -1637,8 +1638,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void selectBatchAndPaymentDetailsForCRMInventory(String batchName,
 			String paymentType, String paymentMethod, String cardNumber,
-			String expireDate, String cvvNumber, String checkNumber,
-			String price) {
+			String expireDate, String cvvNumber, String checkNumber) {
 
 		// wait.waitForPageToLoadCompletely();
 		holdExecution(2000);
@@ -1650,13 +1650,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		waitForSpinner();
 		selectOrderEntryInfo("PaymentType", paymentType);
-		if (price.contains("0.00")) {
-
-		} else {
-			waitForSpinner();
-			selectOrderEntryInfo("paymentMethod", paymentMethod);
-			waitForSpinner();
-			System.out.println("check number" + checkNumber);
+		waitForSpinner();
+		selectOrderEntryInfo("paymentMethod", paymentMethod);
+		waitForSpinner();
 
 			if (paymentMethod.equalsIgnoreCase("Visa/MC")) {
 				enterCardDetails("cardNumber", cardNumber);
@@ -1669,7 +1665,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				Assert.fail("ASSERT FAILED : Payment method " + paymentMethod
 						+ " is not correct \n");
 			}
-		}
 		selectBillingAddressIfNotPrePopulated();
 		clickOnSaveAndFinish();
 		handleAlert();
@@ -2508,9 +2503,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		memberDetails.add(customerContactId);
 		// memberDetails.add(getMemberWebLogin());
-		logMessage("Step : Customer or contact id fetched as "
+		logMessage("Step : Customer Contact Id fetched as "
 				+ customerContactId);
 		return memberDetails;
+	
 
 	}
 
@@ -4121,14 +4117,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		expandDetailsMenu("individual memberships");
 		navigateToInvoicePageForRenewedProduct();
 		expandDetailsMenu("invoices");
-		verifyTermStartDateAndEndDatesAreEmptyForAutoRenewal(AutoRenewalquery,
-				queryPageUrl);
-		// verifyPaymentStatusBeforeAutoRenewal(AutoRenewalquery,queryPageUrl);
-		logMessage("Step : Member selected in " + MemberTransferLoopCount
-				+ " attempt\n");
+		verifyTermStartDateAndEndDatesAreEmptyForAutoRenewal(AutoRenewalquery,queryPageUrl);
+		//verifyPaymentStatusBeforeAutoRenewal(AutoRenewalquery,queryPageUrl);
+	logMessage("Step : Member selected in " + MemberTransferLoopCount+1
+			+ " attempt\n");
+
 	}
 
 	public void verifyCentralizedOrderEntryPage(String title) {
+		wait.waitForPageToLoadCompletely();
 		Assert.assertEquals(title, getPageTitle());
 		logMessage("Step : title for Centralized Order Entry Page is verified as "
 				+ title);
@@ -4197,6 +4194,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
+
 	public String selectRandomProductForCRMInventory() {
 		selectMerchandise("merchandise");
 		switchToDefaultContent();
@@ -4211,6 +4209,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void selectRandomUserOnAscendingHeader(String headerName) {
 		_clickOnAvailableQuantityForSorting(headerName);
 		_clickOnAvailableQuantityForSorting(headerName);
+		clickOnRandomPage(10,1);
 		clickOnAnyRandomMember();
 		wait.hardWait(4);
 	}
@@ -4234,7 +4233,28 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("mbr_autoPay", value);
 		Assert.assertTrue(isElementDisplayed("mbr_autoPay", value),
 				"Auto Pay renewal image is not checked\n");
-		logMessage("Step : Auto Pay renewal image is checked\n");
+		logMessage("ASSERT PASSED : <b>AutoPay Renewal image is checked</b>\n");
+	}
+	
+	public void clickOnRandomPage(int max,int min) {      
+		try {
+			wait.resetImplicitTimeout(2);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("lnk_pages", "2");
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+			Random rand = new Random();
+			int randomNumber = rand.nextInt((max - min)+1) + min;
+			String randomNumberInString = String.valueOf(randomNumber);
+			isElementDisplayed("lnk_pages", randomNumberInString);
+			clickUsingXpathInJavaScriptExecutor(element("lnk_pages",
+					randomNumberInString));
+			logMessage("Step : page at the position of " + randomNumberInString
+					+ " is clicked in lnk_pages\n");
+		} catch (NoSuchElementException exp) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
+		}
 	}
 
 }

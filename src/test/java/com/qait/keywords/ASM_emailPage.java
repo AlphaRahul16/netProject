@@ -1,8 +1,13 @@
 package com.qait.keywords;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.tools.ant.taskdefs.condition.HasMethod;
+import org.eclipse.jetty.util.MultiMap;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -14,6 +19,7 @@ public class ASM_emailPage extends GetPage {
 	String pagename = "ASM_emailPage";
 	static boolean flag = false;
 	String[] productNames;
+	List<String> mailingCategories=new ArrayList<>();
 
 	public ASM_emailPage(WebDriver driver) {
 		super(driver, "ASM_emailPage");
@@ -29,10 +35,12 @@ public class ASM_emailPage extends GetPage {
 				list.add(element.getText());
 			}
 		}
+		System.out.println(list);
 		return list;
 	}
 
 	public void verifyMailingListInNewspaperHeading(String listName) {
+		wait.waitForPageToLoadCompletely();
 		Assert.assertTrue(isElementDisplayed("btn_newslettedHeading", listName),
 				"Mailing list is not displayed in NewsPaper heading");
 		logMessage("ASSERT PASSED : " + listName + " list is displayed in newspaper heading \n");
@@ -56,13 +64,17 @@ public class ASM_emailPage extends GetPage {
 
 	public void changeNewsLetterActionValue(String listName) {
 		isElementDisplayed("btn_newsletterAction", listName);
-		element("btn_newsletterAction", listName).click();
-
 		wait.hardWait(3);
-		if (element("btn_newsletterAction", listName).getText().equals("subscribe"))
-			logMessage("Step: The mailing list is now unsubscribed\n");
-		else
-			logMessage("Step : The mailing list is now subscribed\n");
+		if (element("btn_newsletterAction", listName).getText().equals("subscribe")){
+			element("btn_newsletterAction", listName).click();
+			logMessage("Step: Clicked on Subscribe button\n");
+			logMessage("Step: The mailing list is now subscribed\n");
+		}	
+		else{
+			element("btn_newsletterAction", listName).click();
+			logMessage("Step: Clicked on Unsubscribe button\n");
+			logMessage("Step : The mailing list is now unsubscribed\n");
+		}
 		handleAlert();
 
 	}
@@ -141,13 +153,12 @@ public class ASM_emailPage extends GetPage {
 	public void clickOnUnsubscribeAllButton() {
 		try {
 			isElementDisplayed("btn_unsubscribeAll");
-//			click(element("btn_unsubscribeAll"));
 			element("btn_unsubscribeAll").click();
 			logMessage("Step : unsubscribe all button is clicked\n");
 		} catch (Exception exp) {
 			clickOnFirstSubscribeButton();
+			wait.hardWait(1);
 			isElementDisplayed("btn_unsubscribeAll");
-//			click(element("btn_unsubscribeAll"));
 			element("btn_unsubscribeAll").click();
 			logMessage("Step : unsubscribe all button is clicked\n");
 		}
@@ -158,6 +169,7 @@ public class ASM_emailPage extends GetPage {
 //		click(element("btn_unsubscribeConfirm"));
 		element("btn_unsubscribeConfirm").click();
 		logMessage("Step : Unsubscribe all confirm button is clicked\n");
+		handleAlert();
 	}
 
 	public void verifyUnsubscribeOnclickingUnsubscribeAllButton() {
@@ -292,6 +304,41 @@ public class ASM_emailPage extends GetPage {
 			}
 			break;
 		}
+	}
+	
+	public Map<String,List<String>> getMailingTypesList(List<String> categoryList){
+		Map<String,List<String>> mailingListMap=new HashMap<String,List<String>>();
+		List<String> subscriptionList;
+		for(String list: categoryList){
+			if (list.equals("AACT")){
+				clickOnMailingCategory("American Association of Chemistry Teachers");
+			}
+			else
+			    clickOnMailingCategory(list);
+			subscriptionList=new ArrayList<>();
+			if(checkIfElementIsThere("heading_mailingLists")){
+			for(WebElement elem: elements("heading_mailingLists")){
+				subscriptionList.add(elem.getText());
+				mailingCategories.add(list);
+			}
+			logMessage("STEP: Mailing lists are present\n");
+			mailingListMap.put(list, subscriptionList);
+		  }
+			else{
+//				subscriptionList.add("");
+//				mailingListMap.put(list,subscriptionList);
+				logMessage("STEP: Mailing list is not present\n");
+			}					
+		}	
+		System.out.println("----map is:"+mailingListMap);
+		return mailingListMap;
+	}
+	
+	public void clickOnMailingCategory(String list){
+		wait.hardWait(2);
+		isElementDisplayed("btn_mailingCategory",list);
+		element("btn_mailingCategory",list).click();
+		logMessage("STEP: Clicked on "+list+" mailing type button");
 	}
 
 }

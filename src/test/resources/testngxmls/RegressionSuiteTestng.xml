@@ -98,14 +98,51 @@
 		</classes>
 	</test>
 
-
-	<test name="ACS SCARF Reporting" group-by-instances="true">
+	<test name="ACS Void Invoice Test" group-by-instances="true">
 		<classes>
-			<class name="com.qait.tests.ACS_Scarf_Reporting"></class>
+			<class name="com.qait.tests.ACS_Void_Invoice_Test"></class>
 		</classes>
 	</test>
 
+	<test name="ACS Address Change Terms Invoice Test">
+		<classes>
+			<class name="com.qait.tests.ACS_AddressChangeTermsInvoice_Test"></class>
+		</classes>
+	</test>
 
+	<test name="ACS Address Validation Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_Address_Validation_Test"></class>
+		</classes>
+	</test>
+
+	<test name="ACS_Scarf_Reporting" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_Scarf_Reporting">
+			</class>
+		</classes>
+	</test>
+
+	<test name="ACS_ScarfReviewing_Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_ScarfReviewing_Test">
+			</class>
+		</classes>
+	</test>
+
+	<test name="ACS PBA Test">
+		<classes>
+			<class name="com.qait.tests.ACS_PBA_Test">
+			</class>
+		</classes>
+	</test>
+
+	<test name="ACS Return Cancel Refund">
+		<classes>
+			<class name="com.qait.tests.ACS_ReturnCancelRefund">
+			</class>
+		</classes>
+	</test>
 
 
 </suite>

@@ -44,8 +44,8 @@ public class ACS_ScarfReviewing_Test extends BaseTest {
 		test.homePageIWEB.enterAuthentication(
 				YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
-		test.homePageIWEB
-				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
+		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
+//		test.acsScarfReviewPage.assignChapterName("Arkansas Tech University");
 	}
 
 	@Test

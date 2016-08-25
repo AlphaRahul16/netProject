@@ -722,6 +722,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		}
 
 	}
+	
 
 	public void verifyScarfReviewerCommentsAndStatus(String reviewerName, String reviewerComment,
 			String reviewerStatus) {
@@ -736,6 +737,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 				" reviewer " + reviewerName + " Status as " + reviewerStatus + " not present on iweb\n");
 		logMessage("ASSERT PASSED : Reviewer " + reviewerName + " Status as <b>" + reviewerStatus
 				+ "</b> is verified on iweb\n");
+
 	}
 
 	public void verifyStorePaymentInformationChildFormIsPopulated(String firstName) {

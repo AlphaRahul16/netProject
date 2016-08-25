@@ -1709,7 +1709,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	
 	public void addNewAddress(String organization,String dept,String address,String city,String postalCode,String state,List<String> addressType){
 		switchToFrame("iframe1");
-		hardWaitForIEBrowser(3);
+		hardWaitForIEBrowser(5);
 		enterNewAddressDetails("organization",organization);
 		enterNewAddressDetails("department",dept);
 		enterNewAddressDetails("address line 1",address);

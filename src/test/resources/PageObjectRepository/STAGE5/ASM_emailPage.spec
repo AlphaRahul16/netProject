@@ -30,4 +30,6 @@ txt_subscribeToAll                 xpath                               //div[@da
 btn_newsletterAction           xpath                         //div/h2[text()='${list name}']//..//following-sibling::div[4]/button
 btn_newslettedHeading          xpath                         //div/h2[text()='${list name}']
 list_mailingListCategory            css                       div[id*=category]>h3
+btn_mailingCategory                xpath                               //button[text()='${category}']
+heading_mailingLists               xpath                               //div[not(contains(@class,'isotope-hidden')) and contains(@id,'subscription')]//div[@class='newsletter-heading']//h2
 =======================================================================================================================================================================================
