@@ -258,8 +258,8 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(2);
 		isElementDisplayed("btn_saveButton");
-		clickUsingXpathInJavaScriptExecutor(element("btn_saveButton"));
-		// element("btn_saveButton").click();
+		// clickUsingXpathInJavaScriptExecutor(element("btn_saveButton"));
+		element("btn_saveButton").click();
 		logMessage("Step : click on save button\n");
 		waitForSpinner();
 	}
