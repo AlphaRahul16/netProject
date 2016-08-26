@@ -68,7 +68,7 @@ public class DateUtil {
 		  return calDate;
 		 }
 
-	public String[] getPreviousDate(String dateModule, int frequency) {
+	public static String[] getPreviousDate(String dateModule, int frequency) {
 		cal = Calendar.getInstance();
 		SimpleDateFormat s = new SimpleDateFormat("yyyyMMdd");
 		if (dateModule.equalsIgnoreCase("day")) {
