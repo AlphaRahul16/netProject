@@ -1212,7 +1212,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnSaveButton() {
 		isElementDisplayed("btn_saveButton");
-		element("btn_saveButton").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_saveButton"));
+		//element("btn_saveButton").click();
 		logMessage("Step : save button is clicked \n");
 	}
 
@@ -1682,6 +1683,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		addressType.add("work");
 		addressType.add("work 2");
 		addressType.add("work 3");
+		//waitForPageToLoad();
+		
 		isElementDisplayed("list_memberDetails",tabName);
 		System.out.println("size:"+elements("list_memberDetails",tabName).size());
 		for(i=1;i<elements("list_memberDetails",tabName).size();i++){
@@ -1723,8 +1726,6 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		selectAddressCheckboxes("billing");
 		selectAddressCheckboxes("do not validate");
 		clickOnSaveButton();
-		ACS_Address_Validation_Action obj=new ACS_Address_Validation_Action(driver);
-		obj.waitForPageReadyState();
 		switchToDefaultContent();
 	}
 	
@@ -1763,7 +1764,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		boolean flag=false;
 		waitForSpinner();
 		wait.waitForPageToLoadCompletely();
-//		wait.hardWait(2);
+		wait.hardWait(20);
 		isElementDisplayed("list_memberDetails",tabName);
 		for(i=1;i<elements("list_memberDetails",tabName).size();i++){
 			if(element("txt_memberDetailsForChapter",tabName,String.valueOf(4),String.valueOf(i)).getText().trim().

@@ -331,6 +331,7 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 		SimpleDateFormat sdf = new SimpleDateFormat("hh:mma");
 		String dateWithTimeSlabInString = sdf.format(dateAfterMinutesAdded);
 		enterStartTimeInCommitPreview(dateWithTimeSlabInString);
+		hardWaitForIEBrowser(5);
 		clickOnSaveButton();
 		wait.hardWait(5);
 		switchToDefaultContent();

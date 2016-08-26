@@ -27,7 +27,7 @@ public class Subscription_Fulfillment_Test extends BaseTest{
 	
 	@Test
 	public void Step00_Launch_Application_Under_Test() {
-		System.out.println("payment method " + paymentMethod);
+		//System.out.println("payment method " + paymentMethod);
 		test.homePageIWEB.enterAuthentication(
 				YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));

@@ -366,9 +366,9 @@ public class ASCSocietyGenericPage extends GetPage {
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("btn_detailsMenuAACT", menuName);
-			// clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT",
-			// menuName));
-			element("btn_detailsMenuAACT", menuName).click();
+			 clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT",
+			 menuName));
+			//element("btn_detailsMenuAACT", menuName).click();
 
 			logMessage("STEP : " + menuName + " bar is clicked to expand" + "\n");
 
