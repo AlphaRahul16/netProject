@@ -1638,8 +1638,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void selectBatchAndPaymentDetailsForCRMInventory(String batchName,
 			String paymentType, String paymentMethod, String cardNumber,
-			String expireDate, String cvvNumber, String checkNumber,
-			String price) {
+			String expireDate, String cvvNumber, String checkNumber) {
 
 		// wait.waitForPageToLoadCompletely();
 		holdExecution(2000);
@@ -1651,13 +1650,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		waitForSpinner();
 		selectOrderEntryInfo("PaymentType", paymentType);
-		if (price.contains("0.00")) {
-
-		} else {
-			waitForSpinner();
-			selectOrderEntryInfo("paymentMethod", paymentMethod);
-			waitForSpinner();
-			System.out.println("check number" + checkNumber);
+		waitForSpinner();
+		selectOrderEntryInfo("paymentMethod", paymentMethod);
+		waitForSpinner();
 
 			if (paymentMethod.equalsIgnoreCase("Visa/MC")) {
 				enterCardDetails("cardNumber", cardNumber);
@@ -1670,7 +1665,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				Assert.fail("ASSERT FAILED : Payment method " + paymentMethod
 						+ " is not correct \n");
 			}
-		}
 		selectBillingAddressIfNotPrePopulated();
 		clickOnSaveAndFinish();
 		handleAlert();
@@ -4139,6 +4133,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyCentralizedOrderEntryPage(String title) {
+		wait.waitForPageToLoadCompletely();
 		Assert.assertEquals(title, getPageTitle());
 		logMessage("Step : title for Centralized Order Entry Page is verified as "
 				+ title);
@@ -4249,7 +4244,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : <b>AutoPay Renewal image is checked</b>\n");
 	}
 	
-	public void clickOnRandomPage(int max,int min) {       //10,1
+	public void clickOnRandomPage(int max,int min) {      
 		try {
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
@@ -4260,12 +4255,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			int randomNumber = rand.nextInt((max - min)+1) + min;
 			String randomNumberInString = String.valueOf(randomNumber);
 			isElementDisplayed("lnk_pages", randomNumberInString);
-
 			clickUsingXpathInJavaScriptExecutor(element("lnk_pages",
 					randomNumberInString));
 			logMessage("Step : page at the position of " + randomNumberInString
 					+ " is clicked in lnk_pages\n");
-
 		} catch (NoSuchElementException exp) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);

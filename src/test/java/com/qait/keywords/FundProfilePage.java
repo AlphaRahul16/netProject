@@ -1,4 +1,7 @@
 package com.qait.keywords;
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,6 +11,7 @@ import java.util.Map;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 
+import com.itextpdf.text.log.SysoCounter;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DateUtil;
 
@@ -29,28 +33,51 @@ public class FundProfilePage extends ASCSocietyGenericPage
 		{
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
-		if(isElementDisplayed("btn_removeDonation"))
-		{
-		for(int i=0;i<elements("btn_removeDonation").size();)
-		{
-	    wait.waitForPageToLoadCompletely();
-	    wait.hardWait(2);
-	    if(isBrowser("ie")||isBrowser("internet explorer"))
-	    	clickUsingXpathInJavaScriptExecutor(elements("btn_removeDonation").get(0));
-	    else
-		    elements("btn_removeDonation").get(0).click();
-		Alert alert = driver.switchTo().alert();
-		alert.accept();
-		}
-		}
+			if(isElementDisplayed("btn_removeDonation"))
+			{
+				for(int i=0;i<elements("btn_removeDonation").size();)
+				{					
+					//wait.waitForPageToLoadCompletely();
+					wait.hardWait(2);
+					if(isBrowser("ie")||isBrowser("internet explorer"))
+					{
+						//clickUsingXpathInJavaScriptExecutor(elements("btn_removeDonation").get(0));
+						hoverClick(elements("btn_removeDonation").get(0));
+						logMessage("Step: Remove Button is clicked");
+						hardWaitForIEBrowser(5);
+						wait.waitForPageToLoadCompletely();
+						 try {
+							 	Alert alert = driver.switchTo().alert();
+								//alert.accept();
+							 	Robot robot = new Robot();	
+							 	robot.delay(2000);
+							 	robot.keyPress(KeyEvent.VK_ENTER);
+							 	robot.delay(2000);
+							 	robot.keyRelease(KeyEvent.VK_ENTER);
+						
+						 } catch (AWTException e) {
+						 e.printStackTrace();
+					 }
+						//handleAlert();
+					//switchToDefaultContent();
+					}
+					else
+					{
+						elements("btn_removeDonation").get(0).click();
+						logMessage("Step: Remove Button is clicked");
+				    	Alert alert = driver.switchTo().alert();
+						alert.accept();
+					}
+				}
+			}
 		}
 		catch(Exception e)
 		{
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		}
-		wait.resetImplicitTimeout(timeOut);
-		wait.resetExplicitTimeout(timeOut);
+		//wait.resetImplicitTimeout(timeOut);
+		//wait.resetExplicitTimeout(timeOut);
 		
 		logMessage("Step : All amounts inside suggested donation amounts are removed\n");
 	}
@@ -69,29 +96,33 @@ public class FundProfilePage extends ASCSocietyGenericPage
 
 	public int addDonationAmountFromDataSheet(Map<String, String> mapSheetData) {
 		int donationCount=getDonationAmountFromDataSheet(mapSheetData);
-		System.out.println(donationCount+"Donation count");
-		for(int i=0;i<donationCount;i++)
+		System.out.println(donationCount+"  Donation count");
+		for(int i=0;i<donationCount-1;i++)
 		{
-		if(mapSheetData.get("suggested_donation_amount"+i).length()!=0)
-		{
-		clickAddDonationButton("suggested donation amounts");
+			if(mapSheetData.get("suggested_donation_amount"+i).length()!=0)
+			{
+				clickAddDonationButton("suggested donation amounts");
 		
-		wait.hardWait(2);
-		switchToFrame("iframe1");
-		checkDefaultPriceCheckboxFromSpreadSheetValue(mapSheetData,toString().valueOf(i));
-		enterDonationDetails("suggested donation amount",mapSheetData,i);
-		enterDonationDetails("display order",mapSheetData,i);
-		System.out.println(mapSheetData.get("Default_price?"));
-		toString();
-		System.out.println(String.valueOf(i));
-		element("btn_save").click();
-		wait.hardWait(1);
-		switchToDefaultContent();
-		}
+				wait.hardWait(2);
+				switchToFrame("iframe1");
+				checkDefaultPriceCheckboxFromSpreadSheetValue(mapSheetData,toString().valueOf(i));
+				enterDonationDetails("suggested donation amount",mapSheetData,i);
+				enterDonationDetails("display order",mapSheetData,i);
+				System.out.println("Default price::"+mapSheetData.get("Default_price?"));
+				toString();
+				System.out.println("value of i "+String.valueOf(i));
+				isElementDisplayed("btn_save");
+				if(isBrowser("ie")|| (isBrowser("internet explorer")))
+					clickUsingXpathInJavaScriptExecutor(element("btn_save"));
+				else
+					element("btn_save").click();
+				wait.hardWait(1);
+				switchToDefaultContent();
+			}
 		}
 		return donationCount;
 	}
-
+	
 	private void enterDonationDetails(String Name, Map<String, String> mapSheetData,int number) {
 		isElementDisplayed("input_DonationDetails",Name);
 		if(Name.equals("suggested donation amount"))
