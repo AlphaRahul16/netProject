@@ -5,7 +5,7 @@ import static com.qait.automation.utils.YamlReader.getYamlValue;
 import java.util.Map;
 
 import org.testng.ITestResult;
-import org.testng.annotations.AfterClass;
+import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -630,6 +630,8 @@ public class ASM_AACT_Smoke {
 
 	@BeforeMethod
 	public void launchApplication() {
+		
+
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url = getYamlValue("app_url_AACT");
 		mapASM_AACTSmoke = YamlReader.getYamlValues("AACT_SmokeChecklistData");

@@ -38,6 +38,7 @@ csv-data-file:
   path_CCED_NCW_MemberNumberLookup: ./src/test/resources/TestDataLibrary/CCED_NCW_Data_Sheet.csv
   path_AwardNomination: ./src/test/resources/TestDataLibrary/AwardNominationDatasheet.csv
   path_GeneralAwardList: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument.txt
+  path_GeneralAwardList_2018: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument_2018.txt
   path_AwardsVoting: ./src/test/resources/TestDataLibrary/Awards_Voting_Data_Sheet.csv
   path_MYDTransfer: ./src/test/resources/TestDataLibrary/Multi_Year_Dues_Transfer_Sheet.csv
   path_OMR: ./src/test/resources/TestDataLibrary/OMR_Datasheet.csv
@@ -51,9 +52,8 @@ csv-data-file:
 excel-data-file:
   path_ScarfReporting: ./src/test/resources/TestDataLibrary/Scarf_Reporting_DataSheet.xls
 
-Authentication: 
-  userName: C00767
-  password: "fT267#3DN"
+  userName: C00569
+  password: "C6f96q%3Q"
   
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt

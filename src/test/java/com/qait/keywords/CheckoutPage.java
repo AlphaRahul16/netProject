@@ -63,6 +63,12 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		// cancelOutPopUp();
 	}
 
+	public void clickOnPayInINRButton() {
+		isElementDisplayed("btn_payInINR");
+		element("btn_payInINR").click();
+		logMessage("STEP : Pay In INR button is clicked at checkout page \n");
+	}
+
 	public void clickSubmitButton() {
 		isElementDisplayed("btn_submitBottom");
 		click(element("btn_submitBottom"));
@@ -653,6 +659,20 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 			logMessage("Image not present");
 
 		}
+	}
+
+	public void verifyHeadingAtCheckoutPage() {
+		isElementDisplayed("hd_confirmCurrencyPayment");
+		Assert.assertEquals(element("hd_confirmCurrencyPayment").getText()
+				.trim(), "Confirm Currency Payment");
+
+		logMessage("ASSERT PASSED : Confirm currency payment heading is displayed\n");
+	}
+
+	public void clickOnPaymentTypeButton(String paymentType) {
+		isElementDisplayed("btn_paymentType", paymentType);
+		element("btn_paymentType", paymentType).click();
+		logMessage("Step : click on " + paymentType + " button \n");
 	}
 
 }

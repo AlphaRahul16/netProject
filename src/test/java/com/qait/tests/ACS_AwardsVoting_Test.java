@@ -9,10 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.testng.ITestResult;
 import org.testng.Reporter;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -58,8 +55,7 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.individualsPage.enterFieldValue("Award Year",
 				DateUtil.getAnyDateForType("YYYY", 2, "year"));
 		test.individualsPage.clickGoButton();
-		// currentAwardName =
-		// "F. Albert Cotton Award in Synthetic Inorganic Chemistry:2018";
+		
 		currentAwardName = test.individualsPage
 				.selectRandomGeneralAward_AwardNomination(DataProvider
 						.getRandomSpecificLineFromTextFile(
@@ -71,41 +67,58 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		int votingRounds = Integer.parseInt(test.homePageIWEB.map()
 				.get("Winner in rounds").replace("Round", ""));
 		test.awardsPageAction.editAwardStartAndEndDate();
-		test.awardsPageAction.expandDetailsMenuIfAlreadyExpanded("award stages/rounds");
+		test.awardsPageAction
+				.expandDetailsMenuIfAlreadyExpanded("award stages/rounds");
 		test.awardsPageAction.uncheckClosedCheckbox_VotingClosed(
 				currentAwardName, "1");
 		test.awardsPageAction.collapseDetailsMenu("award stages/rounds");
 		test.individualsPage.navigateToEntrantsMenuOnHoveringMore();
 		numberOfNomineesInEntrants = test.awardsPageAction
 				.allACSNomineesInEntrants();
+		// //
+		test.awardsPageAction
+				.expandDetailsMenuIfAlreadyExpanded("acs award winner");
+		test.awardsPageAction.editWinnerNomineesFromJudges();
+		test.awardsPageAction.collapseDetailsMenu("acs award winner");
+		// ////
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("General");
-		test.awardsPageAction.expandDetailsMenuIfAlreadyExpanded("award stages/rounds");
+		test.awardsPageAction
+				.expandDetailsMenuIfAlreadyExpanded("award stages/rounds");
 		test.awardsPageAction.verifyOrAddRoundsPresents();
 		test.awardsPageAction.ClearStartDateAndEndDate_AllRounds(votingRounds);
 		startEndDate = test.awardsPageAction.editStartAndEndDate_Round(1);
 		test.awardsPageAction.clickOnSaveButton();
 		test.awardsPageAction.switchToDefaultContent();
+
 		test.awardsPageAction.collapseDetailsMenu("award stages/rounds");
+		
+		
 	}
 
 	public void VerifyNumberOfJudgesToAdd_GetJudgeDetails(String roundNumber) {
-		test.awardsPageAction.expandDetailsMenuIfAlreadyExpanded("award judges");
+		test.awardsPageAction
+				.expandDetailsMenuIfAlreadyExpanded("award judges");
+		
 		test.awardsPageAction.verifyNumberOfJudgesAndAdd(Integer
 				.parseInt(roundNumber));
 		nameOfJudges = test.awardsPageAction.getJudgesName(roundNumber);
 		test.awardsPageAction.collapseDetailsMenu("award judges");
-		test.awardsPageAction.expandDetailsMenuIfAlreadyExpanded("award stages/rounds");
+		test.awardsPageAction
+				.expandDetailsMenuIfAlreadyExpanded("award stages/rounds");
 		test.awardsPageAction.goToRecordForRound(roundNumber);
 		test.awardsPageAction.expandDetailsMenuIfAlreadyExpanded("award judge");
+		test.awardsPageAction.deleteJudges();
 		test.awardsPageAction.goToJudgeRecord(nameOfJudges.get(0));
-		test.awardsPageAction.expandDetailsMenuIfAlreadyExpanded("acs award judge score");
+		test.awardsPageAction
+				.expandDetailsMenuIfAlreadyExpanded("acs award judge score");
 		test.awardsPageAction.verifyACSAwardStageEntriesInThisStageIsEmpty();
 		test.awardsPageAction.navigateToBackPage();
 		test.awardsPageAction.expandDetailsMenuIfAlreadyExpanded("award judge");
 		rescusedJudges = test.awardsPageAction
 				.getRecusedStatusForRounds(roundNumber);
 		test.awardsPageAction.clickOnAwardsName_RoundName(currentAwardName);
-		test.awardsPageAction.expandDetailsMenuIfAlreadyExpanded("award judges");
+		test.awardsPageAction
+				.expandDetailsMenuIfAlreadyExpanded("award judges");
 		test.awardsPageAction.goToRecordForRound(roundNumber);
 		memberDetail = test.awardsPageAction.getJudgeDetails(nameOfJudges,
 				roundNumber);
@@ -166,8 +179,8 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 					.clickOnProfilePdfLinkAndVerifyPdfContent(listOfFirstAndLastName);
 			test.award_ewebPage
 					.verifyAwardName_viewProfileLink(currentAwardName);
-			test.award_ewebPage
-					.verifyNominationDocuments_viewProfileLink(currentAwardName);
+			// test.award_ewebPage
+			// .verifyNominationDocuments_viewProfileLink(currentAwardName);
 			test.award_ewebPage.clickOnCloseButton();
 			test.award_ewebPage.clickOnRankNominees_Save("Rank Nominees");
 			listOfNomineeJudges_judgeRanks = test.award_ewebPage
@@ -203,7 +216,8 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.individualsPage
 				.selectRandomGeneralAward_AwardNomination(currentAwardName
 						.trim());
-		test.awardsPageAction.expandDetailsMenuIfAlreadyExpanded("award stages/rounds");
+		test.awardsPageAction
+				.expandDetailsMenuIfAlreadyExpanded("award stages/rounds");
 		test.awardsPageAction.goToRecordForRound(String.valueOf(votingRounds));
 		test.awardsPageAction
 				.verifyUpdateScoreMessageOnClickingUpdateScore(test.homePageIWEB
@@ -220,7 +234,8 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.awardsPageAction.verifyNomineeWinnerStatus(votingRounds);
 
 		test.awardsPageAction.clickOnAwardsName_RoundName(currentAwardName);
-		test.awardsPageAction.expandDetailsMenuIfAlreadyExpanded("award stages/rounds");
+		test.awardsPageAction
+				.expandDetailsMenuIfAlreadyExpanded("award stages/rounds");
 		startEndDate = test.awardsPageAction
 				.editStartAndEnddateForRoundExceptOne(round > 1 ? ++votingRounds
 						: -1);
@@ -247,6 +262,7 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		app_url_Awards = getYamlValue("app_url_Awards");
+
 		test.launchApplication(app_url_IWEB);
 
 	}

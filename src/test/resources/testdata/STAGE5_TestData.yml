@@ -48,8 +48,8 @@ excel-data-file:
   
   
 Authentication: 
-  userName: c00616
-  password: "A9319161853@"
+  userName: C00767
+  password: "fT267#3DN"
 
 
 ASM_Data_File: 
@@ -77,10 +77,9 @@ creditCardDetails:
     Type: "BOA - Check"
     CheckNumber: 123456
 
-mailingListName: "SeleniumList"
-mailingListType: "Meetings"
-dateFormat : "MM/dd/YYYY"
-
+EmailCommunicationPreferences:
+    mailingListName: "SeleniumList"
+    mailingListType: "Meetings"
 
             
 reinstateUsers: 
@@ -557,15 +556,14 @@ ScarfReporting:
 PBA:
     queryName: "Selenium - Find Active Regular Member"
     
-<<<<<<< HEAD
-OMR:
-     queryName: "Selenium - Find Active Regular Member with Proforma"
+
      
 CMR_Inventory:
     queryName: "Selenium - Find Active Regular Member" 
-=======
 
->>>>>>> 2ae2d8e0ddaf43ff5cf42e0802d1f87c218efe05
+OMR:
+     queryName: "Selenium - Find Active Regular Member with Proforma"
+
 
 VoidWithAdjustment:
     queryName: "Selenium - test open invoices"
@@ -618,8 +616,6 @@ email:
     recepient3: kanikasharma@qainfotech.com
     
 CRM_Inventory:
-  batch: "Selenium Testing"
-  productCode: "209-116-1000"
   PaymentType: prepaid
   paymentMethod: "BOA - Check"
   checkNumber: "1111"

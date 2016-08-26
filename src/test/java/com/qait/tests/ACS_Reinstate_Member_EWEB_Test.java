@@ -6,11 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.SkipException;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -205,6 +202,9 @@ public class ACS_Reinstate_Member_EWEB_Test extends BaseTest {
 
 	@BeforeMethod
 	public void skip_tests_if_error_message() {
+		if (caseID != null)
+			Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+
 		String caseId = getKeyValue.getEduEmpInfo("CASEID");
 		if (!errorMap.containsKey(caseId)) {
 			errorMap.put(caseId, false);

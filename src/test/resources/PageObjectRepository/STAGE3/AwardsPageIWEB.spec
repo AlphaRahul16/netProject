@@ -67,4 +67,14 @@ inp_editDateInEditAwards                  xpath                //label[text()='$
 btn_plusIconNominee                       xpath                //span[text()="${tabName}"]/../following-sibling::td//a//i
 btn_searchNominee                         xpath                (//input[@class='LookUpHyperLink'])[${index}]
 inp_entryDate                             xpath                //label[text()='${field}:']/preceding-sibling::span//input
+hd_awards                                 xpath                //span[text()='Nominator details']
+inp_lookUp                                xpath                (//input[@class='DataFormTextBox LookUp'])[${index}]
+inp_lookUpSelect                          xpath                 //input[@class='DataFormTextBox LookUp LookupIsSelected']
+btn_deleteAwards                          xpath                //span[text()='award judges']/../../following-sibling::tr//a[@title='delete record']/i
+btnList_yellowPointerExpand               xpath                //img[@src='/NFStage3/iweb/images/img_folder_full.gif' and @alt='expand']
+btnList_yellowPointerCollapse             xpath                //img[@alt='collapse']
+btn_editJudges                            xpath               //img[@alt='collapse']/../../following-sibling::tr/td//tr[position()>1]//i[@class='iconpro-pencil']
+btn_editChild                             xpath                //span[text()='${childTabName}']/../../following-sibling::tr//tr[position()>1]//i[@class='iconpro-pencil']
+btn_deleteJudge                           id                   ButtonDelete
+drpdwn_selectWinnerCategory               id                   awe_aww_key
 ========================================================================================================================================

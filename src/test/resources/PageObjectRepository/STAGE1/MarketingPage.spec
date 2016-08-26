@@ -7,8 +7,8 @@ txt_titleName                  xpath                          //span[contains(te
 inptxt_mailingListName         xpath                         .//*[@id='mls_name']
 drpdwn_mailingListType         xpath                         .//*[@id='mls_type_code']//option[@value='${listType}']
 chk_showOnline                 id                             mls_show_online
-txt_startDate                  css                            input[id*='start_date_ext']
-txt_endDate                    css                            input[id*='end_date_ext']
+txt_startDate                  id                            start_date_ext
+txt_endDate                    id                            end_date_ext
 frame                          css                            #iframe1
 btn_save                       id                             ButtonSave
 txt_listName                   xpath                          //td[contains(text(),'${listName}')]
