@@ -675,4 +675,21 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		logMessage("Step : click on " + paymentType + " button \n");
 	}
 
+	public void selectOnPaymentMethodButton(String paymentMethod) {
+		isElementDisplayed("btn_paymentMethod", paymentMethod);
+		element("btn_paymentMethod", paymentMethod).click();
+		logMessage("Step : click on " + paymentMethod + " button \n");
+	}
+
+	public void checkIAgreeTermsAndCondition() {
+		checkCheckbox(element("chk_agreeTermsAndCondition"));
+		logMessage("Step : Check I agree Terms And Condition check box \n");
+
+	}
+
+	public void waitForLoaderToDisappear() {
+		logMessage("Step : wait for loader to disappear \n");
+		wait.waitForElementToDisappear(element("img_paymentLoader"));
+	}
+
 }
