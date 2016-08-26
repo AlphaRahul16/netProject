@@ -52,9 +52,8 @@ csv-data-file:
 excel-data-file:
   path_ScarfReporting: ./src/test/resources/TestDataLibrary/Scarf_Reporting_DataSheet.xls
 
-Authentication: 
-  userName: C00767
-  password: "fT267#3DN"
+  userName: C00569
+  password: "C6f96q%3Q"
   
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt
