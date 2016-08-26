@@ -692,4 +692,10 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		wait.waitForElementToDisappear(element("img_paymentLoader"));
 	}
 
+	public void clickOnContinueButton() {
+		isElementDisplayed("btn_payment");
+		element("btn_payment").click();
+		logMessage("Step : Click on Continue button\n");
+	}
+
 }

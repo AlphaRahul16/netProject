@@ -106,7 +106,7 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 		test.checkoutPage.selectOnPaymentMethodButton(test.checkoutPage.map()
 				.get("Payment Type"));
 		test.checkoutPage.checkIAgreeTermsAndCondition();
-		test.ContactInfoPage.clickContinue();
+		test.checkoutPage.clickOnContinueButton();
 	}
 
 	@Test(dependsOnMethods = "Step05_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page")
