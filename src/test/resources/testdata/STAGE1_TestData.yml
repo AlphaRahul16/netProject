@@ -38,15 +38,19 @@ csv-data-file:
   path_GeneralAwardList_2018: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument_2018.txt
   path_AwardsVoting: ./src/test/resources/TestDataLibrary/Awards_Voting_Data_Sheet.csv
   path_MYDTransfer: ./src/test/resources/TestDataLibrary/Multi_Year_Dues_Transfer_Sheet.csv
+
   data-separator: '\t'
   has-header: true
 
   data-separator: '\t'
   has-header: true
+  
+  excel-data-file:
+   path_GCS_OMR: ./src/test/resources/TestDataLibrary/GCS_OMR_Datasheet.xls
 
 Authentication: 
-  userName: C00569
-  password: "ACS2016qa!"
+  userName: C00616
+  password: "Sx!3M24GS"
   
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt
