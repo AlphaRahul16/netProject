@@ -42,6 +42,7 @@ public class TakeScreenshot {
 		String date_time = dateFormat.format(date);
 		File file = new File(System.getProperty("user.dir") + File.separator + screenshotPath + File.separator
 				+ this.testname + File.separator + date_time);
+		deleteAllScreenshotsBeforeFiveDays();
 		boolean exists = file.exists();
 		if (!exists) {
 			new File(System.getProperty("user.dir") + File.separator + screenshotPath + File.separator + this.testname
@@ -74,32 +75,32 @@ public class TakeScreenshot {
 			}
 		}
 	}
-
-	public void checkFilePresentInScreenshotFolder() {
+	
+	public void deleteAllScreenshotsBeforeFiveDays(){
 		File folder = new File("./test-output/screenshots/" + this.testname);
 		String[] fileNames = folder.list();
 		for (int i = 0; i < fileNames.length; i++) {
-			File file = new File(fileNames[i]);
+			File newFile=new File("./test-output/screenshots/" + this.testname+"/"+fileNames[i]);
 			String[] folderDateArray = fileNames[i].split("_", 4);
-			System.out.println("-----" + folderDateArray[0]);
-			System.out.println("-----" + folderDateArray[1]);
-			System.out.println("-----" + folderDateArray[2]);
-			String[] currentDateArray = DateUtil.getCurrentdateInStringWithGivenFormate("yyyy_MM_dd").split("_", 3);
-			System.out.println("----current date" + currentDateArray[2]);
-			if (folderDateArray[1].equals(currentDateArray[1])) {
-				System.out.println("same month");
-				deleteFolder(Integer.parseInt(folderDateArray[2]), Integer.parseInt(currentDateArray[2]), file);
-			}
+			String folderDateString=folderDateArray[0]+"_"+folderDateArray[1]+"_"+folderDateArray[2];
+			Date folderDate=DateUtil.convertStringToDate(folderDateString, "yyyy_MM_dd");
+			String[] calDate=DateUtil.getPreviousDate("day",5);
+			String previousDateString=calDate[0]+"_"+calDate[1]+"_"+calDate[2];
+			Date previousDate=DateUtil.convertStringToDate(previousDateString, "yyyy_MM_dd");
+			deleteAllPrevoiusDateScreenshotsFolder(folderDate,previousDate,newFile);
 		}
 	}
-
-	public void deleteFolder(int folderDate, int currentDate, File fileName) {
-		if (currentDate - 5 == folderDate) {
-			System.out.println("----file name:"+fileName);
-			File newFile=new File("./test-output/screenshots/" + this.testname+"/"+fileName);
-			System.out.println(newFile.exists());
-			newFile.delete();
-			System.out.println("---file deleted");
+	
+	public void deleteAllPrevoiusDateScreenshotsFolder(Date folderDate,Date previousDate,File fileName){
+		if(folderDate.before(previousDate)){
+			try {
+				System.out.println("Folder date:"+folderDate+"\n");
+				System.out.println("Prevoius date :"+previousDate+"\n");
+				FileUtils.deleteDirectory(fileName);
+				System.out.println("Screenshot Folder "+fileName.getName()+" is deleted\n");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
