@@ -38,5 +38,5 @@ btn_paymentMethod          xpath      //label[contains(.,'${payment method name}
 btn_paymentType          xpath      //input[@value='${button name}']
 img_paymentLoader        xpath      //img[contains(@src,'progress.gif')]
 chk_agreeTermsAndCondition   id          idAcceptFlag
-btn_payment                  id        btnPayment
+btn_paymentContinue          id        btnPayment
 ======================================================================================================================================

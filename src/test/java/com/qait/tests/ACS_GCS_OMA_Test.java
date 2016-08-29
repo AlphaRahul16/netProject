@@ -107,12 +107,19 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 				.get("Payment Type"));
 		test.checkoutPage.checkIAgreeTermsAndCondition();
 		test.checkoutPage.clickOnContinueButton();
+		// ////////////////
+
+		test.gcsPaymentPage.verifyPageTitleExact("Paynetz");
+		
+		
+		
+		// //////////////
+
 	}
 
 	@Test(dependsOnMethods = "Step05_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page")
 	public void Step06_Verify_Details_At_Confirmation_Page() {
 
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		memberDetail = test.confirmationPage.verifyMemberDetails(
 				test.homePageIWEB.map().get("City"), test.homePageIWEB.map()

@@ -86,12 +86,12 @@ public class BaseUi {
 		return driver.getCurrentUrl();
 	}
 
-	protected void verifyPageTitleExact() {
+	public void verifyPageTitleExact() {
 		String pageTitle = getPageTitleFromFile(pageName);
 		verifyPageTitleExact(pageTitle);
 	}
 
-	protected void verifyPageTitleExact(String expectedPagetitle) {
+	public void verifyPageTitleExact(String expectedPagetitle) {
 		if (((expectedPagetitle == "") || (expectedPagetitle == null) || (expectedPagetitle
 				.isEmpty()))
 				&& (getProperty("browser").equalsIgnoreCase("chrome"))) {
