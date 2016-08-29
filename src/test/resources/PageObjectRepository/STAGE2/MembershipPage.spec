@@ -168,7 +168,7 @@ heading_transferPackage                          xpath                         /
 btn_transferNow                                  id                            TransferMembershipButtonID
 btn_gotorenewal                                  xpath                       (//td[contains(text(),'Active Renewed-No Response')]/preceding-sibling::td[3]//i)[1]
 txt_PaymentStatus                                xpath                        //td[contains(text(),'${productName}')]//following-sibling::td[1]
-icon_up                                          xpath                         //span[contains(text(),'${value}')]/preceding-sibling::a/i[@class='icon-chevron-up']
+icon_up                                          xpath                         //span[starts-with(text(),'${value}')]/preceding-sibling::a/i[@class='icon-chevron-up']
 txt_productPackage                               xpath                        (//th/a)[2]/../../following-sibling::tr[1]//td[4]
 txt_ContactId                                     id                        F1_cst_id
 btn_transferMem									xpath							.//*[@id='F1_HYPERLINK_6']/img

@@ -34,6 +34,8 @@ list_AACTNationalMem     xpath    //td[@class='category']/span[1]
 select_currency          xpath      //select[contains(@id,'CurrencySelector_ddlCurrencies')]
 btn_payInINR            xpath   //input[contains(@id,'btnSubmit')]
 hd_confirmCurrencyPayment  xpath    //h4[text()='Confirm Currency Payment']
-btn_paymentType          xpath      //input[@value='${payment type}']
+btn_paymentMethod          xpath      //label[contains(.,'${payment method name}')]/input
+btn_paymentType          xpath      //input[@value='${button name}']
 img_paymentLoader        xpath      //img[contains(@src,'progress.gif')]
+chk_agreeTermsAndCondition   id          idAcceptFlag
 ======================================================================================================================================

@@ -25,9 +25,13 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 	}
 
 	public void addACSPublication(String publicationName) {
+		hardWaitForIEBrowser(10);
 		if (!publicationName.equalsIgnoreCase("")) {
 			clickOnACSPublication();
 			clickOnAddToMembership(publicationName);
+			if(isBrowser("ie") || isBrowser("internet explorer")){
+			verifyPrdouctAddition(publicationName);    
+			}
 			String str = getDivision_publicationScore(publicationName);
 			score_publicationName.add(str);
 			subtotalPublication_score = subtotalPublication_score
@@ -47,6 +51,9 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 		if (!divisionName.equalsIgnoreCase("")) {
 			clickOnACSTechnicalDivision();
 			clickOnAddToMembership(divisionName);
+			if(isBrowser("ie") || isBrowser("internet explorer")){
+			verifyPrdouctAddition(divisionName);  
+			}
 			String str = getDivision_publicationScore(divisionName);
 			score_divisionName.add(str);
 			subtotalTechnical_score = subtotalTechnical_score
@@ -64,6 +71,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 	public void verifyCENPresent(String caseId) {
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
 				"hiddenFieldTimeOut"));
+		hardWaitForIEBrowser(20);
 		if (map().get("C&EN Status").equalsIgnoreCase("Y")) {
 			try {
 				wait.resetImplicitTimeout(0);
@@ -82,7 +90,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 
 			if (map().get("CENtype").equalsIgnoreCase("print")) {
 				// wait.waitForPageToLoadCompletely();
-				hardWaitForIEBrowser(10);
+				hardWaitForIEBrowser(20);
 				isElementDisplayed("rad_CENType", "Print");
 				clickUsingXpathInJavaScriptExecutor(element("rad_CENType",
 						"Print"));
@@ -129,8 +137,14 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 	private void clickOnAddToMembership(String divisionName) {
 		hardWaitForIEBrowser(20);
 		isElementDisplayed("btn_addToMembership", divisionName);
+		if(isBrowser("ie")||isBrowser("internet explorer")){
+			element("btn_addToMembership",
+				divisionName).click();
+		}
+		else{
 		clickUsingXpathInJavaScriptExecutor(element("btn_addToMembership",
 				divisionName));
+		}
 		// click(element("btn_addToMembership", divisionName));
 		logMessage("Step:  " + divisionName
 				+ " btn_addToMembership is clicked\n");
@@ -174,6 +188,17 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 		addACSTechnicalDivision(map().get("Technical Division"));
 		addACSPublication(map().get("PublicationName"));
 
+	}
+	
+	public void verifyPrdouctAddition(String divisionName){
+		int count=0;
+		hardWaitForIEBrowser(5);
+	    //System.out.println("------added is present:"+checkIfElementIsThere("txt_productAdded",divisionName));
+		while(!checkIfElementIsThere("txt_productAdded",divisionName) && (count<6)){
+			clickOnAddToMembership(divisionName);
+			System.out.println("Step: "+divisionName+" is again clicked");
+			count++;
+		}
 	}
 
 }

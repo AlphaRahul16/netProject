@@ -54,14 +54,26 @@ public class GetPage extends BaseUi {
 	}
 
 	protected boolean checkIfElementIsThere(String eleString) {
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
+
 		boolean flag = false;
 		try {
+			wait.resetImplicitTimeout(0);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			if (webdriver.findElement(getLocator(eleString)).isDisplayed()) {
 				flag = true;
+				wait.resetImplicitTimeout(timeOut);
+				wait.resetExplicitTimeout(timeOut);
 			} else {
+				wait.resetImplicitTimeout(timeOut);
+				wait.resetExplicitTimeout(timeOut);
 				flag = false;
 			}
 		} catch (NoSuchElementException ex) {
+			wait.resetImplicitTimeout(timeOut);
+			wait.resetExplicitTimeout(timeOut);
 			flag = false;
 		}
 		return flag;
@@ -454,7 +466,7 @@ public class GetPage extends BaseUi {
 				+ "/membernumberlookup/";
 		String case2 = "https://ewebtest.acs.org/NF" + url + "/ccedlookup";
 		String case3 = "https://ewebtest.acs.org/NF" + url + "/ncwlookup";
-	
+
 		if (AppUrl.equalsIgnoreCase(case1)) {
 			skipTest.put("Step01_Verify_Email_Address_IWEB_Test", true);
 			skipTest.put("Step02_CCED_Lookup_Test", true);
