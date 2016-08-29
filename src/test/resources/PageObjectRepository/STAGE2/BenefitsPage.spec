@@ -13,4 +13,6 @@ txt_divisionScore              xpath    //span[text()='${divisionName}']/../../f
 txt_isCENPresent               xpath     //label[contains(text(),'How do you want to receive C&EN')]
 rad_CENType                    xpath      //label[contains(text(),'${cenType}')]/preceding-sibling::input
 rad_dues_cenPackage            xpath      //label[contains(text(),'${packageName}')]/preceding-sibling::input
+txt_productAdded               xpath      //span[text()='${divisionName}']/../../..//td//span[text()='Added']
+
 =================================================================================================================================
