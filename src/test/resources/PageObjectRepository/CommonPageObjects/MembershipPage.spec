@@ -32,6 +32,7 @@ txt_itemsAdded                                      xpath                   //a[
 list_batch                                          id                        inv_bat_key
 list_PaymentType                                     id                       inv_orig_trans_type
 list_paymentMethod                                   id                       pin_apm_key
+btn_go                                              id                           ButtonSearch
 inp_cardNumber                                       id                       pin_cc_number
 list_expireDate                                      id                       pin_cc_expire
 inp_checkNumber                                      id                       pin_check_number
@@ -81,8 +82,6 @@ list_memberStatus                               xpath                        //a
 list_joindate                                   xpath                         //td[contains(text(),'active')]/following-sibling::td[1]
 txt_effectiveDateForActive                       xpath                          //td[starts-with(text(),'Active')]/following-sibling::td[3]       
 inp_enterDetails                                xpath                         //span[contains(text(),'${detailName}')]/../following-sibling::td/input
-btn_go                                          id                           ButtonAskGo
-btn_goask                                       id                           ButtonAskGo
 btn_editContactInfo                              css                          #F1_HYPERLINK_1
 inp_editEmail                                    id                           eml_address
 btn_editNameAndAddress                           css                          #F1_HYPERLINK_2

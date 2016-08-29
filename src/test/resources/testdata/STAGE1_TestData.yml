@@ -45,8 +45,10 @@ csv-data-file:
   data-separator: '\t'
   has-header: true
   
-  excel-data-file:
-   path_GCS_OMR: ./src/test/resources/TestDataLibrary/GCS_OMR_Datasheet.xls
+excel-data-file:
+  path_ScarfReporting: ./src/test/resources/TestDataLibrary/Scarf_Reporting_DataSheet.xls
+  path_ScarfReviewing: ./src/test/resources/TestDataLibrary/Scarf_Reviewing.xls
+  path_GCS_OMR: ./src/test/resources/TestDataLibrary/GCS_OMR_Datasheet.xls
 
 Authentication: 
   userName: C00616
