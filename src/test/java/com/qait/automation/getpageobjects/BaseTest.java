@@ -4,7 +4,6 @@ import java.lang.reflect.Method;
 
 import org.testng.ITestResult;
 import org.testng.Reporter;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -26,7 +25,7 @@ public class BaseTest {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
 
-	 @AfterClass(alwaysRun = true)
+	 //@AfterClass(alwaysRun = true)
 	public void Close_Browser_Session() {
 		test.closeBrowserWindow();
 	}

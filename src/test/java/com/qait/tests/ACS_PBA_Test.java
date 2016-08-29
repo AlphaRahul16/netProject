@@ -5,9 +5,6 @@ import static com.qait.automation.utils.YamlReader.getYamlValue;
 import java.io.IOException;
 import java.util.List;
 
-import org.testng.ITestResult;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
