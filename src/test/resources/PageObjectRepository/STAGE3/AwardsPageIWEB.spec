@@ -77,4 +77,6 @@ btn_editJudges                            xpath               //img[@alt='collap
 btn_editChild                             xpath                //span[text()='${childTabName}']/../../following-sibling::tr//tr[position()>1]//i[@class='iconpro-pencil']
 btn_deleteJudge                           id                   ButtonDelete
 drpdwn_selectWinnerCategory               id                   awe_aww_key
+ img_valid								xpath					(//span[text()='${childTabName}']/../../following-sibling::tr//tr[position()>1]//img[@src='../images/img_chkmk.gif'])[${index}]
+
 ========================================================================================================================================
