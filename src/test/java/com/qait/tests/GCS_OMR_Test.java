@@ -101,7 +101,7 @@ public class GCS_OMR_Test extends BaseTest {
 		test.asm_OMR.navigateToCheckOutPageForGCSOMR();
 		test.asm_OMR.clickPayInINRButtonForOMR();
 		test.asm_OMR.clickProccedWithPaymentinINR("Proceed with payment in INR");
-		test.gcs_paymentPage.clickOnPaymentButtonNamedAs(mapGcsOMR.get("CreditCard_Type"));
+		test.gcsPaymentPage.clickOnPaymentButtonNamedAs(mapGcsOMR.get("CreditCard_Type"));
 		test.asm_OMR.clickContinueButtonToNavigateToBankPaymentPage();
 
 
@@ -114,7 +114,7 @@ public class GCS_OMR_Test extends BaseTest {
 
 	@Test
 	public void Step07_TC01_Bank_Payment_Page() {
-		test.gcs_paymentPage.EnterDetailsOnBankPaymentPageAndProcessFutherSimulation(mapGcsOMR.get("Mobile_Number"),mapGcsOMR.get("Email_Id"),
+		test.gcsPaymentPage.EnterDetailsOnBankPaymentPageAndProcessFutherSimulation(mapGcsOMR.get("Mobile_Number"),mapGcsOMR.get("Email_Id"),
 				mapGcsOMR.get("CreditCard_Number"),(memDetails.get(0).split(" ")[1] + " " + memDetails.get(0).split(" ")[0]),Integer.parseInt(mapGcsOMR.get("CreditCardExpiration_Month")),
 Integer.parseInt(mapGcsOMR.get("CreditCardExpiration_Year")),mapGcsOMR.get("CreditCard_CVV_Number"),mapGcsOMR.get("Bank_Name"));
 	}
