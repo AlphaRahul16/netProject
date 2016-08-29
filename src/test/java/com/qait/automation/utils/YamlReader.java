@@ -20,9 +20,11 @@ import com.qait.automation.getpageobjects.Tiers;
 public class YamlReader {
 
 	public static String yamlFilePath = "";
+	public static String newFilePath = "";
+	public static String commonFilePath = "";
 
 	public static String setYamlFilePath() {
-
+		commonFilePath = "src/test/resources/testdata/Common_TestData.yml";
 		String tier = "";
 		try {
 			if (System.getProperty("tier").contains("defaultTier")
@@ -78,9 +80,9 @@ public class YamlReader {
 		return yamlFilePath;
 	}
 
-	public static String getYamlValue(String token) {
-		try {
-			return getValue(token);
+	public static String getYamlValue(String token) {		
+		try{
+			return getValue(token);	
 		} catch (FileNotFoundException ex) {
 			System.out.println(ex.getMessage());
 			return null;
@@ -108,11 +110,20 @@ public class YamlReader {
 	}
 
 	private static String getValue(String token) throws FileNotFoundException {
-		Reader doc = new FileReader(yamlFilePath);
-		Yaml yaml = new Yaml();
-		Map<String, Object> object = (Map<String, Object>) yaml.load(doc);
-		return getMapValue(object, token);
-
+		Reader doc;
+		Yaml yaml;
+		Map<String, Object> object;
+			try{
+				doc = new FileReader(commonFilePath);
+				yaml = new Yaml();
+				object = (Map<String, Object>) yaml.load(doc);
+				return getMapValue(object, token);
+		}catch(NullPointerException e){
+			doc = new FileReader(yamlFilePath);
+			yaml = new Yaml();
+			object = (Map<String, Object>) yaml.load(doc);
+			return getMapValue(object, token);
+		}
 	}
 
 	public static String getMapValue(Map<String, Object> object, String token) {
