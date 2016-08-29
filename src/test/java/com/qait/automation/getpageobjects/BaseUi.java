@@ -40,6 +40,7 @@ import org.testng.Reporter;
 
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.SeleniumWait;
+import com.thoughtworks.selenium.webdriven.commands.IsElementPresent;
 
 
 
@@ -85,12 +86,12 @@ public class BaseUi {
 		return driver.getCurrentUrl();
 	}
 
-	protected void verifyPageTitleExact() {
+	public void verifyPageTitleExact() {
 		String pageTitle = getPageTitleFromFile(pageName);
 		verifyPageTitleExact(pageTitle);
 	}
 
-	protected void verifyPageTitleExact(String expectedPagetitle) {
+	public void verifyPageTitleExact(String expectedPagetitle) {
 		if (((expectedPagetitle == "") || (expectedPagetitle == null) || (expectedPagetitle
 				.isEmpty()))
 				&& (getProperty("browser").equalsIgnoreCase("chrome"))) {
@@ -664,6 +665,7 @@ public class BaseUi {
 	}
 
 	public void checkCheckbox(WebElement ele) {
+
 		if (!ele.isSelected()) {
 //			ele.click();
 			clickUsingXpathInJavaScriptExecutor(ele);

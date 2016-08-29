@@ -27,6 +27,7 @@ public class BaseTest {
 	}
 
 	 @AfterClass(alwaysRun = true)
+
 	public void Close_Browser_Session() {
 		test.closeBrowserWindow();
 	}

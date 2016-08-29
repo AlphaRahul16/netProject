@@ -6,16 +6,15 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.openqa.selenium.WebDriver;
+import org.testng.Reporter;
+
+import freemarker.template.TemplateException;
 import net.mindengine.galen.api.Galen;
 import net.mindengine.galen.reports.GalenTestInfo;
 import net.mindengine.galen.reports.HtmlReportBuilder;
 import net.mindengine.galen.reports.model.LayoutReport;
 import net.mindengine.galen.validation.ValidationError;
-
-import org.openqa.selenium.WebDriver;
-import org.testng.Reporter;
-
-import freemarker.template.TemplateException;
 
 public class LayoutValidation {
 

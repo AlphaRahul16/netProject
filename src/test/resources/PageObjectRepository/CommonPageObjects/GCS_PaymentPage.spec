@@ -8,6 +8,5 @@ inp_billingInfo                                css                             i
 inp_paymentDetails                             xpath                           //label[contains(text(),'${value}')]/following-sibling::div/input
 drpdwn_expMonth                                css                             #ccMonth
 drpdwn_expYear                                 css                             #ccYear
-btn_payNow                                     css                             #paymentProcess
-               
+btn_payNow                                     css                             #paymentProcess       
 ================================================================================================================================

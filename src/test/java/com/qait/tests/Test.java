@@ -11,13 +11,14 @@ import com.qait.automation.getpageobjects.BaseUi;
 
 
   
-class Test extends BaseUi{  
-   
-	protected Test(WebDriver driver, String pageName) {
+class Test{  
+	/*protected Test(WebDriver driver, String pageName) {
 		super(driver, pageName);
 		// TODO Auto-generated constructor stub
-	}
-
+	}*/
+	
+	
+/*
 	public void demoTest(){
 	WebDriver driver=new FirefoxDriver();
 	
@@ -35,5 +36,5 @@ class Test extends BaseUi{
 	while(!((JavascriptExecutor) driver).executeScript("document.readyState").equals("complete")){
 		System.out.println("waiting for page to load");
 	} 
-	}
+	}*/
 }  

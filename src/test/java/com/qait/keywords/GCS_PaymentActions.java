@@ -8,6 +8,7 @@ public class GCS_PaymentActions extends GetPage {
 	WebDriver driver;
 	static String url;
 	static String pagename = "GCS_PaymentPage";
+
 	
 	
 	public GCS_PaymentActions(WebDriver driver) {
@@ -15,10 +16,11 @@ public class GCS_PaymentActions extends GetPage {
 		this.driver = driver;
 	}	
 	
-	public void clickOnPaymentButtonNamedAs(String buttonName)
-	{
-		isElementDisplayed("rad_paymentType",buttonName);
-		element("rad_paymentType",buttonName).click();
+
+
+	public void clickOnPaymentButtonNamedAs(String buttonName) {
+		isElementDisplayed("btn_payment", buttonName);
+		element("btn_payment", buttonName).click();
 		wait.waitForPageToLoadCompletely();
 		logMessage("Step : payment type is selected as "+buttonName+" \n");
 	}
@@ -53,6 +55,7 @@ public class GCS_PaymentActions extends GetPage {
 		logMessage("Step : Expiration Months is entered as "+yearValue);
 	}
 	
+
 	public void clickOnPayNowButton()
 	{
 		isElementDisplayed("btn_payNow");
@@ -90,8 +93,6 @@ public class GCS_PaymentActions extends GetPage {
 	}
 	
 	
-	
-
 	
 
 }

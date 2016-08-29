@@ -34,6 +34,7 @@ public class COE_Inventory_Test extends BaseTest {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		test.homePageIWEB.addValuesInMap("COE_Inventory", caseID);
 		app_url_IWEB = getYamlValue("app_url_IWEB");
+		System.out.println("App URL Iweb::"+app_url_IWEB);
 	}
 
 	@Test
