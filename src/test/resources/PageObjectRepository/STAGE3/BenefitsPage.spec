@@ -2,6 +2,7 @@ Page Title: education and employment
 
 #Object Definitions
 =================================================================================================================================
+<<<<<<< HEAD
 btn_ACStechnicalDivision        xpath    //input[@value='Add ACS Technical Division']
 btn_addToMembership            xpath     //span[text()='${divisionName}']/../../preceding-sibling::td/input[3]
 btn_save                       xpath     //input[@id='btnSave']

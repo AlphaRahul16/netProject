@@ -11,7 +11,6 @@ import java.util.Map;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 
-import com.itextpdf.text.log.SysoCounter;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DateUtil;
 
