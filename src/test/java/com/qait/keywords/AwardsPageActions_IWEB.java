@@ -28,7 +28,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	int timeOut, hiddenFieldTimeOut;
 	String newJudgeName;
 	List<String> listOfJudgesForRescused = new ArrayList<String>();
-	static int j = 1;
+	static int j = 0;
 	Map<String, Integer> nomineesWithRankOne = new HashMap<>();
 	List<String> listOfAcsNomineesNotInStage = new ArrayList<String>();
 
@@ -302,10 +302,10 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		System.out.println("nominees size :" + nomineesNames.size());
 		int sizeOfNominee = nomineesNames.size();
-		if (sizeOfNominee < 10) {
-			int numberOfNomineeToAdd = 10 - sizeOfNominee;
+		if (sizeOfNominee < 5) {
+			int numberOfNomineeToAdd = 5 - sizeOfNominee;
 			for (int i = 1; i <= numberOfNomineeToAdd; i++) {
-				// addNominees("acs nominee/ entry");
+				addNominees("acs nominee/ entry");
 			}
 
 			// Assert.fail("ASSERT FAILED : Nominees Size is not greater than
@@ -349,7 +349,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	public boolean verifyValidField(int j) {
 		// element("img_valid","acs award
 		// winner",String.valueOf(j)).isDisplayed();
-		if (element("img_valid", "acs award winner", String.valueOf(j)).isDisplayed()) {
+		if (element("img_valid", "acs award winner", String.valueOf(j+1)).isDisplayed()) {
 			logMessage("Valid image is displayed \n");
 			return true;
 		} else
@@ -429,28 +429,25 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnRandomPage() {
-		// try {
-		wait.waitForPageToLoadCompletely();
-		wait.resetImplicitTimeout(2);
-		wait.resetExplicitTimeout(hiddenFieldTimeOut);
-		isElementDisplayed("list_pages");
-		wait.resetImplicitTimeout(timeOut);
-		wait.resetExplicitTimeout(timeOut);
-		int max = elements("lnk_pages").size() - 1, min = 2;
-		Random rand = new Random();
-		int randomNumber = rand.nextInt((max - min) + 1) + min;
-		// int randomNumber = (int) Math.random();
-		String randomNumberInString = String.valueOf(randomNumber);
-		isElementDisplayed("lnk_pages", randomNumberInString);
+		
+		if(checkIfElementIsThere("list_pages")){
+			
+			System.out.println("size of links:"+elements("lnk_pages").size());
+			int max = elements("lnk_pages").size() - 1, min = 2;
+			Random rand = new Random();
+			int randomNumber = rand.nextInt((max - min) + 1) + min;
+			
+			String randomNumberInString = String.valueOf(randomNumber);
+			isElementDisplayed("lnk_pages", randomNumberInString);
 
-		clickUsingXpathInJavaScriptExecutor(element("lnk_pages", randomNumberInString));
-		logMessage("Step : page at the position of " + randomNumberInString + " is clicked in lnk_pages\n");
-		// } catch (NoSuchElementException exp) {
-		// System.out
-		// .println("=======random page is not clicked on not present");
-		// wait.resetImplicitTimeout(timeOut);
-		// wait.resetExplicitTimeout(timeOut);
-		// }
+			clickUsingXpathInJavaScriptExecutor(element("lnk_pages", randomNumberInString));
+			logMessage("Step : page at the position of " + randomNumberInString + " is clicked in lnk_pages\n");
+		}
+		else{
+			logMessage("Info: Page links are not present\n");
+		}
+		
+		
 	}
 
 	public void enterDetailsToAddRound_Judge(String detailName, String detailValue) {
@@ -573,16 +570,24 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 				System.out.println("i-1 :" + i);
 				clickUsingXpathInJavaScriptExecutor(elements("btnList_yellowPointerExpand").get(i - 1));
 				logMessage("Step : expand yellow pointer\n");
-				for (WebElement ele : elements("btn_editJudges")) {
-					wait.hardWait(1);
-					ele.click();
+				wait.hardWait(2);
+				isElementDisplayed("btn_editJudges");
+				
+				int sizeOfEditJudges= elements("btn_editJudges").size();
+				System.out.println("Size of edit judges: "+sizeOfEditJudges);
+				for(int j=0;j<sizeOfEditJudges;j++){
+				//for (WebElement ele : elements("btn_editJudges")) {
+					wait.hardWait(2);
+				//	ele.click();
+					isElementDisplayed("btn_editJudges");
+					elements("btn_editJudges").get(0).click();
 					switchToFrame("iframe1");
 					logMessage("Step : click to edit judge");
 					clickOnDeleteJudgeButton();
 					waitForAlertToAppear();
 					switchToDefaultContent();
-					clickUsingXpathInJavaScriptExecutor(elements("btnList_yellowPointerExpand").get(i - 2));
-					logMessage("Step : expand yellow pointer\n");
+					/*clickUsingXpathInJavaScriptExecutor(elements("btnList_yellowPointerExpand").get(i - 2));
+					logMessage("Step : expand yellow pointer\n");*/
 				}
 				isElementDisplayed("btnList_yellowPointerCollapse");
 				elements("btnList_yellowPointerCollapse").get(0).click();
