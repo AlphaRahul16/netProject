@@ -86,12 +86,12 @@ public class BaseUi {
 		return driver.getCurrentUrl();
 	}
 
-	protected void verifyPageTitleExact() {
+	public void verifyPageTitleExact() {
 		String pageTitle = getPageTitleFromFile(pageName);
 		verifyPageTitleExact(pageTitle);
 	}
 
-	protected void verifyPageTitleExact(String expectedPagetitle) {
+	public void verifyPageTitleExact(String expectedPagetitle) {
 		if (((expectedPagetitle == "") || (expectedPagetitle == null) || (expectedPagetitle
 				.isEmpty()))
 				&& (getProperty("browser").equalsIgnoreCase("chrome"))) {
@@ -308,6 +308,7 @@ public class BaseUi {
 		Select sel = new Select(el);
 		try {
 			sel.selectByVisibleText(text);
+			logMessage("Step : Selected option is "+text);
 		} catch (StaleElementReferenceException ex1) {
 			// wait.waitForElementToBeVisible(el);
 			// scrollDown(el);

@@ -693,8 +693,8 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnContinueButton() {
-		isElementDisplayed("btn_payment");
-		element("btn_payment").click();
+		isElementDisplayed("btn_paymentContinue");
+		element("btn_paymentContinue").click();
 		logMessage("Step : Click on Continue button\n");
 	}
 

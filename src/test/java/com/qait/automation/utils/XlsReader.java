@@ -393,7 +393,7 @@ public class XlsReader {
 			System.out.println("Number of Column ::" + header.getPhysicalNumberOfCells());
 			for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
 				System.out.println("  " + header.getCell(i));
-				if (header.getCell(i).getStringCellValue().equalsIgnoreCase("Execute")) {
+				if (header.getCell(i).getStringCellValue().contains("Execute")) {
 					flag = i;
 					break;
 				}
@@ -404,7 +404,7 @@ public class XlsReader {
 			try {
 				for (int i = 1; i <= rowCount; i++) {
 					Row row = sheet.getRow(i);
-					if (row.getCell(flag).getStringCellValue().trim().equalsIgnoreCase("y")) {
+					if (row.getCell(flag).getStringCellValue().trim().contains("Y")) {
 						// hm.put(i,
 						// row.getCell(flag).getStringCellValue().trim());
 						rowNumList.add(i);

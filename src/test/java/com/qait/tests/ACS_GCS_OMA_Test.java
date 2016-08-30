@@ -107,12 +107,35 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 				.get("Payment Type"));
 		test.checkoutPage.checkIAgreeTermsAndCondition();
 		test.checkoutPage.clickOnContinueButton();
+		// ////////////////
+
+		test.gcsPaymentPage.verifyPageTitleExact("Paynetz");
+
+		// //////////////
+
 	}
 
 	@Test(dependsOnMethods = "Step05_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page")
+	public void Step06_TC01_Bank_Payment_Page() {
+		test.gcsPaymentPage
+				.EnterDetailsOnBankPaymentPageAndProcessFutherSimulation(
+						test.gcsPaymentPage.map().get("Payment Type"),
+						test.gcsPaymentPage.map().get("Mobile_Number"),
+						test.gcsPaymentPage.map().get("Email_Id"),
+						test.gcsPaymentPage.map().get("Card Number"),
+						test.gcsPaymentPage.map().get("FirstName") + " "
+								+ test.gcsPaymentPage.map().get("LastName"),
+						test.gcsPaymentPage.map().get(
+								"CreditCardExpiration_Month"),
+						test.gcsPaymentPage.map().get(
+								"CreditCardExpiration_Year"),
+						test.gcsPaymentPage.map().get("CVV_Number"),
+						test.gcsPaymentPage.map().get("Bank_Name"));
+	}
+
+	@Test(dependsOnMethods = "Step06_TC01_Bank_Payment_Page")
 	public void Step06_Verify_Details_At_Confirmation_Page() {
 
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		memberDetail = test.confirmationPage.verifyMemberDetails(
 				test.homePageIWEB.map().get("City"), test.homePageIWEB.map()
