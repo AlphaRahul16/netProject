@@ -25,15 +25,15 @@ public class GCS_PaymentActions extends ASCSocietyGenericPage {
 	public void fillBillingInformationAs(String placeholdername,
 			String placeholdervalue) {
 		isElementDisplayed("inp_billingInfo", placeholdername);
-		element("inp_billingInfo").click();
-		element("inp_billingInfo").sendKeys(placeholdervalue);
+		element("inp_billingInfo",placeholdername).click();
+		element("inp_billingInfo",placeholdername).sendKeys(placeholdervalue);
 		logMessage("Step : Billing information in " + placeholdername
 				+ " is entered as " + placeholdervalue);
 	}
 
 	public void fillPaymentDetailsFor(String name, String value) {
 		isElementDisplayed("inp_paymentDetails", name);
-		element("inp_billingInfo").click();
+		element("inp_paymentDetails", name).click();
 		element("inp_paymentDetails", name).sendKeys(value);
 		logMessage("Step : Payment details in " + name + " is entered as "
 				+ value);
@@ -53,7 +53,7 @@ public class GCS_PaymentActions extends ASCSocietyGenericPage {
 
 	public void clickOnPayNowButton() {
 		isElementDisplayed("btn_payNow");
-		element("btn_payment").click();
+		element("btn_payNow").click();
 		logMessage("Step : Pay Now button is clicked\n");
 		wait.waitForPageToLoadCompletely();
 	}
@@ -75,25 +75,25 @@ public class GCS_PaymentActions extends ASCSocietyGenericPage {
 		fillBillingInformationAs("E-Mail Id", EmailId);
 
 		if (paymentType.equalsIgnoreCase("Credit Card")) {
-			fillPaymentDetailsFor("Name on Card", cardNumber);
+			fillPaymentDetailsFor("Name on Card", NameOnCard);
 			enterExpirationMonth(expirationMonth);
 			enterExpirationYear(expirationYear);
 			fillPaymentDetailsFor("CVV / CVV2", cvv);
-			fillPaymentDetailsFor("Bank Name", cvv);
+			fillPaymentDetailsFor("Bank Name", BankName);
 			fillPaymentDetailsFor("Credit Card Number", cardNumber);
 		} else if (paymentType.equalsIgnoreCase("Debit Card")) {
-			fillPaymentDetailsFor("Name on Card", cardNumber);
+			fillPaymentDetailsFor("Name on Card", NameOnCard);
 			enterExpirationMonth(expirationMonth);
 			enterExpirationYear(expirationYear);
 			fillPaymentDetailsFor("CVV / CVV2", cvv);
-			fillPaymentDetailsFor("Bank Name", cvv);
+			fillPaymentDetailsFor("Bank Name", BankName);
 			fillPaymentDetailsFor("Debit Card Number", cardNumber);
 		} else if (paymentType.equalsIgnoreCase("Net Banking")) {
 
 		}
 
-		clickOnPayNowButton();
-		clickSimulateTransactionButton();
+//		clickOnPayNowButton();
+//		clickSimulateTransactionButton();
 
 	}
 

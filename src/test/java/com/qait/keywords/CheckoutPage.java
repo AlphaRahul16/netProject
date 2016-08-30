@@ -4,6 +4,7 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.util.Calendar;
 
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -689,7 +690,12 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 
 	public void waitForLoaderToDisappear() {
 		logMessage("Step : wait for loader to disappear \n");
-		wait.waitForElementToDisappear(element("img_paymentLoader"));
+		try {
+			wait.waitForElementToDisappear(element("img_paymentLoader"));
+		} catch (StaleElementReferenceException stlRef) {
+			logMessage("Step : payment loader is disappear\n");
+		}
+
 	}
 
 	public void clickOnContinueButton() {
