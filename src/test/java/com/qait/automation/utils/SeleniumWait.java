@@ -103,7 +103,7 @@ public class SeleniumWait {
 
 	public void waitForElementToDisappear(WebElement element) {
 		int i = 0;
-		resetImplicitTimeout(2);
+		resetImplicitTimeout(8);
 		try {
 			while (element.isDisplayed() && i <= timeout) {
 				hardWait(1);

@@ -55,4 +55,12 @@ txt_renewalthankyoumsg                      xpath                               
 btn_applyForEmeritusNo                      css                                      input[id*='btnNo']
 chk_Autorenewal                             css                                      input[id*='chkAutoRenewal']
 txt_ProductTax                              xpath                                    //span[text()='Tax']/../following-sibling::td//span
+drpdwn_currencyINR                          css                                      select[id*='Currencies']
+btn_YesSurePopUp                            xpath                                    //span[contains(text(),"${value}")]
+hd_confirmCurrencyPayment                   xpath                                    //h4[text()='Confirm Currency Payment']
+img_paymentLoader                           css                                     img[src*='submit_progress.gif']
+btn_RemoveMembership                        xpath                                     //a[contains(text(),'${value}')]
+chkbox_termsAndCondition                    css                                       #idAcceptFlag
+btn_continueToPayment                       css                                       #btnPayment
+
 =================================================================================================================================================

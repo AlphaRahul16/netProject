@@ -93,21 +93,31 @@ public class YamlReader {
 		return getYamlValue(token);
 	}
 
-	public static Map<String, Object> getYamlValues(String token) throws FileNotFoundException {
-		Reader doc;
+	public static Map<String, Object> getYamlValues(String token){
+		Reader doc = null;
 		Yaml yaml;
 		Map<String, Object> object;
-		try{
-			doc = new FileReader(commonFilePath);
-			yaml = new Yaml();
-			object = (Map<String, Object>) yaml.load(doc);
-			return parseMap(object, token + ".");
-		}catch(NullPointerException e){
-			doc = new FileReader(yamlFilePath);
-			yaml = new Yaml();
-			object = (Map<String, Object>) yaml.load(doc);
-			return parseMap(object, token + ".");
-		}
+			try{
+				try {
+					doc = new FileReader(commonFilePath);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				yaml = new Yaml();
+				object = (Map<String, Object>) yaml.load(doc);
+				return parseMap(object, token + ".");
+			}catch (NullPointerException e) {
+				try {
+					doc = new FileReader(yamlFilePath);
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				yaml = new Yaml();
+				object = (Map<String, Object>) yaml.load(doc);
+				return parseMap(object, token + ".");
+			}
 		/*try {
 			doc = new FileReader(yamlFilePath);
 		} catch (FileNotFoundException ex) {
@@ -120,6 +130,9 @@ public class YamlReader {
 		// instance in one place
 		Map<String, Object> object = (Map<String, Object>) yaml.load(doc);*/
 		//return parseMap(object, token + ".");
+	/*	Map<String, Object> object = (Map<String, Object>) yaml.load(doc);
+		return parseMap(object, token + ".");*/
+
 	}
 
 	private static String getValue(String token) throws FileNotFoundException {

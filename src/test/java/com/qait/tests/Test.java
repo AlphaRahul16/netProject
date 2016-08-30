@@ -6,13 +6,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.qait.automation.getpageobjects.BaseUi;
-
-
-
-
-  
+ 
 class Test{  
+   
 	/*protected Test(WebDriver driver, String pageName) {
+>>>>>>> 0526b45ed3b886c391ab3ab918a074ba1207744a
 		super(driver, pageName);
 		// TODO Auto-generated constructor stub
 	}*/

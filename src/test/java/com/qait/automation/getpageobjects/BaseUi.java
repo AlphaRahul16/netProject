@@ -308,6 +308,7 @@ public class BaseUi {
 		Select sel = new Select(el);
 		try {
 			sel.selectByVisibleText(text);
+			logMessage("Step : Selected option is "+text);
 		} catch (StaleElementReferenceException ex1) {
 			// wait.waitForElementToBeVisible(el);
 			// scrollDown(el);
