@@ -6,11 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.qait.automation.getpageobjects.BaseUi;
-
-
-
-
-  
+ 
 class Test extends BaseUi{  
    
 	protected Test(WebDriver driver, String pageName) {
