@@ -183,6 +183,18 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		}
 		switchToDefaultContent();
 	}
+	
+	public void clickProccedWithPaymentinINR(String buttontext)
+	{
+		wait.waitForPageToLoadCompletely();
+	switchToFrame("eWebFrame");
+	isElementDisplayed("rad_undergraduate", buttontext);
+	element("rad_undergraduate", buttontext).click();
+	logMessage("Step : button "+buttontext+" is clicked\n");
+	wait.waitForPageToLoadCompletely();
+		
+	}
+	
 	public void selectUndergradutaeSchoolStatus(String value)
 	{
 		try
@@ -269,6 +281,15 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		clickOnContinueButton();
 		switchToDefaultContent();
 
+	}
+	
+	public void navigateToCheckOutPageForGCSOMR()
+	{
+		switchToDefaultContent();
+		switchToFrame("eWebFrame");
+		checkEula();
+		clickOnContinueButton();
+		switchToDefaultContent();
 	}
 	
 
@@ -377,7 +398,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(14);
 		executeJavascript("document.getElementById('eWebFrame').contentWindow.document.getElementById('btnSubmitOmrPaymentTop').click()");
-		logMessage("STEP : click on submit button at txt_errorMessage\n");
+		logMessage("STEP : click on Pay button at Top \n");
 	}
 
 	public void verifyNavigationPage(String navigationPageName) {
@@ -497,6 +518,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	
 	private void clickCENPrintButton() {
 		switchToEwebRenewalFrame();
+	    wait.waitForElementToBeClickable(element("rad_printCEN"));
 		isElementDisplayed("rad_printCEN");
 		element("rad_printCEN").click();
 		logMessage("Step : \"I want to receive C&EN print\" button clicked\n");
@@ -508,6 +530,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	{
 		if(receivethrough.equalsIgnoreCase("print"))
 		{
+		
 			clickCENPrintButton();
 			
 		}
@@ -542,13 +565,27 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	}
 
 	private void addACSMemberBenefits(Map<String, String> mapOMR) {
-		if(mapOMR.get("MemBenefits_To_Add?").equalsIgnoreCase("Yes"))
+		
+		if(mapOMR.get("MemBenefits_To_Add?").equalsIgnoreCase("Yes"))	
 		{
 			clickAddMembershipButton("Add ACS Member Benefits");
-			//isElementDisplayed("txt_legend","My ACS Member Benefits");
 			holdScriptExecution();
+			try
+			{
+				wait.resetExplicitTimeout(hiddenFieldTimeOut);
+				wait.resetImplicitTimeout(2);
+				element("btn_RemoveMembership").click();
+			}
+			catch(Exception e)
+			{
+				wait.resetExplicitTimeout(timeOut);
+				wait.resetImplicitTimeout(timeOut);
+			
+			//isElementDisplayed("txt_legend","My ACS Member Benefits");
+	
 			selectAddToMembershipForParticularSubscription("BenefitAddToMembership");
 			clickSaveButtonToAddMembership();
+			}
 
 		}
 	}
@@ -720,8 +757,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		switchToEwebRenewalFrame();
 		//double roundOffOrderTotal = Math.round(ordertotal * 100.0) / 100.0;
 		System.out.println("actual roundoff"+subtotal);
-		System.out.println(Float.parseFloat(element("txt_productFinalTotal","Subtotal").getText().replace("$", "").trim()));
-		Assert.assertTrue(Float.parseFloat(element("txt_productFinalTotal","Subtotal").getText().replace("$", "").trim()) == subtotal);
+		System.out.println(Float.parseFloat(element("txt_productFinalTotal","Subtotal").getText().replaceAll("[^\\d.]", "").trim()));
+		Assert.assertTrue(Float.parseFloat(element("txt_productFinalTotal","Subtotal").getText().replaceAll("[^\\d.]", "").trim()) == subtotal);
 
 		logMessage("ASSERT PASSED : Sub total is verified as " + subtotal + "\n");
 		switchToDefaultContent();
@@ -745,13 +782,13 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		float subtotal=verifySubTotalForRenewedProducts(mapRenewedProductDetails);
 		wait.hardWait(2);
 		switchToEwebRenewalFrame();
-		float total=subtotal+Float.parseFloat(element("txt_ProductTax").getText().replace("$", "").trim())+
-				Float.parseFloat(element("txt_productFinalTotal","Shipping").getText().replace("$", "").trim());
+		float total=subtotal+Float.parseFloat(element("txt_ProductTax").getText().replaceAll("[^\\d.]", "").trim())+
+				Float.parseFloat(element("txt_productFinalTotal","Shipping").getText().replaceAll("[^\\d.]", "").trim());
 		total= (float) (Math.round(total * 100.0) / 100.0);
-		Assert.assertTrue(Float.parseFloat(element("txt_productFinalTotal","Total").getText().replace("$", "").trim())==total);
+		Assert.assertTrue(Float.parseFloat(element("txt_productFinalTotal","Total").getText().replaceAll("[^\\d.]", "").trim())==total);
 		logMessage("ASSERT PASSED : Total invoice amount verified as "+total);
-		float balancedue=total-Float.parseFloat(element("txt_productFinalTotal","Payment").getText().replace("$", "").trim());
-		Assert.assertTrue(Float.parseFloat(element("txt_productFinalTotal","Balance Due").getText().replace("$", "").trim())==balancedue);
+		float balancedue=total-Float.parseFloat(element("txt_productFinalTotal","Payment").getText().replaceAll("[^\\d.]", "").trim());
+		Assert.assertTrue(Float.parseFloat(element("txt_productFinalTotal","Balance Due").getText().replaceAll("[^\\d.]", "").trim())==balancedue);
 		logMessage("ASSERT PASSED : Balance Due verified as "+balancedue);
 		switchToDefaultContent();
 	}
@@ -865,12 +902,60 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	
 	public void clickPayInINRButtonForOMR()
 	{
-		isElementDisplayed("btn_payInINR");
-		scrollDown(elements("btn_payInINR").get(1));
-		elements("btn_payInINR").get(1).click();
+		isElementDisplayed("btn_submitPayment");
+		element("btn_submitPayment").click();
 		wait.waitForPageToLoadCompletely();
 		logMessage("Step : Pay in INR button is clicked\n");
+		wait.waitForPageToLoadCompletely();
 	}
+	
+	public void selectINRAsCurrencyType(String value)
+	{
+		switchToEwebRenewalFrame();
+		isElementDisplayed("drpdwn_currencyINR");
+		selectProvidedTextFromDropDown(element("drpdwn_currencyINR"), value);
+		logMessage("Step : selected value for currency is "+value);
+		switchToDefaultContent();
+		
+	}
+	
+	public  void clickYesSurePopUpButton(String buttontext)
+	{
+		switchToEwebRenewalFrame();
+		isElementDisplayed("btn_YesSurePopUp",buttontext);
+        element("btn_YesSurePopUp",buttontext).click();
+		logMessage("Step : Pop Up button with text "+buttontext+" is clicked");
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(16);
+		switchToDefaultContent();
+		
+		
+	}
+	
+	private void clickContinueButtonForGCSOMR()
+	{
+		isElementDisplayed("btn_continueToPayment");
+		logMessage("Step: Continue button is now enabled\n");
+		element("btn_continueToPayment").click();
+		logMessage("Step : Continue button is clicked\n");
+	}
+	
+	private void clickAgreeeWithTermsAndConditionsOnGCSOMR()
+	{
+		isElementDisplayed("chkbox_termsAndCondition");
+		element("chkbox_termsAndCondition").click();
+		logMessage("Step : Agreed with terms and Conditions\n");
+	}
+	
+	public void clickContinueButtonToNavigateToBankPaymentPage()
+	{
+		clickAgreeeWithTermsAndConditionsOnGCSOMR();
+		clickContinueButtonForGCSOMR();
+	
+	}
+	
+	
+	
 
 	
 

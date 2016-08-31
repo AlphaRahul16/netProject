@@ -2502,7 +2502,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		memberDetails.add(customerLname);
 
 		memberDetails.add(customerContactId);
-		// memberDetails.add(getMemberWebLogin());
+		//memberDetails.add(getMemberWebLogin());
 		logMessage("Step : Customer Contact Id fetched as "
 				+ customerContactId);
 		return memberDetails;
@@ -2610,6 +2610,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnGoButtonInRunQuery();
 
 	}
+	
+	public void selectValidUserForGCSOMR(Map<String, String> mapGcsOMR) {
+		selectProvidedTextFromDropDown(element("list_advanceNewInput","Member Type"),"ACS : Regular Member");
+		selectProvidedTextFromDropDown(element("list_advanceNewInput","Member Status"),"ACS : Active Renewed-No Response");
+		selectProvidedTextFromDropDown(element("list_advanceNewInput","Country"),mapGcsOMR.get("Country?"));
+		clickOnGoButton();
+	}
 
 	public void selectValidUserForRenewal(Map<String, String> mapOMR) {
 		if (MemberTransferLoopCount < 3) {
@@ -2630,6 +2637,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ " attempt\n");
 
 	}
+	
 
 	public void verifyPaymentStatusBeforeRenewal(Map<String, String> mapOMR) {
 		try {
@@ -4257,4 +4265,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 	}
 
-}
+	}
+
+

@@ -6,18 +6,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.qait.automation.getpageobjects.BaseUi;
-
-
-
-
-  
-class Test extends BaseUi{  
+ 
+class Test{  
    
-	protected Test(WebDriver driver, String pageName) {
+	/*protected Test(WebDriver driver, String pageName) {
+>>>>>>> 0526b45ed3b886c391ab3ab918a074ba1207744a
 		super(driver, pageName);
 		// TODO Auto-generated constructor stub
-	}
-
+	}*/
+	
+	
+/*
 	public void demoTest(){
 	WebDriver driver=new FirefoxDriver();
 	
@@ -35,5 +34,5 @@ class Test extends BaseUi{
 	while(!((JavascriptExecutor) driver).executeScript("document.readyState").equals("complete")){
 		System.out.println("waiting for page to load");
 	} 
-	}
+	}*/
 }  

@@ -69,21 +69,17 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.awardsPageAction.editAwardStartAndEndDate();
 		test.awardsPageAction
 				.expandDetailsMenuIfAlreadyExpanded("award stages/rounds");
-		test.awardsPageAction.uncheckClosedCheckbox_VotingClosed(
-				currentAwardName, "1");
+		test.awardsPageAction.uncheckClosedCheckbox_VotingClosed(currentAwardName, "1");
 		test.awardsPageAction.collapseDetailsMenu("award stages/rounds");
 		test.individualsPage.navigateToEntrantsMenuOnHoveringMore();
-		numberOfNomineesInEntrants = test.awardsPageAction
-				.allACSNomineesInEntrants();
-		// //
-		test.awardsPageAction
-				.expandDetailsMenuIfAlreadyExpanded("acs award winner");
+		numberOfNomineesInEntrants = test.awardsPageAction.allACSNomineesInEntrants();
+
+		test.awardsPageAction.expandDetailsMenuIfAlreadyExpanded("acs award winner");
 		test.awardsPageAction.editWinnerNomineesFromJudges();
 		test.awardsPageAction.collapseDetailsMenu("acs award winner");
-		// ////
+	
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("General");
-		test.awardsPageAction
-				.expandDetailsMenuIfAlreadyExpanded("award stages/rounds");
+		test.awardsPageAction.expandDetailsMenuIfAlreadyExpanded("award stages/rounds");
 		test.awardsPageAction.verifyOrAddRoundsPresents();
 		test.awardsPageAction.ClearStartDateAndEndDate_AllRounds(votingRounds);
 		startEndDate = test.awardsPageAction.editStartAndEndDate_Round(1);
@@ -179,8 +175,7 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 					.clickOnProfilePdfLinkAndVerifyPdfContent(listOfFirstAndLastName);
 			test.award_ewebPage
 					.verifyAwardName_viewProfileLink(currentAwardName);
-			// test.award_ewebPage
-			// .verifyNominationDocuments_viewProfileLink(currentAwardName);
+			
 			test.award_ewebPage.clickOnCloseButton();
 			test.award_ewebPage.clickOnRankNominees_Save("Rank Nominees");
 			listOfNomineeJudges_judgeRanks = test.award_ewebPage
@@ -208,8 +203,7 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Awards");
 		test.homePageIWEB.clickOnTab("Find Award");
-		test.individualsPage.enterFieldValue("Award Year",
-				DateUtil.getAnyDateForType("YYYY", 2, "year"));
+		test.individualsPage.enterFieldValue("Award Year",DateUtil.getAnyDateForType("YYYY", 2, "year"));
 		// test.individualsPage.enterFieldValue("Award Name","F. Albert Cotton Award in Synthetic Inorganic Chemistry");
 		// test.individualsPage.enterFieldValue("Award Year","2018");
 		test.individualsPage.clickGoButton();

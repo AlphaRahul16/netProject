@@ -17,19 +17,35 @@ import java.util.ArrayList;
 public class ObjectFileReader {
 
 	static String tier;
+	static String commonPageObjects = "CommonPageObjects/";
 	static String filepath = "src/test/resources/PageObjectRepository/";
 
 	public static String[] getELementFromFile(String pageName,
 			String elementName) {
 		setTier();
 		try {
-			FileReader specFile = new FileReader(filepath + tier + pageName
-					+ ".spec");
-			return getElement(specFile, elementName);
-		} catch (Exception e) {
+		return setSpecFiles(pageName,elementName);
+	} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static String[] setSpecFiles(String pageName,
+			String elementName) throws Exception {
+		FileReader particularspecFile=null;
+		try{
+			FileReader commonspecFile = new FileReader(filepath + commonPageObjects + pageName
+					+ ".spec");
+			 particularspecFile = new FileReader(filepath + tier + pageName
+					+ ".spec");
+			return getElement(commonspecFile, elementName);
+		}
+		catch (NullPointerException e) {
+			return getElement(particularspecFile, elementName);
+		}
+
+
 	}
 
 	public static String getPageTitleFromFile(String pageName) {
@@ -68,14 +84,13 @@ public class ObjectFileReader {
 
 	private static String[] getElement(FileReader specFile, String elementName)
 			throws Exception {
-
 		ArrayList<String> elementLines = getSpecSection(specFile);
 		for (String elementLine : elementLines) {
 			if (elementLine.startsWith(elementName)) {
 				return elementLine.split(" ", 3);
 			}
 		}
-		throw new Exception();
+		throw new NullPointerException();
 	}
 
 	private static ArrayList<String> getSpecSection(FileReader specfile) {

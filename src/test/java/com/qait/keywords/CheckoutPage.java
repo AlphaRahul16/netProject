@@ -4,6 +4,7 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.util.Calendar;
 
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -673,6 +674,34 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_paymentType", paymentType);
 		element("btn_paymentType", paymentType).click();
 		logMessage("Step : click on " + paymentType + " button \n");
+	}
+
+	public void selectOnPaymentMethodButton(String paymentMethod) {
+		isElementDisplayed("btn_paymentMethod", paymentMethod);
+		element("btn_paymentMethod", paymentMethod).click();
+		logMessage("Step : click on " + paymentMethod + " button \n");
+	}
+
+	public void checkIAgreeTermsAndCondition() {
+		checkCheckbox(element("chk_agreeTermsAndCondition"));
+		logMessage("Step : Check I agree Terms And Condition check box \n");
+
+	}
+
+	public void waitForLoaderToDisappear() {
+		logMessage("Step : wait for loader to disappear \n");
+		try {
+			wait.waitForElementToDisappear(element("img_paymentLoader"));
+		} catch (StaleElementReferenceException stlRef) {
+			logMessage("Step : payment loader is disappear\n");
+		}
+
+	}
+
+	public void clickOnContinueButton() {
+		isElementDisplayed("btn_paymentContinue");
+		element("btn_paymentContinue").click();
+		logMessage("Step : Click on Continue button\n");
 	}
 
 }
