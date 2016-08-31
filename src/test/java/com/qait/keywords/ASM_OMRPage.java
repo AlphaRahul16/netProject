@@ -187,11 +187,15 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	public void clickProccedWithPaymentinINR(String buttontext)
 	{
 		wait.waitForPageToLoadCompletely();
-	switchToFrame("eWebFrame");
-	isElementDisplayed("rad_undergraduate", buttontext);
-	element("rad_undergraduate", buttontext).click();
+//	switchToEwebRenewalFrame();
+//	isElementDisplayed("rad_undergraduate", buttontext);
+//	element("rad_undergraduate", buttontext).click();
+
+	wait.hardWait(14);
+	executeJavascript("document.getElementById('eWebFrame').contentWindow.document.getElementsByClassName('btn btn-blue')[0].click()");
 	logMessage("Step : button "+buttontext+" is clicked\n");
 	wait.waitForPageToLoadCompletely();
+	switchToDefaultContent();
 		
 	}
 	
@@ -568,25 +572,18 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		
 		if(mapOMR.get("MemBenefits_To_Add?").equalsIgnoreCase("Yes"))	
 		{
-			clickAddMembershipButton("Add ACS Member Benefits");
-			holdScriptExecution();
 			try
 			{
-				wait.resetExplicitTimeout(hiddenFieldTimeOut);
-				wait.resetImplicitTimeout(2);
-				element("btn_RemoveMembership").click();
+			clickAddMembershipButton("Add ACS Member Benefits");
+			holdScriptExecution();
+			selectAddToMembershipForParticularSubscription("BenefitAddToMembership");
 			}
 			catch(Exception e)
 			{
-				wait.resetExplicitTimeout(timeOut);
-				wait.resetImplicitTimeout(timeOut);
 			
-			//isElementDisplayed("txt_legend","My ACS Member Benefits");
-	
-			selectAddToMembershipForParticularSubscription("BenefitAddToMembership");
-			clickSaveButtonToAddMembership();
 			}
-
+			
+			clickSaveButtonToAddMembership();
 		}
 	}
 
@@ -651,7 +648,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	}
 	public void clickSaveButtonToAddMembership()
 	{
-
+        switchToDefaultContent();
 		switchToEwebRenewalFrame();
 		isElementDisplayed("btn_saveToAddMembership");
 		element("btn_saveToAddMembership").click();
@@ -900,17 +897,22 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 	}
 	
-	public void clickPayInINRButtonForOMR()
-	{
-		isElementDisplayed("btn_submitPayment");
-		element("btn_submitPayment").click();
-		wait.waitForPageToLoadCompletely();
-		logMessage("Step : Pay in INR button is clicked\n");
-		wait.waitForPageToLoadCompletely();
-	}
-	
+//	public void clickPayInINRButtonForOMR()
+//	{
+//		
+//		switchToEwebRenewalFrame();
+//		isElementDisplayed("btn_submitPayment");
+//		element("btn_submitPayment").click();
+//		wait.waitForPageToLoadCompletely();
+//		logMessage("Step : Pay in INR button is clicked\n");
+//		wait.waitForPageToLoadCompletely();
+//		switchToDefaultContent();
+//	}
+//	
 	public void selectINRAsCurrencyType(String value)
 	{
+		switchToDefaultContent();
+		wait.hardWait(4);
 		switchToEwebRenewalFrame();
 		isElementDisplayed("drpdwn_currencyINR");
 		selectProvidedTextFromDropDown(element("drpdwn_currencyINR"), value);

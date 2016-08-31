@@ -99,7 +99,7 @@ public class GCS_OMR_Test extends BaseTest {
 	public void Step06_TC01_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage() {
 
 		test.asm_OMR.navigateToCheckOutPageForGCSOMR();
-		test.asm_OMR.clickPayInINRButtonForOMR();
+		test.asm_OMR.clickOnSubmitPayment();
 		test.asm_OMR.clickProccedWithPaymentinINR("Proceed with payment in INR");
 		test.gcsPaymentPage.clickOnPaymentButtonNamedAs(mapGcsOMR.get("CreditCard_Type"));
 		test.asm_OMR.clickContinueButtonToNavigateToBankPaymentPage();

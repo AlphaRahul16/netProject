@@ -28,15 +28,15 @@ public class GCS_PaymentActions extends GetPage {
 	public void fillBillingInformationAs(String placeholdername,String placeholdervalue)
 	{
 		isElementDisplayed("inp_billingInfo",placeholdername);
-		element("inp_billingInfo").click();
-		element("inp_billingInfo").sendKeys(placeholdervalue);
+		element("inp_billingInfo",placeholdername).click();
+		element("inp_billingInfo",placeholdername).sendKeys(placeholdervalue);
 		logMessage("Step : Billing information in "+placeholdername+" is entered as "+placeholdervalue);
 	}
 	
 	public void fillPaymentDetailsFor(String name,String value)
 	{
 		isElementDisplayed("inp_paymentDetails",name);
-		element("inp_billingInfo").click();
+		element("inp_paymentDetails",name).click();
 		element("inp_paymentDetails",name).sendKeys(value);
 		logMessage("Step : Payment details in "+name+" is entered as "+value);
 	}
@@ -59,7 +59,7 @@ public class GCS_PaymentActions extends GetPage {
 	public void clickOnPayNowButton()
 	{
 		isElementDisplayed("btn_payNow");
-		element("btn_payment").click();
+		element("btn_payNow").click();
 		logMessage("Step : Pay Now button is clicked\n");
 		wait.waitForPageToLoadCompletely();
 	}
