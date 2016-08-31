@@ -49,6 +49,10 @@ csv-data-file:
   data-separator: '\t'
   has-header: true
 
+Authentication: 
+  userName: C00569
+  password: "C6f96q%3Q"
+  
 excel-data-file:
   path_ScarfReporting: ./src/test/resources/TestDataLibrary/Scarf_Reporting_DataSheet.xls
 

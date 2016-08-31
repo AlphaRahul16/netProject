@@ -97,7 +97,7 @@ public class FundProfilePage extends ASCSocietyGenericPage
 	public int addDonationAmountFromDataSheet(Map<String, String> mapSheetData) {
 		int donationCount=getDonationAmountFromDataSheet(mapSheetData);
 		System.out.println(donationCount+"  Donation count");
-		for(int i=0;i<donationCount-1;i++)
+		for(int i=0;i<donationCount;i++)
 		{
 			if(mapSheetData.get("suggested_donation_amount"+i).length()!=0)
 			{
@@ -157,7 +157,7 @@ public class FundProfilePage extends ASCSocietyGenericPage
 		for(int i=0;i<mapSheetData.size();i++)
 		{
 
-			System.out.println(i);
+			//System.out.println(i);
 			System.out.println(mapSheetData.get("suggested_donation_amount"+i));
 			try
 			{
