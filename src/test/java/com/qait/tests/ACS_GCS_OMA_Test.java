@@ -148,7 +148,7 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step06_Verify_Details_At_Confirmation_Page")
 	public void Step07_Launch_Application_Under_Test() {
-
+ 
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.launchApplication(app_url_IWEB);
 		test.homePage.enterAuthentication(
@@ -162,17 +162,17 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 	public void Step08_Search_Member_In_Individual_Test() {
 
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
-		String invoiceNumber = memberDetail[1];
+		String invoiceNumber =memberDetail[1]; 
 		test.homePageIWEB.clickFindForIndividualsSearch();
-		String memberNumber = memberDetail[0];
+		String memberNumber =memberDetail[0]; 
 		test.individualsPage.fillMemberDetailsAndSearch("Record Number",
 				memberNumber);
 		test.individualsPage.verifyMemberDetails_OMA(test.homePageIWEB.map()
 				.get("FirstName"), test.homePageIWEB.map().get("LastName"),
 				test.homePageIWEB.map().get("Address"), test.homePageIWEB.map()
 						.get("City"), test.homePageIWEB.map().get("ZipCode"),
-				test.homePageIWEB.map().get("AddressType"), memberDetail[0],
-				userEmail, caseID);
+				test.homePageIWEB.map().get("AddressType"), memberDetail[0] 
+				,userEmail, caseID);
 		test.individualsPage.verifyIndividualProfileDetails_GCSOMA();
 		test.individualsPage.verifyMemberBenefitsDetail_GCSOMA(caseID,
 				invoiceNumber);
@@ -180,10 +180,11 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 		test.memberShipPage.clickOnSideBar("Find Invoice");
 
 		test.invoicePage
-				.verifyInvoiceDetailsGCSOMA(invoiceNumber, Total, "Yes");
+				.verifyInvoiceDetailsGCSOMA(invoiceNumber, Total, "Yes");  //----
 
 		test.individualsPage.ClickonMoreAndMenuNameLink("Payments");
 		test.invoicePage.expandChildTabMenuAndverifyGCSOMA();
+		test.invoicePage.getTableHeadingsAndVerifyPaymentValues("acs global constituent system log","INR","CREDITCARD");
 	}
 
 	/**

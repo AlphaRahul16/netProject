@@ -2,6 +2,7 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -954,6 +955,49 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 				.isEmpty());
 		logMessage("ASSERT PASSED : Child form is populated under stored payment information for "
 				+ firstName);
+	}
+	
+	public void getTableHeadingsAndVerifyPaymentValues(String tabName,String currencyValue,String paymentModeValue){
+		List<String> tableHeadings= new ArrayList<String>();
+		isElementDisplayed("hdng_childMenu",tabName);
+		for(WebElement elem: elements("hdng_childMenu",tabName)){
+			tableHeadings.add(elem.getText().trim());
+		}
+		getParticularColumnValue("Status",tableHeadings,tabName,currencyValue,paymentModeValue);
+	}
+	
+	public void getParticularColumnValue(String columnName,List<String> tableHeadings,String tabName,String currencyValue,String paymentModeValue){
+		int columnIndex=0,rowIndex=0,statusIndex = 0,currencyIndex = 0,paymentModeIndex = 0;
+		for(String column: tableHeadings){
+			columnIndex++;
+			switch(column){
+			case "Status" : statusIndex=columnIndex;
+			                  break;
+			case "Currency" : currencyIndex=columnIndex;
+			                  break;
+			case "Payment Mode" : paymentModeIndex=columnIndex;
+			                   break;
+			}
+		}
+		System.out.println("----status index: "+statusIndex);
+		System.out.println("----Currency index: "+currencyIndex);
+		System.out.println("----Payment Mode index: "+paymentModeIndex);
+		statusIndex=statusIndex+3;		
+		for(int i=1;i<elements("table_rows").size();i++){
+			if(element("txt_tableColumn",tabName,String.valueOf(i+1),String.valueOf(statusIndex)).getText().trim().equals("PAYMENT_SUCCESS")){
+				logMessage("STEP: "+columnName+" column is having value "+element("txt_tableColumn",tabName,String.valueOf(i+1),String.valueOf(statusIndex)).getText().trim()+" at row position: "+i+"\n");
+				rowIndex=i+1;
+				break;
+			}
+		}
+		verifyPaymentValues(tabName,rowIndex,currencyIndex+3,currencyValue,"Currency");
+		verifyPaymentValues(tabName,rowIndex,paymentModeIndex+3,paymentModeValue,"Payment Mode");
+	}
+	
+	public void verifyPaymentValues(String tabName,int rowIndex,int columnIndex,String expectedValue,String columnName){
+		Assert.assertTrue(element("txt_tableColumn",tabName,String.valueOf(rowIndex),String.valueOf(columnIndex)).getText().trim().equals(expectedValue),
+				"ASSERT FAILED: "+expectedValue+" matches for "+columnName+" column\n");
+		logMessage("ASSERT PASSSED: "+expectedValue+" matches for "+columnName+" column\n");
 	}
 
 }
