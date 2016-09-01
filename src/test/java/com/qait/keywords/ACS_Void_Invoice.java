@@ -39,6 +39,7 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 
 	public String createBatch(int index1,int index2,String group){
 		String batchName;
+		hardWaitForIEBrowser(5);
 		switchToIframe1();
 		isElementDisplayed("link_addbatch");
 		clickUsingXpathInJavaScriptExecutor(element("link_addbatch"));
@@ -80,7 +81,7 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 	}
 
 	public String enterBatchName(int i){
-
+		hardWaitForIEBrowser(4);
 		isElementDisplayed("txt_batchDetails",String.valueOf(i));
 		hardWaitForIEBrowser(2);
 		element("txt_batchDetails",String.valueOf(i)).clear();
@@ -209,7 +210,7 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 
 	public void verifyNotAMember(String index,String memberField){
 		wait.waitForPageToLoadCompletely();
-		hardWaitForIEBrowser(2);
+		hardWaitForIEBrowser(5);
 		isElementDisplayed("img_memberBenefits",index);
 		logMessage("ASSERT PASSED : "+memberField+" field is closed\n");
 	}

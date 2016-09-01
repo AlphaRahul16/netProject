@@ -142,9 +142,8 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 						.get("ZipCode"),
 				test.homePageIWEB.map().get("Country"), test.homePageIWEB.map()
 						.get("Address"));
-		test.checkoutPage.verifyMemberName(caseID);
-		test.checkoutPage.verifyTechnicalDivision(caseID);
-		test.checkoutPage.verifyPublication(caseID);
+		test.checkoutPage.verifyMemberName_GCSOMA(caseID);
+
 	}
 
 	@Test(dependsOnMethods = "Step06_Verify_Details_At_Confirmation_Page")
@@ -174,12 +173,17 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 						.get("City"), test.homePageIWEB.map().get("ZipCode"),
 				test.homePageIWEB.map().get("AddressType"), memberDetail[0],
 				userEmail, caseID);
-		test.individualsPage.verifyIndividualProfileDetails(caseID, quantities);
-		test.individualsPage.verifyMemberBenefitsDetail(caseID, invoiceNumber);
+		test.individualsPage.verifyIndividualProfileDetails_GCSOMA();
+		test.individualsPage.verifyMemberBenefitsDetail_GCSOMA(caseID,
+				invoiceNumber);
 		test.homePageIWEB.clickOnSideBarTab("Invoice");
 		test.memberShipPage.clickOnSideBar("Find Invoice");
-		test.invoicePage.verifyInvoicedDetails(caseID, "Invoice",
-				invoiceNumber, quantities, Total);
+
+		test.invoicePage
+				.verifyInvoiceDetailsGCSOMA(invoiceNumber, Total, "Yes");
+
+		test.individualsPage.ClickonMoreAndMenuNameLink("Payments");
+		test.invoicePage.expandChildTabMenuAndverifyGCSOMA();
 	}
 
 	/**

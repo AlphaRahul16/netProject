@@ -94,6 +94,17 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 
 	}
 
+	public void verifyMemberName_GCSOMA(String caseId) {
+		if (map().get("Member Type?").equalsIgnoreCase("")) {
+			logMessage("Step : member name is not present in data sheet\n");
+		} else {
+			verifyElementText("txt_GCSOMAmemberName", map().get("Member Type?"));
+			logMessage("ASSERT PASSED : " + map().get("Member Type?")
+					+ " is verified in  txt_GCSOMAmemberName\n");
+		}
+
+	}
+
 	public void verifyMemberName_AACTOMA(String caseId) {
 		if (getAACT_OmaSheetValue(caseId, "Member Type?").equalsIgnoreCase("")) {
 			logMessage("Step : member name is not present in data sheet\n");

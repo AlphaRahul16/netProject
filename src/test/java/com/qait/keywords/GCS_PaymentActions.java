@@ -92,8 +92,8 @@ public class GCS_PaymentActions extends ASCSocietyGenericPage {
 
 		}
 
-//		clickOnPayNowButton();
-//		clickSimulateTransactionButton();
+		clickOnPayNowButton();
+		clickSimulateTransactionButton();
 
 	}
 

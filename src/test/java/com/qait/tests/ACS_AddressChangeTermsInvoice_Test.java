@@ -31,7 +31,7 @@ public class ACS_AddressChangeTermsInvoice_Test extends BaseTest{
 
 	@Test
 	public void Step01_Launch_Iweb_Application() {
-
+		test.launchApplication(app_url_iweb);
 		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
 
