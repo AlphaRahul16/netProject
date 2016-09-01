@@ -110,14 +110,30 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 		// ////////////////
 
 		test.gcsPaymentPage.verifyPageTitleExact("Paynetz");
-		
-		
-		
+
 		// //////////////
 
 	}
 
 	@Test(dependsOnMethods = "Step05_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page")
+	public void Step06_TC01_Bank_Payment_Page() {
+		test.gcsPaymentPage
+				.EnterDetailsOnBankPaymentPageAndProcessFutherSimulation(
+						test.gcsPaymentPage.map().get("Payment Type"),
+						test.gcsPaymentPage.map().get("Mobile_Number"),
+						test.gcsPaymentPage.map().get("Email_Id"),
+						test.gcsPaymentPage.map().get("Card Number"),
+						test.gcsPaymentPage.map().get("FirstName") + " "
+								+ test.gcsPaymentPage.map().get("LastName"),
+						test.gcsPaymentPage.map().get(
+								"CreditCardExpiration_Month"),
+						test.gcsPaymentPage.map().get(
+								"CreditCardExpiration_Year"),
+						test.gcsPaymentPage.map().get("CVV_Number"),
+						test.gcsPaymentPage.map().get("Bank_Name"));
+	}
+
+	@Test(dependsOnMethods = "Step06_TC01_Bank_Payment_Page")
 	public void Step06_Verify_Details_At_Confirmation_Page() {
 
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
@@ -126,9 +142,8 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 						.get("ZipCode"),
 				test.homePageIWEB.map().get("Country"), test.homePageIWEB.map()
 						.get("Address"));
-		test.checkoutPage.verifyMemberName(caseID);
-		test.checkoutPage.verifyTechnicalDivision(caseID);
-		test.checkoutPage.verifyPublication(caseID);
+		test.checkoutPage.verifyMemberName_GCSOMA(caseID);
+
 	}
 
 	@Test(dependsOnMethods = "Step06_Verify_Details_At_Confirmation_Page")
@@ -158,12 +173,17 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 						.get("City"), test.homePageIWEB.map().get("ZipCode"),
 				test.homePageIWEB.map().get("AddressType"), memberDetail[0],
 				userEmail, caseID);
-		test.individualsPage.verifyIndividualProfileDetails(caseID, quantities);
-		test.individualsPage.verifyMemberBenefitsDetail(caseID, invoiceNumber);
+		test.individualsPage.verifyIndividualProfileDetails_GCSOMA();
+		test.individualsPage.verifyMemberBenefitsDetail_GCSOMA(caseID,
+				invoiceNumber);
 		test.homePageIWEB.clickOnSideBarTab("Invoice");
 		test.memberShipPage.clickOnSideBar("Find Invoice");
-		test.invoicePage.verifyInvoicedDetails(caseID, "Invoice",
-				invoiceNumber, quantities, Total);
+
+		test.invoicePage
+				.verifyInvoiceDetailsGCSOMA(invoiceNumber, Total, "Yes");
+
+		test.individualsPage.ClickonMoreAndMenuNameLink("Payments");
+		test.invoicePage.expandChildTabMenuAndverifyGCSOMA();
 	}
 
 	/**

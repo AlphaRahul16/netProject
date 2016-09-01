@@ -12,7 +12,7 @@ import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
-public class COE_Inventory_Test extends BaseTest {
+public class Inventory_Product_Fulfillment_Test extends BaseTest {
 
 	String app_url_IWEB, individualName;
 	String price;
@@ -20,12 +20,12 @@ public class COE_Inventory_Test extends BaseTest {
 	String productName = null, productCode = null;
 	private String caseID;
 
-	public COE_Inventory_Test() {
+	public Inventory_Product_Fulfillment_Test() {
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "COE_Inventory";
 	}
 
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
-	public COE_Inventory_Test(String caseID) {
+	public Inventory_Product_Fulfillment_Test(String caseID) {
 		this.caseID = caseID;
 	}
 
@@ -49,7 +49,7 @@ public class COE_Inventory_Test extends BaseTest {
 	public void Step02_Select_And_Run_Query_And_Verify_User_Is_On_Individual_Profile_Page() {
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Query Individual");
-		test.memberShipPage.selectAndRunQuery(getYamlValue("COE_Inventory.queryName"));
+		test.memberShipPage.selectAndRunQuery(getYamlValue("Product_Fulfillment_Inventory.queryName"));
 		individualName = test.acsAddressValidation.verifyIndividualProfilePage();
 		customerFullNameList = test.memberShipPage.getCustomerFullNameAndContactID();
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Individuals | " + individualName);
@@ -96,12 +96,4 @@ public class COE_Inventory_Test extends BaseTest {
 	public void Step08_Verify_Invoice_Added_In_Invoices_With_Current_Date_As_Trancation_Date() {
 		test.memberShipPage.verifyInvoiceIsAdded(customerFullNameList.get(0).trim());
 	}
-
-	@Test
-	public void Step09_Verify_Paid_In_Full_Yes_And_Current_Date_As_Transaction_Date_And_Product_Code_On_Invoice_Profile_Page() {
-		test.memberShipPage.clickOnStudentMemberName(1);
-		test.invoicePage.verifyInvoiceProfile("Yes");
-		test.invoicePage.verifyProductCodeInlineItem(productCode, productName);
-	}
-
 }

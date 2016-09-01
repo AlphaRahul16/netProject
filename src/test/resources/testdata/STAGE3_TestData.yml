@@ -50,8 +50,8 @@ excel-data-file:
   
   
 Authentication: 
-  userName: c00687
-  password: "N73w258%"
+  userName: c00596
+  password: "C6f96q%3Q"
 
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt
@@ -612,3 +612,6 @@ email:
     recepient2: deepakkumar1@qainfotech.com
     recepient3: kanikasharma@qainfotech.com
     
+=======
+app_url_ScarfReviewing: https://www.ewebtest.acs.org/NFStage3/studentchaptersreview
+>>>>>>> 855893d19969420d1b9c2aad17e333c3981efe22

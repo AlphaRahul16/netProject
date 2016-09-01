@@ -71,7 +71,7 @@ table_lineItems                                   id                         UPD
 frame_selectProduct                              id                             menu_a83665ae18eb43488c5d83ce5f6027f8  
 list_billAddress                                 id                         inv_cxa_key   
 link_email                                       id                          F1_HYPERLINK_0     
-txt_renewalContactId                                     id                        F1_cst_id
+txt_renewalContactId                               id                        F1_cst_id
 txt_customerAddress                                id                          F1_cxa_mailing_label_html
 txt_addressType                                  id                           F1_cxa_adt_key_Display_Text_
 label_listMemberShip                             id                          LabelDataFormHeader
@@ -157,7 +157,6 @@ productname_txt									 xpath							(//th/a)[2]/../../following-sibling::tr[${r
 pricevalue_txt									 xpath							(//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[5]
 heading_queryAskAtRunTime                        xpath                         //span[text()='Query - Ask At Run-Time Values']
 list_memberPackage1                               css                           .DataFormDropDownList
-btn_goPackage                                    id                             ButtonAskGo
 txt_memberInfo                                   xpath                        //label[contains(text(),'${value}')]/following-sibling::span  
 btn_mydTransfer                                  xpath                        //a[@id='F1_HYPERLINK_7']/img    
 txt_balanceAmount                                xpath                        //table[@id='TransferTable']//span
@@ -191,6 +190,4 @@ txt_avl_qty										css							#dgDynamicList > tbody > tr:nth-child(${randomNum
 price_txt										css							#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(7)
 th_lookup										xpath						.//*[@id='dgDynamicList']//th/a[contains(text(),'${field}')]
 productName_inp									css							#prd_name
-
-
 ==============================================================================================================================================

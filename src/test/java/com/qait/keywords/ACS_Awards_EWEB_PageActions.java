@@ -243,7 +243,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			int numberOfNomineesToSelect, int round, List<String> nameOfJudges,
 			Map<String, String> nominee_WithRankOne) {
 
-		if (numberOfNomineesToSelect < nameOfJudges.size()) {
+		if (numberOfNomineesToSelect < nameOfJudges.size()&& (round==round-1)&&(round==1)) {
 			Assert.fail("ASSERT FAILED : number of nominees <"
 					+ numberOfNomineesToSelect
 					+ "> is less than the number of judges <"
@@ -336,7 +336,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnViewProfileLink(List<List<String>> nomineeFirstNames) {
-		int max = nomineeFirstNames.size();
+		int max = nomineeFirstNames.size()-1;
 		int min = 0;
 		Random rand = new Random();
 		int randomNumber = rand.nextInt((max - min) + 1) + min;
@@ -351,7 +351,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 	public void clickOnProfilePdfLinkAndVerifyPdfContent(
 			List<List<String>> nomineeFirstNames) {
-		int max = nomineeFirstNames.size();
+		int max = nomineeFirstNames.size()-1;
 		int min = 0;
 		Random rand = new Random();
 		int randomNumber = rand.nextInt((max - min) + 1) + min;
@@ -411,7 +411,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnCommentLink(List<List<String>> nomineeFirstNames) {
-		int max = nomineeFirstNames.size();
+		int max = nomineeFirstNames.size()-1;
 		int min = 0;
 		Random rand = new Random();
 		int randomNumber = rand.nextInt((max - min) + 1) + min;

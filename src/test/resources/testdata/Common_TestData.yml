@@ -1,29 +1,3 @@
-app_url_OMA: https://ewebtest.acs.org/NFStage2/oma
-app_url_IWEB: https://iwebtest.acs.org/NFStage2/iweb
-app_url_CCED: https://ewebtest.acs.org/NFStage2/ccedlookup
-app_url_Store: https://ewebtest.acs.org/NFStage2/store/
-app_url_AACT: https://ewebtest.acs.org/NFStage2/aactoma
-app_url_email: https://ewebtest.acs.org/NFStage2/emailcenter
-app_url_nominateFellow: https://ewebtest.acs.org/NFStage2/nominatefellow
-app_url_egift: https://ewebtest.acs.org/NFStage2/egift
-app_url_givingDonate: https://ewebtest.acs.org/NFStage2/donate   
-app_url_givingGreen: https://ewebtest.acs.org/NFStage2/green
-app_url_givingScholars: https://ewebtest.acs.org/NFStage2/scholars/
-app_url_givingSeed: https://ewebtest.acs.org/NFStage2/seed
-app_url_OMR: https://ewebtest.acs.org/NFStage2/renew
-app_url_MGM: https://ewebtest.acs.org/NFStage2/mgm
-app_url_Meeting: https://ewebtest.acs.org/NFStage2/meetings/2012gcec
-app_url_egift: https://ewebtest.acs.org/NFStage2/egift
-app_url_Nominate: https://ewebtest.acs.org/NFStage2/nominate
-app_url_MemberNumberLookup: https://ewebtest.acs.org/NFStage2/membernumberlookup
-app_url_NCW: https://ewebtest.acs.org/NFStage2/ncwlookup
-app_url_IwebReporting: https://stag-12iweb/NFStage2/iweb
-app_url_PUBS: https://ewebtest12.acs.org/NFStage2/pba
-app_url_EwebReporting: https://ewebtest12.acs.org/NFStage2/studentchaptersonline
-app_url_Awards: https://ewebtest12.acs.org/NFStage2/awards
-app_url_ScarfReviewing: https://www.ewebtest.acs.org/NFStage2/studentchaptersreview
-
-
 password: "password"
 
 csv-data-file:
@@ -37,27 +11,28 @@ csv-data-file:
   path_fellowNominate: ./src/test/resources/TestDataLibrary/FellowsNomination_DataSheet.csv
   path_CCED_NCW_MemberNumberLookup: ./src/test/resources/TestDataLibrary/CCED_NCW_Data_Sheet.csv
   path_AwardNomination: ./src/test/resources/TestDataLibrary/AwardNominationDatasheet.csv
+  path_yellowBook: ./src/test/resources/TestDataLibrary/YellowBook.csv
   path_GeneralAwardList: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument.txt
+  path_GeneralAwardList_2018: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument_2018.txt
+  path_GCS_OMA: ./src/test/resources/TestDataLibrary/GCS-OMA_data_sheet.csv
   path_GeneralAwardList_2018: ./src/test/resources/TestDataLibrary/GeneralAwardListDocument_2018.txt
   path_AwardsVoting: ./src/test/resources/TestDataLibrary/Awards_Voting_Data_Sheet.csv
   path_MYDTransfer: ./src/test/resources/TestDataLibrary/Multi_Year_Dues_Transfer_Sheet.csv
+  path_COE_Inventory: ./src/test/resources/TestDataLibrary/COEInventory.csv
   path_OMR: ./src/test/resources/TestDataLibrary/OMR_Datasheet.csv
-  path_GCS-OMA: ./src/test/resources/TestDataLibrary/GCS-OMA data sheet.csv
   data-separator: '\t'
   has-header: true
 
   data-separator: '\t'
   has-header: true
 
-Authentication: 
-  userName: C00569
-  password: "C6f96q%3Q"
-  
 excel-data-file:
   path_ScarfReporting: ./src/test/resources/TestDataLibrary/Scarf_Reporting_DataSheet.xls
+  path_GCS_OMR: ./src/test/resources/TestDataLibrary/GCS_OMR_Datasheet.xls 
 
-  userName: C00569
-  password: "C6f96q%3Q"
+Authentication: 
+  userName: C00616
+  password: "Sx!3M24GS"
   
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt
@@ -69,11 +44,7 @@ creditCardInfo:
   Number: "4111111111111111"
   cvv-number: 123
   CreditCardExpiration: 06/2017
-   
-ACS_PBA_Product:
-    shortName: Accts of Chem Res Mbr Web Archive
-    fullName: Accounts of Chemical Research Member Web Archive - Member    
-            
+
 creditCardDetails: 
   PaymentMethod: 
         Select: "BOA - Check"
@@ -87,7 +58,18 @@ creditCardDetails:
   paymentMethodBOACheck:
     Type: "BOA - Check"
     CheckNumber: 123456
-              
+
+   
+ACS_PBA_Product:
+    shortName: Accts of Chem Res Mbr Web Archive
+    fullName: Accounts of Chemical Research Member Web Archive - Member   
+  
+  
+EmailCommunicationPreferences:
+    mailingListName: "SeleniumList"
+    mailingListType: "Meetings"
+  
+            
 reinstateUsers: 
     user1: 
         contact-information:
@@ -145,7 +127,7 @@ ASM_StoreSmokeChecklist_Data:
               
               
 ACS_fellowNominatedData: 
-    NomineeName: jon,Edd,Eva,Fed,Kim,Lee,Leo,Jan,May,Meg,Mia,Tom,Pan,Sue,Ova,Pet
+    NomineeName: Cal,Don,Edd,Eva,Fed,Kim,Lee,Leo,Jan,May,Meg,Mia,Tom,Pan,Sue,Ova,Pet
     EducationDetails: 
          Institution: TestInstitution
          Degree: AssociateDegree
@@ -238,7 +220,27 @@ ASM_fellowNominatedSmokeChecklistData:
     LoginErrorMessage: We're sorry, there was a problem with your log in attempt. Please try again. If the problem persists, please e-mail service@acs.org or call 800-333-9511 (US Only) or 614-447-3776. We are sorry for any inconvenience.
     memberNameSearchError: Only ACS members in good standing are eligible to be nominated as Fellows. If you do not see the person you're trying to nominate, they are not eligible. Please contact the Fellows office by email fellows@acs.org or phone 202-872-4431 for more information.
     memberNumberSearchError: Can't find the person you're looking for? Try finding by name          
-               
+    gradYearErrorMsz: Graduation Year
+    LessToDateErrorMsz: To Date must be greater than From Date
+    CommunityCitationMsg: This is a test Demo 1
+    ProfessionalHistory: 
+         Employer: employer abc
+         Title: Associate
+         FromDate: 1995
+         ToDate: 2005
+         Description: Test. Specialization:- Chem.(Medical/Bio).
+    ProfessionalOrganizationAffiliation:
+         ProfessionalOrg: EMP
+         Position_title: Test
+         FromDate: 1998
+         ToDate: 2005
+    HonorAndAwards: 
+         Name: Test
+         Sponcor: Test
+         Year: 2010
+    SelectSupportAndUploadLetters: 
+         SecondaryNominator1: john
+         SecondaryNominator2: sam            
     
 ASM_Donate_SmokeChecklistData:
     userName: ADEMASI
@@ -321,16 +323,43 @@ ASM_OMR_SmokeChecklistData:
     creditCardErrorMessage: "Please enter a valid credit card number."
     pageOnMakePayment: Renewal Receipt
     
-    
+
+ASM_Meeting_SmokeChecklistData:
+    userName: cabad
+    password: password    
+    specialService: ABC XYZ
+    professionalDiscipline: Academia
+    conference: Yes
+    speakerPoster: Yes
+    LoginErrorMessage: We're sorry, there was a problem with your log in attempt. Please try again. If the problem persists, please e-mail service@acs.org or call 800-333-9511 (US Only) or 614-447-3776. We are sorry for any inconvenience.
+    expirationDate: 10/2016
+    submitPaymentMessage: The event '17th Annual Green Chemistry & Engineering Conference' is closed for registration.
+    alertMessage: "your input has been truncated!"
+        
 ASM_MGM_SmokeChecklistData: 
-    userName: ADEMASI
+    userName: cabad
     password: password
     memberDetailsToInvite: 
          firstName: John
          lastName: Smith
          email: johnsmith@gmail.com
     LoginErrorMessage: We're sorry, there was a problem with your log in attempt. Please try again. If the problem persists, please e-mail service@acs.org or call 800-333-9511 (US Only) or 614-447-3776. We are sorry for any inconvenience.    
-  
+
+ASM_MemberNumberLookup_SmokeChecklistData:
+    firstName: Anne
+    lastName: DeMasi    
+    email: Annesciencemom@aol.com
+    verifyTextForMember: Member record located
+    
+    
+ASM_PUBS_SmokeChecklistData: 
+    userName: tscherer
+    password: password
+    expirationYear: 2023
+    
+ACS_PBA_Product:
+    shortName: Accts of Chem Res Mbr Web Archive
+    fullName: Accounts of Chemical Research Member Web Archive - Member    
   
 ASM_Nominate_SmokeChecklistData: 
     lastName: Burnham
@@ -362,6 +391,12 @@ ACS_Store:
             CASEID: 1
 #         member2: 
 #            CASEID: 2
+
+ASM_EGift_SmokeChecklistData: 
+    firstName: Frank
+    lastName: clark
+    recipientEmail: clark@gmail.com
+    errorMessage: Email must be in a valid format
     
 ReinstateMemberIWEB:
     centralizedOrderEntry: 
@@ -405,7 +440,7 @@ SubscriptionFulfillment:
               expireDate: 2018/12
               cvvNumber: 123
          paymentMethodBOACheck:    
-              checkNumber: 1234    
+              checkNumber: 1234 
     subscriptionDetailsForSchedule: 
          updateStartIssue: "Yes"
          fulfillmentType: Current
@@ -429,13 +464,74 @@ SubscriptionFulfillment:
          previewStatusOnStartCommit: commit started
          previewStatus: committed
          commitScheduledTask: "Yes"
-         startLapTimeInMinutes: 15
-         
-  
+         startLapTimeInMinutes: 15       
+
+MemberShipRenewal: 
+    addACSRenewalCycle:
+         name: ACS
+         expMonth: 11
+         expYear: 2017
+         renewalYear: 2017
+         type: ACS
+         renewalLength: 1
+    firstMember: 
+         memberType: Regular Member
+         memberStatus: Active
+         country: UNITED STATES
+    secondMember: 
+         memberType: Student Member - UnderGrad
+         memberStatus: Active
+         country: CANADA
+    queryName: "Member Query by Member Number – Multiple"
+    timeSlabInMinutes: 5
+    maxWaitTimeInMinutesForStatus: 30 
+    renewalInformation: 
+         association: ACS
+         renewalYear: 2017  
+         batch: "ACS: QA_SUB_BATCH" 
+    renewalDetailsForSchedule: 
+         status: SCHEDULED
+         createInvoiceScheduleTask: "No"
+         associationCode: ACS
+         proforma: "Yes"
+    renewalDetailsForProcessing: 
+         status: PROCESSING
+    renewalDetailsForSuccess: 
+         status: Success
+         numberOfRenewals: 2
+         numberOfInvoicesCreated: 0
+         numberOfErrors: 0
+    renewalDetailsForProcessingCreateRenewalInvoice: 
+         status: PROCESSING
+         numberOfRenewals: 2
+         numberOfInvoicesCreated: 1
+         numberOfErrors: 0
+    renewalDetailsForSuccessCreateRenewalInvoice: 
+         status: SUCCESS
+         numberOfRenewals: 2
+         numberOfInvoicesCreated: 2
+         numberOfErrors: 0
+    invoiceDetails: 
+         proforma: "Yes"               
+         paidInFull: "No"            
+    renewalMessage: "Dues task netFORUM_Dues_Renewal_update_Task_a02bd1cb14a14b4090482ae01f213b2dd5fc7374 scheduled successfully.  Upon completion an e-mail will be sent to" 
+      
+ACS_Store:
+    password: password   
+    maxWaitTimeForPrintMessage: 30
+    product_key: N5503
+    contact_id: 30263426
+    members:
+         member1: 
+            CASEID: 2
+            
+ 
+                       
            
-ASM_URLRejectedErrorMsz: "The requested URL was rejected."
+ASM_URLRejectedErrorMsz: "We aren't able to complete your request in the staging environment"
+#ASM_URLRejectedErrorMsz: "The requested URL was rejected. Please consult with your administrator."
 ASMErrorPageTitle: Request Rejected
-ASM_zipCodeErrorMessage: "Zip code must be 5 digit or xxxxx-xxxx format" 
+ASM_zipCodeErrorMessage: "Zip code must be 5 digit or xxxxx-xxxx format"   
 
 Acs_CreateMember_IWEB:
     batch: "ACS: SELENIUM_BATCH"
@@ -443,9 +539,12 @@ Acs_CreateMember_IWEB:
     paymentMethod: Visa/MC
     cardNumber: 4111111111111111
     expireDate: 2016/12
-    cvvNumber: 123 
+    cvvNumber: 123
+    holderName: firstName lastName 
     yearValue: 2017   
     
+Committee_Query: Selenium - Find Active Participant  
+
 PBA:
     queryName: "Selenium - Find Active Regular Member"
 MYDTransfer:
@@ -454,6 +553,16 @@ AddressValidation:
     queryName: Selenium - US Constituents    
 ScarfReporting:
     queryName: "Selenium - Active Student Chapters"     
+
+CMR_Inventory:
+    queryName: "Selenium - Find Active Regular Member" 
+
+OMR:
+     queryName: "Selenium - Find Active Regular Member with Proforma"
+     
+Product_Fulfillment_Inventory:
+     queryName: "Selenium - Find Random Active Member USA"
+     
 VoidWithAdjustment:
     queryName: "Selenium - test open invoices"
     voidMessage: "This invoice has been cancelled or voided"    
@@ -463,7 +572,15 @@ VoidWithAdjustment:
     memberDetailsQuestion2: balance
     actionValue: Void with Adjustment
     prodName: "Regular Member Dues C&EN-Electronic"
-    emptItemsMessage: "There are no results to display."       
+    emptItemsMessage: "There are no results to display."  
+    
+ScarfReviewer:
+    queryName: "BP - Reviewers"
+    reviewRating: Commendable
+    reviewComments: test comments
+    overallRating: Outstanding
+    overallGCRating: "Yes"
+    overallReviewComment: outstanding test data     
    
 ACS_ApplyPayment: 
     DetailsToFindMember:  
@@ -492,6 +609,17 @@ AddressChange:
     city: "Washington"
     postalCode: "20036"
     state: "DC"
+    
+ACS_AutoRenewal_Selection_In_OMR:
+    AutoRenewal_Query: Selenium – Find Random Active Member with Proforma
+    
+COE_Inventory:
+  batch: "Selenium Testing"
+  productCode: "209-116-1000"
+  PaymentType: prepaid
+  paymentMethod: "BOA - Check"
+  checkNumber: "1111"   
+  queryName: "Selenium - Find Active Regular Member"
 
 ScarfReviewer:
     queryName: "BP - Reviewers"
@@ -500,17 +628,7 @@ ScarfReviewer:
     overallRating: Outstanding
     overallGCRating: "Yes"
     overallReviewComment: outstanding test data
-    
-EmailCommunicationPreferences:
-    mailingListName: "SeleniumList"
-    mailingListType: "Meetings"
 
-email:
-  send: true
-  recepients:
-    recepient1: avnishrawat@qainfotech.net
-    recepient2: kanikasharma@qainfotech.com
-      
 Acs_Reports:
     module: CRM
     category: All
@@ -519,6 +637,10 @@ Acs_Reports:
     email_Message: Test Report From Selenium Tests
     email_To: R_Yadav@acs.org
     delivery_Method: Run Immediately,Schedule Report
-=======
-app_url_ScarfReviewing: https://www.ewebtest.acs.org/NFStage2/studentchaptersreview
->>>>>>> 855893d19969420d1b9c2aad17e333c3981efe22
+                    
+email:
+  send: true
+  recepients:
+    recepient1: deepakkumar1@qainfotech.com
+    recepient2: avnishrawat@qainfotech.net
+    recepient3: kanikasharma@qainfotech.com

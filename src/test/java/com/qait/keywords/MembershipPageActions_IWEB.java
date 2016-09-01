@@ -2512,7 +2512,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		memberDetails.add(customerLname);
 
 		memberDetails.add(customerContactId);
-		// memberDetails.add(getMemberWebLogin());
+		//memberDetails.add(getMemberWebLogin());
 		logMessage("Step : Customer Contact Id fetched as "
 				+ customerContactId);
 		return memberDetails;
@@ -2622,10 +2622,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 	
 	public void selectValidUserForGCSOMR(Map<String, String> mapGcsOMR) {
-		selectMemberForRenewal(mapGcsOMR.get("Member_Type?"));
+		selectProvidedTextFromDropDown(element("list_advanceNewInput","Member Type"),"ACS : Regular Member");
 		selectProvidedTextFromDropDown(element("list_advanceNewInput","Member Status"),"ACS : Active Renewed-No Response");
 		selectProvidedTextFromDropDown(element("list_advanceNewInput","Country"),mapGcsOMR.get("Country?"));
-		clickOnGoButtonInRunQuery();
+		clickOnGoButton();
 	}
 
 	public void selectValidUserForRenewal(Map<String, String> mapOMR) {

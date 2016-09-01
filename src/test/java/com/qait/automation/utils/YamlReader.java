@@ -20,9 +20,11 @@ import com.qait.automation.getpageobjects.Tiers;
 public class YamlReader {
 
 	public static String yamlFilePath = "";
+	public static String newFilePath = "";
+	public static String commonFilePath = "";
 
 	public static String setYamlFilePath() {
-
+		commonFilePath = "src/test/resources/testdata/Common_TestData.yml";
 		String tier = "";
 		try {
 			if (System.getProperty("tier").contains("defaultTier")
@@ -78,9 +80,9 @@ public class YamlReader {
 		return yamlFilePath;
 	}
 
-	public static String getYamlValue(String token) {
-		try {
-			return getValue(token);
+	public static String getYamlValue(String token) {		
+		try{
+			return getValue(token);	
 		} catch (FileNotFoundException ex) {
 			System.out.println(ex.getMessage());
 			return null;
@@ -91,9 +93,32 @@ public class YamlReader {
 		return getYamlValue(token);
 	}
 
-	public static Map<String, Object> getYamlValues(String token) {
-		Reader doc;
-		try {
+	public static Map<String, Object> getYamlValues(String token){
+		Reader doc = null;
+		Yaml yaml;
+		Map<String, Object> object;
+			try{
+				try {
+					doc = new FileReader(commonFilePath);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				yaml = new Yaml();
+				object = (Map<String, Object>) yaml.load(doc);
+				return parseMap(object, token + ".");
+			}catch (NullPointerException e) {
+				try {
+					doc = new FileReader(yamlFilePath);
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				yaml = new Yaml();
+				object = (Map<String, Object>) yaml.load(doc);
+				return parseMap(object, token + ".");
+			}
+		/*try {
 			doc = new FileReader(yamlFilePath);
 		} catch (FileNotFoundException ex) {
 			System.out.println("File not valid or missing!!!");
@@ -103,16 +128,28 @@ public class YamlReader {
 		Yaml yaml = new Yaml();
 		// TODO: check the type casting of object into the Map and create
 		// instance in one place
-		Map<String, Object> object = (Map<String, Object>) yaml.load(doc);
-		return parseMap(object, token + ".");
+		Map<String, Object> object = (Map<String, Object>) yaml.load(doc);*/
+		//return parseMap(object, token + ".");
+	/*	Map<String, Object> object = (Map<String, Object>) yaml.load(doc);
+		return parseMap(object, token + ".");*/
+
 	}
 
 	private static String getValue(String token) throws FileNotFoundException {
-		Reader doc = new FileReader(yamlFilePath);
-		Yaml yaml = new Yaml();
-		Map<String, Object> object = (Map<String, Object>) yaml.load(doc);
-		return getMapValue(object, token);
-
+		Reader doc;
+		Yaml yaml;
+		Map<String, Object> object;
+			try{
+				doc = new FileReader(commonFilePath);
+				yaml = new Yaml();
+				object = (Map<String, Object>) yaml.load(doc);
+				return getMapValue(object, token);
+		}catch(NullPointerException e){
+			doc = new FileReader(yamlFilePath);
+			yaml = new Yaml();
+			object = (Map<String, Object>) yaml.load(doc);
+			return getMapValue(object, token);
+		}
 	}
 
 	public static String getMapValue(Map<String, Object> object, String token) {
