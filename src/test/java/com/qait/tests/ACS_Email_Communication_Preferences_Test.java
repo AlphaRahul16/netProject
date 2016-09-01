@@ -135,7 +135,7 @@ public class ACS_Email_Communication_Preferences_Test extends BaseTest{
 	@Test
 	public void Step09_Login_Into_Eweb_And_Unsubscribe_All_Mailing_List(){
 		test.launchApplication(app_url_email);
-		test.asm_emailPage.loginInToApplication(webLogin, "password");	//"zzqzf","password"
+		test.asm_emailPage.loginInToApplication(webLogin, "password");	
 		mailingListCategories = test.asm_emailPage
 				.getAllCategoryOfMailingList();
 		mailingListMap=test.asm_emailPage.getMailingTypesList(categoryList);
@@ -150,7 +150,7 @@ public class ACS_Email_Communication_Preferences_Test extends BaseTest{
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Find Individual");
-		test.individualsPage.fillMemberDetailsAndSearch("Record Number",customerId ); //"30593011"
+		test.individualsPage.fillMemberDetailsAndSearch("Record Number",customerId ); 
 
 		test.acsMarketingPageIweb
 				.clickOnAdditionaInfortmationIcon("Communication Preferences");
