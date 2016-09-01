@@ -60,6 +60,7 @@ import com.qait.keywords.GCS_PaymentActions;
 import com.qait.keywords.HomePageActions;
 import com.qait.keywords.HomePageActions_IWEB;
 import com.qait.keywords.IndividualsPageActions_IWEB;
+import com.qait.keywords.InventoryPageActions_IWEB;
 import com.qait.keywords.InvoicePageActions_IWEB;
 import com.qait.keywords.MemberNumberLookupPage;
 import com.qait.keywords.MemberShipRenewalPage;
@@ -127,6 +128,7 @@ public class TestSessionInitiator {
 	public ACS_Scarf_ReviewingActions acsScarfReviewPage;
 	public ACS_Scarf_Reviewing_Eweb_Action acsScarfReviewing;
 	public GCS_PaymentActions gcsPaymentPage;
+	public InventoryPageActions_IWEB inventoryIweb;
 
 
 	// public AwardsPageActions_IWEB AwardsPageActions_IWEB;
@@ -140,6 +142,7 @@ public class TestSessionInitiator {
 	}
 
 	private void _initPage() {
+		inventoryIweb = new InventoryPageActions_IWEB(driver);
 		ContactInfoPage = new ContactInformationPage(driver);
 		homePage = new HomePageActions(driver);
 		EduAndEmpPage = new EducationAndEmploymentPage(driver);
