@@ -41,5 +41,6 @@ img_addPayment                  id                    F1_HYPERLINK_11
 txt_termStartDate               xpath                    //table[@class='table']//tr/td[14]
 txt_termEndDate                 xpath                    //table[@class='table']//tr/td[15]
 btn_goToArrow                   xpath                 (//a/i[@class='iconpro-circle-arrow-right'])[1]
+hdng_childMenu                  xpath                 //span[text()='${menuName}']/../../following-sibling::tr//table//tr[1]/th/a
 ====================================================================================================================================
 
