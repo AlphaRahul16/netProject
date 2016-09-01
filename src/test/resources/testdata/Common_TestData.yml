@@ -559,8 +559,10 @@ CMR_Inventory:
 
 OMR:
      queryName: "Selenium - Find Active Regular Member with Proforma"
-
-
+     
+Product_Fulfillment_Inventory:
+     queryName: "Selenium - Find Random Active Member USA"
+     
 VoidWithAdjustment:
     queryName: "Selenium - test open invoices"
     voidMessage: "This invoice has been cancelled or voided"    
