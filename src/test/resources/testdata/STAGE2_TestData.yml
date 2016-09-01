@@ -497,6 +497,10 @@ ScarfReviewer:
     overallRating: Outstanding
     overallGCRating: "Yes"
     overallReviewComment: outstanding test data
+    
+EmailCommunicationPreferences:
+    mailingListName: "SeleniumList"
+    mailingListType: "Meetings"
 
 email:
   send: true

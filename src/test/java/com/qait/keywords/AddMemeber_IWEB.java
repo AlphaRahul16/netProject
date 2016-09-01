@@ -20,6 +20,7 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public String[] enterMemberDetailsInAddIndividual() {
+		hardWaitForIEBrowser(3);
 		String fName = map().get("firstName");
 		String mName = map().get("middleName");
 		String lName = map().get("lastName");

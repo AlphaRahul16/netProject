@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.server.handler.SwitchToWindow;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
@@ -44,21 +45,22 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 	
 	public void clickOnCancelButton(){
 		isElementDisplayed("btn_cancelEditMailingList");
-//		element("btn_cancelEditMailingList").click();
 		clickUsingXpathInJavaScriptExecutor(element("btn_cancelEditMailingList"));
 		logMessage("STEP: Clicked on Cancel button\n");
 	}
 
-	public boolean verifyVisibility(String listType) {
+	public boolean verifyVisibility(String listType,String current) {
 		boolean flag = false;
 		for (WebElement element : elements("list_categoriesInMailingList")) {
 			if (element.getText().trim().equalsIgnoreCase(listType)) {
-//				element("arrow_selectListType",listType).click();
 				clickUsingXpathInJavaScriptExecutor(element("arrow_selectListType",listType));
 				wait.hardWait(3);
 				makeMailingListVisible();
 				clickOnCancelButton();
-				switchToDefaultContent();
+				wait.hardWait(2);
+				switchWindow(current);
+				switchToFrame(element("txt_heading"));
+//				switchToDefaultContent();
 				flag = true;
 				break;
 			}
@@ -77,21 +79,23 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 			int sizeOfPage = elements("list_pageLinks").size() ;
 			System.out.println("page size:" + sizeOfPage);
 			int page = 1;
-			
-			if (!verifyVisibility(listType)) {
+			String current=driver.getWindowHandle();
+			if (!verifyVisibility(listType,current)) {
 				do {
 					System.out.println("page number :" + page);
 					page++;
 					isElementDisplayed("link_page", String.valueOf(page));
-					// element("link_paging", String.valueOf(page + 1)).click();
 					clickUsingXpathInJavaScriptExecutor(element("link_page",
 							String.valueOf(page)));
 					waitForSpinner();
 					logMessage("Step : page number " + page
 							+ " is clicked\n");
 					categoryList=getMailingCategoryList("mailing list type");
-					if (verifyVisibility(listType))
+					if (verifyVisibility(listType,current)){
+						System.out.println("-----in if");
 						break;
+					}
+						
 				} while (page <= sizeOfPage);
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
@@ -297,7 +301,6 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 	public List<String> getMailingCategoryList(String tabName){
 		List<String>categoryList=new ArrayList<>();
 		isElementDisplayed("list_categoriesInMailingList");
-		System.out.println("----size is:"+elements("list_categoriesInMailingList").size());
 		for(int i=1;i<=elements("list_categoriesInMailingList").size();i++){
 			if(!element("txt_listData",tabName,String.valueOf(5),String.valueOf(i)).getText().
 					equals(" ")){

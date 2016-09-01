@@ -243,18 +243,36 @@ public class TestSessionInitiator {
 			deleteAllCookies();
 			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie") || _getSessionConfig()
 					.get("browser").equalsIgnoreCase("internetexplorer"))) {
-
-				baseurl = baseurl
-						.replaceAll(
-								"https://iwebtest",
-								"https://"
-										+ YamlReader
-												.getYamlValue("Authentication.userName")
-										+ ":"
-										+ URLEncoder.encode(
-												YamlReader
-														.getYamlValue("Authentication.password"),
-												"UTF-8") + "@iwebtest");
+				if (baseurl
+						.equalsIgnoreCase("https://stag-12iweb/NFStage3/iweb")
+						|| baseurl
+								.equalsIgnoreCase("https://stag-12iweb/NFStage2/iweb")
+						|| baseurl
+								.equalsIgnoreCase("https://stag-12iweb/NFStage5/iweb")) {
+					baseurl = baseurl
+							.replaceAll(
+									"https://stag",
+									"https://"
+											+ YamlReader
+													.getYamlValue("Authentication.userName")
+											+ ":"
+											+ URLEncoder.encode(
+													YamlReader
+															.getYamlValue("Authentication.password"),
+													"UTF-8") + "@stag");
+					driver.get(baseurl);
+				} else
+					baseurl = baseurl
+							.replaceAll(
+									"https://iwebtest",
+									"https://"
+											+ YamlReader
+													.getYamlValue("Authentication.userName")
+											+ ":"
+											+ URLEncoder.encode(
+													YamlReader
+															.getYamlValue("Authentication.password"),
+													"UTF-8") + "@iwebtest");
 				driver.get(baseurl);
 			} else {
 				driver.get(baseurl);
@@ -269,7 +287,19 @@ public class TestSessionInitiator {
 				else
 					Reporter.log("\nThe application url is :- " + baseurl, true);
 			}
+			if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/"))
+					&& (ConfigPropertyReader.getProperty("browser")
+							.equalsIgnoreCase("IE")
+							|| ConfigPropertyReader.getProperty("browser")
+									.equalsIgnoreCase("ie") || ConfigPropertyReader
+							.getProperty("browser").equalsIgnoreCase(
+									"internetexplorer"))) {
+				try {
+					Thread.sleep(8000);
+				} catch (InterruptedException e1) {
 
+				}
+			}
 			if (!baseurl
 					.equalsIgnoreCase("https://iwebtest.acs.org/NFStage3/iweb")) {
 				handleSSLCertificateCondition(baseurl);
@@ -280,7 +310,8 @@ public class TestSessionInitiator {
 		}
 
 	}
-
+	
+	
 	public void closeBrowserSession() {
 		driver.quit();
 	}
