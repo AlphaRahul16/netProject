@@ -25,8 +25,8 @@ public class GCS_PaymentActions extends ASCSocietyGenericPage {
 	public void fillBillingInformationAs(String placeholdername,
 			String placeholdervalue) {
 		isElementDisplayed("inp_billingInfo", placeholdername);
-		element("inp_billingInfo",placeholdername).click();
-		element("inp_billingInfo",placeholdername).sendKeys(placeholdervalue);
+		element("inp_billingInfo", placeholdername).click();
+		element("inp_billingInfo", placeholdername).sendKeys(placeholdervalue);
 		logMessage("Step : Billing information in " + placeholdername
 				+ " is entered as " + placeholdervalue);
 	}
