@@ -96,31 +96,44 @@ public class GCS_OMR_Test extends BaseTest {
 	public void Step06_TC01_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage() {
 
 		test.asm_OMR.navigateToCheckOutPageForGCSOMR();
-		test.asm_OMR.clickPayInINRButtonForOMR();
-		test.asm_OMR
-				.clickProccedWithPaymentinINR("Proceed with payment in INR");
-		test.gcsPaymentPage.clickOnPaymentButtonNamedAs(mapGcsOMR
-				.get("CreditCard_Type"));
+		test.asm_OMR.clickOnSubmitPayment();
+		test.asm_OMR.clickProccedWithPaymentinINR("Proceed with payment in INR");
+		test.gcsPaymentPage.clickOnPaymentButtonNamedAs(mapGcsOMR.get("Card_Type"));
 		test.asm_OMR.clickContinueButtonToNavigateToBankPaymentPage();
 
-		// test.asm_OMR
-		// .verifyRenewedProductsSummaryOnCheckOutPage(mapRenewedProductDetails);
-		// test.asm_OMR.clickOnSubmitPayment();
+//		 test.asm_OMR
+//		 .verifyRenewedProductsSummaryOnCheckOutPage(mapRenewedProductDetails);
+//		 test.asm_OMR.clickOnSubmitPayment();
 
 	}
 
 	@Test
 	public void Step07_TC01_Bank_Payment_Page() {
+		String name=(memDetails.get(0).split(" ")[1] + " " + memDetails
+				.get(0).split(" ")[0]);
+		System.out.println(name);
 		test.gcsPaymentPage
 				.EnterDetailsOnBankPaymentPageAndProcessFutherSimulation(
-						"Credit Card", mapGcsOMR.get("Mobile_Number"),
-						mapGcsOMR.get("Email_Id"), mapGcsOMR
-								.get("CreditCard_Number"),
-						(memDetails.get(0).split(" ")[1] + " " + memDetails
-								.get(0).split(" ")[0]), mapGcsOMR
-								.get("CreditCardExpiration_Month"), mapGcsOMR
-								.get("CreditCardExpiration_Year"), mapGcsOMR
-								.get("CreditCard_CVV_Number"), mapGcsOMR
-								.get("Bank_Name"));
+						mapGcsOMR.get("Card_Type"), mapGcsOMR.get("Mobile_Number"),
+						mapGcsOMR.get("Email_Id"), mapGcsOMR.get("CreditCard_Number"),mapGcsOMR
+						.get("DebitCard_Number"),name, mapGcsOMR.get("CreditCardExpiration_Month"), mapGcsOMR
+						.get("CreditCardExpiration_Year"), mapGcsOMR.get("CreditCard_CVV_Number"), mapGcsOMR
+						.get("Bank_Name"));
+	}
+	
+	@Test
+	public void Step08_verify_Details_On_Iweb() {
+		test.launchApplication(app_url_IWEB);
+		test.homePageIWEB.clickOnSideBarTab("Invoice");
+		test.memberShipPage.clickOnSideBar("Find Invoice");
+		test.individualsPage.enterFieldValue("Invoice Code", memDetails.get(2));
+		test.individualsPage.clickGoButton();
+		test.invoicePage.verifyInvoiceDetailsAfterRenewal();
+		test.invoicePage.expandDetailsMenu("line items");
+		test.invoicePage
+				.verifyRenewedProductsPriceInsideLineItems(mapRenewedProductDetails);
+		test.invoicePage.collapseDetailsMenu("line items");
+		
+		
 	}
 }

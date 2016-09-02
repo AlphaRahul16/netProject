@@ -32,7 +32,7 @@ chkConfirm                                      id                              
 rad_No                                        xpath                                    //label[text()='No']/preceding-sibling::input
 txt_confirmPage                             xpath                                      //legend[text()='Confirm your information']
 chkbox_undergraduate                        css                                        input[id*='ucDegree_cbConfirm']
-rad_undergraduate                           css                                        input[value='${value}']
+rad_undergraduate                           css                                        input[value*='${value}']
 iframe_ewebframe                            css                                        #eWebFrame
 btn_addSubscription                          css                                        input[class='addItemButton'][value='${value}']
 txt_legend                                  xpath                                      //legend[contains(text(),'${value}')]

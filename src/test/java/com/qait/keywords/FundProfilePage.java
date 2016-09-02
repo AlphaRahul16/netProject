@@ -187,6 +187,7 @@ public class FundProfilePage extends ASCSocietyGenericPage
 			if(mapSheetData.get("Display_Order"+i).length()!=0)
 			{
 			displayorder.add(Integer.parseInt(mapSheetData.get("Display_Order"+i)));
+			System.out.println(displayorder.get(i));
 			}
 
 		}
@@ -203,13 +204,14 @@ public class FundProfilePage extends ASCSocietyGenericPage
 		wait.hardWait(3);
 		wait.resetExplicitTimeout(timeOut);
 		wait.resetImplicitTimeout(timeOut);
-		for(int i=0;i<displayorder.size();i++)
+		for(int i=0;i<(displayorder.size()-1);i++)
 		{
-	
+	System.out.println(displayorder.size());
             wait.waitForPageToLoadCompletely();
 			toString();
 			wait.hardWait(2);
 			mapFundOrder.put("Amount"+i,element("txt_fundNameByOrder", String.valueOf(displayorder.get(i))).getText().replace(",",""));
+			System.out.println(mapFundOrder.get("Amount"+i));
 		}
 		return mapFundOrder;
 	}
