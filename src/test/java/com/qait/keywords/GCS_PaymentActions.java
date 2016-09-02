@@ -55,7 +55,7 @@ public class GCS_PaymentActions extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_payNow");
 		element("btn_payNow").click();
 		logMessage("Step : Pay Now button is clicked\n");
-		wait.waitForPageToLoadCompletely();
+
 	}
 
 	public void clickSimulateTransactionButton() {
