@@ -15,7 +15,7 @@ import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
-public class ACS_ScarfReviewing_Test extends BaseTest {
+public class ACS_ScarfReviewing_Test {
 	static String sheetName;
 	String app_url_eweb_rev;
 	TestSessionInitiator test;

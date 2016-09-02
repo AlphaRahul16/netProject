@@ -37,6 +37,8 @@ public class TakeScreenshot {
 
 	public void takeScreenshot() {
 		screenshotPath = (getProperty("screenshot-path") != null) ? getProperty("screenshot-path") : screenshotPath;
+		System.out.println("screenshot path:"+screenshotPath);
+		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_hh_mm_a");
 		Date date = new Date();
 		String date_time = dateFormat.format(date);
@@ -79,6 +81,7 @@ public class TakeScreenshot {
 	public void deleteAllScreenshotsBeforeFiveDays(){
 		File folder = new File("./test-output/screenshots/" + this.testname);
 		String[] fileNames = folder.list();
+		if(folder.exists()){
 		for (int i = 0; i < fileNames.length; i++) {
 			File newFile=new File("./test-output/screenshots/" + this.testname+"/"+fileNames[i]);
 			String[] folderDateArray = fileNames[i].split("_", 4);
@@ -89,6 +92,7 @@ public class TakeScreenshot {
 			Date previousDate=DateUtil.convertStringToDate(previousDateString, "yyyy_MM_dd");
 			deleteAllPrevoiusDateScreenshotsFolder(folderDate,previousDate,newFile);
 		}
+	}
 	}
 	
 	public void deleteAllPrevoiusDateScreenshotsFolder(Date folderDate,Date previousDate,File fileName){

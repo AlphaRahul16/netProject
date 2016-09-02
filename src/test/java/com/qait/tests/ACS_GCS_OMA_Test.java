@@ -83,7 +83,6 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 
-		// quantities = test.checkoutPage.verifyPriceValues(caseID);
 		test.checkoutPage.verifyMemberDetail(caseID);
 		test.checkoutPage.verifyMemberEmail(userEmail);
 		productSubTotal = test.checkoutPage.verifyProductSubTotal("4",
@@ -92,11 +91,6 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 		test.checkoutPage.verifyTechnicalDivision(caseID);
 		test.checkoutPage.verifyPublication(caseID);
 		test.checkoutPage.clickAtTestStatement();
-		// test.checkoutPage.enterPaymentInfo(
-		// YamlReader.getYamlValue("creditCardInfo.Type"), userDetail[1]
-		// + " " + userDetail[2],
-		// YamlReader.getYamlValue("creditCardInfo.Number"),
-		// YamlReader.getYamlValue("creditCardInfo.cvv-number"));
 
 		test.checkoutPage.clickOnPayInINRButton();
 		test.checkoutPage.verifyHeadingAtCheckoutPage();
@@ -107,11 +101,8 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 				.get("Payment Type"));
 		test.checkoutPage.checkIAgreeTermsAndCondition();
 		test.checkoutPage.clickOnContinueButton();
-		// ////////////////
 
 		test.gcsPaymentPage.verifyPageTitleExact("Paynetz");
-
-		// //////////////
 
 	}
 
@@ -142,14 +133,13 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 						.get("ZipCode"),
 				test.homePageIWEB.map().get("Country"), test.homePageIWEB.map()
 						.get("Address"));
-		test.checkoutPage.verifyMemberName(caseID);
-		test.checkoutPage.verifyTechnicalDivision(caseID);
-		test.checkoutPage.verifyPublication(caseID);
+		test.checkoutPage.verifyMemberName_GCSOMA(caseID);
+
 	}
 
 	@Test(dependsOnMethods = "Step06_Verify_Details_At_Confirmation_Page")
 	public void Step07_Launch_Application_Under_Test() {
-
+ 
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.launchApplication(app_url_IWEB);
 		test.homePage.enterAuthentication(
@@ -163,23 +153,29 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 	public void Step08_Search_Member_In_Individual_Test() {
 
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
-		String invoiceNumber = memberDetail[1];
+		String invoiceNumber =memberDetail[1]; 
 		test.homePageIWEB.clickFindForIndividualsSearch();
-		String memberNumber = memberDetail[0];
+		String memberNumber =memberDetail[0]; 
 		test.individualsPage.fillMemberDetailsAndSearch("Record Number",
 				memberNumber);
 		test.individualsPage.verifyMemberDetails_OMA(test.homePageIWEB.map()
 				.get("FirstName"), test.homePageIWEB.map().get("LastName"),
 				test.homePageIWEB.map().get("Address"), test.homePageIWEB.map()
 						.get("City"), test.homePageIWEB.map().get("ZipCode"),
-				test.homePageIWEB.map().get("AddressType"), memberDetail[0],
-				userEmail, caseID);
-		test.individualsPage.verifyIndividualProfileDetails(caseID, quantities);
-		test.individualsPage.verifyMemberBenefitsDetail(caseID, invoiceNumber);
+				test.homePageIWEB.map().get("AddressType"), memberDetail[0] 
+				,userEmail, caseID);
+		test.individualsPage.verifyIndividualProfileDetails_GCSOMA();
+		test.individualsPage.verifyMemberBenefitsDetail_GCSOMA(caseID,
+				invoiceNumber);
 		test.homePageIWEB.clickOnSideBarTab("Invoice");
 		test.memberShipPage.clickOnSideBar("Find Invoice");
-		test.invoicePage.verifyInvoicedDetails(caseID, "Invoice",
-				invoiceNumber, quantities, Total);
+
+		test.invoicePage
+				.verifyInvoiceDetailsGCSOMA(invoiceNumber, Total, "Yes");  //----
+
+		test.individualsPage.ClickonMoreAndMenuNameLink("Payments");
+		test.invoicePage.expandChildTabMenuAndverifyGCSOMA();
+		test.invoicePage.getTableHeadingsAndVerifyPaymentValues("acs global constituent system log","INR","CREDITCARD");
 	}
 
 	/**

@@ -22,13 +22,15 @@ public class GCS_PaymentActions extends ASCSocietyGenericPage {
 		logMessage("Step : payment type is selected as " + buttonName + " \n");
 	}
 
-	
-	public void fillBillingInformationAs(String placeholdername,String placeholdervalue)
-	{
-		isElementDisplayed("inp_billingInfo",placeholdername);
-		element("inp_billingInfo",placeholdername).click();
-		element("inp_billingInfo",placeholdername).sendKeys(placeholdervalue);
-		logMessage("Step : Billing information in "+placeholdername+" is entered as "+placeholdervalue);
+
+	public void fillBillingInformationAs(String placeholdername,
+			String placeholdervalue) {
+		isElementDisplayed("inp_billingInfo", placeholdername);
+		element("inp_billingInfo", placeholdername).click();
+		element("inp_billingInfo", placeholdername).sendKeys(placeholdervalue);
+		logMessage("Step : Billing information in " + placeholdername
+				+ " is entered as " + placeholdervalue);
+
 	}
 	
 	public void fillPaymentDetailsFor(String name,String value)
@@ -68,7 +70,7 @@ public class GCS_PaymentActions extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_payNow");
 		element("btn_payNow").click();
 		logMessage("Step : Pay Now button is clicked\n");
-		wait.waitForPageToLoadCompletely();
+
 	}
 
 	public void clickSimulateTransactionButton(String value) {
@@ -123,8 +125,6 @@ public class GCS_PaymentActions extends ASCSocietyGenericPage {
      	  	
 	}
 	
-
-
 
 private void selectMajorBankRadioButtonForPaymentThroughNetBanking()
 {

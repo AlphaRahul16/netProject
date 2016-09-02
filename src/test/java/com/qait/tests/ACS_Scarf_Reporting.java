@@ -18,7 +18,7 @@ import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.XlsReader;
 import com.qait.automation.utils.YamlReader;
 
-public class ACS_Scarf_Reporting extends BaseTest{
+public class ACS_Scarf_Reporting{
 	static String sheetName;
 	TestSessionInitiator test;
 
@@ -103,8 +103,8 @@ public class ACS_Scarf_Reporting extends BaseTest{
 
 	@Test
 	public void Step06_Login_Into_Student_Chapter_Eweb_Application_And_Verify_Report_Status() {
-		test.launchApplication(getYamlValue("app_url_EwebReporting")); //"McKinley","30938296" "LaRoe", "30845095"
-        test.acsScarfReporting.loginWithLastNameAndMemberId(memberDetails.get(0), memberDetails.get(1));// "McKinley","30938296" "Davis","30761435""Wolf","308413336
+		test.launchApplication(getYamlValue("app_url_EwebReporting")); 
+        test.acsScarfReporting.loginWithLastNameAndMemberId(memberDetails.get(0), memberDetails.get(1));
 //        test.acsScarfReporting.loginWithLastNameAndMemberId("Landrum","30793155");//"Tchalla","30926975"
 		test.acsScarfReporting.verifyStudentChapterReportingPage();
 		test.acsScarfReporting.verifyReportStatus("Pending");
@@ -231,7 +231,6 @@ public class ACS_Scarf_Reporting extends BaseTest{
 
 	@AfterClass
 	public void Close_Browser_Session() {
-//		test.getDriver();
 		test.acsScarfReviewPage.assignChapterName(chapterName);
 		test.closeBrowserSession();
 	}

@@ -123,6 +123,17 @@ public class GCS_OMR_Test extends BaseTest {
 	
 	@Test
 	public void Step08_verify_Details_On_Iweb() {
+		test.launchApplication(app_url_IWEB);
+		test.homePageIWEB.clickOnSideBarTab("Invoice");
+		test.memberShipPage.clickOnSideBar("Find Invoice");
+		test.individualsPage.enterFieldValue("Invoice Code", memDetails.get(2));
+		test.individualsPage.clickGoButton();
+		test.invoicePage.verifyInvoiceDetailsAfterRenewal();
+		test.invoicePage.expandDetailsMenu("line items");
+		test.invoicePage
+				.verifyRenewedProductsPriceInsideLineItems(mapRenewedProductDetails);
+		test.invoicePage.collapseDetailsMenu("line items");
+		
 		
 	}
 }
