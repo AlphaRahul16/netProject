@@ -118,7 +118,6 @@ public class YamlReader {
 				object = (Map<String, Object>) yaml.load(doc);
 				return parseMap(object, token + ".");
 			}
-				
 		/*try {
 			doc = new FileReader(yamlFilePath);
 		} catch (FileNotFoundException ex) {
@@ -129,8 +128,11 @@ public class YamlReader {
 		Yaml yaml = new Yaml();
 		// TODO: check the type casting of object into the Map and create
 		// instance in one place
-		Map<String, Object> object = (Map<String, Object>) yaml.load(doc);
+		Map<String, Object> object = (Map<String, Object>) yaml.load(doc);*/
+		//return parseMap(object, token + ".");
+	/*	Map<String, Object> object = (Map<String, Object>) yaml.load(doc);
 		return parseMap(object, token + ".");*/
+
 	}
 
 	private static String getValue(String token) throws FileNotFoundException {

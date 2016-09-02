@@ -190,8 +190,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 //	switchToEwebRenewalFrame();
 //	isElementDisplayed("rad_undergraduate", buttontext);
 //	element("rad_undergraduate", buttontext).click();
-
 	wait.hardWait(14);
+	wait.waitForPageToLoadCompletely();
 	executeJavascript("document.getElementById('eWebFrame').contentWindow.document.getElementsByClassName('btn btn-blue')[0].click()");
 	logMessage("Step : button "+buttontext+" is clicked\n");
 	wait.waitForPageToLoadCompletely();
@@ -399,10 +399,22 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnSubmitPayment() {
-		wait.waitForPageToLoadCompletely();
 		wait.hardWait(14);
+		wait.waitForPageToLoadCompletely();
+		try
+		{
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			wait.resetImplicitTimeout(4);
+			performClickByActionBuilder(element("btn_submitPayment"));
+		}
+		catch(Exception e)
+		{
 		executeJavascript("document.getElementById('eWebFrame').contentWindow.document.getElementById('btnSubmitOmrPaymentTop').click()");
+		}
 		logMessage("STEP : click on Pay button at Top \n");
+		wait.resetExplicitTimeout(timeOut);
+		wait.resetImplicitTimeout(timeOut);
+		
 	}
 
 	public void verifyNavigationPage(String navigationPageName) {
@@ -503,6 +515,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		}
 		else if(mapOMR.get("Member_Status?").equalsIgnoreCase("Regular"))
 		{
+			System.out.println("_++++++++++++vgsdgvsd++++++++++");
 			clickRadioButtonForRenewalYears(mapOMR.get("Renew_For_Years?"));
 
 		}
@@ -557,9 +570,10 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		if(mapOMR.get("Contribution_To_Add?").length()!=0)
 		{
 			switchToDefaultContent();
-			wait.hardWait(5);
+			wait.hardWait(4);
+			switchToDefaultContent();
 			switchToEwebRenewalFrame();
-			wait.hardWait(1);
+			wait.hardWait(3);
 			isElementDisplayed("inp_contribution",mapOMR.get("Contribution_To_Add?").trim());
 			element("inp_contribution",mapOMR.get("Contribution_To_Add?").trim()).sendKeys(mapOMR.get("Contribution_Amount?").trim());
 			logMessage("Step : ACS Contribution entered for "+mapOMR.get("Contribution_To_Add?").trim()+" as "+mapOMR.get("Contribution_Amount?").trim()+"\n");
@@ -660,9 +674,6 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	public Map<String, String> saveProductsWithRespectiveRenewalAmount() 
 	{
 		switchToDefaultContent();
-	
-		
-		
 		try {
 			Thread.sleep(8000);
 		} catch (InterruptedException e) {

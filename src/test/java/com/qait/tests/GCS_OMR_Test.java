@@ -18,12 +18,11 @@ import com.qait.automation.utils.YamlReader;
 public class GCS_OMR_Test extends BaseTest {
 
 	String app_url_IWEB, app_url_OMR;
-	static String sheetname,invoiceNumber;
+	static String sheetname, invoiceNumber;
 	private int caseID;
 	Map<String, String> mapGcsOMR = new HashMap<String, String>();
 	private List<String> memDetails;
 	Map<String, String> mapRenewedProductDetails;
-
 
 	public GCS_OMR_Test() {
 		sheetname = com.qait.tests.Data_Provider_Factory_Class_Xml.sheetName = "GCS_OMR";
@@ -52,7 +51,6 @@ public class GCS_OMR_Test extends BaseTest {
 	@Test
 	public void Step01_Launch_Application_Under_Test() {
 
-
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Membership");
@@ -60,9 +58,8 @@ public class GCS_OMR_Test extends BaseTest {
 		test.memberShipPage.selectValidUserForGCSOMR(mapGcsOMR);
 		test.memberShipPage.selectARandomActiveStudentChapter();
 		test.memberShipPage.expandDetailsMenu("invoices");
-		//test.memberShipPage.verifyTermStartDateAndEndDatesAreEmpty(mapGcsOMR);
+		// test.memberShipPage.verifyTermStartDateAndEndDatesAreEmpty(mapGcsOMR);
 	}
-
 
 	@Test
 	public void Step02_TC01_Verify_Payment_Status_And_Invoice_Details_Before_Renewal() {
@@ -101,21 +98,31 @@ public class GCS_OMR_Test extends BaseTest {
 		test.asm_OMR.navigateToCheckOutPageForGCSOMR();
 		test.asm_OMR.clickOnSubmitPayment();
 		test.asm_OMR.clickProccedWithPaymentinINR("Proceed with payment in INR");
-		test.gcsPaymentPage.clickOnPaymentButtonNamedAs(mapGcsOMR.get("CreditCard_Type"));
+		test.gcsPaymentPage.clickOnPaymentButtonNamedAs(mapGcsOMR.get("Card_Type"));
 		test.asm_OMR.clickContinueButtonToNavigateToBankPaymentPage();
 
-
-		//	test.asm_OMR
-		//			.verifyRenewedProductsSummaryOnCheckOutPage(mapRenewedProductDetails);
-		//	test.asm_OMR.clickOnSubmitPayment();
+//		 test.asm_OMR
+//		 .verifyRenewedProductsSummaryOnCheckOutPage(mapRenewedProductDetails);
+//		 test.asm_OMR.clickOnSubmitPayment();
 
 	}
-	
 
 	@Test
 	public void Step07_TC01_Bank_Payment_Page() {
-		test.gcsPaymentPage.EnterDetailsOnBankPaymentPageAndProcessFutherSimulation(mapGcsOMR.get("Mobile_Number"),mapGcsOMR.get("Email_Id"),
-				mapGcsOMR.get("CreditCard_Number"),(memDetails.get(0).split(" ")[1] + " " + memDetails.get(0).split(" ")[0]),Integer.parseInt(mapGcsOMR.get("CreditCardExpiration_Month")),
-Integer.parseInt(mapGcsOMR.get("CreditCardExpiration_Year")),mapGcsOMR.get("CreditCard_CVV_Number"),mapGcsOMR.get("Bank_Name"));
+		String name=(memDetails.get(0).split(" ")[1] + " " + memDetails
+				.get(0).split(" ")[0]);
+		System.out.println(name);
+		test.gcsPaymentPage
+				.EnterDetailsOnBankPaymentPageAndProcessFutherSimulation(
+						mapGcsOMR.get("Card_Type"), mapGcsOMR.get("Mobile_Number"),
+						mapGcsOMR.get("Email_Id"), mapGcsOMR.get("CreditCard_Number"),mapGcsOMR
+						.get("DebitCard_Number"),name, mapGcsOMR.get("CreditCardExpiration_Month"), mapGcsOMR
+						.get("CreditCardExpiration_Year"), mapGcsOMR.get("CreditCard_CVV_Number"), mapGcsOMR
+						.get("Bank_Name"));
+	}
+	
+	@Test
+	public void Step08_verify_Details_On_Iweb() {
+		
 	}
 }
