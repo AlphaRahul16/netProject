@@ -97,30 +97,35 @@ public class GCS_OMR_Test extends BaseTest {
 
 		test.asm_OMR.navigateToCheckOutPageForGCSOMR();
 		test.asm_OMR.clickOnSubmitPayment();
-		test.asm_OMR.clickProccedWithPaymentinINR("Proceed with payment in INR");
-		test.gcsPaymentPage.clickOnPaymentButtonNamedAs(mapGcsOMR.get("Card_Type"));
+		test.asm_OMR
+				.clickProccedWithPaymentinINR("Proceed with payment in INR");
+		test.gcsPaymentPage.clickOnPaymentButtonNamedAs(mapGcsOMR
+				.get("Card_Type"));
 		test.asm_OMR.clickContinueButtonToNavigateToBankPaymentPage();
 
-//		 test.asm_OMR
-//		 .verifyRenewedProductsSummaryOnCheckOutPage(mapRenewedProductDetails);
-//		 test.asm_OMR.clickOnSubmitPayment();
+		// test.asm_OMR
+		// .verifyRenewedProductsSummaryOnCheckOutPage(mapRenewedProductDetails);
+		// test.asm_OMR.clickOnSubmitPayment();
 
 	}
 
 	@Test
 	public void Step07_TC01_Bank_Payment_Page() {
-		String name=(memDetails.get(0).split(" ")[1] + " " + memDetails
+		String name = (memDetails.get(0).split(" ")[1] + " " + memDetails
 				.get(0).split(" ")[0]);
 		System.out.println(name);
 		test.gcsPaymentPage
 				.EnterDetailsOnBankPaymentPageAndProcessFutherSimulation(
-						mapGcsOMR.get("Card_Type"), mapGcsOMR.get("Mobile_Number"),
-						mapGcsOMR.get("Email_Id"), mapGcsOMR.get("CreditCard_Number"),mapGcsOMR
-						.get("DebitCard_Number"),name, mapGcsOMR.get("CreditCardExpiration_Month"), mapGcsOMR
-						.get("CreditCardExpiration_Year"), mapGcsOMR.get("CreditCard_CVV_Number"), mapGcsOMR
-						.get("Bank_Name"));
+						mapGcsOMR.get("Card_Type"),
+						mapGcsOMR.get("Mobile_Number"),
+						mapGcsOMR.get("Email_Id"),
+						mapGcsOMR.get("CreditCard_Number"), name,
+						mapGcsOMR.get("CreditCardExpiration_Month"),
+						mapGcsOMR.get("CreditCardExpiration_Year"),
+						mapGcsOMR.get("CreditCard_CVV_Number"),
+						mapGcsOMR.get("Bank_Name"));
 	}
-	
+
 	@Test
 	public void Step08_verify_Details_On_Iweb() {
 		test.launchApplication(app_url_IWEB);
@@ -133,7 +138,6 @@ public class GCS_OMR_Test extends BaseTest {
 		test.invoicePage
 				.verifyRenewedProductsPriceInsideLineItems(mapRenewedProductDetails);
 		test.invoicePage.collapseDetailsMenu("line items");
-		
-		
+
 	}
 }

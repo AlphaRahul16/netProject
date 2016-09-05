@@ -965,7 +965,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 			tableHeadings.add(elem.getText().trim());
 		}
 		getParticularColumnValue("Status", tableHeadings, tabName,
-				currencyValue, paymentModeValue);
+				currencyValue, paymentModeValue.replaceAll(" ", ""));
 	}
 
 	public void getParticularColumnValue(String columnName,
@@ -986,7 +986,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 				break;
 			}
 		}
-			statusIndex = statusIndex + 3;
+		statusIndex = statusIndex + 3;
 		for (int i = 1; i < elements("table_rows").size(); i++) {
 			if (element("txt_tableColumn", tabName, String.valueOf(i + 1),
 					String.valueOf(statusIndex)).getText().trim()
@@ -1013,7 +1013,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		Assert.assertTrue(
 				element("txt_tableColumn", tabName, String.valueOf(rowIndex),
 						String.valueOf(columnIndex)).getText().trim()
-						.equals(expectedValue), "ASSERT FAILED: "
+						.equalsIgnoreCase(expectedValue), "ASSERT FAILED: "
 						+ expectedValue + " matches for " + columnName
 						+ " column\n");
 		logMessage("ASSERT PASSSED: " + expectedValue + " matches for "

@@ -16,17 +16,18 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 	String memberName, productSubTotal, Total, userEmail, currency = "₹";
 	String[] userDetail;
 	String[] memberDetail, quantities;
-
+	//static String caseID;
 	String app_url = getYamlValue("app_url_OMA");
 	String app_url_IWEB = getYamlValue("app_url_IWEB");
 
 	ACS_GCS_OMA_Test() {
-		com.qait.tests.DataProvider_FactoryClass.sheetName = "GCS_OMA";
+		DataProvider_FactoryClass.sheetName = "GCS_OMA";
+
 	}
 
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
-	public ACS_GCS_OMA_Test(String caseID) {
-		BaseTest.caseID = caseID;
+	public ACS_GCS_OMA_Test(String caseIDs) {
+		BaseTest.caseID = caseIDs;
 	}
 
 	@Test
@@ -108,20 +109,20 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step05_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page")
 	public void Step06_TC01_Bank_Payment_Page() {
-//		test.gcsPaymentPage
-//				.EnterDetailsOnBankPaymentPageAndProcessFutherSimulation(
-//						test.gcsPaymentPage.map().get("Payment Type"),
-//						test.gcsPaymentPage.map().get("Mobile_Number"),
-//						test.gcsPaymentPage.map().get("Email_Id"),
-//						test.gcsPaymentPage.map().get("Card Number"),
-//						test.gcsPaymentPage.map().get("FirstName") + " "
-//								+ test.gcsPaymentPage.map().get("LastName"),
-//						test.gcsPaymentPage.map().get(
-//								"CreditCardExpiration_Month"),
-//						test.gcsPaymentPage.map().get(
-//								"CreditCardExpiration_Year"),
-//						test.gcsPaymentPage.map().get("CVV_Number"),
-//						test.gcsPaymentPage.map().get("Bank_Name"));
+		test.gcsPaymentPage
+				.EnterDetailsOnBankPaymentPageAndProcessFutherSimulation(
+						test.gcsPaymentPage.map().get("Payment Type"),
+						test.gcsPaymentPage.map().get("Mobile_Number"),
+						test.gcsPaymentPage.map().get("Email_Id"),
+						test.gcsPaymentPage.map().get("Card Number"),
+						test.gcsPaymentPage.map().get("FirstName") + " "
+								+ test.gcsPaymentPage.map().get("LastName"),
+						test.gcsPaymentPage.map().get(
+								"CreditCardExpiration_Month"),
+						test.gcsPaymentPage.map().get(
+								"CreditCardExpiration_Year"),
+						test.gcsPaymentPage.map().get("CVV_Number"),
+						test.gcsPaymentPage.map().get("Bank_Name"));
 	}
 
 	@Test(dependsOnMethods = "Step06_TC01_Bank_Payment_Page")
@@ -176,7 +177,8 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 		test.individualsPage.ClickonMoreAndMenuNameLink("Payments");
 		test.invoicePage.expandChildTabMenuAndverifyGCSOMA();
 		test.invoicePage.getTableHeadingsAndVerifyPaymentValues(
-				"acs global constituent system log", "INR", "CREDITCARD");
+				"acs global constituent system log", "INR", test.homePageIWEB
+						.map().get("Payment Type"));
 	}
 
 	/**
