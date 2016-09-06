@@ -22,7 +22,6 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 
 	ACS_GCS_OMA_Test() {
 		DataProvider_FactoryClass.sheetName = "GCS_OMA";
-
 	}
 
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
