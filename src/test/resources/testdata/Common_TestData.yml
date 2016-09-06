@@ -20,6 +20,7 @@ csv-data-file:
   path_MYDTransfer: ./src/test/resources/TestDataLibrary/Multi_Year_Dues_Transfer_Sheet.csv
   path_COE_Inventory: ./src/test/resources/TestDataLibrary/COEInventory.csv
   path_OMR: ./src/test/resources/TestDataLibrary/OMR_Datasheet.csv
+  path_CreditApply: ./src/test/resources/TestDataLibrary/ACS_Create_Manual_Credit.csv
   data-separator: '\t'
   has-header: true
 
@@ -611,9 +612,14 @@ AddressChange:
 ACS_AutoRenewal_Selection_In_OMR:
     AutoRenewal_Query: Selenium – Find Random Active Member with Proforma
     
+ACS_Create_Manual_Credit_Test:
+  CreditReason: Check Transfer
+  CreditAmount: 100
+  liability_Expense: "01-01000-000-11850 : Shipping"
+  batch: "ACS Credit"
+  
 COE_Inventory:
   batch: "Selenium Testing"
-  productCode: "209-116-1000"
   PaymentType: prepaid
   paymentMethod: "BOA - Check"
   checkNumber: "1111"   

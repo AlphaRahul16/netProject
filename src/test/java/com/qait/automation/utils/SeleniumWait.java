@@ -114,7 +114,24 @@ public class SeleniumWait {
 		}
 		resetImplicitTimeout(timeout);
 	}
+	/*public void waitForWindowsToDisappear()
+	 {
+		int i = 0;
+		resetImplicitTimeout(8);
+		int size=driver.getWindowHandles().size();
+		try {
+			while (size!=1 && i <= timeout) {
+				System.out.println("Size of the window"+size);
+				size=driver.getWindowHandles().size();
+				hardWait(1);
+				i++;
+			}
+		} catch (Exception e) {
+			System.out.println("INFO : Window is not appeared\n");
+		}
+		resetImplicitTimeout(timeout);
 
+	 }*/
 	public WebElement getWhenVisible(By locator, int timeout) {
 		WebElement element = null;
 		WebDriverWait wait = new WebDriverWait(driver, timeout);

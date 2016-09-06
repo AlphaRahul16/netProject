@@ -779,7 +779,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void enterCardDetails(String cardInfo, String cardValue) {
+		
 		isElementDisplayed("inp_" + cardInfo);
+		//element("inp_" + cardInfo).click();
 		element("inp_" + cardInfo).sendKeys(cardValue);
 		logMessage("Step : enter " + cardValue + " in inp_" + cardInfo + " \n");
 	}
@@ -1569,7 +1571,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : Produuct code " + prodCode
 				+ " is entered in inp_prdCode\n");
 	}
-
+	
 	public void clickOnSearchDisplayNameButton() {
 		isElementDisplayed("inp_searchDisplayButton");
 		clickUsingXpathInJavaScriptExecutor(element("inp_searchDisplayButton"));
@@ -1578,7 +1580,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(8);
 		logMessage("Step : Search display name button is clicked in inp_searchDisplayButton\n");
 	}
-
+	public void clickOnSearchButton()
+	{
+		isElementDisplayed("btn_search");
+		//clickUsingXpathInJavaScriptExecutor(element("btn_search"));
+		element("btn_search").click();
+		wait.hardWait(2);
+		hardWaitForIEBrowser(8);
+		logMessage("Step : Search button is clicked \n");
+	}
 	public String getDisplayName() {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("inp_displayName");
@@ -1635,7 +1645,61 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		verifyPageTitleContains("CRM | Individuals |");
 	}
+	public void enterValuesInCreditPage(String batchName, String creditReason, String paymentMethod, String cardNumber,
+			String expireDate, String cvvNumber, String creditAmount, String expense)
+	{
+		isElementDisplayed("inp_customerName");
+		String nameOnCheck= element("inp_customerName").getAttribute("value").trim();
+		System.out.println("Name on check:" +nameOnCheck);
+		holdExecution(2000);
+		batchName+=System.currentTimeMillis();
+		System.out.println("Batch name:: "+batchName);
+		if (verifyBatchIsPresent(batchName)) {
+			selectOrderEntryInfo("batchCreditPage", batchName);
+		} else {
+			addBatchOnCreditPage(batchName.replaceAll("ACS: ", ""), "QA");
+			//addBatch(batchName.replaceAll("ACS: ", ""), "QA");
+		}
+		waitForSpinner();
+		enterCardDetails("creditAmount", creditAmount);
+		waitForSpinner();
+		selectOrderEntryInfo("creditReason", creditReason);
+		waitForSpinner();
+		selectOrderEntryInfo("paymentMethod", paymentMethod);
+		waitForSpinner();
+		//System.out.println("check number" + cardNumber);		
+		if (paymentMethod.equalsIgnoreCase("Visa/MC")) {
+			enterCardDetails("cardNumber", cardNumber);
+			selectMemberInfo("expireDate", expireDate);
+			enterCardDetails("cvvNumber", cvvNumber);
+		} else if (paymentMethod.equalsIgnoreCase("BOA - Check")) {
+			enterCardDetails("nameOnCheck", nameOnCheck);
+			enterCardDetails("checkNumber", cardNumber);
 
+		} else {
+			Assert.fail("ASSERT FAILED : Payment method " + paymentMethod
+					+ " is not correct \n");
+		}
+		selectOrderEntryInfo("liabilityExpense", expense);
+		clickOnSaveButtonForBillingAddress();
+		wait.waitForPageToLoadCompletely();
+		logMessage("STEP: All values are entered in Credit Page\n");
+	}
+	public void clickOnBatch(String batchName)
+	{
+		isElementDisplayed("hd_sideBar",batchName);
+		element("hd_sideBar",batchName).click();
+		logMessage("Step: Click on Batch on Credit profile page \n");
+	}
+	 public void clickOnPreProcessAndWaitToCloseThePopup()
+	 {
+		 isElementDisplayed("btn_preProcess");
+		 element("btn_preProcess").click();
+		 logMessage("Step: Click On preProcess \n");
+		 //wait.waitForWindowsToDisappear();
+		 
+	 }
+	 
 	public void selectBatchAndPaymentDetailsForCRMInventory(String batchName,
 			String paymentType, String paymentMethod, String cardNumber,
 			String expireDate, String cvvNumber, String checkNumber) {
@@ -1672,7 +1736,27 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		verifyPageTitleContains("CRM | Individuals |");
 	}
 
+	public boolean verifyBatchIsPresentInCreditPage(String batchName) {
+		hardWaitForIEBrowser(2);
+		System.out.println("-----in verify batch:" + batchName);
+		isElementDisplayed("list_batch");
+		flag = isDropDownValuePresent(
+				element("list_batch").findElements(By.xpath("//option")),
+				batchName);
+		return flag;
+
+	}
 	public boolean verifyBatchIsPresent(String batchName) {
+		hardWaitForIEBrowser(2);
+		System.out.println("-----in verify batch:" + batchName);
+		isElementDisplayed("list_batchCreditPage");
+		flag = isDropDownValuePresent(
+				element("list_batchCreditPage").findElements(By.xpath("//option")),
+				batchName);
+		return flag;
+
+	}
+	public boolean verifyBatchIsPresentOnCreditPage(String batchName) {
 		hardWaitForIEBrowser(2);
 		System.out.println("-----in verify batch:" + batchName);
 		isElementDisplayed("list_batch");
@@ -1702,6 +1786,24 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
+	public void addBatchOnCreditPage(String batchName, String securityGroup) {
+		switchToDefaultContent();
+		isElementDisplayed("btn_addBatchCredit");
+		clickUsingXpathInJavaScriptExecutor(element("btn_addBatchCredit"));
+		// element("btn_addBatch").click();
+		logMessage("Step : add batch button is clicked \n");
+		switchToFrame("iframe1");
+		isElementDisplayed("inp_addBatchName");
+		element("inp_addBatchName").clear();
+		element("inp_addBatchName").sendKeys(batchName);
+		logMessage("Step : enter batch name " + batchName + "\n");
+		isElementDisplayed("list_batchSecurityGroup");
+		selectProvidedTextFromDropDown(element("list_batchSecurityGroup"),
+				securityGroup);
+		logMessage("Step : Select security group " + securityGroup + "\n");
+		clickOnSaveButtonForBillingAddress();
+
+	}
 	public void selectBillingAddressIfNotPrePopulated() {
 		List<WebElement> list = elements("list_billingAdd");
 		if (list.get(0).getAttribute("selected") != null) {
@@ -3964,10 +4066,21 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void selectARandomActiveStudentChapter() {
+		wait.waitForPageToLoadCompletely();
 		clickOnRandomPage();
 		clickOnAnyRandomMember();
 	}
-
+	public void selectRandomCustomer()
+	{
+		wait.waitForPageToLoadCompletely();
+		clickOnRandomPage();
+		sortTheMembers();
+		clickOnAnyRandomMember();
+	}
+	public void sortTheMembers()
+	{
+		isElementDisplayed("table_header","Sort Name");
+	}
 	public void clickOnRelationsOptionUnderMoreMenu() {
 		IndividualsPageActions_IWEB object = new IndividualsPageActions_IWEB(
 				driver);
