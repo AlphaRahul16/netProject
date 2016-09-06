@@ -488,25 +488,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		}
 	}
 
-	// public String verifyTotal(String currency) {
-	// System.out.println("currency :-" + currency);
-	// float productSubTotalInfloat = Float.parseFloat(getTotal(
-	// "Product Subtotal").replaceAll("\\" + currency, ""));
-	// float shippingTotalInfloat = Float.parseFloat(getTotal("Shipping")
-	// .replaceAll("\\" + currency, ""));
-	// float taxTotalInfloat = Float.parseFloat(getTotal("Tax").replaceAll(
-	// "\\" + currency, ""));
-	// float TotalInfloat = Float.parseFloat(getTotal("Total").replaceAll(
-	// "\\" + currency, ""));
-	// float totalPrice = productSubTotalInfloat + shippingTotalInfloat
-	// + taxTotalInfloat;
-	// Assert.assertEquals(totalPrice, TotalInfloat);
-	// logMessage("ASSERT PASSED : total price value " + totalPrice
-	// + " is verified \n");
-	// String formatedPrice = String.format("%.02f", TotalInfloat);
-	// String totalInString = "" + currency + String.valueOf(formatedPrice);
-	// return totalInString;
-	// }
+	
 
 	public String verifyTotal(String currency) {
 		System.out.println("currency :-" + currency);

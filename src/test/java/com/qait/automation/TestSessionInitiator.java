@@ -298,7 +298,7 @@ public class TestSessionInitiator {
 				try {
 					Thread.sleep(8000);
 				} catch (InterruptedException e1) {
-
+					System.out.println(e1.getMessage());
 				}
 			}
 			if (!baseurl
@@ -307,12 +307,11 @@ public class TestSessionInitiator {
 			}
 
 		} catch (Exception e) {
-
+			System.out.println(e.getMessage());
 		}
 
 	}
-	
-	
+
 	public void closeBrowserSession() {
 		driver.quit();
 	}

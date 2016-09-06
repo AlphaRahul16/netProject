@@ -74,6 +74,8 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 
 	public void selectPastDegreeWithOtherDetail(String degree, String major,
 			String month, String year) {
+		
+		
 		if (degree.equalsIgnoreCase("NULL")) {
 			logMessage("Step: degree is null\n");
 		} else {
