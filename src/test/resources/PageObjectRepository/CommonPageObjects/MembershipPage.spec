@@ -74,7 +74,7 @@ table_lineItems                                   id                         UPD
 frame_selectProduct                              id                             menu_a83665ae18eb43488c5d83ce5f6027f8  
 list_billAddress                                 id                         inv_cxa_key   
 link_email                                       id                          F1_HYPERLINK_0     
-txt_ContactId                                     id                        F1_cst_id
+txt_ContactId                                    css                        .TinyTXTOrange
 txt_customerAddress                                id                          F1_cxa_mailing_label_html
 txt_addressType                                  id                           F1_cxa_adt_key_Display_Text_
 label_listMemberShip                             id                          LabelDataFormHeader
@@ -191,3 +191,17 @@ price_txt										css							#dgDynamicList > tbody > tr:nth-child(${randomNumbe
 th_lookup										xpath						.//*[@id='dgDynamicList']//th/a[contains(text(),'${field}')]
 productName_inp									css							#prd_name
 inp_checkNumber                                   id                    	  	 pin_check_number
+
+##Credit_Page
+
+inp_creditAmount								id								cdd_amount
+list_creditReason								id								cdt_rec_key
+inp_nameOnCheck									id								pin_name_on_check
+inp_customerName								id								cst_sort_name_dn
+list_liabilityExpense							id								cdd_gla_cr_key
+btn_preProcess									id								PreProcess
+btn_search										id								Look_Up_cst_sort_name_dn
+list_batchCreditPage							id								cdt_bat_key
+table_header									xpath							//a[contains(text(),'${text}')]
+btn_addBatchCredit								css								#cdt_bat_key_oAddHyperLink>img
+##inp_creditAmount										xpath							//label[contains(text(),'credit amount')]/preceding-sibling::input

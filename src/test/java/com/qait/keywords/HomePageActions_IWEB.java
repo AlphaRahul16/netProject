@@ -20,9 +20,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyUserIsOnHomePage(String pageTitle) {
 		handleAlert();
-		if(isBrowser("ie")|| isBrowser("internet explorer")){
-			wait.hardWait(3);
-		}
+		hardWaitForIEBrowser(3);
 		verifyPageTitleContains(pageTitle);
 
 		logMessage("ASSERT PASSED: verified that user is on " + this.pagename

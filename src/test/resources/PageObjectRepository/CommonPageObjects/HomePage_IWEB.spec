@@ -14,7 +14,7 @@ link_memberShip            css                     a[title='Membership Managemen
 tab_tabArear               id                   moduleList
 link_subscription          xpath                 //a[text()='Subscriptions']
 link_CRM                   xpath                 //a[text()='CRM']
-link_tabsOnModule          xpath                 //a[text()='${value}']
+link_tabsOnModule          xpath                 //*[text()='${value}']
 link_addIndividuals        xpath                //a[@id='F1_HYPERLINK_4']
 lnk_FindNomination         id                   F1_HYPERLINK_1
 lnk_ScarfReporting         xpath                //a[@title='Student Chapter Reporting']

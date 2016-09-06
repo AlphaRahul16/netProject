@@ -23,6 +23,7 @@ public class ACS_Apply_Payment_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : check box is selected for " + labelName
 				+ "\n");
 	}
+	
 
 	public void clickOnNextButton() {
 		isElementDisplayed("btn_next");
@@ -43,8 +44,7 @@ public class ACS_Apply_Payment_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void enterDetailsForPayment(String paymentMethod) {
-		logMessage("Step : payment method to apply the payment is "
-				+ paymentMethod);
+		logMessage("Step : payment method to apply the payment is "	+ paymentMethod);
 		if (paymentMethod.equalsIgnoreCase("BOA - Check")) {
 			selectCardDetails(
 					"payment method",
