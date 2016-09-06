@@ -130,7 +130,6 @@ public class TestSessionInitiator {
 	public GCS_PaymentActions gcsPaymentPage;
 	public InventoryPageActions_IWEB inventoryIweb;
 
-
 	// public AwardsPageActions_IWEB AwardsPageActions_IWEB;
 
 	public ACS_MarketingPage_IWEB acsMarketingPageIweb;
@@ -299,7 +298,7 @@ public class TestSessionInitiator {
 				try {
 					Thread.sleep(8000);
 				} catch (InterruptedException e1) {
-
+					System.out.println(e1.getMessage());
 				}
 			}
 			if (!baseurl
@@ -308,12 +307,11 @@ public class TestSessionInitiator {
 			}
 
 		} catch (Exception e) {
-
+			System.out.println(e.getMessage());
 		}
 
 	}
-	
-	
+
 	public void closeBrowserSession() {
 		driver.quit();
 	}
