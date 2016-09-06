@@ -30,7 +30,7 @@ import com.qait.keywords.MembershipPageActions_IWEB;
 public class ASCSocietyGenericPage extends GetPage {
 
 	protected WebDriver webdriver;
-	String pageName;
+	protected String pageName;
 	LayoutValidation layouttest;
 	String csvSeparator = getYamlValue("csv-data-file.data-separator");
 	protected int timeOut;

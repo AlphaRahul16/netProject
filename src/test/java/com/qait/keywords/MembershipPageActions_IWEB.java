@@ -709,7 +709,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnSelectProduct() {
 		isElementDisplayed("lnk_selectProduct");
 		// hover(element("lnk_selectProduct"));
-		wait.hardWait(1);
+		wait.hardWait(3);
 		// clickUsingXpathInJavaScriptExecutor(element("lnk_selectProduct"));
 		// element("lnk_selectProduct").click();
 		executeJavascript("document.getElementById('HYPERLINK_17').click()");
@@ -4218,7 +4218,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 		switchToFrame(element("iframe"));
 		clickOnSearchDisplayNameButton();
-		clickOnRandomPage();
 		_clickOnAvailableQuantityForSorting("Available Quantity");
 		_selectPage(10);
 		return clickOnAnyRandomMember1();
