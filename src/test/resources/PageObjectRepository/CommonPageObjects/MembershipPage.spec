@@ -191,3 +191,17 @@ price_txt										css							#dgDynamicList > tbody > tr:nth-child(${randomNumbe
 th_lookup										xpath						.//*[@id='dgDynamicList']//th/a[contains(text(),'${field}')]
 productName_inp									css							#prd_name
 inp_checkNumber                                   id                    	  	 pin_check_number
+
+##Credit_Page
+
+inp_creditAmount								id								cdd_amount
+list_creditReason								id								cdt_rec_key
+inp_nameOnCheck									id								pin_name_on_check
+inp_customerName								id								cst_sort_name_dn
+list_liabilityExpense							id								cdd_gla_cr_key
+btn_preProcess									id								PreProcess
+btn_search										id								Look_Up_cst_sort_name_dn
+list_batchCreditPage							id								cdt_bat_key
+table_header									xpath							//a[contains(text(),'${text}')]
+btn_addBatchCredit								css								#cdt_bat_key_oAddHyperLink>img
+##inp_creditAmount										xpath							//label[contains(text(),'credit amount')]/preceding-sibling::input

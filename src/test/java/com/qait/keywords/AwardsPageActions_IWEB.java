@@ -302,8 +302,8 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		System.out.println("nominees size :" + nomineesNames.size());
 		int sizeOfNominee = nomineesNames.size();
-		if (sizeOfNominee < 5) {
-			int numberOfNomineeToAdd = 5 - sizeOfNominee;
+		if (sizeOfNominee < 10) {
+			int numberOfNomineeToAdd = 10 - sizeOfNominee;
 			for (int i = 1; i <= numberOfNomineeToAdd; i++) {
 				addNominees("acs nominee/ entry");
 			}
@@ -567,10 +567,14 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			int sizeOfPointer = elements("btnList_yellowPointerExpand").size();
 			System.out.println("sizeOfPointer :" + sizeOfPointer);
 			for (int i = sizeOfPointer; i >= 1; i--) {
-				System.out.println("i-1 :" + i);
-				clickUsingXpathInJavaScriptExecutor(elements("btnList_yellowPointerExpand").get(i - 1));
+				System.out.println("i :" + i);
+				wait.waitForPageToLoadCompletely();
+				wait.hardWait(1);
+				elements("btnList_yellowPointerExpand").get(i - 1).click();
+				//clickUsingXpathInJavaScriptExecutor(elements("btnList_yellowPointerExpand").get(i - 1));
 				logMessage("Step : expand yellow pointer\n");
 				wait.hardWait(2);
+				
 				isElementDisplayed("btn_editJudges");
 				
 				int sizeOfEditJudges= elements("btn_editJudges").size();

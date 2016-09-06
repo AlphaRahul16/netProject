@@ -22,7 +22,6 @@ app_url_IwebReporting: https://stag-12iweb/NFStage3/iweb
 app_url_EwebReporting: https://ewebtest12.acs.org/NFStage3/studentchaptersonline
 app_url_ScarfReviewing: https://www.ewebtest.acs.org/NFStage3/studentchaptersreview
 
-
 csv-data-file:
   path_OMA: ./src/test/resources/TestDataLibrary/OMA Business Rules.csv
   path_PriceValue: ./src/test/resources/TestDataLibrary/PriceValues.csv
@@ -41,6 +40,7 @@ csv-data-file:
   path_MYDTransfer: ./src/test/resources/TestDataLibrary/Multi_Year_Dues_Transfer_Sheet.csv
   path_GCS_OMA: ./src/test/resources/TestDataLibrary/GCS-OMA_data_sheet.csv
   path_COE_Inventory: ./src/test/resources/TestDataLibrary/COEInventory.csv
+  path_Fundraising: ./src/test/resources/TestDataLibrary/Fundraising_data_sheet.csv
   data-separator: '\t'
   has-header: true
 

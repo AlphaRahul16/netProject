@@ -43,6 +43,7 @@ csv-data-file:
   path_MYDTransfer: ./src/test/resources/TestDataLibrary/Multi_Year_Dues_Transfer_Sheet.csv
   path_OMR: ./src/test/resources/TestDataLibrary/OMR_Datasheet.csv
   path_GCS-OMA: ./src/test/resources/TestDataLibrary/GCS-OMA data sheet.csv
+  path_Fundraising: ./src/test/resources/TestDataLibrary/Fundraising_data_sheet.csv
   data-separator: '\t'
   has-header: true
 
@@ -521,3 +522,4 @@ Acs_Reports:
     delivery_Method: Run Immediately,Schedule Report
     
 app_url_ScarfReviewing: https://www.ewebtest.acs.org/NFStage2/studentchaptersreview
+

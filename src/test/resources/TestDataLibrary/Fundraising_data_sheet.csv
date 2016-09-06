@@ -1,0 +1,3 @@
+caseID	caseID Execute	paymentmethod?	Card Number?	CVV?	Constituent Sort Name?	Fund Code?	Gift Amount?	Batch Name?	Security Group?
+1	Yes	BOA - Check	123		a%	AACT G	100	SeleniumTesting	QA
+2	No	Visa/MC	411111111111111	111	a%	AACT G	100	SeleniumTesting	QA
