@@ -96,7 +96,7 @@ public class FundProfilePage extends ASCSocietyGenericPage
 	public int addDonationAmountFromDataSheet(Map<String, String> mapSheetData) {
 		int donationCount=getDonationAmountFromDataSheet(mapSheetData);
 		System.out.println(donationCount+"  Donation count");
-		for(int i=0;i<donationCount-1;i++)
+		for(int i=0;i<donationCount;i++)
 		{
 			if(mapSheetData.get("suggested_donation_amount"+i).length()!=0)
 			{
@@ -156,7 +156,7 @@ public class FundProfilePage extends ASCSocietyGenericPage
 		for(int i=0;i<mapSheetData.size();i++)
 		{
 
-			System.out.println(i);
+			//System.out.println(i);
 			System.out.println(mapSheetData.get("suggested_donation_amount"+i));
 			try
 			{
@@ -187,6 +187,7 @@ public class FundProfilePage extends ASCSocietyGenericPage
 			if(mapSheetData.get("Display_Order"+i).length()!=0)
 			{
 			displayorder.add(Integer.parseInt(mapSheetData.get("Display_Order"+i)));
+			System.out.println(displayorder.get(i));
 			}
 
 		}
@@ -203,13 +204,14 @@ public class FundProfilePage extends ASCSocietyGenericPage
 		wait.hardWait(3);
 		wait.resetExplicitTimeout(timeOut);
 		wait.resetImplicitTimeout(timeOut);
-		for(int i=0;i<displayorder.size();i++)
+		for(int i=0;i<(displayorder.size()-1);i++)
 		{
-	
+	System.out.println(displayorder.size());
             wait.waitForPageToLoadCompletely();
 			toString();
 			wait.hardWait(2);
 			mapFundOrder.put("Amount"+i,element("txt_fundNameByOrder", String.valueOf(displayorder.get(i))).getText().replace(",",""));
+			System.out.println(mapFundOrder.get("Amount"+i));
 		}
 		return mapFundOrder;
 	}

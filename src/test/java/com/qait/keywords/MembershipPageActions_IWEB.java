@@ -73,11 +73,20 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void selectAndRunQuery(String queryName) {
 		wait.waitForPageToLoadCompletely();
+//	    hardWaitForIEBrowser(15);
 		waitForSpinner();
 		isElementDisplayed("txt_loadOnExistingQueryLabel");
 		selectExistingQuery(queryName);
 		waitForSpinner();
+		if(isBrowser("ie")||isBrowser("internet explorer")){
+			
+			while(!checkIfElementIsThere("table_query")){
+				checkIfElementIsThere("table_query");
+			}
+		}
+		else{
 		verifyQueryTablePresent();
+		}
 		clickOnRunQuery();
 	}
 
@@ -700,7 +709,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnSelectProduct() {
 		isElementDisplayed("lnk_selectProduct");
 		// hover(element("lnk_selectProduct"));
-		wait.hardWait(1);
+		wait.hardWait(3);
 		// clickUsingXpathInJavaScriptExecutor(element("lnk_selectProduct"));
 		// element("lnk_selectProduct").click();
 		executeJavascript("document.getElementById('HYPERLINK_17').click()");
@@ -1192,7 +1201,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.resetExplicitTimeout(timeOut);
 		logMessage("STEP : " + menuName + " bar is clicked to expand" + "\n");
 		waitForSpinner();
-
+        
 	}
 
 	public void numberOfYearsForActiveMember(String numberOfYears) {
@@ -2174,6 +2183,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToFrame("iframe1");
 		// TODO Remove hard wait after handling stale element exception
 		holdExecution(1000);
+		System.out.println("-----after frame switching");
 		selectMemberInfo("association", "ACS");
 		// TODO Remove hard wait after handling stale element exception
 		holdExecution(1000);
@@ -4321,7 +4331,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 		switchToFrame(element("iframe"));
 		clickOnSearchDisplayNameButton();
-		clickOnRandomPage();
 		_clickOnAvailableQuantityForSorting("Available Quantity");
 		_selectPage(10);
 		return clickOnAnyRandomMember1();

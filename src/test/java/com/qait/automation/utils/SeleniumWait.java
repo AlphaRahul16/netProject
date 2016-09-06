@@ -30,17 +30,34 @@ public class SeleniumWait {
 	 * @param locator
 	 * @return
 	 */
+
+	public void waitForWindowsToDisappear() {
+		int i = 0;
+		resetImplicitTimeout(8);
+		int size = driver.getWindowHandles().size();
+		try {
+			while (size != 1 && i <= timeout) {
+				System.out.println("Size of the window" + size);
+				size = driver.getWindowHandles().size();
+				hardWait(1);
+				i++;
+			}
+		} catch (Exception e) {
+			System.out.println("INFO : Window is not appeared\n");
+		}
+		resetImplicitTimeout(timeout);
+
+	}
+
 	public WebElement getWhenVisible(By locator) {
 		WebElement element;
-		element = (WebElement) wait.until(ExpectedConditions
-				.visibilityOfElementLocated(locator));
+		element = (WebElement) wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 		return element;
 	}
 
 	public WebElement getWhenClickable(By locator) {
 		WebElement element;
-		element = (WebElement) wait.until(ExpectedConditions
-				.elementToBeClickable(locator));
+		element = (WebElement) wait.until(ExpectedConditions.elementToBeClickable(locator));
 		return element;
 	}
 
@@ -52,10 +69,8 @@ public class SeleniumWait {
 		return wait.until(ExpectedConditions.titleContains(expectedPagetitle)) != null;
 	}
 
-	public WebElement waitForElementToBeVisible(WebElement element)
-			throws NoSuchElementException {
-		WebElement webElement = (WebElement) wait.until(ExpectedConditions
-				.visibilityOf(element));
+	public WebElement waitForElementToBeVisible(WebElement element) throws NoSuchElementException {
+		WebElement webElement = (WebElement) wait.until(ExpectedConditions.visibilityOf(element));
 		elementHighlight(webElement);
 		return webElement;
 	}
@@ -72,18 +87,15 @@ public class SeleniumWait {
 	}
 
 	public boolean waitForElementToBeInVisible(By locator) {
-		return wait.until(ExpectedConditions
-				.invisibilityOfElementLocated(locator)) != null;
+		return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator)) != null;
 	}
 
 	public WebElement waitForElementToBeClickable(WebElement element) {
-		return (WebElement) wait.until(ExpectedConditions
-				.elementToBeClickable(element));
+		return (WebElement) wait.until(ExpectedConditions.elementToBeClickable(element));
 	}
 
 	public void clickWhenReady(By locator) {
-		WebElement element = (WebElement) wait.until(ExpectedConditions
-				.elementToBeClickable(locator));
+		WebElement element = (WebElement) wait.until(ExpectedConditions.elementToBeClickable(locator));
 		element.click();
 	}
 
@@ -91,8 +103,7 @@ public class SeleniumWait {
 		int i = 0;
 		resetImplicitTimeout(1);
 		try {
-			while (driver.findElement(By.className("toast-message"))
-					.isDisplayed() && i <= timeout) {
+			while (driver.findElement(By.className("toast-message")).isDisplayed() && i <= timeout) {
 				hardWait(1);
 				i++;
 			}
@@ -135,15 +146,13 @@ public class SeleniumWait {
 	public WebElement getWhenVisible(By locator, int timeout) {
 		WebElement element = null;
 		WebDriverWait wait = new WebDriverWait(driver, timeout);
-		element = wait.until(ExpectedConditions
-				.visibilityOfElementLocated(locator));
+		element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 		return element;
 	}
 
 	public void resetImplicitTimeout(int newTimeOut) {
 		try {
-			driver.manage().timeouts()
-					.implicitlyWait(newTimeOut, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(newTimeOut, TimeUnit.SECONDS);
 		} catch (Exception e) {
 		}
 	}
@@ -157,12 +166,9 @@ public class SeleniumWait {
 
 	// TODO Implement Wait for page load for page synchronizations
 	public void waitForPageToLoadCompletely() {
-		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase(
-				"internetexplorer")
-				|| ConfigPropertyReader.getProperty("browser")
-						.equalsIgnoreCase("ie")
-				|| ConfigPropertyReader.getProperty("browser")
-						.equalsIgnoreCase("IE")) {
+		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer")
+				|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
+				|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")) {
 			try {
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {
@@ -170,8 +176,7 @@ public class SeleniumWait {
 				e.printStackTrace();
 			}
 		} else {
-			wait.until(ExpectedConditions.visibilityOfElementLocated(By
-					.xpath("//*")));
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*")));
 		}
 
 	}
@@ -186,20 +191,15 @@ public class SeleniumWait {
 
 	public void elementHighlight(WebElement element) {
 		if (ConfigPropertyReader.getProperty("mode").equalsIgnoreCase("debug")
-				|| ConfigPropertyReader.getProperty("mode").equalsIgnoreCase(
-						"Debug")
-				|| ConfigPropertyReader.getProperty("mode").equalsIgnoreCase(
-						"DEBUG")) {
+				|| ConfigPropertyReader.getProperty("mode").equalsIgnoreCase("Debug")
+				|| ConfigPropertyReader.getProperty("mode").equalsIgnoreCase("DEBUG")) {
 			JavascriptExecutor js = (JavascriptExecutor) driver;
-			js.executeScript(
-					"arguments[0].setAttribute('style', arguments[1]);",
-					element, " border: 1px solid red;");
+			js.executeScript("arguments[0].setAttribute('style', arguments[1]);", element, " border: 1px solid red;");
 			// js.executeScript(
 			// "arguments[0].setAttribute('style', arguments[1]);",
 			// element, "");color: red;
 		}
 
 	}
-
 
 }

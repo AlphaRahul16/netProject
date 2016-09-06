@@ -4,6 +4,7 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.util.Calendar;
 
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -89,6 +90,17 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 			verifyElementText("txt_memberName", map().get("Member Type?"));
 			logMessage("ASSERT PASSED : " + map().get("Member Type?")
 					+ " is verified in  txt_memberName\n");
+		}
+
+	}
+
+	public void verifyMemberName_GCSOMA(String caseId) {
+		if (map().get("Member Type?").equalsIgnoreCase("")) {
+			logMessage("Step : member name is not present in data sheet\n");
+		} else {
+			verifyElementText("txt_GCSOMAmemberName", map().get("Member Type?"));
+			logMessage("ASSERT PASSED : " + map().get("Member Type?")
+					+ " is verified in  txt_GCSOMAmemberName\n");
 		}
 
 	}
@@ -476,25 +488,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		}
 	}
 
-	// public String verifyTotal(String currency) {
-	// System.out.println("currency :-" + currency);
-	// float productSubTotalInfloat = Float.parseFloat(getTotal(
-	// "Product Subtotal").replaceAll("\\" + currency, ""));
-	// float shippingTotalInfloat = Float.parseFloat(getTotal("Shipping")
-	// .replaceAll("\\" + currency, ""));
-	// float taxTotalInfloat = Float.parseFloat(getTotal("Tax").replaceAll(
-	// "\\" + currency, ""));
-	// float TotalInfloat = Float.parseFloat(getTotal("Total").replaceAll(
-	// "\\" + currency, ""));
-	// float totalPrice = productSubTotalInfloat + shippingTotalInfloat
-	// + taxTotalInfloat;
-	// Assert.assertEquals(totalPrice, TotalInfloat);
-	// logMessage("ASSERT PASSED : total price value " + totalPrice
-	// + " is verified \n");
-	// String formatedPrice = String.format("%.02f", TotalInfloat);
-	// String totalInString = "" + currency + String.valueOf(formatedPrice);
-	// return totalInString;
-	// }
+	
 
 	public String verifyTotal(String currency) {
 		System.out.println("currency :-" + currency);
@@ -689,7 +683,12 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 
 	public void waitForLoaderToDisappear() {
 		logMessage("Step : wait for loader to disappear \n");
-		wait.waitForElementToDisappear(element("img_paymentLoader"));
+		try {
+			wait.waitForElementToDisappear(element("img_paymentLoader"));
+		} catch (StaleElementReferenceException stlRef) {
+			logMessage("Step : payment loader is disappear\n");
+		}
+
 	}
 
 	public void clickOnContinueButton() {

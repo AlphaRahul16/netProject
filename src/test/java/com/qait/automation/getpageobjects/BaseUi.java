@@ -781,14 +781,14 @@ public class BaseUi {
 	
 	public void switchWindow(String current){
 		Set<String> handles = driver.getWindowHandles();
+		System.out.println("-----current window value:"+current);
  		for(String handle : handles){
- 			System.out.println("------current handler:"+handle);
  			if(!(handle.equalsIgnoreCase(current))){
  					driver.switchTo().window(handle);
  					break;
  			}
  		}  		
-        System.out.println("In "+getPageTitle());
+//        System.out.println("In "+getPageTitle());
         driver.switchTo().window(current);
 	}
 	
