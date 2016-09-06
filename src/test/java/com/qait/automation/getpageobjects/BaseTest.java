@@ -14,7 +14,7 @@ public class BaseTest {
 	public TestSessionInitiator test;
 	protected static String caseID;
 
-	//@BeforeMethod
+	@BeforeMethod
 	public void printTestMethodName(Method method) {
 		test.printMethodName(method.getName());
 		if (caseID != null) {
@@ -23,7 +23,7 @@ public class BaseTest {
 
 	}
 
-	//@AfterMethod
+	@AfterMethod
 	public void take_screenshot_on_failure(ITestResult result) {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}

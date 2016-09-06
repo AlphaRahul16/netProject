@@ -520,6 +520,7 @@ public class BaseUi {
 		for (WebElement element : elements) {
 			if (element.getText().equalsIgnoreCase(value)) {
 				flag = true;
+				break;
 			}
 		}
 		return flag;

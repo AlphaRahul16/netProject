@@ -1688,6 +1688,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		flag = isDropDownValuePresent(
 				element("list_batch").findElements(By.xpath("//option")),
 				batchName);
+		System.out.println("------flag:"+flag);
 		return flag;
 
 	}
