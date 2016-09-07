@@ -124,7 +124,7 @@ public class BaseUi {
 	 * @param expectedPagetitle
 	 *            partial page title text
 	 */
-	protected void verifyPageTitleContains(String expectedPagetitle) {
+	public void verifyPageTitleContains(String expectedPagetitle) {
 		if (((expectedPagetitle == "") || (expectedPagetitle == null) || (expectedPagetitle
 				.isEmpty()))
 				&& (getProperty("browser").equalsIgnoreCase("chrome"))) {

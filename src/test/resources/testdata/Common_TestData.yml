@@ -616,7 +616,7 @@ ACS_AutoRenewal_Selection_In_OMR:
     
 ACS_Create_Manual_Credit_Test:
   CreditReason: Check Transfer
-  CreditAmount: 100
+  CreditAmount: "100.00"
   liability_Expense: "01-01000-000-11850 : Shipping"
   batch: "ACS Credit"
   

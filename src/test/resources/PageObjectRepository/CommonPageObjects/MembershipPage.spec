@@ -194,7 +194,10 @@ inp_checkNumber                                   id                    	  	 pin
 
 ##Credit_Page
 
-inp_creditAmount								id								cdd_amount
+icon_expand										css								.icon-chevron-down
+drpdown_batchNameCreditPage									css					#cdt_bat_key
+label_creditAmount								css								#Caption_cdd_amount
+inp_creditAmount								css								#cdd_amount
 list_creditReason								id								cdt_rec_key
 inp_nameOnCheck									id								pin_name_on_check
 inp_customerName								id								cst_sort_name_dn
@@ -204,4 +207,8 @@ btn_search										id								Look_Up_cst_sort_name_dn
 list_batchCreditPage							id								cdt_bat_key
 table_header									xpath							//a[contains(text(),'${text}')]
 btn_addBatchCredit								css								#cdt_bat_key_oAddHyperLink>img
-##inp_creditAmount										xpath							//label[contains(text(),'credit amount')]/preceding-sibling::input
+txt_creditAvailable								xpath							.//*[@id='cst_credit_available']
+inp_customerID									css								#cst_id
+td_lineItems									xpath						//td/a[contains(text(),'${text}')]/.. /following-sibling::td[${index}]/a
+txt_netBalance									xpath							//*[@id='ivd_netbalance']
+txt_netBalanceNetForum								xpath							//td/a[contains(text(),'${text}')]/.. /following-sibling::td[9]/span
