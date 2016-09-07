@@ -2,12 +2,14 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.BaseTest;
+import com.qait.automation.utils.DateUtil;
 import com.qait.automation.utils.YamlReader;
 
 public class ACS_Fundraising_Module_Test extends BaseTest {
@@ -65,11 +67,27 @@ public class ACS_Fundraising_Module_Test extends BaseTest {
 		test.memberShipPage.waitForSpinner();
 		test.acsFundraising.verifyGiftDate();
 		test.acsFundraising.verifyGiftType("Outright");
-		// test.acsFundraising.selectFundCode("campaign code",
-		// test.memberShipPage.map().get("Fundraising"));
 		test.acsFundraising.enterGiftAmount(test.memberShipPage.map().get("Gift Amount?"), "gift amount");
 		test.memberShipPage.waitForSpinner();
 		test.acsFundraising.verifyDeductibleAmount(test.memberShipPage.map().get("Gift Amount?"), "tax deductible amt");
+	}
+
+	@Test
+	public void Step05_Create_A_New_Batch_And_Enter_Payment_Details() {
+		String batchName = test.acsVoidInvoice.createBatchForFundraising(1, 6, "QA");
+		test.acsVoidInvoice.switchToIframe1();
+		test.acsFundraising.selectBatchAndPaymentDetails_Fundraising(batchName,test.memberShipPage.map().get("paymentType?"), test.memberShipPage.map().get("paymentmethod?"),
+				test.memberShipPage.map().get("Card Number?"), getYamlValue("ACS_ApplyPayment.CreditCardExpiration"), test.memberShipPage.map().get("CVV?"), getYamlValue("COE_Inventory.checkNumber"));
+	}
+	
+	@Test
+	public void Step06_Verify_Gift_Is_Added(){
+		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("gifts");
+		test.acsFundraising.verifyGiftIsAdded("gifts",DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy"), 4, "Gift Date");
+		test.acsFundraising.verifyGiftIsAdded("gifts", test.memberShipPage.map().get("Gift Amount?"), 5, "gift amount");
+		test.acsFundraising.verifyGiftIsAdded("gifts", test.memberShipPage.map().get("Fund Code?"), 7, "Fund code");
+		test.acsFundraising.verifyGiftIsAdded("gifts","Fundraising", 8, "Campaign");
+        test.acsFundraising.verifyNewGiftInformation(test.memberShipPage.map().get("Gift Amount?"));
 	}
 
 }
