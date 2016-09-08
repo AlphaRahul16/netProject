@@ -16,17 +16,17 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 	String memberName, productSubTotal, Total, userEmail, currency = "₹";
 	String[] userDetail;
 	String[] memberDetail, quantities;
-
+	//static String caseID;
 	String app_url = getYamlValue("app_url_OMA");
 	String app_url_IWEB = getYamlValue("app_url_IWEB");
 
 	ACS_GCS_OMA_Test() {
-		com.qait.tests.DataProvider_FactoryClass.sheetName = "GCS_OMA";
+		DataProvider_FactoryClass.sheetName = "GCS_OMA";
 	}
 
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
-	public ACS_GCS_OMA_Test(String caseID) {
-		BaseTest.caseID = caseID;
+	public ACS_GCS_OMA_Test(String caseIDs) {
+		BaseTest.caseID = caseIDs;
 	}
 
 	@Test
@@ -83,7 +83,6 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 
-		// quantities = test.checkoutPage.verifyPriceValues(caseID);
 		test.checkoutPage.verifyMemberDetail(caseID);
 		test.checkoutPage.verifyMemberEmail(userEmail);
 		productSubTotal = test.checkoutPage.verifyProductSubTotal("4",
@@ -92,11 +91,6 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 		test.checkoutPage.verifyTechnicalDivision(caseID);
 		test.checkoutPage.verifyPublication(caseID);
 		test.checkoutPage.clickAtTestStatement();
-		// test.checkoutPage.enterPaymentInfo(
-		// YamlReader.getYamlValue("creditCardInfo.Type"), userDetail[1]
-		// + " " + userDetail[2],
-		// YamlReader.getYamlValue("creditCardInfo.Number"),
-		// YamlReader.getYamlValue("creditCardInfo.cvv-number"));
 
 		test.checkoutPage.clickOnPayInINRButton();
 		test.checkoutPage.verifyHeadingAtCheckoutPage();
@@ -107,11 +101,8 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 				.get("Payment Type"));
 		test.checkoutPage.checkIAgreeTermsAndCondition();
 		test.checkoutPage.clickOnContinueButton();
-		// ////////////////
 
 		test.gcsPaymentPage.verifyPageTitleExact("Paynetz");
-
-		// //////////////
 
 	}
 
@@ -142,9 +133,8 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 						.get("ZipCode"),
 				test.homePageIWEB.map().get("Country"), test.homePageIWEB.map()
 						.get("Address"));
-		test.checkoutPage.verifyMemberName(caseID);
-		test.checkoutPage.verifyTechnicalDivision(caseID);
-		test.checkoutPage.verifyPublication(caseID);
+		test.checkoutPage.verifyMemberName_GCSOMA(caseID);
+
 	}
 
 	@Test(dependsOnMethods = "Step06_Verify_Details_At_Confirmation_Page")
@@ -174,12 +164,20 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 						.get("City"), test.homePageIWEB.map().get("ZipCode"),
 				test.homePageIWEB.map().get("AddressType"), memberDetail[0],
 				userEmail, caseID);
-		test.individualsPage.verifyIndividualProfileDetails(caseID, quantities);
-		test.individualsPage.verifyMemberBenefitsDetail(caseID, invoiceNumber);
+		test.individualsPage.verifyIndividualProfileDetails_GCSOMA();
+		test.individualsPage.verifyMemberBenefitsDetail_GCSOMA(caseID,
+				invoiceNumber);
 		test.homePageIWEB.clickOnSideBarTab("Invoice");
 		test.memberShipPage.clickOnSideBar("Find Invoice");
-		test.invoicePage.verifyInvoicedDetails(caseID, "Invoice",
-				invoiceNumber, quantities, Total);
+
+		test.invoicePage
+				.verifyInvoiceDetailsGCSOMA(invoiceNumber, Total, "Yes");
+
+		test.individualsPage.ClickonMoreAndMenuNameLink("Payments");
+		test.invoicePage.expandChildTabMenuAndverifyGCSOMA();
+		test.invoicePage.getTableHeadingsAndVerifyPaymentValues(
+				"acs global constituent system log", "INR", test.homePageIWEB
+						.map().get("Payment Type"));
 	}
 
 	/**

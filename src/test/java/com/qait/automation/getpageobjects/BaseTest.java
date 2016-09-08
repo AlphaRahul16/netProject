@@ -12,13 +12,15 @@ import com.qait.automation.TestSessionInitiator;
 
 public class BaseTest {
 	public TestSessionInitiator test;
-	public static String caseID;
+	protected static String caseID;
 
 	@BeforeMethod
 	public void printTestMethodName(Method method) {
 		test.printMethodName(method.getName());
-		if (caseID != null)
+		if (caseID != null) {
 			Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+		}
+
 	}
 
 	@AfterMethod
@@ -26,7 +28,9 @@ public class BaseTest {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
 
+
 	@AfterClass(alwaysRun = true)
+
 	public void Close_Browser_Session() {
 		test.closeBrowserWindow();
 	}

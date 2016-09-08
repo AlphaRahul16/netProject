@@ -132,7 +132,7 @@ public class ACS_FellowNominate extends BaseTest{
 		test.homePageIWEB.clickOnFindNominationTab();
 		test.individualsPage.selectFeildValue("fellow year", toString()
 				.valueOf(DateUtil.getCurrentYear()));
-		System.out.println("Fellow tupe " + FellowType);
+		System.out.println("Fellow type " + FellowType);
 		test.individualsPage.selectFeildValue("Fellow Type", FellowType);
 		test.individualsPage.clickGoButton();
 		NomineeName = test.asm_FellowNomiate

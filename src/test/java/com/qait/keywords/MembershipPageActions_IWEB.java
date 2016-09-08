@@ -21,6 +21,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
@@ -39,7 +40,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			state, zipCode, customerEmail, city, currentDate,
 			customerContactId, customerEmailAcsOrg, customerAddressType,
 			nextYearDate, displayName, totalPrice;
-	String reportingStartDate, reportingEndDate, chapterName;
+	String reportingStartDate, reportingEndDate, chapterName,batchName;
 	boolean flag = false;
 	int timeOut, hiddenFieldTimeOut;
 	List<String> memberDetails = new ArrayList<>();
@@ -73,11 +74,20 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void selectAndRunQuery(String queryName) {
 		wait.waitForPageToLoadCompletely();
+//	    hardWaitForIEBrowser(15);
 		waitForSpinner();
 		isElementDisplayed("txt_loadOnExistingQueryLabel");
 		selectExistingQuery(queryName);
 		waitForSpinner();
+		if(isBrowser("ie")||isBrowser("internet explorer")){
+			
+			while(!checkIfElementIsThere("table_query")){
+				checkIfElementIsThere("table_query");
+			}
+		}
+		else{
 		verifyQueryTablePresent();
+		}
 		clickOnRunQuery();
 	}
 
@@ -700,7 +710,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnSelectProduct() {
 		isElementDisplayed("lnk_selectProduct");
 		// hover(element("lnk_selectProduct"));
-		wait.hardWait(1);
+		wait.hardWait(3);
 		// clickUsingXpathInJavaScriptExecutor(element("lnk_selectProduct"));
 		// element("lnk_selectProduct").click();
 		executeJavascript("document.getElementById('HYPERLINK_17').click()");
@@ -779,7 +789,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void enterCardDetails(String cardInfo, String cardValue) {
+		
 		isElementDisplayed("inp_" + cardInfo);
+		//element("inp_" + cardInfo).click();
 		element("inp_" + cardInfo).sendKeys(cardValue);
 		logMessage("Step : enter " + cardValue + " in inp_" + cardInfo + " \n");
 	}
@@ -1190,7 +1202,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.resetExplicitTimeout(timeOut);
 		logMessage("STEP : " + menuName + " bar is clicked to expand" + "\n");
 		waitForSpinner();
-
+        
 	}
 
 	public void numberOfYearsForActiveMember(String numberOfYears) {
@@ -1569,7 +1581,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : Produuct code " + prodCode
 				+ " is entered in inp_prdCode\n");
 	}
-
+	
 	public void clickOnSearchDisplayNameButton() {
 		isElementDisplayed("inp_searchDisplayButton");
 		clickUsingXpathInJavaScriptExecutor(element("inp_searchDisplayButton"));
@@ -1578,7 +1590,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(8);
 		logMessage("Step : Search display name button is clicked in inp_searchDisplayButton\n");
 	}
-
+	public void clickOnSearchButton()
+	{
+		isElementDisplayed("btn_search");
+		//clickUsingXpathInJavaScriptExecutor(element("btn_search"));
+		element("btn_search").click();
+		wait.hardWait(2);
+		hardWaitForIEBrowser(8);
+		logMessage("Step : Search button is clicked \n");
+	}
 	public String getDisplayName() {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("inp_displayName");
@@ -1635,7 +1655,158 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		verifyPageTitleContains("CRM | Individuals |");
 	}
+	public String enterValuesInCreditPage(String batch_name, String creditReason, String paymentMethod, String cardNumber,
+			String expireDate, String cvvNumber, String creditAmount, String expense)
+	{
+		isElementDisplayed("inp_customerName");
+		String nameOnCheck= element("inp_customerName").getAttribute("value").trim();
+		System.out.println("Name on check:" +nameOnCheck);
+		String customerID= element("inp_customerID").getAttribute("value").trim();
+		System.out.println("customer ID: " +customerID);
+		holdExecution(2000);
+		batchName=batch_name+System.currentTimeMillis();
+		System.out.println("Batch name:: "+batchName);
+		if (verifyBatchIsPresentOnCreditPage(batchName)) {
+			selectOrderEntryInfo("batchCreditPage", batchName);
+		} else {
+			addBatchOnCreditPage(batchName.replaceAll("ACS: ", ""), "QA");
+			//addBatch(batchName.replaceAll("ACS: ", ""), "QA");
+		}
+		switchToDefaultContent();
+		waitForSpinner();
+		wait.hardWait(1);
+		Select sel = new Select(element("drpdown_batchName"));
+		//String batchName1 = ;
+		Assert.assertEquals(sel.getFirstSelectedOption().getText().trim(), batchName,"ASSERT FAILED:: batch name is not same");
 
+		isElementDisplayed("inp_creditAmount");
+		executeJavascript("document.getElementById('cdd_amount').value='"+creditAmount+"';");
+		waitForSpinner();
+		selectOrderEntryInfo("creditReason", creditReason);
+		waitForSpinner();
+		selectOrderEntryInfo("paymentMethod", paymentMethod);
+		waitForSpinner();
+		//System.out.println("check number" + cardNumber);		
+		if (paymentMethod.equalsIgnoreCase("Visa/MC")) {
+			enterCardDetails("cardNumber", cardNumber);
+			selectMemberInfo("expireDate", expireDate);
+			enterCardDetails("cvvNumber", cvvNumber);
+		} else if (paymentMethod.equalsIgnoreCase("BOA - Check")) {
+			enterCardDetails("nameOnCheck", nameOnCheck);
+			enterCardDetails("checkNumber", cardNumber);
+
+		} else {
+			Assert.fail("ASSERT FAILED : Payment method " + paymentMethod
+					+ " is not correct \n");
+		}
+		selectOrderEntryInfo("liabilityExpense", expense);
+		clickOnSaveButtonForBillingAddress();
+		wait.waitForPageToLoadCompletely();
+		logMessage("STEP: All values are entered in Credit Page\n");
+		return customerID;
+	}
+	public void verifyCreditAvailable(String creditAmount)
+	{
+		isElementDisplayed("txt_creditAvailable");
+		String credit=element("txt_creditAvailable").getText();
+		System.out.println("credit available "+ credit);
+		Assert.assertTrue(creditAmount.equals(credit),"ASSERT FAILED:: credit available is not matched");
+		logMessage("STEP: verify credit availabale on COE page \n");
+		
+	}
+	public void clickOnNetCredit(String productName)
+	{
+		isElementDisplayed("td_lineItems", productName, "7");
+		element("td_lineItems", productName, "7").click();
+		logMessage("STEP: Click on net credit \n");
+	}
+	public String verifyNetForumPopUp()
+	{
+		switchToFrame("iframe1");
+		isElementDisplayed("txt_netBalance");
+		String netBalance=element("txt_netBalance").getText();
+		logMessage("STEP: netForum Pop up is verified, net balance is "+netBalance);
+		switchToDefaultContent();
+		return netBalance;
+	}
+	public void enterValuesInAmountToApply(String netBalance,String amountApply)
+	{
+		switchToFrame("iframe1");
+		isElementDisplayed("inp_dateForReviewModes",amountApply);
+		element("inp_dateForReviewModes",amountApply).click();
+		element("inp_dateForReviewModes",amountApply).clear();
+		element("inp_dateForReviewModes",amountApply).sendKeys(netBalance);
+		
+		clickOnSaveButtonForBillingAddress();
+		switchToDefaultContent();
+		logMessage("STEP: values entered in ammount to apply and click on ok button \n");
+		
+	}
+	public void verifyNetBalance(String batch_name,String paymentType,String paymentMethod,String cardNumber, String expireDate, String cvvNumber)
+	{
+		isElementDisplayed("txt_netBalanceNetForum",productName);
+		String net_balance=element("txt_netBalanceNetForum",productName).getText();
+		batchName=batch_name+System.currentTimeMillis();
+		System.out.println("Batch name:: "+batchName);
+		if (verifyBatchIsPresentOnCreditPage(batchName)) {
+			selectOrderEntryInfo("batchCreditPage", batchName);
+		} else {
+			addBatchOnCreditPage(batchName.replaceAll("ACS: ", ""), "QA");
+			//addBatch(batchName.replaceAll("ACS: ", ""), "QA");
+		}
+		switchToDefaultContent();
+		waitForSpinner();
+		selectOrderEntryInfo("PaymentType", paymentType);
+		waitForSpinner();
+		if(!net_balance.equals("0.00"))
+		{
+			selectOrderEntryInfo("paymentMethod", paymentMethod);
+			waitForSpinner();
+
+				if (paymentMethod.equalsIgnoreCase("Visa/MC")) {
+					enterCardDetails("cardNumber", cardNumber);
+					selectMemberInfo("expireDate", expireDate);
+					enterCardDetails("cvvNumber", cvvNumber);
+				} else if (paymentMethod.equalsIgnoreCase("BOA - Check")) {
+					enterCardDetails("checkNumber", cardNumber);
+
+				} else {
+					Assert.fail("ASSERT FAILED : Payment method " + paymentMethod
+							+ " is not correct \n");
+				}
+		}
+		clickOnSaveAndFinish();
+		verifyPageTitleContains("CRM | Individuals |");
+			
+	}
+	public void verifyCreditAmount(String creditAmount)
+	{
+		isElementDisplayed("icon_expand");
+		element("icon_expand").click();
+		logMessage("STEP: details is expanded \n");
+		waitForSpinner();
+		isElementDisplayed("txt_joinDate_chapter","create credit");
+		String credit_amount=element("txt_joinDate_chapter","create credit").getText().trim();
+		System.out.println("credit amount 1  "+creditAmount);
+		System.out.println("credit amount 2  "+credit_amount);
+		Assert.assertTrue(credit_amount.equals(creditAmount), "ASSERT FAILED:: credit amount is not same");
+	}
+	public void clickOnBatch()
+	{
+		isElementDisplayed("table_header",batchName.replaceAll("ACS: ", ""));
+		element("table_header",batchName.replaceAll("ACS: ", "")).click();
+		logMessage("Step: Click on Batch on Credit profile page \n");
+	}
+	 public void clickOnPreProcessAndWaitToCloseThePopup()
+	 {
+		 isElementDisplayed("btn_preProcess");
+		 element("btn_preProcess").click();
+		 logMessage("Step: Click On preProcess \n");
+		 wait.waitForPageToLoadCompletely();
+		 //wait.waitForWindowsToDisappear();
+		 
+	 }
+	 
 	public void selectBatchAndPaymentDetailsForCRMInventory(String batchName,
 			String paymentType, String paymentMethod, String cardNumber,
 			String expireDate, String cvvNumber, String checkNumber) {
@@ -1672,6 +1843,16 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		verifyPageTitleContains("CRM | Individuals |");
 	}
 
+	public boolean verifyBatchIsPresentInCreditPage(String batchName) {
+		hardWaitForIEBrowser(2);
+		System.out.println("-----in verify batch:" + batchName);
+		isElementDisplayed("list_batch");
+		flag = isDropDownValuePresent(
+				element("list_batch").findElements(By.xpath("//option")),
+				batchName);
+		return flag;
+
+	}
 	public boolean verifyBatchIsPresent(String batchName) {
 		hardWaitForIEBrowser(2);
 		System.out.println("-----in verify batch:" + batchName);
@@ -1679,6 +1860,17 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		flag = isDropDownValuePresent(
 				element("list_batch").findElements(By.xpath("//option")),
 				batchName);
+		return flag;
+
+	}
+	public boolean verifyBatchIsPresentOnCreditPage(String batchName) {
+		hardWaitForIEBrowser(2);
+		System.out.println("-----in verify batch:" + batchName);
+		isElementDisplayed("list_batchCreditPage");
+		flag = isDropDownValuePresent(
+				element("list_batchCreditPage").findElements(By.xpath("//option")),
+				batchName);
+		System.out.println("------flag:"+flag);
 		return flag;
 
 	}
@@ -1702,6 +1894,24 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
+	public void addBatchOnCreditPage(String batchName, String securityGroup) {
+		switchToDefaultContent();
+		isElementDisplayed("btn_addBatchCredit");
+		clickUsingXpathInJavaScriptExecutor(element("btn_addBatchCredit"));
+		// element("btn_addBatch").click();
+		logMessage("Step : add batch button is clicked \n");
+		switchToFrame("iframe1");
+		isElementDisplayed("inp_addBatchName");
+		element("inp_addBatchName").clear();
+		element("inp_addBatchName").sendKeys(batchName);
+		logMessage("Step : enter batch name " + batchName + "\n");
+		isElementDisplayed("list_batchSecurityGroup");
+		selectProvidedTextFromDropDown(element("list_batchSecurityGroup"),
+				securityGroup);
+		logMessage("Step : Select security group " + securityGroup + "\n");
+		clickOnSaveButtonForBillingAddress();
+
+	}
 	public void selectBillingAddressIfNotPrePopulated() {
 		List<WebElement> list = elements("list_billingAdd");
 		if (list.get(0).getAttribute("selected") != null) {
@@ -2072,6 +2282,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToFrame("iframe1");
 		// TODO Remove hard wait after handling stale element exception
 		holdExecution(1000);
+		System.out.println("-----after frame switching");
 		selectMemberInfo("association", "ACS");
 		// TODO Remove hard wait after handling stale element exception
 		holdExecution(1000);
@@ -3964,10 +4175,21 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void selectARandomActiveStudentChapter() {
+		wait.waitForPageToLoadCompletely();
 		clickOnRandomPage();
 		clickOnAnyRandomMember();
 	}
-
+	public void selectRandomCustomer()
+	{
+		wait.waitForPageToLoadCompletely();
+		clickOnRandomPage();
+		sortTheMembers();
+		clickOnAnyRandomMember();
+	}
+	public void sortTheMembers()
+	{
+		isElementDisplayed("table_header","Sort Name");
+	}
 	public void clickOnRelationsOptionUnderMoreMenu() {
 		IndividualsPageActions_IWEB object = new IndividualsPageActions_IWEB(
 				driver);
@@ -4208,7 +4430,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 		switchToFrame(element("iframe"));
 		clickOnSearchDisplayNameButton();
-		clickOnRandomPage();
 		_clickOnAvailableQuantityForSorting("Available Quantity");
 		_selectPage(10);
 		return clickOnAnyRandomMember1();

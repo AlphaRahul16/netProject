@@ -25,6 +25,7 @@ import com.qait.keywords.ACS_Address_Validation_Action;
 import com.qait.keywords.ACS_Apply_Payment_Actions;
 import com.qait.keywords.ACS_Awards_EWEB_PageActions;
 import com.qait.keywords.ACS_BatchProcessingActions;
+import com.qait.keywords.ACS_Fundraising_Keyword;
 import com.qait.keywords.ACS_MarketingPage_IWEB;
 import com.qait.keywords.ACS_ReportsActions;
 import com.qait.keywords.ACS_Scarf_Reporting;
@@ -60,6 +61,7 @@ import com.qait.keywords.GCS_PaymentActions;
 import com.qait.keywords.HomePageActions;
 import com.qait.keywords.HomePageActions_IWEB;
 import com.qait.keywords.IndividualsPageActions_IWEB;
+import com.qait.keywords.InventoryPageActions_IWEB;
 import com.qait.keywords.InvoicePageActions_IWEB;
 import com.qait.keywords.MemberNumberLookupPage;
 import com.qait.keywords.MemberShipRenewalPage;
@@ -127,10 +129,8 @@ public class TestSessionInitiator {
 	public ACS_Scarf_ReviewingActions acsScarfReviewPage;
 	public ACS_Scarf_Reviewing_Eweb_Action acsScarfReviewing;
 	public GCS_PaymentActions gcsPaymentPage;
-
-
-	// public AwardsPageActions_IWEB AwardsPageActions_IWEB;
-
+	public InventoryPageActions_IWEB inventoryIweb;
+	public ACS_Fundraising_Keyword acsFundraising;
 	public ACS_MarketingPage_IWEB acsMarketingPageIweb;
 
 	public TakeScreenshot takescreenshot;
@@ -140,6 +140,7 @@ public class TestSessionInitiator {
 	}
 
 	private void _initPage() {
+		inventoryIweb = new InventoryPageActions_IWEB(driver);
 		ContactInfoPage = new ContactInformationPage(driver);
 		homePage = new HomePageActions(driver);
 		EduAndEmpPage = new EducationAndEmploymentPage(driver);
@@ -184,6 +185,7 @@ public class TestSessionInitiator {
 		acsScarfReviewing = new ACS_Scarf_Reviewing_Eweb_Action(driver);
 		acsMarketingPageIweb = new ACS_MarketingPage_IWEB(driver);
 		gcsPaymentPage = new GCS_PaymentActions(driver);
+		acsFundraising= new ACS_Fundraising_Keyword(driver);
 
 	}
 
@@ -242,18 +244,36 @@ public class TestSessionInitiator {
 			deleteAllCookies();
 			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie") || _getSessionConfig()
 					.get("browser").equalsIgnoreCase("internetexplorer"))) {
-
-				baseurl = baseurl
-						.replaceAll(
-								"https://iwebtest",
-								"https://"
-										+ YamlReader
-												.getYamlValue("Authentication.userName")
-										+ ":"
-										+ URLEncoder.encode(
-												YamlReader
-														.getYamlValue("Authentication.password"),
-												"UTF-8") + "@iwebtest");
+				if (baseurl
+						.equalsIgnoreCase("https://stag-12iweb/NFStage3/iweb")
+						|| baseurl
+								.equalsIgnoreCase("https://stag-12iweb/NFStage2/iweb")
+						|| baseurl
+								.equalsIgnoreCase("https://stag-12iweb/NFStage5/iweb")) {
+					baseurl = baseurl
+							.replaceAll(
+									"https://stag",
+									"https://"
+											+ YamlReader
+													.getYamlValue("Authentication.userName")
+											+ ":"
+											+ URLEncoder.encode(
+													YamlReader
+															.getYamlValue("Authentication.password"),
+													"UTF-8") + "@stag");
+					driver.get(baseurl);
+				} else
+					baseurl = baseurl
+							.replaceAll(
+									"https://iwebtest",
+									"https://"
+											+ YamlReader
+													.getYamlValue("Authentication.userName")
+											+ ":"
+											+ URLEncoder.encode(
+													YamlReader
+															.getYamlValue("Authentication.password"),
+													"UTF-8") + "@iwebtest");
 				driver.get(baseurl);
 			} else {
 				driver.get(baseurl);
@@ -268,14 +288,26 @@ public class TestSessionInitiator {
 				else
 					Reporter.log("\nThe application url is :- " + baseurl, true);
 			}
-
+			if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/"))
+					&& (ConfigPropertyReader.getProperty("browser")
+							.equalsIgnoreCase("IE")
+							|| ConfigPropertyReader.getProperty("browser")
+									.equalsIgnoreCase("ie") || ConfigPropertyReader
+							.getProperty("browser").equalsIgnoreCase(
+									"internetexplorer"))) {
+				try {
+					Thread.sleep(8000);
+				} catch (InterruptedException e1) {
+					System.out.println(e1.getMessage());
+				}
+			}
 			if (!baseurl
 					.equalsIgnoreCase("https://iwebtest.acs.org/NFStage3/iweb")) {
 				handleSSLCertificateCondition(baseurl);
 			}
 
 		} catch (Exception e) {
-
+			System.out.println(e.getMessage());
 		}
 
 	}

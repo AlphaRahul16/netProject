@@ -34,7 +34,7 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		test.homePageIWEB.addValuesInMap("COE_Inventory", caseID);
 		app_url_IWEB = getYamlValue("app_url_IWEB");
-		System.out.println("App URL Iweb::"+app_url_IWEB);
+		System.out.println("App URL Iweb::" + app_url_IWEB);
 	}
 
 	@Test
@@ -81,9 +81,8 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 				YamlReader.getYamlValue("Acs_CreateMember_IWEB.batch"),
 				YamlReader.getYamlValue("COE_Inventory.PaymentType"),
 				test.homePageIWEB.map().get("paymentmethod?").trim(),
-				test.homePageIWEB.map().get("Card Number?").trim(), YamlReader
-				.getYamlValue("Acs_CreateMember_IWEB.expireDate"), 
-				test.homePageIWEB.map().get("CVV?").trim(),
+				test.homePageIWEB.map().get("Card Number?").trim(),
+				YamlReader.getYamlValue("Acs_CreateMember_IWEB.expireDate"), test.homePageIWEB.map().get("CVV?").trim(),
 				YamlReader.getYamlValue("COE_Inventory.checkNumber"));
 	}
 
@@ -96,4 +95,49 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 	public void Step08_Verify_Invoice_Added_In_Invoices_With_Current_Date_As_Trancation_Date() {
 		test.memberShipPage.verifyInvoiceIsAdded(customerFullNameList.get(0).trim());
 	}
+
+	@Test
+	public void Step09_Navigate_To_Inventory_Module_And_Click_On_Overview_Under_Fulfillment_Orders_And_Verify_User_Is_On_Fulfillment_Orders_Page() {
+		test.homePageIWEB.clickOnModuleTab();
+		test.homePageIWEB.clickOnTab("Inventory");
+		test.homePageIWEB.verifyUserIsOnHomePage("Inventory | Overview | Overview and Setup");
+		test.homePageIWEB.clickOnFulfillmentOrdersTab();
+		test.homePageIWEB.verifyUserIsOnHomePage("Inventory | Fulfillment Orders | Overview and Setup");
+	}
+
+	@Test
+	public void Step10_Click_On_Process_Fullfill_Orders_Link_And_Verify_User_Is_On_Order_Fulfillment_With_Packing_Slips_Page() {
+		test.inventoryIweb.clickOnProcessFulfillOrdersLink();
+		test.homePageIWEB.verifyUserIsOnHomePage("Inventory | Fulfillment | Order Fulfillment with Packing Slips");
+	}
+
+	@Test
+	public void Step11_Click_On_Search_Button_On_Entering_Invoice_Start_And_End_Date_And_Verify_Sold_Product_Is_Checked_By_Default_Under_Select_Orders_To_Fulfill() {
+		test.inventoryIweb.enterInvoiceDateFromAndToAndClickOnSearchButton();
+		test.inventoryIweb.verifySoldProductIsCheckedByDefaultUnderSelectOrdersToFulfill(productName);
+	}
+	
+	@Test
+	public void Step12_Click_On_Process_Selected_Items_Button_To_Confirm_Orders_And_Verify_Fulfillment_Reports(){
+		test.inventoryIweb.verifyFulfillmentReportsOnClickingProcessSelectedItems();
+	}
+	
+	@Test
+	public void Step13_Click_On_Continue_Button_And_Verify_Fulfillment_Group_Profile_Page(){
+		test.inventoryIweb.verifyFulfillmentGroupProfilePage(productName);
+	}
+	
+	@Test
+	public void Step14_Click_On_Shipped_Button_And_Verify_Fulfillment_Group_Profile_Page(){
+		test.inventoryIweb.VerifyFulfillmentGroupProfilePageOnClickingShippedButton();
+		test.homePageIWEB.verifyUserIsOnHomePage("Inventory | Fulfillment | Fulfillment Group Profile");
+		//test.inventoryIweb.verifyProductNameUnderLineItems(productName);
+	}
+	
+	@Test
+	public void Step15_Click_On_Icon_ACS_Fulfillment_Reports_And_Verify_Alert_Message(){
+		test.inventoryIweb.verifyAlertMessageOnClickingACSFulfillmentReportsIcon();
+	}
+	
+
 }

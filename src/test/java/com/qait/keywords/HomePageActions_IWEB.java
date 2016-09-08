@@ -20,9 +20,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyUserIsOnHomePage(String pageTitle) {
 		handleAlert();
-		if(isBrowser("ie")|| isBrowser("internet explorer")){
-			wait.hardWait(3);
-		}
+		hardWaitForIEBrowser(3);
 		verifyPageTitleContains(pageTitle);
 
 		logMessage("ASSERT PASSED: verified that user is on " + this.pagename
@@ -102,6 +100,28 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("STEP : Click on tab " + tabName + " From Left Panel \n");
 	}
 	
+	public void clickOnFulfillmentOrdersTab() {
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
+		hardWaitForIEBrowser(10);
+		isElementDisplayed("fulfillment_tab");
+
+		if (isBrowser("chrome")||isBrowser("safari")) {
+			element("fulfillment_tab").click();
+		} else {
+			clickUsingXpathInJavaScriptExecutor(element("fulfillment_tab"));
+		}
+		
+		
+		logMessage("STEP : Click on Fulfillment Orders tab From Left Panel \n");
+		wait.hardWait(2);
+		isElementDisplayed("overview_tab");
+		if (isBrowser("safari"))
+			element("overview_tab").click();
+		else
+			clickUsingXpathInJavaScriptExecutor(element("overview_tab"));
+		logMessage("STEP : Overview Under Fulfillment Orders tab is clicked\n");
+	}
 	
 	public void clickOnLeftMenuTab(String tabName) {
 		wait.waitForPageToLoadCompletely();
@@ -234,5 +254,4 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		}
 
 	}
-
 }

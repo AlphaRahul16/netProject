@@ -20,8 +20,6 @@ import com.qait.automation.utils.YamlReader;
 
 public class ACS_AACT_Smoke_Test extends BaseTest {
 
-	String csvdatafilepath_AACT_OMA = getYamlValue("csv-data-file.path_AACT_OMA");
-	String csvSeparator = getYamlValue("csv-data-file.data-separator");
 	private String caseID;
 	String memberName, productSubTotal, Total;
 	ArrayList<String> userUniqueDetail;
