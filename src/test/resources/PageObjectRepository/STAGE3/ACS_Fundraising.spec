@@ -13,4 +13,7 @@ inp_giftAmount                     xpath                   //label[text()='${fie
 label_giftDate                     xpath                   //label[text()='notes:']/preceding-sibling::textarea
 table_form                         css                     #DesignedDiv
 txt_giftType                       xpath                   //label[text()='gift type:']/preceding-sibling::select//option[@selected='selected']
+inp_batchName                      xpath                   //input[@title='batch name']
+btn_save                           id                      ButtonSave
+txt_listData                       xpath                   (//span[text()='${tabName}']/parent::td/parent::tr/following-sibling::tr//tr[not(contains(@style,'none'))]//td[%{index1}])[#{index2}]
 ======================================================================================================================================

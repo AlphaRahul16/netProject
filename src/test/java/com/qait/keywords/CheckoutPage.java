@@ -650,8 +650,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		} catch (Exception E) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
-			logMessage("Image not present");
-
+			logMessage("Multiyear Image is not present");
 		}
 	}
 
