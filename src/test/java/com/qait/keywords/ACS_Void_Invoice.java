@@ -24,8 +24,6 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnVoidInvoiceButton(String btnName,int index){
-		
-	
 		isElementDisplayed("btn_invoiceAction",String.valueOf(index));
 		clickUsingXpathInJavaScriptExecutor(element("btn_invoiceAction",String.valueOf(index)));
 		logMessage("STEP : Clicked on "+btnName+" button\n");
@@ -283,7 +281,22 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 		element("btn_searchRefund").click();
 		logMessage("Step : Search Refund button is clicked\n");
 		wait.waitForPageToLoadCompletely();
-
+	}
+	
+	public String createBatchForFundraising(int index1,int index2,String group){
+		String batchName;
+		hardWaitForIEBrowser(5);
+//		switchToIframe1();
+		isElementDisplayed("link_addbatch");
+		clickUsingXpathInJavaScriptExecutor(element("link_addbatch"));
+		logMessage("STEP : Adding a new batch\n");
+		switchToDefaultContent();
+		switchToFrame("iframe2");
+		batchName=enterBatchName(index1);
+		enterSecurityGroup(index2,group);
+		clickOnSaveButton();
+		wait.hardWait(1);
+		return batchName;
 	}
 
 }

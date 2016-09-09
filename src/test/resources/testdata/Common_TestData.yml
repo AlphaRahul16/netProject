@@ -21,7 +21,9 @@ csv-data-file:
   path_COE_Inventory: ./src/test/resources/TestDataLibrary/COEInventory.csv
   path_OMR: ./src/test/resources/TestDataLibrary/OMR_Datasheet.csv
   path_OMA-Discount: ./src/test/resources/TestDataLibrary/OMA-Discount_data_sheet.csv
-
+  path_CreditApply: ./src/test/resources/TestDataLibrary/ACS_Create_Manual_Credit.csv
+  path_Fundraising: ./src/test/resources/TestDataLibrary/Fundraising_data_sheet.csv
+  
   data-separator: '\t'
   has-header: true
 
@@ -537,7 +539,7 @@ Acs_CreateMember_IWEB:
     PaymentType: prepaid
     paymentMethod: Visa/MC
     cardNumber: 4111111111111111
-    expireDate: 2016/12
+    expireDate: 2017/12
     cvvNumber: 123
     holderName: firstName lastName 
     yearValue: 2017   
@@ -560,7 +562,7 @@ OMR:
      queryName: "Selenium - Find Active Regular Member with Proforma"
      
 Product_Fulfillment_Inventory:
-     queryName: "Selenium - Find Random Active Member USA"
+                        queryName: "Selenium – Find Random Active Member USA"
      
 VoidWithAdjustment:
     queryName: "Selenium - test open invoices"
@@ -612,9 +614,14 @@ AddressChange:
 ACS_AutoRenewal_Selection_In_OMR:
     AutoRenewal_Query: Selenium – Find Random Active Member with Proforma
     
+ACS_Create_Manual_Credit_Test:
+  CreditReason: Check Transfer
+  CreditAmount: "100.00"
+  liability_Expense: "01-01000-000-11850 : Shipping"
+  batch: "ACS Credit"
+  
 COE_Inventory:
   batch: "Selenium Testing"
-  productCode: "209-116-1000"
   PaymentType: prepaid
   paymentMethod: "BOA - Check"
   checkNumber: "1111"   
