@@ -667,7 +667,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyMemberStatus(String memberStatus) {
-
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);
 		isElementDisplayed("txt_memberStatus");
@@ -1575,6 +1574,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void enterProductCode(String prodCode) {
 		hardWaitForIEBrowser(5);
+		switchToDefaultContent();
+		switchToFrame(element("iframe"));
 		isElementDisplayed("inp_prdCode");
 		element("inp_prdCode").sendKeys(prodCode);
 		logMessage("Step : Produuct code " + prodCode
@@ -1758,9 +1759,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public boolean verifyBatchIsPresent(String batchName) {
 		hardWaitForIEBrowser(2);
 		System.out.println("-----in verify batch:" + batchName);
-		isElementDisplayed("list_batchCreditPage");
+		isElementDisplayed("list_batch");
 		flag = isDropDownValuePresent(
-				element("list_batchCreditPage").findElements(By.xpath("//option")),
+				element("list_batch").findElements(By.xpath("//option")),
 				batchName);
 		return flag;
 
@@ -4265,8 +4266,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyProductNameInLineItem(String productName) {
 		switchToDefaultContent();
 		waitForSpinner();
-		isElementDisplayed("txt_itemsAdded", productName);
-		String prodName = element("txt_itemsAdded", productName).getText();
+		wait.hardWait(2);
+		isElementDisplayed("lineitem_product", productName);
+		String prodName = element("lineitem_product", productName).getText();
 
 		Assert.assertTrue(productName.contains(prodName));
 		logMessage("Step: Selected Product is added in Line Items \n");
@@ -4337,8 +4339,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void selectRandomUserOnAscendingHeader(String headerName) {
+		selectMerchandise("merchandise");
+		switchToDefaultContent();
+		switchToFrame(element("iframe"));
+		clickOnSearchDisplayNameButton();
 		_clickOnAvailableQuantityForSorting(headerName);
-		_clickOnAvailableQuantityForSorting(headerName);
+		//_clickOnAvailableQuantityForSorting(headerName);
 		clickOnRandomPage(10,1);
 		clickOnAnyRandomMember();
 		wait.hardWait(4);

@@ -28,7 +28,8 @@ list_industry                                         id                    mbr_
 inp_industryUpdateDate                              id                     mbr_sin_last_update_date_ext
 inp_jobTitleUpdateDate                               id                     mbr_jfn_last_update_date_ext
 btn_saveAndFinish                                    css                    input[id='Bottom_0']
-txt_itemsAdded                                      xpath                   //a[text()='${itemName}']
+txt_itemsAdded                                      xpath                  	//a[text()='${itemName}']
+lineitem_product									xpath					.//table[@class='table']//a[contains(text(),'${Product}')]
 list_batch                                          id                        inv_bat_key
 list_PaymentType                                     id                       inv_orig_trans_type
 list_paymentMethod                                   id                       pin_apm_key
