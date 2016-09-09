@@ -1,13 +1,7 @@
 package com.qait.tests;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-
-import com.qait.automation.getpageobjects.BaseUi;
  
-class Test{  
+public class Test{  
    
 	/*protected Test(WebDriver driver, String pageName) {
 >>>>>>> 0526b45ed3b886c391ab3ab918a074ba1207744a
@@ -35,4 +29,21 @@ class Test{
 		System.out.println("waiting for page to load");
 	} 
 	}*/
+	
+	@org.testng.annotations.Test
+	public void method(){
+		if(true&true){
+		System.out.println("a");	
+		}
+		
+		if(true&&true){
+			System.out.println("b");	
+			}
+		
+	}
+	
+	
+	
+	
+	
 }  
