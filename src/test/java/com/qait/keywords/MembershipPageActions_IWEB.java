@@ -1803,11 +1803,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		System.out.println("Transcation code: "+ transCode);
 		return transCode;
 	}
-	public void clickOnBatch()
+	public String clickOnBatch()
 	{
 		isElementDisplayed("table_header",batchName.replaceAll("ACS: ", ""));
 		element("table_header",batchName.replaceAll("ACS: ", "")).click();
 		logMessage("Step: Click on Batch on Credit profile page \n");
+		return batchName;
 	}
 	 public void clickOnPreProcessAndWaitToCloseThePopup()
 	 {
@@ -4383,7 +4384,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step: Selected Product is added in Line Items \n");
 	}
 
-	public void verifyCreditAvailable(String credit_amount,String netBalance)
+	public void verifyCreditAvailable(String credit_amount,String netBalance, String batchName)
 	{
 		//String payDate=DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY");
 		isElementDisplayed("txt_expireDate_chapter",batchName.replaceAll("ACS: ", ""));

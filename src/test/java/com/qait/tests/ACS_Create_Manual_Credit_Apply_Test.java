@@ -72,7 +72,7 @@ public class ACS_Create_Manual_Credit_Apply_Test extends BaseTest {
 	{
 		test.homePageIWEB.verifyUserIsOnHomePage("Accounting | Credit | Credit Profile");
 		test.memberShipPage.verifyCreditAmount(YamlReader.getYamlValue("ACS_Create_Manual_Credit_Test.CreditAmount"));
-		test.memberShipPage.clickOnBatch();
+		batchName=test.memberShipPage.clickOnBatch();
 		test.memberShipPage.clickOnPreProcessAndWaitToCloseThePopup();
 	}
 	
@@ -143,7 +143,7 @@ public class ACS_Create_Manual_Credit_Apply_Test extends BaseTest {
 	public void Step11_Click_on_more_tab_Select_Other_actg_Expand_credits_child_form_and_verify_credit_available_information()
 	{
 		test.individualsPage.clickOnMoreAndSelectOtherActg("Other Actg");
-		test.memberShipPage.verifyCreditAvailable(YamlReader.getYamlValue("ACS_Create_Manual_Credit_Test.CreditAmount"),netBal);
+		test.memberShipPage.verifyCreditAvailable(YamlReader.getYamlValue("ACS_Create_Manual_Credit_Test.CreditAmount"),netBal,batchName);
 	}
 	
 }
