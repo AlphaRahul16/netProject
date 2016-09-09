@@ -4,6 +4,7 @@ import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.util.Map;
 
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -65,5 +66,11 @@ public class ACS_Reports extends BaseTest{
 		
 			return new Object[][] {{getReportsDetails.get_ACSReportsInfo("delivery_Method").split(",")[0].trim()}, 
 				{getReportsDetails.get_ACSReportsInfo("delivery_Method").split(",")[1].trim()}};
+	}
+	
+	@AfterClass(alwaysRun = true)
+
+	public void Close_Browser_Session() {
+		///test.closeBrowserWindow();
 	}
 }

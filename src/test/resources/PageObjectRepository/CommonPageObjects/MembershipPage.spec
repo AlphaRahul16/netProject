@@ -210,5 +210,23 @@ btn_addBatchCredit								css								#cdt_bat_key_oAddHyperLink>img
 txt_creditAvailable								xpath							.//*[@id='cst_credit_available']
 inp_customerID									css								#cst_id
 td_lineItems									xpath						//td/a[contains(text(),'${text}')]/.. /following-sibling::td[${index}]/a
-txt_netBalance									xpath							//*[@id='ivd_netbalance']
+txt_netTotal									xpath							//*[@id='ivd_nettotal']
 txt_netBalanceNetForum								xpath							//td/a[contains(text(),'${text}')]/.. /following-sibling::td[9]/span
+label_transCode									xpath								.//*[@id='F1_cdt_code']
+txt_mailingLabel								css									#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(10)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

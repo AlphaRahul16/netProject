@@ -64,7 +64,7 @@ public class COE_Inventory_Test extends BaseTest {
 	@Test
 	public void Step04_Click_Select_Product_And_Merchandise_Option_and_Verify_Centralized_Order_Entry_Merchandise_Window() {
 		test.memberShipPage.clickOnSelectProduct();
-		price = test.memberShipPage.selectRandomProductForCRMInventory();
+		test.memberShipPage.selectRandomProductForCRMInventory();
 		productName = test.memberShipPage.getProductNameFromCOEPage();
 		productCode = test.memberShipPage.getProductCodeFromCOEPage();
 		test.memberShipPage.clickOnSaveAndFinish();

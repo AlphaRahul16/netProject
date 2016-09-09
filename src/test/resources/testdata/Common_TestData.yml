@@ -619,6 +619,7 @@ ACS_Create_Manual_Credit_Test:
   CreditAmount: "100.00"
   liability_Expense: "01-01000-000-11850 : Shipping"
   batch: "ACS Credit"
+  paymentType: prepaid
   
 COE_Inventory:
   batch: "Selenium Testing"
