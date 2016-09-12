@@ -195,7 +195,7 @@ inp_checkNumber                                   id                    	  	 pin
 ##Credit_Page
 
 icon_expand										css								.icon-chevron-down
-drpdown_batchNameCreditPage									css					#cdt_bat_key
+drpdown_batchNameCreditPage						css								#cdt_bat_key
 label_creditAmount								css								#Caption_cdd_amount
 inp_creditAmount								css								#cdd_amount
 list_creditReason								id								cdt_rec_key
@@ -213,7 +213,9 @@ td_lineItems									xpath						//td/a[contains(text(),'${text}')]/.. /following
 txt_netTotal									xpath							//*[@id='ivd_nettotal']
 txt_netBalanceNetForum								xpath							//td/a[contains(text(),'${text}')]/.. /following-sibling::td[9]/span
 label_transCode									xpath								.//*[@id='F1_cdt_code']
-txt_mailingLabel								css									#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(10)
+img_arrow								       css									 #dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(1) > a > img
+txt_tableRow										css									#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(10)
+txt_creditAmount								xpath								//td[contains(text(),'${memberType}')]/following-sibling::td[6]
 
 
 

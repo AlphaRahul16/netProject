@@ -892,27 +892,18 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 	public void clickOnMoreAndSelectOtherActg(String action)
 	{
-		//try {
 			isElementDisplayed("img_moreMenu");
 			element("img_moreMenu").click();
 			isElementDisplayed("link_moreMenuName", action);
 			element("link_moreMenuName", action).click();
-			logMessage("Step : clicked on more and other actg link is selected\n");
-		/*} catch (StaleElementReferenceException stlEx) {
-			isElementDisplayed("img_moreMenu");
-			element("img_moreMenu").click();
-			wait.waitForPageToLoadCompletely();
-			isElementDisplayed("link_moreMenuName", "other actg");
-			element("link_moreMenuName", "other actg").click();
-			logMessage("Step : clicked on more and other actg link is selected\n");
-			
-		}*/
-		waitForSpinner();
-		wait.waitForPageToLoadCompletely();
-		isElementDisplayed("btn_memberShip", "credits");
-		element("btn_memberShip", "credits").click();
-		logMessage("Step :Expand credits child form\n");
+			waitForSpinner();
+			/*wait.waitForPageToLoadCompletely();
+			isElementDisplayed("btn_memberShip", "credits");
+			element("btn_memberShip", "credits").click();
+			logMessage("STEP :Expand credits child form \n");*/
+		
 	}
+	
 	public void navigateToInvoicesMenuOnHoveringMore() {
 		try {
 			isElementDisplayed("img_moreMenu");
