@@ -12,7 +12,7 @@ import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
 public class ACS_OMA_Discount_Test extends BaseTest {
-
+	private String caseID;
 	String memberName, productSubTotal, Total, userEmail, currency = "$";
 	String[] userDetail;
 	String[] memberDetail;
@@ -26,7 +26,7 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
 	public ACS_OMA_Discount_Test(String caseIDs) {
-		BaseTest.caseID = caseIDs;
+		this.caseID = caseIDs;
 	}
 
 	@Test
@@ -91,27 +91,7 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 		test.ContactInfoPage.clickContinue();
 		test.checkoutPage.clickSubmitButtonAtBottom();
 		test.homePage.verifyCurrentTab("Confirmation");
-
 	}
-
-	// @Test(dependsOnMethods =
-	// "Step05_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page")
-	// public void Step06_TC01_Bank_Payment_Page() {
-	// test.gcsPaymentPage
-	// .EnterDetailsOnBankPaymentPageAndProcessFutherSimulation(
-	// test.gcsPaymentPage.map().get("Payment Type"),
-	// test.gcsPaymentPage.map().get("Mobile_Number"),
-	// test.gcsPaymentPage.map().get("Email_Id"),
-	// test.gcsPaymentPage.map().get("Card Number"),
-	// test.gcsPaymentPage.map().get("FirstName") + " "
-	// + test.gcsPaymentPage.map().get("LastName"),
-	// test.gcsPaymentPage.map().get(
-	// "CreditCardExpiration_Month"),
-	// test.gcsPaymentPage.map().get(
-	// "CreditCardExpiration_Year"),
-	// test.gcsPaymentPage.map().get("CVV_Number"),
-	// test.gcsPaymentPage.map().get("Bank_Name"));
-	// }
 
 	@Test(dependsOnMethods = "Step05_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page")
 	public void Step06_Verify_Details_At_Confirmation_Page() {

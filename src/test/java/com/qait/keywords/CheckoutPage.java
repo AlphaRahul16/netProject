@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.qait.automation.utils.DateUtil;
 
 public class CheckoutPage extends ASCSocietyGenericPage {
 
@@ -225,6 +226,64 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 			logMessage("Step: " + nextYear + " is selected in  list_"
 					+ ExpirationYear + "\n");
 		}
+
+	}
+
+	public void verifyPriceValues_OMADiscount(String caseId) {
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
+		verifyMultiYearShow_Hide(map().get("multiYearFlag?"));
+		if (!map().get("multiYearDecision").equalsIgnoreCase("")) {
+			mutliYearInInteger = Integer.parseInt(map()
+					.get("multiYearDecision"));
+		} else {
+			mutliYearInInteger = 0;
+		}
+		if (map().get("multiYearFlag?").equalsIgnoreCase("SHOW")) {
+			if (map().get("multiYearDecision").equalsIgnoreCase("2")) {
+				multiYearDecisionValue = "Two";
+				clickUsingXpathInJavaScriptExecutor(element("rad_multiYear",
+						multiYearDecisionValue));
+				// click(element("rad_multiYear", multiYearDecisionValue));
+				logMessage("Step : multiYearDecision " + multiYearDecisionValue
+						+ " value is clicked in rad_multiYear\n");
+				logMessage("Step : wait for price values to be changed after selection of multi year value\n");
+				// hardWaitForIEBrowser(2);
+				try {
+					wait.resetImplicitTimeout(0);
+					wait.resetExplicitTimeout(hiddenFieldTimeOut);
+					wait.waitForElementToDisappear(element("txt_multiYearWait"));
+					wait.resetImplicitTimeout(timeOut);
+					wait.resetExplicitTimeout(timeOut);
+				} catch (Exception E) {
+					wait.resetImplicitTimeout(timeOut);
+					wait.resetExplicitTimeout(timeOut);
+					logMessage("Image not present");
+					// wait.waitForElementToDisappear(element("txt_multiYearWait"));
+				}
+			} else if (map().get("multiYearDecision").equalsIgnoreCase("3")) {
+				multiYearDecisionValue = "Three";
+				clickUsingXpathInJavaScriptExecutor(element("rad_multiYear",
+						multiYearDecisionValue));
+				// click(element("rad_multiYear", multiYearDecisionValue));
+				logMessage("Step : multiYearDecision " + multiYearDecisionValue
+						+ " value is clicked in rad_multiYear\n");
+				logMessage("Step : wait for price values to be changed after selection of multi year value\n");
+				try {
+					wait.waitForElementToDisappear(element("txt_multiYearWait"));
+				} catch (Exception E) {
+					logMessage("txt_multiYearWait did not appear");
+				}
+			} else {
+				logMessage("Step : multiyear flag is not present in price value sheet\n");
+			}
+		}
+
+		String currentYearDues = map().get(DateUtil.getCurrentYear() + " DUES");
+
+		verifyPriceType(map().get("Product?"), "amount", currentYearDues,
+				mutliYearInInteger);
 
 	}
 
@@ -487,8 +546,6 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 			return element("txt_total", value).getText();
 		}
 	}
-
-	
 
 	public String verifyTotal(String currency) {
 		System.out.println("currency :-" + currency);

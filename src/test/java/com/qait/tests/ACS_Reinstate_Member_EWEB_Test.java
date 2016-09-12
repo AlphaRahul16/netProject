@@ -17,7 +17,7 @@ import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.keywords.YamlInformationProvider;
 
 public class ACS_Reinstate_Member_EWEB_Test extends BaseTest {
-
+	private String caseID;
 	static String invoiceNumber, yearsOfService, currency = "$";
 	List<String> memberContactDetails;
 	YamlInformationProvider getKeyValue;

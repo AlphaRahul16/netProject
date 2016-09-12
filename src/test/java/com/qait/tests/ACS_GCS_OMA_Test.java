@@ -15,11 +15,10 @@ import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
 public class ACS_GCS_OMA_Test extends BaseTest {
-
+	private String caseID;
 	String memberName, productSubTotal, Total, userEmail, currency = "₹";
 	String[] userDetail;
 	String[] memberDetail, quantities;
-	//static String caseID;
 	String app_url = getYamlValue("app_url_OMA");
 	String app_url_IWEB = getYamlValue("app_url_IWEB");
 
@@ -28,8 +27,8 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 	}
 
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
-	public ACS_GCS_OMA_Test(String caseIDs) {
-		BaseTest.caseID = caseIDs;
+	public ACS_GCS_OMA_Test(String caseID) {
+		this.caseID = caseID;
 	}
 
 	@Test
@@ -190,7 +189,7 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 	public void Start_Test_Session() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 	}
-	
+
 	@BeforeMethod
 	public void printTestMethodName(Method method) {
 		test.printMethodName(method.getName());
