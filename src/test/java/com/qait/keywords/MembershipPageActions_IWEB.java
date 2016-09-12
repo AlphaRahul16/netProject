@@ -644,31 +644,31 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ " is clicked in link_randomMemberInList\n");
 	}
 
-	public String clickOnAnyRandomMember1() {
+	public void clickOnAnyRandomMember1(String locator) {
+		int count=0;
 		wait.hardWait(5);
 		hardWaitForIEBrowser(5);
 		wait.waitForPageToLoadCompletely();
 		int max = 12, min = 3;
 		Random rand = new Random();
-		int randomNumber = rand.nextInt((max - min) + 1) + min;
-		String randomNumberInString = String.valueOf(randomNumber);
-		isElementDisplayed("link_randomMemberInList", randomNumberInString);
-		String avlQty = element("txt_avl_qty", randomNumberInString).getText();
-		String price = element("price_txt", randomNumberInString).getText();
-		System.out.println("Price: " + price);
-
-		if ((avlQty.contains("N/A")) || (avlQty.contains("0"))) {
-			clickOnAnyRandomMember1();
+		String randomNumberInString,condition ;
+		do{
+			int randomNumber = rand.nextInt((max - min) + 1) + min;
+			randomNumberInString = String.valueOf(randomNumber+count);
+			isElementDisplayed("link_randomMemberInList", randomNumberInString);
+			condition = element(locator, randomNumberInString).getText();
+			//condition = element("txt_mailingLabel", randomNumberInString).getText();
+			System.out.println("Address: " + condition);count++;
 		}
+		while((condition.isEmpty()||condition.equals("0.00")) && count<5) ;
 		element("link_randomMemberInList", randomNumberInString).click();
 		logMessage("Step : Member icon at the position of "
 				+ randomNumberInString
 				+ " is clicked in link_randomMemberInList\n");
-		return price;
+		
 	}
 
 	public void verifyMemberStatus(String memberStatus) {
-
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);
 		isElementDisplayed("txt_memberStatus");
@@ -1576,6 +1576,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void enterProductCode(String prodCode) {
 		hardWaitForIEBrowser(5);
+		switchToDefaultContent();
+		switchToFrame(element("iframe"));
 		isElementDisplayed("inp_prdCode");
 		element("inp_prdCode").sendKeys(prodCode);
 		logMessage("Step : Produuct code " + prodCode
@@ -1705,13 +1707,18 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("STEP: All values are entered in Credit Page\n");
 		return customerID;
 	}
-	public void verifyCreditAvailable(String creditAmount)
+	public void verifyCreditAvailableOnCOE(String creditAmount,String transCode)
 	{
 		isElementDisplayed("txt_creditAvailable");
 		String credit=element("txt_creditAvailable").getText();
+		/*isElementDisplayed("btn_memberShip", "credits");
+		element("btn_memberShip", "credits").click();
+		isElementDisplayed("txt_effectiveDate_chapter",transCode);
+		String credit=element("txt_effectiveDate_chapter",transCode).getText();*/
 		System.out.println("credit available "+ credit);
-		Assert.assertTrue(creditAmount.equals(credit),"ASSERT FAILED:: credit available is not matched");
-		logMessage("STEP: verify credit availabale on COE page \n");
+		
+		Assert.assertTrue(Double.parseDouble(credit)>=Double.parseDouble(creditAmount),"ASSERT FAILED:: credit available is not matched");
+		logMessage("STEP: verified credit availabale \n");
 		
 	}
 	public void clickOnNetCredit(String productName)
@@ -1723,35 +1730,34 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public String verifyNetForumPopUp()
 	{
 		switchToFrame("iframe1");
-		isElementDisplayed("txt_netBalance");
-		String netBalance=element("txt_netBalance").getText();
-		logMessage("STEP: netForum Pop up is verified, net balance is "+netBalance);
+		isElementDisplayed("txt_netTotal");
+		String netTotal=element("txt_netTotal").getText();
+		logMessage("STEP: netForum Pop up is verified, net balance is "+netTotal);
 		switchToDefaultContent();
-		return netBalance;
+		return netTotal;
 	}
 	public void enterValuesInAmountToApply(String netBalance,String amountApply)
 	{
 		switchToFrame("iframe1");
 		isElementDisplayed("inp_dateForReviewModes",amountApply);
-		element("inp_dateForReviewModes",amountApply).click();
-		element("inp_dateForReviewModes",amountApply).clear();
-		element("inp_dateForReviewModes",amountApply).sendKeys(netBalance);
-		
+		sendKeysUsingXpathInJavaScriptExecutor(element("inp_dateForReviewModes",amountApply), netBalance);
+			
 		clickOnSaveButtonForBillingAddress();
 		switchToDefaultContent();
-		logMessage("STEP: values entered in ammount to apply and click on ok button \n");
+		logMessage("STEP: "+netBalance+" entered in ammount to apply and click on ok button \n");
 		
 	}
-	public void verifyNetBalance(String batch_name,String paymentType,String paymentMethod,String cardNumber, String expireDate, String cvvNumber)
+	public String verifyNetBalance(String batch_name,String paymentType,String paymentMethod,String cardNumber, String expireDate, String cvvNumber)
 	{
 		isElementDisplayed("txt_netBalanceNetForum",productName);
 		String net_balance=element("txt_netBalanceNetForum",productName).getText();
+		System.out.println("net balance"+net_balance);
 		batchName=batch_name+System.currentTimeMillis();
 		System.out.println("Batch name:: "+batchName);
-		if (verifyBatchIsPresentOnCreditPage(batchName)) {
+		if (verifyBatchIsPresent(batchName)) {
 			selectOrderEntryInfo("batchCreditPage", batchName);
 		} else {
-			addBatchOnCreditPage(batchName.replaceAll("ACS: ", ""), "QA");
+			addBatch(batchName.replaceAll("ACS: ", ""), "QA");
 			//addBatch(batchName.replaceAll("ACS: ", ""), "QA");
 		}
 		switchToDefaultContent();
@@ -1775,11 +1781,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 							+ " is not correct \n");
 				}
 		}
+		/*waitForSpinner();
+		String credit_available=element("txt_creditAvailable").getText();
+		System.out.println("credit available on coe page " +credit_available);*/
 		clickOnSaveAndFinish();
 		verifyPageTitleContains("CRM | Individuals |");
+		return net_balance;
 			
 	}
-	public void verifyCreditAmount(String creditAmount)
+	public String verifyCreditAmount(String creditAmount)
 	{
 		isElementDisplayed("icon_expand");
 		element("icon_expand").click();
@@ -1790,12 +1800,16 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		System.out.println("credit amount 1  "+creditAmount);
 		System.out.println("credit amount 2  "+credit_amount);
 		Assert.assertTrue(credit_amount.equals(creditAmount), "ASSERT FAILED:: credit amount is not same");
+		String transCode=element("label_transCode").getText();
+		System.out.println("Transcation code: "+ transCode);
+		return transCode;
 	}
-	public void clickOnBatch()
+	public String clickOnBatch()
 	{
 		isElementDisplayed("table_header",batchName.replaceAll("ACS: ", ""));
 		element("table_header",batchName.replaceAll("ACS: ", "")).click();
 		logMessage("Step: Click on Batch on Credit profile page \n");
+		return batchName;
 	}
 	 public void clickOnPreProcessAndWaitToCloseThePopup()
 	 {
@@ -4364,13 +4378,31 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyProductNameInLineItem(String productName) {
 		switchToDefaultContent();
 		waitForSpinner();
-		isElementDisplayed("txt_itemsAdded", productName);
-		String prodName = element("txt_itemsAdded", productName).getText();
+		wait.hardWait(2);
+		isElementDisplayed("lineitem_product", productName);
+		String prodName = element("lineitem_product", productName).getText();
 
 		Assert.assertTrue(productName.contains(prodName));
 		logMessage("Step: Selected Product is added in Line Items \n");
 	}
 
+	public void verifyCreditAvailable(String credit_amount,String netBalance, String batchName)
+	{
+		//String payDate=DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY");
+		isElementDisplayed("txt_expireDate_chapter",batchName.replaceAll("ACS: ", ""));
+		element("txt_joinDate_chapter",batchName.replaceAll("ACS: ", "")).getText();
+		System.out.println("credit_amount:::::"+credit_amount);
+		System.out.println("netBalance::::"+netBalance);
+		String credit_available= String.valueOf(Integer.parseInt(credit_amount)-Integer.parseInt(netBalance));
+		System.out.println("credit availble::::::::"+credit_available+"::::");
+		
+		System.out.println("credit availble"+element("txt_joinDate_chapter",batchName).getText()+":::::");
+		Assert.assertTrue(element("txt_joinDate_chapter",batchName).getText().trim().equals(credit_available),"ASSERT FAILED: credit available is not matched");
+		logMessage("STEP: verify credit available information in credits child forms\n");
+		
+		logMessage("\n ************ SUCCESSFULL *************\n");
+		
+	}
 	public void verifyInvoiceIsAdded(String customerName) {
 		isElementDisplayed("txt_effectiveDateMemberType", customerName);
 		String actual = element("txt_effectiveDateMemberType", customerName)
@@ -4425,19 +4457,30 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 
-	public String selectRandomProductForCRMInventory() {
+	public void selectRandomProductForCRMInventory() {
 		selectMerchandise("merchandise");
 		switchToDefaultContent();
 		switchToFrame(element("iframe"));
 		clickOnSearchDisplayNameButton();
-		_clickOnAvailableQuantityForSorting("Available Quantity");
-		_selectPage(10);
-		return clickOnAnyRandomMember1();
+		selectRandomMemberByAscendingHeader("Available Quantity","price_txt");
+		//selectRandomUserOnAscendingHeader("Available Quantity");
+		
 	}
 
+	public void selectRandomMemberByAscendingHeader(String headerName,String locator) {
+		_clickOnAvailableQuantityForSorting(headerName);
+		_clickOnAvailableQuantityForSorting(headerName);
+		clickOnRandomPage(10,1);
+		clickOnAnyRandomMember1(locator);
+		wait.hardWait(4);
+	}
 	public void selectRandomUserOnAscendingHeader(String headerName) {
+		selectMerchandise("merchandise");
+		switchToDefaultContent();
+		switchToFrame(element("iframe"));
+		clickOnSearchDisplayNameButton();
 		_clickOnAvailableQuantityForSorting(headerName);
-		_clickOnAvailableQuantityForSorting(headerName);
+		//_clickOnAvailableQuantityForSorting(headerName);
 		clickOnRandomPage(10,1);
 		clickOnAnyRandomMember();
 		wait.hardWait(4);

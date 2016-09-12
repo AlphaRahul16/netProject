@@ -63,8 +63,11 @@ creditCardDetails:
    
 ACS_PBA_Product:
     shortName: Accts of Chem Res Mbr Web Archive
-    fullName: Accounts of Chemical Research Member Web Archive - Member   
-  
+    fullName: Accounts of Chemical Research Member Web Archive - Member
+    
+Inventory_Product:
+         productCode1: 209-116-1000  
+         productCode2: 119-262-1000
   
 EmailCommunicationPreferences:
     mailingListName: "SeleniumList"
@@ -619,6 +622,7 @@ ACS_Create_Manual_Credit_Test:
   CreditAmount: "100.00"
   liability_Expense: "01-01000-000-11850 : Shipping"
   batch: "ACS Credit"
+  paymentType: prepaid
   
 COE_Inventory:
   batch: "Selenium Testing"
