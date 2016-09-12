@@ -1181,7 +1181,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		else
 			clickUsingXpathInJavaScriptExecutor(element("link_tabsOnModule",
 					tabName));
-		logMessage("STEP : " + tabName + " tab is clicked\n");
+		logMessage("Step : " + tabName + " tab is clicked\n");
 
 	}
 
@@ -3072,9 +3072,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void getContactIdOfUser(String Member) {
-		isElementDisplayed("txt_ContactId");
+		isElementDisplayed("txt_renewalContactId");
 		logMessage("STEP : " + Member + " Id is : "
-				+ element("txt_ContactId").getText().trim() + "\n");
+				+ element("txt_renewalContactId").getText().trim() + "\n");
 	}
 
 	public void clickOnMemberTransferButton() {

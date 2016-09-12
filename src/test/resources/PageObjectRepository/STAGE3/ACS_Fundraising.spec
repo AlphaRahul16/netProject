@@ -12,8 +12,18 @@ txt_giftDate                       xpath                   //label[text()='gift 
 inp_giftAmount                     xpath                   //label[text()='${field}:']/preceding-sibling::input
 label_giftDate                     xpath                   //label[text()='notes:']/preceding-sibling::textarea
 table_form                         css                     #DesignedDiv
-txt_giftType                       xpath                   //label[text()='gift type:']/preceding-sibling::select//option[@selected='selected']
+txt_giftType                       xpath                   //label[text()='${field}:']/preceding-sibling::select//option[@selected='selected']
 inp_batchName                      xpath                   //input[@title='batch name']
 btn_save                           id                      ButtonSave
 txt_listData                       xpath                   (//span[text()='${tabName}']/parent::td/parent::tr/following-sibling::tr//tr[not(contains(@style,'none'))]//td[%{index1}])[#{index2}]
+inp_noOfInstallments               id                      ord_num_of_installments
+txt_paymentDate                    id                      ord_first_process_date
+list_batchCreditPage			   id					   inv_bat_key
+txt_calendarDate                   xpath                   //a[contains(@class,'ui-state-active')]
+list_tableRows                     xpath                   //span[text()='${tabName}']/parent::td/parent::tr/following-sibling::tr//tr[not(contains(@style,'none'))]
+txt_pledgeDate                     xpath                   //span[text()='${tabName}']/../../following-sibling::tr//tr[not(contains(@style,'none'))]//td[contains(text(),'${date}')]
+lst_pledgeRow                      xpath                   //span[text()='${tabName}']/../../following-sibling::tr//tr[not(contains(@style,'none'))]
+btn_pledgeFolder                   xpath                   //span[text()='${tabName}']/../../following-sibling::tr//tr[not(contains(@style,'none'))]//td[contains(text(),'${date}')]/..//td//img
+list_folderTable                   xpath                   //td[@class='DataFormDivDefault']//tr
+txt_folderData                     xpath                   //td[@class='DataFormDivDefault']//tr[${index1}]//td[${index2}]
 ======================================================================================================================================

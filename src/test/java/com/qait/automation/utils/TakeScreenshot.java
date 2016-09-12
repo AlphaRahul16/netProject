@@ -36,14 +36,13 @@ public class TakeScreenshot {
 	}
 
 	public void takeScreenshot() {
-		screenshotPath = (getProperty("screenshot-path") != null) ? getProperty("screenshot-path") : screenshotPath;
-		System.out.println("screenshot path:"+screenshotPath);
-		
+		screenshotPath = (getProperty("screenshot-path") != null) ? getProperty("screenshot-path") : screenshotPath;		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_hh_mm_a");
 		Date date = new Date();
 		String date_time = dateFormat.format(date);
 		File file = new File(System.getProperty("user.dir") + File.separator + screenshotPath + File.separator
 				+ this.testname + File.separator + date_time);
+				
 		deleteAllScreenshotsBeforeFiveDays();
 		boolean exists = file.exists();
 		if (!exists) {
