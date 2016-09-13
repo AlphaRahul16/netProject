@@ -32,8 +32,8 @@ excel-data-file:
   path_GCS_OMR: ./src/test/resources/TestDataLibrary/GCS_OMR_Datasheet.xls 
 
 Authentication: 
-  userName: C00616
-  password: "Sx!3M24GS"
+  userName: C00569
+  password: "C6f96q%3Q"
   
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt
@@ -643,6 +643,16 @@ Acs_Reports:
     email_Message: Test Report From Selenium Tests
     email_To: R_Yadav@acs.org
     delivery_Method: Run Immediately,Schedule Report
+    
+ACS_Fundraising_Module:
+    giftType: Outright
+    CreditCardExpiration: 2018/07 
+    checkNumber: "1111"   
+    pledgeType: signed
+    noOfInstallments: 3
+    orderFrequency: "Monthly"
+   
+        
                     
 email:
   send: true
