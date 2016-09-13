@@ -168,7 +168,6 @@
 						</goals>
 						<configuration>
 							<encoding>UTF-8</encoding>
-
 							<forkMode>never</forkMode>
 						</configuration>
 					</execution>

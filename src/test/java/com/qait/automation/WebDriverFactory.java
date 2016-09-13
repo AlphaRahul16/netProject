@@ -12,6 +12,7 @@ import java.util.Map;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -114,6 +115,11 @@ public class WebDriverFactory {
 	}
 
 	private static WebDriver getFirefoxDriver() {
+		
+		//File pathToBinary = new File("C:\\Mozilla Firefox\\firefox.exe");
+		//FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
+	       
+		//WebDriver driver = new FirefoxDriver(ffBinary,firefoxProfile);
 //		String firefoxProfilePath = "./src/test/resources/Profile_"
 //				+ ConfigPropertyReader.getProperty("tier");
 		FirefoxProfile profile;
@@ -160,7 +166,7 @@ public class WebDriverFactory {
 		profile.setPreference("browser.download.manager.showWhenStartinge",false);
 		profile.setPreference("browser.download.panel.shown",false);
 		profile.setPreference("browser.download.useToolkitUI",true);
-//		return new FirefoxDriver(binary,profile);
+		//return new FirefoxDriver(ffBinary,profile);
 		return new FirefoxDriver(profile);
 	}
 }
