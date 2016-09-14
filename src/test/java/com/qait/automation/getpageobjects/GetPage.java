@@ -98,6 +98,24 @@ public class GetPage extends BaseUi {
 		}
 		return flag;
 	}
+	
+	protected boolean checkIfElementIsThere(String eleString,
+			String replacementEleString1, String replacementEleString2) {
+		boolean flag = false;
+		wait.resetImplicitTimeout(2);
+		wait.resetExplicitTimeout(10);
+		try {
+			if (webdriver.findElement(
+					getLocator(eleString, replacementEleString1,replacementEleString2)).isDisplayed()) {
+				flag = true;
+			} else {
+				flag = false;
+			}
+		} catch (NoSuchElementException ex) {
+			flag = false;
+		}
+		return flag;
+	}
 
 	// TODO: put this in right place, create dedicated class for frame and
 	// window handlers
@@ -165,6 +183,11 @@ public class GetPage extends BaseUi {
 	protected List<WebElement> elements(String elementToken, String replacement) {
 		return wait.waitForElementsToBeVisible(webdriver
 				.findElements(getLocator(elementToken, replacement)));
+	}
+	
+	protected List<WebElement> elements(String elementToken, String replacement1, String replacement2) {
+		return wait.waitForElementsToBeVisible(webdriver
+				.findElements(getLocator(elementToken, replacement1,replacement2)));
 	}
 
 	protected List<WebElement> elements(String elementToken) {

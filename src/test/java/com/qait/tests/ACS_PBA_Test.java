@@ -14,7 +14,6 @@ import com.qait.automation.utils.YamlReader;
 
 public class ACS_PBA_Test extends BaseTest{
 
-	TestSessionInitiator test;
 	List<String> memDetails;
 	String app_url_IWEB, individualName, webLogin, app_url_PUBS, passportAmountValue, subscriptionsAmountValue,
 			totalAmount, customerId;

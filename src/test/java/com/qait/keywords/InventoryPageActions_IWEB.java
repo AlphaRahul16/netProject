@@ -28,11 +28,13 @@ public class InventoryPageActions_IWEB extends ASCSocietyGenericPage {
 	boolean flag, flag1;
 
 	public InventoryPageActions_IWEB(WebDriver driver) {
-		super(driver, "IndividualsPage");
+		super(driver, "InventoryProductFulfillment");
 		this.driver = driver;
 	}
 
 	public void clickOnProcessFulfillOrdersLink() {
+		wait.hardWait(3);
+		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("link_productOrder");
 		element("link_productOrder").click();
 		logMessage("Step:: Clicked on Process Fulfill Orders Link On Inventory | Fulfillment Orders | Overview and Setup");
@@ -79,7 +81,7 @@ public class InventoryPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyFulfillmentReportsOnClickingProcessSelectedItems() {
 		isElementDisplayed("btn_ship");
 		element("btn_ship").click();
-		waitForPageToLoad();
+		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("txt_reports");
 		logMessage("[ASSERTION PASSED]:: Verified Fulfillment Reports Page On Clicking Process Selected Items");
 	}
@@ -87,7 +89,7 @@ public class InventoryPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyFulfillmentGroupProfilePage(String productName) {
 		isElementDisplayed("bttn_continue");
 		element("bttn_continue").click();
-		waitForPageToLoad();
+		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("productName_orders", productName);
 		logMessage("Verified Product Name On Order Fulfillment Process Page");
 	}
@@ -95,10 +97,12 @@ public class InventoryPageActions_IWEB extends ASCSocietyGenericPage {
 	public void VerifyFulfillmentGroupProfilePageOnClickingShippedButton() {
 		isElementDisplayed("btn_ship");	
 		element("btn_ship").click();
-		logMessage("Step: Clicked On Fulfill | Remove | Hold Selected Items Button");
+		logMessage("Step: Clicked On Fulfill | Remove | Hold Selected Items Button ");
 	}
 	
 	public void verifyProductNameUnderLineItems(String productName) {
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(3);
 		isElementDisplayed("lineitem_product",productName);
 		logMessage("Verified Product Name Under Line Items");
 	}
@@ -107,8 +111,10 @@ public class InventoryPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("icon_reports");
 		element("icon_reports").click();
 		String alert_msg = driver.switchTo().alert().getText().trim();
+		System.out.println("Alert Message::"+alert_msg);
+		driver.switchTo().alert().accept();
 		Assert.assertEquals("The process is scheduled and you will receive an email when it is finished.", alert_msg);
-		logMessage("[ASSERTION PASSED]:: Verified Alert Message On Clicking ACS Fulfillment Reports ICON");
+		logMessage("[ASSERTION PASSED]:: Verified Alert Message :: "+alert_msg+" On Clicking ACS Fulfillment Reports ICON");
 	}
 
 

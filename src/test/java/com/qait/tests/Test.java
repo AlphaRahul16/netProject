@@ -1,19 +1,9 @@
 package com.qait.tests;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Reporter;
 
-import com.qait.automation.getpageobjects.BaseUi;
  
-class Test{  
-   
-	/*protected Test(WebDriver driver, String pageName) {
->>>>>>> 0526b45ed3b886c391ab3ab918a074ba1207744a
-		super(driver, pageName);
-		// TODO Auto-generated constructor stub
-	}*/
+public class Test{  
 	
 	
 /*
@@ -35,4 +25,39 @@ class Test{
 		System.out.println("waiting for page to load");
 	} 
 	}*/
-}  
+//	String[] ar=DateUtil.getNextDate("month", 1);
+//	System.out.println(ar[1]+"/"+ar[2]+"/"+ar[0]);
+//	ar=DateUtil.getNextDate("month", 2);
+//	System.out.println(ar[0]+"/"+ar[1]+"/"+ar[2]);
+//	ar=DateUtil.getNextDate("month", 3);
+//	System.out.println(ar[0]+"/"+ar[1]+"/"+ar[2]);
+//	 DecimalFormat df = new DecimalFormat("#.00");
+//    Double payments=new Double(300/3);
+//    String am="300.00";
+//    Float amount=new Float(am);
+//	System.out.println(df.format(amount));
+	
+//	int am=Integer.parseInt("300");
+//	System.out.println(df.);
+   
+	
+	public void method(){
+		if(true&true){
+		System.out.println("a");	
+		}
+		
+		if(true&&true){
+			System.out.println("b");	
+			}
+	}
+		@org.testng.annotations.Test
+		public void test1(){
+			Reporter.setEscapeHtml(true);
+			Reporter.log("<b>ayush</b>");
+		}		
+	}
+	
+
+	
+	
+	  

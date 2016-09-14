@@ -25,6 +25,7 @@ import com.qait.keywords.ACS_Address_Validation_Action;
 import com.qait.keywords.ACS_Apply_Payment_Actions;
 import com.qait.keywords.ACS_Awards_EWEB_PageActions;
 import com.qait.keywords.ACS_BatchProcessingActions;
+import com.qait.keywords.ACS_Fundraising_Keyword;
 import com.qait.keywords.ACS_MarketingPage_IWEB;
 import com.qait.keywords.ACS_ReportsActions;
 import com.qait.keywords.ACS_Scarf_Reporting;
@@ -129,10 +130,6 @@ public class TestSessionInitiator {
 	public ACS_Scarf_Reviewing_Eweb_Action acsScarfReviewing;
 	public GCS_PaymentActions gcsPaymentPage;
 	public InventoryPageActions_IWEB inventoryIweb;
-
-
-	// public AwardsPageActions_IWEB AwardsPageActions_IWEB;
-
 	public ACS_MarketingPage_IWEB acsMarketingPageIweb;
 
 	public TakeScreenshot takescreenshot;
@@ -251,6 +248,7 @@ public class TestSessionInitiator {
 								.equalsIgnoreCase("https://stag-12iweb/NFStage2/iweb")
 						|| baseurl
 								.equalsIgnoreCase("https://stag-12iweb/NFStage5/iweb")) {
+					System.out.println("in if");
 					baseurl = baseurl
 							.replaceAll(
 									"https://stag",
@@ -263,7 +261,8 @@ public class TestSessionInitiator {
 															.getYamlValue("Authentication.password"),
 													"UTF-8") + "@stag");
 					driver.get(baseurl);
-				} else
+				} else {
+					System.out.println("in else");
 					baseurl = baseurl
 							.replaceAll(
 									"https://iwebtest",
@@ -275,6 +274,8 @@ public class TestSessionInitiator {
 													YamlReader
 															.getYamlValue("Authentication.password"),
 													"UTF-8") + "@iwebtest");
+				}
+
 				driver.get(baseurl);
 			} else {
 				driver.get(baseurl);
@@ -299,7 +300,7 @@ public class TestSessionInitiator {
 				try {
 					Thread.sleep(8000);
 				} catch (InterruptedException e1) {
-
+					System.out.println(e1.getMessage());
 				}
 			}
 			if (!baseurl
@@ -308,12 +309,11 @@ public class TestSessionInitiator {
 			}
 
 		} catch (Exception e) {
-
+			System.out.println(e.getMessage());
 		}
 
 	}
-	
-	
+
 	public void closeBrowserSession() {
 		driver.quit();
 	}

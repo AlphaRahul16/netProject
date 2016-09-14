@@ -2,8 +2,11 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.lang.reflect.Method;
+
 import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
@@ -12,26 +15,26 @@ import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
 public class ACS_GCS_OMA_Test extends BaseTest {
-
-	String memberName, productSubTotal, Total, userEmail, currency = "₹";
+	private String caseID;
+	String memberName, productSubTotal, Total, userEmail, currency = "₹",
+			productAmount;
 	String[] userDetail;
 	String[] memberDetail, quantities;
-
 	String app_url = getYamlValue("app_url_OMA");
 	String app_url_IWEB = getYamlValue("app_url_IWEB");
 
 	ACS_GCS_OMA_Test() {
-		com.qait.tests.DataProvider_FactoryClass.sheetName = "GCS_OMA";
+		DataProvider_FactoryClass.sheetName = "GCS_OMA";
 	}
 
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
 	public ACS_GCS_OMA_Test(String caseID) {
-		BaseTest.caseID = caseID;
+		this.caseID = caseID;
 	}
 
 	@Test
 	public void Step01_Launch_Application_Under_Test() {
-
+		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		test.homePageIWEB.addValuesInMap("GCS_OMA", caseID);
 		test.launchApplication(app_url);
 		test.homePage.verifyUserIsOnHomePage("");
@@ -39,7 +42,7 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step01_Launch_Application_Under_Test")
 	public void Step02_Enter_Contact_Information() {
-
+		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		userDetail = test.ContactInfoPage.enterContactInformation(
 				test.homePageIWEB.map().get("Email"), test.homePageIWEB.map()
 						.get("FirstName"),
@@ -57,7 +60,7 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step02_Enter_Contact_Information")
 	public void Step03_Enter_Education_And_Employment_Info() {
-
+		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.EduAndEmpPage.enterEducationAndEmploymentInformation();
 		test.ContactInfoPage.clickContinue();
@@ -66,7 +69,7 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step03_Enter_Education_And_Employment_Info")
 	public void Step04_Enter_Benefits_Info() {
-
+		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.homePage.verifyCurrentTab("Benefits");
 		test.BenefitsPage.addACSPublicationAndTechnicalDivision(caseID);
@@ -76,18 +79,21 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 	}
 
 	@Test(dependsOnMethods = "Step04_Enter_Benefits_Info")
-	public void Step05_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page() {
+	public void Step05_Verify_Contact_Info_And_Total_Price_At_Checkout_Page() {
+		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+		Total = test.checkoutPage.verifyTotal("$");
+
+		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.checkoutPage.selectCurrency("Indian Rupee");
 		test.checkoutPage.verifyMultiYearShow_Hide(test.checkoutPage.map().get(
 				"multiYearFlag?"));
-
-		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
-
 		test.checkoutPage.verifyMemberDetail(caseID);
 		test.checkoutPage.verifyMemberEmail(userEmail);
 		productSubTotal = test.checkoutPage.verifyProductSubTotal("4",
 				"Product Subtotal");
-		Total = test.checkoutPage.verifyTotal(currency);
+
+		test.checkoutPage.verifyTotal(currency);
+		test.checkoutPage.selectCurrency("Indian Rupee");
 		test.checkoutPage.verifyTechnicalDivision(caseID);
 		test.checkoutPage.verifyPublication(caseID);
 		test.checkoutPage.clickAtTestStatement();
@@ -106,27 +112,28 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 
 	}
 
-	@Test(dependsOnMethods = "Step05_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page")
-	public void Step06_TC01_Bank_Payment_Page() {
-//		test.gcsPaymentPage
-//				.EnterDetailsOnBankPaymentPageAndProcessFutherSimulation(
-//						test.gcsPaymentPage.map().get("Payment Type"),
-//						test.gcsPaymentPage.map().get("Mobile_Number"),
-//						test.gcsPaymentPage.map().get("Email_Id"),
-//						test.gcsPaymentPage.map().get("Card Number"),
-//						test.gcsPaymentPage.map().get("FirstName") + " "
-//								+ test.gcsPaymentPage.map().get("LastName"),
-//						test.gcsPaymentPage.map().get(
-//								"CreditCardExpiration_Month"),
-//						test.gcsPaymentPage.map().get(
-//								"CreditCardExpiration_Year"),
-//						test.gcsPaymentPage.map().get("CVV_Number"),
-//						test.gcsPaymentPage.map().get("Bank_Name"));
+	@Test(dependsOnMethods = "Step05_Verify_Contact_Info_And_Total_Price_At_Checkout_Page")
+	public void Step06_Bank_Payment_Details_Submit() {
+		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+		test.gcsPaymentPage
+				.EnterDetailsOnBankPaymentPageAndProcessFutherSimulation(
+						test.gcsPaymentPage.map().get("Payment Type"),
+						test.gcsPaymentPage.map().get("Mobile_Number"),
+						test.gcsPaymentPage.map().get("Email_Id"),
+						test.gcsPaymentPage.map().get("Card Number"),
+						test.gcsPaymentPage.map().get("FirstName") + " "
+								+ test.gcsPaymentPage.map().get("LastName"),
+						test.gcsPaymentPage.map().get(
+								"CreditCardExpiration_Month"),
+						test.gcsPaymentPage.map().get(
+								"CreditCardExpiration_Year"),
+						test.gcsPaymentPage.map().get("CVV_Number"),
+						test.gcsPaymentPage.map().get("Bank_Name"));
 	}
 
-	@Test(dependsOnMethods = "Step06_TC01_Bank_Payment_Page")
-	public void Step06_Verify_Details_At_Confirmation_Page() {
-
+	@Test(dependsOnMethods = "Step06_Bank_Payment_Details_Submit")
+	public void Step07_Verify_Details_At_Confirmation_Page() {
+		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		memberDetail = test.confirmationPage.verifyMemberDetails(
 				test.homePageIWEB.map().get("City"), test.homePageIWEB.map()
@@ -134,12 +141,11 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 				test.homePageIWEB.map().get("Country"), test.homePageIWEB.map()
 						.get("Address"));
 		test.checkoutPage.verifyMemberName_GCSOMA(caseID);
-
 	}
 
-	@Test(dependsOnMethods = "Step06_Verify_Details_At_Confirmation_Page")
-	public void Step07_Launch_Application_Under_Test() {
- 
+	@Test(dependsOnMethods = "Step07_Verify_Details_At_Confirmation_Page")
+	public void Step08_Launch_Application_Under_Test() {
+		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.launchApplication(app_url_IWEB);
 		test.homePage.enterAuthentication(
@@ -149,21 +155,21 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 
-	@Test(dependsOnMethods = "Step07_Launch_Application_Under_Test")
-	public void Step08_Search_Member_In_Individual_Test() {
-
+	@Test(dependsOnMethods = "Step08_Launch_Application_Under_Test")
+	public void Step09_Search_Member_In_Individual_Test_And_Verify_Details() {
+		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
-		String invoiceNumber =memberDetail[1]; 
+		String invoiceNumber = memberDetail[1];
 		test.homePageIWEB.clickFindForIndividualsSearch();
-		String memberNumber =memberDetail[0]; 
+		String memberNumber = memberDetail[0];
 		test.individualsPage.fillMemberDetailsAndSearch("Record Number",
 				memberNumber);
 		test.individualsPage.verifyMemberDetails_OMA(test.homePageIWEB.map()
 				.get("FirstName"), test.homePageIWEB.map().get("LastName"),
 				test.homePageIWEB.map().get("Address"), test.homePageIWEB.map()
 						.get("City"), test.homePageIWEB.map().get("ZipCode"),
-				test.homePageIWEB.map().get("AddressType"), memberDetail[0] 
-				,userEmail, caseID);
+				test.homePageIWEB.map().get("AddressType"), memberDetail[0],
+				userEmail, caseID);
 		test.individualsPage.verifyIndividualProfileDetails_GCSOMA();
 		test.individualsPage.verifyMemberBenefitsDetail_GCSOMA(caseID,
 				invoiceNumber);
@@ -171,11 +177,13 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 		test.memberShipPage.clickOnSideBar("Find Invoice");
 
 		test.invoicePage
-				.verifyInvoiceDetailsGCSOMA(invoiceNumber, Total, "Yes");  //----
+				.verifyInvoiceDetailsGCSOMA(invoiceNumber, Total, "Yes");
 
 		test.individualsPage.ClickonMoreAndMenuNameLink("Payments");
 		test.invoicePage.expandChildTabMenuAndverifyGCSOMA();
-		test.invoicePage.getTableHeadingsAndVerifyPaymentValues("acs global constituent system log","INR","CREDITCARD");
+		test.invoicePage.getTableHeadingsAndVerifyPaymentValues(
+				"acs global constituent system log", "INR", test.homePageIWEB
+						.map().get("Payment Type"));
 	}
 
 	/**
@@ -184,6 +192,12 @@ public class ACS_GCS_OMA_Test extends BaseTest {
 	@BeforeClass
 	public void Start_Test_Session() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
+	}
+
+	@BeforeMethod
+	public void printTestMethodName(Method method) {
+		test.printMethodName(method.getName());
+
 	}
 
 }

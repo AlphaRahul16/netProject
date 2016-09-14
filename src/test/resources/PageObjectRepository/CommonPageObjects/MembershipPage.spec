@@ -28,7 +28,8 @@ list_industry                                         id                    mbr_
 inp_industryUpdateDate                              id                     mbr_sin_last_update_date_ext
 inp_jobTitleUpdateDate                               id                     mbr_jfn_last_update_date_ext
 btn_saveAndFinish                                    css                    input[id='Bottom_0']
-txt_itemsAdded                                      xpath                   //a[text()='${itemName}']
+txt_itemsAdded                                      xpath                  	//a[text()='${itemName}']
+lineitem_product									xpath					.//table[@class='table']//a[contains(text(),'${Product}')]
 list_batch                                          id                        inv_bat_key
 list_PaymentType                                     id                       inv_orig_trans_type
 list_paymentMethod                                   id                       pin_apm_key
@@ -74,7 +75,7 @@ table_lineItems                                   id                         UPD
 frame_selectProduct                              id                             menu_a83665ae18eb43488c5d83ce5f6027f8  
 list_billAddress                                 id                         inv_cxa_key   
 link_email                                       id                          F1_HYPERLINK_0     
-txt_ContactId                                     id                        F1_cst_id
+txt_ContactId                                    css                        .TinyTXTOrange
 txt_customerAddress                                id                          F1_cxa_mailing_label_html
 txt_addressType                                  id                           F1_cxa_adt_key_Display_Text_
 label_listMemberShip                             id                          LabelDataFormHeader
@@ -191,3 +192,43 @@ price_txt										css							#dgDynamicList > tbody > tr:nth-child(${randomNumbe
 th_lookup										xpath						.//*[@id='dgDynamicList']//th/a[contains(text(),'${field}')]
 productName_inp									css							#prd_name
 inp_checkNumber                                   id                    	  	 pin_check_number
+list_orderFrequency                             id                              ord_frequency
+
+##Credit_Page
+
+icon_expand										css								.icon-chevron-down
+drpdown_batchNameCreditPage									css					#cdt_bat_key
+label_creditAmount								css								#Caption_cdd_amount
+inp_creditAmount								css								#cdd_amount
+list_creditReason								id								cdt_rec_key
+inp_nameOnCheck									id								pin_name_on_check
+inp_customerName								id								cst_sort_name_dn
+list_liabilityExpense							id								cdd_gla_cr_key
+btn_preProcess									id								PreProcess
+btn_search										id								Look_Up_cst_sort_name_dn
+list_batchCreditPage							id								inv_bat_key
+table_header									xpath							//a[contains(text(),'${text}')]
+btn_addBatchCredit								css								#cdt_bat_key_oAddHyperLink>img
+txt_creditAvailable								xpath							.//*[@id='cst_credit_available']
+inp_customerID									css								#cst_id
+td_lineItems									xpath						//td/a[contains(text(),'${text}')]/.. /following-sibling::td[${index}]/a
+txt_netTotal									xpath							//*[@id='ivd_nettotal']
+txt_netBalanceNetForum								xpath							//td/a[contains(text(),'${text}')]/.. /following-sibling::td[9]/span
+label_transCode									xpath								.//*[@id='F1_cdt_code']
+txt_mailingLabel								css									#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(10)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -214,9 +214,7 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 				.expandDetailsMenuIfAlreadyExpanded("award stages/rounds");
 		test.awardsPageAction.goToRecordForRound(String.valueOf(votingRounds));
 		test.awardsPageAction
-				.verifyUpdateScoreMessageOnClickingUpdateScore(test.homePageIWEB
-						.map().get(
-								"Round" + votingRounds
+				.verifyUpdateScoreMessageOnClickingUpdateScore(test.homePageIWEB.map().get("Round" + votingRounds
 										+ " Update Score Success Message?"));
 		test.awardsPageAction
 				.verifyClosedStatusOnUpdatingScore(test.homePageIWEB.map().get(
@@ -231,8 +229,7 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.awardsPageAction
 				.expandDetailsMenuIfAlreadyExpanded("award stages/rounds");
 		startEndDate = test.awardsPageAction
-				.editStartAndEnddateForRoundExceptOne(round > 1 ? ++votingRounds
-						: -1);
+				.editStartAndEnddateForRoundExceptOne(round > 1 ? ++votingRounds : -1);
 	}
 
 	@Test(dependsOnMethods = "Step02_TC02_Verify_Nominees_And_Set_Start_End_Dates_For_Round1_IWEB_Application")

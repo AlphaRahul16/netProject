@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.qait.automation.utils.DateUtil;
 
 public class CheckoutPage extends ASCSocietyGenericPage {
 
@@ -228,6 +229,64 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 
 	}
 
+	public void verifyPriceValues_OMADiscount(String caseId) {
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
+		verifyMultiYearShow_Hide(map().get("multiYearFlag?"));
+		if (!map().get("multiYearDecision").equalsIgnoreCase("")) {
+			mutliYearInInteger = Integer.parseInt(map()
+					.get("multiYearDecision"));
+		} else {
+			mutliYearInInteger = 0;
+		}
+		if (map().get("multiYearFlag?").equalsIgnoreCase("SHOW")) {
+			if (map().get("multiYearDecision").equalsIgnoreCase("2")) {
+				multiYearDecisionValue = "Two";
+				clickUsingXpathInJavaScriptExecutor(element("rad_multiYear",
+						multiYearDecisionValue));
+				// click(element("rad_multiYear", multiYearDecisionValue));
+				logMessage("Step : multiYearDecision " + multiYearDecisionValue
+						+ " value is clicked in rad_multiYear\n");
+				logMessage("Step : wait for price values to be changed after selection of multi year value\n");
+				// hardWaitForIEBrowser(2);
+				try {
+					wait.resetImplicitTimeout(0);
+					wait.resetExplicitTimeout(hiddenFieldTimeOut);
+					wait.waitForElementToDisappear(element("txt_multiYearWait"));
+					wait.resetImplicitTimeout(timeOut);
+					wait.resetExplicitTimeout(timeOut);
+				} catch (Exception E) {
+					wait.resetImplicitTimeout(timeOut);
+					wait.resetExplicitTimeout(timeOut);
+					logMessage("Image not present");
+					// wait.waitForElementToDisappear(element("txt_multiYearWait"));
+				}
+			} else if (map().get("multiYearDecision").equalsIgnoreCase("3")) {
+				multiYearDecisionValue = "Three";
+				clickUsingXpathInJavaScriptExecutor(element("rad_multiYear",
+						multiYearDecisionValue));
+				// click(element("rad_multiYear", multiYearDecisionValue));
+				logMessage("Step : multiYearDecision " + multiYearDecisionValue
+						+ " value is clicked in rad_multiYear\n");
+				logMessage("Step : wait for price values to be changed after selection of multi year value\n");
+				try {
+					wait.waitForElementToDisappear(element("txt_multiYearWait"));
+				} catch (Exception E) {
+					logMessage("txt_multiYearWait did not appear");
+				}
+			} else {
+				logMessage("Step : multiyear flag is not present in price value sheet\n");
+			}
+		}
+
+		String currentYearDues = map().get(DateUtil.getCurrentYear() + " DUES");
+
+		verifyPriceType(map().get("Product?"), "amount", currentYearDues,
+				mutliYearInInteger);
+
+	}
+
 	public String[] verifyPriceValues(String caseId) {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
@@ -399,6 +458,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		if (productName.equalsIgnoreCase("")) {
 			logMessage("Step : product name is not present in data sheet to verify price values at checkout page\n");
 		} else {
+			isElementDisplayed("txt_" + priceType, productName);
 			priceValues = element("txt_" + priceType, productName).getText();
 			if (priceValue.equalsIgnoreCase("")) {
 				logMessage("STEP : price value for " + productName
@@ -409,6 +469,14 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 			logMessage("ASSERT PASSED : " + priceValue + " is verified in txt_"
 					+ priceType + "\n");
 		}
+	}
+
+	public String getPriceValue(String productName, String priceType) {
+		isElementDisplayed("txt_" + priceType, productName);
+		priceValues = element("txt_" + priceType, productName).getText();
+		logMessage("Step : price " + priceType + " for " + productName + " is "
+				+ priceValues);
+		return priceValues;
 	}
 
 	public void verifyPaymentErrorPresent(String errorMsz) {
@@ -487,8 +555,6 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 			return element("txt_total", value).getText();
 		}
 	}
-
-	
 
 	public String verifyTotal(String currency) {
 		System.out.println("currency :-" + currency);
@@ -650,8 +716,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		} catch (Exception E) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
-			logMessage("Image not present");
-
+			logMessage("Multiyear Image is not present");
 		}
 	}
 
