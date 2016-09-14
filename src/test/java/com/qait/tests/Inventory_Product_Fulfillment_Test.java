@@ -65,7 +65,7 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 	public void Step04_Click_Select_Product_And_Merchandise_Option_and_Verify_Centralized_Order_Entry_Merchandise_Window() {
 		test.memberShipPage.clickOnSelectProduct();
 		test.memberShipPage.selectMerchandise("merchandise");
-		test.memberShipPage.enterProductCode(YamlReader.getYamlValue("Inventory_Product.productCode1"));
+		test.memberShipPage.enterProductCode(test.homePageIWEB.map().get("Product Code").trim());
 		test.memberShipPage.clickOnSearchDisplayNameButton();
 		productName = test.memberShipPage.getProductNameFromCOEPage();
 		productCode = test.memberShipPage.getProductCodeFromCOEPage();
