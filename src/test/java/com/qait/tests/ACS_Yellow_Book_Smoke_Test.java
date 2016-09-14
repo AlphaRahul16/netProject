@@ -37,6 +37,8 @@ public class ACS_Yellow_Book_Smoke_Test extends BaseTest{
 	@Test
 	public void Step01_Launch_Iweb_Application_For_Yellow_Book() {
 		test.launchApplication(app_url_iweb_yb);
+		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
+				YamlReader.getYamlValue("Authentication.password"));
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 

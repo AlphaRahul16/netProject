@@ -647,6 +647,16 @@ Acs_Reports:
     email_Message: Test Report From Selenium Tests
     email_To: R_Yadav@acs.org
     delivery_Method: Run Immediately,Schedule Report
+    
+ACS_Fundraising_Module:
+    giftType: Outright
+    CreditCardExpiration: 2018/07 
+    checkNumber: "1111"   
+    pledgeType: signed
+    noOfInstallments: 3
+    orderFrequency: "Monthly"
+   
+        
                     
 email:
   send: true
