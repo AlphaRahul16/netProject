@@ -109,7 +109,6 @@ public class ResultsIT extends ReformatTestFile {
     private Session getSession() {
     	 Authenticator authenticator = new Authenticator(from, password);
         Properties properties = new Properties();
-        System.out.println("-----in get session");
         properties.setProperty("mail.transport.protocol", "smtps");
         properties.put("mail.smtps.auth", "true");
         properties.setProperty("mail.smtp.submitter", authenticator

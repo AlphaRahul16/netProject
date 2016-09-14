@@ -1166,7 +1166,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 				quantity_Product, "1");
 
 		verifyStartAndEndDateInFinancialInvoice(
-				map().get("Iweb Product Name?"), caseId);
+				map().get("Iweb Product Name?"), map().get("multiYearDecision"));
 		clickUsingXpathInJavaScriptExecutor(element("lnk_lastName"));
 
 	}

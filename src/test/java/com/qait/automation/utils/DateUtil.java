@@ -163,7 +163,6 @@ public class DateUtil {
 		DateFormat sourceFormat = new SimpleDateFormat(formate);
 		try {
 			date = sourceFormat.parse(dateString);
-			System.out.println(date);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

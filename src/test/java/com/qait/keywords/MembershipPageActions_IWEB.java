@@ -681,7 +681,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyMemberStatus(String memberStatus) {
-
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);
 		isElementDisplayed("txt_memberStatus");
@@ -1195,7 +1194,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		else
 			clickUsingXpathInJavaScriptExecutor(element("link_tabsOnModule",
 					tabName));
-		logMessage("STEP : " + tabName + " tab is clicked\n");
+		logMessage("Step : " + tabName + " tab is clicked\n");
 
 	}
 
@@ -1589,6 +1588,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void enterProductCode(String prodCode) {
 		hardWaitForIEBrowser(5);
+		switchToDefaultContent();
+		switchToFrame(element("iframe"));
 		isElementDisplayed("inp_prdCode");
 		element("inp_prdCode").sendKeys(prodCode);
 		logMessage("Step : Produuct code " + prodCode
@@ -3183,9 +3184,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void getContactIdOfUser(String Member) {
-		isElementDisplayed("txt_ContactId");
+		isElementDisplayed("txt_renewalContactId");
 		logMessage("STEP : " + Member + " Id is : "
-				+ element("txt_ContactId").getText().trim() + "\n");
+				+ element("txt_renewalContactId").getText().trim() + "\n");
 	}
 
 	public void clickOnMemberTransferButton() {
@@ -4377,8 +4378,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyProductNameInLineItem(String productName) {
 		switchToDefaultContent();
 		waitForSpinner();
-		isElementDisplayed("txt_itemsAdded", productName);
-		String prodName = element("txt_itemsAdded", productName).getText();
+		wait.hardWait(2);
+		isElementDisplayed("lineitem_product", productName);
+		String prodName = element("lineitem_product", productName).getText();
 
 		Assert.assertTrue(productName.contains(prodName));
 		logMessage("STEP: "+productName+" Product is added in Line Items \n");
@@ -4473,8 +4475,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(4);
 	}
 	public void selectRandomUserOnAscendingHeader(String headerName) {
+		selectMerchandise("merchandise");
+		switchToDefaultContent();
+		switchToFrame(element("iframe"));
+		clickOnSearchDisplayNameButton();
 		_clickOnAvailableQuantityForSorting(headerName);
-		_clickOnAvailableQuantityForSorting(headerName);
+		//_clickOnAvailableQuantityForSorting(headerName);
 		clickOnRandomPage(10,1);
 		clickOnAnyRandomMember();
 		wait.hardWait(4);

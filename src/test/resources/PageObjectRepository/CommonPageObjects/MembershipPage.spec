@@ -28,7 +28,8 @@ list_industry                                         id                    mbr_
 inp_industryUpdateDate                              id                     mbr_sin_last_update_date_ext
 inp_jobTitleUpdateDate                               id                     mbr_jfn_last_update_date_ext
 btn_saveAndFinish                                    css                    input[id='Bottom_0']
-txt_itemsAdded                                      xpath                   //a[text()='${itemName}']
+txt_itemsAdded                                      xpath                  	//a[text()='${itemName}']
+lineitem_product									xpath					.//table[@class='table']//a[contains(text(),'${Product}')]
 list_batch                                          id                        inv_bat_key
 list_PaymentType                                     id                       inv_orig_trans_type
 list_paymentMethod                                   id                       pin_apm_key
@@ -191,6 +192,7 @@ price_txt										css							#dgDynamicList > tbody > tr:nth-child(${randomNumbe
 th_lookup										xpath						.//*[@id='dgDynamicList']//th/a[contains(text(),'${field}')]
 productName_inp									css							#prd_name
 inp_checkNumber                                   id                    	  	 pin_check_number
+list_orderFrequency                             id                              ord_frequency
 
 ##Credit_Page
 
@@ -205,7 +207,7 @@ inp_customerName								id								cst_sort_name_dn
 list_liabilityExpense							id								cdd_gla_cr_key
 btn_preProcess									id								PreProcess
 btn_search										id								Look_Up_cst_sort_name_dn
-list_batchCreditPage							id								cdt_bat_key
+list_batchCreditPage							id								inv_bat_key
 table_header									xpath							//a[contains(text(),'${text}')]
 btn_addBatchCredit								css								#cdt_bat_key_oAddHyperLink>img
 txt_creditAvailable								xpath							.//*[@id='cst_credit_available']

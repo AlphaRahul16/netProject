@@ -97,7 +97,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		} else {
 			clickUsingXpathInJavaScriptExecutor(element("hd_sideBar", tabName));
 		}
-		logMessage("STEP : Click on tab " + tabName + " From Left Panel \n");
+		logMessage("Step : Click on tab " + tabName + " From Left Panel \n");
 	}
 	
 	public void clickOnFulfillmentOrdersTab() {
@@ -166,7 +166,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 			element("btn_tabs").click();
 		else
 		    executeJavascript("document.getElementsByClassName('dropdown-toggle')[3].click()");
-		logMessage("STEP :  Module tab is clicked\n");
+		logMessage("Step :  Module tab is clicked\n");
 	}
 
 	public void launchUrl(String url) {
