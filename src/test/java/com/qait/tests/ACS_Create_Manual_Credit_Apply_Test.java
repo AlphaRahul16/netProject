@@ -53,7 +53,7 @@ public class ACS_Create_Manual_Credit_Apply_Test extends BaseTest {
 	}
 	
 	@Test(dependsOnMethods = "Step01_Launch_Iweb_Application_And_Navigate_To_Add_Credit")
-	public void Step02_Select_Random_Customer_Create_A_Batch_Enter_Values_In_Credit_Amount_And_Credit_Reason()
+	public void Step02_Select_Random_Customer_Create_A_Batch_Enter_Values_In_Credit_Page()
 	{
 		test.memberShipPage.clickOnSearchButton();
 		test.memberShipPage.selectRandomMemberByAscendingHeader("Mailing Label","txt_tableRow");
@@ -69,7 +69,7 @@ public class ACS_Create_Manual_Credit_Apply_Test extends BaseTest {
 	}
 	
 	@Test(dependsOnMethods = "Step02_Select_Random_Customer_Create_A_Batch_Enter_Values_In_Credit_Amount_And_Credit_Reason")
-	public void Step03_Verify_User_Is_On_Credit_Profile_Page_Click_on_Batch_and_pre_process()
+	public void Step03_Verify_User_Is_On_Credit_Amount_And_Click_on_Batch_and_pre_process()
 	{
 		test.homePageIWEB.verifyUserIsOnHomePage("Accounting | Credit | Credit Profile");
 		test.memberShipPage.verifyCreditAmount(YamlReader.getYamlValue("ACS_Create_Manual_Credit_Test.CreditAmount"));
@@ -98,18 +98,17 @@ public class ACS_Create_Manual_Credit_Apply_Test extends BaseTest {
 	}
 
 	@Test(dependsOnMethods = "Step05_Click_On_Order_Entry_Button_And_Verify_Centralized_Order_Entry_Page")
-	public void Step06_Click_Select_Product_And_Merchandise_Option_and_Verify_Centralized_Order_Entry_Merchandise_Window() {
+	public void Step06_Click_On_Select_Product_And_Merchandise_Option_and_Verify_Centralized_Order_Entry_Merchandise_Window() {
 		
 			test.memberShipPage.clickOnSelectProduct();
 			test.memberShipPage.selectRandomProductForCRMInventory();
-		//	test.memberShipPage.selectRandomUserOnAscendingHeader("Available Quantity");
 			productName = test.memberShipPage.getProductNameFromCOEPage();
 			productCode = test.memberShipPage.getProductCodeFromCOEPage();
 			test.memberShipPage.clickOnSaveAndFinish();
 	}
 	
 	@Test(dependsOnMethods = "Step06_Click_Select_Product_And_Merchandise_Option_and_Verify_Centralized_Order_Entry_Merchandise_Window")
-	public void Step07_Verify_that_Selected_Item_Is_Added_Into_Line_Items(){
+	public void Step07_Verify_that_Selected_Product_Is_Added_Into_Line_Items_And_Credit_Available_On_COE(){
 			test.memberShipPage.verifyProductNameInLineItem(productName);
 			test.memberShipPage.verifyCreditAvailableOnCOE(YamlReader.getYamlValue("ACS_Create_Manual_Credit_Test.CreditAmount")); 
 	}
@@ -124,7 +123,7 @@ public class ACS_Create_Manual_Credit_Apply_Test extends BaseTest {
 	}
 	
 	@Test(dependsOnMethods = "Step08_Click_On_net_Credit_in_line_items_And_Enter_values_In_Amount_to_apply")
-	public void Step09_Verify_Net_balance_And_net_payment_Create_New_batch_Select_prepaid_from_dropdown_type_and_Verify_CRM_Individual_Profile_page()
+	public void Step09_Verify_Net_balance_Create_New_batch_Select_prepaid_from_dropdown()
 	{
 		test.memberShipPage.verifyNetBalanceOnCOE(YamlReader.getYamlValue("Acs_CreateMember_IWEB.batch"),
 				YamlReader.getYamlValue("ACS_Create_Manual_Credit_Test.paymentType"),

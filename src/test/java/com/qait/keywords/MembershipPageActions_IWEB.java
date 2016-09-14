@@ -786,7 +786,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(2);
 		isElementDisplayed("list_" + orderEntryInfo);
 		selectProvidedTextFromDropDown(element("list_" + orderEntryInfo), value);
-		logMessage("Step : " + value + " is selected in " + orderEntryInfo
+		logMessage("Step : " + orderEntryInfo + " is selected as " + value
 				+ "\n");
 	}
 
@@ -806,6 +806,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		//element("inp_" + cardInfo).click();
 		element("inp_" + cardInfo).sendKeys(cardValue);
 		logMessage("Step : enter " + cardValue + " in inp_" + cardInfo + " \n");
+		
 	}
 
 	public void verifyRejoinDateIsCurentDate() {
@@ -1675,7 +1676,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("inp_customerName");
 		String customerName= element("inp_customerName").getAttribute("value").trim();
 		String customerID= element("inp_customerID").getAttribute("value").trim();
-		logMessage("customer ID: " +customerID+"\n");
+		logMessage("STEP: Customer name is " +customerName+"\n");
+		logMessage("STEP: Customer ID is " +customerID+"\n");
 		holdExecution(2000);
 		batchName=batch_name+System.currentTimeMillis();
 		if (verifyBatchIsPresentOnCreditPage(batchName)) {
@@ -1688,11 +1690,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		waitForSpinner();
 		wait.hardWait(1);
 		Select sel = new Select(element("drpdown_batchName"));
-		//String batchName1 = ;
 		Assert.assertEquals(sel.getFirstSelectedOption().getText().trim(), batchName,"ASSERT FAILED:: batch name is not same \n");
-
 		isElementDisplayed("inp_creditAmount");
 		executeJavascript("document.getElementById('cdd_amount').value='"+creditAmount+"';");
+		logMessage("STEP: credit amount is entered as "+creditAmount);
+		
 		waitForSpinner();
 		selectOrderEntryInfo("creditReason", creditReason);
 		waitForSpinner();
@@ -1714,7 +1716,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		selectOrderEntryInfo("liabilityExpense", expense);
 		clickOnSaveButtonForBillingAddress();
 		wait.waitForPageToLoadCompletely();
-		logMessage("STEP: Batch "+batchName+" is created \n");
+		logMessage("STEP: Batch is created as "+batchName+" is created \n");
 		logMessage("STEP: All values are entered in Credit Page\n");
 		return customerID;
 	}
@@ -1723,21 +1725,21 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_creditAvailable");
 		String credit=element("txt_creditAvailable").getText();		
 		Assert.assertTrue(Double.parseDouble(credit)>=Double.parseDouble(creditAmount),"ASSERT FAILED:: credit available is not matched on COE page\n");
-		logMessage("STEP: verified credit availabale is "+credit+" \n");
+		logMessage("ASSERT PASSED: credit availabale is "+credit+" \n");
 		
 	}
 	public void clickOnNetCredit(String productName)
 	{
 		isElementDisplayed("td_lineItems", productName, "7");
 		element("td_lineItems", productName, "7").click();
-		logMessage("STEP: Clicked on net credit \n");
+		logMessage("STEP: Clicked on net credit link \n");
 	}
 	public String verifyNetForumPopUp()
 	{
 		switchToFrame("iframe1");
 		isElementDisplayed("txt_netTotal");
 		String netTotal=element("txt_netTotal").getText();
-		logMessage("STEP: netForum Pop up is verified, net Total is "+netTotal);
+		logMessage("STEP: netForum Pop up is verified");
 		switchToDefaultContent();
 		return netTotal;
 	}
@@ -1746,16 +1748,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToFrame("iframe1");
 		isElementDisplayed("inp_dateForReviewModes",amountApply);
 		sendKeysUsingXpathInJavaScriptExecutor(element("inp_dateForReviewModes",amountApply), netTotal);	
+		logMessage("STEP: 'amount to apply' is entered as "+netTotal+" \n");
 		clickOnSaveButtonForBillingAddress();
 		switchToDefaultContent();
-		logMessage("STEP: "+netTotal+" entered in amount to apply and clicked on ok button \n");
-		
 	}
 	public void verifyNetBalanceOnCOE(String batch_name,String paymentType,String paymentMethod,String cardNumber, String expireDate, String cvvNumber)
 	{
 		isElementDisplayed("txt_netBalanceNetForum",productName);
 		String net_balance=element("txt_netBalanceNetForum",productName).getText();
-		logMessage("STEP: Net balance on COE page is "+net_balance);
+		logMessage("ASSERT PASSED: Net balance on COE page is "+net_balance);
 		
 		batchName=batch_name+System.currentTimeMillis();
 		if (verifyBatchIsPresent(batchName)) {
@@ -1763,7 +1764,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		} else {
 			addBatch(batchName.replaceAll("ACS: ", ""), "QA");
 		}
-		logMessage("STEP: New batch "+batchName+" is added \n");
+		logMessage("STEP: New batch is added as "+batchName+" \n");
 		
 		switchToDefaultContent();
 		waitForSpinner();
@@ -1794,15 +1795,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 	public void verifyCreditAmount(String creditAmount)
 	{
-		isElementDisplayed("icon_expand");
-		element("icon_expand").click();
-		logMessage("STEP: details is expanded \n");
-		waitForSpinner();
+		expandDetailsMenuIfAlreadyExpanded("detail");
 		isElementDisplayed("txt_joinDate_chapter","create credit");
 		Assert.assertTrue(element("txt_joinDate_chapter","create credit").getText().trim().equals(creditAmount), "ASSERT FAILED:: Credit amount is not same");
-		/*String transCode=element("label_transCode").getText();
-		return transCode;*/
-		logMessage("STEP: Verified credit amount is: "+ creditAmount);
+		logMessage("ASSERT PASSED: credit amount is: "+ creditAmount);
 	}
 	public String clickOnBatch()
 	{
@@ -1922,7 +1918,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("list_batchSecurityGroup");
 		selectProvidedTextFromDropDown(element("list_batchSecurityGroup"),
 				securityGroup);
-		logMessage("Step : Select security group " + securityGroup + "\n");
+		logMessage("Step : Select security group as" + securityGroup + "\n");
 		clickOnSaveButtonForBillingAddress();
 
 	}
@@ -4396,9 +4392,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		Double credit_avl=Double.parseDouble(credit_amount)-Double.parseDouble(netTotal);
 		String credit_available= String.valueOf(df.format(credit_avl));
 		Assert.assertTrue(element("txt_joinDate_chapter",batchName).getText().trim().equals(credit_available),"ASSERT FAILED: credit available is not matched");
-
-		logMessage("credit Availble"+element("txt_joinDate_chapter",batchName).getText()+"\n");
-		logMessage("STEP: verified credit available information in credits child forms\n");
+		logMessage("ASSERT PASSED: credit available information in credits child forms is "+credit_available+"\n");
 		
 		logMessage("\n ************ SUCCESSFULL *************\n");
 		
@@ -4429,7 +4423,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 		switchToFrame("iframe1");
 		String productCode = element("txt_prod_code").getAttribute("value");
-		logMessage("STEP: Product code '" + productCode + "' is selected\n");
+		logMessage("STEP: Product code is selected as '" + productCode + "'\n");
 		return productCode;
 	}
 
@@ -4437,7 +4431,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 		switchToFrame(element("iframe"));
 		productName = element("productName_inp").getText().trim();
-		logMessage("STEP: '" + productName + "' is selected");
+		logMessage("STEP: Product name is selected as " + productName+"\n");
 		return productName;
 	}
 

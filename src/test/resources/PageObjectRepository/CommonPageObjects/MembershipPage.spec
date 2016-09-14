@@ -207,7 +207,7 @@ inp_customerName								id								cst_sort_name_dn
 list_liabilityExpense							id								cdd_gla_cr_key
 btn_preProcess									id								PreProcess
 btn_search										id								Look_Up_cst_sort_name_dn
-list_batchCreditPage							id								inv_bat_key
+list_batchCreditPage							id								cdt_bat_key
 table_header									xpath							//a[contains(text(),'${text}')]
 btn_addBatchCredit								css								#cdt_bat_key_oAddHyperLink>img
 txt_creditAvailable								xpath							.//*[@id='cst_credit_available']

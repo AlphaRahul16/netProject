@@ -894,8 +894,10 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	{
 			isElementDisplayed("img_moreMenu");
 			element("img_moreMenu").click();
+			logMessage("STEP: more link is clicked \n");
 			isElementDisplayed("link_moreMenuName", action);
 			element("link_moreMenuName", action).click();
+			logMessage("STEP: action in more menu is selected as "+action+"\n");
 			waitForSpinner();
 			/*wait.waitForPageToLoadCompletely();
 			isElementDisplayed("btn_memberShip", "credits");
