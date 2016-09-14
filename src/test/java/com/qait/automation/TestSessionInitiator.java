@@ -185,7 +185,7 @@ public class TestSessionInitiator {
 		acsScarfReviewing = new ACS_Scarf_Reviewing_Eweb_Action(driver);
 		acsMarketingPageIweb = new ACS_MarketingPage_IWEB(driver);
 		gcsPaymentPage = new GCS_PaymentActions(driver);
-		acsFundraising= new ACS_Fundraising_Keyword(driver);
+		acsFundraising = new ACS_Fundraising_Keyword(driver);
 
 	}
 
@@ -250,6 +250,7 @@ public class TestSessionInitiator {
 								.equalsIgnoreCase("https://stag-12iweb/NFStage2/iweb")
 						|| baseurl
 								.equalsIgnoreCase("https://stag-12iweb/NFStage5/iweb")) {
+					System.out.println("in if");
 					baseurl = baseurl
 							.replaceAll(
 									"https://stag",
@@ -262,7 +263,8 @@ public class TestSessionInitiator {
 															.getYamlValue("Authentication.password"),
 													"UTF-8") + "@stag");
 					driver.get(baseurl);
-				} else
+				} else {
+					System.out.println("in else");
 					baseurl = baseurl
 							.replaceAll(
 									"https://iwebtest",
@@ -274,6 +276,8 @@ public class TestSessionInitiator {
 													YamlReader
 															.getYamlValue("Authentication.password"),
 													"UTF-8") + "@iwebtest");
+				}
+
 				driver.get(baseurl);
 			} else {
 				driver.get(baseurl);

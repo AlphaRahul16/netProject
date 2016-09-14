@@ -458,6 +458,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		if (productName.equalsIgnoreCase("")) {
 			logMessage("Step : product name is not present in data sheet to verify price values at checkout page\n");
 		} else {
+			isElementDisplayed("txt_" + priceType, productName);
 			priceValues = element("txt_" + priceType, productName).getText();
 			if (priceValue.equalsIgnoreCase("")) {
 				logMessage("STEP : price value for " + productName
@@ -468,6 +469,14 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 			logMessage("ASSERT PASSED : " + priceValue + " is verified in txt_"
 					+ priceType + "\n");
 		}
+	}
+
+	public String getPriceValue(String productName, String priceType) {
+		isElementDisplayed("txt_" + priceType, productName);
+		priceValues = element("txt_" + priceType, productName).getText();
+		logMessage("Step : price " + priceType + " for " + productName + " is "
+				+ priceValues);
+		return priceValues;
 	}
 
 	public void verifyPaymentErrorPresent(String errorMsz) {

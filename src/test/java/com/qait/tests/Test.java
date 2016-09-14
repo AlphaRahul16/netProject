@@ -1,5 +1,7 @@
 package com.qait.tests;
 
+import org.testng.Reporter;
+
  
 public class Test{  
    
@@ -30,7 +32,6 @@ public class Test{
 	} 
 	}*/
 	
-	@org.testng.annotations.Test
 	public void method(){
 		if(true&true){
 		System.out.println("a");	
@@ -39,11 +40,15 @@ public class Test{
 		if(true&&true){
 			System.out.println("b");	
 			}
-		
+	}
+		@org.testng.annotations.Test
+		public void test1(){
+			Reporter.setEscapeHtml(true);
+			Reporter.log("<b>ayush</b>");
+		}		
 	}
 	
+
 	
 	
-	
-	
-}  
+	  
