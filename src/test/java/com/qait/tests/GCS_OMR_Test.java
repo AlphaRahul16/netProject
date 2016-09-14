@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.omg.CORBA.OMGVMCID;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -22,7 +23,7 @@ public class GCS_OMR_Test extends BaseTest {
 	private int caseID;
 	Map<String, String> mapGcsOMR = new HashMap<String, String>();
 	private List<String> memDetails;
-	Map<String, String> mapRenewedProductDetails;
+	Map<String, String> mapRenewedProductDetails=new HashMap<String, String>();
 
 	public GCS_OMR_Test() {
 		sheetname = com.qait.tests.Data_Provider_Factory_Class_Xml.sheetName = "GCS_OMR";
@@ -49,33 +50,33 @@ public class GCS_OMR_Test extends BaseTest {
 	}
 
 	@Test
-	public void Step01_Launch_Application_Under_Test() {
-
+	public void Step01_Launch_IWEB_Application_And_Navigate_To_Find_Members_Tab() {
+		
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Membership");
-		test.homePageIWEB.clickOnTab("Find Members");
-		test.memberShipPage.selectValidUserForGCSOMR(mapGcsOMR);
-		test.memberShipPage.selectARandomActiveStudentChapter();
-		test.memberShipPage.expandDetailsMenu("invoices");
-		// test.memberShipPage.verifyTermStartDateAndEndDatesAreEmpty(mapGcsOMR);
+	}
+	
+	@Test(dependsOnMethods={"Step01_Launch_IWEB_Application_And_Navigate_To_Find_Members_Tab"})
+	public void Step02_Select_Valid_User_For_Renewal_And_Verify_Term_Start_And_End_Dates_Is_Empty() {
+		test.memberShipPage.selectValidUserForRenewalAccordingToCountry(mapGcsOMR);
 	}
 
-	@Test
-	public void Step02_TC01_Verify_Payment_Status_And_Invoice_Details_Before_Renewal() {
+	@Test(dependsOnMethods={"Step02_Select_Valid_User_For_Renewal_And_Verify_Term_Start_And_End_Dates_Is_Empty"})
+	public void Step03_Verify_Payment_Status_And_Invoice_Details_Before_Renewal() {
 		test.individualsPage.clickGotoRecordForRenewal();
 		invoiceNumber = test.invoicePage.verifyInvoiceDetailsBeforeRenewal();
 
 	}
 
-	@Test
-	public void Step03_TC01_Navigate_to_Membership_Page_And_Fetch_Member_Details() {
+	@Test(dependsOnMethods={"Step03_Verify_Payment_Status_And_Invoice_Details_Before_Renewal"})
+	public void Step04_Navigate_to_Membership_Page_And_Fetch_Member_Details() {
 		test.memberShipPage.clickOnCustomerNameAndNavigateToMembershipPage();
 		memDetails = test.memberShipPage.getCustomerAllDetails(invoiceNumber);
 	}
 
-	@Test
-	public void Step04_TC01_launch_Eweb_Renewal_Application_And_Login_With_Valid_Credentials() {
+	@Test(dependsOnMethods={"Step04_Navigate_to_Membership_Page_And_Fetch_Member_Details"})
+	public void Step05_launch_Eweb_Renewal_Application_And_Login_With_Valid_Credentials() {
 		test.launchApplication(app_url_OMR);
 		test.asm_OMR.loginIntoApplicationWithValidChoice(mapGcsOMR, memDetails);
 		test.asm_OMR.OMRLogo("Online Membership Renewal");
@@ -83,17 +84,19 @@ public class GCS_OMR_Test extends BaseTest {
 		test.asm_OMR.verifyWelcomePage();
 	}
 
-	@Test
-	public void Step05_TC01_Add_Membership_For_Member() {
+	@Test(dependsOnMethods={"Step05_launch_Eweb_Renewal_Application_And_Login_With_Valid_Credentials"})
+	public void Step06_Verify_Member_Can_Renew_For_Multiple_Years_After_Selecting_Currency_As_INR() {
 		test.asm_OMR.FillRequiredDetailsForStudentMember(mapGcsOMR);
 		mapRenewedProductDetails = test.asm_OMR
 				.addMembershipsForRegularMember(mapGcsOMR);
+		test.asm_OMR.verifyMemberCanRenewForMultipleYears();
 		test.asm_OMR.selectINRAsCurrencyType("Indian Rupee");
 		test.asm_OMR.clickYesSurePopUpButton("Yes, I'm sure");
+		test.asm_OMR.verifyMemberCanRenewForMultipleYears();
 	}
 
-	@Test
-	public void Step06_TC01_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage() {
+	@Test(dependsOnMethods={"Step06_Verify_Member_Can_Renew_For_Multiple_Years_After_Selecting_Currency_As_INR"})
+	public void Step07_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage() {
 
 		test.asm_OMR.navigateToCheckOutPageForGCSOMR();
 		test.asm_OMR.clickOnSubmitPayment();
@@ -101,14 +104,10 @@ public class GCS_OMR_Test extends BaseTest {
 		test.gcsPaymentPage.clickOnPaymentButtonNamedAs(mapGcsOMR.get("Card_Type"));
 		test.asm_OMR.clickContinueButtonToNavigateToBankPaymentPage();
 
-//		 test.asm_OMR
-//		 .verifyRenewedProductsSummaryOnCheckOutPage(mapRenewedProductDetails);
-//		 test.asm_OMR.clickOnSubmitPayment();
-
 	}
 
-	@Test
-	public void Step07_TC01_Bank_Payment_Page() {
+	@Test(dependsOnMethods={"Step07_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage"})
+	public void Step08_Enter_Details_On_Bank_Payment_Page_And_Process_Further_Simulation() {
 		String name=(memDetails.get(0).split(" ")[1] + " " + memDetails
 				.get(0).split(" ")[0]);
 		System.out.println(name);
@@ -121,13 +120,18 @@ public class GCS_OMR_Test extends BaseTest {
 						.get("Bank_Name"));
 	}
 	
-	@Test
-	public void Step08_verify_Details_On_Iweb() {
+	@Test(dependsOnMethods={"Step08_Enter_Details_On_Bank_Payment_Page_And_Process_Further_Simulation"})
+	public void Step09_Launch_Iweb_And_Search_Latest_Invoice() {
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.clickOnSideBarTab("Invoice");
 		test.memberShipPage.clickOnSideBar("Find Invoice");
 		test.individualsPage.enterFieldValue("Invoice Code", memDetails.get(2));
 		test.individualsPage.clickGoButton();
+	}
+	
+	@Test(dependsOnMethods={"Step09_Launch_Iweb_And_Search_Latest_Invoice"})
+	public void Step10_Verify_Invoice_And_Renewed_Product_Details_After_Renewal() {
+		
 		test.invoicePage.verifyInvoiceDetailsAfterRenewal();
 		test.invoicePage.expandDetailsMenu("line items");
 		test.invoicePage
@@ -136,4 +140,24 @@ public class GCS_OMR_Test extends BaseTest {
 		
 		
 	}
+	
+	@Test(dependsOnMethods={"Step10_Verify_Invoice_And_Renewed_Product_Details_After_Renewal"})
+	public void Step11_Navigate_To_Payments_And_Verify_Global_Constituent_System_Log() {
+		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Payments");
+		test.invoicePage.expandDetailsMenu("acs global constituent system log");
+		test.invoicePage.verifyGlobalConstituentSystemLogForGCSOMR("ACS_OMR", mapGcsOMR.get("Card_Type").replace("Card", "").toUpperCase().trim());
+		test.invoicePage.collapseDetailsMenu("acs global constituent system log");
+	}
+	
+	@Test(dependsOnMethods={"Step11_Navigate_To_Payments_And_Verify_Global_Constituent_System_Log"})
+	public void Step12_Navigate_To_Individual_Membership_Tab_And_verify_Payment_Status_After_Renewal() {
+		test.memberShipPage.clickOnCustomerNameAndNavigateToMembershipPage();
+		test.invoicePage.expandDetailsMenu("individual memberships");
+		test.memberShipPage.navigateToInvoicePageForRenewedProduct();
+		test.invoicePage.verifyPaymentStatusAfterRenewal(mapGcsOMR.get("Member_Status?"));
+		test.invoicePage.expandDetailsMenu("invoices");
+		test.memberShipPage.verifyTermStartDateAndEndDatesAreNotEmpty();
+		test.invoicePage.collapseDetailsMenu("invoices");
+	}
+
 }

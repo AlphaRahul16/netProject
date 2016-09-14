@@ -1405,12 +1405,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void SelectFellowNominatorForVerification(String NomineeName,
 			String NominatorName) {
-		// System.out.println(element("txt_NominatorName",
-		// NomineeName).getText());
 		if (element("txt_NominatorName", NomineeName).getText().equals(
 				NominatorName)) {
-			// click(element("txt_NominatorName", NomineeName));
-			// element("txt_NominatorName", NomineeName).click();
 			clickUsingXpathInJavaScriptExecutor(element("txt_NominatorName",
 					NomineeName));
 			logMessage("Step : Nominee fellow selected from the list as "
@@ -1532,8 +1528,6 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 					.trim()
 					.equals(DateUtil
 							.getCurrentdateInStringWithGivenFormate("MM/dd/yyy"))) {
-				// element("txt_tableEntryArrow", NomineeName).click();
-				// element("txt_NominatorName", NomineeName).click();
 				clickUsingXpathInJavaScriptExecutor(element(
 						"txt_tableEntryArrow", NominatorName));
 				logMessage("Step : Nominee selected from the list as "
@@ -1741,9 +1735,6 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		handleAlert();
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("txt_individualInfo");
-		// logMessage("Expected data:"+expectedData);
-		// logMessage("Actual
-		// data:"+element("txt_individualInfo").getText().trim());
 		Assert.assertTrue(element("txt_individualInfo").getText().trim()
 				.contains(expectedData),
 				"Assertion Failed: Individual address is not correctly updated");
@@ -2069,7 +2060,6 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnPlusSign(String tabName, int index) {
 		isElementDisplayed("btn_plusIcon", tabName, String.valueOf(index));
-		// element("btn_plusIcon",tabName,String.valueOf(index)).click();
 		clickUsingXpathInJavaScriptExecutor(element("btn_plusIcon", tabName,
 				String.valueOf(index)));
 		logMessage("STEP : Clicked on plus icon of " + tabName + " tab\n");
@@ -2117,10 +2107,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void selectAddressCheckboxes(String field) {
 		hardWaitForIEBrowser(2);
 		isElementDisplayed("chkbox_primary", field);
-		// element("chkbox_primary",field).click();
 		clickUsingXpathInJavaScriptExecutor(element("chkbox_primary", field));
 		if (!element("chkbox_primary", field).isSelected()) {
-			// element("chkbox_primary",field).click();
 			clickUsingXpathInJavaScriptExecutor(element("chkbox_primary", field));
 		}
 		logMessage("STEP : " + field + " checkbox is selected\n");
@@ -2215,85 +2203,21 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 	}
 
-	/*
-	 * public boolean verifyCommitteePreferenceDate(){ String
-	 * preferenceEndDate,preferenceStartDate; int max=0; boolean value;
-	 * expandDetailsMenu("acs committee system options");
-	 * preferenceEndDate=element("txt_quantity","ACSYBCommiteePreferenceEndDate"
-	 * ).getText().trim(); logMessage("preferenceEndDate ::  "
-	 * +preferenceEndDate); max=elements("link_pages").size(); logMessage(
-	 * "Page size: "+max); isElementDisplayed("link_paging", String.valueOf(2));
-	 * clickUsingXpathInJavaScriptExecutor(element("link_paging",
-	 * String.valueOf(2))); preferenceStartDate=element("txt_quantity",
-	 * "ACSYBCommiteePreferenceStartDate").getText().trim(); logMessage(
-	 * "preferenceStartDate  :: "+preferenceStartDate);
-	 * value=verfiyEndAndStartDate(preferenceEndDate,preferenceStartDate);
-	 * return value; }
-	 * 
-	 * public boolean verfiyEndAndStartDate(String preferenceEndDate, String
-	 * preferenceStartDate){ logMessage("Current Date:"
-	 * +DateUtil.convertStringToDate(DateUtil.
-	 * getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),"MM/dd/yyyy"));
-	 * logMessage("End Date:"
-	 * +DateUtil.convertStringToDate(preferenceEndDate,"MM/dd/yyyy")); int
-	 * endDate,startDate; endDate=DateUtil.convertStringToDate(DateUtil.
-	 * getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),"MM/dd/yyyy")
-	 * .compareTo(DateUtil.convertStringToDate(preferenceEndDate,"MM/dd/yyyy"));
-	 * 
-	 * logMessage("Current Date:"+DateUtil.convertStringToDate(DateUtil.
-	 * getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),"MM/dd/yyyy"));
-	 * logMessage("Start Date:"
-	 * +DateUtil.convertStringToDate(preferenceStartDate,"MM/dd/yyyy"));
-	 * startDate=DateUtil.convertStringToDate(DateUtil.
-	 * getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),"MM/dd/yyyy")
-	 * .compareTo(DateUtil.convertStringToDate(preferenceStartDate,"MM/dd/yyyy")
-	 * );
-	 * 
-	 * if(endDate==-1 && startDate==1) return true; else return false; =======
-	 * 
-	 * public void verifyCommitteeMembersStatus(String name) {
-	 * expandDetailsMenu("acsyb nominations"); for (WebElement ele :
-	 * elements("txt_total", name)) {
-	 * Assert.assertTrue(ele.getText().trim().equals("Pending"),
-	 * "Assertion Failed: Committee member status is not pending"); logMessage(
-	 * "Assertion Passed: Committee member status is pending"); } }
-	 * 
-	 * public boolean verifyCommitteePreferenceDate() { String
-	 * preferenceEndDate, preferenceStartDate; int max = 0; boolean value;
-	 * expandDetailsMenu("acs committee system options"); preferenceEndDate =
-	 * element("txt_quantity",
-	 * "ACSYBCommiteePreferenceEndDate").getText().trim(); logMessage(
-	 * "preferenceEndDate   " + preferenceEndDate); max =
-	 * elements("link_pages").size(); logMessage("Page size: " + max);
-	 * isElementDisplayed("link_paging", String.valueOf(2));
-	 * clickUsingXpathInJavaScriptExecutor(element("link_paging",
-	 * String.valueOf(2))); preferenceStartDate = element("txt_quantity",
-	 * "ACSYBCommiteePreferenceStartDate").getText().trim(); logMessage(
-	 * "preferenceStartDate   " + preferenceStartDate); value =
-	 * verfiyEndAndStartDate(preferenceEndDate, preferenceStartDate);
-	 * logMessage(value + "------"); return value; }
-	 * 
-	 * public boolean verfiyEndAndStartDate(String preferenceEndDate, String
-	 * preferenceStartDate) { logMessage("Current Date:" +
-	 * DateUtil.convertStringToDate(DateUtil
-	 * .getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"), "MM/dd/yyyy"));
-	 * logMessage("End Date:" + DateUtil.convertStringToDate(preferenceEndDate,
-	 * "MM/dd/yyyy")); int endDate, startDate; endDate =
-	 * DateUtil.convertStringToDate(
-	 * DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
-	 * "MM/dd/yyyy").compareTo( DateUtil.convertStringToDate(preferenceEndDate,
-	 * "MM/dd/yyyy"));
-	 * 
-	 * logMessage("Current Date:" + DateUtil.convertStringToDate(DateUtil
-	 * .getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"), "MM/dd/yyyy"));
-	 * logMessage("Start Date:" +
-	 * DateUtil.convertStringToDate(preferenceStartDate, "MM/dd/yyyy"));
-	 * startDate = DateUtil.convertStringToDate(
-	 * DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
-	 * "MM/dd/yyyy") .compareTo(
-	 * DateUtil.convertStringToDate(preferenceStartDate, "MM/dd/yyyy"));
-	 * 
-	 * if (endDate == -1 && startDate == 1) return true; else return false;
-	 * >>>>>>> bafcd3aaaa988807dc6ca4df86608e379bc30110 }
-	 */
+	public String verifyYearForOMRDiscountByPrice(Map<String,String> mapOMRDiscount)
+	{
+		String dues_year;
+		dues_year=getMapFirstMatchedKeyByValue(mapOMRDiscount,"$"+getMemberType());
+		if(dues_year==null){	
+		logMessage("Step : Record is already discounted to amount"+getMemberType());
+		logMessage("Step : Discount is alredy applied but not paid\n");}
+		else{
+	    logMessage("Step : Record's original amount is "+getMemberType()+" for year "+dues_year.split("_")[1]);}
+		return element("txt_supporterNameAwardsNomination","1").getText().trim();
+	}
+
+	public void verifyOverrideStatusForOMRDiscount(String productname) {
+		isElementDisplayed("txt_termStartDate",productname);
+		System.out.println(element("txt_termStartDate",productname).getText());
+		
+	}
 }

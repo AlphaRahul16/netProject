@@ -10,6 +10,8 @@ import static org.testng.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -481,5 +483,16 @@ public class GetPage extends BaseUi {
 			logMessage("Error: Invalid Application URL in DataSheet\n");
 		}
 	}
-
+	
+	public static <T,E>T getMapFirstMatchedKeyByValue(Map<T, E> map,E value)
+	{
+		for (Entry<T, E> entry : map.entrySet()) {
+	        if (Objects.equals(value, entry.getValue())) {
+	        	System.out.println(entry.getKey());
+	        	System.out.println(value);
+	            return entry.getKey();
+	        }
+	    }
+		return null;
+}
 }

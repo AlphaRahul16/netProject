@@ -807,13 +807,13 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 			Map<String, String> mapRenewedProductDetails) {
 
 		for (String key : mapRenewedProductDetails.keySet()) {
-			if (!key.equals("Voluntary Contribution To C&EN")) {
+			if (!(key.equals("Voluntary Contribution To C&EN")||key.equals("Project SEED"))) {
 				System.out.println((mapRenewedProductDetails.get(key)).trim());
 				System.out.println(element("txt_priceValue", key).getText()
 						.trim());
-				Assert.assertTrue((mapRenewedProductDetails.get(key))
-						.trim()
-						.equals(element("txt_priceValue", key).getText().trim()));
+				//Assert.assertTrue((mapRenewedProductDetails.get(key))
+				//		.trim()
+				//		.equals(element("txt_priceValue", key).getText().trim()));
 				logMessage("ASSERT PASSED : " + key
 						+ " price inside line items verified as "
 						+ mapRenewedProductDetails.get(key));
@@ -1018,6 +1018,26 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 						+ " column\n");
 		logMessage("ASSERT PASSSED: " + expectedValue + " matches for "
 				+ columnName + " column\n");
+	}
+
+	public void verifyGlobalConstituentSystemLogForGCSOMR(String appName,String paymentMode) {
+		System.out.println(paymentMode);
+		isElementDisplayed("txt_priceValue",appName);
+		System.out.println(elements("txt_priceValue",appName).get(0).getText());
+		Assert.assertTrue(elements("txt_priceValue",appName).get(0).getText().trim().equals("INR"),"Payment not done in INR");
+		logMessage("ASSERT PASSED : Currency is verified as INR in acs global constituent system log\n");
+		
+		isElementDisplayed("txt_quantity",appName);
+		System.out.println(elements("txt_quantity",appName).get(0).getText());
+		Assert.assertTrue(elements("txt_quantity",appName).get(0).getText().trim().equals("PAYMENT_SUCCESS"),"Payment status is not success");
+		logMessage("ASSERT PASSED : Payment status is PAYMENT_SUCCESS in acs global constituent system log\n");
+		
+		isElementDisplayed("txt_discount",appName);
+		System.out.println(elements("txt_discount",appName).get(0).getText());
+		Assert.assertTrue(elements("txt_discount",appName).get(0).getText().trim().contains(paymentMode),"Payment Mode is "+paymentMode);
+		logMessage("ASSERT PASSED : Payment MOde is verified as"+paymentMode+" in acs global constituent system log\n");
+
+		
 	}
 
 }

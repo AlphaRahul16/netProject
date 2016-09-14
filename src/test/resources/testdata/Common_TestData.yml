@@ -20,6 +20,7 @@ csv-data-file:
   path_MYDTransfer: ./src/test/resources/TestDataLibrary/Multi_Year_Dues_Transfer_Sheet.csv
   path_COE_Inventory: ./src/test/resources/TestDataLibrary/COEInventory.csv
   path_OMR: ./src/test/resources/TestDataLibrary/OMR_Datasheet.csv
+  path_OMR_Discount: ./src/test/resources/TestDataLibrary/OMR_DiscountDatasheet.csv
   data-separator: '\t'
   has-header: true
 

@@ -473,6 +473,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		else if(mapOMR.get("Login_With_LastNameMemberNumber?").equalsIgnoreCase("Yes"))
 		{
 			loginIntoApplication_LastName_MemberNumber(memDetails.get(0).split(" ")[0], memDetails.get(1));
+			
+			//loginIntoApplication_LastName_MemberNumber("Agrawal", "2397066");
 		}
 		else if(mapOMR.get("Login_With_LastNameNoticeNumber?").equalsIgnoreCase("Yes"))
 		{
@@ -491,6 +493,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	public void switchToEwebRenewalFrame()
 	{
 		wait.hardWait(2);
+		wait.waitForElementToBeVisible(element("iframe_ewebframe"));
 		switchToFrame(element("iframe_ewebframe"));
 	}
 
@@ -570,10 +573,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		if(mapOMR.get("Contribution_To_Add?").length()!=0)
 		{
 			switchToDefaultContent();
-			wait.hardWait(4);
-			switchToDefaultContent();
+			wait.hardWait(13);
 			switchToEwebRenewalFrame();
-			wait.hardWait(3);
 			isElementDisplayed("inp_contribution",mapOMR.get("Contribution_To_Add?").trim());
 			element("inp_contribution",mapOMR.get("Contribution_To_Add?").trim()).sendKeys(mapOMR.get("Contribution_Amount?").trim());
 			logMessage("Step : ACS Contribution entered for "+mapOMR.get("Contribution_To_Add?").trim()+" as "+mapOMR.get("Contribution_Amount?").trim()+"\n");
@@ -882,7 +883,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		wait.hardWait(4);
 		switchToEwebRenewalFrame();
 		isElementDisplayed("btn_printreceipt");
-		logMessage("Step : Print Renewal Receipt button is verifiedn");
+		logMessage("Step : Print Renewal Receipt button is verified \n");
 		verifyElementTextContains("txt_legend", "Membership & Subscription Renewal - ");
 		switchToDefaultContent();
 
@@ -966,12 +967,22 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		clickContinueButtonForGCSOMR();
 	
 	}
-	
-	
-	
 
+	public void verifyMemberCanRenewForMultipleYears() {
+		switchToDefaultContent();
+		switchToEwebRenewalFrame();
+		isElementDisplayed("btn_renewalLength");
+		element("btn_renewalLength").isDisplayed();
+		logMessage("Step : Member can renew for multiple times\n");
+		switchToDefaultContent();
+
+	}
 	
-
-
-
+	public void clickApplyDiscountButton()
+	{
+		isElementDisplayed("icon_applyDiscount");
+		element("icon_applyDiscount").click();
+		logMessage("Step : Apply discount button is clicked\n");
+	
+}
 }

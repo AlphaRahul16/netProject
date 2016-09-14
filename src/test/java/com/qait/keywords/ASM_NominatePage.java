@@ -464,31 +464,10 @@ public class ASM_NominatePage extends GetPage {
 	}
 	
 	public void clickOnSelectNomineeButtonForAwardsNomination() {
-		//try
-		//{
+
 			wait.hardWait(1);
-//			wait.resetImplicitTimeout(3);
-//			wait.resetExplicitTimeout(hiddenFieldTimeOut);
-		
 			elements("btn_selectNomineeSupport1").get(0).click();
 			wait.hardWait(1);
-			//flag=isElementDisplayed("txt_nomineeSelectError");
-			//chooseUniqueNomineeForAwardsNomination(flag,mapAwardsNomination,formNumber);
-		
-		//}
-//		catch(Exception e)
-//		{
-//			if(formNumber!=3)
-//			{
-//				wait.hardWait(3);
-//				mapNomineeNames.put("supporter"+formNumber, elements("txt_supporterNames").get(formNumber-1).getText().trim());
-//				logMessage("Step : Supporter "+formNumber+" name is saved as "+mapNomineeNames.get("supporter"+formNumber));
-//			}
-//		}
-//		wait.resetImplicitTimeout(timeOut);
-//		wait.resetExplicitTimeout(timeOut);
-	
-		
 		logMessage("Step : Select Nominee button is clicked in btn_selectNomineeSupport1\n");
 	}
 
@@ -755,7 +734,7 @@ public class ASM_NominatePage extends GetPage {
 
 	}
 
-	public String SearchNomineeByMemeberNameOrNumber(Map<String,String> mapAwardsNomination,Map<String,String> createMemberCredentials) {
+	public void SearchNomineeByMemeberNameOrNumber(Map<String,String> mapAwardsNomination,Map<String,String> createMemberCredentials) {
 		if(mapAwardsNomination.get("SearchNomieeBy_memberNumber?").equalsIgnoreCase("Yes"))
 		{
 			enterMemberNumber(createMemberCredentials.get("Nominee1Number"));
@@ -773,36 +752,16 @@ public class ASM_NominatePage extends GetPage {
 		clickOnSelectNomineeButtonForAwardsNomination();
 	
 		wait.waitForPageToLoadCompletely();
-		return 	saveNomineeInformation();
+
 	}
 	
-//	private void chooseUniqueNomineeForAwardsNomination(boolean flag,Map<String,String> mapAwardsNomination,int formNumber) {
-//		System.out.println(flag);
-//		if(flag)
-//		{
-//			NomineeVisitedAwards++;
-//			if(formNumber==3)
-//			{
-//				SearchNomineeByMemeberNameOrNumber(mapAwardsNomination);
-//			}
-//			else
-//			{
-//				selectSupporterts(toString().valueOf(formNumber),mapAwardsNomination);
-//				mapNomineeNames.put("supporter"+formNumber, elements("txt_supporterNames").get(formNumber-1).getText().trim());
-//				System.out.println(mapNomineeNames.get("supporter"+formNumber));
-//				logMessage("Step : Supporter "+formNumber+" name is saved as "+mapNomineeNames.get("supporter"+formNumber));
-//			}
-//		}
-//		
+//	private String saveNomineeInformation() {
+//        wait.hardWait(5);
+//		String NomineeName = ReverseStringWords(element("txt_Nomineename").getText());
+//		System.out.println("Nominee Name " + NomineeName);
+//		logMessage("Step : Nominator Name is "+NomineeName);
+//        return NomineeName;
 //	}
-
-	private String saveNomineeInformation() {
-        wait.hardWait(5);
-		String NomineeName = ReverseStringWords(element("txt_Nomineename_123").getText());
-		System.out.println("Nominee Name " + NomineeName);
-		logMessage("Step : Nominator Name is "+NomineeName);
-        return NomineeName;
-	}
 
 	public void FillEligibilityQuestionsDetails_AwardsNomination(Map<String,String> mapAwardsNomination)
 	{

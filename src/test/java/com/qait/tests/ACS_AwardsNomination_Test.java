@@ -20,7 +20,6 @@ public class ACS_AwardsNomination_Test extends BaseTest{
 	String app_url_Nominate, app_url_IWEB, app_url_nominateFellow;
 	private String caseID;
 	private String currentAwardName;
-	private String NomineeName;
 	List<String> memberDetails;
 	private String[] memDetails;
 	int numberOfDivisions;
@@ -83,7 +82,7 @@ public class ACS_AwardsNomination_Test extends BaseTest{
 
 		test.asm_NominatePage.clickOnCreateNewNominationButton();
 
-		NomineeName = test.asm_NominatePage.SearchNomineeByMemeberNameOrNumber(
+		test.asm_NominatePage.SearchNomineeByMemeberNameOrNumber(
 				mapAwardsNomination, createMemberCredentials);
 		test.asm_NominatePage
 				.FillEligibilityQuestionsDetails_AwardsNomination(mapAwardsNomination);
