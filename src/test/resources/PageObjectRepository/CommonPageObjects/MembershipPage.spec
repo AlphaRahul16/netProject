@@ -199,6 +199,7 @@ drpdown_batchNameCreditPage						css								#cdt_bat_key
 label_creditAmount								css								#Caption_cdd_amount
 inp_creditAmount								css								#cdd_amount
 list_creditReason								id								cdt_rec_key
+inp_cardHolderName								id								pin_cc_cardholder_name						
 inp_nameOnCheck									id								pin_name_on_check
 inp_customerName								id								cst_sort_name_dn
 list_liabilityExpense							id								cdd_gla_cr_key

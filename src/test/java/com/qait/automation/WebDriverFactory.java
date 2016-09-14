@@ -143,7 +143,7 @@ public class WebDriverFactory {
 		profile.setPreference("browser.cache.disk.enable", false);
 		profile.setPreference("browser.download.folderList", 2);
 		profile.setPreference("browser.download.manager.alertOnEXEOpen", false);
-
+		profile.setPreference("intl.accept_languages","UTF-8" );
 		profile.setPreference(
 				"browser.helperApps.neverAsk.saveToDisk",
 				"application/pdf, application/csv, application/ris, text/csv,text/plain, application/zip, application/x-zip, application/x-zip-compressed, application/download, application/octet-stream,text/csv,application/vnd.ms-excel");
@@ -166,6 +166,7 @@ public class WebDriverFactory {
 		profile.setPreference("browser.download.manager.showWhenStartinge",false);
 		profile.setPreference("browser.download.panel.shown",false);
 		profile.setPreference("browser.download.useToolkitUI",true);
+		
 		//return new FirefoxDriver(ffBinary,profile);
 		return new FirefoxDriver(profile);
 	}

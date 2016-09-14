@@ -85,6 +85,7 @@ public class ACS_Create_Manual_Credit_Apply_Test extends BaseTest {
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Find Individual");
 		test.individualsPage.fillMemberDetailsAndSearch("Record Number", customerId);
+		individualName = test.acsAddressValidation.verifyIndividualProfilePage();
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Individuals | " + individualName);
 		
 	}

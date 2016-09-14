@@ -662,14 +662,17 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			count++;
 		}
 		while((condition.isEmpty()||condition.equals("0.00")) && count<5) ;
-		if(isBrowser("chrome"))
+		wait.hardWait(2);
+		try
 		{
 			isElementDisplayed("link_randomMemberInList", randomNumberInString);
-			element("link_randomMemberInList", randomNumberInString).click();
+			//element("link_randomMemberInList", randomNumberInString).click();
+			clickUsingXpathInJavaScriptExecutor(element("link_randomMemberInList", randomNumberInString));
 		}
-		else
+		catch(Exception e)
 		{
-			element("img_arrow", randomNumberInString).click();
+			//element("img_arrow", randomNumberInString).click();
+			clickUsingXpathInJavaScriptExecutor(element("img_arrow", randomNumberInString));
 		}
 		logMessage("Step : Member icon at the position of "
 				+ randomNumberInString
@@ -1669,8 +1672,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			String expireDate, String cvvNumber, String creditAmount, String expense)
 	{
 		isElementDisplayed("inp_customerName");
-		String nameOnCheck= element("inp_customerName").getAttribute("value").trim();
-		logMessage("Name on check:" +nameOnCheck+" is entered \n");
+		String customerName= element("inp_customerName").getAttribute("value").trim();
 		String customerID= element("inp_customerID").getAttribute("value").trim();
 		logMessage("customer ID: " +customerID+"\n");
 		holdExecution(2000);
@@ -1696,11 +1698,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		selectOrderEntryInfo("paymentMethod", paymentMethod);
 		waitForSpinner();	
 		if (paymentMethod.equalsIgnoreCase("Visa/MC")) {
+			enterCardDetails("cardHolderName", customerName);
 			enterCardDetails("cardNumber", cardNumber);
 			selectMemberInfo("expireDate", expireDate);
 			enterCardDetails("cvvNumber", cvvNumber);
 		} else if (paymentMethod.equalsIgnoreCase("BOA - Check")) {
-			enterCardDetails("nameOnCheck", nameOnCheck);
+			enterCardDetails("nameOnCheck", customerName);
 			enterCardDetails("checkNumber", cardNumber);
 
 		} else {
@@ -1710,7 +1713,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		selectOrderEntryInfo("liabilityExpense", expense);
 		clickOnSaveButtonForBillingAddress();
 		wait.waitForPageToLoadCompletely();
-		logMessage("Batch Name: "+batchName+"\n");
+		logMessage("STEP: Batch "+batchName+" is created \n");
 		logMessage("STEP: All values are entered in Credit Page\n");
 		return customerID;
 	}
@@ -4457,7 +4460,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 		switchToFrame(element("iframe"));
 		clickOnSearchDisplayNameButton();
-		selectRandomMemberByAscendingHeader("Available Quantity","price_txt");
+		selectRandomMemberByAscendingHeader("Price","price_txt");
 		//selectRandomUserOnAscendingHeader("Available Quantity");
 		
 	}
@@ -4465,7 +4468,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void selectRandomMemberByAscendingHeader(String headerName,String locator) {
 		_clickOnAvailableQuantityForSorting(headerName);
 		_clickOnAvailableQuantityForSorting(headerName);
-		clickOnRandomPage(10,1);
+		clickOnRandomPage(10,2);
 		clickOnAnyRandomMember1(locator);
 		wait.hardWait(4);
 	}
