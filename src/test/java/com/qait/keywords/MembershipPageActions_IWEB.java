@@ -1670,14 +1670,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		verifyPageTitleContains("CRM | Individuals |");
 	}
-	public String enterValuesInCreditPage(String batch_name, String creditReason, String paymentMethod, String cardNumber,
+	public void enterValuesInCreditPage(String batch_name, String creditReason, String paymentMethod, String cardNumber,
 			String expireDate, String cvvNumber, String creditAmount, String expense)
 	{
 		isElementDisplayed("inp_customerName");
 		String customerName= element("inp_customerName").getAttribute("value").trim();
-		String customerID= element("inp_customerID").getAttribute("value").trim();
+		//String customerID= element("inp_customerID").getAttribute("value").trim();
 		logMessage("STEP: Customer name is " +customerName+"\n");
-		logMessage("STEP: Customer ID is " +customerID+"\n");
+		//logMessage("STEP: Customer ID is " +customerID+"\n");
 		holdExecution(2000);
 		batchName=batch_name+System.currentTimeMillis();
 		if (verifyBatchIsPresentOnCreditPage(batchName)) {
@@ -1718,7 +1718,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		logMessage("STEP: Batch is created as "+batchName+" is created \n");
 		logMessage("STEP: All values are entered in Credit Page\n");
-		return customerID;
+	//	return customerID;
 	}
 	public void verifyCreditAvailableOnCOE(String creditAmount)
 	{
@@ -2754,21 +2754,32 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		handleAlert();
 		switchToDefaultContent();
 		customerContactId = element("txt_renewalContactId").getText();
-		System.out.println(customerContactId);
-		System.out.println(customerLname);
+		
+		//System.out.println(customerLname);
 		createMemberCredentials.put("Nominee" + individualCount + "Name",
 				customerLname);
 		createMemberCredentials.put("Nominee" + individualCount + "Number",
 				customerContactId);
-		System.out.println(createMemberCredentials.get("Nominee"
+		/*System.out.println(createMemberCredentials.get("Nominee"
 				+ individualCount + "Name"));
 		System.out.println(createMemberCredentials.get("Nominee"
-				+ individualCount + "Number"));
+				+ individualCount + "Number"));*/
+		System.out.println("customerContactId::"+customerContactId);
 		logMessage("Step : Individual Details saved from iweb profile page\n");
 		individualCount++;
 
 	}
+	public void selectMemberByContactID()
+	{
+		System.out.println("customerContactId::"+customerContactId);
+		//element("inp_customerID").sendKeys(customerContactId);
+		isElementDisplayed("inp_customerID");
+		sendKeysUsingXpathInJavaScriptExecutor(element("inp_customerID"), customerContactId);
+		holdExecution(1000);
+		clickOnSearchButton();
+		holdExecution(1000);
 
+	}
 	public List<String> getCustomerAllDetails(String invoiceNumber) {
 
 		clickOnEditNameAndAddress();

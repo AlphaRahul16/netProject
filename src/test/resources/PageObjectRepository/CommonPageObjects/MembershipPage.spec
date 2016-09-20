@@ -206,7 +206,7 @@ inp_nameOnCheck									id								pin_name_on_check
 inp_customerName								id								cst_sort_name_dn
 list_liabilityExpense							id								cdd_gla_cr_key
 btn_preProcess									id								PreProcess
-btn_search										id								Look_Up_cst_sort_name_dn
+btn_search										id								Look_Up_cst_id
 list_batchCreditPage							id								cdt_bat_key
 table_header									xpath							//a[contains(text(),'${text}')]
 btn_addBatchCredit								css								#cdt_bat_key_oAddHyperLink>img
