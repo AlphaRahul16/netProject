@@ -1662,7 +1662,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	{
 		isElementDisplayed("inp_customerName");
 		String nameOnCheck= element("inp_customerName").getAttribute("value").trim();
-		System.out.println("Name on check:" +nameOnCheck);
+		logMessage("Name on check:" +nameOnCheck);
 		String customerID= element("inp_customerID").getAttribute("value").trim();
 		System.out.println("customer ID: " +customerID);
 		holdExecution(2000);
@@ -4475,18 +4475,18 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(4);
 	}
 	public void selectRandomUserOnAscendingHeader(String headerName) {
-		selectMerchandise("merchandise");
+//		selectMerchandise("merchandise");
 		switchToDefaultContent();
 		switchToFrame(element("iframe"));
-		clickOnSearchDisplayNameButton();
+//		clickOnSearchDisplayNameButton();
 		_clickOnAvailableQuantityForSorting(headerName);
-		//_clickOnAvailableQuantityForSorting(headerName);
+		_clickOnAvailableQuantityForSorting(headerName);
 		clickOnRandomPage(10,1);
 		clickOnAnyRandomMember();
 		wait.hardWait(4);
 	}
 
-	void _clickOnAvailableQuantityForSorting(String tableHeading) {
+	public void _clickOnAvailableQuantityForSorting(String tableHeading) {
 		isElementDisplayed("th_lookup", tableHeading);
 		element("th_lookup", tableHeading).click();
 		logMessage("Step: Clicked on " + tableHeading + " for Sorting");

@@ -12,20 +12,21 @@ import org.testng.Assert;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DateUtil;
 
-public class ACS_Fundraising_Keyword extends ASCSocietyGenericPage {
+public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 
 	WebDriver driver;
 	String pageName = "ACS_Fundraising";
 
-	public ACS_Fundraising_Keyword(WebDriver driver) {
+	public ACS_Fundraising_Action(WebDriver driver) {
 		super(driver, "ACS_Fundraising");
 		this.driver = driver;
 	}
 
 	public void findConstituent(int index, String ConstituentName, String field) {
+		hardWaitForIEBrowser(3);
 		isElementDisplayed("txtbox_constituent", String.valueOf(index));
 		element("txtbox_constituent", String.valueOf(index)).sendKeys(ConstituentName);
-		logMessage("Step: " + field + " is entered as: " + ConstituentName + "\n");
+		logMessage("Step: " + field + " is entered as " + ConstituentName + "\n");
 	}
 
 	public void selectAnyRandomConstituent() {
@@ -39,7 +40,8 @@ public class ACS_Fundraising_Keyword extends ASCSocietyGenericPage {
 			if (element("txt_firstGiftDate", String.valueOf(i), String.valueOf(7)).getText().equals("")) {
 				flag = true;
 				constituentName = element("txt_firstGiftDate", String.valueOf(i), String.valueOf(4)).getText().trim();
-				element("txt_firstGiftDate", String.valueOf(i), String.valueOf(3)).click();
+//				element("txt_firstGiftDate", String.valueOf(i), String.valueOf(3)).click();
+				clickUsingXpathInJavaScriptExecutor(element("txt_firstGiftDate", String.valueOf(i), String.valueOf(3)));
 				logMessage("Step : Constituent selected is " + constituentName + "\n");
 				break;
 			}
@@ -56,6 +58,7 @@ public class ACS_Fundraising_Keyword extends ASCSocietyGenericPage {
 		String giftinfo[] = { "first gift (join) date", "first gift amount", "highest gift date", "highest gift amount",
 				"latest gift date", "latest gift amount", "ytd amount", "last-year amount", "lifetime amount" };
 		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(8);
 		for (String info : giftinfo) {
 			if (element("txt_giftInformation", info).getText().trim().equals("")) {
 				flag = true;
@@ -99,7 +102,7 @@ public class ACS_Fundraising_Keyword extends ASCSocietyGenericPage {
 
 	public void verifyDeductibleAmount(String amount, String field) {
 		wait.waitForPageToLoadCompletely();
-		wait.hardWait(2);
+		wait.hardWait(4);
 		isElementDisplayed("inp_giftAmount", field);
 		System.out.println(element("inp_giftAmount", field).getAttribute("value"));
 		Assert.assertEquals(element("inp_giftAmount", field).getAttribute("value"), amount,

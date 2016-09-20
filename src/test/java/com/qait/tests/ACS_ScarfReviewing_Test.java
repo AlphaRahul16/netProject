@@ -43,7 +43,7 @@ public class ACS_ScarfReviewing_Test {
 				YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
-//		test.acsScarfReviewPage.assignChapterName("Arkansas Tech University");
+//		test.acsScarfReviewPage.assignChapterName("Central Connecticut State University");
 	}
 
 	@Test
@@ -91,7 +91,7 @@ public class ACS_ScarfReviewing_Test {
 				.enterSingleCustomerIdInRunQuery(customerSortNames[reviewerCount]);
 		test.individualsPage
 				.NavigateToIndividualProfilePageFromScarfReviewList(test.acsScarfReviewPage
-						.getReviewerNameList().get(reviewerCount));
+						.getReviewerNameList().get(reviewerCount).trim());
 		test.memberShipPage.fetchScarfReviewerLoginDetails(ReviewerLoginMap,
 				reviewerCount);
 		test.homePageIWEB.clickOnModuleTab();

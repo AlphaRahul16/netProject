@@ -82,7 +82,7 @@ public class ACS_Email_Communication_Preferences_Test extends BaseTest{
 				.gotoListFromMailingListRecord(mailingListName);
 		test.awardsPageAction.clickOnPlusIcon("list members");
 		test.acsMarketingPageIweb.clickOnLookUpOption();
-		test.memberShipPage.selectRandomUserOnAscendingHeader("Web Login");
+		test.memberShipPage.selectRandomUserOnAscendingHeader("Web Login");  //-----
 		userName = test.acsMarketingPageIweb
 				.getUserNameFromAddUserPopUpTextField();
 		test.acsMarketingPageIweb
