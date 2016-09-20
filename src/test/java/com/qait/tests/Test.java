@@ -1,25 +1,9 @@
 package com.qait.tests;
 
-import java.text.DecimalFormat;
+import org.testng.Reporter;
 
-import javax.swing.event.DocumentListener;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-
-import com.qait.automation.getpageobjects.BaseUi;
-import com.qait.automation.utils.DateUtil;
- 
  
 public class Test{  
-   
-	/*protected Test(WebDriver driver, String pageName) {
->>>>>>> 0526b45ed3b886c391ab3ab918a074ba1207744a
-		super(driver, pageName);
-		// TODO Auto-generated constructor stub
-	}*/
 	
 	
 /*
@@ -57,7 +41,6 @@ public class Test{
 //	System.out.println(df.);
    
 	
-	@org.testng.annotations.Test
 	public void method(){
 		if(true&true){
 		System.out.println("a");	
@@ -66,11 +49,15 @@ public class Test{
 		if(true&&true){
 			System.out.println("b");	
 			}
-		
+	}
+		@org.testng.annotations.Test
+		public void test1(){
+			Reporter.setEscapeHtml(true);
+			Reporter.log("<b>ayush</b>");
+		}		
 	}
 	
+
 	
 	
-	
-	
-}  
+	  

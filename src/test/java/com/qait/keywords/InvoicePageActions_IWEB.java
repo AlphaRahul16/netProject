@@ -52,7 +52,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		enterInvoiceNumber(invoiceNumber);
 		clickOnSearchButton();
 		System.out.println("total ; " + Total);
-		// verifyInvoiceProfile("invoice total", Total);
+		verifyInvoiceProfile("invoice total", Total);
 		verifyInvoiceProfile("balance", "0.00");
 		verifyMemberDetails_question("paid in full", paidInFull);
 

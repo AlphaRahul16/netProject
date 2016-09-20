@@ -74,7 +74,8 @@ public class ResultsIT extends ReformatTestFile {
     	 testname=System.getProperty("testngxml", "null").replace(".xml", "").trim();
     	}
    
-        String html = readLargerTextFile("./target/surefire-reports/emailable-report.html");
+    	//String html = readLargerTextFile("./target/surefire-reports/"+this.getClass().getSimpleName()+".html");
+       String html = readLargerTextFile("./target/surefire-reports/emailable-report.html");
         String logspath="./Acslogs/"+DateUtil.getCurrentdateInStringWithGivenFormate("dd MMM yyyy")+"/"
         +testname+" "+DateUtil.getCurrentdateInStringWithGivenFormate("HH_mm_ss_a")+"_emailable-report.html";
         html = replacealltimestamp(html);

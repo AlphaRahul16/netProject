@@ -1,11 +1,7 @@
 package com.qait.keywords;
 
-import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
-
 import java.text.DecimalFormat;
-import java.util.Date;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
