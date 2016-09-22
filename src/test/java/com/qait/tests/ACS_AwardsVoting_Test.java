@@ -54,7 +54,10 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.individualsPage.enterFieldValue("Award Year",
 				DateUtil.getAnyDateForType("YYYY", 2, "year"));
 		test.individualsPage.clickGoButton();
-		
+//		test.individualsPage.enterFieldValue("Award Name:", "E. V. Murphree Award in Industrial and Engineering Chemistry");
+//		test.individualsPage.enterFieldValue("Award Year:", "2018");
+//        test.individualsPage.clickGoButton();
+//        currentAwardName="E. V. Murphree Award in Industrial and Engineering Chemistry:2018";
 		currentAwardName = test.individualsPage
 				.selectRandomGeneralAward_AwardNomination(DataProvider
 						.getRandomSpecificLineFromTextFile(
@@ -68,7 +71,7 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.awardsPageAction.editAwardStartAndEndDate();
 		test.awardsPageAction
 				.expandDetailsMenuIfAlreadyExpanded("award stages/rounds");
-		test.awardsPageAction.uncheckClosedCheckbox_VotingClosed(currentAwardName, "1");
+		test.awardsPageAction.uncheckClosedCheckbox_VotingClosed(currentAwardName);
 		test.awardsPageAction.collapseDetailsMenu("award stages/rounds");
 		test.individualsPage.navigateToEntrantsMenuOnHoveringMore();
 		numberOfNomineesInEntrants = test.awardsPageAction.allACSNomineesInEntrants();

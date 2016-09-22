@@ -580,8 +580,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		int randomNumber = rand.nextInt((max - min) + 1) + min;
 		String randomNumberInString = String.valueOf(randomNumber);
 		isElementDisplayed("link_randomMemberInList", randomNumberInString);
-
-<<<<<<< HEAD
 		if (ConfigPropertyReader.getProperty("browser").equals("ie")
 				|| ConfigPropertyReader.getProperty("browser").equals("internet explorer"))
 			clickUsingXpathInJavaScriptExecutor(element("link_randomMemberInList", randomNumberInString));
@@ -589,10 +587,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		    element("link_randomMemberInList", randomNumberInString).click();
 		logMessage("Step : Member icon at the position of "
 				+ randomNumberInString
-=======
-		element("link_randomMemberInList", randomNumberInString).click();
-		logMessage("Step : Member icon at the position of " + randomNumberInString
->>>>>>> dafb262d01b8fdd4ffa1c8c27d17f4743dcb7898
 				+ " is clicked in link_randomMemberInList\n");
 	}
 
@@ -1523,19 +1517,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void enterValuesInCreditPage(String batch_name, String creditReason, String paymentMethod, String cardNumber,
 			String expireDate, String cvvNumber, String creditAmount, String expense) {
 		isElementDisplayed("inp_customerName");
-<<<<<<< HEAD
 		String nameOnCheck= element("inp_customerName").getAttribute("value").trim();
 		logMessage("Name on check:" +nameOnCheck);
 		String customerID= element("inp_customerID").getAttribute("value").trim();
 		logMessage("STEP: Customer name is " +nameOnCheck+"\n");
 		logMessage("STEP: Customer ID is " +customerID+"\n");
-=======
-		String customerName = element("inp_customerName").getAttribute("value").trim();
-		logMessage("STEP: Customer name is " + customerName + "\n");
-		String customerID = element("inp_customerID").getAttribute("value").trim();
-
-		logMessage("STEP: Customer ID is " + customerID + "\n");
->>>>>>> dafb262d01b8fdd4ffa1c8c27d17f4743dcb7898
 		holdExecution(2000);
 		batchName = batch_name + System.currentTimeMillis();
 		if (verifyBatchIsPresentOnCreditPage(batchName)) {

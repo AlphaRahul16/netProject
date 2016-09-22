@@ -68,4 +68,5 @@ btn_plusIconNominee                       xpath                //span[text()="${
 btn_searchNominee                         xpath                (//input[@class='LookUpHyperLink'])[${index}]
 inp_entryDate                             xpath                //label[text()='${field}:']/preceding-sibling::span//input
 hd_awards                                 xpath                //span[text()='Nominator details']
+img_awardClosed                           xpath                //td[starts-with(text(),'Round ${roundNumber}')]/preceding-sibling::td[1]/following-sibling::td//img
 ========================================================================================================================================
