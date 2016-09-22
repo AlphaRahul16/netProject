@@ -226,6 +226,7 @@ public class ASM_AACTPage extends ASCSocietyGenericPage {
 
 	public void selectDemographicDetail(String detailType, String detailValue) {
 		if (!detailValue.equalsIgnoreCase("null")) {
+			hardWaitForChromeBrowser(2);
 			isElementDisplayed("list_demographicInfo", detailType);
 			wait.waitForElementToBeClickable(element("list_demographicInfo",
 					detailType));

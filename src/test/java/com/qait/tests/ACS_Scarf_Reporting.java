@@ -52,7 +52,7 @@ public class ACS_Scarf_Reporting{
 	public static Object[][] answerDetails(){
 		return new Object[][] {{"Service","In-progress", 4,"Save","Complete"},
 			{"Professional Development", "In-progress", 3,"Save","Complete"},
-			{"Chapter Development", "In-progress",3,"Save","Complete"}};
+			{"Chapter Development", "In-progress",4,"Save","Complete"}};
 	}
 		
 	@Test

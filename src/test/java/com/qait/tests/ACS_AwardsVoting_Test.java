@@ -50,8 +50,7 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Awards");
 		test.homePageIWEB.clickOnTab("Find Award");
-		// test.individualsPage.enterFieldValue("Award Name","F. Albert Cotton Award in Synthetic Inorganic Chemistry");
-		// test.individualsPage.enterFieldValue("Award Year","2018");
+		
 		test.individualsPage.enterFieldValue("Award Year",
 				DateUtil.getAnyDateForType("YYYY", 2, "year"));
 		test.individualsPage.clickGoButton();
