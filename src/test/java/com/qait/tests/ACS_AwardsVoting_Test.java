@@ -50,8 +50,7 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Awards");
 		test.homePageIWEB.clickOnTab("Find Award");
-		// test.individualsPage.enterFieldValue("Award Name","F. Albert Cotton Award in Synthetic Inorganic Chemistry");
-		// test.individualsPage.enterFieldValue("Award Year","2018");
+		
 		test.individualsPage.enterFieldValue("Award Year",
 				DateUtil.getAnyDateForType("YYYY", 2, "year"));
 		test.individualsPage.clickGoButton();
@@ -73,11 +72,9 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.awardsPageAction.collapseDetailsMenu("award stages/rounds");
 		test.individualsPage.navigateToEntrantsMenuOnHoveringMore();
 		numberOfNomineesInEntrants = test.awardsPageAction.allACSNomineesInEntrants();
-
 		test.awardsPageAction.expandDetailsMenuIfAlreadyExpanded("acs award winner");
 		test.awardsPageAction.editWinnerNomineesFromJudges();
 		test.awardsPageAction.collapseDetailsMenu("acs award winner");
-	
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("General");
 		test.awardsPageAction.expandDetailsMenuIfAlreadyExpanded("award stages/rounds");
 		test.awardsPageAction.verifyOrAddRoundsPresents();
@@ -87,7 +84,6 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.awardsPageAction.switchToDefaultContent();
 
 		test.awardsPageAction.collapseDetailsMenu("award stages/rounds");
-		
 		
 	}
 

@@ -3,3 +3,7 @@ app_url_IWEB: https://stag-12iweb/NFStage4/iweb/
 app_url_CCED: https://www.ewebtest.acs.org/NFStage4/ccedlookup
 app_url_Store: https://www.ewebtest.acs.org/NFStage4/store/
 app_url_AACT: https://www.ewebtest12.acs.org/NFStage4/eweb/AACTOMATemplate.aspx?Site=AACT_OMA&WebCode=CreateAccount
+
+Authentication: 
+  userName: C00616
+  password: "Sx!3M24GS"
