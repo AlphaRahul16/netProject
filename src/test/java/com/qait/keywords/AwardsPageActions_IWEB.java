@@ -509,7 +509,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnPlusIcon(String tabName) {
-
+		hardWaitForIEBrowser(5); 
 		isElementDisplayed("btn_plusIconNominee", tabName);
 		wait.waitForElementToBeClickable(element("btn_plusIconNominee", tabName));
 		clickUsingXpathInJavaScriptExecutor(element("btn_plusIconNominee", tabName));

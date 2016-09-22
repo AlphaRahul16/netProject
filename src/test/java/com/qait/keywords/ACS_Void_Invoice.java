@@ -124,6 +124,7 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 		switchToFrame("iframe1");
 		isElementDisplayed("table_actions");
 		size=elements("table_actions").size();
+		hardWaitForIEBrowser(5);
 		for(int i=1;i<size;i++){
 			isElementDisplayed("drpdwn_invoiceAction",String.valueOf(j));
 			wait.hardWait(2);

@@ -639,7 +639,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		String randomNumberInString = String.valueOf(randomNumber);
 		isElementDisplayed("link_randomMemberInList", randomNumberInString);
 
-		element("link_randomMemberInList", randomNumberInString).click();
+		if (ConfigPropertyReader.getProperty("browser").equals("ie")
+				|| ConfigPropertyReader.getProperty("browser").equals("internet explorer"))
+			clickUsingXpathInJavaScriptExecutor(element("link_randomMemberInList", randomNumberInString));
+		else
+		    element("link_randomMemberInList", randomNumberInString).click();
 		logMessage("Step : Member icon at the position of "
 				+ randomNumberInString
 				+ " is clicked in link_randomMemberInList\n");
@@ -1677,7 +1681,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		String nameOnCheck= element("inp_customerName").getAttribute("value").trim();
 		logMessage("Name on check:" +nameOnCheck);
 		String customerID= element("inp_customerID").getAttribute("value").trim();
-		logMessage("STEP: Customer name is " +customerName+"\n");
+		logMessage("STEP: Customer name is " +nameOnCheck+"\n");
 		logMessage("STEP: Customer ID is " +customerID+"\n");
 		holdExecution(2000);
 		batchName=batch_name+System.currentTimeMillis();
@@ -1702,12 +1706,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		selectOrderEntryInfo("paymentMethod", paymentMethod);
 		waitForSpinner();	
 		if (paymentMethod.equalsIgnoreCase("Visa/MC")) {
-			enterCardDetails("cardHolderName", customerName);
+			enterCardDetails("cardHolderName", nameOnCheck);
 			enterCardDetails("cardNumber", cardNumber);
 			selectMemberInfo("expireDate", expireDate);
 			enterCardDetails("cvvNumber", cvvNumber);
 		} else if (paymentMethod.equalsIgnoreCase("BOA - Check")) {
-			enterCardDetails("nameOnCheck", customerName);
+			enterCardDetails("nameOnCheck", nameOnCheck);
 			enterCardDetails("checkNumber", cardNumber);
 
 		} else {
@@ -4472,18 +4476,23 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void selectRandomUserOnAscendingHeader(String headerName) {
 //		selectMerchandise("merchandise");
 		switchToDefaultContent();
+		hardWaitForIEBrowser(5);
 		switchToFrame(element("iframe"));
 //		clickOnSearchDisplayNameButton();
 		_clickOnAvailableQuantityForSorting(headerName);
 		_clickOnAvailableQuantityForSorting(headerName);
 		clickOnRandomPage(10,1);
-		clickOnAnyRandomMember();
+		clickOnAnyRandomMember();  //-----
 		wait.hardWait(4);
 	}
 
 	public void _clickOnAvailableQuantityForSorting(String tableHeading) {
 		isElementDisplayed("th_lookup", tableHeading);
-		element("th_lookup", tableHeading).click();
+		if (ConfigPropertyReader.getProperty("browser").equals("ie")
+				|| ConfigPropertyReader.getProperty("browser").equals("internet explorer"))
+			clickUsingXpathInJavaScriptExecutor(element("th_lookup", tableHeading));
+		else
+		    element("th_lookup", tableHeading).click();
 		logMessage("Step: Clicked on " + tableHeading + " for Sorting");
 	}
 

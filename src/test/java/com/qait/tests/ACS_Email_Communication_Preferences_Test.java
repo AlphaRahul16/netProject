@@ -79,7 +79,7 @@ public class ACS_Email_Communication_Preferences_Test extends BaseTest{
 	@Test
 	public void Step05_Select_Added_MailingList_And_Add_Member_In_Mailing_List() {
 		test.acsMarketingPageIweb
-				.gotoListFromMailingListRecord(mailingListName);
+				.gotoListFromMailingListRecord(mailingListName);  //------
 		test.awardsPageAction.clickOnPlusIcon("list members");
 		test.acsMarketingPageIweb.clickOnLookUpOption();
 		test.memberShipPage.selectRandomUserOnAscendingHeader("Web Login");  //-----

@@ -14,14 +14,6 @@ public class BaseTest {
 	public TestSessionInitiator test;
 	protected static String caseID;
 
-	@BeforeMethod
-	public void printTestMethodName(Method method) {
-		test.printMethodName(method.getName());
-		if (caseID != null) {
-			Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
-		}
-
-	}
 	@AfterMethod
 	public void take_screenshot_on_failure(ITestResult result) {
 		test.takescreenshot.takeScreenShotOnException(result);
