@@ -37,11 +37,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	WebDriver driver;
 	static String pagename = "MembershipPage";
 	static int MemberTransferLoopCount = 0;
-	static String index, selectedText, customerLname, customerFname, address,
-			state, zipCode, customerEmail, city, currentDate,
-			customerContactId, customerEmailAcsOrg, customerAddressType,
-			nextYearDate, displayName, totalPrice;
-	String reportingStartDate, reportingEndDate, chapterName,batchName;
+	static String index, selectedText, customerLname, customerFname, address, state, zipCode, customerEmail, city,
+			currentDate, customerContactId, customerEmailAcsOrg, customerAddressType, nextYearDate, displayName,
+			totalPrice;
+	String reportingStartDate, reportingEndDate, chapterName, batchName;
 	boolean flag = false;
 	int timeOut, hiddenFieldTimeOut;
 	List<String> memberDetails = new ArrayList<>();
@@ -75,35 +74,32 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void selectAndRunQuery(String queryName) {
 		wait.waitForPageToLoadCompletely();
-//	    hardWaitForIEBrowser(15);
+		// hardWaitForIEBrowser(15);
 		waitForSpinner();
 		isElementDisplayed("txt_loadOnExistingQueryLabel");
 		selectExistingQuery(queryName);
 		waitForSpinner();
-		if(isBrowser("ie")||isBrowser("internet explorer")){
-			
-			while(!checkIfElementIsThere("table_query")){
+		if (isBrowser("ie") || isBrowser("internet explorer")) {
+
+			while (!checkIfElementIsThere("table_query")) {
 				checkIfElementIsThere("table_query");
 			}
-		}
-		else{
-		verifyQueryTablePresent();
+		} else {
+			verifyQueryTablePresent();
 		}
 		clickOnRunQuery();
 	}
 
 	public List<String> selectAndRunQueryForMemberOrNonMember(String caseId) {
 		String memberStatus = getACS_Store_SheetValue(caseId, "Member?");
-		logMessage("STEP : Member status is " + memberStatus
-				+ " in spreadsheet\n");
+		logMessage("STEP : Member status is " + memberStatus + " in spreadsheet\n");
 		if (memberStatus.equalsIgnoreCase("Y")) {
 			selectAndRunQuery("Selenium - Find Active Regular Member");
 		} else if (memberStatus.equalsIgnoreCase("N")) {
 			wait.hardWait(4);
 			selectAndRunQuery("Selenium - Find Random Non Member");
 		}
-		memberStoreDetails
-				.add(getMemberDetailsOnMemberShipProfile("contact id"));
+		memberStoreDetails.add(getMemberDetailsOnMemberShipProfile("contact id"));
 		memberStoreDetails.add(getMemberWebLogin());
 		return memberStoreDetails;
 
@@ -120,8 +116,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(10);
 		isElementDisplayed("hd_sideBar", tabName);
 		clickUsingXpathInJavaScriptExecutor(element("hd_sideBar", tabName));
-		logMessage("STEP : Click on side bar for tab " + tabName
-				+ " at hd_sideBar\n");
+		logMessage("STEP : Click on side bar for tab " + tabName + " at hd_sideBar\n");
 	}
 
 	public void verifyPageHeading(String heading) {
@@ -138,17 +133,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void selectExistingQuery(String queryName) {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
-				"hiddenFieldTimeOut"));
-		if (queryName
-				.equalsIgnoreCase("Member Query by Member Number – Multiple")) {
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
+		if (queryName.equalsIgnoreCase("Member Query by Member Number – Multiple")) {
 			selectDropDownValue(element("list_existingQuery"), 196);
 		}
 
-		else if (queryName
-				.equalsIgnoreCase("Selenium - Find Random Non Member")
-				&& ConfigPropertyReader.getProperty("tier").equalsIgnoreCase(
-						"Stage3")) {
+		else if (queryName.equalsIgnoreCase("Selenium - Find Random Non Member")
+				&& ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage3")) {
 			selectDropDownValue(element("list_existingQuery"), 434);
 		}
 
@@ -156,12 +147,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			try {
 				wait.resetImplicitTimeout(2);
 				wait.resetExplicitTimeout(hiddenFieldTimeOut);
-				selectProvidedTextFromDropDown(element("list_existingQuery"),
-						queryName);
+				selectProvidedTextFromDropDown(element("list_existingQuery"), queryName);
 			} catch (StaleElementReferenceException e) {
 				wait.hardWait(2);
-				selectProvidedTextFromDropDown(element("list_existingQuery"),
-						queryName);
+				selectProvidedTextFromDropDown(element("list_existingQuery"), queryName);
 			}
 
 		}
@@ -172,8 +161,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void waitForSpinner() {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
-				"hiddenFieldTimeOut"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
@@ -210,8 +198,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_menuItems", menuName);
 		clickUsingXpathInJavaScriptExecutor(element("btn_menuItems", menuName));
 		// element("btn_menuItems", menuName).click();
-		logMessage("Step : click on " + menuName
-				+ " button in btn_menuItems \n");
+		logMessage("Step : click on " + menuName + " button in btn_menuItems \n");
 	}
 
 	public void clickOnEditContactInfo() {
@@ -250,8 +237,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(1);
 		element("inp_editEmail").clear();
 		element("inp_editEmail").sendKeys(newEmail);
-		logMessage("Step : email id " + existingEmail + " is edited to "
-				+ newEmail + " in inp_editEmail\n");
+		logMessage("Step : email id " + existingEmail + " is edited to " + newEmail + " in inp_editEmail\n");
 		return newEmail;
 	}
 
@@ -281,8 +267,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			switchToFrame("iframe1");
 			element("inp_editEmail").clear();
 			element("inp_editEmail").sendKeys(emailId);
-			logMessage("Step : Email address is edited to " + emailId
-					+ " in inp_editEmail\n");
+			logMessage("Step : Email address is edited to " + emailId + " in inp_editEmail\n");
 			clickOnSaveButtonForBillingAddress();
 			handleAlert();
 			switchToDefaultContent();
@@ -302,14 +287,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(5);
 		try {
 			isElementDisplayed("inp_" + detailName);
-			String detailValue = element("inp_" + detailName).getAttribute(
-					"value");
+			String detailValue = element("inp_" + detailName).getAttribute("value");
 			logMessage("Step : " + detailName + " is " + detailValue);
 			return detailValue;
 		} catch (StaleElementReferenceException stlExp) {
 			isElementDisplayed("inp_" + detailName);
-			String detailValue = element("inp_" + detailName).getAttribute(
-					"value");
+			String detailValue = element("inp_" + detailName).getAttribute("value");
 			logMessage("Step : " + detailName + " is " + detailValue);
 			return detailValue;
 		}
@@ -379,8 +362,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		holdExecution(1000);
 		switchToDefaultContent();
 		isElementDisplayed("btn_memberShip", "individual memberships");
-		clickUsingXpathInJavaScriptExecutor(element("btn_memberShip",
-				"individual memberships"));
+		clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", "individual memberships"));
 		wait.hardWait(4);
 		waitForSpinner();
 		verifyMemberStatusIsNotActive();
@@ -395,11 +377,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public String addEmailAddress() {
-		customerEmailAcsOrg = "memberEmail" + System.currentTimeMillis()
-				+ "@acs.org";
+		customerEmailAcsOrg = "memberEmail" + System.currentTimeMillis() + "@acs.org";
 		element("inp_editEmail").sendKeys(customerEmailAcsOrg);
-		logMessage("Step : email address is edited to " + customerEmailAcsOrg
-				+ "\n");
+		logMessage("Step : email address is edited to " + customerEmailAcsOrg + "\n");
 		return customerEmailAcsOrg;
 	}
 
@@ -416,8 +396,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void addMemberAndSelectDetails() {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
-				"hiddenFieldTimeOut"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 
 		mapReinstateMember = YamlReader.getYamlValues("ReinstateMemberIWEB");
 		getCenOrdEntry = new YamlInformationProvider(mapReinstateMember);
@@ -460,37 +439,24 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToFrame("iframe1");
 		// TODO Remove hard wait after handling stale element exception
 		holdExecution(1000);
-		selectMemberInfo(
-				"association",
-				getCenOrdEntry
-						.getReinstateMember_centralizedOrderEntry("association"));
+		selectMemberInfo("association", getCenOrdEntry.getReinstateMember_centralizedOrderEntry("association"));
 		// TODO Remove hard wait after handling stale element exception
 		holdExecution(1000);
-		selectMemberInfo("memberType",
-				getCenOrdEntry
-						.getReinstateMember_centralizedOrderEntry("memberType"));
+		selectMemberInfo("memberType", getCenOrdEntry.getReinstateMember_centralizedOrderEntry("memberType"));
 		// TODO Remove hard wait after handling stale element exception
 		holdExecution(1000);
-		selectMemberInfo(
-				"memberPackage",
-				getCenOrdEntry
-						.getReinstateMember_centralizedOrderEntry("memberPackage"));
-		String currentDate = DateUtil
-				.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy");
+		selectMemberInfo("memberPackage", getCenOrdEntry.getReinstateMember_centralizedOrderEntry("memberPackage"));
+		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy");
 		String nextSecondYear = DateUtil.getNextDate("year", 2)[0];
 		// TODO Remove hard wait after handling stale element exception
 		holdExecution(2000);
 		enterDate("industryUpdateDate", currentDate);
 
 		enterDate("jobTitleUpdateDate", "08/02/" + nextSecondYear);
-		selectMemberInfo("industry",
-				getCenOrdEntry
-						.getReinstateMember_centralizedOrderEntry("industry"));
+		selectMemberInfo("industry", getCenOrdEntry.getReinstateMember_centralizedOrderEntry("industry"));
 		// TODO Remove hard wait after handling stale element exception
 		holdExecution(1000);
-		selectMemberInfo("jobTitle",
-				getCenOrdEntry
-						.getReinstateMember_centralizedOrderEntry("jobTitle"));
+		selectMemberInfo("jobTitle", getCenOrdEntry.getReinstateMember_centralizedOrderEntry("jobTitle"));
 		// TODO Remove hard wait after handling stale element exception
 		holdExecution(1000);
 		clickOnSaveAndFinish();
@@ -499,36 +465,21 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyItemsAddedSuccessFully() {
-		verifyItemsAdded(getCenOrdEntry
-				.getReinstateMember_centralizedOrderEntry("memberPackage"));
+		verifyItemsAdded(getCenOrdEntry.getReinstateMember_centralizedOrderEntry("memberPackage"));
 		verifyItemsAdded("Chemical and Engineering News");
 	}
 
 	public void selectBatchAndPaymentDetails() {
 		// selectBillingAddress();
-		selectOrderEntryInfo("batch",
-				getCenOrdEntry
-						.getReinstateMember_centralizedOrderEntry("batch"));
+		selectOrderEntryInfo("batch", getCenOrdEntry.getReinstateMember_centralizedOrderEntry("batch"));
 		waitForSpinner();
-		selectOrderEntryInfo(
-				"PaymentType",
-				getCenOrdEntry
-						.getReinstateMember_centralizedOrderEntry("PaymentType"));
+		selectOrderEntryInfo("PaymentType", getCenOrdEntry.getReinstateMember_centralizedOrderEntry("PaymentType"));
 		waitForSpinner();
-		selectOrderEntryInfo(
-				"paymentMethod",
-				getCenOrdEntry
-						.getReinstateMember_centralizedOrderEntry("paymentMethod"));
+		selectOrderEntryInfo("paymentMethod", getCenOrdEntry.getReinstateMember_centralizedOrderEntry("paymentMethod"));
 		waitForSpinner();
-		enterCardDetails("cardNumber",
-				getCenOrdEntry
-						.getReinstateMember_centralizedOrderEntry("cardNumber"));
-		selectMemberInfo("expireDate",
-				getCenOrdEntry
-						.getReinstateMember_centralizedOrderEntry("expireDate"));
-		enterCardDetails("cvvNumber",
-				getCenOrdEntry
-						.getReinstateMember_centralizedOrderEntry("cvvNumber"));
+		enterCardDetails("cardNumber", getCenOrdEntry.getReinstateMember_centralizedOrderEntry("cardNumber"));
+		selectMemberInfo("expireDate", getCenOrdEntry.getReinstateMember_centralizedOrderEntry("expireDate"));
+		enterCardDetails("cvvNumber", getCenOrdEntry.getReinstateMember_centralizedOrderEntry("cvvNumber"));
 		clickOnSaveAndFinish();
 		handleAlert();
 
@@ -556,26 +507,18 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				int divNumber = i + 1;
 
 				if (map().get("div" + divNumber + "_division").length() > 20) {
-					String newMemberType = map().get(
-							"div" + divNumber + "_division").substring(0, 20);
+					String newMemberType = map().get("div" + divNumber + "_division").substring(0, 20);
 
 					verifyMemberTypeInIndividualMemberships(newMemberType);
-					verifyJoinDateIsCurentDateForMemebrType(tabName,
-							newMemberType);
-					verifyEffectiveDateIsCurentDateForMemebrType(tabName,
-							newMemberType);
-					verifyExpireDateIsNextYearForMemberType(tabName,
-							newMemberType);
+					verifyJoinDateIsCurentDateForMemebrType(tabName, newMemberType);
+					verifyEffectiveDateIsCurentDateForMemebrType(tabName, newMemberType);
+					verifyExpireDateIsNextYearForMemberType(tabName, newMemberType);
 				} else {
-					String newMemberType = map().get(
-							"div" + divNumber + "_division");
+					String newMemberType = map().get("div" + divNumber + "_division");
 					verifyMemberTypeInIndividualMemberships(newMemberType);
-					verifyJoinDateIsCurentDateForMemebrType(tabName,
-							newMemberType);
-					verifyEffectiveDateIsCurentDateForMemebrType(tabName,
-							newMemberType);
-					verifyExpireDateIsNextYearForMemberType(tabName,
-							newMemberType);
+					verifyJoinDateIsCurentDateForMemebrType(tabName, newMemberType);
+					verifyEffectiveDateIsCurentDateForMemebrType(tabName, newMemberType);
+					verifyExpireDateIsNextYearForMemberType(tabName, newMemberType);
 				}
 			}
 
@@ -592,8 +535,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyMemberTypeInIndividualMemberships(String memberType) {
 		isElementDisplayed("txt_memberType", memberType);
-		logMessage("ASSERT PASSED : " + memberType
-				+ " is verified in txt_memberType\n");
+		logMessage("ASSERT PASSED : " + memberType + " is verified in txt_memberType\n");
 	}
 
 	public void verifyMemberReinstatedSuccessfully_Iweb() {
@@ -625,10 +567,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("link_randomMemberFromList", randomNumberInString);
 
 		element("link_randomMemberFromList", randomNumberInString).click();
-		logMessage("Step : Member icon at the position of "
-				+ randomNumberInString
+		logMessage("Step : Member icon at the position of " + randomNumberInString
 				+ " is clicked in link_randomMemberInList\n");
 	}
+
 	public void clickOnAnyRandomMember() {
 		wait.hardWait(5);
 		hardWaitForIEBrowser(5);
@@ -639,6 +581,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		String randomNumberInString = String.valueOf(randomNumber);
 		isElementDisplayed("link_randomMemberInList", randomNumberInString);
 
+<<<<<<< HEAD
 		if (ConfigPropertyReader.getProperty("browser").equals("ie")
 				|| ConfigPropertyReader.getProperty("browser").equals("internet explorer"))
 			clickUsingXpathInJavaScriptExecutor(element("link_randomMemberInList", randomNumberInString));
@@ -646,42 +589,42 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		    element("link_randomMemberInList", randomNumberInString).click();
 		logMessage("Step : Member icon at the position of "
 				+ randomNumberInString
+=======
+		element("link_randomMemberInList", randomNumberInString).click();
+		logMessage("Step : Member icon at the position of " + randomNumberInString
+>>>>>>> dafb262d01b8fdd4ffa1c8c27d17f4743dcb7898
 				+ " is clicked in link_randomMemberInList\n");
 	}
 
 	public void clickOnAnyRandomMember1(String locator) {
-		int count=0;
+		int count = 0;
 		wait.hardWait(5);
 		hardWaitForIEBrowser(5);
 		wait.waitForPageToLoadCompletely();
 		int max = 12, min = 3;
 		Random rand = new Random();
-		String randomNumberInString,condition ;
-		
-		do{
+		String randomNumberInString, condition;
+
+		do {
 			int randomNumber = rand.nextInt((max - min) + 1) + min;
-			randomNumberInString = String.valueOf(randomNumber+count);
-			//isElementDisplayed("link_randomMemberInList", randomNumberInString);
+			randomNumberInString = String.valueOf(randomNumber + count);
+			// isElementDisplayed("link_randomMemberInList",
+			// randomNumberInString);
 			condition = element(locator, randomNumberInString).getText();
 			count++;
-		}
-		while((condition.isEmpty()||condition.equals("0.00")) && count<5) ;
+		} while ((condition.isEmpty() || condition.equals("0.00")) && count < 5);
 		wait.hardWait(2);
-		try
-		{
+		try {
 			isElementDisplayed("link_randomMemberInList", randomNumberInString);
-			//element("link_randomMemberInList", randomNumberInString).click();
+			// element("link_randomMemberInList", randomNumberInString).click();
 			clickUsingXpathInJavaScriptExecutor(element("link_randomMemberInList", randomNumberInString));
-		}
-		catch(Exception e)
-		{
-			//element("img_arrow", randomNumberInString).click();
+		} catch (Exception e) {
+			// element("img_arrow", randomNumberInString).click();
 			clickUsingXpathInJavaScriptExecutor(element("img_arrow", randomNumberInString));
 		}
-		logMessage("Step : Member icon at the position of "
-				+ randomNumberInString
+		logMessage("Step : Member icon at the position of " + randomNumberInString
 				+ " is clicked in link_randomMemberInList\n");
-		
+
 	}
 
 	public void verifyMemberStatus(String memberStatus) {
@@ -689,8 +632,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(3);
 		isElementDisplayed("txt_memberStatus");
 		verifyElementTextContains("txt_memberStatus", memberStatus);
-		logMessage("ASSERT PASSED : member status " + memberStatus
-				+ " is verified on membership page\n");
+		logMessage("ASSERT PASSED : member status " + memberStatus + " is verified on membership page\n");
 	}
 
 	public String clickOnCustomerName() {
@@ -717,10 +659,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyCrossMarked(String memberDetailsName) {
 		isElementDisplayed("img_cross", memberDetailsName);
-		Assert.assertTrue(element("img_cross", memberDetailsName).getAttribute(
-				"src").contains("img_list_delete1.gif"));
-		logMessage("ASSERT PASSED : cross marked is verified for "
-				+ memberDetailsName + "\n");
+		Assert.assertTrue(element("img_cross", memberDetailsName).getAttribute("src").contains("img_list_delete1.gif"));
+		logMessage("ASSERT PASSED : cross marked is verified for " + memberDetailsName + "\n");
 	}
 
 	public void clickOnSelectProduct() {
@@ -754,16 +694,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		try {
 			wait.waitForPageToLoadCompletely();
 			isElementDisplayed("list_" + memberInfo);
-			selectProvidedTextFromDropDown(element("list_" + memberInfo),
-					memberInfoValue);
-			logMessage("ASSERT PASSED : " + memberInfoValue
-					+ " is selected in list_" + memberInfo + "\n");
+			selectProvidedTextFromDropDown(element("list_" + memberInfo), memberInfoValue);
+			logMessage("ASSERT PASSED : " + memberInfoValue + " is selected in list_" + memberInfo + "\n");
 
 		} catch (StaleElementReferenceException stlExp) {
-			selectProvidedTextFromDropDown(element("list_" + memberInfo),
-					memberInfoValue);
-			logMessage("select Element " + memberInfo
-					+ " after catching Stale Element Exception\n");
+			selectProvidedTextFromDropDown(element("list_" + memberInfo), memberInfoValue);
+			logMessage("select Element " + memberInfo + " after catching Stale Element Exception\n");
 		}
 
 	}
@@ -782,16 +718,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyItemsAdded(String itemName) {
 		isElementDisplayed("txt_itemsAdded", itemName);
-		logMessage("ASSERT PASSED : item " + itemName
-				+ " is added in item list\n");
+		logMessage("ASSERT PASSED : item " + itemName + " is added in item list\n");
 	}
 
 	public void selectOrderEntryInfo(String orderEntryInfo, String value) {
 		hardWaitForIEBrowser(2);
 		isElementDisplayed("list_" + orderEntryInfo);
 		selectProvidedTextFromDropDown(element("list_" + orderEntryInfo), value);
-		logMessage("Step : " + orderEntryInfo + " is selected as " + value
-				+ "\n");
+		logMessage("Step : " + orderEntryInfo + " is selected as " + value + "\n");
 	}
 
 	public void clickOnSaveAndFinish() {
@@ -805,20 +739,18 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void enterCardDetails(String cardInfo, String cardValue) {
-		
+
 		isElementDisplayed("inp_" + cardInfo);
-		//element("inp_" + cardInfo).click();
+		// element("inp_" + cardInfo).click();
 		element("inp_" + cardInfo).sendKeys(cardValue);
 		logMessage("Step : enter " + cardValue + " in inp_" + cardInfo + " \n");
-		
+
 	}
 
 	public void verifyRejoinDateIsCurentDate() {
 		isElementDisplayed("txt_rejoinDateForActive");
 		String rejoindate = element("txt_rejoinDateForActive").getText().trim();
-		currentDate = DateUtil
-				.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy",
-						"EST5EDT");
+		currentDate = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy", "EST5EDT");
 
 		if (currentDate.startsWith("0")) {
 			String newCurrentDate = currentDate.substring(1);
@@ -831,11 +763,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyEffectiveDateIsCurentDate() {
 		isElementDisplayed("txt_effectiveDateForActive");
-		String rejoindate = element("txt_effectiveDateForActive").getText()
-				.trim();
-		currentDate = DateUtil
-				.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy",
-						"EST5EDT");
+		String rejoindate = element("txt_effectiveDateForActive").getText().trim();
+		currentDate = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy", "EST5EDT");
 
 		if (currentDate.startsWith("0")) {
 			String newCurrentDate = currentDate.substring(1);
@@ -846,68 +775,48 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public void verifyEffectiveDateIsCurentDateForMemebrType(String tabName,
-			String memberType) {
+	public void verifyEffectiveDateIsCurentDateForMemebrType(String tabName, String memberType) {
 		if (tabName.equalsIgnoreCase("individual memberships")) {
 			isElementDisplayed("txt_effectiveDateMemberType", memberType);
-			String rejoindate = element("txt_effectiveDateMemberType",
-					memberType).getText().trim();
-			currentDate = DateUtil
-					.getCurrentdateInStringWithGivenFormateForTimeZone(
-							"M/d/yyyy", "EST5EDT");
+			String rejoindate = element("txt_effectiveDateMemberType", memberType).getText().trim();
+			currentDate = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy", "EST5EDT");
 			isStringMatching(rejoindate, currentDate);
 		} else {
 			isElementDisplayed("txt_effectiveDate_chapter", memberType);
-			String rejoindate = element("txt_effectiveDate_chapter", memberType)
-					.getText().trim();
-			currentDate = DateUtil
-					.getCurrentdateInStringWithGivenFormateForTimeZone(
-							"MM/dd/yyyy", "EST5EDT");
+			String rejoindate = element("txt_effectiveDate_chapter", memberType).getText().trim();
+			currentDate = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/dd/yyyy", "EST5EDT");
 			isStringMatching(rejoindate, currentDate);
 
 		}
 
 	}
 
-	public void verifyExpireDateIsNextYearForMemberType(String tabName,
-			String memberType) {
+	public void verifyExpireDateIsNextYearForMemberType(String tabName, String memberType) {
 		if (tabName.equalsIgnoreCase("individual memberships")) {
 			isElementDisplayed("txt_expireDateMemberType", memberType);
-			String rejoindate = element("txt_expireDateMemberType", memberType)
-					.getText().trim();
-			String nextYearDate = DateUtil
-					.getAddYearWithLessOnedayInStringWithGivenFormate(
-							"M/d/yyyy", "1", "EST5EDT");
+			String rejoindate = element("txt_expireDateMemberType", memberType).getText().trim();
+			String nextYearDate = DateUtil.getAddYearWithLessOnedayInStringWithGivenFormate("M/d/yyyy", "1", "EST5EDT");
 
 			isStringMatching(rejoindate, nextYearDate);
 		} else {
 			isElementDisplayed("txt_expireDate_chapter", memberType);
-			String rejoindate = element("txt_expireDate_chapter", memberType)
-					.getText().trim();
-			String nextYearDate = DateUtil
-					.getAddYearWithLessOnedayInStringWithGivenFormate(
-							"MM/dd/yyyy", "1", "EST5EDT");
+			String rejoindate = element("txt_expireDate_chapter", memberType).getText().trim();
+			String nextYearDate = DateUtil.getAddYearWithLessOnedayInStringWithGivenFormate("MM/dd/yyyy", "1",
+					"EST5EDT");
 			isStringMatching(rejoindate, nextYearDate);
 		}
 	}
 
-	public void verifyJoinDateIsCurentDateForMemebrType(String tabName,
-			String memberType) {
+	public void verifyJoinDateIsCurentDateForMemebrType(String tabName, String memberType) {
 		if (tabName.equalsIgnoreCase("individual memberships")) {
 			isElementDisplayed("txt_joinDateMemberType", memberType);
-			String joindate = element("txt_joinDateMemberType", memberType)
-					.getText().trim();
-			currentDate = DateUtil
-					.getCurrentdateInStringWithGivenFormateForTimeZone(
-							"M/d/yyyy", "EST5EDT");
+			String joindate = element("txt_joinDateMemberType", memberType).getText().trim();
+			currentDate = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy", "EST5EDT");
 			isStringMatching(joindate, currentDate);
 		} else {
 			isElementDisplayed("txt_joinDate_chapter", memberType);
-			String joindate = element("txt_joinDate_chapter", memberType)
-					.getText().trim();
-			currentDate = DateUtil
-					.getCurrentdateInStringWithGivenFormateForTimeZone(
-							"MM/dd/yyyy", "EST5EDT");
+			String joindate = element("txt_joinDate_chapter", memberType).getText().trim();
+			currentDate = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/dd/yyyy", "EST5EDT");
 			isStringMatching(joindate, currentDate);
 		}
 
@@ -917,9 +826,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_expireDateForActive");
 		String rejoindate = element("txt_expireDateForActive").getText().trim();
 
-		nextYearDate = DateUtil
-				.getAddYearWithLessOnedayInStringWithGivenFormate("M/D/YYYY",
-						"EST5EDT", map().get("multiYearDecision"));
+		nextYearDate = DateUtil.getAddYearWithLessOnedayInStringWithGivenFormate("M/D/YYYY", "EST5EDT",
+				map().get("multiYearDecision"));
 
 		if (nextYearDate.startsWith("0")) {
 			String newCurrentDate = nextYearDate.substring(1);
@@ -947,8 +855,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			Assert.assertTrue(src.contains("img_chkmk.gif"));
 		}
 
-		logMessage("ASSERT PASSED : verified ticked mark for "
-				+ memberDetailsName + "\n");
+		logMessage("ASSERT PASSED : verified ticked mark for " + memberDetailsName + "\n");
 	}
 
 	public void verifyMemberStatusActiveIsPresent() {
@@ -965,16 +872,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void enterBillingAddress(String addType, String addValue) {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
-				"hiddenFieldTimeOut"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		holdExecution(1000);
 		try {
 			wait.resetImplicitTimeout(3);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("inp_" + addType);
 			element("inp_" + addType).sendKeys(addValue);
-			logMessage("Step : " + addValue + " is enetered in inp_" + addType
-					+ "\n");
+			logMessage("Step : " + addValue + " is enetered in inp_" + addType + "\n");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		} catch (StaleElementReferenceException stl) {
@@ -982,8 +887,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("inp_" + addType);
 			element("inp_" + addType).sendKeys(addValue);
-			logMessage("Step : " + addValue + " is enetered in inp_" + addType
-					+ "\n");
+			logMessage("Step : " + addValue + " is enetered in inp_" + addType + "\n");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		}
@@ -1021,61 +925,32 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			// TODO Remove hard wait after handling stale element exception
 			holdExecution(1000);
 			switchToFrame("iframe1");
-			selectProvidedTextFromDropDown(element("list_addressType"),
-					"billing");
+			selectProvidedTextFromDropDown(element("list_addressType"), "billing");
 			logMessage("Step : billing is selected in address type\n");
 			clickOnDoNotValidate();
 
-			enterBillingAddress(
-					"addressLine",
-					YamlReader
-							.getYamlValue("ReinstateMemberIWEB.billingAddress.address"));
-			enterBillingAddress(
-					"city",
-					YamlReader
-							.getYamlValue("ReinstateMemberIWEB.billingAddress.city"));
-			enterBillingAddress(
-					"country",
-					YamlReader
-							.getYamlValue("ReinstateMemberIWEB.billingAddress.country"));
+			enterBillingAddress("addressLine", YamlReader.getYamlValue("ReinstateMemberIWEB.billingAddress.address"));
+			enterBillingAddress("city", YamlReader.getYamlValue("ReinstateMemberIWEB.billingAddress.city"));
+			enterBillingAddress("country", YamlReader.getYamlValue("ReinstateMemberIWEB.billingAddress.country"));
 			// TODO Remove hard wait after handling stale element exception
 			holdExecution(1000);
 			isElementDisplayed("list_state");
-			selectProvidedTextFromDropDown(
-					element("list_state"),
-					YamlReader
-							.getYamlValue("ReinstateMemberIWEB.billingAddress.state"));
+			selectProvidedTextFromDropDown(element("list_state"),
+					YamlReader.getYamlValue("ReinstateMemberIWEB.billingAddress.state"));
 			logMessage("Step : New York is selected in list_state\n");
-			enterBillingAddress(
-					"postalCode",
-					YamlReader
-							.getYamlValue("ReinstateMemberIWEB.billingAddress.postalCode"));
-			enterBillingAddress(
-					"district",
-					YamlReader
-							.getYamlValue("ReinstateMemberIWEB.billingAddress.district"));
-			enterBillingAddress(
-					"congressional",
-					YamlReader
-							.getYamlValue("ReinstateMemberIWEB.billingAddress.congressional"));
-			enterBillingAddress(
-					"province",
-					YamlReader
-							.getYamlValue("ReinstateMemberIWEB.billingAddress.province"));
-			enterBillingAddress(
-					"mail",
-					YamlReader
-							.getYamlValue("ReinstateMemberIWEB.billingAddress.mail"));
+			enterBillingAddress("postalCode", YamlReader.getYamlValue("ReinstateMemberIWEB.billingAddress.postalCode"));
+			enterBillingAddress("district", YamlReader.getYamlValue("ReinstateMemberIWEB.billingAddress.district"));
+			enterBillingAddress("congressional",
+					YamlReader.getYamlValue("ReinstateMemberIWEB.billingAddress.congressional"));
+			enterBillingAddress("province", YamlReader.getYamlValue("ReinstateMemberIWEB.billingAddress.province"));
+			enterBillingAddress("mail", YamlReader.getYamlValue("ReinstateMemberIWEB.billingAddress.mail"));
 			clickOnSaveButtonForBillingAddress();
 			switchToDefaultContent();
 			// TODO Remove hard wait after handling stale element exception
 			holdExecution(1000);
 			pageRefresh();
-			selectProvidedTextFromDropDown(
-					element("list_billAddress"),
-					"billing: "
-							+ YamlReader
-									.getYamlValue("ReinstateMemberIWEB.billingAddress.address"));
+			selectProvidedTextFromDropDown(element("list_billAddress"),
+					"billing: " + YamlReader.getYamlValue("ReinstateMemberIWEB.billingAddress.address"));
 			logMessage("Step : All details are entered for billing address");
 		}
 
@@ -1114,8 +989,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void enterDetail(String memberDetail, String detailValue) {
 		isElementDisplayed("inp_enterDetails", memberDetail);
 		element("inp_enterDetails", memberDetail).sendKeys(detailValue);
-		logMessage("Step : " + memberDetail + " " + detailValue
-				+ " is entered to search member\n");
+		logMessage("Step : " + memberDetail + " " + detailValue + " is entered to search member\n");
 	}
 
 	public void clickOnGoButton() {
@@ -1143,20 +1017,17 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyJoinDateIsCurrentDate() {
-		String currentDate = DateUtil
-				.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy");
+		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy");
 		for (WebElement element : elements("list_joindate")) {
 			if (currentDate.startsWith("0")) {
 				String newCurrentDate = currentDate.substring(1);
 				if (element.getText().trim().equalsIgnoreCase(newCurrentDate)) {
-					logMessage("ASSERT PASSED : member rejoin date is current date "
-							+ newCurrentDate + " in list\n");
+					logMessage("ASSERT PASSED : member rejoin date is current date " + newCurrentDate + " in list\n");
 					flag = true;
 					break;
 				}
 			} else if (element.getText().trim().equalsIgnoreCase(currentDate)) {
-				logMessage("ASSERT PASSED : member rejoin date is current date "
-						+ currentDate + " in list\n");
+				logMessage("ASSERT PASSED : member rejoin date is current date " + currentDate + " in list\n");
 				flag = true;
 				break;
 			}
@@ -1168,8 +1039,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public String numberOfYearsForInactiveMember() {
 		isElementDisplayed("txt_numberOfyears");
 		String numberOfYears = element("txt_numberOfyears").getText().trim();
-		logMessage("Step : total years of services for inactive member is "
-				+ numberOfYears);
+		logMessage("Step : total years of services for inactive member is " + numberOfYears);
 		return numberOfYears;
 	}
 
@@ -1197,8 +1067,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		if (isBrowser("safari"))
 			element("link_tabsOnModule", tabName).click();
 		else
-			clickUsingXpathInJavaScriptExecutor(element("link_tabsOnModule",
-					tabName));
+			clickUsingXpathInJavaScriptExecutor(element("link_tabsOnModule", tabName));
 		logMessage("Step : " + tabName + " tab is clicked\n");
 
 	}
@@ -1209,8 +1078,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("btn_detailsMenuAACT", menuName);
-			clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT",
-					menuName));
+			clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT", menuName));
 			// element("btn_detailsMenuAACT", menuName).click();
 		} catch (Exception e) {
 			logMessage("Bar " + menuName + " already expanded");
@@ -1219,15 +1087,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.resetExplicitTimeout(timeOut);
 		logMessage("STEP : " + menuName + " bar is clicked to expand" + "\n");
 		waitForSpinner();
-        
+
 	}
 
 	public void numberOfYearsForActiveMember(String numberOfYears) {
 		String noOfYears = String.valueOf(Integer.parseInt(numberOfYears) + 1);
 		isElementDisplayed("txt_numberOfyears");
 		verifyElementText("txt_numberOfyears", noOfYears);
-		logMessage("ASSERT PASSED : " + noOfYears
-				+ " total years of services in txt_numberOfyears\n");
+		logMessage("ASSERT PASSED : " + noOfYears + " total years of services in txt_numberOfyears\n");
 
 	}
 
@@ -1235,12 +1102,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnSideBar("Find Members");
 		wait.waitForPageToLoadCompletely();
 		checkAdvanceNewCheckbox();
-		selectValueInAdvanceNewNextDropDown("Member Status",
-				"ACS : Active Renewed-No Response");
+		selectValueInAdvanceNewNextDropDown("Member Status", "ACS : Active Renewed-No Response");
 
 		selectAdvanceNewDropDown("Expire Date", "Less Than");
-		enterValueInAdvanceNewInput("Expire Date",
-				DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYY"));
+		enterValueInAdvanceNewInput("Expire Date", DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYY"));
 
 		// selectMemberStatus("ACS : Active Renewed-No Response");
 		wait.hardWait(1);
@@ -1274,15 +1139,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		return memberDetails;
 	}
 
-	public List<String> findMemberAndGetDetail(String memberType,
-			String memberStatus, String country) {
+	public List<String> findMemberAndGetDetail(String memberType, String memberStatus, String country) {
 		memberDetails = new ArrayList<>();
 		clickOnSideBar("Find Members");
 		wait.waitForPageToLoadCompletely();
-		selectValueInAdvanceNewNextDropDown("Member Type", "ACS : "
-				+ memberType);
-		selectValueInAdvanceNewNextDropDown("Member Status", "ACS : "
-				+ memberStatus);
+		selectValueInAdvanceNewNextDropDown("Member Type", "ACS : " + memberType);
+		selectValueInAdvanceNewNextDropDown("Member Status", "ACS : " + memberStatus);
 		selectValueInAdvanceNewNextDropDown("Country", country);
 		wait.hardWait(1);
 		clickOnGoButton();
@@ -1293,8 +1155,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		memberDetails.add(getPaymentStatus());
 		memberDetails.add(getMemberDetailsOnMemberShipProfile("customer id"));
 		memberDetails.add(getMemberDetailsOnMemberShipProfile("expire date"));
-		memberDetails
-				.add(getMemberDetailsOnMemberShipProfile("effective date"));
+		memberDetails.add(getMemberDetailsOnMemberShipProfile("effective date"));
 		memberDetails.add(getMemberDetailsOnMemberShipProfile("join date"));
 		openSubInfoDropDown("invoices");
 		waitForSpinner();
@@ -1360,8 +1221,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public String getMemberInfoOnMemberShipProfile(String memberInfo) {
 		isElementDisplayed("txt_membershipProfileInfo", memberInfo);
-		String info = element("txt_membershipProfileInfo", memberInfo)
-				.getText().trim();
+		String info = element("txt_membershipProfileInfo", memberInfo).getText().trim();
 		logMessage("Step : " + memberInfo + " is " + info + " \n");
 		return info;
 	}
@@ -1377,8 +1237,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 		hardWaitForIEBrowser(5);
 		isElementDisplayed("txt_membershipProfileDetails", memberInfo);
-		String info = element("txt_membershipProfileDetails", memberInfo)
-				.getText().trim();
+		String info = element("txt_membershipProfileDetails", memberInfo).getText().trim();
 		logMessage("Step : Customer ID is " + info + " \n");
 		return info;
 	}
@@ -1392,8 +1251,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void selectMemberStatus(String memberStatus) {
 		isElementDisplayed("list_memberStatusRenewal");
-		selectProvidedTextFromDropDown(element("list_memberStatusRenewal"),
-				memberStatus);
+		selectProvidedTextFromDropDown(element("list_memberStatusRenewal"), memberStatus);
 		logMessage("STEP : member status " + memberStatus + " is selected \n");
 	}
 
@@ -1405,26 +1263,21 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void selectAdvanceNewDropDown(String heading, String value) {
 		isElementDisplayed("list_advanceNewDropDown", heading);
-		selectProvidedTextFromDropDown(
-				element("list_advanceNewDropDown", heading), value);
-		logMessage("STEP : select " + value + " for " + heading
-				+ " in list_advanceNewDropDown\n");
+		selectProvidedTextFromDropDown(element("list_advanceNewDropDown", heading), value);
+		logMessage("STEP : select " + value + " for " + heading + " in list_advanceNewDropDown\n");
 	}
 
 	public void enterValueInAdvanceNewInput(String heading, String value) {
 		isElementDisplayed("inp_advanceNewInput", heading);
 		element("inp_advanceNewInput", heading).clear();
 		element("inp_advanceNewInput", heading).sendKeys(value);
-		logMessage("STEP : enter " + value + " for " + heading
-				+ " in inp_advanceNewInput\n");
+		logMessage("STEP : enter " + value + " for " + heading + " in inp_advanceNewInput\n");
 	}
 
 	public void selectValueInAdvanceNewNextDropDown(String heading, String value) {
 		isElementDisplayed("list_advanceNewInput", heading);
-		selectProvidedTextFromDropDown(
-				element("list_advanceNewInput", heading), value);
-		logMessage("STEP : select " + value + " in next drop down for "
-				+ heading + " in list_advanceNewInput\n");
+		selectProvidedTextFromDropDown(element("list_advanceNewInput", heading), value);
+		logMessage("STEP : select " + value + " in next drop down for " + heading + " in list_advanceNewInput\n");
 	}
 
 	public List<String> getMemberDetails() {
@@ -1440,14 +1293,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		handleAlert();
 		wait.hardWait(3);
 		try {
-			customerContactId = element("txt_renewalContactId").getText()
-					.trim();
+			customerContactId = element("txt_renewalContactId").getText().trim();
 			logMessage("Step : Member customer ID is " + customerContactId);
 		} catch (StaleElementReferenceException stlExp) {
-			customerContactId = element("txt_renewalContactId").getText()
-					.trim();
-			logMessage("Step : Member customer ID is " + "'"
-					+ customerContactId + "'");
+			customerContactId = element("txt_renewalContactId").getText().trim();
+			logMessage("Step : Member customer ID is " + "'" + customerContactId + "'");
 		}
 		memberDetails.add(customerLname);
 		memberDetails.add(customerContactId);
@@ -1512,8 +1362,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			isElementDisplayed("lnk_pages", randomNumberInString);
 
 			element("lnk_pages", randomNumberInString).click();
-			logMessage("Step : page at the position of " + randomNumberInString
-					+ " is clicked in lnk_pages\n");
+			logMessage("Step : page at the position of " + randomNumberInString + " is clicked in lnk_pages\n");
 
 		} catch (NoSuchElementException exp) {
 			wait.resetImplicitTimeout(timeOut);
@@ -1579,11 +1428,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 		waitForSpinner();
 		wait.hardWait(2);
-		if (displayName
-				.startsWith("Journal of Chemical Theory and Computation")) {
+		if (displayName.startsWith("Journal of Chemical Theory and Computation")) {
 			displayName = "Jrnl of Chemical Theory & Computation";
-		} else if (displayName
-				.startsWith("Journal of the American Chemical Society")) {
+		} else if (displayName.startsWith("Journal of the American Chemical Society")) {
 			displayName = "Jrnl of The American Chemical Society";
 		}
 		logMessage("-------*****Step : Display name is : " + displayName + "\n");
@@ -1597,10 +1444,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToFrame(element("iframe"));
 		isElementDisplayed("inp_prdCode");
 		element("inp_prdCode").sendKeys(prodCode);
-		logMessage("Step : Produuct code " + prodCode
-				+ " is entered in inp_prdCode\n");
+		logMessage("Step : Produuct code " + prodCode + " is entered in inp_prdCode\n");
 	}
-	
+
 	public void clickOnSearchDisplayNameButton() {
 		isElementDisplayed("inp_searchDisplayButton");
 		clickUsingXpathInJavaScriptExecutor(element("inp_searchDisplayButton"));
@@ -1609,15 +1455,16 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(8);
 		logMessage("Step : Search display name button is clicked in inp_searchDisplayButton\n");
 	}
-	public void clickOnSearchButton()
-	{
+
+	public void clickOnSearchButton() {
 		isElementDisplayed("btn_search");
-		//clickUsingXpathInJavaScriptExecutor(element("btn_search"));
+		// clickUsingXpathInJavaScriptExecutor(element("btn_search"));
 		element("btn_search").click();
 		wait.hardWait(2);
 		hardWaitForIEBrowser(8);
 		logMessage("Step : Search button is clicked \n");
 	}
+
 	public String getDisplayName() {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("inp_displayName");
@@ -1637,9 +1484,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		verifyElementText("link_itemInLineItems", itemName);
 	}
 
-	public void selectBatchAndPaymentDetails_subscription(String batchName,
-			String paymentType, String paymentMethod, String cardNumber,
-			String expireDate, String cvvNumber, String checkNumber) {
+	public void selectBatchAndPaymentDetails_subscription(String batchName, String paymentType, String paymentMethod,
+			String cardNumber, String expireDate, String cvvNumber, String checkNumber) {
 
 		// wait.waitForPageToLoadCompletely();
 		holdExecution(2000);
@@ -1664,8 +1510,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			enterCardDetails("checkNumber", checkNumber);
 
 		} else {
-			Assert.fail("ASSERT FAILED : Payment method " + paymentMethod
-					+ " is not correct \n");
+			Assert.fail("ASSERT FAILED : Payment method " + paymentMethod + " is not correct \n");
 		}
 
 		selectBillingAddressIfNotPrePopulated();
@@ -1674,37 +1519,45 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		verifyPageTitleContains("CRM | Individuals |");
 	}
-	public String enterValuesInCreditPage(String batch_name, String creditReason, String paymentMethod, String cardNumber,
-			String expireDate, String cvvNumber, String creditAmount, String expense)
-	{
+
+	public void enterValuesInCreditPage(String batch_name, String creditReason, String paymentMethod, String cardNumber,
+			String expireDate, String cvvNumber, String creditAmount, String expense) {
 		isElementDisplayed("inp_customerName");
+<<<<<<< HEAD
 		String nameOnCheck= element("inp_customerName").getAttribute("value").trim();
 		logMessage("Name on check:" +nameOnCheck);
 		String customerID= element("inp_customerID").getAttribute("value").trim();
 		logMessage("STEP: Customer name is " +nameOnCheck+"\n");
 		logMessage("STEP: Customer ID is " +customerID+"\n");
+=======
+		String customerName = element("inp_customerName").getAttribute("value").trim();
+		logMessage("STEP: Customer name is " + customerName + "\n");
+		String customerID = element("inp_customerID").getAttribute("value").trim();
+
+		logMessage("STEP: Customer ID is " + customerID + "\n");
+>>>>>>> dafb262d01b8fdd4ffa1c8c27d17f4743dcb7898
 		holdExecution(2000);
-		batchName=batch_name+System.currentTimeMillis();
+		batchName = batch_name + System.currentTimeMillis();
 		if (verifyBatchIsPresentOnCreditPage(batchName)) {
 			selectOrderEntryInfo("batchCreditPage", batchName);
 		} else {
 			addBatchOnCreditPage(batchName.replaceAll("ACS: ", ""), "QA");
-			//addBatch(batchName.replaceAll("ACS: ", ""), "QA");
 		}
 		switchToDefaultContent();
 		waitForSpinner();
 		wait.hardWait(1);
 		Select sel = new Select(element("drpdown_batchName"));
-		Assert.assertEquals(sel.getFirstSelectedOption().getText().trim(), batchName,"ASSERT FAILED:: batch name is not same \n");
+		Assert.assertEquals(sel.getFirstSelectedOption().getText().trim(), batchName,
+				"ASSERT FAILED:: batch name is not same \n");
 		isElementDisplayed("inp_creditAmount");
-		executeJavascript("document.getElementById('cdd_amount').value='"+creditAmount+"';");
-		logMessage("STEP: credit amount is entered as "+creditAmount);
-		
+		executeJavascript("document.getElementById('cdd_amount').value='" + creditAmount + "';");
+		logMessage("STEP: credit amount is entered as " + creditAmount);
+
 		waitForSpinner();
 		selectOrderEntryInfo("creditReason", creditReason);
 		waitForSpinner();
 		selectOrderEntryInfo("paymentMethod", paymentMethod);
-		waitForSpinner();	
+		waitForSpinner();
 		if (paymentMethod.equalsIgnoreCase("Visa/MC")) {
 			enterCardDetails("cardHolderName", nameOnCheck);
 			enterCardDetails("cardNumber", cardNumber);
@@ -1715,116 +1568,115 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			enterCardDetails("checkNumber", cardNumber);
 
 		} else {
-			Assert.fail("ASSERT FAILED : Payment method " + paymentMethod
-					+ " is not correct \n");
+			Assert.fail("ASSERT FAILED : Payment method " + paymentMethod + " is not correct \n");
 		}
 		selectOrderEntryInfo("liabilityExpense", expense);
 		clickOnSaveButtonForBillingAddress();
 		wait.waitForPageToLoadCompletely();
-		logMessage("STEP: Batch is created as "+batchName+" is created \n");
+		logMessage("STEP: Batch is created as " + batchName + " is created \n");
 		logMessage("STEP: All values are entered in Credit Page\n");
-		return customerID;
+
 	}
-	public void verifyCreditAvailableOnCOE(String creditAmount)
-	{
+
+	public void verifyCreditAvailableOnCOE(String creditAmount) {
 		isElementDisplayed("txt_creditAvailable");
-		String credit=element("txt_creditAvailable").getText();		
-		Assert.assertTrue(Double.parseDouble(credit)>=Double.parseDouble(creditAmount),"ASSERT FAILED:: credit available is not matched on COE page\n");
-		logMessage("ASSERT PASSED: credit availabale is "+credit+" \n");
-		
+		String credit = element("txt_creditAvailable").getText();
+		Assert.assertTrue(Double.parseDouble(credit) >= Double.parseDouble(creditAmount),
+				"ASSERT FAILED:: credit available is not matched on COE page\n");
+		logMessage("ASSERT PASSED: credit availabale is " + credit + " \n");
+
 	}
-	public void clickOnNetCredit(String productName)
-	{
+
+	public void clickOnNetCredit(String productName) {
 		isElementDisplayed("td_lineItems", productName, "7");
 		element("td_lineItems", productName, "7").click();
 		logMessage("STEP: Clicked on net credit link \n");
 	}
-	public String verifyNetForumPopUp()
-	{
+
+	public String verifyNetForumPopUp() {
 		switchToFrame("iframe1");
 		isElementDisplayed("txt_netTotal");
-		String netTotal=element("txt_netTotal").getText();
+		String netTotal = element("txt_netTotal").getText();
 		logMessage("STEP: netForum Pop up is verified");
 		switchToDefaultContent();
 		return netTotal;
 	}
-	public void enterValuesInAmountToApply(String netTotal,String amountApply)
-	{
+
+	public void enterValuesInAmountToApply(String netTotal, String amountApply) {
 		switchToFrame("iframe1");
-		isElementDisplayed("inp_dateForReviewModes",amountApply);
-		sendKeysUsingXpathInJavaScriptExecutor(element("inp_dateForReviewModes",amountApply), netTotal);	
-		logMessage("STEP: 'amount to apply' is entered as "+netTotal+" \n");
+		isElementDisplayed("inp_dateForReviewModes", amountApply);
+		sendKeysUsingXpathInJavaScriptExecutor(element("inp_dateForReviewModes", amountApply), netTotal);
+		logMessage("STEP: 'amount to apply' is entered as " + netTotal + " \n");
 		clickOnSaveButtonForBillingAddress();
 		switchToDefaultContent();
 	}
-	public void verifyNetBalanceOnCOE(String batch_name,String paymentType,String paymentMethod,String cardNumber, String expireDate, String cvvNumber)
-	{
-		isElementDisplayed("txt_netBalanceNetForum",productName);
-		String net_balance=element("txt_netBalanceNetForum",productName).getText();
-		logMessage("ASSERT PASSED: Net balance on COE page is "+net_balance);
-		
-		batchName=batch_name+System.currentTimeMillis();
+
+	public void verifyNetBalanceOnCOE(String batch_name, String paymentType, String paymentMethod, String cardNumber,
+			String expireDate, String cvvNumber) {
+		isElementDisplayed("txt_netBalanceNetForum", productName);
+		String net_balance = element("txt_netBalanceNetForum", productName).getText();
+		logMessage("ASSERT PASSED: Net balance on COE page is " + net_balance);
+
+		batchName = batch_name + System.currentTimeMillis();
 		if (verifyBatchIsPresent(batchName)) {
 			selectOrderEntryInfo("batchCreditPage", batchName);
 		} else {
 			addBatch(batchName.replaceAll("ACS: ", ""), "QA");
 		}
-		logMessage("STEP: New batch is added as "+batchName+" \n");
-		
+		logMessage("STEP: New batch is added as " + batchName + " \n");
+
 		switchToDefaultContent();
 		waitForSpinner();
 		selectOrderEntryInfo("PaymentType", paymentType);
 		waitForSpinner();
-		
-		if(!net_balance.equals("0.00"))
-		{
+
+		if (!net_balance.equals("0.00")) {
 			selectOrderEntryInfo("paymentMethod", paymentMethod);
 			waitForSpinner();
 
-				if (paymentMethod.equalsIgnoreCase("Visa/MC")) {
-					enterCardDetails("cardNumber", cardNumber);
-					selectMemberInfo("expireDate", expireDate);
-					enterCardDetails("cvvNumber", cvvNumber);
-				} else if (paymentMethod.equalsIgnoreCase("BOA - Check")) {
-					enterCardDetails("checkNumber", cardNumber);
+			if (paymentMethod.equalsIgnoreCase("Visa/MC")) {
+				enterCardDetails("cardNumber", cardNumber);
+				selectMemberInfo("expireDate", expireDate);
+				enterCardDetails("cvvNumber", cvvNumber);
+			} else if (paymentMethod.equalsIgnoreCase("BOA - Check")) {
+				enterCardDetails("checkNumber", cardNumber);
 
-				} else {
-					Assert.fail("ASSERT FAILED : Payment method " + paymentMethod
-							+ " is not correct \n");
-				}
+			} else {
+				Assert.fail("ASSERT FAILED : Payment method " + paymentMethod + " is not correct \n");
+			}
 		}
 		clickOnSaveAndFinish();
 		verifyPageTitleContains("CRM | Individuals |");
-		//return net_balance;
-			
+		// return net_balance;
+
 	}
-	public void verifyCreditAmount(String creditAmount)
-	{
+
+	public void verifyCreditAmount(String creditAmount) {
 		expandDetailsMenuIfAlreadyExpanded("detail");
-		isElementDisplayed("txt_joinDate_chapter","create credit");
-		Assert.assertTrue(element("txt_joinDate_chapter","create credit").getText().trim().equals(creditAmount), "ASSERT FAILED:: Credit amount is not same");
-		logMessage("ASSERT PASSED: credit amount is: "+ creditAmount);
+		isElementDisplayed("txt_joinDate_chapter", "create credit");
+		Assert.assertTrue(element("txt_joinDate_chapter", "create credit").getText().trim().equals(creditAmount),
+				"ASSERT FAILED:: Credit amount is not same");
+		logMessage("ASSERT PASSED: credit amount is: " + creditAmount);
 	}
-	public String clickOnBatch()
-	{
-		isElementDisplayed("table_header",batchName.replaceAll("ACS: ", ""));
-		element("table_header",batchName.replaceAll("ACS: ", "")).click();
-		logMessage("STEP: Clicked on Batch "+batchName.replaceAll("ACS: ", "")+" on Credit profile page \n");
+
+	public String clickOnBatch() {
+		isElementDisplayed("table_header", batchName.replaceAll("ACS: ", ""));
+		element("table_header", batchName.replaceAll("ACS: ", "")).click();
+		logMessage("STEP: Clicked on Batch " + batchName.replaceAll("ACS: ", "") + " on Credit profile page \n");
 		return batchName;
 	}
-	 public void clickOnPreProcessAndWaitToCloseThePopup()
-	 {
-		 isElementDisplayed("btn_preProcess");
-		 element("btn_preProcess").click();
-		 logMessage("STEP: Clicked On preProcess icon\n");
-		 wait.waitForPageToLoadCompletely();
-		 //wait.waitForWindowsToDisappear();
-		 
-	 }
-	 
-	public void selectBatchAndPaymentDetailsForCRMInventory(String batchName,
-			String paymentType, String paymentMethod, String cardNumber,
-			String expireDate, String cvvNumber, String checkNumber) {
+
+	public void clickOnPreProcessAndWaitToCloseThePopup() {
+		isElementDisplayed("btn_preProcess");
+		element("btn_preProcess").click();
+		logMessage("STEP: Clicked On preProcess icon\n");
+		wait.waitForPageToLoadCompletely();
+		// wait.waitForWindowsToDisappear();
+
+	}
+
+	public void selectBatchAndPaymentDetailsForCRMInventory(String batchName, String paymentType, String paymentMethod,
+			String cardNumber, String expireDate, String cvvNumber, String checkNumber) {
 
 		// wait.waitForPageToLoadCompletely();
 		holdExecution(2000);
@@ -1840,17 +1692,16 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		selectOrderEntryInfo("paymentMethod", paymentMethod);
 		waitForSpinner();
 
-			if (paymentMethod.equalsIgnoreCase("Visa/MC")) {
-				enterCardDetails("cardNumber", cardNumber);
-				selectMemberInfo("expireDate", expireDate);
-				enterCardDetails("cvvNumber", cvvNumber);
-			} else if (paymentMethod.equalsIgnoreCase("BOA - Check")) {
-				enterCardDetails("checkNumber", checkNumber);
+		if (paymentMethod.equalsIgnoreCase("Visa/MC")) {
+			enterCardDetails("cardNumber", cardNumber);
+			selectMemberInfo("expireDate", expireDate);
+			enterCardDetails("cvvNumber", cvvNumber);
+		} else if (paymentMethod.equalsIgnoreCase("BOA - Check")) {
+			enterCardDetails("checkNumber", checkNumber);
 
-			} else {
-				Assert.fail("ASSERT FAILED : Payment method " + paymentMethod
-						+ " is not correct \n");
-			}
+		} else {
+			Assert.fail("ASSERT FAILED : Payment method " + paymentMethod + " is not correct \n");
+		}
 		selectBillingAddressIfNotPrePopulated();
 		clickOnSaveAndFinish();
 		handleAlert();
@@ -1862,30 +1713,26 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(2);
 		System.out.println("-----in verify batch:" + batchName);
 		isElementDisplayed("list_batch");
-		flag = isDropDownValuePresent(
-				element("list_batch").findElements(By.xpath("//option")),
-				batchName);
+		flag = isDropDownValuePresent(element("list_batch").findElements(By.xpath("//option")), batchName);
 		return flag;
 
 	}
+
 	public boolean verifyBatchIsPresent(String batchName) {
 		hardWaitForIEBrowser(2);
 		System.out.println("-----in verify batch:" + batchName);
 		isElementDisplayed("list_batch");
-		flag = isDropDownValuePresent(
-				element("list_batch").findElements(By.xpath("//option")),
-				batchName);
+		flag = isDropDownValuePresent(element("list_batch").findElements(By.xpath("//option")), batchName);
 		return flag;
 
 	}
+
 	public boolean verifyBatchIsPresentOnCreditPage(String batchName) {
 		hardWaitForIEBrowser(2);
 		System.out.println("-----in verify batch:" + batchName);
 		isElementDisplayed("list_batchCreditPage");
-		flag = isDropDownValuePresent(
-				element("list_batchCreditPage").findElements(By.xpath("//option")),
-				batchName);
-		System.out.println("------flag:"+flag);
+		flag = isDropDownValuePresent(element("list_batchCreditPage").findElements(By.xpath("//option")), batchName);
+		System.out.println("------flag:" + flag);
 		return flag;
 
 	}
@@ -1902,8 +1749,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		element("inp_addBatchName").sendKeys(batchName);
 		logMessage("Step : enter batch name " + batchName + "\n");
 		isElementDisplayed("list_batchSecurityGroup");
-		selectProvidedTextFromDropDown(element("list_batchSecurityGroup"),
-				securityGroup);
+		selectProvidedTextFromDropDown(element("list_batchSecurityGroup"), securityGroup);
 		logMessage("Step : Select security group " + securityGroup + "\n");
 		clickOnSaveButtonForBillingAddress();
 
@@ -1921,12 +1767,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		element("inp_addBatchName").sendKeys(batchName);
 		logMessage("Step : enter batch name " + batchName + "\n");
 		isElementDisplayed("list_batchSecurityGroup");
-		selectProvidedTextFromDropDown(element("list_batchSecurityGroup"),
-				securityGroup);
+		selectProvidedTextFromDropDown(element("list_batchSecurityGroup"), securityGroup);
 		logMessage("Step : Select security group as" + securityGroup + "\n");
 		clickOnSaveButtonForBillingAddress();
 
 	}
+
 	public void selectBillingAddressIfNotPrePopulated() {
 		List<WebElement> list = elements("list_billingAdd");
 		if (list.get(0).getAttribute("selected") != null) {
@@ -1990,8 +1836,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			wait.resetImplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("link_invoiceListHeadings", tabName);
 			wait.hardWait(1);
-			clickUsingXpathInJavaScriptExecutor(element(
-					"link_invoiceListHeadings", tabName));
+			clickUsingXpathInJavaScriptExecutor(element("link_invoiceListHeadings", tabName));
 			// element("link_invoiceListHeadings", tabName).click();
 			wait.waitForPageToLoadCompletely();
 			wait.resetExplicitTimeout(timeOut);
@@ -2004,18 +1849,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyMultipleRecordsInList(String numberOfRecords) {
 		isElementDisplayed("txt_recordNumberAtMemberQuery");
-		String recordNumber = element("txt_recordNumberAtMemberQuery")
-				.getText().trim();
+		String recordNumber = element("txt_recordNumberAtMemberQuery").getText().trim();
 
-		Assert.assertTrue(recordNumber.equalsIgnoreCase("(" + numberOfRecords
-				+ " records)"));
+		Assert.assertTrue(recordNumber.equalsIgnoreCase("(" + numberOfRecords + " records)"));
 		logMessage("Step : multiple records are presents in the List - Member Query by Member Number - Multiple \n");
 
 	}
 
-	public void verifyMembershipDetailsOnRenewal(String expireDate,
-			String memberPackage, String renewalPackage, String customerID,
-			String effectiveDate, String joinDate, String paymentStatus) {
+	public void verifyMembershipDetailsOnRenewal(String expireDate, String memberPackage, String renewalPackage,
+			String customerID, String effectiveDate, String joinDate, String paymentStatus) {
 		verifyMemberDetailsOnMemberShipProfile("expire date", expireDate);
 		verifyMemberInfoOnMemberShipProfile("member package", memberPackage);
 		verifyMemberInfoOnMemberShipProfile("renewal package", renewalPackage);
@@ -2026,8 +1868,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public void verifyInvoiceDetailsOnRenewal(String productName,
-			String invoiceId) {
+	public void verifyInvoiceDetailsOnRenewal(String productName, String invoiceId) {
 		openSubInfoDropDown("invoices");
 		flag = pagesLinkAvailable();
 		verifyProductNameInInvoice(productName, flag);
@@ -2037,25 +1878,21 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public void verifyMemberInfoOnMemberShipProfile(String memberdetail,
-			String memberValue) {
+	public void verifyMemberInfoOnMemberShipProfile(String memberdetail, String memberValue) {
 		isElementDisplayed("txt_membershipProfileInfo", memberdetail);
 
-		Assert.assertTrue(element("txt_membershipProfileInfo", memberdetail)
-				.getText().trim().equalsIgnoreCase(memberValue));
-		logMessage("ASSERT PASSED : " + memberValue + " is verified for "
-				+ memberValue + " \n");
+		Assert.assertTrue(
+				element("txt_membershipProfileInfo", memberdetail).getText().trim().equalsIgnoreCase(memberValue));
+		logMessage("ASSERT PASSED : " + memberValue + " is verified for " + memberValue + " \n");
 
 	}
 
-	public void verifyMemberDetailsOnMemberShipProfile(String memberdetail,
-			String memberValue) {
+	public void verifyMemberDetailsOnMemberShipProfile(String memberdetail, String memberValue) {
 		isElementDisplayed("txt_membershipProfileDetails", memberdetail);
 
-		Assert.assertTrue(element("txt_membershipProfileDetails", memberdetail)
-				.getText().trim().equalsIgnoreCase(memberValue));
-		logMessage("ASSERT PASSED : " + memberValue + " is verified for "
-				+ memberValue + " \n");
+		Assert.assertTrue(
+				element("txt_membershipProfileDetails", memberdetail).getText().trim().equalsIgnoreCase(memberValue));
+		logMessage("ASSERT PASSED : " + memberValue + " is verified for " + memberValue + " \n");
 
 	}
 
@@ -2063,17 +1900,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		if (pageLink) {
 			isElementDisplayed("txt_productNameOnPage");
 
-			Assert.assertTrue(element("txt_productNameOnPage").getText().trim()
-					.equalsIgnoreCase(productName));
-			logMessage("ASSERT PASSED : product name " + productName
-					+ " in invoice is verified\n");
+			Assert.assertTrue(element("txt_productNameOnPage").getText().trim().equalsIgnoreCase(productName));
+			logMessage("ASSERT PASSED : product name " + productName + " in invoice is verified\n");
 		} else {
 			isElementDisplayed("txt_productName");
 
-			Assert.assertTrue(element("txt_productName").getText().trim()
-					.equalsIgnoreCase(productName));
-			logMessage("ASSERT PASSED : product name " + productName
-					+ " in invoice is verified\n");
+			Assert.assertTrue(element("txt_productName").getText().trim().equalsIgnoreCase(productName));
+			logMessage("ASSERT PASSED : product name " + productName + " in invoice is verified\n");
 
 		}
 
@@ -2083,17 +1916,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		if (pageLink) {
 			isElementDisplayed("txt_invoiceIdOnPage");
 
-			Assert.assertTrue(element("txt_invoiceIdOnPage").getText().trim()
-					.equalsIgnoreCase(invoiceID));
-			logMessage("ASSERT PASSED : invoice id is " + invoiceID
-					+ " in invoice is verified\n");
+			Assert.assertTrue(element("txt_invoiceIdOnPage").getText().trim().equalsIgnoreCase(invoiceID));
+			logMessage("ASSERT PASSED : invoice id is " + invoiceID + " in invoice is verified\n");
 		} else {
 			isElementDisplayed("txt_invoiceId");
 
-			Assert.assertTrue(element("txt_invoiceId").getText().trim()
-					.equalsIgnoreCase(invoiceID));
-			logMessage("ASSERT PASSED : invoice id is " + invoiceID
-					+ " in invoice is verified\n");
+			Assert.assertTrue(element("txt_invoiceId").getText().trim().equalsIgnoreCase(invoiceID));
+			logMessage("ASSERT PASSED : invoice id is " + invoiceID + " in invoice is verified\n");
 
 		}
 
@@ -2103,17 +1932,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		if (pageLink) {
 			isElementDisplayed("txt_termStartDateOnPage");
 
-			Assert.assertTrue(element("txt_termStartDateOnPage").getText()
-					.trim().equalsIgnoreCase(startDate));
-			logMessage("ASSERT PASSED : term start date is " + startDate
-					+ " in invoice is verified\n");
+			Assert.assertTrue(element("txt_termStartDateOnPage").getText().trim().equalsIgnoreCase(startDate));
+			logMessage("ASSERT PASSED : term start date is " + startDate + " in invoice is verified\n");
 		} else {
 			isElementDisplayed("txt_termStartDate");
 
-			Assert.assertTrue(element("txt_termStartDate").getText().trim()
-					.equalsIgnoreCase(startDate));
-			logMessage("ASSERT PASSED : term start date is " + startDate
-					+ " in invoice is verified\n");
+			Assert.assertTrue(element("txt_termStartDate").getText().trim().equalsIgnoreCase(startDate));
+			logMessage("ASSERT PASSED : term start date is " + startDate + " in invoice is verified\n");
 		}
 	}
 
@@ -2121,16 +1946,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		if (pageLink) {
 			isElementDisplayed("txt_termEndDateOnPage");
 
-			Assert.assertTrue(element("txt_termEndDateOnPage").getText().trim()
-					.equalsIgnoreCase(endDate));
+			Assert.assertTrue(element("txt_termEndDateOnPage").getText().trim().equalsIgnoreCase(endDate));
 			logMessage("ASSERT PASSED : term end date is " + endDate
 					+ " in invoice is verified in txt_termEndDateOnPage\n");
 
 		} else {
 			isElementDisplayed("txt_termEndDate");
 
-			Assert.assertTrue(element("txt_termEndDate").getText().trim()
-					.equalsIgnoreCase(endDate));
+			Assert.assertTrue(element("txt_termEndDate").getText().trim().equalsIgnoreCase(endDate));
 			logMessage("ASSERT PASSED : term end date is " + endDate
 					+ " in invoice is verified in txt_termEndDateOnPage\n");
 
@@ -2140,10 +1963,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyPaymentStatus(String paymentStatus) {
 		isElementDisplayed("txt_paymentStatus");
 
-		Assert.assertTrue(element("txt_paymentStatus").getText()
-				.equalsIgnoreCase(paymentStatus));
-		logMessage("ASSERT PASSED : payment status " + paymentStatus
-				+ " is verified in txt_paymentStatus\n");
+		Assert.assertTrue(element("txt_paymentStatus").getText().equalsIgnoreCase(paymentStatus));
+		logMessage("ASSERT PASSED : payment status " + paymentStatus + " is verified in txt_paymentStatus\n");
 	}
 
 	public void navigateToInvoicePageForFirstProduct() {
@@ -2164,8 +1985,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		List<String> loginList = new ArrayList<String>();
 
 		for (int i = 0; i < loginAs.length; i++) {
-			if ((!loginAs[i].equals(" ") | loginAs[i].length() != 0)
-					&& loginAs[i].equalsIgnoreCase("YES")) {
+			if ((!loginAs[i].equals(" ") | loginAs[i].length() != 0) && loginAs[i].equalsIgnoreCase("YES")) {
 				loginList.add(loginAs[i]);
 				count = i;
 
@@ -2201,8 +2021,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			}
 
 			handleAlert();
-			memberStoreDetails
-					.add(getMemberDetailsOnMemberShipProfile("contact id"));
+			memberStoreDetails.add(getMemberDetailsOnMemberShipProfile("contact id"));
 			memberStoreDetails.add(getMemberWebLogin());
 
 		} else if (count == 2) {
@@ -2234,8 +2053,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			selectMemberInfo("association", "ACS");
 			// TODO Remove hard wait after handling stale element exception
 			holdExecution(1000);
-			selectMemberInfo("memberType",
-					map().get("Is_localSectionMemberType?"));
+			selectMemberInfo("memberType", map().get("Is_localSectionMemberType?"));
 			// TODO Remove hard wait after handling stale element exception
 			holdExecution(1000);
 			selectMemberInfo("chapter", map().get("ls_division?"));
@@ -2247,8 +2065,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			switchToDefaultContent();
 			waitForSpinner();
 
-			verifyPrice(map().get("expectedLocalSectionName"),
-					map().get("localSection_PriceValue?"));
+			verifyPrice(map().get("expectedLocalSectionName"), map().get("localSection_PriceValue?"));
 
 		}
 	}
@@ -2271,8 +2088,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			selectMemberInfo("association", "ACS");
 			// TODO Remove hard wait after handling stale element exception
 			holdExecution(1000);
-			selectMemberInfo("memberType",
-					map().get("Is_localSectionMemberType?"));
+			selectMemberInfo("memberType", map().get("Is_localSectionMemberType?"));
 			// TODO Remove hard wait after handling stale element exception
 			holdExecution(1000);
 			selectMemberInfo("chapter", map().get("ls_division?"));
@@ -2306,8 +2122,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		holdExecution(3000);
 		// selectMemberInfo("memberStatusInAddMembership", "Active");
 		selectMemberInfo("memberPackage", map().get("memberPackage"));
-		String currentDate = DateUtil
-				.getCurrentdateInStringWithGivenFormate("M/d/yyyy");
+		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy");
 		holdExecution(2000);
 		// verifySelectedTextFromDropDown(element("list_memberPackage"), map()
 		// .get("memberPackage"));
@@ -2320,8 +2135,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			checkCheckbox(element("chk_complimentry"));
 			selectMemberInfo("complimentryRequest", map().get("compReason"));
 		}
-		if (!(map().get("industry").equalsIgnoreCase("") || map().get(
-				"industry").equalsIgnoreCase(null))) {
+		if (!(map().get("industry").equalsIgnoreCase("") || map().get("industry").equalsIgnoreCase(null))) {
 			selectMemberInfo("industry", map().get("industry"));
 			enterDate("industryUpdateDate", map().get("industryUpdateDate"));
 			// TODO Remove hard wait after handling stale element exception
@@ -2360,8 +2174,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// selectMemberInfo("memberStatusInAddMembership", "Active");
 		selectMemberInfo("memberPackage", map().get("memberPackage"));
 		@SuppressWarnings("unused")
-		String currentDate = DateUtil
-				.getCurrentdateInStringWithGivenFormate("M/d/yyyy");
+		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy");
 		holdExecution(2000);
 		// verifySelectedTextFromDropDown(element("list_memberPackage"), map()
 		// .get("memberPackage"));
@@ -2374,8 +2187,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			checkCheckbox(element("chk_complimentry"));
 			selectMemberInfo("complimentryRequest", map().get("compReason"));
 		}
-		if (!(map().get("industry").equalsIgnoreCase("") || map().get(
-				"industry").equalsIgnoreCase(null))) {
+		if (!(map().get("industry").equalsIgnoreCase("") || map().get("industry").equalsIgnoreCase(null))) {
 			selectMemberInfo("industry", map().get("industry"));
 			enterDate("industryUpdateDate", map().get("industryUpdateDate"));
 			// TODO Remove hard wait after handling stale element exception
@@ -2415,8 +2227,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			holdExecution(1000);
 			selectMemberInfo("chapter", map().get("div" + i + "_division"));
 			holdExecution(2000);
-			selectMemberInfo("memberPackage",
-					map().get("div" + i + "_memberPackage"));
+			selectMemberInfo("memberPackage", map().get("div" + i + "_memberPackage"));
 			holdExecution(1000);
 			if (map().get("complimentary").equalsIgnoreCase("On")) {
 				checkCheckbox(element("chk_complimentry"));
@@ -2428,14 +2239,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			switchToDefaultContent();
 			handleAlert();
 			waitForSpinner();
-			verifyPrice(map().get("div" + i + "_memberPackage"),
-					map().get("div" + i + "_PriceValue?"));
+			verifyPrice(map().get("div" + i + "_memberPackage"), map().get("div" + i + "_PriceValue?"));
 
 		}
 	}
 
-	public void goToAddMembershipAndFillDetails_DivisionAsFellowPrequisite(
-			int numberOfDivisions) {
+	public void goToAddMembershipAndFillDetails_DivisionAsFellowPrequisite(int numberOfDivisions) {
 
 		for (int i = 1; i <= numberOfDivisions; i++) {
 
@@ -2457,8 +2266,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			holdExecution(1000);
 			selectMemberInfo("chapter", map().get("div" + i + "_division"));
 			holdExecution(2000);
-			selectMemberInfo("memberPackage",
-					map().get("div" + i + "_memberPackage"));
+			selectMemberInfo("memberPackage", map().get("div" + i + "_memberPackage"));
 			holdExecution(1000);
 			if (map().get("complimentary").equalsIgnoreCase("On")) {
 				checkCheckbox(element("chk_complimentry"));
@@ -2482,32 +2290,27 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void enterSourceCode(String sourceCode) {
 		isElementDisplayed("inp_sourceCode");
 		element("inp_sourceCode").sendKeys(sourceCode);
-		logMessage("Step : source code " + sourceCode
-				+ " is entered in inp_sourceCode\n");
+		logMessage("Step : source code " + sourceCode + " is entered in inp_sourceCode\n");
 	}
 
 	public void verifyPrice(String itemName, String price) {
 		isElementDisplayed("txt_priceOrderEntryLineItmes", itemName);
-		String actualPrice = element("txt_priceOrderEntryLineItmes", itemName)
-				.getText().trim();
+		String actualPrice = element("txt_priceOrderEntryLineItmes", itemName).getText().trim();
 
-		Float newPrice = Float.parseFloat(price)
-				* Integer.parseInt(map().get("renewalTerm").trim());
+		Float newPrice = Float.parseFloat(price) * Integer.parseInt(map().get("renewalTerm").trim());
 
 		String formatedPrice = String.format("%.02f", newPrice);
 		if (!map().get("complimentary").equalsIgnoreCase("On")) {
 			System.out.println("actual:" + actualPrice);
 			System.out.println("expected :" + formatedPrice);
 			Assert.assertTrue(actualPrice.equalsIgnoreCase(formatedPrice));
-			logMessage("ASSERT PASSED : price " + formatedPrice
-					+ " is verified for " + itemName
+			logMessage("ASSERT PASSED : price " + formatedPrice + " is verified for " + itemName
 					+ " in txt_priceOrderEntryLineItmes\n");
 		}
 
 	}
 
-	public void navigateToSubscriptionInSelectLinkAndSellSubscription(
-			int numberOfSubscriptions) {
+	public void navigateToSubscriptionInSelectLinkAndSellSubscription(int numberOfSubscriptions) {
 		for (int i = 1; i <= numberOfSubscriptions; i++) {
 
 			wait.waitForPageToLoadCompletely();
@@ -2541,14 +2344,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			}
 
 			switchToDefaultContent();
-			String[] productName_TotalPrice = addSubscriptionInOrderEntry_CreateMem(
-					map().get("ProductCode" + i), i);
+			String[] productName_TotalPrice = addSubscriptionInOrderEntry_CreateMem(map().get("ProductCode" + i), i);
 
 			handleAlert();
 			waitForSpinner();
 
-			verifyPrice(productName_TotalPrice[0],
-					map().get("Sub" + i + "_SalePrice?"));
+			verifyPrice(productName_TotalPrice[0], map().get("Sub" + i + "_SalePrice?"));
 		}
 	}
 
@@ -2565,16 +2366,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 			try {
 				if (map().get("div" + i + "_memberType").equalsIgnoreCase(null)
-						|| map().get("div" + i + "_memberType")
-								.equalsIgnoreCase("")) {
+						|| map().get("div" + i + "_memberType").equalsIgnoreCase("")) {
 					break;
 				} else {
 					numberOfDivisions++;
 
 				}
 			} catch (NullPointerException npe) {
-				logMessage("div" + i
-						+ "_memberType is not present in data sheet\n");
+				logMessage("div" + i + "_memberType is not present in data sheet\n");
 				break;
 			}
 
@@ -2595,18 +2394,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 				}
 			} catch (NullPointerException npe) {
-				logMessage("ProductCode" + i
-						+ " is not present in data sheet\n");
+				logMessage("ProductCode" + i + " is not present in data sheet\n");
 				break;
 			}
 		}
 		return numberOfSubscriptions;
 	}
 
-	public void navigateToMemberLatestInvoicePage(
-			List<String> memberLoginDetails) {
-		if (memberLoginDetails.get(0).equals("0")
-				| memberLoginDetails.get(0).equals("1")) {
+	public void navigateToMemberLatestInvoicePage(List<String> memberLoginDetails) {
+		if (memberLoginDetails.get(0).equals("0") | memberLoginDetails.get(0).equals("1")) {
 			clickOnSideBarTab("Invoice");
 			clickOnSideBar("Query Invoice");
 			selectAndRunQuery("Selenium - Newest Invoice for Customer ID");
@@ -2618,8 +2414,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public String[] addSubscriptionInOrderEntry_CreateMem(String prodCode,
-			int numberOfSubscription) {
+	public String[] addSubscriptionInOrderEntry_CreateMem(String prodCode, int numberOfSubscription) {
 		switchToFrame("iframe1");
 		enterProductCode(prodCode);
 		displayName = searchAndGetDisplayName();
@@ -2641,8 +2436,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// isStringMatching(displayName,
 		// map().get("subscription" + numberOfSubscription));
 
-		logMessage("ASSERT PASSED : subscription name "
-				+ map().get("subscription" + numberOfSubscription)
+		logMessage("ASSERT PASSED : subscription name " + map().get("subscription" + numberOfSubscription)
 				+ " is matched\n");
 		// verifyItemAddedInLineItems(displayName.split(" - ")[0]);
 		String[] arr = { displayName.split(" - ")[0], totalPrice };
@@ -2651,21 +2445,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyNetPriceValue(String netPriceName) {
 		isElementDisplayed("txt_priceDetailsBelowLineItems", netPriceName);
-		String netBalance = element("txt_priceDetailsBelowLineItems",
-				netPriceName).getText();
+		String netBalance = element("txt_priceDetailsBelowLineItems", netPriceName).getText();
 		isElementDisplayed("list_priceOrderEntryNetBalance", netPriceName);
 
-		for (int i = 0; i < elements("list_priceOrderEntryNetBalance",
-				netPriceName).size(); i++) {
+		for (int i = 0; i < elements("list_priceOrderEntryNetBalance", netPriceName).size(); i++) {
 			netIndividualBalance = netIndividualBalance
-					+ Float.parseFloat(elements(
-							"list_priceOrderEntryNetBalance", netPriceName)
-							.get(i).getText());
+					+ Float.parseFloat(elements("list_priceOrderEntryNetBalance", netPriceName).get(i).getText());
 		}
-		Assert.assertTrue(netBalance.equalsIgnoreCase(String.valueOf(String
-				.format("%.2f", netIndividualBalance))));
-		logMessage("ASSERT PASSED : " + netBalance
-				+ " is verified for net balance\n");
+		Assert.assertTrue(netBalance.equalsIgnoreCase(String.valueOf(String.format("%.2f", netIndividualBalance))));
+		logMessage("ASSERT PASSED : " + netBalance + " is verified for net balance\n");
 	}
 
 	public void collapseDetailsMenu(String menuName) {
@@ -2728,24 +2516,17 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		memberDetails.add(customerLname);
 
 		memberDetails.add(customerContactId);
-		//memberDetails.add(getMemberWebLogin());
-		logMessage("Step : Customer Contact Id fetched as "
-				+ customerContactId);
+		// memberDetails.add(getMemberWebLogin());
+		logMessage("Step : Customer Contact Id fetched as " + customerContactId);
 		return memberDetails;
-	
 
 	}
 
-	public void fetchScarfReviewerLoginDetails(
-			Map<String, List<String>> reviewerloginMap, int reviewerNumber) {
-		reviewerloginMap.put("reviewer" + reviewerNumber,
-				getCustomerLastNameAndContactID());
-		logMessage("Step : Reviewer name is fetched as "
-				+ reviewerloginMap.get("reviewer" + reviewerNumber));
-		System.out.println("-----last name:"
-				+ reviewerloginMap.get("reviewer" + reviewerNumber).get(0)
-				+ "-----member number:"
-				+ reviewerloginMap.get("reviewer" + reviewerNumber).get(1));
+	public void fetchScarfReviewerLoginDetails(Map<String, List<String>> reviewerloginMap, int reviewerNumber) {
+		reviewerloginMap.put("reviewer" + reviewerNumber, getCustomerLastNameAndContactID());
+		logMessage("Step : Reviewer name is fetched as " + reviewerloginMap.get("reviewer" + reviewerNumber));
+		System.out.println("-----last name:" + reviewerloginMap.get("reviewer" + reviewerNumber).get(0)
+				+ "-----member number:" + reviewerloginMap.get("reviewer" + reviewerNumber).get(1));
 	}
 
 	public void getIndividualFullNameForAwardsNomination() {
@@ -2759,18 +2540,30 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		handleAlert();
 		switchToDefaultContent();
 		customerContactId = element("txt_renewalContactId").getText();
-		System.out.println(customerContactId);
-		System.out.println(customerLname);
-		createMemberCredentials.put("Nominee" + individualCount + "Name",
-				customerLname);
-		createMemberCredentials.put("Nominee" + individualCount + "Number",
-				customerContactId);
-		System.out.println(createMemberCredentials.get("Nominee"
-				+ individualCount + "Name"));
-		System.out.println(createMemberCredentials.get("Nominee"
-				+ individualCount + "Number"));
+
+		// System.out.println(customerLname);
+		createMemberCredentials.put("Nominee" + individualCount + "Name", customerLname);
+		createMemberCredentials.put("Nominee" + individualCount + "Number", customerContactId);
+		/*
+		 * System.out.println(createMemberCredentials.get("Nominee" +
+		 * individualCount + "Name"));
+		 * System.out.println(createMemberCredentials.get("Nominee" +
+		 * individualCount + "Number"));
+		 */
+		System.out.println("customerContactId::" + customerContactId);
 		logMessage("Step : Individual Details saved from iweb profile page\n");
 		individualCount++;
+
+	}
+
+	public void selectMemberByContactID() {
+		System.out.println("customerContactId::" + customerContactId);
+		// element("inp_customerID").sendKeys(customerContactId);
+		isElementDisplayed("inp_customerID");
+		sendKeysUsingXpathInJavaScriptExecutor(element("inp_customerID"), customerContactId);
+		holdExecution(1000);
+		clickOnSearchButton();
+		holdExecution(1000);
 
 	}
 
@@ -2813,34 +2606,31 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.resetExplicitTimeout(timeOut);
 		wait.resetImplicitTimeout(timeOut);
 		handleAlert();
-		logMessage("Step : Customer Name as "
-				+ element("link_customerName").getText() + " is clicked\n");
+		logMessage("Step : Customer Name as " + element("link_customerName").getText() + " is clicked\n");
 	}
 
 	public void selectMemberForRenewal(String membertype) {
 
 		switch (membertype) {
 		case "Regular":
-			selectProvidedTextFromDropDown(element("drpdwn_memberType"),
-					"ACS : Regular Member");
+			selectProvidedTextFromDropDown(element("drpdwn_memberType"), "ACS : Regular Member");
 			break;
 		case "Student":
-			selectProvidedTextFromDropDown(element("drpdwn_memberType"),
-					"ACS : Student Member - UnderGrad");
+			selectProvidedTextFromDropDown(element("drpdwn_memberType"), "ACS : Student Member - UnderGrad");
 			break;
 		case "Emeritus":
-			selectProvidedTextFromDropDown(element("drpdwn_memberType"),
-					"ACS : Emeritus Member");
+			selectProvidedTextFromDropDown(element("drpdwn_memberType"), "ACS : Emeritus Member");
 			break;
 		}
 		clickOnGoButtonInRunQuery();
 
 	}
-	
+
 	public void selectValidUserForGCSOMR(Map<String, String> mapGcsOMR) {
-		selectProvidedTextFromDropDown(element("list_advanceNewInput","Member Type"),"ACS : Regular Member");
-		selectProvidedTextFromDropDown(element("list_advanceNewInput","Member Status"),"ACS : Active Renewed-No Response");
-		selectProvidedTextFromDropDown(element("list_advanceNewInput","Country"),mapGcsOMR.get("Country?"));
+		selectProvidedTextFromDropDown(element("list_advanceNewInput", "Member Type"), "ACS : Regular Member");
+		selectProvidedTextFromDropDown(element("list_advanceNewInput", "Member Status"),
+				"ACS : Active Renewed-No Response");
+		selectProvidedTextFromDropDown(element("list_advanceNewInput", "Country"), mapGcsOMR.get("Country?"));
 		clickOnGoButton();
 	}
 
@@ -2854,26 +2644,21 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			verifyPaymentStatusBeforeRenewal(mapOMR);
 			MemberTransferLoopCount++;
 		} else {
-			Assert.fail("ASSERT FAIL : Member is not selected after "
-					+ MemberTransferLoopCount + " attempts\n");
-			logMessage("ASSERT FAIL : Member is not selected after "
-					+ MemberTransferLoopCount + " attempts\n");
+			Assert.fail("ASSERT FAIL : Member is not selected after " + MemberTransferLoopCount + " attempts\n");
+			logMessage("ASSERT FAIL : Member is not selected after " + MemberTransferLoopCount + " attempts\n");
 		}
-		logMessage("Step : Member selected in " + MemberTransferLoopCount
-				+ " attempt\n");
+		logMessage("Step : Member selected in " + MemberTransferLoopCount + " attempt\n");
 
 	}
-	
 
 	public void verifyPaymentStatusBeforeRenewal(Map<String, String> mapOMR) {
 		try {
 			wait.resetImplicitTimeout(4);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
-			Assert.assertTrue(element("txt_PaymentStatus", "Payment Status")
-					.getText().equals("Unpaid"));
+			Assert.assertTrue(element("txt_PaymentStatus", "Payment Status").getText().equals("Unpaid"));
 		} catch (AssertionError e) {
-			logMessage("ASSERT PASSED : Payment status before renewal is not Unpaid for "
-					+ MemberTransferLoopCount + " attempt thus looping back\n");
+			logMessage("ASSERT PASSED : Payment status before renewal is not Unpaid for " + MemberTransferLoopCount
+					+ " attempt thus looping back\n");
 			selectValidUserForRenewal(mapOMR);
 		}
 		wait.resetExplicitTimeout(timeOut);
@@ -2882,16 +2667,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public void verifyPaymentStatusBeforeAutoRenewal(String query,
-			String queryPageUrl) {
+	public void verifyPaymentStatusBeforeAutoRenewal(String query, String queryPageUrl) {
 		try {
 			wait.resetImplicitTimeout(4);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
-			Assert.assertTrue(element("txt_PaymentStatus", "Payment Status")
-					.getText().equals("Unpaid"));
+			Assert.assertTrue(element("txt_PaymentStatus", "Payment Status").getText().equals("Unpaid"));
 		} catch (AssertionError e) {
-			logMessage("ASSERT PASSED : Payment status before renewal is not Unpaid for "
-					+ MemberTransferLoopCount + " attempt thus looping back\n");
+			logMessage("ASSERT PASSED : Payment status before renewal is not Unpaid for " + MemberTransferLoopCount
+					+ " attempt thus looping back\n");
 			MemberTransferLoopCount++;
 			selectValidUserForAutoRenewal(query, queryPageUrl);
 		}
@@ -2904,11 +2687,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyTermStartDateAndEndDatesAreNotEmpty() {
 		isElementDisplayed("txt_termStartDaterenewal", "1");
 		isElementDisplayed("txt_termEndDaterenewal", "1");
-		Assert.assertFalse(element("txt_termStartDaterenewal", "1").getText()
-				.length() == 1, "Term Start Date is Empty");
+		Assert.assertFalse(element("txt_termStartDaterenewal", "1").getText().length() == 1,
+				"Term Start Date is Empty");
 		logMessage("ASSERT PASSED : Term Start date is not empty\n");
-		Assert.assertFalse(element("txt_termEndDaterenewal", "1").getText()
-				.length() == 1, "Term End Date is Empty");
+		Assert.assertFalse(element("txt_termEndDaterenewal", "1").getText().length() == 1, "Term End Date is Empty");
 		logMessage("ASSERT PASSED : Term End date is not empty\n");
 
 	}
@@ -2921,8 +2703,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void selectMemberPackage(String memberPackage) {
 		logMessage("Step: Select the member package : " + memberPackage + "\n");
 		isElementDisplayed("list_memberPackage1");
-		selectProvidedTextFromDropDown(element("list_memberPackage1"),
-				memberPackage);
+		selectProvidedTextFromDropDown(element("list_memberPackage1"), memberPackage);
 	}
 
 	public void clickOnGoButtonAfterPackageSelection() {
@@ -2931,28 +2712,24 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("STEP : Clicked on Go Button\n");
 	}
 
-	public void verifyMemberTypeAndPackage(String expectedType,
-			String expectedStatus) {
+	public void verifyMemberTypeAndPackage(String expectedType, String expectedStatus) {
 		isElementDisplayed("txt_memberInfo", "member type");
-		Assert.assertTrue(expectedType.equals(element("txt_memberInfo",
-				"member type").getText().trim()),
+		Assert.assertTrue(expectedType.equals(element("txt_memberInfo", "member type").getText().trim()),
 				"ASSERT FAIL : Member Type is not Regular Member\n");
 		logMessage("ASSERT PASS : Member Type is Regular Member\n");
 
 		isElementDisplayed("txt_memberInfo", "member status");
-		Assert.assertTrue(expectedStatus.equals(element("txt_memberInfo",
-				"member status").getText().trim()),
+		Assert.assertTrue(expectedStatus.equals(element("txt_memberInfo", "member status").getText().trim()),
 				"ASSERT FAIL : Member Status is not Active Renewed-No Response\n");
 		logMessage("ASSERT PASS : Member Status is Active Renewed-No Response\n");
 	}
 
 	public void verifyTermEndDateAndStartDateIsEmpty() {
 		hardWaitForIEBrowser(6);
-		Assert.assertTrue(element("txt_termStartDaterenewal", "1").getText()
-				.length() == 1, "Term Start Date is not Empty");
+		Assert.assertTrue(element("txt_termStartDaterenewal", "1").getText().length() == 1,
+				"Term Start Date is not Empty");
 		logMessage("ASSERT PASSED : Term Start date is empty\n");
-		Assert.assertTrue(element("txt_termEndDaterenewal", "1").getText()
-				.length() == 1, "Term End Date is not Empty");
+		Assert.assertTrue(element("txt_termEndDaterenewal", "1").getText().length() == 1, "Term End Date is not Empty");
 		logMessage("ASSERT PASSED : Term End date is empty\n");
 	}
 
@@ -2992,8 +2769,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(3);
 		memberPackage = memberPackage.split(": ", 3)[2];
 		isElementDisplayed("txt_memberInfo", "member package");
-		Assert.assertTrue(memberPackage.equals(element("txt_memberInfo",
-				"member package").getText().trim()),
+		Assert.assertTrue(memberPackage.equals(element("txt_memberInfo", "member package").getText().trim()),
 				"ASSERT FAIL : Member Package is not " + memberPackage + "\n");
 		logMessage("ASSERT PASS : Member Package is " + memberPackage + "\n");
 	}
@@ -3003,9 +2779,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			renewalPackage = renewalPackage.split(": ", 3)[2];
 
 		isElementDisplayed("txt_memberInfo", "renewal package");
-		Assert.assertTrue(
-				renewalPackage.equals(element("txt_memberInfo",
-						"renewal package").getText().trim()),
+		Assert.assertTrue(renewalPackage.equals(element("txt_memberInfo", "renewal package").getText().trim()),
 				"ASSERT FAIL : Renewal Package is not " + renewalPackage + "\n");
 		logMessage("ASSERT PASS : Renewal Package is " + renewalPackage + "\n");
 		wait.resetImplicitTimeout(timeOut);
@@ -3028,8 +2802,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public double getBalanceAmount() {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(4);
-		String amount = element("txt_balanceAmount").getText().trim()
-				.split("\\$")[1];
+		String amount = element("txt_balanceAmount").getText().trim().split("\\$")[1];
 		double d = Double.parseDouble(amount);
 		logMessage("STEP : Balance Amount is : " + d + "\n");
 		return d;
@@ -3050,24 +2823,20 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("STEP : Select " + newPackage + " new package from list\n");
 	}
 
-	public void verifyChangeInAmountBalance(Double previousAmount,
-			Double newAmount, String oldPackage, String Year) {
+	public void verifyChangeInAmountBalance(Double previousAmount, Double newAmount, String oldPackage, String Year) {
 		wait.waitForPageToLoadCompletely();
 		int newYear = Integer.parseInt(Year.split(" ")[0]);
 		int previousYear = getYearValue(oldPackage);
 		logMessage("STEP : Previous package renewal year : " + previousYear);
 		logMessage("STEP : New package renewal year : " + newYear);
 		if (previousYear < newYear) {
-			Assert.assertTrue(previousAmount < newAmount,
-					"ASSERT FAILED : Balance Amount value has not increased\n");
+			Assert.assertTrue(previousAmount < newAmount, "ASSERT FAILED : Balance Amount value has not increased\n");
 			logMessage("ASSERT PASS : Balance Amount value has increased\n");
 		} else if (previousYear > newYear) {
-			Assert.assertTrue(previousAmount > newAmount,
-					"ASSERT FAILED : Balance Amount value has not decreased\n");
+			Assert.assertTrue(previousAmount > newAmount, "ASSERT FAILED : Balance Amount value has not decreased\n");
 			logMessage("ASSERT PASS : Balance Amount value has decreased\n");
 		} else
-			Assert.assertTrue(false,
-					"ASSERT FAIL : Balance Amount value has not changed\n");
+			Assert.assertTrue(false, "ASSERT FAIL : Balance Amount value has not changed\n");
 	}
 
 	public int getYearValue(String oldPackage) {
@@ -3097,8 +2866,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// wait.hardWait(4);
 	}
 
-	public void verifyTermStartDateAndEndDatesAreEmpty(
-			Map<String, String> mapOMR) {
+	public void verifyTermStartDateAndEndDatesAreEmpty(Map<String, String> mapOMR) {
 		try {
 
 			wait.resetImplicitTimeout(4);
@@ -3113,21 +2881,20 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		if (element("txt_termStartDaterenewal", "1").getText().length() != 1
 				&& element("txt_termEndDaterenewal", "1").getText().length() != 1) {
 			collapseDetailsMenu("invoices");
-			logMessage("Step : Term Start date and Term Endd Date are not empty for "
-					+ MemberTransferLoopCount + " attempt\n");
+			logMessage("Step : Term Start date and Term Endd Date are not empty for " + MemberTransferLoopCount
+					+ " attempt\n");
 			selectValidUserForRenewal(mapOMR);
 		} else {
-			Assert.assertTrue(element("txt_termStartDaterenewal", "1")
-					.getText().length() == 1, "Term Start Date is not Empty");
+			Assert.assertTrue(element("txt_termStartDaterenewal", "1").getText().length() == 1,
+					"Term Start Date is not Empty");
 			logMessage("ASSERT PASSED : Term Start date is empty\n");
-			Assert.assertTrue(element("txt_termEndDaterenewal", "1").getText()
-					.length() == 1, "Term End Date is not Empty");
+			Assert.assertTrue(element("txt_termEndDaterenewal", "1").getText().length() == 1,
+					"Term End Date is not Empty");
 			logMessage("ASSERT PASSED : Term End date is empty\n");
 		}
 	}
 
-	public void verifyTermStartDateAndEndDatesAreEmptyForAutoRenewal(
-			String Query, String queryPageUrl) {
+	public void verifyTermStartDateAndEndDatesAreEmptyForAutoRenewal(String Query, String queryPageUrl) {
 		try {
 
 			wait.resetImplicitTimeout(4);
@@ -3142,16 +2909,16 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		if (element("txt_termStartDaterenewal", "1").getText().length() != 1
 				&& element("txt_termEndDaterenewal", "1").getText().length() != 1) {
 			collapseDetailsMenu("invoices");
-			logMessage("Step : Term Start date and Term Endd Date are not empty for "
-					+ MemberTransferLoopCount + " attempt\n");
+			logMessage("Step : Term Start date and Term Endd Date are not empty for " + MemberTransferLoopCount
+					+ " attempt\n");
 			MemberTransferLoopCount++;
 			selectValidUserForAutoRenewal(Query, queryPageUrl);
 		} else {
-			Assert.assertTrue(element("txt_termStartDaterenewal", "1")
-					.getText().length() == 1, "Term Start Date is not Empty");
+			Assert.assertTrue(element("txt_termStartDaterenewal", "1").getText().length() == 1,
+					"Term Start Date is not Empty");
 			logMessage("ASSERT PASSED : Term Start date is empty\n");
-			Assert.assertTrue(element("txt_termEndDaterenewal", "1").getText()
-					.length() == 1, "Term End Date is not Empty");
+			Assert.assertTrue(element("txt_termEndDaterenewal", "1").getText().length() == 1,
+					"Term End Date is not Empty");
 			logMessage("ASSERT PASSED : Term End date is empty\n");
 		}
 	}
@@ -3178,16 +2945,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyProductPackage(String productPackage) {
 		isElementDisplayed("txt_productPackage");
-		Assert.assertTrue(productPackage.equals(element("txt_productPackage")
-				.getText().trim()),
+		Assert.assertTrue(productPackage.equals(element("txt_productPackage").getText().trim()),
 				"ASSERT FAIL : Product package does not matches with the new Renewal Package\n");
 		logMessage("ASSERT PASS : Product package matches with the new Renewal Package\n");
 	}
 
 	public void getContactIdOfUser(String Member) {
 		isElementDisplayed("txt_renewalContactId");
-		logMessage("STEP : " + Member + " Id is : "
-				+ element("txt_renewalContactId").getText().trim() + "\n");
+		logMessage("STEP : " + Member + " Id is : " + element("txt_renewalContactId").getText().trim() + "\n");
 	}
 
 	public void clickOnMemberTransferButton() {
@@ -3199,8 +2964,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(4);
 	}
 
-	public void updateInformationAfterClickingTransferButton(String option,
-			String option2) {
+	public void updateInformationAfterClickingTransferButton(String option, String option2) {
 		System.out.println("Option Mem Type::" + option);
 		System.out.println("Option Mem Package::" + option2);
 		switchToFrame(element("iframe"));
@@ -3213,8 +2977,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(2);
 		isElementDisplayed("drpdown_invoice");
-		selectProvidedTextFromDropDown(element("drpdown_invoice"),
-				"ACS: SELENIUM_BATCH");
+		selectProvidedTextFromDropDown(element("drpdown_invoice"), "ACS: SELENIUM_BATCH");
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(2);
 		isElementDisplayed("btn_transferNow");
@@ -3224,10 +2987,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Clicked On Transfer Now Button");
 	}
 
-	public void matchBeforeDataWithAfterDataAccordingToMentionedCriteria(
-			LinkedHashMap<String, String> beforeList,
-			LinkedHashMap<String, String> afterList,
-			HashMap<String, String> criteriaList, String custId) {
+	public void matchBeforeDataWithAfterDataAccordingToMentionedCriteria(LinkedHashMap<String, String> beforeList,
+			LinkedHashMap<String, String> afterList, HashMap<String, String> criteriaList, String custId) {
 		String line, pattern;
 		Pattern r;
 		Matcher m;
@@ -3237,44 +2998,32 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		Map.Entry criteria : criteriaList.entrySet()) {
 			switch (criteria.getKey() + "") {
 			case "MP Mbr Type":
-				if (afterList
-						.get(criteria.getKey())
-						.trim()
-						.equalsIgnoreCase(
-								criteriaList.get(criteria.getKey()).trim())) {
+				if (afterList.get(criteria.getKey()).trim()
+						.equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
 					ResultList.put(criteria.getKey() + "", "y");
 				} else {
 					ResultList.put(criteria.getKey() + "", "n");
 				}
 				break;
 			case "MP Mbr Status":
-				if (afterList
-						.get(criteria.getKey())
-						.trim()
-						.equalsIgnoreCase(
-								criteriaList.get(criteria.getKey()).trim())) {
+				if (afterList.get(criteria.getKey()).trim()
+						.equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
 					ResultList.put(criteria.getKey() + "", "y");
 				} else {
 					ResultList.put(criteria.getKey() + "", "n");
 				}
 				break;
 			case "MP Mbr Pkg":
-				if (afterList
-						.get(criteria.getKey())
-						.trim()
-						.equalsIgnoreCase(
-								criteriaList.get(criteria.getKey()).trim())) {
+				if (afterList.get(criteria.getKey()).trim()
+						.equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
 					ResultList.put(criteria.getKey() + "", "y");
 				} else {
 					ResultList.put(criteria.getKey() + "", "n");
 				}
 				break;
 			case "MP Renewal Pkg":
-				if (afterList
-						.get(criteria.getKey())
-						.trim()
-						.equalsIgnoreCase(
-								criteriaList.get(criteria.getKey()).trim())) {
+				if (afterList.get(criteria.getKey()).trim()
+						.equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
 					ResultList.put(criteria.getKey() + "", "y");
 				} else {
 					ResultList.put(criteria.getKey() + "", "n");
@@ -3286,50 +3035,32 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				r = Pattern.compile(pattern);
 				m = r.matcher(line);
 				if (m.find()) {
-					System.out
-							.println("MP Join Date \n Line::"
-									+ line
-									+ "Incremented By ::"
-									+ Integer.parseInt(line.split("Y")[0]
-											.split("\\+")[1]));
-					System.out.println("After List ::"
-							+ afterList.get(criteria.getKey()).trim());
-					System.out.println("Before List::"
-							+ beforeList.get(criteria.getKey()).trim());
-					if (afterList
-							.get(criteria.getKey())
-							.trim()
-							.contains(
-									_getBeforeDateIncrementedByNum(beforeList
-											.get(criteria.getKey()).trim(),
-											Integer.parseInt(line.split("Y")[0]
-													.split("\\+")[1])))) {
+					System.out.println("MP Join Date \n Line::" + line + "Incremented By ::"
+							+ Integer.parseInt(line.split("Y")[0].split("\\+")[1]));
+					System.out.println("After List ::" + afterList.get(criteria.getKey()).trim());
+					System.out.println("Before List::" + beforeList.get(criteria.getKey()).trim());
+					if (afterList.get(criteria.getKey()).trim()
+							.contains(_getBeforeDateIncrementedByNum(beforeList.get(criteria.getKey()).trim(),
+									Integer.parseInt(line.split("Y")[0].split("\\+")[1])))) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NOT NULL}")) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NOT NULL}")) {
 					if (afterList.get(criteria.getKey()).trim().isEmpty()) {
 						ResultList.put(criteria.getKey() + "", "n");
 					} else {
 						ResultList.put(criteria.getKey() + "", "y");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{DATE CHANGE}")) {
-					if (beforeList
-							.get(criteria.getKey())
-							.trim()
-							.equalsIgnoreCase(
-									afterList.get(criteria.getKey()).trim())) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{DATE CHANGE}")) {
+					if (beforeList.get(criteria.getKey()).trim()
+							.equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
 						ResultList.put(criteria.getKey() + "", "n");
 					} else {
 						ResultList.put(criteria.getKey() + "", "y");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NO CHANGE}")) {
-					if (beforeList.get(criteria.getKey()).trim()
-							.contains(afterList.get(criteria.getKey()).trim())) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")) {
+					if (beforeList.get(criteria.getKey()).trim().contains(afterList.get(criteria.getKey()).trim())) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
@@ -3342,50 +3073,32 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				r = Pattern.compile(pattern);
 				m = r.matcher(line);
 				if (m.find()) {
-					System.out
-							.println("MP Eff Date \n Line::"
-									+ line
-									+ "Incremented By ::"
-									+ Integer.parseInt(line.split("Y")[0]
-											.split("\\+")[1]));
-					System.out.println("After List ::"
-							+ afterList.get(criteria.getKey()).trim());
-					System.out.println("Before List::"
-							+ beforeList.get(criteria.getKey()).trim());
-					if (afterList
-							.get(criteria.getKey())
-							.trim()
-							.contains(
-									_getBeforeDateIncrementedByNum(beforeList
-											.get(criteria.getKey()).trim(),
-											Integer.parseInt(line.split("Y")[0]
-													.split("\\+")[1])))) {
+					System.out.println("MP Eff Date \n Line::" + line + "Incremented By ::"
+							+ Integer.parseInt(line.split("Y")[0].split("\\+")[1]));
+					System.out.println("After List ::" + afterList.get(criteria.getKey()).trim());
+					System.out.println("Before List::" + beforeList.get(criteria.getKey()).trim());
+					if (afterList.get(criteria.getKey()).trim()
+							.contains(_getBeforeDateIncrementedByNum(beforeList.get(criteria.getKey()).trim(),
+									Integer.parseInt(line.split("Y")[0].split("\\+")[1])))) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NOT NULL}")) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NOT NULL}")) {
 					if (afterList.get(criteria.getKey()).trim().isEmpty()) {
 						ResultList.put(criteria.getKey() + "", "n");
 					} else {
 						ResultList.put(criteria.getKey() + "", "y");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{DATE CHANGE}")) {
-					if (beforeList
-							.get(criteria.getKey())
-							.trim()
-							.equalsIgnoreCase(
-									afterList.get(criteria.getKey()).trim())) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{DATE CHANGE}")) {
+					if (beforeList.get(criteria.getKey()).trim()
+							.equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
 						ResultList.put(criteria.getKey() + "", "n");
 					} else {
 						ResultList.put(criteria.getKey() + "", "y");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NO CHANGE}")) {
-					if (beforeList.get(criteria.getKey()).trim()
-							.contains(afterList.get(criteria.getKey()).trim())) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")) {
+					if (beforeList.get(criteria.getKey()).trim().contains(afterList.get(criteria.getKey()).trim())) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
@@ -3398,50 +3111,32 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				r = Pattern.compile(pattern);
 				m = r.matcher(line);
 				if (m.find()) {
-					System.out
-							.println("MP Exp Date \n Line::"
-									+ line
-									+ "Incremented By ::"
-									+ Integer.parseInt(line.split("Y")[0]
-											.split("\\+")[1]));
-					System.out.println("After List ::"
-							+ afterList.get(criteria.getKey()).trim());
-					System.out.println("Before List::"
-							+ beforeList.get(criteria.getKey()).trim());
-					if (afterList
-							.get(criteria.getKey())
-							.trim()
-							.contains(
-									_getBeforeDateIncrementedByNum(beforeList
-											.get(criteria.getKey()).trim(),
-											Integer.parseInt(line.split("Y")[0]
-													.split("\\+")[1])))) {
+					System.out.println("MP Exp Date \n Line::" + line + "Incremented By ::"
+							+ Integer.parseInt(line.split("Y")[0].split("\\+")[1]));
+					System.out.println("After List ::" + afterList.get(criteria.getKey()).trim());
+					System.out.println("Before List::" + beforeList.get(criteria.getKey()).trim());
+					if (afterList.get(criteria.getKey()).trim()
+							.contains(_getBeforeDateIncrementedByNum(beforeList.get(criteria.getKey()).trim(),
+									Integer.parseInt(line.split("Y")[0].split("\\+")[1])))) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NOT NULL}")) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NOT NULL}")) {
 					if (afterList.get(criteria.getKey()).trim().isEmpty()) {
 						ResultList.put(criteria.getKey() + "", "n");
 					} else {
 						ResultList.put(criteria.getKey() + "", "y");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{DATE CHANGE}")) {
-					if (beforeList
-							.get(criteria.getKey())
-							.trim()
-							.equalsIgnoreCase(
-									afterList.get(criteria.getKey()).trim())) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{DATE CHANGE}")) {
+					if (beforeList.get(criteria.getKey()).trim()
+							.equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
 						ResultList.put(criteria.getKey() + "", "n");
 					} else {
 						ResultList.put(criteria.getKey() + "", "y");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NO CHANGE}")) {
-					if (beforeList.get(criteria.getKey()).trim()
-							.contains(afterList.get(criteria.getKey()).trim())) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")) {
+					if (beforeList.get(criteria.getKey()).trim().contains(afterList.get(criteria.getKey()).trim())) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
@@ -3454,41 +3149,28 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				r = Pattern.compile(pattern);
 				m = r.matcher(line);
 				if (m.find()) {
-					if (afterList
-							.get(criteria.getKey())
-							.trim()
-							.equalsIgnoreCase(
-									_getYOSIncrementedByNum(
-											beforeList.get(criteria.getKey())
-													.trim(),
-											Integer.parseInt(line.split("Y")[0]
-													.split("\\+")[1])))) {
+					if (afterList.get(criteria.getKey()).trim()
+							.equalsIgnoreCase(_getYOSIncrementedByNum(beforeList.get(criteria.getKey()).trim(),
+									Integer.parseInt(line.split("Y")[0].split("\\+")[1])))) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NO CHANGE}")) {
-					if (beforeList
-							.get(criteria.getKey())
-							.trim()
-							.equalsIgnoreCase(
-									afterList.get(criteria.getKey()).trim())) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")) {
+					if (beforeList.get(criteria.getKey()).trim()
+							.equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NOT NULL}")) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NOT NULL}")) {
 					if (afterList.get(criteria.getKey()).trim().isEmpty()) {
 						ResultList.put(criteria.getKey() + "", "n");
 					} else {
 						ResultList.put(criteria.getKey() + "", "y");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{DATE CHANGE}")) {
-					if (beforeList.get(criteria.getKey()).trim()
-							.contains(afterList.get(criteria.getKey()).trim())) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{DATE CHANGE}")) {
+					if (beforeList.get(criteria.getKey()).trim().contains(afterList.get(criteria.getKey()).trim())) {
 						ResultList.put(criteria.getKey() + "", "n");
 					} else {
 						ResultList.put(criteria.getKey() + "", "y");
@@ -3496,69 +3178,51 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				}
 				break;
 			case "MP Pmt Status":
-				if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{IGNORE}")) {
+				if (criteriaList.get(criteria.getKey()).trim().contains("{IGNORE}")) {
 					ResultList.put(criteria.getKey() + "", "y");
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.toLowerCase().contains("unpaid|credit")) {
-					System.out.println("SpreadSheet data:: "
-							+ criteriaList.get(criteria.getKey()).trim()
-									.toLowerCase());
-					String sp[] = criteriaList.get(criteria.getKey()).trim()
-							.toLowerCase().split("\\|");
+				} else if (criteriaList.get(criteria.getKey()).trim().toLowerCase().contains("unpaid|credit")) {
+					System.out
+							.println("SpreadSheet data:: " + criteriaList.get(criteria.getKey()).trim().toLowerCase());
+					String sp[] = criteriaList.get(criteria.getKey()).trim().toLowerCase().split("\\|");
 					System.out.println("SP 0:: " + sp[0]);
 					System.out.println("SP 1:: " + sp[1]);
-					if ((afterList.get(criteria.getKey()).trim().toLowerCase()
-							.contains(sp[0]))
-							|| (afterList.get(criteria.getKey()).trim()
-									.toLowerCase().contains(sp[1]))) {
+					if ((afterList.get(criteria.getKey()).trim().toLowerCase().contains(sp[0]))
+							|| (afterList.get(criteria.getKey()).trim().toLowerCase().contains(sp[1]))) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
 					}
-				} else if (criteriaList
-						.get(criteria.getKey())
-						.trim()
-						.equalsIgnoreCase(
-								(afterList.get(criteria.getKey()).trim()))) {
+				} else if (criteriaList.get(criteria.getKey()).trim()
+						.equalsIgnoreCase((afterList.get(criteria.getKey()).trim()))) {
 					ResultList.put(criteria.getKey() + "", "y");
 				} else {
 					ResultList.put(criteria.getKey() + "", "n");
 				}
 				break;
 			case "MP Product":
-				if (afterList
-						.get(criteria.getKey())
-						.trim()
-						.equalsIgnoreCase(
-								criteriaList.get(criteria.getKey()).trim())) {
+				if (afterList.get(criteria.getKey()).trim()
+						.equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
 					ResultList.put(criteria.getKey() + "", "y");
 				} else {
 					ResultList.put(criteria.getKey() + "", "n");
 				}
 				break;
 			case "MP Balance":
-				if (criteriaList.get(criteria.getKey()).trim()
-						.equalsIgnoreCase("{GT 0}")) {
-					if (Float.parseFloat(afterList.get(criteria.getKey())
-							.trim()) > 0) {
+				if (criteriaList.get(criteria.getKey()).trim().equalsIgnoreCase("{GT 0}")) {
+					if (Float.parseFloat(afterList.get(criteria.getKey()).trim()) > 0) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.equalsIgnoreCase("0")) {
-					if (Float.parseFloat(afterList.get(criteria.getKey())
-							.trim()) == Float.parseFloat(criteriaList.get(
-							criteria.getKey()).trim())) {
+				} else if (criteriaList.get(criteria.getKey()).trim().equalsIgnoreCase("0")) {
+					if (Float.parseFloat(afterList.get(criteria.getKey()).trim()) == Float
+							.parseFloat(criteriaList.get(criteria.getKey()).trim())) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NO CHANGE}")) {
-					if (beforeList.get(criteria.getKey()).trim()
-							.contains(afterList.get(criteria.getKey()).trim())) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")) {
+					if (beforeList.get(criteria.getKey()).trim().contains(afterList.get(criteria.getKey()).trim())) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
@@ -3571,56 +3235,37 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				r = Pattern.compile(pattern);
 				m = r.matcher(line);
 				if (m.find()) {
-					System.out
-							.println("MP Start \n Line::"
-									+ line
-									+ "Incremented By ::"
-									+ Integer.parseInt(line.split("Y")[0]
-											.split("\\+")[1]));
-					System.out.println("After List ::"
-							+ afterList.get(criteria.getKey()).trim());
-					System.out.println("Before List::"
-							+ beforeList.get(criteria.getKey()).trim());
-					if (afterList
-							.get(criteria.getKey())
-							.trim()
-							.contains(
-									_getBeforeDateIncrementedByNum(beforeList
-											.get(criteria.getKey()).trim(),
-											Integer.parseInt(line.split("Y")[0]
-													.split("\\+")[1])))) {
+					System.out.println("MP Start \n Line::" + line + "Incremented By ::"
+							+ Integer.parseInt(line.split("Y")[0].split("\\+")[1]));
+					System.out.println("After List ::" + afterList.get(criteria.getKey()).trim());
+					System.out.println("Before List::" + beforeList.get(criteria.getKey()).trim());
+					if (afterList.get(criteria.getKey()).trim()
+							.contains(_getBeforeDateIncrementedByNum(beforeList.get(criteria.getKey()).trim(),
+									Integer.parseInt(line.split("Y")[0].split("\\+")[1])))) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NOT NULL}")) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NOT NULL}")) {
 					if (afterList.get(criteria.getKey()).trim().isEmpty()) {
 						ResultList.put(criteria.getKey() + "", "n");
 					} else {
 						ResultList.put(criteria.getKey() + "", "y");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{DATE CHANGE}")) {
-					if (beforeList
-							.get(criteria.getKey())
-							.trim()
-							.equalsIgnoreCase(
-									afterList.get(criteria.getKey()).trim())) {
-						ResultList.put(criteria.getKey() + "", "n");
-					} else {
-						ResultList.put(criteria.getKey() + "", "y");
-					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NO CHANGE}")) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{DATE CHANGE}")) {
 					if (beforeList.get(criteria.getKey()).trim()
-							.contains(afterList.get(criteria.getKey()).trim())) {
+							.equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
+						ResultList.put(criteria.getKey() + "", "n");
+					} else {
+						ResultList.put(criteria.getKey() + "", "y");
+					}
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")) {
+					if (beforeList.get(criteria.getKey()).trim().contains(afterList.get(criteria.getKey()).trim())) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NULL}")) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NULL}")) {
 					if (afterList.get(criteria.getKey()).trim().isEmpty()) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
@@ -3634,56 +3279,37 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				r = Pattern.compile(pattern);
 				m = r.matcher(line);
 				if (m.find()) {
-					System.out
-							.println("MP End \n Line::"
-									+ line
-									+ "Incremented By ::"
-									+ Integer.parseInt(line.split("Y")[0]
-											.split("\\+")[1]));
-					System.out.println("After List ::"
-							+ afterList.get(criteria.getKey()).trim());
-					System.out.println("Before List::"
-							+ beforeList.get(criteria.getKey()).trim());
-					if (afterList
-							.get(criteria.getKey())
-							.trim()
-							.contains(
-									_getBeforeDateIncrementedByNum(beforeList
-											.get(criteria.getKey()).trim(),
-											Integer.parseInt(line.split("Y")[0]
-													.split("\\+")[1])))) {
+					System.out.println("MP End \n Line::" + line + "Incremented By ::"
+							+ Integer.parseInt(line.split("Y")[0].split("\\+")[1]));
+					System.out.println("After List ::" + afterList.get(criteria.getKey()).trim());
+					System.out.println("Before List::" + beforeList.get(criteria.getKey()).trim());
+					if (afterList.get(criteria.getKey()).trim()
+							.contains(_getBeforeDateIncrementedByNum(beforeList.get(criteria.getKey()).trim(),
+									Integer.parseInt(line.split("Y")[0].split("\\+")[1])))) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NOT NULL}")) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NOT NULL}")) {
 					if (afterList.get(criteria.getKey()).trim().isEmpty()) {
 						ResultList.put(criteria.getKey() + "", "n");
 					} else {
 						ResultList.put(criteria.getKey() + "", "y");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{DATE CHANGE}")) {
-					if (beforeList
-							.get(criteria.getKey())
-							.trim()
-							.equalsIgnoreCase(
-									afterList.get(criteria.getKey()).trim())) {
-						ResultList.put(criteria.getKey() + "", "n");
-					} else {
-						ResultList.put(criteria.getKey() + "", "y");
-					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NO CHANGE}")) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{DATE CHANGE}")) {
 					if (beforeList.get(criteria.getKey()).trim()
-							.contains(afterList.get(criteria.getKey()).trim())) {
+							.equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
+						ResultList.put(criteria.getKey() + "", "n");
+					} else {
+						ResultList.put(criteria.getKey() + "", "y");
+					}
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")) {
+					if (beforeList.get(criteria.getKey()).trim().contains(afterList.get(criteria.getKey()).trim())) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NULL}")) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NULL}")) {
 					if (afterList.get(criteria.getKey()).trim().isEmpty()) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
@@ -3697,50 +3323,32 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				r = Pattern.compile(pattern);
 				m = r.matcher(line);
 				if (m.find()) {
-					System.out
-							.println("IVP TX DATE\n Line::"
-									+ line
-									+ "Incremented By ::"
-									+ Integer.parseInt(line.split("Y")[0]
-											.split("\\+")[1]));
-					System.out.println("After List ::"
-							+ afterList.get(criteria.getKey()).trim());
-					System.out.println("Before List::"
-							+ beforeList.get(criteria.getKey()).trim());
-					if (afterList
-							.get(criteria.getKey())
-							.trim()
-							.contains(
-									_getBeforeDateIncrementedByNum(beforeList
-											.get(criteria.getKey()).trim(),
-											Integer.parseInt(line.split("Y")[0]
-													.split("\\+")[1])))) {
+					System.out.println("IVP TX DATE\n Line::" + line + "Incremented By ::"
+							+ Integer.parseInt(line.split("Y")[0].split("\\+")[1]));
+					System.out.println("After List ::" + afterList.get(criteria.getKey()).trim());
+					System.out.println("Before List::" + beforeList.get(criteria.getKey()).trim());
+					if (afterList.get(criteria.getKey()).trim()
+							.contains(_getBeforeDateIncrementedByNum(beforeList.get(criteria.getKey()).trim(),
+									Integer.parseInt(line.split("Y")[0].split("\\+")[1])))) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NOT NULL}")) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NOT NULL}")) {
 					if (afterList.get(criteria.getKey()).trim().isEmpty()) {
 						ResultList.put(criteria.getKey() + "", "n");
 					} else {
 						ResultList.put(criteria.getKey() + "", "y");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{DATE CHANGE}")) {
-					if (beforeList
-							.get(criteria.getKey())
-							.trim()
-							.equalsIgnoreCase(
-									afterList.get(criteria.getKey()).trim())) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{DATE CHANGE}")) {
+					if (beforeList.get(criteria.getKey()).trim()
+							.equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
 						ResultList.put(criteria.getKey() + "", "n");
 					} else {
 						ResultList.put(criteria.getKey() + "", "y");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NO CHANGE}")) {
-					if (beforeList.get(criteria.getKey()).trim()
-							.contains(afterList.get(criteria.getKey()).trim())) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")) {
+					if (beforeList.get(criteria.getKey()).trim().contains(afterList.get(criteria.getKey()).trim())) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
@@ -3748,25 +3356,18 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				}
 				break;
 			case "IVP Proforma":
-				if (afterList
-						.get(criteria.getKey())
-						.trim()
-						.equalsIgnoreCase(
-								criteriaList.get(criteria.getKey()).trim())) {
+				if (afterList.get(criteria.getKey()).trim()
+						.equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
 					ResultList.put(criteria.getKey() + "", "y");
 				} else {
 					ResultList.put(criteria.getKey() + "", "n");
 				}
 				break;
 			case "IVP Fully Paid":
-				if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{IGNORE}")) {
+				if (criteriaList.get(criteria.getKey()).trim().contains("{IGNORE}")) {
 					ResultList.put(criteria.getKey() + "", "y");
-				} else if (afterList
-						.get(criteria.getKey())
-						.trim()
-						.equalsIgnoreCase(
-								criteriaList.get(criteria.getKey()).trim())) {
+				} else if (afterList.get(criteria.getKey()).trim()
+						.equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
 					ResultList.put(criteria.getKey() + "", "y");
 				} else {
 					ResultList.put(criteria.getKey() + "", "n");
@@ -3774,22 +3375,16 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 				break;
 			case "IDP Mbr Type":
-				if (afterList
-						.get(criteria.getKey())
-						.trim()
-						.equalsIgnoreCase(
-								criteriaList.get(criteria.getKey()).trim())) {
+				if (afterList.get(criteria.getKey()).trim()
+						.equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
 					ResultList.put(criteria.getKey() + "", "y");
 				} else {
 					ResultList.put(criteria.getKey() + "", "n");
 				}
 				break;
 			case "IDP Mbr Status":
-				if (afterList
-						.get(criteria.getKey())
-						.trim()
-						.equalsIgnoreCase(
-								criteriaList.get(criteria.getKey()).trim())) {
+				if (afterList.get(criteria.getKey()).trim()
+						.equalsIgnoreCase(criteriaList.get(criteria.getKey()).trim())) {
 					ResultList.put(criteria.getKey() + "", "y");
 				} else {
 					ResultList.put(criteria.getKey() + "", "n");
@@ -3801,50 +3396,32 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				r = Pattern.compile(pattern);
 				m = r.matcher(line);
 				if (m.find()) {
-					System.out
-							.println("IDP Join DATE\n Line::"
-									+ line
-									+ "Incremented By ::"
-									+ Integer.parseInt(line.split("Y")[0]
-											.split("\\+")[1]));
-					System.out.println("After List ::"
-							+ afterList.get(criteria.getKey()).trim());
-					System.out.println("Before List::"
-							+ beforeList.get(criteria.getKey()).trim());
-					if (afterList
-							.get(criteria.getKey())
-							.trim()
-							.contains(
-									_getBeforeDateIncrementedByNum(beforeList
-											.get(criteria.getKey()).trim(),
-											Integer.parseInt(line.split("Y")[0]
-													.split("\\+")[1])))) {
+					System.out.println("IDP Join DATE\n Line::" + line + "Incremented By ::"
+							+ Integer.parseInt(line.split("Y")[0].split("\\+")[1]));
+					System.out.println("After List ::" + afterList.get(criteria.getKey()).trim());
+					System.out.println("Before List::" + beforeList.get(criteria.getKey()).trim());
+					if (afterList.get(criteria.getKey()).trim()
+							.contains(_getBeforeDateIncrementedByNum(beforeList.get(criteria.getKey()).trim(),
+									Integer.parseInt(line.split("Y")[0].split("\\+")[1])))) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NOT NULL}")) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NOT NULL}")) {
 					if (afterList.get(criteria.getKey()).trim().isEmpty()) {
 						ResultList.put(criteria.getKey() + "", "n");
 					} else {
 						ResultList.put(criteria.getKey() + "", "y");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{DATE CHANGE}")) {
-					if (beforeList
-							.get(criteria.getKey())
-							.trim()
-							.equalsIgnoreCase(
-									afterList.get(criteria.getKey()).trim())) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{DATE CHANGE}")) {
+					if (beforeList.get(criteria.getKey()).trim()
+							.equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
 						ResultList.put(criteria.getKey() + "", "n");
 					} else {
 						ResultList.put(criteria.getKey() + "", "y");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NO CHANGE}")) {
-					if (beforeList.get(criteria.getKey()).trim()
-							.contains(afterList.get(criteria.getKey()).trim())) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")) {
+					if (beforeList.get(criteria.getKey()).trim().contains(afterList.get(criteria.getKey()).trim())) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
@@ -3857,50 +3434,32 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				r = Pattern.compile(pattern);
 				m = r.matcher(line);
 				if (m.find()) {
-					System.out
-							.println("IDP Eff DATE\n Line::"
-									+ line
-									+ "Incremented By ::"
-									+ Integer.parseInt(line.split("Y")[0]
-											.split("\\+")[1]));
-					System.out.println("After List ::"
-							+ afterList.get(criteria.getKey()).trim());
-					System.out.println("Before List::"
-							+ beforeList.get(criteria.getKey()).trim());
-					if (afterList
-							.get(criteria.getKey())
-							.trim()
-							.contains(
-									_getBeforeDateIncrementedByNum(beforeList
-											.get(criteria.getKey()).trim(),
-											Integer.parseInt(line.split("Y")[0]
-													.split("\\+")[1])))) {
+					System.out.println("IDP Eff DATE\n Line::" + line + "Incremented By ::"
+							+ Integer.parseInt(line.split("Y")[0].split("\\+")[1]));
+					System.out.println("After List ::" + afterList.get(criteria.getKey()).trim());
+					System.out.println("Before List::" + beforeList.get(criteria.getKey()).trim());
+					if (afterList.get(criteria.getKey()).trim()
+							.contains(_getBeforeDateIncrementedByNum(beforeList.get(criteria.getKey()).trim(),
+									Integer.parseInt(line.split("Y")[0].split("\\+")[1])))) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NOT NULL}")) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NOT NULL}")) {
 					if (afterList.get(criteria.getKey()).trim().isEmpty()) {
 						ResultList.put(criteria.getKey() + "", "n");
 					} else {
 						ResultList.put(criteria.getKey() + "", "y");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{DATE CHANGE}")) {
-					if (beforeList
-							.get(criteria.getKey())
-							.trim()
-							.equalsIgnoreCase(
-									afterList.get(criteria.getKey()).trim())) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{DATE CHANGE}")) {
+					if (beforeList.get(criteria.getKey()).trim()
+							.equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
 						ResultList.put(criteria.getKey() + "", "n");
 					} else {
 						ResultList.put(criteria.getKey() + "", "y");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NO CHANGE}")) {
-					if (beforeList.get(criteria.getKey()).trim()
-							.contains(afterList.get(criteria.getKey()).trim())) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")) {
+					if (beforeList.get(criteria.getKey()).trim().contains(afterList.get(criteria.getKey()).trim())) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
@@ -3913,50 +3472,32 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				r = Pattern.compile(pattern);
 				m = r.matcher(line);
 				if (m.find()) {
-					System.out
-							.println("IDP EXP DATE\n Line::"
-									+ line
-									+ "Incremented By ::"
-									+ Integer.parseInt(line.split("Y")[0]
-											.split("\\+")[1]));
-					System.out.println("After List ::"
-							+ afterList.get(criteria.getKey()).trim());
-					System.out.println("Before List::"
-							+ beforeList.get(criteria.getKey()).trim());
-					if (afterList
-							.get(criteria.getKey())
-							.trim()
-							.contains(
-									_getBeforeDateIncrementedByNum(beforeList
-											.get(criteria.getKey()).trim(),
-											Integer.parseInt(line.split("Y")[0]
-													.split("\\+")[1])))) {
+					System.out.println("IDP EXP DATE\n Line::" + line + "Incremented By ::"
+							+ Integer.parseInt(line.split("Y")[0].split("\\+")[1]));
+					System.out.println("After List ::" + afterList.get(criteria.getKey()).trim());
+					System.out.println("Before List::" + beforeList.get(criteria.getKey()).trim());
+					if (afterList.get(criteria.getKey()).trim()
+							.contains(_getBeforeDateIncrementedByNum(beforeList.get(criteria.getKey()).trim(),
+									Integer.parseInt(line.split("Y")[0].split("\\+")[1])))) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NOT NULL}")) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NOT NULL}")) {
 					if (afterList.get(criteria.getKey()).trim().isEmpty()) {
 						ResultList.put(criteria.getKey() + "", "n");
 					} else {
 						ResultList.put(criteria.getKey() + "", "y");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{DATE CHANGE}")) {
-					if (beforeList
-							.get(criteria.getKey())
-							.trim()
-							.equalsIgnoreCase(
-									afterList.get(criteria.getKey()).trim())) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{DATE CHANGE}")) {
+					if (beforeList.get(criteria.getKey()).trim()
+							.equalsIgnoreCase(afterList.get(criteria.getKey()).trim())) {
 						ResultList.put(criteria.getKey() + "", "n");
 					} else {
 						ResultList.put(criteria.getKey() + "", "y");
 					}
-				} else if (criteriaList.get(criteria.getKey()).trim()
-						.contains("{NO CHANGE}")) {
-					if (beforeList.get(criteria.getKey()).trim()
-							.contains(afterList.get(criteria.getKey()).trim())) {
+				} else if (criteriaList.get(criteria.getKey()).trim().contains("{NO CHANGE}")) {
+					if (beforeList.get(criteria.getKey()).trim().contains(afterList.get(criteria.getKey()).trim())) {
 						ResultList.put(criteria.getKey() + "", "y");
 					} else {
 						ResultList.put(criteria.getKey() + "", "n");
@@ -3977,94 +3518,67 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		logMessage("===========================Here Are the Complete Test Log================================");
 
-		html = "<html><body><table border=1><tbody>"
-				+ "<tr><td>Case ID::</td><td>" + criteriaList.get("ID")
-				+ "<tr><td>Run Date::</td><td>"
-				+ DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy")
-				+ " " + DateUtil.getCurrentTime("hh:mm a", "IST")
-				+ "<tr><td>Member/Customer Id::</td><td>" + custId;
+		html = "<html><body><table border=1><tbody>" + "<tr><td>Case ID::</td><td>" + criteriaList.get("ID")
+				+ "<tr><td>Run Date::</td><td>" + DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy") + " "
+				+ DateUtil.getCurrentTime("hh:mm a", "IST") + "<tr><td>Member/Customer Id::</td><td>" + custId;
 
 		if (flag1) {
-			html = html + "<tr><td>Test Case Status::</td><td bgcolor='green'>"
-					+ "PASS </td></tr><tr>";
+			html = html + "<tr><td>Test Case Status::</td><td bgcolor='green'>" + "PASS </td></tr><tr>";
 		} else {
-			html = html + "<tr><td>Test Case Status::</td><td bgcolor='red'>"
-					+ "Fail </td></tr><tr>";
+			html = html + "<tr><td>Test Case Status::</td><td bgcolor='red'>" + "Fail </td></tr><tr>";
 		}
-		System.out.println("===>> Notes lenght::"
-				+ criteriaList.get("Notes").length());
+		System.out.println("===>> Notes lenght::" + criteriaList.get("Notes").length());
 		if (criteriaList.get("Notes").length() != 0) {
-			html = html + "<tr><td>Notes::</td><td bgcolor='yellow'>"
-					+ criteriaList.get("Notes") + "</td></tr><tr>";
+			html = html + "<tr><td>Notes::</td><td bgcolor='yellow'>" + criteriaList.get("Notes") + "</td></tr><tr>";
 		} else {
 			html = html + "<tr><td>Notes::</td><td>None </td></tr><tr>";
 		}
 
-		html = html
-				+ "<td><h1>Initial Conditions</h1></td></tr><tr><td><b>Initial Mbr Type::</b></td><td>"
-				+ criteriaList.get("Initial Mbr Type")
-				+ "</td></tr><tr><td><b>Initial Mbr Status::</b></td><td>"
-				+ criteriaList.get("Initial Mbr Status")
-				+ "</td></tr>"
-				+ "<tr><td><b>Initial Mbr Package::</b></td><td>"
-				+ criteriaList.get("Initial Mbr Package")
-				+ "</td></tr><tr><td><b>Initial MP Exp Date::</b></td><td>"
-				+ criteriaList.get("Initial MP Exp Date")
-				+ "</td></tr><tr><td><b>Target Mbr Type::</b></td><td>"
-				+ criteriaList.get("Target Mbr Type")
-				+ "</td></tr>"
-				+ "<tr><td><b>Target Mbr Package::</b></td><td>"
-				+ criteriaList.get("Target Mbr Package")
+		html = html + "<td><h1>Initial Conditions</h1></td></tr><tr><td><b>Initial Mbr Type::</b></td><td>"
+				+ criteriaList.get("Initial Mbr Type") + "</td></tr><tr><td><b>Initial Mbr Status::</b></td><td>"
+				+ criteriaList.get("Initial Mbr Status") + "</td></tr>"
+				+ "<tr><td><b>Initial Mbr Package::</b></td><td>" + criteriaList.get("Initial Mbr Package")
+				+ "</td></tr><tr><td><b>Initial MP Exp Date::</b></td><td>" + criteriaList.get("Initial MP Exp Date")
+				+ "</td></tr><tr><td><b>Target Mbr Type::</b></td><td>" + criteriaList.get("Target Mbr Type")
+				+ "</td></tr>" + "<tr><td><b>Target Mbr Package::</b></td><td>" + criteriaList.get("Target Mbr Package")
 				+ "</td></tr><tr><td><h1>Test Result</h1></tr></td>"
 				+ "<tr><td><h2>Field</h2></td><td><h2>Before</h2></td><td><h2>After</h2></td><td><h2>Expected</h2></td><td><h2>Pass?</h2></td></tr>";
 		logMessage("Case ID::" + criteriaList.get("ID"));
 		logMessage("Member/Customer ID::" + custId);
 		logMessage("Initial Conditions>");
 		logMessage("Initial Mbr Type::" + criteriaList.get("Initial Mbr Type"));
-		logMessage("Initial Mbr Status::"
-				+ criteriaList.get("Initial Mbr Status"));
-		logMessage("Initial Mbr Package::"
-				+ criteriaList.get("Initial Mbr Package"));
-		logMessage("Initial MP Exp Date::"
-				+ criteriaList.get("Initial MP Exp Date"));
+		logMessage("Initial Mbr Status::" + criteriaList.get("Initial Mbr Status"));
+		logMessage("Initial Mbr Package::" + criteriaList.get("Initial Mbr Package"));
+		logMessage("Initial MP Exp Date::" + criteriaList.get("Initial MP Exp Date"));
 		logMessage("Target Mbr Type::" + criteriaList.get("Target Mbr Type"));
-		logMessage("Target Mbr Package::"
-				+ criteriaList.get("Target Mbr Package"));
+		logMessage("Target Mbr Package::" + criteriaList.get("Target Mbr Package"));
 		logMessage("==========================================================================================");
 		logMessage("Test Result");
 		logMessage("Field==>Before==>After==>Expected==>Pass?");
 		for (Map.Entry before : beforeList.entrySet()) {
 			if (ResultList.get(before.getKey()).equalsIgnoreCase("n")) {
-				html = html + "<tr><td>" + before.getKey() + "</td><td>"
-						+ before.getValue() + "</td><td>"
-						+ afterList.get(before.getKey()) + "</td><td>"
-						+ criteriaList.get(before.getKey())
-						+ "</td><td bgcolor='red'>"
-						+ ResultList.get(before.getKey()) + "</td></tr>";
+				html = html + "<tr><td>" + before.getKey() + "</td><td>" + before.getValue() + "</td><td>"
+						+ afterList.get(before.getKey()) + "</td><td>" + criteriaList.get(before.getKey())
+						+ "</td><td bgcolor='red'>" + ResultList.get(before.getKey()) + "</td></tr>";
 			} else {
-				html = html + "<tr><td>" + before.getKey() + "</td><td>"
-						+ before.getValue() + "</td><td>"
-						+ afterList.get(before.getKey()) + "</td><td>"
-						+ criteriaList.get(before.getKey()) + "</td><td>"
+				html = html + "<tr><td>" + before.getKey() + "</td><td>" + before.getValue() + "</td><td>"
+						+ afterList.get(before.getKey()) + "</td><td>" + criteriaList.get(before.getKey()) + "</td><td>"
 						+ ResultList.get(before.getKey()) + "</td></tr>";
 			}
-			logMessage(before.getKey() + "==>" + before.getValue() + "==>"
-					+ afterList.get(before.getKey()) + "==>"
-					+ criteriaList.get(before.getKey()) + "==>"
-					+ ResultList.get(before.getKey()));
+			logMessage(before.getKey() + "==>" + before.getValue() + "==>" + afterList.get(before.getKey()) + "==>"
+					+ criteriaList.get(before.getKey()) + "==>" + ResultList.get(before.getKey()));
 		}
 		html = html + "</tbody></table></body></html>";
 		System.out.println("After Validation");
-		String Fpath = System.getProperty("user.dir") + File.separator
-				+ "test-output" + File.separator + "Member Transfer Test Logs";
-		ReformatTestFile.createMemberTransferCompleteTestLog(Fpath, html,
-				criteriaList.get("ID"));
-		Assert.assertTrue(
-				flag1,
+		String Fpath = System.getProperty("user.dir") + File.separator + "test-output" + File.separator
+				+ "Member Transfer Test Logs";
+		ReformatTestFile.createMemberTransferCompleteTestLog(Fpath, html, criteriaList.get("ID"));
+		Assert.assertTrue(flag1,
 				"[FAILED]:: Data for Before and After member transfer does not match the criteria FINAL Test Result ::"
 						+ flag1);
-		logMessage("[ASSERTION PASSED]:: Data for Before and After member transfer match the criteria FINAL Test Result ::"
-				+ flag1);
+		logMessage(
+				"[ASSERTION PASSED]:: Data for Before and After member transfer match the criteria FINAL Test Result ::"
+						+ flag1);
 		/* return ResultList; */
 	}
 
@@ -4080,8 +3594,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			Date d = formatter.parse(sdate);
 			c.setTime(d);
 			c.add(Calendar.YEAR, i);
-			System.out.println("Incremented Date::"
-					+ formatter.format(c.getTime()));
+			System.out.println("Incremented Date::" + formatter.format(c.getTime()));
 
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -4090,8 +3603,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		return formatter.format(c.getTime());
 	}
 
-	private boolean _verifyResultListData(
-			LinkedHashMap<String, String> resultList) {
+	private boolean _verifyResultListData(LinkedHashMap<String, String> resultList) {
 		boolean flag = true;
 		for (Map.Entry result : resultList.entrySet()) {
 			if (result.getValue().equals("n")) {
@@ -4103,41 +3615,29 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		return flag;
 	}
 
-	public void verifyDataBeforeTransferFullFilledTheCriteria(
-			LinkedHashMap<String, String> beforeList,
+	public void verifyDataBeforeTransferFullFilledTheCriteria(LinkedHashMap<String, String> beforeList,
 			HashMap<String, String> dataList, String ID, String custId) {
 		boolean flag = true;
 		for (Map.Entry before : beforeList.entrySet()) {
-			System.out.println("Before Key::"
-					+ before.getKey().toString().trim() + "1");
-			System.out.println("Data List Key Value::"
-					+ dataList.get(before.getKey().toString() + "1"));
+			System.out.println("Before Key::" + before.getKey().toString().trim() + "1");
+			System.out.println("Data List Key Value::" + dataList.get(before.getKey().toString() + "1"));
 			if (!(dataList.get(before.getKey().toString() + "1").isEmpty())) {
-				System.out.println("Before Value::"
-						+ before.getValue().toString().trim());
+				System.out.println("Before Value::" + before.getValue().toString().trim());
 				if (!(before.getValue().toString().trim()
-						.equalsIgnoreCase(dataList.get(before.getKey()
-								.toString().trim()
-								+ "1")))) {
+						.equalsIgnoreCase(dataList.get(before.getKey().toString().trim() + "1")))) {
 					flag = false;
-					logMessage("[FAILED]:: Data Before Member Transfer for Key "
-							+ before.getKey()
-							+ "::"
-							+ before.getValue()
-							+ " did not match with the data in the spreadsheet Key"
-							+ before.getKey()
-							+ "::"
-							+ dataList.get(before.getKey().toString().trim()
-									+ "1"));
+					logMessage("[FAILED]:: Data Before Member Transfer for Key " + before.getKey() + "::"
+							+ before.getValue() + " did not match with the data in the spreadsheet Key"
+							+ before.getKey() + "::" + dataList.get(before.getKey().toString().trim() + "1"));
 					break;
 				}
 			}
 		}
 		Assert.assertTrue(flag,
-				"[FAILED]:: Can't do Member Transfer Now for CASE ID :: " + ID
-						+ " for Customer ID::" + custId);
-		logMessage("[ASSERTION PASSED]:: Data Before Member Transfer matched with the data mentioned in spreadsheet, Can do Member Transfer Now for CASE ID "
-				+ ID);
+				"[FAILED]:: Can't do Member Transfer Now for CASE ID :: " + ID + " for Customer ID::" + custId);
+		logMessage(
+				"[ASSERTION PASSED]:: Data Before Member Transfer matched with the data mentioned in spreadsheet, Can do Member Transfer Now for CASE ID "
+						+ ID);
 	}
 
 	public void verifyReportingStartAndEndDate() {
@@ -4146,42 +3646,32 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		boolean value;
 		isElementDisplayed("table_rows");
 		for (int i = 1; i < elements("table_rows").size(); i++) {
-			if (element("txt_current", String.valueOf(i)).getText().trim()
-					.equals("Yes")) {
-				reportingStartDate = element("txt_startDate", String.valueOf(i))
-						.getText();
-				reportingEndDate = element("txt_endDate", String.valueOf(i),
-						String.valueOf(9)).getText();
+			if (element("txt_current", String.valueOf(i)).getText().trim().equals("Yes")) {
+				reportingStartDate = element("txt_startDate", String.valueOf(i)).getText();
+				reportingEndDate = element("txt_endDate", String.valueOf(i), String.valueOf(9)).getText();
 				index = i;
 				break;
 			}
 		}
 		value = verfiyEndAndStartDate(reportingEndDate, reportingStartDate);
-		Assert.assertTrue(
-				value,
-				"ASSERT FAIL : Current date does not lies within the Reporting start and end date\n");
+		Assert.assertTrue(value, "ASSERT FAIL : Current date does not lies within the Reporting start and end date\n");
 		logMessage("ASSERT PASSED : Current date lies within the Reporting start and end date\n");
 	}
 
-	public boolean verfiyEndAndStartDate(String reportingEndDate,
-			String reportingStartDate) {
+	public boolean verfiyEndAndStartDate(String reportingEndDate, String reportingStartDate) {
 		int endDate, startDate;
-		logMessage("Current Date:"
-				+ DateUtil.getCurrentdateInStringWithGivenFormate("M/dd/yyyy"));
+		logMessage("Current Date:" + DateUtil.getCurrentdateInStringWithGivenFormate("M/dd/yyyy"));
 		logMessage("End Date:" + reportingEndDate);
-		endDate = DateUtil.convertStringToDate(
-				DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
-				"MM/dd/yyyy").compareTo(
-				DateUtil.convertStringToDate(reportingEndDate, "MM/dd/yyyy"));
-		logMessage("Current Date:"
-				+ DateUtil.getCurrentdateInStringWithGivenFormate("M/dd/yyyy"));
+		endDate = DateUtil
+				.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"), "MM/dd/yyyy")
+				.compareTo(DateUtil.convertStringToDate(reportingEndDate, "MM/dd/yyyy"));
+		logMessage("Current Date:" + DateUtil.getCurrentdateInStringWithGivenFormate("M/dd/yyyy"));
 		// logMessage("Start Date:" +
 		// DateUtil.convertStringToDate(reportingStartDate, "MM/dd/yyyy"));
 		logMessage("Start Date:" + reportingStartDate);
-		startDate = DateUtil.convertStringToDate(
-				DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
-				"MM/dd/yyyy").compareTo(
-				DateUtil.convertStringToDate(reportingStartDate, "MM/dd/yyyy"));
+		startDate = DateUtil
+				.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"), "MM/dd/yyyy")
+				.compareTo(DateUtil.convertStringToDate(reportingStartDate, "MM/dd/yyyy"));
 
 		if (endDate == -1 && startDate == 1)
 			return true;
@@ -4194,20 +3684,20 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnRandomPage();
 		clickOnAnyRandomMember();
 	}
-	public void selectRandomCustomer()
-	{
+
+	public void selectRandomCustomer() {
 		wait.waitForPageToLoadCompletely();
 		clickOnRandomPage();
 		sortTheMembers();
 		clickOnAnyRandomMember();
 	}
-	public void sortTheMembers()
-	{
-		isElementDisplayed("table_header","Sort Name");
+
+	public void sortTheMembers() {
+		isElementDisplayed("table_header", "Sort Name");
 	}
+
 	public void clickOnRelationsOptionUnderMoreMenu() {
-		IndividualsPageActions_IWEB object = new IndividualsPageActions_IWEB(
-				driver);
+		IndividualsPageActions_IWEB object = new IndividualsPageActions_IWEB(driver);
 		object.navigateToGeneralMenuOnHoveringMore("Relations");
 		expandDetailsMenu("active student member undergrads");
 	}
@@ -4231,8 +3721,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			flag = verifyStudentMemberEndDate(i);
 			if (flag) {
 				logMessage("ASSERT PASSED : End date for student member "
-						+ element("txt_endDate", String.valueOf(i),
-								String.valueOf(4)).getText().trim()
+						+ element("txt_endDate", String.valueOf(i), String.valueOf(4)).getText().trim()
 						+ "is not equal to Current Date\n");
 				clickOnStudentMemberName(i);
 				break;
@@ -4243,16 +3732,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public boolean verifyStudentMemberEndDate(int i) {
 		boolean flag = false;
-		logMessage("STEP : Current Date:"
-				+ DateUtil.getCurrentdateInStringWithGivenFormate("M/dd/yyyy"));
-		Date currDate = DateUtil.convertStringToDate(
-				DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
+		logMessage("STEP : Current Date:" + DateUtil.getCurrentdateInStringWithGivenFormate("M/dd/yyyy"));
+		Date currDate = DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
 				"MM/dd/yyyy");
 		Date endDate = DateUtil.convertStringToDate(
-				element("txt_endDate", String.valueOf(i), String.valueOf(7))
-						.getText().trim(), "MM/dd/yyyy");
-		if (currDate.compareTo(endDate) == -1
-				|| currDate.compareTo(endDate) == 1) {
+				element("txt_endDate", String.valueOf(i), String.valueOf(7)).getText().trim(), "MM/dd/yyyy");
+		if (currDate.compareTo(endDate) == -1 || currDate.compareTo(endDate) == 1) {
 			flag = true;
 		}
 		return flag;
@@ -4262,28 +3747,27 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 		isElementDisplayed("arrow_selectMember", String.valueOf(i));
 		logMessage("STEP : Selected Student Member is "
-				+ element("txt_endDate", String.valueOf(i), String.valueOf(4))
-						.getText().trim());
+				+ element("txt_endDate", String.valueOf(i), String.valueOf(4)).getText().trim());
 		element("arrow_selectMember", String.valueOf(i)).click();
 	}
 
 	public void verifyPayment(int index) {
-		isElementDisplayed("txt_endDate", String.valueOf(index),
-				String.valueOf(8));
-		String payment = element("txt_endDate", String.valueOf(index),
-				String.valueOf(8)).getText().trim();
-		Assert.assertTrue(Double.parseDouble(payment) == 0.00,
-				"ASSERT FAILED : Payment value is not 0.00\n");
+		isElementDisplayed("txt_endDate", String.valueOf(index), String.valueOf(8));
+		String payment = element("txt_endDate", String.valueOf(index), String.valueOf(8)).getText().trim();
+		Assert.assertTrue(Double.parseDouble(payment) == 0.00, "ASSERT FAILED : Payment value is not 0.00\n");
 		logMessage("ASSERT PASSED : Payment value is 0.00\n");
 	}
 
 	public void verifyBalance(int index) {
-		isElementDisplayed("txt_endDate", String.valueOf(index),
-				String.valueOf(9));
-		String balance = element("txt_endDate", String.valueOf(index),
-				String.valueOf(9)).getText().trim();
-		Assert.assertNotEquals(Double.parseDouble(balance), 0.00, 0.01,
-				"ASSERT FAILED : Balance value is null\n");// (Double.parseDouble(balance)==0.00,"ASSERT FAILED : Balance value is 0.00");
+		isElementDisplayed("txt_endDate", String.valueOf(index), String.valueOf(9));
+		String balance = element("txt_endDate", String.valueOf(index), String.valueOf(9)).getText().trim();
+		Assert.assertNotEquals(Double.parseDouble(balance), 0.00, 0.01, "ASSERT FAILED : Balance value is null\n");// (Double.parseDouble(balance)==0.00,"ASSERT
+																													// FAILED
+																													// :
+																													// Balance
+																													// value
+																													// is
+																													// 0.00");
 		logMessage("ASSERT PASSED : Balance value is not null\n");
 	}
 
@@ -4299,8 +3783,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	// break;
 	// }
 	// }
-	// Assert.assertTrue(flag,"ASSERT FAILED : "+productName+" product is not present under menu");
-	// logMessage("ASSERT PASSED : "+productName+" product is present under invoices at index "+i);
+	// Assert.assertTrue(flag,"ASSERT FAILED : "+productName+" product is not
+	// present under menu");
+	// logMessage("ASSERT PASSED : "+productName+" product is present under
+	// invoices at index "+i);
 	// return i;
 	// }
 
@@ -4309,16 +3795,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		flag = false;
 		waitForSpinner();
 		for (i = 1; i <= elements("table_rows").size(); i++) {
-			if (element("txt_endDate", String.valueOf(i), String.valueOf(4))
-					.getText().trim().equals(productName)) {
+			if (element("txt_endDate", String.valueOf(i), String.valueOf(4)).getText().trim().equals(productName)) {
 				flag = true;
 				break;
 			}
 		}
-		Assert.assertTrue(flag, "ASSERT FAILED : " + productName
-				+ " product is not present under menu");
-		logMessage("ASSERT PASSED : " + productName
-				+ " product is present under invoices at index " + i);
+		Assert.assertTrue(flag, "ASSERT FAILED : " + productName + " product is not present under menu");
+		logMessage("ASSERT PASSED : " + productName + " product is present under invoices at index " + i);
 		return i;
 	}
 
@@ -4342,38 +3825,30 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	private void verifyStartAndEndDateForReviewerType(String reviewerType) {
 		String reviewingStartDate = reviewerType + " start date";
 		String reviewingEndDate = reviewerType + " end date";
-		reviewingStartDate = element("inp_dateForReviewModes",
-				reviewingStartDate).getAttribute("value");
-		reviewingEndDate = element("inp_dateForReviewModes", reviewingEndDate)
-				.getAttribute("value");
-		Assert.assertTrue(
-				verfiyEndAndStartDate(reviewingEndDate, reviewingStartDate),
-				"ASSERT FAIL : Current date does not lies within the "
-						+ reviewerType + " start and end date\n");
-		logMessage("ASSERT PASSED : Current date lies within the "
-				+ reviewerType + " start and end date\n");
+		reviewingStartDate = element("inp_dateForReviewModes", reviewingStartDate).getAttribute("value");
+		reviewingEndDate = element("inp_dateForReviewModes", reviewingEndDate).getAttribute("value");
+		Assert.assertTrue(verfiyEndAndStartDate(reviewingEndDate, reviewingStartDate),
+				"ASSERT FAIL : Current date does not lies within the " + reviewerType + " start and end date\n");
+		logMessage("ASSERT PASSED : Current date lies within the " + reviewerType + " start and end date\n");
 	}
 
-	public void selectValidUserForAutoRenewal(String AutoRenewalquery,
-			String queryPageUrl) {
+	public void selectValidUserForAutoRenewal(String AutoRenewalquery, String queryPageUrl) {
 		wait.hardWait(2);
 		System.out.println(AutoRenewalquery);
 		selectAndRunQuery(AutoRenewalquery);
 		expandDetailsMenu("individual memberships");
 		navigateToInvoicePageForRenewedProduct();
 		expandDetailsMenu("invoices");
-		verifyTermStartDateAndEndDatesAreEmptyForAutoRenewal(AutoRenewalquery,queryPageUrl);
-		//verifyPaymentStatusBeforeAutoRenewal(AutoRenewalquery,queryPageUrl);
-	logMessage("Step : Member selected in " + MemberTransferLoopCount+1
-			+ " attempt\n");
+		verifyTermStartDateAndEndDatesAreEmptyForAutoRenewal(AutoRenewalquery, queryPageUrl);
+		// verifyPaymentStatusBeforeAutoRenewal(AutoRenewalquery,queryPageUrl);
+		logMessage("Step : Member selected in " + MemberTransferLoopCount + 1 + " attempt\n");
 
 	}
 
 	public void verifyCentralizedOrderEntryPage(String title) {
 		wait.waitForPageToLoadCompletely();
 		Assert.assertEquals(title, getPageTitle());
-		logMessage("Step : title for Centralized Order Entry Page is verified as "
-				+ title);
+		logMessage("Step : title for Centralized Order Entry Page is verified as " + title);
 	}
 
 	public void verifyProductNameInLineItem(String productName) {
@@ -4384,33 +3859,32 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		String prodName = element("lineitem_product", productName).getText();
 
 		Assert.assertTrue(productName.contains(prodName));
-		logMessage("STEP: "+productName+" Product is added in Line Items \n");
+		logMessage("STEP: " + productName + " Product is added in Line Items \n");
 	}
 
-	public void verifyCreditAvailable(String credit_amount,String netTotal, String batchName)
-	{
-		//String payDate=DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY");
-		batchName=batchName.replaceAll("ACS: ", "");
-		isElementDisplayed("txt_joinDate_chapter",batchName);
-		element("txt_joinDate_chapter",batchName).getText();
+	public void verifyCreditAvailable(String credit_amount, String netTotal, String batchName) {
+		// String
+		// payDate=DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY");
+		batchName = batchName.replaceAll("ACS: ", "");
+		isElementDisplayed("txt_joinDate_chapter", batchName);
+		element("txt_joinDate_chapter", batchName).getText();
 		DecimalFormat df = new DecimalFormat("#.00");
-		Double credit_avl=Double.parseDouble(credit_amount)-Double.parseDouble(netTotal);
-		String credit_available= String.valueOf(df.format(credit_avl));
-		Assert.assertTrue(element("txt_joinDate_chapter",batchName).getText().trim().equals(credit_available),"ASSERT FAILED: credit available is not matched");
-		logMessage("ASSERT PASSED: credit available information in credits child forms is "+credit_available+"\n");
-		
+		Double credit_avl = Double.parseDouble(credit_amount) - Double.parseDouble(netTotal);
+		String credit_available = String.valueOf(df.format(credit_avl));
+		Assert.assertTrue(element("txt_joinDate_chapter", batchName).getText().trim().equals(credit_available),
+				"ASSERT FAILED: credit available is not matched");
+		logMessage("ASSERT PASSED: credit available information in credits child forms is " + credit_available + "\n");
+
 		logMessage("\n ************ SUCCESSFULL *************\n");
-		
+
 	}
+
 	public void verifyInvoiceIsAdded(String customerName) {
 		isElementDisplayed("txt_effectiveDateMemberType", customerName);
-		String actual = element("txt_effectiveDateMemberType", customerName)
-				.getText().trim();
-		String expected = DateUtil
-				.getCurrentdateInStringWithGivenFormate("M/d/YYYY");
+		String actual = element("txt_effectiveDateMemberType", customerName).getText().trim();
+		String expected = DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY");
 		Assert.assertEquals(actual, expected);
-		logMessage("Step: Customer " + customerName
-				+ " is added with current date "
+		logMessage("Step: Customer " + customerName + " is added with current date "
 				+ DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY"));
 	}
 
@@ -4419,8 +3893,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		holdExecution(3000);
 		switchToFrame(element("frame_selectProduct"));
 		isElementDisplayed("txt_itemsAdded", merchandise);
-		clickUsingXpathInJavaScriptExecutor(element("txt_itemsAdded",
-				merchandise));
+		clickUsingXpathInJavaScriptExecutor(element("txt_itemsAdded", merchandise));
 		logMessage("STEP : Merchandise link is clicked in link_merchandise \n");
 	}
 
@@ -4436,49 +3909,45 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 		switchToFrame(element("iframe"));
 		productName = element("productName_inp").getText().trim();
-		logMessage("STEP: Product name is selected as " + productName+"\n");
+		logMessage("STEP: Product name is selected as " + productName + "\n");
 		return productName;
 	}
 
-	public void verifyStorePaymentInformationChildFormIsPopulated(
-			String firstName) {
+	public void verifyStorePaymentInformationChildFormIsPopulated(String firstName) {
 		isElementDisplayed("txt_code", firstName);
 		isElementDisplayed("txt_priceValue", firstName);
 		System.out.println(element("txt_code", firstName).getText().isEmpty());
-		System.out.println(element("txt_priceValue", firstName).getText()
-				.isEmpty());
+		System.out.println(element("txt_priceValue", firstName).getText().isEmpty());
 		Assert.assertFalse(element("txt_code", firstName).getText().isEmpty());
-		Assert.assertFalse(element("txt_priceValue", firstName).getText()
-				.isEmpty());
-		logMessage("ASSERT PASSED : Child form is populated under stored payment information for "
-				+ firstName);
+		Assert.assertFalse(element("txt_priceValue", firstName).getText().isEmpty());
+		logMessage("ASSERT PASSED : Child form is populated under stored payment information for " + firstName);
 
 	}
-
 
 	public void selectRandomProductForCRMInventory() {
 		selectMerchandise("merchandise");
 		switchToDefaultContent();
 		switchToFrame(element("iframe"));
 		clickOnSearchDisplayNameButton();
-		selectRandomMemberByAscendingHeader("Price","price_txt");
-		//selectRandomUserOnAscendingHeader("Available Quantity");
-		
+		selectRandomMemberByAscendingHeader("Price", "price_txt");
+		// selectRandomUserOnAscendingHeader("Available Quantity");
+
 	}
 
-	public void selectRandomMemberByAscendingHeader(String headerName,String locator) {
+	public void selectRandomMemberByAscendingHeader(String headerName, String locator) {
 		_clickOnAvailableQuantityForSorting(headerName);
 		_clickOnAvailableQuantityForSorting(headerName);
-		clickOnRandomPage(10,2);
+		clickOnRandomPage(10, 2);
 		clickOnAnyRandomMember1(locator);
 		wait.hardWait(4);
 	}
+
 	public void selectRandomUserOnAscendingHeader(String headerName) {
-//		selectMerchandise("merchandise");
+		// selectMerchandise("merchandise");
 		switchToDefaultContent();
 		hardWaitForIEBrowser(5);
 		switchToFrame(element("iframe"));
-//		clickOnSearchDisplayNameButton();
+		// clickOnSearchDisplayNameButton();
 		_clickOnAvailableQuantityForSorting(headerName);
 		_clickOnAvailableQuantityForSorting(headerName);
 		clickOnRandomPage(10,1);
@@ -4498,21 +3967,18 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	private void _selectPage(int randomNumberInString) {
 		isElementDisplayed("lnk_pages", String.valueOf(randomNumberInString));
-		clickUsingXpathInJavaScriptExecutor(element("lnk_pages",
-				String.valueOf(randomNumberInString)));
-		logMessage("Step : page at the position of " + randomNumberInString
-				+ " is clicked in lnk_pages\n");
+		clickUsingXpathInJavaScriptExecutor(element("lnk_pages", String.valueOf(randomNumberInString)));
+		logMessage("Step : page at the position of " + randomNumberInString + " is clicked in lnk_pages\n");
 
 	}
 
 	public void verifyAutoPayStatusAfterAutoRenewal(String value) {
 		isElementDisplayed("mbr_autoPay", value);
-		Assert.assertTrue(isElementDisplayed("mbr_autoPay", value),
-				"Auto Pay renewal image is not checked\n");
+		Assert.assertTrue(isElementDisplayed("mbr_autoPay", value), "Auto Pay renewal image is not checked\n");
 		logMessage("ASSERT PASSED : <b>AutoPay Renewal image is checked</b>\n");
 	}
-	
-	public void clickOnRandomPage(int max,int min) {      
+
+	public void clickOnRandomPage(int max, int min) {
 		try {
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
@@ -4520,19 +3986,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 			Random rand = new Random();
-			int randomNumber = rand.nextInt((max - min)+1) + min;
+			int randomNumber = rand.nextInt((max - min) + 1) + min;
 			String randomNumberInString = String.valueOf(randomNumber);
 			isElementDisplayed("lnk_pages", randomNumberInString);
-			clickUsingXpathInJavaScriptExecutor(element("lnk_pages",
-					randomNumberInString));
-			logMessage("Step : page at the position of " + randomNumberInString
-					+ " is clicked in lnk_pages\n");
+			clickUsingXpathInJavaScriptExecutor(element("lnk_pages", randomNumberInString));
+			logMessage("Step : page at the position of " + randomNumberInString + " is clicked in lnk_pages\n");
 		} catch (NoSuchElementException exp) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		}
 	}
 
-	}
-
-
+}

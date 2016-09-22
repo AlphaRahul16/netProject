@@ -33,17 +33,28 @@ public class ACS_Create_Manual_Credit_Apply_Test extends BaseTest {
 	@BeforeClass
 	public void OpenBrowserWindow() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
-		test.homePageIWEB.addValuesInMap("CreditApply", caseID);
+		//test.homePageIWEB.addValuesInMap("CreditApply", caseID);
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		Reporter.log("App URL Iweb:: "+app_url_IWEB+"\n");
 	}
-	
 	@Test
-	public void Step01_Launch_Iweb_Application_And_Navigate_To_Add_Credit() {
+	public void Step00_TC01_CreateMember_As_A_Prerequisite() {
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
+		test.homePage.addValuesInMap("CreditApply","3");
+		test.homePageIWEB.clickOnAddIndividual();
+		test.addMember.enterMemberDetailsInAddIndividual();
+		test.memberShipPage.getIndividualFullNameForAwardsNomination();
+		test.homePageIWEB.clickOnModuleTab();
+		test.homePageIWEB.clickOnTab("CRM");
+
+	}
+	@Test
+	public void Step01_Launch_Iweb_Application_And_Navigate_To_Add_Credit() {
+		
+		test.homePageIWEB.addValuesInMap("CreditApply", caseID);
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Accounting");
 		test.homePageIWEB.verifyUserIsOnHomePage("Accounting | Overview | Overview and Setup");
@@ -55,9 +66,10 @@ public class ACS_Create_Manual_Credit_Apply_Test extends BaseTest {
 	@Test(dependsOnMethods = "Step01_Launch_Iweb_Application_And_Navigate_To_Add_Credit")
 	public void Step02_Select_Random_Customer_Create_A_Batch_Enter_Values_In_Credit_Page()
 	{
-		test.memberShipPage.clickOnSearchButton();
-		test.memberShipPage.selectRandomMemberByAscendingHeader("Mailing Label","txt_tableRow");
-		customerId=test.memberShipPage.enterValuesInCreditPage(
+		test.memberShipPage.selectMemberByContactID();
+	//	test.memberShipPage..clickOnSearchButton();
+		//test.memberShipPage.selectRandomMemberByAscendingHeader("Mailing Label","txt_tableRow");
+		test.memberShipPage.enterValuesInCreditPage(
 				YamlReader.getYamlValue("Acs_CreateMember_IWEB.batch"),
 				YamlReader.getYamlValue("ACS_Create_Manual_Credit_Test.CreditReason"),
 				test.homePageIWEB.map().get("paymentmethod?").trim(),
@@ -68,7 +80,7 @@ public class ACS_Create_Manual_Credit_Apply_Test extends BaseTest {
 				YamlReader.getYamlValue("ACS_Create_Manual_Credit_Test.liability_Expense"));
 	}
 	
-	@Test(dependsOnMethods = "Step02_Select_Random_Customer_Create_A_Batch_Enter_Values_In_Credit_Amount_And_Credit_Reason")
+	@Test(dependsOnMethods = "Step02_Select_Random_Customer_Create_A_Batch_Enter_Values_In_Credit_Page")
 	public void Step03_Verify_User_Is_On_Credit_Amount_And_Click_on_Batch_and_pre_process()
 	{
 		test.homePageIWEB.verifyUserIsOnHomePage("Accounting | Credit | Credit Profile");
@@ -77,7 +89,7 @@ public class ACS_Create_Manual_Credit_Apply_Test extends BaseTest {
 		test.memberShipPage.clickOnPreProcessAndWaitToCloseThePopup();
 	}
 	
-	@Test(dependsOnMethods = "Step03_Verify_User_Is_On_Credit_Profile_Page_Click_on_Batch_and_pre_process")
+	@Test(dependsOnMethods = "Step03_Verify_User_Is_On_Credit_Amount_And_Click_on_Batch_and_pre_process")
 	public void Step04_Navigate_To_Individualsand_Verify_Individual_Profile_Page()
 	{
 		test.homePageIWEB.clickOnModuleTab();
@@ -107,13 +119,13 @@ public class ACS_Create_Manual_Credit_Apply_Test extends BaseTest {
 			test.memberShipPage.clickOnSaveAndFinish();
 	}
 	
-	@Test(dependsOnMethods = "Step06_Click_Select_Product_And_Merchandise_Option_and_Verify_Centralized_Order_Entry_Merchandise_Window")
+	@Test(dependsOnMethods = "Step06_Click_On_Select_Product_And_Merchandise_Option_and_Verify_Centralized_Order_Entry_Merchandise_Window")
 	public void Step07_Verify_that_Selected_Product_Is_Added_Into_Line_Items_And_Credit_Available_On_COE(){
 			test.memberShipPage.verifyProductNameInLineItem(productName);
 			test.memberShipPage.verifyCreditAvailableOnCOE(YamlReader.getYamlValue("ACS_Create_Manual_Credit_Test.CreditAmount")); 
 	}
 	
-	@Test(dependsOnMethods="Step07_Verify_that_Selected_Item_Is_Added_Into_Line_Items")
+	@Test(dependsOnMethods="Step07_Verify_that_Selected_Product_Is_Added_Into_Line_Items_And_Credit_Available_On_COE")
 	public void Step08_Click_On_net_Credit_in_line_items_And_Enter_values_In_Amount_to_apply()
 	{
 		test.memberShipPage.clickOnNetCredit(productName);
@@ -134,7 +146,7 @@ public class ACS_Create_Manual_Credit_Apply_Test extends BaseTest {
 				
 	}
 	
-	@Test(dependsOnMethods = "Step09_Verify_Net_balance_And_net_payment_Create_New_batch_Select_prepaid_from_dropdown_type_and_Verify_CRM_Individual_Profile_page")
+	@Test(dependsOnMethods = "Step09_Verify_Net_balance_Create_New_batch_Select_prepaid_from_dropdown")
 	public void Step10_Click_on_more_tab_Select_Other_actg_Expand_credits_child_form_and_verify_credit_available_information()
 	{
 		test.individualsPage.clickOnMoreAndSelectOtherActg("Other Actg");
