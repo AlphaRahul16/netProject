@@ -73,11 +73,9 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.awardsPageAction.collapseDetailsMenu("award stages/rounds");
 		test.individualsPage.navigateToEntrantsMenuOnHoveringMore();
 		numberOfNomineesInEntrants = test.awardsPageAction.allACSNomineesInEntrants();
-
 		test.awardsPageAction.expandDetailsMenuIfAlreadyExpanded("acs award winner");
 		test.awardsPageAction.editWinnerNomineesFromJudges();
 		test.awardsPageAction.collapseDetailsMenu("acs award winner");
-	
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("General");
 		test.awardsPageAction.expandDetailsMenuIfAlreadyExpanded("award stages/rounds");
 		test.awardsPageAction.verifyOrAddRoundsPresents();
@@ -87,7 +85,6 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.awardsPageAction.switchToDefaultContent();
 
 		test.awardsPageAction.collapseDetailsMenu("award stages/rounds");
-		
 		
 	}
 

@@ -21,3 +21,7 @@ app_url_Awards: https://ewebtest12.acs.org/NFStage5/awards
 app_url_IwebReporting: https://stag-12iweb/NFStage5/iweb
 app_url_ScarfReviewing: https://www.ewebtest.acs.org/NFStage5/studentchaptersreview
 app_url_EwebReporting: https://ewebtest12.acs.org/NFStage5/studentchaptersonline
+
+Authentication: 
+  userName: C00616
+  password: "Sx!3M24GS"
