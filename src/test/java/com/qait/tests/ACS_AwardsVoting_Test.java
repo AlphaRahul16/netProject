@@ -50,7 +50,6 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Awards");
 		test.homePageIWEB.clickOnTab("Find Award");
-		
 		test.individualsPage.enterFieldValue("Award Year",
 				DateUtil.getAnyDateForType("YYYY", 2, "year"));
 		test.individualsPage.clickGoButton();
@@ -82,7 +81,6 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		startEndDate = test.awardsPageAction.editStartAndEndDate_Round(1);
 		test.awardsPageAction.clickOnSaveButton();
 		test.awardsPageAction.switchToDefaultContent();
-
 		test.awardsPageAction.collapseDetailsMenu("award stages/rounds");
 		
 	}
