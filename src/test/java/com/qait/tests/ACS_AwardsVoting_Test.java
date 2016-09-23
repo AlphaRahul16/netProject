@@ -51,17 +51,17 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.homePageIWEB.clickOnTab("Awards");
 		test.homePageIWEB.clickOnTab("Find Award");
 		
-		test.individualsPage.enterFieldValue("Award Year",
-				DateUtil.getAnyDateForType("YYYY", 2, "year"));
-		test.individualsPage.clickGoButton();
-//		test.individualsPage.enterFieldValue("Award Name:", "E. V. Murphree Award in Industrial and Engineering Chemistry");
-//		test.individualsPage.enterFieldValue("Award Year:", "2018");
-//        test.individualsPage.clickGoButton();
-//        currentAwardName="E. V. Murphree Award in Industrial and Engineering Chemistry:2018";
-		currentAwardName = test.individualsPage
-				.selectRandomGeneralAward_AwardNomination(DataProvider
-						.getRandomSpecificLineFromTextFile(
-								"GeneralAwardList_2018").trim());
+//		test.individualsPage.enterFieldValue("Award Year",
+//				DateUtil.getAnyDateForType("YYYY", 2, "year"));
+//		test.individualsPage.clickGoButton();
+		test.individualsPage.enterFieldValue("Award Name:", "Herbert C. Brown Award for Creative Research in Synthetic Methods");
+		test.individualsPage.enterFieldValue("Award Year:", "2018");
+        test.individualsPage.clickGoButton();
+        currentAwardName="Herbert C. Brown Award for Creative Research in Synthetic Methods:2018";
+//		currentAwardName = test.individualsPage
+//				.selectRandomGeneralAward_AwardNomination(DataProvider
+//						.getRandomSpecificLineFromTextFile(
+//								"GeneralAwardList_2018").trim());
 	}
 
 	@Test(dependsOnMethods = "Step01_TC01_Launch_Iweb_Application_And_Select_Award")
@@ -174,8 +174,8 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 					.clickOnProfilePdfLinkAndVerifyPdfContent(listOfFirstAndLastName);
 			test.award_ewebPage
 					.verifyAwardName_viewProfileLink(currentAwardName);
-			
 			test.award_ewebPage.clickOnCloseButton();
+			test.award_ewebPage.verifyDownloadedPdfContent(currentAwardName,i);
 			test.award_ewebPage.clickOnRankNominees_Save("Rank Nominees");
 			listOfNomineeJudges_judgeRanks = test.award_ewebPage
 					.enterRankForNominee_rank1ForFirstNominee(

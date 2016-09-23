@@ -179,8 +179,9 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 					logMessage("INFO : Awards Voting is not closed\n");
 				clickOnAwardsName_RoundName(awardName);
 			}
+			else
+				logMessage("Step: Round "+roundNumber+" status is not closed\n");
 		}
-		
 	}
 
 	public void verifyRecordClosedStatus(int roundNumber) {
@@ -598,6 +599,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 				int sizeOfEditJudges = elements("btn_editJudges").size();
 				System.out.println("Size of edit judges: " + sizeOfEditJudges);
+				try{
 				for (int j = 0; j < sizeOfEditJudges; j++) {
 					// for (WebElement ele : elements("btn_editJudges")) {
 					wait.hardWait(2);
@@ -614,6 +616,14 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 					 * "btnList_yellowPointerExpand").get(i - 2)); logMessage(
 					 * "Step : expand yellow pointer\n");
 					 */
+				}
+				}catch(StaleElementReferenceException e){
+					elements("btn_editJudges").get(0).click();
+					switchToFrame("iframe1");
+					logMessage("Step : click to edit judge");
+					clickOnDeleteJudgeButton();
+					waitForAlertToAppear();
+					switchToDefaultContent();
 				}
 				isElementDisplayed("btnList_yellowPointerCollapse");
 				elements("btnList_yellowPointerCollapse").get(0).click();
