@@ -20,7 +20,6 @@ public class ACS_Create_Manual_Credit_Apply_Test extends BaseTest {
 	List<String> customerFullNameList;
 	String productName = null, productCode = null;
 	private String caseID,netBalance;
-	private String[] memDetails;
 	public ACS_Create_Manual_Credit_Apply_Test()
 	{
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "CreditApply";
@@ -68,7 +67,7 @@ public class ACS_Create_Manual_Credit_Apply_Test extends BaseTest {
 	public void Step02_Select_Random_Customer_Create_A_Batch_Enter_Values_In_Credit_Page()
 	{
 		test.memberShipPage.selectMemberByContactID();
-	//	test.memberShipPage.
+	//	test.memberShipPage..clickOnSearchButton();
 		//test.memberShipPage.selectRandomMemberByAscendingHeader("Mailing Label","txt_tableRow");
 		test.memberShipPage.enterValuesInCreditPage(
 				YamlReader.getYamlValue("Acs_CreateMember_IWEB.batch"),

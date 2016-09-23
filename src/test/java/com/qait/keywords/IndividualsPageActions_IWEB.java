@@ -2147,6 +2147,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		waitForSpinner();
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(20);
+		hardWaitForIEBrowser(10);
 		isElementDisplayed("list_memberDetails", tabName);
 		for (i = 1; i < elements("list_memberDetails", tabName).size(); i++) {
 			if (element("txt_memberDetailsForChapter", tabName,

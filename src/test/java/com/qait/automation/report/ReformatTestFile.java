@@ -51,7 +51,7 @@ public class ReformatTestFile {
 		file.getParentFile().mkdirs();
 		file.createNewFile();
 		try (BufferedWriter writer = new BufferedWriter(
-				new OutputStreamWriter(new FileOutputStream(aFileName), "UTF-8"))) {
+				new OutputStreamWriter(new FileOutputStream(aFileName), "ISO-8859-1"))) {
 			writer.write(html);
 
 		}
@@ -60,7 +60,7 @@ public class ReformatTestFile {
 protected	String readLargerTextFile(String aFileName) throws IOException {
 		String html = "";
 		Path path = Paths.get(aFileName);
-		try (Scanner scanner = new Scanner(path, "UTF-8")) {
+		try (Scanner scanner = new Scanner(path, "ISO-8859-1")) {
 			while (scanner.hasNextLine()) {
 				// process each line in some way
 				html = html + scanner.nextLine() + "\n";
@@ -81,7 +81,7 @@ protected	String readLargerTextFile(String aFileName) throws IOException {
 			e1.printStackTrace();
 		}
 		try (BufferedWriter writer = new BufferedWriter(
-				new OutputStreamWriter(new FileOutputStream(filePath), "UTF-8"))) {
+				new OutputStreamWriter(new FileOutputStream(filePath), "ISO-8859-1"))) {
 		
 			writer.write(html);
 

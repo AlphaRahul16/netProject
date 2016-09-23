@@ -45,8 +45,10 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		logMessage("web login::" + memberDetail.get(nameOfJudge).get(1));
 		checkCredentialType(credentialType);
 		if (credentialType.equalsIgnoreCase("lastNameMemberNumber")) {
-			enterCredential("credential1", nameOfJudge.split(" ")[0],
+			enterCredential("credential1", nameOfJudge,
 					credentialType);
+//			enterCredential("credential1", nameOfJudge.split(" ")[0],
+//					credentialType);
 			enterCredential("credential2",
 					memberDetail.get(nameOfJudge).get(0), credentialType);
 		} else if (credentialType.equalsIgnoreCase("ACSID")) {
