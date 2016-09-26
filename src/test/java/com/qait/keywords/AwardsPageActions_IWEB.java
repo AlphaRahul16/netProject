@@ -326,17 +326,21 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void editWinnerNomineesFromJudges() {
 
+		wait.hardWait(4);
 		if (checkIfElementIsThere("btn_editChild", "acs award winner")) {
 			int sizeOfNominees = elements("btn_editChild", "acs award winner").size();
 			System.out.println("sizeOfNominees: " + sizeOfNominees);
 			if (sizeOfNominees > 0) {
 				isElementDisplayed("btn_editChild", "acs award winner");
 				int sizeOfEditButton = elements("btn_editChild", "acs award winner").size();
+				System.out.println("-------size of edit button value:"+sizeOfEditButton);
 				for (int i = 1; i <= sizeOfEditButton; i++) {
 					// for (WebElement ele :
 					// elements("btn_editChild","acs award winner")) {
 					// ele.click();
+					System.out.println("-------in for loop");
 					if (verifyValidField(j)) {
+						System.out.println("-----in if loop");
 						elements("btn_editChild", "acs award winner").get(j).click();
 						wait.hardWait(1);
 						wait.waitForPageToLoadCompletely();
@@ -349,6 +353,36 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 						j++;
 					}
 
+				}
+			}
+		}
+
+	}
+	
+	public void editPreviousWinnerNominees() {
+
+		wait.hardWait(4);
+		if (checkIfElementIsThere("btn_editChild", "acs award winner")) {
+			int sizeOfNominees = elements("btn_editChild", "acs award winner").size();
+			System.out.println("sizeOfNominees: " + sizeOfNominees);
+			if (sizeOfNominees > 0) {
+				isElementDisplayed("btn_editChild", "acs award winner");
+				int sizeOfEditButton = elements("btn_editChild", "acs award winner").size();
+				System.out.println("-------size of edit button value:"+sizeOfEditButton);
+				for (int i = 1; i <= sizeOfEditButton; i++) {
+					// for (WebElement ele :
+					// elements("btn_editChild","acs award winner")) {
+					// ele.click();
+					System.out.println("-------in for loop");
+						System.out.println("-----in if loop");
+						elements("btn_editChild", "acs award winner").get(j).click();
+						wait.hardWait(1);
+						wait.waitForPageToLoadCompletely();
+						switchToFrame("iframe1");
+						selectProvidedTextFromDropDown(element("drpdwn_selectWinnerCategory"), "Please select");
+						clickOnSaveButton();
+						switchToDefaultContent();
+						logMessage("Step : edit winner nominees from judges\n");
 				}
 			}
 		}
