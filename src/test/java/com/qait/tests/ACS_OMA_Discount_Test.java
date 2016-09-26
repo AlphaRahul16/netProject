@@ -68,7 +68,7 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.homePage.verifyCurrentTab("Benefits");
 		test.BenefitsPage.addACSPublicationAndTechnicalDivision(caseID);
-		test.BenefitsPage.verifyCENPresent(caseID);
+		//test.BenefitsPage.verifyCENPresent(caseID);
 		test.ContactInfoPage.clickContinue();
 		test.homePage.verifyCurrentTab("Checkout");
 	}
