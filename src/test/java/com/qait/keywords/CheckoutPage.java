@@ -299,16 +299,30 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 						.round((ACSMemberDuesCurrentYear - (ACSMemberDuesCurrentYear * discount)))
 						* mutliYearInInteger);
 		System.out.println(discountedPrice);
-		System.out.println("sheet value : "
-				+ map().get(mutliYearInInteger + " Year Term Price 2016?")
-						.trim());
-		Assert.assertEquals(discountedPrice,
-				map().get(mutliYearInInteger + " Year Term Price 2016?").trim());
-		logMessage("ASSERT PASSED : discountedPrice in actual is "
-				+ discountedPrice + " discountedPrice in sheet"
-				+ map().get(mutliYearInInteger + " Year Term Price 2016?")
-				+ "\n");
-		System.out.println("discounted price:" + discountedPrice);
+
+		if (mutliYearInInteger > 1) {
+			System.out.println("sheet value : "
+					+ map().get(mutliYearInInteger + " Year Term Price 2016?")
+							.trim());
+			Assert.assertEquals(discountedPrice,
+					map().get(mutliYearInInteger + " Year Term Price 2016?")
+							.trim());
+			logMessage("ASSERT PASSED : discountedPrice in actual is "
+					+ discountedPrice + " discountedPrice in sheet"
+					+ map().get(mutliYearInInteger + " Year Term Price 2016?")
+					+ "\n");
+			System.out.println("discounted price:" + discountedPrice);
+		} else {
+			System.out.println("sheet value : "
+					+ map().get(DateUtil.getCurrentYear() + " DUES").trim());
+			Assert.assertEquals(discountedPrice,
+					map().get(DateUtil.getCurrentYear() + " DUES").trim());
+			logMessage("ASSERT PASSED : discountedPrice in actual is "
+					+ discountedPrice + " discountedPrice in sheet"
+					+ map().get(DateUtil.getCurrentYear() + " DUES") + "\n");
+			System.out.println("discounted price:" + discountedPrice);
+		}
+
 		verifyPriceType(map().get("Product?"), "amount", discountedPrice, 1);
 
 	}

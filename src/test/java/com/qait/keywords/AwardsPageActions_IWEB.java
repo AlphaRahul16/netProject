@@ -179,8 +179,9 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 					logMessage("INFO : Awards Voting is not closed\n");
 				clickOnAwardsName_RoundName(awardName);
 			}
+			else
+				logMessage("Step: Round "+roundNumber+" status is not closed\n");
 		}
-		
 	}
 
 	public void verifyRecordClosedStatus(int roundNumber) {
@@ -325,17 +326,21 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void editWinnerNomineesFromJudges() {
 
+		wait.hardWait(4);
 		if (checkIfElementIsThere("btn_editChild", "acs award winner")) {
 			int sizeOfNominees = elements("btn_editChild", "acs award winner").size();
 			System.out.println("sizeOfNominees: " + sizeOfNominees);
 			if (sizeOfNominees > 0) {
 				isElementDisplayed("btn_editChild", "acs award winner");
 				int sizeOfEditButton = elements("btn_editChild", "acs award winner").size();
+				System.out.println("-------size of edit button value:"+sizeOfEditButton);
 				for (int i = 1; i <= sizeOfEditButton; i++) {
 					// for (WebElement ele :
 					// elements("btn_editChild","acs award winner")) {
 					// ele.click();
+					System.out.println("-------in for loop");
 					if (verifyValidField(j)) {
+						System.out.println("-----in if loop");
 						elements("btn_editChild", "acs award winner").get(j).click();
 						wait.hardWait(1);
 						wait.waitForPageToLoadCompletely();
@@ -348,6 +353,36 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 						j++;
 					}
 
+				}
+			}
+		}
+
+	}
+	
+	public void editPreviousWinnerNominees() {
+
+		wait.hardWait(4);
+		if (checkIfElementIsThere("btn_editChild", "acs award winner")) {
+			int sizeOfNominees = elements("btn_editChild", "acs award winner").size();
+			System.out.println("sizeOfNominees: " + sizeOfNominees);
+			if (sizeOfNominees > 0) {
+				isElementDisplayed("btn_editChild", "acs award winner");
+				int sizeOfEditButton = elements("btn_editChild", "acs award winner").size();
+				System.out.println("-------size of edit button value:"+sizeOfEditButton);
+				for (int i = 1; i <= sizeOfEditButton; i++) {
+					// for (WebElement ele :
+					// elements("btn_editChild","acs award winner")) {
+					// ele.click();
+					System.out.println("-------in for loop");
+						System.out.println("-----in if loop");
+						elements("btn_editChild", "acs award winner").get(j).click();
+						wait.hardWait(1);
+						wait.waitForPageToLoadCompletely();
+						switchToFrame("iframe1");
+						selectProvidedTextFromDropDown(element("drpdwn_selectWinnerCategory"), "Please select");
+						clickOnSaveButton();
+						switchToDefaultContent();
+						logMessage("Step : edit winner nominees from judges\n");
 				}
 			}
 		}
@@ -598,6 +633,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 				int sizeOfEditJudges = elements("btn_editJudges").size();
 				System.out.println("Size of edit judges: " + sizeOfEditJudges);
+				try{
 				for (int j = 0; j < sizeOfEditJudges; j++) {
 					// for (WebElement ele : elements("btn_editJudges")) {
 					wait.hardWait(2);
@@ -614,6 +650,14 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 					 * "btnList_yellowPointerExpand").get(i - 2)); logMessage(
 					 * "Step : expand yellow pointer\n");
 					 */
+				}
+				}catch(StaleElementReferenceException e){
+					elements("btn_editJudges").get(0).click();
+					switchToFrame("iframe1");
+					logMessage("Step : click to edit judge");
+					clickOnDeleteJudgeButton();
+					waitForAlertToAppear();
+					switchToDefaultContent();
 				}
 				isElementDisplayed("btnList_yellowPointerCollapse");
 				elements("btnList_yellowPointerCollapse").get(0).click();

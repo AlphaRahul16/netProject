@@ -250,7 +250,7 @@ public class TestSessionInitiator {
 								.equalsIgnoreCase("https://stag-12iweb/NFStage2/iweb")
 						|| baseurl
 								.equalsIgnoreCase("https://stag-12iweb/NFStage5/iweb")) {
-					System.out.println("in if");
+//					System.out.println("in if");
 					baseurl = baseurl
 							.replaceAll(
 									"https://stag",
@@ -264,7 +264,7 @@ public class TestSessionInitiator {
 													"UTF-8") + "@stag");
 					driver.get(baseurl);
 				} else {
-					System.out.println("in else");
+//					System.out.println("in else");
 					baseurl = baseurl
 							.replaceAll(
 									"https://iwebtest",
