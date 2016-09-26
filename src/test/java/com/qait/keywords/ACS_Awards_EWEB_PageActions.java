@@ -59,7 +59,6 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	}
 
 	public void enterCredentials(String credentialType) {
-
 		element("rad_ACSID").click();
 		wait.waitForPageToLoadCompletely();
 		if (credentialType.equalsIgnoreCase("ACSID")) {
@@ -76,8 +75,9 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		isElementDisplayed("inp_" + credential1_2);
 		element("inp_" + credential1_2).clear();
 		element("inp_" + credential1_2).sendKeys(credentialValue);
-		;
-		logMessage("Step : " + credentialValue + " is entered in " + credentialType + "\n");
+		logMessage("Step : " + credentialValue + " is entered in "
+				+ credentialType + "\n");
+
 	}
 
 	public void checkCredentialType(String typeName) {
@@ -210,7 +210,8 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		}
 	}
 
-	public List<List<String>> selectRandomNominees(int numberOfNomineesToSelect, int round, List<String> nameOfJudges,
+	public List<List<String>> selectRandomNominees(
+			int numberOfNomineesToSelect, int round, List<String> nameOfJudges,
 			Map<String, String> nominee_WithRankOne) {
 
 		if (numberOfNomineesToSelect < nameOfJudges.size() && (round == round - 1) && (round == 1)) {
