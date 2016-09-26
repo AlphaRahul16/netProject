@@ -45,10 +45,9 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		logMessage("web login::" + memberDetail.get(nameOfJudge).get(1));
 		checkCredentialType(credentialType);
 		if (credentialType.equalsIgnoreCase("lastNameMemberNumber")) {
-			enterCredential("credential1", nameOfJudge,
-					credentialType);
-//			enterCredential("credential1", nameOfJudge.split(" ")[0],
-//					credentialType);
+			enterCredential("credential1", nameOfJudge, credentialType);
+			// enterCredential("credential1", nameOfJudge.split(" ")[0],
+			// credentialType);
 			enterCredential("credential2",
 					memberDetail.get(nameOfJudge).get(0), credentialType);
 		} else if (credentialType.equalsIgnoreCase("ACSID")) {
@@ -61,7 +60,6 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	}
 
 	public void enterCredentials(String credentialType) {
-
 		element("rad_ACSID").click();
 		wait.waitForPageToLoadCompletely();
 		if (credentialType.equalsIgnoreCase("ACSID")) {
@@ -79,7 +77,6 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		isElementDisplayed("inp_" + credential1_2);
 		element("inp_" + credential1_2).clear();
 		element("inp_" + credential1_2).sendKeys(credentialValue);
-		;
 		logMessage("Step : " + credentialValue + " is entered in "
 				+ credentialType + "\n");
 	}
@@ -240,12 +237,12 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		}
 	}
 
-
 	public List<List<String>> selectRandomNominees(
 			int numberOfNomineesToSelect, int round, List<String> nameOfJudges,
 			Map<String, String> nominee_WithRankOne) {
 
-		if (numberOfNomineesToSelect < nameOfJudges.size()&& (round==round-1)&&(round==1)) {
+		if (numberOfNomineesToSelect < nameOfJudges.size()
+				&& (round == round - 1) && (round == 1)) {
 			Assert.fail("ASSERT FAILED : number of nominees <"
 					+ numberOfNomineesToSelect
 					+ "> is less than the number of judges <"
@@ -338,7 +335,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnViewProfileLink(List<List<String>> nomineeFirstNames) {
-		int max = nomineeFirstNames.size()-1;
+		int max = nomineeFirstNames.size() - 1;
 		int min = 0;
 		Random rand = new Random();
 		int randomNumber = rand.nextInt((max - min) + 1) + min;
@@ -353,7 +350,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 	public void clickOnProfilePdfLinkAndVerifyPdfContent(
 			List<List<String>> nomineeFirstNames) {
-		int max = nomineeFirstNames.size()-1;
+		int max = nomineeFirstNames.size() - 1;
 		int min = 0;
 		Random rand = new Random();
 		int randomNumber = rand.nextInt((max - min) + 1) + min;
@@ -413,7 +410,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnCommentLink(List<List<String>> nomineeFirstNames) {
-		int max = nomineeFirstNames.size()-1;
+		int max = nomineeFirstNames.size() - 1;
 		int min = 0;
 		Random rand = new Random();
 		int randomNumber = rand.nextInt((max - min) + 1) + min;
