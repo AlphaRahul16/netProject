@@ -3833,7 +3833,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyCentralizedOrderEntryPage(String title) {
 		wait.waitForPageToLoadCompletely();
-		Assert.assertEquals(title, getPageTitle());
+		Assert.assertEquals(getPageTitle(), title );
 		logMessage("Step : title for Centralized Order Entry Page is verified as " + title);
 	}
 

@@ -36,7 +36,15 @@ public class InventoryPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(3);
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("link_productOrder");
-		element("link_productOrder").click();
+		if (isBrowser("ie") || isBrowser("internet explorer")) {
+
+			clickUsingXpathInJavaScriptExecutor(element("link_productOrder"));
+			}
+		 else {
+			 element("link_productOrder").click();
+		}
+		
+		
 		logMessage("Step:: Clicked on Process Fulfill Orders Link On Inventory | Fulfillment Orders | Overview and Setup");
 	}
 
@@ -46,7 +54,14 @@ public class InventoryPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_search");
 		element("inp_datefrom").sendKeys(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"));
 		element("inp_dateto").sendKeys(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"));
-		element("btn_search").click();
+		if (isBrowser("ie") || isBrowser("internet explorer")) {
+
+			clickUsingXpathInJavaScriptExecutor(element("btn_search"));
+			}
+		 else {
+			element("btn_search").click();
+		}
+		
 		logMessage("Step:: Enter Invoice Start Date And End Date And Click On Seacrh Button to Proceed Further");
 		
 	}
@@ -80,7 +95,14 @@ public class InventoryPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyFulfillmentReportsOnClickingProcessSelectedItems() {
 		isElementDisplayed("btn_ship");
-		element("btn_ship").click();
+		if (isBrowser("ie") || isBrowser("internet explorer")) {
+
+			clickUsingXpathInJavaScriptExecutor(element("btn_ship"));
+			}
+		 else {
+			 element("btn_ship").click();
+		}
+		
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("txt_reports");
 		logMessage("[ASSERTION PASSED]:: Verified Fulfillment Reports Page On Clicking Process Selected Items");
@@ -88,7 +110,13 @@ public class InventoryPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyFulfillmentGroupProfilePage(String productName) {
 		isElementDisplayed("bttn_continue");
-		element("bttn_continue").click();
+		if (isBrowser("ie") || isBrowser("internet explorer")) {
+
+			clickUsingXpathInJavaScriptExecutor(element("bttn_continue"));
+			}
+		 else {
+			 element("bttn_continue").click();
+		}	
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("productName_orders", productName);
 		logMessage("Verified Product Name On Order Fulfillment Process Page");
@@ -96,7 +124,14 @@ public class InventoryPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void VerifyFulfillmentGroupProfilePageOnClickingShippedButton() {
 		isElementDisplayed("btn_ship");	
-		element("btn_ship").click();
+		if (isBrowser("ie") || isBrowser("internet explorer")) {
+
+			clickUsingXpathInJavaScriptExecutor(element("btn_ship"));
+			}
+		 else {
+			 element("btn_ship").click();
+		}
+		
 		logMessage("Step: Clicked On Fulfill | Remove | Hold Selected Items Button ");
 	}
 	
@@ -110,13 +145,13 @@ public class InventoryPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyAlertMessageOnClickingACSFulfillmentReportsIcon() {
 		isElementDisplayed("icon_reports");
 		element("icon_reports").click();
+		logMessage("Step: Reports ICON is clicked \n");
 		String alert_msg = driver.switchTo().alert().getText().trim();
 		System.out.println("Alert Message::"+alert_msg);
 		driver.switchTo().alert().accept();
-		Assert.assertEquals("The process is scheduled and you will receive an email when it is finished.", alert_msg);
+		//handleAlertUsingRobot();
+		Assert.assertEquals(alert_msg,"The process is scheduled and you will receive an email when it is finished.");
 		logMessage("[ASSERTION PASSED]:: Verified Alert Message :: "+alert_msg+" On Clicking ACS Fulfillment Reports ICON");
 	}
-
-
 
 }
