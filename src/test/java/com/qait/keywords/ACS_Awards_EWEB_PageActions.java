@@ -384,7 +384,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 	public void verifyDownloadedPdfContent(String awardName, int count) {
 		try {
-			String textinpdf = extractFromPdf("AwardNomination(" + (count + 1) + ")", 21).trim();
+			String textinpdf = extractFromPdf("AwardNomination", 21).trim();
 			System.out.println("------pdf text :"+textinpdf);
 			Assert.assertTrue(textinpdf.contains(awardName), "ASSERT FAILED: Award name "+awardName+" is not verified in the Pdf file\n");
 			logMessage("ASSERT PASSED: Award name "+awardName+" is verified in the Pdf file\n");

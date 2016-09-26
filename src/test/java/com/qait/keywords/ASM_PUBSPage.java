@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -148,16 +149,24 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 
 	}
 
-	private void _deleteExistingFIleFile(String fileName) {
+	public void _deleteExistingFIleFile(String fileName) {
 		String source = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
 				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + fileName
 				+ ".pdf";
 
 		File sourceFile = new File(source);
-		if (sourceFile.exists()) {
-			sourceFile.delete();
-			logMessage("Already Exits File is deleted from location " + sourceFile.getAbsolutePath());
+		try {
+			System.out.println("-----"+sourceFile.exists());
+			FileUtils.forceDelete(sourceFile);
+			logMessage("Already Existed File is deleted from location " + sourceFile.getAbsolutePath());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+//		if (sourceFile.exists()) {
+//			sourceFile.delete();
+//			logMessage("Already Existed File is deleted from location " + sourceFile.getAbsolutePath());
+//		}
 	}
 
 	public void loginInToApplication(String userName, String password) {

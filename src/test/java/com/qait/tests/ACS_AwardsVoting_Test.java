@@ -53,10 +53,10 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 //		test.individualsPage.enterFieldValue("Award Year",
 //				DateUtil.getAnyDateForType("YYYY", 2, "year"));
 //		test.individualsPage.clickGoButton();
-		test.individualsPage.enterFieldValue("Award Name:", "Herbert C. Brown Award for Creative Research in Synthetic Methods");
+		test.individualsPage.enterFieldValue("Award Name:", "E. V. Murphree Award in Industrial and Engineering Chemistry");
 		test.individualsPage.enterFieldValue("Award Year:", "2018");
         test.individualsPage.clickGoButton();
-        currentAwardName="Herbert C. Brown Award for Creative Research in Synthetic Methods:2018";
+        currentAwardName="E. V. Murphree Award in Industrial and Engineering Chemistry:2018";
 //		currentAwardName = test.individualsPage
 //				.selectRandomGeneralAward_AwardNomination(DataProvider
 //						.getRandomSpecificLineFromTextFile(
@@ -75,7 +75,8 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.individualsPage.navigateToEntrantsMenuOnHoveringMore();
 		numberOfNomineesInEntrants = test.awardsPageAction.allACSNomineesInEntrants();
 		test.awardsPageAction.expandDetailsMenuIfAlreadyExpanded("acs award winner");
-		test.awardsPageAction.editWinnerNomineesFromJudges();
+//		test.awardsPageAction.editWinnerNomineesFromJudges();      
+		test.awardsPageAction.editPreviousWinnerNominees();              //-------------
 		test.awardsPageAction.collapseDetailsMenu("acs award winner");
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("General");
 		test.awardsPageAction.expandDetailsMenuIfAlreadyExpanded("award stages/rounds");
@@ -100,7 +101,7 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 				.expandDetailsMenuIfAlreadyExpanded("award stages/rounds");
 		test.awardsPageAction.goToRecordForRound(roundNumber);
 		test.awardsPageAction.expandDetailsMenuIfAlreadyExpanded("award judge");
-		test.awardsPageAction.deleteJudges();
+//		test.awardsPageAction.deleteJudges();
 		test.awardsPageAction.goToJudgeRecord(nameOfJudges.get(0));
 		test.awardsPageAction
 				.expandDetailsMenuIfAlreadyExpanded("acs award judge score");
@@ -167,6 +168,7 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 							+ " possible nominations to rank.");
 			test.award_ewebPage.provideComments(listOfFirstAndLastName,
 					test.award_ewebPage.map().get("Comment Text"));
+			test.asm_PUBSPage._deleteExistingFIleFile("AwardNomination");    //---------------
 			test.award_ewebPage.clickOnViewProfileLink(listOfFirstAndLastName);
 			test.award_ewebPage
 					.clickOnProfilePdfLinkAndVerifyPdfContent(listOfFirstAndLastName);
