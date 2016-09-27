@@ -41,7 +41,7 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 	
 	@BeforeMethod
 	public void handleTestMethodName(Method method) {
-		test.stepStartMessage(method.getName());
+		test.printMethodName(method.getName());
 	}
 
 	@Test

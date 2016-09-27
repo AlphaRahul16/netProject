@@ -2,12 +2,14 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
@@ -30,6 +32,10 @@ public class ACS_Email_Communication_Preferences_Test extends BaseTest{
 		mailingListName = getYamlValue("EmailCommunicationPreferences.mailingListName")
 				+ System.currentTimeMillis();
 		mailingListType = getYamlValue("EmailCommunicationPreferences.mailingListType");
+	}
+	@BeforeMethod
+	public void handleTestMethodName(Method method) {
+		test.printMethodName(method.getName());
 	}
 
 	@Test

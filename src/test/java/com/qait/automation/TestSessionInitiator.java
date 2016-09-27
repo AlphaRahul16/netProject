@@ -426,9 +426,4 @@ public class TestSessionInitiator {
 		Reporter.log("\nMethod Name:- " + testName.toUpperCase() + "\n", true);
 	}
 		
-	public void stepStartMessage(String testStepName) {
-		Reporter.log(" ", true);
-		Reporter.log("***** STARTING TEST STEP:- " + testStepName.toUpperCase() + " *****", true);
-		Reporter.log(" ", true);
-	}
 }

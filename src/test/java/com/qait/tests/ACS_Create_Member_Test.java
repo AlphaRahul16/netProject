@@ -2,6 +2,7 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -175,7 +176,8 @@ public class ACS_Create_Member_Test extends BaseTest {
 	}
 
 	@BeforeMethod
-	public void skip_tests_if_error_message() {
+	public void skip_tests_if_error_message(Method method) {
+		test.printMethodName(method.getName());
 		if (caseID != null)
 			Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 
