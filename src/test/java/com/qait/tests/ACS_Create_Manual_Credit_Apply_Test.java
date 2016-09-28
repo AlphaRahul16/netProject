@@ -31,7 +31,11 @@ public class ACS_Create_Manual_Credit_Apply_Test extends BaseTest {
 	public  ACS_Create_Manual_Credit_Apply_Test(String caseID) {
 		this.caseID = caseID;
 	}
-	
+	@BeforeMethod
+	public void handleTestMethodName(Method method) {
+		test.printMethodName(method.getName());
+	}
+
 	@BeforeClass
 	public void OpenBrowserWindow() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());

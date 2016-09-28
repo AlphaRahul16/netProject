@@ -174,6 +174,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnTab(String tabName) {
+		hardWaitForIEBrowser(3);
 		isElementDisplayed("link_tabsOnModule", tabName);
 		if (isIEBrowser()|| isBrowser("chrome")) {
 			clickUsingXpathInJavaScriptExecutor(element("link_tabsOnModule",

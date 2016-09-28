@@ -2,7 +2,10 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.lang.reflect.Method;
+
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
@@ -22,7 +25,11 @@ public class ACS_MYD_Transfer extends BaseTest{
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 	}
-	
+	@BeforeMethod
+	public void handleTestMethodName(Method method) {
+		test.printMethodName(method.getName());
+	}
+
 	public ACS_MYD_Transfer() {
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "MYDTransfer";
 	}

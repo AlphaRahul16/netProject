@@ -909,28 +909,52 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void navigateToInvoicesMenuOnHoveringMore() {
 		try {
 			isElementDisplayed("img_moreMenu");
-			element("img_moreMenu").click();
-			isElementDisplayed("link_moreMenuName", "Invoices");
-			element("link_moreMenuName", "Invoices").click();
+			if (isIEBrowser()) {
+				clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
+				isElementDisplayed("link_moreMenuName", "Invoices");
+				clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName", "Invoices"));
+			} else {
+				element("img_moreMenu").click();
+				isElementDisplayed("link_moreMenuName", "Invoices");
+				element("link_moreMenuName", "Invoices").click();
+			}
+			
+			
 			logMessage("Step : Invoices link is clicked\n");
 			waitForSpinner();
 			wait.hardWait(2);
 			wait.waitForPageToLoadCompletely();
 			isElementDisplayed("btn_memberShip", "invoices (open batch)");
+			if(isIEBrowser()){
+				clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", "invoices (open batch)"));
+			}else{
 			element("btn_memberShip", "invoices (open batch)").click();
+			}
 			logMessage("Step : invoices (open batch) drop down button is clicked\n");
 			logMessage("Step : Navigate to Invoices menu on clicking more button\n");
 		} catch (StaleElementReferenceException stlEx) {
 			isElementDisplayed("img_moreMenu");
-			element("img_moreMenu").click();
+			if (isIEBrowser()) {
+				clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
+				isElementDisplayed("link_moreMenuName", "Invoices");
+				clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName", "Invoices"));
+			} else {
+				element("img_moreMenu").click();
+				isElementDisplayed("link_moreMenuName", "Invoices");
+				element("link_moreMenuName", "Invoices").click();
+			}
+			
+		
 			wait.waitForPageToLoadCompletely();
-			isElementDisplayed("link_moreMenuName", "Invoices");
-			element("link_moreMenuName", "Invoices").click();
 			logMessage("Step : Invoices link is clicked\n");
 			waitForSpinner();
 			wait.waitForPageToLoadCompletely();
 			isElementDisplayed("btn_memberShip", "invoices (open batch)");
+			if(isIEBrowser()){
+				clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", "invoices (open batch)"));
+			}else{
 			element("btn_memberShip", "invoices (open batch)").click();
+			}
 			logMessage("Step : Navigate to Invoices menu on clicking more button\n");
 		}
 	}
@@ -2147,6 +2171,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		waitForSpinner();
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(20);
+		hardWaitForIEBrowser(10);
 		isElementDisplayed("list_memberDetails", tabName);
 		for (i = 1; i < elements("list_memberDetails", tabName).size(); i++) {
 			if (element("txt_memberDetailsForChapter", tabName,

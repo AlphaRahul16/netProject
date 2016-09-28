@@ -2,6 +2,8 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.lang.reflect.Method;
+
 import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -25,7 +27,8 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 	}
 
 	@BeforeMethod
-	public void printCaseIdExecuted() {
+	public void printCaseIdExecuted(Method method) {
+		test.printMethodName(method.getName());
 		if (caseID != null) {
 			Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		}

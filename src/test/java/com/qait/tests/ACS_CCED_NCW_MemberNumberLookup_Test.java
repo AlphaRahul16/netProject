@@ -113,6 +113,9 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test extends BaseTest {
 
 	@BeforeMethod
 	public void Skip_Tests_For_Different_Apps(Method method) {
+		
+			test.printMethodName(method.getName());
+		
 		if (!skipTest.containsKey(method.getName())) {
 			skipTest.put(method.getName(), false);
 		}
