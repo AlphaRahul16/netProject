@@ -219,6 +219,8 @@ label_transCode									xpath								.//*[@id='F1_cdt_code']
 img_arrow								       css									 #dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(1) > a > img
 txt_tableRow										css									#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(10)
 txt_creditAmount								xpath								//td[contains(text(),'${memberType}')]/following-sibling::td[6]
+btn_goask                                       id                           ButtonAskGo
+
 
 
 
