@@ -73,7 +73,7 @@ public class BaseUi {
 
 	protected void logMessage(String message) {
 		Reporter.log(message, true);
-	
+
 	
 	}
 	
