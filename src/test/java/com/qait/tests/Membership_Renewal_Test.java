@@ -2,10 +2,12 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
@@ -192,5 +194,9 @@ public class Membership_Renewal_Test extends BaseTest{
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		test.launchApplication(app_url_IWEB);
 		
+	}
+	@BeforeMethod
+	public void handleTestMethodName(Method method) {
+		test.printMethodName(method.getName());
 	}
 }

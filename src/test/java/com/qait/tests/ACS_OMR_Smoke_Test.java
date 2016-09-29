@@ -2,11 +2,13 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
@@ -128,4 +130,9 @@ public class ACS_OMR_Smoke_Test extends BaseTest {
 				YamlReader.getYamlValue("Authentication.password"));
 		System.out.println(sheetname);
 	}
+	@BeforeMethod
+	public void handleTestMethodName(Method method) {
+		test.printMethodName(method.getName());
+	}
+
 }

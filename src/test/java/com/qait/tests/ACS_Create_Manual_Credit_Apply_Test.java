@@ -2,10 +2,12 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
@@ -29,7 +31,11 @@ public class ACS_Create_Manual_Credit_Apply_Test extends BaseTest {
 	public  ACS_Create_Manual_Credit_Apply_Test(String caseID) {
 		this.caseID = caseID;
 	}
-	
+	@BeforeMethod
+	public void handleTestMethodName(Method method) {
+		test.printMethodName(method.getName());
+	}
+
 	@BeforeClass
 	public void OpenBrowserWindow() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
@@ -37,6 +43,7 @@ public class ACS_Create_Manual_Credit_Apply_Test extends BaseTest {
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		Reporter.log("App URL Iweb:: "+app_url_IWEB+"\n");
 	}
+	
 	@Test
 	public void Step00_TC01_CreateMember_As_A_Prerequisite() {
 		test.launchApplication(app_url_IWEB);

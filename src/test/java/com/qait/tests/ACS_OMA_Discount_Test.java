@@ -2,8 +2,11 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.lang.reflect.Method;
+
 import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
@@ -153,6 +156,10 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 	@BeforeClass
 	public void Start_Test_Session() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
+	}
+	@BeforeMethod
+	public void handleTestMethodName(Method method) {
+		test.printMethodName(method.getName());
 	}
 
 }

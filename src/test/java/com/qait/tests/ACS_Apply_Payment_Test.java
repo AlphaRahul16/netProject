@@ -1,6 +1,9 @@
 package com.qait.tests;
 
+import java.lang.reflect.Method;
+
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
@@ -109,4 +112,9 @@ public class ACS_Apply_Payment_Test extends BaseTest {
 		app_url_IWEB = YamlReader.getYamlValue("app_url_IWEB");
 	}
 
+	@BeforeMethod
+	public void handleTestMethodName(Method method) {
+		test.printMethodName(method.getName());
+	}
+	
 }

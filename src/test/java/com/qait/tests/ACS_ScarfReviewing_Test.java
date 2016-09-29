@@ -2,12 +2,14 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -36,6 +38,10 @@ public class ACS_ScarfReviewing_Test {
 		app_url_eweb = getYamlValue("app_url_ScarfReviewing");
 	}
 
+	@BeforeMethod
+	public void handleTestMethodName(Method method) {
+		test.printMethodName(method.getName());
+	}
 	@Test
 	public void Step01_Launch_Iweb_Application() {
 		test.launchApplication(app_url_iweb);

@@ -673,6 +673,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("img_orderEntry");
 		clickUsingXpathInJavaScriptExecutor(element("img_orderEntry"));
+				
 		logMessage("STEP : order entry icon is clicked in img_orderEntry\n");
 
 	}
@@ -680,7 +681,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnAddMembershipMenu() {
 		isElementDisplayed("txt_menuItems");
 		clickUsingXpathInJavaScriptExecutor(element("txt_menuItems"));
-		// element("txt_menuItems").click();
+		//element("txt_menuItems").click();
 		logMessage("Step: click on add membership menu\n");
 	}
 
@@ -3833,6 +3834,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyCentralizedOrderEntryPage(String title) {
 		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(15);
 		Assert.assertEquals(getPageTitle(), title );
 		logMessage("Step : title for Centralized Order Entry Page is verified as " + title);
 	}
