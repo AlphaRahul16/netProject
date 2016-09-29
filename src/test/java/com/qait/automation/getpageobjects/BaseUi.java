@@ -73,7 +73,7 @@ public class BaseUi {
 
 	protected void logMessage(String message) {
 		Reporter.log(message, true);
-	
+
 	
 	}
 	
@@ -276,7 +276,7 @@ public class BaseUi {
 					"timeout"));
 			hiddenFieldTimeOut = Integer.parseInt(getProperty(
 					"Config.properties", "hiddenFieldTimeOut"));
-			wait.hardWait(2);
+			//wait.hardWait(2);
 			wait.resetImplicitTimeout(4);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 		    

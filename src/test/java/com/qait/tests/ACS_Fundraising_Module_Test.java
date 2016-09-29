@@ -2,7 +2,10 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.lang.reflect.Method;
+
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
@@ -20,6 +23,10 @@ public class ACS_Fundraising_Module_Test extends BaseTest {
 	public void Open_Browser_Window() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url_IWEB = getYamlValue("app_url_IWEB");
+	}
+	@BeforeMethod
+	public void handleTestMethodName(Method method) {
+		test.printMethodName(method.getName());
 	}
 
 	public ACS_Fundraising_Module_Test() {

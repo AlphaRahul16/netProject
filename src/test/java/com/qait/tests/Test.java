@@ -1,5 +1,7 @@
 package com.qait.tests;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Reporter;
 
  
@@ -40,7 +42,7 @@ public class Test{
 //	int am=Integer.parseInt("300");
 //	System.out.println(df.);
    
-	
+	WebDriver driver=new FirefoxDriver();
 	public void method(){
 		if(true&true){
 		System.out.println("a");	
@@ -54,6 +56,7 @@ public class Test{
 		public void test1(){
 			Reporter.setEscapeHtml(true);
 			Reporter.log("<b>ayush</b>");
+			
 		}		
 	}
 	

@@ -2,7 +2,10 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.lang.reflect.Method;
+
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
@@ -18,6 +21,12 @@ public class ACS_Address_Validation_Test extends BaseTest {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 	}	
+	
+	@BeforeMethod
+	public void handleTestMethodName(Method method) {
+		test.printMethodName(method.getName());
+	}
+	
 	@Test
 	public void Step01_Launch_Iweb_Application() {
 		test.launchApplication(app_url_IWEB);

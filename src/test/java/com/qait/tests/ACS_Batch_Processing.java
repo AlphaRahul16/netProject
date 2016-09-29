@@ -2,10 +2,12 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
@@ -65,6 +67,10 @@ public class ACS_Batch_Processing extends BaseTest {
 		test.homePageIWEB.enterAuthentication(
 				YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
+	}
+	@BeforeMethod
+	public void handleTestMethodName(Method method) {
+		test.printMethodName(method.getName());
 	}
 
 }
