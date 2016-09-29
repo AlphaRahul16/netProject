@@ -227,6 +227,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 		MembershipPageActions_IWEB obj = new MembershipPageActions_IWEB(driver);
 		hardWaitForIEBrowser(15);
+		hardWaitForChromeBrowser(20);
 		obj.expandDetailsMenuIfAlreadyExpanded("list members");
 		hardWaitForIEBrowser(4);
 		Assert.assertTrue(isElementDisplayed("btn_ArrowProdName", userName));

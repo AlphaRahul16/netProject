@@ -475,6 +475,7 @@ public class ASCSocietyGenericPage extends GetPage {
 		memPage = new MembershipPageActions_IWEB(driver);
 
 		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(5);
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
 				"hiddenFieldTimeOut"));

@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.DateUtil;
 
 public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
@@ -54,7 +55,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		String giftinfo[] = { "first gift (join) date", "first gift amount", "highest gift date", "highest gift amount",
 				"latest gift date", "latest gift amount", "ytd amount", "last-year amount", "lifetime amount" };
 		wait.waitForPageToLoadCompletely();
-		hardWaitForIEBrowser(8);
+		hardWaitForIEBrowser(10);
 		for (String info : giftinfo) {
 			if (element("txt_giftInformation", info).getText().trim().equals("")) {
 				flag = true;
@@ -70,11 +71,20 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 
 	public void clickOnAddGiftButton(String buttonName) {
 		isElementDisplayed("btn_addGift", buttonName);
-		element("btn_addGift", buttonName).click();
+		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
+				|| ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("ie")
+				|| ConfigPropertyReader.getProperty("browser")
+						.equalsIgnoreCase("internetexplorer")){
+			clickUsingXpathInJavaScriptExecutor(element("btn_addGift", buttonName));
+		}
+		else
+		    element("btn_addGift", buttonName).click();	
 		logMessage("Step: Clicked on " + buttonName + " button\n");
 	}
 
 	public void selectFundCode(String field, String code) {
+        hardWaitForIEBrowser(8);
 		isElementDisplayed("list_fundraisingCode", field);
 		selectProvidedTextFromDropDown(element("list_fundraisingCode", field), code);
 		logMessage("Step: " + field + " is entered as " + code);
@@ -93,7 +103,19 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		element("inp_giftAmount", field).clear();
 		element("inp_giftAmount", field).sendKeys(amount);
 		logMessage("Step: " + field + " entered as " + amount + "\n");
-		element("table_form").click();
+        element("table_form").click();
+//		wait.hardWait(2);
+//		clickUsingXpathInJavaScriptExecutor(element("table_form"));
+	}
+	
+	public void clickOnTableForm(){
+		if(!((isBrowser("ie")) || isBrowser("IE")))
+		    element("table_form").click();
+		else{
+			isElementDisplayed("table_form");
+			clickUsingXpathInJavaScriptExecutor(element("table_form"));
+		}
+//			element("label_giftDate").click();
 	}
 
 	public void verifyDeductibleAmount(String amount, String field) {

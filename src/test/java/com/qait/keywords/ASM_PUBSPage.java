@@ -155,18 +155,18 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 				+ ".pdf";
 
 		File sourceFile = new File(source);
-		try {
-			System.out.println("-----"+sourceFile.exists());
-			FileUtils.forceDelete(sourceFile);
-			logMessage("Already Existed File is deleted from location " + sourceFile.getAbsolutePath());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-//		if (sourceFile.exists()) {
-//			sourceFile.delete();
+//		try {
+//			System.out.println("-----"+sourceFile.exists());
+//			FileUtils.forceDelete(sourceFile);
 //			logMessage("Already Existed File is deleted from location " + sourceFile.getAbsolutePath());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
 //		}
+		if (sourceFile.exists()) {
+			sourceFile.delete();
+			logMessage("Already Existed File is deleted from location " + sourceFile.getAbsolutePath());
+		}
 	}
 
 	public void loginInToApplication(String userName, String password) {

@@ -959,7 +959,10 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
 			// element("img_moreMenu").click();
 			isElementDisplayed("link_moreMenuName", menu);
-			element("link_moreMenuName", menu).click();
+			if(isBrowser("ie") || isBrowser("IE"))
+				clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName", menu));
+			else
+			    element("link_moreMenuName", menu).click();
 			logMessage("Step : " + menu + " link is clicked\n");
 			waitForSpinner();
 			wait.hardWait(2);
@@ -2147,7 +2150,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		waitForSpinner();
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(20);
-		hardWaitForIEBrowser(10);
+		hardWaitForIEBrowser(25);
 		isElementDisplayed("list_memberDetails", tabName);
 		for (i = 1; i < elements("list_memberDetails", tabName).size(); i++) {
 			if (element("txt_memberDetailsForChapter", tabName,

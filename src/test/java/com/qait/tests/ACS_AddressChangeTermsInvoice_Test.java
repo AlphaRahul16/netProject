@@ -68,6 +68,7 @@ public class ACS_AddressChangeTermsInvoice_Test extends BaseTest{
 	@Test
 	public void Step04_Naviagate_To_Contact_Info_Option_And_Add_New_Address() {
 		test.individualsPage.navigateToContactInfoMenuOnHoveringMore();
+//		test.memberShipPage.expandDetailsMenu("addresses");
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("addresses");
 		addressType = test.individualsPage.verifyAddressType("addresses");
 		test.individualsPage.clickOnPlusSign("addresses", 2);

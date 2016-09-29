@@ -41,7 +41,7 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 		return zipCode;
 	}
 
-	public void clickOnEditNameAndAddressButton() {                    //javascript added
+	public void clickOnEditNameAndAddressButton() {                   
 		isElementDisplayed("btn_editName&Address");
 		clickUsingXpathInJavaScriptExecutor(element("btn_editName&Address"));
 //		element("btn_editName&Address").click();
@@ -49,8 +49,8 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 	}
 
 	public void verifyIndividualNameAndAddressInformationPage() {
+		wait.waitForPageToLoadCompletely();
 		wait.hardWait(1);
-//		wait.waitForPageToLoadCompletely();
 		switchToFrame("iframe1");
 		isElementDisplayed("heading_individualName&Addr");
 		logMessage("STEP : User is navigated to Individual Name & Address Information Page" + "\n");
@@ -93,7 +93,7 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 	}
 
 	public void verifyAddressVerificationWindow() {         
-		hardWaitForIEBrowser(3);		
+		hardWaitForIEBrowser(5);		
 //		changeWindow(1);
 		switchToWindowHavingIndex(1);
 		isElementDisplayed("heading_address");
@@ -108,8 +108,12 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : The ZipCode from Address Verification window "
 				+ element("txt_verificationZipCode").getAttribute("value") + " matches with the ZipCode "
 				+ expectedZipCode + "\n");
-		clickOnSaveButtonOnAddressVerficationPage();	
-//		switchToWindowHavingIndex(0);
+		clickOnSaveButtonOnAddressVerficationPage();
+//		switchToDefaultContent();
+	//	hardWaitForIEBrowser(5);
+		//switchToFrame("iframe1");
+//		switchWindow(currentWindow);
+		switchToWindowHavingIndex(0);
 	}
 
 	public void clickOnSaveButtonOnAddressVerficationPage() {            
@@ -121,9 +125,9 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 						.equalsIgnoreCase("internetexplorer")){
 			clickUsingXpathInJavaScriptExecutor(element("btn_verificationSave"));
 			logMessage("STEP : Clicked on Save Button on Address Verification Window");
-			hardWaitForIEBrowser(2);
-//			changeWindow(0);
-			switchToWindowHavingIndex(0);
+		//	hardWaitForIEBrowser(5);
+//			changeWindow(1);
+//			switchToWindowHavingIndex(0);
 		}
 		else{
 		  element("btn_verificationSave").click();
@@ -133,8 +137,9 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 	}
 
 	public void verifyReplacementOfZipCode(String expectedZipCode) {
-//		wait.waitForPageToLoadCompletely();
+		wait.waitForPageToLoadCompletely();
 		wait.hardWait(1);
+		switchToDefaultContent();
 		verifyIndividualNameAndAddressInformationPage();
 		verifyZipCode(expectedZipCode);
 		logMessage("STEP : The bogus ZipCode is replaced by the original ZipCode\n");

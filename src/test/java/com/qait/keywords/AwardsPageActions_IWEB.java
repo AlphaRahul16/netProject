@@ -622,7 +622,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			for (int i = sizeOfPointer; i >= 1; i--) {
 				System.out.println("i :" + i);
 				wait.waitForPageToLoadCompletely();
-				wait.hardWait(1);
+				wait.hardWait(5);
 				elements("btnList_yellowPointerExpand").get(i - 1).click();
 				// clickUsingXpathInJavaScriptExecutor(elements("btnList_yellowPointerExpand").get(i
 				// - 1));
@@ -636,7 +636,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 				try{
 				for (int j = 0; j < sizeOfEditJudges; j++) {
 					// for (WebElement ele : elements("btn_editJudges")) {
-					wait.hardWait(2);
+					wait.hardWait(7);
 					// ele.click();
 					isElementDisplayed("btn_editJudges");
 					elements("btn_editJudges").get(0).click();
