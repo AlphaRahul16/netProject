@@ -19,13 +19,13 @@ public class ASM_CCEDPage extends ASCSocietyGenericPage {
 		isElementDisplayed("inp_zipCode");
 		element("inp_zipCode").clear();
 		element("inp_zipCode").sendKeys(zipCode);
-		logMessage("Step : " + zipCode + " is entered in inp_zipCode\n");
+		logMessage("STEP : " + zipCode + " is entered in inp_zipCode\n");
 	}
 
 	public void selectSearchTypeAndNavigateToCoordinator(String searchType) {
 		isElementDisplayed("inp_searchType", searchType);
 		element("inp_searchType", searchType).click();
-		logMessage("Step : select search type is " + searchType + "\n");
+		logMessage("STEP : select search type is " + searchType + "\n");
 		if (searchType.equalsIgnoreCase("State")) {
 			selectStateAndFindCCEDCoordinator(map().get("searchValue"));
 			clickViewCoordinatorsFromThisSection(map().get("localSectionID"));
@@ -43,7 +43,7 @@ public class ASM_CCEDPage extends ASCSocietyGenericPage {
 	public void clickFindCCEDCoordinator() {
 		isElementDisplayed("inp_findCCEDCoordinator");
 		click(element("inp_findCCEDCoordinator"));
-		logMessage("Step : find cced coordinator button is clicked in inp_findCCEDCoordinator\n");
+		logMessage("STEP : find cced coordinator button is clicked in inp_findCCEDCoordinator\n");
 	}
 
 	public void waitForCCEDSpinnerToDisappear() {
@@ -92,7 +92,7 @@ public class ASM_CCEDPage extends ASCSocietyGenericPage {
 	public void clickContactCoordinator() {
 		verifyContactCordinatorIsPresent();
 		element("lnk_contactCordinator").click();
-		logMessage("Step : Link Contact Coordinator is clicked\n");
+		logMessage("STEP : Link Contact Coordinator is clicked\n");
 	}
 
 	public void verifyCoordinatorName(String coordinatorName) {
@@ -111,14 +111,14 @@ public class ASM_CCEDPage extends ASCSocietyGenericPage {
 		enterQuestionsComments(map().get("emailText"));
 		isElementDisplayed("btn_submit");
 		element("btn_submit").click();
-		logMessage("Step : Details Entered into form and thus Submit Button is clicked\n");
+		logMessage("STEP : Details Entered into form and thus Submit Button is clicked\n");
 	}
 
 	public void enterQuestionsComments(String emailText) {
 		isElementDisplayed("txt_questionsComments");
 		element("txt_questionsComments").clear();
 		element("txt_questionsComments").sendKeys(emailText);
-		logMessage("Step: " + emailText + " entered in " + " Questions/Comments \n");
+		logMessage("STEP : " + emailText + " entered in " + " Questions/Comments \n");
 	}
 
 	private void enterMemberContactDetail(String detailType, String detailValue) {
@@ -126,9 +126,9 @@ public class ASM_CCEDPage extends ASCSocietyGenericPage {
 			isElementDisplayed("inp_formDetails", detailType);
 			element("inp_formDetails", detailType).clear();
 			element("inp_formDetails", detailType).sendKeys(detailValue);
-			logMessage("Step: " + detailValue + " is entered in the " + detailType + "\n");
+			logMessage("STEP : " + detailValue + " is entered in the " + detailType + "\n");
 		} else {
-			logMessage("Error : " + detailType + "is not present in data sheet\n");
+			logMessage("ERROR : " + detailType + "is not present in data sheet\n");
 		}
 
 	}
@@ -136,14 +136,14 @@ public class ASM_CCEDPage extends ASCSocietyGenericPage {
 	public void selectState(String state) {
 		isElementDisplayed("select_state");
 		selectProvidedTextFromDropDown(element("select_state"), state);
-		logMessage("Step: " + state + " entered in the State select option\n");
+		logMessage("STEP : " + state + " entered in the State select option\n");
 	}
 
 	public void VerifyThankyouMessage() {
 		isElementDisplayed("txt_thankYouMessage");
 		Assert.assertTrue(element("txt_thankYouMessage").getText().trim()
 				.equalsIgnoreCase("Thank you. Your form has been submitted."));
-		logMessage("ASSERT PASSED : thank you message Thank you. Your form has been submitted. is verified\n");
+		logMessage("ASSERT PASSED : Thank you message Thank you. Your form has been submitted. is verified\n");
 	}
 
 }

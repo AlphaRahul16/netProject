@@ -23,7 +23,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(3);
 		isElementDisplayed("txtbox_constituent", String.valueOf(index));
 		element("txtbox_constituent", String.valueOf(index)).sendKeys(ConstituentName);
-		logMessage("Step: " + field + " is entered as " + ConstituentName + "\n");
+		logMessage("STEP : " + field + " is entered as " + ConstituentName + "\n");
 	}
 
 	public void selectAnyRandomConstituent() {
@@ -39,7 +39,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 				constituentName = element("txt_firstGiftDate", String.valueOf(i), String.valueOf(4)).getText().trim();
 //				element("txt_firstGiftDate", String.valueOf(i), String.valueOf(3)).click();
 				clickUsingXpathInJavaScriptExecutor(element("txt_firstGiftDate", String.valueOf(i), String.valueOf(3)));
-				logMessage("Step : Constituent selected is " + constituentName + "\n");
+				logMessage("STEP : Constituent selected is " + constituentName + "\n");
 				break;
 			}
 		}
@@ -65,8 +65,8 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 				break;
 			}
 		}
-		Assert.assertTrue(flag, "ASSERT FAILED: Gift information for " + field + " is not null\n");
-		logMessage("ASSERT PASSED: Gift information for all the fields is null\n");
+		Assert.assertTrue(flag, "ASSERT FAILED : Gift information for " + field + " is not null\n");
+		logMessage("ASSERT PASSED : Gift information for all the fields is null\n");
 	}
 
 	public void clickOnAddGiftButton(String buttonName) {
@@ -80,29 +80,29 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		}
 		else
 		    element("btn_addGift", buttonName).click();	
-		logMessage("Step: Clicked on " + buttonName + " button\n");
+		logMessage("STEP : Clicked on " + buttonName + " button\n");
 	}
 
 	public void selectFundCode(String field, String code) {
         hardWaitForIEBrowser(8);
 		isElementDisplayed("list_fundraisingCode", field);
 		selectProvidedTextFromDropDown(element("list_fundraisingCode", field), code);
-		logMessage("Step: " + field + " is entered as " + code);
+		logMessage("STEP : " + field + " is entered as " + code);
 	}
 
 	public void verifyGiftDate(String dateType) {
 		isElementDisplayed("txt_" + dateType);
 		Assert.assertEquals(element("txt_" + dateType).getAttribute("value"),
 				DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy"),
-				"ASSERT FAILED: " + dateType + " is not verified as Current date "+DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy")+"\n");
-		logMessage("ASSERT PASSED: " + dateType + " is verified as Current date "+DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy")+"\n");
+				"ASSERT FAILED : " + dateType + " is not verified as Current date "+DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy")+"\n");
+		logMessage("ASSERT PASSED : " + dateType + " is verified as Current date "+DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy")+"\n");
 	}
 
 	public void enterGiftAmount(String amount, String field) {
 		isElementDisplayed("inp_giftAmount", field);
 		element("inp_giftAmount", field).clear();
 		element("inp_giftAmount", field).sendKeys(amount);
-		logMessage("Step: " + field + " entered as " + amount + "\n");
+		logMessage("STEP : " + field + " entered as " + amount + "\n");
         element("table_form").click();
 //		wait.hardWait(2);
 //		clickUsingXpathInJavaScriptExecutor(element("table_form"));
@@ -124,22 +124,22 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		isElementDisplayed("inp_giftAmount", field);
 		System.out.println(element("inp_giftAmount", field).getAttribute("value"));
 		Assert.assertEquals(element("inp_giftAmount", field).getAttribute("value"), amount,
-				"ASSERT FAILED: Deductible amount value is not same as the Gift amount "+amount+"\n");
-		logMessage("ASSERT PASSED: Deductible amount value is same as the Gift amount "+amount+"\n");
+				"ASSERT FAILED : Deductible amount value is not same as the Gift amount "+amount+"\n");
+		logMessage("ASSERT PASSED : Deductible amount value is same as the Gift amount "+amount+"\n");
 	}
 
 	public void verifyGiftType(String giftValue) {
 		isElementDisplayed("txt_giftType", "gift type");
 		Assert.assertEquals(element("txt_giftType", "gift type").getText().trim(), giftValue,
-				"ASSERT FAILED: Gift type is not" + giftValue + "\n");
-		logMessage("ASSERT PASSED: Gift type is " + giftValue + "\n");
+				"ASSERT FAILED : Gift type is not" + giftValue + "\n");
+		logMessage("ASSERT PASSED : Gift type is " + giftValue + "\n");
 	}
 
 	public void clickOnSaveButton() {
 		isElementDisplayed("btn_save");
 		// element("btn_save").click();
 		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
-		logMessage("Step: Clicked on Save button\n");
+		logMessage("STEP : Clicked on Save button\n");
 		switchToDefaultContent();
 	}
 
@@ -186,14 +186,14 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		// String.valueOf(1)).getText().trim());
 		Assert.assertEquals(
 				element("txt_listData", tabName, String.valueOf(index), String.valueOf(rowIndex)).getText().trim(),
-				expectedValue, "ASSERT FAILED: " + giftInfo + " is not verified as " + expectedValue + "\n");
-		logMessage("ASSERT PASSED: " + giftInfo + " is verified as " + expectedValue + "\n");
+				expectedValue, "ASSERT FAILED : " + giftInfo + " is not verified as " + expectedValue + "\n");
+		logMessage("ASSERT PASSED : " + giftInfo + " is verified as " + expectedValue + "\n");
 	}
 
 	public void verifyGiftInformationIsDispalyed(String giftField, String expectedValue) {
 		isElementDisplayed("txt_giftInformation", giftField);
 		Assert.assertEquals(element("txt_giftInformation", giftField).getText().trim(), expectedValue, "");
-		logMessage("ASSERT PASSED: " + giftField + " value is verified as " + expectedValue + "\n");
+		logMessage("ASSERT PASSED : " + giftField + " value is verified as " + expectedValue + "\n");
 	}
 
 	public void addBatchAndPledgeType(String batchName, String pledgeType) {
@@ -207,7 +207,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 	public void enterNumberOfPaymentInstallments(String value) {
 		isElementDisplayed("inp_noOfInstallments");
 		element("inp_noOfInstallments").sendKeys(value);
-		logMessage("Step: Number of payments installments entered as " + value + "\n");
+		logMessage("STEP : Number of payments installments entered as " + value + "\n");
 	}
 
 	public boolean verifyBatchIsPresent(String pledgeType) {
@@ -231,7 +231,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		element("txt_paymentDate").sendKeys(nextDate[1] + "/" + nextDate[2] + "/" + nextDate[0]);
 		obj.waitForSpinner();
 		element("txt_calendarDate").click();
-		logMessage("Step: First payment date entered as " + nextDate[1] + "/" + nextDate[2] + "/" + nextDate[0]);
+		logMessage("STEP : First payment date entered as " + nextDate[1] + "/" + nextDate[2] + "/" + nextDate[0]);
 		obj.waitForSpinner();
 	}
 
@@ -270,7 +270,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		} else {
 			elements("btn_pledgeFolder", tabName, DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy")).get(0)
 					.click();
-			logMessage("Step: Clicked on first folder image\n");
+			logMessage("STEP : Clicked on first folder image\n");
 		}
 		Float amount=new Float(totalAmount);
 		verifyInstallments(noOfPaymnets, amount);
@@ -279,7 +279,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 	public void clickOnPledgeFolder(String tabName) {
 		isElementDisplayed("btn_pledgeFolder", tabName, DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy"));
 		element("btn_pledgeFolder", tabName, DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy")).click();
-		logMessage("Step: Clicked on folder image\n");
+		logMessage("STEP : Clicked on folder image\n");
 	}
 
 	public void verifyInstallments(float noOfPayments, float totalAmount) {
@@ -295,16 +295,16 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 				Assert.assertTrue(element("txt_folderData", String.valueOf(i), String.valueOf(4)).getText().trim()
 								.equals(ar[1] + "/" + ar[2] + "/" + ar[0]),
 						"ASSERT FAILED: Schedule date for installment "+count+" is not verified as " + ar[1] + "/" + ar[2] + "/" + ar[0]);
-				logMessage("ASSERT PASSED: Schedule date for installment "+count+" is verified as " + ar[1] + "/" + ar[2] + "/" + ar[0]);
+				logMessage("ASSERT PASSED : Schedule date for installment "+count+" is verified as " + ar[1] + "/" + ar[2] + "/" + ar[0]);
 				Assert.assertTrue(element("txt_folderData", String.valueOf(i), String.valueOf(6)).getText().trim()
 						.equals(df.format(payments)),
-				"ASSERT FAILED: Schedule amount for installment "+count+" is not verified as " + df.format(payments));
-		logMessage("ASSERT PASSED: Schedule amount for installment "+count+" is verified as " + df.format(payments));
+				"ASSERT FAILED : Schedule amount for installment "+count+" is not verified as " + df.format(payments));
+		logMessage("ASSERT PASSED : Schedule amount for installment "+count+" is verified as " + df.format(payments));
 		count++;
 			}
 		}
 		else
-			Assert.assertFalse(true,"ASSERT FAILED: Payment installments are not "+payments);
+			Assert.assertFalse(true,"ASSERT FAILED : Payment installments are not "+payments);
 	}
 
 }

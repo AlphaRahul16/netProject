@@ -37,7 +37,7 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 		String address[], zipCode;
 		address = element("txt_zipCode").getText().split(" ");
 		zipCode=address[address.length-1];
-		logMessage("STEP: Zip code is : " + zipCode + "\n");
+		logMessage("STEP : Zip code is : " + zipCode + "\n");
 		return zipCode;
 	}
 
@@ -45,7 +45,7 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_editName&Address");
 		clickUsingXpathInJavaScriptExecutor(element("btn_editName&Address"));
 //		element("btn_editName&Address").click();
-		logMessage("STEP: Edit Name & Address button is clicked" + "\n");
+		logMessage("STEP : Edit Name & Address button is clicked" + "\n");
 	}
 
 	public void verifyIndividualNameAndAddressInformationPage() {
@@ -88,7 +88,7 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_save");
 		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
 //		element("btn_save").click();
-		logMessage("STEP: Clicked on Save Button \n");
+		logMessage("STEP : Clicked on Save Button \n");
 		handleAlert();
 	}
 

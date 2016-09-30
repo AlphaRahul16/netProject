@@ -16,7 +16,7 @@ public class ASM_EGiftPage extends GetPage {
 	public void selectFirstMemberCategory() {
 		isElementDisplayed("rad_memberCategories");
 		element("rad_memberCategories").click();
-		logMessage("Step : member category is selected in rad_memberCategories\n");
+		logMessage("STEP : member category is selected in rad_memberCategories\n");
 	}
 
 	public void verifyCurrentTab(String tabName) {
@@ -38,19 +38,19 @@ public class ASM_EGiftPage extends GetPage {
 	public void enterTextInRecipientInfo(String fieldName, String fieldValue) {
 		isElementDisplayed("inp_" + fieldName);
 		element("inp_" + fieldName).sendKeys(fieldValue);
-		logMessage("Step : " + fieldValue + " is entered in ");
+		logMessage("STEP : " + fieldValue + " is entered in ");
 	}
 
 	public void clickOnContinueButton() {
 		isElementDisplayed("btn_continue");
 		element("btn_continue").click();
-		logMessage("Step : continue button is clicked in btn_continue\n");
+		logMessage("STEP : continue button is clicked in btn_continue\n");
 	}
 
 	public void enterPersonalMessage(String personalMessage) {
 		isElementDisplayed("txtAr_personalMessage");
 		element("txtAr_personalMessage").sendKeys(personalMessage);
-		logMessage("Step : " + personalMessage
+		logMessage("STEP : " + personalMessage
 				+ " is entered in txtAr_personalMessage\n");
 	}
 
@@ -67,7 +67,7 @@ public class ASM_EGiftPage extends GetPage {
 		isElementDisplayed("inp_" + infoName);
 		element("inp_" + infoName).clear();
 		element("inp_" + infoName).sendKeys(infoValue);
-		logMessage("Step : " + infoValue + "  is entered in inp_" + infoName
+		logMessage("STEP : " + infoValue + "  is entered in inp_" + infoName
 				+ "\n");
 	}
 
@@ -87,35 +87,35 @@ public class ASM_EGiftPage extends GetPage {
 		isElementDisplayed("chk_termsAndCondition");
 		if (!element("chk_termsAndCondition").isSelected()) {
 			element("chk_termsAndCondition").click();
-			logMessage("Step : terms and conditin checkbox is checked in chk_termsAndCondition\n");
+			logMessage("STEP : Terms and conditin checkbox is checked in chk_termsAndCondition\n");
 		} else {
-			logMessage("Step : terms and conditin checkbox is already checked in chk_termsAndCondition\n");
+			logMessage("STEP : Terms and conditin checkbox is already checked in chk_termsAndCondition\n");
 		}
 	}
 
 	public void clickOnSubmitButton() {
 		isElementDisplayed("inp_submit");
 		element("inp_submit").click();
-		logMessage("Step : submit button is clicked in inp_submit\n");
+		logMessage("STEP : Submit button is clicked in inp_submit\n");
 	}
 
 	public void clickOnPrintReceiptButtonAndVerifyReceiptPage() {
 		isElementDisplayed("btn_printReceipt");
 		element("btn_printReceipt").click();
-		logMessage("Step : print receipt button is clicked in btn_printReceipt\n");
+		logMessage("STEP : Print receipt button is clicked in btn_printReceipt\n");
 		verifyReceiptPage();
 	}
 
 	public void clickOnPurchaseAnotherGiftButton() {
 		isElementDisplayed("inp_purchaseAnotherGift");
 		element("inp_purchaseAnotherGift").click();
-		logMessage("Step : purchase another gift button is clicked in inp_purchaseAnotherGift\n");
+		logMessage("STEP : Purchase another gift button is clicked in inp_purchaseAnotherGift\n");
 	}
 
 	public void verifyReceiptPage() {
 		isElementDisplayed("txt_PrintReceiptTitle");
 		String pageTitle = element("txt_PrintReceiptTitle").getText();
-		logMessage("Step : page title is : " + pageTitle
+		logMessage("STEP : Page title is : " + pageTitle
 				+ "receipt page is verified in txt_PrintReceiptTitle\n");
 	}
 }

@@ -223,11 +223,11 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 			handleAlert();
 			isElementDisplayed("img_spinner");
 			wait.waitForElementToDisappear(element("img_spinner"));
-			logMessage("STEP : wait for spinner to be disappeared \n");
+			logMessage("STEP : Wait for spinner to be disappeared \n");
 
 		} catch (Exception Exp) {
 
-			logMessage("STEP : spinner is not present \n");
+			logMessage("STEP : Spinner is not present \n");
 		}
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
@@ -244,7 +244,7 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 		}
 
 		Assert.assertTrue(element("txt_creditBatchDate",batchName).getText().trim().equals(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYY").trim()));
-		logMessage("Step : credit date is verify as "+DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYY"));
+		logMessage("STEP : Credit date is verify as "+DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYY"));
 		Assert.assertTrue(element("txt_CreditTotal",batchName).getText().trim().equals(totalCredit),"Amount credit is not as expected");
 		logMessage("ASSERT PASSED : Credited amount successfully verified as "+totalCredit);
 	}
@@ -260,27 +260,27 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 
 		isElementDisplayed("btn_gotoCreditRecord",batchName);
 		element("btn_gotoCreditRecord",batchName).click();
-		logMessage("Step : Goto Record is clicked for "+batchName);
+		logMessage("STEP : Goto Record is clicked for "+batchName);
 	}
 
 	public void NavigateToBatchProfilePageByClickingOnBatchName(String batchName)
 	{
 		isElementDisplayed("lnk_batchName",batchName);
 		element("lnk_batchName",batchName).click();
-		logMessage("Step : batch Name is clicked as "+batchName);
+		logMessage("STEP : batch Name is clicked as "+batchName);
 	}
 
 	public void enterCreditFromAndTooDates(String dateType,int days) {
 		isElementDisplayed("inp_creditDate",dateType);
 		element("inp_creditDate",dateType).sendKeys(DateUtil.getAnyDateForType("MM/dd/YYYY", days, "date"));
-		logMessage("Step : credit "+ dateType+" date is entered as "+DateUtil.getAnyDateForType("MM/dd/YYYY", days, "date"));
+		logMessage("STEP : credit "+ dateType+" date is entered as "+DateUtil.getAnyDateForType("MM/dd/YYYY", days, "date"));
 
 	}
 
 	public void clickSearchRefundsButton() {
 		isElementDisplayed("btn_searchRefund");
 		element("btn_searchRefund").click();
-		logMessage("Step : Search Refund button is clicked\n");
+		logMessage("STEP : Search Refund button is clicked\n");
 		wait.waitForPageToLoadCompletely();
 	}
 	

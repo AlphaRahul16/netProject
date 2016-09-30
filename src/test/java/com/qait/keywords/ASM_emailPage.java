@@ -64,13 +64,13 @@ public class ASM_emailPage extends GetPage {
 		wait.hardWait(3);
 		if (element("btn_newsletterAction", listName).getText().equals("subscribe")){
 			element("btn_newsletterAction", listName).click();
-			logMessage("Step: Clicked on Subscribe button\n");
-			logMessage("Step: The mailing list is now subscribed\n");
+			logMessage("STEP : Clicked on Subscribe button\n");
+			logMessage("STEP : The mailing list is now subscribed\n");
 		}	
 		else{
 			element("btn_newsletterAction", listName).click();
-			logMessage("Step: Clicked on Unsubscribe button\n");
-			logMessage("Step : The mailing list is now unsubscribed\n");
+			logMessage("STEP : Clicked on Unsubscribe button\n");
+			logMessage("STEP : The mailing list is now unsubscribed\n");
 		}
 		handleAlert();
 
@@ -86,14 +86,14 @@ public class ASM_emailPage extends GetPage {
 		isElementDisplayed("inp_" + fieldName);
 		element("inp_" + fieldName).clear();
 		element("inp_" + fieldName).sendKeys(fieldValue);
-		logMessage("Step : " + fieldValue + " is entered in " + fieldName + " \n");
+		logMessage("STEP : " + fieldValue + " is entered in " + fieldName + " \n");
 	}
 
 	public void clickOnLoginButton() {
 		isElementDisplayed("btn_login");
 		// click(element("btn_login"));
 		element("btn_login").click();
-		logMessage("Step : Login button is clicked\n");
+		logMessage("STEP : Login button is clicked\n");
 	}
 
 	public void verifyLoginErrorMessagePresent(String errorMessage) {
@@ -118,19 +118,19 @@ public class ASM_emailPage extends GetPage {
 	public void clickOnFirstChangeLink() {
 		isElementDisplayed("lnk_change");
 		click(element("lnk_change"));
-		logMessage("Step : click on first change link to select the email id");
+		logMessage("STEP : click on first change link to select the email id");
 	}
 
 	public void selectEmailInDropDownWithIndex(int index) {
 		isElementDisplayed("drpdwn_selectEmail");
 		selectDropDownValue(element("drpdwn_selectEmail"), index);
-		logMessage("Step : select email from drop down using index " + index + " \n");
+		logMessage("STEP : select email from drop down using index " + index + " \n");
 	}
 
 	public String getFirstACSSubscribedProductName() {
 		isElementDisplayed("txt_ACSProductName");
 		String firstAcsSubscribedProductName = element("txt_ACSProductName").getText();
-		logMessage("Step : First ACS subscribed name is : " + firstAcsSubscribedProductName + " \n");
+		logMessage("STEP : First ACS subscribed name is : " + firstAcsSubscribedProductName + " \n");
 		return firstAcsSubscribedProductName;
 
 	}
@@ -138,26 +138,26 @@ public class ASM_emailPage extends GetPage {
 	public void verifyUnscubscribeSuccessfully(String productName) {
 		isElementDisplayed("btn_ACSSubscribe_unsubscribe", productName);
 		element("btn_ACSSubscribe_unsubscribe", productName).getText().equalsIgnoreCase("unsubscribe");
-		logMessage("ASSERT PASSED : unsubscribe successfully\n");
+		logMessage("ASSERT PASSED : Unsubscribe successfully\n");
 	}
 
 	public void clickOnFirstSubscribeButton() {
 		isElementDisplayed("btn_subscribe");
 		click(element("btn_subscribe"));
-		logMessage("Step : click on first subscribe button\n");
+		logMessage("STEP : Click on first subscribe button\n");
 	}
 
 	public void clickOnUnsubscribeAllButton() {
 		try {
 			isElementDisplayed("btn_unsubscribeAll");
 			element("btn_unsubscribeAll").click();
-			logMessage("Step : unsubscribe all button is clicked\n");
+			logMessage("STEP : Unsubscribe all button is clicked\n");
 		} catch (Exception exp) {
 			clickOnFirstSubscribeButton();
 			wait.hardWait(1);
 			isElementDisplayed("btn_unsubscribeAll");
 			element("btn_unsubscribeAll").click();
-			logMessage("Step : unsubscribe all button is clicked\n");
+			logMessage("STEP : Unsubscribe all button is clicked\n");
 		}
 	}
 
@@ -165,7 +165,7 @@ public class ASM_emailPage extends GetPage {
 		isElementDisplayed("btn_unsubscribeConfirm");
 //		click(element("btn_unsubscribeConfirm"));
 		element("btn_unsubscribeConfirm").click();
-		logMessage("Step : Unsubscribe all confirm button is clicked\n");
+		logMessage("STEP : Unsubscribe all confirm button is clicked\n");
 		handleAlert();
 	}
 
@@ -182,7 +182,7 @@ public class ASM_emailPage extends GetPage {
 			}
 		}
 		Assert.assertTrue(flag);
-		logMessage("ASSERT PASSED : unsubscribe all on click unsubscribe all button");
+		logMessage("ASSERT PASSED : Unsubscribe all on click unsubscribe all button");
 	}
 
 	public void VerifyFirstSubscribed_UnsubscribedSuccessfully() {
@@ -216,32 +216,32 @@ public class ASM_emailPage extends GetPage {
 	public void clickOnNewMail() {
 		isElementDisplayed("btn_newMail");
 		click(element("btn_newMail"));
-		logMessage("Step : new button is clicked to add new email \n");
+		logMessage("STEP : New button is clicked to add new email \n");
 
 	}
 
 	public void clickOnCancelButton() {
 		isElementDisplayed("btn_cancel");
 		click(element("btn_cancel"));
-		logMessage("Step : cancel button is clicked \n");
+		logMessage("STEP : Cancel button is clicked \n");
 	}
 
 	public void enterNewEmail(String newEmail) {
 		isElementDisplayed("inp_newEmail");
 		element("inp_newEmail").sendKeys(newEmail);
-		logMessage("Step : " + newEmail + " is enetered in inp_newEmail\n");
+		logMessage("STEP : " + newEmail + " is enetered in inp_newEmail\n");
 	}
 
 	public void clickOnAddButton() {
 		isElementDisplayed("btn_addNewMail");
 		click(element("btn_addNewMail"));
-		logMessage("Step : add button is clicked in btn_addNewMail");
+		logMessage("STEP : Add button is clicked in btn_addNewMail");
 	}
 
 	public void verifyEmailAddedSuccessfully(String productname, String addedEmail) {
 		isElementDisplayed("txt_addedEmail", productname);
 		Assert.assertTrue(element("txt_addedEmail", productname).getText().equalsIgnoreCase(addedEmail));
-		logMessage("ASSERT PASSED : added email " + addedEmail + " is verified\n");
+		logMessage("ASSERT PASSED : Added email " + addedEmail + " is verified\n");
 	}
 
 	public void verifyFailMessageIsAppeared(String failedMessage) {
@@ -275,7 +275,7 @@ public class ASM_emailPage extends GetPage {
 				String productName = selectedProductname()[0];
 				// click(checkbox);
 				checkbox.click();
-				logMessage("Step : First select all check box is clicked");
+				logMessage("STEP : First select all check box is clicked");
 				String dataCategoryId = getSelectedSubCategory(productName);
 				for (WebElement subCategory : elements("txt_subscribeToAll", dataCategoryId)) {
 					flag = subCategory.getAttribute("class").equalsIgnoreCase("teaser  ir");
@@ -285,7 +285,7 @@ public class ASM_emailPage extends GetPage {
 					}
 				}
 				Assert.assertTrue(flag);
-				logMessage("ASSERT PASSED : on check select all button subscribe to all sub categories\n");
+				logMessage("ASSERT PASSED : On check select all button subscribe to all sub categories\n");
 			} else {
 				String productName = selectedProductname()[1];
 				String dataCategoryId = getSelectedSubCategory(productName);
@@ -297,7 +297,7 @@ public class ASM_emailPage extends GetPage {
 					}
 				}
 				Assert.assertTrue(flag);
-				logMessage("ASSERT PASSED : on check select all button subscribe to all sub categories\n");
+				logMessage("ASSERT PASSED : On check select all button subscribe to all sub categories\n");
 			}
 			break;
 		}
@@ -318,7 +318,7 @@ public class ASM_emailPage extends GetPage {
 				subscriptionList.add(elem.getText());
 				mailingCategories.add(list);
 			}
-			logMessage("STEP: Mailing lists are present\n");
+			logMessage("STEP : Mailing lists are present\n");
 			mailingListMap.put(list, subscriptionList);
 		  }
 			else{
@@ -335,7 +335,7 @@ public class ASM_emailPage extends GetPage {
 		wait.hardWait(2);
 		isElementDisplayed("btn_mailingCategory",list);
 		element("btn_mailingCategory",list).click();
-		logMessage("STEP: Clicked on "+list+" mailing type button");
+		logMessage("STEP : Clicked on "+list+" mailing type button");
 	}
 
 }
