@@ -131,6 +131,7 @@ public class TestSessionInitiator {
 	public GCS_PaymentActions gcsPaymentPage;
 	public InventoryPageActions_IWEB inventoryIweb;
 	public ACS_MarketingPage_IWEB acsMarketingPageIweb;
+	public ACS_Fundraising_Keyword acsFundraising;
 
 	public TakeScreenshot takescreenshot;
 
@@ -184,6 +185,7 @@ public class TestSessionInitiator {
 		acsScarfReviewing = new ACS_Scarf_Reviewing_Eweb_Action(driver);
 		acsMarketingPageIweb = new ACS_MarketingPage_IWEB(driver);
 		gcsPaymentPage = new GCS_PaymentActions(driver);
+		acsFundraising=new ACS_Fundraising_Keyword(driver);
 
 	}
 

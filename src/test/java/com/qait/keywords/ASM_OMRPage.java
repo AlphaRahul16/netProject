@@ -776,7 +776,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	public void verifyRenewedProductsSummaryOnCheckOutPage(Map<String, String> mapRenewedProductDetails)
 	{
 
-		verifyProductsIndividualAmount(mapRenewedProductDetails);
+		//verifyProductsIndividualAmount(mapRenewedProductDetails);
 		verifyTotalAndBalanceDueOnCheckOutPage(mapRenewedProductDetails);
 
 	}
@@ -806,22 +806,24 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		switchToEwebRenewalFrame();
 		wait.waitForElementToBeVisible(elements("txt_productname").get(0));
 		System.out.println(elements("txt_productname").get(0).getText());
-		int size=elements("txt_productname").size();
+		int size = elements("txt_productname").size();
 		System.out.println(elements("txt_productname").size());
-		//switchToDefaultContent();
+		// switchToDefaultContent();
 		wait.hardWait(3);
-		//switchToEwebRenewalFrame();
-		for(int i = 0;i<size;i++)
-		{
-		wait.waitForElementsToBeVisible(elements("txt_productname"));
-		
-           System.out.println(elements("txt_productname").get(i).getText().trim());
-           System.out.println(mapRenewedProductDetails.get(elements("txt_productname").get(i).getText().trim()));
-			Assert.assertTrue(mapRenewedProductDetails.get(elements("txt_productname").get(i).getText().trim()).equals(
-			elements("txt_productamount").get(i).getText().replace("$", "").trim()));
-			logMessage("ASSERT PASSED : Amount for "+elements("txt_productname").get(i).getText()+ " is verified as "+mapRenewedProductDetails.get(elements("txt_productname").get(i).getText().trim()));
+		// switchToEwebRenewalFrame();
+		for (int i = 0; i < size; i++) {
+			wait.hardWait(3);
+			isElementDisplayed("txt_productname");
+			
+			//wait.waitForElementsToBeVisible(elements("txt_productname"));
+			String productName = elements("txt_productname").get(i).getText().trim();
+			String amount=mapRenewedProductDetails.get(elements("txt_productname").get(i).getText().trim());
+			System.out.println("Product name: " + productName);
+			System.out.println("Amount:"+amount);
+			Assert.assertTrue(amount.equals(elements("txt_productamount").get(i).getText().replace("$", "").trim()));
+			logMessage("ASSERT PASSED : Amount for " + productName + " is verified as "	+ amount);
 		}
-		
+
 		switchToDefaultContent();
 
 	}
@@ -829,7 +831,6 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	public void FillRequiredDetailsForStudentMember(Map<String, String> mapOMR) {
 		if(mapOMR.get("Member_Status?").equalsIgnoreCase("Student"))
 		{
-
 			//isConfirmYourInformationHeadingDisplayed();
 			enterGraduationDateForDegreeType();
 			enterStudentDegreeType(mapOMR);
