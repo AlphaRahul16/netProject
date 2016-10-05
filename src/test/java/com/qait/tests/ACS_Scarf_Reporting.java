@@ -2,6 +2,7 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Map;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -47,12 +49,16 @@ public class ACS_Scarf_Reporting{
 		dataList = XlsReader.addValuesInTheMapForExcel(sheetName, caseID);
 		app_url_iweb = getYamlValue("app_url_IwebReporting");
 	}
+	@BeforeMethod
+	public void handleTestMethodName(Method method) {
+		test.printMethodName(method.getName());
+	}
 	
 	@DataProvider(name="details")
 	public static Object[][] answerDetails(){
 		return new Object[][] {{"Service","In-progress", 4,"Save","Complete"},
 			{"Professional Development", "In-progress", 3,"Save","Complete"},
-			{"Chapter Development", "In-progress",3,"Save","Complete"}};
+			{"Chapter Development", "In-progress",4,"Save","Complete"}};
 	}
 		
 	@Test

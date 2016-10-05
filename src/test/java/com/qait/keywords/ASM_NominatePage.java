@@ -51,20 +51,20 @@ public class ASM_NominatePage extends GetPage {
 		isElementDisplayed("inp_username");
 		element("inp_username").clear();
 		element("inp_username").sendKeys(userName);
-		logMessage("Step : " + userName + " is entered in inp_username\n");
+		logMessage("STEP : " + userName + " is entered in inp_username\n");
 	}
 
 	public void enterPassword(String password) {
 		isElementDisplayed("inp_password");
 		element("inp_password").clear();
 		element("inp_password").sendKeys(password);
-		logMessage("Step : " + password + " is entered in inp_password\n");
+		logMessage("STEP : " + password + " is entered in inp_password\n");
 	}
 
 	public void clickOnVerifyButton() {
 		isElementDisplayed("btn_verify");
 		element("btn_verify").click();
-		logMessage("Step : Verify button is clicked in btn_verify\n");
+		logMessage("STEP : Verify button is clicked in btn_verify\n");
 		wait.hardWait(3);
 	}
 
@@ -82,7 +82,7 @@ public class ASM_NominatePage extends GetPage {
 	public void selectACSIDRadioButton() {
 		isElementDisplayed("rad_acsId");
 		element("rad_acsId").click();
-		logMessage("Step : ACS ID radio button is selected in rad_acsId\n");
+		logMessage("STEP : ACS ID radio button is selected in rad_acsId\n");
 	}
 
 	public void navigateToVerifyEligibilityTab(String awardName,
@@ -223,11 +223,11 @@ public class ASM_NominatePage extends GetPage {
 			//isElementDisplayed("txt_nominationRemoved");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
-			logMessage("Step : Incomplete submission removed \n");
+			logMessage("STEP : Incomplete submission removed \n");
 		} catch (NoSuchElementException exp) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
-			logMessage("Step : Incomplete submission is not removed \n");
+			logMessage("STEP : Incomplete submission is not removed \n");
 		}
 	}
 
@@ -240,13 +240,13 @@ public class ASM_NominatePage extends GetPage {
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("link_remove", nominationFieldName);
 			element("link_remove", nominationFieldName).click();
-			logMessage("Step : click on remove link in link_remove\n");
+			logMessage("STEP : Click on remove link in link_remove\n");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 			handleAlert();
 			waitForSpinnerOnUpload();
 		} catch (NoSuchElementException exp) {
-			logMessage("Step : file is not uploaded so remove button is not present \n");
+			logMessage("STEP : File is not uploaded so remove button is not present \n");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		}
@@ -256,7 +256,7 @@ public class ASM_NominatePage extends GetPage {
 		wait.hardWait(3);
 		isElementDisplayed("rad_uploadRecommendation");
 		element("rad_uploadRecommendation").click();
-		logMessage("Step : select upload button for recommendation in rad_uploadRecommendation\n");
+		logMessage("STEP : select upload button for recommendation in rad_uploadRecommendation\n");
 	}
 
 	public void uploadFileForSupportForm(String support2LastName,
@@ -284,7 +284,7 @@ public class ASM_NominatePage extends GetPage {
 			isElementDisplayed("btn_confirm");
 			element("btn_confirm").click();
 			wait.resetExplicitTimeout(timeOut);
-			logMessage("Step : confirm button is clicked in btn_confirm\n");
+			logMessage("STEP : confirm button is clicked in btn_confirm\n");
 		}
 		catch(NoSuchElementException e)
 		{

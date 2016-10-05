@@ -197,16 +197,17 @@ list_orderFrequency                             id                              
 ##Credit_Page
 
 icon_expand										css								.icon-chevron-down
-drpdown_batchNameCreditPage									css					#cdt_bat_key
+drpdown_batchNameCreditPage						css								#cdt_bat_key
 label_creditAmount								css								#Caption_cdd_amount
 inp_creditAmount								css								#cdd_amount
 list_creditReason								id								cdt_rec_key
+inp_cardHolderName								id								pin_cc_cardholder_name						
 inp_nameOnCheck									id								pin_name_on_check
 inp_customerName								id								cst_sort_name_dn
 list_liabilityExpense							id								cdd_gla_cr_key
 btn_preProcess									id								PreProcess
-btn_search										id								Look_Up_cst_sort_name_dn
-list_batchCreditPage							id								inv_bat_key
+btn_search										id								Look_Up_cst_id
+list_batchCreditPage							id								cdt_bat_key
 table_header									xpath							//a[contains(text(),'${text}')]
 btn_addBatchCredit								css								#cdt_bat_key_oAddHyperLink>img
 txt_creditAvailable								xpath							.//*[@id='cst_credit_available']
@@ -215,7 +216,11 @@ td_lineItems									xpath						//td/a[contains(text(),'${text}')]/.. /following
 txt_netTotal									xpath							//*[@id='ivd_nettotal']
 txt_netBalanceNetForum								xpath							//td/a[contains(text(),'${text}')]/.. /following-sibling::td[9]/span
 label_transCode									xpath								.//*[@id='F1_cdt_code']
-txt_mailingLabel								css									#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(10)
+img_arrow								       css									 #dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(1) > a > img
+txt_tableRow										css									#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(10)
+txt_creditAmount								xpath								//td[contains(text(),'${memberType}')]/following-sibling::td[6]
+btn_goask                                       id                           ButtonAskGo
+
 
 
 

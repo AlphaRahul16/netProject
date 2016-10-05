@@ -1,5 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.qait.automation</groupId>
 	<artifactId>acs-test</artifactId>
@@ -168,6 +169,7 @@
 						</goals>
 						<configuration>
 							<encoding>UTF-8</encoding>
+
 							<forkMode>never</forkMode>
 						</configuration>
 					</execution>
@@ -178,11 +180,13 @@
 	</build>
 	<reporting>
 		<plugins>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-report-plugin</artifactId>
 				<version>2.11</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+      				</configuration>
 				<reportSets>
 					<reportSet>
 						<id>integration-tests</id>
@@ -192,7 +196,6 @@
 					</reportSet>
 				</reportSets>
 			</plugin>
-
 		</plugins>
 	</reporting>
 </project>

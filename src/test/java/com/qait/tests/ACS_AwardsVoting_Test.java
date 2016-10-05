@@ -2,6 +2,7 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
@@ -49,13 +51,14 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.homePageIWEB.addValuesInMap("AwardsVoting", caseID);
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Awards");
-		test.homePageIWEB.clickOnTab("Find Award");
-		// test.individualsPage.enterFieldValue("Award Name","F. Albert Cotton Award in Synthetic Inorganic Chemistry");
-		// test.individualsPage.enterFieldValue("Award Year","2018");
+		test.homePageIWEB.clickOnTab("Find Award");		
 		test.individualsPage.enterFieldValue("Award Year",
 				DateUtil.getAnyDateForType("YYYY", 2, "year"));
 		test.individualsPage.clickGoButton();
-		
+//		test.individualsPage.enterFieldValue("Award Name:", "ACS Award in Inorganic Chemistry");
+//		test.individualsPage.enterFieldValue("Award Year:", "2018");
+//        test.individualsPage.clickGoButton();
+//        currentAwardName="ACS Award in Inorganic Chemistry:2018";
 		currentAwardName = test.individualsPage
 				.selectRandomGeneralAward_AwardNomination(DataProvider
 						.getRandomSpecificLineFromTextFile(
@@ -69,15 +72,14 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.awardsPageAction.editAwardStartAndEndDate();
 		test.awardsPageAction
 				.expandDetailsMenuIfAlreadyExpanded("award stages/rounds");
-		test.awardsPageAction.uncheckClosedCheckbox_VotingClosed(currentAwardName, "1");
+		test.awardsPageAction.uncheckClosedCheckbox_VotingClosed(currentAwardName);
 		test.awardsPageAction.collapseDetailsMenu("award stages/rounds");
 		test.individualsPage.navigateToEntrantsMenuOnHoveringMore();
 		numberOfNomineesInEntrants = test.awardsPageAction.allACSNomineesInEntrants();
-
 		test.awardsPageAction.expandDetailsMenuIfAlreadyExpanded("acs award winner");
-		test.awardsPageAction.editWinnerNomineesFromJudges();
+//		test.awardsPageAction.editWinnerNomineesFromJudges();      
+		test.awardsPageAction.editPreviousWinnerNominees();              //-------------
 		test.awardsPageAction.collapseDetailsMenu("acs award winner");
-	
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("General");
 		test.awardsPageAction.expandDetailsMenuIfAlreadyExpanded("award stages/rounds");
 		test.awardsPageAction.verifyOrAddRoundsPresents();
@@ -85,9 +87,7 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		startEndDate = test.awardsPageAction.editStartAndEndDate_Round(1);
 		test.awardsPageAction.clickOnSaveButton();
 		test.awardsPageAction.switchToDefaultContent();
-
 		test.awardsPageAction.collapseDetailsMenu("award stages/rounds");
-		
 		
 	}
 
@@ -170,13 +170,14 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 							+ " possible nominations to rank.");
 			test.award_ewebPage.provideComments(listOfFirstAndLastName,
 					test.award_ewebPage.map().get("Comment Text"));
+//			test.asm_PUBSPage._deleteExistingFIleFile("AwardNomination");    //---------------
 			test.award_ewebPage.clickOnViewProfileLink(listOfFirstAndLastName);
 			test.award_ewebPage
 					.clickOnProfilePdfLinkAndVerifyPdfContent(listOfFirstAndLastName);
 			test.award_ewebPage
 					.verifyAwardName_viewProfileLink(currentAwardName);
-			
 			test.award_ewebPage.clickOnCloseButton();
+			test.award_ewebPage.verifyDownloadedPdfContent(currentAwardName,i);
 			test.award_ewebPage.clickOnRankNominees_Save("Rank Nominees");
 			listOfNomineeJudges_judgeRanks = test.award_ewebPage
 					.enterRankForNominee_rank1ForFirstNominee(
@@ -204,8 +205,8 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.homePageIWEB.clickOnTab("Awards");
 		test.homePageIWEB.clickOnTab("Find Award");
 		test.individualsPage.enterFieldValue("Award Year",DateUtil.getAnyDateForType("YYYY", 2, "year"));
-		// test.individualsPage.enterFieldValue("Award Name","F. Albert Cotton Award in Synthetic Inorganic Chemistry");
-		// test.individualsPage.enterFieldValue("Award Year","2018");
+//		test.individualsPage.enterFieldValue("Award Name","ACS Award in Inorganic Chemistry");
+//		test.individualsPage.enterFieldValue("Award Year","2018");
 		test.individualsPage.clickGoButton();
 		test.individualsPage
 				.selectRandomGeneralAward_AwardNomination(currentAwardName
@@ -256,5 +257,9 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 
 		test.launchApplication(app_url_IWEB);
 
+	}
+	@BeforeMethod
+	public void handleTestMethodName(Method method) {
+		test.printMethodName(method.getName());
 	}
 }

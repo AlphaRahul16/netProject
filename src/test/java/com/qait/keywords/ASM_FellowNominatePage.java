@@ -71,7 +71,7 @@ public class ASM_FellowNominatePage extends GetPage {
 		isElementDisplayed("inp_" + fieldName);
 		element("inp_" + fieldName).clear();
 		element("inp_" + fieldName).sendKeys(fieldValue);
-		logMessage("Step : " + fieldValue + " is entered in " + fieldName + " \n");
+		logMessage("STEP : " + fieldValue + " is entered in " + fieldName + " \n");
 
 	}
 
@@ -92,7 +92,7 @@ public class ASM_FellowNominatePage extends GetPage {
 	public void clickOnLoginButton() {
 		isElementDisplayed("btn_login");
 		click(element("btn_login"));
-		logMessage("Step : login button is clicked in btn_login\n");
+		logMessage("STEP : Login button is clicked in btn_login\n");
 	}
 
 	public void verifyLoginErrorMessagePresent(String errorMessage) {
@@ -112,50 +112,50 @@ public class ASM_FellowNominatePage extends GetPage {
 		scrollDown(element("btn_startNomination"));
 		isElementDisplayed("btn_startNomination");
 		element("btn_startNomination").click();
-		logMessage("Step : start nomination button is clicked in btn_startNomination\n");
+		logMessage("STEP : Start nomination button is clicked in btn_startNomination\n");
 	}
 
 	public void clickOnConfirm() {
 		isElementDisplayed("btn_confirm");
 		click(element("btn_confirm"));
-		logMessage("Step : confirm button is clicked in btn_confirm\n");
+		logMessage("STEP : Confirm button is clicked in btn_confirm\n");
 	}
 
 	public void selectDesignateYourNomination(String designateName) {
 		isElementDisplayed("rad_designateYourNomination", designateName);
 		click(element("rad_designateYourNomination", designateName));
-		logMessage("Step : select radio button for " + designateName + " is clicked in rad_designateYourNomination\n");
+		logMessage("STEP : Select radio button for " + designateName + " is clicked in rad_designateYourNomination\n");
 	}
 
 	public void clickOnContinueWithNomination() {
 		isElementDisplayed("btn_countinueWithNomination");
 		click(element("btn_countinueWithNomination"));
-		logMessage("Step : continue with nomination button is clicked in btn_countinueWithNomination\n");
+		logMessage("STEP : Continue with nomination button is clicked in btn_countinueWithNomination\n");
 	}
 
 	public void clickOnConfirmSelection() {
 		isElementDisplayed("btn_confirmSelection");
 		click(element("btn_confirmSelection"));
-		logMessage("Step : confirm selection button is clicked in btn_confirmSelection\n");
+		logMessage("STEP : confirm selection button is clicked in btn_confirmSelection\n");
 	}
 
 	public void selectSearchType(String searchType) {
 		isElementDisplayed("rad_searchNominee", searchType);
 		click(element("rad_searchNominee", searchType));
-		logMessage("Step : select search type " + searchType + " in rad_searchNominee\n");
+		logMessage("STEP : select search type " + searchType + " in rad_searchNominee\n");
 	}
 
 	public void enterSearchValue(String searchType, String searchValue) {
 		isElementDisplayed("inp_enterName_numberToSearch", searchType);
 		element("inp_enterName_numberToSearch", searchType).sendKeys(searchValue);
-		logMessage("Step : enter search value " + searchValue + " for search type " + searchType
+		logMessage("STEP : enter search value " + searchValue + " for search type " + searchType
 				+ " in inp_enterName_numberToSearch\n");
 	}
 
 	public void clickOnFindNumber() {
 		isElementDisplayed("btn_findMember");
 		click(element("btn_findMember"));
-		logMessage("Step : click find number button in btn_findMember\n");
+		logMessage("STEP : click find number button in btn_findMember\n");
 	}
 
 	public void preRequisiteToidentifyNomineeByName_Number() {
@@ -272,13 +272,13 @@ public class ASM_FellowNominatePage extends GetPage {
 	public void verifyErrorMessage(String errorMessage) {
 		isElementDisplayed("txt_searchErrorMsg");
 		verifyElementText("txt_searchErrorMsg", errorMessage);
-		logMessage("ASSERT PASSED : error message is verified and text is :" + errorMessage + " \n");
+		logMessage("ASSERT PASSED : Error message is verified and text is :" + errorMessage + " \n");
 	}
 
 	public void logoutApplication() {
 		isElementDisplayed("btn_logOut");
 		click(element("btn_logOut"));
-		logMessage("Step : LogOut Application in btn_logOut\n");
+		logMessage("STEP : Logout Application in btn_logOut\n");
 	}
 
 	public void selectNominee() {
@@ -287,7 +287,7 @@ public class ASM_FellowNominatePage extends GetPage {
 		//wait.waitForElementToBeVisible(element("btn_firstNominee"));
 		isElementDisplayed("btn_firstNominee");
 		element("btn_firstNominee").click();
-		logMessage("Step : select first nominee in btn_firstNominee\n");
+		logMessage("STEP : Select first nominee in btn_firstNominee\n");
 	}
 
 	public void selectFellowNominees(String SearchValue) {
@@ -309,13 +309,13 @@ public class ASM_FellowNominatePage extends GetPage {
 		}
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
-		logMessage("Step : select first nominee in btn_firstNominee\n");
+		logMessage("STEP : select first nominee in btn_firstNominee\n");
 	}
 
 	public void clickOnSaveAndContinueButton() {
 		isElementDisplayed("btn_saveAnContinue");
 		element("btn_saveAnContinue").click();
-		logMessage("Step : Save and continue button is clicked in btn_saveAnContinue\n");
+		logMessage("STEP : Save and continue button is clicked in btn_saveAnContinue\n");
 	}
 
 	public void verifyCurrentNomination(String nominationName) {
@@ -326,26 +326,26 @@ public class ASM_FellowNominatePage extends GetPage {
 		isElementDisplayed("inp_nominationField", fieldName);
 		element("inp_nominationField", fieldName).clear();
 		element("inp_nominationField", fieldName).sendKeys(fieldValue);
-		logMessage("Step : " + fieldValue + " is entered in " + fieldName + " \n");
+		logMessage("STEP : " + fieldValue + " is entered in " + fieldName + " \n");
 	}
 
 	public void clickReturnToDashBoardButton() {
 		isElementDisplayed("btn_ReturnToDashboard");
 
 		element("btn_ReturnToDashboard").click();
-		logMessage("Step : Return To Dashboard is clicked\n");
+		logMessage("STEP : Return To Dashboard is clicked\n");
 	}
 
 	public void selectNominationFieldValue(String fieldName, String fieldValue) {
 		isElementDisplayed("list_selectNominationField", fieldName);
 		selectProvidedTextFromDropDown(element("list_selectNominationField", fieldName), fieldValue);
-		logMessage("Step : " + fieldValue + " is selected in " + fieldName + " \n");
+		logMessage("STEP : " + fieldValue + " is selected in " + fieldName + " \n");
 	}
 
 	public void clickOnSaveButton(String nominationChecklistName) {
 		isElementDisplayed("btn_nominationSave", nominationChecklistName);
 		element("btn_nominationSave", nominationChecklistName).click();
-		logMessage("Step : Save button is clicked in btn_nominationSave\n");
+		logMessage("STEP : Save button is clicked in btn_nominationSave\n");
 		wait.waitForPageToLoadCompletely();
 	}
 
@@ -402,7 +402,7 @@ public class ASM_FellowNominatePage extends GetPage {
 	public void verifyErrorMessage_Nomination(String errorMessage) {
 		isElementDisplayed("txt_errorMessage");
 		if (element("txt_errorMessage").getText().endsWith(errorMessage)) {
-			logMessage("Step : " + errorMessage + " is verified in txt_errorMessage\n");
+			logMessage("STEP : " + errorMessage + " is verified in txt_errorMessage\n");
 		}
 	}
 
@@ -413,7 +413,7 @@ public class ASM_FellowNominatePage extends GetPage {
 		// performClickByActionBuilder(element("lnk_nominationChecklist",
 		// nominationChecklistName));
 		// element("lnk_nominationChecklist", nominationChecklistName).click();
-		logMessage("Step : " + nominationChecklistName + " is clicked in lnk_nominationChecklist\n");
+		logMessage("STEP : " + nominationChecklistName + " is clicked in lnk_nominationChecklist\n");
 
 	}
 
@@ -424,12 +424,12 @@ public class ASM_FellowNominatePage extends GetPage {
 			isElementDisplayed("inp_professionalHistory", fieldName);
 			element("inp_professionalHistory", fieldName).clear();
 			element("inp_professionalHistory", fieldName).sendKeys(fieldValue);
-			logMessage("Step : " + fieldValue + " is entered in " + fieldName + " in inp_professionalHistory\n");
+			logMessage("STEP : " + fieldValue + " is entered in " + fieldName + " in inp_professionalHistory\n");
 		} catch (StaleElementReferenceException exp) {
 			isElementDisplayed("inp_professionalHistory", fieldName);
 			element("inp_professionalHistory", fieldName).clear();
 			element("inp_professionalHistory", fieldName).sendKeys(fieldValue);
-			logMessage("Step : " + fieldValue + " is entered in " + fieldName + " in inp_professionalHistory\n");
+			logMessage("STEP : " + fieldValue + " is entered in " + fieldName + " in inp_professionalHistory\n");
 			wait.resetExplicitTimeout(timeOut);
 			wait.resetImplicitTimeout(timeOut);
 		}
@@ -456,7 +456,7 @@ public class ASM_FellowNominatePage extends GetPage {
 		element("txtarea_awards").click();
 		element("txtarea_awards").clear();
 		element("txtarea_awards").sendKeys(description);
-		logMessage("Step : " + description + " is entered in inp_description\n");
+		logMessage("STEP : " + description + " is entered in inp_description\n");
 	}
 
 	public void fillDetailsForProfessionalOrganizationAffiliations(String professionalOrg, String title,
@@ -513,7 +513,7 @@ public class ASM_FellowNominatePage extends GetPage {
 
 			verifyListOfMembersIsPresent(nominatorNumber);
 		} else {
-			logMessage("Step : search type is not mention correctly");
+			logMessage("STEP : Search type is not mention correctly");
 		}
 
 	}
@@ -522,7 +522,7 @@ public class ASM_FellowNominatePage extends GetPage {
 		isElementDisplayed("inp_searchName", nominatorNumber);
 		element("inp_searchName", nominatorNumber).clear();
 		element("inp_searchName", nominatorNumber).sendKeys(name);
-		logMessage("Step : " + name + " is entered to search for nominator" + nominatorNumber + "\n");
+		logMessage("STEP : " + name + " is entered to search for nominator" + nominatorNumber + "\n");
 	}
 
 	public void waitForSearchImageToDissappear(String nominatorNumber) {
@@ -556,26 +556,26 @@ public class ASM_FellowNominatePage extends GetPage {
 	public void selectFirstNominator(String nominatorNumber) {
 		isElementDisplayed("list_selectMember", nominatorNumber);
 		elements("list_selectMember", nominatorNumber).get(0).click();
-		logMessage("Step : first nominator is selected \n");
+		logMessage("STEP : First nominator is selected \n");
 	}
 
 	public void selectRadioButtonForNumber(String nominatorNumber) {
 		isElementDisplayed("rad_searchNumber", nominatorNumber);
 		element("rad_searchNumber", nominatorNumber).click();
-		logMessage("Step : radio button for search by number is selected in rad_searchNumber\n");
+		logMessage("STEP : Radio button for search by number is selected in rad_searchNumber\n");
 	}
 
 	public void searchByNumber(String nominatorNumber, String number) {
 		isElementDisplayed("inp_searchByNumber", nominatorNumber);
 		element("inp_searchByNumber", nominatorNumber).clear();
 		element("inp_searchByNumber", nominatorNumber).sendKeys(number);
-		logMessage("Step : " + number + " is entered in inp_searchByNumber\n");
+		logMessage("STEP : " + number + " is entered in inp_searchByNumber\n");
 	}
 
 	public void clickFindMemberButton(String nominatorNumber) {
 		isElementDisplayed("btn_findMemberNominator", nominatorNumber);
 		element("btn_findMemberNominator", nominatorNumber).click();
-		logMessage("Step : find member button is clicked in btn_findMemberNominator\n");
+		logMessage("STEP : Find member button is clicked in btn_findMemberNominator\n");
 
 	}
 
@@ -756,7 +756,7 @@ public class ASM_FellowNominatePage extends GetPage {
 	private void clickOnHomeButton() {
 		isElementDisplayed("btn_home");
 		click(element("btn_home"));
-		logMessage("Step : Home Button is clicked\n");
+		logMessage("STEP : Home Button is clicked\n");
 
 	}
 
@@ -800,7 +800,7 @@ public class ASM_FellowNominatePage extends GetPage {
 		element("inp_upload").sendKeys(filePath.getAbsolutePath());
 		switchToDefaultContent();
 		hardWaitForIEBrowser(2);
-		logMessage("Step : " + fileName + " is uploaded in " + fieldname + " \n");
+		logMessage("STEP : " + fileName + " is uploaded in " + fieldname + " \n");
 		verifyFileUploaded(fileName, fieldname);
 	}
 	
@@ -867,12 +867,12 @@ public class ASM_FellowNominatePage extends GetPage {
 			isElementDisplayed("link_delete", nominationFieldName);
 			element("link_delete", nominationFieldName).click();
 			clickOnConfirm();
-			logMessage("Step : click on delete link in link_delete\n");
+			logMessage("STEP : Click on delete link in link_delete\n");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 			handleAlert();
 		} catch (NoSuchElementException exp) {
-			logMessage("Step : file is not uploaded so remove button is not present \n");
+			logMessage("STEP : File is not uploaded so remove button is not present \n");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		}
@@ -903,7 +903,7 @@ public class ASM_FellowNominatePage extends GetPage {
 	public void clickOnContinueToNextButton() {
 		isElementDisplayed("link_nextPage");
 		element("link_nextPage").click();
-		logMessage("Step : continue to next page is clicked in link_nextPage\n");
+		logMessage("STEP : Continue to next page is clicked in link_nextPage\n");
 	}
 
 	public void verifySessionExpiresInThirtySeconds() {
@@ -919,29 +919,29 @@ public class ASM_FellowNominatePage extends GetPage {
 	public void clickOnContinueToSubmit() {
 		isElementDisplayed("btn_submitContinue");
 		element("btn_submitContinue").click();
-		logMessage("Step : contnue button is clicked for submit \n");
+		logMessage("STEP : Contnue button is clicked for submit \n");
 	}
 
 	public void checkForSubmitNomination() {
 		isElementDisplayed("chk_submitNomination");
 		if (!element("chk_submitNomination").isSelected()) {
 			element("chk_submitNomination").click();
-			logMessage("Step : checkbox is checked for submit nomination in chk_submitNomination\n");
+			logMessage("STEP : Checkbox is checked for submit nomination in chk_submitNomination\n");
 		} else {
-			logMessage("Step : checkbox is already checked for submit nomination in chk_submitNomination\n");
+			logMessage("STEP : Checkbox is already checked for submit nomination in chk_submitNomination\n");
 		}
 	}
 
 	public void clickOnSubmitNomination() {
 		isElementDisplayed("btn_submitNomination");
 		element("btn_submitNomination").click();
-		logMessage("Step : click on submit nomination in btn_submitNomination\n");
+		logMessage("STEP : Click on submit nomination in btn_submitNomination\n");
 	}
 
 	public void clickOnSubmitButton() {
 		isElementDisplayed("btn_saveSubmit");
 		element("btn_saveSubmit").click();
-		logMessage("Step : save button is clicked inbtn_saveSubmit\n");
+		logMessage("STEP : Save button is clicked inbtn_saveSubmit\n");
 	}
 
 	public void verifyNominationCompleted() {
@@ -971,7 +971,7 @@ public class ASM_FellowNominatePage extends GetPage {
 	public void selectRadioButtonInsideFellowType(String fellowtype) {
 		isElementDisplayed("rad_localsectionArea", fellowtype);
 		element("rad_localsectionArea", fellowtype).click();
-		logMessage("Step : Radio Button inside" + fellowtype + " is clicked\n");
+		logMessage("STEP : Radio Button inside" + fellowtype + " is clicked\n");
 
 	}
 
@@ -1006,7 +1006,7 @@ public class ASM_FellowNominatePage extends GetPage {
 			wait.resetImplicitTimeout(5);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			// isElementDisplayed("img_spinner");
-			logMessage("STEP : wait for spinner to be disappeared \n");
+			logMessage("STEP : Wait for spinner to be disappeared \n");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		} catch (Exception Exp) {
@@ -1015,7 +1015,7 @@ public class ASM_FellowNominatePage extends GetPage {
 
 		} catch (AssertionError Exp) {
 
-			logMessage("STEP : spinner is not present \n");
+			logMessage("STEP : Spinner is not present \n");
 		}
 	}
 
@@ -1039,7 +1039,7 @@ public class ASM_FellowNominatePage extends GetPage {
 			isElementDisplayed("rad_codeConductNo");
 			click(element("rad_codeConductNo"));
 		}
-		logMessage("Step : code of conduct details filled with choice as : " + choice);
+		logMessage("STEP : Code of conduct details filled with choice as : " + choice);
 
 	}
 
@@ -1097,7 +1097,7 @@ public class ASM_FellowNominatePage extends GetPage {
 				System.out.println(element("txt_fellowIwebDetails", toString().valueOf(index)).getText());
 				Assert.assertTrue(element("txt_fellowIwebDetails", toString().valueOf(index)).getText().trim()
 						.equals(ProfessionalOrg[i].trim()));
-				logMessage("ASSERT PASSED : details in "+MenuName+" verified as "+ProfessionalOrg[i].trim());
+				logMessage("ASSERT PASSED : Details in "+MenuName+" verified as "+ProfessionalOrg[i].trim());
 				index++;
 			}
 		} else if (MenuName.equals("honors and awards")) {
@@ -1105,7 +1105,7 @@ public class ASM_FellowNominatePage extends GetPage {
 				System.out.println(element("txt_fellowIwebDetails", toString().valueOf(index)).getText());
 				Assert.assertTrue(element("txt_fellowIwebDetails", toString().valueOf(index)).getText().trim()
 						.equals(honors[i].trim()));
-				logMessage("ASSERT PASSED : details in "+MenuName+" verified as "+honors[i].trim());
+				logMessage("ASSERT PASSED : Details in "+MenuName+" verified as "+honors[i].trim());
 				index++;
 			}
 		} else {
@@ -1113,7 +1113,7 @@ public class ASM_FellowNominatePage extends GetPage {
 				System.out.println(element("txt_fellowIwebDetails", toString().valueOf(index)).getText());
 				Assert.assertTrue(element("txt_fellowIwebDetails", toString().valueOf(index)).getText().trim()
 						.equals(AcsServicesArray[i].trim()));
-				logMessage("ASSERT PASSED : details in "+MenuName+" verified as "+AcsServicesArray[i].trim());
+				logMessage("ASSERT PASSED : Details in "+MenuName+" verified as "+AcsServicesArray[i].trim());
 				index++;
 			}
 		}
@@ -1170,18 +1170,18 @@ public class ASM_FellowNominatePage extends GetPage {
 	private void clickOnEditButtonForSavedNomination(String FellowType) {
 		isElementDisplayed("lnk_editNominations", FellowType);
 		click(element("lnk_editNominations", FellowType));
-		logMessage("Step : Edit Button for Saved Nomination " + FellowType + " is clicked\n");
+		logMessage("STEP : Edit Button for Saved Nomination " + FellowType + " is clicked\n");
 	}
 
 	private void clickOnViewButtonForSavedNomination(String FellowType) {
 		isElementDisplayed("lnk_viewNominations", FellowType);
 		click(element("lnk_viewNominations", FellowType));
-		logMessage("Step : View Button for Saved Nomination " + FellowType + " is clicked\n");
+		logMessage("STEP : View Button for Saved Nomination " + FellowType + " is clicked\n");
 	}
 
 	private void verifyUserIsAbleToSeeAllViewButtons() {
 		Assert.assertTrue(elements("btn_view").size() == 9);
-		logMessage("Step : All view Button are enabled\n");
+		logMessage("STEP : All view Button are enabled\n");
 	}
 
 	public void clickPrintPDFButton(String Fellowtype) {
@@ -1190,7 +1190,7 @@ public class ASM_FellowNominatePage extends GetPage {
 				+ File.separator + "resources" + File.separator + "DownloadedFiles";
 		isElementDisplayed("lnk_printPDF", Fellowtype);
 		click(element("lnk_printPDF", Fellowtype));
-		logMessage("Step : Print PDF button is clicked for " + Fellowtype + "\n");
+		logMessage("STEP : Print PDF button is clicked for " + Fellowtype + "\n");
 		Assert.assertTrue(isFileDownloaded(downloadFilePath, "FellowsNomination"),
 				"Failed to download Expected document");
 logMessage("ASSERT PASSED : Pdf file downloaded for "+Fellowtype+" submitted nomination\n");

@@ -43,7 +43,7 @@ public class ASM_AACTPage extends ASCSocietyGenericPage {
 		for (WebElement element : elements("list_addressType")) {
 			if (element.getText().equalsIgnoreCase(addressType)) {
 				click(element);
-				logMessage("Step : address type " + addressType
+				logMessage("STEP : Address type " + addressType
 						+ " is selected in list_addressType\n");
 			}
 		}
@@ -81,10 +81,10 @@ public class ASM_AACTPage extends ASCSocietyGenericPage {
 				isElementDisplayed("inp_schoolWorkInfo", detailType);
 				element("inp_schoolWorkInfo", detailType).clear();
 				element("inp_schoolWorkInfo", detailType).sendKeys(detailValue);
-				logMessage("Step: " + detailValue + " entered in the "
+				logMessage("STEP : " + detailValue + " entered in the "
 						+ detailType + "\n");
 			} else {
-				logMessage("member detail is not present in data sheet\n");
+				logMessage("Member detail is not present in data sheet\n");
 			}
 		} catch (StaleElementReferenceException stlExp) {
 			if (!detailValue.equalsIgnoreCase("null")) {
@@ -93,10 +93,10 @@ public class ASM_AACTPage extends ASCSocietyGenericPage {
 				isElementDisplayed("inp_schoolWorkInfo", detailType);
 				element("inp_schoolWorkInfo", detailType).clear();
 				element("inp_schoolWorkInfo", detailType).sendKeys(detailValue);
-				logMessage("Step: " + detailValue + " entered in the "
+				logMessage("STEP : " + detailValue + " entered in the "
 						+ detailType + "\n");
 			} else {
-				logMessage("member detail is not present in data sheet\n");
+				logMessage("Member detail is not present in data sheet\n");
 			}
 		}
 
@@ -185,17 +185,17 @@ public class ASM_AACTPage extends ASCSocietyGenericPage {
 		if (!detailValue.equalsIgnoreCase("null")) {
 			isElementDisplayed("chk_atAboutYouPage", detailValue);
 			element("chk_atAboutYouPage", detailValue).click();
-			logMessage("Step: " + detailValue
+			logMessage("STEP : " + detailValue
 					+ " is checked in the chk_atAboutYouPage\n");
 		} else {
-			logMessage("member detail is not present in data sheet\n");
+			logMessage("Member detail is not present in data sheet\n");
 		}
 
 	}
 
 	public void verifyPaymentErrorPresent() {
 		isElementDisplayed("txt_paymentError");
-		logMessage("ASSERT PASSED : payment error is verified in txt_paymentError\n");
+		logMessage("ASSERT PASSED : Payment error is verified in txt_paymentError\n");
 	}
 
 	public void enterMemberDetailsAtAboutYouPage(String caseId) {
@@ -213,25 +213,26 @@ public class ASM_AACTPage extends ASCSocietyGenericPage {
 				clickUsingXpathInJavaScriptExecutor(element("rad_memberType",
 						memberType));
 				// element("rad_memberType", memberType).click();
-				logMessage("Step : Select member type " + memberType + "\n");
+				logMessage("STEP : Select member type " + memberType + "\n");
 			} else {
-				logMessage("Step : member type " + memberType
+				logMessage("STEP : member type " + memberType
 						+ " is already selected \n");
 			}
 		} else {
-			logMessage("member type is not present in data sheet\n");
+			logMessage("Member type is not present in data sheet\n");
 		}
 
 	}
 
 	public void selectDemographicDetail(String detailType, String detailValue) {
 		if (!detailValue.equalsIgnoreCase("null")) {
+			hardWaitForChromeBrowser(2);
 			isElementDisplayed("list_demographicInfo", detailType);
 			wait.waitForElementToBeClickable(element("list_demographicInfo",
 					detailType));
 			selectProvidedTextFromDropDown(
 					element("list_demographicInfo", detailType), detailValue);
-			logMessage("Step : " + detailValue + " is selected in "
+			logMessage("STEP : " + detailValue + " is selected in "
 					+ detailType + "\n");
 		} else {
 			logMessage(detailType + " value is not present in data sheet\n");
@@ -244,7 +245,7 @@ public class ASM_AACTPage extends ASCSocietyGenericPage {
 			isElementDisplayed("inp_demographicInfo", detailType);
 			element("inp_demographicInfo", detailType).clear();
 			element("inp_demographicInfo", detailType).sendKeys(detailValue);
-			logMessage("Step : " + detailValue + " is entered in " + detailType
+			logMessage("STEP : " + detailValue + " is entered in " + detailType
 					+ "\n");
 		} else {
 			logMessage(detailType + " value is not present in data sheet\n");
@@ -437,7 +438,7 @@ public class ASM_AACTPage extends ASCSocietyGenericPage {
 			isElementDisplayed("inp_affiliateTitle");
 			element("inp_affiliateTitle").clear();
 			element("inp_affiliateTitle").sendKeys(title);
-			logMessage("Step : " + title
+			logMessage("STEP : " + title
 					+ " is entered in inp_affiliateTitle\n");
 		} else {
 			logMessage("Effiliate title in data sheet is not present\n");

@@ -100,27 +100,27 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("inp_memberDetailInAdd", detailName);
 		element("inp_memberDetailInAdd", detailName).clear();
 		element("inp_memberDetailInAdd", detailName).sendKeys(detailValue);
-		logMessage("Step : enter " + detailValue + " in " + detailName + " \n");
+		logMessage("STEP : Enter " + detailValue + " in " + detailName + " \n");
 	}
 
 	public void selectMemberDetails(String detailName, String detailValue) {
 		isElementDisplayed("list_" + detailName);
 		selectProvidedTextFromDropDown(element("list_" + detailName),
 				detailValue);
-		logMessage("Step : select " + detailValue + " in " + detailName + " \n");
+		logMessage("STEP : select " + detailValue + " in " + detailName + " \n");
 	}
 
 	public void enterMemberDetail(String detailName, String detailValue) {
 		isElementDisplayed("inp_" + detailName);
 		element("inp_" + detailName).sendKeys(detailValue);
-		logMessage("Step : enter " + detailValue + " in " + detailName + " \n");
+		logMessage("STEP : enter " + detailValue + " in " + detailName + " \n");
 	}
 
 	public void enterAddVerifyMemberDetails(String detailName,
 			String detailValue) {
 		isElementDisplayed("inp_addVerify", detailName);
 		element("inp_addVerify", detailName).sendKeys(detailValue);
-		logMessage("Step : enter " + detailValue + " in " + detailName + " \n");
+		logMessage("STEP : enter " + detailValue + " in " + detailName + " \n");
 	}
 
 	public void getAndVerifyMemberDetail(String detailName, String detailValue) {
@@ -156,13 +156,13 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_save");
 		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
 		//element("btn_save").click();
-		logMessage("Step : save button is clicked in btn_save\n");
+		logMessage("STEP : Save button is clicked in btn_save\n");
 	}
 
 	public void clickOnAddVerifySaveButton() {
 		isElementDisplayed("btn_addVerifySave");
 		element("btn_addVerifySave").click();
-		logMessage("Step : save button is clicked in btn_addVerifySave\n");
+		logMessage("STEP : Save button is clicked in btn_addVerifySave\n");
 	}
 
 	public void waitForSpinner() {

@@ -272,7 +272,6 @@ public class ASCSocietyGenericPage extends GetPage {
 			pdfStripper.setStartPage(1);
 			pdfStripper.setEndPage(2);
 			parsedText = pdfStripper.getText(pdDoc);
-			Reporter.log("Invoice Reciept Is::" + parsedText);
 			System.out.println("Parsed Text::" + parsedText);
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
@@ -337,7 +336,7 @@ public class ASCSocietyGenericPage extends GetPage {
 		}
 	}
 
-	private String extractFromPdf(String filename, int totalnumberofpages,
+	public String extractFromPdf(String filename, int totalnumberofpages,
 			String fileFrom) throws IOException {
 		String filepath = null;
 		if (fileFrom == "System" || fileFrom == "uploads") {
@@ -476,6 +475,7 @@ public class ASCSocietyGenericPage extends GetPage {
 		memPage = new MembershipPageActions_IWEB(driver);
 
 		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(5);
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
 				"hiddenFieldTimeOut"));

@@ -2,8 +2,11 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.lang.reflect.Method;
+
 import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
@@ -21,7 +24,7 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 	String app_url_IWEB = getYamlValue("app_url_IWEB");
 
 	ACS_OMA_Discount_Test() {
-		DataProvider_FactoryClass.sheetName = "OMA-Discount";
+		DataProvider_FactoryClass.sheetName = "OMA_Discount";
 	}
 
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
@@ -31,13 +34,15 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 
 	@Test
 	public void Step01_Launch_Application_Under_Test() {
-		test.homePageIWEB.addValuesInMap("OMA-Discount", caseID);
+		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+		test.homePageIWEB.addValuesInMap("OMA_Discount", caseID);
 		test.launchApplication(app_url);
 		test.homePage.verifyUserIsOnHomePage("");
 	}
 
 	@Test(dependsOnMethods = "Step01_Launch_Application_Under_Test")
 	public void Step02_Enter_Contact_Information() {
+		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		userDetail = test.ContactInfoPage.enterContactInformation(
 				test.homePageIWEB.map().get("Email"), test.homePageIWEB.map()
 						.get("FirstName"),
@@ -45,7 +50,7 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 						.map().get("AddressType"),
 				test.homePageIWEB.map().get("Address"), test.homePageIWEB.map()
 						.get("City"), test.homePageIWEB.map().get("Country"),
-				"", "");
+				"", test.homePageIWEB.map().get("ZipCode"));
 		test.ContactInfoPage.clickContinue();
 		userEmail = userDetail[0];
 		test.homePage.verifyCurrentTab("Education & Employment");
@@ -54,6 +59,7 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step02_Enter_Contact_Information")
 	public void Step03_Enter_Education_And_Employment_Info() {
+		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.EduAndEmpPage.enterEducationAndEmploymentInformation();
 		test.ContactInfoPage.clickContinue();
@@ -61,6 +67,7 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step03_Enter_Education_And_Employment_Info")
 	public void Step04_Enter_Benefits_Info() {
+		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.homePage.verifyCurrentTab("Benefits");
 		test.BenefitsPage.addACSPublicationAndTechnicalDivision(caseID);
@@ -71,10 +78,11 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step04_Enter_Benefits_Info")
 	public void Step05_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page() {
+		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		test.checkoutPage.verifyMultiYearShow_Hide(test.checkoutPage.map().get(
 				"multiYearFlag?"));
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
-		test.checkoutPage.verifyPriceValues(caseID);
+		test.checkoutPage.verifyPriceValues_OMADiscount(caseID);
 		test.checkoutPage.verifyMemberDetail(caseID);
 		test.checkoutPage.verifyMemberEmail(userEmail);
 		productSubTotal = test.checkoutPage.verifyProductSubTotal("4",
@@ -95,13 +103,14 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step05_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page")
 	public void Step06_Verify_Details_At_Confirmation_Page() {
-
+		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		memberDetail = test.confirmationPage.verifyMemberDetails(
 				test.homePageIWEB.map().get("City"), test.homePageIWEB.map()
 						.get("ZipCode"),
 				test.homePageIWEB.map().get("Country"), test.homePageIWEB.map()
 						.get("Address"));
+		System.out.println("invoice : " + memberDetail[1]);
 		test.checkoutPage.verifyMemberName(caseID);
 		test.checkoutPage.verifyTechnicalDivision(caseID);
 		test.checkoutPage.verifyPublication(caseID);
@@ -109,7 +118,7 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step06_Verify_Details_At_Confirmation_Page")
 	public void Step07_Launch_Application_Under_Test() {
-
+		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.launchApplication(app_url_IWEB);
 		test.homePage.enterAuthentication(
@@ -121,6 +130,7 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step07_Launch_Application_Under_Test")
 	public void Step08_Search_Member_In_Individual_Test() {
+		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		String invoiceNumber = memberDetail[1];
 		test.homePageIWEB.clickFindForIndividualsSearch();
@@ -133,13 +143,11 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 						.get("City"), test.homePageIWEB.map().get("ZipCode"),
 				test.homePageIWEB.map().get("AddressType"), memberDetail[0],
 				userEmail, caseID);
-		// test.individualsPage.verifyIndividualProfileDetails(caseID,
-		// quantities);
-		test.individualsPage.verifyMemberBenefitsDetail(caseID, invoiceNumber);
-		// test.homePageIWEB.clickOnSideBarTab("Invoice");
-		// test.memberShipPage.clickOnSideBar("Find Invoice");
-		// test.invoicePage.verifyInvoicedDetails(caseID, "Invoice",
-		// invoiceNumber, quantities, Total);
+		test.individualsPage.verifyMemberBenefitsDetail_GCSOMA(caseID, invoiceNumber);
+		test.homePageIWEB.clickOnSideBarTab("Invoice");
+		test.memberShipPage.clickOnSideBar("Find Invoice");
+		test.invoicePage
+				.verifyInvoiceDetailsGCSOMA(invoiceNumber, Total, "Yes");	
 	}
 
 	/**
@@ -148,6 +156,10 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 	@BeforeClass
 	public void Start_Test_Session() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
+	}
+	@BeforeMethod
+	public void handleTestMethodName(Method method) {
+		test.printMethodName(method.getName());
 	}
 
 }

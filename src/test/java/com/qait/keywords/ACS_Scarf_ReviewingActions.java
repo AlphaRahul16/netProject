@@ -34,11 +34,11 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 			isElementDisplayed("img_spinner");
 			handleAlert();
 			wait.waitForElementToDisappear(element("img_spinner"));
-			logMessage("STEP : wait for spinner to be disappeared \n");
+			logMessage("STEP : Wait for spinner to be disappeared \n");
 
 		} catch (Exception Exp) {
 
-			logMessage("STEP : spinner is not present \n");
+			logMessage("STEP : Spinner is not present \n");
 		}
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
@@ -68,7 +68,7 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
    	     }
    	     
         waitForSpinner();
-		logMessage("Step : "+reviewerNameList.get(reviewerNameCount)+" is selected as a "+reviewertype);
+		logMessage("STEP : "+reviewerNameList.get(reviewerNameCount)+" is selected as a "+reviewertype);
 		if((reviewertype.equals("Online Reviewer"))&&(reviewercount==0)&&(assignedchaptername==null))
 		{
 			assignedchaptername=getAssignedChapterName();
@@ -106,7 +106,7 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 			clickUsingXpathInJavaScriptExecutor(element("btn_AssignChapter",chapterName));
 		}
 		waitForSpinner();
-		logMessage("Step : Reviewer Assigned to chapter "+chapterName);
+		logMessage("STEP : Reviewer Assigned to chapter "+chapterName);
 		
 	}
 
@@ -145,7 +145,7 @@ public class ACS_Scarf_ReviewingActions extends ASCSocietyGenericPage {
 		isElementDisplayed("tab_QueryName");
 //		element("tab_QueryName").click();
 		clickUsingXpathInJavaScriptExecutor(element("tab_QueryName"));
-		logMessage("Step : "+tabName+" is clicked\n");
+		logMessage("STEP : "+tabName+" is clicked\n");
 		
 	}
 	

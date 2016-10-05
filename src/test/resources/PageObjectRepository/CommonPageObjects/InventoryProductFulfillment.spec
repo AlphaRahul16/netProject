@@ -13,5 +13,6 @@ bttn_continue						xpath					.//input[@value='Continue']
 productName_orders					xpath					.//*[@id='ShipOrdersTable_Fulfill']//td[contains(text(),'${name}')]
 lineitem_product					xpath					.//*[contains(text(),'${name}')]
 icon_reports						id						ACSProductReportButton
+img_spinner                          css                     #__UPIMG
 ======================================================================================================================================
                 

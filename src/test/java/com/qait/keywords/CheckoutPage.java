@@ -2,8 +2,10 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
 
+import org.apache.poi.hssf.record.PrecisionRecord;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -279,11 +281,49 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 				logMessage("Step : multiyear flag is not present in price value sheet\n");
 			}
 		}
+		DecimalFormat df = new DecimalFormat("0.00");
+		System.out.println("-------------"
+				+ map().get("ACS MEMBER DUES " + DateUtil.getCurrentYear())
+						.trim().replaceAll("\\$", ""));
+		Double ACSMemberDuesCurrentYear = Double.parseDouble(map()
+				.get("ACS MEMBER DUES " + DateUtil.getCurrentYear()).trim()
+				.replaceAll("\\$", ""));
+		System.out.println("acs price sheet:" + ACSMemberDuesCurrentYear);
+		Double discount = (Double.parseDouble(map().get("Discount %").trim()) / 100);
+		System.out.println("discount value:" + discount);
+		System.out
+				.println("================"
+						+ Math.round((ACSMemberDuesCurrentYear - (ACSMemberDuesCurrentYear * discount))));
+		String discountedPrice = "$"
+				+ df.format(Math
+						.round((ACSMemberDuesCurrentYear - (ACSMemberDuesCurrentYear * discount)))
+						* mutliYearInInteger);
+		System.out.println(discountedPrice);
 
-		String currentYearDues = map().get(DateUtil.getCurrentYear() + " DUES");
+		if (mutliYearInInteger > 1) {
+			System.out.println("sheet value : "
+					+ map().get(mutliYearInInteger + " Year Term Price 2016?")
+							.trim());
+			Assert.assertEquals(discountedPrice,
+					map().get(mutliYearInInteger + " Year Term Price 2016?")
+							.trim());
+			logMessage("ASSERT PASSED : discountedPrice in actual is "
+					+ discountedPrice + " discountedPrice in sheet"
+					+ map().get(mutliYearInInteger + " Year Term Price 2016?")
+					+ "\n");
+			System.out.println("discounted price:" + discountedPrice);
+		} else {
+			System.out.println("sheet value : "
+					+ map().get(DateUtil.getCurrentYear() + " DUES").trim());
+			Assert.assertEquals(discountedPrice,
+					map().get(DateUtil.getCurrentYear() + " DUES").trim());
+			logMessage("ASSERT PASSED : discountedPrice in actual is "
+					+ discountedPrice + " discountedPrice in sheet"
+					+ map().get(DateUtil.getCurrentYear() + " DUES") + "\n");
+			System.out.println("discounted price:" + discountedPrice);
+		}
 
-		verifyPriceType(map().get("Product?"), "amount", currentYearDues,
-				mutliYearInInteger);
+		verifyPriceType(map().get("Product?"), "amount", discountedPrice, 1);
 
 	}
 
@@ -421,6 +461,40 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 
 	private void verifyPriceType(String productName, String priceType,
 			String priceValue, int multiYear) {
+		if (productName.equalsIgnoreCase("")) {
+
+		} else {
+			priceValues = element("txt_" + priceType, productName).getText()
+					.replace("$", "");
+			if (priceValue.equalsIgnoreCase("")) {
+				logMessage("STEP : price value for " + productName
+						+ " is not present in data sheet\n");
+			}
+			if (multiYear > 1) {
+				String priceInDataSheet = priceValue.trim().replaceAll("\\$",
+						"");
+				Float price = Float.parseFloat(priceInDataSheet);
+				String priceValueInDataSheet = "$"
+						+ String.valueOf(price * multiYear);
+				Float actualPriceValue = Float.parseFloat(priceValues);
+				String actualPriceValueInString = "$" + actualPriceValue;
+				Assert.assertEquals(actualPriceValueInString,
+						priceValueInDataSheet);
+				logMessage("ASSERT PASSED : " + priceValue + " " + priceType
+						+ " for " + productName + " is verified in txt_"
+						+ priceType + "\n");
+			} else {
+				isElementDisplayed("txt_" + priceType, productName);
+				Assert.assertEquals("$" + priceValues, priceValue);
+				logMessage("ASSERT PASSED : " + priceValue
+						+ " is verified in txt_" + priceType + "\n");
+			}
+		}
+
+	}
+
+	private void verifyPriceType_OMADiscount(String productName,
+			String priceType, String priceValue, int multiYear) {
 		if (productName.equalsIgnoreCase("")) {
 
 		} else {

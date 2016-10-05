@@ -25,7 +25,7 @@ import com.qait.keywords.ACS_Address_Validation_Action;
 import com.qait.keywords.ACS_Apply_Payment_Actions;
 import com.qait.keywords.ACS_Awards_EWEB_PageActions;
 import com.qait.keywords.ACS_BatchProcessingActions;
-import com.qait.keywords.ACS_Fundraising_Keyword;
+import com.qait.keywords.ACS_Fundraising_Action;
 import com.qait.keywords.ACS_MarketingPage_IWEB;
 import com.qait.keywords.ACS_ReportsActions;
 import com.qait.keywords.ACS_Scarf_Reporting;
@@ -130,8 +130,8 @@ public class TestSessionInitiator {
 	public ACS_Scarf_Reviewing_Eweb_Action acsScarfReviewing;
 	public GCS_PaymentActions gcsPaymentPage;
 	public InventoryPageActions_IWEB inventoryIweb;
+	public ACS_Fundraising_Action acsFundraising;
 	public ACS_MarketingPage_IWEB acsMarketingPageIweb;
-	public ACS_Fundraising_Keyword acsFundraising;
 
 	public TakeScreenshot takescreenshot;
 
@@ -185,8 +185,7 @@ public class TestSessionInitiator {
 		acsScarfReviewing = new ACS_Scarf_Reviewing_Eweb_Action(driver);
 		acsMarketingPageIweb = new ACS_MarketingPage_IWEB(driver);
 		gcsPaymentPage = new GCS_PaymentActions(driver);
-		acsFundraising=new ACS_Fundraising_Keyword(driver);
-
+		acsFundraising= new ACS_Fundraising_Action(driver);
 	}
 
 	/**
@@ -250,7 +249,7 @@ public class TestSessionInitiator {
 								.equalsIgnoreCase("https://stag-12iweb/NFStage2/iweb")
 						|| baseurl
 								.equalsIgnoreCase("https://stag-12iweb/NFStage5/iweb")) {
-					System.out.println("in if");
+//					System.out.println("in if");
 					baseurl = baseurl
 							.replaceAll(
 									"https://stag",
@@ -264,7 +263,7 @@ public class TestSessionInitiator {
 													"UTF-8") + "@stag");
 					driver.get(baseurl);
 				} else {
-					System.out.println("in else");
+//					System.out.println("in else");
 					baseurl = baseurl
 							.replaceAll(
 									"https://iwebtest",
@@ -425,5 +424,5 @@ public class TestSessionInitiator {
 	public void printMethodName(String testName) {
 		Reporter.log("\nMethod Name:- " + testName.toUpperCase() + "\n", true);
 	}
-
+		
 }

@@ -892,52 +892,69 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 	public void clickOnMoreAndSelectOtherActg(String action)
 	{
-		//try {
 			isElementDisplayed("img_moreMenu");
 			element("img_moreMenu").click();
+			logMessage("STEP: more link is clicked \n");
 			isElementDisplayed("link_moreMenuName", action);
 			element("link_moreMenuName", action).click();
-			logMessage("Step : clicked on more and other actg link is selected\n");
-		/*} catch (StaleElementReferenceException stlEx) {
-			isElementDisplayed("img_moreMenu");
-			element("img_moreMenu").click();
-			wait.waitForPageToLoadCompletely();
-			isElementDisplayed("link_moreMenuName", "other actg");
-			element("link_moreMenuName", "other actg").click();
-			logMessage("Step : clicked on more and other actg link is selected\n");
-			
-		}*/
-		waitForSpinner();
-		wait.waitForPageToLoadCompletely();
-		isElementDisplayed("btn_memberShip", "credits");
-		element("btn_memberShip", "credits").click();
-		logMessage("Step :Expand credits child form\n");
+			logMessage("STEP: action in more menu is selected as "+action+"\n");
+			waitForSpinner();
+			/*wait.waitForPageToLoadCompletely();
+			isElementDisplayed("btn_memberShip", "credits");
+			element("btn_memberShip", "credits").click();
+			logMessage("STEP :Expand credits child form \n");*/
+		
 	}
+	
 	public void navigateToInvoicesMenuOnHoveringMore() {
 		try {
 			isElementDisplayed("img_moreMenu");
-			element("img_moreMenu").click();
-			isElementDisplayed("link_moreMenuName", "Invoices");
-			element("link_moreMenuName", "Invoices").click();
+			if (isIEBrowser()) {
+				clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
+				isElementDisplayed("link_moreMenuName", "Invoices");
+				clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName", "Invoices"));
+			} else {
+				element("img_moreMenu").click();
+				isElementDisplayed("link_moreMenuName", "Invoices");
+				element("link_moreMenuName", "Invoices").click();
+			}
+			
+			
 			logMessage("Step : Invoices link is clicked\n");
 			waitForSpinner();
 			wait.hardWait(2);
 			wait.waitForPageToLoadCompletely();
 			isElementDisplayed("btn_memberShip", "invoices (open batch)");
+			if(isIEBrowser()){
+				clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", "invoices (open batch)"));
+			}else{
 			element("btn_memberShip", "invoices (open batch)").click();
+			}
 			logMessage("Step : invoices (open batch) drop down button is clicked\n");
 			logMessage("Step : Navigate to Invoices menu on clicking more button\n");
 		} catch (StaleElementReferenceException stlEx) {
 			isElementDisplayed("img_moreMenu");
-			element("img_moreMenu").click();
+			if (isIEBrowser()) {
+				clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
+				isElementDisplayed("link_moreMenuName", "Invoices");
+				clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName", "Invoices"));
+			} else {
+				element("img_moreMenu").click();
+				isElementDisplayed("link_moreMenuName", "Invoices");
+				element("link_moreMenuName", "Invoices").click();
+			}
+			
+		
 			wait.waitForPageToLoadCompletely();
-			isElementDisplayed("link_moreMenuName", "Invoices");
-			element("link_moreMenuName", "Invoices").click();
 			logMessage("Step : Invoices link is clicked\n");
 			waitForSpinner();
 			wait.waitForPageToLoadCompletely();
 			isElementDisplayed("btn_memberShip", "invoices (open batch)");
+			if(isIEBrowser()){
+				clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", "invoices (open batch)"));
+			}else{
 			element("btn_memberShip", "invoices (open batch)").click();
+			}
 			logMessage("Step : Navigate to Invoices menu on clicking more button\n");
 		}
 	}
@@ -966,7 +983,10 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
 			// element("img_moreMenu").click();
 			isElementDisplayed("link_moreMenuName", menu);
-			element("link_moreMenuName", menu).click();
+			if(isBrowser("ie") || isBrowser("IE"))
+				clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName", menu));
+			else
+			    element("link_moreMenuName", menu).click();
 			logMessage("Step : " + menu + " link is clicked\n");
 			waitForSpinner();
 			wait.hardWait(2);
@@ -2142,6 +2162,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		waitForSpinner();
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(20);
+		hardWaitForIEBrowser(25);
 		isElementDisplayed("list_memberDetails", tabName);
 		for (i = 1; i < elements("list_memberDetails", tabName).size(); i++) {
 			if (element("txt_memberDetailsForChapter", tabName,

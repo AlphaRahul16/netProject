@@ -37,11 +37,9 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 		if (country.equalsIgnoreCase("UNITED STATES")) {
 			selectMemberContactDetail("stateName", state);
 		} else {
-			try{
-			wait.waitForElementToDisappear(element("list_stateName"));
-			}
-			catch(Exception E)
-			{
+			try {
+				wait.waitForElementToDisappear(element("list_stateName"));
+			} catch (Exception E) {
 				logMessage("Element not present");
 			}
 		}
@@ -55,11 +53,11 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 			wait.hardWait(3);
 			isElementDisplayed("btn_continue");
 			element("btn_continue").click();
-//			clickUsingXpathInJavaScriptExecutor(element("btn_continue"));
+			// clickUsingXpathInJavaScriptExecutor(element("btn_continue"));
 			wait.hardWait(1);
 			logMessage("Step: click btn_continue\n");
 		} catch (StaleElementReferenceException stlRef) {
-			//isElementDisplayed("btn_continue");
+			// isElementDisplayed("btn_continue");
 			clickUsingXpathInJavaScriptExecutor(element("btn_continue"));
 			logMessage("Step: click btn_continue\n");
 		}
@@ -67,6 +65,7 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 	}
 
 	private String enterEmail(String email) {
+		System.out.println("email:" + email);
 		if (!email.equalsIgnoreCase("null")) {
 			isElementDisplayed("inp_email");
 			String[] emailSubstring = email.split("@");
@@ -245,11 +244,9 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 			selectMemberContactDetail("stateName",
 					getAACT_OmaSheetValue(caseId, "State Contact Page"));
 		} else {
-			try{
-			wait.waitForElementToDisappear(element("list_stateName"));
-			}
-			catch(Exception E)
-			{
+			try {
+				wait.waitForElementToDisappear(element("list_stateName"));
+			} catch (Exception E) {
 				logMessage("list_stateName not present");
 			}
 		}

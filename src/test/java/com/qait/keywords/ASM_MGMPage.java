@@ -39,20 +39,20 @@ public class ASM_MGMPage extends GetPage {
 		isElementDisplayed("inp_userName");
 		element("inp_userName").clear();
 		element("inp_userName").sendKeys(userName);
-		logMessage("STEP : enter " + userName + " in inp_userName\n");
+		logMessage("STEP : Enter " + userName + " in inp_userName\n");
 	}
 
 	public void enterPassword(String password) {
 		isElementDisplayed("inp_password");
 		element("inp_password").clear();
 		element("inp_password").sendKeys(password);
-		logMessage("STEP : enter " + password + " in inp_password\n");
+		logMessage("STEP : Enter " + password + " in inp_password\n");
 	}
 
 	public void clickOnLoginButton() {
 		isElementDisplayed("btn_login");
 		element("btn_login").click();
-		logMessage("STEP : click on login button in btn_login\n");
+		logMessage("STEP : Click on login button in btn_login\n");
 
 	}
 
@@ -89,7 +89,7 @@ public class ASM_MGMPage extends GetPage {
 					+ email[1];
 			element("inp_inviteMemberDetails", detailName)
 					.sendKeys(uniqueEmail);
-			logMessage("STEP : enter " + uniqueEmail + " in " + detailName
+			logMessage("STEP : Enter " + uniqueEmail + " in " + detailName
 					+ " in inp_inviteMemberDetails\n");
 			return uniqueEmail;
 		} else {
@@ -97,7 +97,7 @@ public class ASM_MGMPage extends GetPage {
 			element("inp_inviteMemberDetails", detailName).clear();
 			element("inp_inviteMemberDetails", detailName)
 					.sendKeys(detailValue);
-			logMessage("STEP : enter " + detailValue + " in " + detailName
+			logMessage("STEP : Enter " + detailValue + " in " + detailName
 					+ " in inp_inviteMemberDetails\n");
 			return null;
 		}
@@ -113,7 +113,7 @@ public class ASM_MGMPage extends GetPage {
 	public void verifyErrorMessage(String errorMessage) {
 		isElementDisplayed("txt_errorMessage");
 		verifyElementTextContains("txt_errorMessage", errorMessage);
-		logMessage("ASSERT PASSED : error message " + errorMessage
+		logMessage("ASSERT PASSED : Error message " + errorMessage
 				+ " appeared \n");
 	}
 
