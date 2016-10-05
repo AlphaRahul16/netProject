@@ -2748,6 +2748,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verfiyMemberPackage(String memberPackage) {
 		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(10);
 		wait.resetImplicitTimeout(4);
 		wait.resetExplicitTimeout(hiddenFieldTimeOut);
 		System.out.println("-----before spinner");
@@ -2764,7 +2765,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyRenewalPackage(String renewalPackage) {
 		if (renewalPackage.contains(":"))
 			renewalPackage = renewalPackage.split(": ", 3)[2];
-
+        hardWaitForIEBrowser(15);
 		isElementDisplayed("txt_memberInfo", "renewal package");
 		Assert.assertTrue(renewalPackage.equals(element("txt_memberInfo", "renewal package").getText().trim()),
 				"ASSERT FAIL : Renewal Package is not " + renewalPackage + "\n");
@@ -2843,7 +2844,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnTransferNowButton() {
 		isElementDisplayed("btn_transferNow");
-		element("btn_transferNow").click();
+//		element("btn_transferNow").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_transferNow"));
 		logMessage("STEP : Clicked on Transfer Now button\n");
 		System.out.println("----before switch");
 		switchToDefaultContent();
@@ -3668,7 +3670,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void selectARandomActiveStudentChapter() {
 		wait.waitForPageToLoadCompletely();
-		clickOnRandomPage();
+		clickOnRandomPage(10,1);
+//		clickOnRandomPage();
 		clickOnAnyRandomMember();
 	}
 

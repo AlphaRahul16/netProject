@@ -74,6 +74,7 @@ public class ACS_Fundraising_Module_Test extends BaseTest {
 		test.acsFundraising.verifyGiftDate("giftDate");
 		test.acsFundraising.verifyGiftType(YamlReader.getYamlValue("ACS_Fundraising_Module.giftType"));
 		test.acsFundraising.enterGiftAmount(test.memberShipPage.map().get("Gift Amount"), "gift amount");
+//		test.acsFundraising.clickOnTableForm();
 		test.memberShipPage.waitForSpinner();
 		test.acsFundraising.verifyDeductibleAmount(test.memberShipPage.map().get("Gift Amount"), "tax deductible amt");
 	}
