@@ -186,7 +186,6 @@ public class TestSessionInitiator {
 		acsMarketingPageIweb = new ACS_MarketingPage_IWEB(driver);
 		gcsPaymentPage = new GCS_PaymentActions(driver);
 		acsFundraising= new ACS_Fundraising_Action(driver);
-
 	}
 
 	/**

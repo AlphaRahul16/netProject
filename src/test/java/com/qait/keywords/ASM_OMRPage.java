@@ -473,6 +473,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		else if(mapOMR.get("Login_With_LastNameMemberNumber?").equalsIgnoreCase("Yes"))
 		{
 			loginIntoApplication_LastName_MemberNumber(memDetails.get(0).split(" ")[0], memDetails.get(1));
+			
+			//loginIntoApplication_LastName_MemberNumber("Agrawal", "2397066");
 		}
 		else if(mapOMR.get("Login_With_LastNameNoticeNumber?").equalsIgnoreCase("Yes"))
 		{
@@ -491,6 +493,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	public void switchToEwebRenewalFrame()
 	{
 		wait.hardWait(2);
+		wait.waitForElementToBeVisible(element("iframe_ewebframe"));
 		switchToFrame(element("iframe_ewebframe"));
 	}
 
@@ -570,10 +573,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		if(mapOMR.get("Contribution_To_Add?").length()!=0)
 		{
 			switchToDefaultContent();
-			wait.hardWait(4);
-			switchToDefaultContent();
+			wait.hardWait(13);
 			switchToEwebRenewalFrame();
-			wait.hardWait(3);
 			isElementDisplayed("inp_contribution",mapOMR.get("Contribution_To_Add?").trim());
 			element("inp_contribution",mapOMR.get("Contribution_To_Add?").trim()).sendKeys(mapOMR.get("Contribution_Amount?").trim());
 			logMessage("STEP : ACS Contribution entered for "+mapOMR.get("Contribution_To_Add?").trim()+" as "+mapOMR.get("Contribution_Amount?").trim()+"\n");
@@ -775,7 +776,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	public void verifyRenewedProductsSummaryOnCheckOutPage(Map<String, String> mapRenewedProductDetails)
 	{
 
-		verifyProductsIndividualAmount(mapRenewedProductDetails);
+		//verifyProductsIndividualAmount(mapRenewedProductDetails);
 		verifyTotalAndBalanceDueOnCheckOutPage(mapRenewedProductDetails);
 
 	}
@@ -805,22 +806,24 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		switchToEwebRenewalFrame();
 		wait.waitForElementToBeVisible(elements("txt_productname").get(0));
 		System.out.println(elements("txt_productname").get(0).getText());
-		int size=elements("txt_productname").size();
+		int size = elements("txt_productname").size();
 		System.out.println(elements("txt_productname").size());
-		//switchToDefaultContent();
+		// switchToDefaultContent();
 		wait.hardWait(3);
-		//switchToEwebRenewalFrame();
-		for(int i = 0;i<size;i++)
-		{
-		wait.waitForElementsToBeVisible(elements("txt_productname"));
-		
-           System.out.println(elements("txt_productname").get(i).getText().trim());
-           System.out.println(mapRenewedProductDetails.get(elements("txt_productname").get(i).getText().trim()));
-			Assert.assertTrue(mapRenewedProductDetails.get(elements("txt_productname").get(i).getText().trim()).equals(
-			elements("txt_productamount").get(i).getText().replace("$", "").trim()));
-			logMessage("ASSERT PASSED : Amount for "+elements("txt_productname").get(i).getText()+ " is verified as "+mapRenewedProductDetails.get(elements("txt_productname").get(i).getText().trim()));
+		// switchToEwebRenewalFrame();
+		for (int i = 0; i < size; i++) {
+			wait.hardWait(3);
+			isElementDisplayed("txt_productname");
+			
+			//wait.waitForElementsToBeVisible(elements("txt_productname"));
+			String productName = elements("txt_productname").get(i).getText().trim();
+			String amount=mapRenewedProductDetails.get(elements("txt_productname").get(i).getText().trim());
+			System.out.println("Product name: " + productName);
+			System.out.println("Amount:"+amount);
+			Assert.assertTrue(amount.equals(elements("txt_productamount").get(i).getText().replace("$", "").trim()));
+			logMessage("ASSERT PASSED : Amount for " + productName + " is verified as "	+ amount);
 		}
-		
+
 		switchToDefaultContent();
 
 	}
@@ -828,7 +831,6 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	public void FillRequiredDetailsForStudentMember(Map<String, String> mapOMR) {
 		if(mapOMR.get("Member_Status?").equalsIgnoreCase("Student"))
 		{
-
 			//isConfirmYourInformationHeadingDisplayed();
 			enterGraduationDateForDegreeType();
 			enterStudentDegreeType(mapOMR);
@@ -882,7 +884,9 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		wait.hardWait(4);
 		switchToEwebRenewalFrame();
 		isElementDisplayed("btn_printreceipt");
-		logMessage("STEP : Print Renewal Receipt button is verifiedn");
+
+		logMessage("STEP : Print Renewal Receipt button is verified \n");
+
 		verifyElementTextContains("txt_legend", "Membership & Subscription Renewal - ");
 		switchToDefaultContent();
 
@@ -966,12 +970,22 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		clickContinueButtonForGCSOMR();
 	
 	}
-	
-	
-	
 
+	public void verifyMemberCanRenewForMultipleYears() {
+		switchToDefaultContent();
+		switchToEwebRenewalFrame();
+		isElementDisplayed("btn_renewalLength");
+		element("btn_renewalLength").isDisplayed();
+		logMessage("Step : Member can renew for multiple times\n");
+		switchToDefaultContent();
+
+	}
 	
-
-
-
+	public void clickApplyDiscountButton()
+	{
+		isElementDisplayed("icon_applyDiscount");
+		element("icon_applyDiscount").click();
+		logMessage("Step : Apply discount button is clicked\n");
+	
+}
 }

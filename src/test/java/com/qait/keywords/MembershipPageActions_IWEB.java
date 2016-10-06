@@ -1068,7 +1068,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void expandDetailsMenu(String menuName) {
-		isElementDisplayed("btn_detailsMenuAACT", menuName);
 		try {
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
@@ -2612,6 +2611,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnGoButtonInRunQuery();
 
 	}
+	
+	private void selectUserForGCSOMR(Map<String, String> mapGcsOMR) {
+		selectProvidedTextFromDropDown(element("list_advanceNewInput","Member Type"),"ACS : Regular Member");
+		selectProvidedTextFromDropDown(element("list_advanceNewInput","Member Status"),"ACS : Active Renewed-No Response");
+		selectProvidedTextFromDropDown(element("list_advanceNewInput","Country"),mapGcsOMR.get("Country?"));
+	}
 
 	public void selectValidUserForGCSOMR(Map<String, String> mapGcsOMR) {
 		selectProvidedTextFromDropDown(element("list_advanceNewInput", "Member Type"), "ACS : Regular Member");
@@ -2619,6 +2624,17 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				"ACS : Active Renewed-No Response");
 		selectProvidedTextFromDropDown(element("list_advanceNewInput", "Country"), mapGcsOMR.get("Country?"));
 		clickOnGoButton();
+	}
+	
+	public void selectValidUserForRenewalAccordingToCountry(Map<String, String> mapGcsOMR)
+	{
+		clickOnTab("Find Members");
+		selectUserForGCSOMR(mapGcsOMR);
+		selectARandomActiveStudentChapter();
+		expandDetailsMenu("invoices");
+		verifyTermStartDateAndEndDatesAreEmptyForGCSOMR(mapGcsOMR);
+		//verifyPaymentStatusForGCSOMR(mapGcsOMR);
+		
 	}
 
 	public void selectValidUserForRenewal(Map<String, String> mapOMR) {
@@ -2647,6 +2663,22 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("ASSERT PASSED : Payment status before renewal is not Unpaid for " + MemberTransferLoopCount
 					+ " attempt thus looping back\n");
 			selectValidUserForRenewal(mapOMR);
+		}
+		wait.resetExplicitTimeout(timeOut);
+		wait.resetImplicitTimeout(timeOut);
+		logMessage("ASSERT PASSED : Payment status before renewal is Unpaid");
+
+	}
+	
+	public void verifyPaymentStatusForGCSOMR(Map<String, String> mapGcsOMR) {
+		try {
+			wait.resetImplicitTimeout(4);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			Assert.assertTrue(element("txt_PaymentStatus", "Payment Status")
+					.getText().equals("Unpaid"));
+		} catch (AssertionError e) {
+			logMessage("ASSERT PASSED : Payment status before renewal is not Unpaid for\n");
+			selectValidUserForRenewalAccordingToCountry(mapGcsOMR);
 		}
 		wait.resetExplicitTimeout(timeOut);
 		wait.resetImplicitTimeout(timeOut);
@@ -2879,6 +2911,34 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("ASSERT PASSED : Term Start date is empty\n");
 			Assert.assertTrue(element("txt_termEndDaterenewal", "1").getText().length() == 1,
 					"Term End Date is not Empty");
+			logMessage("ASSERT PASSED : Term End date is empty\n");
+		}
+	}
+	
+	public void verifyTermStartDateAndEndDatesAreEmptyForGCSOMR(
+			Map<String, String> mapGcsOMR) {
+		try {
+
+			wait.resetImplicitTimeout(4);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("txt_termStartDaterenewal", "1");
+			isElementDisplayed("txt_termEndDaterenewal", "1");
+		} catch (NoSuchElementException e) {
+			expandDetailsMenu("invoices");
+		}
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
+		if (element("txt_termStartDaterenewal", "1").getText().length() != 1
+				&& element("txt_termEndDaterenewal", "1").getText().length() != 1) {
+			collapseDetailsMenu("invoices");
+			logMessage("Step : Term Start date and Term Endd Date are not empty for\n");
+			selectValidUserForRenewalAccordingToCountry(mapGcsOMR);
+		} else {
+			Assert.assertTrue(element("txt_termStartDaterenewal", "1")
+					.getText().length() == 1, "Term Start Date is not Empty");
+			logMessage("ASSERT PASSED : Term Start date is empty\n");
+			Assert.assertTrue(element("txt_termEndDaterenewal", "1").getText()
+					.length() == 1, "Term End Date is not Empty");
 			logMessage("ASSERT PASSED : Term End date is empty\n");
 		}
 	}

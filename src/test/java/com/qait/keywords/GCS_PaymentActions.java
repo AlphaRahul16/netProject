@@ -16,6 +16,7 @@ public class GCS_PaymentActions extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnPaymentButtonNamedAs(String buttonName) {
+		System.out.println("Button Name::"+buttonName);
 		isElementDisplayed("btn_payment", buttonName);
 		element("btn_payment", buttonName).click();
 		wait.waitForPageToLoadCompletely();
