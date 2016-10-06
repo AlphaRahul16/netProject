@@ -43,7 +43,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		String productCode = element("txt_code", prodName).getText().trim();
 
 		Assert.assertTrue(productCode.contains(prodCode));
-		logMessage("ASSERT PASSED: Product Code is matched in Line Item");
+		logMessage("ASSERT PASSED : Product Code is matched in Line Item");
 
 	}
 
@@ -183,7 +183,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	public void selectMenuInInvoiceTab(String menuName) {
 		hover(element("tab_invoice"));
 		element("txt_invoiceMenu", menuName).click();
-		logMessage("Step : " + menuName + " is clicked in txt_invoiceMenu\n");
+		logMessage("STEP : " + menuName + " is clicked in txt_invoiceMenu\n");
 	}
 
 	public void enterInvoiceNumber(String invoiceNumber) {
@@ -290,7 +290,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyInvoiceProfile(String detailName, String detailValue) {
 		hardWaitForIEBrowser(10);
 		if (detailValue.equalsIgnoreCase("")) {
-			logMessage("Step : value of " + detailName
+			logMessage("STEP : Value of " + detailName
 					+ "  price is empty in data sheet\n");
 		} else {
 			isElementDisplayed("txt_invoiceValues", detailName);
@@ -311,7 +311,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	private void verifyInvoiceProfile_AACTOMA(String detailName,
 			String detailValue) {
 		if (detailValue.equalsIgnoreCase("")) {
-			logMessage("Step : Value of " + detailName
+			logMessage("STEP : Value of " + detailName
 					+ "  price is empty in data sheet\n");
 		} else {
 			wait.waitForPageToLoadCompletely();
@@ -422,7 +422,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		String value = element("txt_memberDetails", detailName).getText()
 				.trim();
 
-		logMessage("Step : The value for " + detailName + " is " + value + "\n");
+		logMessage("STEP : The value for " + detailName + " is " + value + "\n");
 		return value;
 	}
 
@@ -772,7 +772,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 					.getText();
 			System.out.println(invoiceNum);
 		} while (invoiceNum.equals(null));
-		logMessage("Step : Invoice number for which renewal is to be done is "
+		logMessage("STEP : Invoice number for which renewal is to be done is "
 				+ invoiceNum);
 		return invoiceNum;
 
@@ -875,14 +875,14 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		if (count <= 0) {
 			Assert.fail("ASSERT FAILED : Paid/Closed status are Yes for all\n ");
 		}
-		logMessage("Step : At least one payment paid/closed status is N\n");
+		logMessage("STEP : At least one payment paid/closed status is N\n");
 	}
 
 	public void verifyPaidClosedStatus_Yes() {
 		isElementDisplayed("txt_paid_closed");
 		for (WebElement element : elements("txt_paid_closed")) {
 			if (element.getText().trim().equalsIgnoreCase("N")) {
-				Assert.fail("ASSERT FAILED : paid/closed status contains N/n");
+				Assert.fail("ASSERT FAILED : Paid/closed status contains N/n");
 			}
 		}
 
@@ -896,7 +896,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("Step : click on add payment icon\n");
 		} else {
 			element("img_addPayment").click();
-			logMessage("Step : click on add payment icon\n");
+			logMessage("STEP : Click on add payment icon\n");
 		}
 
 	}
@@ -916,7 +916,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 							.equalsIgnoreCase(" ")) {
 				isElementDisplayed("btn_goToArrow");
 				element("btn_goToArrow", String.valueOf(i)).click();
-				logMessage("Step : Go To Arrow button is clicked for empty term start and end date\n");
+				logMessage("STEP : Go To Arrow button is clicked for empty term start and end date\n");
 				break;
 			}
 
@@ -991,7 +991,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 			if (element("txt_tableColumn", tabName, String.valueOf(i + 1),
 					String.valueOf(statusIndex)).getText().trim()
 					.equals("PAYMENT_SUCCESS")) {
-				logMessage("STEP: "
+				logMessage("STEP : "
 						+ columnName
 						+ " column is having value "
 						+ element("txt_tableColumn", tabName,
@@ -1016,7 +1016,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 						.equalsIgnoreCase(expectedValue), "ASSERT FAILED: "
 						+ expectedValue + " matches for " + columnName
 						+ " column\n");
-		logMessage("ASSERT PASSSED: " + expectedValue + " matches for "
+		logMessage("ASSERT PASSSED : " + expectedValue + " matches for "
 				+ columnName + " column\n");
 	}
 

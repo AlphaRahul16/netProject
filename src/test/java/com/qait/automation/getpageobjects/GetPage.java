@@ -203,9 +203,9 @@ public class GetPage extends BaseUi {
 			String elementTextReplace) {
 		wait.waitForElementToBeVisible(element(elementName, elementTextReplace));
 		boolean result = element(elementName, elementTextReplace).isDisplayed();
-		assertTrue(result, "ASSERT FAILED: element '" + elementName
+		assertTrue(result, "ASSERT FAILED : Element '" + elementName
 				+ "with text " + elementTextReplace + "' is not displayed.");
-		logMessage("ASSERT PASSED: element " + elementName + " with text "
+		logMessage("ASSERT PASSED : Element " + elementName + " with text "
 				+ elementTextReplace + " is displayed.");
 		return result;
 	}
@@ -217,10 +217,10 @@ public class GetPage extends BaseUi {
 				elementTextReplace1, elementTextReplace2, elementTextReplace3));
 		boolean result = element(elementName, elementTextReplace1,
 				elementTextReplace2, elementTextReplace3).isDisplayed();
-		assertTrue(result, "ASSERT FAILED: element '" + elementName
+		assertTrue(result, "ASSERT FAILED : Element '" + elementName
 				+ "with text " + elementTextReplace1 + elementTextReplace2
 				+ elementTextReplace3 + "' is not displayed.");
-		logMessage("ASSERT PASSED: element " + elementName + " with text "
+		logMessage("ASSERT PASSED : Element " + elementName + " with text "
 				+ elementTextReplace1 + elementTextReplace2
 				+ elementTextReplace3 + " is displayed.");
 		return result;
@@ -232,10 +232,10 @@ public class GetPage extends BaseUi {
 				elementTextReplace1, elementTextReplace2));
 		boolean result = element(elementName, elementTextReplace1,
 				elementTextReplace2).isDisplayed();
-		assertTrue(result, "ASSERT FAILED: element '" + elementName
+		assertTrue(result, "ASSERT FAILED : Element '" + elementName
 				+ "with text " + elementTextReplace1 + elementTextReplace2
 				+ "' is not displayed.");
-		logMessage("ASSERT PASSED: element " + elementName + " with text "
+		logMessage("ASSERT PASSED : Element " + elementName + " with text "
 				+ elementTextReplace1 + "," + elementTextReplace2
 				+ " is displayed.");
 		return result;
@@ -244,19 +244,19 @@ public class GetPage extends BaseUi {
 	protected void verifyElementText(String elementName, String expectedText) {
 		wait.waitForElementToBeVisible(element(elementName));
 		assertEquals(element(elementName).getText().trim(), expectedText,
-				"ASSERT FAILED: element '" + elementName
+				"ASSERT FAILED : Element '" + elementName
 						+ "' Text is not as expected: ");
-		logMessage("ASSERT PASSED: element " + elementName
+		logMessage("ASSERT PASSED: Element " + elementName
 				+ " is visible and Text is " + expectedText);
 	}
 
 	protected void verifyElementTextContains(String elementName,
 			String expectedText) {
 		wait.waitForElementToBeVisible(element(elementName));
-		assertThat("ASSERT FAILED: element '" + elementName
+		assertThat("ASSERT FAILED : Element '" + elementName
 				+ "' Text is not as expected: ",
 				element(elementName).getText(), containsString(expectedText));
-		logMessage("ASSERT PASSED: element " + elementName
+		logMessage("ASSERT PASSED : Element " + elementName
 				+ " is visible and Text is " + expectedText);
 	}
 
@@ -265,18 +265,18 @@ public class GetPage extends BaseUi {
 		scriptExecutionController();
 		boolean result = wait.waitForElementToBeVisible(element(elementName))
 				.isDisplayed();
-		assertTrue(result, "ASSERT FAILED: element '" + elementName
+		assertTrue(result, "ASSERT FAILED : Element '" + elementName
 				+ "' is not displayed.");
-		logMessage("ASSERT PASSED: element " + elementName + " is displayed.");
+		logMessage("ASSERT PASSED : Element " + elementName + " is displayed.");
 		return result;
 	}
 
 	protected boolean isElementEnabled(String elementName, boolean expected) {
 		wait.waitForElementToBeVisible(element(elementName));
 		boolean result = expected && element(elementName).isEnabled();
-		assertTrue(result, "ASSERT FAILED: element '" + elementName
+		assertTrue(result, "ASSERT FAILED : Element '" + elementName
 				+ "' is  ENABLED :- " + !expected);
-		logMessage("ASSERT PASSED: element " + elementName + " is enabled :- "
+		logMessage("ASSERT PASSED : Element " + elementName + " is enabled :- "
 				+ expected);
 		return result;
 	}
@@ -474,10 +474,10 @@ public class GetPage extends BaseUi {
 	protected void verifyElementTextContent(String elementName,
 			String expectedText) {
 		wait.waitForElementToBeVisible(element(elementName));
-		assertThat("ASSERT FAILED: element '" + elementName
+		assertThat("ASSERT FAILED : Element '" + elementName
 				+ "' Text is not as expected: ", element(elementName)
 				.getAttribute("textContent"), containsString(expectedText));
-		logMessage("ASSERT PASSED: element " + elementName
+		logMessage("ASSERT PASSED : Element " + elementName
 				+ " is visible and Text is " + expectedText);
 	}
 

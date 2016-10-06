@@ -19,7 +19,7 @@ public class GCS_PaymentActions extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_payment", buttonName);
 		element("btn_payment", buttonName).click();
 		wait.waitForPageToLoadCompletely();
-		logMessage("Step : payment type is selected as " + buttonName + " \n");
+		logMessage("STEP : Payment type is selected as " + buttonName + " \n");
 	}
 
 	public void fillBillingInformationAs(String placeholdername,
@@ -27,7 +27,7 @@ public class GCS_PaymentActions extends ASCSocietyGenericPage {
 		isElementDisplayed("inp_billingInfo", placeholdername);
 		element("inp_billingInfo", placeholdername).click();
 		element("inp_billingInfo", placeholdername).sendKeys(placeholdervalue);
-		logMessage("Step : Billing information in " + placeholdername
+		logMessage("STEP : Billing information in " + placeholdername
 				+ " is entered as " + placeholdervalue);
 
 	}
@@ -48,7 +48,7 @@ public class GCS_PaymentActions extends ASCSocietyGenericPage {
 			element("inp_paymentDetails", name, "2").sendKeys(value);
 		}
 
-		logMessage("Step : Payment Details for " + name + " is entered as "
+		logMessage("STEP : Payment Details for " + name + " is entered as "
 				+ value);
 
 	}
@@ -59,7 +59,7 @@ public class GCS_PaymentActions extends ASCSocietyGenericPage {
 		element("inp_CardNumber", cardName).clear();
 		wait.hardWait(1);
 		element("inp_CardNumber", cardName).sendKeys(value);
-		logMessage("Step : Card Number is entered as " + value);
+		logMessage("STEP : Card Number is entered as " + value);
 	}
 
 	public void enterExpirationMonth(String monthValue, String cardType) {
@@ -67,20 +67,20 @@ public class GCS_PaymentActions extends ASCSocietyGenericPage {
 		isElementDisplayed("drpdwn_expMonth", cardType);
 		selectProvidedTextFromDropDown(element("drpdwn_expMonth", cardType),
 				monthValue);
-		logMessage("Step : Expiration Months is entered as " + monthValue);
+		logMessage("STEP : Expiration Months is entered as " + monthValue);
 	}
 
 	public void enterExpirationYear(String yearValue, String cardType) {
 		isElementDisplayed("drpdwn_expYear", cardType);
 		selectProvidedTextFromDropDown(element("drpdwn_expYear", cardType),
 				yearValue);
-		logMessage("Step : Expiration Months is entered as " + yearValue);
+		logMessage("STEP : Expiration Months is entered as " + yearValue);
 	}
 
 	public void clickOnPayNowButton() {
 		isElementDisplayed("btn_payNow");
 		element("btn_payNow").click();
-		logMessage("Step : Pay Now button is clicked\n");
+		logMessage("STEP : Pay Now button is clicked\n");
 
 	}
 
@@ -91,7 +91,7 @@ public class GCS_PaymentActions extends ASCSocietyGenericPage {
 		wait.hardWait(1);
 		handleAlert();
 		handleAlert();
-		logMessage("Step : Simulate Transaction button is clicked\n");
+		logMessage("STEP : Simulate Transaction button is clicked\n");
 	}
 
 	public void EnterDetailsOnBankPaymentPageAndProcessFutherSimulation(
@@ -135,13 +135,13 @@ public class GCS_PaymentActions extends ASCSocietyGenericPage {
 	private void selectMajorBankRadioButtonForPaymentThroughNetBanking() {
 		isElementDisplayed("rad_majorBankId");
 		element("rad_majorBankId").click();
-		logMessage("Step : Major Bank radio button is selected\n");
+		logMessage("STEP : Major Bank radio button is selected\n");
 	}
 
 	private void selectBankNameFromListForPaymentThroughNetBanking(
 			String BankName) {
 		isElementDisplayed("drpdwn_BankName");
 		selectProvidedTextFromDropDown(element("drpdwn_BankName"), BankName);
-		logMessage("Step : " + BankName + " is selected from list on Names\n");
+		logMessage("STEP : " + BankName + " is selected from list on Names\n");
 	}
 }

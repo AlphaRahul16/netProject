@@ -97,10 +97,10 @@ public class DateUtil {
 		} else if (dateText.equalsIgnoreCase("Over 30 days from now")) {
 			return getNextDate("month", 2);
 		} else if (dateText.equalsIgnoreCase("NA")) {
-			Reporter.log("Step : date value is NA in data sheet\n");
+			Reporter.log("STEP : Date value is NA in data sheet\n");
 			return null;
 		} else {
-			Reporter.log("Step : date value in data sheet is invalid\n");
+			Reporter.log("STEP : Date value in data sheet is invalid\n");
 		}
 		return null;
 

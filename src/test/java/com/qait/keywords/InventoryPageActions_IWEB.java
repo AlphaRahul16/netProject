@@ -45,7 +45,7 @@ public class InventoryPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		
 		
-		logMessage("Step:: Clicked on Process Fulfill Orders Link On Inventory | Fulfillment Orders | Overview and Setup");
+		logMessage("STEP : Clicked on Process Fulfill Orders Link On Inventory | Fulfillment Orders | Overview and Setup");
 	}
 
 	public void enterInvoiceDateFromAndToAndClickOnSearchButton() {
@@ -62,7 +62,7 @@ public class InventoryPageActions_IWEB extends ASCSocietyGenericPage {
 			element("btn_search").click();
 		}
 		
-		logMessage("Step:: Enter Invoice Start Date And End Date And Click On Seacrh Button to Proceed Further");
+		logMessage("STEP : Enter Invoice Start Date And End Date And Click On Seacrh Button to Proceed Further");
 		
 	}
 
@@ -70,7 +70,7 @@ public class InventoryPageActions_IWEB extends ASCSocietyGenericPage {
 		waitForSpinner();
 		isElementDisplayed("chkbox_soldproduct",productName);
 		Assert.assertTrue(element("chkbox_soldproduct",productName).isSelected());
-		logMessage("[ASSERTION PASSED]:: Verified Sold Product "+productName+" Is Checked By Default Under Select Orders to Fulfill");
+		logMessage("ASSERTION PASSED : Verified Sold Product "+productName+" Is Checked By Default Under Select Orders to Fulfill");
 	}
 	
 	public void waitForSpinner() {
@@ -83,11 +83,11 @@ public class InventoryPageActions_IWEB extends ASCSocietyGenericPage {
 			// handleAlert();
 			isElementDisplayed("img_spinner");
 			wait.waitForElementToDisappear(element("img_spinner"));
-			logMessage("STEP : wait for spinner to be disappeared \n");
+			logMessage("STEP : Wait for spinner to be disappeared \n");
 
 		} catch (Exception Exp) {
 
-			logMessage("STEP : spinner is not present \n");
+			logMessage("STEP : Spinner is not present \n");
 		}
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
@@ -105,7 +105,7 @@ public class InventoryPageActions_IWEB extends ASCSocietyGenericPage {
 		
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("txt_reports");
-		logMessage("[ASSERTION PASSED]:: Verified Fulfillment Reports Page On Clicking Process Selected Items");
+		logMessage("ASSERTION PASSED : Verified Fulfillment Reports Page On Clicking Process Selected Items");
 	}
 
 	public void verifyFulfillmentGroupProfilePage(String productName) {
@@ -132,7 +132,7 @@ public class InventoryPageActions_IWEB extends ASCSocietyGenericPage {
 			 element("btn_ship").click();
 		}
 		
-		logMessage("Step: Clicked On Fulfill | Remove | Hold Selected Items Button ");
+		logMessage("STEP : Clicked On Fulfill | Remove | Hold Selected Items Button ");
 	}
 	
 	public void verifyProductNameUnderLineItems(String productName) {
@@ -145,13 +145,13 @@ public class InventoryPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyAlertMessageOnClickingACSFulfillmentReportsIcon() {
 		isElementDisplayed("icon_reports");
 		element("icon_reports").click();
-		logMessage("Step: Reports ICON is clicked \n");
+		logMessage("STEP : Reports ICON is clicked \n");
 		String alert_msg = driver.switchTo().alert().getText().trim();
 		System.out.println("Alert Message::"+alert_msg);
 		driver.switchTo().alert().accept();
 		//handleAlertUsingRobot();
 		Assert.assertEquals(alert_msg,"The process is scheduled and you will receive an email when it is finished.");
-		logMessage("[ASSERTION PASSED]:: Verified Alert Message :: "+alert_msg+" On Clicking ACS Fulfillment Reports ICON");
+		logMessage("ASSERTION PASSED : Verified Alert Message :: "+alert_msg+" On Clicking ACS Fulfillment Reports ICON");
 	}
 
 }
