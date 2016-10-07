@@ -20,7 +20,7 @@ public class MemberNumberLookupPage extends GetPage {
 	public void enterMemberDetail(String detailName, String detailValue) {
 		isElementDisplayed("inp_memberDetail", detailName);
 		element("inp_memberDetail", detailName).sendKeys(detailValue);
-		logMessage("Step : enter " + detailValue + " for " + detailName + " \n");
+		logMessage("STEP : Enter " + detailValue + " for " + detailName + " \n");
 	}
 
 	public void enterMemberDetailsInMemberNumberLookup(String firstName,
@@ -35,18 +35,18 @@ public class MemberNumberLookupPage extends GetPage {
 	public void checkCertify() {
 		isElementDisplayed("chk_certify");
 		element("chk_certify").click();
-		logMessage("Step : certify check box is selected \n");
+		logMessage("STEP : Certify check box is selected \n");
 	}
 
 	public void clickOnSubmitButton() {
 		isElementDisplayed("btn_submit");
 		element("btn_submit").click();
-		logMessage("Step : certify check box is selected \n");
+		logMessage("STEP : Certify check box is selected \n");
 	}
 
 	public void verifyMemberNumber(String memberNumber) {
 		isElementDisplayed("txt_memberNumber", memberNumber);
-		logMessage("ASSERT PASSED : member number / customer ID is "
+		logMessage("ASSERT PASSED : Member number / customer ID is "
 				+ memberNumber + " is verified\n");
 	}
 
@@ -57,13 +57,13 @@ public class MemberNumberLookupPage extends GetPage {
 		Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
 		Matcher matcher = pattern.matcher(MemberName);
 		Assert.assertTrue(matcher.find());
-		logMessage("ASSERT PASSED : member name "
+		logMessage("ASSERT PASSED : Member name "
 				+ MemberName.replaceAll("Member:", "") + " is verified\n");
 	}
 
 	public void verifyThankYouMessage() {
 		isElementDisplayed("txt_thankYouMessage");
-		logMessage("ASSERT PASSED : thank you message Thank you for being an ACS member. is verified\n");
+		logMessage("ASSERT PASSED : Thank you message Thank you for being an ACS member. is verified\n");
 	}
 
 }

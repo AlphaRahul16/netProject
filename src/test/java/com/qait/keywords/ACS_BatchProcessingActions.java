@@ -31,7 +31,7 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_edit");
 		clickUsingXpathInJavaScriptExecutor(element("btn_edit"));
 //		element("btn_edit").click();
-		logMessage("Step : Edit button on batch Processing page is clicked\n");
+		logMessage("STEP : Edit button on batch Processing page is clicked\n");
 		
 	}
 
@@ -57,7 +57,7 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 	    element("inp_control"+type).sendKeys(Keys.chord(Keys.CONTROL, "a"));
 		}
 		element("inp_control"+type).sendKeys(value);
-		logMessage("Step : Control "+type+" as "+value+" is equal to Batch "+type);
+		logMessage("STEP : Control "+type+" as "+value+" is equal to Batch "+type);
 	}
 	
 	
@@ -68,7 +68,7 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 			clickUsingXpathInJavaScriptExecutor(element("btn_save"));
 		else
 		    element("btn_save").click();
-		logMessage("Step : Save button is clicked\n");
+		logMessage("STEP : Save button is clicked\n");
 		
 	}
 	public List<String> enterDetailsForBatchProcessingAndClickSaveButton()
@@ -113,7 +113,7 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 	    }
 		else{
 		    element("btn_ForProcesingBatch",btnName).click();
-		    logMessage("Step : "+btnName+" is clicked on batch processing page\n");	
+		    logMessage("STEP : "+btnName+" is clicked on batch processing page\n");	
 		} 
 		switchWindow(current);
 	}
@@ -217,7 +217,7 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 		wait.hardWait(3);
 		isElementDisplayed("inp_batchAdvanceView",checkboxName);
 		element("inp_batchAdvanceView",checkboxName).click();
-		logMessage("Step : input box "+checkboxName+" is clicked");
+		logMessage("STEP : Input box "+checkboxName+" is clicked");
 		wait.waitForPageToLoadCompletely();
 	}
 	
@@ -236,14 +236,14 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 		isElementDisplayed("drodown_batchSearchCriteria",drpdownName);
 		selectProvidedTextFromDropDown(element("drodown_batchSearchCriteria",drpdownName), drpdownValue);
-		logMessage("Step : dropdown for "+drpdownName+" is selected as "+drpdownValue);
+		logMessage("STEP : Dropdown for "+drpdownName+" is selected as "+drpdownValue);
 	}
 	
 	private void clickOnBatchInputFields(String checkboxName)
 	{
 		isElementDisplayed("inp_batchEnterField",checkboxName);
 		element("inp_batchEnterField",checkboxName).click();
-		logMessage("Step : input box "+checkboxName+" is clicked");
+		logMessage("STEP : Input box "+checkboxName+" is clicked");
 		wait.waitForPageToLoadCompletely();
 	}
 	private void enterBatchFieldsOnFindbatchPage(String fieldName,String Value)
@@ -251,7 +251,7 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 		isElementDisplayed("inp_batchEnterField",fieldName);
 		element("inp_batchEnterField").click();
 		element("inp_batchEnterField").sendKeys(Value);
-		logMessage("Step : "+fieldName+" is entered as "+Value);
+		logMessage("STEP : "+fieldName+" is entered as "+Value);
 	}
 	
 	public void uncheckAllRefundCCACHCheckboxes()
@@ -275,7 +275,7 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 			for (WebElement ele : elements("txt_Refundamount")) {
 				refundInfo.add(ele.getAttribute("value"));
 				
-				logMessage("Step : fetched refund amount with value "+ele.getAttribute("value"));
+				logMessage("STEP : Fetched refund amount with value "+ele.getAttribute("value"));
 			}
 			
 			return refundInfo;

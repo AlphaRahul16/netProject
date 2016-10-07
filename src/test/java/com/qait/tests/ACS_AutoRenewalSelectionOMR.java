@@ -57,13 +57,16 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest{
 
 	@Test
 
-	public void Step04_Save_Respective_Products_Amounts_And_Submit_Payment_Details()
-	{
+	public void Step04_Save_Respective_Products_Amounts_And_Submit_Payment_Details() {
 
-		mapRenewedProductDetails=test.asm_OMR.saveProductsWithRespectiveRenewalAmount();
-		test.asm_OMR.submitPaymentDetailsForAutoRenewal(YamlReader.getYamlValue("creditCardInfo.Type"),	(memDetails.get(0).split(" ")[1]+" "+memDetails.get(0).split(" ")[0]), YamlReader.getYamlValue("creditCardInfo.Number")
-				, YamlReader.getYamlValue("creditCardInfo.cvv-number"),YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[0], YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[1]);
-		 test.asm_OMR.clickOnSubmitPayment();
+		mapRenewedProductDetails = test.asm_OMR.saveProductsWithRespectiveRenewalAmount();
+		test.asm_OMR.submitPaymentDetailsForAutoRenewal(YamlReader.getYamlValue("creditCardInfo.Type"),
+				(memDetails.get(0).split(" ")[1] + " " + memDetails.get(0).split(" ")[0]),
+				YamlReader.getYamlValue("creditCardInfo.Number"), YamlReader.getYamlValue("creditCardInfo.cvv-number"),
+				YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[0],
+				YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[1]);
+		test.asm_OMR.clickOnSubmitPayment();
+
 	}
 	@Test
 	public void Step05_Verify_Print_Receipt_Message_On_Summary_Page()

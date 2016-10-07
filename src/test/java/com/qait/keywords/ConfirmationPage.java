@@ -66,7 +66,7 @@ public class ConfirmationPage extends ASCSocietyGenericPage {
 		String[] memberDetail = { memberNumber, invoiceNumber, membercategory };
 		logMessage("Step : 1. memberNumber 2. invoiceNumber 3. membercategory\n");
 		for (int i = 0; i < memberDetail.length; i++) {
-			logMessage("Step : member detail " + memberDetail[i]);
+			logMessage("STEP : Member detail " + memberDetail[i]);
 		}
 		return memberDetail;
 	}
@@ -95,18 +95,21 @@ public class ConfirmationPage extends ASCSocietyGenericPage {
 		verifyMemberTypeAndName("MemberType",
 				getAACT_OmaSheetValue(caseId, "Member Type?"));
 		verifyMemberTypeAndName("UsersName", firstName + " " + lastName);
-		String[] memberDetail = { memberNumber, invoiceNumber };
-		logMessage("Step : 1. memberNumber 2. invoiceNumber \n");
+		
+		
+		 String[] memberDetail = { memberNumber, invoiceNumber };
+		logMessage("STEP : 1. MemberNumber 2. InvoiceNumber \n");
 		for (int i = 0; i < memberDetail.length; i++) {
-			logMessage("Step : member detail " + memberDetail[i]);
+			logMessage("STEP : Member detail " + memberDetail[i]);
 		}
+		System.out.println("member detail:"+memberDetail[0]);
 		return memberDetail;
 	}
 
 	public void verifyPrintReceiptContent(String caseId, String memberNumber,
 			String invoiceNumber, String firstName, String lastName) {
 		if (!isBrowser("firefox")) {
-			logMessage("Step : Script could not verified PDF on chrome and IE browsers\n");
+			logMessage("STEP : Script could not verified PDF on chrome and IE browsers\n");
 		} else {
 			clickOnPrintReceiptButton();
 			String getWindow = driver.getWindowHandle();
@@ -163,7 +166,7 @@ public class ConfirmationPage extends ASCSocietyGenericPage {
 	public void clickOnPrintReceiptButton() {
 		isElementDisplayed("btn_topPrintButton");
 		element("btn_topPrintButton").click();
-		logMessage("Step : print receipt button is clicked \n");
+		logMessage("STEP : Print receipt button is clicked \n");
 	}
 
 	public void verifyPdfContent(String detailValue) {

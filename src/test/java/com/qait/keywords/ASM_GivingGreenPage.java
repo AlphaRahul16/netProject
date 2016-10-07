@@ -36,17 +36,17 @@ public class ASM_GivingGreenPage extends GetPage {
 			wait.resetImplicitTimeout(0);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			if (isElementDisplayed("img_loginLoading")) {
-				logMessage("Step : wait for load to diasappear\n");
+				logMessage("STEP : wait for load to diasappear\n");
 				wait.waitForElementToDisappear(element("img_loginLoading"));
 			} else {
-				logMessage("Step : loader image is not displayed at login page\n");
+				logMessage("STEP : loader image is not displayed at login page\n");
 			}
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		} catch (Exception exp) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
-			logMessage("Step : loader image is not displayed at login page\n");
+			logMessage("STEP : loader image is not displayed at login page\n");
 		}
 
 	}
@@ -66,12 +66,12 @@ public class ASM_GivingGreenPage extends GetPage {
 		try{
 			isElementDisplayed("btn_loginMember");
 			element("btn_loginMember").click();
-			logMessage("Step : Login button is clicked in btn_loginMember\n");
+			logMessage("STEP : Login button is clicked in btn_loginMember\n");
 			isElementDisplayed("div_selectMember");
 		}catch(StaleElementReferenceException stlExp){
 			isElementDisplayed("btn_loginMember");
 			element("btn_loginMember").click();
-			logMessage("Step : Login button is clicked in btn_loginMember\n");
+			logMessage("STEP : Login button is clicked in btn_loginMember\n");
 			isElementDisplayed("div_selectMember");
 		}
 		
@@ -81,7 +81,7 @@ public class ASM_GivingGreenPage extends GetPage {
 		isElementDisplayed("rad_acsId");
 		if (!element("rad_acsId").isSelected())
 			element("rad_acsId").click();
-		logMessage("Step : ACS ID radio button is checked in rad_acsId\n");
+		logMessage("STEP : ACS ID radio button is checked in rad_acsId\n");
 	}
 
 	public void clickOnLastNameAndMemberNumber_RadioButton() {
@@ -90,7 +90,7 @@ public class ASM_GivingGreenPage extends GetPage {
 			clickUsingXpathInJavaScriptExecutor(element("rad_lastnameMemberNumber"));
 		}
 		// element("rad_lastnameMemberNumber").click();
-		logMessage("Step : ACS last name / member number radio button is checked in rad_lastnameMemberNumber\n");
+		logMessage("STEP : ACS last name / member number radio button is checked in rad_lastnameMemberNumber\n");
 		wait.hardWait(2);
 	}
 
@@ -98,7 +98,7 @@ public class ASM_GivingGreenPage extends GetPage {
 		isElementDisplayed("inp_username");
 		element("inp_username").clear();
 		element("inp_username").sendKeys(userName_lastName);
-		logMessage("Step : " + userName_lastName
+		logMessage("STEP : " + userName_lastName
 				+ " is entered in inp_username\n");
 	}
 
@@ -106,20 +106,20 @@ public class ASM_GivingGreenPage extends GetPage {
 		isElementDisplayed("inp_password");
 		element("inp_password").clear();
 		element("inp_password").sendKeys(password);
-		logMessage("Step : " + password + " is entered in inp_username\n");
+		logMessage("STEP : " + password + " is entered in inp_username\n");
 	}
 
 	public void enterLastName(String lastName) {
 		isElementDisplayed("inp_lastName");
 		element("inp_lastName").clear();
 		element("inp_lastName").sendKeys(lastName);
-		logMessage("Step : " + lastName + " is entered in inp_lastName\n");
+		logMessage("STEP : " + lastName + " is entered in inp_lastName\n");
 	}
 
 	public void clickOnLoginSubmitButton() {
 		isElementDisplayed("btn_login");
 		element("btn_login").click();
-		logMessage("Step : login button is clicked in btn_login\n");
+		logMessage("STEP : login button is clicked in btn_login\n");
 	}
 
 	public void clickOnContinueButton() {
@@ -127,7 +127,7 @@ public class ASM_GivingGreenPage extends GetPage {
 		isElementDisplayed("btn_continue");
 		//element("btn_continue").click();
 		clickUsingXpathInJavaScriptExecutor(element("btn_continue"));
-		logMessage("Step : click on continue button in btn_continue\n");
+		logMessage("STEP : click on continue button in btn_continue\n");
 		wait.waitForPageToLoadCompletely();
 	}
 
@@ -135,10 +135,10 @@ public class ASM_GivingGreenPage extends GetPage {
 		isElementDisplayed("rad_amount", amount);
 		if (!element("rad_amount", amount).isSelected()) {
 			element("rad_amount", amount).click();
-			logMessage("Step : radio button for amount " + amount
+			logMessage("STEP : radio button for amount " + amount
 					+ " is selected in rad_amount\n");
 		} else {
-			logMessage("Step : radio button for amount " + amount
+			logMessage("STEP : radio button for amount " + amount
 					+ " is already selected");
 		}
 	}
@@ -146,12 +146,12 @@ public class ASM_GivingGreenPage extends GetPage {
 	public void selectAndEnterOtherAmount(String otherAmountValue) {
 		isElementDisplayed("rad_otherAmount");
 		element("rad_otherAmount").click();
-		logMessage("Step : radio button is clicked for other amount in rad_otherAmount\n");
+		logMessage("STEP : radio button is clicked for other amount in rad_otherAmount\n");
 
 		isElementDisplayed("inp_otherAmount");
 		element("inp_otherAmount").clear();
 		element("inp_otherAmount").sendKeys(otherAmountValue);
-		logMessage("Step : " + otherAmountValue
+		logMessage("STEP : " + otherAmountValue
 				+ " is entered in inp_otherAmount\n");
 
 	}
@@ -168,7 +168,7 @@ public class ASM_GivingGreenPage extends GetPage {
 	public void logOutApplication() {
 		isElementDisplayed("btn_logout");
 		element("btn_logout").click();
-		logMessage("Step : Logout Application in btn_logout\n");
+		logMessage("STEP : Logout Application in btn_logout\n");
 	}
 
 	public void verifyCurrentPage(String pageName) {
@@ -217,7 +217,7 @@ public class ASM_GivingGreenPage extends GetPage {
 		isElementDisplayed("inp_fieldName", fieldName);
 		element("inp_fieldName", fieldName).clear();
 		element("inp_fieldName", fieldName).sendKeys(fieldValue);
-		logMessage("Step : enter field value: " + fieldValue
+		logMessage("STEP : enter field value: " + fieldValue
 				+ " in field name: " + fieldName + " in inp_fieldName\n");
 	}
 

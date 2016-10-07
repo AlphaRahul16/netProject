@@ -219,7 +219,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 				break;
 			}
 		}
-		Assert.assertTrue(flag, "ASSERT Failed : Officer " + elements("txt_officerName").get(i).getText().trim()
+		Assert.assertTrue(flag, "ASSERT FAILED : Officer " + elements("txt_officerName").get(i).getText().trim()
 				+ " cannot be added\n");
 		logMessage("ASSERT PASS : Officer " + elements("txt_officerName").get(i).getText().trim()
 				+ " is successfully added\n");
@@ -468,10 +468,10 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		isElementDisplayed("lnk_reportPages", pagecount);
 		try {
 			element("lnk_reportPages", pagecount).click();
-			logMessage("Step : Page " + pagecount + " of report is clicked\n");
+			logMessage("STEP : Page " + pagecount + " of report is clicked\n");
 		} catch (Exception e) {
 			clickUsingXpathInJavaScriptExecutor(element("lnk_reportPages", pagecount));
-			logMessage("Step : Page " + pagecount + " of report is clicked\n");
+			logMessage("STEP : Page " + pagecount + " of report is clicked\n");
 		}
 		scarfReportIterationCount = 1;
 		loopLength = 6;
@@ -799,7 +799,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		if (element("txt_eventDescription").getAttribute("value").trim().equals("")) {
 			enterDescriptionDetails(descpData);
 		} else
-			logMessage("STEP : Description data is present :"
+			logMessage("STEP : Description data is present : "
 					+ element("txt_eventDescription").getAttribute("value").trim());
 
 	}

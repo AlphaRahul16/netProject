@@ -62,5 +62,7 @@ img_paymentLoader                           css                                 
 btn_RemoveMembership                        xpath                                     //a[contains(text(),'${value}')]
 chkbox_termsAndCondition                    css                                       #idAcceptFlag
 btn_continueToPayment                       css                                       #btnPayment
+btn_renewalLength                           css                                       span[id*='RenewalLength']
+icon_applyDiscount                          id                                        ACSApplyDiscountsAction
 
 =================================================================================================================================================

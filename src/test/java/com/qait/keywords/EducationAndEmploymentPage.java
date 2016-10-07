@@ -77,7 +77,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 		
 		
 		if (degree.equalsIgnoreCase("NULL")) {
-			logMessage("Step: degree is null\n");
+			logMessage("STEP : Degree is null\n");
 		} else {
 			String[] temp = degree.split("\\_");
 			int degreeCount = temp.length;
@@ -106,7 +106,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 	public void selectFutureDegreeWithOtherDetail(String degree, String major,
 			String month, String year, String degreeWithPastDate) {
 		if (degree.equalsIgnoreCase("NULL")) {
-			logMessage("Step: degree is null\n");
+			logMessage("STEP : Degree is null\n");
 		} else {
 			String[] temp = degree.split("\\_");
 			int degreeCount = temp.length;
@@ -156,10 +156,10 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 			chemistryTeacherValue = "No";
 			clickRadioButton_Detail("chemistryTeacher", chemistryTeacherValue);
 		} else if (!chemistryTeacherStatus.equalsIgnoreCase("")) {
-			logMessage("Step : chemistry Teacher Status is not valid in data sheet");
+			logMessage("STEP : chemistry Teacher Status is not valid in data sheet");
 			Assert.fail("ASSERT FAILED : chemistry Teacher Status is not valid in data sheet");
 		} else {
-			logMessage("Step : chemistry Teacher Status is not present in data sheet");
+			logMessage("STEP : chemistry Teacher Status is not present in data sheet");
 		}
 	}
 
@@ -190,13 +190,13 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 	private void selectEduAndEmpDetail(String detailtype, String detailValue) {
 		if (detailValue.equalsIgnoreCase("")
 				|| detailValue.equalsIgnoreCase("NULL")) {
-			logMessage("Step : " + detailtype
+			logMessage("STEP : " + detailtype
 					+ " value is null or invalid to select in drop down");
 		} else {
 			isElementDisplayed("list_" + detailtype, detailValue);
 			selectProvidedTextFromDropDown(element("list_" + detailtype),
 					detailValue);
-			logMessage("Step: " + detailValue + " selected in the list_"
+			logMessage("STEP : " + detailValue + " selected in the list_"
 					+ detailtype + "\n");
 		}
 
@@ -206,7 +206,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 			int sizeOfList) {
 		if (detailValue.equalsIgnoreCase("")
 				|| detailValue.equalsIgnoreCase("NULL")) {
-			logMessage("Step : " + detailtype
+			logMessage("STEP : " + detailtype
 					+ " value is null or blank to select from list");
 		} else {
 			try {
@@ -215,7 +215,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 				selectProvidedTextFromDropDown(
 						element("list_" + detailtype,
 								Integer.toString(sizeOfList)), detailValue);
-				logMessage("Step: " + detailValue + " selected in the list_"
+				logMessage("STEP : " + detailValue + " selected in the list_"
 						+ detailtype + "\n");
 			} catch (StaleElementReferenceException stlExp) {
 				isElementDisplayed("list_" + detailtype,
@@ -223,7 +223,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 				selectProvidedTextFromDropDown(
 						element("list_" + detailtype,
 								Integer.toString(sizeOfList)), detailValue);
-				logMessage("Step: " + detailValue + " selected in the list_"
+				logMessage("STEP : " + detailValue + " selected in the list_"
 						+ detailtype + "\n");
 			}
 
@@ -236,7 +236,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 		clickUsingXpathInJavaScriptExecutor(element("rad_" + detailtype,
 				detailValue));
 		// click(element("rad_" + detailtype, detailValue));
-		logMessage("Step: " + detailValue + " is checked in rad_" + detailtype
+		logMessage("STEP : " + detailValue + " is checked in rad_" + detailtype
 				+ "\n");
 	}
 
@@ -251,12 +251,12 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 
 	private void enterEduAndEmpDetail(String detailType, String detailvalue) {
 		if (detailvalue.equalsIgnoreCase("")) {
-			logMessage("Step : " + detailType
+			logMessage("STEP : " + detailType
 					+ " value is not present in data sheet\n");
 		} else {
 			isElementDisplayed("inp_" + detailType);
 			element("inp_" + detailType).sendKeys(detailvalue);
-			logMessage("Step: " + detailvalue + " enetered in the inp_"
+			logMessage("STEP : " + detailvalue + " enetered in the inp_"
 					+ detailType + "\n");
 		}
 
@@ -288,7 +288,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 			selectEduAndEmpDetail("occupationTitle",
 					map().get("Select Primary Title"));
 		} else {
-			logMessage("Step: employer details not present \n");
+			logMessage("STEP : employer details not present \n");
 		}
 	}
 
@@ -335,7 +335,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 						.get("Select  Summer state"));
 			enterEduAndEmpDetail("zipCode", map().get("Enter  Summer zip code"));
 		} else {
-			logMessage("Step: summer mailing address not present \n");
+			logMessage("STEP : Summer mailing address not present \n");
 		}
 
 	}
@@ -348,7 +348,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 			month = date1.getDate(map().get(
 					"Evaluate degree type and enter past/future date"))[1];
 		} catch (NullPointerException ex) {
-			logMessage("date not present to enter or not applicable in data sheet\n");
+			logMessage("Date not present to enter or not applicable in data sheet\n");
 		}
 
 		if (map().get("Current Student Status").equalsIgnoreCase("Y")) {
@@ -357,8 +357,8 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 		} else if (map().get("Current Student Status").equalsIgnoreCase("N")) {
 			currentStudentNo(map().get("Has College or University ?"));
 		} else {
-			logMessage("student status is invalid in data sheet");
-			Assert.fail("ASSERT FAILED: current student status is not valid in data sheet");
+			logMessage("Student status is invalid in data sheet");
+			Assert.fail("ASSERT FAILED : Current student status is not valid in data sheet");
 		}
 
 		if (map().get("Chemistry Major Status").equalsIgnoreCase("Y")) {
@@ -377,8 +377,8 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 					map().get("Has Chemistry teacher?"));
 
 		} else {
-			logMessage("chemistry status is invalid in data sheet");
-			Assert.fail("ASSERT FAILED: chemistry major status is not valid in data sheet");
+			logMessage("Chemistry status is invalid in data sheet");
+			Assert.fail("ASSERT FAILED : Chemistry major status is not valid in data sheet");
 		}
 		verifySummerMailingAddressFiledVisibility(map().get(
 				"Has Summer mailing address?"));
@@ -403,7 +403,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 			month = date1.getDate(map().get(
 					"Evaluate degree type and enter past/future date"))[1];
 		} catch (NullPointerException ex) {
-			logMessage("date not present to enter or not applicable in data sheet\n");
+			logMessage("Date not present to enter or not applicable in data sheet\n");
 		}
 
 		if (map().get("Current Student Status").equalsIgnoreCase("Y")) {
@@ -412,8 +412,8 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 		} else if (map().get("Current Student Status").equalsIgnoreCase("N")) {
 			currentStudentNo(map().get("Has College or University ?"));
 		} else {
-			logMessage("student status is invalid in data sheet");
-			Assert.fail("ASSERT FAILED: current student status is not valid in data sheet");
+			logMessage("Student status is invalid in data sheet");
+			Assert.fail("ASSERT FAILED : Current student status is not valid in data sheet");
 		}
 		if (map().get("Chemistry Major Status").equalsIgnoreCase("Y")) {
 			isMajorChemistry(
@@ -432,8 +432,8 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 			isMajorChemistry(map().get("Chemistry Teacher Status"),
 					map().get("Has Chemistry teacher?"));
 		} else {
-			logMessage("chemistry status is invalid in data sheet");
-			Assert.fail("ASSERT FAILED: chemistry major status is not valid in data sheet");
+			logMessage("Chemistry status is invalid in data sheet");
+			Assert.fail("ASSERT FAILED : Chemistry major status is not valid in data sheet");
 		}
 		verifySummerMailingAddressFiledVisibility(map().get(
 				"Has Summer mailing address?"));
@@ -463,7 +463,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 	public void enterJobExperience(String isJobExp, String jobExp) {
 		if (isJobExp.equalsIgnoreCase("SHOW")) {
 			element("txtAr_professionalExp").sendKeys(jobExp);
-			logMessage("Step : job experience " + jobExp
+			logMessage("STEP : job experience " + jobExp
 					+ " is entered in txtAr_professionalExp\n");
 		}
 	}
@@ -512,7 +512,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 				// catch (NoSuchElementException e) {
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
-				logMessage("Step : Error message is empty\n");
+				logMessage("STEP : Error message is empty\n");
 			}
 
 			return false;
@@ -525,7 +525,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 
 	public void enterJobProfessionalExp(String jobExp) {
 		element("txtAr_professionalExp").sendKeys(jobExp);
-		logMessage("Step : job experience value " + jobExp + " is entered");
+		logMessage("STEP : job experience value " + jobExp + " is entered");
 	}
 
 	public void enterEducationAndEmploymentInformation_ASMOMA() {

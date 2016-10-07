@@ -49,10 +49,10 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	public void clickOnGoButtonWithCustomerLoginId(String customerID) {
 		isElementDisplayed("txt_recordNumber");
 		element("txt_recordNumber").sendKeys(customerID);
-		logMessage("Step : send customer id  " + customerID + " to text field !!");
+		logMessage("STEP : Send customer id  " + customerID + " to text field !!");
 		isElementDisplayed("btn_search");
 		element("btn_search").click();
-		logMessage("Step : click to the search button !!");
+		logMessage("STEP : Click to the search button !!");
 	}
 
 	public void clickOnActiveSubscription() {
@@ -60,16 +60,16 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		handleAlert();
 		isElementDisplayed("lnk_moreTab");
 		element("lnk_moreTab").click();
-		logMessage("step: more tab is expanded !!");
+		logMessage("STEP : More tab is expanded !!");
 		hardWaitForChromeBrowser(2);
 		isElementDisplayed("lnk_subscriptionTab");
 		element("lnk_subscriptionTab").click();
-		logMessage("subscription tab is selected in expanded more option !!");
+		logMessage("Subscription tab is selected in expanded more option !!");
 		wait.waitForPageToLoadCompletely();
 		waitForSpinner();
 		isElementDisplayed("lnk_activeSubscription");
 		element("lnk_activeSubscription").click();
-		logMessage("Step: active subscription expanded !!");
+		logMessage("STEP : Active subscription expanded !!");
 		wait.waitForPageToLoadCompletely();
 		waitForSpinner();
 	}
@@ -82,7 +82,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 			isElementDisplayed("td_subscription", name, String.valueOf(getProductAmount(productAmount.get(i))));
 			i++;
 		}
-		logMessage("[ASSERTION PASSED]:: Verified Product Names and amount under Active Subscription on IWEB");
+		logMessage("ASSERTION PASSED : Verified Product Names and amount under Active Subscription on IWEB");
 	}
 
 	public void waitForSpinner() {
@@ -107,7 +107,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	public void clickOnPrintOrderReceipt() {
 		isElementDisplayed("btn_printReceipt");
 		element("btn_printReceipt").click();
-		logMessage("Step: Clicked on print order receipt !!");
+		logMessage("STEP : Clicked on print order receipt !!");
 		wait.hardWait(15);
 		_verifyPDFFileIsDownloaded("report");
 	}
@@ -134,7 +134,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		for (String product_Amount : productAmount) {
 			System.out.println("In PDF Method for Amount::" + product_Amount);
 			Assert.assertTrue(pdfContent.contains(product_Amount));
-			logMessage("[ASSERTION PASSED]:: Verified Product Amount "+product_Amount+" in Invoice Receipt");
+			logMessage("ASSERTION PASSED : Verified Product Amount "+product_Amount+" in Invoice Receipt");
 		}
 
 		for (String product_Name : productName) {
@@ -144,7 +144,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 			} else {
 				Assert.assertTrue(pdfContent.contains(product_Name));
 			}
-			logMessage("[ASSERTION PASSED]:: Verified Product Name "+product_Name+" is available in Invoice Receipt");
+			logMessage("ASSERTION PASSED : Verified Product Name "+product_Name+" is available in Invoice Receipt");
 		}
 
 	}
@@ -155,18 +155,18 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 				+ ".pdf";
 
 		File sourceFile = new File(source);
-		try {
-			System.out.println("-----"+sourceFile.exists());
-			FileUtils.forceDelete(sourceFile);
-			logMessage("Already Existed File is deleted from location " + sourceFile.getAbsolutePath());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-//		if (sourceFile.exists()) {
-//			sourceFile.delete();
+//		try {
+//			System.out.println("-----"+sourceFile.exists());
+//			FileUtils.forceDelete(sourceFile);
 //			logMessage("Already Existed File is deleted from location " + sourceFile.getAbsolutePath());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
 //		}
+		if (sourceFile.exists()) {
+			sourceFile.delete();
+			logMessage("Already Existed File is deleted from location " + sourceFile.getAbsolutePath());
+		}
 	}
 
 	public void loginInToApplication(String userName, String password) {
@@ -178,19 +178,19 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	public void enterUserName(String userName) {
 		isElementDisplayed("inp_userName");
 		element("inp_userName").sendKeys(userName);
-		logMessage("Step : " + userName + " is entered in inp_userName\n");
+		logMessage("STEP : " + userName + " is entered in inp_userName\n");
 	}
 
 	public void enterPassword(String password) {
 		isElementDisplayed("inp_password");
 		element("inp_password").sendKeys(password);
-		logMessage("Step : " + password + " is entered in inp_password\n");
+		logMessage("STEP : " + password + " is entered in inp_password\n");
 	}
 
 	public void clickOnVerifyButton() {
 		isElementDisplayed("btn_verify");
 		element("btn_verify").click();
-		logMessage("Step : verify button is clicked in btn_verify\n");
+		logMessage("STEP : Verify button is clicked in btn_verify\n");
 	}
 
 	public void addSubscription() {
@@ -207,7 +207,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	public void clickOnAddAnEPassportButton() {
 		isElementDisplayed("btn_passportAdd");
 		element("btn_passportAdd").click();
-		logMessage("Step : add an e-passport button is clicked in btn_passportAdd\n");
+		logMessage("Step : Add an e-passport button is clicked in btn_passportAdd\n");
 
 	}
 
@@ -215,7 +215,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		hardWaitForChromeBrowser(3);
 		isElementDisplayed("btn_add");
 		element("btn_add").click();
-		logMessage("Step : add button is clicked in btn_add \n");
+		logMessage("STEP : Add button is clicked in btn_add \n");
 		wait.waitForPageToLoadCompletely();
 
 	}
@@ -224,7 +224,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_amount");
 		String passportAmountValue = element("txt_amount").getText();
 		passportAmountValue = passportAmountValue.substring(passportAmountValue.indexOf("$") + 1);
-		logMessage("Step : passportAmountValue " + passportAmountValue + " is saved \n");
+		logMessage("STEP : PassportAmountValue " + passportAmountValue + " is saved \n");
 		return passportAmountValue;
 	}
 
@@ -232,7 +232,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_amount");
 		String subscriptionAmountValue = element("txt_amount").getText();
 		subscriptionAmountValue = subscriptionAmountValue.substring(subscriptionAmountValue.indexOf("$") + 1);
-		logMessage("Step : subscriptionAmountValue " + subscriptionAmountValue + " is saved \n");
+		logMessage("STEP : SubscriptionAmountValue " + subscriptionAmountValue + " is saved \n");
 		return subscriptionAmountValue;
 	}
 
@@ -245,29 +245,29 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		taxAmount = element("txt_taxAmount").getText();
 		taxAmount = taxAmount.substring(taxAmount.indexOf('$') + 1);
 		total += Double.parseDouble(taxAmount);
-		logMessage("Step: taxAmount $" + taxAmount + " is retrieved !!");
+		logMessage("STEP : TaxAmount $" + taxAmount + " is retrieved !!");
 		wait.hardWait(1);
 
 		isElementDisplayed("txt_shippingAmount");
 		shippingAmount = element("txt_shippingAmount").getText();
 		shippingAmount = shippingAmount.substring(shippingAmount.indexOf('$') + 1);
 		total += Double.parseDouble(shippingAmount);
-		logMessage("Step: shippingAmount $" + shippingAmount + " is retrieved !!");
+		logMessage("STEP : ShippingAmount $" + shippingAmount + " is retrieved !!");
 		wait.hardWait(1);
 
 		isElementDisplayed("txt_invoiceValue");
 		String invoiceValue = element("txt_invoiceValue").getText();
 		invoiceValue = invoiceValue.substring(invoiceValue.indexOf("$") + 1);
 		Double double_invoiceValue = (Double) Double.parseDouble(invoiceValue);
-		logMessage("Step: invoiceAmount $" + double_invoiceValue + " is retrieved !!");
+		logMessage("STEP : InvoiceAmount $" + double_invoiceValue + " is retrieved !!");
 		wait.hardWait(1);
 
 		total = setPrecision(total, 2);
 		double_invoiceValue = setPrecision(double_invoiceValue, 2);
 
-		logMessage("Step : total from previous page =" + total + " & invoice from this page =" + double_invoiceValue);
+		logMessage("STEP : Total from previous page =" + total + " & invoice from this page =" + double_invoiceValue);
 		Assert.assertEquals(total, double_invoiceValue);
-		logMessage("[ASSERTION PASSED]: Verified Total Invoice Amount!!");
+		logMessage("ASSERTION PASSED : Verified Total Invoice Amount!!");
 
 	}
 
@@ -283,7 +283,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	public void clickOnAddAnESubscriptionButton() {
 		isElementDisplayed("btn_subscriptionAdd");
 		element("btn_subscriptionAdd").click();
-		logMessage("Step : add an e-subscription button is clicked in btn_subscriptionAdd\n");
+		logMessage("STEP : Add an e-subscription button is clicked in btn_subscriptionAdd\n");
 	}
 
 	public void verifyESubscriptionPage() {
@@ -294,19 +294,19 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		hardWaitForChromeBrowser(3);
 		isElementDisplayed("btn_add");
 		element("btn_add").click();
-		logMessage("Step : add button is clicked in btn_add \n");
+		logMessage("STEP : Add button is clicked in btn_add \n");
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);
 		isElementDisplayed("chk_archive");
 		element("chk_archive").click();
-		logMessage("Step : add button is clicked in chk_archive \n");
+		logMessage("STEP : Add button is clicked in chk_archive \n");
 
 	}
 
 	public void clickOnSaveButton() {
 		isElementDisplayed("btn_save");
 		element("btn_save").click();
-		logMessage("Step : save button is clicked in btn_save \n");
+		logMessage("STEP : Save button is clicked in btn_save \n");
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);
 		// verifySavedSuccessfully();
@@ -314,7 +314,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 
 	public void verifySubcriptionAdded() {
 		isElementDisplayed("txt_added");
-		logMessage("ASSERT PASSED : verify added successfully in txt_added\n");
+		logMessage("ASSERT PASSED : Verify added successfully in txt_added\n");
 	}
 
 	public void verifySavedSuccessfully() {
@@ -342,37 +342,37 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	public void enterCreditCardHolderName(String cardholderName) {
 		isElementDisplayed("inp_cardHolderName");
 		element("inp_cardHolderName").sendKeys(cardholderName);
-		logMessage("Step : " + cardholderName + " is entered in inp_cardHolderName\n");
+		logMessage("STEP : " + cardholderName + " is entered in inp_cardHolderName\n");
 	}
 
 	public void enterCreditCardNumber(String cardNumber) {
 		isElementDisplayed("inp_cardNumber");
 		element("inp_cardNumber").sendKeys(cardNumber);
-		logMessage("Step : " + cardNumber + " is entered in inp_cardNumber\n");
+		logMessage("STEP : " + cardNumber + " is entered in inp_cardNumber\n");
 	}
 
 	public void enterCVVNumber(String cvvNumber) {
 		isElementDisplayed("inp_CVVNumber");
 		element("inp_CVVNumber").sendKeys(cvvNumber);
-		logMessage("Step : " + cvvNumber + " is entered in inp_CVVNumber\n");
+		logMessage("STEP : " + cvvNumber + " is entered in inp_CVVNumber\n");
 	}
 
 	public void selectExpirationYear(String yearValue) {
 		isElementDisplayed("list_expirationYear");
 		selectProvidedTextFromDropDown(element("list_expirationYear"), yearValue);
-		logMessage("Step : " + yearValue + " is selected for in list_expirationYear\n");
+		logMessage("STEP : " + yearValue + " is selected for in list_expirationYear\n");
 	}
 
 	public void clickOnConfirmOrderButton() {
 		isElementDisplayed("btn_ConfirmOrder");
 		element("btn_ConfirmOrder").click();
-		logMessage("Step : Confirm Order button is clicked in btn_ConfirmOrder\n");
+		logMessage("STEP : Confirm Order button is clicked in btn_ConfirmOrder\n");
 	}
 
 	public void clickOnPlaceOrder() {
 		isElementDisplayed("btn_placeOrder");
 		element("btn_placeOrder").click();
-		logMessage("Step : click on place order button");
+		logMessage("STEP : Click on place order button");
 	}
 
 	public void verifyReceiptPage() {
@@ -393,7 +393,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		isElementDisplayed("inp_userName");
 		isElementDisplayed("inp_password");
 		isElementDisplayed("btn_verify");
-		logMessage("[ASSERTION PASSED]:: Verified User Is On Eweb Login Page");
+		logMessage("ASSERTION PASSED : Verified User Is On Eweb Login Page");
 	}
 
 	public void verifyUserIsOnHomePageForEwebPBA(String individualName) {
@@ -403,6 +403,6 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 		String s = (String) executeJavascriptReturnValue("document.getElementsByTagName('span')[3].innerHTML;");
 		Assert.assertTrue(individualName.contains(s));
-		logMessage("[ASSERTION PASSED]:: Verified User Is On Home Page for Eweb Application");
+		logMessage("ASSERTION PASSED : Verified User Is On Home Page for Eweb Application");
 	}
 }

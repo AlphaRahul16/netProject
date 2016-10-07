@@ -42,7 +42,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 			clickSaveButton();
 
 		} else {
-			logMessage("Step:  add ACS Publication value is not present in data sheet\n");
+			logMessage("STEP :  Add ACS Publication value is not present in data sheet\n");
 		}
 
 	}
@@ -63,7 +63,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 			clickSaveButton();
 
 		} else {
-			logMessage("Step: ACS Technical Division value is not present in data sheet\n");
+			logMessage("STEP : ACS Technical Division value is not present in data sheet\n");
 		}
 
 	}
@@ -95,24 +95,24 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 				clickUsingXpathInJavaScriptExecutor(element("rad_CENType",
 						"Print"));
 				// click(element("rad_CENType", "Print"));
-				logMessage("Step:  rad_CENType is clicked\n");
+				logMessage("STEP :  rad_CENType is clicked\n");
 			} else if (map().get("CENtype").equalsIgnoreCase("electronic")) {
 				isElementDisplayed("rad_CENType", "Email");
 				clickUsingXpathInJavaScriptExecutor(element("rad_CENType",
 						"Email"));
 				// click(element("rad_CENType", "Email"));
-				logMessage("Step:  rad_CENType is clicked\n");
+				logMessage("STEP :  rad_CENType is clicked\n");
 			} else {
-				logMessage("Step : CENType is invalid in data sheet\n");
+				logMessage("STEP : CENType is invalid in data sheet\n");
 				Assert.fail("ASSERT FAIL : CENType in data sheet is not valid\n");
 			}
 		} else if (map().get("C&EN Status").equalsIgnoreCase("N")) {
 			clickUsingXpathInJavaScriptExecutor(element("rad_dues_cenPackage",
 					"Dues Only Package"));
 			// click(element("rad_dues_cenPackage", "Dues Only Package"));
-			logMessage("Step:  rad_duesOnlyPackage is clicked\n");
+			logMessage("STEP :  rad_duesOnlyPackage is clicked\n");
 		} else {
-			logMessage("Step:  CEN status value is not valid in data sheet\n");
+			logMessage("STEP :  CEN status value is not valid in data sheet\n");
 			Assert.fail("ASSERT FAIL : C&EN Status in data sheet is not valid\n");
 		}
 
@@ -124,14 +124,14 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_ACSPublication");
 		clickUsingXpathInJavaScriptExecutor(element("btn_ACSPublication"));
 		// click(element("btn_ACSPublication"));
-		logMessage("Step:  btn_ACSPublication is clicked\n");
+		logMessage("STEP :  btn_ACSPublication is clicked\n");
 	}
 
 	private void clickOnACSTechnicalDivision() {
 		isElementDisplayed("btn_ACStechnicalDivision");
 		clickUsingXpathInJavaScriptExecutor(element("btn_ACStechnicalDivision"));
 		// click(element("btn_ACStechnicalDivision"));
-		logMessage("Step:  btn_ACStechnicalDivision is clicked\n");
+		logMessage("STEP :  btn_ACStechnicalDivision is clicked\n");
 	}
 
 	private void clickOnAddToMembership(String divisionName) {
@@ -146,7 +146,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 				divisionName));
 		}
 		// click(element("btn_addToMembership", divisionName));
-		logMessage("Step:  " + divisionName
+		logMessage("STEP :  " + divisionName
 				+ " btn_addToMembership is clicked\n");
 	}
 
@@ -174,7 +174,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_save");
 		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
 		// click(element("btn_save"));
-		logMessage("Step:  btn_save is clicked\n");
+		logMessage("STEP :  btn_save is clicked\n");
 	}
 
 	private void verifyDivision_PublicationAdded(String divisionName) {

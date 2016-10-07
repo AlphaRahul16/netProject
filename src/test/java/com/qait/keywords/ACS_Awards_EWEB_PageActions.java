@@ -41,9 +41,9 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 	public void enterCredentials_LastNameMemberNumber_ACSID(String credentialType, String nameOfJudge,
 			Map<String, List<String>> memberDetail) {
-		logMessage("login credential:" + nameOfJudge.split(" ")[0]);
-		logMessage("contact id:" + memberDetail.get(nameOfJudge).get(0));
-		logMessage("web login::" + memberDetail.get(nameOfJudge).get(1));
+		logMessage("Login credential : " + nameOfJudge.split(" ")[0]);
+		logMessage("Contact id : " + memberDetail.get(nameOfJudge).get(0));
+		logMessage("Web login : " + memberDetail.get(nameOfJudge).get(1));
 		checkCredentialType(credentialType);
 		if (credentialType.equalsIgnoreCase("lastNameMemberNumber")) {
 			enterCredential("credential1", memberDetail.get(nameOfJudge).get(1), credentialType);
@@ -75,7 +75,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		isElementDisplayed("inp_" + credential1_2);
 		element("inp_" + credential1_2).clear();
 		element("inp_" + credential1_2).sendKeys(credentialValue);
-		logMessage("Step : " + credentialValue + " is entered in "
+		logMessage("STEP : " + credentialValue + " is entered in "
 				+ credentialType + "\n");
 
 	}
@@ -83,27 +83,27 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	public void checkCredentialType(String typeName) {
 		isElementDisplayed("rad_" + typeName);
 		element("rad_" + typeName).click();
-		logMessage("Step : check credential type " + typeName + "\n");
+		logMessage("STEP : Check credential type " + typeName + "\n");
 	}
 
 	public void clickOnLoginButton() {
 		isElementDisplayed("btn_login");
 		element("btn_login").click();
-		logMessage("Step : click on login button\n");
+		logMessage("STEP : Click on login button\n");
 	}
 
 	public void verifyLoginInAwardApplicationSuccessfully(String judgeName) {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("hd_welcome");
 		logMessage("Last name " + judgeName.split(" ")[0]);
-		logMessage("Heading" + element("hd_welcome").getText());
+		logMessage("Heading " + element("hd_welcome").getText());
 
 		Assert.assertTrue(element("hd_welcome").getText().contains(judgeName.split(" ")[0]),
 				"Heading is not contains last name");
 		logMessage("First name " + judgeName.split(" ")[1]);
 		Assert.assertTrue(element("hd_welcome").getText().contains(judgeName.split(" ")[1]),
 				"Heading is not contains first name");
-		logMessage("ASSERT PASSED : judge name " + judgeName + " login successfully\n");
+		logMessage("ASSERT PASSED : Judge name " + judgeName + " login successfully\n");
 	}
 
 	public String verifyStatus(List<String> rescusedJudges, String nameOfJudge) {
@@ -136,28 +136,28 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 	public void verifyAwardName(String awardname) {
 		isElementDisplayed("txt_awardName", awardname);
-		logMessage("ASSERT PASSED : award name " + awardname + " is verified\n");
+		logMessage("ASSERT PASSED : Award name " + awardname + " is verified\n");
 	}
 
 	public void verifyNumberOfDays(String dateFormate, String endDate) {
 		long numberOfDays = DateUtil.numberOfDaysBetweenTwoDays(dateFormate,
 				DateUtil.getCurrentdateInStringWithGivenFormate(dateFormate), endDate);
 		isElementDisplayed("txt_numberOfDaysRemaining", String.valueOf(numberOfDays));
-		logMessage("ASSERT PASSED : number of days " + numberOfDays + " is verified\n");
+		logMessage("ASSERT PASSED : Number of days " + numberOfDays + " is verified\n");
 	}
 
 	public void verifyNumberOfNominees(int numberOfNominees) {
 
 		isElementDisplayed("txt_totalNominations", String.valueOf(numberOfNominees));
-		logMessage("ASSERT PASSED : number of nominees " + numberOfNominees + " is verified\n");
+		logMessage("ASSERT PASSED : Number of nominees " + numberOfNominees + " is verified\n");
 	}
 
 	public void verifySubmitBallotDate(String date, String awardName) {
 		isElementDisplayed("txt_submitBallotDate", awardName);
 		Assert.assertTrue(element("txt_submitBallotDate", awardName).getText().contains(date),
-				"ASSERT FAILED : actual: " + element("txt_submitBallotDate", awardName).getText() + " expected: "
+				"ASSERT FAILED : Actual: " + element("txt_submitBallotDate", awardName).getText() + " expected: "
 						+ date);
-		logMessage("ASSERT PASSED : submit ballot date is verified as " + date + "\n");
+		logMessage("ASSERT PASSED : Submit ballot date is verified as " + date + "\n");
 	}
 
 	public void clickOnFiveYearNomineeMemoLink(String awardName) {
@@ -166,23 +166,23 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		wait.hardWait(3);
 
 		clickUsingXpathInJavaScriptExecutor(element("lnk_fiveYearNomineeMemo", awardName));
-		logMessage("Step : click on five year nominee memo link\n");
+		logMessage("STEP : Click on five year nominee memo link\n");
 
 	}
 
 	public void clickOnViewNominationMaterialButton(String awardName) {
 		isElementDisplayed("inp_viewNominationMaterial", awardName);
 		element("inp_viewNominationMaterial", awardName).click();
-		logMessage("Step : click on view nomination material button\n");
+		logMessage("STEP : Click on view nomination material button\n");
 	}
 
 	public void verifyCurrentTab(String tabName) {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("tab_currentTab");
 		Assert.assertTrue(element("tab_currentTab").getText().trim().endsWith(tabName),
-				"ASSERT FAILED : actual current tab is " + element("tab_currentTab").getText()
+				"ASSERT FAILED : Actual current tab is " + element("tab_currentTab").getText()
 						+ " and expected current tab is " + tabName + "\n");
-		logMessage("ASSERT PASSED : current tab " + tabName + " is verified \n");
+		logMessage("ASSERT PASSED : Current tab " + tabName + " is verified \n");
 	}
 
 	public void unselectAllNominees() {
@@ -202,11 +202,11 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 				ele.click();
 				wait.hardWait(3);
 			}
-			logMessage("Step : Unselect all selected nominees\n");
+			logMessage("STEP : Unselect all selected nominees\n");
 		} catch (Exception e) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
-			logMessage("Step : Nominees are not selected\n");
+			logMessage("STEP : Nominees are not selected\n");
 		}
 	}
 
@@ -215,7 +215,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			Map<String, String> nominee_WithRankOne) {
 
 		if (numberOfNomineesToSelect < nameOfJudges.size() && (round == round - 1) && (round == 1)) {
-			Assert.fail("ASSERT FAILED : number of nominees <" + numberOfNomineesToSelect
+			Assert.fail("ASSERT FAILED : Number of nominees <" + numberOfNomineesToSelect
 					+ "> is less than the number of judges <" + nameOfJudges.size() + ">");
 		}
 		int j = 0;
@@ -229,7 +229,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			if (nominee_WithRankOne != null && !nominee_WithRankOne.get(nameOfJudges.get(0)).isEmpty() && round == 1) {
 
 				for (WebElement nominee_FirstName : elements("list_unSelectNomineesFirstName")) {
-					logMessage("nominees unselected" + nominee_FirstName.getText());
+					logMessage("Nominees unselected " + nominee_FirstName.getText());
 					if (nominee_WithRankOne.get(nameOfJudges.get(0)).toString().contains(nominee_FirstName.getText())) {
 
 						elements("list_nominees").get(j).click();
@@ -268,7 +268,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 		int i = 0;
 		for (String selectedNomineeFirstName : selectedNomineeFirstNameList) {
-			logMessage("[first name] : " + selectedNomineeFirstName + " ==== [last name] : "
+			logMessage("[First name] : " + selectedNomineeFirstName + " ==== [Last name] : "
 					+ selectedNomineeLastNameList.get(i));
 			i++;
 		}
@@ -281,15 +281,15 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	public void verifyHeaderForUnselectedNominee(String headerName) {
 		isElementDisplayed("txt_unselectedNomineeHeader");
 		Assert.assertTrue(element("txt_unselectedNomineeHeader").getText().equalsIgnoreCase(headerName),
-				"ASSERT FAILED : header name is " + headerName + " is not verified for unselected nominees\n");
-		logMessage("ASSERT PASSED : header name " + headerName + " is verified for unselected nominees\n");
+				"ASSERT FAILED : Header name is " + headerName + " is not verified for unselected nominees\n");
+		logMessage("ASSERT PASSED : Header name " + headerName + " is verified for unselected nominees\n");
 	}
 
 	public void verifyHeaderForSelectedNominee(String headerName) {
 		isElementDisplayed("txt_selectedNomineeHeader");
 		Assert.assertTrue(element("txt_selectedNomineeHeader").getText().equalsIgnoreCase(headerName),
-				"ASSERT FAILED : header name is " + headerName + " is not verified for selected nominees\n");
-		logMessage("ASSERT PASSED : header name " + headerName + " is verified for selected nominees\n");
+				"ASSERT FAILED : Header name is " + headerName + " is not verified for selected nominees\n");
+		logMessage("ASSERT PASSED : Header name " + headerName + " is verified for selected nominees\n");
 	}
 
 	public void clickOnViewProfileLink(List<List<String>> nomineeFirstNames) {
@@ -299,7 +299,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		int randomNumber = rand.nextInt((max - min) + 1) + min;
 		isElementDisplayed("lnk_viewProfile", nomineeFirstNames.get(1).get(randomNumber));
 		element("lnk_viewProfile", nomineeFirstNames.get(1).get(randomNumber)).click();
-		logMessage("Step : view profile link is clicked for " + nomineeFirstNames.get(1).get(randomNumber));
+		logMessage("STEP : View profile link is clicked for " + nomineeFirstNames.get(1).get(randomNumber));
 
 	}
 
@@ -313,14 +313,14 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		clickUsingXpathInJavaScriptExecutor(
 				element("list_img_pdfProfileDownload", nomineeFirstNames.get(1).get(randomNumber)));
 
-		logMessage("Step : Profile pdf link is clicked for " + nomineeFirstNames.get(1).get(randomNumber) + " user \n");
+		logMessage("STEP : Profile pdf link is clicked for " + nomineeFirstNames.get(1).get(randomNumber) + " user \n");
 
 	}
 
 	public void enterComments(String comment) {
 		isElementDisplayed("txtArea_commnetStickyNotes");
 		element("txtArea_commnetStickyNotes").sendKeys(comment);
-		logMessage("Step : comment " + comment + " is entered in sticky notes");
+		logMessage("STEP : Comment " + comment + " is entered in sticky notes");
 	}
 
 	public void waitForLoaderToDisappear() {
@@ -350,7 +350,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	public void saveStickyNotes() {
 		isElementDisplayed("img_closeButtonStickyNotes");
 		element("img_closeButtonStickyNotes").click();
-		logMessage("Step : save button is clicked in sticky notes\n");
+		logMessage("STEP : Save button is clicked in sticky notes\n");
 	}
 
 	public void provideComments(List<List<String>> nomineeFirstNames, String comment) {
@@ -366,7 +366,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		int randomNumber = rand.nextInt((max - min) + 1) + min;
 		isElementDisplayed("lnk_Comment", nomineeFirstNames.get(1).get(randomNumber));
 		element("lnk_Comment", nomineeFirstNames.get(1).get(randomNumber)).click();
-		logMessage("Step : view profile link is clicked for " + nomineeFirstNames.get(1).get(randomNumber));
+		logMessage("STEP : View profile link is clicked for " + nomineeFirstNames.get(1).get(randomNumber));
 		// wait.waitForElementToDisappear(element("img_viewProfileLoader"));
 
 	}
@@ -376,7 +376,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		// switchToFrame("TB_iframeContent");
 		isElementDisplayed("txt_viewProfileAwardName", awardName);
 		Assert.assertTrue(element("txt_viewProfileAwardName", awardName).getText().endsWith(awardName),
-				"ASSERT FAILED : actual award name is " + element("txt_viewProfileAwardName", awardName).getText()
+				"ASSERT FAILED : Actual award name is " + element("txt_viewProfileAwardName", awardName).getText()
 						+ " and expected is " + awardName + "\n");
 		logMessage("ASSERT PASSED : " + awardName + " is verified in view profile link \n");
 		switchToDefaultContent();
@@ -384,10 +384,10 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 	public void verifyDownloadedPdfContent(String awardName, int count) {
 		try {
-			String textinpdf = extractFromPdf("AwardNomination", 21).trim();
+			String textinpdf = extractFromPdf("AwardNomination("+(count+1)+")", 21).trim();
 			System.out.println("------pdf text :"+textinpdf);
 			Assert.assertTrue(textinpdf.contains(awardName), "ASSERT FAILED: Award name "+awardName+" is not verified in the Pdf file\n");
-			logMessage("ASSERT PASSED: Award name "+awardName+" is verified in the Pdf file\n");
+			logMessage("ASSERT PASSED : Award name "+awardName+" is verified in the Pdf file\n");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -402,7 +402,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		isElementDisplayed("list_nominationsDocuments", awardName);
 		Assert.assertTrue(elements("list_nominationsDocuments", awardName).size() > 0,
 				"ASSERT FAILED : Nomination documents are not present in view profile link\n");
-		logMessage("ASSERT PASSED :Nomination documents are present in view profile link\n");
+		logMessage("ASSERT PASSED : Nomination documents are present in view profile link\n");
 		switchToDefaultContent();
 	}
 
@@ -411,7 +411,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		int maxPossibleNominees = Integer
 				.parseInt(element("txt_numberOfPossibleNominees", awardName).getText().split(" of ")[1].split(" ")[0]);
 
-		logMessage("Step : Maximum possible nominees is " + maxPossibleNominees + " \n");
+		logMessage("STEP : Maximum possible nominees is " + maxPossibleNominees + " \n");
 		return maxPossibleNominees;
 	}
 
@@ -419,7 +419,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		switchToFrame("TB_iframeContent");
 		isElementDisplayed("btn_close");
 		element("btn_close").click();
-		logMessage("Step : close button is clicked \n");
+		logMessage("STEP : Close button is clicked \n");
 		switchToDefaultContent();
 	}
 
@@ -427,10 +427,10 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 		isElementDisplayed("btn_rankNominees_save");
 		for (WebElement ele : elements("btn_rankNominees_save")) {
-			logMessage("save btn text _________________________" + ele.getAttribute("value"));
+			logMessage("Save btn text _________________________" + ele.getAttribute("value"));
 			if (ele.getAttribute("value").contains(buttonName)) {
 				clickUsingXpathInJavaScriptExecutor(ele);
-				logMessage("Step :  " + buttonName + " button is clicked \n");
+				logMessage("STEP :  " + buttonName + " button is clicked \n");
 				wait.hardWait(2);
 			}
 		}
@@ -448,7 +448,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			dropdown_rank1.selectByIndex(0);
 			wait.hardWait(2);
 		}
-		logMessage("[INFO] : cleared pre populated ranks \n");
+		logMessage("[INFO] : Cleared pre populated ranks \n");
 
 		for (j = 0; j < maxPossibleNominees; j++) {
 			if (!judgesRanks.isEmpty() || judgesRanks == null) {
@@ -495,7 +495,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 					+ elements("txt_rankNomineeName").get(i + 1).getText());
 			dropdown_rank1.selectByVisibleText(String.valueOf(ranks.get(i)));
 			wait.hardWait(5);
-			logMessage("select : " + String.valueOf(ranks.get(i)));
+			logMessage("Select : " + String.valueOf(ranks.get(i)));
 		}
 	}
 
@@ -545,7 +545,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			Select dropdown_rank1 = new Select(element("drpdwn_rank", String.valueOf(j + 1)));
 			dropdown_rank1.selectByVisibleText(String.valueOf(uniqueRandom.get(j)));
 			wait.hardWait(5);
-			logMessage("select : " + String.valueOf(uniqueRandom.get(j)) + "\n");
+			logMessage("Select : " + String.valueOf(uniqueRandom.get(j)) + "\n");
 		}
 	}
 
@@ -585,7 +585,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_confirmBallot");
 		clickUsingXpathInJavaScriptExecutor(element("btn_confirmBallot"));
 		// element("btn_confirmBallot").click();
-		logMessage("Info: Confirm Ballot Button is clicked\n");
+		logMessage("[INFO] : Confirm Ballot Button is clicked\n");
 	}
 
 	public List<Integer> generateRandomNumber(int maxPossibleNominees, int roundNumber) {
@@ -667,8 +667,8 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 			logMessage(pair.getKey() + " = " + pair.getValue() + "\n");
 		}
 		Assert.assertTrue(expectedNomineeData.equals(actualNomineeData),
-				"Assertion Failed: Nominees are not having assigned ranks");
-		logMessage("Assertion Passed: Nominees are having same assigned ranks");
+				"ASSERT FAILED : Nominees are not having assigned ranks");
+		logMessage("ASSERT PASSED : Nominees are having same assigned ranks");
 
 		return actualNomineeData;
 
@@ -677,14 +677,14 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	public void verifyConfirmBallotPage() {
 		isElementDisplayed("txt_confirmBallotPage");
 		Assert.assertTrue(element("tab_currentTab").getText().contains("Confirm Ballot"),
-				"Assertion Failed: User is not on Confirm Ballot Page");
-		logMessage("Assertion Passed: User is on Confirm Ballot Page\n");
+				"ASSERT FAILED : User is not on Confirm Ballot Page");
+		logMessage("ASSERT PASSED : User is on Confirm Ballot Page\n");
 	}
 
 	public void clickOnSubmit_EditBallot(String submit_edit) {
 		isElementDisplayed("btn_submit_editBallot", submit_edit);
 		element("btn_submit_editBallot", submit_edit).click();
-		logMessage("Step : " + submit_edit + " button is clicked\n");
+		logMessage("STEP : " + submit_edit + " button is clicked\n");
 	}
 
 	public void verifyBallotConfirmationPage() {
@@ -692,15 +692,15 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_ballotConfirmation");
 		Assert.assertEquals("There are 0 awards remaining for you to judge.",
 				element("txt_confirmationMessage").getText(),
-				"Assertion Failed: User is not on Ballot Confirmation Page\n");
-		logMessage("Assertion Passed: User is on Ballot Confirmation Page\n");
+				"ASSERT FAILED : User is not on Ballot Confirmation Page\n");
+		logMessage("ASSERT PASSED : User is on Ballot Confirmation Page\n");
 	}
 
 	public void clickOnReturnToAwardDashboard() {
 		try {
 			isElementDisplayed("btn_returnToYourAwardDashboard");
 			element("btn_returnToYourAwardDashboard").click();
-			logMessage("Info: Clicked on Returns To Your Award Dashboard\n");
+			logMessage("[INFO] : Clicked on Returns To Your Award Dashboard\n");
 		} catch (Exception e) {
 			pageRefresh();
 			clickOnSubmit_EditBallot("Submit Ballot");
@@ -716,7 +716,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 						|| element("txt_status", awardName).getText().trim().equalsIgnoreCase("Status - Voting Closed"),
 				"actual status of judge is " + element("txt_status", awardName).getText()
 						+ " and expected is Status - Ballot submitted\n");
-		logMessage("Assertion Passed: Actual status of Judge is Status-Ballot Submitted\n");
+		logMessage("ASSERT PASSED : Actual status of Judge is Status-Ballot Submitted\n");
 		return element("txt_status", awardName).getText().trim();
 
 	}
@@ -730,7 +730,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 					element("txt_ballotSubmissionDate", awardName).getText().trim()
 							.contains("You submitted your ballot on:\n"
 									+ DateUtil.getCurrentdateInStringWithGivenFormate("MMM dd, YYYY")),
-					"Assertion Failed: actual submission date is "
+					"Assertion Failed : Actual submission date is "
 							+ element("txt_ballotSubmissionDate", awardName).getText().trim()
 							+ " and Expected is You submitted your ballot on:\n"
 							+ DateUtil.getCurrentdateInStringWithGivenFormate("MMM dd, YYYY") + "\n");

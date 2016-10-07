@@ -62,48 +62,48 @@ public class ASM_DonatePage extends GetPage {
 	public void clickOnLoginButton() {
 		isElementDisplayed("btn_login");
 		element("btn_login").click();
-		logMessage("Step : Login button is clicked in btn_login\n");
+		logMessage("STEP : Login button is clicked in btn_login\n");
 	}
 
 	public void clickLoginOnContactInfoPage() {
 
 		isElementDisplayed("btn_memlogin");
 		element("btn_memlogin").click();
-		logMessage("Step : Login button is clicked on contact Info Page\n");
+		logMessage("STEP : Login button is clicked on contact Info Page\n");
 	}
 
 	public void clickOnACSIDRadioButton() {
 		isElementDisplayed("rad_acsId");
 		if (!element("rad_acsId").isSelected())
 			element("rad_acsId").click();
-		logMessage("Step : ACS ID radio button is checked in rad_acsId\n");
+		logMessage("STEP : ACS ID radio button is checked in rad_acsId\n");
 	}
 
 	public void enterUserName(String userName) {
 		isElementDisplayed("inp_username");
 		element("inp_username").clear();
 		element("inp_username").sendKeys(userName);
-		logMessage("Step : " + userName + " is entered in inp_username\n");
+		logMessage("STEP : " + userName + " is entered in inp_username\n");
 	}
 
 	public void enterPassword(String password) {
 		isElementDisplayed("inp_password");
 		element("inp_password").clear();
 		element("inp_password").sendKeys(password);
-		logMessage("Step : " + password + " is entered in inp_password\n");
+		logMessage("STEP : " + password + " is entered in inp_password\n");
 	}
 
 	public void enterPasswordForMember(String password) {
 		isElementDisplayed("inp_passwordMember");
 		element("inp_passwordMember").clear();
 		element("inp_passwordMember").sendKeys(password);
-		logMessage("Step : " + password + " is entered in inp_passwordMember\n");
+		logMessage("STEP : " + password + " is entered in inp_passwordMember\n");
 	}
 
 	public void clickOnVerifyButton() {
 		isElementDisplayed("btn_verify");
 		element("btn_verify").click();
-		logMessage("Step : Verify button is clicked in btn_verify\n");
+		logMessage("STEP : Verify button is clicked in btn_verify\n");
 		wait.hardWait(3);
 
 	}
@@ -111,7 +111,7 @@ public class ASM_DonatePage extends GetPage {
 	public void clickOnLoginButtonForMember() {
 		isElementDisplayed("btn_loginMember");
 		element("btn_loginMember").click();
-		logMessage("Step : Login button is clicked in btn_loginMember\n");
+		logMessage("STEP : Login button is clicked in btn_loginMember\n");
 		wait.hardWait(3);
 
 	}
@@ -121,13 +121,13 @@ public class ASM_DonatePage extends GetPage {
 			isElementDisplayed("inp_DonateProgram", donateProgram);
 			element("inp_DonateProgram", donateProgram).clear();
 			element("inp_DonateProgram", donateProgram).sendKeys(donateValue);
-			logMessage("Step : " + donateValue + " is entered for "
+			logMessage("STEP : " + donateValue + " is entered for "
 					+ donateProgram + " in inp_DonateProgram\n");
 		} catch (StaleElementReferenceException stlExp) {
 			isElementDisplayed("inp_DonateProgram", donateProgram);
 			element("inp_DonateProgram", donateProgram).clear();
 			element("inp_DonateProgram", donateProgram).sendKeys(donateValue);
-			logMessage("Step : " + donateValue + " is entered for "
+			logMessage("STEP : " + donateValue + " is entered for "
 					+ donateProgram + " in inp_DonateProgram\n");
 		}
 
@@ -143,7 +143,7 @@ public class ASM_DonatePage extends GetPage {
 			clickUsingXpathInJavaScriptExecutor(element("btn_continue"));
 
 		}
-		logMessage("Step : click on continue button in btn_continue\n");
+		logMessage("STEP : click on continue button in btn_continue\n");
 		wait.hardWait(3);
 	}
 
@@ -151,7 +151,7 @@ public class ASM_DonatePage extends GetPage {
 		isElementDisplayed("inp_otherProgram");
 		element("inp_otherProgram").clear();
 		element("inp_otherProgram").sendKeys(otherProgramName);
-		logMessage("Step : " + otherProgramName
+		logMessage("STEP : " + otherProgramName
 				+ " is entered in inp_otherProgram\n");
 	}
 
@@ -185,19 +185,19 @@ public class ASM_DonatePage extends GetPage {
 	public void enterOtherAmount(String otherAmount) {
 		isElementDisplayed("inp_otherAmount");
 		element("inp_otherAmount").sendKeys(otherAmount);
-		logMessage("Step : " + otherAmount + " is entered in inp_otherAmount\n");
+		logMessage("STEP : " + otherAmount + " is entered in inp_otherAmount\n");
 	}
 
 	public void logOut() {
 		isElementDisplayed("btn_logout");
 		element("btn_logout").click();
-		logMessage("Step : log out button is clicked\n");
+		logMessage("STEP : Log out button is clicked\n");
 	}
 
 	public void clickOnContinueAsGuest() {
 		isElementDisplayed("btn_continueAsGuest");
 		element("btn_continueAsGuest").click();
-		logMessage("Step : continue as a guest button is clicked in btn_continueAsGuest\n");
+		logMessage("STEP : Continue as a guest button is clicked in btn_continueAsGuest\n");
 		// verifyContinueAsGuest();
 	}
 
@@ -249,7 +249,7 @@ public class ASM_DonatePage extends GetPage {
 		isElementDisplayed("inp_fieldName", fieldName);
 		element("inp_fieldName", fieldName).clear();
 		element("inp_fieldName", fieldName).sendKeys(fieldValue);
-		logMessage("Step :  "+fieldName+" in in inp_fieldName is entered as : "+fieldValue+"\n");
+		logMessage("STEP :  "+fieldName+" in in inp_fieldName is entered as : "+fieldValue+"\n");
 
 	}
 
@@ -278,9 +278,9 @@ public class ASM_DonatePage extends GetPage {
 		isElementDisplayed("inp_giftToSomene");
 		if (!element("inp_giftToSomene").isSelected()) {
 			element("inp_giftToSomene").click();
-			logMessage("Step : gift to someone checkbox is checked in inp_giftToSomene\n");
+			logMessage("STEP : Gift to someone checkbox is checked in inp_giftToSomene\n");
 		} else {
-			logMessage("Step : gift to someone checkbox is already checked\n");
+			logMessage("STEP : Gift to someone checkbox is already checked\n");
 		}
 
 	}
@@ -289,10 +289,10 @@ public class ASM_DonatePage extends GetPage {
 		isElementDisplayed("chk_honor_memory", checkboxName);
 		if (!element("chk_honor_memory", checkboxName).isSelected()) {
 			element("chk_honor_memory", checkboxName).click();
-			logMessage("Step : " + checkboxName
+			logMessage("STEP : " + checkboxName
 					+ " is checked in chk_honor_memory\n");
 		} else {
-			logMessage("Step : " + checkboxName
+			logMessage("STEP : " + checkboxName
 					+ " is already checked in chk_honor_memory\n");
 		}
 	}
@@ -303,14 +303,14 @@ public class ASM_DonatePage extends GetPage {
 				WordUtils.capitalize(honor_memory));
 		element("inp_honor_memory", WordUtils.capitalize(honor_memory))
 				.sendKeys(honor_memoryValue);
-		logMessage("Step : " + honor_memoryValue + " is entered for "
+		logMessage("STEP : " + honor_memoryValue + " is entered for "
 				+ honor_memory + " in inp_honor_memory\n");
 	}
 
 	public void enterRecipientEmail(String emailAddress) {
 		isElementDisplayed("inp_recipientEmail");
 		element("inp_recipientEmail").sendKeys(emailAddress);
-		logMessage("Step : " + emailAddress
+		logMessage("STEP : " + emailAddress
 				+ " is entered in inp_recipientEmail\n");
 
 	}
@@ -318,7 +318,7 @@ public class ASM_DonatePage extends GetPage {
 	public void enterRecipientPersonalisedMessage(String Message) {
 		isElementDisplayed("inp_recipientPersonalisedMsg");
 		element("inp_recipientPersonalisedMsg").sendKeys(Message);
-		logMessage("Step : " + Message
+		logMessage("STEP : " + Message
 				+ " is entered in inp_recipientPersonalisedMsg\n");
 
 	}
@@ -331,20 +331,20 @@ public class ASM_DonatePage extends GetPage {
 	public void enterCreditCardHolderName(String cardholderName) {
 		isElementDisplayed("inp_cardHolderName");
 		element("inp_cardHolderName").sendKeys(cardholderName);
-		logMessage("Step : " + cardholderName
+		logMessage("STEP : " + cardholderName
 				+ " is entered in inp_cardHolderName\n");
 	}
 
 	public void enterCreditCardNumber(String cardNumber) {
 		isElementDisplayed("inp_cardNumber");
 		element("inp_cardNumber").sendKeys(cardNumber);
-		logMessage("Step : " + cardNumber + " is entered in inp_cardNumber\n");
+		logMessage("STEP : " + cardNumber + " is entered in inp_cardNumber\n");
 	}
 
 	public void enterCVVNumber(String cvvNumber) {
 		isElementDisplayed("inp_CVVNumber");
 		element("inp_CVVNumber").sendKeys(cvvNumber);
-		logMessage("Step : " + cvvNumber + " is entered in inp_CVVNumber\n");
+		logMessage("STEP : " + cvvNumber + " is entered in inp_CVVNumber\n");
 	}
 
 	public void selectExpirationDate_Year(String date_year,
@@ -352,7 +352,7 @@ public class ASM_DonatePage extends GetPage {
 		isElementDisplayed("list_expiration" + date_year);
 		selectProvidedTextFromDropDown(element("list_expiration" + date_year),
 				date_yearValue);
-		logMessage("Step : " + date_yearValue + " is selected for " + date_year
+		logMessage("STEP : " + date_yearValue + " is selected for " + date_year
 				+ " in list_expiration\n");
 	}
 
@@ -386,7 +386,7 @@ public class ASM_DonatePage extends GetPage {
 		wait.hardWait(2);
 		// element("btn_continue").click();
 		clickUsingXpathInJavaScriptExecutor(element("btn_submitPayment"));
-		logMessage("Step : click on continue button in btn_submitPayment\n");
+		logMessage("STEP : click on continue button in btn_submitPayment\n");
 		wait.waitForPageToLoadCompletely();
 
 	}
@@ -447,17 +447,17 @@ public class ASM_DonatePage extends GetPage {
 	public void enterPostalEmailInTo(String postalEmail) {
 		isElementDisplayed("inp_to");
 		element("inp_to").sendKeys(postalEmail);
-		logMessage("Step : " + postalEmail + " is entered in inp_to\n");
+		logMessage("STEP : " + postalEmail + " is entered in inp_to\n");
 	}
 
 	public void checkSendCradType(String typeName) {
 		isElementDisplayed("rad_sendCardType", typeName);
 		if (!element("rad_sendCardType", typeName).isSelected()) {
 			element("rad_sendCardType", typeName).click();
-			logMessage("Step : " + typeName
+			logMessage("STEP : " + typeName
 					+ " is checked in rad_sendCardType\n");
 		} else {
-			logMessage("Step : " + typeName
+			logMessage("STEP : " + typeName
 					+ " is already checked in rad_sendCardType\n");
 		}
 	}
@@ -465,7 +465,7 @@ public class ASM_DonatePage extends GetPage {
 	public void enterPostalMailInfo(String fieldName, String fieldValue) {
 		isElementDisplayed("inp_postalMailInfo", fieldName);
 		element("inp_postalMailInfo", fieldName).sendKeys(fieldValue);
-		logMessage("Step : " + fieldValue
+		logMessage("STEP : " + fieldValue
 				+ " is entered in inp_postalMailInfo\n");
 	}
 
@@ -473,7 +473,7 @@ public class ASM_DonatePage extends GetPage {
 		isElementDisplayed("list_postalMailInfo", fieldName);
 		selectProvidedTextFromDropDown(
 				element("list_postalMailInfo", fieldName), fieldValue);
-		logMessage("Step : " + fieldValue
+		logMessage("STEP : " + fieldValue
 				+ " is entered in list_postalMailInfo\n");
 	}
 
@@ -633,7 +633,7 @@ public class ASM_DonatePage extends GetPage {
 
 		String actualvalue = element("txt_" + Name).getText().trim();
 		mapMemberAddress.put(Name, actualvalue);
-		logMessage("Step : User "+Name+" is displayed on iweb as "+actualvalue);
+		logMessage("STEP : User "+Name+" is displayed on iweb as "+actualvalue);
 	}
 	private void clickOnLoginByMemberNumberLastName()
 	{
@@ -739,7 +739,7 @@ public class ASM_DonatePage extends GetPage {
 								.getText() + " is " + totalamount);
 				i++;
 			} else {
-				System.out.println("Step : Amount is not donated for Product "
+				System.out.println("STEP : Amount is not donated for Product "
 						+ ProductNames[j]);
 			}
 		}
@@ -786,7 +786,7 @@ public class ASM_DonatePage extends GetPage {
 			}
 
 		} else {
-			logMessage("Step : Option to send an Ecard or mail a card Not Selected");
+			logMessage("STEP : Option to send an Ecard or mail a card Not Selected");
 		}
 
 	}
@@ -923,9 +923,9 @@ public class ASM_DonatePage extends GetPage {
 					String.valueOf(pledgedMonthlyTotal));
 			System.out.println(pledgedMonthlyTotal+"  pledgedMonthlyTotal value");
 			element("chkbox_breakDonation").click();
-			logMessage("Step : breakdonation  is checked in chkbox_breakDonation\n");
+			logMessage("STEP : breakdonation  is checked in chkbox_breakDonation\n");
 		} else {
-			logMessage("Step : "
+			logMessage("STEP : "
 					+ " is already checked in chkbox_breakDonation\n");
 		}
 	}
@@ -1004,7 +1004,7 @@ public class ASM_DonatePage extends GetPage {
 		System.out.println("Donation count "+donationcount);
 		System.out.println("Size "+elements("rad_landingAmount").size());
 		Assert.assertTrue(donationcount==elements("rad_landingAmount").size());
-	for(int i=0;i<donationcount;i++)
+	for(int i=0;i<(donationcount-1);i++)
 	{
 		System.out.println(i);
 		System.out.println("Actual "+mapFundOrder.get("Amount"+i));
@@ -1019,7 +1019,7 @@ public class ASM_DonatePage extends GetPage {
 	{
 		if(mapSheetData.get("Amount_to_be_donated").length()==0)
 		{
-			logMessage("Step : Amount to be donated is default Amount\n");
+			logMessage("STEP : Amount to be donated is default Amount\n");
 		}
 		else if(mapSheetData.get("Amount_to_be_donated").length()!=0)
 		{
@@ -1043,7 +1043,7 @@ public class ASM_DonatePage extends GetPage {
 		String amountToBeDonatedindollars="\\$"+mapSheetData.get(amountToBeDonated);
 		System.out.println("Dollars "+amountToBeDonatedindollars);
 		element("rad_donatedAmount1",amountToBeDonatedindollars).click();
-		logMessage("Step : Amount selected for donation is "+"$"+mapSheetData.get(amountToBeDonated));
+		logMessage("STEP : Amount selected for donation is "+"$"+mapSheetData.get(amountToBeDonated));
 	}
 
 	public void donateAmountToOtherFund(String otherAmount)
