@@ -1068,8 +1068,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void expandDetailsMenu(String menuName) {
-		isElementDisplayed("btn_detailsMenuAACT", menuName);
+	
 		try {
+			isElementDisplayed("btn_detailsMenuAACT", menuName);
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("btn_detailsMenuAACT", menuName);
@@ -2626,6 +2627,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			clickOnTab("Query Membership");
 			selectAndRunQuery("Selenium - Renewal Query");
 			selectMemberForRenewal(mapOMR.get("Member_Status?"));
+			//expandDetailsMenuIfAlreadyExpanded("invoices");
 			expandDetailsMenu("invoices");
 			verifyTermStartDateAndEndDatesAreEmpty(mapOMR);
 			verifyPaymentStatusBeforeRenewal(mapOMR);
@@ -3983,6 +3985,49 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		}
+	}
+
+	public void importProfileSheet(String importName, String description, String fileType) {
+		// TODO Auto-generated method stub
+		isElementDisplayed("inp_dateForReviewModes","import name ");
+		element("inp_dateForReviewModes","import name ").sendKeys(importName);
+		isElementDisplayed("inp_dateForReviewModes","description ");
+		element("inp_dateForReviewModes","description ").sendKeys(description);
+		selectDropDownValue(fileType);
+		
+	}
+	public void selectFileToUpload(String fileName) {
+		wait.hardWait(1);
+		String path = "src" + File.separator + "test" + File.separator
+				+ "resources" + File.separator + "UploadFiles" + File.separator + "ImportProfile" +File.separator;
+		File filePath = new File(path + fileName);
+		wait.hardWait(2);
+		isElementDisplayed("btn_browse");
+		element("btn_browse").sendKeys(filePath.getAbsolutePath());
+		hardWaitForIEBrowser(2);
+		logMessage("Step : " + fileName + " is uploaded \n");
+	}
+
+	public void verifyACSImportMatchProfilePage(String importName, String description, String fileType,String Import_File) {
+		// TODO Auto-generated method stub
+		Assert.assertEquals(element("label_profile_title", "ACS Import Match Profile").getText().trim(), "ACS Import Match Profile");
+		Assert.assertEquals(element("txt_membershipProfileDetails","import name").getText().trim(),importName);
+		Assert.assertEquals(element("txt_membershipProfileDetails","description").getText().trim(),description);
+		Assert.assertEquals(element("txt_membershipProfileDetails","type").getText().trim(),fileType);
+		String importDate=DateUtil.getCurrentdateInStringWithGivenFormate("MM/d/yyyy");
+		Assert.assertTrue(element("txt_membershipProfileDetails","import date").getText().trim().equals(importDate));
+		String importF=element("txt_membershipProfileDetails","import file").getText().trim();
+		System.out.println(importF);
+		//System.out.println(file);
+		Assert.assertTrue(element("txt_membershipProfileDetails","import file").getText().trim().contains(Import_File));
+		logMessage("Step: ACS Import Match Profile Page is verifed \n");
+	}
+
+	public void verifyMatchTotlasChildForm() {
+		// TODO Auto-generated method stub
+		expandDetailsMenu("match totals");
+		Assert.assertTrue(isElementDisplayed("table_data"),"ASSERT FAILED: Child form is null");
+		logMessage("ASSERT PASSED: Verified Match totals child form is not null");
 	}
 
 }

@@ -492,6 +492,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	{
 		wait.hardWait(2);
 		switchToFrame(element("iframe_ewebframe"));
+		logMessage("Step: Switch to Eweb Renewal Frame");
 	}
 
 	public Map<String, String> addMembershipsForRegularMember(Map<String, String> mapOMR) {
@@ -813,12 +814,13 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		for(int i = 0;i<size;i++)
 		{
 		wait.waitForElementsToBeVisible(elements("txt_productname"));
-		
-           System.out.println(elements("txt_productname").get(i).getText().trim());
-           System.out.println(mapRenewedProductDetails.get(elements("txt_productname").get(i).getText().trim()));
+		String productName=elements("txt_productname").get(i).getText().trim();
+		String amount=mapRenewedProductDetails.get(elements("txt_productname").get(i).getText().trim());
+           System.out.println(productName);
+           System.out.println(amount);
 			Assert.assertTrue(mapRenewedProductDetails.get(elements("txt_productname").get(i).getText().trim()).equals(
 			elements("txt_productamount").get(i).getText().replace("$", "").trim()));
-			logMessage("ASSERT PASSED : Amount for "+elements("txt_productname").get(i).getText()+ " is verified as "+mapRenewedProductDetails.get(elements("txt_productname").get(i).getText().trim()));
+			logMessage("ASSERT PASSED : Amount for "+productName+ " is verified as "+amount);
 		}
 		
 		switchToDefaultContent();
@@ -882,8 +884,9 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		wait.hardWait(4);
 		switchToEwebRenewalFrame();
 		isElementDisplayed("btn_printreceipt");
-		logMessage("Step : Print Renewal Receipt button is verifiedn");
-		verifyElementTextContains("txt_legend", "Membership & Subscription Renewal - ");
+		logMessage("Step : Print Renewal Receipt button is verified\n");
+		Assert.assertTrue(element("txt_legend", "Membership & Subscription Renewal - ").isDisplayed());
+		//verifyElementTextContains("txt_legend", "Membership & Subscription Renewal - ");
 		switchToDefaultContent();
 
 	}

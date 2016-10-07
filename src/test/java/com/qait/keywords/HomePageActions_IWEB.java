@@ -100,6 +100,20 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : Click on tab " + tabName + " From Left Panel \n");
 	}
 	
+	public void clickOnSideBarTabACS(String tabName) {
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
+		hardWaitForIEBrowser(10);
+		isElementDisplayed("hd_sideBarACS", tabName);
+
+		if (isBrowser("chrome")||isBrowser("safari")) {
+			element("hd_sideBarACS", tabName).click();
+		} else {
+			clickUsingXpathInJavaScriptExecutor(element("hd_sideBarACS", tabName));
+		}
+		logMessage("Step : Click on tab " + tabName + " From Left Panel \n");
+	}
+	
 	public void clickOnFulfillmentOrdersTab() {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(2);
