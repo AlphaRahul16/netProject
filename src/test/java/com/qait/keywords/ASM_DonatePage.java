@@ -1004,7 +1004,7 @@ public class ASM_DonatePage extends GetPage {
 		System.out.println("Donation count "+donationcount);
 		System.out.println("Size "+elements("rad_landingAmount").size());
 		Assert.assertTrue(donationcount==elements("rad_landingAmount").size());
-	for(int i=0;i<donationcount;i++)
+	for(int i=0;i<(donationcount-1);i++)
 	{
 		System.out.println(i);
 		System.out.println("Actual "+mapFundOrder.get("Amount"+i));
