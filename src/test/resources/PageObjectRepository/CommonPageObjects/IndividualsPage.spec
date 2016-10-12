@@ -76,5 +76,15 @@ select_state                              id                    adr_state
 select_addressType                        id                    cxa_adt_key
 chkbox_primary                            xpath                 //span[contains(@title,'${field}')]//input
 img_primary                               xpath                 (//span[text()='${name}']/parent::td/parent::tr/following-sibling::tr/td/div/table/tbody/tr[not(contains(@style,'none'))]//td[%{index1}])[#{index2}]//img
+img_override                              xpath                 //td[contains(text(),'${field}')]/following-sibling::td[10]/img
+
+#Chapter Relationships
+
+iframe1                                   css                   #iframe1                       
+drpdwn_relationshipType                   xpath                 //label[text()='${field}:']/preceding-sibling::select
+inp_startDate                             id                    cxc_start_date
+img_look_up							      css	                .LookUpHyperLink
+txt_active_chapters                       xpath                 //td[text()='active']/preceding-sibling::td[4]
+tab_pencilButton                          xpath                 //td[contains(text(),'${field}')][1]/preceding-sibling::td//i[@class='iconpro-pencil']
 
 ======================================================================================================================================

@@ -986,4 +986,55 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		logMessage("Step : Apply discount button is clicked\n");
 	
 }
+
+	public void verifyMemberCanRenewForMultipleYearsOrNot(String memberType) {
+		if(memberType.equals("Regular")||memberType.equals("Society Affiliate"))
+		{
+		switchToDefaultContent();
+		switchToEwebRenewalFrame();
+		isElementDisplayed("btn_renewalLength");
+		element("btn_renewalLength").isDisplayed();
+		logMessage("Step : Member can renew for multiple times\n");
+		switchToDefaultContent();
+		}
+		else
+		{
+			logMessage("Step : "+memberType+" member cannot renew for Multipile Years\n");
+		}
+
+	}
+
+	public void verifyDiscountedPriceIsDisplayedOnOMREweb(String productName,int expectedDiscount,String Productamount) {
+		holdScriptExecution();
+		switchToEwebRenewalFrame();
+		System.out.println(element("txt_productIndividualAmount",productName).getText().replaceAll("[^\\d.]", ""));
+		System.out.println(expectedDiscount);
+		System.out.println(Productamount);
+		isElementDisplayed("txt_productIndividualAmount",productName);
+		if(expectedDiscount==0)
+		{
+			Assert.assertTrue(element("txt_productIndividualAmount",productName).getText().replaceAll("[^\\d.]", "").trim().equals(Productamount));
+			logMessage("ASSERT PASSED : Product '"+productName+"' amount on eweb with it's is already discounted amount is verified as "+Productamount);
+		}
+		else
+		{
+			Assert.assertTrue(element("txt_productIndividualAmount",productName).getText().replaceAll("[^\\d.]", "").trim().equals(expectedDiscount+".00"));
+			logMessage("ASSERT PASSED : Product '"+productName+"' amount on eweb with discounted amount is verified as "+expectedDiscount);
+		}
+		switchToDefaultContent();
+
+		
+	}
+
+	public void loginIntoOMRApplicationForDiscount(Map<String, String> mapOMR, List<String> memDetails) {
+		if(mapOMR.get("Login_With_LastNameMemberNumber?").equalsIgnoreCase("Yes"))
+		{
+		loginIntoApplication_LastName_MemberNumber(memDetails.get(0), memDetails.get(2));
+		}
+		else if(mapOMR.get("Login_With_LastNameNoticeNumber?").equalsIgnoreCase("Yes"))
+		{
+			loginIntoApplication_LastName_NoticeNumber(memDetails.get(0), memDetails.get(3));
+		}
+		wait.waitForPageToLoadCompletely();
+	}
 }

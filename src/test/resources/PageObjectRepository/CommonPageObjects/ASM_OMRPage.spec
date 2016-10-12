@@ -63,6 +63,7 @@ btn_RemoveMembership                        xpath                               
 chkbox_termsAndCondition                    css                                       #idAcceptFlag
 btn_continueToPayment                       css                                       #btnPayment
 btn_renewalLength                           css                                       span[id*='RenewalLength']
-icon_applyDiscount                          id                                        ACSApplyDiscountsAction
+btn_paidStatus                              css                                       .payment-status
+txt_productIndividualAmount                 xpath                                     //span[text()='${value}']/../following-sibling::td[3]/span
 
 =================================================================================================================================================

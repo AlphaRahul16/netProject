@@ -44,5 +44,6 @@ btn_goToArrow                   xpath                 (//a/i[@class='iconpro-cir
 hdng_childMenu                  xpath                 //span[text()='${menuName}']/../../following-sibling::tr//table//tr[1]/th/a
 txt_tableColumn                 xpath                 //span[text()='${menuName}']/../../following-sibling::tr//table//tr[%{index1}]//td[#{index2}]
 table_rows                      xpath                 //table[@class='table']//tr
+icon_applyDiscount              id                    ACSApplyDiscountsAction
 ====================================================================================================================================
 

@@ -1039,5 +1039,14 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 		
 	}
+	
+	public void clickApplyDiscountButton()
+	{
+		isElementDisplayed("icon_applyDiscount");
+		element("icon_applyDiscount").click();
+		logMessage("Step : Apply discount button is clicked\n");
+		waitForSpinner();
+	
+}
 
 }

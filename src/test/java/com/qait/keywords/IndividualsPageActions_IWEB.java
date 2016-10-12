@@ -15,6 +15,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DateUtil;
 
@@ -2246,21 +2247,190 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 	}
 
-	public String verifyYearForOMRDiscountByPrice(Map<String,String> mapOMRDiscount)
+	public String[] verifyYearForOMRDiscountByPrice(Map<String,String> mapOMRDiscount)
 	{
 		String dues_year;
-		dues_year=getMapFirstMatchedKeyByValue(mapOMRDiscount,"$"+getMemberType());
-		if(dues_year==null){	
-		logMessage("Step : Record is already discounted to amount"+getMemberType());
-		logMessage("Step : Discount is alredy applied but not paid\n");}
+		String actualpricing=getMemberType();
+		dues_year=checkPricesForThreeYearDiscountForRenewal(mapOMRDiscount,"$"+actualpricing,1);
+   
+		System.out.println(dues_year);
+		if(dues_year==null){
+		logMessage("Step : Record is already discounted to amount "+getMemberType());
+		logMessage("Step : Discount is already applied but not paid\n");}
 		else{
-	    logMessage("Step : Record's original amount is "+getMemberType()+" for year "+dues_year.split("_")[1]);}
-		return element("txt_supporterNameAwardsNomination","1").getText().trim();
+	   logMessage("Step : Record's original amount is "+actualpricing);}
+		return new String[]{element("txt_supporterNameAwardsNomination","1").getText().trim(),actualpricing,dues_year};
+	}
+
+
+	private String checkPricesForThreeYearDiscountForRenewal(Map<String,String> mapOMRDiscount,String dues_year,int years)
+	{
+		
+		System.out.println("intital dues year "+dues_year);
+		float amount=Float.parseFloat(getMemberType())/years;
+		System.out.println(amount);
+		System.out.println(Math.round(amount));
+		if(!mapOMRDiscount.get("Member_Status?").equals("Student"))
+		{
+		do 
+		{
+			dues_year=getMapFirstMatchedKeyByValue(mapOMRDiscount,"$"+Math.round(amount)+".00");
+			years++;
+		}while(dues_year!=null&&years!=4);
+		}
+		else
+		{
+			dues_year=getMapFirstMatchedKeyByValue(mapOMRDiscount,"$"+Math.round(amount)+".00");
+		}
+		System.out.println("dues"+dues_year);
+		System.out.println("years"+years);
+		return dues_year;
+		
 	}
 
 	public void verifyOverrideStatusForOMRDiscount(String productname) {
 		isElementDisplayed("txt_termStartDate",productname);
 		System.out.println(element("txt_termStartDate",productname).getText());
+		
+	}
+
+	public String addChapterRelationshipsToIndividual() {
+	 switchToFrame(element("iframe1"));
+	 clickLookUpButton();
+	 return clickActiveChapterName();
+	}
+
+	private String clickActiveChapterName() {
+		String chapterName = null;
+	     List<WebElement> activeChapters = new ArrayList<WebElement>();
+		try
+		{
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			wait.resetImplicitTimeout(4);
+			for (WebElement ele : elements("txt_active_chapters")) {
+				activeChapters.add(ele);
+			}
+			System.out.println(activeChapters.size());
+		    chapterName=activeChapters.get(generateRandomNumberWithInRange(0, activeChapters.size())).getText();
+			logMessage("Step : Random active Chapter Name displayed as "+chapterName);
+			element("txt_divisionPubName",chapterName).click();
+			logMessage("Step: chapter "+chapterName+" is selected from the list");
+		}
+		catch(Exception e)
+		{
+			MembershipPageActions_IWEB membershipPage = new MembershipPageActions_IWEB(driver);
+			membershipPage.clickOnRandomPage();
+			clickActiveChapterName();
+		}
+		wait.resetExplicitTimeout(timeOut);
+		wait.resetImplicitTimeout(timeOut);
+        return chapterName;
+		
+	}
+
+	private void clickLookUpButton() {
+	 // element("inp_chapterName","chapter name").sendKeys("QA");
+	  wait.hardWait(3);
+	  wait.waitForElementToBeClickable(element("img_look_up"));
+	  element("img_look_up").click();
+	  logMessage("Step: Look up button is clicked\n");
+	  wait.waitForPageToLoadCompletely();
+	  
+	}
+
+	public void addRelationshiptype(String relationshipName) {
+	
+		isElementDisplayed("drpdwn_relationshipType","relationship type");
+       //  executeJavascript("document.getElementById('iframe1').contentWindow.document.getElementById('cxc_rlt_code').value='"+relationshipName+"'");
+		selectProvidedTextFromDropDown(element("drpdwn_relationshipType","relationship type"), relationshipName);;
+		logMessage("Step : Relationship name is selected as "+relationshipName);
+		
+	}
+
+	public void enterStartDateForChapter(String currentdate) {
+		isElementDisplayed("inp_startDate");
+		element("inp_startDate").click();
+		element("inp_startDate").clear();
+		element("inp_startDate").sendKeys(currentdate);
+		logMessage("Step: Current date is entered in chapter start date as "+currentdate);
+		
+	}
+
+	public void verifyCurrentRecordisAddedInChapterRelationship(String chapterName,String chapterRole) {
+	    switchToDefaultContent();
+		isElementDisplayed("txt_divisionPubName",chapterName);
+		Assert.assertTrue(element("txt_priceValue",chapterName).equals(chapterRole),"Chapter Role is not "+chapterRole);
+		logMessage("ASSERT PASSED : chapter "+chapterName+" role is verified as "+chapterName);
+		Assert.assertTrue(element("txt_quantity",chapterName).equals(DateUtil.getCurrentdateInStringWithGivenFormate("MM/d/yyyy")),"Date is not current date");
+		logMessage("ASSERT PASSED : Date for chapter "+chapterName+" is not current date\n");
+		
+	}
+	public void enterIndividualSortName(String sortName, String value)
+	{
+		switchToFrame(element("iframe1"));
+		isElementDisplayed("inp_addressDetails",sortName);
+		element("inp_addressDetails", sortName).sendKeys(value);
+		logMessage("Step : Sort name is entered as "+value);
+		wait.hardWait(3);
+		wait.waitForPageToLoadCompletely();
+		switchToDefaultContent();
+	}
+
+	public void addIndividualRelationshipsToChapter() {
+		 switchToFrame(element("iframe1"));
+		 clickLookUpButton();
+		 clickFirstRecordInIndividualRelationship();
+	}
+
+	private void clickFirstRecordInIndividualRelationship() {
+		isElementDisplayed("txt_subscriptionName", "1");
+		element("txt_subscriptionName", "1").click();
+		logMessage("Step: Individual relationship is added in chapter\n");
+	}
+
+	public String getindividualRelationshipName(String sortName) {
+	  isElementDisplayed("inp_addressDetails", sortName);
+	  System.out.println(element("inp_addressDetails", sortName).getAttribute("value"));
+	  return element("inp_addressDetails", sortName).getAttribute("value").trim();
+		
+	}
+
+	public void clickPencilButtonToEditIndividualRecord(String individualname) {
+		isElementDisplayed("tab_pencilButton",individualname);
+		element("tab_pencilButton",individualname).click();
+		logMessage("Step : Pencil button is clicked to edit "+individualname+" record\n");
+		
+	}
+
+	public int verifyDiscountedPriceFortheRecord(String percentagediscount, String[] productprice) {
+		int expectedamount = 0;
+		System.out.println("product price"+productprice[2]);
+		System.out.println("product amount"+productprice[1]);
+        if(productprice[2]==null)
+        {
+        	logMessage("Step : Product price is already discounted to "+productprice[1]);
+        	
+        }
+        else
+        {
+   
+        	expectedamount=getActualDiscountedAmount((100-Integer.parseInt(percentagediscount)),Float.parseFloat(productprice[1]));
+        	System.out.println("expected amount "+expectedamount);
+        	System.out.println(element("txt_quantity",productprice[0]).getText());
+        	Assert.assertTrue(element("txt_quantity",productprice[0]).getText().trim().equals(expectedamount+".00"));
+        	logMessage("ASSERT PASSED : Discounted amount is exactly "+percentagediscount+" % of actual amount "+productprice[1]);	
+        }
+		return expectedamount;
+	}
+
+	private int getActualDiscountedAmount(int percentagediscount, float price) {
+		
+		System.out.println(percentagediscount);
+		System.out.println(price);
+	    float value=((float)percentagediscount/100*price);
+		System.out.println(value);
+		int expectedamount = Math.round(value);
+		return expectedamount;
 		
 	}
 }

@@ -2630,6 +2630,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	{
 		clickOnTab("Find Members");
 		selectUserForGCSOMR(mapGcsOMR);
+		clickOnGoButton();
 		selectARandomActiveStudentChapter();
 		expandDetailsMenu("invoices");
 		verifyTermStartDateAndEndDatesAreEmptyForGCSOMR(mapGcsOMR);
@@ -4046,6 +4047,27 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		}
+	}
+
+	public List<String> getCustomerFullNameBasedOnInvoice(String invoiceNumber) {   //Returns a map, solves last name with space problem
+		clickOnEditNameAndAddress();
+		switchToFrame("iframe1");
+		customerLname = getNameFromEditNameAndAddressButton("lastName");
+		memberDetails.add(customerLname);
+		customerFname=getNameFromEditNameAndAddressButton("firstName");
+		memberDetails.add(customerFname);
+		clickOnCancelButton();
+		handleAlert();
+		switchToDefaultContent();
+		customerContactId = element("txt_renewalContactId").getText();
+		memberDetails.add(customerContactId);
+		memberDetails.add(invoiceNumber);
+		logMessage("Step : Last Name of member is " + memberDetails.get(0));
+		logMessage("Step : First Name of member is " + memberDetails.get(1));
+		logMessage("Step : Customer ID of member is " + memberDetails.get(2));
+		logMessage("Step : Invoice Number is " + memberDetails.get(3));
+		return memberDetails;
+
 	}
 
 }
