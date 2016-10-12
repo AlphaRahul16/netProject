@@ -575,7 +575,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(5);
 		hardWaitForIEBrowser(5);
 		wait.waitForPageToLoadCompletely();
-		int max = 12, min = 3;
+//		int max = 12, min = 3;
+		int max= elements("list_tableRows").size();
+		int min=3;
 		Random rand = new Random();
 		int randomNumber = rand.nextInt((max - min) + 1) + min;
 		String randomNumberInString = String.valueOf(randomNumber);
@@ -2939,9 +2941,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASS : Product package matches with the new Renewal Package\n");
 	}
 
-	public void getContactIdOfUser(String Member) {
+	public String getContactIdOfUser(String Member) {
 		isElementDisplayed("txt_renewalContactId");
 		logMessage("STEP : " + Member + " Id is : " + element("txt_renewalContactId").getText().trim() + "\n");
+		return element("txt_renewalContactId").getText().trim();
 	}
 
 	public void clickOnMemberTransferButton() {
@@ -3985,6 +3988,78 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		} catch (NoSuchElementException exp) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
+		}
+	}
+	
+	public void selectAdvanceOptionFlag(String field,String column){
+		isElementDisplayed("chckbox_advanceFlag",field,column);
+		element("chckbox_advanceFlag",field,column).click();
+		logMessage("STEP: "+field+" flag is selected\n");
+	}
+	
+	public String getTelephoneNumberType(String tabName){
+		int i;
+		String type;
+		isElementDisplayed("list_tableData",tabName);
+		if(elements("list_tableData",tabName).size()>1){
+			for( i=1;i<=elements("list_tableData",tabName).size();i++){
+				if(checkIfElementIsThere("img_primaryFlag",tabName,String.valueOf(7),String.valueOf(i))){
+					break;
+				}
+			}
+			type=element("txt_telephoneType",tabName,String.valueOf(4),String.valueOf(i)).getText().trim();
+			type=Character.toUpperCase(type.charAt(0))+type.substring(1);
+			System.out.println("-----telephone type is: "+type);
+			return type;
+		}
+		else
+			return "NoTelephoneNumber";	
+		}
+	
+	public void verifyTelephoneDetails(String tabName,String telephoneType,String telephoneNumber){
+		int i;
+		isElementDisplayed("list_tableData",tabName);
+		for( i=1;i<=elements("list_tableData",tabName).size();i++){
+			if(telephoneType.equals(element("txt_telephoneType",tabName,String.valueOf(4),String.valueOf(i)).getText().trim())){
+				break;
+			}
+		}
+		verifyTelephoneNumber(tabName,6,i,telephoneNumber,"Phone number");
+		verifyPrimaryFlagIsSet(tabName,7,i);
+	}
+	
+	public void verifyTelephoneNumber(String tabName,int index1,int index2,String expectedValue,String field){
+		System.out.println("-------"+element("txt_telephoneType",tabName,String.valueOf(index1),String.valueOf(index2)).getText().trim());
+		Assert.assertTrue(expectedValue.equalsIgnoreCase(element("txt_telephoneType",tabName,String.valueOf(index1),String.valueOf(index2)).getText().trim()),"ASSERT FAILED: "+field+" is not verified as "+expectedValue+"\n");
+		logMessage("ASSERT PASSED: "+field+" is verified as "+expectedValue+"\n");
+	}
+	
+	public void verifyPrimaryFlagIsSet(String tabName,int index1,int index2){
+		isElementDisplayed("img_primaryFlag",tabName,String.valueOf(index1),String.valueOf(index2));
+		logMessage("ASSERT PASSED: Primary flag is set\n");
+	}
+	
+	public void verifyAddress(String tabName,int index1,int index2,String expectedValue,String field){
+		Assert.assertTrue(element("txt_telephoneType",tabName,String.valueOf(index1),String.valueOf(index2)).getText().trim().contains(expectedValue),"ASSERT FAILED: "+field+" is not verified as "+expectedValue+"\n");
+		logMessage("ASSERT PASSED: "+field+" is verified as "+expectedValue+"\n");
+	}
+	
+	public void verifyAddressDetails(String tabName,Map<String,String> changedValues,String memberType){
+		int i;
+		isElementDisplayed("list_tableData",tabName);
+		for( i=1;i<=elements("list_tableData",tabName).size();i++){
+			if(changedValues.get("AddressType").equals(element("txt_telephoneType",tabName,String.valueOf(4),String.valueOf(i)).getText().trim())){
+				break;
+			}
+		}
+		if(memberType.equals("Existing Member")){
+			verifyTelephoneNumber(tabName,6,i,changedValues.get("Address-2"),"Address Line-2");
+		}
+		else{
+			verifyTelephoneNumber(tabName,5,i,changedValues.get("Address Line 1"),"Address Line 1");
+			verifyAddress(tabName,7,i,changedValues.get("City"),"City");
+			verifyAddress(tabName,7,i,changedValues.get("Zip_Code"),"Zip_Code");
+			verifyPrimaryFlagIsSet(tabName,8,i);
 		}
 	}
 

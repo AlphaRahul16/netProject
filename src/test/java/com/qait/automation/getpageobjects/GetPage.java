@@ -114,6 +114,24 @@ public class GetPage extends BaseUi {
 		}
 		return flag;
 	}
+	
+	protected boolean checkIfElementIsThere(String eleString,
+			String replacementEleString1, String replacementEleString2, String replacementEleString3) {
+		boolean flag = false;
+		wait.resetImplicitTimeout(2);
+		wait.resetExplicitTimeout(10);
+		try {
+			if (webdriver.findElement(
+					getLocator(eleString, replacementEleString1,replacementEleString2, replacementEleString3)).isDisplayed()) {
+				flag = true;
+			} else {
+				flag = false;
+			}
+		} catch (NoSuchElementException ex) {
+			flag = false;
+		}
+		return flag;
+	}
 
 	// TODO: put this in right place, create dedicated class for frame and
 	// window handlers
@@ -502,6 +520,23 @@ public class GetPage extends BaseUi {
 			skipTest.put("Step02_CCED_Lookup_Test", true);
 		} else {
 			logMessage("Error: Invalid Application URL in DataSheet\n");
+		}
+	}
+	
+	public void EnterTestMethodNameToSkipInMap_InMyAccount(
+			Map<String, Boolean> skipTest, String memberType) {
+		String url = ConfigPropertyReader.getProperty("tier");
+
+		String case1 = "New Member";
+		String case2 = "Existing Member";
+
+		if (memberType.equalsIgnoreCase(case1)) {
+			skipTest.put("Step02_Launch_Iweb_Application_And_Find_Existing_Member", true);
+			skipTest.put("Step05_Verify_Techincal_Division_And_My_Applications",true);
+		} else if (memberType.equalsIgnoreCase(case2)) {
+			skipTest.put("Step01_Launch_My_Account_Application_And_Create_New_Member", true);
+		} else {
+			logMessage("Error: Invalid Member type\n");
 		}
 	}
 

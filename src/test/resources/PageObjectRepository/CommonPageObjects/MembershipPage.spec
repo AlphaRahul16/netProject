@@ -169,7 +169,7 @@ heading_transferPackage                          xpath                         /
 btn_transferNow                                  id                            TransferMembershipButtonID
 btn_gotorenewal                                  xpath                       (//td[contains(text(),'Active Renewed-No Response')]/preceding-sibling::td[3]//i)[1]
 txt_PaymentStatus                                xpath                        //td[contains(text(),'${productName}')]//following-sibling::td[1]
-icon_up                                          xpath                         //span[contains(text(),'${value}')]/preceding-sibling::a/i[@class='icon-chevron-up']
+icon_up                                          xpath                         //span[text()='${value}']/preceding-sibling::a/i[@class='icon-chevron-up']
 txt_productPackage                               xpath                        (//th/a)[2]/../../following-sibling::tr[1]//td[4]
 btn_transferMem									xpath							.//*[@id='F1_HYPERLINK_6']/img
 drpdown_memtype									xpath							.//select[@id='mbr_mbt_key']
@@ -193,6 +193,11 @@ th_lookup										xpath						.//*[@id='dgDynamicList']//th/a[contains(text(),'$
 productName_inp									css							#prd_name
 inp_checkNumber                                   id                    	  	 pin_check_number
 list_orderFrequency                             id                              ord_frequency
+chckbox_advanceFlag                             xpath                           //span[contains(text(),'${field}')]/../following-sibling::td[2]//input[@id='ValueCheckBox${value}']
+list_tableRows                                  xpath                           //table[@id='dgDynamicList']/tbody/tr
+txt_telephoneType                               xpath                           (//span[text()='${tabName}']/parent::td/parent::tr/following-sibling::tr//tr[not(contains(@style,'none'))]//td[%{index1}])[#{index2}]
+list_tableData                                  xpath                           //span[text()='${tabName}']/parent::td/parent::tr/following-sibling::tr//tr[not(contains(@style,'none'))]
+img_primaryFlag                                 xpath                           (//span[text()='${tabName}']/parent::td/parent::tr/following-sibling::tr//tr[not(contains(@style,'none'))]//td[%{index1}])[#{index2}]/img
 
 ##Credit_Page
 

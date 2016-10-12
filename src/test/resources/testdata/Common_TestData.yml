@@ -23,6 +23,7 @@ csv-data-file:
   path_OMA_Discount: ./src/test/resources/TestDataLibrary/OMA-Discount_data_sheet.csv
   path_CreditApply: ./src/test/resources/TestDataLibrary/ACS_Create_Manual_Credit.csv
   path_Fundraising: ./src/test/resources/TestDataLibrary/Fundraising_data_sheet.csv
+  path_MyAccount: ./src/test/resources/TestDataLibrary/My_Account_Datasheet.csv
   
   data-separator: '\t'
   has-header: true
@@ -654,11 +655,13 @@ ACS_Fundraising_Module:
     noOfInstallments: 3
     orderFrequency: "Monthly"
    
-        
+ACS_MyAccount:
+    emailSaveMessage: "Email address is successfully saved!"
+    phoneSaveMessage: "Phone number is successfully saved!"
+    addressSaveMessage: "Address is successfully saved! Click close button to close the popup."
                     
 email:
   send: true
   recepients:
-    recepient1: deepakkumar1@qainfotech.com
     recepient2: avnishrawat@qainfotech.net
     recepient3: kanikasharma@qainfotech.com
