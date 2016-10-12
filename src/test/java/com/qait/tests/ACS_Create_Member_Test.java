@@ -49,7 +49,7 @@ public class ACS_Create_Member_Test extends BaseTest {
 
 	@Test
 	public void Step01_Launch_Application_Under_Test() {
-		
+		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		test.homePageIWEB.addValuesInMap("OMA", caseID);
 
 		test.launchApplication(app_url);
@@ -58,7 +58,7 @@ public class ACS_Create_Member_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step01_Launch_Application_Under_Test")
 	public void Step02_Enter_Contact_Information() {
-
+		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		userDetail = test.ContactInfoPage.enterContactInformation(
 				test.homePageIWEB.map().get("Email"), test.homePageIWEB.map()
 						.get("FirstName"),
@@ -76,7 +76,7 @@ public class ACS_Create_Member_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step02_Enter_Contact_Information")
 	public void Step03_Enter_Education_And_Employment_Info() {
-
+		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.EduAndEmpPage.enterEducationAndEmploymentInformation();
 		test.ContactInfoPage.clickContinue();
@@ -86,10 +86,10 @@ public class ACS_Create_Member_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step03_Enter_Education_And_Employment_Info")
 	public void Step04_Enter_Benefits_Info() {
-
+		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.homePage.verifyCurrentTab("Benefits");
-		test.BenefitsPage.addACSPublicationAndTechnicalDivision(caseID);         
+		test.BenefitsPage.addACSPublicationAndTechnicalDivision(caseID);
 		test.BenefitsPage.verifyCENPresent(caseID);
 		test.ContactInfoPage.clickContinue();
 		test.homePage.verifyCurrentTab("Checkout");
@@ -97,7 +97,7 @@ public class ACS_Create_Member_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step04_Enter_Benefits_Info")
 	public void Step05_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page() {
-
+		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		quantities = test.checkoutPage.verifyPriceValues(caseID);
 		test.checkoutPage.verifyMemberDetail(caseID);
@@ -120,7 +120,7 @@ public class ACS_Create_Member_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step05_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page")
 	public void Step06_Verify_Details_At_Confirmation_Page() {
-
+		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		memberDetail = test.confirmationPage.verifyMemberDetails(
 				test.homePageIWEB.map().get("City"), test.homePageIWEB.map()
@@ -146,7 +146,7 @@ public class ACS_Create_Member_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step07_Launch_Application_Under_Test")
 	public void Step08_Search_Member_In_Individual_Test() {
-
+		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		String invoiceNumber = memberDetail[1];
 		test.homePageIWEB.clickFindForIndividualsSearch();
@@ -178,8 +178,6 @@ public class ACS_Create_Member_Test extends BaseTest {
 	@BeforeMethod
 	public void skip_tests_if_error_message(Method method) {
 		test.printMethodName(method.getName());
-		if (caseID != null)
-			Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 
 		if (!errorMap.containsKey(caseID)) {
 			errorMap.put(caseID, false);

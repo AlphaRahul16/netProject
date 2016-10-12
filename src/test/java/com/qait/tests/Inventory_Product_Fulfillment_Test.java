@@ -110,7 +110,7 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Inventory");
 		test.homePageIWEB.verifyUserIsOnHomePage("Inventory | Overview | Overview and Setup");
-		test.homePageIWEB.clickOnFulfillmentOrdersTab();
+	//	test.homePageIWEB.clickOnFulfillmentOrdersTab();
 		test.homePageIWEB.verifyUserIsOnHomePage("Inventory | Fulfillment Orders | Overview and Setup");
 	}
 

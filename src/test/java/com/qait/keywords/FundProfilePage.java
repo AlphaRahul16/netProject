@@ -42,7 +42,7 @@ public class FundProfilePage extends ASCSocietyGenericPage
 					{
 						//clickUsingXpathInJavaScriptExecutor(elements("btn_removeDonation").get(0));
 						hoverClick(elements("btn_removeDonation").get(0));
-						logMessage("Step: Remove Button is clicked");
+						logMessage("STEP : Remove Button is clicked");
 						hardWaitForIEBrowser(5);
 						wait.waitForPageToLoadCompletely();
 						 try {
@@ -63,7 +63,7 @@ public class FundProfilePage extends ASCSocietyGenericPage
 					else
 					{
 						elements("btn_removeDonation").get(0).click();
-						logMessage("Step: Remove Button is clicked");
+						logMessage("STEP : Remove Button is clicked");
 				    	Alert alert = driver.switchTo().alert();
 						alert.accept();
 					}
@@ -78,7 +78,7 @@ public class FundProfilePage extends ASCSocietyGenericPage
 		//wait.resetImplicitTimeout(timeOut);
 		//wait.resetExplicitTimeout(timeOut);
 		
-		logMessage("Step : All amounts inside suggested donation amounts are removed\n");
+		logMessage("STEP : All amounts inside suggested donation amounts are removed\n");
 	}
 
 	public void clickAddDonationButton(String headingname) {
@@ -89,7 +89,7 @@ public class FundProfilePage extends ASCSocietyGenericPage
 		else
 		    element("btn_addDonationAmount",headingname).click();
 		wait.waitForPageToLoadCompletely();
-		logMessage("Step : Add Donation button clicked\n");
+		logMessage("STEP : Add Donation button clicked\n");
 		
 	}
 
@@ -127,12 +127,12 @@ public class FundProfilePage extends ASCSocietyGenericPage
 		if(Name.equals("suggested donation amount"))
 		{
 		element("input_DonationDetails",Name).sendKeys(mapSheetData.get("suggested_donation_amount"+number));
-		logMessage("Step : donation amount entered as "+mapSheetData.get("suggested_donation_amount"+number));
+		logMessage("STEP : Donation amount entered as "+mapSheetData.get("suggested_donation_amount"+number));
 		}
 		else if(Name.equals("display order"))
 		{
 		element("input_DonationDetails",Name).sendKeys(mapSheetData.get("Display_Order"+number));
-		logMessage("Step : Display Order entered as "+mapSheetData.get("Display_Order"+number));
+		logMessage("STEP : Display Order entered as "+mapSheetData.get("Display_Order"+number));
 		}
 
 		
@@ -147,7 +147,7 @@ public class FundProfilePage extends ASCSocietyGenericPage
 			wait.hardWait(2);
 			element("chkbox_defaultprice").click();
 			wait.hardWait(2);
-			logMessage("Step : checkbox default price is clicked\n");
+			logMessage("STEP : Checkbox default price is clicked\n");
 		}
 	}
 
@@ -174,7 +174,7 @@ public class FundProfilePage extends ASCSocietyGenericPage
 			}
 				
 		}
-		logMessage("Step : "+ donationCount+" donation amounts to be added from sheet\n");
+		logMessage("STEP : "+ donationCount+" donation amounts to be added from sheet\n");
 		return donationCount;
 	}
 
@@ -232,13 +232,13 @@ public class FundProfilePage extends ASCSocietyGenericPage
 	   {
 		   System.out.println("post "+DateUtil.getAnyDateForType("MM/dd/yyyy",-1,"year"));
 		   EnterTextInFieldByJavascript("awh_post_to_web_date", DateUtil.getAnyDateForType("MM/dd/yyyy",-1,"year"));
-		   logMessage("Step : post to web date is entered as "+DateUtil.getAnyDateForType("MM/dd/yyyy",-1,"year"));
+		   logMessage("STEP : Post to web date is entered as "+DateUtil.getAnyDateForType("MM/dd/yyyy",-1,"year"));
 	   }
 	   if(AwardsNominateDateCompareList.get(1)==1)
 	   {
 		   System.out.println("remove "+DateUtil.getAnyDateForType("MM/dd/yyyy",1,"year"));
 		   EnterTextInFieldByJavascript("awh_remove_from_web_date",DateUtil.getAnyDateForType("MM/dd/yyyy",1,"year"));
-		   logMessage("Step : remove from web date is entered as "+DateUtil.getAnyDateForType("MM/dd/yyyy",1,"year"));
+		   logMessage("STEP : Remove from web date is entered as "+DateUtil.getAnyDateForType("MM/dd/yyyy",1,"year"));
 	   }
 	
 	   clickSaveButtonInAwardNomination();
@@ -252,14 +252,14 @@ public class FundProfilePage extends ASCSocietyGenericPage
 	    isElementDisplayed("btn_save");
 	    click(element("btn_save"));
 	    switchToDefaultContent();
-	    logMessage("Step : Save button clicked in btn_save");
+	    logMessage("STEP : Save button clicked in btn_save");
 		
 	}
 
 	private void clickEditButtonOnAwardsProfile() {
 		isElementDisplayed("img_editAwards");
 		click(element("img_editAwards"));
-		logMessage("Step : Edit Button is clicked in img_editAwards\n");
+		logMessage("STEP : Edit Button is clicked in img_editAwards\n");
 		
 	}
 

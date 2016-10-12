@@ -63,7 +63,7 @@ public class ASCSocietyGenericPage extends GetPage {
 				wait.waitForPageToLoadCompletely();
 				isElementDisplayed(element);
 				org.testng.Assert
-						.fail("ASSERT FAILED: "
+						.fail("ASSERT FAILED : "
 								+ element
 								+ " is found visible even though it is expected to be hidden");
 				wait.resetImplicitTimeout(timeOut);
@@ -71,7 +71,7 @@ public class ASCSocietyGenericPage extends GetPage {
 			} catch (NoSuchElementException e) {
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
-				logMessage("ASSERT PASSED: " + element + " is hidden");
+				logMessage("ASSERT PASSED : " + element + " is hidden");
 			}
 
 		} else if (visibility.equalsIgnoreCase("show")) {
@@ -91,7 +91,7 @@ public class ASCSocietyGenericPage extends GetPage {
 			}
 		} else if (!(visibility.equalsIgnoreCase("N") || visibility
 				.equalsIgnoreCase("Y"))) {
-			logMessage("data is not valid in sheet");
+			logMessage("Data is not valid in sheet");
 			throw new NoSuchElementException("data is not valid in sheet");
 		}
 	}
@@ -123,7 +123,7 @@ public class ASCSocietyGenericPage extends GetPage {
 			} catch (NoSuchElementException e) {
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
-				logMessage("ASSERT PASS: " + element + " " + replacementText
+				logMessage("ASSERT PASS : " + element + " " + replacementText
 						+ " is hidden\n");
 			}
 		} else if (visibility.equalsIgnoreCase("show")) {
@@ -137,14 +137,14 @@ public class ASCSocietyGenericPage extends GetPage {
 			} catch (NoSuchElementException e) {
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
-				logMessage("ASSERT FAILED: " + element + " " + replacementText
+				logMessage("ASSERT FAILED : " + element + " " + replacementText
 						+ " is Show\n");
 				throw new NoSuchElementException(
 						"visibility' field is not displayed in Application.\n");
 			}
 
 		} else {
-			logMessage("data is not valid in sheet");
+			logMessage("Data is not valid in sheet");
 			throw new NoSuchElementException("data is not valid in sheet\n");
 		}
 	}
@@ -303,7 +303,7 @@ public class ASCSocietyGenericPage extends GetPage {
 						.contains(textarray[i].trim()), "ASSERT FAILED: "
 						+ texttocompare
 						+ " CONTENT IN THE PDF FILE IS NOT MATCHED\n ");
-				logMessage("ASSERT PASSED:" + texttocompare
+				logMessage("ASSERT PASSED :" + texttocompare
 						+ " CONTENT IN THE PDF FILE IS MATCHED \n");
 			}
 

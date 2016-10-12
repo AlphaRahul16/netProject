@@ -69,13 +69,13 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(2);
 		isElementDisplayed("txt_searchList");
 		verifyElementTextContains("txt_searchList", "Search Results");
-		logMessage("STEP : verify search successfully in txt_searchList\n");
+		logMessage("STEP : Verify search successfully in txt_searchList\n");
 	}
 
 	public void clickLoginButton() {
 		isElementDisplayed("lnk_logIn");
 		clickUsingXpathInJavaScriptExecutor(element("lnk_logIn"));
-		logMessage("STEP : logIn button is clicked in lnk_logIn\n");
+		logMessage("STEP : LogIn button is clicked in lnk_logIn\n");
 	}
 
 	public void enterUserName(String userName) {
@@ -122,16 +122,16 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 			isElementDisplayed("lnk_logOut");
 			element("lnk_logOut").click();
 			isElementDisplayed("lnk_logIn");
-			logMessage("ASSERT PASSED : logout successfully\n");
+			logMessage("ASSERT PASSED : Logout successfully\n");
 		} catch (Exception exp) {
 			isElementDisplayed("lnk_logIn");
 			element("lnk_logIn").click();
 			logMessage(
-					"STEP : logIn button is clicked for logout successfully due to issue occured intermitently Bug Id is 9131-6434260 in lnk_logIn\n");
+					"STEP : LogIn button is clicked for logout successfully due to issue occured intermitently Bug Id is 9131-6434260 in lnk_logIn\n");
 			isElementDisplayed("lnk_logOut");
 			element("lnk_logOut").click();
 			isElementDisplayed("lnk_logIn");
-			logMessage("ASSERT PASSED : logout successfully\n");
+			logMessage("ASSERT PASSED : Logout successfully\n");
 		}
 	}
 
@@ -182,7 +182,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 	public void clickSecondFeatureItem() {
 		isElementDisplayed("lnk_secondFeatureItem");
 		clickUsingXpathInJavaScriptExecutor(element("lnk_secondFeatureItem"));
-		logMessage("STEP : second feature link is clicked at home page in lnk_secondFeatureItem\n");
+		logMessage("STEP : Second feature link is clicked at home page in lnk_secondFeatureItem\n");
 
 	}
 
@@ -196,7 +196,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 	public void clickProceedToCheckoutAtBottom() {
 		isElementDisplayed("btn_proceedToCheckoutTop");
 		clickUsingXpathInJavaScriptExecutor(element("btn_proceedToCheckoutTop"));
-		logMessage("STEP : proceed to checkout button is clicked at bottom in btn_proceedToCheckoutTop\n");
+		logMessage("STEP : Proceed to checkout button is clicked at bottom in btn_proceedToCheckoutTop\n");
 
 	}
 
@@ -248,7 +248,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("btn_continue");
 		clickUsingXpathInJavaScriptExecutor(element("btn_continue"));
-		logMessage("STEP : continue button is clicked in btn_continue\n");
+		logMessage("STEP : Continue button is clicked in btn_continue\n");
 		wait.waitForPageToLoadCompletely();
 
 	}
@@ -443,7 +443,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 				pageRefresh();
 				isElementDisplayed("lnk_print_receipt");
 				if (element("lnk_print_receipt").getText().trim().equalsIgnoreCase(printReceiptMessage)) {
-					logMessage("AASERT PASSED : link print message " + printReceiptMessage + " is verified\n");
+					logMessage("AASERT PASSED : Link print message " + printReceiptMessage + " is verified\n");
 					break;
 				}
 			}
@@ -659,7 +659,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 			sel.selectByVisibleText(text);
 		} catch (StaleElementReferenceException ex1) {
 			sel.selectByVisibleText(text);
-			logMessage("select Element " + el
+			logMessage("Select Element " + el
 					+ " after catching Stale Element Exception");
 		} catch (Exception ex2) {
 			logMessage("Element " + el + " could not be clicked! "
@@ -694,13 +694,13 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 
 	private void clickNewBillingAddressButton() {
 		element("btn_newBill").click();
-		logMessage("STEP: Click new billing Address button\n");
+		logMessage("STEP : Click new billing Address button\n");
 	}
 
 	private void clickNewShippingAddressButton() {
 		clickUsingXpathInJavaScriptExecutor(element("btn_newShip"));
 		//element("btn_newShip").click();
-		logMessage("STEP: Click new Shipping Address button\n");
+		logMessage("STEP : Click new Shipping Address button\n");
 
 	}
 
@@ -709,7 +709,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 
 		Select dropdown = new Select(el);
 		dropdown.selectByValue("KY");
-		logMessage("STEP: State is entered as Kentucky\n");
+		logMessage("STEP : State is entered as Kentucky\n");
 
 	}
 

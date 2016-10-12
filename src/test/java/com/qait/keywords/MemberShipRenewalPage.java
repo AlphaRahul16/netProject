@@ -55,7 +55,7 @@ public class MemberShipRenewalPage extends GetPage {
 	public void clickOnPlusIcon(String membershipSetupName) {
 		isElementDisplayed("btn_plusIconMemSetup", membershipSetupName);
 		element("btn_plusIconMemSetup", membershipSetupName).click();
-		logMessage("Step : Plus icon is clicked for " + membershipSetupName
+		logMessage("STEP : Plus icon is clicked for " + membershipSetupName
 				+ " \n");
 	}
 
@@ -68,7 +68,7 @@ public class MemberShipRenewalPage extends GetPage {
 		isElementDisplayed("list_" + detailName);
 		selectProvidedTextFromDropDown(element("list_" + detailName),
 				detailValue);
-		logMessage("Step : Select " + detailValue + " for " + detailName
+		logMessage("STEP : Select " + detailValue + " for " + detailName
 				+ " \n");
 		waitForSpinner();
 	}
@@ -77,14 +77,14 @@ public class MemberShipRenewalPage extends GetPage {
 			String detailValue) {
 		isElementDisplayed("inp_" + detailName);
 		element("inp_" + detailName).sendKeys(detailValue);
-		logMessage("Step : " + detailValue + " is entered for " + detailValue);
+		logMessage("STEP : " + detailValue + " is entered for " + detailValue);
 
 	}
 
 	public void clickOnSaveButton() {
 		isElementDisplayed("btn_save");
 		element("btn_save").click();
-		logMessage("Step : save button is clicked\n");
+		logMessage("STEP : Save button is clicked\n");
 	}
 
 	public void waitForSpinner() {
@@ -97,13 +97,13 @@ public class MemberShipRenewalPage extends GetPage {
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("img_spinner");
 			wait.waitForElementToDisappear(element("img_spinner"));
-			logMessage("STEP : wait for spinner to be disappeared \n");
+			logMessage("STEP : Wait for spinner to be disappeared \n");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		} catch (NoSuchElementException | AssertionError | TimeoutException Exp) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
-			logMessage("STEP : spinner is not present \n");
+			logMessage("STEP : Spinner is not present \n");
 		}
 	}
 
@@ -113,7 +113,7 @@ public class MemberShipRenewalPage extends GetPage {
 		selectProvidedTextFromDropDown(
 				element("list_dropdownAtAddMembershipRenewal", detailName),
 				detailValue);
-		logMessage("Step : select value " + detailValue + " for " + detailName
+		logMessage("STEP : Select value " + detailValue + " for " + detailName
 				+ "\n");
 		waitForSpinner();
 	}
@@ -123,7 +123,7 @@ public class MemberShipRenewalPage extends GetPage {
 		isElementDisplayed("list_selectBatch", detailName);
 		selectProvidedTextFromDropDown(element("list_selectBatch", detailName),
 				detailValue);
-		logMessage("Step : select value " + detailValue + " for " + detailName
+		logMessage("STEP : Select value " + detailValue + " for " + detailName
 				+ "\n");
 		waitForSpinner();
 	}
@@ -150,7 +150,7 @@ public class MemberShipRenewalPage extends GetPage {
 
 		element("inp_runTaskDateTime").sendKeys(Keys.ENTER);
 		wait.hardWait(2);
-		logMessage("Step : enter " + runTaskDateTime
+		logMessage("STEP : Enter " + runTaskDateTime
 				+ " for run task date time\n");
 		String runTaskDateTime1 = DateUtil
 				.getCurrentdateInStringWithGivenFormateForTimeZone("MM/d/YYYY",
@@ -208,7 +208,7 @@ public class MemberShipRenewalPage extends GetPage {
 
 	public void verifyBatchAtRenewal(String batchName) {
 		isElementDisplayed("lnk_batch", batchName);
-		logMessage("AASERT PASSED : batch name " + batchName + " is verfied\n");
+		logMessage("AASERT PASSED : Batch name " + batchName + " is verfied\n");
 	}
 
 	public void verifyRenewalCycleName(String detailName, String detailValue) {
@@ -245,7 +245,7 @@ public class MemberShipRenewalPage extends GetPage {
 	public void clickOnSubInfoDropdown(String subInfoName) {
 		isElementDisplayed("btn_memberShipRenewalSubInfo", subInfoName);
 		element("btn_memberShipRenewalSubInfo", subInfoName).click();
-		logMessage("Step : sub info " + subInfoName + " is clicked\n");
+		logMessage("STEP : Sub info " + subInfoName + " is clicked\n");
 	}
 
 	public void verifyRenewalsSubInfo(String detailName, String detailValue) {
@@ -268,7 +268,7 @@ public class MemberShipRenewalPage extends GetPage {
 				numberofInvoicesCreated);
 		if (element("txt_numberOfInvoicesCreated").getText().trim()
 				.equalsIgnoreCase(numberofInvoicesCreated)) {
-			logMessage("AASERT PASSED : number of invoice created "
+			logMessage("AASERT PASSED : Number of invoice created "
 					+ numberofInvoicesCreated + " is verified\n");
 		} else {
 			int count = (Integer.parseInt(waitTime)) / 2;
@@ -283,7 +283,7 @@ public class MemberShipRenewalPage extends GetPage {
 					System.out.println(isElementDisplayed("txt_"
 							+ "numberOfInvoicesCreated",
 							numberofInvoicesCreated));
-					logMessage("ASSERT PASSED : number of Invoices Created "
+					logMessage("ASSERT PASSED : Number of Invoices Created "
 							+ numberofInvoicesCreated + " is verified\n");
 					break;
 				}
@@ -302,7 +302,7 @@ public class MemberShipRenewalPage extends GetPage {
 	public void clickOnCreateRenewalInvoices() {
 		isElementDisplayed("btn_createRenewalInvoices");
 		element("btn_createRenewalInvoices").click();
-		logMessage("Step : create renewal invoice button is clicked\n");
+		logMessage("STEP : Create renewal invoice button is clicked\n");
 	}
 
 	public String navigateToCreateRenewalInvoicesAndEnterInvoiceTaskStartTimeAndDate(
@@ -329,7 +329,7 @@ public class MemberShipRenewalPage extends GetPage {
 	public void enterInvoiceTaskDetails(String detailName, String detailValue) {
 		isElementDisplayed("inp_startTimeAndDate", detailName);
 		element("inp_startTimeAndDate", detailName).sendKeys(detailValue);
-		logMessage("Step : enter " + detailValue + " for " + detailName + " \n");
+		logMessage("STEP : Enter " + detailValue + " for " + detailName + " \n");
 	}
 
 	public void verifyErrorMessage() {
@@ -337,7 +337,7 @@ public class MemberShipRenewalPage extends GetPage {
 		System.out.println(element("txt_errorMessage").getText().trim());
 		flag = validateTextFormat(element("txt_errorMessage").getText().trim());
 		Assert.assertTrue(flag);
-		logMessage("ASSERT PASSED : renewal message "
+		logMessage("ASSERT PASSED : Renewal message "
 				+ element("txt_errorMessage").getText().trim()
 				+ " is verified\n");
 	}
@@ -367,7 +367,7 @@ public class MemberShipRenewalPage extends GetPage {
 					System.out
 							.println(element("txt_renewalCycleName", "status")
 									.getText().trim());
-					logMessage("ASSERT PASSED : preview status " + status
+					logMessage("ASSERT PASSED : Preview status " + status
 							+ " is verified\n");
 					break;
 				}
@@ -427,7 +427,7 @@ public class MemberShipRenewalPage extends GetPage {
 	public void clickOnAcsRenewalCycleTab() {
 		isElementDisplayed("hd_acsRenewalCycle");
 		element("hd_acsRenewalCycle").click();
-		logMessage("Step : acs renewal cycle tab is clicked in hd_acsRenewalCycle\n");
+		logMessage("STEP : ACS renewal cycle tab is clicked in hd_acsRenewalCycle\n");
 	}
 
 }

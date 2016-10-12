@@ -99,10 +99,10 @@ public class BaseUi {
 		}
 		try {
 			wait.waitForPageTitleToBeExact(expectedPagetitle);
-			logMessage("ASSERT PASSED: PageTitle for " + pageName
+			logMessage("ASSERT PASSED : PageTitle for " + pageName
 					+ " is exactly: '" + expectedPagetitle + "'");
 		} catch (TimeoutException ex) {
-			Assert.fail("ASSERT FAILED: PageTitle for " + pageName
+			Assert.fail("ASSERT FAILED : PageTitle for " + pageName
 					+ " is not exactly: '" + expectedPagetitle
 					+ "'!!!\n instead it is :- " + driver.getTitle());
 		}
@@ -138,14 +138,14 @@ public class BaseUi {
 			wait.resetExplicitTimeout(timeOut);
 		} catch (TimeoutException exp) {
 			String actualPageTitle = driver.getTitle().trim();
-			logMessage("ASSERT FAILED: As actual Page Title: '"
+			logMessage("ASSERT FAILED : As actual Page Title: '"
 					+ actualPageTitle
 					+ "' does not contain expected Page Title : '"
 					+ expectedPagetitle + "'.");
 			System.out.println("In catch---");
 		}
 		String actualPageTitle = getPageTitle().trim();
-		logMessage("ASSERT PASSED: PageTitle for " + actualPageTitle
+		logMessage("ASSERT PASSED : PageTitle for " + actualPageTitle
 				+ " contains: '" + expectedPagetitle + "'.");
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
@@ -253,7 +253,7 @@ public class BaseUi {
 		while (i++ < 5) {
 			try {
 				alert = driver.switchTo().alert();
-				logMessage("Step : Switched to alert window");
+				logMessage("STEP : Switched to alert window");
 				break;
 			} catch (NoAlertPresentException e) {
 				try {
@@ -265,7 +265,7 @@ public class BaseUi {
 			}
 		}
 		alert.accept();
-		logMessage("Step : Alert accepted");
+		logMessage("STEP : Alert accepted");
 		driver.switchTo().defaultContent();
 	}
 
@@ -308,13 +308,13 @@ public class BaseUi {
 		Select sel = new Select(el);
 		try {
 			sel.selectByVisibleText(text);
-			logMessage("Step : Selected option is "+text);
+			logMessage("STEP : Selected option is "+text);
 		} catch (StaleElementReferenceException ex1) {
 			// wait.waitForElementToBeVisible(el);
 			// scrollDown(el);
 			// Select select = new Select(el);
 			sel.selectByVisibleText(text);
-			logMessage("select Element " + el
+			logMessage("Select Element " + el
 					+ " after catching Stale Element Exception");
 		} catch (Exception ex2) {
 			sel.selectByVisibleText(text);
@@ -465,7 +465,7 @@ public class BaseUi {
 		// element.sendKeys(Text);
 		executeJavascript("document.getElementById('" + id
 				+ "').setAttribute('value', '" + Text + "')");
-		logMessage("Step : text entered as " + Text);
+		logMessage("STEP : Text entered as " + Text);
 	}
 
 	public void EnterTextInField(WebElement ele, String Text) {
@@ -473,7 +473,7 @@ public class BaseUi {
 		ele.click();
 		ele.clear();
 		ele.sendKeys(Text);
-		logMessage("Step : text entered as " + Text);
+		logMessage("Step : Text entered as " + Text);
 	}
 
 	public void sendKeysUsingXpathInJavaScriptExecutor(WebElement element,
@@ -537,7 +537,7 @@ public class BaseUi {
 			// wait.waitForElementToBeVisible(el);
 			// scrollDown(el);
 			Select sel = new Select(el);
-			logMessage("get selected Element " + el
+			logMessage("Get selected Element " + el
 					+ " after catching Stale Element Exception");
 			return sel.getFirstSelectedOption().getText();
 
@@ -551,7 +551,7 @@ public class BaseUi {
 	protected void verifySelectedTextFromDropDown(WebElement el, String text) {
 		Assert.assertTrue(getSelectedTextFromDropDown(el)
 				.equalsIgnoreCase(text));
-		logMessage("AASERT PASSED : " + text
+		logMessage("ASSERT PASSED : " + text
 				+ " is verified which is selected \n");
 	}
 
@@ -662,7 +662,7 @@ public class BaseUi {
 		WebElement element = driver.findElement(By
 				.xpath("//select/option[text()='" + value + "']"));
 		element.click();
-		logMessage("Step : " + value + " is selected in drop down");
+		logMessage("STEP : " + value + " is selected in drop down");
 	}
 
 	public void checkCheckbox(WebElement ele) {
@@ -670,9 +670,9 @@ public class BaseUi {
 		if (!ele.isSelected()) {
 //			ele.click();
 			clickUsingXpathInJavaScriptExecutor(ele);
-			logMessage("Step : check checkbox \n");
+			logMessage("STEP : check checkbox \n");
 		} else {
-			logMessage("Step : check box is already selected\n");
+			logMessage("STEP : check box is already selected\n");
 		}
 	}
 
@@ -749,7 +749,7 @@ public class BaseUi {
 	protected void SwitchToPopUpWindowAndVerifyTitle() {
 		changeWindow(1);
         System.out.println(getPageTitle());
-        logMessage("Step : Switched to Pop Up Window, title is "+getPageTitle());
+        logMessage("STEP : Switched to Pop Up Window, title is "+getPageTitle());
         changeWindow(0);
 		
 	}

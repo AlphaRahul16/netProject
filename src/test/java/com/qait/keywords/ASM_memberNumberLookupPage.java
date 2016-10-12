@@ -29,7 +29,7 @@ public class ASM_memberNumberLookupPage extends GetPage {
 	public void enterMemberInfo(String memberInfoType, String memberInfo) {
 		isElementDisplayed("inp_memberInfo", memberInfoType);
 		element("inp_memberInfo", memberInfoType).sendKeys(memberInfo);
-		logMessage("Step : " + memberInfo + " is entered in " + memberInfoType
+		logMessage("STEP : " + memberInfo + " is entered in " + memberInfoType
 				+ " \n");
 	}
 
@@ -37,16 +37,16 @@ public class ASM_memberNumberLookupPage extends GetPage {
 		isElementDisplayed("chk_certify");
 		if (!element("chk_certify").isSelected()) {
 			element("chk_certify").click();
-			logMessage("Step : certify checkbox is checked in chk_certify\n");
+			logMessage("STEP : Certify checkbox is checked in chk_certify\n");
 		} else {
-			logMessage("Step : certify checkbox is already checked in chk_certify\n");
+			logMessage("STEP : Certify checkbox is already checked in chk_certify\n");
 		}
 	}
 
 	public void clickOnSubmitButton() {
 		isElementDisplayed("btn_submit");
 		element("btn_submit").click();
-		logMessage("Step : submit button is clicked in btn_submit\n");
+		logMessage("STEP : Submit button is clicked in btn_submit\n");
 	}
 
 	public void verifyMemberRecordLocated(String memberRecordLocated) {

@@ -36,7 +36,7 @@ public class ACS_ReportsActions extends ASCSocietyGenericPage  {
 		selectProvidedTextFromDropDown(element("drpdwn_modulesAndCategory",fieldName), ReportData.trim());
 		wait.hardWait(1);
 		wait.waitForPageToLoadCompletely();
-		logMessage("Step : "+fieldName+" is select from dropdown as "+ReportData);
+		logMessage("STEP : "+fieldName+" is select from dropdown as "+ReportData);
 		
 	}
 
@@ -46,7 +46,7 @@ public class ACS_ReportsActions extends ASCSocietyGenericPage  {
 		isElementDisplayed("btn_goReport",reportName);
 		hardWaitForIEBrowser(3);
 		element("btn_goReport",reportName).click();
-		logMessage("Step : Go Button for Report "+reportName+" is clicked\n");
+		logMessage("STEP : Go Button for Report "+reportName+" is clicked\n");
 		
 	}
 
@@ -59,9 +59,9 @@ public class ACS_ReportsActions extends ASCSocietyGenericPage  {
 		switchToWindowHavingIndex(1);
 		isElementDisplayed("txt_reportResult",reportHeading);
 		isElementDisplayed("tbl_report");
-		logMessage("Step : Table is displayed in report result");
+		logMessage("STEP : Table is displayed in report result");
 		Assert.assertTrue(element("txt_reportResult",reportHeading).isDisplayed(),"Report Status is fail");
-		logMessage("ASSERT PASSED  : Report is successfully received\n");
+		logMessage("ASSERT PASSED : Report is successfully received\n");
 		driver.close();
 		wait.hardWait(5);
 //		switchToWindowHavingIndex(0);
@@ -79,14 +79,14 @@ public class ACS_ReportsActions extends ASCSocietyGenericPage  {
 		element("inp_Email",fieldName).click();
 		element("inp_Email",fieldName).clear();
 		element("inp_Email",fieldName).sendKeys(fielddata);
-		logMessage("Step : "+fieldName+" is entered as "+fielddata);
+		logMessage("STEP : "+fieldName+" is entered as "+fielddata);
 	}
 	
 	private void clickGoButton()
 	{
 		isElementDisplayed("btn_Go");
 		element("btn_Go").click();
-		logMessage("Step : Go button is clicked\n");
+		logMessage("STEP : Go button is clicked\n");
 	}
 	
 	public String enterEmailDetailsForScheduleReport(String Deliverytype,String fielddata_To,String fielddata_Subject)

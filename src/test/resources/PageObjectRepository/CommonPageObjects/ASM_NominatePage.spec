@@ -55,7 +55,7 @@ inp_AwardField                                id                           selec
 txt_NominationTooltip                         classname                    awardDeadline  
 inp_findbymembernumber                        id                           memberNumber_searchNominee
 rad_dynsafelabpractice                        xpath                        //span/following-sibling::input[@value='${value}']
-rad_disscusNomination                         xpath                        //div[@id='discussedWithNominee']/span[text()='${value}']/following-sibling::input
+rad_disscusNomination                         xpath                        //div[@id='discussedWithNominee']/span[text()='${value}']/following-sibling::input[1]
 link_open                                     xpath                       //div[@id='${nominationName}']//a[@class='download']
 btn_saveForLater                              css                         .saveData.later
 txt_awardStatus                               xpath                       //div[contains(text(),'${awardName}')]/following-sibling::table//td[@class='status']
@@ -72,4 +72,5 @@ inp_support1FindByNumber                        xpath                       (//i
 inp_support2FindByNumber                        xpath                       (//input[contains(@id,'memberNumber_searchSupporter')])[2]
 btn_findSupporter1ByNumber                     xpath                        (//input[contains(@id,'doSearchByNumber_searchSupporter')])[1]
 btn_findSupporter2ByNumber                     xpath                        (//input[contains(@id,'doSearchByNumber_searchSupporter')])[2]
+list_selectDiscipline                          css                          #nomineeIndustry>select
 =================================================================================================================================

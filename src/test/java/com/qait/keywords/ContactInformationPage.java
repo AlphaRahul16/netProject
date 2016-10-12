@@ -55,11 +55,11 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 			element("btn_continue").click();
 			// clickUsingXpathInJavaScriptExecutor(element("btn_continue"));
 			wait.hardWait(1);
-			logMessage("Step: click btn_continue\n");
+			logMessage("STEP : Click btn_continue\n");
 		} catch (StaleElementReferenceException stlRef) {
 			// isElementDisplayed("btn_continue");
 			clickUsingXpathInJavaScriptExecutor(element("btn_continue"));
-			logMessage("Step: click btn_continue\n");
+			logMessage("STEP : Click btn_continue\n");
 		}
 
 	}
@@ -73,7 +73,7 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 					+ "@" + emailSubstring[1];
 			element("inp_email").clear();
 			element("inp_email").sendKeys(userEmail);
-			logMessage("Step: " + userEmail + " entered in the inp_email");
+			logMessage("STEP : " + userEmail + " entered in the inp_email");
 			return userEmail;
 		} else {
 			logMessage("Email is not present in data sheet\n");
@@ -87,7 +87,7 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 			isElementDisplayed("inp_email");
 			element("inp_email").clear();
 			element("inp_email").sendKeys(email);
-			logMessage("Step: " + email + " entered in the inp_email");
+			logMessage("STEP : " + email + " entered in the inp_email");
 			return email;
 		} else {
 			logMessage("Email is not present in data sheet\n");
@@ -101,7 +101,7 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 			isElementDisplayed("inp_" + detailType);
 			element("inp_" + detailType).clear();
 			element("inp_" + detailType).sendKeys(detailValue);
-			logMessage("Step: " + detailValue + " entered in the " + detailType
+			logMessage("STEP : " + detailValue + " entered in the " + detailType
 					+ "\n");
 			return detailValue;
 		} else {
@@ -116,7 +116,7 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 			isElementDisplayed("list_" + detailType);
 			selectProvidedTextFromDropDown(element("list_" + detailType),
 					detailValue);
-			logMessage("Step: " + detailValue + " is selected in the "
+			logMessage("STEP : " + detailValue + " is selected in the "
 					+ detailType + "\n");
 		} else {
 			logMessage("" + detailType + "is not present in data sheet\n");
@@ -130,7 +130,7 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 				+ emailSubstring[1];
 		element("inp_email").clear();
 		element("inp_email").sendKeys(userEmail);
-		logMessage("Step: " + userEmail + " entered in the inp_email");
+		logMessage("STEP : " + userEmail + " entered in the inp_email");
 
 	}
 
@@ -138,7 +138,7 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 		isElementDisplayed("inp_email");
 		element("inp_email").clear();
 		element("inp_email").sendKeys(userEmail);
-		logMessage("Step: " + userEmail + " entered in the inp_email");
+		logMessage("STEP : " + userEmail + " entered in the inp_email");
 
 	}
 

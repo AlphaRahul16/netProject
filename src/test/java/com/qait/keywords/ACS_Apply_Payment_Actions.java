@@ -20,7 +20,7 @@ public class ACS_Apply_Payment_Actions extends ASCSocietyGenericPage {
 
 	public void verifyCheckBoxSelectedAtSelectInvoiceTab(String labelName) {
 		isElementDisplayed("chk_selectInvoice", labelName);
-		logMessage("ASSERT PASSED : check box is selected for " + labelName
+		logMessage("ASSERT PASSED : Check box is selected for " + labelName
 				+ "\n");
 	}
 	
@@ -29,10 +29,10 @@ public class ACS_Apply_Payment_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_next");
 		if (isIEBrowser()) {
 			clickUsingXpathInJavaScriptExecutor(element("btn_next"));
-			logMessage("Step : Clicked on next button\n");
+			logMessage("STEP : Clicked on next button\n");
 		} else {
 			element("btn_next").click();
-			logMessage("Step : Clicked on next button\n");
+			logMessage("STEP : Clicked on next button\n");
 		}
 
 	}
@@ -40,11 +40,11 @@ public class ACS_Apply_Payment_Actions extends ASCSocietyGenericPage {
 	public void verifyTabName(String tabName) {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("tab_addApplyPayment", tabName);
-		logMessage("ASSERT PASSED : verify tab name " + tabName + "\n");
+		logMessage("ASSERT PASSED : Verify tab name " + tabName + "\n");
 	}
 
 	public void enterDetailsForPayment(String paymentMethod) {
-		logMessage("Step : payment method to apply the payment is "	+ paymentMethod);
+		logMessage("STEP : Payment method to apply the payment is "	+ paymentMethod);
 		if (paymentMethod.equalsIgnoreCase("BOA - Check")) {
 			selectCardDetails(
 					"payment method",
@@ -86,7 +86,7 @@ public class ACS_Apply_Payment_Actions extends ASCSocietyGenericPage {
 		wait.hardWait(1);
 		selectProvidedTextFromDropDown(
 				element("select_addApplyPayment", labelName), drpDwnValue);
-		logMessage("Step : " + drpDwnValue + " is selected for " + labelName
+		logMessage("STEP : " + drpDwnValue + " is selected for " + labelName
 				+ "\n");
 
 	}
@@ -94,7 +94,7 @@ public class ACS_Apply_Payment_Actions extends ASCSocietyGenericPage {
 	public void enterCardDetails(String labelName, String inputValue) {
 		isElementDisplayed("inp_addApplyPayment", labelName);
 		element("inp_addApplyPayment", labelName).sendKeys(inputValue);
-		logMessage("Step : " + inputValue + " is selected for " + labelName
+		logMessage("STEP : " + inputValue + " is selected for " + labelName
 				+ "\n");
 
 	}
@@ -103,10 +103,10 @@ public class ACS_Apply_Payment_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_Save");
 		if (isIEBrowser()) {
 			clickUsingXpathInJavaScriptExecutor(element("btn_Save"));
-			logMessage("Step : save button is clicked\n");
+			logMessage("STEP : Save button is clicked\n");
 		} else {
 			element("btn_Save").click();
-			logMessage("Step : save button is clicked\n");
+			logMessage("STEP : Save button is clicked\n");
 		}
 
 		waitForSpinner();
@@ -115,7 +115,7 @@ public class ACS_Apply_Payment_Actions extends ASCSocietyGenericPage {
 	public void selectBatch(String batchName) {
 		isElementDisplayed("select_batchName");
 		selectProvidedTextFromDropDown(element("select_batchName"), batchName);
-		logMessage("Step : batch name is selected " + batchName + "\n");
+		logMessage("STEP : Batch name is selected " + batchName + "\n");
 		waitForSpinner();
 	}
 

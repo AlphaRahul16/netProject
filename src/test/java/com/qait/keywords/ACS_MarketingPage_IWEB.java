@@ -37,15 +37,15 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 		switchToFrame("iframe1");
 		if (!element("chk_showOnlineInListCategory").isSelected()) {
 			element("chk_showOnlineInListCategory").click();
-			logMessage("Step: Show online checkbox is already selected\n");
+			logMessage("STEP : Show online checkbox is already selected\n");
 		} else
-			logMessage("Step: Show online checkbox is already selected\n");
+			logMessage("STEP : Show online checkbox is already selected\n");
 	}
 
 	public void clickOnCancelButton() {
 		isElementDisplayed("btn_cancelEditMailingList");
 		clickUsingXpathInJavaScriptExecutor(element("btn_cancelEditMailingList"));
-		logMessage("STEP: Clicked on Cancel button\n");
+		logMessage("STEP : Clicked on Cancel button\n");
 	}
 
 	public boolean verifyVisibility(String listType, String current) {
@@ -85,7 +85,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 				isElementDisplayed("link_page", String.valueOf(page));
 				clickUsingXpathInJavaScriptExecutor(element("link_page", String.valueOf(page)));
 				waitForSpinner();
-				logMessage("Step : page number " + page + " is clicked\n");
+				logMessage("STEP : Page number " + page + " is clicked\n");
 				categoryList = getMailingCategoryList("mailing list type");
 				if (verifyVisibility(listType, current)) {
 					System.out.println("-----in if");
@@ -107,14 +107,14 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 			wait.resetImplicitTimeout(0);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("img_spinner");
-			logMessage("STEP : wait for spinner to be disappeared \n");
+			logMessage("STEP : Wait for spinner to be disappeared \n");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		} catch (Exception Exp) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		} catch (AssertionError Exp) {
-			logMessage("STEP : spinner is not present \n");
+			logMessage("STEP : Spinner is not present \n");
 		}
 	}
 
@@ -122,19 +122,19 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		Assert.assertTrue(isElementDisplayed("txt_titleName"), "Title is not displayed for mailing list pop up");
 		titleName = element("txt_titleName").getText();
-		logMessage("ASSERT PASSED : title is displayed as " + titleName);
+		logMessage("ASSERT PASSED : Title is displayed as " + titleName);
 	}
 
 	public void sendNameInCreateMailingListPopUp(String listName) {
 		isElementDisplayed("inptxt_mailingListName");
 		element("inptxt_mailingListName").sendKeys(listName);
-		logMessage("Step : Mailing list name is entered as " + listName + "\n");
+		logMessage("STEP : Mailing list name is entered as " + listName + "\n");
 	}
 
 	public void sendListTypeInCreateMailingListPopUp(String listType) {
 		isElementDisplayed("drpdwn_mailingListType", listType);
 		element("drpdwn_mailingListType", listType).click();
-		logMessage("Step : Mailing list type is entered as " + listType + "\n");
+		logMessage("STEP : Mailing list type is entered as " + listType + "\n");
 	}
 
 	public void selectShowOnlineInCreateMailingListPopUp() {
@@ -142,19 +142,19 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("chk_showOnline");
 		// element("chk_showOnline").click();
 		clickUsingXpathInJavaScriptExecutor(element("chk_showOnline"));
-		logMessage("Step : Show online Chechbox is selected\n");
+		logMessage("STEP : Show online Chechbox is selected\n");
 	}
 
 	public void sendStartDateInCreateMailingListPopUpWithFormat(String format) {
 		isElementDisplayed("txt_startDate");
 		element("txt_startDate").sendKeys(DateUtil.getCurrentdateInStringWithGivenFormate(format));
-		logMessage("Step : Start date is entered as " + DateUtil.getCurrentdateInStringWithGivenFormate(format) + "\n");
+		logMessage("STEP : Start date is entered as " + DateUtil.getCurrentdateInStringWithGivenFormate(format) + "\n");
 	}
 
 	public void sendEndDateInCreateMailingListPopUpWithFormat(String format) {
 		isElementDisplayed("txt_endDate");
 		element("txt_endDate").sendKeys(DateUtil.getAnyDateForType(format, 1, "month"));
-		logMessage("Step : End date filled is entered as " + DateUtil.getAnyDateForType(format, 1, "month"));
+		logMessage("STEP : End date filled is entered as " + DateUtil.getAnyDateForType(format, 1, "month"));
 
 	}
 
@@ -178,7 +178,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_save");
 //		element("btn_save").click();
 		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
-		logMessage("Step : Save button is clicked\n");
+		logMessage("STEP : Save button is clicked\n");
 		switchToDefaultContent();
 	}
 
@@ -192,7 +192,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(4);
 		isElementDisplayed("txt_name");
 		userName = element("txt_name").getAttribute("value");
-		logMessage("Step : Added user name is " + userName + "\n");
+		logMessage("STEP : Added user name is " + userName + "\n");
 		return userName;
 	}
 
@@ -203,7 +203,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 			clickUsingXpathInJavaScriptExecutor(element("txt_listName", listName));
 		else
 			element("txt_listName", listName).click();
-		logMessage("Step : Click on Goto List for " + listName);
+		logMessage("STEP : Click on Goto List for " + listName);
 
 	}
 
@@ -236,20 +236,20 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 
 	public void gotoArrowOfGivenUser() {
 		element("btn_ArrowProdName", userName).click();
-		logMessage("Step : Member " + userName + "is selected \n");
+		logMessage("STEP : Member " + userName + "is selected \n");
 	}
 
 	public void clickOnCancelButtonInCommunicationPreferencesPopUp() {
 		isElementDisplayed("btn_cancelInComm.Pref");
 		element("btn_cancelInComm.Pref").click();
-		logMessage("Step : Cancel button under Communication Preferences is clicked\n");
+		logMessage("STEP : Cancel button under Communication Preferences is clicked\n");
 		changeWindow(0);
 	}
 
 	public void clickOnAdditionaInfortmationIcon(String infoName) {
 		isElementDisplayed("btn_iconOnAdditionalInfo", infoName);
 		element("btn_iconOnAdditionalInfo", infoName).click();
-		logMessage("Step : " + infoName + " button is clicked \n");
+		logMessage("STEP : " + infoName + " button is clicked \n");
 	}
 
 	public void expandListTypeInComm_Pref(String listType) {
@@ -262,7 +262,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 	public void verifyMailingListIsDisplayedInExpandedListType(String listName) {
 		Assert.assertTrue(isElementDisplayed("txt_listInComm.Pref", listName),
 				"Mailing list is not displayed in given list type");
-		logMessage("ASSERT PASSED : list name " + listName + "is displayed in given list type");
+		logMessage("ASSERT PASSED : List name " + listName + "is displayed in given list type");
 	}
 
 	public void verifyMailingListIsSubscribedOrUnsubscribedInExpandedListType(String listName,
@@ -274,7 +274,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 			flag = true;
 		isElementDisplayed("chk_listInComm.Pref", listName);
 		Assert.assertEquals(element("chk_listInComm.Pref", listName).isSelected(), flag);
-		logMessage("ASSERT PASSED : mailing list " + listName + " is " + unsubscribed_subscribed);
+		logMessage("ASSERT PASSED : Mailing list " + listName + " is " + unsubscribed_subscribed);
 	}
 
 	public void verifyListsInGivenCategoryIsUnsubscribed(String listType, Map<String, List<String>> mailingListMap) {
@@ -326,7 +326,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 				verifyListsInGivenCategoryIsUnsubscribed(list.get(i), mailingListMap);
 			}
 		}
-		logMessage("Step : Verified All Mailing List Is Unsubscribed");
+		logMessage("STEP : Verified All Mailing List Is Unsubscribed");
 		clickOnCancelButtonInCommunicationPreferencesPopUp();
 	}
 
