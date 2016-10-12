@@ -222,7 +222,7 @@ img_arrow								       css									 #dgDynamicList > tbody > tr:nth-child(${ran
 txt_tableRow										css									#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(10)
 txt_creditAmount								xpath								//td[contains(text(),'${memberType}')]/following-sibling::td[6]
 btn_goask                                       id                           ButtonAskGo
-
+link_importMatch                                xpath                        (//td[text()='${currentDate}'])[1]/preceding-sibling::td[contains(text(),'${impotFileName}')]/preceding-sibling::td[2]
 
 
 
