@@ -14,6 +14,7 @@ import com.qait.automation.getpageobjects.BaseTest;
 
 public class ACS_Rubber_Insurance_Test extends BaseTest {
 	String app_url_IWEB, individualName, customerId, importedFile;
+	private String caseID;
 
 	public ACS_Rubber_Insurance_Test() {
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "Import_Profile";
@@ -63,6 +64,7 @@ public class ACS_Rubber_Insurance_Test extends BaseTest {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		Reporter.log("App URL Iweb:: " + app_url_IWEB + "\n");
+
 	}
 
 	@BeforeMethod

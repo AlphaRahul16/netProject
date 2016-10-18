@@ -184,7 +184,7 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_closeDateAndSaleRequest","close date");
 		isElementDisplayed("txt_postDate");
 		System.out.println(element("txt_closeDateAndSaleRequest","close date").getText().trim());
-		System.out.println(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY"));
+		System.out.println(DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY","UTC"));
 		Assert.assertTrue(element("txt_closeDateAndSaleRequest","close date").getText().trim().contains(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY")));
 		logMessage("ASSERT PASSED : Batch close date contains current Date as "+element("txt_closeDateAndSaleRequest","close date").getText().trim());
 		Assert.assertTrue(element("txt_postDate").getText().trim().contains(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY")));

@@ -317,7 +317,7 @@ public class BaseUi {
 			logMessage("Select Element " + el
 					+ " after catching Stale Element Exception");
 		} catch (Exception ex2) {
-			sel.selectByVisibleText(text);
+			sel.selectByValue(text);
 			// logMessage("Element " + el + " could not be clicked! "
 			// + ex2.getMessage());
 		}
@@ -799,4 +799,5 @@ public class BaseUi {
 			
 		}
 	}
+	
 }

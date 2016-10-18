@@ -110,7 +110,7 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Inventory");
 		test.homePageIWEB.verifyUserIsOnHomePage("Inventory | Overview | Overview and Setup");
-	//	test.homePageIWEB.clickOnFulfillmentOrdersTab();
+		test.homePageIWEB.clickOnFulfillmentOrdersTab();
 		test.homePageIWEB.verifyUserIsOnHomePage("Inventory | Fulfillment Orders | Overview and Setup");
 	}
 
@@ -147,6 +147,5 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 	public void Step15_Click_On_Icon_ACS_Fulfillment_Reports_And_Verify_Alert_Message(){
 		test.inventoryIweb.verifyAlertMessageOnClickingACSFulfillmentReportsIcon();
 	}
-	
 
 }

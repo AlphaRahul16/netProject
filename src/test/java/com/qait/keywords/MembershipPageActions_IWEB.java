@@ -2901,6 +2901,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			Map<String, String> mapGcsOMR) {
 		clickOnTab("Find Members");
 		selectUserForGCSOMR(mapGcsOMR);
+		clickOnGoButton();
 		selectARandomActiveStudentChapter();
 		expandDetailsMenu("invoices");
 		verifyTermStartDateAndEndDatesAreEmptyForGCSOMR(mapGcsOMR);
@@ -4735,9 +4736,31 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 	}
 
+	public List<String> getCustomerFullNameBasedOnInvoice(String invoiceNumber) {   //Returns a map, solves last name with space problem
+		clickOnEditNameAndAddress();
+		switchToFrame("iframe1");
+		customerLname = getNameFromEditNameAndAddressButton("lastName");
+		memberDetails.add(customerLname);
+		customerFname=getNameFromEditNameAndAddressButton("firstName");
+		memberDetails.add(customerFname);
+		clickOnCancelButton();
+		handleAlert();
+		switchToDefaultContent();
+		customerContactId = element("txt_renewalContactId").getText();
+		memberDetails.add(customerContactId);
+		memberDetails.add(invoiceNumber);
+		logMessage("Step : Last Name of member is " + memberDetails.get(0));
+		logMessage("Step : First Name of member is " + memberDetails.get(1));
+		logMessage("Step : Customer ID of member is " + memberDetails.get(2));
+		logMessage("Step : Invoice Number is " + memberDetails.get(3));
+		return memberDetails;
+}
+
+
 	public String importProfileSheet(String importName, String description,
 			String fileType) {
 		String importedFileName = importName + System.currentTimeMillis();
+
 		// TODO Auto-generated method stub
 		isElementDisplayed("inp_dateForReviewModes", "import name ");
 		element("inp_dateForReviewModes", "import name ").sendKeys(
@@ -4761,6 +4784,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : " + fileName + " is uploaded \n");
 	}
 
+
 	public void verifyACSImportMatchProfilePage(String importName,
 			String description, String fileType, String Import_File) {
 
@@ -4777,33 +4801,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				.getCurrentdateInStringWithGivenFormate("MM/d/yyyy");
 		Assert.assertEquals(getMemberDetailsOnMemberShipProfile("import date"),
 				importDate);
-
 		Assert.assertTrue(getMemberDetailsOnMemberShipProfile("import file")
 				.trim().contains(Import_File));
 		Assert.assertEquals(getMemberDetailsOnMemberShipProfile("import name"),
 				importName);
-
-		// Assert.assertEquals(
-		// element("txt_membershipProfileDetails", "import name")
-		// .getText().trim(), importName);
-		// Assert.assertEquals(
-		// element("txt_membershipProfileDetails", "description")
-		// .getText().trim(), description);
-		// Assert.assertEquals(element("txt_membershipProfileDetails", "type")
-		// .getText().trim(), fileType);
-		// String importDate = DateUtil
-		// .getCurrentdateInStringWithGivenFormate("MM/d/yyyy");
-		// Assert.assertTrue(element("txt_membershipProfileDetails",
-		// "import date")
-		// .getText().trim().equals(importDate));
-		// String importF = element("txt_membershipProfileDetails",
-		// "import file")
-		// .getText().trim();
-		// System.out.println(importF);
-		// // System.out.println(file);
-		// Assert.assertTrue(element("txt_membershipProfileDetails",
-		// "import file")
-		// .getText().trim().contains(Import_File));
 		logMessage("Step: ACS Import Match Profile Page is verifed \n");
 	}
 
@@ -4812,7 +4813,26 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		Assert.assertTrue(isElementDisplayed("table_data"),
 				"ASSERT FAILED: Child form is null");
 		logMessage("ASSERT PASSED: Verified Match totals child form is not null");
+
 	}
+
+	public void enterExpiryDatesBeforeAndAfterExpressRenewal() {
+		isElementDisplayed("inp_customerId");
+		EnterTextInField(elements("inp_customerId").get(0),DateUtil.getAnyDateForType("MM/dd/yyyy", -1, "month"));
+		EnterTextInField(elements("inp_customerId").get(1),DateUtil.getAnyDateForType("MM/dd/yyyy", -15, "date"));
+		logMessage("Step : Expiry Date greater than is entered as "+DateUtil.getAnyDateForType("MM/dd/yyyy", -1, "month"));
+		logMessage("Step : Expiry Date less than is entered as "+DateUtil.getAnyDateForType("MM/dd/yyyy", -15, "date"));
+	}
+	
+	public String fetchExpressURLForRenewal()
+	{
+		String expressurl;
+		expressurl=element("txt_endDate",String.valueOf(1),String.valueOf(19)).getText().trim();
+		logMessage("Step : Express URL for top most record is "+expressurl);
+		return expressurl;
+	}
+	
+	
 
 	public void verifyImportedFileIsPresentInList(String importedFile) {
 		isElementDisplayed("link_importMatch",
