@@ -9,6 +9,8 @@ import java.util.TimeZone;
 
 import org.testng.Reporter;
 
+import net.sourceforge.htmlunit.corejs.javascript.regexp.SubString;
+
 public class DateUtil {
 
 	static Calendar cal;
@@ -33,6 +35,7 @@ public class DateUtil {
 	}
 
 	public static String[] getNextDate(String dateModule, int frequency) {
+		String day;
 		cal = Calendar.getInstance();
 		s = new SimpleDateFormat("yyyyMMdd");
 		if (dateModule.equalsIgnoreCase("day")) {
@@ -45,7 +48,7 @@ public class DateUtil {
 		String result = s.format(new Date(cal.getTimeInMillis()));
 		String year = result.substring(0, 4);
 		String month = result.substring(4, 6);
-		String day = result.substring(6, 8);
+		     day = result.substring(6, 8);
 		String[] date = { year, month, day };
 		return date;
 	}

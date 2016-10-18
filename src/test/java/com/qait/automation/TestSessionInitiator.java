@@ -27,6 +27,7 @@ import com.qait.keywords.ACS_Awards_EWEB_PageActions;
 import com.qait.keywords.ACS_BatchProcessingActions;
 import com.qait.keywords.ACS_Fundraising_Action;
 import com.qait.keywords.ACS_MarketingPage_IWEB;
+import com.qait.keywords.ACS_My_Account_Action;
 import com.qait.keywords.ACS_ReportsActions;
 import com.qait.keywords.ACS_Scarf_Reporting;
 import com.qait.keywords.ACS_Scarf_ReviewingActions;
@@ -132,6 +133,7 @@ public class TestSessionInitiator {
 	public InventoryPageActions_IWEB inventoryIweb;
 	public ACS_Fundraising_Action acsFundraising;
 	public ACS_MarketingPage_IWEB acsMarketingPageIweb;
+	public ACS_My_Account_Action acsMyAccount;
 
 	public TakeScreenshot takescreenshot;
 
@@ -186,6 +188,7 @@ public class TestSessionInitiator {
 		acsMarketingPageIweb = new ACS_MarketingPage_IWEB(driver);
 		gcsPaymentPage = new GCS_PaymentActions(driver);
 		acsFundraising= new ACS_Fundraising_Action(driver);
+		acsMyAccount= new ACS_My_Account_Action(driver);
 	}
 
 	/**
@@ -248,7 +251,8 @@ public class TestSessionInitiator {
 						|| baseurl
 								.equalsIgnoreCase("https://stag-12iweb/NFStage2/iweb")
 						|| baseurl
-								.equalsIgnoreCase("https://stag-12iweb/NFStage5/iweb")) {
+								.equalsIgnoreCase("https://stag-12iweb/NFStage5/iweb")
+						|| baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage1/iweb")		) {
 //					System.out.println("in if");
 					baseurl = baseurl
 							.replaceAll(

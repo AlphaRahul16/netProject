@@ -883,6 +883,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(4);
 		switchToEwebRenewalFrame();
+		
 		isElementDisplayed("btn_printreceipt");
 		logMessage("Step : Print Renewal Receipt button is verified\n");
 		Assert.assertTrue(element("txt_legend", "Membership & Subscription Renewal - ").isDisplayed());

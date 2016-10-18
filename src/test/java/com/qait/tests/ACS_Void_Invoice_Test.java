@@ -38,14 +38,14 @@ public class ACS_Void_Invoice_Test extends BaseTest{
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step01_Launch_Iweb_Application")
 	public void Step02_User_Navigated_To_Membership_Page() {
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Membership");
 		test.homePageIWEB.verifyUserIsOnHomePage("Membership | Overview | Overview and Setup");
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step02_User_Navigated_To_Membership_Page")
 	public void Step03_Select_Query_In_Query_Membership_Page() {
 		test.homePageIWEB.clickOnSideBarTab("Members");
 		test.memberShipPage.clickOnTab("Query Membership");
@@ -53,7 +53,7 @@ public class ACS_Void_Invoice_Test extends BaseTest{
 		test.homePageIWEB.verifyUserIsOnHomePage("Membership | Members | Membership Profile");
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step03_Select_Query_In_Query_Membership_Page")
 	public void Step04_Verify_Payment_And_Balance_Fields_Values() {
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("invoices");
 		index = test.memberShipPage
@@ -62,7 +62,7 @@ public class ACS_Void_Invoice_Test extends BaseTest{
 		test.memberShipPage.verifyBalance(index);
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step04_Verify_Payment_And_Balance_Fields_Values")
 	public void Step05_User_Navigated_To_Accounting_Invoice_Page_And_Verify_Balance_And_Paid_Fields() {
 		test.memberShipPage.clickOnStudentMemberName(index);
 		test.homePageIWEB.verifyUserIsOnHomePage("Accounting | Invoice | Accounting Invoice Profile");
@@ -75,7 +75,7 @@ public class ACS_Void_Invoice_Test extends BaseTest{
 		productList = test.acsVoidInvoice.getProductsUnderLineItemsMenu(5);
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step05_User_Navigated_To_Accounting_Invoice_Page_And_Verify_Balance_And_Paid_Fields")
 	public void Step06_Creation_Of_New_Batch() {
 		test.invoicePage.getDataFromInvoiceProfilePage("invoice number");
 		test.acsVoidInvoice.clickOnVoidInvoiceButton("void invoice", 4);
@@ -84,7 +84,7 @@ public class ACS_Void_Invoice_Test extends BaseTest{
 		test.acsVoidInvoice.clickOnSaveButton();
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step06_Creation_Of_New_Batch")
 	public void Step07_Verify_Void_Invoice_Message_And_Voided_Line_Items() {
 //		test.acsAddressValidation.waitForPageReadyState();
 		test.acsVoidInvoice.verifyVoidInvoiceMessage(getYamlValue("VoidWithAdjustment.voidMessage"));
@@ -97,7 +97,7 @@ public class ACS_Void_Invoice_Test extends BaseTest{
 		test.acsVoidInvoice.verifyItemsUnderVoidedLineItemsMenu(productList, 4);
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step07_Verify_Void_Invoice_Message_And_Voided_Line_Items")
 	public void Step08_Verify_User_Is_Not_A_Member() {
 		test.memberShipPage.clickOnCustomerName();
 		test.acsVoidInvoice.verifyNotAMember("2", "receives member benefits");
