@@ -20,4 +20,6 @@ lnk_FindNomination         id                   F1_HYPERLINK_1
 lnk_ScarfReporting         xpath                //a[@title='Student Chapter Reporting']
 tab_leftSidebar            xpath                 //h3[contains(text(),'${tabname}')]
 overview_tab				xpath					(//a[text()='Overview'])[2]
+hd_sideBarACS                  xpath                 //h3[contains(text(),'${sidebarName}')][1]
+
 ==================================================================================================================================

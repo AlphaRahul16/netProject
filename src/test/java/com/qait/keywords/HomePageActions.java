@@ -20,7 +20,7 @@ public class HomePageActions extends ASCSocietyGenericPage {
 	public void verifyUserIsOnHomePage(String pageTitle) {
 		verifyPageTitleExact(pageTitle);
 		isElementDisplayed("txt_pageHeader");
-		logMessage("ASSERT PASSED: verified that user is on " + this.pagename
+		logMessage("ASSERT PASSED : Verified that user is on " + this.pagename
 				+ "\n");
 	}
 
@@ -41,7 +41,7 @@ public class HomePageActions extends ASCSocietyGenericPage {
 
 	public void clickOnTab(String tabName) {
 		click(element("lnk_tab", tabName));
-		logMessage("Step : click on tab " + tabName + "\n");
+		logMessage("STEP : Click on tab " + tabName + "\n");
 
 	}
 
@@ -54,7 +54,7 @@ public class HomePageActions extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		if (getAACT_OmaSheetValue(caseId, "Has About You Page?")
 				.equalsIgnoreCase("null")) {
-			logMessage("Step : value is not entered in the data sheet");
+			logMessage("STEP : Value is not entered in the data sheet");
 		}
 		flag = verifyCurrentTab("About You");
 		if (getAACT_OmaSheetValue(caseId, "Has About You Page?")
@@ -72,7 +72,7 @@ public class HomePageActions extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		if (getAACT_OmaSheetValue(caseId, "Has Confirmation Page?")
 				.equalsIgnoreCase("null")) {
-			logMessage("Step : value is not entered in the data sheet");
+			logMessage("STEP : Value is not entered in the data sheet");
 		}
 		flag = verifyCurrentTab("Confirmation");
 		if (getAACT_OmaSheetValue(caseId, "Has Confirmation Page?")
@@ -88,7 +88,7 @@ public class HomePageActions extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		if (getAACT_OmaSheetValue(caseId, "Has Checkout Page?")
 				.equalsIgnoreCase("null")) {
-			logMessage("Step : value is not entered in the data sheet");
+			logMessage("STEP : Value is not entered in the data sheet");
 		}
 		flag = verifyCurrentTab("Checkout");
 		if (getAACT_OmaSheetValue(caseId, "Has Checkout Page?")

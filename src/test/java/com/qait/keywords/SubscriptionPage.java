@@ -45,7 +45,7 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(5);
 		isElementDisplayed("list_fulfillmentType");
 		selectProvidedTextFromDropDown(element("list_fulfillmentType"), type);
-		logMessage("Step : Select " + type + " as fulfillment type \n");
+		logMessage("STEP : Select " + type + " as fulfillment type \n");
 		wait.hardWait(4);
 		wait.waitForPageToLoadCompletely();
 	}
@@ -99,12 +99,12 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 		if (dateWithTimeSlabInString.startsWith("0")) {
 			element("inp_tskStartTime").sendKeys(
 					dateWithTimeSlabInString.replaceFirst("0", ""));
-			logMessage("Step : Task start time is edited to "
+			logMessage("STEP : Task start time is edited to "
 					+ dateWithTimeSlabInString.replaceFirst("0", "") + "\n");
 			return dateWithTimeSlabInString.replaceFirst("0", "");
 		} else {
 			element("inp_tskStartTime").sendKeys(dateWithTimeSlabInString);
-			logMessage("Step : Task start time is edited to "
+			logMessage("STEP : Task start time is edited to "
 					+ dateWithTimeSlabInString + "\n");
 			return dateWithTimeSlabInString;
 		}
@@ -135,7 +135,7 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_firstPreviewStatusInList");
 		if (element("txt_firstPreviewStatusInList").getText().trim()
 				.equalsIgnoreCase(previewStatus)) {
-			logMessage("AASERT PASSED : preview status " + previewStatus
+			logMessage("ASSERT PASSED : Preview status " + previewStatus
 					+ " is verified\n");
 		} else {
 			int count = (Integer.parseInt(waitTime)) / 5;
@@ -145,7 +145,7 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 				isElementDisplayed("txt_firstPreviewStatusInList");
 				if (element("txt_firstPreviewStatusInList").getText().trim()
 						.equalsIgnoreCase(previewStatus)) {
-					logMessage("AASERT PASSED : preview status "
+					logMessage("AsSERT PASSED : Preview status "
 							+ previewStatus + " is verified\n");
 					break;
 				}
@@ -169,7 +169,7 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 		isElementDisplayed("hd_subscriptionFulfillment", tabName);
 		clickUsingXpathInJavaScriptExecutor(element(
 				"hd_subscriptionFulfillment", tabName));
-		logMessage("Step : click on tab " + tabName
+		logMessage("STEP : Click on tab " + tabName
 				+ " in hd_subscriptionFulfillment \n");
 	}
 
@@ -178,7 +178,7 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 		clickUsingXpathInJavaScriptExecutor(element("link_subTabSidebar",
 				linkName));
 		// element("link_subTabSidebar", linkName).click();
-		logMessage("Step : sublink " + linkName
+		logMessage("STEP : Sublink " + linkName
 				+ " is clicked in link_subTabSidebar\n");
 	}
 
@@ -194,14 +194,14 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 		clickUsingXpathInJavaScriptExecutor(element("chk_subscription",
 				subscriptionName));
 		// element("chk_subscription", subscriptionName).click();
-		logMessage("Step : subscription " + subscriptionName + " is checked\n");
+		logMessage("STEP : Subscription " + subscriptionName + " is checked\n");
 	}
 
 	public void clickOnSaveButton() {
 		isElementDisplayed("btn_save");
 		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
 		// element("btn_save").click();
-		logMessage("Step : save button is clicked in btn_save\n");
+		logMessage("STEP : Save button is clicked in btn_save\n");
 	}
 
 	public String getTaskStartTime() {
@@ -220,7 +220,7 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 			clickUsingXpathInJavaScriptExecutor(element("link_firstSubsTask"));
 		else
 			element("link_firstSubsTask").click();
-		logMessage("Step : first subscription task is clicked in link_firstSubsTask\n");
+		logMessage("STEP : First subscription task is clicked in link_firstSubsTask\n");
 	}
 
 	public void navigateToFirstSubscriptionTask() {
@@ -344,27 +344,27 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 			clickUsingXpathInJavaScriptExecutor(element("btn_commitPreviewButton"));
 		else
 			element("btn_commitPreviewButton").click();
-		logMessage("Step : commit preview button is clicked in btn_commitPreviewButton\n");
+		logMessage("STEP : Commit preview button is clicked in btn_commitPreviewButton\n");
 	}
 
 	public void enterStartDateInCommitPreview(String date) {
 		isElementDisplayed("inp_commitStartDate");
 		element("inp_commitStartDate").sendKeys(date);
-		logMessage("Step : start date " + date
+		logMessage("STEP : Start date " + date
 				+ " is entered in commit preview\n");
 	}
 
 	public void enterStartTimeInCommitPreview(String startTime) {
 		isElementDisplayed("inp_commitStartTime");
 		element("inp_commitStartTime").sendKeys(startTime);
-		logMessage("Step : start time " + startTime
+		logMessage("STEP : Start time " + startTime
 				+ " is entered in commit preview\n");
 	}
 
 	public void getDownDatabase(String name) {
 		isElementDisplayed("btn_childFormdata");
 		element("btn_childFormdata").click();
-		logMessage("Step : click on down button for " + name + " \n");
+		logMessage("STEP : Click on down button for " + name + " \n");
 
 	}
 
@@ -385,7 +385,7 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 		isElementDisplayed("label_subscriptionDetail", detailName);
 		String detailValue = getElementText(element("label_subscriptionDetail",
 				detailName));
-		logMessage("Step : The " + detailName + " is " + detailValue
+		logMessage("STEP : The " + detailName + " is " + detailValue
 				+ " on subscriber page\n");
 		return detailValue;
 	}
@@ -393,8 +393,8 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 	public void verifyRemainingIsOneLessThanIssues() {
 		String remaining = getDetailsValueOnSubscriberPage("remaining:");
 		String issues = getDetailsValueOnSubscriberPage("#issues:");
-		logMessage("Step : remaining is " + remaining + " \n");
-		logMessage("Step : Issues is :" + issues + " \n");
+		logMessage("STEP : Remaining is " + remaining + " \n");
+		logMessage("STEP : Issues is :" + issues + " \n");
 		Assert.assertTrue((Integer.parseInt(issues) - 1) == Integer
 				.parseInt(remaining));
 		logMessage("AASERT PASSED : Remaining issue is one less than the Issues\n");
@@ -438,7 +438,7 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 	public void verifySubName(String subName) {
 		isElementDisplayed("txt_subName");
 		element("txt_subName").getText().startsWith(subName);
-		logMessage("Step : sub name " + subName + " is verified \n");
+		logMessage("STEP : Sub name " + subName + " is verified \n");
 	}
 
 	public void verifySubscriptionAdded(String subscriptionName) {
@@ -457,7 +457,7 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 												"MM/d/YYYY", "EST5EDT"))) {
 
 							element("lnk_arrow", String.valueOf(i + 1)).click();
-							logMessage("Step : Go to record button is clicked \n");
+							logMessage("STEP : Go to record button is clicked \n");
 							flag = true;
 							break;
 						}
@@ -485,7 +485,7 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 						if (!element("txt_issueInTable", String.valueOf(i + 1))
 								.getText().equalsIgnoreCase("0")) {
 							element("lnk_arrow", String.valueOf(i + 1)).click();
-							logMessage("Step : Go to record button is clicked \n");
+							logMessage("STEP : Go to record button is clicked \n");
 							flag = true;
 							break;
 						}
@@ -500,7 +500,7 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 	public void clickOnPageLink(String pageNumber) {
 		isElementDisplayed("link_pageLink", pageNumber);
 		element("link_pageLink", pageNumber).click();
-		logMessage("Step : click on page number " + pageNumber
+		logMessage("STEP : Click on page number " + pageNumber
 				+ " in link_pageLink\n");
 	}
 
@@ -527,13 +527,13 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("img_spinner");
 			wait.waitForElementToDisappear(element("img_spinner"));
-			logMessage("STEP : wait for spinner to be disappeared \n");
+			logMessage("STEP : Wait for spinner to be disappeared \n");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		} catch (NoSuchElementException | AssertionError Exp) {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
-			logMessage("STEP : spinner is not present \n");
+			logMessage("STEP : Spinner is not present \n");
 		}
 	}
 

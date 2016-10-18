@@ -422,7 +422,7 @@ public class TestSessionInitiator {
 	}
 
 	public void printMethodName(String testName) {
-		Reporter.log("\nMethod Name:- " + testName.toUpperCase() + "\n", true);
+		Reporter.log("\nMethod Name :- " + testName.toUpperCase() + "\n", true);
 	}
 		
 }

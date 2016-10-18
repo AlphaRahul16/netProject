@@ -23,7 +23,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(3);
 		verifyPageTitleContains(pageTitle);
 
-		logMessage("ASSERT PASSED: verified that user is on " + this.pagename
+		logMessage("ASSERT PASSED : Verified that user is on " + this.pagename
 				+ "\n");
 
 	}
@@ -97,6 +97,20 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		} else {
 			clickUsingXpathInJavaScriptExecutor(element("hd_sideBar", tabName));
 		}
+		logMessage("STEP : Click on tab " + tabName + " From Left Panel \n");
+	}
+	
+	public void clickOnSideBarTabACS(String tabName) {
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
+		hardWaitForIEBrowser(10);
+		isElementDisplayed("hd_sideBarACS", tabName);
+
+		if (isBrowser("chrome")||isBrowser("safari")) {
+			element("hd_sideBarACS", tabName).click();
+		} else {
+			clickUsingXpathInJavaScriptExecutor(element("hd_sideBarACS", tabName));
+		}
 		logMessage("Step : Click on tab " + tabName + " From Left Panel \n");
 	}
 	
@@ -136,21 +150,21 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		handleAlert();
 		isElementDisplayed("link_memberShip");
 		clickUsingXpathInJavaScriptExecutor(element("link_memberShip"));
-		logMessage("Step : MemberShip tab is clicked\n");
+		logMessage("STEP : MemberShip tab is clicked\n");
 	}
 
 	public void clickOnSubscriptionTab() {
 		handleAlert();
 		isElementDisplayed("link_subscription");
 		clickUsingXpathInJavaScriptExecutor(element("link_subscription"));
-		logMessage("Step : subscription tab is clicked\n");
+		logMessage("STEP : subscription tab is clicked\n");
 	}
 
 	public void clickOnCRMTab() {
 		handleAlert();
 		isElementDisplayed("link_CRM");
 		clickUsingXpathInJavaScriptExecutor(element("link_CRM"));
-		logMessage("Step : CRM tab is clicked\n");
+		logMessage("STEP : CRM tab is clicked\n");
 	}
 
 	public void waitForTabsArea() {
@@ -167,7 +181,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 			element("btn_tabs").click();
 		else
 		    executeJavascript("document.getElementsByClassName('dropdown-toggle')[3].click()");
-		logMessage("Step :  Module tab is clicked\n");
+		logMessage("STEP :  Module tab is clicked\n");
 	}
 
 	public void launchUrl(String url) {
@@ -180,10 +194,10 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		if (isIEBrowser()|| isBrowser("chrome")) {
 			clickUsingXpathInJavaScriptExecutor(element("link_tabsOnModule",
 					tabName));
-			logMessage("Step : " + tabName + " tab is clicked\n");
+			logMessage("STEP : " + tabName + " tab is clicked\n");
 		} else {
 			element("link_tabsOnModule", tabName).click();
-			logMessage("Step : " + tabName + " tab is clicked\n");
+			logMessage("STEP : " + tabName + " tab is clicked\n");
 		}
 	}
 
@@ -202,7 +216,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnAddIndividual() {
 		isElementDisplayed("link_addIndividuals");
 		clickUsingXpathInJavaScriptExecutor(element("link_addIndividuals"));
-		logMessage("Step : add individual link is clicked in link_addIndividuals\n");
+		logMessage("STEP : Add individual link is clicked in link_addIndividuals\n");
 
 	}
 
@@ -215,13 +229,13 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnCommitteeSetupPageLink() {
 		isElementDisplayed("btn_committeeSetupPage");
 		element("btn_committeeSetupPage").click();
-		logMessage("Info: Clicked on Committee Setup Page link");
+		logMessage("[Info] : Clicked on Committee Setup Page link");
 		verifyUserIsOnCommitteeSetupPage();
 	}
 
 	public void verifyUserIsOnCommitteeSetupPage() {
 		isElementDisplayed("txt_committeeSetup");
-		logMessage("Test passed: User is on Committee Setup Page");
+		logMessage("STEP : User is on Committee Setup Page");
 	}
 
 	public void enterAuthentication(String uName, String password) {

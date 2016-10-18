@@ -193,9 +193,11 @@ th_lookup										xpath						.//*[@id='dgDynamicList']//th/a[contains(text(),'$
 productName_inp									css							#prd_name
 inp_checkNumber                                   id                    	  	 pin_check_number
 list_orderFrequency                             id                              ord_frequency
-
-##Credit_Page
-
+btn_browse										id									a40_file
+label_profile_title			  					xpath							 //div[text()='${value}']
+label_heading_data								xapth							//span[text()='${value}']
+table_data										xpath							.//table[@class='table']//tr[2]
+##----------------------------------------------------------Credit_Page-------------------------------------------------------------------------
 icon_expand										css								.icon-chevron-down
 drpdown_batchNameCreditPage						css								#cdt_bat_key
 label_creditAmount								css								#Caption_cdd_amount

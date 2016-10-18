@@ -256,7 +256,7 @@ public class ASM_NominatePage extends GetPage {
 		wait.hardWait(3);
 		isElementDisplayed("rad_uploadRecommendation");
 		element("rad_uploadRecommendation").click();
-		logMessage("STEP : select upload button for recommendation in rad_uploadRecommendation\n");
+		logMessage("STEP : Select upload button for recommendation in rad_uploadRecommendation\n");
 	}
 
 	public void uploadFileForSupportForm(String support2LastName,
@@ -284,7 +284,7 @@ public class ASM_NominatePage extends GetPage {
 			isElementDisplayed("btn_confirm");
 			element("btn_confirm").click();
 			wait.resetExplicitTimeout(timeOut);
-			logMessage("STEP : confirm button is clicked in btn_confirm\n");
+			logMessage("STEP : Confirm button is clicked in btn_confirm\n");
 		}
 		catch(NoSuchElementException e)
 		{
@@ -300,7 +300,7 @@ public class ASM_NominatePage extends GetPage {
 			wait.resetImplicitTimeout(5);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("img_spinner");
-			logMessage("wait for spinner to disappear\n");
+			logMessage("Wait for spinner to disappear\n");
 			wait.waitForElementToDisappear(element("img_spinner"));
 		} catch (NoSuchElementException exp) {
 			logMessage("Spinner is not present \n");
@@ -318,7 +318,7 @@ public class ASM_NominatePage extends GetPage {
 			wait.resetImplicitTimeout(3);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("img_spinnerOnSearch");
-			logMessage("wait for spinner to disappear\n");
+			logMessage("Wait for spinner to disappear\n");
 			wait.waitForElementToDisappear(element("img_spinnerOnSearch"));
 		} catch (NoSuchElementException exp) {
 
@@ -337,7 +337,7 @@ public class ASM_NominatePage extends GetPage {
 			wait.resetImplicitTimeout(3);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("span_spinnerOnUpload");
-			logMessage("wait for spinner to disappear\n");
+			logMessage("Wait for spinner to disappear\n");
 			wait.waitForElementToDisappear(element("span_spinnerOnUpload"));
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
@@ -357,7 +357,7 @@ public class ASM_NominatePage extends GetPage {
 			wait.resetImplicitTimeout(3);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("img_submitnomination");
-			logMessage("wait for spinner to disappear\n");
+			logMessage("Wait for spinner to disappear\n");
 			wait.waitForElementToDisappear(element("img_submitnomination"));
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
@@ -384,7 +384,7 @@ public class ASM_NominatePage extends GetPage {
 					.equalsIgnoreCase("ACS Award for Creative Invention:2017"))) {
 				String awardName = element.getText();
 				element.click();
-				logMessage("Step : " + awardName + " is clicked in li_awards\n");
+				logMessage("STEP : " + awardName + " is clicked in li_awards\n");
 				flag = true;
 				break;
 			} else {
@@ -392,7 +392,7 @@ public class ASM_NominatePage extends GetPage {
 			}
 		}
 		if (!flag)
-			Assert.fail("Step : award name is not present in list of awards\n");
+			Assert.fail("STEP : award name is not present in list of awards\n");
 	}
 
 	public void clickOnCreateNewNominationButton() {
@@ -400,19 +400,19 @@ public class ASM_NominatePage extends GetPage {
 		isElementDisplayed("inp_createNewNomination");
 		wait.hardWait(1);
 		element("inp_createNewNomination").click();
-		logMessage("Step : Create new nomination button is clicked in inp_createNewNomination\n");
+		logMessage("STEP : Create new nomination button is clicked in inp_createNewNomination\n");
 	}
 
 	public void selectIKnowTheirNameRadioButton() {
 		isElementDisplayed("rad_knowTheirName");
 		element("rad_knowTheirName").click();
-		logMessage("Step : I Know Their Name radio button is clicked in rad_knowTheirName\n");
+		logMessage("STEP : I Know Their Name radio button is clicked in rad_knowTheirName\n");
 	}
 
 	public void enterLastName(String lastname) {
 		isElementDisplayed("inp_findByName");
 		element("inp_findByName").sendKeys(lastname);
-		logMessage("Step : " + lastname + " is entered in inp_findByName\n");
+		logMessage("STEP : " + lastname + " is entered in inp_findByName\n");
 	}
 
 	public void enterMemberNumber(String membernumber) {
@@ -420,7 +420,7 @@ public class ASM_NominatePage extends GetPage {
 		wait.hardWait(3);
 		isElementDisplayed("inp_findbymembernumber");
 		element("inp_findbymembernumber").sendKeys(membernumber);
-		logMessage("Step : " + membernumber + " is entered in inp_findbymembernumber\n");
+		logMessage("STEP : " + membernumber + " is entered in inp_findbymembernumber\n");
 	}
 	
 	public void clickFindMemberBynumberButton()
@@ -429,20 +429,20 @@ public class ASM_NominatePage extends GetPage {
 		wait.hardWait(1);
 		isElementDisplayed("btn_findMemberByNumber");
 		element("btn_findMemberByNumber").click();
-		logMessage("Step : Find Member button is clicked in btn_findMemberByNumber\n");
+		logMessage("STEP : Find Member button is clicked in btn_findMemberByNumber\n");
 		
 	}
 	
 	public void enterSupporterMemberNumber(String formnumber,String membernumber) {
 		isElementDisplayed("inp_support"+formnumber+"FindByNum");
 		element("inp_support"+formnumber+"FindByNum").sendKeys(membernumber);
-		logMessage("Step : " + membernumber + " is entered in inp_findbymembernumber\n");
+		logMessage("STEP : " + membernumber + " is entered in inp_findbymembernumber\n");
 	}
 	
 	public void ClickSupporterFindMemberButton(String formnumber) {
 		isElementDisplayed("btn_findSupporter"+formnumber+"ByNumber");
 		element("btn_findSupporter"+formnumber+"ByNumber").click();
-		logMessage("Step : Find Member for supporter "+formnumber+" is clicked inp_findbymembernumber\n");
+		logMessage("STEP : Find Member for supporter "+formnumber+" is clicked inp_findbymembernumber\n");
 	}
 	public void clickOnSelectNomineeButton() {
 		try
@@ -460,7 +460,7 @@ public class ASM_NominatePage extends GetPage {
 		}
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
-		logMessage("Step : Select Nominee button is clicked in btn_selectNomineeSupport1\n");
+		logMessage("STEP : Select Nominee button is clicked in btn_selectNomineeSupport1\n");
 	}
 	
 	public void clickOnSelectNomineeButtonForAwardsNomination() {
@@ -468,14 +468,32 @@ public class ASM_NominatePage extends GetPage {
 			wait.hardWait(1);
 			elements("btn_selectNomineeSupport1").get(0).click();
 			wait.hardWait(1);
-		logMessage("Step : Select Nominee button is clicked in btn_selectNomineeSupport1\n");
+
+			//chooseUniqueNomineeForAwardsNomination(flag,mapAwardsNomination,formNumber);
+		
+		//}
+//		catch(Exception e)
+//		{
+//			if(formNumber!=3)
+//			{
+//				wait.hardWait(3);
+//				mapNomineeNames.put("supporter"+formNumber, elements("txt_supporterNames").get(formNumber-1).getText().trim());
+//				logMessage("Step : Supporter "+formNumber+" name is saved as "+mapNomineeNames.get("supporter"+formNumber));
+//			}
+//		}
+//		wait.resetImplicitTimeout(timeOut);
+//		wait.resetExplicitTimeout(timeOut);
+	
+		
+		logMessage("STEP : Select Nominee button is clicked in btn_selectNomineeSupport1\n");
+
 	}
 
 	public void clickOnSelectNomineeButtonForSupport2() {
 		
 		isElementDisplayed("btn_selectNomineeSupport2");
 		element("btn_selectNomineeSupport2").click();
-		logMessage("Step : Select Nominee button is clicked in btn_selectNomineeSupport2\n");
+		logMessage("STEP : Select Nominee button is clicked in btn_selectNomineeSupport2\n");
 	}
 
 	public void verifyCurrentTab(String tabName) {
@@ -488,32 +506,32 @@ public class ASM_NominatePage extends GetPage {
 	public void selectSafeLabPracticesUnknownRadioButton() {
 		isElementDisplayed("rad_safeLabPractices");
 		element("rad_safeLabPractices").click();
-		logMessage("Step : Safe laboratory practices radio button is selected for unknown in rad_safeLabPractices\n");
+		logMessage("STEP : Safe laboratory practices radio button is selected for unknown in rad_safeLabPractices\n");
 	}
 
 	public void selectSafeLabPracticesRadioButton(String value) {
 		isElementDisplayed("rad_dynsafelabpractice",value);
 		element("rad_dynsafelabpractice",value).click();
-		logMessage("Step : Safe laboratory practices radio button "+value+" is selected for unknown in rad_dynsafelabpractice\n");
+		logMessage("STEP : Safe laboratory practices radio button "+value+" is selected for unknown in rad_dynsafelabpractice\n");
 	}
 
 	public void selectNoForDiscussedAwardNominationRadioButton() {
 		isElementDisplayed("rad_discussedAwardNomination");
 		element("rad_discussedAwardNomination").click();
-		logMessage("Step : Have discussed award nomination radio button is selected as No \n");
+		logMessage("STEP : Have discussed award nomination radio button is selected as No \n");
 	}
 
 	public void selectValueForDiscussedAwardNominationRadioButton(String value) {
 		isElementDisplayed("rad_disscusNomination",value);
 		element("rad_disscusNomination",value).click();
-		logMessage("Step : Have discussed award nomination radio button as "+value+"\n");
+		logMessage("STEP : Have discussed award nomination radio button as "+value+"\n");
 	}
 
 	public void selectDiscipline(String discipline) {
 		isElementDisplayed("list_selectDiscipline");
 		selectProvidedTextFromDropDown(element("list_selectDiscipline"),
 				discipline);
-		logMessage("Step : " + discipline
+		logMessage("STEP : " + discipline
 				+ " is selected in list_selectDiscipline\n");
 	}
 
@@ -521,33 +539,33 @@ public class ASM_NominatePage extends GetPage {
 		isElementDisplayed("inp_nomineePosition");
 		element("inp_nomineePosition").clear();
 		element("inp_nomineePosition").sendKeys(positionName);
-		logMessage("Step : " + positionName
+		logMessage("STEP : " + positionName
 				+ " is entered in inp_nomineePosition\n");
 	}
 
 	public void clickOnContinueButton() {
 		isElementDisplayed("btn_continue");
 		element("btn_continue").click();
-		logMessage("Step : continue button is clicked in btn_continue\n");
+		logMessage("STEP : continue button is clicked in btn_continue\n");
 	}
 
 	public void clickOnConfirm_preparedNominationButton() {
 		isElementDisplayed("btn_confirm_PrepareNomination");
 		element("btn_confirm_PrepareNomination").click();
-		logMessage("Step : confirm button is clicked in btn_confirm_PrepareNomination\n");
+		logMessage("STEP : confirm button is clicked in btn_confirm_PrepareNomination\n");
 	}
 
 	public void enterSuggstedCitation(String suggestedCitation) {
 		isElementDisplayed("txtAr_suggestedCitation");
 		element("txtAr_suggestedCitation").sendKeys(suggestedCitation);
-		logMessage("Step : " + suggestedCitation
+		logMessage("STEP : " + suggestedCitation
 				+ " is entered in txtAr_suggestedCitation\n");
 	}
 
 	public void enterRecommendation(String recommendation) {
 		isElementDisplayed("txtAr_recommendation");
 		element("txtAr_recommendation").sendKeys(recommendation);
-		logMessage("Step : " + recommendation
+		logMessage("STEP : " + recommendation
 				+ " is entered in txtAr_recommendation\n");
 	}
 
@@ -563,7 +581,7 @@ public class ASM_NominatePage extends GetPage {
 				+ inputNumber + "].getElementsByTagName('input')[0]");
 		ele.sendKeys(filePath.getAbsolutePath());
 		hardWaitForIEBrowser(2);
-		logMessage("Step : " + fileName + " is uploaded in " + fieldname
+		logMessage("STEP : " + fileName + " is uploaded in " + fieldname
 				+ " \n");
 	}
 	
@@ -579,14 +597,14 @@ public class ASM_NominatePage extends GetPage {
 				+ inputNumber + "].getElementsByTagName('input')[0]");
 		ele.sendKeys(filePath.getAbsolutePath());
 		hardWaitForIEBrowser(2);
-		logMessage("Step : " + fileName + " is uploaded in " + fieldname
+		logMessage("STEP : " + fileName + " is uploaded in " + fieldname
 				+ " \n");
 	}
 
 	public void clickOnIKnowTheirName_Support(String formNumber) {
 		isElementDisplayed("inp_support" + formNumber + "IKnowThierName");
 		element("inp_support" + formNumber + "IKnowThierName").click();
-		logMessage("Step : I Konw Their Name radio button is clicked for supportform "
+		logMessage("STEP : I Konw Their Name radio button is clicked for supportform "
 				+ formNumber
 				+ " in inp_support "
 				+ formNumber
@@ -598,14 +616,14 @@ public class ASM_NominatePage extends GetPage {
 		wait.hardWait(1);
 		//element("inp_support" + formNumber + "FindByName").sendKeys(lastName);
 		element("inp_support" + formNumber + "FindByName").sendKeys(Keys.chord(Keys.CONTROL, "a"), lastName);
-		logMessage("Step : " + lastName + " is entered in support form "
+		logMessage("STEP : " + lastName + " is entered in support form "
 				+ formNumber + " in inp_support " + formNumber + " FindByName \n");
 	}
 
 	public void clickOnSubmitButton() {
 		isElementDisplayed("btn_submit");
 		element("btn_submit").click();
-		logMessage("Step : click on submit button in btn_submit\n");
+		logMessage("STEP : click on submit button in btn_submit\n");
 		waitForSpinnerOnSubmitNomination();
 		wait.waitForPageToLoadCompletely();
 		verifyNominationSubmitted();
@@ -615,13 +633,13 @@ public class ASM_NominatePage extends GetPage {
 	public void verifyNominationSubmitted() {
 		wait.waitForElementToBeVisible(element("txt_nominationSubmitted"));
 		isElementDisplayed("txt_nominationSubmitted");
-		logMessage("Step : verifiy nomination is submitted\n");
+		logMessage("STEP : verifiy nomination is submitted\n");
 	}
 
 	public void clickonGoBackButton() {
 		isElementDisplayed("btn_cancel");
 		element("btn_cancel").click();
-		logMessage("Step : click on go back button in btn_cancel\n");
+		logMessage("STEP : click on go back button in btn_cancel\n");
 	}
 
 	public void verifyDashBoardIsPresent() {
@@ -655,14 +673,14 @@ public class ASM_NominatePage extends GetPage {
 		isElementDisplayed("list_patentDate_" + day_month_year);
 		selectProvidedTextFromDropDown(element("list_patentDate_"
 				+ day_month_year), value);
-		logMessage("Step : " + day_month_year + " is selected in "
+		logMessage("STEP : " + day_month_year + " is selected in "
 				+ day_month_year + " \n");
 	}
 
 	public void enterPatentInfo(String infoType, String infoValue) {
 		isElementDisplayed("inp_patent" + infoType);
 		element("inp_patent" + infoType).sendKeys(infoValue);
-		logMessage("Step : ");
+		logMessage("STEP : ");
 	}
 
 	public void selectNoForYearOfExperience() {
@@ -674,7 +692,7 @@ public class ASM_NominatePage extends GetPage {
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("rad_yearOfExperience");
 			element("rad_yearOfExperience").click();
-			logMessage("Step : No is selected for year of experience in rad_yearOfExperience\n");
+			logMessage("STEP : No is selected for year of experience in rad_yearOfExperience\n");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		} catch (NoSuchElementException exp) {
@@ -695,13 +713,13 @@ public class ASM_NominatePage extends GetPage {
 		}
 		catch(NoSuchElementException e)
 		{
-			logMessage("Step : Confirm Address button does not appeared\n");
+			logMessage("STEP : Confirm Address button does not appeared\n");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		}
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
-		logMessage("Step : Nominator address details confirmed"+"\n");
+		logMessage("STEP : Nominator address details confirmed"+"\n");
 	}
 
 	public void selectAwardFromAwardListAndVerifyNominationMessage(String currentAwardName)
@@ -729,7 +747,7 @@ public class ASM_NominatePage extends GetPage {
 				iterable_element.click();
 			}
 		}
-		logMessage("Step : "+currentAwardName+" is selected from the list\n");
+		logMessage("STEP : "+currentAwardName+" is selected from the list\n");
 
 
 	}
@@ -754,14 +772,15 @@ public class ASM_NominatePage extends GetPage {
 		wait.waitForPageToLoadCompletely();
 
 	}
-	
-//	private String saveNomineeInformation() {
-//        wait.hardWait(5);
-//		String NomineeName = ReverseStringWords(element("txt_Nomineename").getText());
-//		System.out.println("Nominee Name " + NomineeName);
-//		logMessage("Step : Nominator Name is "+NomineeName);
-//        return NomineeName;
-//	}
+
+	private String saveNomineeInformation() {
+        wait.hardWait(5);
+		String NomineeName = ReverseStringWords(element("txt_Nomineename_123").getText());
+		System.out.println("Nominee Name " + NomineeName);
+		logMessage("STEP : Nominator Name is "+NomineeName);
+        return NomineeName;
+	}
+
 
 	public void FillEligibilityQuestionsDetails_AwardsNomination(Map<String,String> mapAwardsNomination)
 	{
@@ -860,21 +879,21 @@ public class ASM_NominatePage extends GetPage {
 		isElementDisplayed("link_remove",Typeid);
 		logMessage("Step : Remove button is displayed for type "+Typeid);
 		isElementDisplayed("link_open",Typeid);
-		logMessage("Step : Open button is displayed for type "+Typeid);
+		logMessage("STEP : Open button is displayed for type "+Typeid);
 	}
 	
 	public void clickSaveForLaterButtonToNavigateToHomePage()
 	{
 		isElementDisplayed("btn_saveForLater");
 		element("btn_saveForLater").click();
-		logMessage("Step : save for later button is clicked, naviagtes to home page\n");
+		logMessage("STEP : save for later button is clicked, naviagtes to home page\n");
 	}
 	
 	public void clickEditButtonOnHomePage()
 	{
 		isElementDisplayed("btn_editNominee");
 		element("btn_editNominee").click();
-		logMessage("Step : edit Nominee button is clicked\n");
+		logMessage("STEP : edit Nominee button is clicked\n");
 	}
 	
 	public void verifyAwardStatusOnHomePageAwardNomination(String awardName,String expectedStatus)
@@ -935,7 +954,7 @@ public class ASM_NominatePage extends GetPage {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		logMessage("Step : Open button is clicked for " + name + "\n");
+		logMessage("STEP : Open button is clicked for " + name + "\n");
 		//Assert.assertTrue(isFileDownloaded(downloadFilePath, name),
 		//		"Failed to download Expected document");
 logMessage("ASSERT PASSED : Pdf file downloaded for "+name+" submitted nomination\n");

@@ -48,7 +48,7 @@ drpdwn_degreeType                           css                                 
 btns_remove                                 xpath                                     //a[contains(text(),'remove')]
 rad_electronicCEN                           css                                       input[id*='rbElectronic']
 rad_printCEN                                css                                       input[id*='rbPrint']
-btn_printreceipt                            css                                       #print-invoice>input
+btn_printreceipt                            xpath                                        //*[@id='print-invoice']/input
 txt_priceValue                              xpath                                     //td[contains(text(),'${productName}')]//following-sibling::td[2]
 btn_logout                                  css                                       a[href*='logout']
 txt_renewalthankyoumsg                      xpath                                     //h3[contains(text(),'${message}')]
@@ -65,5 +65,6 @@ btn_continueToPayment                       css                                 
 btn_renewalLength                           css                                       span[id*='RenewalLength']
 btn_paidStatus                              css                                       .payment-status
 txt_productIndividualAmount                 xpath                                     //span[text()='${value}']/../following-sibling::td[3]/span
-
+txt_AsteriskFields                          css                                       span[id*='${value}']
+logo_OMR                                    css                                     .app-logo>h2
 =================================================================================================================================================

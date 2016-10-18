@@ -53,7 +53,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	public void clickAtTestStatement() {
 		isElementDisplayed("inp_AtTestStatement");
 		click(element("inp_AtTestStatement"));
-		logMessage("Step: at test statement is clicked in  inp_AtTestStatement\n");
+		logMessage("STEP : At test statement is clicked in  inp_AtTestStatement\n");
 	}
 
 	public void clickSubmitButtonAtBottom() {
@@ -63,7 +63,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_submitBottom");
 		clickUsingXpathInJavaScriptExecutor(element("btn_submitBottom"));
 		// click(element("btn_submitBottom"));
-		logMessage("Step: submit button at bottom is clicked in  btn_submitBottom\n");
+		logMessage("STEP : Submit button at bottom is clicked in  btn_submitBottom\n");
 		// cancelOutPopUp();
 	}
 
@@ -76,19 +76,19 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	public void clickSubmitButton() {
 		isElementDisplayed("btn_submitBottom");
 		click(element("btn_submitBottom"));
-		logMessage("Step: submit button at bottom is clicked in  btn_submitBottom\n");
+		logMessage("STEP : Submit button at bottom is clicked in  btn_submitBottom\n");
 
 	}
 
 	public void cancelOutPopUp() {
 		isElementDisplayed("btn_cancelPopup");
 		click(element("btn_cancelPopup"));
-		logMessage("Step: cancel in pop up is clicked in  btn_cancelPopup\n");
+		logMessage("STEP : Cancel in pop up is clicked in  btn_cancelPopup\n");
 	}
 
 	public void verifyMemberName(String caseId) {
 		if (map().get("Member Type?").equalsIgnoreCase("")) {
-			logMessage("Step : member name is not present in data sheet\n");
+			logMessage("STEP : Member name is not present in data sheet\n");
 		} else {
 			verifyElementText("txt_memberName", map().get("Member Type?"));
 			logMessage("ASSERT PASSED : " + map().get("Member Type?")
@@ -99,7 +99,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 
 	public void verifyMemberName_GCSOMA(String caseId) {
 		if (map().get("Member Type?").equalsIgnoreCase("")) {
-			logMessage("Step : member name is not present in data sheet\n");
+			logMessage("STEP : Member name is not present in data sheet\n");
 		} else {
 			verifyElementText("txt_GCSOMAmemberName", map().get("Member Type?"));
 			logMessage("ASSERT PASSED : " + map().get("Member Type?")
@@ -110,7 +110,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 
 	public void verifyMemberName_AACTOMA(String caseId) {
 		if (getAACT_OmaSheetValue(caseId, "Member Type?").equalsIgnoreCase("")) {
-			logMessage("Step : member name is not present in data sheet\n");
+			logMessage("STEP : Member name is not present in data sheet\n");
 		} else {
 			verifyElementText("txt_memberName",
 					getAACT_OmaSheetValue(caseId, "Member Type?"));
@@ -154,7 +154,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 
 	public void verifyTechnicalDivision(String caseId) {
 		if (map().get("Technical Division").equalsIgnoreCase("")) {
-			logMessage("Step : division name is not present in data sheet\n");
+			logMessage("STEP : Division name is not present in data sheet\n");
 		} else {
 			isElementDisplayed("txt_technicalDivision",
 					map().get("Technical Division"));
@@ -166,7 +166,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 
 	public void verifyPublication(String caseId) {
 		if (map().get("PublicationName").equalsIgnoreCase("")) {
-			logMessage("Step : publication name is not present in data sheet\n");
+			logMessage("STEP : Publication name is not present in data sheet\n");
 		} else {
 			isElementDisplayed("txt_publication", map().get("PublicationName"));
 			logMessage("ASSERT PASSED : " + map().get("PublicationName")
@@ -178,7 +178,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	private void enterCreditCardInfo(String creditCardInfo, String value) {
 		isElementDisplayed("inp_" + creditCardInfo);
 		element("inp_" + creditCardInfo).sendKeys(value);
-		logMessage("Step: " + value + " is entered in  inp_" + creditCardInfo
+		logMessage("STEP : " + value + " is entered in  inp_" + creditCardInfo
 				+ "\n");
 	}
 
@@ -189,7 +189,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		selectDropDownValue(value);
 		// selectProvidedTextFromDropDown(element("list_creditCard"
 		// + creditCardInfo), value);
-		logMessage("Step: " + value + " is selected in  list_creditCard"
+		logMessage("STEP : " + value + " is selected in  list_creditCard"
 				+ creditCardInfo + "\n");
 	}
 
@@ -199,7 +199,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 			isElementDisplayed("list_" + ExpirationMonth);
 			selectProvidedTextFromDropDown(element("list_" + ExpirationMonth),
 					currentMonth);
-			logMessage("Step: " + currentMonth + " is selected in  list_"
+			logMessage("STEP : " + currentMonth + " is selected in  list_"
 					+ ExpirationMonth + "\n");
 
 		} else {
@@ -207,7 +207,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 			isElementDisplayed("list_" + ExpirationMonth);
 			selectProvidedTextFromDropDown(element("list_" + ExpirationMonth),
 					currentMonth);
-			logMessage("Step: " + currentMonth + " is selected in  list_"
+			logMessage("STEP : " + currentMonth + " is selected in  list_"
 					+ ExpirationMonth + "\n");
 		}
 	}
@@ -218,14 +218,14 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 			isElementDisplayed("list_" + ExpirationYear);
 			selectProvidedTextFromDropDown(element("list_" + ExpirationYear),
 					nextYear);
-			logMessage("Step: " + nextYear + " is selected in  list_"
+			logMessage("STEP : " + nextYear + " is selected in  list_"
 					+ ExpirationYear + "\n");
 		} else {
 			String nextYear = String.valueOf(nextYearInInteger);
 			isElementDisplayed("list_" + ExpirationYear);
 			selectProvidedTextFromDropDown(element("list_" + ExpirationYear),
 					nextYear);
-			logMessage("Step: " + nextYear + " is selected in  list_"
+			logMessage("STEP : " + nextYear + " is selected in  list_"
 					+ ExpirationYear + "\n");
 		}
 
@@ -248,9 +248,9 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 				clickUsingXpathInJavaScriptExecutor(element("rad_multiYear",
 						multiYearDecisionValue));
 				// click(element("rad_multiYear", multiYearDecisionValue));
-				logMessage("Step : multiYearDecision " + multiYearDecisionValue
+				logMessage("STEP : MultiYearDecision " + multiYearDecisionValue
 						+ " value is clicked in rad_multiYear\n");
-				logMessage("Step : wait for price values to be changed after selection of multi year value\n");
+				logMessage("STEP : Wait for price values to be changed after selection of multi year value\n");
 				// hardWaitForIEBrowser(2);
 				try {
 					wait.resetImplicitTimeout(0);
@@ -269,16 +269,16 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 				clickUsingXpathInJavaScriptExecutor(element("rad_multiYear",
 						multiYearDecisionValue));
 				// click(element("rad_multiYear", multiYearDecisionValue));
-				logMessage("Step : multiYearDecision " + multiYearDecisionValue
+				logMessage("STEP : MultiYearDecision " + multiYearDecisionValue
 						+ " value is clicked in rad_multiYear\n");
-				logMessage("Step : wait for price values to be changed after selection of multi year value\n");
+				logMessage("STEP : Wait for price values to be changed after selection of multi year value\n");
 				try {
 					wait.waitForElementToDisappear(element("txt_multiYearWait"));
 				} catch (Exception E) {
 					logMessage("txt_multiYearWait did not appear");
 				}
 			} else {
-				logMessage("Step : multiyear flag is not present in price value sheet\n");
+				logMessage("STEP : Multiyear flag is not present in price value sheet\n");
 			}
 		}
 		DecimalFormat df = new DecimalFormat("0.00");
@@ -307,7 +307,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 			Assert.assertEquals(discountedPrice,
 					map().get(mutliYearInInteger + " Year Term Price 2016?")
 							.trim());
-			logMessage("ASSERT PASSED : discountedPrice in actual is "
+			logMessage("ASSERT PASSED : DiscountedPrice in actual is "
 					+ discountedPrice + " discountedPrice in sheet"
 					+ map().get(mutliYearInInteger + " Year Term Price 2016?")
 					+ "\n");
@@ -317,7 +317,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 					+ map().get(DateUtil.getCurrentYear() + " DUES").trim());
 			Assert.assertEquals(discountedPrice,
 					map().get(DateUtil.getCurrentYear() + " DUES").trim());
-			logMessage("ASSERT PASSED : discountedPrice in actual is "
+			logMessage("ASSERT PASSED : DiscountedPrice in actual is "
 					+ discountedPrice + " discountedPrice in sheet"
 					+ map().get(DateUtil.getCurrentYear() + " DUES") + "\n");
 			System.out.println("discounted price:" + discountedPrice);
@@ -348,9 +348,9 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 				clickUsingXpathInJavaScriptExecutor(element("rad_multiYear",
 						multiYearDecisionValue));
 				// click(element("rad_multiYear", multiYearDecisionValue));
-				logMessage("Step : multiYearDecision " + multiYearDecisionValue
+				logMessage("STEP : MultiYearDecision " + multiYearDecisionValue
 						+ " value is clicked in rad_multiYear\n");
-				logMessage("Step : wait for price values to be changed after selection of multi year value\n");
+				logMessage("STEP : Wait for price values to be changed after selection of multi year value\n");
 				// hardWaitForIEBrowser(2);
 				try {
 					wait.resetImplicitTimeout(0);
@@ -369,16 +369,16 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 				clickUsingXpathInJavaScriptExecutor(element("rad_multiYear",
 						multiYearDecisionValue));
 				// click(element("rad_multiYear", multiYearDecisionValue));
-				logMessage("Step : multiYearDecision " + multiYearDecisionValue
+				logMessage("STEP : MultiYearDecision " + multiYearDecisionValue
 						+ " value is clicked in rad_multiYear\n");
-				logMessage("Step : wait for price values to be changed after selection of multi year value\n");
+				logMessage("STEP : Wait for price values to be changed after selection of multi year value\n");
 				try {
 					wait.waitForElementToDisappear(element("txt_multiYearWait"));
 				} catch (Exception E) {
 					logMessage("txt_multiYearWait did not appear");
 				}
 			} else {
-				logMessage("Step : multiyear flag is not present in price value sheet\n");
+				logMessage("STEP : Multiyear flag is not present in price value sheet\n");
 			}
 		}
 
@@ -440,7 +440,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 
 	private void verifyCENProductName(String elementName, String cenProductName) {
 		if (cenProductName.equalsIgnoreCase("")) {
-			logMessage("Step : cen product name is not present in data sheet\n");
+			logMessage("STEP : Cen product name is not present in data sheet\n");
 		} else {
 			isElementDisplayed(elementName, cenProductName);
 			logMessage("ASSERT PASSED : " + cenProductName + " is verified in "
@@ -450,7 +450,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 
 	private void verifyLSProductName(String elementName, String LSProductName) {
 		if (LSProductName.equalsIgnoreCase("")) {
-			logMessage("Step : local section product name is not present in data sheet\n");
+			logMessage("STEP : Local section product name is not present in data sheet\n");
 		} else {
 			isElementDisplayed(elementName, LSProductName);
 			logMessage("ASSERT PASSED  : " + LSProductName + " is verified in "
@@ -467,7 +467,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 			priceValues = element("txt_" + priceType, productName).getText()
 					.replace("$", "");
 			if (priceValue.equalsIgnoreCase("")) {
-				logMessage("STEP : price value for " + productName
+				logMessage("STEP : Price value for " + productName
 						+ " is not present in data sheet\n");
 			}
 			if (multiYear > 1) {
@@ -501,7 +501,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 			priceValues = element("txt_" + priceType, productName).getText()
 					.replace("$", "");
 			if (priceValue.equalsIgnoreCase("")) {
-				logMessage("STEP : price value for " + productName
+				logMessage("STEP : Price value for " + productName
 						+ " is not present in data sheet\n");
 			}
 			if (multiYear > 1) {
@@ -530,12 +530,12 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	private void verifyPriceType_AACTOMA(String productName, String priceType,
 			String priceValue) {
 		if (productName.equalsIgnoreCase("")) {
-			logMessage("Step : product name is not present in data sheet to verify price values at checkout page\n");
+			logMessage("STEP : Product name is not present in data sheet to verify price values at checkout page\n");
 		} else {
 			isElementDisplayed("txt_" + priceType, productName);
 			priceValues = element("txt_" + priceType, productName).getText();
 			if (priceValue.equalsIgnoreCase("")) {
-				logMessage("STEP : price value for " + productName
+				logMessage("STEP : Price value for " + productName
 						+ " is not present in data sheet\n");
 			}
 			isElementDisplayed("txt_" + priceType, productName);
@@ -548,7 +548,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	public String getPriceValue(String productName, String priceType) {
 		isElementDisplayed("txt_" + priceType, productName);
 		priceValues = element("txt_" + priceType, productName).getText();
-		logMessage("Step : price " + priceType + " for " + productName + " is "
+		logMessage("STEP : Price " + priceType + " for " + productName + " is "
 				+ priceValues);
 		return priceValues;
 	}
@@ -647,7 +647,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 				+ taxTotalInDouble;
 		String formatedTotalPrice = String.format("%.02f", totalPrice);
 		Assert.assertEquals(formatedTotalPrice, formatedPrice);
-		logMessage("ASSERT PASSED : total price value " + formatedTotalPrice
+		logMessage("ASSERT PASSED : Total price value " + formatedTotalPrice
 				+ " is verified \n");
 
 		return totalInString;
@@ -707,7 +707,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		if (getSelectedTextFromDropDown(element("list_deliveryMethods"))
 				.equalsIgnoreCase(
 						getAACT_OmaSheetValue(caseId, "Select Delivery Method"))) {
-			logMessage("Step : "
+			logMessage("STEP : "
 					+ getAACT_OmaSheetValue(caseId, "Select Delivery Method")
 					+ " is selected in delivery method\n");
 		} else {
@@ -779,7 +779,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 
 		isElementDisplayed("select_currency");
 		selectProvidedTextFromDropDown(element("select_currency"), currencyName);
-		logMessage("Step : select currency " + currencyName);
+		logMessage("STEP : Select currency " + currencyName);
 
 		try {
 			wait.resetImplicitTimeout(0);
@@ -805,27 +805,27 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	public void clickOnPaymentTypeButton(String paymentType) {
 		isElementDisplayed("btn_paymentType", paymentType);
 		element("btn_paymentType", paymentType).click();
-		logMessage("Step : click on " + paymentType + " button \n");
+		logMessage("STEP : Click on " + paymentType + " button \n");
 	}
 
 	public void selectOnPaymentMethodButton(String paymentMethod) {
 		isElementDisplayed("btn_paymentMethod", paymentMethod);
 		element("btn_paymentMethod", paymentMethod).click();
-		logMessage("Step : click on " + paymentMethod + " button \n");
+		logMessage("STEP : Click on " + paymentMethod + " button \n");
 	}
 
 	public void checkIAgreeTermsAndCondition() {
 		checkCheckbox(element("chk_agreeTermsAndCondition"));
-		logMessage("Step : Check I agree Terms And Condition check box \n");
+		logMessage("STEP : Check I agree Terms And Condition check box \n");
 
 	}
 
 	public void waitForLoaderToDisappear() {
-		logMessage("Step : wait for loader to disappear \n");
+		logMessage("STEP : Wait for loader to disappear \n");
 		try {
 			wait.waitForElementToDisappear(element("img_paymentLoader"));
 		} catch (StaleElementReferenceException stlRef) {
-			logMessage("Step : payment loader is disappear\n");
+			logMessage("STEP : Payment loader is disappear\n");
 		}
 
 	}
@@ -833,7 +833,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	public void clickOnContinueButton() {
 		isElementDisplayed("btn_paymentContinue");
 		element("btn_paymentContinue").click();
-		logMessage("Step : Click on Continue button\n");
+		logMessage("STEP : Click on Continue button\n");
 	}
 
 }
