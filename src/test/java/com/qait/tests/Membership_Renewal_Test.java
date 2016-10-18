@@ -64,7 +64,6 @@ public class Membership_Renewal_Test extends BaseTest{
 
 		test.memberShipPage.enterCustomerIdsInRunQuery(memberDetail1.get(3),
 				memberDetail2.get(3));
-
 		obj[0] = memberDetail1;
 		obj[1] = memberDetail2;
 	}

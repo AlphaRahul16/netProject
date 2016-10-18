@@ -52,7 +52,7 @@ public class ACS_Email_Communication_Preferences_Test extends BaseTest{
 				.verifyUserIsOnHomePage("Marketing | Overview | Overview");
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step01_Launch_Iweb_Application_And_Verify_User_Is_On_Marketing_Page")
 	public void Step02_Verify_Mailing_List_Popup_Is_Displayed_On_Marketing_Setup_Page_Link() {
 		test.homePageIWEB.clickOnTab("Marketing Setup page.");
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("mailing list type");
@@ -64,7 +64,7 @@ public class ACS_Email_Communication_Preferences_Test extends BaseTest{
 	}
 
 
-	@Test
+	@Test(dependsOnMethods="Step02_Verify_Mailing_List_Popup_Is_Displayed_On_Marketing_Setup_Page_Link")
 	public void Step03_Create_A_New_Mailing_List(){
 		test.acsMarketingPageIweb.sendListInformationToMailingListPopUp(
 				mailingListName, mailingListType);     
@@ -73,7 +73,7 @@ public class ACS_Email_Communication_Preferences_Test extends BaseTest{
 	}
 
 
-	@Test
+	@Test(dependsOnMethods="Step03_Create_A_New_Mailing_List")
 	public void Step04_Nevigate_To_Marketing_Module_And_Verify_Addition_Of_Created_List() {
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Marketing");
@@ -82,7 +82,7 @@ public class ACS_Email_Communication_Preferences_Test extends BaseTest{
 				.verifyListNameInMailingListRecord(mailingListName);
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step04_Nevigate_To_Marketing_Module_And_Verify_Addition_Of_Created_List")
 	public void Step05_Select_Added_MailingList_And_Add_Member_In_Mailing_List() {
 		test.acsMarketingPageIweb
 				.gotoListFromMailingListRecord(mailingListName);  //------
@@ -96,7 +96,7 @@ public class ACS_Email_Communication_Preferences_Test extends BaseTest{
 		test.acsMarketingPageIweb.verifyUserNameInList();
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step05_Select_Added_MailingList_And_Add_Member_In_Mailing_List")
 	public void Step06_Verify_Subscribed_MailingList_Is_Added_In_Email_Communication_Preferences_Form() {
 		test.acsMarketingPageIweb.gotoArrowOfGivenUser();
 		webLogin = test.memberShipPage.getMemberWebLogin();
@@ -110,7 +110,7 @@ public class ACS_Email_Communication_Preferences_Test extends BaseTest{
 				.clickOnCancelButtonInCommunicationPreferencesPopUp();
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step06_Verify_Subscribed_MailingList_Is_Added_In_Email_Communication_Preferences_Form")
 	public void Step07_Login_Into_Eweb_And_Unsubscribe_Newly_Added_Subscribed_Mailing_List() {
 		test.launchApplication(app_url_email);
 		test.asm_emailPage.loginInToApplication(webLogin, "password");
@@ -120,7 +120,7 @@ public class ACS_Email_Communication_Preferences_Test extends BaseTest{
 	}
 	
 
-	@Test
+	@Test(dependsOnMethods="Step07_Login_Into_Eweb_And_Unsubscribe_Newly_Added_Subscribed_Mailing_List")
 	public void Step08_Navigate_To_Iweb_Application_And_Verify_MailingList_Is_UnSubscribed() {
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB
@@ -138,7 +138,7 @@ public class ACS_Email_Communication_Preferences_Test extends BaseTest{
 		}
 
 
-	@Test
+	@Test(dependsOnMethods="Step08_Navigate_To_Iweb_Application_And_Verify_MailingList_Is_UnSubscribed")
 	public void Step09_Login_Into_Eweb_And_Unsubscribe_All_Mailing_List(){
 		test.launchApplication(app_url_email);
 		test.asm_emailPage.loginInToApplication(webLogin, "password");	
@@ -149,7 +149,7 @@ public class ACS_Email_Communication_Preferences_Test extends BaseTest{
 		test.asm_emailPage.clickOnUnsubscribeAllConfirmButton();
 	}
 	
-	@Test
+	@Test(dependsOnMethods="Step09_Login_Into_Eweb_And_Unsubscribe_All_Mailing_List")
 	public void Step10_Launch_Iweb_Application_And_Verify_All_Mailing_Lists_Are_Unsubscribed(){
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB

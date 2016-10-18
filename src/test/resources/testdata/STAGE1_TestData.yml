@@ -19,6 +19,8 @@ app_url_MemberNumberLookup: https://ewebtest.acs.org/NFStage1/membernumberlookup
 app_url_NCW: https://ewebtest.acs.org/NFStage1/ncwlookup
 app_url_yellowBook: https://ewebtest.acs.org/NFStage1/yellowbook
 app_url_iweb_yb: https://iwebtest.acs.org/YBStage1/iWeb
+app_url_MyAccount: https://aemwwwtst.acs.org/content/acs/en.html
+app_url_IwebMyAccount: https://stag-12iweb/NFStage1/iweb
 
 Authentication: 
   userName: C00616

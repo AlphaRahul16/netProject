@@ -35,20 +35,20 @@ public class ACS_Address_Validation_Test extends BaseTest {
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 		
-	@Test
+	@Test(dependsOnMethods="Step01_Launch_Iweb_Application")
 	public void Step02_Select_Query_In_Query_Individual_Page(){
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Query Individual");
 		test.memberShipPage.selectAndRunQuery(getYamlValue("AddressValidation.queryName"));
 	}
 	
-	@Test
+	@Test(dependsOnMethods="Step02_Select_Query_In_Query_Individual_Page")
 	public void Step03_Verify_User_Naviagated_To_Individual_Profile_Page(){
 		individualName=test.acsAddressValidation.verifyIndividualProfilePage();
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Individuals | "+individualName);
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step03_Verify_User_Naviagated_To_Individual_Profile_Page")
 	public void Step04_Enter_ZipCode_And_Verify_Replacement_Of_ZipCode(){
 		test.memberShipPage.getContactIdOfUser("Customer");
 		expectedZipCode=test.acsAddressValidation.getZipCode();

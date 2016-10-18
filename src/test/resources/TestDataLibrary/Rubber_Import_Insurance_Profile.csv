@@ -1,3 +1,3 @@
 CASE ID	 Execute	Import_Name	Description 	File_Type 	Import_File
 1	Yes	QA_Rubber_testfile	QA_Rubber_testfile	Division 	QA_Rubber_testfile.xls
-2	No	QA_insurance_testfile	QA_insurance_testfile	Insurance	QA_insurance_testfile.xls
+2	Yes	QA_insurance_testfile	QA_insurance_testfile	Insurance	QA_insurance_testfile.xls

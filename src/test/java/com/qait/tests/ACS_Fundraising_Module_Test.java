@@ -47,7 +47,7 @@ public class ACS_Fundraising_Module_Test extends BaseTest {
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step01_Launch_Iweb_Application")
 	public void Step02_Navigate_To_Fundraising_Module_And_Find_A_Constituent() {
 		test.homePageIWEB.clickOnModuleTab();
 		test.memberShipPage.clickOnTab("Fundraising");
@@ -58,14 +58,14 @@ public class ACS_Fundraising_Module_Test extends BaseTest {
 		test.memberShipPage.clickOnGoButton();
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step02_Navigate_To_Fundraising_Module_And_Find_A_Constituent")
 	public void Step03_Select_Random_Constituent_And_Verify_Gift_Information() {
 		test.memberShipPage.clickOnRandomPage(10, 1);
 		test.acsFundraising.selectAnyRandomConstituent();
 		test.acsFundraising.verifyGiftInformation();
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step03_Select_Random_Constituent_And_Verify_Gift_Information")
 	public void Step04_Adding_A_Gift() {
 		test.acsFundraising.clickOnAddGiftButton("add gift");
 		test.acsFundraising.switchToFrame("iframe1");
@@ -79,7 +79,7 @@ public class ACS_Fundraising_Module_Test extends BaseTest {
 		test.acsFundraising.verifyDeductibleAmount(test.memberShipPage.map().get("Gift Amount"), "tax deductible amt");
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step04_Adding_A_Gift")
 	public void Step05_Create_A_New_Batch_And_Enter_Payment_Details() {
 		batchName = test.acsVoidInvoice.createBatchForFundraising(1, 6, "QA");
 		test.acsVoidInvoice.switchToIframe1();
@@ -89,7 +89,7 @@ public class ACS_Fundraising_Module_Test extends BaseTest {
 				test.memberShipPage.map().get("CVV"), getYamlValue("ACS_Fundraising_Module.checkNumber"));
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step05_Create_A_New_Batch_And_Enter_Payment_Details")
 	public void Step06_Verify_Gift_Is_Added() {
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("gifts");
 		test.acsFundraising.verifyGiftIsAdded("gifts", DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy"), 4,
@@ -101,7 +101,7 @@ public class ACS_Fundraising_Module_Test extends BaseTest {
 		test.acsFundraising.verifyNewGiftInformation(test.memberShipPage.map().get("Gift Amount"));
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step06_Verify_Gift_Is_Added")
 	public void Step07_Adding_A_Pledge() {
 		batchName="ACS: "+batchName;
 		test.acsFundraising.clickOnAddGiftButton("add pledge");
@@ -117,7 +117,7 @@ public class ACS_Fundraising_Module_Test extends BaseTest {
 		test.acsFundraising.clickOnSaveButton();
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step07_Adding_A_Pledge")
 	public void Step08_Verify_Addition_Of_Pledge_And_Schedule_Date_Of_Payments() {
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("gifts");
 		test.acsFundraising.verifyPledgeIsAdded("gifts", 11, 4, test.memberShipPage.map().get("Fund Code"),

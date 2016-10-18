@@ -11,7 +11,6 @@ public class DataProvider_FactoryClass {
 	
 	@org.testng.annotations.DataProvider
 	public static Iterator<Object[]> data() {
-	
 		List<String> listOfAllExecutableIds = com.qait.automation.utils.DataProvider
 				.get(sheetName);
 		List<Object[]> dataToBeReturned = new ArrayList<Object[]>();

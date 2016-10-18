@@ -291,11 +291,12 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		isElementDisplayed("list_folderTable");
 		if (noOfPayments == elements("list_folderTable").size() - 1) {
 			for (int i = 2; i <= elements("list_folderTable").size(); i++) {
-				String[] ar = DateUtil.getNextDate("month", count);				
+				String[] ar = DateUtil.getNextDate("month", count);	
+				String date=ar[1] + "/" + ar[2] + "/" + ar[0];
 				Assert.assertTrue(element("txt_folderData", String.valueOf(i), String.valueOf(4)).getText().trim()
-								.equals(ar[1] + "/" + ar[2] + "/" + ar[0]),
-						"ASSERT FAILED: Schedule date for installment "+count+" is not verified as " + ar[1] + "/" + ar[2] + "/" + ar[0]);
-				logMessage("ASSERT PASSED : Schedule date for installment "+count+" is verified as " + ar[1] + "/" + ar[2] + "/" + ar[0]);
+								.equals(DateUtil.convertStringToParticularDateFormat(date, "m/d/yyyy")),
+						"ASSERT FAILED: Schedule date for installment "+count+" is not verified as " + DateUtil.convertStringToDate(date, "m/d/yyyy"));
+				logMessage("ASSERT PASSED: Schedule date for installment "+count+" is verified as " + DateUtil.convertStringToDate(date, "m/d/yyyy"));
 				Assert.assertTrue(element("txt_folderData", String.valueOf(i), String.valueOf(6)).getText().trim()
 						.equals(df.format(payments)),
 				"ASSERT FAILED : Schedule amount for installment "+count+" is not verified as " + df.format(payments));

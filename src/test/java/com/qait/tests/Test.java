@@ -6,8 +6,11 @@ import org.testng.Reporter;
 
  
 public class Test{  
-	
-	
+	public static void main(String args[]){
+	String type="home";
+	type=Character.toUpperCase(type.charAt(0))+type.substring(1);
+		System.out.println(Character.toUpperCase(type.charAt(0))+type.substring(1));
+		System.out.println(type);
 /*
 	public void demoTest(){
 	WebDriver driver=new FirefoxDriver();
@@ -42,21 +45,21 @@ public class Test{
 //	int am=Integer.parseInt("300");
 //	System.out.println(df.);
    
-	WebDriver driver=new FirefoxDriver();
-	public void method(){
-		if(true&true){
-		System.out.println("a");	
-		}
-		
-		if(true&&true){
-			System.out.println("b");	
-			}
-	}
-		@org.testng.annotations.Test
-		public void test1(){
-			Reporter.setEscapeHtml(true);
-			Reporter.log("<b>ayush</b>");
-			
+//	WebDriver driver=new FirefoxDriver();
+//	public void method(){
+//		if(true&true){
+//		System.out.println("a");	
+//		}
+//		
+//		if(true&&true){
+//			System.out.println("b");	
+//			}
+//	}
+//		@org.testng.annotations.Test
+//		public void test1(){
+//			Reporter.setEscapeHtml(true);
+//			Reporter.log("<b>ayush</b>");
+//			
 		}		
 	}
 	
