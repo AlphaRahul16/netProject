@@ -89,4 +89,6 @@ btn_previewNomination                                       id                  
 btn_view                                                    css                                 input[value='View']
 btn_home                                                    classname                           home
 txt_errmsg_renomination                                     css                                 span[id*='CantFind']
+btn_chooseFile                                              xpath                               (//a[@id='aBrowse'])[1]
+btn_deleteFile                                              xpath                               //a[@id='aRemove']
 =======================================================================================================================================================================================
