@@ -22,15 +22,8 @@ app_url_PUBS: https://ewebtest12.acs.org/NFStage2/pba
 app_url_EwebReporting: https://ewebtest12.acs.org/NFStage2/studentchaptersonline
 app_url_Awards: https://ewebtest12.acs.org/NFStage2/awards
 app_url_ScarfReviewing: https://www.ewebtest.acs.org/NFStage2/studentchaptersreview
-<<<<<<< HEAD
-
-=======
->>>>>>> 3f716b89a2b60ceaaa70fef9eba8c2d40cd912a8
 
 Authentication: 
   userName: C00616
   password: "Sx!3M24GS"
-<<<<<<< HEAD
 
-=======
->>>>>>> 3f716b89a2b60ceaaa70fef9eba8c2d40cd912a8
