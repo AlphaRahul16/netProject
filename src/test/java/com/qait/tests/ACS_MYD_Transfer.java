@@ -4,6 +4,7 @@ import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.lang.reflect.Method;
 
+import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
@@ -28,6 +29,9 @@ public class ACS_MYD_Transfer extends BaseTest{
 	@BeforeMethod
 	public void handleTestMethodName(Method method) {
 		test.printMethodName(method.getName());
+			if (caseID != null) {
+				Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+			}
 	}
 
 	public ACS_MYD_Transfer() {
@@ -49,7 +53,7 @@ public class ACS_MYD_Transfer extends BaseTest{
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 	
-	@Test
+	@Test(dependsOnMethods="Step01_Launch_Iweb_Application")
 	public void Step02_Verify_User_Navigated_To_Membership_Page_On_Clicking_Membership_Under_Modules_Tab(){
 		 
 		test.homePageIWEB.clickOnModuleTab();
@@ -57,7 +61,7 @@ public class ACS_MYD_Transfer extends BaseTest{
 		test.homePageIWEB.verifyUserIsOnHomePage("Membership | Overview | Overview and Setup");
 	}
 	
-	@Test
+	@Test(dependsOnMethods="Step02_Verify_User_Navigated_To_Membership_Page_On_Clicking_Membership_Under_Modules_Tab")
 	public void Step03_Select_Query_In_Query_Membership_Page(){
 		 
 		test.homePageIWEB.clickOnSideBarTab("Members");
@@ -68,7 +72,7 @@ public class ACS_MYD_Transfer extends BaseTest{
 	    test.memberShipPage.clickOnGoButtonAfterPackageSelection();
 	}
 	
-	@Test
+	@Test(dependsOnMethods="Step03_Select_Query_In_Query_Membership_Page")
 	public void Step04_Verify_Membership_Profile_Page(){
 		 
 		test.homePageIWEB.verifyUserIsOnHomePage("Membership | Members | Membership Profile");
@@ -81,7 +85,7 @@ public class ACS_MYD_Transfer extends BaseTest{
 	    test.memberShipPage.clickOnMYDTransferButton();
 	}
 	
-	@Test
+	@Test(dependsOnMethods="Step04_Verify_Membership_Profile_Page")
 	public void Step05_Select_Term_And_New_Package_For_Renewal_And_Verify_Balance_Amount(){
 		 
 		test.memberShipPage.verifyTransferPackagePage();
@@ -94,7 +98,7 @@ public class ACS_MYD_Transfer extends BaseTest{
 		test.memberShipPage.clickOnTransferNowButton();  
 	}
 	
-	@Test
+	@Test(dependsOnMethods="Step05_Select_Term_And_New_Package_For_Renewal_And_Verify_Balance_Amount")
 	public void Step06_Verify_Member_Package_And_Changed_Renewal_Package(){
 		 
 		test.memberShipPage.verfiyMemberPackage(test.memberShipPage.map().get("Original MemberPackage"));

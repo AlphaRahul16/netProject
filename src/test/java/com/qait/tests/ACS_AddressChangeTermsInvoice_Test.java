@@ -46,7 +46,7 @@ public class ACS_AddressChangeTermsInvoice_Test extends BaseTest{
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step01_Launch_Iweb_Application")
 	public void Step02_Select_And_Run_Query_In_Query_Individual_Page() {
 		String individualName;
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
@@ -59,7 +59,7 @@ public class ACS_AddressChangeTermsInvoice_Test extends BaseTest{
 				+ individualName);
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step02_Select_And_Run_Query_In_Query_Individual_Page")
 	public void Step03_Expand_individual_membership_tab_and_get_effective_date() {
 		test.memberShipPage
 				.expandDetailsMenuIfAlreadyExpanded("individual memberships");
@@ -72,7 +72,7 @@ public class ACS_AddressChangeTermsInvoice_Test extends BaseTest{
 				membershipDateList, "chapter memberships");
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step03_Expand_individual_membership_tab_and_get_effective_date")
 	public void Step04_Naviagate_To_Contact_Info_Option_And_Add_New_Address() {
 		test.individualsPage.navigateToContactInfoMenuOnHoveringMore();
 //		test.memberShipPage.expandDetailsMenu("addresses");
@@ -90,7 +90,7 @@ public class ACS_AddressChangeTermsInvoice_Test extends BaseTest{
 				"addresses");
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step04_Naviagate_To_Contact_Info_Option_And_Add_New_Address")
 	public void Step05_Navigate_To_Membbership_Tab_And_Verify_Transferred_Chapter() {
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Membership");
 		test.memberShipPage
@@ -101,7 +101,7 @@ public class ACS_AddressChangeTermsInvoice_Test extends BaseTest{
 				"chapter memberships", chpName);
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step05_Navigate_To_Membbership_Tab_And_Verify_Transferred_Chapter")
 	public void Step06_Verify_New_Chapter_Is_Added_Under_Chapter_Memberships_Tab() {
 		test.individualsPage.verifyNewChapterIsAdded("chapter memberships");
 	}

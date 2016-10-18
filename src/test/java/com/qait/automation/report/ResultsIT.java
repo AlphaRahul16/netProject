@@ -71,7 +71,7 @@ public class ResultsIT extends ReformatTestFile {
     	System.out.println("Testname "+testname);
     	if(testname.contains("Default"))
     	{
-    	 testname=System.getProperty("testngxml", "null").replace(".xml", "").trim();
+    	 testname=System.getProperty("testngxml", System.getProperty("test")).replace(".xml", "").trim();
     	}
    
     	//String html = readLargerTextFile("./target/surefire-reports/"+this.getClass().getSimpleName()+".html");
