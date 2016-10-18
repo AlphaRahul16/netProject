@@ -28,10 +28,12 @@ btn_Save                            xpath                   //input[@value='${bt
 inp_loginDetails                    id                      ${data} 
 btn_Phone1                          xpath                   //label[text()='Home']//..//input[@value='Change Phone']
 btn_ChangeAddress                   xpath                   //p[contains(text(),'You will receive Invoices')]/../../following-sibling::div//input
-list_techincalDivisions             xpath                   //form[@id='techdivision']//li        
+list_techincalDivisions             xpath                   //ul[@class='boxed-body-padded']//li        
 list_myApplications                 xpath                   //span[text()='${appName}']    
 txt_customerId                      xpath                   //div[@id='userInfo']//li[2] 
 btn_close                           id                      addressCloseBtnId  
 btn_NoThanks                        xpath                   //a[@class='fsrDeclineButton' and text()='No, thanks']      
-btn_changePhone                     xpath                   //label[text()='${label}']/..//input[@value='Change Phone']   
+btn_changePhone                     xpath                   //label[text()='${label}']/..//input[@value='Change Phone']
+msg_passwordChanged                 id                      messageDiv   
+form_surveyFeedback                 css                     .fsrDialog
 ======================================================================================================================================

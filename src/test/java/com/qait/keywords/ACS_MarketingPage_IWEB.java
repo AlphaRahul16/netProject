@@ -176,8 +176,8 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnSaveButtonDisplayedOnMailingListPopUp() {
 		isElementDisplayed("btn_save");
-//		element("btn_save").click();
-		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
+		element("btn_save").click();
+//		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
 		logMessage("STEP : Save button is clicked\n");
 		switchToDefaultContent();
 	}

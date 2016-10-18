@@ -2,6 +2,7 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,23 @@ public class ACS_My_Account_Action extends ASCSocietyGenericPage{
 		isElementDisplayed("btn_registerMember",btnName);
 		element("btn_registerMember",btnName).click();
 		logMessage("STEP: Clicked on "+btnName+" button\n");
+	}
+	
+	public void logInToMyAccount(String webLogin,String password){
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(2);
+		enterLoginDetails("userid", webLogin);
+		enterLoginDetails("password", password);
+		clickOnSaveButton("Log In");
+	}
+	
+	public void createNewUser(String emailId,String fName,String lName,String webLogin,String password,int number){
+		enterEmail("email",emailId , "Email", number);
+		enterNewMemberDetails("firstName", fName + number,"First Name");
+		enterNewMemberDetails("lastName", lName, "Last Name");
+		enterNewMemberDetails("userName", webLogin,"User Name");
+		enterNewMemberDetails("passwordPwd",password , "Password");
+		enterNewMemberDetails("confirmPassword",password,"Confirm Password");
 	}
 	
 	public void enterNewMemberDetails(String field,String value,String fieldName){
@@ -76,7 +94,7 @@ public class ACS_My_Account_Action extends ASCSocietyGenericPage{
 	public void clickOnACSWButton(String btnValue){
 		isElementDisplayed("btn_acsw",btnValue);
 		element("btn_acsw",btnValue).click();
-		logMessage("STEP: Clicked on ACSWWW AEM STG button\n");
+		logMessage("STEP: Clicked on "+btnValue+" button\n");
 	}
 	
 	public void navigateToAccountLink(String link){
@@ -109,7 +127,6 @@ public class ACS_My_Account_Action extends ASCSocietyGenericPage{
 	}
 	
 	public void changePhoneNumber(String btnName,String memberType,String telephoneType){
-		System.out.println("-------type:"+telephoneType);
 		if(memberType.equals("New Member")){
 			clickOnAddPhoneButton(btnName,"btn_addPhone");
 			changedValues.put("TelephoneType","home");
@@ -137,7 +154,7 @@ public class ACS_My_Account_Action extends ASCSocietyGenericPage{
 		enterNewAddressDetails("Address-2",map.get("Address Line 1"));
 		clickOnSaveAddressButton();
 		changedValues.put("AddressType", element("btn_ChangeAddress").getAttribute("id"));
-		changedValues.put("Address", map.get("Address Line 1"));
+		changedValues.put("Address-2", map.get("Address Line 1"));
 	  }
 		else{
 			clickOnAddPhoneButton("Work Add Address","btn_addAddress");
@@ -170,11 +187,12 @@ public class ACS_My_Account_Action extends ASCSocietyGenericPage{
 		logMessage("STEP: Mark as Primary checkbox is checked\n");
 	}
 	
-	public void enterNewAddressDetails(String field,String value){
-		isElementDisplayed("inp_changeAddress",field);
-//		element("inp_changeAddress",field).clear();
-		element("inp_changeAddress",field).sendKeys(value);
-		logMessage("STEP: "+field+" value is entered as "+value+"\n");
+	public void enterNewAddressDetails(String fieldId,String value){
+		isElementDisplayed("inp_changeAddress",fieldId);
+//		if(!element("inp_changeAddress",fieldId).getText().equals(""))
+       		element("inp_changeAddress",fieldId).clear();
+		element("inp_changeAddress",fieldId).sendKeys(value);
+		logMessage("STEP: "+fieldId+" value is entered as "+value+"\n");
 	}
 	
 	public void selectAddressState(String field,String value){
@@ -196,7 +214,9 @@ public class ACS_My_Account_Action extends ASCSocietyGenericPage{
 		changedValues.put("Company", map.get("Company"));
 		changedValues.put("Country", map.get("Country"));
 		changedValues.put("City", map.get("City"));
-		changedValues.put("Address Line 1", map.get("Address Line 1"));
+//		changedValues.put("Address Line 1", map.get("Address Line 1"));
+		changedValues.put("Address Line 1", map.get("Expected_AddressIweb?"));
+
 		changedValues.put("Zip_Code", map.get("Zip_Code"));
 		changedValues.put("State", map.get("State"));
 	}
@@ -216,7 +236,7 @@ public class ACS_My_Account_Action extends ASCSocietyGenericPage{
 	public void verifyPriamryImageIsPresent(String image,String field){
 		wait.hardWait(3);
 		isElementDisplayed(image);
-		logMessage("ASSERT PASSED: "+field+" is set as primary\n" );
+		logMessage("ASSERT PASSED: Verified "+field+" is set as primary\n" );
 	}
 	
 	public void selectDontWantToBeACSMember(String member){
@@ -228,8 +248,9 @@ public class ACS_My_Account_Action extends ASCSocietyGenericPage{
 		}
 		else{
 			isElementDisplayed("radioBtn_acsMember","in");
-			if(element("radioBtn_acsMember","in").isSelected())
-				logMessage("STEP: want to be member of the ACS network option is already selected \n");
+//			if(element("radioBtn_acsMember","in").isSelected())
+			element("radioBtn_acsMember","in").click();
+			logMessage("STEP: want to be member of the ACS network option is selected \n");
 			clickOnSaveButton("Save");
 		}
 		changedValues.put("ACS Member", member);
@@ -242,7 +263,7 @@ public class ACS_My_Account_Action extends ASCSocietyGenericPage{
 	}
 	
 	public void enterLoginDetails(String loginId,String value){
-		wait.waitForPageToLoadCompletely();
+//		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("inp_loginDetails",loginId);
 		element("inp_loginDetails",loginId).sendKeys(value);
 		logMessage("STEP: "+loginId+" is entered as "+value+"\n");
@@ -254,18 +275,19 @@ public class ACS_My_Account_Action extends ASCSocietyGenericPage{
 		logMessage("STEP: "+tabName+" side tab is clicked\n");
 	}
 	
-	public String getTechnicalDivisions(){
-		if(checkIfElementIsThere("list_techincalDivisions")){
-		logMessage("STEP: Technical division "+element("list_techincalDivisions").getText().trim()+"\n");
-		return element("list_techincalDivisions").getText().trim();
+	public void verifyTechnicalDivisions(List<String> techDivisions){
+		isElementDisplayed("list_techincalDivisions");
+		String ewebDivisions=element("list_techincalDivisions").getText().trim();
+		for(int i=0;i<techDivisions.size();i++){
+			Assert.assertTrue(ewebDivisions.contains(techDivisions.get(i)),"ASSERT FAILED: Technical Division "+techDivisions.get(i) +" is not verified on Technical divisions page\n");
+			logMessage("ASSERT PASSED: Technical Division "+techDivisions.get(i) +" is verified on Technical divisions page\n");
 		}
-		return null;
 	}
 	
 	public void verifyAllMyApplicationsArePresent(String myApplications[]){
 		for(String myApp: myApplications){
 			isElementDisplayed("list_myApplications",myApp);
-			logMessage("ASSERT PASSED: "+myApp+" is present under My Applications page\n");
+			logMessage("ASSERT PASSED: Verified "+myApp+" is present under My Applications page\n");
 		}
 	}
 	
@@ -284,17 +306,27 @@ public class ACS_My_Account_Action extends ASCSocietyGenericPage{
 	}
 	
 	public void handleFeedbackForm(){
-		wait.hardWait(5);
-		switchToFrame(1);
-		if(checkIfElementIsThere("btn_NoThanks")){
+		wait.hardWait(10);
+		if(checkIfElementIsThere("form_surveyFeedback")){
+		isElementDisplayed("btn_NoThanks");
 		element("btn_NoThanks").click();
 		logMessage("STEP: Clicked on No, Thanks button on Feedback form\n");
-		}
-		switchToDefaultContent();
+	  }
+		else
+			logMessage("STEP: Feedback form does not appear\n");
 	}
 	
 	public Map<String,String> getChangedValues(){
 		System.out.println("--------"+changedValues);
 		return changedValues;
+	}
+	
+	public void enterNewPassword(String oldPassword, String newPassword){
+        enterNewAddressDetails("idOldPwd", oldPassword);
+        enterNewAddressDetails("idNewPwd", newPassword);
+        enterNewAddressDetails("idConfNewPwd", newPassword);
+        clickOnSaveButton("Save Changes");
+   	    verifyEmailSavedMessage(getYamlValue("ACS_MyAccount.passwordChangedMessage"),"msg_passwordChanged");
+		navigateToAccountLink("Log Out");
 	}
 }

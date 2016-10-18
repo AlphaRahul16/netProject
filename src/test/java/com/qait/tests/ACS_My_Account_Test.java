@@ -20,12 +20,13 @@ import com.qait.automation.utils.YamlReader;
 
 public class ACS_My_Account_Test extends BaseTest {
 
-	String app_url_IWEB, app_url_MyAccount, userName, customerId,telephoneType,techDivision;
+	String app_url_IWEB, app_url_MyAccount, userName, customerId,telephoneType,techDivision, webLogin ;
 	int number;
 	private String caseID;
 	Map<String, Boolean> skipTest = new HashMap<String, Boolean>();
 	Map<String, String> changedValues= new HashMap<>();
 	List<String> memberDetails=new ArrayList<>();
+	List<String> techDivisions=new ArrayList<>();
 	String myApplications[]={"ACS Fellows","Member Get A Member","Email Newsletters","Gift a Membership"};
 
 	@BeforeClass
@@ -59,21 +60,14 @@ public class ACS_My_Account_Test extends BaseTest {
 
 	@Test
 	public void Step01_Launch_My_Account_Application_And_Create_New_Member() {
-		// number=test.acsMyAccount.createMember(test.acsMyAccount.map().get("Member?"),test.acsMyAccount.map(),test);
 		number = test.acsMyAccount.generateThreeDidgitRandomNumber(999, 99);
 		userName=test.acsMyAccount.map().get("First_Name")+number;
+		webLogin=test.acsMyAccount.map().get("UserName") + number;
 		test.launchApplication(app_url_MyAccount);
 		test.acsMyAccount.clickOnLoginButton("Log In");
 		test.acsMyAccount.clickOnLoginButton("Registering is easy");
-		test.acsMyAccount.enterEmail("email", test.acsMyAccount.map().get("Email"), "Email", number);
-		test.acsMyAccount.enterNewMemberDetails("firstName", test.acsMyAccount.map().get("First_Name") + number,
-				"First Name");
-		test.acsMyAccount.enterNewMemberDetails("lastName", test.acsMyAccount.map().get("Last_Name"), "Last Name");
-		test.acsMyAccount.enterNewMemberDetails("userName", test.acsMyAccount.map().get("UserName") + number,
-				"User Name");
-		test.acsMyAccount.enterNewMemberDetails("passwordPwd", test.acsMyAccount.map().get("Password"), "Password");
-		test.acsMyAccount.enterNewMemberDetails("confirmPassword", test.acsMyAccount.map().get("Password"),
-				"Confirm Password");
+		test.acsMyAccount.createNewUser(test.acsMyAccount.map().get("Email"),test.acsMyAccount.map().get("First_Name"),test.acsMyAccount.map().get("Last_Name")
+				,webLogin,test.acsMyAccount.map().get("Password"),number);	
 		test.acsMyAccount.clickOnCreateAccountButton("submit_button");
 		test.acsMyAccount.clickOnACSWButton("ACSWWW AEM");
 	}
@@ -90,25 +84,24 @@ public class ACS_My_Account_Test extends BaseTest {
 		test.memberShipPage.clickOnGoButton();
 		test.memberShipPage.clickOnRandomPage(10, 1);
 		test.memberShipPage.clickOnAnyRandomMember();
-		String webLogin = test.memberShipPage.getMemberWebLogin();
+		webLogin = test.memberShipPage.getMemberWebLogin();
 		memberDetails=test.memberShipPage.getMemberDetails();
+		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("chapter memberships");
+		techDivisions=test.memberShipPage.getTechnicalDivisions();
 		test.individualsPage.navigateToContactInfoMenuOnHoveringMore();
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("telephone numbers");
 		telephoneType=test.memberShipPage.getTelephoneNumberType("telephone numbers");
-		userName=memberDetails.get(2)+ " "+memberDetails.get(0);
-		number = test.acsMyAccount.generateThreeDidgitRandomNumber(999, 99);
 		test.launchApplication(app_url_MyAccount);
 		test.acsMyAccount.clickOnLoginButton("Log In");
-		test.acsMyAccount.enterLoginDetails("userid", webLogin);
-		test.acsMyAccount.enterLoginDetails("password", "password");
-		test.acsMyAccount.clickOnSaveButton("Log In");
+		test.acsMyAccount.logInToMyAccount(webLogin,"password");
+		userName=memberDetails.get(2)+ " "+memberDetails.get(0);
+		number = test.acsMyAccount.generateThreeDidgitRandomNumber(999, 99);
 	}
 
 	@Test
 	public void Step03_Verify_Account_Is_Registered_And_Edit_Email() {
 		test.acsMyAccount.handleFeedbackForm();
 		test.acsMyAccount.verifyUserName(userName, test.acsMyAccount.map().get("Last_Name"),test.acsMyAccount.map().get("Member?"),userName);
-//		test.acsMyAccount.handleFeedbackForm();
 		test.acsMyAccount.navigateToAccountLink("My Account");
 		customerId=test.acsMyAccount.getMemberCustomerId();
 		test.acsMyAccount.clickOnACSWButton("Change Email");
@@ -132,9 +125,9 @@ public class ACS_My_Account_Test extends BaseTest {
 	 }
 	
 	@Test
-	public void Step05_Verify_Techincal_Division_And_My_Applications(){
+	public void Step05_Verify_Techincal_Divisions_And_My_Applications(){  
 		test.acsMyAccount.clickOnSideTab("Technical Divisions");
-		techDivision=test.acsMyAccount.getTechnicalDivisions();
+		test.acsMyAccount.verifyTechnicalDivisions(techDivisions);
 		test.acsMyAccount.clickOnSideTab("My Applications");
 		test.acsMyAccount.verifyAllMyApplicationsArePresent(myApplications);
 	}
@@ -144,11 +137,25 @@ public class ACS_My_Account_Test extends BaseTest {
 		test.acsMyAccount.clickOnSideTab("ACS Communities");
 		test.acsMyAccount.selectDontWantToBeACSMember(test.acsMyAccount.map().get("ACS_Member"));
 		changedValues=test.acsMyAccount.getChangedValues();
-		changedValues.put("Technical Division",techDivision);
+	}
+	
+	@Test 
+	public void Step07_Verify_New_Changed_Password(){
+		test.acsMyAccount.clickOnSideTab("Password");
+		test.acsMyAccount.enterNewPassword(test.acsMyAccount.map().get("Password"), test.acsMyAccount.map().get("New_Password"));
+		test.memberShipPage.waitForSpinner();
+		test.acsMyAccount.handleFeedbackForm();
+		test.acsMyAccount.clickOnLoginButton("Log In");
+		test.acsMyAccount.logInToMyAccount(webLogin, test.acsMyAccount.map().get("New_Password"));
+		test.acsMyAccount.handleFeedbackForm();
+		test.acsMyAccount.verifyUserName(userName, test.acsMyAccount.map().get("Last_Name"),test.acsMyAccount.map().get("Member?"),userName);
+		test.acsMyAccount.navigateToAccountLink("My Account");
+		test.acsMyAccount.clickOnSideTab("Password");
+        test.acsMyAccount.enterNewPassword(test.acsMyAccount.map().get("New_Password"),  test.acsMyAccount.map().get("Password"));
 	}
 	
 	@Test
-	public void Step07_Launch_Iweb_Application_And_Find_Member(){
+	public void Step08_Launch_Iweb_Application_And_Find_Member(){
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Find Individual");
@@ -158,12 +165,17 @@ public class ACS_My_Account_Test extends BaseTest {
 		test.memberShipPage.verifyEmailIdEditedToAcsOrg(changedValues.get("Email"));
 	}
 	
-	@Test void Step08_Verify_Telephone_And_Address_Details(){
+	@Test 
+	public void Step09_Verify_Telephone_And_Address_Details(){
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("telephone numbers");
 		test.memberShipPage.verifyTelephoneDetails("telephone numbers", changedValues.get("TelephoneType"), changedValues.get("PhoneNumber"));
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("addresses");
 		test.memberShipPage.verifyAddressDetails("addresses", changedValues, test.acsMyAccount.map().get("Member?"));
 	}
 	
-	
+	@Test
+	public void Step10_Verify_Is_ACS_Member(){
+		test.memberShipPage.clickOnEditContactInfo();
+		test.memberShipPage.verifyIsAcsNetworkMember(test.acsMyAccount.map().get("ACS_Member"));
+	}
 }
