@@ -26,13 +26,13 @@ list_expirationDate                           xpath                             
 list_expirationYear                           xpath                                     //select[contains(@id,'ExpirationYear')]
 btn_continue                                  id                                        btnContinue
 txt_invalidCardErrorMessage                   id                                        lblError
-btn_submitPayment                             id                                        btnSubmitOmrPayment
+btn_submitPayment                             css                                        #btnSubmitOmrPaymentTop
 txt_navigation                                xpath                                     //ul[@title='Bread Crumbs']/li[3]
 chkConfirm                                      id                                     //input[contains(@id,'Confirm')]
 rad_No                                        xpath                                    //label[text()='No']/preceding-sibling::input
 txt_confirmPage                             xpath                                      //legend[text()='Confirm your information']
 chkbox_undergraduate                        css                                        input[id*='ucDegree_cbConfirm']
-rad_undergraduate                           css                                        input[value='${value}']
+rad_undergraduate                           css                                        input[value*='${value}']
 iframe_ewebframe                            css                                        #eWebFrame
 btn_addSubscription                          css                                        input[class='addItemButton'][value='${value}']
 txt_legend                                  xpath                                      //legend[contains(text(),'${value}')]
@@ -48,9 +48,23 @@ drpdwn_degreeType                           css                                 
 btns_remove                                 xpath                                     //a[contains(text(),'remove')]
 rad_electronicCEN                           css                                       input[id*='rbElectronic']
 rad_printCEN                                css                                       input[id*='rbPrint']
-btn_printreceipt                            css                                       #print-invoice>input
+btn_printreceipt                            xpath                                        //*[@id='print-invoice']/input
 txt_priceValue                              xpath                                     //td[contains(text(),'${productName}')]//following-sibling::td[2]
 btn_logout                                  css                                       a[href*='logout']
 txt_renewalthankyoumsg                      xpath                                     //h3[contains(text(),'${message}')]
 btn_applyForEmeritusNo                      css                                      input[id*='btnNo']
+chk_Autorenewal                             css                                      input[id*='chkAutoRenewal']
+txt_ProductTax                              xpath                                    //span[text()='Tax']/../following-sibling::td//span
+drpdwn_currencyINR                          css                                      select[id*='Currencies']
+btn_YesSurePopUp                            xpath                                    //span[contains(text(),"${value}")]
+hd_confirmCurrencyPayment                   xpath                                    //h4[text()='Confirm Currency Payment']
+img_paymentLoader                           css                                     img[src*='submit_progress.gif']
+btn_RemoveMembership                        xpath                                     //a[contains(text(),'${value}')]
+chkbox_termsAndCondition                    css                                       #idAcceptFlag
+btn_continueToPayment                       css                                       #btnPayment
+btn_renewalLength                           css                                       span[id*='RenewalLength']
+btn_paidStatus                              css                                       .payment-status
+txt_productIndividualAmount                 xpath                                     //span[text()='${value}']/../following-sibling::td[3]/span
+txt_AsteriskFields                          css                                       span[id*='${value}']
+logo_OMR                                    css                                     .app-logo>h2
 =================================================================================================================================================

@@ -16,14 +16,11 @@ li_awards                                     xpath                       //li[@
 inp_createNewNomination                       id                          createNomination
 rad_knowTheirName                             xpath                       //div[@id='memberSearch_searchNominee']/input[2]
 inp_findByName                                id                          memberName_searchNominee
-btn_selectNomineeSupport1                     css                         input[class*='selectNominee']:not([disabled])
 btn_selectNomineeSupport2                     xpath                       (//input[@class='selectNominee'])[10] 
 tab_currentTab                                xpath                       //span[@class='progressStepOn']  
 inp_nomineePosition                           xpath                       //div[@id='nomineePosition']/input  
-rad_safeLabPractices                          xpath                       //div[@id='safetyProtocol']/input[3]  
 rad_discussedAwardNomination                  xpath                       //div[@id='discussedWithNominee']/input[2] 
 rad_yearOfExperience                          xpath                       //div[@id='experienceFlag']//input[1] 
-list_selectDiscipline                         name                        n01_nominee_a58_key_ext     
 btn_continue                                  xpath                       //input[@class='saveData']
 btn_confirm_PrepareNomination                 xpath                       //button[text()='Confirm'] 
 txtAr_suggestedCitation                       id                          n01_citation  
@@ -58,7 +55,7 @@ inp_AwardField                                id                           selec
 txt_NominationTooltip                         classname                    awardDeadline  
 inp_findbymembernumber                        id                           memberNumber_searchNominee
 rad_dynsafelabpractice                        xpath                        //span/following-sibling::input[@value='${value}']
-rad_disscusNomination                         xpath                        //div[@id='discussedWithNominee']/span[text()='${value}']/following-sibling::input
+rad_disscusNomination                         xpath                        //div[@id='discussedWithNominee']/span[text()='${value}']/following-sibling::input[1]
 link_open                                     xpath                       //div[@id='${nominationName}']//a[@class='download']
 btn_saveForLater                              css                         .saveData.later
 txt_awardStatus                               xpath                       //div[contains(text(),'${awardName}')]/following-sibling::table//td[@class='status']
@@ -69,13 +66,11 @@ txt_positionTitle                             css                          #posi
 txt_industry                                  css                          #industry>span:nth-child(3)
 txt_confirmSuggestedCitation                  xpath                        //div[contains(text(),'Suggested Citation')]/..
 lnk_downloaddocumentsLink                     css                         img[alt='Download consolidated PDF file']
-txt_Nomineename                               classname                   nomineeName 
 txt_nomineeSelectError                        xpath                       //div[@class='personIneligible' and contains(text(),'This person is either a')]
 txt_supporterNames                           css                           .PersonSelected>.person
 inp_support1FindByNumber                        xpath                       (//input[contains(@id,'memberNumber_searchSupporter')])[1]
 inp_support2FindByNumber                        xpath                       (//input[contains(@id,'memberNumber_searchSupporter')])[2]
 btn_findSupporter1ByNumber                     xpath                        (//input[contains(@id,'doSearchByNumber_searchSupporter')])[1]
 btn_findSupporter2ByNumber                     xpath                        (//input[contains(@id,'doSearchByNumber_searchSupporter')])[2]
-btn_findMemberByNumber                         id                            doSearchByNumber_searchNominee
-img_submitnomination                           css                          .updating
+list_selectDiscipline                          css                          #nomineeIndustry>select
 =================================================================================================================================

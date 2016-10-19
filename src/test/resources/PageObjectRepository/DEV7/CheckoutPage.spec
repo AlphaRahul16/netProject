@@ -25,10 +25,19 @@ txt_paymentError        xpath   //div[@class='error']
 txt_quantity            xpath    //span[contains(text(),'${productName}')]/../following-sibling::td[@class='qty']/span
 list_Totalvalues        xpath    //tr/td[${totalName}]/span
 txt_total               xpath    //th[text()='${total}']/following-sibling::td/span
-txt_taxTotal            xpath     //th/span[text()='${total}']/../following-sibling::td/span
+txt_taxTotal            xpath     //th/span[starts-with(text(),'${total}')]/../following-sibling::td/span
 txt_multiYearWait       xpath    //img[contains(@alt,'Processing')]
 div_multiYear           xpath    //strong[text()='International members save on your exchange rate and transfer fees!']
 list_deliveryOptions     xpath       //select[@id='ddlChemMatters']/option
 list_deliveryMethods     id       ddlChemMatters 
 list_AACTNationalMem     xpath    //td[@class='category']/span[1]  
+select_currency          xpath      //select[contains(@id,'CurrencySelector_ddlCurrencies')]
+btn_payInINR            xpath   //input[contains(@id,'btnSubmit')]
+hd_confirmCurrencyPayment  xpath    //h4[text()='Confirm Currency Payment']
+btn_paymentMethod          xpath      //label[contains(.,'${payment method name}')]/input
+btn_paymentType          xpath      //input[@value='${button name}']
+img_paymentLoader        xpath      //img[contains(@src,'progress.gif')]
+chk_agreeTermsAndCondition   id          idAcceptFlag
+btn_paymentContinue          id        btnPayment
+txt_GCSOMAmemberName        xpath   //*[@class='name']/span[1]
 ======================================================================================================================================

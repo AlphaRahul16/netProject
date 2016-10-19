@@ -5,7 +5,7 @@ Page Title: education and employment
 btn_ACStechnicalDivision        xpath    //input[@value='Add ACS Technical Division']
 btn_addToMembership            xpath     //span[text()='${divisionName}']/../../preceding-sibling::td/input[3]
 btn_save                       xpath     //input[@id='btnSave']
-txt_added                      xpath      //span[text()='${divisionName}']/../preceding-sibling::div/span
+txt_added                      xpath      //span[text()='${divisionName}']/../../preceding-sibling::td//span
 btn_ACSPublication             xpath     //input[@value='Add ACS Publication']
 btn_ACSMemberBenefits          xpath     //input[@value='Add ACS Member Benefits']
 txt_technicalDivisionSubtotal  css      .amount
