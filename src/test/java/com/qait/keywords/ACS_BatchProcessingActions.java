@@ -119,6 +119,10 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 	}
 	
 	public void switchWindow(String current){
+		try
+		{
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			wait.resetImplicitTimeout(10);
 		Set<String> handles = driver.getWindowHandles();
  		for(String handle : handles){
  			if(!(handle.equalsIgnoreCase(current))){
@@ -128,6 +132,13 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
  		}  		
         System.out.println("In "+getPageTitle());
         driver.switchTo().window(current);
+		}
+		catch(Exception e)
+		{
+			logMessage("Pop up Window Disappeared");
+		}
+		wait.resetExplicitTimeout(timeOut);
+		wait.resetImplicitTimeout(timeOut);
 	}
 	
 	public boolean pollTextForIe(String type,String batchValue){
