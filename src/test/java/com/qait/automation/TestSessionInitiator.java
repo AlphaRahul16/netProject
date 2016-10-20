@@ -266,7 +266,22 @@ public class TestSessionInitiator {
 															.getYamlValue("Authentication.password"),
 													"UTF-8") + "@stag");
 					driver.get(baseurl);
-				} else {
+				}
+				else if(baseurl
+						.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev7/iWeb/")){
+					baseurl = baseurl.replaceAll(
+							"https://dev",
+							"https://"
+									+ YamlReader
+											.getYamlValue("Authentication.userName")
+									+ ":"
+									+ URLEncoder.encode(
+											YamlReader
+													.getYamlValue("Authentication.password"),
+											"UTF-8") + "@dev");
+			driver.get(baseurl);
+				}
+				else {
 //					System.out.println("in else");
 					baseurl = baseurl
 							.replaceAll(
@@ -287,11 +302,18 @@ public class TestSessionInitiator {
 			}
 
 			if (!_getSessionConfig().get("browser").equalsIgnoreCase("ie")) {
-				if (baseurl.contains("iweb"))
+				if (baseurl.contains("iweb")){
 					Reporter.log("\nThe application url is :- "
 							+ baseurl
 									.replace(baseurl.split("@")[0], "https://")
 									.replace("@", ""), true);
+				}
+				else if(baseurl.contains("dev")){
+					Reporter.log("\nThe application url is :- "
+							+ baseurl
+									.replace(baseurl.split("@")[0], "https://")
+									.replace("@", ""), true);
+				}
 				else
 					Reporter.log("\nThe application url is :- " + baseurl, true);
 			}

@@ -4681,7 +4681,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			}
 			type=element("txt_telephoneType",tabName,String.valueOf(4),String.valueOf(i)).getText().trim();
 			type=Character.toUpperCase(type.charAt(0))+type.substring(1);
-			System.out.println("-----telephone type is: "+type);
+		    logMessage("STEP: Primary Telephone type is "+type);
 			return type;
 		}
 		else
@@ -4729,6 +4729,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		else{
 			verifyTelephoneNumber(tabName,5,i,changedValues.get("Address Line 1"),"Address Line 1");
+//			verifyAddress(tabName,5,i,changedValues.get("Expected_AddressIweb?"),"Address Line 1");
 			verifyAddress(tabName,7,i,changedValues.get("City"),"City");
 			verifyAddress(tabName,7,i,changedValues.get("Zip_Code"),"Zip_Code");
 			verifyPrimaryFlagIsSet(tabName,8,i);
@@ -4847,6 +4848,42 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : Imported file " + importedFile
 				+ " is present in the list\n");
 
+	}
+	
+	public void verifyIsAcsNetworkMember(String acsMember){
+		switchToFrame("iframe1");
+		isElementDisplayed("chkbox_acsMember");
+		if(acsMember.equals("Yes")){
+		    Assert.assertTrue(element("chkbox_acsMember").isSelected(),"ASSERT FAILED: User is an ACS Member is not verified\n");
+		    logMessage("ASSERT PASSED: User is an ACS Member is verified\n");
+		}
+		else{
+			Assert.assertTrue(!element("chkbox_acsMember").isSelected(),"ASSERT FAILED: User is an ACS Member is verified\n");
+		    logMessage("ASSERT PASSED: User is not an ACS Member is verified\n");
+		}
+		clickOnSaveButtonForBillingAddress();
+		switchToDefaultContent();
+	}
+	
+	public List<String> getTechnicalDivisions(){ 
+	    List<String> techDivisions=new ArrayList<String>();
+		if(checkIfElementIsThere("txt_divisionMember","Division Member")){
+			int size=elements("txt_divisionMember","Division Member").size();
+			for(int i=0;i<size;i++){
+				techDivisions.add(elements("txt_techDivision","Division Member").get(i).getText().trim());
+			}
+		}
+		if(checkIfElementIsThere("txt_divisionMember","Subdivision Member")){
+			int size=elements("txt_divisionMember","Subdivision Member").size();
+			for(int i=0;i<size;i++){
+				techDivisions.add(elements("txt_techDivision","Subdivision Member").get(i).getText().trim());
+			}
+		}
+		else 
+			logMessage("STEP: Technical divisions are not present\n");
+		
+		logMessage("STEP: Technical divisions are "+techDivisions);
+		return techDivisions;
 	}
 
 }

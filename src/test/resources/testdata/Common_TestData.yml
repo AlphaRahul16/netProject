@@ -28,6 +28,9 @@ csv-data-file:
   path_Chapter_Relationships: ./src/test/resources/TestDataLibrary/Chapter_Relationship_Datasheet.csv
   path_MyAccount: ./src/test/resources/TestDataLibrary/My_Account_Datasheet.csv
   path_Import_Profile: ./src/test/resources/TestDataLibrary/Rubber_Import_Insurance_Profile.csv
+  path_MyAccount: ./src/test/resources/TestDataLibrary/My_Account_Datasheet.csv
+  path_Import_Profile: ./src/test/resources/TestDataLibrary/Rubber_Import_Insurance_Profile.csv
+  path_Chapter_Relationships: ./src/test/resources/TestDataLibrary/Chapter_Relationship_Datasheet.csv
 
   data-separator: '\t'
   has-header: true
@@ -663,6 +666,7 @@ ACS_MyAccount:
     emailSaveMessage: "Email address is successfully saved!"
     phoneSaveMessage: "Phone number is successfully saved!"
     addressSaveMessage: "Address is successfully saved! Click close button to close the popup."
+    passwordChangedMessage: "Password successfully changed."
                     
 email:
   send: false
