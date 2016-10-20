@@ -21,6 +21,7 @@ app_url_yellowBook: https://ewebtest.acs.org/NFStage1/yellowbook
 app_url_iweb_yb: https://iwebtest.acs.org/YBStage1/iWeb
 app_url_MyAccount: https://aemwwwtst.acs.org/content/acs/en.html
 app_url_IwebMyAccount: https://stag-12iweb/NFStage1/iweb
+app_url_MyAccountNewUser: https://accounttest.acs.org/ssoamweb/account/signUp
 
 Authentication: 
   userName: C00616

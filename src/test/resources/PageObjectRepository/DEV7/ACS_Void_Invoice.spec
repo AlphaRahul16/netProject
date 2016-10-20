@@ -3,7 +3,7 @@ Page Title: BatchProcessing
 #Object Definitions
 ======================================================================================================================================
 btn_invoiceAction                              xpath                             //div[@id='F1_InvoiceAction']//td[${index}]/a/img 
-link_addbatch                                  xpath                             //div[@class='AddEditLinkDiv']/a/img
+link_addbatch                                  xpath                             //a[@id='inv_bat_key_oAddHyperLink']/span
 txt_batchDetails                               xpath                             (//div[@id='DesignedDiv']//input)[${index}]
 drpdwn_securityGroup                           xpath                             //div[@id='DesignedDiv']//select[${index}]
 btn_save                                       id                                ButtonSave

@@ -79,7 +79,8 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 			clickUsingXpathInJavaScriptExecutor(element("btn_addGift", buttonName));
 		}
 		else
-		    element("btn_addGift", buttonName).click();	
+			clickUsingXpathInJavaScriptExecutor(element("btn_addGift", buttonName));
+//		    element("btn_addGift", buttonName).click();	
 		logMessage("STEP : Clicked on " + buttonName + " button\n");
 	}
 
