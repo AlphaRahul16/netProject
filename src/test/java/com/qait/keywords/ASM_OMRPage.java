@@ -902,10 +902,10 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		//switchToEwebRenewalFrame();
 		wait.hardWait(4);
-		 executeJavascriptReturnValue("window.getComputedStyle(document.getElementById('eWebFrame').contentWindow.document.querySelector('#print-invoice>input')).display");
-		//System.out.println(display);
+		Object display= executeJavascriptReturnValue("window.getComputedStyle(document.getElementById('eWebFrame').contentWindow.document.querySelector('#print-invoice>input')).display");
+		System.out.println(display.toString());
+		Assert.assertTrue(display.toString().contains("inline"));
 		logMessage("Step : Print Renewal Receipt button is verified\n");
-		//Assert.assertTrue(element("txt_legend", "Membership & Subscription Renewal - ").isDisplayed());
 		logMessage("ASSERT PASSED : Receipt message for membership & subscription renewal is verified\n");
 		switchToDefaultContent();
 
@@ -1091,11 +1091,16 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	}
 
 	public String geInvoiceNumberOnOMRReceiptPage(String value) {
-		wait.hardWait(8);
-		String invoiceNumberonOMR;
-		invoiceNumberonOMR= (String) executeJavascriptReturnValue("document.getElementById('eWebFrame').contentWindow.document.querySelector('span[id*="+value+"]').innerHTML");
+		wait.hardWait(4);
+		wait.waitForPageToLoadCompletely();
+		holdScriptExecution();
+		Object invoiceNumberonOMR;
+		String invoice;
+		invoiceNumberonOMR= executeJavascriptReturnValue("document.getElementById('eWebFrame').contentWindow.document.querySelector('span[id*="+value+"]').innerHTML");
 		logMessage("Step : Invoice Number on renewal receipt page is fetched as "+invoiceNumberonOMR);
-		return invoiceNumberonOMR;
+		invoice = (String) invoiceNumberonOMR;
+		System.out.println(invoice);
+		return invoice;
 		
 		
 	}
