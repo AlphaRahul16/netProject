@@ -4877,10 +4877,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				techDivisions.add(elements("txt_techDivision","Subdivision Member").get(i).getText().trim());
 			}
 		}
-		else 
+		
+		if(techDivisions.size()>0)
+			logMessage("STEP: Technical divisions are "+techDivisions);
+		else
 			logMessage("STEP: Technical divisions are not present\n");
 
-		logMessage("STEP: Technical divisions are "+techDivisions);
 		return techDivisions;
 	}
 

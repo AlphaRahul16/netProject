@@ -534,7 +534,7 @@ public class GetPage extends BaseUi {
 
 		if (memberType.equalsIgnoreCase(case1)) {
 			skipTest.put("Step02_Launch_Iweb_Application_And_Find_Existing_Member", true);
-			skipTest.put("Step05_Verify_Techincal_Division_And_My_Applications",true);
+			skipTest.put("Step05_Verify_Techincal_Divisions_And_My_Applications",true);
 		} else if (memberType.equalsIgnoreCase(case2)) {
 			skipTest.put("Step01_Launch_My_Account_Application_And_Create_New_Member", true);
 		} else {
