@@ -1,0 +1,4 @@
+CASE ID	 Execute	How do you want to receive ChemMatters?	Gender	Credit card	Cardholder Name	Credit card number	Credit card expire month	Credit card expire year	CVV
+1	Yes	print	Male	Visa/MC	seleniumtest	41111111111111100	8	2022	123
+2	No	electronic	Male				8	2022	123
+3	No	print and electronic	Male				8	2022	123

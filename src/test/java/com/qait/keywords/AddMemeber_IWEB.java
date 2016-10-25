@@ -21,6 +21,7 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 
 	public String[] enterMemberDetailsInAddIndividual() {
 		hardWaitForIEBrowser(3);
+		//wait.hardWait(10);
 		String fName = map().get("firstName");
 		String mName = map().get("middleName");
 		String lName = map().get("lastName");
@@ -32,37 +33,44 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		String phnCountry = map().get("country");
 		String phnNumber = map().get("phnNumber");
 		String outPostalCode = map().get("Out_postalCode");
-
+		
 		if (fName.equalsIgnoreCase("")) {
 			fName = "FN" + System.currentTimeMillis();
 			enterMemberDetails("first name", fName);
 		} else {
 			enterMemberDetails("first name", fName);
 		}
-
+		
 		if (mName.equalsIgnoreCase("")) {
 			mName = "Selenium";
 			enterMemberDetail("middleName", mName);
 		} else {
 			enterMemberDetail("middleName", mName);
 		}
-
+		
 		if (lName.equalsIgnoreCase("")) {
 			lName = "LN" + System.currentTimeMillis();
 			enterMemberDetail("lastName", lName);
 		} else {
 			enterMemberDetail("lastName", lName);
 		}
-
+		wait.hardWait(3);
 		selectMemberDetails("individualType", "Individual");
+		wait.hardWait(3);
 		selectMemberDetails("country", country);
+		wait.hardWait(3);
 		hardWaitForChromeBrowser(6);
 		enterMemberDetail("addressLine1", street);
+		wait.hardWait(3);
 		enterMemberDetails("city/state/zip", city);
+		wait.hardWait(3);
 		if (!(abrState.equalsIgnoreCase(""))) {
+			wait.hardWait(5);
 			selectMemberDetails("state", abrState);
 		}
+		wait.hardWait(3);
 		enterMemberDetail("postalCode", inPostalCode);
+		wait.hardWait(3);
 		waitForSpinner();
 		wait.hardWait(2);
 		// selectMemberDetails("phnCountry", phnCountry);

@@ -2768,6 +2768,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ reviewerloginMap.get("reviewer" + reviewerNumber).get(1));
 	}
 
+	public String getCstWebLogin(){
+		
+		String cst=element("txt_current", String.valueOf(1)).getText();
+		element("txt_current", String.valueOf(1)).click();	
+		logMessage("STEP : CstWebLogin fetched as " + cst);
+		return cst;
+		
+	}
+	
 	public void getIndividualFullNameForAwardsNomination() {
 
 		clickOnEditNameAndAddress();
@@ -4884,6 +4893,18 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		
 		logMessage("STEP: Technical divisions are "+techDivisions);
 		return techDivisions;
+	}
+
+	public void verifyTermStartDateAndTermEndDateIsEmptyForAACT() {
+		isElementDisplayed("txt_termStartDaterenewal", "1");
+		Assert.assertTrue(element("txt_termStartDaterenewal", "1")
+				.getText().length() == 1, "Term Start Date is not Empty");
+		logMessage("ASSERT PASSED : Term Start date is empty\n");
+		isElementDisplayed("txt_termEndDaterenewal", "1");
+		Assert.assertTrue(element("txt_termEndDaterenewal", "1").getText()
+				.length() == 1, "Term End Date is not Empty");
+		logMessage("ASSERT PASSED : Term End date is empty\n");
+		
 	}
 
 }
