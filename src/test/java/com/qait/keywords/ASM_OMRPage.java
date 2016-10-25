@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
+import com.fasterxml.jackson.databind.InjectableValues;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DateUtil;
 
@@ -832,15 +833,33 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		if(mapOMR.get("Member_Status?").equalsIgnoreCase("Student"))
 		{
 			//isConfirmYourInformationHeadingDisplayed();
-			enterGraduationDateForDegreeType();
-			enterStudentDegreeType(mapOMR);
-			confirmUndergraduateStatus();
-			switchToEwebRenewalFrame();
-			clickOnSaveButton();
-			switchToDefaultContent();
-			holdScriptExecution();
+			confirmStudentInformationAndContinue(mapOMR.get("Stud_Degree_Type"));
 
 		}
+	}
+	
+	public void confirmStudentInformationAndContinue(String degreeType)
+	{
+		enterGraduationDateForDegreeType();
+		enterStudentDegreeType(degreeType);
+		confirmUndergraduateStatus();
+		switchToEwebRenewalFrame();
+		clickOnSaveButton();
+		switchToDefaultContent();
+		holdScriptExecution();
+	}
+	
+	public void confirmStudentDetailsForExpressRenewal(String degreeType)
+	{
+		try{
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			wait.resetImplicitTimeout(hiddenFieldTimeOut);
+		    confirmStudentInformationAndContinue("Bachelor");}catch(NoSuchElementException e){
+			logMessage("Step : User is not a Student Member\n");
+		}
+		switchToDefaultContent();
+		wait.resetExplicitTimeout(timeOut);
+		wait.resetImplicitTimeout(timeOut);
 	}
 
 	private void confirmUndergraduateStatus() {
@@ -851,9 +870,9 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 	}
 
-	private void enterStudentDegreeType(Map<String, String> mapOMR) {
+	private void enterStudentDegreeType(String degreeType) {
 		switchToEwebRenewalFrame();
-		selectProvidedTextFromDropDown(element("drpdwn_degreeType"), mapOMR.get("Stud_Degree_Type"));
+		selectProvidedTextFromDropDown(element("drpdwn_degreeType"), degreeType);
 		switchToDefaultContent();
 	}
 
@@ -881,13 +900,13 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 
 	public void verifyPrintReceiptMessageAfterPayment() {
 		wait.waitForPageToLoadCompletely();
+		//switchToEwebRenewalFrame();
 		wait.hardWait(4);
-		switchToEwebRenewalFrame();
-		
-		isElementDisplayed("btn_printreceipt");
+		Object display= executeJavascriptReturnValue("window.getComputedStyle(document.getElementById('eWebFrame').contentWindow.document.querySelector('#print-invoice>input')).display");
+		System.out.println(display.toString());
+		Assert.assertTrue(display.toString().contains("inline"));
 		logMessage("Step : Print Renewal Receipt button is verified\n");
-		Assert.assertTrue(element("txt_legend", "Membership & Subscription Renewal - ").isDisplayed());
-		//verifyElementTextContains("txt_legend", "Membership & Subscription Renewal - ");
+		logMessage("ASSERT PASSED : Receipt message for membership & subscription renewal is verified\n");
 		switchToDefaultContent();
 
 	}
@@ -1063,11 +1082,25 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	}
 
 	public String getMemberNameFromOMRHomepage() {
-		holdScriptExecution();
 		isElementDisplayed("txt_AsteriskFields","MemberName");
 		String customerName=element("txt_AsteriskFields","MemberName").getText().trim();
 		logMessage("Step : Customer name on renewal homepage is "+customerName);
 		return customerName;
+		
+		
+	}
+
+	public String geInvoiceNumberOnOMRReceiptPage(String value) {
+		wait.hardWait(4);
+		wait.waitForPageToLoadCompletely();
+		holdScriptExecution();
+		Object invoiceNumberonOMR;
+		String invoice;
+		invoiceNumberonOMR= executeJavascriptReturnValue("document.getElementById('eWebFrame').contentWindow.document.querySelector('span[id*="+value+"]').innerHTML");
+		logMessage("Step : Invoice Number on renewal receipt page is fetched as "+invoiceNumberonOMR);
+		invoice = (String) invoiceNumberonOMR;
+		System.out.println(invoice);
+		return invoice;
 		
 		
 	}

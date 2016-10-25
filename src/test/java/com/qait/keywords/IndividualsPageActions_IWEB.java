@@ -2329,8 +2329,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	private void clickLookUpButton() {
-	 // element("inp_chapterName","chapter name").sendKeys("QA");
-	  wait.hardWait(3);
+	  wait.waitForPageToLoadCompletely();
+	  wait.hardWait(6);
 	  wait.waitForElementToBeClickable(element("img_look_up"));
 	  element("img_look_up").click();
 	  logMessage("Step: Look up button is clicked\n");

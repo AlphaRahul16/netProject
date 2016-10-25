@@ -76,5 +76,6 @@ select_state                              id                    adr_state
 select_addressType                        id                    cxa_adt_key
 chkbox_primary                            xpath                 //span[contains(@title,'${field}')]//input
 img_primary                               xpath                 (//span[text()='${name}']/parent::td/parent::tr/following-sibling::tr/td/div/table/tbody/tr[not(contains(@style,'none'))]//td[%{index1}])[#{index2}]//img
+img_look_up							      css	                .LookUpHyperLink
 
 ======================================================================================================================================
