@@ -1,6 +1,7 @@
 password: "password"
 
 csv-data-file:
+  path_AACT_OMR: ./src/test/resources/TestDataLibrary/AACT_OMR_Datasheet.csv
   path_OMA: ./src/test/resources/TestDataLibrary/OMA Business Rules.csv
   path_PriceValue: ./src/test/resources/TestDataLibrary/PriceValues.csv
   path_AACT_OMA: ./src/test/resources/TestDataLibrary/AACT_OMA_Data_Sheet.csv
@@ -633,6 +634,9 @@ COE_Inventory:
   paymentMethod: "BOA - Check"
   checkNumber: "1111"   
   queryName: "Selenium - Find Active Regular Member"
+  
+AACT_OMR:
+  queryName: "Selenium - Renewals - AACT"
 
 ScarfReviewer:
     queryName: "BP - Reviewers"

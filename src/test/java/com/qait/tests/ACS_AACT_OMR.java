@@ -4,6 +4,7 @@ import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.testng.Reporter;
@@ -17,11 +18,15 @@ import com.qait.automation.getpageobjects.BaseTest;
 
 public class ACS_AACT_OMR extends BaseTest {
 
-	private String webLogin, matterType;
-	public String contactID;
+	private String weblogin, matterType;
 	private String[] memDetails;
 	List<String> updatedValues = new ArrayList<String>();
-	
+	private String caseID;
+	int numberOfDivisions, numberOfSubscriptions;
+	HashMap<String, String> dataList = new HashMap<String, String>();
+	String individualName;
+	List<String> customerFullNameList;
+
 	String app_url_IWEB = getYamlValue("app_url_IWEB");
 	String app_url_AACT_OMR = getYamlValue("app_url_AACT_OMR");
 
@@ -49,6 +54,44 @@ public class ACS_AACT_OMR extends BaseTest {
 	}
 
 	@Test
+	public void Step01_Launch_IWEB_Application() {
+
+		test.homePageIWEB.addValuesInMap("AACT_OMR", caseID);
+		test.launchApplication(app_url_IWEB);
+		// test.homePage.verifyUserIsOnHomePage("CRM | Overview | Overview and
+		// Setup");
+
+	}
+
+	@Test
+	public void Step02_Open_Membership_Page() {
+
+		test.homePageIWEB.clickOnModuleTab();
+		test.homePageIWEB.clickOnTab("Membership");
+		test.homePageIWEB.clickOnSideBarTab("Members");
+		test.homePageIWEB.clickOnTab("Query Membership");
+		test.homePageIWEB.verifyUserIsOnHomePage("Query - Membership");
+
+	}
+
+	@Test
+	public void Step03_Select_And_Run_Query_In_Membership_Page() {
+
+		test.memberShipPage.selectAndRunQuery(getYamlValue("AACT_OMR.queryName"));
+		test.memberShipPage.enterExpiryDatesBeforeAndAfterExpressRenewal();
+		test.memberShipPage.clickOnGoButtonAfterPackageSelection();
+	}
+
+	@Test
+	public void Step04_Fetch_CstWebLogin_And_Verify_TermStartDate_And_TermEndDate() {
+
+		weblogin = test.memberShipPage.getCstWebLogin();
+		test.memberShipPage.expandDetailsMenu("invoices");
+		test.memberShipPage.verifyTermStartDateAndTermEndDateIsEmptyForAACT();
+		test.memberShipPage.collapseDetailsMenu("invoices");
+	}
+
+	@Test
 	public void Step05_Launch_EWEB_Application_and_Login_with_Weblogin() {
 		test.homePageIWEB.addValuesInMap("AACT_OMR", caseID);
 		test.launchApplication(app_url_AACT_OMR);
@@ -71,7 +114,7 @@ public class ACS_AACT_OMR extends BaseTest {
 	public void Step07_Select_value_for_How_do_you_want_to_receive_ChemMatters_Update_details_of_About_You() {
 		String type = test.homePageIWEB.map().get("How do you want to receive ChemMatters?");
 		test.acs_aactOmr.selectValuesForChemMatters("How do you want to receive", type);
-		updatedValues=test.acs_aactOmr.updateAboutYou();
+		updatedValues = test.acs_aactOmr.updateAboutYou();
 		test.acs_aactOmr.clickButtonByInputValue("Save");
 	}
 
@@ -87,7 +130,8 @@ public class ACS_AACT_OMR extends BaseTest {
 		test.acs_aactOmr.enterPaymentInfo(test.homePageIWEB.map().get("CreditCardType").trim(),
 				test.homePageIWEB.map().get("CardholderName").trim(),
 				test.homePageIWEB.map().get("CreditCardNumber").trim(), test.homePageIWEB.map().get("cvv").trim(),
-				test.homePageIWEB.map().get("ExpirationMonth").trim(),test.homePageIWEB.map().get("ExpirationYear").trim());
+				test.homePageIWEB.map().get("ExpirationMonth").trim(),
+				test.homePageIWEB.map().get("ExpirationYear").trim());
 		test.acs_aactOmr.clickButtonByInputValue("chkAutoRenewal");
 	}
 

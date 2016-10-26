@@ -12,7 +12,7 @@ btn_addAddress                      xpath                   //input[@id='work' a
 input_email                         xpath                   //input[@id='emailList0.emailAddress']
 btn_emailSave                       xpath                   //input[@id='${field}' and @value='Save']
 msg_emailSaved                      css                     .emailSussessMsg
-inp_homePhone                       xpath                   //label[text()='Home']//..//input[@class='form-control span4 phoneInputTxt']
+inp_homePhone                       xpath                   //label[text()='${heading}']//..//input[@class='form-control span4 phoneInputTxt']
 chkbx_primary                       xpath                   //label[text()='Home']//..//input[@id='chkBoxPrimary']
 btn_phoneSave                       xpath                   //input[@id='home' and @value='Save']
 inp_changeAddress                   css                     #${value}
@@ -21,7 +21,7 @@ btn_addressSave                     css                     #addressSaveBtnId
 msg_addressSave                     css                     #addressError
 msg_phoneSave                       xpath                   //label[text()='Home']/..//span[contains(@class,'phoneSuccessMsg')]
 img_phonePrimary                    xpath                   //span[text()='Primary']
-img_addressPrimary                  xpath                   //div[text()='Primary']
+img_addressPrimary                  xpath                   //*[@class='addressPrimarySpan primary-tag' and text()='Primary']
 tab_myAccount                       xpath                   //ul//a[text()='${tabName}']
 radioBtn_acsMember                  id                      opted-${value}
 btn_Save                            xpath                   //input[@value='${btnName}']

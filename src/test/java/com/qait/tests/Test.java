@@ -1,5 +1,8 @@
 package com.qait.tests;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Reporter;
@@ -11,6 +14,7 @@ public class Test{
 	type=Character.toUpperCase(type.charAt(0))+type.substring(1);
 		System.out.println(Character.toUpperCase(type.charAt(0))+type.substring(1));
 		System.out.println(type);
+		
 /*
 	public void demoTest(){
 	WebDriver driver=new FirefoxDriver();
