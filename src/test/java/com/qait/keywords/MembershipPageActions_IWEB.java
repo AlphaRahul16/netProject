@@ -1741,7 +1741,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_creditAvailable");
 		String credit = element("txt_creditAvailable").getText();
 		Assert.assertTrue(
-				Double.parseDouble(credit) >= Double.parseDouble(creditAmount),
+				Double.parseDouble(credit) == Double.parseDouble(creditAmount),
 				"ASSERT FAILED : Credit available is not matched on COE page\n");
 		logMessage("ASSERT PASSED : Credit availabale is " + credit + " \n");
 

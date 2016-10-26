@@ -27,6 +27,7 @@ csv-data-file:
   path_MyAccount: ./src/test/resources/TestDataLibrary/My_Account_Datasheet.csv
   path_Import_Profile: ./src/test/resources/TestDataLibrary/Rubber_Import_Insurance_Profile.csv
   path_Chapter_Relationships: ./src/test/resources/TestDataLibrary/Chapter_Relationship_Datasheet.csv
+  path_AACT_OMR: ./src/test/resources/TestDataLibrary/AACT_OMR_Datasheet.csv
 
   data-separator: '\t'
   has-header: true

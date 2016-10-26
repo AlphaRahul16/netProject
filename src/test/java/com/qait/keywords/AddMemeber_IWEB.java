@@ -26,6 +26,7 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		String lName = map().get("lastName");
 		String country = map().get("country");
 		String street = map().get("street");
+		String state = map().get("state"); 
 		String city = map().get("city");
 		String abrState = map().get("abrv_state");
 		String inPostalCode = map().get("In_postalCode");
@@ -55,21 +56,27 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		}
 
 		selectMemberDetails("individualType", "Individual");
-		selectMemberDetails("country", country);
-		hardWaitForChromeBrowser(6);
+		//selectMemberDetails(detailName, detailValue);
+		
 		enterMemberDetail("addressLine1", street);
-		enterMemberDetails("city/state/zip", city);
+		selectMemberDetails("country", country);
+		waitForSpinner();
+		
 		if (!(abrState.equalsIgnoreCase(""))) {
 			selectMemberDetails("state", abrState);
+			waitForSpinner();
 		}
+		enterMemberDetailsInCity("city/state/zip", city);
+		waitForSpinner();
 		enterMemberDetail("postalCode", inPostalCode);
 		waitForSpinner();
 		wait.hardWait(2);
+		
 		// selectMemberDetails("phnCountry", phnCountry);
 		//
 		// enterMemberDetails("number", phnNumber);
-		waitForSpinner();
-		wait.hardWait(1);
+		//waitForSpinner();
+		
 		clickOnSaveButton();
 
 		handleAlert1();
@@ -98,11 +105,20 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		//wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(2);
 		isElementDisplayed("inp_memberDetailInAdd", detailName);
-		element("inp_memberDetailInAdd", detailName).clear();
+	//	element("inp_memberDetailInAdd", detailName).clear();
 		element("inp_memberDetailInAdd", detailName).sendKeys(detailValue);
 		logMessage("STEP : Enter " + detailValue + " in " + detailName + " \n");
 	}
 
+
+	public void enterMemberDetailsInCity(String detailName, String detailValue) {
+		//wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(2);
+		isElementDisplayed("inp_city");
+		//element("inp_city").clear();
+		element("inp_city").sendKeys(detailValue);
+		logMessage("STEP : Enter " + detailValue + " in " + detailName + " \n");
+	}
 	public void selectMemberDetails(String detailName, String detailValue) {
 		isElementDisplayed("list_" + detailName);
 		selectProvidedTextFromDropDown(element("list_" + detailName),
@@ -170,9 +186,6 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
 				"hiddenFieldTimeOut"));
 		System.out.println(isBrowser("chrome"));
-
-		if(!isBrowser("chrome"))
-		{
 		try {
 			handleAlert();
 			wait.resetImplicitTimeout(3);
@@ -188,7 +201,7 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 			wait.resetExplicitTimeout(timeOut);
 			logMessage("STEP : Spinner is not present \n");
 		}
-		}
+		
 	}
 
 	protected void handleAlert1() {
