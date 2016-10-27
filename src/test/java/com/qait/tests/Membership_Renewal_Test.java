@@ -15,7 +15,7 @@ import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 import com.qait.keywords.YamlInformationProvider;
 
-public class Membership_Renewal_Test extends BaseTest{
+public class Membership_Renewal_Test extends BaseTest {
 
 	String app_url_IWEB, name, time, runTaskDateTime;
 	YamlInformationProvider getMemRenewalInfo;
@@ -96,10 +96,10 @@ public class Membership_Renewal_Test extends BaseTest{
 		test.membershipRenewalPage
 				.clickOnSubInfoDropdown("batch renewal summary");
 		test.membershipRenewalPage.verifyNoResultDisplay();
-//		test.membershipRenewalPage.holdScriptUntilVerifyStatus(
-//				getMemRenewalInfo.getRenewalInfoForProcessing("status"),
-//				getMemRenewalInfo
-//						.getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));
+		// test.membershipRenewalPage.holdScriptUntilVerifyStatus(
+		// getMemRenewalInfo.getRenewalInfoForProcessing("status"),
+		// getMemRenewalInfo
+		// .getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));
 
 		test.membershipRenewalPage.holdScriptUntilVerifyStatus(
 				getMemRenewalInfo.getRenewalInfoForSuccess("status"),
@@ -128,10 +128,12 @@ public class Membership_Renewal_Test extends BaseTest{
 	public void Step06_Verify_Renewal_Details_For_create_Renewal_Invoices() {
 		test.membershipRenewalPage
 				.verifyCreateInvoiceTaskStartTimeAndDate(time);
-		/*test.membershipRenewalPage.holdScriptUntilVerifyStatus(
-				getMemRenewalInfo.getRenewalInfoForProcessing("status"),
-				getMemRenewalInfo
-						.getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));*/
+		/*
+		 * test.membershipRenewalPage.holdScriptUntilVerifyStatus(
+		 * getMemRenewalInfo.getRenewalInfoForProcessing("status"),
+		 * getMemRenewalInfo
+		 * .getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));
+		 */
 		test.membershipRenewalPage.holdScriptUntilVerifyStatus(
 				getMemRenewalInfo.getRenewalInfoForSuccess("status"),
 				getMemRenewalInfo
@@ -154,7 +156,7 @@ public class Membership_Renewal_Test extends BaseTest{
 		@SuppressWarnings("unchecked")
 		List<String> memberDetails = (List<String>) obj[invocationCount];
 		test.launchApplication(app_url_IWEB);
-		
+
 		test.homePageIWEB.GoToCRMModule();
 		test.homePageIWEB.clickFindForIndividualsSearch();
 		test.individualsPage.fillMemberDetailsAndSearch("Record Number",
@@ -178,7 +180,6 @@ public class Membership_Renewal_Test extends BaseTest{
 		test.invoicePage.expandDetailsMenu("line items");
 		test.invoicePage.verifyInvoiceDetailsOnInvoiceProfilePage(
 				memberDetails.get(8), memberDetails.get(7));
-
 		invocationCount++;
 	}
 
@@ -192,8 +193,9 @@ public class Membership_Renewal_Test extends BaseTest{
 		getMemRenewalInfo = new YamlInformationProvider(mapMemberShipRenewal);
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		test.launchApplication(app_url_IWEB);
-		
+
 	}
+
 	@BeforeMethod
 	public void handleTestMethodName(Method method) {
 		test.printMethodName(method.getName());
