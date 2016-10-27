@@ -6,6 +6,8 @@ import static com.qait.automation.utils.YamlReader.setYamlFilePath;
 
 import java.awt.AWTException;
 import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -235,7 +237,111 @@ public class TestSessionInitiator {
 	}
 
 	public void launchApplication() {
-		launchApplication(getYamlValue("baseurl"));
+		launchApplication1(getYamlValue("baseurl"));
+	}
+	
+	public void launchApplication1(String baseurl){
+		try{
+			Reporter.log(
+					"The test browser is :- "
+							+ _getSessionConfig().get("browser") + "\n", true);
+			
+			if(_getSessionConfig().get("browser").equalsIgnoreCase("ie") || _getSessionConfig()
+					.get("browser").equalsIgnoreCase("internetexplorer")){
+				System.out.println("----1");
+				driver.get(baseurl);
+				Reporter.log("\nThe application url is :- " + baseurl, true);
+				enterAuthentication(getYamlValue("Authentication.userName"), getYamlValue("Authentication.password"));
+			}
+			else if((_getSessionConfig().get("browser").equalsIgnoreCase("firefox") || _getSessionConfig().get("browser").equalsIgnoreCase("Firefox")) &&
+					baseurl.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev7/iWeb/")){
+				System.out.println("----2");
+				driver.get(baseurl);
+				Reporter.log("\nThe application url is :- " + baseurl, true);
+//				enterAuthentication(getYamlValue("Authentication.userName"), getYamlValue("Authentication.password"));
+			}
+			else if(baseurl
+					.equalsIgnoreCase("https://stag-12iweb/NFStage3/iweb")
+					|| baseurl
+							.equalsIgnoreCase("https://stag-12iweb/NFStage2/iweb")
+					|| baseurl
+							.equalsIgnoreCase("https://stag-12iweb/NFStage5/iweb")
+					|| baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage1/iweb")){
+				System.out.println("----3");
+				baseurl = baseurl
+						.replaceAll(
+								"https://stag",
+								"https://"
+										+ YamlReader
+												.getYamlValue("Authentication.userName")
+										+ ":"
+										+ URLEncoder.encode(
+												YamlReader
+														.getYamlValue("Authentication.password"),
+												"UTF-8") + "@stag");
+				driver.get(baseurl);
+				Reporter.log("\nThe application url is :- "
+						+ baseurl
+								.replace(baseurl.split("@")[0], "https://")
+								.replace("@", ""), true);
+			}
+			else if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/"))
+					&& (ConfigPropertyReader.getProperty("browser")
+							.equalsIgnoreCase("IE")
+							|| ConfigPropertyReader.getProperty("browser")
+									.equalsIgnoreCase("ie") || ConfigPropertyReader
+							.getProperty("browser").equalsIgnoreCase(
+									"internetexplorer"))) {
+				try {
+					Thread.sleep(8000);
+				} catch (InterruptedException e1) {
+					System.out.println(e1.getMessage());
+				}
+			}
+			else if(baseurl
+					.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev7/iWeb/")){
+				System.out.println("------4");
+
+				baseurl = baseurl.replaceAll(
+						"https://dev",
+						"https://"
+								+ YamlReader
+										.getYamlValue("Authentication.userName")
+								+ ":"
+								+ URLEncoder.encode(
+										YamlReader
+												.getYamlValue("Authentication.password"),
+										"UTF-8") + "@dev");
+		       driver.get(baseurl);
+		       Reporter.log("\nThe application url is :- "
+						+ baseurl
+								.replace(baseurl.split("@")[0], "https://")
+								.replace("@", ""), true);
+			}
+			else {
+				System.out.println("------5");
+				baseurl = baseurl
+						.replaceAll(
+								"https://iwebtest",
+								"https://"
+										+ YamlReader
+												.getYamlValue("Authentication.userName")
+										+ ":"
+										+ URLEncoder.encode(
+												YamlReader
+														.getYamlValue("Authentication.password"),
+												"UTF-8") + "@iwebtest");
+				driver.get(baseurl);
+				Reporter.log("\nThe application url is :- "
+						+ baseurl
+								.replace(baseurl.split("@")[0], "https://")
+								.replace("@", ""), true);
+			}
+			
+			
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	public void launchApplication(String baseurl) {
@@ -253,7 +359,6 @@ public class TestSessionInitiator {
 						|| baseurl
 								.equalsIgnoreCase("https://stag-12iweb/NFStage5/iweb")
 						|| baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage1/iweb")		) {
-//					System.out.println("in if");
 					baseurl = baseurl
 							.replaceAll(
 									"https://stag",
@@ -282,7 +387,6 @@ public class TestSessionInitiator {
 			driver.get(baseurl);
 				}
 				else {
-//					System.out.println("in else");
 					baseurl = baseurl
 							.replaceAll(
 									"https://iwebtest",
@@ -449,6 +553,53 @@ public class TestSessionInitiator {
 
 	public void printMethodName(String testName) {
 		Reporter.log("\nMethod Name :- " + testName.toUpperCase() + "\n", true);
+	}
+	
+	public void enterAuthentication(String uName, String password) {
+		if ((isBrowser("ie") || isBrowser("internetexplorer"))) {
+			System.out.println("in authentication");
+			setClipboardData(uName);
+			Robot robot;
+			try {
+				robot = new Robot();
+				setClipboardData(uName);
+				robot.delay(2000);
+				robot.keyPress(KeyEvent.VK_CONTROL);
+				robot.keyPress(KeyEvent.VK_V);
+				robot.keyRelease(KeyEvent.VK_V);
+				robot.keyRelease(KeyEvent.VK_CONTROL);
+				robot.delay(2000);
+				robot.keyPress(KeyEvent.VK_TAB);
+				robot.keyRelease(KeyEvent.VK_TAB);
+				setClipboardData(password);
+				robot.delay(2000);
+				robot.keyPress(KeyEvent.VK_CONTROL);
+				robot.keyPress(KeyEvent.VK_V);
+				robot.keyRelease(KeyEvent.VK_V);
+				robot.keyRelease(KeyEvent.VK_CONTROL);
+				robot.delay(2000);
+				robot.keyPress(KeyEvent.VK_ENTER);
+				robot.keyRelease(KeyEvent.VK_ENTER);
+				System.out.println("after authentication");
+			} catch (AWTException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public boolean isBrowser(String browserName) {
+		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase(
+				browserName)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public static void setClipboardData(String string) {
+		StringSelection stringSelection = new StringSelection(string);
+		Toolkit.getDefaultToolkit().getSystemClipboard()
+				.setContents(stringSelection, null);
 	}
 		
 }

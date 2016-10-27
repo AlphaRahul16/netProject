@@ -1368,7 +1368,6 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void navigateToMembershipProfilePage() {
-		// expandDetailsMenu("individual memberships");
 		clickOnButtonToNavigateFinancialPageInMembershipPage();
 	}
 

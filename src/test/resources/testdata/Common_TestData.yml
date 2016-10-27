@@ -482,7 +482,7 @@ MemberShipRenewal:
          expMonth: 11
          expYear: 2017
          renewalYear: 2017
-         type: ACS
+         type: Selenium
          renewalLength: 1
     firstMember: 
          memberType: Regular Member
@@ -493,12 +493,12 @@ MemberShipRenewal:
          memberStatus: Active
          country: CANADA
     queryName: "Member Query by Member Number – Multiple"
-    timeSlabInMinutes: 5
+    timeSlabInMinutes: 7
     maxWaitTimeInMinutesForStatus: 30 
     renewalInformation: 
          association: ACS
          renewalYear: 2017  
-         batch: "ACS: QA_SUB_BATCH" 
+         batch: "ACS: SELENIUM_BATCH"
     renewalDetailsForSchedule: 
          status: SCHEDULED
          createInvoiceScheduleTask: "No"
@@ -508,18 +508,18 @@ MemberShipRenewal:
          status: PROCESSING
     renewalDetailsForSuccess: 
          status: Success
-         numberOfRenewals: 2
+         numberOfRenewals: 1
          numberOfInvoicesCreated: 0
          numberOfErrors: 0
     renewalDetailsForProcessingCreateRenewalInvoice: 
          status: PROCESSING
-         numberOfRenewals: 2
+         numberOfRenewals: 1
          numberOfInvoicesCreated: 1
          numberOfErrors: 0
     renewalDetailsForSuccessCreateRenewalInvoice: 
          status: SUCCESS
-         numberOfRenewals: 2
-         numberOfInvoicesCreated: 2
+         numberOfRenewals: 1
+         numberOfInvoicesCreated: 1
          numberOfErrors: 0
     invoiceDetails: 
          proforma: "Yes"               

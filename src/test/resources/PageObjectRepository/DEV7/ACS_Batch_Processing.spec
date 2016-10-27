@@ -22,6 +22,8 @@ inp_batchAdvanceView                        xpath                          //lab
 drpdwn_period                               id                             ValueDropDownList2
 chkbox_RefundCC                             css                            input[id*='RefundDataGrid'][type='checkbox'][checked='checked']
 txt_Refundamount                            css                            td>input[id*='RefundDataGrid'][type='text']
-btn_ftpReport                               id                              ACSRefundReportButton
-tbl_RefundTotal                             xpath                           //td[contains(text(),'${value}')]/following-sibling::td[1]
+btn_ftpReport                               id                             ACSRefundReportButton
+tbl_RefundTotal                             xpath                          //td[contains(text(),'${value}')]/following-sibling::td[1]
+txt_processPercentage                       xpath                          (//td[@class='ProgressBarMessage'])[1]
+form_progressBar                            id                             ProgressBar_ProgressBarBackgroundDiv 
 ======================================================================================================================================

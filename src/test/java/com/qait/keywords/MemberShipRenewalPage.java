@@ -35,7 +35,7 @@ public class MemberShipRenewalPage extends GetPage {
 		selectACSCycleRenewalDetail("expireYear", expYear);
 		selectACSCycleRenewalDetail("renewalYear", renewalYear);
 		selectACSCycleRenewalDetail("renewalLength", renewalLength);
-		String actualName = type + System.currentTimeMillis();
+		String actualName = type + "_"+ DateUtil.getCurrentdateInStringWithGivenFormate("MM-dd-YYYY") + "_" + System.currentTimeMillis();
 		enterACSCycleRenewalDetails("type", actualName);
 		waitForSpinner();
 		wait.waitForPageToLoadCompletely();
@@ -172,10 +172,13 @@ public class MemberShipRenewalPage extends GetPage {
 		wait.hardWait(1);
 		// waitForSpinner();
 		// wait.hardWait(1);
-		isElementDisplayed("txt_OK");
-		element("txt_OK").click();
-		waitForSpinner();
+//		isElementDisplayed("txt_Now");
+//		element("txt_Now").click();
+//		waitForSpinner();
+//		runTaskDateTime=element("txt_beginDate").getAttribute("value").trim();
+//		System.out.println("-------time is:"+runTaskDateTime);
 		clickOnSaveButton();
+		handleAlert();
 
 		return runTaskDateTime;
 	}
@@ -381,7 +384,7 @@ public class MemberShipRenewalPage extends GetPage {
 		logMessage("===== Automation script is on hold for 2 minutes to verify preview status "
 				+ status + " =====\n");
 		String lapsedMinutes = "";
-		for (int minutes = 1; minutes <= 2; minutes++) {
+		for (int minutes = 1; minutes <= 1; minutes++) {
 			for (int i = 0; i <= 59; i++) {
 				System.out.print("\r");
 				System.out.print("Time:- " + lapsedMinutes + i + " sec ");

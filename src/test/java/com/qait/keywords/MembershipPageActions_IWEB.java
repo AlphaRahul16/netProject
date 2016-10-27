@@ -1313,6 +1313,27 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		waitForSpinner();
 		return memberDetails;
 	}
+	
+	public List<String> getMemberDetailsOnMembershipPage(){
+		memberDetails.add(getMemberInfoOnMemberShipProfile("member package"));
+		memberDetails.add(getMemberInfoOnMemberShipProfile("renewal package"));
+		memberDetails.add(getPaymentStatus());
+		memberDetails.add(getMemberDetailsOnMemberShipProfile("customer id"));
+		memberDetails.add(getMemberDetailsOnMemberShipProfile("expire date"));
+		memberDetails
+				.add(getMemberDetailsOnMemberShipProfile("effective date"));
+		memberDetails.add(getMemberDetailsOnMemberShipProfile("join date"));
+		openSubInfoDropDown("invoices");
+		waitForSpinner();
+		flag = pagesLinkAvailable();
+		memberDetails.add(getProductNameInInvoice(flag));
+		memberDetails.add(getInvoiceIDInInvoice(flag));
+		memberDetails.add(getTermStartDateInvoice(flag));
+		System.out.println("contact ID: " + memberDetails.get(3));
+		openSubInfoDropDown("invoices");
+		waitForSpinner();
+		return memberDetails;
+	}
 
 	public String getProductNameInInvoice(boolean pageLink) {
 		if (pageLink) {
@@ -4865,18 +4886,48 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 	}
 	
+//	public List<String> getTechnicalDivisions(){ 
+//	    List<String> techDivisions=new ArrayList<String>();
+//		if(checkIfElementIsThere("txt_divisionMember","Division Member")){
+//			int size=elements("txt_divisionMember","Division Member").size();
+//			for(int i=0;i<size;i++){
+//				techDivisions.add(elements("txt_techDivision","Division Member").get(i).getText().trim());
+//			}
+//		}
+//		if(checkIfElementIsThere("txt_divisionMember","Subdivision Member")){
+//			int size=elements("txt_divisionMember","Subdivision Member").size();
+//			for(int i=0;i<size;i++){
+//				techDivisions.add(elements("txt_techDivision","Subdivision Member").get(i).getText().trim());
+//			}
+//		}
+//		
+//		if(techDivisions.size()>0)
+//			logMessage("STEP: Technical divisions are "+techDivisions);
+//		else
+//			logMessage("STEP: Technical divisions are not present\n");
+//		
+//		return techDivisions;
+//	}
+	
 	public List<String> getTechnicalDivisions(){ 
+		List<String> memTypeArray=new ArrayList<String>();
+		memTypeArray.add("Cancelled");
+		memTypeArray.add("Terminated by Process-chp");
 	    List<String> techDivisions=new ArrayList<String>();
 		if(checkIfElementIsThere("txt_divisionMember","Division Member")){
 			int size=elements("txt_divisionMember","Division Member").size();
-			for(int i=0;i<size;i++){
-				techDivisions.add(elements("txt_techDivision","Division Member").get(i).getText().trim());
+			for(int i=0;i<size;i++){ 
+				if(!(memTypeArray.contains(elements("txt_technicalDivision","Division Member").get(i).getText().trim()))){
+					techDivisions.add(elements("txt_techDivision","Division Member").get(i).getText().trim());
+				}
 			}
 		}
 		if(checkIfElementIsThere("txt_divisionMember","Subdivision Member")){
 			int size=elements("txt_divisionMember","Subdivision Member").size();
 			for(int i=0;i<size;i++){
-				techDivisions.add(elements("txt_techDivision","Subdivision Member").get(i).getText().trim());
+				if(!(memTypeArray.contains(elements("txt_technicalDivision","Subdivision Member").get(i).getText().trim()))){
+					techDivisions.add(elements("txt_techDivision","Subdivision Member").get(i).getText().trim());
+				}
 			}
 		}
 		
