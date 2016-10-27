@@ -8,36 +8,4 @@
 		</classes>
 	</test>
 
-	<test name="ACS MYD Transfer" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_MYD_Transfer"></class>
-		</classes>
-	</test>
-
-	<test name="ACS Void Invoice Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_Void_Invoice_Test"></class>
-		</classes>
-	</test>
-
-	<test name="ACS Address Validation Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_Address_Validation_Test"></class>
-		</classes>
-	</test>
-
-	<test name="ACS_Scarf_Reporting">
-		<classes>
-			<class name="com.qait.tests.ACS_Scarf_Reporting">
-			</class>
-		</classes>
-	</test>
-
-	<test name="ACS_ScarfReviewing_Test">
-		<classes>
-			<class name="com.qait.tests.ACS_ScarfReviewing_Test">
-			</class>
-		</classes>
-	</test>
-
 </suite>
