@@ -1,6 +1,7 @@
 password: "password"
 
 csv-data-file:
+  path_AACT_OMR: ./src/test/resources/TestDataLibrary/AACT_OMR_Datasheet.csv
   path_OMA: ./src/test/resources/TestDataLibrary/OMA Business Rules.csv
   path_PriceValue: ./src/test/resources/TestDataLibrary/PriceValues.csv
   path_AACT_OMA: ./src/test/resources/TestDataLibrary/AACT_OMA_Data_Sheet.csv
@@ -27,6 +28,7 @@ csv-data-file:
   path_MyAccount: ./src/test/resources/TestDataLibrary/My_Account_Datasheet.csv
   path_Import_Profile: ./src/test/resources/TestDataLibrary/Rubber_Import_Insurance_Profile.csv
   path_Chapter_Relationships: ./src/test/resources/TestDataLibrary/Chapter_Relationship_Datasheet.csv
+  path_AACT_OMR: ./src/test/resources/TestDataLibrary/AACT_OMR_Datasheet.csv
 
   data-separator: '\t'
   has-header: true
@@ -478,7 +480,7 @@ MemberShipRenewal:
          expMonth: 11
          expYear: 2017
          renewalYear: 2017
-         type: ACS
+         type: Selenium
          renewalLength: 1
     firstMember: 
          memberType: Regular Member
@@ -489,12 +491,12 @@ MemberShipRenewal:
          memberStatus: Active
          country: CANADA
     queryName: "Member Query by Member Number – Multiple"
-    timeSlabInMinutes: 5
+    timeSlabInMinutes: 7
     maxWaitTimeInMinutesForStatus: 30 
     renewalInformation: 
          association: ACS
          renewalYear: 2017  
-         batch: "ACS: QA_SUB_BATCH" 
+         batch: "ACS: SELENIUM_BATCH"
     renewalDetailsForSchedule: 
          status: SCHEDULED
          createInvoiceScheduleTask: "No"
@@ -504,18 +506,18 @@ MemberShipRenewal:
          status: PROCESSING
     renewalDetailsForSuccess: 
          status: Success
-         numberOfRenewals: 2
+         numberOfRenewals: 1
          numberOfInvoicesCreated: 0
          numberOfErrors: 0
     renewalDetailsForProcessingCreateRenewalInvoice: 
          status: PROCESSING
-         numberOfRenewals: 2
+         numberOfRenewals: 1
          numberOfInvoicesCreated: 1
          numberOfErrors: 0
     renewalDetailsForSuccessCreateRenewalInvoice: 
          status: SUCCESS
-         numberOfRenewals: 2
-         numberOfInvoicesCreated: 2
+         numberOfRenewals: 1
+         numberOfInvoicesCreated: 1
          numberOfErrors: 0
     invoiceDetails: 
          proforma: "Yes"               
@@ -632,6 +634,9 @@ COE_Inventory:
   paymentMethod: "BOA - Check"
   checkNumber: "1111"   
   queryName: "Selenium - Find Active Regular Member"
+  
+AACT_OMR:
+  queryName: "Selenium - Renewals - AACT"
 
 ScarfReviewer:
     queryName: "BP - Reviewers"

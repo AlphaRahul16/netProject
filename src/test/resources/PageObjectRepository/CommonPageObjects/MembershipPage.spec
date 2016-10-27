@@ -179,6 +179,8 @@ iframe											id								iframe1
 table_rows                                      xpath                           //table[@class='table']//tr
 txt_current                                     xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[5]
 txt_startDate                                   xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[8]
+new1                                            xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[14]
+new2                                            xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[15]
 txt_endDate                                     xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[${index2}]
 arrow_selectMember                              xpath                           (//th/a)[2]/../../following-sibling::tr[${index}]//td[3]//a
 btn_CurrentYearPencil                           xpath                           //td[contains(text(),'Yes')]/preceding-sibling::td//i
@@ -201,6 +203,8 @@ img_primaryFlag                                 xpath                           
 chkbox_acsMember                                id                              ind_acs_network_member_flag_ext
 txt_divisionMember                              xpath                           //td[contains(text(),'${memberType}')]
 txt_techDivision                                xpath                           //td[contains(text(),'${memberType}')]/preceding-sibling::td[1]
+txt_technicalDivision                           xpath                           //td[contains(text(),'${memberType}')]/following-sibling::td[1]
+txt_memDivisionType                             xpath                           //td[contains(text(),'${memStatus}')]/preceding-sibling::td[contains(text(),'${memType}')]
 
 ##----------------------------------------------------------Credit_Page-------------------------------------------------------------------------
 icon_expand										css								.icon-chevron-down

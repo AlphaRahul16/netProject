@@ -18,4 +18,5 @@ inp_addVerify                               xpath                         //span
 btn_addVerifySave                           id                            SaveButton
 list_state_ver		                        id                            DropDownListState_adr
 list_country_ver							id							  DropDownListCountry_adr
+inp_city									id							  adr_city
 =============================================================================================================================================

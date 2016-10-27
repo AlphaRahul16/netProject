@@ -1,8 +1,16 @@
 package com.qait.tests;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Reporter;
+
+import com.qait.automation.utils.DateUtil;
 
  
 public class Test{  
@@ -11,6 +19,20 @@ public class Test{
 	type=Character.toUpperCase(type.charAt(0))+type.substring(1);
 		System.out.println(Character.toUpperCase(type.charAt(0))+type.substring(1));
 		System.out.println(type);
+		
+		String currentDate = DateUtil.getCurrentTime("hh:mm a", "IST");
+		System.out.println(currentDate);
+		Date dateInDate = DateUtil.convertStringToDate(currentDate, "hh:mm a");
+		Date dateAfterMinutesAdded = DateUtils.addMinutes(dateInDate,
+				Integer.parseInt("5"));
+		SimpleDateFormat sdf = new SimpleDateFormat("h:mm:ss a");
+		String dateWithTimeSlabInString = sdf.format(dateAfterMinutesAdded);
+		System.out.println(dateWithTimeSlabInString);
+		String runTaskDateTime = DateUtil
+				.getCurrentdateInStringWithGivenFormateForTimeZone(
+						"MM/dd/YYYY", "IST")
+				+ " " + dateWithTimeSlabInString;
+		
 /*
 	public void demoTest(){
 	WebDriver driver=new FirefoxDriver();

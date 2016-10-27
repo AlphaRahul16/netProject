@@ -35,8 +35,8 @@ public class ACS_My_Account_Action extends ASCSocietyGenericPage{
 	}
 	
 	public void logInToMyAccount(String webLogin,String password){
-		wait.waitForPageToLoadCompletely();
-		wait.hardWait(2);
+//		wait.waitForPageToLoadCompletely();
+		wait.hardWait(4);
 		enterLoginDetails("userid", webLogin);
 		enterLoginDetails("password", password);
 		clickOnSaveButton("Log In");
@@ -170,11 +170,11 @@ public class ACS_My_Account_Action extends ASCSocietyGenericPage{
 		logMessage("STEP: "+btnName+" button is clicked\n");
 	}
 	
-	public void editPhoneNumber(String phnNumber,String primaryPhone){
+	public void editPhoneNumber(String phnNumber,String primaryPhone,String telephoneType){
 		wait.hardWait(2);
-		isElementDisplayed("inp_homePhone");
-		element("inp_homePhone").clear();
-		element("inp_homePhone").sendKeys(phnNumber);
+		isElementDisplayed("inp_homePhone",telephoneType);
+		element("inp_homePhone",telephoneType).clear();
+		element("inp_homePhone",telephoneType).sendKeys(phnNumber);
 		logMessage("STEP: Phone number is edited as "+phnNumber+"\n");
 		if(primaryPhone.equals("Yes") && checkIfElementIsThere("chkbx_primary"))
 			selectPrimaryCheckbox("chkbx_primary");
@@ -196,29 +196,29 @@ public class ACS_My_Account_Action extends ASCSocietyGenericPage{
 	}
 	
 	public void selectAddressState(String field,String value){
-		isElementDisplayed("inp_changeAddress",field);
+		isElementDisplayed("inp_changeAddress",field); 
 		selectProvidedTextFromDropDown(element("inp_changeAddress",field), value);
 		logMessage("STEP: "+field+" value is entered as "+value+"\n");
 	}
 	
 	public void enterNewAddress(HashMap<String, String> map){
 		enterNewAddressDetails("company",map.get("Company"));
-		enterNewAddressDetails("country",map.get("Country"));
+		selectAddressState("country",map.get("Country"));  //stateTxtInput
 		enterNewAddressDetails("City",map.get("City"));
-//		enterNewAddressDetails("City",map.get("City"));
 		enterNewAddressDetails("Address-1",map.get("Address Line 1"));
 		enterNewAddressDetails("Postal",map.get("Zip_Code"));
-		selectAddressState("states",map.get("State"));  //stateTxtInput
+		selectAddressState("states",map.get("State")); 
 		selectPrimaryCheckbox("chckbox_addressPrimary");
 		clickOnSaveAddressButton();
 		changedValues.put("Company", map.get("Company"));
 		changedValues.put("Country", map.get("Country"));
 		changedValues.put("City", map.get("City"));
-//		changedValues.put("Address Line 1", map.get("Address Line 1"));
 		changedValues.put("Address Line 1", map.get("Expected_AddressIweb?"));
-
 		changedValues.put("Zip_Code", map.get("Zip_Code"));
 		changedValues.put("State", map.get("State"));
+//		enterNewAddressDetails("stateTxtInput",map.get("State")); //stateTxtInput
+//		changedValues.put("Address Line 1", map.get("Address Line 1"));
+//		enterNewAddressDetails("country",map.get("Country"));
 	}
 	
 	public void clickOnSaveAddressButton(){
@@ -276,12 +276,16 @@ public class ACS_My_Account_Action extends ASCSocietyGenericPage{
 	}
 	
 	public void verifyTechnicalDivisions(List<String> techDivisions){
+		if(techDivisions.size()>0){
 		isElementDisplayed("list_techincalDivisions");
 		String ewebDivisions=element("list_techincalDivisions").getText().trim();
 		for(int i=0;i<techDivisions.size();i++){
 			Assert.assertTrue(ewebDivisions.contains(techDivisions.get(i)),"ASSERT FAILED: Technical Division "+techDivisions.get(i) +" is not verified on Technical divisions page\n");
 			logMessage("ASSERT PASSED: Technical Division "+techDivisions.get(i) +" is verified on Technical divisions page\n");
 		}
+	 }
+		else
+			logMessage("STEP: Technical divisions are not assigned to the member\n");
 	}
 	
 	public void verifyAllMyApplicationsArePresent(String myApplications[]){
@@ -322,7 +326,8 @@ public class ACS_My_Account_Action extends ASCSocietyGenericPage{
 	}
 	
 	public void enterNewPassword(String oldPassword, String newPassword){
-        enterNewAddressDetails("idOldPwd", oldPassword);
+        wait.hardWait(2);
+		enterNewAddressDetails("idOldPwd", oldPassword);
         enterNewAddressDetails("idNewPwd", newPassword);
         enterNewAddressDetails("idConfNewPwd", newPassword);
         clickOnSaveButton("Save Changes");

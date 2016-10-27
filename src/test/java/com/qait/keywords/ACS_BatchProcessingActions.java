@@ -8,6 +8,7 @@ import java.util.Set;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+//import org.openqa.selenium.remote.server.handler.SwitchToWindow;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
@@ -115,19 +116,21 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 		    element("btn_ForProcesingBatch",btnName).click();
 		    logMessage("STEP : "+btnName+" is clicked on batch processing page\n");	
 		} 
-		switchWindow(current);
+//		switchWindow(current);
 	}
 	
 	public void switchWindow(String current){
+
 		Set<String> handles = driver.getWindowHandles();
  		for(String handle : handles){
  			if(!(handle.equalsIgnoreCase(current))){
  					driver.switchTo().window(handle);
  					break;
  			}
- 		}  		
+ 		} 		
         System.out.println("In "+getPageTitle());
         driver.switchTo().window(current);
+
 	}
 	
 	public boolean pollTextForIe(String type,String batchValue){

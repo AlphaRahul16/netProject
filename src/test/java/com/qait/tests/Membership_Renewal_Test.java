@@ -17,7 +17,7 @@ import com.qait.keywords.YamlInformationProvider;
 
 public class Membership_Renewal_Test extends BaseTest {
 
-	String app_url_IWEB, name, time, runTaskDateTime;
+	String app_url_IWEB, name, time, runTaskDateTime,customerId;
 	YamlInformationProvider getMemRenewalInfo;
 	Map<String, Object> mapMemberShipRenewal;
 	List<String> memberDetail1, memberDetail2;
@@ -44,29 +44,46 @@ public class Membership_Renewal_Test extends BaseTest {
 				getMemRenewalInfo
 						.getMemRenewalAddACSRenewalCycle("renewalLength"));
 	}
-
+	
 	@Test
 	public void Step02_Find_Two_Member_And_Get_Detail() {
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnMemberShipTab();
-		memberDetail1 = test.memberShipPage.findMemberAndGetDetail(
-				getMemRenewalInfo.getMemRenewalFirstMember("memberType"),
-				getMemRenewalInfo.getMemRenewalFirstMember("memberStatus"),
-				getMemRenewalInfo.getMemRenewalFirstMember("country"));
-		test.homePageIWEB.clickOnModuleTab();
-		test.homePageIWEB.clickOnMemberShipTab();
-		memberDetail2 = test.memberShipPage.findMemberAndGetDetail(
-				getMemRenewalInfo.getMemRenewalSecondMember("memberType"),
-				getMemRenewalInfo.getMemRenewalSecondMember("memberStatus"),
-				getMemRenewalInfo.getMemRenewalSecondMember("country"));
-		test.memberShipPage.selectAndRunQueryMembership("Query Membership",
-				getMemRenewalInfo.getMemRenewalInfo("queryName"));
-
-		test.memberShipPage.enterCustomerIdsInRunQuery(memberDetail1.get(3),
-				memberDetail2.get(3));
-		obj[0] = memberDetail1;
-		obj[1] = memberDetail2;
+		test.homePageIWEB.clickOnSideBarTab("Members");
+		test.memberShipPage.clickOnSideBar("Query Membership");
+		test.memberShipPage.selectAndRunQuery("gwv - Renewal Query");
+        test.memberShipPage.selectMemberForRenewal("Regular");
+        customerId=test.memberShipPage.getContactIdOfUser("Member");
+		test.memberShipPage.clickOnSideBar("Query Membership");
+		test.memberShipPage.selectAndRunQuery("gwv - Select One Member");
+		test.memberShipPage.enterSingleCustomerIdInRunQuery(customerId);
+//		test.memberShipPage.clickOnCustomerName();
+		memberDetail1=test.memberShipPage.getMemberDetailsOnMembershipPage();
+		obj[0]=memberDetail1;
 	}
+
+//	@Test
+//	public void Step02_Find_Two_Member_And_Get_Detail() {
+//		test.homePageIWEB.clickOnModuleTab();
+//		test.homePageIWEB.clickOnMemberShipTab();
+//		memberDetail1 = test.memberShipPage.findMemberAndGetDetail(
+//				getMemRenewalInfo.getMemRenewalFirstMember("memberType"),
+//				getMemRenewalInfo.getMemRenewalFirstMember("memberStatus"),
+//				getMemRenewalInfo.getMemRenewalFirstMember("country"));
+//		test.homePageIWEB.clickOnModuleTab();
+//		test.homePageIWEB.clickOnMemberShipTab();
+//		memberDetail2 = test.memberShipPage.findMemberAndGetDetail(
+//				getMemRenewalInfo.getMemRenewalSecondMember("memberType"),
+//				getMemRenewalInfo.getMemRenewalSecondMember("memberStatus"),
+//				getMemRenewalInfo.getMemRenewalSecondMember("country"));
+//		test.memberShipPage.selectAndRunQueryMembership("Query Membership",
+//				getMemRenewalInfo.getMemRenewalInfo("queryName"));
+//
+//		test.memberShipPage.enterCustomerIdsInRunQuery(memberDetail1.get(3),
+//				memberDetail2.get(3));
+//		obj[0] = memberDetail1;
+//		obj[1] = memberDetail2;
+//	}
 
 	@Test
 	public void Step03_Navigate_To_Add_Membership_Renewal_And_Fill_Details() {
@@ -96,11 +113,18 @@ public class Membership_Renewal_Test extends BaseTest {
 		test.membershipRenewalPage
 				.clickOnSubInfoDropdown("batch renewal summary");
 		test.membershipRenewalPage.verifyNoResultDisplay();
-		// test.membershipRenewalPage.holdScriptUntilVerifyStatus(
-		// getMemRenewalInfo.getRenewalInfoForProcessing("status"),
-		// getMemRenewalInfo
-		// .getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));
 
+		
+		
+		
+		test.membershipRenewalPage.holdScriptUntilVerifyStatus(
+				getMemRenewalInfo.getRenewalInfoForProcessing("status"),
+				getMemRenewalInfo
+						.getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));         
+
+
+		
+		
 		test.membershipRenewalPage.holdScriptUntilVerifyStatus(
 				getMemRenewalInfo.getRenewalInfoForSuccess("status"),
 				getMemRenewalInfo
@@ -151,7 +175,7 @@ public class Membership_Renewal_Test extends BaseTest {
 								.getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));
 	}
 
-	@Test(invocationCount = 2)
+	@Test            //(invocationCount = 2)
 	public void Step07_Navigate_To_Membership_Profile_Page_And_Verify_Details_Test() {
 		@SuppressWarnings("unchecked")
 		List<String> memberDetails = (List<String>) obj[invocationCount];
@@ -160,7 +184,10 @@ public class Membership_Renewal_Test extends BaseTest {
 		test.homePageIWEB.GoToCRMModule();
 		test.homePageIWEB.clickFindForIndividualsSearch();
 		test.individualsPage.fillMemberDetailsAndSearch("Record Number",
-				memberDetails.get(3));
+				customerId);
+//		test.individualsPage.fillMemberDetailsAndSearch("Record Number",
+//				memberDetails.get(3));
+		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("individual memberships");
 		test.individualsPage.navigateToMembershipProfilePage();
 		test.memberShipPage.verifyMembershipDetailsOnRenewal(
 				memberDetails.get(4), memberDetails.get(0),
@@ -180,7 +207,10 @@ public class Membership_Renewal_Test extends BaseTest {
 		test.invoicePage.expandDetailsMenu("line items");
 		test.invoicePage.verifyInvoiceDetailsOnInvoiceProfilePage(
 				memberDetails.get(8), memberDetails.get(7));
-		invocationCount++;
+
+
+//		invocationCount++;
+
 	}
 
 	/**
@@ -191,7 +221,8 @@ public class Membership_Renewal_Test extends BaseTest {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		mapMemberShipRenewal = YamlReader.getYamlValues("MemberShipRenewal");
 		getMemRenewalInfo = new YamlInformationProvider(mapMemberShipRenewal);
-		app_url_IWEB = getYamlValue("app_url_IWEB");
+//		app_url_IWEB = getYamlValue("app_url_IWEB");
+		app_url_IWEB = getYamlValue("app_url_IwebReporting");
 		test.launchApplication(app_url_IWEB);
 
 	}

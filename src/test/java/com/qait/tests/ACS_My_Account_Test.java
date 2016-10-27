@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.testng.Reporter;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -20,7 +21,7 @@ import com.qait.automation.utils.YamlReader;
 
 public class ACS_My_Account_Test extends BaseTest {
 
-	String app_url_IWEB, app_url_MyAccount, userName, customerId,telephoneType,techDivision, webLogin ;
+	String app_url_IWEB, app_url_MyAccount,app_url_MyAccount_newUser, userName, customerId,telephoneType,techDivision, webLogin ;
 	int number;
 	private String caseID;
 	Map<String, Boolean> skipTest = new HashMap<String, Boolean>();
@@ -33,6 +34,7 @@ public class ACS_My_Account_Test extends BaseTest {
 	public void Open_Browser_Window() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url_MyAccount = getYamlValue("app_url_MyAccount");
+		app_url_MyAccount_newUser=getYamlValue("app_url_MyAccountNewUser");
 		app_url_IWEB = getYamlValue("app_url_IwebMyAccount");
 		test.homePageIWEB.addValuesInMap("MyAccount", caseID);
 		test.homePageIWEB.EnterTestMethodNameToSkipInMap_InMyAccount(skipTest, test.acsMyAccount.map().get("Member?"));
@@ -60,20 +62,23 @@ public class ACS_My_Account_Test extends BaseTest {
 
 	@Test
 	public void Step01_Launch_My_Account_Application_And_Create_New_Member() {
-		number = test.acsMyAccount.generateThreeDidgitRandomNumber(999, 99);
+		Reporter.log("******Case Id :"+caseID+"******\n",true);
+		number =test.acsMyAccount.generateThreeDidgitRandomNumber(9999, 999);
 		userName=test.acsMyAccount.map().get("First_Name")+number;
 		webLogin=test.acsMyAccount.map().get("UserName") + number;
-		test.launchApplication(app_url_MyAccount);
-		test.acsMyAccount.clickOnLoginButton("Log In");
-		test.acsMyAccount.clickOnLoginButton("Registering is easy");
+		test.launchApplication(app_url_MyAccount_newUser);
+//		test.acsMyAccount.clickOnLoginButton("Log In");
+//		test.acsMyAccount.clickOnLoginButton("Registering is easy");
 		test.acsMyAccount.createNewUser(test.acsMyAccount.map().get("Email"),test.acsMyAccount.map().get("First_Name"),test.acsMyAccount.map().get("Last_Name")
 				,webLogin,test.acsMyAccount.map().get("Password"),number);	
 		test.acsMyAccount.clickOnCreateAccountButton("submit_button");
-		test.acsMyAccount.clickOnACSWButton("ACSWWW AEM");
+		test.acsMyAccount.clickOnACSWButton("Continue to www.acs.org");
+		telephoneType="Home";
 	}
 
 	@Test
 	public void Step02_Launch_Iweb_Application_And_Find_Existing_Member() {
+		Reporter.log("******Case Id :"+caseID+"******\n",true);
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Find Individual");
@@ -95,7 +100,7 @@ public class ACS_My_Account_Test extends BaseTest {
 		test.acsMyAccount.clickOnLoginButton("Log In");
 		test.acsMyAccount.logInToMyAccount(webLogin,"password");
 		userName=memberDetails.get(2)+ " "+memberDetails.get(0);
-		number = test.acsMyAccount.generateThreeDidgitRandomNumber(999, 99);
+		number = test.acsMyAccount.generateThreeDidgitRandomNumber(9999, 999);
 	}
 
 	@Test
@@ -114,14 +119,14 @@ public class ACS_My_Account_Test extends BaseTest {
 	@Test
 	 public void Step04_Edit_Phone_Number_And_Add_Address(){
 	 test.acsMyAccount.changePhoneNumber("Home Add Phone",test.acsMyAccount.map().get("Member?"),telephoneType);
-	 test.acsMyAccount.editPhoneNumber(test.acsMyAccount.map().get("Phone_Number")+number,test.acsMyAccount.map().get("Primary_Member?"));
+	 test.acsMyAccount.editPhoneNumber(test.acsMyAccount.map().get("Phone_Number")+number,test.acsMyAccount.map().get("Primary_Member?"),telephoneType);
 	 test.acsMyAccount.clickOnEmailSaveButton("home");
 	 test.acsMyAccount.verifyEmailSavedMessage(getYamlValue("ACS_MyAccount.phoneSaveMessage"),"msg_phoneSave");
 	 test.acsMyAccount.verifyPriamryImageIsPresent("img_phonePrimary", "HomePhone");
 	 test.acsMyAccount.changeAddress(test.acsMyAccount.map().get("Member?"), test.acsMyAccount.map());
 	 test.acsMyAccount.verifySaveAddressMessage(getYamlValue("ACS_MyAccount.addressSaveMessage"));
 	 test.acsMyAccount.clickOnCloseButton();
-//	 test.acsMyAccount.verifyPriamryImageIsPresent("img_addressPrimary", "WorkAddress");
+	 test.acsMyAccount.verifyPriamryImageIsPresent("img_addressPrimary", "WorkAddress");
 	 }
 	
 	@Test
@@ -140,7 +145,7 @@ public class ACS_My_Account_Test extends BaseTest {
 	}
 	
 	@Test 
-	public void Step07_Verify_New_Changed_Password(){
+	public void Step07_Enter_New_Password_And_Verify_Changed_Password(){
 		test.acsMyAccount.clickOnSideTab("Password");
 		test.acsMyAccount.enterNewPassword(test.acsMyAccount.map().get("Password"), test.acsMyAccount.map().get("New_Password"));
 		test.memberShipPage.waitForSpinner();
@@ -155,7 +160,7 @@ public class ACS_My_Account_Test extends BaseTest {
 	}
 	
 	@Test
-	public void Step08_Launch_Iweb_Application_And_Find_Member(){
+	public void Step08_Launch_Iweb_Application_Find_Member_And_Verify_Email_Address(){
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Find Individual");
@@ -166,7 +171,7 @@ public class ACS_My_Account_Test extends BaseTest {
 	}
 	
 	@Test 
-	public void Step09_Verify_Telephone_And_Address_Details(){
+	public void Step09_Verify_Telephone_Number_And_Address_Details(){
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("telephone numbers");
 		test.memberShipPage.verifyTelephoneDetails("telephone numbers", changedValues.get("TelephoneType"), changedValues.get("PhoneNumber"));
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("addresses");
@@ -174,7 +179,7 @@ public class ACS_My_Account_Test extends BaseTest {
 	}
 	
 	@Test
-	public void Step10_Verify_Is_ACS_Member(){
+	public void Step10_Verify_User_Is_ACS_Member(){
 		test.memberShipPage.clickOnEditContactInfo();
 		test.memberShipPage.verifyIsAcsNetworkMember(test.acsMyAccount.map().get("ACS_Member"));
 	}
