@@ -16,7 +16,7 @@ import com.qait.automation.utils.YamlReader;
 public class ACS_OMR_Express_Renewal extends BaseTest {
 	String app_url_IWEB;
 	private String expressURL, customername;
-	private String imvoicenumber, productDetails;
+	private String imvoicenumber;
 	Map<String, String> mapRenewedProductDetails =  new HashMap<String, String>();
 	
 	@BeforeClass
@@ -30,18 +30,21 @@ public class ACS_OMR_Express_Renewal extends BaseTest {
 	}
 	
 	@Test
-	public void Step01_Launch_IWEB_Application_And_Navigate_To_Find_Members_Tab() {
+	public void Step01_Launch_IWEB_Application_And_Run_Express_Renewal_Query() {
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.homePageIWEB.clickOnTab("Query Individual");
 		test.memberShipPage.selectAndRunQuery("Selenium - BP Renewal Express Url");
+	}
+	
+	@Test(dependsOnMethods={"Step01_Launch_IWEB_Application_And_Run_Express_Renewal_Query"})
+	public void Step02_Enter_Before_Amd_After_Expiry_Dates_And_Fetch_Express_Renewal_URL() {
 		test.memberShipPage.enterExpiryDatesBeforeAndAfterExpressRenewal();
 		test.memberShipPage.clickOnGoButtonAfterPackageSelection();
 		expressURL=test.memberShipPage.fetchExpressURLForRenewal();
 	}
-	
-	@Test
-	public void Step02_Launch_IWEB_Application_And_Navigate_To_Find_Members_Tab() {
-	  //expressURL = "https://www.renewtest.acs.org/NFstage1/renew/express/login/?renewal=FD7AEBCD-0ED8-48A7-B561-650548781978";
+
+	@Test(dependsOnMethods={"Step02_Enter_Before_Amd_After_Expiry_Dates_And_Fetch_Express_Renewal_URL"})
+	public void Step03_Launch_Express_Renewal_URL_And_Verify_Complete_Address_Is_Not_Displayed_On_HomePage() {
 	  test.launchApplication(expressURL);
 	  test.asm_OMR.selectNoIfRegularToEmeritusPromptAppears();
 	  test.asm_OMR.confirmStudentDetailsForExpressRenewal("Bachelor");
@@ -49,12 +52,16 @@ public class ACS_OMR_Express_Renewal extends BaseTest {
 	  test.asm_OMR.switchToEwebRenewalFrame();
 	  
 	  test.asm_OMR.verifyUserCompleteAddressIsNotDisplayedOnHomePage();
+	}
+	
+	@Test(dependsOnMethods={"Step03_Launch_Express_Renewal_URL_And_Verify_Complete_Address_Is_Not_Displayed_On_HomePage"})
+	public void Step04_Save_All_Renewed_product_Details_And_Fetch_Member_Name() {
 	  mapRenewedProductDetails=test.asm_OMR.saveProductsWithRespectiveRenewalAmount();
 	  customername=test.asm_OMR.getMemberNameFromOMRHomepage();
 	}
 
-	@Test
-	public void Step03_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage() {
+	@Test(dependsOnMethods={"Step04_Save_All_Renewed_product_Details_And_Fetch_Member_Name"})
+	public void Step05_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage() {
 		test.asm_OMR.submitPaymentDetails(YamlReader.getYamlValue("creditCardInfo.Type"),
 				(customername.split(" ")[0]+" "+customername.split(" ")[1]),
 				YamlReader.getYamlValue("creditCardInfo.Number"), YamlReader.getYamlValue("creditCardInfo.cvv-number"),
@@ -65,11 +72,11 @@ public class ACS_OMR_Express_Renewal extends BaseTest {
 				.verifyRenewedProductsSummaryOnCheckOutPage(mapRenewedProductDetails);
 		test.asm_OMR.clickOnSubmitPayment();
 		imvoicenumber=test.asm_OMR.geInvoiceNumberOnOMRReceiptPage("RenewalNumber");
-		//test.asm_OMR.verifyPrintReceiptMessageAfterPayment();
+		test.asm_OMR.verifyPrintReceiptMessageAfterPayment();
 	}
 	
-	@Test
-	public void Step08_Navigate_to_Latest_invoice_And_verify_Details_After_Renewal() {
+	@Test(dependsOnMethods={"Step05_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage"})
+	public void Step06_Navigate_to_Latest_invoice_And_verify_Details_After_Express_Renewal() {
 
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.clickOnSideBarTab("Invoice");
@@ -81,7 +88,7 @@ public class ACS_OMR_Express_Renewal extends BaseTest {
 		test.invoicePage.verifyInvoiceDetailsAfterRenewal();
 		test.invoicePage.expandDetailsMenu("line items");
 		test.invoicePage.verifyRenewedProductsPriceInsideLineItems(mapRenewedProductDetails);
-		test.invoicePage.collapseDetailsMenu("line items");
+		//test.invoicePage.collapseDetailsMenu("line items");
 
 	}
 	

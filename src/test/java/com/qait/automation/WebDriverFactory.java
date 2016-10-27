@@ -171,8 +171,8 @@ public class WebDriverFactory {
 		profile.setPreference("browser.download.manager.showWhenStartinge",false);
 		profile.setPreference("browser.download.panel.shown",false);
 		profile.setPreference("browser.download.useToolkitUI",true);
-		
-//		return new FirefoxDriver(ffBinary,profile);
+		profile.setPreference("dom.disable_beforeunload", true);
+		//return new FirefoxDriver(ffBinary,profile);
 		return new FirefoxDriver(profile);
 	}
 }

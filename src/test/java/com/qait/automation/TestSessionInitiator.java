@@ -23,6 +23,7 @@ import org.testng.Reporter;
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.TakeScreenshot;
 import com.qait.automation.utils.YamlReader;
+import com.qait.keywords.ACS_AACT_OMR_Action;
 import com.qait.keywords.ACS_Address_Validation_Action;
 import com.qait.keywords.ACS_Apply_Payment_Actions;
 import com.qait.keywords.ACS_Awards_EWEB_PageActions;
@@ -136,6 +137,7 @@ public class TestSessionInitiator {
 	public ACS_Fundraising_Action acsFundraising;
 	public ACS_MarketingPage_IWEB acsMarketingPageIweb;
 	public ACS_My_Account_Action acsMyAccount;
+	public ACS_AACT_OMR_Action acs_aactOmr;
 
 	public TakeScreenshot takescreenshot;
 
@@ -191,6 +193,7 @@ public class TestSessionInitiator {
 		gcsPaymentPage = new GCS_PaymentActions(driver);
 		acsFundraising= new ACS_Fundraising_Action(driver);
 		acsMyAccount= new ACS_My_Account_Action(driver);
+		acs_aactOmr=new ACS_AACT_OMR_Action(driver);
 	}
 
 	/**
@@ -359,6 +362,7 @@ public class TestSessionInitiator {
 						|| baseurl
 								.equalsIgnoreCase("https://stag-12iweb/NFStage5/iweb")
 						|| baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage1/iweb")		) {
+
 					baseurl = baseurl
 							.replaceAll(
 									"https://stag",
