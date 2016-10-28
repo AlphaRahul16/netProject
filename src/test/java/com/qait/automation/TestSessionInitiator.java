@@ -381,24 +381,27 @@ public class TestSessionInitiator {
 															.getYamlValue("Authentication.password"),
 													"UTF-8") + "@stag");
 					driver.get(baseurl);
-				} else if (baseurl
-						.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev7/iWeb/")
-						|| baseurl
-								.equalsIgnoreCase("https://dev-eweb12/NFDev8/iWeb")) {
-					baseurl = baseurl
-							.replaceAll(
-									"https://dev",
-									"https://"
-											+ YamlReader
-													.getYamlValue("Authentication.userName")
-											+ ":"
-											+ URLEncoder.encode(
-													YamlReader
-															.getYamlValue("Authentication.password"),
-													"UTF-8") + "@dev");
-					driver.get(baseurl);
-				} else {
-					baseurl = baseurl
+				}
+				else if(baseurl
+						.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev7/iWeb/") || 
+						baseurl
+						.equalsIgnoreCase("https://dev-eweb12/NFDev8/iWeb") ||
+						baseurl
+						.contains("https://dev-eweb12/NFDev8")){
+					baseurl = baseurl.replaceAll(
+							"https://dev",
+							"https://"
+									+ YamlReader
+											.getYamlValue("Authentication.userName")
+									+ ":"
+									+ URLEncoder.encode(
+											YamlReader
+													.getYamlValue("Authentication.password"),
+											"UTF-8") + "@dev");
+			driver.get(baseurl);
+				}
+				else {
+			baseurl = baseurl
 							.replaceAll(
 									"https://iwebtest",
 									"https://"

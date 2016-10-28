@@ -412,11 +412,8 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 			verifySubName("Journal of the American Chemical Society");
 		}
 		verifyRemainingIsOneLessThanIssues();
-
 		expandDetailsMenu("issues fulfilled");
-
 		expandDetailsMenuIfAlreadyExpanded("issues fulfilled");
-
 		verifyFulfillmentDate(subName);
 	}
 
@@ -471,7 +468,7 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 				}
 			}
 		} else {
-               
+
 			wait.hardWait(3);
 			int size = elements("rows_table").size();
 			for (int i = 1; i < size; i++) {
