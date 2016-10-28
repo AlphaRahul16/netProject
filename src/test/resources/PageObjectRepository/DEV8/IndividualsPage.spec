@@ -83,7 +83,7 @@ img_override                              xpath                 //td[contains(te
 iframe1                                   css                   #iframe1                       
 drpdwn_relationshipType                   xpath                 //label[text()='${field}:']/preceding-sibling::select
 inp_startDate                             id                    cxc_start_date
-img_look_up							      css	                .glyphicon.iconpro-search
+img_look_up							      css	                #Look_Up_chp_name
 txt_active_chapters                       xpath                 //td[text()='active']/preceding-sibling::td[4]
 tab_pencilButton                          xpath                 //td[contains(text(),'${field}')][1]/preceding-sibling::td//i[@class='iconpro-pencil']
 

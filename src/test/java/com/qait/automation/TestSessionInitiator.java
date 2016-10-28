@@ -379,7 +379,9 @@ public class TestSessionInitiator {
 				else if(baseurl
 						.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev7/iWeb/") || 
 						baseurl
-						.equalsIgnoreCase("https://dev-eweb12/NFDev8/iWeb")){
+						.equalsIgnoreCase("https://dev-eweb12/NFDev8/iWeb") ||
+						baseurl
+						.contains("https://dev-eweb12/NFDev8")){
 					baseurl = baseurl.replaceAll(
 							"https://dev",
 							"https://"
