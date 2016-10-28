@@ -1,11 +1,15 @@
 package com.qait.tests;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Reporter;
+
+import com.qait.automation.utils.DateUtil;
 
  
 public class Test{  
@@ -13,9 +17,10 @@ public class Test{
 	String type="home";
 	type=Character.toUpperCase(type.charAt(0))+type.substring(1);
 		System.out.println(Character.toUpperCase(type.charAt(0))+type.substring(1));
-		System.out.println(type);
 		
-/*
+	    System.out.println(DateUtil.convertStringToParticularDateFormat("2/2022","MM/yyyy"))	;	
+	    
+	    /*);
 	public void demoTest(){
 	WebDriver driver=new FirefoxDriver();
 	
