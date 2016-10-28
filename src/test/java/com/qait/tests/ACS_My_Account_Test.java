@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.testng.Reporter;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -61,7 +62,8 @@ public class ACS_My_Account_Test extends BaseTest {
 
 	@Test
 	public void Step01_Launch_My_Account_Application_And_Create_New_Member() {
-		number = test.acsMyAccount.generateThreeDidgitRandomNumber(999, 99);
+		Reporter.log("******Case Id :"+caseID+"******\n",true);
+		number =test.acsMyAccount.generateThreeDidgitRandomNumber(9999, 999);
 		userName=test.acsMyAccount.map().get("First_Name")+number;
 		webLogin=test.acsMyAccount.map().get("UserName") + number;
 		test.launchApplication(app_url_MyAccount_newUser);
@@ -76,6 +78,7 @@ public class ACS_My_Account_Test extends BaseTest {
 
 	@Test
 	public void Step02_Launch_Iweb_Application_And_Find_Existing_Member() {
+		Reporter.log("******Case Id :"+caseID+"******\n",true);
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Find Individual");
@@ -97,7 +100,7 @@ public class ACS_My_Account_Test extends BaseTest {
 		test.acsMyAccount.clickOnLoginButton("Log In");
 		test.acsMyAccount.logInToMyAccount(webLogin,"password");
 		userName=memberDetails.get(2)+ " "+memberDetails.get(0);
-		number = test.acsMyAccount.generateThreeDidgitRandomNumber(999, 99);
+		number = test.acsMyAccount.generateThreeDidgitRandomNumber(9999, 999);
 	}
 
 	@Test
@@ -142,7 +145,7 @@ public class ACS_My_Account_Test extends BaseTest {
 	}
 	
 	@Test 
-	public void Step07_Verify_New_Changed_Password(){
+	public void Step07_Enter_New_Password_And_Verify_Changed_Password(){
 		test.acsMyAccount.clickOnSideTab("Password");
 		test.acsMyAccount.enterNewPassword(test.acsMyAccount.map().get("Password"), test.acsMyAccount.map().get("New_Password"));
 		test.memberShipPage.waitForSpinner();
@@ -157,7 +160,7 @@ public class ACS_My_Account_Test extends BaseTest {
 	}
 	
 	@Test
-	public void Step08_Launch_Iweb_Application_And_Find_Member(){
+	public void Step08_Launch_Iweb_Application_Find_Member_And_Verify_Email_Address(){
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Find Individual");
@@ -168,7 +171,7 @@ public class ACS_My_Account_Test extends BaseTest {
 	}
 	
 	@Test 
-	public void Step09_Verify_Telephone_And_Address_Details(){
+	public void Step09_Verify_Telephone_Number_And_Address_Details(){
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("telephone numbers");
 		test.memberShipPage.verifyTelephoneDetails("telephone numbers", changedValues.get("TelephoneType"), changedValues.get("PhoneNumber"));
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("addresses");
@@ -176,7 +179,7 @@ public class ACS_My_Account_Test extends BaseTest {
 	}
 	
 	@Test
-	public void Step10_Verify_Is_ACS_Member(){
+	public void Step10_Verify_User_Is_ACS_Member(){
 		test.memberShipPage.clickOnEditContactInfo();
 		test.memberShipPage.verifyIsAcsNetworkMember(test.acsMyAccount.map().get("ACS_Member"));
 	}

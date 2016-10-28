@@ -239,6 +239,7 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 	
 	public void enterAuthentication(String uName, String password) {
+
 		if ((isBrowser("ie") || isBrowser("internetexplorer"))) {
 			System.out.println("in authentication");
 			setClipboardData(uName);

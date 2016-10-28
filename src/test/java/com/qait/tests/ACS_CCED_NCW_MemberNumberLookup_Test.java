@@ -93,7 +93,7 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test extends BaseTest {
 		test.asm_NCWPage.verifyPageTitle("National Chemistry Week");
 		test.asm_NCWPage
 				.selectSearchTypeAndNavigateToCoordinator(test.asm_NCWPage
-						.map().get("searchMethod"));
+						.map().get("searchMethod"));  
 		test.asm_NCWPage.FillOutFormToContactCoordinatorAndClickSubmit(
 				"First Name", "Last Name", "Email Address", "City",
 				"Phone Number");

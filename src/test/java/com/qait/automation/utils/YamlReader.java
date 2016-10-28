@@ -75,6 +75,10 @@ public class YamlReader {
 				|| tier.equalsIgnoreCase("Dev7")
 				|| tier.equalsIgnoreCase("DEV7")) {
 			yamlFilePath = "src/test/resources/testdata/Dev7_TestData.yml";
+		}else if (tier.equalsIgnoreCase("dev8")
+				|| tier.equalsIgnoreCase("Dev8")
+				|| tier.equalsIgnoreCase("DEV8")) {
+			yamlFilePath = "src/test/resources/testdata/Dev8_TestData.yml";
 		}
 		else {
 			Reporter.log(

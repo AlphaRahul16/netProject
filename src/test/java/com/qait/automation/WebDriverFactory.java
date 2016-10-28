@@ -5,6 +5,7 @@
 package com.qait.automation;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
@@ -20,6 +21,8 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
+
+import com.qait.automation.utils.ConfigPropertyReader;
 
 public class WebDriverFactory {
 	private static String browser;
@@ -102,7 +105,7 @@ public class WebDriverFactory {
 		cap.setCapability(ChromeOptions.CAPABILITY, options);
 		return new ChromeDriver(cap);
 	}
-
+	
 	private static WebDriver getInternetExplorerDriver(String driverpath) {
 		System.setProperty("webdriver.ie.driver", driverpath);
 		capabilities.setCapability("ignoreZoomSetting", true);
@@ -116,16 +119,21 @@ public class WebDriverFactory {
 
 	private static WebDriver getFirefoxDriver() {
 		
-		//File pathToBinary = new File("C:\\Mozilla Firefox\\firefox.exe");
-		//FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
+//		File pathToBinary = new File("C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe");
+//		FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
 	       
-		//WebDriver driver = new FirefoxDriver(ffBinary,firefoxProfile);
-//		String firefoxProfilePath = "./src/test/resources/Profile_"
+//		WebDriver driver = new FirefoxDriver(ffBinary,firefoxProfile);
+//		System.setProperty("webdriver.firefox.binary",
+//                "C:"+File.separator+"Program Files (x86)"+File.separator+"Mozilla Firefox"+File.separator+"firefox.exe");
+//        FirefoxBinary binary=new FirefoxBinary();
+//        binary.setEnvironmentProperty("binary", "C:"+File.separator+"Program Files (x86)"+File.separator+"Mozilla Firefox"+File.separator+"firefox.exe");
+		
+//        String firefoxProfilePath = "./src/test/resources/Profile_"
 //				+ ConfigPropertyReader.getProperty("tier");
 		FirefoxProfile profile;
 //		String autoAuthPath = "src/test/resources/AddOn/autoauth-2.1-fx+fn.xpi";
 //		File firefoxProfile = new File(firefoxProfilePath);// path of firefox
-
+//
 //		profile = new FirefoxProfile(firefoxProfile);
 //		File extension = new File(autoAuthPath);// path of AutoAuth
 //		try {
@@ -134,10 +142,7 @@ public class WebDriverFactory {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		//System.setProperty("webdriver.firefox.binary",
-          //      "C:"+File.separator+"Program Files (x86)"+File.separator+"Mozilla Firefox"+File.separator+"firefox.exe");
-//        FirefoxBinary binary=new FirefoxBinary();
-//        binary.setEnvironmentProperty("binary", "C:"+File.separator+"Program Files (x86)"+File.separator+"Mozilla Firefox"+File.separator+"firefox.exe");
+//	
 		profile = new FirefoxProfile();
 		profile.setPreference("browser.download.useDownloadDir", true);
 		profile.setPreference("browser.cache.disk.enable", false);

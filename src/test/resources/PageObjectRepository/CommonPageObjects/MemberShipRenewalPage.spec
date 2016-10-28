@@ -28,7 +28,7 @@ inp_startTimeAndDate                             id                             
 txt_errorMessage                                 id                              F1_mdp_message
 img_spinner                                      css                             #__UPIMG
 txt_addMembershipRenewal                         xpath                           //div[text()='Add - Membership Renewal']
-txt_OK                                           xpath                           //a[text()='OK']
+txt_Now                                           xpath                           //a[text()='Now']
 txt_beginDate                                    id                              tsk_begin_date
 txt_noResultsDisplay                             xpath                           //span[contains(text(),'There are no results to display.')]
 txt_addACSRenewalCycle                           xpath                           //td[text()='${acsRenewalCycleName}']
