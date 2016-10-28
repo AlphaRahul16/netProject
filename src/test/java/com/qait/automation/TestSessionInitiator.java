@@ -257,10 +257,10 @@ public class TestSessionInitiator {
 				Reporter.log("\nThe application url is :- " + baseurl, true);
 				enterAuthentication(getYamlValue("Authentication.userName"),
 						getYamlValue("Authentication.password"));
-			} else if ((_getSessionConfig().get("browser").equalsIgnoreCase(
-					"firefox") )
+			} else if ((_getSessionConfig().get("browser")
+					.equalsIgnoreCase("firefox"))
 					&& (baseurl
-							.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev7/iWeb/")||baseurl
+							.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev7/iWeb/") || baseurl
 							.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev8/iWeb/"))) {
 				System.out.println("----2");
 				driver.get(baseurl);
@@ -306,8 +306,9 @@ public class TestSessionInitiator {
 					System.out.println(e1.getMessage());
 				}
 			} else if (baseurl
-					.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev7/iWeb/")||baseurl
-					.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev8/iWeb/")) {
+					.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev7/iWeb/")
+					|| baseurl
+							.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev8/iWeb/")) {
 				System.out.println("------4");
 
 				baseurl = baseurl
@@ -381,7 +382,9 @@ public class TestSessionInitiator {
 													"UTF-8") + "@stag");
 					driver.get(baseurl);
 				} else if (baseurl
-						.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev7/iWeb/")) {
+						.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev7/iWeb/")
+						|| baseurl
+								.equalsIgnoreCase("https://dev-eweb12/NFDev8/iWeb")) {
 					baseurl = baseurl
 							.replaceAll(
 									"https://dev",
