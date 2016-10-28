@@ -191,9 +191,9 @@ public class TestSessionInitiator {
 		acsScarfReviewing = new ACS_Scarf_Reviewing_Eweb_Action(driver);
 		acsMarketingPageIweb = new ACS_MarketingPage_IWEB(driver);
 		gcsPaymentPage = new GCS_PaymentActions(driver);
-		acsFundraising= new ACS_Fundraising_Action(driver);
-		acsMyAccount= new ACS_My_Account_Action(driver);
-		acs_aactOmr=new ACS_AACT_OMR_Action(driver);
+		acsFundraising = new ACS_Fundraising_Action(driver);
+		acsMyAccount = new ACS_My_Account_Action(driver);
+		acs_aactOmr = new ACS_AACT_OMR_Action(driver);
 	}
 
 	/**
@@ -242,34 +242,39 @@ public class TestSessionInitiator {
 	public void launchApplication() {
 		launchApplication1(getYamlValue("baseurl"));
 	}
-	
-	public void launchApplication1(String baseurl){
-		try{
+
+	public void launchApplication1(String baseurl) {
+		try {
 			Reporter.log(
 					"The test browser is :- "
 							+ _getSessionConfig().get("browser") + "\n", true);
-			
-			if(_getSessionConfig().get("browser").equalsIgnoreCase("ie") || _getSessionConfig()
-					.get("browser").equalsIgnoreCase("internetexplorer")){
+
+			if (_getSessionConfig().get("browser").equalsIgnoreCase("ie")
+					|| _getSessionConfig().get("browser").equalsIgnoreCase(
+							"internetexplorer")) {
 				System.out.println("----1");
 				driver.get(baseurl);
 				Reporter.log("\nThe application url is :- " + baseurl, true);
-				enterAuthentication(getYamlValue("Authentication.userName"), getYamlValue("Authentication.password"));
-			}
-			else if((_getSessionConfig().get("browser").equalsIgnoreCase("firefox") || _getSessionConfig().get("browser").equalsIgnoreCase("Firefox")) &&
-					baseurl.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev7/iWeb/")){
+				enterAuthentication(getYamlValue("Authentication.userName"),
+						getYamlValue("Authentication.password"));
+			} else if ((_getSessionConfig().get("browser")
+					.equalsIgnoreCase("firefox"))
+					&& (baseurl
+							.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev7/iWeb/") || baseurl
+							.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev8/iWeb/"))) {
 				System.out.println("----2");
 				driver.get(baseurl);
 				Reporter.log("\nThe application url is :- " + baseurl, true);
-//				enterAuthentication(getYamlValue("Authentication.userName"), getYamlValue("Authentication.password"));
-			}
-			else if(baseurl
+				// enterAuthentication(getYamlValue("Authentication.userName"),
+				// getYamlValue("Authentication.password"));
+			} else if (baseurl
 					.equalsIgnoreCase("https://stag-12iweb/NFStage3/iweb")
 					|| baseurl
 							.equalsIgnoreCase("https://stag-12iweb/NFStage2/iweb")
 					|| baseurl
 							.equalsIgnoreCase("https://stag-12iweb/NFStage5/iweb")
-					|| baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage1/iweb")){
+					|| baseurl
+							.equalsIgnoreCase("https://stag-12iweb/NFStage1/iweb")) {
 				System.out.println("----3");
 				baseurl = baseurl
 						.replaceAll(
@@ -283,12 +288,12 @@ public class TestSessionInitiator {
 														.getYamlValue("Authentication.password"),
 												"UTF-8") + "@stag");
 				driver.get(baseurl);
-				Reporter.log("\nThe application url is :- "
-						+ baseurl
-								.replace(baseurl.split("@")[0], "https://")
-								.replace("@", ""), true);
-			}
-			else if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/"))
+				Reporter.log(
+						"\nThe application url is :- "
+								+ baseurl.replace(baseurl.split("@")[0],
+										"https://").replace("@", ""), true);
+			} else if ((baseurl
+					.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/"))
 					&& (ConfigPropertyReader.getProperty("browser")
 							.equalsIgnoreCase("IE")
 							|| ConfigPropertyReader.getProperty("browser")
@@ -300,28 +305,29 @@ public class TestSessionInitiator {
 				} catch (InterruptedException e1) {
 					System.out.println(e1.getMessage());
 				}
-			}
-			else if(baseurl
-					.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev7/iWeb/")){
+			} else if (baseurl
+					.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev7/iWeb/")
+					|| baseurl
+							.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev8/iWeb/")) {
 				System.out.println("------4");
 
-				baseurl = baseurl.replaceAll(
-						"https://dev",
-						"https://"
-								+ YamlReader
-										.getYamlValue("Authentication.userName")
-								+ ":"
-								+ URLEncoder.encode(
-										YamlReader
-												.getYamlValue("Authentication.password"),
-										"UTF-8") + "@dev");
-		       driver.get(baseurl);
-		       Reporter.log("\nThe application url is :- "
-						+ baseurl
-								.replace(baseurl.split("@")[0], "https://")
-								.replace("@", ""), true);
-			}
-			else {
+				baseurl = baseurl
+						.replaceAll(
+								"https://dev",
+								"https://"
+										+ YamlReader
+												.getYamlValue("Authentication.userName")
+										+ ":"
+										+ URLEncoder.encode(
+												YamlReader
+														.getYamlValue("Authentication.password"),
+												"UTF-8") + "@dev");
+				driver.get(baseurl);
+				Reporter.log(
+						"\nThe application url is :- "
+								+ baseurl.replace(baseurl.split("@")[0],
+										"https://").replace("@", ""), true);
+			} else {
 				System.out.println("------5");
 				baseurl = baseurl
 						.replaceAll(
@@ -335,14 +341,13 @@ public class TestSessionInitiator {
 														.getYamlValue("Authentication.password"),
 												"UTF-8") + "@iwebtest");
 				driver.get(baseurl);
-				Reporter.log("\nThe application url is :- "
-						+ baseurl
-								.replace(baseurl.split("@")[0], "https://")
-								.replace("@", ""), true);
+				Reporter.log(
+						"\nThe application url is :- "
+								+ baseurl.replace(baseurl.split("@")[0],
+										"https://").replace("@", ""), true);
 			}
-			
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
@@ -361,7 +366,8 @@ public class TestSessionInitiator {
 								.equalsIgnoreCase("https://stag-12iweb/NFStage2/iweb")
 						|| baseurl
 								.equalsIgnoreCase("https://stag-12iweb/NFStage5/iweb")
-						|| baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage1/iweb")		) {
+						|| baseurl
+								.equalsIgnoreCase("https://stag-12iweb/NFStage1/iweb")) {
 
 					baseurl = baseurl
 							.replaceAll(
@@ -395,7 +401,7 @@ public class TestSessionInitiator {
 			driver.get(baseurl);
 				}
 				else {
-					baseurl = baseurl
+			baseurl = baseurl
 							.replaceAll(
 									"https://iwebtest",
 									"https://"
@@ -414,19 +420,17 @@ public class TestSessionInitiator {
 			}
 
 			if (!_getSessionConfig().get("browser").equalsIgnoreCase("ie")) {
-				if (baseurl.contains("iweb")){
+				if (baseurl.contains("iweb")) {
 					Reporter.log("\nThe application url is :- "
 							+ baseurl
 									.replace(baseurl.split("@")[0], "https://")
 									.replace("@", ""), true);
-				}
-				else if(baseurl.contains("dev")){
+				} else if (baseurl.contains("dev")) {
 					Reporter.log("\nThe application url is :- "
 							+ baseurl
 									.replace(baseurl.split("@")[0], "https://")
 									.replace("@", ""), true);
-				}
-				else
+				} else
 					Reporter.log("\nThe application url is :- " + baseurl, true);
 			}
 			if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/"))
@@ -562,7 +566,7 @@ public class TestSessionInitiator {
 	public void printMethodName(String testName) {
 		Reporter.log("\nMethod Name :- " + testName.toUpperCase() + "\n", true);
 	}
-	
+
 	public void enterAuthentication(String uName, String password) {
 		if ((isBrowser("ie") || isBrowser("internetexplorer"))) {
 			System.out.println("in authentication");
@@ -594,7 +598,7 @@ public class TestSessionInitiator {
 			}
 		}
 	}
-	
+
 	public boolean isBrowser(String browserName) {
 		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase(
 				browserName)) {
@@ -603,11 +607,11 @@ public class TestSessionInitiator {
 			return false;
 		}
 	}
-	
+
 	public static void setClipboardData(String string) {
 		StringSelection stringSelection = new StringSelection(string);
 		Toolkit.getDefaultToolkit().getSystemClipboard()
 				.setContents(stringSelection, null);
 	}
-		
+
 }
