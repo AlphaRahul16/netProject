@@ -377,7 +377,9 @@ public class TestSessionInitiator {
 					driver.get(baseurl);
 				}
 				else if(baseurl
-						.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev7/iWeb/")){
+						.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev7/iWeb/") || 
+						baseurl
+						.equalsIgnoreCase("https://dev-eweb12/NFDev8/iWeb")){
 					baseurl = baseurl.replaceAll(
 							"https://dev",
 							"https://"
