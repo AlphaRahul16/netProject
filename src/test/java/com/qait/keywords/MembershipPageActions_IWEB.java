@@ -2795,6 +2795,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		return cst;
 		
 	}
+
 	
 	public void getIndividualFullNameForAwardsNomination() {
 
@@ -4847,9 +4848,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void enterExpiryDatesBeforeAndAfterExpressRenewal() {
 		isElementDisplayed("inp_customerId");
 		EnterTextInField(elements("inp_customerId").get(0),DateUtil.getAnyDateForType("MM/dd/yyyy", -1, "month"));
-		EnterTextInField(elements("inp_customerId").get(1),DateUtil.getAnyDateForType("MM/dd/yyyy", -15, "date"));
+		EnterTextInField(elements("inp_customerId").get(1),DateUtil.getAnyDateForType("MM/dd/yyyy", +5, "date"));
 		logMessage("Step : Expiry Date greater than is entered as "+DateUtil.getAnyDateForType("MM/dd/yyyy", -1, "month"));
-		logMessage("Step : Expiry Date less than is entered as "+DateUtil.getAnyDateForType("MM/dd/yyyy", -15, "date"));
+		logMessage("Step : Expiry Date less than is entered as "+DateUtil.getAnyDateForType("MM/dd/yyyy", +5, "date"));
 	}
 
 	public String fetchExpressURLForRenewal()
@@ -4955,6 +4956,23 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		Assert.assertTrue(element("txt_termEndDaterenewal", "1").getText()
 				.length() == 1, "Term End Date is not Empty");
 		logMessage("ASSERT PASSED : Term End date is empty\n");
+		
+	}
+
+	public void verifyMembershipTypeInIndividualMemberships(String membershipType) {
+		
+		isElementDisplayed("txt_divisionMember", membershipType);
+		logMessage("ASSERT PASSED : " + membershipType	+ " is verified in txt_divisionMember \n");
+	}
+	public void clickOnGoToRecordButton(String membershipType,String index){
+		isElementDisplayed("txt_gotorecord",membershipType,index);
+		element("txt_gotorecord",membershipType,index).click();
+		wait.waitForPageToLoadCompletely();
+		logMessage("Step: click on 'go to record' image for "+membershipType+" \n");
+	}
+
+	public void verifyDetailsForPaymentsChildForm() {
+	
 		
 	}
 
