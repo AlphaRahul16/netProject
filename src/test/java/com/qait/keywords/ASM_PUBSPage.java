@@ -13,6 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.qait.automation.utils.DateUtil;
 import com.qait.automation.utils.YamlReader;
 
 public class ASM_PUBSPage extends ASCSocietyGenericPage {
@@ -405,4 +406,24 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		Assert.assertTrue(individualName.contains(s));
 		logMessage("ASSERTION PASSED : Verified User Is On Home Page for Eweb Application");
 	}
+	public void verifyDataFromPdfFileForAACTOMR(String membershipType,String invoiceTotal) throws IOException {
+		wait.hardWait(15);
+		_verifyPDFFileIsDownloaded("report");
+		System.out.println("===================================================================================");
+		String pdfContent = extractFromPdf("report", 1);
+		System.out.println("PDF Content::" + pdfContent);
+		System.out.println("In PDF Method::" + membershipType);
+		Assert.assertTrue(pdfContent.contains(membershipType));
+		logMessage("ASSERTION PASSED : Verified "+membershipType+" as Membership Type");
+		System.out.println("====================================================================================");
+		System.out.println("In PDF Method for invoice Total::" + invoiceTotal);
+		Assert.assertTrue(pdfContent.contains(invoiceTotal));
+		logMessage("ASSERTION PASSED : Verified "+invoiceTotal+" as Invoice Total");
+		System.out.println("====================================================================================");
+		System.out.println("Current date::"+DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"));
+		Assert.assertTrue(pdfContent.contains(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy")));
+		logMessage("ASSERTION PASSED : Verified "+DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy")+" as Payment Date");
+
+	}
+
 }

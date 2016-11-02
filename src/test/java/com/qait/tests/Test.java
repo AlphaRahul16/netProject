@@ -18,8 +18,11 @@ public class Test{
 	String type="home";
 	type=Character.toUpperCase(type.charAt(0))+type.substring(1);
 		System.out.println(Character.toUpperCase(type.charAt(0))+type.substring(1));
-		System.out.println(type);
-		
+
+	    System.out.println(DateUtil.convertStringToParticularDateFormat("2/2022","MM/yyyy"))	;	
+	    
+	    /*);
+=======
 		String currentDate = DateUtil.getCurrentTime("hh:mm a", "IST");
 		System.out.println(currentDate);
 		Date dateInDate = DateUtil.convertStringToDate(currentDate, "hh:mm a");
@@ -34,6 +37,7 @@ public class Test{
 				+ " " + dateWithTimeSlabInString;
 		
 /*
+>>>>>>> 68943518e4a9ecf9c1831a26d6e64447cfdc035a
 	public void demoTest(){
 	WebDriver driver=new FirefoxDriver();
 	
