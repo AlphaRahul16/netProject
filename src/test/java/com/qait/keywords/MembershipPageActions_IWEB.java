@@ -4847,9 +4847,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void enterExpiryDatesBeforeAndAfterExpressRenewal() {
 		isElementDisplayed("inp_customerId");
 		EnterTextInField(elements("inp_customerId").get(0),DateUtil.getAnyDateForType("MM/dd/yyyy", -1, "month"));
-		EnterTextInField(elements("inp_customerId").get(1),DateUtil.getAnyDateForType("MM/dd/yyyy", -15, "date"));
+		EnterTextInField(elements("inp_customerId").get(1),DateUtil.getAnyDateForType("MM/dd/yyyy", +5, "date"));
 		logMessage("Step : Expiry Date greater than is entered as "+DateUtil.getAnyDateForType("MM/dd/yyyy", -1, "month"));
-		logMessage("Step : Expiry Date less than is entered as "+DateUtil.getAnyDateForType("MM/dd/yyyy", -15, "date"));
+		logMessage("Step : Expiry Date less than is entered as "+DateUtil.getAnyDateForType("MM/dd/yyyy", +5, "date"));
 	}
 
 	public String fetchExpressURLForRenewal()

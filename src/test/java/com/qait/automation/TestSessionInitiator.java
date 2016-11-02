@@ -387,7 +387,7 @@ public class TestSessionInitiator {
 						baseurl
 						.equalsIgnoreCase("https://dev-eweb12/NFDev8/iWeb") ||
 						baseurl
-						.contains("https://dev-eweb12/NFDev8")){
+						.contains("https://dev-eweb12/NFDev")){
 					baseurl = baseurl.replaceAll(
 							"https://dev",
 							"https://"
