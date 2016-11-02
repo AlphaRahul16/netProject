@@ -55,7 +55,6 @@ public class ACS_AACT_OMR extends BaseTest {
 
 	@Test
 	public void Step01_Launch_IWEB_Application() {
-
 		test.homePageIWEB.addValuesInMap("AACT_OMR", caseID);
 		test.launchApplication(app_url_IWEB);
 		// test.homePage.verifyUserIsOnHomePage("CRM | Overview | Overview and

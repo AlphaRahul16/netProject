@@ -871,7 +871,9 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			waitForSpinner();
 			wait.hardWait(2);
 			wait.waitForPageToLoadCompletely();
-		} catch (StaleElementReferenceException stlEx) {
+		} catch (Exception stlEx) {
+			wait.hardWait(2);
+			pageRefresh();
 			System.out.println("STEP : Stale element refrence exception is occured\n");
 			isElementDisplayed("img_moreMenu");
 			element("img_moreMenu").click();
