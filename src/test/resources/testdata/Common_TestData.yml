@@ -1,4 +1,3 @@
-password: "password"
 
 csv-data-file:
   path_AACT_OMR: ./src/test/resources/TestDataLibrary/AACT_OMR_Datasheet.csv
