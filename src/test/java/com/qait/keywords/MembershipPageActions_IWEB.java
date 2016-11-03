@@ -2790,9 +2790,17 @@ element("btn_saveAndFinish").click();//
 	}
 
 	public String getCstWebLogin(){
+		String cst="";
+		try{
+			isElementDisplayed("txt_current", String.valueOf(1));
+			cst=element("txt_current", String.valueOf(1)).getText();
+			element("txt_current", String.valueOf(1)).click();	
+		}catch(NoSuchElementException e)
+		{
+			clickOnCustomerName();
+			cst=getMemberWebLogin();
+		}
 		
-		String cst=element("txt_current", String.valueOf(1)).getText();
-		element("txt_current", String.valueOf(1)).click();	
 		logMessage("STEP : CstWebLogin fetched as " + cst);
 		return cst;
 		
@@ -4975,15 +4983,30 @@ element("btn_saveAndFinish").click();//
 
 	public void enterExpiryDatesBeforeAndAfterForAACTOMR() {
 		isElementDisplayed("inp_customerId");
-		EnterTextInField(elements("inp_customerId").get(0),DateUtil.getAnyDateForType("MM/dd/yyyy", -1, "month"));
-		EnterTextInField(elements("inp_customerId").get(1),DateUtil.getAnyDateForType("MM/dd/yyyy", -30, "date"));
-		logMessage("Step : Expiry Date greater than is entered as "+DateUtil.getAnyDateForType("MM/dd/yyyy", -1, "month"));
-		logMessage("Step : Expiry Date less than is entered as "+DateUtil.getAnyDateForType("MM/dd/yyyy", -15, "date"));
+		EnterTextInField(elements("inp_customerId").get(0),DateUtil.getAnyDateForType("MM/dd/yyyy", -1, "year"));
+		EnterTextInField(elements("inp_customerId").get(1),DateUtil.getAnyDateForType("MM/dd/yyyy", 2, "year"));
+		logMessage("Step : Expiry Date greater than is entered as "+DateUtil.getAnyDateForType("MM/dd/yyyy", -1, "year"));
+		logMessage("Step : Expiry Date less than is entered as "+DateUtil.getAnyDateForType("MM/dd/yyyy", 2, "year"));
 	}
 
-	public void verifyDetailsForPaymentsChildForm(String type,String cardType) {
-		Assert.assertTrue(element("txt_payments",type,"1").getText().contains(cardType));
-		logMessage("Step: Verified Payment Method as "+ cardType+"\n");
+	public void verifyDetailsForPaymentsChildForm(String type,String cardType,String membershipType,String invoiceTotal) {
+		verifyDetailsForAACTOMR(cardType,type,"1");
+		verifyDetailsForAACTOMR(DateUtil.getCurrentdateInStringWithGivenFormate("MM/d/yyyy"),type,"3");
+		verifyDetailsForAACTOMR(invoiceTotal.replace("$", "").trim(),type,"4");
+		verifyMembershipTypeForAACTOMR(type,"2", membershipType);
+	}
+
+	private void verifyMembershipTypeForAACTOMR(String type,String index,String membershipType) {
+		// TODO Auto-generated method stub
+		Assert.assertTrue(element("txt_membershipType",type,index).getText().contains(membershipType));
+		logMessage("Step: Membership type is verify as "+ membershipType);
+	}
+
+	private void verifyDetailsForAACTOMR(String cardType, String text,String index) {
+		System.out.println(cardType);
+		System.out.println(element("txt_payments",text,index).getText().replace("$", "").trim());
+		Assert.assertTrue(element("txt_payments",text,index).getText().replace("$", "").trim().contains(cardType));
+		logMessage("Step: Verified "+text+" as "+ cardType+"\n");
 		
 	}
 

@@ -205,6 +205,7 @@ txt_gotorecord									xpath							  //td[contains(text(),'${memberType}')]/prec
 txt_technicalDivision                           xpath                           //td[contains(text(),'${memberType}')]/following-sibling::td[1]
 txt_memDivisionType                             xpath                           //td[contains(text(),'${memStatus}')]/preceding-sibling::td[contains(text(),'${memType}')]
 txt_payments									xpath							 //td[starts-with(text(),'${memberType}')]/following-sibling::td[${index}]
+txt_membershipType								xpath							//td[contains(text(),'${memberType}')]/preceding-sibling::td[${index}]
 ##----------------------------------------------------------Credit_Page-------------------------------------------------------------------------
 icon_expand										css								.icon-chevron-down
 drpdown_batchNameCreditPage						css								#cdt_bat_key

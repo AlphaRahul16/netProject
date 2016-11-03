@@ -82,7 +82,7 @@ public class ACS_AACT_OMR extends BaseTest {
 	public void Step04_Fetch_CstWebLogin_And_Verify_TermStartDate_And_TermEndDate_In_Invoice_Childform() {
 
 		weblogin = test.memberShipPage.getCstWebLogin();
-		test.memberShipPage.expandDetailsMenu("invoices");
+		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("invoices");
 		test.memberShipPage.verifyTermStartDateAndTermEndDateIsEmptyForAACT();
 		test.memberShipPage.collapseDetailsMenu("invoices");
 		test.memberShipPage.clickOnCustomerNameAndNavigateToMembershipPage();
@@ -119,7 +119,7 @@ public class ACS_AACT_OMR extends BaseTest {
 		test.acs_aactOmr.selectValuesForChemMatters("How do you want to receive",
 				test.homePageIWEB.map().get("How do you want to receive ChemMatters?"));
 		updatedValues = test.acs_aactOmr.updateDetailsfoAboutYouSection();
-		test.acs_aactOmr.clickButtonByInputValue("Save");
+		//test.acs_aactOmr.clickButtonByInputValue("Save");
 	}
 
 	@Test(dependsOnMethods="Step07_Select_value_for_How_do_you_want_to_receive_ChemMatters_Update_details_of_About_You")
@@ -188,21 +188,21 @@ public class ACS_AACT_OMR extends BaseTest {
 	}
 	@Test(dependsOnMethods="Step13_Launch_IWEB_and_Find_Member_and_navigate_To_membership_profile_page")
 	public void Step14_verify_term_start_date_and_end_date_is_not_null(){
-		test.memberShipPage.expandDetailsMenu("invoices");
+		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("invoices");
 		test.memberShipPage.verifyTermStartDateAndEndDatesAreNotEmpty();
 	}
 	@Test(dependsOnMethods="Step14_verify_term_start_date_and_end_date_is_not_null")
 	public void Step15_Verify_auto_pay_membership_flag_is_checked_And_Verify_AACT_membership_details(){
 		test.memberShipPage.verifyAutoPayStatusAfterAutoRenewal("chkmk");
 		test.memberShipPage.clickOnCustomerName();
-		test.memberShipPage.expandDetailsMenu("chapter memberships");
+		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("chapter memberships");
 		test.memberShipPage.verifyMemberTypeInIndividualMemberships("American Association");
 		
 	}
 	@Test(dependsOnMethods="Step15_Verify_auto_pay_membership_flag_is_checked_And_Verify_AACT_membership_details")
 	public void Step16_Click_on_More_link_and_select_Invoices_Verify_AACT_Member_details_under_Invoices_open_batch_childform(){
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Invoices");
-		test.memberShipPage.expandDetailsMenu("invoices (open batch)");
+		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("invoices (open batch)");
 		test.memberShipPage.verifyMembershipTypeInIndividualMemberships("AACTOMR");
 	}
 	@Test(dependsOnMethods="Step16_Click_on_More_link_and_select_Invoices_Verify_AACT_Member_details_under_Invoices_open_batch_childform")
@@ -213,8 +213,8 @@ public class ACS_AACT_OMR extends BaseTest {
 	@Test(dependsOnMethods="Step17_Click_on_got_to_record_and_Verify_details_on_Invoice_profile_page")
 	public void Step18_Click_on_More_link_and_select_Payments_Verify_payment_details_under_payments_child_form (){
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Payments");
-		test.memberShipPage.expandDetailsMenu("payments");
-		test.memberShipPage.verifyDetailsForPaymentsChildForm("Payment",test.homePageIWEB.map().get("CreditCardType").trim());
+		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("payments");
+		test.memberShipPage.verifyDetailsForPaymentsChildForm("Payment",test.homePageIWEB.map().get("CreditCardType").trim(),membershipType,invoiceTotal);
 	}	
 
 }

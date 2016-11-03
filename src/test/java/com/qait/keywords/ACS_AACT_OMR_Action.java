@@ -70,8 +70,12 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 			verifyPageHeader("title_header", "top-title", "Update About You");
 			updatedValues=updateDetailsForTeacher("GradesTaughtChk");
 			// updatedValues = updateDetailsForTeacher("SubjectsTaughtChk");
+			logMessage("Step: Update the details of About You for " + memberType + "\n");
+			clickButtonByInputValue("Save");
 		}
-		logMessage("Step: Update the details of About You for " + memberType + "\n");
+		else{
+			logMessage("Step: Member type is affiliated " + memberType + "\n");
+		}
 		return updatedValues;
 	}
 
@@ -132,7 +136,10 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 
 	public void verifyDetailsOfUpdateAboutYou(List<String> checkedValues) {
 
-		verifyDetailsOfList(checkedValues, "GradesList");
+		if (memberType.equalsIgnoreCase("Teacher") || memberType.equalsIgnoreCase("Student")){
+			verifyDetailsOfList(checkedValues, "GradesList");
+		}
+		
 		// verifyDetailsOfList(checkedValues,"SubjectsList");
 	}
 
