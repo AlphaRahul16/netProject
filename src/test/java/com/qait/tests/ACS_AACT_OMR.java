@@ -75,7 +75,7 @@ public class ACS_AACT_OMR extends BaseTest {
 	public void Step03_Select_And_Run_Query_On_Membership_Page() {
 
 		test.memberShipPage.selectAndRunQuery(getYamlValue("AACT_OMR.queryName"));
-		test.memberShipPage.enterExpiryDatesBeforeAndAfterExpressRenewal();
+		test.memberShipPage.enterExpiryDatesBeforeAndAfterForAACTOMR();
 		test.memberShipPage.clickOnGoButtonAfterPackageSelection();
 	}
 
@@ -215,7 +215,7 @@ public class ACS_AACT_OMR extends BaseTest {
 	public void Step18_Click_on_More_link_and_select_Payments_Verify_payment_details_under_payments_child_form (){
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Payments");
 		test.memberShipPage.expandDetailsMenu("payments");
-		test.memberShipPage.verifyDetailsForPaymentsChildForm();
+		test.memberShipPage.verifyDetailsForPaymentsChildForm("Payment",test.homePageIWEB.map().get("CreditCardType").trim());
 	}	
 
 }
