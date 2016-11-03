@@ -1,4 +1,3 @@
-password: "password"
 
 csv-data-file:
   path_OMA: ./src/test/resources/TestDataLibrary/OMA Business Rules.csv

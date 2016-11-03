@@ -1533,6 +1533,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public String selectRandomGeneralAward_AwardNomination(String awardName) {
 		try {
+			System.out.println(awardName);
 			wait.resetImplicitTimeout(4);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("txt_divisionPubName", awardName);
@@ -1540,8 +1541,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("STEP : General Award " + awardName
 					+ " is selected from the list\n");
 		} catch (NoSuchElementException e) {
-			wait.resetImplicitTimeout(4);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			wait.resetImplicitTimeout(4);
 			try {
 				element("txt_userEmail", "2").click();
 				wait.waitForPageToLoadCompletely();
