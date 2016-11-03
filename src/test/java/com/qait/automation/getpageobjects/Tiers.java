@@ -14,6 +14,7 @@ public enum Tiers {
     Dev4,dev4,DEV4,
     Dev7,dev7,DEV7,
     Dev8,dev8,DEV8,
+    Dev3,dev3,DEV3,
     STAGE5,Stage5,stage5,
     STAGE4,Stage4,stage4,
     STAGE3,Stage3,stage3,
