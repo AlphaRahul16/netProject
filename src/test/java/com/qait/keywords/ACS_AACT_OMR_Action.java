@@ -30,7 +30,7 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 	public void loginWithValidCredntials(String field, String value) {
 		isElementDisplayed("title_header", field);
 		element("title_header", field).sendKeys(value);
-		logMessage("Step: Enter " + value + " as " + field + " \n");
+		logMessage("Step: " + field + "is entered as " + value + " \n");
 	}
 
 	public void clickButtonByInputValue(String btnName) {
@@ -49,12 +49,20 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 		email = email.replaceAll("XXX", "");
 		sendKeysUsingXpathInJavaScriptExecutor(element("inp_editME"), email);
 		clickButtonById("btnEmailSave");
-		logMessage("Step: email is changed from " + " to " + email + " \n");
+		logMessage("Step: Current email address is " + email + " \n");
 	}
 
-	public void selectValuesForChemMatters(String label, String type) {
+	public void selectValuesForChemMatters(String label, String type, String membershipType) {
 		isElementDisplayed("drpdown_chemMatters", label);
-		selectProvidedTextFromDropDown(element("drpdown_chemMatters", label), type);
+		System.out.println("membershipType::" + membershipType);
+//		if (memberType.equalsIgnoreCase("Student")
+//				&& (type.equalsIgnoreCase("Print and Electronic") || (type.equalsIgnoreCase("Print")))) {
+//
+//			selectProvidedTextFromDropDown(element("drpdown_chemMatters", label), "Electronic");
+//		} else {
+
+			selectProvidedTextFromDropDown(element("drpdown_chemMatters", label), type);
+		//}
 		wait.waitForPageToLoadCompletely();
 		logMessage("Step: 'How do you want to receive ChemMatters?' is selected as " + type);
 	}
@@ -68,12 +76,11 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 		if (memberType.equalsIgnoreCase("Teacher") || memberType.equalsIgnoreCase("Student")) {
 			clickButtonByInputValue("Update About You");
 			verifyPageHeader("title_header", "top-title", "Update About You");
-			updatedValues=updateDetailsForTeacher("GradesTaughtChk");
+			updatedValues = updateDetailsForTeacher("GradesTaughtChk");
 			// updatedValues = updateDetailsForTeacher("SubjectsTaughtChk");
 			logMessage("Step: Update the details of About You for " + memberType + "\n");
 			clickButtonByInputValue("Save");
-		}
-		else{
+		} else {
 			logMessage("Step: Member type is affiliated " + memberType + "\n");
 		}
 		return updatedValues;
@@ -87,7 +94,7 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 
 	public void verifyPageHeader(String locator, String text, String title) {
 		isElementDisplayed(locator, text);
-		System.out.println("------title-----"+title);
+		System.out.println("------title-----" + title);
 		Assert.assertTrue(title.trim().equals(element(locator, text).getText().trim()));
 		logMessage("ASSERT PASSED: Page header is " + title + "\n");
 	}
@@ -119,27 +126,27 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 		return checkedValues;
 	}
 
-	public void enterGenderExperienceAndGraduationDetails(String gender, String experience,String gradMonth,String gradYear) {
+	public void enterGenderExperienceAndGraduationDetails(String gender, String experience, String gradMonth,
+			String gradYear) {
 		if (memberType.equalsIgnoreCase("Teacher") || memberType.equalsIgnoreCase("Student")) {
 			isElementDisplayed("inp_value", "YearsExp");
-			//element("inp_value", "YearsExp").clear();
 			sendKeysUsingXpathInJavaScriptExecutor(element("inp_value", "YearsExp"), experience);
-			logMessage("Step: Chemistry teaching experience is entered as " + experience + " \n");
+			logMessage("Step: 'Chemistry teaching experience' is entered as " + experience + " \n");
 		}
-		if(memberType.equalsIgnoreCase("Student")){
+		if (memberType.equalsIgnoreCase("Student")) {
 			selectProvidedTextFromDropDown(element("list_cardInfo", "GradMonth"), gradMonth);
 			selectProvidedTextFromDropDown(element("list_cardInfo", "GradYear"), gradYear);
-			logMessage("Step: Graduation month is entered as " + gradMonth + " and year as "+gradYear+" \n");
+			logMessage("Step: 'Graduation month' is entered as " + gradMonth + " and year as " + gradYear + " \n");
 		}
 		selectProvidedTextFromDropDown(element("list_cardInfo", "Gender"), gender);
 	}
 
 	public void verifyDetailsOfUpdateAboutYou(List<String> checkedValues) {
 
-		if (memberType.equalsIgnoreCase("Teacher") || memberType.equalsIgnoreCase("Student")){
+		if (memberType.equalsIgnoreCase("Teacher") || memberType.equalsIgnoreCase("Student")) {
 			verifyDetailsOfList(checkedValues, "GradesList");
 		}
-		
+
 		// verifyDetailsOfList(checkedValues,"SubjectsList");
 	}
 
@@ -150,9 +157,9 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_detailsAboutYou", listName);
 		boolean flag = true;
 		String details = element("txt_detailsAboutYou", listName).getText().trim();
-		System.out.println("DEtails:::::"+details);
+		System.out.println("DEtails:::::" + details);
 		while (size > 0) {
-			if (!details.contains(checkedValues.get(size-1))) {
+			if (!details.contains(checkedValues.get(size - 1))) {
 				flag = false;
 				break;
 			}
@@ -207,11 +214,11 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 	}
 
 	public void checkAutoRenwealCheckbox(String checkboxname) {
-		if(!memberType.equalsIgnoreCase("Student")){
+		if (!memberType.equalsIgnoreCase("Student")) {
 			checktheCheckbox(checkboxname);
 			wait.hardWait(5);
 			isElementDisplayed("inp_editEmail", "lblWarning");
-		}		
+		}
 	}
 
 	private void checktheCheckbox(String checkboxname) {
@@ -235,13 +242,13 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 			text = text.replace("year(s)", "").trim();
 		}
 		text.trim();
-		System.out.println("---text---"+text);
-		System.out.println("---value----"+value);
+		System.out.println("---text---" + text);
+		System.out.println("---value----" + value);
 		Assert.assertTrue(value.equals(text));
 		logMessage("ASSERT PASSED: " + locator + " is verified as " + value + "\n");
 	}
 
-	public boolean makeSchoolAsPrimaryAddress() {
+	public boolean makeSchoolAddressAsPrimaryAddress() {
 
 		boolean flag = false;
 		if (checkIfElementIsThere("txt_detailsAboutYou", "homePrimary")
@@ -257,6 +264,7 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 		} else {
 			logMessage("Step: 'school/work address' is already primary or can not make as primary");
 		}
+		clickButtonByInputValue("Return to Renewal");
 		return flag;
 	}
 
@@ -266,11 +274,10 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 			isElementDisplayed("txt_detailsAboutYou", "workPrimary");
 			logMessage("Step: verified school/work address is primary");
 		} else {
-			try{
-			isElementDisplayed("txt_detailsAboutYou", "homePrimary");
-			logMessage("Step: verified home address is primary");
-			}
-			catch(Exception e){
+			try {
+				isElementDisplayed("txt_detailsAboutYou", "homePrimary");
+				logMessage("Step: verified home address is primary");
+			} catch (Exception e) {
 				logMessage("Step: No primary Address \n");
 			}
 		}
@@ -284,15 +291,15 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 		verifydetailsOnOnlineMembershipRenewalPage(CreditCardType, "CreditCardType");
 		verifydetailsOnOnlineMembershipRenewalPage(CardholderName, "CardholderName");
 		verifyCreditCardNumber(CreditCardNumber, "CreditCardNumber");
-		if (memberType.equalsIgnoreCase("Teacher") || memberType.equalsIgnoreCase("Student")){
-			//verifydetailsOnOnlineMembershipRenewalPage(experience, "YearsExp");
+		if (memberType.equalsIgnoreCase("Teacher") || memberType.equalsIgnoreCase("Student")) {
+			verifydetailsOnOnlineMembershipRenewalPage(experience, "YearsExp");
 		}
-		
+
 		String ExpirationDate = ExpirationMonth + "/" + ExpirationYear;
-		DateUtil.convertStringToParticularDateFormat(ExpirationDate,"MM/yyyy");
-		System.out.println("ExpirationDate"+DateUtil.convertStringToParticularDateFormat(ExpirationDate,"MM/yyyy"));
-		verifydetailsOnOnlineMembershipRenewalPage(DateUtil.convertStringToParticularDateFormat(ExpirationDate,"MM/yyyy"), "ExpirationDate");
-		
+		DateUtil.convertStringToParticularDateFormat(ExpirationDate, "MM/yyyy");
+		System.out.println("ExpirationDate" + DateUtil.convertStringToParticularDateFormat(ExpirationDate, "MM/yyyy"));
+		verifydetailsOnOnlineMembershipRenewalPage(
+				DateUtil.convertStringToParticularDateFormat(ExpirationDate, "MM/yyyy"), "ExpirationDate");
 
 	}
 
@@ -300,12 +307,13 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 
 		isElementDisplayed("txt_detailsAboutYou", locator);
 		String text = element("txt_detailsAboutYou", locator).getText().trim();
-		System.out.println("text::"+text.substring(0, 12));
-		System.out.println(creditCardNumber.substring(12)+"text::"+text.substring(12));
+		System.out.println("text::" + text.substring(0, 12));
+		System.out.println(creditCardNumber.substring(12) + "text::" + text.substring(12));
 		Assert.assertTrue("************".equals(text.substring(0, 12).trim()));
+		logMessage("ASSERT PASSED: Verified Credit Card number has first eleven digits as * \n");
 		Assert.assertTrue(creditCardNumber.substring(12).trim().equals(text.substring(12).trim()));
-
 		logMessage("ASSERT PASSED: Verified Credit Card number displays only last four digits \n");
+
 	}
 
 	public String getDetailsfromOnlineMembershipPage(String field) {
@@ -326,8 +334,8 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 	}
 
 	public String getMembershipName(String category) {
-		isElementDisplayed("txt_membershipItems", "category", "1");
-		String membershipType = element("txt_membershipItems", "category", "1").getText().trim();
+		isElementDisplayed("txt_detailsAboutYou", category);
+		String membershipType = element("txt_detailsAboutYou", category).getText().trim();
 		return membershipType;
 	}
 
@@ -338,5 +346,4 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 	}
 
-	
 }

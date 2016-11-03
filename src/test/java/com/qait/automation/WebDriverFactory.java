@@ -103,7 +103,7 @@ public class WebDriverFactory {
 //         options.addArguments("plugins.plugins_disabled", pluginToDisable);
 //         options.addArguments("--lang=en-gb");
          
-		options.addArguments("plugins.plugins_disabled","Chrome PDF Viewer");
+		//options.addArguments("plugins.plugins_disabled","Chrome PDF Viewer");
 		options.addArguments("--disable-extensions");
 		options.addArguments("test-type");
 		options.addArguments("--disable-impl-side-painting");
