@@ -201,6 +201,9 @@ img_primaryFlag                                 xpath                           
 chkbox_acsMember                                id                              ind_acs_network_member_flag_ext
 txt_divisionMember                              xpath                           //td[contains(text(),'${memberType}')]
 txt_techDivision                                xpath                           //td[contains(text(),'${memberType}')]/preceding-sibling::td[1]
+txt_gotorecord									xpath							  //td[contains(text(),'${memberType}')]/preceding-sibling::td[${index}]/a/i
+txt_technicalDivision                           xpath                           //td[contains(text(),'${memberType}')]/following-sibling::td[1]
+txt_memDivisionType                             xpath                           //td[contains(text(),'${memStatus}')]/preceding-sibling::td[contains(text(),'${memType}')]
 
 ##----------------------------------------------------------Credit_Page-------------------------------------------------------------------------
 icon_expand										css								.icon-chevron-down

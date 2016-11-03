@@ -79,5 +79,18 @@
 			<class name="com.qait.tests.ACS_Chapter_Relationships_Test"></class>
 		</classes>
 	</test>
+	
+		<test name="Create Member" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_Create_Member_IWEB_Test"></class>
+		</classes>
+	</test>
+
+
+<test name="inventory product fulfillmet" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.Inventory_Product_Fulfillment_Test"></class>
+		</classes>
+	</test>
 
 </suite>

@@ -819,7 +819,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		logMessage("STEP : Check I agree Terms And Condition check box \n");
 
 	}
-
+	
 	public void waitForLoaderToDisappear() {
 		logMessage("STEP : Wait for loader to disappear \n");
 		try {

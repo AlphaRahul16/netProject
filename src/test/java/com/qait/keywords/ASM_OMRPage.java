@@ -1089,7 +1089,6 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		
 		
 	}
-
 	public String geInvoiceNumberOnOMRReceiptPage(String value) {
 		wait.hardWait(4);
 		wait.waitForPageToLoadCompletely();

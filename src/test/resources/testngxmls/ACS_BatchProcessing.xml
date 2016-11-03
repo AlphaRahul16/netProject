@@ -3,7 +3,7 @@
 <suite name="ACS Tests" parallel="tests" thread-count="5">
 	<test name="ACS Batch Processing" group-by-instances="true">
 		<classes>
-			<class name="com.qait.tests.ACS_Batch_Processing"></class>\
+			<class name="com.qait.tests.ACS_Batch_Processing"></class>
 		</classes>
 	</test>
 </suite>

@@ -1,5 +1,5 @@
 app_url_IWEB: https://dev-eweb12.acs.org/NFDev7/iWeb/
-app_url_OMA: https://ewebtest.acs.org/NFStage2/oma
+app_url_OMA: https://dev-eweb12/NFDev7/oma
 app_url_CCED: https://ewebtest.acs.org/NFStage2/ccedlookup
 app_url_Store: https://ewebtest.acs.org/NFStage2/store/
 app_url_AACT: https://ewebtest.acs.org/NFStage2/aactoma
@@ -24,5 +24,5 @@ app_url_Awards: https://ewebtest12.acs.org/NFStage2/awards
 app_url_ScarfReviewing: https://www.ewebtest.acs.org/NFStage2/studentchaptersreview
 
 Authentication: 
-  userName: C00767
-  password: "fT267#3DN"
+  userName: C00616
+  password: "Sx!3M24GS"

@@ -13,4 +13,6 @@ txt_selectedDetail                   xpath                //select[@id='ddl${det
 list_demographicInfo                  id                    ddl${infoType}
 inp_demographicInfo                   id                   txt${infoType}
 inp_affiliateTitle                    id                   txtApplicantAdditionalRoleInfo
+
+
 =========================================================================================================================================================

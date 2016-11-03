@@ -196,7 +196,7 @@ public class ACS_My_Account_Action extends ASCSocietyGenericPage{
 	}
 	
 	public void selectAddressState(String field,String value){
-		isElementDisplayed("inp_changeAddress",field);
+		isElementDisplayed("inp_changeAddress",field); 
 		selectProvidedTextFromDropDown(element("inp_changeAddress",field), value);
 		logMessage("STEP: "+field+" value is entered as "+value+"\n");
 	}

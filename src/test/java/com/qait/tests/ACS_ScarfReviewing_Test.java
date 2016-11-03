@@ -49,7 +49,7 @@ public class ACS_ScarfReviewing_Test {
 				YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
-//		test.acsScarfReviewPage.assignChapterName("Central Connecticut State University");
+//		test.acsScarfReviewPage.assignChapterName("Los Angeles City College");
 	}
 
 	@Test

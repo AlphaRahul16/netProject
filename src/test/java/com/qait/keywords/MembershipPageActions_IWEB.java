@@ -1313,6 +1313,27 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		waitForSpinner();
 		return memberDetails;
 	}
+	
+	public List<String> getMemberDetailsOnMembershipPage(){
+		memberDetails.add(getMemberInfoOnMemberShipProfile("member package"));
+		memberDetails.add(getMemberInfoOnMemberShipProfile("renewal package"));
+		memberDetails.add(getPaymentStatus());
+		memberDetails.add(getMemberDetailsOnMemberShipProfile("customer id"));
+		memberDetails.add(getMemberDetailsOnMemberShipProfile("expire date"));
+		memberDetails
+				.add(getMemberDetailsOnMemberShipProfile("effective date"));
+		memberDetails.add(getMemberDetailsOnMemberShipProfile("join date"));
+		openSubInfoDropDown("invoices");
+		waitForSpinner();
+		flag = pagesLinkAvailable();
+		memberDetails.add(getProductNameInInvoice(flag));
+		memberDetails.add(getInvoiceIDInInvoice(flag));
+		memberDetails.add(getTermStartDateInvoice(flag));
+		System.out.println("contact ID: " + memberDetails.get(3));
+		openSubInfoDropDown("invoices");
+		waitForSpinner();
+		return memberDetails;
+	}
 
 	public String getProductNameInInvoice(boolean pageLink) {
 		if (pageLink) {
@@ -1741,7 +1762,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_creditAvailable");
 		String credit = element("txt_creditAvailable").getText();
 		Assert.assertTrue(
-				Double.parseDouble(credit) >= Double.parseDouble(creditAmount),
+				Double.parseDouble(credit) == Double.parseDouble(creditAmount),
 				"ASSERT FAILED : Credit available is not matched on COE page\n");
 		logMessage("ASSERT PASSED : Credit availabale is " + credit + " \n");
 
@@ -2766,6 +2787,16 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ reviewerloginMap.get("reviewer" + reviewerNumber).get(1));
 	}
 
+	public String getCstWebLogin(){
+		
+		String cst=element("txt_current", String.valueOf(1)).getText();
+		element("txt_current", String.valueOf(1)).click();	
+		logMessage("STEP : CstWebLogin fetched as " + cst);
+		return cst;
+		
+	}
+
+	
 	public void getIndividualFullNameForAwardsNomination() {
 
 		clickOnEditNameAndAddress();
@@ -4817,9 +4848,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void enterExpiryDatesBeforeAndAfterExpressRenewal() {
 		isElementDisplayed("inp_customerId");
 		EnterTextInField(elements("inp_customerId").get(0),DateUtil.getAnyDateForType("MM/dd/yyyy", -1, "month"));
-		EnterTextInField(elements("inp_customerId").get(1),DateUtil.getAnyDateForType("MM/dd/yyyy", -15, "date"));
+		EnterTextInField(elements("inp_customerId").get(1),DateUtil.getAnyDateForType("MM/dd/yyyy", +5, "date"));
 		logMessage("Step : Expiry Date greater than is entered as "+DateUtil.getAnyDateForType("MM/dd/yyyy", -1, "month"));
-		logMessage("Step : Expiry Date less than is entered as "+DateUtil.getAnyDateForType("MM/dd/yyyy", -15, "date"));
+		logMessage("Step : Expiry Date less than is entered as "+DateUtil.getAnyDateForType("MM/dd/yyyy", +5, "date"));
 	}
 
 	public String fetchExpressURLForRenewal()
@@ -4862,19 +4893,49 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnSaveButtonForBillingAddress();
 		switchToDefaultContent();
 	}
-
+	
+//	public List<String> getTechnicalDivisions(){ 
+//	    List<String> techDivisions=new ArrayList<String>();
+//		if(checkIfElementIsThere("txt_divisionMember","Division Member")){
+//			int size=elements("txt_divisionMember","Division Member").size();
+//			for(int i=0;i<size;i++){
+//				techDivisions.add(elements("txt_techDivision","Division Member").get(i).getText().trim());
+//			}
+//		}
+//		if(checkIfElementIsThere("txt_divisionMember","Subdivision Member")){
+//			int size=elements("txt_divisionMember","Subdivision Member").size();
+//			for(int i=0;i<size;i++){
+//				techDivisions.add(elements("txt_techDivision","Subdivision Member").get(i).getText().trim());
+//			}
+//		}
+//		
+//		if(techDivisions.size()>0)
+//			logMessage("STEP: Technical divisions are "+techDivisions);
+//		else
+//			logMessage("STEP: Technical divisions are not present\n");
+//		
+//		return techDivisions;
+//	}
+	
 	public List<String> getTechnicalDivisions(){ 
-		List<String> techDivisions=new ArrayList<String>();
+		List<String> memTypeArray=new ArrayList<String>();
+		memTypeArray.add("Cancelled");
+		memTypeArray.add("Terminated by Process-chp");
+	    List<String> techDivisions=new ArrayList<String>();
 		if(checkIfElementIsThere("txt_divisionMember","Division Member")){
 			int size=elements("txt_divisionMember","Division Member").size();
-			for(int i=0;i<size;i++){
-				techDivisions.add(elements("txt_techDivision","Division Member").get(i).getText().trim());
+			for(int i=0;i<size;i++){ 
+				if(!(memTypeArray.contains(elements("txt_technicalDivision","Division Member").get(i).getText().trim()))){
+					techDivisions.add(elements("txt_techDivision","Division Member").get(i).getText().trim());
+				}
 			}
 		}
 		if(checkIfElementIsThere("txt_divisionMember","Subdivision Member")){
 			int size=elements("txt_divisionMember","Subdivision Member").size();
 			for(int i=0;i<size;i++){
-				techDivisions.add(elements("txt_techDivision","Subdivision Member").get(i).getText().trim());
+				if(!(memTypeArray.contains(elements("txt_technicalDivision","Subdivision Member").get(i).getText().trim()))){
+					techDivisions.add(elements("txt_techDivision","Subdivision Member").get(i).getText().trim());
+				}
 			}
 		}
 		
@@ -4884,6 +4945,35 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("STEP: Technical divisions are not present\n");
 
 		return techDivisions;
+	}
+
+	public void verifyTermStartDateAndTermEndDateIsEmptyForAACT() {
+		isElementDisplayed("txt_termStartDaterenewal", "1");
+		Assert.assertTrue(element("txt_termStartDaterenewal", "1")
+				.getText().length() == 1, "Term Start Date is not Empty");
+		logMessage("ASSERT PASSED : Term Start date is empty\n");
+		isElementDisplayed("txt_termEndDaterenewal", "1");
+		Assert.assertTrue(element("txt_termEndDaterenewal", "1").getText()
+				.length() == 1, "Term End Date is not Empty");
+		logMessage("ASSERT PASSED : Term End date is empty\n");
+		
+	}
+
+	public void verifyMembershipTypeInIndividualMemberships(String membershipType) {
+		
+		isElementDisplayed("txt_divisionMember", membershipType);
+		logMessage("ASSERT PASSED : " + membershipType	+ " is verified in txt_divisionMember \n");
+	}
+	public void clickOnGoToRecordButton(String membershipType,String index){
+		isElementDisplayed("txt_gotorecord",membershipType,index);
+		element("txt_gotorecord",membershipType,index).click();
+		wait.waitForPageToLoadCompletely();
+		logMessage("Step: click on 'go to record' image for "+membershipType+" \n");
+	}
+
+	public void verifyDetailsForPaymentsChildForm() {
+	
+		
 	}
 
 }
