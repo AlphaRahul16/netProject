@@ -1962,9 +1962,11 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public String addChapterRelationshipsToIndividual() {
+		String chapterName;
 		switchToFrame(element("iframe1"));
 		clickLookUpButton();
-		return clickActiveChapterName();
+		chapterName=clickActiveChapterName();
+		return chapterName;
 	}
 
 	private String clickActiveChapterName() {
@@ -1988,6 +1990,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		wait.resetExplicitTimeout(timeOut);
 		wait.resetImplicitTimeout(timeOut);
+		
 		return chapterName;
 
 	}

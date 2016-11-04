@@ -1,4 +1,5 @@
 app_url_IWEB: https://dev-eweb12/NFDev3/iWeb
+app_url_iweb_yb: http://dev-iweb12/YBDev3/iWeb
 app_url_OMA: https://dev-eweb12/NFDev3/oma
 app_url_CCED: https://dev-eweb12/NFDev3/ccedlookup
 app_url_Store: https://dev-eweb12/NFDev3/store/
@@ -22,6 +23,7 @@ app_url_PUBS: https://dev-eweb12/NFDev3/pba
 app_url_EwebReporting: https://dev-eweb12/NFDev3/studentchaptersonline
 app_url_Awards: https://dev-eweb12/NFDev3/awards
 app_url_ScarfReviewing: https://dev-eweb12/NFDev3/studentchaptersreview
+app_url_yellowBook: https://ewebtest.acs.org/YBDev3/yellowbook
 
 Authentication: 
   userName: C00616
