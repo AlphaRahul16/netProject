@@ -19,9 +19,9 @@ import com.qait.automation.utils.YamlReader;
 
 public class ACS_AACT_OMR extends BaseTest {
 
-	private String weblogin, custId, CardHolderName;
+	private String weblogin, CardHolderName, productName;
 	List<String> updatedValues = new ArrayList<String>();
-	private String caseID, email, membershipType, invoiceTotal;
+	private String caseID, email, membershipType, invoiceTotal, queryPageUrl;
 	private boolean isPrimary;
 	List<String> customerFullNameList;
 
@@ -60,40 +60,25 @@ public class ACS_AACT_OMR extends BaseTest {
 	}
 
 	@Test(dependsOnMethods = "Step01_Launch_IWEB_Application")
-	public void Step02_Select_members_side_bar_tab_and_click_on_Query_membership() {
+	public void Step02_Select_Members_Tab_And_Select_Valid_User_For_AACT_OMR() {
 
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Membership");
 		test.homePageIWEB.clickOnSideBarTab("Members");
 		test.homePageIWEB.clickOnTab("Query Membership");
+		queryPageUrl = test.individualsPage.getCurrentURL();
 		test.homePageIWEB.verifyUserIsOnHomePage("Query - Membership");
-
-	}
-
-	@Test(dependsOnMethods = "Step02_Select_members_side_bar_tab_and_click_on_Query_membership")
-	public void Step03_Select_And_Run_Query_On_Membership_Page() {
-
-		test.memberShipPage.selectAndRunQuery(getYamlValue("AACT_OMR.queryName"));
-		test.memberShipPage.enterExpiryDatesBeforeAndAfterForAACTOMR();
-		test.memberShipPage.clickOnGoButtonAfterPackageSelection();
-	}
-
-	@Test(dependsOnMethods = "Step03_Select_And_Run_Query_On_Membership_Page")
-	public void Step04_Fetch_CstWebLogin_And_Verify_TermStartDate_And_TermEndDate_In_Invoice_Childform() {
-
-		weblogin = test.memberShipPage.getCstWebLogin();
-		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("invoices");
-		test.memberShipPage.verifyTermStartDateAndTermEndDateIsEmptyForAACT();
-		test.memberShipPage.collapseDetailsMenu("invoices");
+		weblogin = test.memberShipPage.selectValidUserForAACTOMR(getYamlValue("AACT_OMR.queryName"), queryPageUrl);
 		test.memberShipPage.clickOnCustomerNameAndNavigateToMembershipPage();
-		custId = test.memberShipPage.getCustomerID();
-		customerFullNameList = test.memberShipPage.getCustomerFullNameAndContactID();
+		customerFullNameList = test.memberShipPage.getMemberDetails_AACTOMR();
+		// countryName=test.memberShipPage.getMemberCountryName();
 
 	}
 
-	@Test(dependsOnMethods = "Step04_Fetch_CstWebLogin_And_Verify_TermStartDate_And_TermEndDate_In_Invoice_Childform")
-	public void Step05_Launch_EWEB_Application_and_Login_with_fetched_Weblogin() {
+	@Test(dependsOnMethods = "Step02_Select_Members_Tab_And_Select_Valid_User_For_AACT_OMR")
+	public void Step03_Launch_EWEB_Application_And_Login_With_Weblogin() {
 		test.homePageIWEB.addValuesInMap("AACT_OMR", caseID);
+		test.launchApplication(app_url_AACT_OMR);
 		test.launchApplication(app_url_AACT_OMR);
 		test.homePage.verifyUserIsOnHomePage("AACT OMR >> Login");
 		test.acs_aactOmr.loginWithWeblogin(weblogin, "password");
@@ -102,10 +87,9 @@ public class ACS_AACT_OMR extends BaseTest {
 
 	}
 
-	@Test(dependsOnMethods = "Step05_Launch_EWEB_Application_and_Login_with_fetched_Weblogin")
-	public void Step06_click_on_Edit_link_and_update_contact_info_on_online_membership_renewal_page() {
+	@Test(dependsOnMethods = "Step03_Launch_EWEB_Application_And_Login_With_Weblogin")
+	public void Step04_Click_On_Edit_Link_And_Update_Contact_Info_On_Online_Membership_Renewal_Page() {
 		email = test.acs_aactOmr.getDetailsfromOnlineMembershipPage("EmailAddress");
-		isPrimary = test.acs_aactOmr.getPrimaryAddress();
 		test.acs_aactOmr.clickOnLink("edit");
 		test.acs_aactOmr.clickButtonByInputValue("Change Email");
 		test.acs_aactOmr.editEmailOnUpdateAboutYouPage(email);
@@ -113,17 +97,18 @@ public class ACS_AACT_OMR extends BaseTest {
 
 	}
 
-	@Test(dependsOnMethods = "Step06_click_on_Edit_link_and_update_contact_info_on_online_membership_renewal_page")
-	public void Step07_Select_value_for_delivery_method_and_Update_details_of_About_You() {
+	@Test(dependsOnMethods = "Step04_Click_On_Edit_Link_And_Update_Contact_Info_On_Online_Membership_Renewal_Page")
+	public void Step05_Select_Value_For_Delivery_Method_And_Update_Details_Of_About_You() {
 		membershipType = test.acs_aactOmr.getMembershipName("MemberCategory");
-		System.out.println("Membership Type::" + membershipType);
 		test.acs_aactOmr.selectValuesForChemMatters("How do you want to receive",
-				test.homePageIWEB.map().get("How do you want to receive ChemMatters?"), membershipType);
+				test.homePageIWEB.map().get("How do you want to receive ChemMatters?"), membershipType,
+				customerFullNameList.get(2).trim());
+		productName = test.acs_aactOmr.getMembershipDetailsFromMembershipInvoiceTable("Product Name");
 		updatedValues = test.acs_aactOmr.updateDetailsfoAboutYouSection();
 	}
 
-	@Test(dependsOnMethods = "Step07_Select_value_for_delivery_method_and_Update_details_of_About_You")
-	public void Step08_Verify_details_of_About_You_and_Enter_Gender_Experience_gradutaion_Date() {
+	@Test(dependsOnMethods = "Step05_Select_Value_For_Delivery_Method_And_Update_Details_Of_About_You")
+	public void Step06_Verify_Details_Of_About_You_And_Enter_Gender_Experience_Gradutaion_Date() {
 
 		test.acs_aactOmr.verifydetailsOnOnlineMembershipRenewalPage(email.replace("XXX", ""), "EmailAddress");
 		test.acs_aactOmr.verifyDetailsOfUpdateAboutYou(updatedValues);
@@ -133,8 +118,8 @@ public class ACS_AACT_OMR extends BaseTest {
 				test.homePageIWEB.map().get("GradYear").trim());
 	}
 
-	@Test(dependsOnMethods = "Step08_Verify_details_of_About_You_and_Enter_Gender_Experience_gradutaion_Date")
-	public void Step09_Verify_Membership_Invoice_Total_and_Enter_Billing_Information() {
+	@Test(dependsOnMethods = "Step06_Verify_Details_Of_About_You_And_Enter_Gender_Experience_Gradutaion_Date")
+	public void Step07_Verify_Membership_Invoice_Total_And_Enter_Billing_Information() {
 
 		invoiceTotal = test.acs_aactOmr.getDetailsfromOnlineMembershipPage("TotalAmount");
 		CardHolderName = customerFullNameList.get(0).trim();
@@ -143,11 +128,11 @@ public class ACS_AACT_OMR extends BaseTest {
 				test.homePageIWEB.map().get("ExpirationMonth").trim(),
 				test.homePageIWEB.map().get("ExpirationYear").trim());
 		test.acs_aactOmr.checkAutoRenwealCheckbox("chkAutoRenewal");
-		test.acs_aactOmr.clickButtonById("btnNext");
+		test.acs_aactOmr.clickButtonById("btnNext", "Continue");
 	}
 
-	@Test(dependsOnMethods = "Step09_Verify_Membership_Invoice_Total_and_Enter_Billing_Information")
-	public void Step10_Verify_Details_On_Summary_Page_And_Click_On_Submit_Payment_Button() {
+	@Test(dependsOnMethods = "Step07_Verify_Membership_Invoice_Total_And_Enter_Billing_Information")
+	public void Step08_Verify_Details_On_Summary_Page_And_Click_On_Submit_Payment_Button() {
 		test.acs_aactOmr.verifyPageHeader("txt_summaryHeader", "Membership Renewal Summary",
 				"Membership Renewal Summary");
 		test.acs_aactOmr.verifyMembershipType(membershipType, "MemberCategory");
@@ -161,16 +146,17 @@ public class ACS_AACT_OMR extends BaseTest {
 		test.acs_aactOmr.clickOnSubmitPaymentOnOnlineMembershipRenewalPage();
 	}
 
-	@Test(dependsOnMethods = "Step10_Verify_Details_On_Summary_Page_And_Click_On_Submit_Payment_Button")
-	public void Step11_Click_On_Print_Your_Receipt_and_Verify_Details_For_Print() throws IOException {
+	@Test(dependsOnMethods = "Step08_Verify_Details_On_Summary_Page_And_Click_On_Submit_Payment_Button")
+	public void Step09_Click_On_Print_Your_Receipt_And_Verify_Details_In_Downloaded_PDF() throws IOException {
 		test.acs_aactOmr.verifyPageHeader("title_header", "greydarker-title", "Member Invoice -");
 		test.asm_PUBSPage._deleteExistingFIleFile("report");
 		test.acs_aactOmr.clickButtonByInputValue("Print your receipt");
-		test.asm_PUBSPage.verifyDataFromPdfFileForAACTOMR(membershipType,invoiceTotal);
+		test.asm_PUBSPage.verifyDataFromPdfFileForAACTOMR(membershipType, invoiceTotal,
+				customerFullNameList.get(1).trim(), productName);
 	}
 
-	@Test(dependsOnMethods = "Step11_Click_On_Print_Your_Receipt_and_Verify_Details_For_Print")
-	public void Step12_Launch_IWEB_and_Find_Member_and_navigate_To_membership_profile_page() {
+	@Test(dependsOnMethods = "Step09_Click_On_Print_Your_Receipt_And_Verify_Details_In_Downloaded_PDF")
+	public void Step10_Launch_IWEB_And_Find_Member() {
 		test.launchApplication(app_url_IWEB);
 		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
@@ -181,18 +167,18 @@ public class ACS_AACT_OMR extends BaseTest {
 		test.homePageIWEB.verifyUserIsOnHomePage("Find - Membership");
 		test.individualsPage.selectFieldValueToFindMember("Chapter:",
 				"American Association of Chemistry Teachers (AACT)");
-		test.individualsPage.fillMemberDetailsAndSearch("Customer ID", custId);
+		test.individualsPage.fillMemberDetailsAndSearch("Customer ID", customerFullNameList.get(1).trim());
 
 	}
 
-	@Test(dependsOnMethods = "Step12_Launch_IWEB_and_Find_Member_and_navigate_To_membership_profile_page")
-	public void Step13_verify_term_start_date_and_end_date_is_not_null() {
+	@Test(dependsOnMethods = "Step10_Launch_IWEB_And_Find_Member")
+	public void Step11_Verify_Term_Start_Date_And_End_Date_Is_Not_Null() {
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("invoices");
 		test.memberShipPage.verifyTermStartDateAndEndDatesAreNotEmpty();
 	}
 
-	@Test(dependsOnMethods = "Step13_verify_term_start_date_and_end_date_is_not_null")
-	public void Step14_Verify_auto_pay_membership_flag_is_checked_And_Verify_AACT_membership_details() {
+	@Test(dependsOnMethods = "Step11_Verify_Term_Start_Date_And_End_Date_Is_Not_Null")
+	public void Step12_Verify_Auto_Pay_Membership_Flag_Is_Checked_And_Verify_AACT_Membership_Details() {
 		test.memberShipPage.verifyAutoPayStatusAfterAutoRenewal("chkmk");
 		test.memberShipPage.clickOnCustomerName();
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("chapter memberships");
@@ -200,25 +186,25 @@ public class ACS_AACT_OMR extends BaseTest {
 
 	}
 
-	@Test(dependsOnMethods = "Step14_Verify_auto_pay_membership_flag_is_checked_And_Verify_AACT_membership_details")
-	public void Step15_Verify_AACT_Member_details_under_Invoices_open_batch_childform() {
+	@Test(dependsOnMethods = "Step12_Verify_Auto_Pay_Membership_Flag_Is_Checked_And_Verify_AACT_Membership_Details")
+	public void Step13_Verify_AACT_Member_Details_Under_Invoices_Open_Batch() {
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Invoices");
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("invoices (open batch)");
 		test.memberShipPage.verifyMembershipTypeInIndividualMemberships("AACTOMR");
 	}
 
-	@Test(dependsOnMethods = "Step15_Verify_AACT_Member_details_under_Invoices_open_batch_childform")
-	public void Step16_Click_on_got_to_record_and_Verify_details_on_Invoice_profile_page() {
+	@Test(dependsOnMethods = "Step13_Verify_AACT_Member_Details_Under_Invoices_Open_Batch")
+	public void Step14_Click_On_Go_To_Record_And_Verify_Details_On_Invoice_Profile_Page() {
 		test.memberShipPage.clickOnGoToRecordButton("AACTOMR", "3");
 		test.invoicePage.verifyDetailsOfInvoiceProfilePageforAACTOMR(invoiceTotal, "Yes", "No");
 	}
 
-	@Test(dependsOnMethods = "Step16_Click_on_got_to_record_and_Verify_details_on_Invoice_profile_page")
-	public void Step17_Verify_payment_details_under_payments_child_form() {
+	@Test(dependsOnMethods = "Step14_Click_On_Go_To_Record_And_Verify_Details_On_Invoice_Profile_Page")
+	public void Step15_Verify_Payment_Details_Under_Payments() {
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Payments");
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("payments");
 		test.memberShipPage.verifyDetailsForPaymentsChildForm("Payment",
-				test.homePageIWEB.map().get("CreditCardType").trim(), membershipType, invoiceTotal);
+				test.homePageIWEB.map().get("CreditCardType").trim(), membershipType, invoiceTotal, productName);
 	}
 
 }

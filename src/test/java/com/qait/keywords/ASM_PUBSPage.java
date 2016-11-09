@@ -119,7 +119,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 				+ ".pdf";
 		File sourceFile = new File(source);
 		Assert.assertTrue(sourceFile.exists());
-		}
+	}
 
 	public void verifyDataFromPdfFile() throws IOException {
 		System.out.println("===================================================================================");
@@ -135,7 +135,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		for (String product_Amount : productAmount) {
 			System.out.println("In PDF Method for Amount::" + product_Amount);
 			Assert.assertTrue(pdfContent.contains(product_Amount));
-			logMessage("ASSERTION PASSED : Verified Product Amount "+product_Amount+" in Invoice Receipt");
+			logMessage("ASSERTION PASSED : Verified Product Amount " + product_Amount + " in Invoice Receipt");
 		}
 
 		for (String product_Name : productName) {
@@ -145,7 +145,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 			} else {
 				Assert.assertTrue(pdfContent.contains(product_Name));
 			}
-			logMessage("ASSERTION PASSED : Verified Product Name "+product_Name+" is available in Invoice Receipt");
+			logMessage("ASSERTION PASSED : Verified Product Name " + product_Name + " is available in Invoice Receipt");
 		}
 
 	}
@@ -156,17 +156,18 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 				+ ".pdf";
 
 		File sourceFile = new File(source);
-//		try {
-//			System.out.println("-----"+sourceFile.exists());
-//			FileUtils.forceDelete(sourceFile);
-//			logMessage("Already Existed File is deleted from location " + sourceFile.getAbsolutePath());
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		// try {
+		// System.out.println("-----"+sourceFile.exists());
+		// FileUtils.forceDelete(sourceFile);
+		// logMessage("Already Existed File is deleted from location " +
+		// sourceFile.getAbsolutePath());
+		// } catch (IOException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
 		if (sourceFile.exists()) {
 			sourceFile.delete();
-			logMessage("Already Existed File is deleted from location " + sourceFile.getAbsolutePath());
+			logMessage("STEP: Already Existed File is deleted from location " + sourceFile.getAbsolutePath());
 		}
 	}
 
@@ -208,7 +209,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	public void clickOnAddAnEPassportButton() {
 		isElementDisplayed("btn_passportAdd");
 		element("btn_passportAdd").click();
-		logMessage("Step : Add an e-passport button is clicked in btn_passportAdd\n");
+		logMessage("STEP : Add an e-passport button is clicked in btn_passportAdd\n");
 
 	}
 
@@ -406,24 +407,52 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		Assert.assertTrue(individualName.contains(s));
 		logMessage("ASSERTION PASSED : Verified User Is On Home Page for Eweb Application");
 	}
-	public void verifyDataFromPdfFileForAACTOMR(String membershipType,String invoiceTotal) throws IOException {
-		wait.hardWait(15);
-		_verifyPDFFileIsDownloaded("report");
-		System.out.println("===================================================================================");
-		String pdfContent = extractFromPdf("report", 1);
-		System.out.println("PDF Content::" + pdfContent);
-		System.out.println("In PDF Method::" + membershipType);
-		Assert.assertTrue(pdfContent.contains(membershipType));
-		logMessage("ASSERTION PASSED : Verified "+membershipType+" as Membership Type");
-		System.out.println("====================================================================================");
-		System.out.println("In PDF Method for invoice Total::" + invoiceTotal);
-		Assert.assertTrue(pdfContent.contains(invoiceTotal));
-		logMessage("ASSERTION PASSED : Verified "+invoiceTotal+" as Invoice Total");
-		System.out.println("====================================================================================");
-		System.out.println("Current date::"+DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"));
-		Assert.assertTrue(pdfContent.contains(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy")));
-		logMessage("ASSERTION PASSED : Verified "+DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy")+" as Payment Date");
+
+	public void verifyDataFromPdfFileForAACTOMR(String membershipType, String invoiceTotal, String customerID,
+			String productName) throws IOException {
+		boolean flag = false;
+		for (int i = 0; i <= 4; i++) {
+			wait.hardWait(15);
+			flag = _verifyPDFFileIsDownloadedForAACTOMR("report");
+			if (flag) {
+				Assert.assertTrue(flag);
+				logMessage("ASSERTION PASSED: report.pdf file is downloaded");
+				String pdfContent = extractFromPdf("report", 1);
+				System.out.println("PDF Content::" + pdfContent);
+				verifyDetailsFromPDFFile(pdfContent, membershipType, "Membership Type");
+				verifyDetailsFromPDFFile(pdfContent, invoiceTotal, "invoice Total");
+				verifyDetailsFromPDFFile(pdfContent, DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
+						"Payment Date");
+				verifyDetailsFromPDFFile(pdfContent, customerID, "Membership ID");
+				verifyDetailsFromPDFFile(pdfContent, productName, "Product Name");
+				break;
+			} else {
+				logMessage("STEP: waiting for report.pdf file to be downloaded");
+			}
+		}
+		if (!flag) {
+			Assert.assertTrue(flag, "ASSERT FAILED: report.pdf is not downloaded");
+		}
+//		if(isBrowser("chrome")){
+//			changeWindow(1);
+//			driver.close();
+//		}
+	}
+
+	private void verifyDetailsFromPDFFile(String pdfContent, String value, String text) {
+		System.out.println(value + " as " + text);
+		Assert.assertTrue(pdfContent.contains(value));
+		logMessage("ASSERTION PASSED : Verified " + text + " as " + value);
 
 	}
 
+	private boolean _verifyPDFFileIsDownloadedForAACTOMR(String fileName) {
+		String source = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + fileName
+				+ ".pdf";
+		File sourceFile = new File(source);
+		boolean flag = sourceFile.exists();
+		return flag;
+		// Assert.assertTrue(sourceFile.exists());
+	}
 }

@@ -59,7 +59,6 @@ table_lineItems                                   id                         UPD
 frame_selectProduct                              id                             menu_a83665ae18eb43488c5d83ce5f6027f8  
 list_billAddress                                 id                         inv_cxa_key  
 btn_add                                              id                      inv_cxa_key_oAddHyperLink
-list_addressType                                   id                           cxa_adt_key
 chk_doNotValidate                                  css                         #adr_no_validation_flag
 inp_addressLine                                    id                           adr_line1
 inp_city                                            id                         adr_city
@@ -206,6 +205,7 @@ txt_technicalDivision                           xpath                           
 txt_memDivisionType                             xpath                           //td[contains(text(),'${memStatus}')]/preceding-sibling::td[contains(text(),'${memType}')]
 txt_payments									xpath							 //td[starts-with(text(),'${memberType}')]/following-sibling::td[${index}]
 txt_membershipType								xpath							//td[contains(text(),'${memberType}')]/preceding-sibling::td[${index}]
+list_country									css								#adr_country>option[selected]
 ##----------------------------------------------------------Credit_Page-------------------------------------------------------------------------
 icon_expand										css								.icon-chevron-down
 drpdown_batchNameCreditPage						css								#cdt_bat_key

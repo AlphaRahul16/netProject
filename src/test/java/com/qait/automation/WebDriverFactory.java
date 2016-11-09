@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
@@ -97,18 +99,22 @@ public class WebDriverFactory {
 	private static WebDriver getChromeDriver(String driverpath) {
 		System.setProperty("webdriver.chrome.driver", driverpath);
 		ChromeOptions options = new ChromeOptions();
-//         options.addArguments(new String[] { "test-type" });
-//         options.addArguments(new String[] { "disable-extensions" });
-//         String pluginToDisable = "Chrome PDF Viewer";
-//         options.addArguments("plugins.plugins_disabled", pluginToDisable);
-//         options.addArguments("--lang=en-gb");
-         
-		//options.addArguments("plugins.plugins_disabled","Chrome PDF Viewer");
+		HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+		
+		chromePrefs.put("download.prompt_for_download", "false");
+		// disable flash and the PDF viewer
+		chromePrefs.put("plugins.plugins_disabled", new String[]{
+		    "Adobe Flash Player", "Chrome PDF Viewer"});
+		
+		chromePrefs.put("profile.default_content_settings.popups", 0);
+		chromePrefs.put("download.default_directory", downloadFilePath);
+		options.setExperimentalOption("prefs", chromePrefs);	
 		options.addArguments("--disable-extensions");
 		options.addArguments("test-type");
 		options.addArguments("--disable-impl-side-painting");
 
 		DesiredCapabilities cap = DesiredCapabilities.chrome();
+		cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 		cap.setCapability(ChromeOptions.CAPABILITY, options);
 		return new ChromeDriver(cap);
 	}

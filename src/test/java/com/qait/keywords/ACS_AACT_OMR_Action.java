@@ -36,7 +36,7 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 	public void clickButtonByInputValue(String btnName) {
 		isElementDisplayed("btn_byValue", btnName);
 		clickUsingXpathInJavaScriptExecutor(element("btn_byValue", btnName));
-		logMessage("STEP: Click on " + btnName + " button \n");
+		logMessage("STEP: Click on '" + btnName + "' button \n");
 	}
 
 	public void clickOnLink(String linkName) {
@@ -48,14 +48,13 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 	public void editEmailOnUpdateAboutYouPage(String email) {
 		email = email.replaceAll("XXX", "");
 		sendKeysUsingXpathInJavaScriptExecutor(element("inp_editME"), email);
-		clickButtonById("btnEmailSave");
+		clickButtonById("btnEmailSave", "Save");
 		logMessage("STEP: Email address is changed into '" + email + "' \n");
 	}
 
-	public void selectValuesForChemMatters(String label, String type, String membershipType) {
+	public void selectValuesForChemMatters(String label, String type, String membershipType, String countryName) {
 		isElementDisplayed("drpdown_chemMatters", label);
-		System.out.println("membershipType::" + membershipType);
-		if (membershipType.equalsIgnoreCase("Student")
+		if ((membershipType.equalsIgnoreCase("Student") || (!countryName.equalsIgnoreCase("UNITED STATES")))
 				&& (type.equalsIgnoreCase("Print and Electronic") || (type.equalsIgnoreCase("Print")))) {
 
 			selectProvidedTextFromDropDown(element("drpdown_chemMatters", label), "Electronic");
@@ -63,15 +62,16 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 
 			selectProvidedTextFromDropDown(element("drpdown_chemMatters", label), type);
 		}
-		wait.waitForPageToLoadCompletely();
-		logMessage("STEP: 'How do you want to receive ChemMatters?' field is selected as " + type);
+		if (checkIfElementIsThere("img_procesing")) {
+			wait.waitForElementToDisappear(element("img_procesing"));
+		}
+
+		logMessage("STEP: '" + label + "' is selected as " + type);
 	}
 
 	public List<String> updateDetailsfoAboutYouSection() {
-
 		memberType = element("txt_detailsAboutYou", "MemberCategory").getText().trim();
 		List<String> updatedValues = new ArrayList<String>();
-		logMessage("Member Type is " + memberType);
 		if (memberType.equalsIgnoreCase("Teacher") || memberType.equalsIgnoreCase("Student")) {
 			clickButtonByInputValue("Update About You");
 			verifyPageHeader("title_header", "top-title", "Update About You");
@@ -80,7 +80,7 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 			logMessage("STEP: Update the details of About You for " + memberType + "\n");
 			clickButtonByInputValue("Save");
 		} else {
-			logMessage("STEP: Member type is affiliated " + memberType + "\n");
+			logMessage("STEP: Member type is " + memberType + "\n");
 		}
 		return updatedValues;
 	}
@@ -114,11 +114,12 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 		for (int i = size - 1; i > size - 10; i--) {
 
 			checkedValues.add(elements("txt_label", value).get(i).getText().trim());
-			//System.out.println("checked values " + elements("txt_label", value).get(i).getText().trim());
+			// System.out.println("checked values " + elements("txt_label",
+			// value).get(i).getText().trim());
 			elements("unchked_label", value).get(i).click();
-			logMessage("STEP: "+elements("txt_label", value).get(i).getText().trim()+" is checked for "+value+"\n");
+			logMessage("STEP: " + elements("txt_label", value).get(i).getText().trim() + " is checked for " + value
+					+ "\n");
 		}
-
 		logMessage("\nSTEP: values of '" + value + "' field are updated \n");
 		return checkedValues;
 	}
@@ -136,6 +137,7 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 			logMessage("STEP: 'Graduation month' is entered as " + gradMonth + " and year as " + gradYear + " \n");
 		}
 		selectProvidedTextFromDropDown(element("list_cardInfo", "Gender"), gender);
+		logMessage("STEP: Gender is selected as " + gender + "\n");
 	}
 
 	public void verifyDetailsOfUpdateAboutYou(List<String> checkedValues) {
@@ -154,12 +156,12 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 		boolean flag = true;
 		String details = element("txt_detailsAboutYou", listName).getText().trim();
 		while (size > 0) {
-			
+
 			if (!details.contains(checkedValues.get(size - 1))) {
 				flag = false;
 				break;
 			}
-			
+
 			size--;
 		}
 		Assert.assertTrue(flag);
@@ -204,7 +206,7 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 
 	private void selectCreditCardInfo(String creditCardInfo, String value) {
 		isElementDisplayed("list_cardInfo", creditCardInfo);
-		wait.waitForPageToLoadCompletely();
+	//	wait.waitForPageToLoadCompletely();
 		selectProvidedTextFromDropDown(element("list_cardInfo", creditCardInfo), value);
 		logMessage("STEP :" + creditCardInfo + " is selected  as " + value + "\n");
 
@@ -221,14 +223,14 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 	private void checktheCheckbox(String checkboxname) {
 		isElementDisplayed("unchked_label", checkboxname);
 		element("unchked_label", checkboxname).click();
-		logMessage("STEP: " + checkboxname + " checkbox is selected \n");
+		logMessage("STEP: Auto Renew checkbox is selected \n");
 	}
 
-	public void clickButtonById(String btn) {
+	public void clickButtonById(String btn, String label) {
 
 		isElementDisplayed("inp_editEmail", btn);
 		clickUsingXpathInJavaScriptExecutor(element("inp_editEmail", btn));
-		logMessage("STEP: " + btn + " is clicked \n");
+		logMessage("STEP: '" + label + "' button is clicked \n");
 	}
 
 	public void verifydetailsOnOnlineMembershipRenewalPage(String value, String locator) {
@@ -249,7 +251,7 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 		if (checkIfElementIsThere("txt_detailsAboutYou", "homePrimary")
 				&& checkIfElementIsThere("inp_editEmail", "btnWorkAddress")) {
 
-			clickButtonById("btnWorkAddress");
+			clickButtonById("btnWorkAddress", "Change Address");
 			wait.hardWait(5);
 			checktheCheckbox("isPrimary");
 			clickButtonByInputValue("Save");
@@ -257,7 +259,7 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 			logMessage("STEP: 'school/work address' is selected as primary \n");
 			flag = true;
 		} else {
-			logMessage("STEP: 'school/work address' is already primary or can not make as primary");
+			logMessage("STEP: 'school/work address' is already primary or null");
 		}
 		clickButtonByInputValue("Return to Renewal");
 		return flag;
@@ -311,6 +313,7 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 	public String getDetailsfromOnlineMembershipPage(String field) {
 		isElementDisplayed("txt_detailsAboutYou", field);
 		String value = element("txt_detailsAboutYou", field).getText().trim();
+		logMessage("STEP: " + field + " is " + value + " \n");
 		return value;
 	}
 
@@ -334,8 +337,15 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 	public void clickOnSubmitPaymentOnOnlineMembershipRenewalPage() {
 
 		isElementDisplayed("inp_editEmail", "btnPrevious");
-		clickButtonById("btnNext");
+		clickButtonById("btnNext", "Submit Payment");
 		wait.waitForPageToLoadCompletely();
+	}
+
+	public String getMembershipDetailsFromMembershipInvoiceTable(String field) {
+		isElementDisplayed("txt_membershipItems", "1");
+		String details = element("txt_membershipItems", "1").getText();
+		logMessage("STEP: " + field + " is '" + details + "' \n");
+		return details;
 	}
 
 }
