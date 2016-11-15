@@ -490,7 +490,7 @@ MemberShipRenewal:
          memberStatus: Active
          country: CANADA
     queryName: "Member Query by Member Number – Multiple"
-    timeSlabInMinutes: 7
+    timeSlabInMinutes: 10
     maxWaitTimeInMinutesForStatus: 30 
     renewalInformation: 
          association: ACS
