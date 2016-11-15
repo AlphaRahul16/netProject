@@ -700,7 +700,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public String clickOnCustomerName() {
 		isElementDisplayed("link_customerName");
 		String customerName = element("link_customerName").getText();
-		logMessage("Step : Customer name is " + customerName);
+		logMessage("STEP : Customer name is " + customerName);
 		clickUsingXpathInJavaScriptExecutor(element("link_customerName"));
 		logMessage("STEP : Customer name link is clicked in link_customerName\n");
 		return customerName;
@@ -2756,6 +2756,26 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		return customerContactId;
 	}
 
+	public List<String> getMemberDetails_AACTOMR() {
+		clickOnEditNameAndAddress();
+		switchToFrame("iframe1");
+		customerLname = getNameFromEditNameAndAddressButton("lastName") + " "
+				+ getNameFromEditNameAndAddressButton("firstName") + " "
+				+ getNameFromEditNameAndAddressButton("middleName");
+		String countryName = getMemberCountryName();
+		clickOnCancelButton();
+		handleAlert();
+		switchToDefaultContent();
+		customerContactId = element("txt_renewalContactId").getText();
+		memberDetails.add(customerLname);
+
+		memberDetails.add(customerContactId);
+		memberDetails.add(countryName);
+		// memberDetails.add(getMemberWebLogin());
+		logMessage("STEP : Customer Contact Id fetched as " + customerContactId);
+		return memberDetails;
+	}
+
 	public List<String> getCustomerFullNameAndContactID() {
 		clickOnEditNameAndAddress();
 		switchToFrame("iframe1");
@@ -2788,9 +2808,16 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public String getCstWebLogin() {
+		String cst = "";
+		try {
+			isElementDisplayed("txt_current", String.valueOf(1));
+			cst = element("txt_current", String.valueOf(1)).getText();
+			element("txt_current", String.valueOf(1)).click();
+		} catch (NoSuchElementException e) {
+			clickOnCustomerName();
+			cst = getMemberWebLogin();
+		}
 
-		String cst = element("txt_current", String.valueOf(1)).getText();
-		element("txt_current", String.valueOf(1)).click();
 		logMessage("STEP : CstWebLogin fetched as " + cst);
 		return cst;
 
@@ -4983,15 +5010,23 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		return techDivisions;
 	}
 
-	public void verifyTermStartDateAndTermEndDateIsEmptyForAACT() {
+	public void verifyTermStartDateAndTermEndDateIsEmptyForAACT(String Query,
+			String queryPageUrl) {
 		isElementDisplayed("txt_termStartDaterenewal", "1");
-		Assert.assertTrue(element("txt_termStartDaterenewal", "1").getText()
-				.length() == 1, "Term Start Date is not Empty");
-		logMessage("ASSERT PASSED : Term Start date is empty\n");
-		isElementDisplayed("txt_termEndDaterenewal", "1");
-		Assert.assertTrue(element("txt_termEndDaterenewal", "1").getText()
-				.length() == 1, "Term End Date is not Empty");
-		logMessage("ASSERT PASSED : Term End date is empty\n");
+
+		if (element("txt_termStartDaterenewal", "1").getText().length() != 1
+				&& element("txt_termEndDaterenewal", "1").getText().length() != 1) {
+			expandDetailsMenuIfAlreadyExpanded("invoices");
+			logMessage("STEP : Term Start date and Term Endd Date are not empty \n");
+			selectValidUserForAACTOMR(Query, queryPageUrl);
+		} else {
+			Assert.assertTrue(element("txt_termStartDaterenewal", "1")
+					.getText().length() == 1, "Term Start Date is not Empty");
+			logMessage("ASSERT PASSED : Term Start date is empty\n");
+			Assert.assertTrue(element("txt_termEndDaterenewal", "1").getText()
+					.length() == 1, "Term End Date is not Empty");
+			logMessage("ASSERT PASSED : Term End date is empty\n");
+		}
 
 	}
 
@@ -5007,11 +5042,72 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_gotorecord", membershipType, index);
 		element("txt_gotorecord", membershipType, index).click();
 		wait.waitForPageToLoadCompletely();
+
 		logMessage("Step: click on 'go to record' image for " + membershipType
 				+ " \n");
+
 	}
 
-	public void verifyDetailsForPaymentsChildForm() {
+	public void enterExpiryDatesBeforeAndAfterForAACTOMR() {
+		isElementDisplayed("inp_customerId");
+		EnterTextInField(elements("inp_customerId").get(0),
+				DateUtil.getAnyDateForType("MM/dd/yyyy", -1, "year"));
+		EnterTextInField(elements("inp_customerId").get(1),
+				DateUtil.getAnyDateForType("MM/dd/yyyy", 2, "year"));
+		logMessage("STEP : Expiry Date greater than is entered as "
+				+ DateUtil.getAnyDateForType("MM/dd/yyyy", -1, "year"));
+		logMessage("STEP : Expiry Date less than is entered as "
+				+ DateUtil.getAnyDateForType("MM/dd/yyyy", 2, "year"));
+	}
+
+	public void verifyDetailsForPaymentsChildForm(String type, String cardType,
+			String membershipType, String invoiceTotal, String productName) {
+		verifyDetailsForAACTOMR(cardType, type, "1", "Card Type");
+		verifyDetailsForAACTOMR(
+				DateUtil.getCurrentdateInStringWithGivenFormate("MM/d/yyyy"),
+				type, "3", "Payment Date");
+		verifyDetailsForAACTOMR(invoiceTotal.replace("$", "").trim(), type,
+				"4", "Invoice Total");
+		verifyMembershipTypeForAACTOMR(type, "2", membershipType,
+				"Membership Type");
+		verifyMembershipTypeForAACTOMR(type, "2", productName, "Product Name");
+	}
+
+	private void verifyMembershipTypeForAACTOMR(String type, String index,
+			String membershipType, String label) {
+		Assert.assertTrue(element("txt_membershipType", type, index).getText()
+				.contains(membershipType));
+		logMessage("ASSERT PASSED: " + label + " is verify as "
+				+ membershipType);
+	}
+
+	private void verifyDetailsForAACTOMR(String cardType, String text,
+			String index, String label) {
+		isElementDisplayed("txt_payments", text, index);
+		Assert.assertTrue(element("txt_payments", text, index).getText()
+				.replace("$", "").trim().contains(cardType));
+		logMessage("ASSERT PASSED: Verified " + label + " as " + cardType
+				+ "\n");
+
+	}
+
+	public String getMemberCountryName() {
+		isElementDisplayed("list_country");
+		String countryName = element("list_country").getText();
+		logMessage("STEP: Member country name is fetched as " + countryName);
+		return countryName;
+	}
+
+	public String selectValidUserForAACTOMR(String query, String queryPageUrl) {
+		wait.hardWait(2);
+		selectAndRunQuery(query);
+		enterExpiryDatesBeforeAndAfterForAACTOMR();
+		clickOnGoButtonAfterPackageSelection();
+		String weblogin = getCstWebLogin();
+		expandDetailsMenuIfAlreadyExpanded("invoices");
+		verifyTermStartDateAndTermEndDateIsEmptyForAACT(query, queryPageUrl);
+		logMessage("STEP : Valid Member selected For AACT OMR\n");
+		return weblogin;
 
 	}
 
