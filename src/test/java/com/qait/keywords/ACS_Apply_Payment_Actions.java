@@ -19,6 +19,7 @@ public class ACS_Apply_Payment_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyCheckBoxSelectedAtSelectInvoiceTab(String labelName) {
+		hardWaitForIEBrowser(3);
 		isElementDisplayed("chk_selectInvoice", labelName);
 		logMessage("ASSERT PASSED : Check box is selected for " + labelName
 				+ "\n");
@@ -113,6 +114,7 @@ public class ACS_Apply_Payment_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void selectBatch(String batchName) {
+		hardWaitForIEBrowser(3);
 		isElementDisplayed("select_batchName");
 		selectProvidedTextFromDropDown(element("select_batchName"), batchName);
 		logMessage("STEP : Batch name is selected " + batchName + "\n");

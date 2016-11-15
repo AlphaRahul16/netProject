@@ -204,6 +204,7 @@ txt_techDivision                                xpath                           
 txt_gotorecord									xpath							  //td[contains(text(),'${memberType}')]/preceding-sibling::td[${index}]/a/i
 txt_technicalDivision                           xpath                           //td[contains(text(),'${memberType}')]/following-sibling::td[1]
 txt_memDivisionType                             xpath                           //td[contains(text(),'${memStatus}')]/preceding-sibling::td[contains(text(),'${memType}')]
+form_coe                                        id                              DesignedDiv
 
 ##----------------------------------------------------------Credit_Page-------------------------------------------------------------------------
 icon_expand										css								.icon-chevron-down

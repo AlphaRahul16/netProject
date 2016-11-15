@@ -23,7 +23,7 @@ app_url_EwebReporting: https://ewebtest12.acs.org/NFStage2/studentchaptersonline
 app_url_Awards: https://ewebtest12.acs.org/NFStage2/awards
 app_url_ScarfReviewing: https://www.ewebtest.acs.org/NFStage2/studentchaptersreview
 app_url_MyAccount: https://aemwwwtst.acs.org/content/acs/en.html
-app_url_IwebMyAccount: https://stag-12iweb/NFStage1/iweb
+app_url_IwebMyAccount: https://stag-12iweb/NFStage2/iweb
 app_url_MyAccountNewUser: https://accounttest.acs.org/ssoamweb/account/signUp
 
 Authentication: 

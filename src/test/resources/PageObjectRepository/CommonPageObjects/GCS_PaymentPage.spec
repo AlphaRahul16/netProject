@@ -13,5 +13,8 @@ rad_majorBankId                                css                             #
 drpdwn_BankName                                css                             #bankID
 inp_CardNumber                                 xpath                           //label[contains(text(),'${value}')]/following-sibling::div/input[1]
 inp_submit                                     css                             input[value='${value}']
+ewebframe1                                     css                             #eWebFrame
+btn_payment                                    css                             input[value='${buttonName}']
+btn_termAndCondition                           id                              idAcceptFlag
 
 ================================================================================================================================
