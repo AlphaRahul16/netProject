@@ -671,5 +671,6 @@ ACS_MyAccount:
 email:
   send: true
   recepients:
-  
+    recepient1: 
+    recepient2:
     recepient3: hitasheesil@qainfotech.com
