@@ -105,8 +105,9 @@ public class GCS_PaymentActions extends ASCSocietyGenericPage {
 		fillBillingInformationAs("E-Mail Id", EmailId);
 		if (paymentType.contains("Banking")) {
 
-			selectMajorBankRadioButtonForPaymentThroughNetBanking();
+			
 			selectBankNameFromListForPaymentThroughNetBanking(BankName);
+			selectMajorBankRadioButtonForPaymentThroughNetBanking();
 
 		} else {
 			if (paymentType.contains("Credit")) {
