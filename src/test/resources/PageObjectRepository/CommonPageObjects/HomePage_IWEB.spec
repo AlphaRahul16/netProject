@@ -21,5 +21,6 @@ lnk_ScarfReporting         xpath                //a[@title='Student Chapter Repo
 tab_leftSidebar            xpath                 //h3[contains(text(),'${tabname}')]
 overview_tab				xpath					(//a[text()='Overview'])[2]
 hd_sideBarACS                  xpath                 //h3[contains(text(),'${sidebarName}')][1]
-
+btn_committeeSetupPage     id                   F1_HYPERLINK_16
+txt_committeeSetup         css                  #ChildDivDataFormHeader
 ==================================================================================================================================

@@ -41,7 +41,6 @@ public class ACS_AddressChangeTermsInvoice_Test extends BaseTest{
 		test.launchApplication(app_url_iweb);
 		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
-
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
@@ -75,7 +74,6 @@ public class ACS_AddressChangeTermsInvoice_Test extends BaseTest{
 	@Test(dependsOnMethods="Step03_Expand_individual_membership_tab_and_get_effective_date")
 	public void Step04_Naviagate_To_Contact_Info_Option_And_Add_New_Address() {
 		test.individualsPage.navigateToContactInfoMenuOnHoveringMore();
-//		test.memberShipPage.expandDetailsMenu("addresses");
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("addresses");
 		addressType = test.individualsPage.verifyAddressType("addresses");
 		test.individualsPage.clickOnPlusSign("addresses", 2);
