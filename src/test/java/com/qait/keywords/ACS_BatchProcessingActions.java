@@ -198,6 +198,7 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 	private void verifyBatchSaleRequestAs(String field) {
 		isElementDisplayed("txt_closeDateAndSaleRequest",field);
 		wait.hardWait(5);
+		hardWaitForIEBrowser(5);
 		Assert.assertTrue(element("txt_closeDateAndSaleRequest",field).getText().equalsIgnoreCase("Yes"),"Batch Sale request is not Yes");;
 		logMessage("ASSERT PASSED : Batch Sale Request is displayed as Yes\n");
 		

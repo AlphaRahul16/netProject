@@ -30,8 +30,8 @@ public class ACS_Address_Validation_Test extends BaseTest {
 	@Test
 	public void Step01_Launch_Iweb_Application() {
 		test.launchApplication(app_url_IWEB);
-//		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
-//				YamlReader.getYamlValue("Authentication.password"),"https://dev-eweb12.acs.org/NFDev7/iWeb/");		
+		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
+				YamlReader.getYamlValue("Authentication.password"));		
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 		

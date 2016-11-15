@@ -125,6 +125,8 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 						.equalsIgnoreCase("internetexplorer")){
 			clickUsingXpathInJavaScriptExecutor(element("btn_verificationSave"));
 			logMessage("STEP : Clicked on Save Button on Address Verification Window");
+			switchToDefaultContent();
+			changeWindow(0);
 		//	hardWaitForIEBrowser(5);
 //			changeWindow(1);
 //			switchToWindowHavingIndex(0);

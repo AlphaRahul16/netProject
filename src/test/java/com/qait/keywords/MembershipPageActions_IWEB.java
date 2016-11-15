@@ -68,7 +68,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		waitForSpinner();
 		wait.hardWait(3);
 		isElementDisplayed("txt_loadOnExistingQueryLabel");
-		selectExistingQuery(queryName);
+		selectExistingQuery(queryName);	
 		waitForSpinner();
 		verifyQueryTablePresent();
 		clickOnRunQuery();
@@ -143,7 +143,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				"hiddenFieldTimeOut"));
 		if (queryName
 				.equalsIgnoreCase("Member Query by Member Number – Multiple")) {
-			selectDropDownValue(element("list_existingQuery"), 196);
+			selectDropDownValue(element("list_existingQuery"), 211);
 		}
 
 		else if (queryName
@@ -2095,7 +2095,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		Assert.assertTrue(element("txt_membershipProfileDetails", memberdetail)
 				.getText().trim().equalsIgnoreCase(memberValue));
-		logMessage("ASSERT PASSED : " + memberValue + " is verified for "
+		logMessage("ASSERT PASSED : "+memberdetail+" having value " + memberValue + " is verified as "
 				+ memberValue + " \n");
 
 	}
@@ -3157,14 +3157,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyTransferPackagePage() {
-		isElementDisplayed("heading_transferPackage");
-		logMessage("STEP : Member navigated to Transfer Package Page\n");
+//		isElementDisplayed("heading_transferPackage");
+//		logMessage("STEP : Member navigated to Transfer Package Page\n");
 		switchToFrame("iframe1");
 	}
 
 	public double getBalanceAmount() {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(4);
+//		switchToFrame("iframe1");
 		String amount = element("txt_balanceAmount").getText().trim()
 				.split("\\$")[1];
 		double d = Double.parseDouble(amount);
@@ -4358,7 +4359,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void selectARandomActiveStudentChapter() {
 		wait.waitForPageToLoadCompletely();
-		clickOnRandomPage(10, 1);
+		clickOnRandomPage(10, 2);
 		// clickOnRandomPage();
 		clickOnAnyRandomMember();
 	}
@@ -4642,10 +4643,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		selectMerchandise("merchandise");
 		switchToDefaultContent();
 		switchToFrame(element("iframe"));
+		wait.hardWait(2);
 		clickOnSearchDisplayNameButton();
 		selectRandomMemberByAscendingHeader("Price", "price_txt");
 		// selectRandomUserOnAscendingHeader("Available Quantity");
-
+	}
+	
+	public void hoverAndClickOnCoeForm(String elem){
+		hoverClick(element(elem));
 	}
 
 	public void selectRandomMemberByAscendingHeader(String headerName,

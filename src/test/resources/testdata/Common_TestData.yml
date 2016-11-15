@@ -490,7 +490,7 @@ MemberShipRenewal:
          memberStatus: Active
          country: CANADA
     queryName: "Member Query by Member Number – Multiple"
-    timeSlabInMinutes: 10
+    timeSlabInMinutes: 5
     maxWaitTimeInMinutesForStatus: 30 
     renewalInformation: 
          association: ACS
@@ -582,7 +582,7 @@ VoidWithAdjustment:
     emptItemsMessage: "There are no results to display."  
     
 ScarfReviewer:
-    queryName: "BP - Reviewers"
+    queryName: "Selenium - BP Reviewers"
     reviewRating: Commendable
     reviewComments: test comments
     overallRating: Outstanding

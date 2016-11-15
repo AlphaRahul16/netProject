@@ -51,6 +51,7 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest{
 
 		test.launchApplication(app_url_OMR);
 		test.asm_OMR.loginIntoOMRApplication(memDetails);
+		test.asm_OMR.selectNoIfRegularToEmeritusPromptAppears();
 		test.asm_OMR.OMRLogo("Online Membership Renewal");
 		test.asm_OMR.verifyWelcomePage();
 	}

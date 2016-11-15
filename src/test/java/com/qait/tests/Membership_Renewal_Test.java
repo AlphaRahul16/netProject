@@ -3,6 +3,7 @@ package com.qait.tests;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.lang.reflect.Method;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.BaseTest;
+import com.qait.automation.utils.DateUtil;
 import com.qait.automation.utils.YamlReader;
 import com.qait.keywords.YamlInformationProvider;
 
@@ -32,12 +34,12 @@ public class Membership_Renewal_Test extends BaseTest {
 
 	@Test
 	public void Step01_Add_ACS_Renewal_Cycle() {
+		String date[]=DateUtil.getNextDate("month", 6);
 		test.homePageIWEB.GoToMemberShipSetupProfile();
 		test.homePageIWEB.clickOnSideBarTab("Overview");
 		test.membershipRenewalPage.clickOnAcsRenewalCycleTab();
 		test.memberShipPage.clickOnSideBar("Add");
-		name = test.membershipRenewalPage.addACSRenewalCycle(getMemRenewalInfo
-				.getMemRenewalAddACSRenewalCycle("expMonth"), getMemRenewalInfo
+		name = test.membershipRenewalPage.addACSRenewalCycle(date[1], getMemRenewalInfo
 				.getMemRenewalAddACSRenewalCycle("expYear"), getMemRenewalInfo
 				.getMemRenewalAddACSRenewalCycle("renewalYear"),
 				getMemRenewalInfo.getMemRenewalAddACSRenewalCycle("type"),
@@ -51,15 +53,28 @@ public class Membership_Renewal_Test extends BaseTest {
 		test.homePageIWEB.clickOnMemberShipTab();
 		test.homePageIWEB.clickOnSideBarTab("Members");
 		test.memberShipPage.clickOnSideBar("Query Membership");
-		test.memberShipPage.selectAndRunQuery("gwv - Renewal Query");
+		test.memberShipPage.selectAndRunQuery("Selenium - Renewal Query");
         test.memberShipPage.selectMemberForRenewal("Regular");
         customerId=test.memberShipPage.getContactIdOfUser("Member");
+//        memberDetail1=test.memberShipPage.getMemberDetailsOnMembershipPage();
+
+//		test.memberShipPage.clickOnSideBar("Query Membership");
+//		test.memberShipPage.selectAndRunQuery("Selenium - Renewal Query");
+//        test.memberShipPage.selectMemberForRenewal("Regular");
+//        memberDetail2=test.memberShipPage.getMemberDetailsOnMembershipPage();
+        
 		test.memberShipPage.clickOnSideBar("Query Membership");
 		test.memberShipPage.selectAndRunQuery("gwv - Select One Member");
 		test.memberShipPage.enterSingleCustomerIdInRunQuery(customerId);
 //		test.memberShipPage.clickOnCustomerName();
 		memberDetail1=test.memberShipPage.getMemberDetailsOnMembershipPage();
-		obj[0]=memberDetail1;
+//		test.memberShipPage.selectAndRunQueryMembership("Query Membership",
+//				getMemRenewalInfo.getMemRenewalInfo("queryName"));
+//		test.memberShipPage.enterCustomerIdsInRunQuery(memberDetail1.get(3),
+//				memberDetail2.get(3));
+		obj[0] = memberDetail1;
+//		obj[1] = memberDetail2;
+//		obj[0]=memberDetail1;
 	}
 
 //	@Test
@@ -175,7 +190,7 @@ public class Membership_Renewal_Test extends BaseTest {
 								.getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));
 	}
 
-	@Test            //(invocationCount = 2)
+	@Test   //(invocationCount = 2)
 	public void Step07_Navigate_To_Membership_Profile_Page_And_Verify_Details_Test() {
 		@SuppressWarnings("unchecked")
 		List<String> memberDetails = (List<String>) obj[invocationCount];
@@ -183,10 +198,10 @@ public class Membership_Renewal_Test extends BaseTest {
 
 		test.homePageIWEB.GoToCRMModule();
 		test.homePageIWEB.clickFindForIndividualsSearch();
-		test.individualsPage.fillMemberDetailsAndSearch("Record Number",
-				customerId);
 //		test.individualsPage.fillMemberDetailsAndSearch("Record Number",
-//				memberDetails.get(3));
+//				customerId);
+		test.individualsPage.fillMemberDetailsAndSearch("Record Number",
+				memberDetails.get(3));
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("individual memberships");
 		test.individualsPage.navigateToMembershipProfilePage();
 		test.memberShipPage.verifyMembershipDetailsOnRenewal(
