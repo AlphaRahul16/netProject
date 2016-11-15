@@ -131,7 +131,7 @@ list_memberRenewalPackage                        id                             
 chk_complimentry                                 id                             ACS_complimentary_checkbox
 txt_totalPrice                                   id                             mbr_total
 list_complimentryRequest                         id                             ACS_complimentary_request_source
-txt_priceOrderEntryLineItmes                     xpath                          //a[text()='${itemName}']/../following-sibling::td[9]/span
+txt_priceOrderEntryLineItmes                     xpath                          //a[contains(text(),'${itemName}')]/../following-sibling::td[9]/span
 inp_sourceCode                                   id                             mbr_src_code
 list_chapter                                     id                             mbr_chp_cst_key
 link_invoiceListHeadings                         xpath                          //a[contains(text(),'${value}')]
