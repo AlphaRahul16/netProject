@@ -8,36 +8,6 @@
 			<class name="com.qait.tests.Subscription_Fulfillment_Test"></class>
 		</classes>
 	</test>
-
-	<test name="ACS Address Validation Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_Address_Validation_Test"></class>
-		</classes>
-	</test>
-	
-		<test name="ACS MYD Transfer" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_MYD_Transfer"></class>
-		</classes>
-	</test>
-	
-		<test name="ACS Batch Processing" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_Batch_Processing"></class>
-		</classes>
-	</test>
-		
-		<test name="ACS Reports" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_Reports"></class>
-		</classes>
-	</test>
-	
-			<test name="ACS Void Invoice Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_Void_Invoice_Test"></class>
-		</classes>
-	</test>
 	
 	<test name="ACS Apply Payment Test">
 		<classes>
@@ -46,30 +16,33 @@
 		</classes>
 	</test>		
 			
-	<test name="ACS Return Cancel Refund">
-		<classes>
-			<class name="com.qait.tests.ACS_ReturnCancelRefund">
-			</class>
-		</classes>
-	</test>
-	
-	
-	<test name="ACS Address Change Terms Invoice Test">
-		<classes>
-			<class name="com.qait.tests.ACS_AddressChangeTermsInvoice_Test"></class>
-		</classes>
-	</test>
-	
-	<test name="ACS Chapter Relationships Test">
-		<classes>
-			<class name="com.qait.tests.ACS_Chapter_Relationships_Test"></class>
-		</classes>
-	</test>
-	
 	<test name="Inventory_Product_Fulfillment_Test">
 		<classes>
 			<class name="com.qait.tests.Inventory_Product_Fulfillment_Test"></class>
 		</classes>
 	</test>
 	
+	<test name="COE_Inventory_Test">
+		<classes>
+			<class name="com.qait.tests.COE_Inventory_Test"></class>
+		</classes>
+	</test>
+	
+	<test name="ACS_PBA_Test">
+		<classes>
+			<class name="com.qait.tests.ACS_PBA_Test"></class>
+		</classes>
+	</test>
+	
+	<test name="ACS_AACT_Smoke_Test">
+		<classes>
+			<class name="com.qait.tests.ACS_AACT_Smoke_Test"></class>
+		</classes>
+	</test>
+	
+	<test name="ACS_Create_Member_Test">
+		<classes>
+			<class name="com.qait.tests.ACS_Create_Member_Test"></class>
+		</classes>
+	</test>
 </suite>

@@ -17,5 +17,6 @@ txt_label								css					input[id*='${text}']+ label
 txt_detailsAboutYou							css				span[id*='${listname}']
 inp_editME                               css                  #tbEmail[style*='inline']
 inp_expYear								css					 #txtYearsExp[display:inline]
-txt_membershipItems						xpath				(//tr[@class='national-membership-items']/td[@class='${category}']/span)[${index}]
+txt_membershipItems						xpath				(//tr[@class='national-membership-items']/td[@class='category']/span)[${index}]
+img_procesing							id					chDialog
 =========================================================================================================================================================

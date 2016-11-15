@@ -1,4 +1,3 @@
-password: "password"
 
 csv-data-file:
   path_AACT_OMR: ./src/test/resources/TestDataLibrary/AACT_OMR_Datasheet.csv
@@ -670,7 +669,7 @@ ACS_MyAccount:
     passwordChangedMessage: "Password successfully changed."
                     
 email:
-  send: false
+  send: true
   recepients:
-    recepient1: avnishrawat@qainfotech.net
-    recepient2: kanikasharma@qainfotech.com
+  
+    recepient3: hitasheesil@qainfotech.com
