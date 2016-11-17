@@ -670,8 +670,7 @@ ACS_MyAccount:
                     
 email:
   send: true
-  recepients:
- 
+  recepients: 
     recepient1: avnishrawat@qainfotech.net 
     recepient2: kanikasharma@qainfotech.com
     recepient3: hitasheesil@qainfotech.com

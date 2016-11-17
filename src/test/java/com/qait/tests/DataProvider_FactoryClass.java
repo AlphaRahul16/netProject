@@ -8,7 +8,6 @@ public class DataProvider_FactoryClass {
 
 	static String sheetName;
 
-	
 	@org.testng.annotations.DataProvider
 	public static Iterator<Object[]> data() {
 		List<String> listOfAllExecutableIds = com.qait.automation.utils.DataProvider

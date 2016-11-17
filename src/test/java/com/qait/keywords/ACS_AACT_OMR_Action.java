@@ -45,11 +45,13 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 		logMessage("STEP: Click on " + linkName + " link \n");
 	}
 
-	public void editEmailOnUpdateAboutYouPage(String email) {
+	public String editEmailOnUpdateAboutYouPage(String email) {
 		email = email.replaceAll("XXX", "");
-		sendKeysUsingXpathInJavaScriptExecutor(element("inp_editME"), email);
+		String newEmail= new StringBuffer(email).insert(email.length()-4, "xxx").toString();
+		sendKeysUsingXpathInJavaScriptExecutor(element("inp_editME"), newEmail);
 		clickButtonById("btnEmailSave", "Save");
 		logMessage("STEP: Email address is changed into '" + email + "' \n");
+		return newEmail;
 	}
 
 	public void selectValuesForChemMatters(String label, String type, String membershipType, String countryName) {
