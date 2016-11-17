@@ -77,6 +77,7 @@ select_addressType                        id                    cxa_adt_key
 chkbox_primary                            xpath                 //span[contains(@title,'${field}')]//input
 img_primary                               xpath                 (//span[text()='${name}']/parent::td/parent::tr/following-sibling::tr/td/div/table/tbody/tr[not(contains(@style,'none'))]//td[%{index1}])[#{index2}]//img
 img_override                              xpath                 //td[contains(text(),'${field}')]/following-sibling::td[10]/img
+img_activeMember                          xpath                 //td[starts-with(text(),'${value}')]/preceding-sibling::td//img
 
 #Chapter Relationships
 

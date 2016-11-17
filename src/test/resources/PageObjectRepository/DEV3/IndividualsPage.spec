@@ -2,7 +2,6 @@ Page Title: IndividualsPage
 
 #Object Definitions
 ======================================================================================================================================
-<<<<<<< HEAD
 inp_fieldName                             xpath                //span[starts-with(text(),'${fieldName}')]/../following-sibling::td//input
 inp_expiredate				              xpath		           //*[@id='AskAtRunTimeTable']//input
 select_member				              xpath		          .//*[@id='AskAtRunTimeTable']//strong[contains(text(),'${field}')]/../..//select[@class='DataFormDropDownList']
