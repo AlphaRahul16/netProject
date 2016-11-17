@@ -1481,7 +1481,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		memberDetails.add(customerLname);
 		memberDetails.add(customerContactId);
 		memberDetails.add(customerFname);
-
 		return memberDetails;
 	}
 
