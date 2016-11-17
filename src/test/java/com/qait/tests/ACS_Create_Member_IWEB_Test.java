@@ -76,7 +76,7 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 	public void Step05_Sell_Division() {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		numberOfDivisions = test.memberShipPage.getDivisionNumbers();
-		test.memberShipPage.goToAddMembershipAndFillDetails_Division(numberOfDivisions);
+		test.memberShipPage.goToAddMembershipAndFillDetails_Division(numberOfDivisions);    //-------
 	}
 
 	@Test

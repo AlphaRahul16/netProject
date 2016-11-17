@@ -801,13 +801,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnSaveAndFinish() {
 		hardWaitForIEBrowser(2);
-		hardWaitForChromeBrowser(10);
+		wait.hardWait(5);
 		isElementDisplayed("btn_saveAndFinish");
 		hardWaitForIEBrowser(10);
-		clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
+		//clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
 		// element("btn_saveAndFinish").click();
-		// hoverClick(element("btn_saveAndFinish"));
-		hardWaitForIEBrowser(15);
+		 hoverClick(element("btn_saveAndFinish"));
+		wait.hardWait(15);
 		logMessage("STEP : Save and finish button is clicked\n");
 	}
 
@@ -1317,6 +1317,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public List<String> getMemberDetailsOnMembershipPage() {
+		List<String> memberDetails=new ArrayList<>();
 		memberDetails.add(getMemberInfoOnMemberShipProfile("member package"));
 		memberDetails.add(getMemberInfoOnMemberShipProfile("renewal package"));
 		memberDetails.add(getPaymentStatus());
@@ -3156,8 +3157,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyTransferPackagePage() {
-//		isElementDisplayed("heading_transferPackage");
-//		logMessage("STEP : Member navigated to Transfer Package Page\n");
+		isElementDisplayed("heading_transferPackage");
+		logMessage("STEP : Member navigated to Transfer Package Page\n");
 		switchToFrame("iframe1");
 	}
 

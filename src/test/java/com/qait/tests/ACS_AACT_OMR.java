@@ -79,8 +79,8 @@ public class ACS_AACT_OMR extends BaseTest {
 	public void Step03_Launch_EWEB_Application_And_Login_With_Weblogin() {
 		test.homePageIWEB.addValuesInMap("AACT_OMR", caseID);
 		test.launchApplication(app_url_AACT_OMR);
-		test.launchApplication(app_url_AACT_OMR);
 		test.homePage.verifyUserIsOnHomePage("AACT OMR >> Login");
+		//weblogin="emily.haynes";
 		test.acs_aactOmr.loginWithWeblogin(weblogin, "password");
 		test.award_ewebPage.clickOnLoginButton();
 		test.homePage.verifyUserIsOnHomePage("AACT OMR >> Demographics");
@@ -92,7 +92,7 @@ public class ACS_AACT_OMR extends BaseTest {
 		email = test.acs_aactOmr.getDetailsfromOnlineMembershipPage("EmailAddress");
 		test.acs_aactOmr.clickOnLink("edit");
 		test.acs_aactOmr.clickButtonByInputValue("Change Email");
-		test.acs_aactOmr.editEmailOnUpdateAboutYouPage(email);
+		email=test.acs_aactOmr.editEmailOnUpdateAboutYouPage(email);
 		isPrimary = test.acs_aactOmr.makeSchoolAddressAsPrimaryAddress();
 
 	}
@@ -110,7 +110,7 @@ public class ACS_AACT_OMR extends BaseTest {
 	@Test(dependsOnMethods = "Step05_Select_Value_For_Delivery_Method_And_Update_Details_Of_About_You")
 	public void Step06_Verify_Details_Of_About_You_And_Enter_Gender_Experience_Gradutaion_Date() {
 
-		test.acs_aactOmr.verifydetailsOnOnlineMembershipRenewalPage(email.replace("XXX", ""), "EmailAddress");
+		test.acs_aactOmr.verifydetailsOnOnlineMembershipRenewalPage(email, "EmailAddress");
 		test.acs_aactOmr.verifyDetailsOfUpdateAboutYou(updatedValues);
 		test.acs_aactOmr.verifyWorkAddressIsPrimary(isPrimary);
 		test.acs_aactOmr.enterGenderExperienceAndGraduationDetails(test.homePageIWEB.map().get("Gender").trim(),
@@ -137,7 +137,7 @@ public class ACS_AACT_OMR extends BaseTest {
 				"Membership Renewal Summary");
 		test.acs_aactOmr.verifyMembershipType(membershipType, "MemberCategory");
 		test.acs_aactOmr.verifydetailsOnOnlineMembershipRenewalPage(invoiceTotal, "TotalAmount");
-		test.acs_aactOmr.verifyDetailsOfSummaryPage(email.replace("XXX", ""),
+		test.acs_aactOmr.verifyDetailsOfSummaryPage(email,
 				test.homePageIWEB.map().get("Gender").trim(), test.homePageIWEB.map().get("Experience").trim(),
 				test.homePageIWEB.map().get("CreditCardType").trim(), CardHolderName,
 				test.homePageIWEB.map().get("CreditCardNumber").trim(),

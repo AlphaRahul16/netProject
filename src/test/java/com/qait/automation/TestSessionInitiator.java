@@ -280,10 +280,9 @@ public class TestSessionInitiator {
 						.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev7/iWeb/") || 
 						baseurl
 						.equalsIgnoreCase("https://dev-eweb12/NFDev8/iWeb") ||
-						baseurl.contains("https://dev-eweb12/YBDev3/iWeb") ||
+						(baseurl.contains("https://dev-eweb12/YBDev3/iWeb")) ||
 						baseurl
 						.contains("https://dev-eweb12/NFDev") ){
-					System.out.println("------1");
 					baseurl = baseurl.replaceAll(
 							"https://dev",
 							"https://"
@@ -462,5 +461,54 @@ public class TestSessionInitiator {
 	public void printMethodName(String testName) {
 		Reporter.log("\nMethod Name :- " + testName.toUpperCase() + "\n", true);
 	}
+	
+	public void enterAuthentication(String uName, String password) {
+		if ((isBrowser("ie") || isBrowser("internetexplorer"))) {
+			System.out.println("in authentication");
+			uName="ACS1\\"+uName;
+			setClipboardData(uName);
+			Robot robot;
+			try {
+				robot = new Robot();
+				setClipboardData(uName);
+				robot.delay(2000);
+				robot.keyPress(KeyEvent.VK_CONTROL);
+				robot.keyPress(KeyEvent.VK_V);
+				robot.keyRelease(KeyEvent.VK_V);
+				robot.keyRelease(KeyEvent.VK_CONTROL);
+				robot.delay(2000);
+				robot.keyPress(KeyEvent.VK_TAB);
+				robot.keyRelease(KeyEvent.VK_TAB);
+				setClipboardData(password);
+				robot.delay(2000);
+				robot.keyPress(KeyEvent.VK_CONTROL);
+				robot.keyPress(KeyEvent.VK_V);
+				robot.keyRelease(KeyEvent.VK_V);
+				robot.keyRelease(KeyEvent.VK_CONTROL);
+				robot.delay(2000);
+				robot.keyPress(KeyEvent.VK_ENTER);
+				robot.keyRelease(KeyEvent.VK_ENTER);
+				System.out.println("after authentication");
+			} catch (AWTException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+		
+		public static void setClipboardData(String string) {
+			StringSelection stringSelection = new StringSelection(string);
+			Toolkit.getDefaultToolkit().getSystemClipboard()
+					.setContents(stringSelection, null);
+		}
+		
+		public boolean isBrowser(String browserName) {
+			if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase(
+					browserName)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
 
 }

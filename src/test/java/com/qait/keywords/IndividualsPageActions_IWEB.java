@@ -2108,4 +2108,14 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		return expectedamount;
 
 	}
+	
+	public void selectOneIndividual(String text,String field){
+		if(checkIfElementIsThere("img_activeMember",text)){
+			element("img_activeMember",text).click();
+			logMessage("STEP: Individual with "+text+" "+field+" is selected\n");
+		}
+		else
+			logMessage("STEP: Individual list does not appeared. User is navigated to Membership profile page\n");
+	}
+	
 }

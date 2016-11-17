@@ -62,7 +62,7 @@ public class ACS_PBA_Test extends BaseTest{
 
 	@Test
 	public void Step04_Login_To_Eweb_Application_Using_WebLogin_And_Password_And_Verify_User_Is_On_Home_Page_Of_Eweb_PBA() {
-		test.asm_PUBSPage.loginInToApplication(webLogin, getYamlValue("password"));
+		test.asm_PUBSPage.loginInToApplication(webLogin, "password");
 		System.out.println("individual =  " + individualName);
 		test.asm_PUBSPage.verifyUserIsOnHomePageForEwebPBA(individualName);
 	}
