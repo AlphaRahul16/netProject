@@ -116,7 +116,7 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 		    element("btn_ForProcesingBatch",btnName).click();
 		    logMessage("STEP : "+btnName+" is clicked on batch processing page\n");	
 		} 
-//		switchWindow(current);
+		//switchWindow(current);
 	}
 	
 	public void switchWindow(String current){

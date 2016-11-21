@@ -97,6 +97,13 @@ public class WebDriverFactory {
 	private static WebDriver getChromeDriver(String driverpath) {
 		System.setProperty("webdriver.chrome.driver", driverpath);
 		ChromeOptions options = new ChromeOptions();
+//         options.addArguments(new String[] { "test-type" });
+//         options.addArguments(new String[] { "disable-extensions" });
+//         String pluginToDisable = "Chrome PDF Viewer";
+//         options.addArguments("plugins.plugins_disabled", pluginToDisable);
+//         options.addArguments("--lang=en-gb");
+         
+		//options.addArguments("plugins.plugins_disabled","Chrome PDF Viewer");
 		options.addArguments("--disable-extensions");
 		options.addArguments("test-type");
 		options.addArguments("--disable-impl-side-painting");

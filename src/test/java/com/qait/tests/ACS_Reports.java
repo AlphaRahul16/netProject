@@ -5,6 +5,7 @@ import static com.qait.automation.utils.YamlReader.getYamlValue;
 import java.lang.reflect.Method;
 import java.util.Map;
 
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -45,6 +46,7 @@ public class ACS_Reports extends BaseTest{
 	{
 		test.acsreportPage.selectModulesAndCategoryonReportCentralPage(getReportsDetails.get_ACSReportsInfo("module"),
 		getReportsDetails.get_ACSReportsInfo("category"),DeliveryMethod);
+		//Assert.fail();
 		test.acsreportPage.clickGoReportButtonForReport(getReportsDetails.get_ACSReportsInfo("report_Name"));
 		String current=test.acsreportPage.enterEmailDetailsForScheduleReport(DeliveryMethod,getReportsDetails.get_ACSReportsInfo("email_To"),getReportsDetails.get_ACSReportsInfo("email_Message"));
 		test.acsreportPage.verifyReceivedReport(DeliveryMethod,getReportsDetails.get_ACSReportsInfo("report_Heading"),current);

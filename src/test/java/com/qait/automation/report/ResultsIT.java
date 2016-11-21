@@ -121,7 +121,7 @@ public class ResultsIT extends ReformatTestFile {
 
     @SuppressWarnings("static-access")
     private String setBodyText() throws IOException {
-    	String browserValue;
+    	String browserValue,username;
         List<String> failedResultsList = printFailedTestInformation();
         String[] failedResultArray = new String[failedResultsList.size()];
         for (int i = 0; i < failedResultArray.length; i++) {
@@ -132,12 +132,14 @@ public class ResultsIT extends ReformatTestFile {
         }
         else
         	browserValue=System.getProperty("browser");
+        System.out.println("user name "+System.getProperty("user.name"));
+        username = System.getProperty("user.name");
         
         String mailtext = "";
 
         mailtext = "Hi All,<br>";
         mailtext = mailtext
-                + "</br><b>" + projectName + " Test Automation Result:: </b></br><br>";
+                + "</br><b>" + projectName + " Test Automation Result:: (Executed by : "+username+" )</b></br><br>";
         mailtext = mailtext
                 + "<br><b><font style = Courier, color = green>Test Name: </font></b>"
                 + getTestName();
@@ -163,6 +165,7 @@ public class ResultsIT extends ReformatTestFile {
                 + "<br><br>The detailed test results are given in the attached <i>emailable-report.html</i> </br></br>";
         mailtext = mailtext + "<br><br>Best Regards" + "</br></br>";
         mailtext = mailtext + "<br>" + projectName + " Automation Team" + "</br>";
+        
 
         return mailtext;
     }

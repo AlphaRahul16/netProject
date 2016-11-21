@@ -78,7 +78,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void selectAndRunQuery(String queryName) {
 		wait.waitForPageToLoadCompletely();
 		// hardWaitForIEBrowser(15);
-		waitForSpinner();
+		//waitForSpinner();
 		isElementDisplayed("txt_loadOnExistingQueryLabel");
 		selectExistingQuery(queryName);
 		waitForSpinner();
@@ -801,10 +801,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnSaveAndFinish() {
 		hardWaitForIEBrowser(2);
+		hardWaitForChromeBrowser(10);
 		isElementDisplayed("btn_saveAndFinish");
 		hardWaitForIEBrowser(10);
-
-		hoverClick(element("btn_saveAndFinish"));
+		clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
 		hardWaitForIEBrowser(15);
 		logMessage("STEP : Save and finish button is clicked\n");
 	}
@@ -2788,10 +2788,18 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public String getCstWebLogin(){
+		String cst="";
+		try{
+			isElementDisplayed("txt_current", String.valueOf(1));
+			cst=element("txt_current", String.valueOf(1)).getText();
+			element("txt_current", String.valueOf(1)).click();	
+		}catch(NoSuchElementException e)
+		{
+			clickOnCustomerName();
+			cst=getMemberWebLogin();
+		}
 		
-		String cst=element("txt_current", String.valueOf(1)).getText();
-		element("txt_current", String.valueOf(1)).click();	
-		logMessage("STEP : CstWebLogin fetched as " + cst);
+		logMessage("STEP : CstWebLogin is fetched as " + cst);
 		return cst;
 		
 	}
@@ -2800,6 +2808,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void getIndividualFullNameForAwardsNomination() {
 
 		clickOnEditNameAndAddress();
+		wait.hardWait(5);
+		switchToDefaultContent();
 		switchToFrame("iframe1");
 		customerLname = getNameFromEditNameAndAddressButton("lastName") + " "
 				+ getNameFromEditNameAndAddressButton("firstName") + " "
@@ -4531,7 +4541,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyProductNameInLineItem(String productName) {
 		switchToDefaultContent();
 		waitForSpinner();
-		wait.hardWait(2);
+		wait.hardWait(7);
 		isElementDisplayed("lineitem_product", productName);
 		String prodName = element("lineitem_product", productName).getText();
 
@@ -4971,8 +4981,32 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step: click on 'go to record' image for "+membershipType+" \n");
 	}
 
-	public void verifyDetailsForPaymentsChildForm() {
-	
+	public void enterExpiryDatesBeforeAndAfterForAACTOMR() {
+		isElementDisplayed("inp_customerId");
+		EnterTextInField(elements("inp_customerId").get(0),DateUtil.getAnyDateForType("MM/dd/yyyy", -1, "year"));
+		EnterTextInField(elements("inp_customerId").get(1),DateUtil.getAnyDateForType("MM/dd/yyyy", 2, "year"));
+		logMessage("Step : Expiry Date greater than is entered as "+DateUtil.getAnyDateForType("MM/dd/yyyy", -1, "year"));
+		logMessage("Step : Expiry Date less than is entered as "+DateUtil.getAnyDateForType("MM/dd/yyyy", 2, "year"));
+	}
+
+	public void verifyDetailsForPaymentsChildForm(String type,String cardType,String membershipType,String invoiceTotal) {
+		verifyDetailsForAACTOMR(cardType,type,"1");
+		verifyDetailsForAACTOMR(DateUtil.getCurrentdateInStringWithGivenFormate("MM/d/yyyy"),type,"3");
+		verifyDetailsForAACTOMR(invoiceTotal.replace("$", "").trim(),type,"4");
+		verifyMembershipTypeForAACTOMR(type,"2", membershipType);
+	}
+
+	private void verifyMembershipTypeForAACTOMR(String type,String index,String membershipType) {
+		// TODO Auto-generated method stub
+		Assert.assertTrue(element("txt_membershipType",type,index).getText().contains(membershipType));
+		logMessage("Step: Membership type is verify as "+ membershipType);
+	}
+
+	private void verifyDetailsForAACTOMR(String cardType, String text,String index) {
+		System.out.println(cardType);
+		System.out.println(element("txt_payments",text,index).getText().replace("$", "").trim());
+		Assert.assertTrue(element("txt_payments",text,index).getText().replace("$", "").trim().contains(cardType));
+		logMessage("Step: Verified "+text+" as "+ cardType+"\n");
 		
 	}
 
