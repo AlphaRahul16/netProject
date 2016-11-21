@@ -94,9 +94,9 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 	public void verifyGiftDate(String dateType) {
 		isElementDisplayed("txt_" + dateType);
 		Assert.assertEquals(element("txt_" + dateType).getAttribute("value"),
-				DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy"),
-				"ASSERT FAILED : " + dateType + " is not verified as Current date "+DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy")+"\n");
-		logMessage("ASSERT PASSED : " + dateType + " is verified as Current date "+DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy")+"\n");
+				DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST"),
+				"ASSERT FAILED : " + dateType + " is not verified as Current date "+DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST")+"\n");
+		logMessage("ASSERT PASSED : " + dateType + " is verified as Current date "+DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST")+"\n");
 	}
 
 	public void enterGiftAmount(String amount, String field) {
@@ -121,7 +121,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 
 	public void verifyDeductibleAmount(String amount, String field) {
 		wait.waitForPageToLoadCompletely();
-		wait.hardWait(4);
+		wait.hardWait(6);
 		isElementDisplayed("inp_giftAmount", field);
 		System.out.println(element("inp_giftAmount", field).getAttribute("value"));
 		Assert.assertEquals(element("inp_giftAmount", field).getAttribute("value"), amount,

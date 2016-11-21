@@ -147,8 +147,8 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 
 	public void sendStartDateInCreateMailingListPopUpWithFormat(String format) {
 		isElementDisplayed("txt_startDate");
-		element("txt_startDate").sendKeys(DateUtil.getCurrentdateInStringWithGivenFormate(format));
-		logMessage("STEP : Start date is entered as " + DateUtil.getCurrentdateInStringWithGivenFormate(format) + "\n");
+		element("txt_startDate").sendKeys(DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone(format,"EST"));
+		logMessage("STEP : Start date is entered as " + DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone(format,"EST") + "\n");
 	}
 
 	public void sendEndDateInCreateMailingListPopUpWithFormat(String format) {
@@ -189,6 +189,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public String getUserNameFromAddUserPopUpTextField() {
+		wait.hardWait(3);
 		hardWaitForIEBrowser(4);
 		isElementDisplayed("txt_name");
 		userName = element("txt_name").getAttribute("value");

@@ -472,7 +472,7 @@ public class BaseUi {
 		ele.click();
 		ele.clear();
 		ele.sendKeys(Text);
-		logMessage("Step : Text entered as " + Text);
+		logMessage("STEP : Text entered as " + Text);
 	}
 
 	public void sendKeysUsingXpathInJavaScriptExecutor(WebElement element,

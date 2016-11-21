@@ -16,10 +16,16 @@ import com.qait.automation.utils.DateUtil;
 public class Test{  
 	public static void main(String args[]){
 	String type="home";
-	type=Character.toUpperCase(type.charAt(0))+type.substring(1);
-		System.out.println(Character.toUpperCase(type.charAt(0))+type.substring(1));
+//	type=Character.toUpperCase(type.charAt(0))+type.substring(1);
+//		System.out.println(Character.toUpperCase(type.charAt(0))+type.substring(1));
+//
+//	    System.out.println(DateUtil.convertStringToParticularDateFormat("2/2022","MM/yyyy"))	;	
+//	    
+	String currentDate = DateUtil.getCurrentTime("hh:mm a", "EST5EDT");
 
-	    System.out.println(DateUtil.convertStringToParticularDateFormat("2/2022","MM/yyyy"))	;	
+	Date dateInDate = DateUtil.convertStringToDate(currentDate, "hh:mm a");
+	    System.out.println(DateUtils.addMinutes(dateInDate,
+				Integer.parseInt("8")));
 	    
 	    /*);
 =======

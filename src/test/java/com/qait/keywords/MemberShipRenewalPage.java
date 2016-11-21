@@ -134,7 +134,7 @@ public class MemberShipRenewalPage extends GetPage {
 		System.out.println(currentDate);
 		Date dateInDate = DateUtil.convertStringToDate(currentDate, "hh:mm a");
 		Date dateAfterMinutesAdded = DateUtils.addMinutes(dateInDate,
-				Integer.parseInt(timeSlab));
+				Integer.parseInt(timeSlab)+3);
 		SimpleDateFormat sdf = new SimpleDateFormat("h:mm:ss a");
 		String dateWithTimeSlabInString = sdf.format(dateAfterMinutesAdded);
 		System.out.println(dateWithTimeSlabInString);
@@ -145,7 +145,7 @@ public class MemberShipRenewalPage extends GetPage {
 		element("inp_runTaskDateTime").click();
 		wait.waitForPageToLoadCompletely();
 		element("inp_runTaskDateTime").clear();
-		wait.hardWait(2);
+		wait.hardWait(3);
 		element("inp_runTaskDateTime").sendKeys(runTaskDateTime);
 
 		element("inp_runTaskDateTime").sendKeys(Keys.ENTER);
@@ -169,9 +169,9 @@ public class MemberShipRenewalPage extends GetPage {
 		selectBatchAtAddMembershipRenewalPage("batch", batchName);
 		String runTaskDateTime = enterRunTaskDateTime(timeSlab);
 
-		wait.hardWait(1);
-		// waitForSpinner();
-		// wait.hardWait(1);
+		wait.hardWait(3);
+//		 waitForSpinner();
+//		 wait.hardWait(1);
 //		isElementDisplayed("txt_Now");
 //		element("txt_Now").click();
 //		waitForSpinner();
@@ -319,7 +319,7 @@ public class MemberShipRenewalPage extends GetPage {
 		String currentDate = DateUtil.getCurrentTime("hh:mma", "EST5EDT");
 		Date dateInDate = DateUtil.convertStringToDate(currentDate, "hh:mma");
 		Date dateAfterMinutesAdded = DateUtils.addMinutes(dateInDate,
-				Integer.parseInt(timeSlab));
+				Integer.parseInt(timeSlab)+3);
 		SimpleDateFormat sdf = new SimpleDateFormat("hh:mma");
 		String dateWithTimeSlabInString = sdf.format(dateAfterMinutesAdded);
 		enterInvoiceTaskDetails("time", dateWithTimeSlabInString);
@@ -361,6 +361,7 @@ public class MemberShipRenewalPage extends GetPage {
 		} else {
 			int count = (Integer.parseInt(waitTime)) / 2;
 			for (int i = 1; i <= count; i++) {
+				System.out.println("******Script waited for: "+i*2+" minutes******\n");
 				holdScriptExecutionToVerifyPreviewStatus(status);
 				pageRefresh();
 				isElementDisplayed("txt_renewalCycleName", "status");
@@ -384,7 +385,7 @@ public class MemberShipRenewalPage extends GetPage {
 		logMessage("===== Automation script is on hold for 2 minutes to verify preview status "
 				+ status + " =====\n");
 		String lapsedMinutes = "";
-		for (int minutes = 1; minutes <= 1; minutes++) {
+		for (int minutes = 1; minutes <= 2; minutes++) {
 			for (int i = 0; i <= 59; i++) {
 				System.out.print("\r");
 				System.out.print("Time:- " + lapsedMinutes + i + " sec ");

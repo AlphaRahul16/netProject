@@ -1245,6 +1245,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void selectFeildValue(String feildName, String feildValue) {
 		wait.hardWait(2);
+		hardWaitForIEBrowser(2);
 		isElementDisplayed("inp_fieldSelect", feildName);
 		selectProvidedTextFromDropDown(element("inp_fieldSelect", feildName), feildValue);
 		logMessage("STEP : " + feildValue + " is entered as " + feildName + "  in inp_fieldSelect\n");
@@ -1673,7 +1674,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("btn_scarfReviewerUserList", customerName,
 					DateUtil.getAnyDateForType("YYYY", 0, "year"));
-			element("btn_scarfReviewerUserList", "", DateUtil.getAnyDateForType("YYYY", 0, "year")).click();
+			element("btn_scarfReviewerUserList", customerName, DateUtil.getAnyDateForType("YYYY", 0, "year")).click();
 			logMessage("STEP : Customer as " + customerName
 					+ " is selected from list, user is on student chapter Review profile page\n");
 		} catch (NoSuchElementException e) {
@@ -1813,6 +1814,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		selectAddressCheckboxes("billing");
 		selectAddressCheckboxes("do not validate");
 		clickOnSaveButton();
+		hardWaitForIEBrowser(30);
 		switchToDefaultContent();
 	}
 
@@ -1884,6 +1886,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		// Assert.assertTrue(flag,"ASSERT FAILED : Mbr Status of Chapter
 		// "+chpName+" is not changed to Transferred\n");
+		System.out.println("------i:"+i);
 		Assert.assertTrue(checkTerminateDateIsNull(i, tabName, "Transferred", 6),
 				"ASSERT FAILED : Mbr Status of Chapter " + chpName + " is not changed to Transferred\n");
 		logMessage("ASSERT PASSED : Mbr Status of Chapter " + chpName + " is changed to Transferred\n");
@@ -2110,6 +2113,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 	
+
 	public void clickImageButtonsOnAdditionalInformationPanel(String buttonName)
 	{
 		isElementDisplayed("img_demoGraphics",buttonName);
@@ -2211,4 +2215,14 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(3);
 
 	}
+
+	public void selectOneIndividual(String text,String field){
+		if(checkIfElementIsThere("img_activeMember",text)){
+			element("img_activeMember",text).click();
+			logMessage("STEP: Individual with "+text+" "+field+" is selected\n");
+		}
+		else
+			logMessage("STEP: Individual list does not appeared. User is navigated to Membership profile page\n");
+	}
+
 }

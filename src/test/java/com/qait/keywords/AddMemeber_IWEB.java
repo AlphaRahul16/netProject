@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.qait.automation.utils.ConfigPropertyReader;
 
 public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 
@@ -62,8 +63,11 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(3);
 		hardWaitForChromeBrowser(6);
 		enterMemberDetail("addressLine1", street);
-		wait.hardWait(3);
-		enterMemberDetails("city/state/zip", city);
+		wait.hardWait(5);
+		if(ConfigPropertyReader.getProperty("tier").contains("dev") || ConfigPropertyReader.getProperty("tier").contains("Dev"))
+			enterMemberDetailsCity("city/state/zip", city);
+		else
+			enterMemberDetails("city/state/zip", city);
 		wait.hardWait(3);
 		if (!(abrState.equalsIgnoreCase(""))) {
 			wait.hardWait(5);
@@ -113,6 +117,19 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		element("inp_memberDetailInAdd", detailName).sendKeys(detailValue);
 		logMessage("STEP : Enter " + detailValue + " in " + detailName + " \n");
 	}
+	
+	public void enterMemberDetailsCity(String detailName, String detailValue) {
+		//wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(2);
+		isElementDisplayed("inp_memberDetailCityState", detailName);
+		element("inp_memberDetailCityState", detailName).click();
+		waitForSpinner();
+		wait.hardWait(2);
+	//	element("inp_memberDetailInAdd", detailName).clear();
+		element("inp_memberDetailCityState", detailName).sendKeys(detailValue);
+		logMessage("STEP : Enter " + detailValue + " in " + detailName + " \n");
+	}
+
 
 
 	public void enterMemberDetailsInCity(String detailName, String detailValue) {

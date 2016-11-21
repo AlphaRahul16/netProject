@@ -59,7 +59,6 @@ table_lineItems                                   id                         UPD
 frame_selectProduct                              id                             menu_a83665ae18eb43488c5d83ce5f6027f8  
 list_billAddress                                 id                         inv_cxa_key  
 btn_add                                              id                      inv_cxa_key_oAddHyperLink
-list_addressType                                   id                           cxa_adt_key
 chk_doNotValidate                                  css                         #adr_no_validation_flag
 inp_addressLine                                    id                           adr_line1
 inp_city                                            id                         adr_city
@@ -132,7 +131,7 @@ list_memberRenewalPackage                        id                             
 chk_complimentry                                 id                             ACS_complimentary_checkbox
 txt_totalPrice                                   id                             mbr_total
 list_complimentryRequest                         id                             ACS_complimentary_request_source
-txt_priceOrderEntryLineItmes                     xpath                          //a[text()='${itemName}']/../following-sibling::td[9]/span
+txt_priceOrderEntryLineItmes                     xpath                          //a[contains(text(),'${itemName}')]/../following-sibling::td[9]/span
 inp_sourceCode                                   id                             mbr_src_code
 list_chapter                                     id                             mbr_chp_cst_key
 link_invoiceListHeadings                         xpath                          //a[contains(text(),'${value}')]
@@ -204,8 +203,11 @@ txt_techDivision                                xpath                           
 txt_gotorecord									xpath							  //td[contains(text(),'${memberType}')]/preceding-sibling::td[${index}]/a/i
 txt_technicalDivision                           xpath                           //td[contains(text(),'${memberType}')]/following-sibling::td[1]
 txt_memDivisionType                             xpath                           //td[contains(text(),'${memStatus}')]/preceding-sibling::td[contains(text(),'${memType}')]
+form_coe                                        id                              DesignedDiv
 txt_payments									xpath							 //td[starts-with(text(),'${memberType}')]/following-sibling::td[${index}]
 txt_membershipType								xpath							//td[contains(text(),'${memberType}')]/preceding-sibling::td[${index}]
+list_country									css								#adr_country>option[selected]
+
 ##----------------------------------------------------------Credit_Page-------------------------------------------------------------------------
 icon_expand										css								.icon-chevron-down
 drpdown_batchNameCreditPage						css								#cdt_bat_key

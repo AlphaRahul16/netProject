@@ -322,7 +322,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyMemberDetails_question(String detailName, String detailValue) {
-		hardWaitForIEBrowser(3);
+		hardWaitForIEBrowser(5);
 		isElementDisplayed("txt_memberDetail_q", detailName);
 		System.out.println("actual : " + element("txt_memberDetail_q", detailName).getText().trim());
 		System.out.println("exp: " + detailValue);

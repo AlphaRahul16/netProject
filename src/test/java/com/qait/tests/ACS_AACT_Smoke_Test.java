@@ -42,10 +42,12 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 	ACS_AACT_Smoke_Test() {
 
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "AACT_OMA";
+		
 	}
 
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
 	public ACS_AACT_Smoke_Test(String caseID) {
+		
 		this.caseID = caseID;
 	}
 

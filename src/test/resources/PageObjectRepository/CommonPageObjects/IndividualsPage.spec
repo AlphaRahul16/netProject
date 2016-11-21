@@ -81,6 +81,7 @@ img_demoGraphics                          css                    img[alt*='${but
 inp_bpa_info                              xpath                 //label[text()='${field}:']/preceding-sibling::span//input
 btn_saveRapidFormData                     css                   input[value*='Save']
 txt_updatedLogsBPA                        xpath                //td[starts-with(text(),'${productName}')]/following-sibling::td[1]
+img_activeMember                          xpath                 //td[starts-with(text(),'${value}')]/preceding-sibling::td//img
 
 #Chapter Relationships
 

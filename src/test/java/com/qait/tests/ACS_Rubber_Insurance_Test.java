@@ -14,7 +14,7 @@ import com.qait.automation.getpageobjects.BaseTest;
 
 public class ACS_Rubber_Insurance_Test extends BaseTest {
 	String app_url_IWEB, individualName, customerId, importedFile;
-	private String caseID;
+	String caseID;
 
 	public ACS_Rubber_Insurance_Test() {
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "Import_Profile";

@@ -491,7 +491,7 @@ MemberShipRenewal:
          memberStatus: Active
          country: CANADA
     queryName: "Member Query by Member Number – Multiple"
-    timeSlabInMinutes: 7
+    timeSlabInMinutes: 10
     maxWaitTimeInMinutesForStatus: 30 
     renewalInformation: 
          association: ACS
@@ -506,7 +506,7 @@ MemberShipRenewal:
          status: PROCESSING
     renewalDetailsForSuccess: 
          status: Success
-         numberOfRenewals: 1
+         numberOfRenewals: 2
          numberOfInvoicesCreated: 0
          numberOfErrors: 0
     renewalDetailsForProcessingCreateRenewalInvoice: 
@@ -516,8 +516,8 @@ MemberShipRenewal:
          numberOfErrors: 0
     renewalDetailsForSuccessCreateRenewalInvoice: 
          status: SUCCESS
-         numberOfRenewals: 1
-         numberOfInvoicesCreated: 1
+         numberOfRenewals: 2
+         numberOfInvoicesCreated: 2
          numberOfErrors: 0
     invoiceDetails: 
          proforma: "Yes"               
@@ -583,7 +583,7 @@ VoidWithAdjustment:
     emptItemsMessage: "There are no results to display."  
     
 ScarfReviewer:
-    queryName: "BP - Reviewers"
+    queryName: "Selenium - BP Reviewers"
     reviewRating: Commendable
     reviewComments: test comments
     overallRating: Outstanding
@@ -670,7 +670,8 @@ ACS_MyAccount:
     passwordChangedMessage: "Password successfully changed."
                     
 email:
-  send: false
-  recepients:
-    recepient1: avnishrawat@qainfotech.net
+  send: true
+  recepients: 
+    recepient1: avnishrawat@qainfotech.net 
     recepient2: kanikasharma@qainfotech.com
+    recepient3: hitasheesil@qainfotech.com

@@ -23,7 +23,9 @@ app_url_PUBS: https://dev-eweb12/NFDev3/pba
 app_url_EwebReporting: https://dev-eweb12/NFDev3/studentchaptersonline
 app_url_Awards: https://dev-eweb12/NFDev3/awards
 app_url_ScarfReviewing: https://dev-eweb12/NFDev3/studentchaptersreview
-app_url_yellowBook: https://ewebtest.acs.org/YBDev3/yellowbook
+app_url_iweb_yb: http://dev-eweb12/YBDev3/iWeb
+app_url_yellowBook: https://ewebtest.acs.org/NFStage1/yellowbook
+
 
 Authentication: 
   userName: C00616
