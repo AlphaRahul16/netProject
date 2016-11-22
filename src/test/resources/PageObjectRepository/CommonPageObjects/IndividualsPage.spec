@@ -77,11 +77,17 @@ select_addressType                        id                    cxa_adt_key
 chkbox_primary                            xpath                 //span[contains(@title,'${field}')]//input
 img_primary                               xpath                 (//span[text()='${name}']/parent::td/parent::tr/following-sibling::tr/td/div/table/tbody/tr[not(contains(@style,'none'))]//td[%{index1}])[#{index2}]//img
 img_override                              xpath                 //td[contains(text(),'${field}')]/following-sibling::td[10]/img
+img_demoGraphics                          css                    img[alt*='${buttonName}']
+inp_bpa_info                              xpath                 //label[text()='${field}:']/preceding-sibling::span//input
+btn_saveRapidFormData                     css                   input[value*='Save']
+txt_updatedLogsBPA                        xpath                //td[starts-with(text(),'${productName}')]/following-sibling::td[1]
+img_activeMember                          xpath                 //td[starts-with(text(),'${value}')]/preceding-sibling::td//img
 
 #Chapter Relationships
 
 iframe1                                   css                   #iframe1                       
 drpdwn_relationshipType                   xpath                 //label[text()='${field}:']/preceding-sibling::select
+drpdwn_options                            xpath                 //label[text()='${field}:']/preceding-sibling::select/option
 inp_startDate                             id                    cxc_start_date
 txt_active_chapters                       xpath                 //td[text()='active']/preceding-sibling::td[4]
 tab_pencilButton                          xpath                 //td[contains(text(),'${field}')][1]/preceding-sibling::td//i[@class='iconpro-pencil']

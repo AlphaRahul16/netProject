@@ -61,7 +61,7 @@ public class ASM_NCWPage extends ASCSocietyGenericPage {
 		if (searchType.equalsIgnoreCase("State")) {
 			selectStateAndFindCCEDCoordinator(map().get("searchValue"));
 			clickViewCoordinatorsFromThisSection(map().get("localSectionID"));
-			verifyCoordinatorName(map().get("coordinatorName"));
+//			verifyCoordinatorName(map().get("coordinatorName"));
 			clickContactCoordinator();
 
 		} else {

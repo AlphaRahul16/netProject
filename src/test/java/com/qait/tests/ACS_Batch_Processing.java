@@ -23,6 +23,10 @@ public class ACS_Batch_Processing extends BaseTest {
 
 	@Test
 	public void Step_01_Navigate_To_Accounting_Module_And_Click_Query_Batch() {
+		test.launchApplication(app_url_iweb);
+		test.homePageIWEB.enterAuthentication(
+				YamlReader.getYamlValue("Authentication.userName"),
+				YamlReader.getYamlValue("Authentication.password"));
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Accounting");
 		test.homePageIWEB.clickOnSideBarTab("Batch");
@@ -63,10 +67,6 @@ public class ACS_Batch_Processing extends BaseTest {
 	public void open_Browser_Window() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url_iweb = getYamlValue("app_url_IWEB");
-		test.launchApplication(app_url_iweb);
-		test.homePageIWEB.enterAuthentication(
-				YamlReader.getYamlValue("Authentication.userName"),
-				YamlReader.getYamlValue("Authentication.password"));
 	}
 	@BeforeMethod
 	public void handleTestMethodName(Method method) {

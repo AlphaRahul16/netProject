@@ -158,7 +158,7 @@ public class ACS_MGM_Test extends BaseTest {
 	public void Step07_Invite_New_Member_Click_On_Apply_for_ACS_Membership_link() {
 		System.out.println(app_url_MGMUrl);
 		test.launchApplication(app_url_MGMUrl);
-		System.out.println(memberDetails.get(1).trim());
+		//System.out.println(memberDetails.get(1).trim());
 		webLogin = test.memberShipPage.getCstWebLoginForMembership();
 		IWEBurl = test.individualsPage.getCurrentURL();
 		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));

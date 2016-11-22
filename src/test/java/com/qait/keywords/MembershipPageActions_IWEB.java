@@ -77,7 +77,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void selectAndRunQuery(String queryName) {
 		wait.waitForPageToLoadCompletely();
 		// hardWaitForIEBrowser(15);
-		waitForSpinner();
+		//waitForSpinner();
 		isElementDisplayed("txt_loadOnExistingQueryLabel");
 		selectExistingQuery(queryName);
 		waitForSpinner();
@@ -731,9 +731,16 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(5);
 		isElementDisplayed("btn_saveAndFinish");
 		hardWaitForIEBrowser(10);
+<<<<<<< HEAD
 		// clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
 		// element("btn_saveAndFinish").click();
 		hoverClick(element("btn_saveAndFinish"));
+=======
+
+		//clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
+		hardWaitForIEBrowser(15);
+		 hoverClick(element("btn_saveAndFinish"));
+>>>>>>> 8faf7876768c3affcf5bc296c0b09ad7cbc7f94e
 		wait.hardWait(15);
 		logMessage("STEP : Save and finish button is clicked\n");
 	}
@@ -1171,6 +1178,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public List<String> getMemberDetailsOnMembershipPage() {
+		List<String> memberDetails=new ArrayList<>();
 		memberDetails.add(getMemberInfoOnMemberShipProfile("member package"));
 		memberDetails.add(getMemberInfoOnMemberShipProfile("renewal package"));
 		memberDetails.add(getPaymentStatus());
@@ -1323,7 +1331,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		memberDetails.add(customerLname);
 		memberDetails.add(customerContactId);
 		memberDetails.add(customerFname);
-
 		return memberDetails;
 	}
 
@@ -2569,8 +2576,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			clickOnCustomerName();
 			cst = getMemberWebLogin();
 		}
+		
+		logMessage("STEP : CstWebLogin is fetched as " + cst);
 
-		logMessage("STEP : CstWebLogin fetched as " + cst);
 		return cst;
 
 	}
@@ -2593,6 +2601,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void getIndividualFullNameForAwardsNomination() {
 
 		clickOnEditNameAndAddress();
+		wait.hardWait(5);
+		switchToDefaultContent();
 		switchToFrame("iframe1");
 		customerLname = getNameFromEditNameAndAddressButton("lastName") + " "
 				+ getNameFromEditNameAndAddressButton("firstName") + " "
@@ -2890,8 +2900,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyTransferPackagePage() {
-		// isElementDisplayed("heading_transferPackage");
-		// logMessage("STEP : Member navigated to Transfer Package Page\n");
+		isElementDisplayed("heading_transferPackage");
+		logMessage("STEP : Member navigated to Transfer Package Page\n");
 		switchToFrame("iframe1");
 	}
 

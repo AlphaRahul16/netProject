@@ -145,7 +145,7 @@ public class MemberShipRenewalPage extends GetPage {
 		element("inp_runTaskDateTime").click();
 		wait.waitForPageToLoadCompletely();
 		element("inp_runTaskDateTime").clear();
-		wait.hardWait(2);
+		wait.hardWait(3);
 		element("inp_runTaskDateTime").sendKeys(runTaskDateTime);
 
 		element("inp_runTaskDateTime").sendKeys(Keys.ENTER);
@@ -169,7 +169,7 @@ public class MemberShipRenewalPage extends GetPage {
 		selectBatchAtAddMembershipRenewalPage("batch", batchName);
 		String runTaskDateTime = enterRunTaskDateTime(timeSlab);
 
-		wait.hardWait(1);
+		wait.hardWait(3);
 //		 waitForSpinner();
 //		 wait.hardWait(1);
 //		isElementDisplayed("txt_Now");
