@@ -68,7 +68,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		waitForSpinner();
 		wait.hardWait(3);
 		isElementDisplayed("txt_loadOnExistingQueryLabel");
-		selectExistingQuery(queryName);	
+		selectExistingQuery(queryName);
 		waitForSpinner();
 		verifyQueryTablePresent();
 		clickOnRunQuery();
@@ -804,9 +804,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(5);
 		isElementDisplayed("btn_saveAndFinish");
 		hardWaitForIEBrowser(10);
-		//clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
+		// clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
 		// element("btn_saveAndFinish").click();
-		 hoverClick(element("btn_saveAndFinish"));
+		hoverClick(element("btn_saveAndFinish"));
 		wait.hardWait(15);
 		logMessage("STEP : Save and finish button is clicked\n");
 	}
@@ -1317,7 +1317,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public List<String> getMemberDetailsOnMembershipPage() {
-		List<String> memberDetails=new ArrayList<>();
+		List<String> memberDetails = new ArrayList<>();
 		memberDetails.add(getMemberInfoOnMemberShipProfile("member package"));
 		memberDetails.add(getMemberInfoOnMemberShipProfile("renewal package"));
 		memberDetails.add(getPaymentStatus());
@@ -2069,7 +2069,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyInvoiceDetailsOnRenewal(String productName,
 			String invoiceId) {
-		openSubInfoDropDown("invoices");
+		expandDetailsMenuIfAlreadyExpanded("invoices");
 		flag = pagesLinkAvailable();
 		verifyProductNameInInvoice(productName, flag);
 		// verifyInvoiceIDInInvoice(invoiceId, flag);
@@ -2095,8 +2095,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		Assert.assertTrue(element("txt_membershipProfileDetails", memberdetail)
 				.getText().trim().equalsIgnoreCase(memberValue));
-		logMessage("ASSERT PASSED : "+memberdetail+" having value " + memberValue + " is verified as "
-				+ memberValue + " \n");
+		logMessage("ASSERT PASSED : " + memberdetail + " having value "
+				+ memberValue + " is verified as " + memberValue + " \n");
 
 	}
 
@@ -3165,7 +3165,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public double getBalanceAmount() {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(4);
-//		switchToFrame("iframe1");
+		// switchToFrame("iframe1");
 		String amount = element("txt_balanceAmount").getText().trim()
 				.split("\\$")[1];
 		double d = Double.parseDouble(amount);
@@ -4648,8 +4648,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		selectRandomMemberByAscendingHeader("Price", "price_txt");
 		// selectRandomUserOnAscendingHeader("Available Quantity");
 	}
-	
-	public void hoverAndClickOnCoeForm(String elem){
+
+	public void hoverAndClickOnCoeForm(String elem) {
 		hoverClick(element(elem));
 	}
 
