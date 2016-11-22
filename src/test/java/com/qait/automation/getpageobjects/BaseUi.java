@@ -40,7 +40,6 @@ import org.testng.Reporter;
 
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.SeleniumWait;
-import com.thoughtworks.selenium.webdriven.commands.IsElementPresent;
 
 
 

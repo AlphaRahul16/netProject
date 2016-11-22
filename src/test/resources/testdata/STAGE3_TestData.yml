@@ -21,7 +21,12 @@ app_url_Awards: https://ewebtest12.acs.org/NFStage3/awards
 app_url_IwebReporting: https://stag-12iweb/NFStage3/iweb
 app_url_EwebReporting: https://ewebtest12.acs.org/NFStage3/studentchaptersonline
 app_url_ScarfReviewing: https://www.ewebtest.acs.org/NFStage3/studentchaptersreview
+app_url_MGMUrl: https://www.ewebtest.acs.org/NFStage3/mgm
+app_url_MGMjoin: https://jointest.acs.org/NFStage3/oma?appID=
+app_url_MGMOputOut: https://www.ewebtest.acs.org/NFStage3/eweb/ACSMGMTemplate.aspx?site=ACS_MGM&WebCode=optout&appID=
+app_url_MGMLogout: https://www.ewebtest.acs.org/NFStage3/eweb/acslogout.aspx
 
 Authentication: 
   userName: C00616
   password: "s3E1462*^"
+

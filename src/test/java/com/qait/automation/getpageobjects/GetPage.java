@@ -553,5 +553,17 @@ public class GetPage extends BaseUi {
 	    }
 		return null;
 }
+	public void enterTestMethodNameToSkip(Map<String, Boolean> skipTest, String type,List<String> cases)
+	{
+		
+		if (type.equalsIgnoreCase(cases.get(0).trim())) {
+			skipTest.put("Step07_Run_Query_For_Scenario2", true);
+			skipTest.put("Step08_Invite_New_Member_Click_On_Apply_for_ACS_Membership_link",true);
+		} else if (type.equalsIgnoreCase(cases.get(1).trim())) {
+			skipTest.put("Step01_Launch_My_Account_Application_And_Create_New_Member", true);
+		} else {
+			logMessage("Error: Invalid Member type\n");
+		}
+	}
 	
 }

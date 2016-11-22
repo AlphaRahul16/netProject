@@ -243,8 +243,8 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 			}
 		}
 
-		Assert.assertTrue(element("txt_creditBatchDate",batchName).getText().trim().equals(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYY").trim()));
-		logMessage("STEP : Credit date is verify as "+DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYY"));
+		Assert.assertTrue(element("txt_creditBatchDate",batchName).getText().trim().equals(DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYY","EST").trim()));
+		logMessage("STEP : Credit date is verify as "+DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYY","EST"));
 		Assert.assertTrue(element("txt_CreditTotal",batchName).getText().trim().equals(totalCredit),"Amount credit is not as expected");
 		logMessage("ASSERT PASSED : Credited amount successfully verified as "+totalCredit);
 	}

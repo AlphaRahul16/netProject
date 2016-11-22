@@ -60,10 +60,10 @@ public class ACS_OMR_Smoke_Test extends BaseTest {
 	@Test
 	public void Step04_TC01_launch_Eweb_Renewal_Application_And_Login_With_Valid_Credentials() {
 		test.launchApplication(app_url_OMR);
-		test.asm_OMR.selectNoIfRegularToEmeritusPromptAppears();
 		test.asm_OMR.loginIntoApplicationWithValidChoice(mapOMR, memDetails);
 		test.asm_OMR.OMRLogo("Online Membership Renewal");
 		test.asm_OMR.verifyWelcomePage();
+		test.asm_OMR.selectNoIfRegularToEmeritusPromptAppears();
 	}
 
 	@Test
