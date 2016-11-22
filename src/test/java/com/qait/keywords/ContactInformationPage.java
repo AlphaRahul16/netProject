@@ -197,6 +197,7 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 		selectMemberContactDetail("addressType", addressType);
 
 		if (addressType.equalsIgnoreCase("Work")) {
+			wait.hardWait(5);
 			wait.waitForElementToBeVisible(element("inp_organization"));
 		}
 		enterMemberContactDetail("address", address);
