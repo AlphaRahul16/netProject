@@ -731,16 +731,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(5);
 		isElementDisplayed("btn_saveAndFinish");
 		hardWaitForIEBrowser(10);
-<<<<<<< HEAD
 		// clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
 		// element("btn_saveAndFinish").click();
 		hoverClick(element("btn_saveAndFinish"));
-=======
-
-		//clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
-		hardWaitForIEBrowser(15);
-		 hoverClick(element("btn_saveAndFinish"));
->>>>>>> 8faf7876768c3affcf5bc296c0b09ad7cbc7f94e
 		wait.hardWait(15);
 		logMessage("STEP : Save and finish button is clicked\n");
 	}
