@@ -484,14 +484,6 @@ MemberShipRenewal:
          renewalYear: 2017
          type: Selenium
          renewalLength: 1
-    firstMember: 
-         memberType: Regular Member
-         memberStatus: Active
-         country: UNITED STATES
-    secondMember: 
-         memberType: Student Member - UnderGrad
-         memberStatus: Active
-         country: CANADA
     queryName: "Member Query by Member Number – Multiple"
     timeSlabInMinutes: 10
     maxWaitTimeInMinutesForStatus: 30 

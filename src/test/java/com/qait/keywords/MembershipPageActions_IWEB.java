@@ -1877,8 +1877,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public void verifyInvoiceDetailsOnRenewal(String productName, String invoiceId) {
-		openSubInfoDropDown("invoices");
+
+	public void verifyInvoiceDetailsOnRenewal(String productName,
+			String invoiceId) {
+		expandDetailsMenuIfAlreadyExpanded("invoices");
+
 		flag = pagesLinkAvailable();
 		verifyProductNameInInvoice(productName, flag);
 		// verifyInvoiceIDInInvoice(invoiceId, flag);
@@ -1899,10 +1902,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyMemberDetailsOnMemberShipProfile(String memberdetail, String memberValue) {
 		isElementDisplayed("txt_membershipProfileDetails", memberdetail);
 
-		Assert.assertTrue(
-				element("txt_membershipProfileDetails", memberdetail).getText().trim().equalsIgnoreCase(memberValue));
-		logMessage("ASSERT PASSED : " + memberdetail + " having value " + memberValue + " is verified as " + memberValue
-				+ " \n");
+
+		Assert.assertTrue(element("txt_membershipProfileDetails", memberdetail)
+				.getText().trim().equalsIgnoreCase(memberValue));
+		logMessage("ASSERT PASSED : " + memberdetail + " having value "
+				+ memberValue + " is verified as " + memberValue + " \n");
+
 
 	}
 
@@ -2903,7 +2908,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(4);
 		// switchToFrame("iframe1");
-		String amount = element("txt_balanceAmount").getText().trim().split("\\$")[1];
+
+		String amount = element("txt_balanceAmount").getText().trim()
+				.split("\\$")[1];
+
 		double d = Double.parseDouble(amount);
 		logMessage("STEP : Balance Amount is : " + d + "\n");
 		return d;
