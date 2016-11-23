@@ -77,7 +77,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void selectAndRunQuery(String queryName) {
 		wait.waitForPageToLoadCompletely();
 		// hardWaitForIEBrowser(15);
-		//waitForSpinner();
+		// waitForSpinner();
 		isElementDisplayed("txt_loadOnExistingQueryLabel");
 		selectExistingQuery(queryName);
 		waitForSpinner();
@@ -1171,7 +1171,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public List<String> getMemberDetailsOnMembershipPage() {
-		List<String> memberDetails=new ArrayList<>();
+		List<String> memberDetails = new ArrayList<>();
 		memberDetails.add(getMemberInfoOnMemberShipProfile("member package"));
 		memberDetails.add(getMemberInfoOnMemberShipProfile("renewal package"));
 		memberDetails.add(getPaymentStatus());
@@ -2569,17 +2569,18 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			clickOnCustomerName();
 			cst = getMemberWebLogin();
 		}
-		
+
 		logMessage("STEP : CstWebLogin is fetched as " + cst);
 
 		return cst;
 
 	}
-	public String getCstWebLoginForMembership() {
+
+	public String getCstWebLoginForMembership(String index) {
 		String cst = "";
 		try {
-			isElementDisplayed("txt_endDate", String.valueOf(1), String.valueOf(7));
-			cst = element("txt_endDate", String.valueOf(1), String.valueOf(7)).getText();
+			isElementDisplayed("txt_endDate", String.valueOf(1), index);
+			cst = element("txt_endDate", String.valueOf(1), index).getText();
 			element("txt_current", String.valueOf(1)).click();
 		} catch (NoSuchElementException e) {
 			clickOnCustomerName();
@@ -3875,10 +3876,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnStudentMemberName(int i) {
 		wait.hardWait(2);
-		isElementDisplayed("arrow_selectMember", String.valueOf(i));
+		isElementDisplayed("arrow_selectMember", String.valueOf(i),String.valueOf(3));
 		logMessage("STEP : Selected Student Member is "
 				+ element("txt_endDate", String.valueOf(i), String.valueOf(4)).getText().trim());
-		element("arrow_selectMember", String.valueOf(i)).click();
+		element("arrow_selectMember", String.valueOf(i),String.valueOf(3)).click();
 	}
 
 	public void verifyPayment(int index) {
@@ -4475,6 +4476,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public List<String> getWebloginAndRecordNumber() {
 		String recordNumber = getRecordNumber();
 		String weblogin = getCstWebLogin();
+		try{
+			handleAlert();
+		}
+		catch(Exception e){
+			logMessage("STEP: Alert handled");
+		}
 		memberDetails.add(recordNumber);
 		memberDetails.add(weblogin);
 		return memberDetails;
@@ -4490,19 +4497,24 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyNomineeStatusOnIWEB(String url, String status, String email, String fname, String lname) {
 		launchUrl(url);
+		try{
+			handleAlert();
+		}catch(Exception e){
+			logMessage("INFO: Alert is handled");
+		}
 		expandDetailsMenuIfAlreadyExpanded("my acs nominations");
-		String currentDate=DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy");
-		verifyMembershipTypeForAACTOMR(currentDate , "3",fname, "First Name");
-		verifyMembershipTypeForAACTOMR( currentDate, "2", lname,"Last Name");
-		verifyMembershipTypeForAACTOMR( currentDate, "1",email, "Email");
+		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy");
+		verifyMembershipTypeForAACTOMR(currentDate, "3", fname, "First Name");
+		verifyMembershipTypeForAACTOMR(currentDate, "2", lname, "Last Name");
+		verifyMembershipTypeForAACTOMR(currentDate, "1", email, "Email");
 		verifyDetailsForAACTOMR(status, currentDate, "1", "Status");
 
 	}
 
 	public String getApplicationID() {
-		String currentDate=DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy");
+		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy");
 		isElementDisplayed("txt_membershipType", currentDate, "6");
-		String appID = element("txt_membershipType", currentDate, "6").getText();
+		String appID = element("txt_membershipType", currentDate, "6").getText().trim();
 		logMessage("STEP: Application Id of the nominee is " + appID + "\n");
 		return appID;
 	}
@@ -4529,7 +4541,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyDetailsForNominator(String label, String rowNum, String index) {
 		isElementDisplayed("txt_endDate", rowNum, index);
-		String valueFromIWEB = element("txt_endDate").getText().trim();
+		String valueFromIWEB = element("txt_endDate", rowNum, index).getText().trim();
 		String value = DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy");
 		Assert.assertEquals(valueFromIWEB, value);
 		logMessage("ASSERT PASSED: " + label + " is verfied as " + valueFromIWEB);
@@ -4538,15 +4550,20 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyDetailsForNominator(String label, String value, String rowNum, String index) {
 		isElementDisplayed("txt_endDate", rowNum, index);
-		String valueFromIWEB = element("txt_endDate").getText().trim();
+		String valueFromIWEB = element("txt_endDate", rowNum, index).getText().trim();
 		Assert.assertEquals(valueFromIWEB, value);
 		logMessage("ASSERT PASSED: " + label + " is verfied as " + value);
 	}
 
-	public void clickOnID() {
-		isElementDisplayed("txt_endDate" + "/a", "1", "12");
-		element("txt_endDate").click();
-		logMessage("STEP: Click on NominatorsID ");
+	public void clickOnConstitID_underMyACSNominations() {
+		isElementDisplayed("arrow_selectMember", "1", "12");
+		element("arrow_selectMember","1","12").click();
+		logMessage("STEP: Click on ConstitID \n");
+	}
+	public void clickOnNominatorID_underMyACSApplication() {
+		isElementDisplayed("arrow_selectMember", "1", "14");
+		element("arrow_selectMember","1","14").click();
+		logMessage("STEP: Click on Nominator's ID \n");
 	}
 
 	public void verifyNomieeDetails(String app_ID, String program, String channel, String status, String paymentStatus,
@@ -4562,6 +4579,16 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		verifyDetailsForNominator("Source code", sourceCode, "1", "12");
 		verifyDetailsForNominator("Mbr Source code", sourceCode, "1", "13");
 
+	}
+
+	public void enterDatesInRunTime(int times) {
+		isElementDisplayed("inp_customerId");
+		for (int i = 0; i < times; i++) {
+			EnterTextInField(elements("inp_customerId").get(i),
+					DateUtil.getAnyDateForType("MM/dd/yyyy", 1, "year"));
+			logMessage("STEP : Date is entered as " + DateUtil.getAnyDateForType("MM/dd/yyyy", 1, "year") + "for "
+					+ i + "field");
+		}
 	}
 
 }

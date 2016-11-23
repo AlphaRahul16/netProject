@@ -17,15 +17,12 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 		this.driver = driver;
 	}
 
-	public String[] enterContactInformation(String email, String firstName,
-			String lastName, String addressType, String address, String city,
-			String country, String state, String zipCode) {
+	public String[] enterContactInformation(String email, String firstName, String lastName, String addressType,
+			String address, String city, String country, String state, String zipCode) {
 
 		String userEmail = enterEmail(email);
-		String fname = enterMemberContactDetail("firstName",
-				firstName + System.currentTimeMillis());
-		String lname = enterMemberContactDetail("lastName",
-				lastName + System.currentTimeMillis());
+		String fname = enterMemberContactDetail("firstName", firstName + System.currentTimeMillis());
+		String lname = enterMemberContactDetail("lastName", lastName + System.currentTimeMillis());
 		selectMemberContactDetail("addressType", addressType);
 
 		if (addressType.equalsIgnoreCase("Work")) {
@@ -69,8 +66,7 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 		if (!email.equalsIgnoreCase("null")) {
 			isElementDisplayed("inp_email");
 			String[] emailSubstring = email.split("@");
-			String userEmail = emailSubstring[0] + System.currentTimeMillis()
-					+ "@" + emailSubstring[1];
+			String userEmail = emailSubstring[0] + System.currentTimeMillis() + "@" + emailSubstring[1];
 			element("inp_email").clear();
 			element("inp_email").sendKeys(userEmail);
 			logMessage("STEP : " + userEmail + " entered in the inp_email");
@@ -95,14 +91,12 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 		}
 	}
 
-	private String enterMemberContactDetail(String detailType,
-			String detailValue) {
+	private String enterMemberContactDetail(String detailType, String detailValue) {
 		if (!detailValue.equalsIgnoreCase("null")) {
 			isElementDisplayed("inp_" + detailType);
 			element("inp_" + detailType).clear();
 			element("inp_" + detailType).sendKeys(detailValue);
-			logMessage("STEP : " + detailValue + " entered in the " + detailType
-					+ "\n");
+			logMessage("STEP : " + detailValue + " entered in the " + detailType + "\n");
 			return detailValue;
 		} else {
 			logMessage("" + detailType + "is not present in data sheet\n");
@@ -114,10 +108,8 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 	private void selectMemberContactDetail(String detailType, String detailValue) {
 		if (!detailValue.equalsIgnoreCase("null")) {
 			isElementDisplayed("list_" + detailType);
-			selectProvidedTextFromDropDown(element("list_" + detailType),
-					detailValue);
-			logMessage("STEP : " + detailValue + " is selected in the "
-					+ detailType + "\n");
+			selectProvidedTextFromDropDown(element("list_" + detailType), detailValue);
+			logMessage("STEP : " + detailValue + " is selected in the " + detailType + "\n");
 		} else {
 			logMessage("" + detailType + "is not present in data sheet\n");
 		}
@@ -126,8 +118,7 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 	public void enterEmail_ASMOMA(String email) {
 		isElementDisplayed("inp_email");
 		String[] emailSubstring = email.split("@");
-		String userEmail = emailSubstring[0] + System.currentTimeMillis() + "@"
-				+ emailSubstring[1];
+		String userEmail = emailSubstring[0] + System.currentTimeMillis() + "@" + emailSubstring[1];
 		element("inp_email").clear();
 		element("inp_email").sendKeys(userEmail);
 		logMessage("STEP : " + userEmail + " entered in the inp_email");
@@ -184,10 +175,9 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 
 	}
 
-	public String enterContactInformationWithMemberNumber(String email,
-			String firstName, String lastName, String memberNumber,
-			String addressType, String address, String city, String country,
-			String state, String zipCode) {
+	public String enterContactInformationWithMemberNumber(String email, String firstName, String lastName,
+			String memberNumber, String addressType, String address, String city, String country, String state,
+			String zipCode) {
 
 		String userEmail = enterSameEmail(email);
 		enterMemberContactDetail("firstName", firstName);
@@ -197,7 +187,7 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 		selectMemberContactDetail("addressType", addressType);
 
 		if (addressType.equalsIgnoreCase("Work")) {
-			wait.hardWait(5);
+			wait.waitForPageToLoadCompletely();
 			wait.waitForElementToBeVisible(element("inp_organization"));
 		}
 		enterMemberContactDetail("address", address);
@@ -215,35 +205,21 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 
 	public ArrayList<String> enterContactInformation_AACT(String caseId) {
 		String userEmail = enterEmail(getAACT_OmaSheetValue(caseId, "Email ID"));
-		String fName = enterMemberContactDetail(
-				"firstName",
-				getAACT_OmaSheetValue(caseId, "FirstName")
-						+ System.currentTimeMillis());
-		String lName = enterMemberContactDetail(
-				"lastName",
-				getAACT_OmaSheetValue(caseId, "LastName")
-						+ System.currentTimeMillis());
-		selectMemberContactDetail("addressType",
-				getAACT_OmaSheetValue(caseId, "Address Type"));
-		if (!getAACT_OmaSheetValue(caseId, "Address Type").equalsIgnoreCase(
-				"Home")) {
-			enterMemberContactDetail("organization",
-					getAACT_OmaSheetValue(caseId, "Organization Contact Page"));
-			enterMemberContactDetail(
-					"dept/mailStop",
-					getAACT_OmaSheetValue(caseId, "Dept/Mail Stop Contact Page"));
+		String fName = enterMemberContactDetail("firstName",
+				getAACT_OmaSheetValue(caseId, "FirstName") + System.currentTimeMillis());
+		String lName = enterMemberContactDetail("lastName",
+				getAACT_OmaSheetValue(caseId, "LastName") + System.currentTimeMillis());
+		selectMemberContactDetail("addressType", getAACT_OmaSheetValue(caseId, "Address Type"));
+		if (!getAACT_OmaSheetValue(caseId, "Address Type").equalsIgnoreCase("Home")) {
+			enterMemberContactDetail("organization", getAACT_OmaSheetValue(caseId, "Organization Contact Page"));
+			enterMemberContactDetail("dept/mailStop", getAACT_OmaSheetValue(caseId, "Dept/Mail Stop Contact Page"));
 		}
-		enterMemberContactDetail("address",
-				getAACT_OmaSheetValue(caseId, "Address Contact Page"));
-		enterMemberContactDetail("city",
-				getAACT_OmaSheetValue(caseId, "City Contact Page"));
-		selectMemberContactDetail("countryName",
-				getAACT_OmaSheetValue(caseId, "Country Contact Page"));
-		if (getAACT_OmaSheetValue(caseId, "Country Contact Page")
-				.equalsIgnoreCase("UNITED STATES")) {
+		enterMemberContactDetail("address", getAACT_OmaSheetValue(caseId, "Address Contact Page"));
+		enterMemberContactDetail("city", getAACT_OmaSheetValue(caseId, "City Contact Page"));
+		selectMemberContactDetail("countryName", getAACT_OmaSheetValue(caseId, "Country Contact Page"));
+		if (getAACT_OmaSheetValue(caseId, "Country Contact Page").equalsIgnoreCase("UNITED STATES")) {
 			wait.waitForPageToLoadCompletely();
-			selectMemberContactDetail("stateName",
-					getAACT_OmaSheetValue(caseId, "State Contact Page"));
+			selectMemberContactDetail("stateName", getAACT_OmaSheetValue(caseId, "State Contact Page"));
 		} else {
 			try {
 				wait.waitForElementToDisappear(element("list_stateName"));
@@ -251,8 +227,7 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 				logMessage("list_stateName not present");
 			}
 		}
-		enterMemberContactDetail("zipCode",
-				getAACT_OmaSheetValue(caseId, "Zip code Contact Page"));
+		enterMemberContactDetail("zipCode", getAACT_OmaSheetValue(caseId, "Zip code Contact Page"));
 		memberDetailUnique.add(userEmail);
 		memberDetailUnique.add(fName);
 		memberDetailUnique.add(lName);
@@ -261,11 +236,9 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 	}
 
 	public boolean getCreateOnlyIndividualMember(String caseId) {
-		if (getAACT_OmaSheetValue(caseId, "Is Create Only Individual?")
-				.equalsIgnoreCase("Y")) {
+		if (getAACT_OmaSheetValue(caseId, "Is Create Only Individual?").equalsIgnoreCase("Y")) {
 			return true;
-		} else if (getAACT_OmaSheetValue(caseId, "Is Create Only Individual?")
-				.equalsIgnoreCase("N")) {
+		} else if (getAACT_OmaSheetValue(caseId, "Is Create Only Individual?").equalsIgnoreCase("N")) {
 			return false;
 		} else {
 			logMessage("Is individual create only column has null value");

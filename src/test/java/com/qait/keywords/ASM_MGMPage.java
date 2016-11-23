@@ -190,34 +190,34 @@ public class ASM_MGMPage extends GetPage {
 
 	}
 
-	public String verifyNomineeStatus(String status) {
-		isElementDisplayed("link_nomineeStatus");
-		String nomineeStatus = element("link_nomineeStatus").getText().trim();
+	public String verifyNomineeStatus(String status,String email) {
+		isElementDisplayed("link_nomineeStatus",email);
+		String nomineeStatus = element("link_nomineeStatus",email).getText().trim();
 		Assert.assertEquals(nomineeStatus, status);
 		logMessage("ASSERT PASSED: Status of the nominee is " + status + "\n");
 		return getCurrentURL();
 	}
 
-	public void clickOnNomineeStatus() {
-		isElementDisplayed("link_nomineeStatus");
-		element("link_nomineeStatus").click();
+	public void clickOnNomineeStatus(String email) {
+		isElementDisplayed("link_nomineeStatus",email);
+		element("link_nomineeStatus",email).click();
 		logMessage("Step: Click on Nominee Status link \n");
 	}
 
-	public void verifyNomineeStatusForSecondTime(String status) {
+	public void verifyNomineeStatusForSecondTime(String status,String email) {
 		// TODO Auto-generated method stub
-		isElementDisplayed("link_nomineeStatus");
-		String nomineeStatus = element("link_nomineeStatus").getText().trim();
+		isElementDisplayed("link_nomineeStatus",email);
+		String nomineeStatus = element("link_nomineeStatus",email).getText().trim();
 		Assert.assertEquals(nomineeStatus, status);
 		logMessage("ASSERT PASSED: After Click on Resend the status of the nominee is " + status + "\n");
 	}
 
-	public String verifyStatusAfterClickResend(String statusOnMGM, String url) {
+	public String verifyStatusAfterClickResend(String statusOnMGM, String url,String email) {
 		launchUrl(url);
 		driver.navigate().refresh();
-		clickOnNomineeStatus();
+		clickOnNomineeStatus(email);
 		wait.hardWait(10);
-		verifyNomineeStatusForSecondTime(statusOnMGM);
+		verifyNomineeStatusForSecondTime(statusOnMGM,email);
 		return getCurrentURL();
 	}
 
@@ -240,13 +240,19 @@ public class ASM_MGMPage extends GetPage {
 	}
 
 	private void _verifyDeatils(String field) {
-		// TODO Auto-generated method stub
 		isElementDisplayed("inp_MGMDetails", "Phone");
-		//element("inp_MGMDetails", "Phone").getText();
 		Assert.assertTrue(element("inp_MGMDetails", "Phone").getText() != "",
 				"ASSERT FAILED: " + field + " is not populated");
 		logMessage("ASSEERT PASSED: " + field + " is populated \n");
 
+	}
+
+	public void clickOnRenewYourMembershipNow() {
+		isElementDisplayed("link_applyACSmembership", "Renew your membership now");
+		element("link_applyACSmembership", "Renew your membership now").click();
+		logMessage("ASSERT PASSED:Renew your membership now link is present \n");
+		wait.waitForPageToLoadCompletely();
+		logMessage("STEP: Renew your membership now link is clicked \n");
 	}
 
 }
