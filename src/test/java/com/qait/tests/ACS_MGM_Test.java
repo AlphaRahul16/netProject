@@ -25,7 +25,9 @@ public class ACS_MGM_Test extends BaseTest {
 	private List<String> customerFullNameList;
 	private String webLogin;
 	private String constitID;
-	private List<String> memberDetails1;
+	private String MGMpageURL2;
+	private String memberDetailUrl2;
+	private List<String> detailsForMember2;
 
 	public ACS_MGM_Test() {
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "MGM";
@@ -69,7 +71,7 @@ public class ACS_MGM_Test extends BaseTest {
 		System.out.println("url" + IWEBurl);
 	}
 
-	@Test
+	// @Test
 	public void Step00_Launch_MGM_Invite_New_Member() {
 		Run_Query_And_Fetch_Weblogin_And_Record_Number("Individuals", "Query Individual",
 				getYamlValue("ACS_MGM.query1"), 2);
@@ -84,7 +86,7 @@ public class ACS_MGM_Test extends BaseTest {
 
 	}
 
-	@Test(dependsOnMethods = "Step00_Launch_MGM_Invite_New_Member")
+	// @Test(dependsOnMethods = "Step00_Launch_MGM_Invite_New_Member")
 	public void Step01_Verify_Nominee_Status_On_MGM_And_IWEB() {
 
 		MGMpageURL = test.asm_MGM.verifyNomineeStatus("Resend", uniqueEmail);
@@ -98,7 +100,7 @@ public class ACS_MGM_Test extends BaseTest {
 		app_ID = test.memberShipPage.getApplicationID();
 	}
 
-	@Test(dependsOnMethods = "Step01_Verify_Nominee_Status_On_MGM_And_IWEB")
+	// @Test(dependsOnMethods = "Step01_Verify_Nominee_Status_On_MGM_And_IWEB")
 	public void Step02_New_Individual_Joins_ACS_And_Verify_That_The_Source_Code_Is_Populated() {
 		test.launchApplication(app_url_MGMjoin + app_ID);
 		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
@@ -123,7 +125,8 @@ public class ACS_MGM_Test extends BaseTest {
 		constitID = test.confirmationPage.getMemberDetail("member-number");
 	}
 
-	@Test(dependsOnMethods = "Step02_New_Individual_Joins_ACS_And_Verify_That_The_Source_Code_Is_Populated")
+	// @Test(dependsOnMethods =
+	// "Step02_New_Individual_Joins_ACS_And_Verify_That_The_Source_Code_Is_Populated")
 	public void Step03_Verify_The_Nominators_Invitation_Status_On_The_MGM_Dashboard_And_In_Iweb() {
 		test.launchApplication(MGMpageURL);
 		test.asm_MGM.verifyStatusAfterClickResend("Joined", MGMpageURL, uniqueEmail);
@@ -131,17 +134,19 @@ public class ACS_MGM_Test extends BaseTest {
 				test.homePageIWEB.map().get("Channel").trim(), fname, lname, uniqueEmail, "JOINED", "Paid",
 				test.homePageIWEB.map().get("Source Code").trim(), constitID);
 		customerFullNameList = test.memberShipPage.getCustomerFullNameAndContactID();
-		test.memberShipPage.clickOnConstitID_underMyACSNominations();
+
 	}
 
-	@Test(dependsOnMethods = "Step03_Verify_The_Nominators_Invitation_Status_On_The_MGM_Dashboard_And_In_Iweb")
+	// @Test(dependsOnMethods =
+	// "Step03_Verify_The_Nominators_Invitation_Status_On_The_MGM_Dashboard_And_In_Iweb")
 	public void Step04_Verify_Nomiee_Details_On_IWEB() {
+		test.memberShipPage.clickOnConstitID_underMyACSNominations();
 		test.memberShipPage.verifyNomieeDetails(app_ID, test.homePageIWEB.map().get("Program").trim(),
 				test.homePageIWEB.map().get("Channel").trim(), "JOINED", "Paid",
 				test.homePageIWEB.map().get("Source Code").trim(), memberID);
 	}
 
-	@Test(dependsOnMethods = "Step04_Verify_Nomiee_Details_On_IWEB")
+	// @Test(dependsOnMethods = "Step04_Verify_Nomiee_Details_On_IWEB")
 	public void Step05_verify_After_Clicking_The_NominatorID_Takes_To_The_Nominators_Record() {
 		test.memberShipPage.clickOnNominatorID_underMyACSApplication();
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Individuals |" + customerFullNameList.get(0).trim());
@@ -216,20 +221,47 @@ public class ACS_MGM_Test extends BaseTest {
 		test.memberShipPage.launchUrl(app_url_MGMLogout);
 	}
 
-	// @Test
-	public void Step13_scenario5() {
+	@Test
+	public void Step13_Scenario5_Get_Memberdetails_From_IWEB_And_Invite_Same_Member() {
+		Step00_Launch_MGM_Invite_New_Member();
+		MGMpageURL = test.asm_MGM.verifyNomineeStatus("Resend", uniqueEmail);
+		test.memberShipPage.verifyNomineeStatusOnIWEB(IWEBurl, "PENDING", uniqueEmail, fname, lname);
+		app_ID = test.memberShipPage.getApplicationID();
+		test.memberShipPage.launchUrl(app_url_MGMLogout);
+		
+		test.launchApplication(app_url_IWEB);
 		Run_Query_And_Fetch_Weblogin_And_Record_Number("Individuals", "Query Individual",
 				getYamlValue("ACS_MGM.query1"), 2);
-		memberDetails = test.memberShipPage.getWebloginAndRecordNumber();
+		detailsForMember2 = test.memberShipPage.getWebloginAndRecordNumber();
+		memberDetailUrl2 = test.individualsPage.getCurrentURL();
+		test.launchApplication(app_url_MGMUrl);
+		System.out.println("member 22::"+detailsForMember2.get(3).trim());
+		test.asm_MGM.loginInToApplication(detailsForMember2.get(3).trim(), getYamlValue("password"));
+		test.asm_MGM.submitSameMemberDetailsToInvite(fname, lname, uniqueEmail);
+		MGMpageURL2 = test.asm_MGM.verifyNomineeStatus("Resend", uniqueEmail);
+		test.memberShipPage.verifyNomineeStatusOnIWEB(memberDetailUrl2, "PENDING", uniqueEmail, fname, lname);
+		test.memberShipPage.launchUrl(app_url_MGMLogout);
+	}
 
-		IWEBurl = test.individualsPage.getCurrentURL();
+	@Test(dependsOnMethods = "Step13_Scenario5_Get_Memberdetails_From_IWEB_And_Invite_Same_Member")
+	public void Step14_Nominee_Joins_From_Member1_Invitation() {
+		Step02_New_Individual_Joins_ACS_And_Verify_That_The_Source_Code_Is_Populated();
 		test.launchApplication(app_url_MGMUrl);
 		test.asm_MGM.loginInToApplication(memberDetails.get(1).trim(), getYamlValue("password"));
-		fname = test.homePageIWEB.map().get("MGM_FNAME").trim() + System.currentTimeMillis();
-		lname = test.homePageIWEB.map().get("MGM_LNAME").trim() + System.currentTimeMillis();
-		uniqueEmail = test.asm_MGM.submitMemberDetailsToInvite(fname, lname,
-				test.homePageIWEB.map().get("MGM_Email").trim());
+		test.asm_MGM.verifyStatusAfterClickResend("Joined", MGMpageURL, uniqueEmail);
+		test.memberShipPage.verifyNominatorDetailsOnIweb(IWEBurl, app_ID, test.homePageIWEB.map().get("Program").trim(),
+				test.homePageIWEB.map().get("Channel").trim(), fname, lname, uniqueEmail, "JOINED", "Paid",
+				test.homePageIWEB.map().get("Source Code").trim(), constitID);
+		//Step03_Verify_The_Nominators_Invitation_Status_On_The_MGM_Dashboard_And_In_Iweb();
+		test.memberShipPage.launchUrl(app_url_MGMLogout);
+	}
 
-		MGMpageURL = test.asm_MGM.verifyNomineeStatus("Resend", uniqueEmail);
+	@Test(dependsOnMethods = "Step14_Nominee_Joins_From_Member1_Invitation")
+	public void Step15_Status_In_Iweb_And_On_MGMDashboard_For_Member2_Indicates_Already_A_Member() {
+		test.launchApplication(app_url_MGMUrl);
+		test.asm_MGM.loginInToApplication(detailsForMember2.get(3).trim(), getYamlValue("password"));
+		test.asm_MGM.verifyStatusAfterClickResend("Already a Member", MGMpageURL2, uniqueEmail);
+		test.memberShipPage.verifyNomineeStatusOnIWEB(memberDetailUrl2, "ALREADY-JOINED", uniqueEmail, fname, lname);
+		test.memberShipPage.launchUrl(app_url_MGMLogout);
 	}
 }

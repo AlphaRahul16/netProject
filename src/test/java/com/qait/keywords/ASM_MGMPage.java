@@ -254,5 +254,21 @@ public class ASM_MGMPage extends GetPage {
 		wait.waitForPageToLoadCompletely();
 		logMessage("STEP: Renew your membership now link is clicked \n");
 	}
+	public void submitSameMemberDetailsToInvite(String fName, String lName, String email) {
+		clickOnInviteButton();
+		enterSameDetailsToInvite("FirstName", fName);
+		enterSameDetailsToInvite("LastName", lName);
+		enterSameDetailsToInvite("Email", email);
+		clickOnSendInviteButton();
+	}
+
+	public void enterSameDetailsToInvite(String detailName, String detailValue) {
+	
+			isElementDisplayed("inp_inviteMemberDetails", detailName);
+			element("inp_inviteMemberDetails", detailName).clear();
+			element("inp_inviteMemberDetails", detailName).sendKeys(detailValue);
+			logMessage("STEP : Enter " + detailValue + " in " + detailName + " in inp_inviteMemberDetails\n");
+
+	}
 
 }

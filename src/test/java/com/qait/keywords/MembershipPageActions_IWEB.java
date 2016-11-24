@@ -4542,9 +4542,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		verifyDetailsForNominator("Status", status, "1", "11");
 		verifyDetailsForNominator("Joined Date", "1", "13");
 		verifyDetailsForNominator("Payment Status", paymentStatus, "1", "14");
-		verifyDetailsForNominator("Source code", sourceCode, "1", "15");
-		verifyDetailsForNominator("Mbr Source code", sourceCode, "1", "16");
+		//verifyDetailsForNominator("Source code", sourceCode, "1", "15");
+		//verifyDetailsForNominator("Mbr Source code", sourceCode, "1", "16");
 		verifyDetailsForNominator("ConstitID", memberID, "1", "12");
+		
 	}
 
 	public void verifyDetailsForNominator(String label, String rowNum, String index) {
@@ -4576,6 +4577,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyNomieeDetails(String app_ID, String program, String channel, String status, String paymentStatus,
 			String sourceCode, String memberID) {
+		collapseDetailsMenu("my acs nominations");
 		expandDetailsMenuIfAlreadyExpanded("my acs applications");
 		verifyDetailsForNominator("Application ID", app_ID, "1", "4");
 		verifyDetailsForNominator("Program", program, "1", "5");
@@ -4584,8 +4586,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		verifyDetailsForNominator("Status", status, "1", "9");
 		verifyDetailsForNominator("Joined Date", "1", "10");
 		verifyDetailsForNominator("Payment Status", paymentStatus, "1", "11");
-		verifyDetailsForNominator("Source code", sourceCode, "1", "12");
-		verifyDetailsForNominator("Mbr Source code", sourceCode, "1", "13");
+		//verifyDetailsForNominator("Source code", sourceCode, "1", "12");
+		//verifyDetailsForNominator("Mbr Source code", sourceCode, "1", "13");
 
 	}
 
