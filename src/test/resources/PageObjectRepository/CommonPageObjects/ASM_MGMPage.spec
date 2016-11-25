@@ -14,4 +14,8 @@ inp_inviteMemberDetails                           xpath                         
 btn_sendInvite                                    xpath                                      //input[contains(@id,'btnSend')]
 txt_errorMessage                                  xpath                                      //span[contains(@id,'lblMessage')]
 list_email                                        id                                         lblNomEmail
+txt_nomineeStatus								  css										 #nomineeStatus>span
+link_nomineeStatus								  xpath										 //span[text()='${text}']/../../following-sibling::span/a	
+link_applyACSmembership								xpath									//a[contains(text(),'${text}')]
+inp_MGMDetails										id										prospect${text}
 =====================================================================================================================================

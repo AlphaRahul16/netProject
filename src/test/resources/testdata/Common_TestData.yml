@@ -28,6 +28,7 @@ csv-data-file:
   path_Import_Profile: ./src/test/resources/TestDataLibrary/Rubber_Import_Insurance_Profile.csv
   path_Chapter_Relationships: ./src/test/resources/TestDataLibrary/Chapter_Relationship_Datasheet.csv
   path_AACT_OMR: ./src/test/resources/TestDataLibrary/AACT_OMR_Datasheet.csv
+  path_MGM: ./src/test/resources/TestDataLibrary/ACS_MGM_Datesheet.csv
 
   data-separator: '\t'
   has-header: true
@@ -38,6 +39,7 @@ excel-data-file:
   path_BPA_Scenariosheet: ./src/test/resources/TestDataLibrary/BPA_Scenariosheet.xls
 
 
+password: "password"
   
 ASM_Data_File: 
   path: ./src/test/resources/TestDataLibrary/ASM_dataSheet.txt
@@ -482,14 +484,6 @@ MemberShipRenewal:
          renewalYear: 2017
          type: Selenium
          renewalLength: 1
-    firstMember: 
-         memberType: Regular Member
-         memberStatus: Active
-         country: UNITED STATES
-    secondMember: 
-         memberType: Student Member - UnderGrad
-         memberStatus: Active
-         country: CANADA
     queryName: "Member Query by Member Number – Multiple"
     timeSlabInMinutes: 10
     maxWaitTimeInMinutesForStatus: 30 
@@ -668,6 +662,11 @@ ACS_MyAccount:
     phoneSaveMessage: "Phone number is successfully saved!"
     addressSaveMessage: "Address is successfully saved! Click close button to close the popup."
     passwordChangedMessage: "Password successfully changed."
+    
+ACS_MGM: 
+    query1: "Selenium - Find Active Regular Member with ACSID"
+    query2: "selenium - MGM Find Inactive Regular Member"
+    query3: "selenium - Find Active Member with Renewal"
                     
 email:
   send: true

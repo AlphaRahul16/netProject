@@ -33,7 +33,7 @@ public class ACS_AACT_OMR extends BaseTest {
 	}
 
 	@BeforeClass
-	public void initiateTestSeesion() {
+	public void initiateTestSession() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		if (caseID != null) {
 			Reporter.log("       TEST CASE ID : " + caseID + "       \n", true);

@@ -355,7 +355,8 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 			currentStudentYes(map().get("Enter University Name"),
 					"universityName", map().get("Has College or University ?"));
 		} else if (map().get("Current Student Status").equalsIgnoreCase("N")) {
-			currentStudentNo(map().get("Has College or University ?"));
+			
+			currentStudentNo(map().get("Has College or University ?").trim());
 		} else {
 			logMessage("Student status is invalid in data sheet");
 			Assert.fail("ASSERT FAILED : Current student status is not valid in data sheet");
