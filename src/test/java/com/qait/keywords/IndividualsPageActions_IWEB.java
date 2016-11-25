@@ -2194,10 +2194,10 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		String currentdate = DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY");
 		EnterTextInField(element("inp_bpa_info","customer id"), customerID);
 		selectProvidedTextFromDropDown(element("drpdwn_relationshipType",BPATypeInfoArray[0]), bpaMap.get(BPATypeInfoArray[0]));
-		waitForSpinner();
+		wait.hardWait(9);
 		sendKeysUsingXpathInJavaScriptExecutor(element("inp_bpa_info",BPATypeInfoArray[2]), currentdate);
 		selectProvidedTextFromDropDown(element("drpdwn_relationshipType",("job "+BPATypeInfoArray[1])),bpaMap.get(BPATypeInfoArray[1]));
-		waitForSpinner();
+		wait.hardWait(9);
 		sendKeysUsingXpathInJavaScriptExecutor(element("inp_bpa_info",BPATypeInfoArray[3]), currentdate);
 		addRandomBpaIndustryAndJobTitleNameOnForm("bpa promo code");
         String promocode=getSelectedTextFromDropDown(element("drpdwn_relationshipType","bpa promo code"));

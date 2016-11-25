@@ -107,7 +107,7 @@ public class GCS_PaymentActions extends ASCSocietyGenericPage {
 
 			
 			selectBankNameFromListForPaymentThroughNetBanking(BankName);
-			selectMajorBankRadioButtonForPaymentThroughNetBanking();
+			//selectMajorBankRadioButtonForPaymentThroughNetBanking();
 
 		} else {
 			if (paymentType.contains("Credit")) {

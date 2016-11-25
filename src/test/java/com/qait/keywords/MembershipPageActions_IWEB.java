@@ -2795,6 +2795,26 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		return memberDetails;
 
 	}
+	
+//	public Map<String,String> getCustomerDetails(String[] customerInfo) {
+//		Map<String, String> customerDetailsMap = new HashMap<String,String>();
+//		clickOnEditNameAndAddress();
+//		switchToFrame("iframe1");
+//		customerLname = getNameFromEditNameAndAddressButton("lastName") + " "
+//				+ getNameFromEditNameAndAddressButton("firstName") + " "
+//				+ getNameFromEditNameAndAddressButton("middleName");
+//		clickOnCancelButton();
+//		handleAlert();
+//		switchToDefaultContent();
+//		customerContactId = element("txt_renewalContactId").getText();
+//		memberDetails.add(customerLname);
+//
+//		memberDetails.add(customerContactId);
+//		// memberDetails.add(getMemberWebLogin());
+//		logMessage("STEP : Customer Contact Id fetched as " + customerContactId);
+//		return memberDetails;
+//
+//	}
 
 	public void fetchScarfReviewerLoginDetails(
 			Map<String, List<String>> reviewerloginMap, int reviewerNumber) {
