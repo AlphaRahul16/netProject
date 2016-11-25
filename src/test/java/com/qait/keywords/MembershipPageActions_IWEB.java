@@ -4482,6 +4482,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public List<String> getWebloginAndRecordNumber() {
+		List<String> memberRecord = new ArrayList<>();
 		String recordNumber = getRecordNumber();
 		String weblogin = getCstWebLogin();
 		try{
@@ -4490,9 +4491,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		catch(Exception e){
 			logMessage("STEP: Alert handled");
 		}
-		memberDetails.add(recordNumber);
-		memberDetails.add(weblogin);
-		return memberDetails;
+		memberRecord.add(recordNumber);
+		memberRecord.add(weblogin);
+		return memberRecord;
 
 	}
 

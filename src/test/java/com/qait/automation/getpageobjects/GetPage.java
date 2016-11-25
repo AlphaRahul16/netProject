@@ -553,16 +553,16 @@ public class GetPage extends BaseUi {
 	    }
 		return null;
 }
-	public void enterTestMethodNameToSkip(Map<String, Boolean> skipTest,String type, List<String> cases)
-	{
-		for(String s:cases){
-			if (skipTest.containsKey(type)) {
-				skipTest.put("Step07_Run_Query_For_Scenario2", true);
-				skipTest.put("Step08_Invite_New_Member_Click_On_Apply_for_ACS_Membership_link",true);
-			}else{
-				logMessage("INFO: Invalid case \n");
-			}
-		}
-	}
+//	public void enterTestMethodNameToSkip(Map<String, Boolean> skipTest)
+//	{
+//		for(String s:cases){
+//			if (skipTest.containsKey(methodName)) {
+//				skipTest.put("Step07_Run_Query_For_Scenario2", true);
+//				skipTest.put("Step08_Invite_New_Member_Click_On_Apply_for_ACS_Membership_link",true);
+//			}else{
+//				logMessage("INFO: Invalid case \n");
+//			}
+//		}
+//	}
 	
 }
