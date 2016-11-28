@@ -2,6 +2,7 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+import java.awt.Button;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -1973,9 +1974,11 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public String addChapterRelationshipsToIndividual() {
+		String chapterName;
 		switchToFrame(element("iframe1"));
 		clickLookUpButton();
-		return clickActiveChapterName();
+		chapterName=clickActiveChapterName();
+		return chapterName;
 	}
 
 	private String clickActiveChapterName() {
@@ -1999,6 +2002,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		wait.resetExplicitTimeout(timeOut);
 		wait.resetImplicitTimeout(timeOut);
+		
 		return chapterName;
 
 	}
@@ -2117,6 +2121,109 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 	
+
+	public void clickImageButtonsOnAdditionalInformationPanel(String buttonName)
+	{
+		isElementDisplayed("img_demoGraphics",buttonName);
+		element("img_demoGraphics",buttonName).click();
+		logMessage("Step : Button "+buttonName+" is clicked on individuals profile page\n");
+	}
+	
+	public void enterBPAJobTitleDates(String field) {
+		String date = DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY");
+		isElementDisplayed("inp_bpa_info", field);
+		sendKeysUsingXpathInJavaScriptExecutor(element("inp_bpa_info", field), date);
+		logMessage("STEP : "+field+" date for is entered as " +date);
+		wait.hardWait(2);
+	}
+
+	public Map<String,String> fillBPAInformationAfterClickinhDemographics(String[] BPATypeInfoArray) {
+		Map<String,String> bpaDetailsMap = new HashMap<String,String>();
+		switchToFrame("iframe1");
+		addRandomBpaIndustryAndJobTitleNameOnForm(BPATypeInfoArray[0]);
+		addRandomBpaIndustryAndJobTitleNameOnForm(BPATypeInfoArray[1]);
+		enterBPAJobTitleDates(BPATypeInfoArray[2]);
+		enterBPAJobTitleDates(BPATypeInfoArray[3]);
+		bpaDetailsMap=saveBPAUpdatedDetails(bpaDetailsMap,BPATypeInfoArray[0],"sin_key");
+		bpaDetailsMap=saveBPAUpdatedDetails(bpaDetailsMap,BPATypeInfoArray[1],"ttl_key");
+		clickOnSaveButton();
+        wait.hardWait(4);
+		waitForSpinner();
+		switchToDefaultContent();
+		bpaDetailsMap.get("industry");
+		bpaDetailsMap.get("title");
+		return bpaDetailsMap;
+		
+	}
+	
+	public Map<String, String> saveBPAUpdatedDetails(Map<String,String> bpaDetailsMap,String nametype,String nameid) {
+		 isElementDisplayed("drpdwn_industrytype",nameid);
+		 bpaDetailsMap.put(nametype,element("drpdwn_industrytype",nameid).getText());
+		 logMessage("Step : Details fetched after bpa updation for "+nametype+" is "+element("drpdwn_industrytype",nameid).getText());
+		 return bpaDetailsMap;
+	}
+
+
+	public void addRandomBpaIndustryAndJobTitleNameOnForm(String type) {
+
+		isElementDisplayed("drpdwn_relationshipType",type);
+		selectDropDownValue(element("drpdwn_relationshipType",type),generateRandomNumberWithInRange(1,(elements("drpdwn_options",type).size()-1)));
+		wait.hardWait(4);
+		logMessage("Step : "+type+" name is selected as randomly as " +getSelectedTextFromDropDown(element("drpdwn_relationshipType",type)));
+
+	}
+
+	public void verifyDemographicChangeLogChildform(String[] BPATypeInfoArray,Map<String,String> bpaMap) {
+		String currentdate = DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY");
+		verifyChildFormForUpdatedDemographicLog(BPATypeInfoArray[0],bpaMap.get(BPATypeInfoArray[0]));
+		verifyChildFormForUpdatedDemographicLog(BPATypeInfoArray[1],bpaMap.get(BPATypeInfoArray[1]));
+		verifyChildFormForUpdatedDemographicLog(BPATypeInfoArray[2],currentdate);
+		verifyChildFormForUpdatedDemographicLog(BPATypeInfoArray[3],currentdate);
+	}
+	
+	public void verifyChildFormForUpdatedDemographicLog(String fieldName,String fieldValue)
+	{
+		try
+		{
+		isElementDisplayed("txt_updatedLogsBPA",fieldName);
+		String actualfieldValue=elements("txt_updatedLogsBPA",fieldName).get(0).getText().trim();
+		System.out.println(actualfieldValue);
+		System.out.println(fieldValue );
+		Assert.assertTrue(fieldValue.trim().contains(actualfieldValue),"demographic change log is not updated\n");
+		logMessage("ASSERT PASSED : Demographic log for "+fieldName+" is verified as "+fieldValue);
+		}
+		catch(NoSuchElementException e)
+		{
+			logMessage("Step : "+fieldName+" as "+fieldValue+" is not present in acs demograph logs\n");
+		}
+	}
+
+	public String fillDataOnRapidEntryFormAndSaveChanges(Map<String,String> bpaMap,String[] BPATypeInfoArray,String customerID) {
+		String currentdate = DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY");
+		EnterTextInField(element("inp_bpa_info","customer id"), customerID);
+		selectProvidedTextFromDropDown(element("drpdwn_relationshipType",BPATypeInfoArray[0]), bpaMap.get(BPATypeInfoArray[0]));
+		waitForSpinner();
+		sendKeysUsingXpathInJavaScriptExecutor(element("inp_bpa_info",BPATypeInfoArray[2]), currentdate);
+		selectProvidedTextFromDropDown(element("drpdwn_relationshipType",("job "+BPATypeInfoArray[1])),bpaMap.get(BPATypeInfoArray[1]));
+		waitForSpinner();
+		sendKeysUsingXpathInJavaScriptExecutor(element("inp_bpa_info",BPATypeInfoArray[3]), currentdate);
+		addRandomBpaIndustryAndJobTitleNameOnForm("bpa promo code");
+        String promocode=getSelectedTextFromDropDown(element("drpdwn_relationshipType","bpa promo code"));
+        logMessage("Step : Promocode is entered as "+promocode);
+		saveRapidFormInformationForBPA();
+		
+		return promocode;
+
+	}
+
+	private void saveRapidFormInformationForBPA() {
+		isElementDisplayed("btn_saveRapidFormData");
+		element("btn_saveRapidFormData").click();
+		logMessage("Step : Rapid Form information is saved\n");
+		wait.hardWait(3);
+
+	}
+
 	public void selectOneIndividual(String text,String field){
 		if(checkIfElementIsThere("img_activeMember",text)){
 			element("img_activeMember",text).click();
@@ -2125,5 +2232,5 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		else
 			logMessage("STEP: Individual list does not appeared. User is navigated to Membership profile page\n");
 	}
-	
+
 }

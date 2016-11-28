@@ -42,4 +42,6 @@ btn_paymentContinue          id        btnPayment
 txt_GCSOMAmemberName        xpath   //*[@class='name']/span[1]
 txt_srcCode               xpath      //strong[text()='Source Code']/../../input[${index}]
 txt_prodPrice             xpath      //span[contains(text(),'${prodName}')]/../..//td[@class='amount']
+inp_sourceCode				 id			 txtSourceCode
+txt_memberID				css			input[id*='${text}']
 ======================================================================================================================================

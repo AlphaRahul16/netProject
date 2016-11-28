@@ -609,7 +609,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		if(mapOMR.get("Publications_To_Add?").equalsIgnoreCase("Yes"))
 		{
 			clickAddMembershipButton("Add ACS Publication");
-
+            holdScriptExecution();
 			//isElementDisplayed("txt_legend","My ACS Publications");
 			selectAddToMembershipForParticularSubscription("PubAddToMembership");
 			clickSaveButtonToAddMembership();
