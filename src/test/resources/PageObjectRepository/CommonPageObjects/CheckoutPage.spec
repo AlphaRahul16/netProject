@@ -40,4 +40,6 @@ img_paymentLoader        xpath      //img[contains(@src,'progress.gif')]
 chk_agreeTermsAndCondition   id          idAcceptFlag
 btn_paymentContinue          id        btnPayment
 txt_GCSOMAmemberName        xpath   //*[@class='name']/span[1]
+txt_srcCode               xpath      //strong[text()='Source Code']/../../input[${index}]
+txt_prodPrice             xpath      //span[contains(text(),'${prodName}')]/../..//td[@class='amount']
 ======================================================================================================================================

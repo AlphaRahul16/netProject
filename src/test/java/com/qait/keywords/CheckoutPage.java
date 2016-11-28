@@ -4,6 +4,8 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.poi.hssf.record.PrecisionRecord;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -11,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DateUtil;
 
@@ -31,6 +34,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	static int mutliYearInInteger = 0;
 	int nextYearInInteger = Calendar.getInstance().get(Calendar.YEAR) + 1;
 	int timeOut, hiddenFieldTimeOut;
+	Map<String,String> productAmounts=new HashMap<>();
 
 	public CheckoutPage(WebDriver driver) {
 		super(driver, "CheckoutPage");
@@ -40,6 +44,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	public void enterPaymentInfo(String creditCardType,
 			String creditCardHolderName, String creditCardNumber,
 			String CvvNumber) {
+		wait.hardWait(2);
 		selectCreditCardInfo("Type", creditCardType);
 		enterCreditCardInfo("creditCardHoldNo", creditCardHolderName);
 		enterCreditCardInfo("creditCardNumber", creditCardNumber);
@@ -387,8 +392,8 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		// getPriceSheetValue(caseId, "pubsTax?"), 1);
 		// verifyPriceType(map().get( "Iweb Pub Name?"),
 		// "amount", getPriceSheetValue(caseId, "pubsPrice?"), 1);
-		verifyPriceType(map().get("Iweb Pub Name?"), "shipping",
-				getPriceSheetValue(caseId, "pubsShipping?"), 1);
+		verifyPriceType(map().get("Iweb Pub Name?"), "shipping",        
+				getPriceSheetValue(caseId, "pubsShipping?"), 1);             //---------
 
 		verifyPriceType(map().get("Iweb Division Name?"), "Tax",
 				getPriceSheetValue(caseId, "divisionTax?"), mutliYearInInteger);
@@ -601,6 +606,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 			System.out.println("amountValue:-" + amountValue);
 			amountInDouble = amountInDouble
 					+ Double.parseDouble(amountValue.replaceAll(",", ""));
+			System.out.println("amountInDouble value:-"+amountInDouble);
 		}
 		String formatedPrice = String.format("%.02f", amountInDouble);
 		String amountInString = String.valueOf(currency)
@@ -834,6 +840,103 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_paymentContinue");
 		element("btn_paymentContinue").click();
 		logMessage("STEP : Click on Continue button\n");
+	}
+	
+	public void enterSourceCode(String sourceCode){
+		isElementDisplayed("txt_srcCode",String.valueOf(1));
+		element("txt_srcCode",String.valueOf(1)).sendKeys(sourceCode);
+		logMessage("STEP: Source Code is entered as "+sourceCode+"\n");
+	}
+	
+	public void clickOnApplyButton(){
+		isElementDisplayed("txt_srcCode",String.valueOf(2));
+		element("txt_srcCode",String.valueOf(2)).click();
+		logMessage("STEP: Clicked on Apply button\n");
+	}
+	
+	public void enterSourceCodeDetails(String sourceCode,String scenario1){
+		wait.hardWait(2);
+		if(scenario1.equals("Yes")){
+		enterSourceCode(sourceCode);
+		clickOnApplyButton();
+		}
+	}
+	
+	public String verifyProductsAmount(String productName){
+		String price="";
+		if (productName.equals("")) {
+			logMessage("STEP : Division name is not present in data sheet\n");
+		}
+	    else{
+		isElementDisplayed("txt_prodPrice",productName);
+		price=element("txt_prodPrice",productName).getText().trim();
+		logMessage("ASSERT PASSED: Product "+productName+" is added having amount as "+price+"\n");
+		price=price.replace("$", "");
+		}
+		return price;
+	}
+	
+	public void changeMembershipYear(){
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
+				"hiddenFieldTimeOut"));
+		verifyMultiYearShow_Hide(map().get("multiYearFlag?"));
+		if (!map().get("multiYearDecision").equalsIgnoreCase("")) {
+			mutliYearInInteger = Integer.parseInt(map()
+					.get("multiYearDecision"));
+		} else {
+			mutliYearInInteger = 0;
+		}
+		if (map().get("multiYearFlag?").equalsIgnoreCase("SHOW")) {
+			if (map().get("multiYearDecision").equalsIgnoreCase("2")) {
+				multiYearDecisionValue = "Two";
+				clickUsingXpathInJavaScriptExecutor(element("rad_multiYear",
+						multiYearDecisionValue));
+				// click(element("rad_multiYear", multiYearDecisionValue));
+				logMessage("STEP : MultiYearDecision " + multiYearDecisionValue
+						+ " value is clicked in rad_multiYear\n");
+				logMessage("STEP : Wait for price values to be changed after selection of multi year value\n");
+				// hardWaitForIEBrowser(2);
+				try {
+					wait.resetImplicitTimeout(0);
+					wait.resetExplicitTimeout(hiddenFieldTimeOut);
+					wait.waitForElementToDisappear(element("txt_multiYearWait"));
+					wait.resetImplicitTimeout(timeOut);
+					wait.resetExplicitTimeout(timeOut);
+				} catch (Exception E) {
+					wait.hardWait(6);
+					wait.resetImplicitTimeout(timeOut);
+					wait.resetExplicitTimeout(timeOut);
+					logMessage("Image not present");
+					// wait.waitForElementToDisappear(element("txt_multiYearWait"));
+				}
+			} else if (map().get("multiYearDecision").equalsIgnoreCase("3")) {
+				multiYearDecisionValue = "Three";
+				clickUsingXpathInJavaScriptExecutor(element("rad_multiYear",
+						multiYearDecisionValue));
+				// click(element("rad_multiYear", multiYearDecisionValue));
+				logMessage("STEP : MultiYearDecision " + multiYearDecisionValue
+						+ " value is clicked in rad_multiYear\n");
+				logMessage("STEP : Wait for price values to be changed after selection of multi year value\n");
+				try {
+					wait.waitForElementToDisappear(element("txt_multiYearWait"));
+				} catch (Exception E) {
+					logMessage("txt_multiYearWait did not appear");
+				}
+			} else {
+				logMessage("STEP : Multiyear flag is not present in price value sheet\n");
+			}
+		}
+	}
+	
+	public Map<String,String> verifyAdditionOfProductAndGetPrice(){
+		changeMembershipYear();
+		productAmounts.put("Iweb Pub Name?", verifyProductsAmount(map().get("Iweb Pub Name?")));
+		productAmounts.put("Iweb Division Name?", verifyProductsAmount(map().get("Iweb Division Name?")));
+		productAmounts.put("Product?", verifyProductsAmount(map().get("Product?")));
+		productAmounts.put("Iweb LS Name?", verifyProductsAmount(map().get("Iweb LS Name?")));
+		productAmounts.put("Iweb CEN Product Name?", verifyProductsAmount(map().get("Iweb CEN Product Name?")));
+		return productAmounts;
 	}
 
 }

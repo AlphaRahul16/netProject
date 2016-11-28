@@ -657,9 +657,9 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		logMessage("STEP : Clicked on Save And Return to dashboard button\n");
 	}
 
-	public void clickOnSideBarTabStudentChapter(String tabName, int index) {
-		isElementDisplayed("tab_sideBar", String.valueOf(index));
-		element("tab_sideBar", String.valueOf(index)).click();
+	public void clickOnACSSideBarTab(String tabName, int index) {
+		isElementDisplayed("tab_sideBar", tabName,String.valueOf(index));
+		element("tab_sideBar", tabName,String.valueOf(index)).click();
 		logMessage("STEP : Clicked on " + tabName + " tab\n");
 	}
 

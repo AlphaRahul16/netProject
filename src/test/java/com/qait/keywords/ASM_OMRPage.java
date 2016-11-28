@@ -312,6 +312,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		selectExpirationDate_Year("Year", year_Value);
 		checkAutoRenewalBox();
 		checkEula();
+		hardWaitForIEBrowser(4);
 		clickOnContinueButton();
 		switchToDefaultContent();
 		wait.hardWait(4);
@@ -410,7 +411,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		}
 		catch(Exception e)
 		{
-		executeJavascript("document.getElementById('eWebFrame').contentWindow.document.getElementById('btnSubmitOmrPaymentTop').click()");
+			clickUsingXpathInJavaScriptExecutor(element("btn_submitPayment"));
+//		executeJavascript("document.getElementById('eWebFrame').contentWindow.document.getElementById('btnSubmitOmrPaymentTop').click()");
 		}
 		logMessage("STEP : Click on Pay button at Top \n");
 		wait.resetExplicitTimeout(timeOut);

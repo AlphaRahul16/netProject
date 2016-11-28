@@ -341,6 +341,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public String verifyMemberDetails_InAddIndividual(String[] memDetails) {
 
 		wait.waitForPageToLoadCompletely();
+		hardWaitForIEBrowser(5);
 		verifyElementTextContent("txt_memberDetails", memDetails[0]);
 		logMessage("ASSERT PASSED :" + memDetails[0] + " is verified in txt_memberDetails\n");
 		verifyElementTextContent("txt_memberDetails", memDetails[1]);
@@ -606,8 +607,9 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName", "Subscriptions"));
 			logMessage("STEP : Subscription link is clicked\n");
 			waitForSpinner();
-			isElementDisplayed("btn_memberShip", "active subscriptions");
-			element("btn_memberShip", "active subscriptions").click();
+//			isElementDisplayed("btn_memberShip", "active subscriptions");
+			expandDetailsMenuIfAlreadyExpanded("active subscriptions");
+//			element("btn_memberShip", "active subscriptions").click();
 			wait.hardWait(2);
 			logMessage("STEP : Navigate to subscription menu on clicking more button\n");
 		} catch (StaleElementReferenceException stEx) {
@@ -806,14 +808,15 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			waitForSpinner();
 			wait.hardWait(2);
 			wait.waitForPageToLoadCompletely();
-			isElementDisplayed("btn_memberShip", "invoices (open batch)");
-			if (isIEBrowser()) {
-				clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", "invoices (open batch)"));
-			} else {
-				element("btn_memberShip", "invoices (open batch)").click();
-			}
-			logMessage("STEP : Invoices (open batch) drop down button is clicked\n");
-			logMessage("STEP : Navigate to Invoices menu on clicking more button\n");
+			expandDetailsMenuIfAlreadyExpanded("invoices (open batch)");
+//			isElementDisplayed("btn_memberShip", "invoices (open batch)");
+//			if (isIEBrowser()) {
+//				clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", "invoices (open batch)"));
+//			} else {
+//				element("btn_memberShip", "invoices (open batch)").click();
+//			}
+//			logMessage("STEP : Invoices (open batch) drop down button is clicked\n");
+//			logMessage("STEP : Navigate to Invoices menu on clicking more button\n");
 		} catch (StaleElementReferenceException stlEx) {
 			isElementDisplayed("img_moreMenu");
 			if (isIEBrowser()) {
@@ -1512,7 +1515,11 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickGotoRecordForRenewal() {
 		isElementDisplayed("txt_gotorecordrenewal", "1");
-		element("txt_gotorecordrenewal", "1").click();
+		if(isBrowser("ie") || isBrowser("internet explorer")){
+			clickUsingXpathInJavaScriptExecutor(element("txt_gotorecordrenewal", "1"));
+		}
+		else
+		    element("txt_gotorecordrenewal", "1").click();
 		logMessage("STEP : Goto record is clicked for latest Invoice\n");
 	}
 
@@ -1873,26 +1880,27 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyChapterStatusIsTransferred(String tabName, String chpName) {
-		int i;
+		int i,index=0;
 		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy");
 		isElementDisplayed("list_memberDetails", tabName);
 		for (i = 1; i < elements("list_memberDetails", tabName).size(); i++) {
 			if (element("txt_memberDetailsForChapter", tabName, String.valueOf(4), String.valueOf(i)).getText().trim()
 					.equals(chpName) && checkTerminateDateIsNull(i, tabName, currentDate, 11)) {
 				flag = true;
+				index=i;
 				break;
 			}
 		}
 		// Assert.assertTrue(flag,"ASSERT FAILED : Mbr Status of Chapter
 		// "+chpName+" is not changed to Transferred\n");
-		System.out.println("------i:"+i);
-		Assert.assertTrue(checkTerminateDateIsNull(i, tabName, "Transferred", 6),
+		System.out.println("-------index:"+index);
+		Assert.assertTrue(checkTerminateDateIsNull(index, tabName, "Transferred", 6),
 				"ASSERT FAILED : Mbr Status of Chapter " + chpName + " is not changed to Transferred\n");
 		logMessage("ASSERT PASSED : Mbr Status of Chapter " + chpName + " is changed to Transferred\n");
 		// Assert.assertTrue(checkTerminateDateIsNull(i,tabName,currentDate,11),"ASSERT
 		// FAILED : Terminate date is not equal to current date\n");
 		logMessage("ASSERT PASSED : Terminate date "
-				+ element("txt_memberDetailsForChapter", tabName, String.valueOf(11), String.valueOf(i)).getText()
+				+ element("txt_memberDetailsForChapter", tabName, String.valueOf(11), String.valueOf(index)).getText()
 						.trim()
 				+ " is equal to current date " + currentDate + "\n");
 	}

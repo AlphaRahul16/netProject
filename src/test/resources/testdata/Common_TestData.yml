@@ -28,6 +28,8 @@ csv-data-file:
   path_Import_Profile: ./src/test/resources/TestDataLibrary/Rubber_Import_Insurance_Profile.csv
   path_Chapter_Relationships: ./src/test/resources/TestDataLibrary/Chapter_Relationship_Datasheet.csv
   path_AACT_OMR: ./src/test/resources/TestDataLibrary/AACT_OMR_Datasheet.csv
+  path_SourceCodes: ./src/test/resources/TestDataLibrary/ACS_SourceCodes_Datasheet.csv
+  
 
   data-separator: '\t'
   has-header: true
@@ -667,6 +669,9 @@ ACS_MyAccount:
     phoneSaveMessage: "Phone number is successfully saved!"
     addressSaveMessage: "Address is successfully saved! Click close button to close the popup."
     passwordChangedMessage: "Password successfully changed."
+    
+ACS_SourceCodes:
+    queryName: "Selenium - Active Source Codes"
                     
 email:
   send: true
