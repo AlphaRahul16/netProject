@@ -68,10 +68,8 @@ public class ACS_My_Account_Test extends BaseTest {
 		userName = test.acsMyAccount.map().get("First_Name") + number;
 		webLogin = test.acsMyAccount.map().get("UserName") + number;
 		test.launchApplication(app_url_MyAccount_newUser);
-		// test.acsMyAccount.clickOnLoginButton("Log In");
-		// test.acsMyAccount.clickOnLoginButton("Registering is easy");
-		test.acsMyAccount.createNewUser(test.acsMyAccount.map().get("Email"), test.acsMyAccount.map().get("First_Name"),
-				test.acsMyAccount.map().get("Last_Name"), webLogin, test.acsMyAccount.map().get("Password"), number);
+		test.acsMyAccount.createNewUser(test.acsMyAccount.map().get("Email"),test.acsMyAccount.map().get("First_Name"),test.acsMyAccount.map().get("Last_Name")
+				,webLogin,test.acsMyAccount.map().get("Password"),number);	
 		test.acsMyAccount.clickOnCreateAccountButton("submit_button");
 		test.acsMyAccount.clickOnACSWButton("Continue to www.acs.org");
 		telephoneType = "Home";
