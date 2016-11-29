@@ -464,7 +464,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 	public void enterJobExperience(String isJobExp, String jobExp) {
 		if (isJobExp.equalsIgnoreCase("SHOW")) {
 			element("txtAr_professionalExp").sendKeys(jobExp);
-			logMessage("STEP : job experience " + jobExp
+			logMessage("STEP : " + jobExp
 					+ " is entered in txtAr_professionalExp\n");
 		}
 	}

@@ -271,4 +271,12 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		}
 
 	}
+
+//	public void skipMethodAccordingToScenario(boolean condition, String methodName) {
+//		// TODO Auto-generated method stub
+//		if(test.homePageIWEB.map().get("Scenario").trim().equals("1"))
+//	    {
+//			methodName;
+//	    }
+//	}
 }

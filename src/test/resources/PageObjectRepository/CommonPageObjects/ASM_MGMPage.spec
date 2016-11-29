@@ -17,5 +17,4 @@ list_email                                        id                            
 txt_nomineeStatus								  css										 #nomineeStatus>span
 link_nomineeStatus								  xpath										 //span[text()='${text}']/../../following-sibling::span/a	
 link_applyACSmembership								xpath									//a[contains(text(),'${text}')]
-inp_MGMDetails										id										prospect${text}
 =====================================================================================================================================

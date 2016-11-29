@@ -4022,7 +4022,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyInvoiceIsAdded(String customerName) {
 		isElementDisplayed("txt_effectiveDateMemberType", customerName);
 		String actual = element("txt_effectiveDateMemberType", customerName).getText().trim();
-		String expected = DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY");
+		//String expected = DateUtil.getCurrentdateInStringWithGivenFormate();
+		String expected=DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY", "EDT");
 		Assert.assertEquals(actual, expected);
 		logMessage("STEP : Customer " + customerName + " is added with current date "
 				+ DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY"));
@@ -4450,14 +4451,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	private void verifyMembershipTypeForAACTOMR(String type, String index, String membershipType, String label) {
 		isElementDisplayed("txt_membershipType", type, index);
 		Assert.assertTrue(element("txt_membershipType", type, index).getText().contains(membershipType));
-		logMessage("ASSERT PASSED: " + label + " is verify as " + membershipType);
+		logMessage("ASSERT PASSED: " + label + " is verified as " + membershipType);
 	}
 
 	private void verifyDetailsForAACTOMR(String value, String text, String index, String label) {
 		isElementDisplayed("txt_payments", text, index);
 		Assert.assertEquals(element("txt_payments", text, index).getText().replace("$", "").trim(), value);
 		// Assert.assertTrue(.contains());
-		logMessage("ASSERT PASSED: Verified " + label + " as " + value + "\n");
+		logMessage("ASSERT PASSED: " + label + " is verified as " + value + "\n");
 
 	}
 
@@ -4597,8 +4598,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		for (int i = 0; i < times; i++) {
 			EnterTextInField(elements("inp_customerId").get(i),
 					DateUtil.getAnyDateForType("MM/dd/yyyy", 1, "year"));
-			logMessage("STEP : Date is entered as " + DateUtil.getAnyDateForType("MM/dd/yyyy", 1, "year") + "for "
-					+ i + "field");
+			logMessage("STEP : Ask at run time Date is entered as " + DateUtil.getAnyDateForType("MM/dd/yyyy", 1, "year") + "for "
+					+ i + " field");
 		}
 	}
 
