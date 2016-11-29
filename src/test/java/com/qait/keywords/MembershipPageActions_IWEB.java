@@ -1,6 +1,7 @@
 package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
+import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -731,9 +732,16 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(5);
 		isElementDisplayed("btn_saveAndFinish");
 		hardWaitForIEBrowser(10);
+		if(isBrowser("ie") || isBrowser("internet explorer")){
+			 hoverClick(element("btn_saveAndFinish"));
+			 clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
+		}
+		else
+			hoverClick(element("btn_saveAndFinish"));
+		// element("btn_saveAndFinish").click();
 		// clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
 		// element("btn_saveAndFinish").click();
-		hoverClick(element("btn_saveAndFinish"));
+
 		wait.hardWait(15);
 		logMessage("STEP : Save and finish button is clicked\n");
 	}
@@ -1830,7 +1838,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		try {
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
-			clickUsingXpathInJavaScriptExecutor(element("lnk_first_invoice_number"));
+			clickUsingXpathInJavaScriptExecutor(element("lnk_first_invoice_number",String.valueOf(1)));
 		} catch (NoSuchElementException e) {
 			logMessage("STEP : Invoice Number Clicked");
 		}
@@ -1991,7 +1999,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void navigateToInvoicePageForRenewedProduct() {
 		isElementDisplayed("btn_gotorenewal");
-		element("btn_gotorenewal").click();
+		if(isBrowser("ie") || isBrowser("internet explorer")){
+			clickUsingXpathInJavaScriptExecutor(element("btn_gotorenewal"));
+		}
+		else
+		    element("btn_gotorenewal").click();
 		logMessage("STEP : Navigate to invoice profile page for Renewed product in btn_gotorenewal\n");
 
 	}
@@ -2160,6 +2172,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			// TODO Remove hard wait after handling stale element exception
 			holdExecution(1000);
 		}
+		hardWaitForIEBrowser(5);
 		String totalPrice = getTotalPrice();
 		clickOnSaveAndFinish();
 		switchToDefaultContent();
@@ -2309,6 +2322,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyPrice(String itemName, String price) {
+		hardWaitForIEBrowser(4);
+		wait.hardWait(4);
+		scrollDown(element("txt_priceOrderEntryLineItmes", itemName));
 		isElementDisplayed("txt_priceOrderEntryLineItmes", itemName);
 		String actualPrice = element("txt_priceOrderEntryLineItmes", itemName).getText().trim();
 
@@ -2363,6 +2379,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 			handleAlert();
 			waitForSpinner();
+			hardWaitForIEBrowser(4);
 
 			verifyPrice(productName_TotalPrice[0], map().get("Sub" + i + "_SalePrice?"));
 		}
@@ -2540,6 +2557,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public List<String> getCustomerFullNameAndContactID() {
 		clickOnEditNameAndAddress();
+		hardWaitForIEBrowser(3);
 		switchToFrame("iframe1");
 		customerLname = getNameFromEditNameAndAddressButton("lastName") + " "
 				+ getNameFromEditNameAndAddressButton("firstName") + " "
@@ -3886,8 +3904,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 		isElementDisplayed("arrow_selectMember", String.valueOf(i),String.valueOf(3));
 		logMessage("STEP : Selected Student Member is "
-				+ element("txt_endDate", String.valueOf(i), String.valueOf(4)).getText().trim());
-		element("arrow_selectMember", String.valueOf(i),String.valueOf(3)).click();
+				+ element("txt_endDate", String.valueOf(i), String.valueOf(4))
+						.getText().trim());
+		if(isBrowser("ie") || isBrowser("internet explorer")){
+			clickUsingXpathInJavaScriptExecutor(element("arrow_selectMember", String.valueOf(i)));
+		}
+		else
+		    element("arrow_selectMember", String.valueOf(i)).click();
 	}
 
 	public void verifyPayment(int index) {
@@ -4069,6 +4092,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToFrame(element("iframe"));
 		wait.hardWait(2);
 		clickOnSearchDisplayNameButton();
+		hardWaitForIEBrowser(7);
 		selectRandomMemberByAscendingHeader("Price", "price_txt");
 		// selectRandomUserOnAscendingHeader("Available Quantity");
 	}
@@ -4080,6 +4104,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void selectRandomMemberByAscendingHeader(String headerName, String locator) {
 		_clickOnAvailableQuantityForSorting(headerName);
 		_clickOnAvailableQuantityForSorting(headerName);
+		hardWaitForIEBrowser(4);
 		clickOnRandomPage(10, 2);
 		clickOnAnyRandomMember1(locator);
 		wait.hardWait(4);
@@ -4116,6 +4141,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyAutoPayStatusAfterAutoRenewal(String value) {
+		hardWaitForIEBrowser(5);
 		isElementDisplayed("mbr_autoPay", value);
 		Assert.assertTrue(isElementDisplayed("mbr_autoPay", value), "Auto Pay renewal image is not checked\n");
 		logMessage("ASSERT PASSED : <b>AutoPay Renewal image is checked</b>\n");
@@ -4480,6 +4506,69 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("STEP : Valid Member selected For AACT OMR\n");
 		return weblogin;
 
+	}
+	
+	public String getDomesticSourceCode(){
+		int index=0;
+		String srcCode = "";
+		isElementDisplayed("list_sourceCodes");
+		for(int i=1;i<=elements("list_sourceCodes").size();i++){
+			if(element("lnk_first_invoice_number",String.valueOf(i)).getText().trim().endsWith("d")){
+				index=i;
+				srcCode=element("lnk_first_invoice_number",String.valueOf(index)).getText().trim();
+				break;
+			}
+		}
+		System.out.println("-----index:"+index);
+		System.out.println("domestic source code:"+srcCode);
+		return srcCode;
+	}
+	
+	public void clickOnArrowButton(String srcCodeName){
+		isElementDisplayed("lnk_sourceCode", srcCodeName);
+		element("lnk_sourceCode", srcCodeName).click();
+		logMessage("STEP: Source Code "+srcCodeName+" is selected\n");
+	}
+	
+	public void selectDomesticProduct(){
+	    int i=1;
+	    String srcCode;
+	    HomePageActions_IWEB objHome=new HomePageActions_IWEB(driver);
+	    MembershipPageActions_IWEB obj=new MembershipPageActions_IWEB(driver);
+		while(i<=3){
+			srcCode=getDomesticSourceCode();
+			if(!srcCode.equals("")){
+				clickOnArrowButton(srcCode);
+				break;
+			}
+			else{
+				i++;
+				logMessage("STEP: Looping again to find domestic source code\n");
+				objHome.clickOnTab("Query Source Code");
+				obj.selectAndRunQuery(getYamlValue("ACS_SourceCodes.queryName"));
+				obj.verifyOueryAskAtRunTimePage();
+			    obj.clickOnGoButtonAfterPackageSelection();
+			}
+		}
+	}
+	
+	public String getSourceCodeValue(String label){
+		isElementDisplayed("txt_sourceCode",label);
+		logMessage("STEP: Source code value is "+element("txt_sourceCode",label).getText().trim());
+		return element("txt_sourceCode",label).getText().trim();
+	}
+	
+	public void verifyMemberDetails(String tabName, int index1, int index2,
+			String expectedValue, String field) {
+		System.out.println("-------"
+				+ element("txt_memberDetails", tabName, String.valueOf(index1),
+						String.valueOf(index2)).getText().trim());
+		Assert.assertTrue(expectedValue.equalsIgnoreCase(element(
+				"txt_memberDetails", tabName, String.valueOf(index1),
+				String.valueOf(index2)).getText().trim()), "ASSERT FAILED: "
+				+ field + " is not verified as " + expectedValue + "\n");
+		logMessage("ASSERT PASSED: " + field + " is verified as "
+				+ expectedValue + "\n");
 	}
 
 	public List<String> getWebloginAndRecordNumber() {
