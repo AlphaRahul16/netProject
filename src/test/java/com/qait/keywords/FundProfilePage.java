@@ -144,8 +144,10 @@ public class FundProfilePage extends ASCSocietyGenericPage
 		isElementDisplayed("chkbox_defaultprice");
 		if(mapSheetData.get("Default_price?").contains(number))
 		{
+			System.out.println("----in if");
 			wait.hardWait(2);
-			element("chkbox_defaultprice").click();
+			clickUsingXpathInJavaScriptExecutor(element("chkbox_defaultprice"));
+//			element("chkbox_defaultprice").click();
 			wait.hardWait(2);
 			logMessage("STEP : Checkbox default price is clicked\n");
 		}

@@ -45,7 +45,7 @@ heading_reportComplete                   xpath                        //h2[conta
 btn_modalSubmit                          xpath                        //div[@class='modal-body']//input[@value='${value}']
 heading_confirmReport                    xpath                        //h3[contains(text(),'Confirm Chapter Report')]
 hd_sideBar                               xpath                        //a[text()='${value}']
-tab_sideBar                              xpath                        //h3[normalize-space(text()='Student Chapter Report')][${index}]
+tab_sideBar                              xpath                        //h3[normalize-space(text()='${tabName}')][${index}]
 txtbox_chapterName                       id                           ValueTextBox0
 drpdown_status                           id                           ValueDropDownList2
 btn_go                                   id                           ButtonSearch

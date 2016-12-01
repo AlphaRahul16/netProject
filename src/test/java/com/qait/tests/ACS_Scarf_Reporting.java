@@ -211,7 +211,7 @@ public class ACS_Scarf_Reporting{
 
 	@Test
 	public void Step18_Search_For_The_Submitted_Chapter_Report() {
-		test.acsScarfReporting.clickOnSideBarTabStudentChapter("Student Chapter Report", 2);
+		test.acsScarfReporting.clickOnACSSideBarTab("Student Chapter Report", 2);
 		test.acsScarfReporting.clickOnSideBarSubTab("Find");
 		test.acsScarfReporting.findSubmiitedChapterReport(chapterName, "Submitted");// chapterName "Kennesaw State University Student Chapter"
 		test.acsScarfReporting.clickOnGoButton();

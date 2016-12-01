@@ -15,7 +15,6 @@ btn_sendInvite                                    xpath                         
 txt_errorMessage                                  xpath                                      //span[contains(@id,'lblMessage')]
 list_email                                        id                                         lblNomEmail
 txt_nomineeStatus								  css										 #nomineeStatus>span
-link_nomineeStatus								  id										 nomineeStatus	
-link_applyACSmembership								xapth									//a[contains(text(),'${text}')]
-inp_MGMDetails										id										prospect${text}
+link_nomineeStatus								  xpath										 //span[text()='${text}']/../../following-sibling::span/a	
+link_applyACSmembership								xpath									//a[contains(text(),'${text}')]
 =====================================================================================================================================

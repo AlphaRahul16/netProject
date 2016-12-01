@@ -120,7 +120,7 @@ txt_recordNumberAtMemberQuery                    classname                      
 txt_loadOnExistingQueryLabel                      id                            LoadQueryLabel
 link_pagesAvailable                              classname                      DataFormChildDataGridPagerLink
 lnk_invoice_number                                 xpath                        //table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3][contains(text(),'${value}')]
-lnk_first_invoice_number                           xpath                        (//table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3])[1] 
+lnk_first_invoice_number                           xpath                        (//table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3])[${index}] 
 txt_webLogin                                       id                            F1_cst_web_login
 btn_arrowRightCircle                             xpath                          (//i[@class='iconpro-circle-arrow-right'])[1]
 link_tabsOnModule                                 xpath                          //a[text()='${value}']
@@ -179,7 +179,7 @@ table_rows                                      xpath                           
 txt_current                                     xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[5]
 txt_startDate                                   xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[8]
 txt_endDate                                     xpath                           (//th/a)[2]/../../following-sibling::tr[${index1}]//td[${index2}]
-arrow_selectMember                              xpath                           (//th/a)[2]/../../following-sibling::tr[${index}]//td[3]//a
+arrow_selectMember                              xpath                           (//th/a)[2]/../../following-sibling::tr[${index}]//td[${index2}]//a
 btn_CurrentYearPencil                           xpath                           //td[contains(text(),'Yes')]/preceding-sibling::td//i
 inp_dateForReviewModes                          xpath                           //input[@title='${reviewtitle}']
 mbr_autoPay                                     css                             img[title*='mbr_auto_pay'][src*='${value}']
@@ -207,7 +207,10 @@ form_coe                                        id                              
 txt_payments									xpath							 //td[starts-with(text(),'${memberType}')]/following-sibling::td[${index}]
 txt_membershipType								xpath							//td[contains(text(),'${memberType}')]/preceding-sibling::td[${index}]
 list_country									css								#adr_country>option[selected]
-
+list_sourceCodes                                xpath                           //table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3] 
+lnk_sourceCode                                  xpath                           //td[contains(text(),'${name}')][1]/preceding-sibling::td//img
+txt_sourceCode                                  xpath                           //label[text()='${label}:']/preceding-sibling::span
+txt_memberDetails                               xpath                           (//span[text()='${tabName}']/parent::td/parent::tr/following-sibling::tr//tr[not(contains(@style,'none'))])[%{index1}]/td[#{column}]
 ##----------------------------------------------------------Credit_Page-------------------------------------------------------------------------
 icon_expand										css								.icon-chevron-down
 drpdown_batchNameCreditPage						css								#cdt_bat_key

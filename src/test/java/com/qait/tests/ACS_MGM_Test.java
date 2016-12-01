@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import org.testng.Reporter;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
@@ -20,10 +21,14 @@ public class ACS_MGM_Test extends BaseTest {
 	private String IWEBurl, MGMpageURL;
 	private String app_url_IWEB, app_url_MGMUrl, app_url_MGMjoin, app_url_MGMOptOut, app_url_MGMLogout;
 	private List<String> memberDetails;
-	private String uniqueEmail, app_ID, memberID;
+	private String uniqueEmail, app_ID, memberID, fname, lname;
 	String[] userDetail;
 	private List<String> customerFullNameList;
-	private String webLogin;
+	private String webLogin, scenarioNo;
+	private String constitID;
+	private String MGMpageURL2;
+	private String memberDetailUrl2;
+	private List<String> detailsForMember2;
 
 	public ACS_MGM_Test() {
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "MGM";
@@ -41,14 +46,16 @@ public class ACS_MGM_Test extends BaseTest {
 		if (caseID != null) {
 			Reporter.log("       TEST CASE ID : " + caseID + "       \n", true);
 		}
-		test.launchApplication(app_url_IWEB);
-		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
-				YamlReader.getYamlValue("Authentication.password"));
+		scenarioNo = test.homePageIWEB.map().get("Scenario").trim();
+
 	}
 
 	@BeforeMethod
 	public void printCaseIdExecuted(Method method) {
 		test.printMethodName(method.getName());
+		if (!(method.getName().contains("Scenario" + scenarioNo))) {
+			throw new SkipException("Tests Skipped for expected work flows!");
+		}
 	}
 
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
@@ -56,50 +63,143 @@ public class ACS_MGM_Test extends BaseTest {
 		this.caseID = caseID;
 	}
 
-	// @Test
-	public void Run_Query_And_Fetch_Weblogin_And_Record_Number(String sideBarTab, String tab, String query) {
+	public void launch_IWeb_Application_And_Run_Query(String sideBarTab, String tab, String query, int times,
+			String moduleName) {
 
+		test.launchApplication(app_url_IWEB);
+		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
+				YamlReader.getYamlValue("Authentication.password"));
+		test.homePageIWEB.clickOnModuleTab();
+		test.homePageIWEB.clickOnTab(moduleName);
 		test.homePageIWEB.clickOnSideBarTab(sideBarTab);
 		test.memberShipPage.clickOnTab(tab);
 		test.memberShipPage.selectAndRunQuery(query);
+		test.memberShipPage.enterDatesInRunTime(times);
 		test.memberShipPage.clickOnGoButtonAfterPackageSelection();
-		
-		
-		System.out.println("url" + IWEBurl);
 	}
 
-	//@Test
-	public void Step01_Launch_MGM_Invite_New_Member_And_Verify_Status() {
-		Run_Query_And_Fetch_Weblogin_And_Record_Number("Individuals", "Query Individual",
-				getYamlValue("ACS_MGM.query1"));
+	@Test
+	public void Step01_Run_Query_For_Scenario2() {
+		launch_IWeb_Application_And_Run_Query("Members", "Query Membership", getYamlValue("ACS_MGM.query2"), 0,
+				"Membership");
+		webLogin = test.memberShipPage.getCstWebLoginForMembership("7");
+		IWEBurl = test.individualsPage.getCurrentURL();
+	}
+
+	@Test
+	public void Step02_Invite_New_Member_Click_On_Apply_for_ACS_Membership_link_Scenario2() {
+		test.launchApplication(app_url_MGMUrl);
+		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
+	}
+
+	@Test
+	public void Step03_Ensure_individual_Is_Redirected_To_OMA_And_Information_Is_Prepopulated_Scenario2() {
+		test.asm_MGM.clickOnApplyForACSMembership();
+		test.ContactInfoPage.verifyDetailsArePrepopulated();
+		test.memberShipPage.launchUrl(app_url_MGMLogout);
+	}
+
+	@Test
+	public void Step04_Run_Query_For_Scenario3() {
+		launch_IWeb_Application_And_Run_Query("Individuals", "Query Individual", getYamlValue("ACS_MGM.query1"), 2,
+				"CRM");
 		memberDetails = test.memberShipPage.getWebloginAndRecordNumber();
 		IWEBurl = test.individualsPage.getCurrentURL();
+
+	}
+
+	@Test
+	public void Step05_Invite_Non_Member_Scenario3() {
 		test.launchApplication(app_url_MGMUrl);
 		test.asm_MGM.loginInToApplication(memberDetails.get(1).trim(), getYamlValue("password"));
 		uniqueEmail = test.asm_MGM.submitMemberDetailsToInvite(test.homePageIWEB.map().get("MGM_FNAME").trim(),
 				test.homePageIWEB.map().get("MGM_LNAME").trim(), test.homePageIWEB.map().get("MGM_Email").trim());
-
-		MGMpageURL = test.asm_MGM.verifyNomineeStatus("Resend");
-		test.memberShipPage.verifyNomineeStatusOnIWEB(IWEBurl, "PENDING", uniqueEmail,
-				test.homePageIWEB.map().get("MGM_FNAME").trim(), test.homePageIWEB.map().get("MGM_LNAME").trim());
-
-		MGMpageURL = test.asm_MGM.verifyStatusAfterClickResend("Resend", MGMpageURL);
-		test.memberShipPage.verifyNomineeStatusOnIWEB(IWEBurl, "PENDING", uniqueEmail,
-				test.homePageIWEB.map().get("MGM_FNAME").trim(), test.homePageIWEB.map().get("MGM_LNAME").trim());
-
-		test.asm_MGM.verifyStatusAfterClickResend("Pending", MGMpageURL);
+		// MGMpageURL = test.asm_MGM.verifyNomineeStatus("Resend", uniqueEmail);
 		test.memberShipPage.verifyNomineeStatusOnIWEB(IWEBurl, "PENDING", uniqueEmail,
 				test.homePageIWEB.map().get("MGM_FNAME").trim(), test.homePageIWEB.map().get("MGM_LNAME").trim());
 		app_ID = test.memberShipPage.getApplicationID();
+	}
+
+	@Test
+	public void Step06_New_Individual_Opts_Out_And_Confirm_Status_On_IWEB_And_MGM_Dashboard__Scenario3() {
+		Reporter.log("******** Application ID-" + app_ID + "********");
+		test.memberShipPage.launchUrl(app_url_MGMOptOut + app_ID);
+		test.launchApplication(app_url_MGMUrl);
+		test.asm_MGM.loginInToApplication(memberDetails.get(1).trim(), getYamlValue("password"));
+		MGMpageURL = test.asm_MGM.verifyNomineeStatus("Opted Out", uniqueEmail);
+		test.memberShipPage.verifyNomineeStatusOnIWEB(IWEBurl, "OPTED-OUT", uniqueEmail,
+				test.homePageIWEB.map().get("MGM_FNAME").trim(), test.homePageIWEB.map().get("MGM_LNAME").trim());
+		test.memberShipPage.launchUrl(app_url_MGMLogout);
+	}
+
+	@Test
+	public void Step07_Run_Query_For__And_Fetch_Weblogin_Scenario4() {
+		launch_IWeb_Application_And_Run_Query("Individuals", "Query Individual", getYamlValue("ACS_MGM.query3"), 3,
+				"CRM");
+		webLogin = test.memberShipPage.getCstWebLoginForMembership("3");
+		IWEBurl = test.individualsPage.getCurrentURL();
+		test.launchApplication(app_url_MGMUrl);
+		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
+	}
+
+	@Test
+	public void Step08_Verify_That_Clicking_On_Renew_Your_Membership_Now_Link_Redirects_To_OMR__Scenario4() {
+		test.asm_MGM.clickOnRenewYourMembershipNow();
+		test.asm_OMR.OMRLogo("Online Membership Renewal");
+		test.memberShipPage.launchUrl(app_url_MGMLogout);
+	}
+
+	// =============================================================================================
+	@Test
+	public void Step09_Launch_MGM_Invite_New_Member_Scenario1_Scenario5() {
+		launch_IWeb_Application_And_Run_Query("Individuals", "Query Individual", getYamlValue("ACS_MGM.query1"), 2,
+				"CRM");
+		memberDetails = test.memberShipPage.getWebloginAndRecordNumber();
+		IWEBurl = test.individualsPage.getCurrentURL();
+		test.launchApplication(app_url_MGMUrl);
+		test.asm_MGM.loginInToApplication(memberDetails.get(1).trim(), getYamlValue("password"));
+		fname = test.homePageIWEB.map().get("MGM_FNAME").trim() + System.currentTimeMillis();
+		lname = test.homePageIWEB.map().get("MGM_LNAME").trim() + System.currentTimeMillis();
+		uniqueEmail = test.asm_MGM.submitMemberDetailsToInvite(fname, lname,
+				test.homePageIWEB.map().get("MGM_Email").trim());
+	}
+
+	@Test
+	public void Step10_Verify_Nominee_Status_On_MGM_And_IWEB_Scenario1_Scenario5() {
+
+		MGMpageURL = test.asm_MGM.verifyNomineeStatus("Resend", uniqueEmail);
+		test.memberShipPage.verifyNomineeStatusOnIWEB(IWEBurl, "PENDING", uniqueEmail, fname, lname);
+
+		MGMpageURL = test.asm_MGM.verifyStatusAfterClickResend("Resend", MGMpageURL, uniqueEmail);
+		test.memberShipPage.verifyNomineeStatusOnIWEB(IWEBurl, "PENDING", uniqueEmail, fname, lname);
+
+		test.asm_MGM.verifyStatusAfterClickResend("Pending", MGMpageURL, uniqueEmail);
+		test.memberShipPage.verifyNomineeStatusOnIWEB(IWEBurl, "PENDING", uniqueEmail, fname, lname);
+		app_ID = test.memberShipPage.getApplicationID();
+		test.memberShipPage.launchUrl(app_url_MGMLogout);
 
 	}
 
-	//@Test(dependsOnMethods = "Step01_Launch_MGM_Invite_New_Member_And_Verify_Status")
-	public void Step02_New_Individual_Joins_ACS_And_Verify_That_The_Source_Code_Is_Populated() {
+	@Test
+	public void Step11_Get_Memberdetails_From_IWEB_And_Invite_Same_Member_Scenario5() {
+		test.launchApplication(app_url_IWEB);
+		launch_IWeb_Application_And_Run_Query("Individuals", "Query Individual", getYamlValue("ACS_MGM.query1"), 2,
+				"CRM");
+		detailsForMember2 = test.memberShipPage.getWebloginAndRecordNumber();
+		memberDetailUrl2 = test.individualsPage.getCurrentURL();
+		test.launchApplication(app_url_MGMUrl);
+		test.asm_MGM.loginInToApplication(detailsForMember2.get(1).trim(), getYamlValue("password"));
+		test.asm_MGM.submitSameMemberDetailsToInvite(fname, lname, uniqueEmail);
+		MGMpageURL2 = test.asm_MGM.verifyNomineeStatus("Resend", uniqueEmail);
+		test.memberShipPage.verifyNomineeStatusOnIWEB(memberDetailUrl2, "PENDING", uniqueEmail, fname, lname);
+		test.memberShipPage.launchUrl(app_url_MGMLogout);
+	}
+
+	@Test
+	public void Step12_New_Individual_Joins_ACS_And_Verify_That_The_Source_Code_Is_Populated_Scenario1_Scenario5() {
 		test.launchApplication(app_url_MGMjoin + app_ID);
 		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
-		test.ContactInfoPage.enterContactInformationWithMemberNumber(uniqueEmail,
-				test.homePageIWEB.map().get("MGM_FNAME"), test.homePageIWEB.map().get("MGM_LNAME"), "",
+		test.ContactInfoPage.enterContactInformationWithMemberNumber(uniqueEmail, fname, lname, "",
 				test.homePageIWEB.map().get("AddressType"), test.homePageIWEB.map().get("Address"),
 				test.homePageIWEB.map().get("City"), test.homePageIWEB.map().get("Country"),
 				test.homePageIWEB.map().get("State"), test.homePageIWEB.map().get("ZipCode"));
@@ -112,94 +212,50 @@ public class ACS_MGM_Test extends BaseTest {
 		test.ContactInfoPage.clickContinue();
 		test.checkoutPage.verifySourceCodeIsAlreadyFilled();
 
-		test.checkoutPage.enterPaymentInfo(YamlReader.getYamlValue("creditCardInfo.Type"),
-				test.homePageIWEB.map().get("MGM_FNAME").trim() + " " + test.homePageIWEB.map().get("MGM_LNAME").trim(),
+		test.checkoutPage.enterPaymentInfo(YamlReader.getYamlValue("creditCardInfo.Type"), fname + " " + lname,
 				YamlReader.getYamlValue("creditCardInfo.Number"), YamlReader.getYamlValue("creditCardInfo.cvv-number"));
 		test.checkoutPage.clickAtTestStatement();
 		test.ContactInfoPage.clickContinue();
 		test.checkoutPage.clickSubmitButtonAtBottom();
+		constitID = test.confirmationPage.getMemberDetail("member-number");
+
 	}
 
-	// @Test(dependsOnMethods =
-	// "Step02_New_Individual_Joins_ACS_And_Verify_That_The_Source_Code_Is_Populated")
-	public void Step03_Verify_The_Nominators_Invitation_Status_On_The_MGM_Dashboard_And_In_Iweb() {
-		test.asm_MGM.verifyStatusAfterClickResend("Joined", MGMpageURL);
+	@Test
+	public void Step13_Nominee_Joins_From_Member1_Invitation_Verify_Status_On_MGM_Dashboard_And_IWEB_Scenario5_Scenario1() {
+		test.launchApplication(app_url_MGMUrl);
+		test.asm_MGM.loginInToApplication(memberDetails.get(1).trim(), getYamlValue("password"));
+		test.asm_MGM.verifyStatusAfterClickResend("Joined", MGMpageURL, uniqueEmail);
+		test.memberShipPage.launchUrl(app_url_MGMLogout);
 		test.memberShipPage.verifyNominatorDetailsOnIweb(IWEBurl, app_ID, test.homePageIWEB.map().get("Program").trim(),
-				test.homePageIWEB.map().get("Channel").trim(), test.homePageIWEB.map().get("MGM_FNAME").trim(),
-				test.homePageIWEB.map().get("MGM_LNAME").trim(), uniqueEmail, "JOINED", "Paid",
-				test.homePageIWEB.map().get("Source Code").trim(), memberDetails.get(0).trim());
+				test.homePageIWEB.map().get("Channel").trim(), fname, lname, uniqueEmail, "JOINED", "Paid",
+				test.homePageIWEB.map().get("Source Code").trim(), constitID);
 		customerFullNameList = test.memberShipPage.getCustomerFullNameAndContactID();
-		test.memberShipPage.clickOnID();
+
 	}
 
-	// @Test(dependsOnMethods =
-	// "Step03_Verify_The_Nominators_Invitation_Status_On_The_MGM_Dashboard_And_In_Iweb")
-	public void Step04_Verify_Nomiee_Details_On_IWEB() {
+	@Test
+	public void Step14_Status_In_Iweb_And_On_MGMDashboard_For_Member2_Indicates_Already_A_Member_Scenario5() {
+		test.launchApplication(app_url_MGMUrl);
+		test.asm_MGM.loginInToApplication(detailsForMember2.get(1).trim(), getYamlValue("password"));
+		test.asm_MGM.verifyStatusAfterClickResend("Already a Member", MGMpageURL2, uniqueEmail);
+		test.memberShipPage.launchUrl(app_url_MGMLogout);
+		test.memberShipPage.verifyNomineeStatusOnIWEB(memberDetailUrl2, "ALREADY-JOINED", uniqueEmail, fname, lname);
+
+	}
+
+	@Test
+	public void Step15_Verify_Nomiee_Details_On_IWEB_Scenario1() {
+		test.memberShipPage.clickOnConstitID_underMyACSNominations();
 		test.memberShipPage.verifyNomieeDetails(app_ID, test.homePageIWEB.map().get("Program").trim(),
 				test.homePageIWEB.map().get("Channel").trim(), "JOINED", "Paid",
 				test.homePageIWEB.map().get("Source Code").trim(), memberID);
 	}
 
-	// @Test(dependsOnMethods = "Step04_Verify_Nomiee_Details_On_IWEB")
-	public void Step05_verify_After_Clicking_The_NominatorID_Takes_To_The_Nominators_Record() {
-		test.memberShipPage.clickOnID();
-		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Individuals |" + customerFullNameList.get(0).trim());
-		test.memberShipPage.launchUrl(app_url_MGMLogout);
-	}
-
 	@Test
-	public void Step06_Run_Query_For_Scenario2() {
-		test.homePageIWEB.clickOnModuleTab();
-		test.homePageIWEB.clickOnTab("Membership");
-		Run_Query_And_Fetch_Weblogin_And_Record_Number("Members", "Query Membership", getYamlValue("ACS_MGM.query2"));
-	}
-
-	@Test(dependsOnMethods="Step06_Run_Query_For_Scenario2")
-	public void Step07_Invite_New_Member_Click_On_Apply_for_ACS_Membership_link() {
-		System.out.println(app_url_MGMUrl);
-		test.launchApplication(app_url_MGMUrl);
-		//System.out.println(memberDetails.get(1).trim());
-		webLogin = test.memberShipPage.getCstWebLoginForMembership();
-		IWEBurl = test.individualsPage.getCurrentURL();
-		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
-	}
-
-	@Test(dependsOnMethods="Step07_Invite_New_Member_Click_On_Apply_for_ACS_Membership_link")
-	public void Step08_Ensure_individual_Is_Redirected_To_OMA_And_Information_Is_Prepopulated() {
-		test.asm_MGM.clickOnApplyForACSMembership();
-		test.asm_MGM.verifyDetailsArePrepopulated();
-		test.memberShipPage.launchUrl(app_url_MGMLogout);
-	}
-
-	// @Test
-	public void Step09_Run_Query_For_Scenario3_And_Invite_Non_Member() {
-		Run_Query_And_Fetch_Weblogin_And_Record_Number("Individuals", "Query Individual",
-				getYamlValue("ACS_MGM.query1"));
-		System.out.println(app_url_MGMUrl);
-		test.launchApplication(app_url_MGMUrl);
-		test.asm_MGM.loginInToApplication(memberDetails.get(1).trim(), getYamlValue("password"));
-		uniqueEmail = test.asm_MGM.submitMemberDetailsToInvite(test.homePageIWEB.map().get("MGM_FNAME").trim(),
-				test.homePageIWEB.map().get("MGM_LNAME").trim(), test.homePageIWEB.map().get("MGM_Email").trim());
-		app_ID = test.memberShipPage.getApplicationID();
-	}
-
-	// @Test
-	public void Step10_New_Individual_Opts_Out_And_Confirm_Status_On_IWEB_And_MGM_Dashboard() {
-		Reporter.log("******** Application ID-" + app_ID);
-		test.memberShipPage.launchUrl(app_url_MGMOptOut + app_ID);
-		test.launchApplication(app_url_MGMUrl);
-		test.asm_MGM.loginInToApplication(memberDetails.get(1).trim(), getYamlValue("password"));
-		MGMpageURL = test.asm_MGM.verifyNomineeStatus("Opted Out");
-		test.memberShipPage.verifyNomineeStatusOnIWEB(IWEBurl, "Opted Out", uniqueEmail,
-				test.homePageIWEB.map().get("MGM_FNAME").trim(), test.homePageIWEB.map().get("MGM_LNAME").trim());
-	}
-
-	// @Test
-	public void Step11_Run_Query_For_Scenario4_() {
-
-	}
-	public void Step12_Verify_That_Clicking_On_Renew_Your_Membership_Now_Link_Redirects_To_OMR(){
-		
+	public void Step16_verify_After_Clicking_The_NominatorID_Takes_To_The_Nominators_Record_Scenario1() {
+		test.memberShipPage.clickOnNominatorID_underMyACSApplication();
+		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Individuals |" + customerFullNameList.get(0).trim());
 	}
 
 }
