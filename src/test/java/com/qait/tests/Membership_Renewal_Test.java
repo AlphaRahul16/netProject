@@ -25,6 +25,9 @@ public class Membership_Renewal_Test extends BaseTest {
 
 	@Test
 	public void Step00_Launch_Application_Under_Test() {
+		test.homePageIWEB.enterAuthentication(
+				YamlReader.getYamlValue("Authentication.userName"),
+				YamlReader.getYamlValue("Authentication.password"));
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}

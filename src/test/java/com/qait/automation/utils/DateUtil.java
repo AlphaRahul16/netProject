@@ -205,21 +205,11 @@ public class DateUtil {
 	}
 
 	public static int getCurrentYear() {
-
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		System.out.println("Current Year is : " + year);
 		return year;
 	}
 
-	// public long numberOfDaysBetweenTwoDays(String date1,String date2,String
-	// format){
-	// final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-	// final LocalDate firstDate = LocalDate.parse(date1, formatter);
-	// final LocalDate secondDate = LocalDate.parse(date2, formatter);
-	// final long days = ChronoUnit.DAYS.between(firstDate, secondDate);
-	// System.out.println("Days between: " + days);
-	// return days;
-	// }
 	public static long numberOfDaysBetweenTwoDays(String dateFormate,
 			String startDate, String endDate) {
 		System.out.println("startdate :"+startDate);
