@@ -182,7 +182,7 @@ public class ResultsIT extends ReformatTestFile {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(
                     val.toString()));
         }
-       message.addRecipient(Message.RecipientType.BCC, new InternetAddress("rahulyadav@qainfotech.com"));
+      // message.addRecipient(Message.RecipientType.BCC, new InternetAddress("rahulyadav@qainfotech.com"));
 
     }
 

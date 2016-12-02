@@ -828,7 +828,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		isElementDisplayed("inp_sourceCode");
 		String sourceCode = element("inp_sourceCode").getAttribute("value");
 		Assert.assertTrue(sourceCode != "", "ASSERT FAILED: Source is not pre populated \n");
-		logMessage("ASSERET PASSED: Source code is already populated as " + sourceCode + "\n");
+		logMessage("ASSERET PASSED: Source code is already populated as " + sourceCode + "on OMA \n");
 		return sourceCode;
 
 	}
