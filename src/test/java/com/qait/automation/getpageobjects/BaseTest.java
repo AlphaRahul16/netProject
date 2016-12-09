@@ -19,5 +19,4 @@ public class BaseTest {
 	public void Close_Browser_Session() {
 		test.closeBrowserWindow();
 	}
-
 }

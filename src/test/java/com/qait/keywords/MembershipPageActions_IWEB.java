@@ -2578,38 +2578,34 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public String getCstWebLogin() {
 		String cst = "";
-		if(isBrowser("ie")){
+		if (isBrowser("ie")) {
 			isElementDisplayed("txt_weblogin", String.valueOf(5));
 			cst = element("txt_weblogin", String.valueOf(5)).getText();
-			//element("txt_weblogin", String.valueOf(1)).click();
-			isElementDisplayed("txt_current",String.valueOf(1));
+			// element("txt_weblogin", String.valueOf(1)).click();
+			isElementDisplayed("txt_current", String.valueOf(1));
 			clickUsingXpathInJavaScriptExecutor(element("txt_current", String.valueOf(1)));
-		}else{
+		} else {
 			isElementDisplayed("txt_current", String.valueOf(1));
 			cst = element("txt_current", String.valueOf(1)).getText();
 			element("txt_current", String.valueOf(1)).click();
 		}
-		
+
 		logMessage("STEP : CstWebLogin is fetched as " + cst);
 		return cst;
 
 	}
 
-	public String getCstWebLoginForMembership(String index) {
+	public String getCstWebLoginForMembership(String index, String text) {
 		String cst = "";
 		if (isBrowser("ie")) {
 			isElementDisplayed("txt_weblogin", index);
 			cst = element("txt_weblogin", index).getText();
-			//element("txt_weblogin", String.valueOf(1)).click();
-			isElementDisplayed("txt_current",String.valueOf(1));
-			clickUsingXpathInJavaScriptExecutor(element("txt_current", String.valueOf(1)));
 		} else {
 			isElementDisplayed("txt_endDate", String.valueOf(1), index);
 			cst = element("txt_endDate", String.valueOf(1), index).getText();
-			element("txt_current", String.valueOf(1)).click();
 		}
 		handleAlert();
-		logMessage("STEP : CstWebLogin fetched as " + cst);
+		logMessage("STEP : " + text + " fetched as " + cst);
 		return cst;
 
 	}
@@ -4274,8 +4270,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public String importProfileSheet(String importName, String description, String fileType) {
 		String importedFileName = importName + System.currentTimeMillis();
-
-		// TODO Auto-generated method stub
 		isElementDisplayed("inp_dateForReviewModes", "import name ");
 		element("inp_dateForReviewModes", "import name ").sendKeys(importedFileName);
 		isElementDisplayed("inp_dateForReviewModes", "description ");
@@ -4587,25 +4581,26 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		launchUrl(url);
 		handleAlert();
 		expandDetailsMenuIfAlreadyExpanded("my acs nominations");
-		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormate("MM/d/yyyy");
-		verifyMembershipTypeForAACTOMR(currentDate, "3", fname, "First Name");
-		verifyMembershipTypeForAACTOMR(currentDate, "2", lname, "Last Name");
-		verifyMembershipTypeForAACTOMR(currentDate, "1", email, "Email");
-		verifyDetailsForAACTOMR(status, currentDate, "1", "Status");
+		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy");
+		hardWaitForIEBrowser(4);
+		verifyMembershipTypeForAACTOMR(email, "2", fname, "First Name");
+		verifyMembershipTypeForAACTOMR(email, "1", lname, "Last Name");
+		verifyDetailsForAACTOMR(currentDate, email, "1", "Invitation Date");
+		verifyDetailsForAACTOMR(status, email, "2", "Status");
 
 	}
 
-	public String getApplicationID() {
-		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormate("MM/d/yyyy");
-		isElementDisplayed("txt_membershipType", currentDate, "6");
-		String appID = element("txt_membershipType", currentDate, "6").getText().trim();
+	public String getApplicationID(String email) {
+		//String currentDate = DateUtil.getCurrentdateInStringWithGivenFormate("MM/d/yyyy");
+		isElementDisplayed("txt_membershipType", email, "5");
+		String appID = element("txt_membershipType", email, "5").getText().trim();
 		logMessage("STEP: Application Id of the nominee is " + appID + "\n");
 		return appID;
 	}
 
 	public void verifyNominatorDetailsOnIweb(String iWEBurl, String app_ID, String program, String channel,
 			String fname, String lname, String email, String status, String paymentStatus, String sourceCode,
-			String foreignSourceCode, String memberID, String country) {
+			String memberID) {
 		launchUrl(iWEBurl);
 		handleAlert();
 		expandDetailsMenuIfAlreadyExpanded("my acs nominations");
@@ -4619,13 +4614,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		verifyDetailsForNominator("Status", status, "1", "11");
 		verifyDetailsForNominator("Joined Date", "1", "13");
 		verifyDetailsForNominator("Payment Status", paymentStatus, "1", "14");
-		if (country.equals("UNITED STATES")) {
-			verifyDetailsForNominator("Source code", sourceCode, "1", "15");
-			verifyDetailsForNominator("Mbr Source code", sourceCode, "1", "16");
-		} else {
-			verifyDetailsForNominator("Source code", foreignSourceCode, "1", "15");
-			verifyDetailsForNominator("Mbr Source code", foreignSourceCode, "1", "16");
-		}
+		verifyDetailsForNominator("Source code", sourceCode, "1", "15");
+		verifyDetailsForNominator("Mbr Source code", sourceCode, "1", "16");
 		verifyDetailsForNominator("ConstitID", memberID, "1", "12");
 
 	}
@@ -4633,7 +4623,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyDetailsForNominator(String label, String rowNum, String index) {
 		isElementDisplayed("txt_endDate", rowNum, index);
 		String valueFromIWEB = element("txt_endDate", rowNum, index).getText().trim();
-		String value = DateUtil.getCurrentdateInStringWithGivenFormate("MM/d/yyyy");
+		String value = DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy");
 		Assert.assertEquals(valueFromIWEB, value);
 		logMessage("ASSERT PASSED: " + label + " is verfied as " + valueFromIWEB);
 
@@ -4669,8 +4659,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		verifyDetailsForNominator("Status", status, "1", "9");
 		verifyDetailsForNominator("Joined Date", "1", "10");
 		verifyDetailsForNominator("Payment Status", paymentStatus, "1", "11");
-		// verifyDetailsForNominator("Source code", sourceCode, "1", "12");
-		// verifyDetailsForNominator("Mbr Source code", sourceCode, "1", "13");
+		verifyDetailsForNominator("Source code", sourceCode, "1", "12");
+		verifyDetailsForNominator("Mbr Source code", sourceCode, "1", "13");
 
 	}
 
@@ -4690,4 +4680,71 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 	}
 
+	public String getDefaultSourceCodeForMGM(String country) {
+		String sourceCode = "";
+		expandDetailsMenu("acs membership application program default source code");
+		if (country.equals("UNITED STATES")) {
+			sourceCode = _getSourceCode("Domestic");
+		} else {
+			sourceCode = _getSourceCode("Foregin");
+		}
+		return sourceCode;
+	}
+
+	public String _getSourceCode(String sourceCodetype) {
+		isElementDisplayed("txt_payments", "MGM", "1");
+		String sourceCode = element("txt_payments", "MGM", "1").getText().trim();
+		logMessage("STEP:" + sourceCodetype + " Source Code for MGM is fetched as" + sourceCode);
+		return sourceCode;
+	}
+
+	public void verifyNomineeStatusOnIWEBAccToInviteeNumber(List<String> emails) {
+		handleAlert();		
+		expandDetailsMenuIfAlreadyExpanded("my acs nominations");
+		List<String> uniqueEmails = getAllInvitees();
+		for (int i = 0; i < emails.size(); i++) {
+			System.out.println("emails::" + emails.get(i));
+		}
+		for (int i = 0; i < uniqueEmails.size(); i++) {
+			System.out.println("uniqueEmails::" + uniqueEmails.get(i));
+		}
+		boolean flag = true;
+		for (String email : emails) {
+			if (uniqueEmails.contains(email.trim())) {
+				flag = true;
+			} else {
+				flag = false;
+				break;
+			}
+		}
+		Assert.assertTrue(flag, "ASSERT FAILED: Invitee is not Present \n");
+		logMessage("\n ASSERT PASSED: All invitees are present on IWEB \n");
+	}
+
+	private List<String> getAllInvitees() {
+		List<String> uniqueEmails = new ArrayList<>();
+		int i = 0;
+		int linkSize = elements("link_pagesAvailable").size();
+		do {
+			for (int count = 0; count < elements("txt_payments", "MGM", "4").size(); count++) {
+				wait.hardWait(5);
+				isElementDisplayed("txt_payments", "MGM", "4");
+				uniqueEmails.add(elements("txt_payments", "MGM", "4").get(count).getText().trim());
+			}
+			i++;
+			if (i >= linkSize) {
+				break;
+			}
+			clickOnPageLinks(i);
+		} while (i < linkSize);
+		return uniqueEmails;
+	}
+
+	private void clickOnPageLinks(int i) {
+		wait.waitForPageToLoadCompletely();
+		handleAlert();
+		isElementDisplayed("link_pagesAvailable");
+		elements("link_pagesAvailable").get(i).click();
+		logMessage("STEP: Page link " + String.valueOf(i + 1) + "  is clicked \n");
+	}
 }
