@@ -2,6 +2,11 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -11,9 +16,13 @@ import com.qait.automation.getpageobjects.GetPage;
 public class ASM_MGMPage extends GetPage {
 	WebDriver driver;
 	boolean flag;
+	List<String> uniqueEmails = new ArrayList<>();
 	int timeOut, hiddenFieldTimeOut, pageSize;
 	static String pagename = "ASM_MGMPage";
 	static int nextPage;
+	MembershipPageActions_IWEB membershipPageIweb;
+	public static HashMap<Integer, String[]> nomineeStatusMap = new HashMap<Integer, String[]>();
+	String[][] nomineeStatus = { { "Resend", "PENDING" }, { "Pending", "PENDING" } };
 
 	public ASM_MGMPage(WebDriver driver) {
 		super(driver, pagename);
@@ -63,8 +72,13 @@ public class ASM_MGMPage extends GetPage {
 	}
 
 	public void clickOnInviteButton() {
-		isElementDisplayed("btn_invite");
-		element("btn_invite").click();
+		if (isBrowser("ie")) {
+			isElementDisplayed("link_applyACSmembership", "Invite someone to join");
+			clickUsingXpathInJavaScriptExecutor(element("link_applyACSmembership", "Invite someone to join"));
+		} else {
+			isElementDisplayed("btn_invite");
+			element("btn_invite").click();
+		}
 		logMessage("STEP : Invite someone to join ACS button is clicked in btn_invite\n");
 		isElementDisplayed("modal_invite");
 		logMessage("ASSERT PASSED : Invite someone to join ACS form appeared in modal_invite\n ");
@@ -86,7 +100,7 @@ public class ASM_MGMPage extends GetPage {
 			String[] email = detailValue.split("@");
 			String uniqueEmail = email[0] + System.currentTimeMillis() + "@" + email[1];
 			element("inp_inviteMemberDetails", detailName).sendKeys(uniqueEmail);
-			logMessage("STEP : " + detailName + " is entered as " + detailValue + " in inp_inviteMemberDetails\n");
+			logMessage("STEP : " + detailName + " is entered as " + uniqueEmail + " in inp_inviteMemberDetails\n");
 			return uniqueEmail;
 		} else {
 			isElementDisplayed("inp_inviteMemberDetails", detailName);
@@ -190,40 +204,44 @@ public class ASM_MGMPage extends GetPage {
 
 	}
 
-	public String verifyNomineeStatus(String status,String email) {
-		isElementDisplayed("link_nomineeStatus",email);
-		String nomineeStatus = element("link_nomineeStatus",email).getText().trim();
-		Assert.assertEquals(nomineeStatus, status);
+	public String verifyNomineeStatus(String status, String email) {
+		boolean flag = true;
+		isElementDisplayed("link_nomineeStatus", email);
+		for (int i = 0; i < 30; i++) {
+			String nomineeStatus = element("link_nomineeStatus", email).getText().trim();
+			wait.hardWait(2);
+			if (status.equals(nomineeStatus)) {
+				flag = true;
+				break;
+			} else {
+				flag = false;
+			}
+		}
+		Assert.assertTrue(flag, "ASSERT FAILED: nominee status is not same \n");
 		logMessage("ASSERT PASSED: Status of the nominee is " + status + "\n");
 		return getCurrentURL();
 	}
 
 	public void clickOnNomineeStatus(String email) {
-		isElementDisplayed("link_nomineeStatus",email);
-		element("link_nomineeStatus",email).click();
+		isElementDisplayed("link_nomineeStatus", email);
+		element("link_nomineeStatus", email).click();
 		logMessage("STEP: Nominee Status link is clicked \n");
 	}
 
-	public void verifyNomineeStatusForSecondTime(String status,String email) {
-		// TODO Auto-generated method stub
-		isElementDisplayed("link_nomineeStatus",email);
-		String nomineeStatus = element("link_nomineeStatus",email).getText().trim();
-		Assert.assertEquals(nomineeStatus, status);
-		logMessage("ASSERT PASSED: After Click on Resend link the status of the nominee is " + status + "\n");
-	}
-
-	public String verifyStatusAfterClickResend(String statusOnMGM, String url,String email) {
-		launchUrl(url);
-		driver.navigate().refresh();
+	public String verifyStatusAfterClickResend(String MGMpageURL, String email, String status) {
+		launchUrl(MGMpageURL);
 		clickOnNomineeStatus(email);
-		wait.hardWait(10);
-		verifyNomineeStatusForSecondTime(statusOnMGM,email);
+		verifyNomineeStatus(status, email);
 		return getCurrentURL();
 	}
 
 	public void clickOnApplyForACSMembership() {
+		hardWaitForIEBrowser(5);
 		isElementDisplayed("link_applyACSmembership", "Apply for ACS Membership");
-		element("link_applyACSmembership", "Apply for ACS Membership").click();
+		if (isBrowser("ie") || isBrowser("internet explorer")) {
+			clickUsingXpathInJavaScriptExecutor(element("link_applyACSmembership", "Apply for ACS Membership"));
+		} else
+			element("link_applyACSmembership", "Apply for ACS Membership").click();
 		logMessage("ASSERT PASSED: Apply for ACS Mambership link is present for Non active member \n");
 		logMessage("STEP: 'Apply for ACS Mambership' link is clicked \n");
 	}
@@ -235,6 +253,7 @@ public class ASM_MGMPage extends GetPage {
 		wait.waitForPageToLoadCompletely();
 		logMessage("STEP: 'Renew your membership now' link is clicked \n");
 	}
+
 	public void submitSameMemberDetailsToInvite(String fName, String lName, String email) {
 		clickOnInviteButton();
 		enterSameDetailsToInvite("FirstName", fName);
@@ -244,12 +263,96 @@ public class ASM_MGMPage extends GetPage {
 	}
 
 	public void enterSameDetailsToInvite(String detailName, String detailValue) {
-	
-			isElementDisplayed("inp_inviteMemberDetails", detailName);
-			element("inp_inviteMemberDetails", detailName).clear();
-			element("inp_inviteMemberDetails", detailName).sendKeys(detailValue);
-			logMessage("STEP : " + detailName + " is entered as " + detailValue + " in inp_inviteMemberDetails\n");
 
+		isElementDisplayed("inp_inviteMemberDetails", detailName);
+		element("inp_inviteMemberDetails", detailName).clear();
+		element("inp_inviteMemberDetails", detailName).sendKeys(detailValue);
+		logMessage("STEP : " + detailName + " is entered as " + detailValue + " in inp_inviteMemberDetails\n");
+
+	}
+
+	public void inviteButtonIsNotDisplayed() {
+
+		Assert.assertFalse(checkIfElementIsThere("btn_invite"), "ASSERT FAILED: Invite option is given \n");
+		logMessage("ASSERT PASSED: Active member with a renewal is not given the option to invite a member\n");
+	}
+
+	public void clickOnresendLink(String resendCount, String MGMpageURL, String uniqueEmail, String IWEBurl,
+			String fname, String lname, List<String> ewebStatus, List<String> IwebStatus) {
+		membershipPageIweb = new MembershipPageActions_IWEB(driver);
+		// nomineeStatusMap.put(1, nomineeStatus[0]);
+		// nomineeStatusMap.put(2, nomineeStatus[1]);
+		for (int i = 0; i < Integer.parseInt(resendCount); i++) {
+			MGMpageURL = verifyStatusAfterClickResend(MGMpageURL, uniqueEmail, ewebStatus.get(i));
+			membershipPageIweb.verifyNomineeStatusOnIWEB(IWEBurl, IwebStatus.get(i), uniqueEmail, fname, lname);
+			logMessage("\n ASSERT PASSED: Status is verified after click on Resend link " + String.valueOf(i + 1)
+					+ " time \n");
+		}
+
+	}
+
+	public List<String> InviteNewMembersAccordingToInviteeNumber(String inviteeCount, String fname, String lname,
+			String email) {
+		for (int i = 0; i < Integer.parseInt(inviteeCount); i++) {
+			String firstname = fname + System.currentTimeMillis();
+			String lastname = lname + System.currentTimeMillis();
+			String uniqueEmail = submitMemberDetailsToInvite(firstname, lastname, email);
+			uniqueEmails.add(uniqueEmail);
+		}
+		return uniqueEmails;
+	}
+
+	public void verifythatAllInviteeExistOnMGMDashboard(List<String> emails) {
+		List<String> uniqueEmails = getAllInvitees();
+		for (int i = 0; i < emails.size(); i++) {
+			System.out.println("emails::" + emails.get(i));
+		}
+		for (int i = 0; i < uniqueEmails.size(); i++) {
+			System.out.println("uniqueEmails::" + uniqueEmails.get(i));
+		}
+		boolean flag = true;
+		for (String email : emails) {
+			if (uniqueEmails.contains(email.trim())) {
+				flag = true;
+			} else {
+				flag = false;
+				break;
+			}
+		}
+		Assert.assertTrue(flag, "ASSERT FAILED: Invitee is not Present in MGM \n");
+		logMessage("\n ASSERT PASSED: All invitees are present on MGM Dashboard \n");
+	}
+
+	private List<String> getAllInvitees() {
+		List<String> uniqueEmails = new ArrayList<>();
+		int pageLinkSize = elements("link_pages").size();
+		int i = 0;
+		do {
+			for (int count = 0; count < elements("lbl_nomineeEmail").size(); count++) {
+				isElementDisplayed("lbl_nomineeEmail");
+				wait.hardWait(5);
+				uniqueEmails.add(elements("lbl_nomineeEmail").get(count).getText().trim());
+			}
+			i++;
+			if (i > pageLinkSize) {
+				break;
+			}
+			clickOnPageLinkOnMGM(i);
+		} while (i <= pageLinkSize);
+		return uniqueEmails;
+	}
+
+	private void clickOnPageLinkOnMGM(int i) {
+		isElementDisplayed("link_pages", String.valueOf(i));
+		element("link_pages", String.valueOf(i)).click();
+		logMessage("STEP: Page link " + String.valueOf(i + 1) + "  is clicked \n");
+	}
+
+	public List<String> getStatus(String status) {
+		// List<String> statuses = new ArrayList<>();
+		System.out.println("status:::" + status);
+		List<String> statuses = Arrays.asList(status.split(","));
+		return statuses;
 	}
 
 }

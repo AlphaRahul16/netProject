@@ -136,12 +136,12 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 
 	private void clickOnAddToMembership(String divisionName) {
 		hardWaitForIEBrowser(20);
-		isElementDisplayed("btn_addToMembership", divisionName);
 		if(isBrowser("ie")||isBrowser("internet explorer")){
 			element("btn_addToMembership",
 				divisionName).click();
 		}
 		else{
+			isElementDisplayed("btn_addToMembership", divisionName);
 		clickUsingXpathInJavaScriptExecutor(element("btn_addToMembership",
 				divisionName));
 		}
