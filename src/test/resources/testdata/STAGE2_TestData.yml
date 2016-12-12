@@ -26,7 +26,7 @@ app_url_MyAccount: https://aemwwwtst.acs.org/content/acs/en.html
 app_url_IwebMyAccount: https://stag-12iweb/NFStage2/iweb
 app_url_MyAccountNewUser: https://accounttest.acs.org/ssoamweb/account/signUp
 app_url_AACT_OMR: https://renewtest.teachchemistry.org/NFStage2/aactomr
-
+app_url_SourceCodeOMA: https://jointest.acs.org/NFStage1/oma?sc=
 
 Authentication: 
   userName: C00616
