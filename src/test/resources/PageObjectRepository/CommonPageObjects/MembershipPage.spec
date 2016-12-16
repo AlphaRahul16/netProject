@@ -118,7 +118,7 @@ txt_recordNumberAtMemberQuery                    classname                      
 txt_loadOnExistingQueryLabel                      id                            LoadQueryLabel
 link_pagesAvailable                              classname                      DataFormChildDataGridPagerLink
 lnk_invoice_number                                 xpath                        //table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3][contains(text(),'${value}')]
-lnk_first_invoice_number                           xpath                        (//table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3])[1] 
+lnk_first_invoice_number                           xpath                        (//table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3])[${index}] 
 txt_webLogin                                       id                            F1_cst_web_login
 btn_arrowRightCircle                             xpath                          (//i[@class='iconpro-circle-arrow-right'])[1]
 link_tabsOnModule                                 xpath                          //a[text()='${value}']
@@ -205,7 +205,12 @@ form_coe                                        id                              
 txt_payments									xpath							 //td[starts-with(text(),'${memberType}')]/following-sibling::td[${index}]
 txt_membershipType								xpath							//td[contains(text(),'${memberType}')]/preceding-sibling::td[${index}]
 list_country									css								#adr_country>option[selected]
-
+list_sourceCodes                                xpath                           //table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3] 
+lnk_sourceCode                                  xpath                           //td[contains(text(),'${name}')][1]/preceding-sibling::td//img
+txt_sourceCode                                  xpath                           //label[text()='${label}:']/preceding-sibling::span
+txt_memberDetails                               xpath                           (//span[text()='${tabName}']/parent::td/parent::tr/following-sibling::tr//tr[not(contains(@style,'none'))])[%{index1}]/td[#{column}]
+txt_recordNo									css							  #dgDynamicList>tbody>tr:nth-child(3)>td:nth-child(6)
+txt_weblogin									css								#dgDynamicList>tbody>tr:nth-child(3)>td:nth-child(${index})
 ##----------------------------------------------------------Credit_Page-------------------------------------------------------------------------
 icon_expand										css								.icon-chevron-down
 drpdown_batchNameCreditPage						css								#cdt_bat_key
@@ -228,7 +233,7 @@ txt_netTotal									xpath							//*[@id='ivd_nettotal']
 txt_netBalanceNetForum								xpath							//td/a[contains(text(),'${text}')]/.. /following-sibling::td[9]/span
 label_transCode									xpath								.//*[@id='F1_cdt_code']
 img_arrow								       css									 #dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(1) > a > img
-txt_tableRow										css									#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(10)
+txt_tableRow								  css									#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(10)
 txt_creditAmount								xpath								//td[contains(text(),'${memberType}')]/following-sibling::td[6]
 btn_goask                                       id                           ButtonAskGo
 link_importMatch                                xpath                        (//td[text()='${currentDate}'])[1]/preceding-sibling::td[contains(text(),'${impotFileName}')]/preceding-sibling::td[2]

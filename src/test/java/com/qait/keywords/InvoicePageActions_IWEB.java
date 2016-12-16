@@ -854,5 +854,42 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		verifyMemberDetails_question("paid in full", paidInFull);
 		verifyMemberDetails_question("proforma", proforma);
 	}
+	
+	public void verifyPaymentDate(String productName){
+		if(productName.equals("")){
+			logMessage("STEP: Product name is not present in the datasheet\n");
+		}
+		else{
+		isElementDisplayed("txt_discount",productName);
+		Assert.assertEquals(element("txt_discount", productName).getText().trim(),DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),"ASSERT FAILED: Payment date is not verified as current date\n");
+		logMessage("ASSERT FAILED: Payment date is verified as current date\n");
+		}
+	}
+	
+	public void verifyProductsPaymentDateAsCurrentDate(){
+		verifyPaymentDate(map().get("Iweb LS Name?"));
+		verifyPaymentDate(map().get("Iweb Product Name?"));
+		verifyPaymentDate(map().get("Iweb Pub Name?"));
+		verifyPaymentDate(map().get("Iweb Division Name?"));
+	}
+	
+	public void verifyProductAmount(String prodName, String amount){
+		if(prodName.equals("")){
+			logMessage("STEP: Product name is not present in the datasheet\n");
+		}
+		else{
+		isElementDisplayed("txt_balance",prodName);
+		Assert.assertEquals(element("txt_balance",prodName).getText().trim(), amount,"ASSERT FAILED: Price for product "+prodName+" is not verified as "+amount+"\n");
+		logMessage("ASSERT PASSED: Price for product "+prodName+" is verified as "+amount+"\n");
+	    }
+	}
+	
+	public void verifyProductAmountonIweb(Map<String,String> productAmounts){
+		verifyProductAmount(map().get("Iweb Pub Name?"),productAmounts.get("Iweb Pub Name?"));
+		verifyProductAmount(map().get("Iweb Division Name?"),productAmounts.get("Iweb Division Name?"));
+		verifyProductAmount(map().get("Iweb Product Name?"),productAmounts.get("Product?"));
+		verifyProductAmount(map().get("Iweb LS Name?"),productAmounts.get("Iweb LS Name?"));
+//		verifyProductAmount(map().get("CEN Product Name?"),productAmounts.get("Iweb CEN Product Name?"));
+	}
 
 }

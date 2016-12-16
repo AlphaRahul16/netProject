@@ -27,6 +27,12 @@ public class Test{
 	    System.out.println(DateUtils.addMinutes(dateInDate,
 				Integer.parseInt("8")));
 	    
+	    String srcCode = "";
+	    
+	    if(srcCode.equals("")){
+	    	System.out.println("1");
+	    }
+	    
 	    /*);
 =======
 		String currentDate = DateUtil.getCurrentTime("hh:mm a", "IST");

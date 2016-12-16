@@ -296,6 +296,24 @@ public class TestSessionInitiator {
 											"UTF-8") + "@dev");
 			driver.get(baseurl);
 				}
+				else if(baseurl.equals("https://iwebtest.acs.org/YBStage1/iWeb") && isBrowser("firefox")){
+					System.out.println("----1");
+//					baseurl = baseurl
+//							.replaceAll(
+//									"https://iwebtest",
+//									"https://"
+//											+ YamlReader
+//													.getYamlValue("Authentication.userName")
+//											+ ":"
+//											+ URLEncoder.encode(
+//													YamlReader
+//															.getYamlValue("Authentication.password"),
+//													"UTF-8") + "@iwebtest");
+					driver.get(baseurl);
+					System.out.println("----2");
+					enterAuthentication(YamlReader.getYamlValue("Authentication.userName"), YamlReader.getYamlValue("Authentication.password"));
+				}
+				
 				else {
 			baseurl = baseurl
 							.replaceAll(
@@ -464,9 +482,7 @@ public class TestSessionInitiator {
 	}
 	
 	public void enterAuthentication(String uName, String password) {
-		if ((isBrowser("ie") || isBrowser("internetexplorer"))) {
 			System.out.println("in authentication");
-			uName="ACS1\\"+uName;
 			setClipboardData(uName);
 			Robot robot;
 			try {
@@ -493,7 +509,6 @@ public class TestSessionInitiator {
 			} catch (AWTException e) {
 				e.printStackTrace();
 			}
-		}
 	}
 		
 		public static void setClipboardData(String string) {

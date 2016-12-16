@@ -41,13 +41,13 @@ public class XlsReader {
 			Iterator<Row> rowIterator = sheet.iterator();
 			HSSFRow header = sheet.getRow(3);// Header Name
 
-			System.out.println("Number of Column::" + header.getPhysicalNumberOfCells());
+			
 
-			for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
-				System.out.println("  " + header.getCell(i));
-			}
+//			for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
+//				System.out.println("  " + header.getCell(i));
+//			}
 
-			System.out.println(header.getCell(0));
+			
 
 			/*
 			 * while (rowIterator.hasNext()) { Row row = rowIterator.next(); //
@@ -84,10 +84,10 @@ public class XlsReader {
 			HSSFWorkbook workbook = new HSSFWorkbook(file1);
 			HSSFSheet sheet = workbook.getSheetAt(0);
 			HSSFRow header = sheet.getRow(2);// Header Name
-			System.out.println("Number of Column::" + header.getPhysicalNumberOfCells());
+			
 
 			for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
-				System.out.println("  " + header.getCell(i));
+				
 				header.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
 				if (header.getCell(i).getStringCellValue() == null) {
 					key.add("No data");
@@ -111,10 +111,10 @@ public class XlsReader {
 					}
 				}
 			}
-			System.out.println("===========Value List=====================");
+			
 			header = sheet.getRow(NumRow);
 			for (int j = 0; j < header.getPhysicalNumberOfCells(); j++) {
-				System.out.println("  " + header.getCell(j));
+				
 				header.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
 				if (header.getCell(j).getStringCellValue() == null) {
 					value.add("No data");
@@ -123,14 +123,14 @@ public class XlsReader {
 				} else if (header.getCell(j).getCellType() == Cell.CELL_TYPE_STRING) {
 					value.add(header.getCell(j).getStringCellValue());
 				} else if (header.getCell(j).getCellType() == Cell.CELL_TYPE_FORMULA) {
-					System.out.println("Formula is " + header.getCell(j).getCellFormula());
+					
 					switch (header.getCell(j).getCachedFormulaResultType()) {
 					case Cell.CELL_TYPE_NUMERIC:
-						System.out.println("Last evaluated as: " + header.getCell(j).getNumericCellValue());
+						
 						value.add(header.getCell(j).getNumericCellValue() + "");
 						break;
 					case Cell.CELL_TYPE_STRING:
-						System.out.println("Last evaluated as \"" + header.getCell(j).getRichStringCellValue() + "\"");
+						
 						value.add(header.getCell(j).getStringCellValue());
 						break;
 					}
@@ -139,19 +139,17 @@ public class XlsReader {
 			}
 
 			int k = 0;
-			System.out.println("Size of Key List::" + key.size());
-			System.out.println("Size of value List::" + value.size());
-
+			
 			for (String val : value) {
 				dataList.put(key.get(k), val);
 				k++;
 			}
 
-			System.out.println("===========================Final Data Map=========================");
+			
 
-			for (Map.Entry x : dataList.entrySet()) {
-				System.out.println(x.getKey() + " ==> " + x.getValue());
-			}
+//			for (Map.Entry x : dataList.entrySet()) {
+//				System.out.println(x.getKey() + " ==> " + x.getValue());
+//			}
 
 		} catch (Exception e) {
 
@@ -181,10 +179,10 @@ public class XlsReader {
 			/* Iterator<Row> rowIterator = sheet.iterator(); */
 			HSSFRow header = sheet.getRow(2);// Header Name
 
-			System.out.println("Number of Column::" + header.getPhysicalNumberOfCells());
+			
 
 			for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
-				System.out.println("  " + header.getCell(i));
+				
 				// key1.add(header.getCell(i).getStringCellValue());
 				if (header.getCell(i).getStringCellValue().equalsIgnoreCase("Execute")) {
 					flag = i;
@@ -213,12 +211,12 @@ public class XlsReader {
 				}
 			}
 
-			System.out.println("flag::" + flag);
+			
 
 			int type;
 			int rowCount = sheet.getPhysicalNumberOfRows();
 
-			System.out.println("Number of rowcount: " + rowCount);
+			
 
 			try {
 				for (int i = 3; i <= rowCount; i++) {
@@ -230,10 +228,10 @@ public class XlsReader {
 
 				}
 			} catch (NullPointerException e) {
-				System.out.println("Caught Null Pointer");
+				//System.out.println("Caught Null Pointer");
 			}
 
-			System.out.println("Number of Column::" + header.getPhysicalNumberOfCells());
+			
 
 			for (Map.Entry m : hm.entrySet()) {
 				/* System.out.println(m.getKey()+" "+m.getValue()); */
@@ -247,15 +245,14 @@ public class XlsReader {
 					} else if (header.getCell(j).getCellType() == Cell.CELL_TYPE_STRING) {
 						value.add(header.getCell(j).getStringCellValue());
 					} else if (header.getCell(j).getCellType() == Cell.CELL_TYPE_FORMULA) {
-						System.out.println("Formula is " + header.getCell(j).getCellFormula());
+						
 						switch (header.getCell(j).getCachedFormulaResultType()) {
 						case Cell.CELL_TYPE_NUMERIC:
-							System.out.println("Last evaluated as: " + header.getCell(j).getNumericCellValue());
+							
 							value.add(header.getCell(j).getNumericCellValue() + "");
 							break;
 						case Cell.CELL_TYPE_STRING:
-							System.out.println(
-									"Last evaluated as \"" + header.getCell(j).getRichStringCellValue() + "\"");
+							
 							value.add(header.getCell(j).getStringCellValue());
 							break;
 						}
@@ -266,19 +263,17 @@ public class XlsReader {
 			}
 
 			int k = 0;
-			System.out.println("Size of Key List::" + key1.size());
-			System.out.println("Size of value List::" + value.size());
-
+			
 			for (String val : value) {
 				dataList.put(key1.get(k), val);
 				k++;
 			}
 
-			System.out.println("===========================Final Data Map=========================");
+			
 
-			for (Map.Entry x : dataList.entrySet()) {
-				System.out.println(x.getKey() + " ==> " + x.getValue());
-			}
+//			for (Map.Entry x : dataList.entrySet()) {
+//				System.out.println(x.getKey() + " ==> " + x.getValue());
+//			}
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -288,7 +283,7 @@ public class XlsReader {
 			try {
 				file1.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 
 		}
@@ -319,11 +314,11 @@ public class XlsReader {
 					key.add(row.getCell(flag).getStringCellValue().trim());
 				}
 			}
-			for (String data : key) {
-				System.out.print(" " + data);
-			}
+//			for (String data : key) {
+//				System.out.print(" " + data);
+//			}
 		} catch (Exception e) {
-			System.out.println(e);
+			
 		}
 		return key;
 	}
@@ -338,9 +333,7 @@ public class XlsReader {
 			HSSFWorkbook workbook = new HSSFWorkbook(file1);
 			HSSFSheet sheet = workbook.getSheetAt(0);
 			HSSFRow header = sheet.getRow(2);
-			System.out.println("Number of Column::" + header.getPhysicalNumberOfCells());
 			for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
-				System.out.println("  " + header.getCell(i));
 				if (header.getCell(i).getStringCellValue().equalsIgnoreCase("Execute")) {
 					flag = i;
 					break;
@@ -348,11 +341,9 @@ public class XlsReader {
 
 			}
 
-			System.out.println("Flag::" + flag);
 			int rowCount = sheet.getPhysicalNumberOfRows();
 
-			System.out.println("Number of rowcount: " + rowCount);
-
+			
 			try {
 				for (int i = 3; i <= rowCount; i++) {
 					Row row = sheet.getRow(i);
@@ -364,16 +355,16 @@ public class XlsReader {
 
 				}
 			} catch (NullPointerException e) {
-				System.out.println("Caught Null Pointer");
+				
 			}
 
 		} catch (Exception e) {
 
 		}
 
-		for (Integer integer : rowNumList) {
-			System.out.println("Row Num::" + integer);
-		}
+//		for (Integer integer : rowNumList) {
+//			System.out.println("Row Num::" + integer);
+//		}
 
 		return rowNumList;
 	}
@@ -390,7 +381,6 @@ public class XlsReader {
 			HSSFWorkbook workbook = new HSSFWorkbook(file1);
 			HSSFSheet sheet = workbook.getSheetAt(0);
 			HSSFRow header = sheet.getRow(0);
-			System.out.println("Number of Column ::" + header.getPhysicalNumberOfCells());
 			for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
 				System.out.println("  " + header.getCell(i));
 				if (header.getCell(i).getStringCellValue().contains("Execute")) {
@@ -398,9 +388,7 @@ public class XlsReader {
 					break;
 				}
 			}
-			System.out.println("Flag::" + flag);
 			int rowCount = sheet.getPhysicalNumberOfRows();
-			System.out.println("Number of rowcount: " + rowCount);
 			try {
 				for (int i = 1; i <= rowCount; i++) {
 					Row row = sheet.getRow(i);
@@ -412,7 +400,7 @@ public class XlsReader {
 
 				}
 			} catch (NullPointerException e) {
-				System.out.println("Caught Null Pointer");
+				
 			}
 
 		} catch (Exception e) {
@@ -420,7 +408,7 @@ public class XlsReader {
 		}
 
 		for (Integer integer : rowNumList) {
-			System.out.println("Row Num::" + integer);
+			
 		}
 
 		return rowNumList;
@@ -429,8 +417,6 @@ public class XlsReader {
 	public static List<String> getExcelHeaderData(HSSFRow header) {
 		List<String> key = new ArrayList<String>();
 		for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
-			System.out.println("Excel Header data: ");
-			System.out.println("  " + header.getCell(i));
 			// header.getCell(i).setCellType(Cell.CELL_TYPE_STRING);
 			if (header.getCell(i).getStringCellValue() == null) {
 				key.add("No data");
@@ -459,8 +445,8 @@ public class XlsReader {
 
 	public static List<String> getrowSpecificData(int NumRow, HSSFRow header, HSSFSheet sheet) {
 		List<String> value = new ArrayList<String>();
-		System.out.println("===========Value List=====================");
 		header = sheet.getRow(NumRow);
+
 		for (int j = 0; j < (header.getPhysicalNumberOfCells()-1); j++) {
 			System.out.println("-----  " + header.getCell(j));
 			header.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
@@ -474,11 +460,9 @@ public class XlsReader {
 				System.out.println("Formula is " + header.getCell(j).getCellFormula());
 				switch (header.getCell(j).getCachedFormulaResultType()) {
 				case Cell.CELL_TYPE_NUMERIC:
-					System.out.println("Last evaluated as: " + header.getCell(j).getNumericCellValue());
 					value.add(header.getCell(j).getNumericCellValue() + "");
 					break;
 				case Cell.CELL_TYPE_STRING:
-					System.out.println("Last evaluated as \"" + header.getCell(j).getRichStringCellValue() + "\"");
 					value.add(header.getCell(j).getStringCellValue());
 					break;
 				}
@@ -499,18 +483,16 @@ public class XlsReader {
 			HSSFWorkbook workbook = new HSSFWorkbook(file1);
 			HSSFSheet sheet = workbook.getSheetAt(0);
 			HSSFRow header = sheet.getRow(0);// Header Name
-			System.out.println("Number of Column::" + header.getPhysicalNumberOfCells());
+			
 			key = getExcelHeaderData(header);
 			value = getrowSpecificData(NumRow, header, sheet);
 			int k = 0;
-			System.out.println("Size of Key List::" + key.size());
-			System.out.println("Size of value List::" + value.size());
-
+			
 			for (String val : value) {
 				dataList.put(key.get(k), val.trim());
 				k++;
 			}
-			System.out.println("===========================Final Data Map=========================");
+			
 			for (Map.Entry x : dataList.entrySet()) {
 				System.out.println(x.getKey() + " ==> " + x.getValue());
 			}

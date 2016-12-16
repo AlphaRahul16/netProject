@@ -115,16 +115,12 @@ public class ACS_ScarfReviewing_Test {
 		// //"Easter", "2175095"
 		test.acsScarfReporting.loginWithLastNameAndMemberId(ReviewerLoginMap
 				.get("reviewer" + i).get(0),
-				ReviewerLoginMap.get("reviewer" + i).get(1)); // "Easter",
-																// "2175095"
+				ReviewerLoginMap.get("reviewer" + i).get(1)); 
 		test.acsScarfReviewing.verifyReviewerTypeWindow("Online Reviewer");
 		test.acsScarfReporting.verifyStudentChapterReportingPage();
 		index = test.acsScarfReviewing
 				.verifyChapterOnTheReviewPageAndClickOnreviewButton(
-						assignedchaptername, "list_ChapterList", "LayoutCell");// Arcadia
-																				// University
-																				// Student
-																				// Chapter"
+						assignedchaptername, "list_ChapterList", "LayoutCell");
 		test.acsScarfReviewing.verifyChapterStatus("Not Started", index);
 		test.acsScarfReviewing.selectChapterReviewImage(index);
 		test.acsScarfReporting.clickOnNotStartedButtonForSection(

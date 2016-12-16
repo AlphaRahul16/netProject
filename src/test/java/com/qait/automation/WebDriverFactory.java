@@ -42,7 +42,7 @@ public class WebDriverFactory {
 
 		if (seleniumServer.equalsIgnoreCase("local")) {
 			if (browser.equalsIgnoreCase("firefox")) {
-				return getFirefoxDriver(seleniumconfig.get("driverpath") + "geckodriver.exe");
+				return getFirefoxDriver();
 			} else if (browser.equalsIgnoreCase("chrome")) {
 				
 				if(System.getProperty("os.name").equals("Linux"))
@@ -130,19 +130,23 @@ public class WebDriverFactory {
 		return new SafariDriver();
 	}
 
-	private static WebDriver getFirefoxDriver(String driverpath) {
-		
-//		File pathToBinary = new File("C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe");
-//		FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
-	       
-//		WebDriver driver = new FirefoxDriver(ffBinary,firefoxProfile);
-//		System.setProperty("webdriver.firefox.binary",
-//                "C:"+File.separator+"Program Files (x86)"+File.separator+"Mozilla Firefox"+File.separator+"firefox.exe");
-//        FirefoxBinary binary=new FirefoxBinary();
-//        binary.setEnvironmentProperty("binary", "C:"+File.separator+"Program Files (x86)"+File.separator+"Mozilla Firefox"+File.separator+"firefox.exe");
-		
-//        String firefoxProfilePath = "./src/test/resources/Profile_"
+
+	private static WebDriver getFirefoxDriver() {
+		String path="C:"+File.separator+"Program Files (x86)"+File.separator+"Mozilla Firefox"+File.separator+"firefox.exe";
+		File binaryPath=new File(path);
+//        System.out.println("------binary file:"+binaryPath);
+		FirefoxBinary ffbinary=new FirefoxBinary(binaryPath);
+//
+////		File pathToBinary = new File("C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe");
+////		FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
+//	       
+////		WebDriver driver = new FirefoxDriver(ffBinary,firefoxProfile);
+////		System.setProperty("webdriver.firefox.binary",binaryPath);
+////        binary.setEnvironmentProperty("binary", "C:"+File.separator+"Program Files (x86)"+File.separator+"Mozilla Firefox"+File.separator+"firefox.exe");
+//		
+//        String firefoxProfilePath = "./src/test/resources/Profile/Profile_"
 //				+ ConfigPropertyReader.getProperty("tier");
+//        System.out.println("------"+firefoxProfilePath);
 		FirefoxProfile profile;
 //		String autoAuthPath = "src/test/resources/AddOn/autoauth-2.1-fx+fn.xpi";
 //		File firefoxProfile = new File(firefoxProfilePath);// path of firefox
@@ -155,9 +159,8 @@ public class WebDriverFactory {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-//	
+	
 		profile = new FirefoxProfile();
-		System.setProperty("webdriver.firefox.marionette",driverpath);
 		profile.setPreference("browser.download.useDownloadDir", true);
 		profile.setPreference("browser.cache.disk.enable", false);
 		profile.setPreference("browser.download.folderList", 2);
@@ -186,10 +189,16 @@ public class WebDriverFactory {
 		profile.setPreference("browser.download.panel.shown",false);
 		profile.setPreference("browser.download.useToolkitUI",true);
 		profile.setPreference("dom.disable_beforeunload", true);
-		profile.setPreference("network.http.phishy-userpass-length", 255);
-		profile.setPreference("network.automatic-ntlm-auth.trusted-uris","yourDomain");
-		profile.setAcceptUntrustedCertificates(true);
-		//return new FirefoxDriver(ffBinary,profile);
-		return new FirefoxDriver(profile);
+
+//		profile.setPreference("network.http.phishy-userpass-length", 255);
+//		profile.setPreference("network.automatic-ntlm-auth.trusted-uris","yourDomain");
+//		profile.setAcceptUntrustedCertificates(true);
+//		//return new FirefoxDriver(ffBinary,profile);
+//		return new FirefoxDriver(profile);
+
+//		profile.setPreference("network.http.phishy-userpass-length", 255);
+//		profile.setPreference("network.automatic-ntlm-auth.trusted-uris","yourDomain");
+		return new FirefoxDriver(ffbinary,profile);
+//		return new FirefoxDriver(profile);
 	}
 }

@@ -28,6 +28,7 @@ csv-data-file:
   path_Import_Profile: ./src/test/resources/TestDataLibrary/Rubber_Import_Insurance_Profile.csv
   path_Chapter_Relationships: ./src/test/resources/TestDataLibrary/Chapter_Relationship_Datasheet.csv
   path_AACT_OMR: ./src/test/resources/TestDataLibrary/AACT_OMR_Datasheet.csv
+  path_SourceCodes: ./src/test/resources/TestDataLibrary/ACS_SourceCodes_Datasheet.csv 
   path_MGM: ./src/test/resources/TestDataLibrary/ACS_MGM_Datesheet.csv
 
   data-separator: '\t'
@@ -480,17 +481,17 @@ SubscriptionFulfillment:
 MemberShipRenewal: 
     addACSRenewalCycle:
          name: ACS
-         expMonth: 11
-         expYear: 2017
-         renewalYear: 2017
+         expMonth: 12
+         expYear: 2018
+         renewalYear: 2018
          type: Selenium
          renewalLength: 1
     queryName: "Member Query by Member Number – Multiple"
-    timeSlabInMinutes: 10
+    timeSlabInMinutes: 12
     maxWaitTimeInMinutesForStatus: 30 
     renewalInformation: 
          association: ACS
-         renewalYear: 2017  
+         renewalYear: 2018  
          batch: "ACS: SELENIUM_BATCH"
     renewalDetailsForSchedule: 
          status: SCHEDULED
@@ -518,7 +519,7 @@ MemberShipRenewal:
          proforma: "Yes"               
          paidInFull: "No"            
     renewalMessage: "Dues task netFORUM_Dues_Renewal_update_Task_a02bd1cb14a14b4090482ae01f213b2dd5fc7374 scheduled successfully.  Upon completion an e-mail will be sent to"
-    
+
 ACS_Store:
     password: password   
     maxWaitTimeForPrintMessage: 30
@@ -664,6 +665,9 @@ ACS_MyAccount:
     addressSaveMessage: "Address is successfully saved! Click close button to close the popup."
     passwordChangedMessage: "Password successfully changed."
     
+ACS_SourceCodes:
+    queryName: "Selenium - Active Source Codes"
+
 ACS_MGM: 
     query1: "Selenium - Find Active Regular Member with ACSID"
     query2: "selenium - MGM Find Inactive Regular Member"
@@ -672,6 +676,6 @@ ACS_MGM:
 email:
   send: true
   recepients: 
-    recepient1: avnishrawat@qainfotech.net 
-    recepient2: kanikasharma@qainfotech.com
+ ##   recepient1: avnishrawat@qainfotech.net 
+ ##   recepient2: kanikasharma@qainfotech.com
     recepient3: hitasheesil@qainfotech.com

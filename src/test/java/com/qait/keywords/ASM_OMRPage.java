@@ -312,6 +312,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		selectExpirationDate_Year("Year", year_Value);
 		checkAutoRenewalBox();
 		checkEula();
+		hardWaitForIEBrowser(4);
 		clickOnContinueButton();
 		switchToDefaultContent();
 		wait.hardWait(4);
@@ -400,23 +401,23 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnSubmitPayment() {
-		wait.hardWait(14);
-		wait.waitForPageToLoadCompletely();
-		try
-		{
-			wait.resetExplicitTimeout(hiddenFieldTimeOut);
-			wait.resetImplicitTimeout(4);
-			performClickByActionBuilder(element("btn_submitPayment"));
-		}
-		catch(Exception e)
-		{
-		executeJavascript("document.getElementById('eWebFrame').contentWindow.document.getElementById('btnSubmitOmrPaymentTop').click()");
-		}
-		logMessage("STEP : Click on Pay button at Top \n");
-		wait.resetExplicitTimeout(timeOut);
-		wait.resetImplicitTimeout(timeOut);
-		
-	}
+		  wait.hardWait(14);
+		  wait.waitForPageToLoadCompletely();
+		  try
+		  {
+		   wait.resetExplicitTimeout(hiddenFieldTimeOut);
+		   wait.resetImplicitTimeout(4);
+		   performClickByActionBuilder(element("btn_submitPayment"));
+		  }
+		  catch(Exception e)
+		  {
+		  executeJavascript("document.getElementById('eWebFrame').contentWindow.document.getElementById('btnSubmitOmrPaymentTop').click()");
+		  }
+		  logMessage("STEP : Click on Pay button at Top \n");
+		  wait.resetExplicitTimeout(timeOut);
+		  wait.resetImplicitTimeout(timeOut);
+		  
+		 }
 
 	public void verifyNavigationPage(String navigationPageName) {
 		isElementDisplayed("txt_navigation");

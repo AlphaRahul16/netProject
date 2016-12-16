@@ -17,4 +17,6 @@ inp_organization   xpath    //input[@id='prospectOrganization']
 inp_phone          xpath    //input[@id='prospectPhone']
 inp_memberNumber   id    prospectMemberNumber
 inp_dept/mailStop  id      prospectDeptMail
+inp_MGMDetails		id			prospect${text}
+list_MGMDetails		css		#prospect${text}>option[selected='selected']
 ==============================================================================================================================
