@@ -35,4 +35,5 @@ lnk_arrow                            xpath                         ((//table[con
 txt_subscriptionName                 xpath                         ((//table[contains(@id,'ChildTable')])[1]//tr[last()])[1]//table//tr[${index}]//td[5]
 txt_startDateInTable                 xpath                         ((//table[contains(@id,'ChildTable')])[1]//tr[last()])[1]//table//tr[${index}]//td[7]
 txt_issueInTable                 xpath                         ((//table[contains(@id,'ChildTable')])[1]//tr[last()])[1]//table//tr[${index}]//td[9]
+btn_detailsMenuAACT                              xpath                        //span[text()='${menuName}']/../a[1]/i[@class='icon-chevron-down']
 ====================================================================================================================================================================================
