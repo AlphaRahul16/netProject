@@ -458,6 +458,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 			String isSummerMaillingAdd) {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(4);
+		hardWaitForIEBrowser(10);
 		verifyFieldVisibility("txt_summerMailingAdd", isSummerMaillingAdd);
 	}
 

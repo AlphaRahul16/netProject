@@ -42,7 +42,7 @@ public class WebDriverFactory {
 
 		if (seleniumServer.equalsIgnoreCase("local")) {
 			if (browser.equalsIgnoreCase("firefox")) {
-				return getFirefoxDriver();
+				return getFirefoxDriver(seleniumconfig.get("driverpath") + "geckodriver.exe");
 			} else if (browser.equalsIgnoreCase("chrome")) {
 				
 				if(System.getProperty("os.name").equals("Linux"))
@@ -130,7 +130,7 @@ public class WebDriverFactory {
 		return new SafariDriver();
 	}
 
-	private static WebDriver getFirefoxDriver() {
+	private static WebDriver getFirefoxDriver(String driverpath) {
 		
 //		File pathToBinary = new File("C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe");
 //		FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
@@ -157,6 +157,7 @@ public class WebDriverFactory {
 //		}
 //	
 		profile = new FirefoxProfile();
+		System.setProperty("webdriver.firefox.marionette",driverpath);
 		profile.setPreference("browser.download.useDownloadDir", true);
 		profile.setPreference("browser.cache.disk.enable", false);
 		profile.setPreference("browser.download.folderList", 2);
@@ -187,6 +188,7 @@ public class WebDriverFactory {
 		profile.setPreference("dom.disable_beforeunload", true);
 		profile.setPreference("network.http.phishy-userpass-length", 255);
 		profile.setPreference("network.automatic-ntlm-auth.trusted-uris","yourDomain");
+		profile.setAcceptUntrustedCertificates(true);
 		//return new FirefoxDriver(ffBinary,profile);
 		return new FirefoxDriver(profile);
 	}

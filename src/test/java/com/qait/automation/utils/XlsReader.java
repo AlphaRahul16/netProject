@@ -461,8 +461,8 @@ public class XlsReader {
 		List<String> value = new ArrayList<String>();
 		System.out.println("===========Value List=====================");
 		header = sheet.getRow(NumRow);
-		for (int j = 0; j < header.getPhysicalNumberOfCells(); j++) {
-			System.out.println("  " + header.getCell(j));
+		for (int j = 0; j < (header.getPhysicalNumberOfCells()-1); j++) {
+			System.out.println("-----  " + header.getCell(j));
 			header.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
 			if (header.getCell(j).getStringCellValue() == null) {
 				value.add("No data");

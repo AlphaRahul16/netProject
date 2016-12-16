@@ -80,7 +80,7 @@ img_override                              xpath                 //td[contains(te
 img_demoGraphics                          css                    img[alt*='${buttonName}']
 inp_bpa_info                              xpath                 //label[text()='${field}:']/preceding-sibling::span//input
 btn_saveRapidFormData                     css                   input[value*='Save']
-txt_updatedLogsBPA                        xpath                //td[starts-with(text(),'${productName}')]/following-sibling::td[1]
+txt_updatedLogsBPA                        xpath                //td[starts-with(text(),'${productName}')]/following-sibling::td[${index}]
 img_activeMember                          xpath                 //td[starts-with(text(),'${value}')]/preceding-sibling::td//img
 
 #Chapter Relationships
@@ -91,5 +91,6 @@ drpdwn_options                            xpath                 //label[text()='
 inp_startDate                             id                    cxc_start_date
 txt_active_chapters                       xpath                 //td[text()='active']/preceding-sibling::td[4]
 tab_pencilButton                          xpath                 //td[contains(text(),'${field}')][1]/preceding-sibling::td//i[@class='iconpro-pencil']
+
 
 ======================================================================================================================================

@@ -37,6 +37,7 @@ excel-data-file:
   path_ScarfReporting: ./src/test/resources/TestDataLibrary/Scarf_Reporting_DataSheet.xls
   path_GCS_OMR: ./src/test/resources/TestDataLibrary/GCS_OMR_Datasheet.xls
   path_BPA_Scenariosheet: ./src/test/resources/TestDataLibrary/BPA_Scenariosheet.xls
+  path_GiftCard_Scenariosheet: ./src/test/resources/TestDataLibrary/GiftCard_Scenariosheet.xls
 
 
 password: "password"
@@ -500,7 +501,7 @@ MemberShipRenewal:
          status: PROCESSING
     renewalDetailsForSuccess: 
          status: Success
-         numberOfRenewals: 2
+         numberOfRenewals: 1
          numberOfInvoicesCreated: 0
          numberOfErrors: 0
     renewalDetailsForProcessingCreateRenewalInvoice: 
@@ -510,14 +511,14 @@ MemberShipRenewal:
          numberOfErrors: 0
     renewalDetailsForSuccessCreateRenewalInvoice: 
          status: SUCCESS
-         numberOfRenewals: 2
-         numberOfInvoicesCreated: 2
+         numberOfRenewals: 1
+         numberOfInvoicesCreated: 1
          numberOfErrors: 0
     invoiceDetails: 
          proforma: "Yes"               
          paidInFull: "No"            
-    renewalMessage: "Dues task netFORUM_Dues_Renewal_update_Task_a02bd1cb14a14b4090482ae01f213b2dd5fc7374 scheduled successfully.  Upon completion an e-mail will be sent to" 
-      
+    renewalMessage: "Dues task netFORUM_Dues_Renewal_update_Task_a02bd1cb14a14b4090482ae01f213b2dd5fc7374 scheduled successfully.  Upon completion an e-mail will be sent to"
+    
 ACS_Store:
     password: password   
     maxWaitTimeForPrintMessage: 30
