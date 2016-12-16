@@ -17,7 +17,6 @@ import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
 public class ACS_MGM_Test extends BaseTest {
-
 	private String IWEBurl, MGMpageURL;
 	private String app_url_IWEB, app_url_MGMUrl, app_url_MGMjoin, app_url_MGMOptOut, app_url_MGMLogout;
 	private List<String> memberDetails, detailsForMember2;
@@ -324,3 +323,4 @@ public class ACS_MGM_Test extends BaseTest {
 	}
 
 }
+

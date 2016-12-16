@@ -446,8 +446,9 @@ public class XlsReader {
 	public static List<String> getrowSpecificData(int NumRow, HSSFRow header, HSSFSheet sheet) {
 		List<String> value = new ArrayList<String>();
 		header = sheet.getRow(NumRow);
-		for (int j = 0; j < header.getPhysicalNumberOfCells(); j++) {
-			
+
+		for (int j = 0; j < (header.getPhysicalNumberOfCells()-1); j++) {
+			System.out.println("-----  " + header.getCell(j));
 			header.getCell(j).setCellType(Cell.CELL_TYPE_STRING);
 			if (header.getCell(j).getStringCellValue() == null) {
 				value.add("No data");

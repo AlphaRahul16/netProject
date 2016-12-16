@@ -638,12 +638,12 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyRenewedProductsPriceInsideLineItems(Map<String, String> mapRenewedProductDetails) {
 
 		for (String key : mapRenewedProductDetails.keySet()) {
-			if (!(key.equals("Voluntary Contribution To C&EN") || key.equals("Project SEED"))) {
+			if (!(key.equals("Voluntary Contribution To C&EN") || key.equals("Project SEED") ||key.equals("ACS Endowment Fund"))) {
 				System.out.println((mapRenewedProductDetails.get(key)).trim());
 				System.out.println(element("txt_priceValue", key).getText().trim());
-				// Assert.assertTrue((mapRenewedProductDetails.get(key))
-				// .trim()
-				// .equals(element("txt_priceValue", key).getText().trim()));
+				 Assert.assertTrue((mapRenewedProductDetails.get(key))
+				 .trim()
+				 .equals(element("txt_priceValue", key).getText().trim()));
 				logMessage("ASSERT PASSED : " + key + " price inside line items verified as "
 						+ mapRenewedProductDetails.get(key));
 			}

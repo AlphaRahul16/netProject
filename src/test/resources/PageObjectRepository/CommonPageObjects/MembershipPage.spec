@@ -19,7 +19,6 @@ img_cross                                           xpath                  //img
 btn_menuItems                                     xpath                    //a[contains(@title,'${menuName}')]/i
 img_orderEntry                                      xpath                   //img[contains(@alt,'Order Entry')]
 lnk_selectProduct                                   id                      HYPERLINK_17
-txt_menuItems                                      id                      HYPERLINK_20
 list_association                                    id                     mbr_asn_code
 list_memberType                                     id                     mbr_mbt_key
 list_memberPackage                                  id                     mbr_pak_prd_key
@@ -56,7 +55,6 @@ inp_mail                                          id                         cxa
 table_queryResult                                css                             #DataFormTable  
 btn_saveForBillingAdd                             id                            ButtonSave   
 table_lineItems                                   id                         UPDATEGRIDCONTROL_DOD_Invoice_DetailGRIDDIV 
-frame_selectProduct                              id                             menu_a83665ae18eb43488c5d83ce5f6027f8  
 list_billAddress                                 id                         inv_cxa_key  
 btn_add                                              id                      inv_cxa_key_oAddHyperLink
 chk_doNotValidate                                  css                         #adr_no_validation_flag
@@ -235,7 +233,7 @@ txt_netTotal									xpath							//*[@id='ivd_nettotal']
 txt_netBalanceNetForum								xpath							//td/a[contains(text(),'${text}')]/.. /following-sibling::td[9]/span
 label_transCode									xpath								.//*[@id='F1_cdt_code']
 img_arrow								       css									 #dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(1) > a > img
-txt_tableRow										css									#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(10)
+txt_tableRow								  css									#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(10)
 txt_creditAmount								xpath								//td[contains(text(),'${memberType}')]/following-sibling::td[6]
 btn_goask                                       id                           ButtonAskGo
 link_importMatch                                xpath                        (//td[text()='${currentDate}'])[1]/preceding-sibling::td[contains(text(),'${impotFileName}')]/preceding-sibling::td[2]
@@ -243,6 +241,11 @@ btn_browse										id									a40_file
 label_profile_title			  					xpath							 //div[text()='${value}']
 label_heading_data								xapth							//span[text()='${value}']
 table_data										xpath							.//table[@class='table']//tr[2]
+
+#Gift Card
+
+drpdwn_merchendiseProduct                       id                            prd_ptp_key
+inp_referencenumber                             id                            pin_other_ref_number
 
 
 

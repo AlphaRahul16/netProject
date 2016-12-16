@@ -2569,6 +2569,26 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		return memberDetails;
 
 	}
+	
+//	public Map<String,String> getCustomerDetails(String[] customerInfo) {
+//		Map<String, String> customerDetailsMap = new HashMap<String,String>();
+//		clickOnEditNameAndAddress();
+//		switchToFrame("iframe1");
+//		customerLname = getNameFromEditNameAndAddressButton("lastName") + " "
+//				+ getNameFromEditNameAndAddressButton("firstName") + " "
+//				+ getNameFromEditNameAndAddressButton("middleName");
+//		clickOnCancelButton();
+//		handleAlert();
+//		switchToDefaultContent();
+//		customerContactId = element("txt_renewalContactId").getText();
+//		memberDetails.add(customerLname);
+//
+//		memberDetails.add(customerContactId);
+//		// memberDetails.add(getMemberWebLogin());
+//		logMessage("STEP : Customer Contact Id fetched as " + customerContactId);
+//		return memberDetails;
+//
+//	}
 
 	public void fetchScarfReviewerLoginDetails(Map<String, List<String>> reviewerloginMap, int reviewerNumber) {
 		reviewerloginMap.put("reviewer" + reviewerNumber, getCustomerLastNameAndContactID());
@@ -4693,6 +4713,69 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			sourceCode = _getSourceCode("Foregin");
 		}
 		return sourceCode;
+	}
+	
+	public void selectMerchandiseProductNameGC(String productName)
+	{
+		switchToDefaultContent();
+		switchToFrame(element("iframe"));
+		isElementDisplayed("drpdwn_merchendiseProduct");
+		selectProvidedTextFromDropDown(element("drpdwn_merchendiseProduct"), productName);
+		wait.hardWait(2);
+		wait.waitForPageToLoadCompletely();
+		logMessage("Step : "+productName+" is selected from product merchandise\n");
+	}
+	
+	public void selectAndAddBatchIFNotPresentForGiftCard(String batchName,String paymentType)
+	{
+		holdExecution(2000);
+
+		if (verifyBatchIsPresent(batchName)) {
+			selectOrderEntryInfo("batch", batchName);
+		} else {
+			addBatch(batchName.replaceAll("ACS: ", ""), "QA");
+		}
+		waitForSpinner();
+		selectOrderEntryInfo("PaymentType", paymentType);
+		waitForSpinner();
+	}
+	
+	private void fillCardInformation(String cardNumber, String expireDate, String cvvNumber)
+	{
+		enterCardDetails("cardNumber", cardNumber);
+        selectMemberInfo("expireDate", expireDate);
+        enterCardDetails("cvvNumber", cvvNumber);
+	}
+	
+	public void fillAllTypeOFPaymentDetails(String PaymentMethod,String cardNumber,String dinerscardNumber,
+			String referenceNumber,String discovercardNumber, String expireDate, String cvvNumber, String checkNumber)
+	{
+		switch(PaymentMethod)
+		{
+		case "Visa/MC":	fillCardInformation(cardNumber,expireDate,cvvNumber);
+			            break;
+			
+		case "BOA - Check": enterCardDetails("checkNumber", checkNumber);
+			                break;
+		
+		case "check": enterCardDetails("checkNumber", checkNumber);
+			break;
+			
+		case "cash":enterCardDetails("referencenumber", referenceNumber);
+			break;
+			
+		case "Diners": fillCardInformation(dinerscardNumber,expireDate,cvvNumber);
+			break;
+			
+		case "Discover":  fillCardInformation(discovercardNumber,expireDate,cvvNumber);
+			break;
+			
+		case "Gift Card Adjustment": enterCardDetails("referencenumber", referenceNumber);
+			break;
+		}
+		clickOnSaveAndFinish();
+		handleAlert();
+		verifyPageTitleContains("CRM | Individuals |");
 	}
 
 	public String _getSourceCode(String sourceCodetype) {
