@@ -1288,6 +1288,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void enterEmailIDToAdd(String emailID) {
 		isElementDisplayed("inp_emailAddress");
+		element("inp_emailAddress").clear();
 		element("inp_emailAddress").sendKeys(emailID);
 		logMessage("STEP : Enter email ID " + emailID + " to add\n");
 	}
