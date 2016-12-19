@@ -139,13 +139,16 @@ public class MemberShipRenewalPage extends GetPage {
 		Date dateInDate = DateUtil.convertStringToDate(currentDate, "hh:mm a");
 		Date dateAfterMinutesAdded = DateUtils.addMinutes(dateInDate,
 				Integer.parseInt(timeSlab) + 3);
+		System.out.println("dateAfterMinutesAdded:" + dateAfterMinutesAdded);
 		SimpleDateFormat sdf = new SimpleDateFormat("h:mm:ss a");
 		String dateWithTimeSlabInString = sdf.format(dateAfterMinutesAdded);
-
+		System.out.println("dateWithTimeSlabInString:"
+				+ dateWithTimeSlabInString);
 		String runTaskDateTime = DateUtil
 				.getCurrentdateInStringWithGivenFormateForTimeZone(
 						"MM/dd/YYYY", "EST5EDT")
 				+ " " + dateWithTimeSlabInString;
+		System.out.println("runTaskDateTime:" + runTaskDateTime);
 		element("inp_runTaskDateTime").click();
 		wait.waitForPageToLoadCompletely();
 		element("inp_runTaskDateTime").clear();

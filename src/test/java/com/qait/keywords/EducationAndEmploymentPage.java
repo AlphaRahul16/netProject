@@ -458,13 +458,14 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 			String isSummerMaillingAdd) {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(4);
+		hardWaitForIEBrowser(10);
 		verifyFieldVisibility("txt_summerMailingAdd", isSummerMaillingAdd);
 	}
 
 	public void enterJobExperience(String isJobExp, String jobExp) {
 		if (isJobExp.equalsIgnoreCase("SHOW")) {
 			element("txtAr_professionalExp").sendKeys(jobExp);
-			logMessage("STEP : job experience " + jobExp
+			logMessage("STEP : " + jobExp
 					+ " is entered in txtAr_professionalExp\n");
 		}
 	}

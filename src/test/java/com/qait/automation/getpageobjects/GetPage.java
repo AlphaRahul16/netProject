@@ -84,7 +84,7 @@ public class GetPage extends BaseUi {
 	protected boolean checkIfElementIsThere(String eleString,
 			String replacementEleString) {
 		boolean flag = false;
-		wait.resetImplicitTimeout(2);
+		wait.resetImplicitTimeout(8);
 		wait.resetExplicitTimeout(10);
 		try {
 			if (webdriver.findElement(
@@ -564,5 +564,7 @@ public class GetPage extends BaseUi {
 //			}
 //		}
 //	}
+	
+
 	
 }
