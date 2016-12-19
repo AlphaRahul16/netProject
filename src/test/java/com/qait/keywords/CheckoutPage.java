@@ -747,6 +747,17 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		}
 	}
 	
+	public String verifySourceCodeIsValid(String sourceCode){
+		wait.hardWait(8);
+		if(checkIfElementIsThere("txt_invalidSrcCode")){
+			logMessage("STEP: Source code is invalid!!!\n");
+			sourceCode="16JOINoi";
+		}
+		else
+			logMessage("STEP: Source code is valid!!!\n");
+		return sourceCode;
+	}
+	
 	public String verifyProductsAmount(String productName){
 		String price="";
 		if (productName.equals("")) {

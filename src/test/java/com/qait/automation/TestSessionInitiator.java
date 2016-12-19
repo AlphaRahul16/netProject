@@ -16,6 +16,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Reporter;
@@ -247,6 +248,7 @@ public class TestSessionInitiator {
 	}
 
 	public void launchApplication(String baseurl) {
+		
 		try {
 			Reporter.log(
 					"The test browser is :- "
@@ -255,14 +257,7 @@ public class TestSessionInitiator {
 			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie") || _getSessionConfig()
 					.get("browser").equalsIgnoreCase("internetexplorer"))) {
 				if (baseurl
-						.equalsIgnoreCase("https://stag-12iweb/NFStage3/iweb")
-						|| baseurl
-								.equalsIgnoreCase("https://stag-12iweb/NFStage2/iweb")
-						|| baseurl
-								.equalsIgnoreCase("https://stag-12iweb/NFStage5/iweb")
-						|| baseurl
-								.equalsIgnoreCase("https://stag-12iweb/NFStage1/iweb")) {
-				
+						.contains("https://stag-12iweb/NFStage")) {
 					baseurl = baseurl
 							.replaceAll(
 									"https://stag",
@@ -276,13 +271,9 @@ public class TestSessionInitiator {
 													"UTF-8") + "@stag");
 					driver.get(baseurl);
 				}
-				else if(baseurl
-						.equalsIgnoreCase("https://dev-eweb12.acs.org/NFDev7/iWeb/") || 
-						baseurl
-						.equalsIgnoreCase("https://dev-eweb12/NFDev8/iWeb") ||
-						(baseurl.contains("https://dev-eweb12/YBDev3/iWeb")) ||
-						baseurl
-						.contains("https://dev-eweb12/NFDev") ){
+				else if(baseurl.contains("https://dev-eweb12/YBDev3/iWeb") ||
+						baseurl.contains("https://dev-eweb12/NFDev") ||
+						(baseurl.contains("https://dev-eweb12.acs.org/NFDev") && _getSessionConfig().get("browser").equalsIgnoreCase("chrome"))){
 					baseurl = baseurl.replaceAll(
 							"https://dev",
 							"https://"
@@ -294,25 +285,7 @@ public class TestSessionInitiator {
 													.getYamlValue("Authentication.password"),
 											"UTF-8") + "@dev");
 			driver.get(baseurl);
-				}
-				else if(baseurl.equals("https://iwebtest.acs.org/YBStage1/iWeb") && isBrowser("firefox")){
-					System.out.println("----1");
-//					baseurl = baseurl
-//							.replaceAll(
-//									"https://iwebtest",
-//									"https://"
-//											+ YamlReader
-//													.getYamlValue("Authentication.userName")
-//											+ ":"
-//											+ URLEncoder.encode(
-//													YamlReader
-//															.getYamlValue("Authentication.password"),
-//													"UTF-8") + "@iwebtest");
-					driver.get(baseurl);
-					System.out.println("----2");
-					enterAuthentication(YamlReader.getYamlValue("Authentication.userName"), YamlReader.getYamlValue("Authentication.password"));
-				}
-				
+				}			
 				else {
 			baseurl = baseurl
 							.replaceAll(
@@ -338,7 +311,8 @@ public class TestSessionInitiator {
 							+ baseurl
 									.replace(baseurl.split("@")[0], "https://")
 									.replace("@", ""), true);
-				} else if (baseurl.contains("dev") || baseurl.contains("http://dev-eweb12/YBDev3/iWeb")) {
+				} else if ((baseurl.contains("dev") && _getSessionConfig().get("browser").equalsIgnoreCase("chrome")) || baseurl.contains("https://dev-eweb12/YBDev3/iWeb")) {
+					
 					Reporter.log("\nThe application url is :- "
 							+ baseurl
 									.replace(baseurl.split("@")[0], "https://")
@@ -353,6 +327,7 @@ public class TestSessionInitiator {
 									.equalsIgnoreCase("ie") || ConfigPropertyReader
 							.getProperty("browser").equalsIgnoreCase(
 									"internetexplorer"))) {
+				//((JavascriptExecutor) driver).executeScript("document.documentMode=10");
 				try {
 					Thread.sleep(8000);
 				} catch (InterruptedException e1) {

@@ -123,6 +123,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(6);
 		isElementDisplayed("inp_giftAmount", field);
+		wait.hardWait(2);
 		System.out.println(element("inp_giftAmount", field).getAttribute("value"));
 		Assert.assertEquals(element("inp_giftAmount", field).getAttribute("value"), amount,
 				"ASSERT FAILED : Deductible amount value is not same as the Gift amount "+amount+"\n");
@@ -172,7 +173,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 				"latest gift date", "latest gift amount", "ytd amount", "lifetime amount" };
 		for (String info : giftinfo) {
 			if (info.contains("date")) {
-				verifyGiftInformationIsDispalyed(info, DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy"));
+				verifyGiftInformationIsDispalyed(info, DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST"));
 			} else
 				verifyGiftInformationIsDispalyed(info, expectedValue);
 		}

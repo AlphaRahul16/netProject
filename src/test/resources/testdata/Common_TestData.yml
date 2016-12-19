@@ -501,7 +501,7 @@ MemberShipRenewal:
          status: PROCESSING
     renewalDetailsForSuccess: 
          status: Success
-         numberOfRenewals: 2
+         numberOfRenewals: 1
          numberOfInvoicesCreated: 0
          numberOfErrors: 0
     renewalDetailsForProcessingCreateRenewalInvoice: 
@@ -511,8 +511,8 @@ MemberShipRenewal:
          numberOfErrors: 0
     renewalDetailsForSuccessCreateRenewalInvoice: 
          status: SUCCESS
-         numberOfRenewals: 2
-         numberOfInvoicesCreated: 2
+         numberOfRenewals: 1
+         numberOfInvoicesCreated: 1
          numberOfErrors: 0
     invoiceDetails: 
          proforma: "Yes"               
@@ -632,14 +632,6 @@ COE_Inventory:
   
 AACT_OMR:
   queryName: "Selenium - Renewals - AACT"
-
-ScarfReviewer:
-    queryName: "BP - Reviewers"
-    reviewRating: Commendable
-    reviewComments: test comments
-    overallRating: Outstanding
-    overallGCRating: "Yes"
-    overallReviewComment: outstanding test data
 
 Acs_Reports:
     module: CRM

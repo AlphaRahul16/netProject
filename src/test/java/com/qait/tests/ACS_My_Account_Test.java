@@ -79,6 +79,8 @@ public class ACS_My_Account_Test extends BaseTest {
 	public void Step02_Launch_Iweb_Application_And_Find_Existing_Member() {
 		Reporter.log("******Case Id :" + caseID + "******\n", true);
 		test.launchApplication(app_url_IWEB);
+		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
+				YamlReader.getYamlValue("Authentication.password"));
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Find Individual");
 		test.memberShipPage.checkAdvanceNewCheckbox();
@@ -121,8 +123,8 @@ public class ACS_My_Account_Test extends BaseTest {
 		test.acsMyAccount.changePhoneNumber("Home Add Phone", test.acsMyAccount.map().get("Member?"), telephoneType);
 		test.acsMyAccount.editPhoneNumber(test.acsMyAccount.map().get("Phone_Number") + number,
 				test.acsMyAccount.map().get("Primary_Member?"), telephoneType);
-		test.acsMyAccount.clickOnEmailSaveButton("home");
-		test.acsMyAccount.verifyEmailSavedMessage(getYamlValue("ACS_MyAccount.phoneSaveMessage"), "msg_phoneSave");
+		test.acsMyAccount.clickOnEmailSaveButton(Character.toLowerCase(telephoneType.charAt(0))+telephoneType.substring(1));
+		test.acsMyAccount.verifyPhoneSavedMessage(getYamlValue("ACS_MyAccount.phoneSaveMessage"), telephoneType);
 		test.acsMyAccount.verifyPriamryImageIsPresent("img_phonePrimary", "HomePhone");
 		test.acsMyAccount.changeAddress(test.acsMyAccount.map().get("Member?"), test.acsMyAccount.map());
 		test.acsMyAccount.verifySaveAddressMessage(getYamlValue("ACS_MyAccount.addressSaveMessage"));
@@ -166,6 +168,8 @@ public class ACS_My_Account_Test extends BaseTest {
 	@Test
 	public void Step08_Launch_Iweb_Application_Find_Member_And_Verify_Email_Address() {
 		test.launchApplication(app_url_IWEB);
+		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
+				YamlReader.getYamlValue("Authentication.password"));
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Find Individual");
 		test.individualsPage.fillMemberDetailsAndSearch("Record Number", customerId);

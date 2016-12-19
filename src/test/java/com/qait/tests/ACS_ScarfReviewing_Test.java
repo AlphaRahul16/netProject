@@ -51,7 +51,7 @@ public class ACS_ScarfReviewing_Test {
 				YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
-//		test.acsScarfReviewPage.assignChapterName("Belmont University");
+//		test.acsScarfReviewPage.assignChapterName("Hendrix College Student Chapter");
 	}
 
 	@Test

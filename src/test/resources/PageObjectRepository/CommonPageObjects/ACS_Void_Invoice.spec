@@ -10,7 +10,7 @@ table_actions                                  xpath                            
 drpdwn_invoiceAction                           xpath                             (//table[@id='DGInvoiceNESTED']//tr)[${index}]//select
 table_rows                                     xpath                              //table[@class='table']//tr
 iframe                                         xpath                              //iframe[@id="iframe2"]
-table_productName                              xpath                              //table[@class='table']//tr//td[${index}]
+table_productName                              xpath                              //table[@class='table']//tr//td[contains(text(),'${prodName}')]
 txt_voidInvoice                                css                                .DataFormLabelErrorMessage
 txt_emptyLineItems                             css                                .DataFormFooterTD
 img_memberBenefits                             xpath                              //img[@id='F1_IMAGE_${index}']
@@ -22,5 +22,6 @@ lnk_batchName                                  xpath                            
 inp_creditDate                                  id                                dtb${'type'}Date
 btn_searchRefund                                id                                ACSDateRangeButton
 img_spinner                                    css                                #__UPIMG
-
+list_productNames							   xpath                              //table[@class='table']//tr//td[${index}]
+lst_productNames                               xpath                              //table[@class='table']//tr//td[contains(text(),'${invoiceNo}')]/following-sibling::td[1]
 ======================================================================================================================================
