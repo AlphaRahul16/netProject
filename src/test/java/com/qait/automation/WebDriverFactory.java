@@ -146,12 +146,7 @@ public class WebDriverFactory {
 
 		profile = new FirefoxProfile(firefoxProfile);
 		File extension = new File(autoAuthPath);// path of AutoAuth
-		try {
-			profile.addExtension(extension);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		profile.addExtension(extension);
 		}
 		else
 			profile = new FirefoxProfile();
