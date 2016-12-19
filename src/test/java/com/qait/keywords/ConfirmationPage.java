@@ -146,6 +146,7 @@ public class ConfirmationPage extends ASCSocietyGenericPage {
 			verifyPdfContent(getAACT_OmaSheetValue(caseId, "Product Subtotal?")
 					.replace("$", ""));
 			verifyPdfContent(memberNumber);
+			
 			verifyPdfContent(invoiceNumber);
 			closePdfFile();
 			driver.switchTo().window(getWindow);

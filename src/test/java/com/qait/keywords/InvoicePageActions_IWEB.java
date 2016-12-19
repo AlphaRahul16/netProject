@@ -892,4 +892,9 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 //		verifyProductAmount(map().get("CEN Product Name?"),productAmounts.get("Iweb CEN Product Name?"));
 	}
 
+	public void verifyPaymentDetailsForGiftCard(String batchname, String cardpricevalue) {
+		
+		
+	}
+
 }

@@ -4722,7 +4722,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : "+productName+" is selected from product merchandise\n");
 	}
 	
-	public void selectAndAddBatchIFNotPresentForGiftCard(String batchName,String paymentType)
+	public void selectAndAddBatchIFNotPresentForGiftCard(String batchName,String paymentType,String paymentMethod)
 	{
 		holdExecution(2000);
 
@@ -4733,6 +4733,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		waitForSpinner();
 		selectOrderEntryInfo("PaymentType", paymentType);
+		waitForSpinner();
+		selectOrderEntryInfo("paymentMethod", paymentMethod);
 		waitForSpinner();
 	}
 	
