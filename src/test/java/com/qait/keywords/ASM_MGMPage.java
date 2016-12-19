@@ -38,6 +38,7 @@ public class ASM_MGMPage extends GetPage {
 	}
 
 	public void loginInToApplication(String userName, String password) {
+		wait.waitForPageToLoadCompletely();
 		clickOnLoginLink();
 		enterUserName(userName);
 		enterPassword(password);
@@ -305,10 +306,10 @@ public class ASM_MGMPage extends GetPage {
 	public void verifythatAllInviteeExistOnMGMDashboard(List<String> emails) {
 		List<String> uniqueEmails = getAllInvitees();
 		for (int i = 0; i < emails.size(); i++) {
-			System.out.println("emails::" + emails.get(i));
+			System.out.println("emails::" + emails.get(i)+"::::::::");
 		}
 		for (int i = 0; i < uniqueEmails.size(); i++) {
-			System.out.println("uniqueEmails::" + uniqueEmails.get(i));
+			System.out.println("uniqueEmails::" + uniqueEmails.get(i)+"::::::::");
 		}
 		boolean flag = true;
 		for (String email : emails) {

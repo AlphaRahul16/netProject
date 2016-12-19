@@ -58,19 +58,21 @@ public class Membership_Renewal_Test extends BaseTest {
 		customerId = test.memberShipPage.getContactIdOfUser("Member");
 		memberDetail1 = test.memberShipPage.getMemberDetailsOnMembershipPage();
 
-//		test.memberShipPage.clickOnSideBar("Query Membership");
-//		test.memberShipPage.selectAndRunQuery("Selenium - Renewal Query");
-//		test.memberShipPage.selectMemberForRenewal("Regular");
-//		test.individualsPage.selectOneIndividual("Active", "member status");
-//		memberDetail2 = test.memberShipPage.getMemberDetailsOnMembershipPage();
+		// test.memberShipPage.clickOnSideBar("Query Membership");
+		// test.memberShipPage.selectAndRunQuery("Selenium - Renewal Query");
+		// test.memberShipPage.selectMemberForRenewal("Regular");
+		// test.individualsPage.selectOneIndividual("Active", "member status");
+		// memberDetail2 =
+		// test.memberShipPage.getMemberDetailsOnMembershipPage();
 
 		test.memberShipPage.selectAndRunQueryMembership("Query Membership",
-				"Selenium - Select One Member"); //getMemRenewalInfo.getMemRenewalInfo("queryName")
-		test.memberShipPage.enterSingleCustomerIdInRunQuery(memberDetail1.get(3));
-//		test.memberShipPage.enterCustomerIdsInRunQuery(memberDetail1.get(3),
-//				memberDetail2.get(3));
+				"Selenium - Select One Member"); // getMemRenewalInfo.getMemRenewalInfo("queryName")
+		test.memberShipPage.enterSingleCustomerIdInRunQuery(memberDetail1
+				.get(3));
+		// test.memberShipPage.enterCustomerIdsInRunQuery(memberDetail1.get(3),
+		// memberDetail2.get(3));
 		obj[0] = memberDetail1;
-//		obj[1] = memberDetail2;
+		// obj[1] = memberDetail2;
 
 	}
 
@@ -153,7 +155,8 @@ public class Membership_Renewal_Test extends BaseTest {
 								.getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));
 	}
 
-	@Test //(invocationCount = 2)
+	@Test
+	// (invocationCount = 2)
 	public void Step07_Navigate_To_Membership_Profile_Page_And_Verify_Details_Test() {
 		@SuppressWarnings("unchecked")
 		List<String> memberDetails = (List<String>) obj[invocationCount];
@@ -164,8 +167,10 @@ public class Membership_Renewal_Test extends BaseTest {
 		test.memberShipPage.selectAndRunQuery("Selenium - Select One Member");
 		test.memberShipPage.enterSingleCustomerIdInRunQuery(memberDetails
 				.get(3));
-		test.individualsPage.selectOneIndividual(memberDetails.get(4),
-				"expire date");
+		// test.individualsPage.selectOneIndividual(memberDetails.get(4),
+		// "expire date");
+
+		test.individualsPage.selectOneIndividual("Active", "Status");
 		test.memberShipPage.verifyMembershipDetailsOnRenewal(
 				memberDetails.get(4), memberDetails.get(0),
 				memberDetails.get(1), memberDetails.get(3),
@@ -186,7 +191,7 @@ public class Membership_Renewal_Test extends BaseTest {
 		test.invoicePage.verifyInvoiceDetailsOnInvoiceProfilePage(
 				memberDetails.get(8), memberDetails.get(7));
 
-//		invocationCount++;
+		// invocationCount++;
 
 	}
 

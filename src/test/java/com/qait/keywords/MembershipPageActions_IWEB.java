@@ -537,6 +537,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyMemberTypeInIndividualMemberships(String memberType) {
+		waitForSpinner();
 		isElementDisplayed("txt_memberType", memberType);
 		logMessage("ASSERT PASSED : " + memberType + " is verified in txt_memberType\n");
 	}
@@ -2600,13 +2601,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		String cst = "";
 		if (isBrowser("ie")) {
 			isElementDisplayed("txt_weblogin", String.valueOf(5));
-			cst = element("txt_weblogin", String.valueOf(5)).getText();
+			cst = element("txt_weblogin", String.valueOf(5)).getText().trim();
 			// element("txt_weblogin", String.valueOf(1)).click();
 			isElementDisplayed("txt_current", String.valueOf(1));
 			clickUsingXpathInJavaScriptExecutor(element("txt_current", String.valueOf(1)));
 		} else {
 			isElementDisplayed("txt_current", String.valueOf(1));
-			cst = element("txt_current", String.valueOf(1)).getText();
+			cst = element("txt_current", String.valueOf(1)).getText().trim();
 			element("txt_current", String.valueOf(1)).click();
 		}
 
@@ -2619,10 +2620,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		String cst = "";
 		if (isBrowser("ie")) {
 			isElementDisplayed("txt_weblogin", index);
-			cst = element("txt_weblogin", index).getText();
+			cst = element("txt_weblogin", index).getText().trim();
 		} else {
 			isElementDisplayed("txt_endDate", String.valueOf(1), index);
-			cst = element("txt_endDate", String.valueOf(1), index).getText();
+			cst = element("txt_endDate", String.valueOf(1), index).getText().trim();
 		}
 		handleAlert();
 		logMessage("STEP : " + text + " fetched as " + cst);
@@ -4580,8 +4581,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public List<String> getWebloginAndRecordNumber() {
 		List<String> memberRecord = new ArrayList<>();
-		String recordNumber = getRecordNumber();
-		String weblogin = getCstWebLogin();
+		//String recordNumber = getRecordNumber();
+		//String weblogin = getCstWebLogin();
+		String recordNumber = getCstWebLoginForMembership("4", "Record Number");
+		String weblogin = getCstWebLoginForMembership("3", "Web login");
+		element("txt_current", String.valueOf(1)).click();
 		handleAlert();
 		memberRecord.add(recordNumber);
 		memberRecord.add(weblogin);
@@ -4788,10 +4792,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		expandDetailsMenuIfAlreadyExpanded("my acs nominations");
 		List<String> uniqueEmails = getAllInvitees();
 		for (int i = 0; i < emails.size(); i++) {
-			System.out.println("emails::" + emails.get(i));
+			System.out.println("emails::" + emails.get(i)+"::::::::");
 		}
 		for (int i = 0; i < uniqueEmails.size(); i++) {
-			System.out.println("uniqueEmails::" + uniqueEmails.get(i));
+			System.out.println("uniqueEmails::" + uniqueEmails.get(i)+"::::::::");
 		}
 		boolean flag = true;
 		for (String email : emails) {
@@ -4831,5 +4835,22 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("link_pagesAvailable");
 		elements("link_pagesAvailable").get(i).click();
 		logMessage("STEP: Page link " + String.valueOf(i + 1) + "  is clicked \n");
+	}
+	public void enterCurrentDatesInQuery(int times) {
+		isElementDisplayed("inp_customerId");
+		for (int i = 0; i < times; i++) {
+			if (isBrowser("ie") || isBrowser("internet explorer")) {
+				sendKeysUsingXpathInJavaScriptExecutor(elements("inp_customerId").get(i),
+						DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"));
+					//	DateUtil.getAnyDateForType("MM/dd/yyyy", 1, "year"));
+			} else {
+				EnterTextInField(elements("inp_customerId").get(i),
+						DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"));
+						//DateUtil.getAnyDateForType("MM/dd/yyyy", 1, "year"));
+
+			}
+			logMessage("STEP : Ask at run time Date is entered as "
+					+ DateUtil.getAnyDateForType("MM/dd/yyyy", 1, "year") + " for " + i + " field");
+		}
 	}
 }

@@ -358,11 +358,13 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			//verifyElementTextContent("txt_memberDetails", memDetails[3]);
 			logMessage("ASSERT PASSED :" + memDetails[3] + " is verified in txt_memberDetails\n");
 		}
+		System.out.println("******Member" + memDetails[4]);
 		verifyElementTextContent("txt_memberDetails", memDetails[4]);
 		logMessage("ASSERT PASSED :" + memDetails[4] + " is verified in txt_memberDetails\n");
+		System.out.println("******Member" + memDetails[5]);
 		verifyElementTextContent("txt_memberDetails", memDetails[5]);
 		logMessage("ASSERT PASSED :" + memDetails[5] + " is verified in txt_memberDetails\n");
-
+		System.out.println("******Member" + memDetails[6]);
 		verifyElementTextContent("txt_memberDetails", memDetails[6]);
 		logMessage("ASSERT PASSED :" + memDetails[6] + " is verified in txt_memberDetails\n");
 		logMessage("*********** CUSTOMER ID : " + getContactId() + " ***********");
@@ -1288,6 +1290,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void enterEmailIDToAdd(String emailID) {
 		isElementDisplayed("inp_emailAddress");
+		element("inp_emailAddress").clear();
 		element("inp_emailAddress").sendKeys(emailID);
 		logMessage("STEP : Enter email ID " + emailID + " to add\n");
 	}

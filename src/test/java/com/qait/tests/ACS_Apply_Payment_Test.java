@@ -10,10 +10,7 @@ import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
-
 public class ACS_Apply_Payment_Test extends BaseTest {
-
-
 
 	String app_url_IWEB;
 
@@ -116,5 +113,5 @@ public class ACS_Apply_Payment_Test extends BaseTest {
 	public void handleTestMethodName(Method method) {
 		test.printMethodName(method.getName());
 	}
-	
+
 }
