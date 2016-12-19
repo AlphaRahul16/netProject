@@ -413,7 +413,7 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 		}
 		verifyRemainingIsOneLessThanIssues();
 		expandDetailsMenu("issues fulfilled");
-		expandDetailsMenuIfAlreadyExpanded("issues fulfilled");
+//		expandDetailsMenuIfAlreadyExpanded("issues fulfilled");
 		verifyFulfillmentDate(subName);
 	}
 

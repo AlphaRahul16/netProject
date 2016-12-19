@@ -38,6 +38,7 @@ excel-data-file:
   path_ScarfReporting: ./src/test/resources/TestDataLibrary/Scarf_Reporting_DataSheet.xls
   path_GCS_OMR: ./src/test/resources/TestDataLibrary/GCS_OMR_Datasheet.xls
   path_BPA_Scenariosheet: ./src/test/resources/TestDataLibrary/BPA_Scenariosheet.xls
+  path_GiftCard_Scenariosheet: ./src/test/resources/TestDataLibrary/GiftCard_Scenariosheet.xls
 
 
 password: "password"
@@ -671,6 +672,7 @@ ACS_MGM:
     query1: "Selenium - Find Active Regular Member with ACSID"
     query2: "selenium - MGM Find Inactive Regular Member"
     query3: "selenium - Find Active Member with Renewal"
+    newQuery: "QTP - Find Member - No MGM Nominations"
                     
 email:
   send: true

@@ -1,3 +1,4 @@
+
 package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
@@ -212,3 +213,4 @@ public class Membership_Renewal_Test extends BaseTest {
 		test.printMethodName(method.getName());
 	}
 }
+

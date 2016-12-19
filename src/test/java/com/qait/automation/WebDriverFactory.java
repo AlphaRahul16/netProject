@@ -130,6 +130,7 @@ public class WebDriverFactory {
 		return new SafariDriver();
 	}
 
+
 	private static WebDriver getFirefoxDriver() {
 		String path="C:"+File.separator+"Program Files (x86)"+File.separator+"Mozilla Firefox"+File.separator+"firefox.exe";
 		File binaryPath=new File(path);
@@ -188,6 +189,13 @@ public class WebDriverFactory {
 		profile.setPreference("browser.download.panel.shown",false);
 		profile.setPreference("browser.download.useToolkitUI",true);
 		profile.setPreference("dom.disable_beforeunload", true);
+
+//		profile.setPreference("network.http.phishy-userpass-length", 255);
+//		profile.setPreference("network.automatic-ntlm-auth.trusted-uris","yourDomain");
+//		profile.setAcceptUntrustedCertificates(true);
+//		//return new FirefoxDriver(ffBinary,profile);
+//		return new FirefoxDriver(profile);
+
 //		profile.setPreference("network.http.phishy-userpass-length", 255);
 //		profile.setPreference("network.automatic-ntlm-auth.trusted-uris","yourDomain");
 		return new FirefoxDriver(ffbinary,profile);

@@ -55,6 +55,7 @@ public class ACS_OMR_Smoke_Test extends BaseTest {
 	public void Step03_TC01_Navigate_to_Membership_Page_And_Fetch_Member_Details() {
 		test.memberShipPage.clickOnCustomerNameAndNavigateToMembershipPage();
 		memDetails = test.memberShipPage.getCustomerAllDetails(invoiceNumber);
+		//test.memberShipPage.getCustomerDetails("lastName","firstName");
 	}
 
 	@Test
