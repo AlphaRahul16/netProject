@@ -17,25 +17,33 @@ import com.qait.automation.utils.XlsReader;
 import com.qait.automation.utils.YamlReader;
 
 public class ACS_GiftCard_Test extends BaseTest{
-	private int caseID;
+	private String caseID;
 	Map<String,String> giftCardMap = new HashMap<String, String>();
-	String app_url_IWEB;
-	private String cardpricevalue;
-	
-	public ACS_GiftCard_Test() {
-		 com.qait.tests.Data_Provider_Factory_Class_Xml.sheetName = "GiftCard_Scenariosheet";
-		}
+	String app_url_IWEB,app_url_OMA,customerId,redeemedCustomerID;
+	private String cardpricevalue, GiftCardNumber;
+	private String totalpricebeforeGC,currency = "$";
+	String sourceCode,app_url_sourceCode,userEmail,memberNumber,productSubTotal,Total,invoiceNumber;
+	String[] userDetail,quantities,memberDetail;
+	boolean isErrorMessage;
+	static Map<String, Boolean> errorMap = new HashMap<String, Boolean>();
+	Map<String,String> productAmounts=new HashMap<>();
 
-		@Factory(dataProviderClass = com.qait.tests.Data_Provider_Factory_Class_Xml.class, dataProvider = "data")
-		public ACS_GiftCard_Test(int caseID) {
-			this.caseID = caseID;
-		}
+	public ACS_GiftCard_Test() {
+		com.qait.tests.DataProvider_FactoryClass.sheetName = "GiftCard_Scenariosheet";
+	}
+
+	
+	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
+	public ACS_GiftCard_Test(String caseID) {
+		this.caseID = caseID;
+	}
 		
 		@BeforeClass
 		public void Start_Test_Session() {
 			test = new TestSessionInitiator(this.getClass().getSimpleName());
 			app_url_IWEB = getYamlValue("app_url_IWEB");
-			giftCardMap = XlsReader.addValuesInTheMapForExcel("GiftCard_Scenariosheet", caseID);
+			app_url_OMA=getYamlValue("app_url_OMA");
+			giftCardMap = test.homePage.addValuesInMap("GiftCard_Scenariosheet", caseID);
 		}
 
 		@BeforeMethod
@@ -54,6 +62,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 			test.homePageIWEB.clickOnSideBarTab("Individuals");
 			test.homePageIWEB.clickOnTab("Query Individual");
 			test.memberShipPage.selectAndRunQuery("Selenium - Find Active Regular Member");
+			customerId=test.memberShipPage.getContactIdOfUser("User");
 }
 		
 		@Test
@@ -77,8 +86,8 @@ public class ACS_GiftCard_Test extends BaseTest{
 		
 		@Test
 		public void Step_04_Verify_that_Selected_Item_Is_Added_Into_Line_Items() {
-			test.memberShipPage.verifyProductNameInLineItem(giftCardMap.get("Gift_Card_Name"));
-			test.memberShipPage.selectAndAddBatchIFNotPresentForGiftCard(giftCardMap.get("GC_Batch_Name?"),giftCardMap.get("Payment_Type"));
+			test.memberShipPage.verifyProductNameInLineItem("ACS Membership eGift Card");
+			test.memberShipPage.selectAndAddBatchIFNotPresentForGiftCard(giftCardMap.get("GC_Batch_Name?"),giftCardMap.get("Payment_Type"),giftCardMap.get("Payment_Method"));
 			test.memberShipPage.fillAllTypeOFPaymentDetails(giftCardMap.get("Payment_Method"), giftCardMap.get("Visa_Card_Number"), giftCardMap.get("Diners_Card_Number"), giftCardMap.get("Reference_Number"),
 					giftCardMap.get("Discover_Card_Number"), giftCardMap.get("Expiry_Date"), giftCardMap.get("CVV_Number"), giftCardMap.get("Check_Number"));
 				
@@ -88,11 +97,111 @@ public class ACS_GiftCard_Test extends BaseTest{
 		public void Step_05_Verify_on_CRM() {
 			test.individualsPage.navigateToGeneralMenuOnHoveringMore("Other Actg");
 			test.individualsPage.expandDetailsMenu("gift cards purchased");
-			
+			GiftCardNumber=test.individualsPage.verifyGiftItemPurchasedDetailsBeforeRedeeming(giftCardMap.get("GC_Batch_Name?"),cardpricevalue);
 		}
 		
+	
+		
 		@Test
-		public void Step_06_launch_OMA() {
-			
+		public void Step_06_Enter_Contact_Information() {
+			test.homePage.addValuesInMap("GiftCard_Scenariosheet", "4");
+			test.launchApplication(app_url_OMA);
+			Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+			userDetail = test.ContactInfoPage.enterContactInformation(
+					test.homePageIWEB.map().get("Email"), test.homePageIWEB.map()
+							.get("FirstName"),
+					test.homePageIWEB.map().get("LastName"), test.homePageIWEB
+							.map().get("AddressType"),
+					test.homePageIWEB.map().get("Address"), test.homePageIWEB.map()
+							.get("City"), test.homePageIWEB.map().get("Country"),
+							test.homePageIWEB.map().get("State"), test.homePageIWEB.map().get("ZipCode"));
+			test.ContactInfoPage.clickContinue();
+			userEmail = userDetail[0];
+			test.homePage.verifyCurrentTab("Education & Employment");
+			Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		}
+
+		@Test
+		public void Step_07_Enter_Education_And_Employment_Info() {
+			Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+			Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
+			test.EduAndEmpPage.enterEducationAndEmploymentInformation();
+			test.ContactInfoPage.clickContinue();
+		}
+
+		@Test
+		public void Step_08_Enter_Benefits_Info() {
+			Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+			Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
+			test.homePage.verifyCurrentTab("Benefits");
+			test.BenefitsPage.addACSPublicationAndTechnicalDivision(toString().valueOf(caseID));
+			test.BenefitsPage.verifyCENPresent(toString().valueOf(caseID));
+			test.ContactInfoPage.clickContinue();
+			test.homePage.verifyCurrentTab("Checkout");
+		}
+
+		@Test
+		public void Step_09_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page() {
+			Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+			Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
+			productSubTotal = test.checkoutPage.verifyProductSubTotal("4",
+					"Product Subtotal");
+			totalpricebeforeGC=test.checkoutPage.getToalpriceonCheckoutPage();
+			test.checkoutPage.applyACSGiftCard("GiftCardReedeem", GiftCardNumber, "CardButton");
+			test.checkoutPage.verifyTotalAfterApplyingGiftCard(currency,totalpricebeforeGC,cardpricevalue);
+			test.checkoutPage.enterPaymentInfo(
+					YamlReader.getYamlValue("creditCardInfo.Type"), userDetail[1]
+							+ " " + userDetail[2],
+					YamlReader.getYamlValue("creditCardInfo.Number"),
+					YamlReader.getYamlValue("creditCardInfo.cvv-number"));
+			test.checkoutPage.clickAtTestStatement();
+			test.ContactInfoPage.clickContinue();
+			test.checkoutPage.clickSubmitButtonAtBottom();
+			test.homePage.verifyCurrentTab("Confirmation");
+			redeemedCustomerID=test.confirmationPage.getMemberDetail("member-number");
+		}
+		
+	@Test
+	public void Step_10_Launch_Application_Under_Test() {
+		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
+		test.launchApplication(app_url_IWEB);
+		test.homePage.enterAuthentication(
+				YamlReader.getYamlValue("Authentication.userName"),
+				YamlReader.getYamlValue("Authentication.password"));
+		test.homePageIWEB
+				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
+		
+	}
+	
+	@Test
+	public void Step_11_Search_Indiviudual_By_ContactID()
+	{
+		test.homePageIWEB.clickFindForIndividualsSearch();
+		test.individualsPage.enterFieldValue("Record Number", customerId);
+		test.individualsPage.clickGoButton();
+		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Other Actg");
+		test.individualsPage.expandDetailsMenu("gift cards purchased");
+		test.individualsPage.verifyGiftItemPurchasedDetailsAfterRedeeming(GiftCardNumber, cardpricevalue);
+		test.individualsPage.clickOnRedeemedCustomerIDInGiftCardPurchasedBar(redeemedCustomerID);
+		
+	}
+	
+	@Test
+	public void Step_12_Verify_Redeemed_Customer_Details_on_Iweb()
+	{
+		test.individualsPage.collapseDetailsMenu("gift cards purchased");
+		test.individualsPage.expandDetailsMenu("gift cards redeemed");
+		
+		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Invoices");
+		test.individualsPage.clickGotoRecordForRenewal();
+		test.invoicePage.verifyInvoiceDetailsAfterRenewal();
+		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Payments");
+		test.invoicePage.verifyPaymentDetailsForGiftCard(giftCardMap.get("GC_Batch_Name?"),cardpricevalue);
+		
+		
+	}
+		
+		
 }
+>>>>>>> aa3b1a947180061bf77233f4b593b7220623718c

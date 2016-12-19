@@ -45,4 +45,5 @@ txt_prodPrice             xpath      //span[contains(text(),'${prodName}')]/../.
 inp_sourceCode				 id			 txtSourceCode
 txt_memberID				css			input[id*='${text}']
 txt_invalidSrcCode        xpath         //span[contains(text(),'Invalid source code')]
+btn_Gc_Ok                   css         #gcDialog>div>a
 ======================================================================================================================================

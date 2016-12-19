@@ -1,3 +1,4 @@
+
 package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
@@ -70,7 +71,6 @@ public class Membership_Renewal_Test extends BaseTest {
 //				memberDetail2.get(3));
 		obj[0] = memberDetail1;
 //		obj[1] = memberDetail2;
-
 	}
 
 	@Test
@@ -163,8 +163,10 @@ public class Membership_Renewal_Test extends BaseTest {
 		test.memberShipPage.selectAndRunQuery("Selenium - Select One Member");
 		test.memberShipPage.enterSingleCustomerIdInRunQuery(memberDetails
 				.get(3));
-		test.individualsPage.selectOneIndividual(memberDetails.get(4),
-				"expire date");
+		// test.individualsPage.selectOneIndividual(memberDetails.get(4),
+		// "expire date");
+
+		test.individualsPage.selectOneIndividual("Active", "Status");
 		test.memberShipPage.verifyMembershipDetailsOnRenewal(
 				memberDetails.get(4), memberDetails.get(0),
 				memberDetails.get(1), memberDetails.get(3),
@@ -185,8 +187,7 @@ public class Membership_Renewal_Test extends BaseTest {
 		test.invoicePage.verifyInvoiceDetailsOnInvoiceProfilePage(
 				memberDetails.get(8), memberDetails.get(7));
 
-//		invocationCount++;
-
+		// invocationCount++;
 	}
 
 	/**
@@ -207,3 +208,4 @@ public class Membership_Renewal_Test extends BaseTest {
 		test.printMethodName(method.getName());
 	}
 }
+

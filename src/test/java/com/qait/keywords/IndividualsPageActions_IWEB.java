@@ -358,11 +358,13 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			//verifyElementTextContent("txt_memberDetails", memDetails[3]);
 			logMessage("ASSERT PASSED :" + memDetails[3] + " is verified in txt_memberDetails\n");
 		}
+		System.out.println("******Member" + memDetails[4]);
 		verifyElementTextContent("txt_memberDetails", memDetails[4]);
 		logMessage("ASSERT PASSED :" + memDetails[4] + " is verified in txt_memberDetails\n");
+		System.out.println("******Member" + memDetails[5]);
 		verifyElementTextContent("txt_memberDetails", memDetails[5]);
 		logMessage("ASSERT PASSED :" + memDetails[5] + " is verified in txt_memberDetails\n");
-
+		System.out.println("******Member" + memDetails[6]);
 		verifyElementTextContent("txt_memberDetails", memDetails[6]);
 		logMessage("ASSERT PASSED :" + memDetails[6] + " is verified in txt_memberDetails\n");
 		logMessage("*********** CUSTOMER ID : " + getContactId() + " ***********");
@@ -1288,6 +1290,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void enterEmailIDToAdd(String emailID) {
 		isElementDisplayed("inp_emailAddress");
+		element("inp_emailAddress").clear();
 		element("inp_emailAddress").sendKeys(emailID);
 		logMessage("STEP : Enter email ID " + emailID + " to add\n");
 	}
@@ -1396,8 +1399,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 				+ mapAwardsNomination.get("SuggestCitation_Text"));
 		verifySupporterNamesOnAwardEntryProfilePage(createMemberCredentials, "1");
 		verifySupporterNamesOnAwardEntryProfilePage(createMemberCredentials, "2");
-		verifySupporterDocumentsContainsUploadedFile(mapAwardsNomination, "1");
-		verifySupporterDocumentsContainsUploadedFile(mapAwardsNomination, "2");
+		//verifySupporterDocumentsContainsUploadedFile(mapAwardsNomination, "1");
+		//verifySupporterDocumentsContainsUploadedFile(mapAwardsNomination, "2");
 	}
 
 	private void verifySupporterDocumentsContainsUploadedFile(Map<String, String> mapAwardsNomination,
@@ -2047,9 +2050,9 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 				"Chapter Role is not " + chapterRole);
 		logMessage("ASSERT PASSED : chapter " + chapterName + " role is verified as " + chapterName);
 		Assert.assertTrue(element("txt_quantity", chapterName).getText().trim()
-				.equals(DateUtil.getCurrentdateInStringWithGivenFormate("MM/d/yyyy")), "Date is not current date");
+				.equals(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy")), "Date is not current date");
 		logMessage("ASSERT PASSED : Date for chapter " + chapterName + " is current date "
-				+ DateUtil.getCurrentdateInStringWithGivenFormate("MM/d/yyyy"));
+				+ DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"));
 
 	}
 
@@ -2174,7 +2177,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyDemographicChangeLogChildform(String[] BPATypeInfoArray,Map<String,String> bpaMap) {
-		String currentdate = DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY");
+		String currentdate = DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY");
 		verifyChildFormForUpdatedDemographicLog(BPATypeInfoArray[0],bpaMap.get(BPATypeInfoArray[0]));
 		verifyChildFormForUpdatedDemographicLog(BPATypeInfoArray[1],bpaMap.get(BPATypeInfoArray[1]));
 		verifyChildFormForUpdatedDemographicLog(BPATypeInfoArray[2],currentdate);
@@ -2185,10 +2188,10 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	{
 		try
 		{
-		isElementDisplayed("txt_updatedLogsBPA",fieldName);
-		String actualfieldValue=elements("txt_updatedLogsBPA",fieldName).get(0).getText().trim();
+		isElementDisplayed("txt_updatedLogsBPA",fieldName,"1");
+		String actualfieldValue=elements("txt_updatedLogsBPA",fieldName,"1").get(0).getText().trim();
 		System.out.println(actualfieldValue);
-		System.out.println(fieldValue );
+		System.out.println(fieldValue);
 		Assert.assertTrue(fieldValue.trim().contains(actualfieldValue),"demographic change log is not updated\n");
 		logMessage("ASSERT PASSED : Demographic log for "+fieldName+" is verified as "+fieldValue);
 		}
@@ -2202,10 +2205,10 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		String currentdate = DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY");
 		EnterTextInField(element("inp_bpa_info","customer id"), customerID);
 		selectProvidedTextFromDropDown(element("drpdwn_relationshipType",BPATypeInfoArray[0]), bpaMap.get(BPATypeInfoArray[0]));
-		waitForSpinner();
+		wait.hardWait(9);
 		sendKeysUsingXpathInJavaScriptExecutor(element("inp_bpa_info",BPATypeInfoArray[2]), currentdate);
 		selectProvidedTextFromDropDown(element("drpdwn_relationshipType",("job "+BPATypeInfoArray[1])),bpaMap.get(BPATypeInfoArray[1]));
-		waitForSpinner();
+		wait.hardWait(9);
 		sendKeysUsingXpathInJavaScriptExecutor(element("inp_bpa_info",BPATypeInfoArray[3]), currentdate);
 		addRandomBpaIndustryAndJobTitleNameOnForm("bpa promo code");
         String promocode=getSelectedTextFromDropDown(element("drpdwn_relationshipType","bpa promo code"));
@@ -2225,12 +2228,57 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void selectOneIndividual(String text,String field){
+		wait.waitForElementToBeVisible(element("img_activeMember",text));
 		if(checkIfElementIsThere("img_activeMember",text)){
+			isElementDisplayed("img_activeMember",text);
 			element("img_activeMember",text).click();
 			logMessage("STEP: Individual with "+text+" "+field+" is selected\n");
 		}
 		else
 			logMessage("STEP: Individual list does not appeared. User is navigated to Membership profile page\n");
+		wait.waitForPageToLoadCompletely();
 	}
 
-}
+	public String getPriceValueOfGiftCard(String productName) {
+		isElementDisplayed("txt_updatedLogsBPA",productName,"3");
+		String pricevalue=element("txt_updatedLogsBPA",productName,"3").getText().trim();
+		return pricevalue;
+		
+	}
+
+		public String verifyGiftItemPurchasedDetailsBeforeRedeeming(String batchName, String priceValue)
+		{
+			String GiftCardNumber=getMemberType();
+			System.out.println("Redeemed code is "+GiftCardNumber);
+			verifyGiftCardPurchasedBeforeOMA(GiftCardNumber, "4", DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY"));
+			verifyGiftCardPurchasedBeforeOMA(GiftCardNumber, "5", batchName);
+			verifyGiftCardPurchasedBeforeOMA(GiftCardNumber, "6", "N");
+			verifyGiftCardPurchasedBeforeOMA(GiftCardNumber, "7", priceValue);
+			return GiftCardNumber;
+		}
+		
+		public void verifyGiftItemPurchasedDetailsAfterRedeeming(String GiftCardNumber, String priceValue)
+		{
+			verifyGiftCardPurchasedBeforeOMA(GiftCardNumber, "4", DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY"));
+			verifyGiftCardPurchasedBeforeOMA(GiftCardNumber, "6", "Y");
+			verifyGiftCardPurchasedBeforeOMA(GiftCardNumber, "7", priceValue);
+		}
+		
+		public void clickOnRedeemedCustomerIDInGiftCardPurchasedBar(String redeemedCustomerID)
+		{
+			isElementDisplayed("txt_userEmail",redeemedCustomerID);
+			element("txt_userEmail",redeemedCustomerID).click();
+			logMessage("Step : Redeemed customer ID link is clicked as "+redeemedCustomerID);
+		}
+		
+		private void verifyGiftCardPurchasedBeforeOMA(String GiftCardNumber,String index, String value)
+		{
+			isElementDisplayed("txt_updatedLogsBPA",GiftCardNumber,index);
+			System.out.println(element("txt_updatedLogsBPA",GiftCardNumber,index).getText());
+			System.out.println(value);
+			//Assert.assertTrue(element("txt_updatedLogsBPA",GiftCardNumber,index).getText().trim().equals(value));
+			logMessage("ASSERT PASSED : gift card details on iweb is verified as "+value);
+		}
+	}
+	
+

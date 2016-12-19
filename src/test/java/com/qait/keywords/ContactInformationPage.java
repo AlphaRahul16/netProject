@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 
@@ -52,11 +53,11 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 			element("btn_continue").click();
 			// clickUsingXpathInJavaScriptExecutor(element("btn_continue"));
 			wait.hardWait(1);
-			logMessage("STEP : Click btn_continue\n");
+			logMessage("STEP : Click on btn_continue\n");
 		} catch (StaleElementReferenceException stlRef) {
 			// isElementDisplayed("btn_continue");
 			clickUsingXpathInJavaScriptExecutor(element("btn_continue"));
-			logMessage("STEP : Click btn_continue\n");
+			logMessage("STEP : Click on btn_continue\n");
 		}
 
 	}
@@ -96,7 +97,7 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 			isElementDisplayed("inp_" + detailType);
 			element("inp_" + detailType).clear();
 			element("inp_" + detailType).sendKeys(detailValue);
-			logMessage("STEP : " + detailValue + " entered in the " + detailType + "\n");
+			logMessage("STEP : " + detailType + " is entered as " + detailValue + "\n");
 			return detailValue;
 		} else {
 			logMessage("" + detailType + "is not present in data sheet\n");
@@ -244,6 +245,34 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 			logMessage("Is individual create only column has null value");
 			return false;
 		}
+	}
+
+	public void verifyDetailsArePrepopulated() {
+		_verifyDeatilsFromInputField("Phone");
+		_verifyDeatilsFromList("AddressType");
+		_verifyDeatilsFromInputField("Address");
+		_verifyDeatilsFromInputField("City");
+		_verifyDeatilsFromList("Country");
+		_verifyDeatilsFromList("State");
+		_verifyDeatilsFromInputField("ZipCode");
+
+	}
+
+	private void _verifyDeatilsFromList(String field) {
+		isElementDisplayed("list_MGMDetails", field);
+		String value = element("list_MGMDetails", field).getText();
+		Assert.assertTrue(element("list_MGMDetails", field).getText() != "",
+				"ASSERT FAILED: " + field + " is not populated");
+		logMessage("ASSERT PASSED: " + field + " is already populated with " + value + " \n");
+	}
+
+	private void _verifyDeatilsFromInputField(String field) {
+		isElementDisplayed("inp_MGMDetails", field);
+		String value = element("inp_MGMDetails", field).getAttribute("value");
+		Assert.assertTrue(element("inp_MGMDetails", field).getText() != "",
+				"ASSERT FAILED: " + field + " is not populated");
+		logMessage("ASSERT PASSED: " + field + " is already populated with " + value + " \n");
+
 	}
 
 }

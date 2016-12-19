@@ -85,7 +85,6 @@ img_activeMember                          xpath                 //td[starts-with
 icon_up                                   xpath                 //span[text()='${value}']/preceding-sibling::a/i[@class='icon-chevron-up']
 btn_detailsMenuAACT                       xpath                 //span[text()='${menuName}']/../a[1]/i[@class='icon-chevron-down']
 
-
 #Chapter Relationships
 
 iframe1                                   css                   #iframe1                       
