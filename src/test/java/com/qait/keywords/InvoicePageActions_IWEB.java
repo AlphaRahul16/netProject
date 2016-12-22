@@ -731,7 +731,8 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 			if (elements("txt_termStartDate").get(i).getText().equalsIgnoreCase(" ")
 					&& elements("txt_termEndDate").get(i).getText().equalsIgnoreCase(" ")) {
 				isElementDisplayed("btn_goToArrow");
-				element("btn_goToArrow", String.valueOf(i)).click();
+				clickUsingXpathInJavaScriptExecutor(element("btn_goToArrow", String.valueOf(i)));
+//				element("btn_goToArrow", String.valueOf(i)).click();
 				logMessage("STEP : Go To Arrow button is clicked for empty term start and end date\n");
 				break;
 			}
@@ -861,8 +862,8 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		else{
 		isElementDisplayed("txt_discount",productName);
-		Assert.assertEquals(element("txt_discount", productName).getText().trim(),DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),"ASSERT FAILED: Payment date is not verified as current date\n");
-		logMessage("ASSERT FAILED: Payment date is verified as current date\n");
+		Assert.assertEquals(element("txt_discount", productName).getText().trim(),DateUtil.getCurrentdateInStringWithGivenFormate("MM/d/yyyy"),"ASSERT FAILED: Payment date is not verified as current date\n");
+		logMessage("ASSERT FAILED: Payment date for product "+productName+" is verified as current date\n");
 		}
 	}
 	
@@ -890,6 +891,11 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		verifyProductAmount(map().get("Iweb Product Name?"),productAmounts.get("Product?"));
 		verifyProductAmount(map().get("Iweb LS Name?"),productAmounts.get("Iweb LS Name?"));
 //		verifyProductAmount(map().get("CEN Product Name?"),productAmounts.get("Iweb CEN Product Name?"));
+	}
+
+	public void verifyPaymentDetailsForGiftCard(String batchname, String cardpricevalue) {
+		
+		
 	}
 
 }

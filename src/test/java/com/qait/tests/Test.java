@@ -32,7 +32,8 @@ public class Test{
 	    if(srcCode.equals("")){
 	    	System.out.println("1");
 	    }
-	    
+	    System.out.println(DateUtil.getCurrentdateInStringWithGivenFormate("M/dd/yyyy"));
+	    System.out.println(DateUtil.getCurrentdateInStringWithGivenFormate("M/dd/yyyy").compareTo("5/29/2019"));
 	    /*);
 =======
 		String currentDate = DateUtil.getCurrentTime("hh:mm a", "IST");

@@ -139,24 +139,29 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 	public void verifyProductUnderLineItems(String productName,int index){
 		boolean flag=false;int i=0;
 		wait.hardWait(3);
-		isElementDisplayed("table_productName",String.valueOf(index));
-		for(WebElement ele: elements("table_productName",String.valueOf(index))){
-			if(ele.getText().trim().equals(productName)){
-				flag=true;
-				i++;
-				break;
-			}
-		}
-		Assert.assertTrue(flag,"ASSERT FAILED : Product "+productName+" is not present under Line Items menu\n");
+		isElementDisplayed("table_productName",productName);
+//		for(WebElement ele: elements("table_productName",productName)){
+//			if(ele.getText().trim().equals(productName)){
+//				flag=true;
+//				i++;
+//				break;
+//			}
+//		}
+//		Assert.assertTrue(flag,"ASSERT FAILED : Product "+productName+" is not present under Line Items menu\n");
 		logMessage("ASSERT PASSED : Product "+productName+" is present under Line Items menu\n");
 	}
 
-	public List<String> getProductsUnderLineItemsMenu(int index){
+	public List<String> getProductsUnderLineItemsMenu(int index,String invoiceNo){
 		List<String> productList=new ArrayList<String>();
-		isElementDisplayed("table_productName",String.valueOf(index));
-		for(WebElement ele: elements("table_productName",String.valueOf(index))){
+		isElementDisplayed("lst_productNames",invoiceNo);
+		for(WebElement ele: elements("lst_productNames",invoiceNo)){
 			productList.add(ele.getText().trim());
 		}
+		
+//		isElementDisplayed("list_productNames",String.valueOf(index));
+//		for(WebElement ele: elements("list_productNames",String.valueOf(index))){
+//			productList.add(ele.getText().trim());
+//		}
 		for (String str : productList) {
 			System.out.println(str);
 		}
@@ -185,11 +190,11 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : Message '"+msg+"' is displayed\n");
 	}
 
-	public void verifyItemsUnderVoidedLineItemsMenu(List<String>expectedProductList,int index){
+	public void verifyItemsUnderVoidedLineItemsMenu(List<String>expectedProductList,int index,String invoiceNo){
 		boolean flag=false;
 		wait.hardWait(2);
-		isElementDisplayed("table_productName",String.valueOf(index));
-		for(WebElement ele: elements("table_productName",String.valueOf(index))){
+		isElementDisplayed("list_productNames",String.valueOf(index));
+		for(WebElement ele: elements("list_productNames",String.valueOf(index))){
 			for(int j=0; j<expectedProductList.size();j++){
 				if(expectedProductList.get(j).contains(ele.getText().trim())){
 					flag= true;

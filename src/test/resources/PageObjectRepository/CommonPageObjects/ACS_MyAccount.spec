@@ -19,7 +19,7 @@ inp_changeAddress                   css                     #${value}
 chckbox_addressPrimary              css                     #addressPrimayCheckbox
 btn_addressSave                     css                     #addressSaveBtnId
 msg_addressSave                     css                     #addressError
-msg_phoneSave                       xpath                   //label[text()='Home']/..//span[contains(@class,'phoneSuccessMsg')]
+msg_phoneSave                       xpath                   //label[text()='${telephoneType}']/..//span[contains(@class,'phoneSuccessMsg')]
 img_phonePrimary                    xpath                   //span[text()='Primary']
 img_addressPrimary                  xpath                   //*[@class='addressPrimarySpan primary-tag' and text()='Primary']
 tab_myAccount                       xpath                   //ul//a[text()='${tabName}']
