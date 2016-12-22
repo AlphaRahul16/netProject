@@ -672,11 +672,11 @@ ACS_MGM:
     query1: "Selenium - Find Active Regular Member with ACSID"
     query2: "selenium - MGM Find Inactive Regular Member"
     query3: "selenium - Find Active Member with Renewal"
-    newQuery: "QTP - Find Member - No MGM Nominations"
+    newQuery: "Selenium - Find Member - No MGM Nominations"
                     
 email:
   send: true
   recepients: 
- ##   recepient1: avnishrawat@qainfotech.net 
- ##   recepient2: kanikasharma@qainfotech.com
+    recepient1: avnishrawat@qainfotech.net 
+    recepient2: kanikasharma@qainfotech.com
     recepient3: hitasheesil@qainfotech.com
