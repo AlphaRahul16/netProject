@@ -1885,7 +1885,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyChapterStatusIsTransferred(String tabName, String chpName) {
 		int i,index=0;
-		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy");
+		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/dd/yyyy","EDT");
 		isElementDisplayed("list_memberDetails", tabName);
 		for (i = 1; i < elements("list_memberDetails", tabName).size(); i++) {
 			if (element("txt_memberDetailsForChapter", tabName, String.valueOf(4), String.valueOf(i)).getText().trim()
@@ -2246,11 +2246,39 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		
 	}
 
-//		public void verifyGiftItemPurchasedDetails()
-//		{
-//			String GiftCardNumber=getMemberType();
-//			
-//		}
+		public String verifyGiftItemPurchasedDetailsBeforeRedeeming(String batchName, String priceValue)
+		{
+			String GiftCardNumber=getMemberType();
+			System.out.println("Redeemed code is "+GiftCardNumber);
+			verifyGiftCardPurchasedBeforeOMA(GiftCardNumber, "4", DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY"));
+			verifyGiftCardPurchasedBeforeOMA(GiftCardNumber, "5", batchName);
+			verifyGiftCardPurchasedBeforeOMA(GiftCardNumber, "6", "N");
+			verifyGiftCardPurchasedBeforeOMA(GiftCardNumber, "7", priceValue);
+			return GiftCardNumber;
+		}
+		
+		public void verifyGiftItemPurchasedDetailsAfterRedeeming(String GiftCardNumber, String priceValue)
+		{
+			verifyGiftCardPurchasedBeforeOMA(GiftCardNumber, "4", DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY"));
+			verifyGiftCardPurchasedBeforeOMA(GiftCardNumber, "6", "Y");
+			verifyGiftCardPurchasedBeforeOMA(GiftCardNumber, "7", priceValue);
+		}
+		
+		public void clickOnRedeemedCustomerIDInGiftCardPurchasedBar(String redeemedCustomerID)
+		{
+			isElementDisplayed("txt_userEmail",redeemedCustomerID);
+			element("txt_userEmail",redeemedCustomerID).click();
+			logMessage("Step : Redeemed customer ID link is clicked as "+redeemedCustomerID);
+		}
+		
+		private void verifyGiftCardPurchasedBeforeOMA(String GiftCardNumber,String index, String value)
+		{
+			isElementDisplayed("txt_updatedLogsBPA",GiftCardNumber,index);
+			System.out.println(element("txt_updatedLogsBPA",GiftCardNumber,index).getText());
+			System.out.println(value);
+			//Assert.assertTrue(element("txt_updatedLogsBPA",GiftCardNumber,index).getText().trim().equals(value));
+			logMessage("ASSERT PASSED : gift card details on iweb is verified as "+value);
+		}
 	}
 	
 

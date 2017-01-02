@@ -11,6 +11,7 @@ import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.BaseTest;
+import com.qait.automation.utils.YamlReader;
 
 public class ACS_Rubber_Insurance_Test extends BaseTest {
 	String app_url_IWEB, individualName, customerId, importedFile;
@@ -29,6 +30,8 @@ public class ACS_Rubber_Insurance_Test extends BaseTest {
 	public void Step01_Launch_Iweb_Application_And_Navigate_To_Add_file() {
 		test.homePageIWEB.addValuesInMap("Import_Profile", caseID);
 		test.launchApplication(app_url_IWEB);
+		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
+				YamlReader.getYamlValue("Authentication.password"));
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Membership");
 		test.homePageIWEB.clickOnSideBarTabACS("ACS");

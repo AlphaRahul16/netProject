@@ -79,6 +79,7 @@ public class BaseUi {
 	public void launchUrl(String url)
 	{
 		driver.get(url);
+		logMessage("STEP: Launch Application URL "+url+"\n");
 	}
 
 	public String getCurrentURL() {

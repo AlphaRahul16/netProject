@@ -18,6 +18,7 @@ public class ACS_Void_Invoice_Test extends BaseTest{
 
 	String app_url_IWEB;
 	int index;
+	String invoiceNo;
 	List<String> productList = new ArrayList<String>();
 
 	@BeforeClass
@@ -72,12 +73,12 @@ public class ACS_Void_Invoice_Test extends BaseTest{
 				0.00);
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("line items");
 		test.acsVoidInvoice.verifyProductUnderLineItems(YamlReader.getYamlValue("VoidWithAdjustment.prodName"), 5);
-		productList = test.acsVoidInvoice.getProductsUnderLineItemsMenu(5);
+		invoiceNo=test.invoicePage.getDataFromInvoiceProfilePage("invoice number");
+		productList = test.acsVoidInvoice.getProductsUnderLineItemsMenu(5,invoiceNo);
 	}
 
 	@Test(dependsOnMethods="Step05_User_Navigated_To_Accounting_Invoice_Page_And_Verify_Balance_And_Paid_Fields")
 	public void Step06_Creation_Of_New_Batch() {
-		test.invoicePage.getDataFromInvoiceProfilePage("invoice number");
 		test.acsVoidInvoice.clickOnVoidInvoiceButton("void invoice", 4);
 		test.acsVoidInvoice.createBatch(1, 6, "QA");
 		test.acsVoidInvoice.enterActionValues(YamlReader.getYamlValue("VoidWithAdjustment.actionValue"));
@@ -94,7 +95,7 @@ public class ACS_Void_Invoice_Test extends BaseTest{
 		test.invoicePage.verifyMemberDetails_question(
 				YamlReader.getYamlValue("VoidWithAdjustment.memberDetailsQuestion1"), "Yes");
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("adjusted/voided line items");
-		test.acsVoidInvoice.verifyItemsUnderVoidedLineItemsMenu(productList, 4);
+		test.acsVoidInvoice.verifyItemsUnderVoidedLineItemsMenu(productList, 4,invoiceNo);
 	}
 
 	@Test(dependsOnMethods="Step07_Verify_Void_Invoice_Message_And_Voided_Line_Items")

@@ -22,7 +22,7 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 			String address, String city, String country, String state, String zipCode) {
 
 		String userEmail = enterEmail(email);
-		String fname = enterMemberContactDetail("firstName", firstName + System.currentTimeMillis());
+		String fname = enterMemberContactDetail("firstName", firstName); // + System.currentTimeMillis()
 		String lname = enterMemberContactDetail("lastName", lastName + System.currentTimeMillis());
 		selectMemberContactDetail("addressType", addressType);
 

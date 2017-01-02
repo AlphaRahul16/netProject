@@ -746,6 +746,17 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		}
 	}
 	
+	public String verifySourceCodeIsValid(String sourceCode){
+		wait.hardWait(8);
+		if(checkIfElementIsThere("txt_invalidSrcCode")){
+			logMessage("STEP: Source code is invalid!!!\n");
+			sourceCode="16JOINoi";
+		}
+		else
+			logMessage("STEP: Source code is valid!!!\n");
+		return sourceCode;
+	}
+	
 	public String verifyProductsAmount(String productName){
 		String price="";
 		if (productName.equals("")) {
@@ -830,6 +841,62 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		logMessage("ASSERET PASSED: Source code is already populated as " + sourceCode + " on OMA \n");
 		Assert.assertEquals(sourceCode, sourceCodeIweb,"ASSERT FAILED: SourceCode is not matched with the Iweb");
 		logMessage("ASSERET PASSED: SourceCode is as same as on Iweb \n");
+	}
+	
+	private void enterGiftCardReedemCode(String name,String redeemCode)
+	{
+		isElementDisplayed("txt_memberID",name);
+		wait.hardWait(4);
+		System.out.println(redeemCode);
+		sendKeysUsingXpathInJavaScriptExecutor(element("txt_memberID",name), redeemCode);
+		logMessage("Step : Gift card Redeem code is entered as "+redeemCode);
+		
+	}
+	
+	private void clickGiftCardApplyButton(String buttonname)
+	{
+		isElementDisplayed("txt_memberID",buttonname);
+		element("txt_memberID",buttonname).click();
+		logMessage("Step : ACS Gift Card is apply button is clicked\n");
+	}
+	
+	private void clickOkButtonToApplyGiftCard()
+	{
+		wait.waitForElementToBeVisible(element("btn_Gc_Ok"));
+		isElementDisplayed("btn_Gc_Ok");
+		element("btn_Gc_Ok").click();
+		logMessage("Step : ACS Gift Card dialog box is handled by selecting OK\n");
+	}
+	
+	public void applyACSGiftCard(String name,String redeemCode,String buttonname)
+	{
+		enterGiftCardReedemCode(name, redeemCode);
+		clickGiftCardApplyButton(buttonname);
+		wait.hardWait(10);
+		clickOkButtonToApplyGiftCard();
+		logMessage("Step :  ACS Gift Card Redeem code is applied succesfully\n");
+	}
+	
+	public void verifyTotalAfterApplyingGiftCard(String currency,String toalbeforeGC,String gcprice)
+	{
+		wait.hardWait(10);
+		double totalafterGC = Double
+				.parseDouble(getTotal("Total").replaceAll("\\" + currency, "").replaceAll(",", ""));
+		System.out.println(gcprice);
+		System.out.println(toalbeforeGC);
+		System.out.println(totalafterGC);
+		double actualtotal=Double.parseDouble(toalbeforeGC)-Double.parseDouble(gcprice);
+		System.out.println(actualtotal);
+		
+	}
+	
+	public String getToalpriceonCheckoutPage()
+	{
+		double TotalInDouble = Double
+				.parseDouble(getTotal("Total").replaceAll("\\" + currency, "").replaceAll(",", ""));
+		String formatedPrice = String.format("%.02f", TotalInDouble);
+		logMessage("Step : Total amount on checkout page is fetched as "+formatedPrice);
+		return formatedPrice;
 	}
 
 }
