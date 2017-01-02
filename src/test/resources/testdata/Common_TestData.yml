@@ -482,16 +482,16 @@ MemberShipRenewal:
     addACSRenewalCycle:
          name: ACS
          expMonth: 12
-         expYear: 2018
-         renewalYear: 2018
+         expYear: 2017
+         renewalYear: 2017
          type: Selenium
          renewalLength: 1
-    queryName: "Member Query by Member Number – Multiple"
-    timeSlabInMinutes: 12
+    queryName: "Selenium - Select One Member"
+    timeSlabInMinutes: 6
     maxWaitTimeInMinutesForStatus: 30 
     renewalInformation: 
          association: ACS
-         renewalYear: 2018  
+         renewalYear: 2017  
          batch: "ACS: SELENIUM_BATCH"
     renewalDetailsForSchedule: 
          status: SCHEDULED

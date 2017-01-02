@@ -2228,7 +2228,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void selectOneIndividual(String text,String field){
-		wait.waitForElementToBeVisible(element("img_activeMember",text));
+		//wait.waitForElementToBeVisible(element("img_activeMember",text));
 		if(checkIfElementIsThere("img_activeMember",text)){
 			isElementDisplayed("img_activeMember",text);
 			element("img_activeMember",text).click();
