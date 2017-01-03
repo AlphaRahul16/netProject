@@ -134,7 +134,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public void editEmail_NCW_CCED(String emailType, String emailID, String position) {
+	public void editEmail_NCW_CCED(String emailType, String emailID, String position) {  //-------------
 		clickOnEditButton(position);
 		switchToFrame("iframe1");
 		selectEmailType(emailType);
@@ -142,8 +142,9 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 		enterEmailIDToAdd(emailID);
 		clickOnSaveButton();
-		switchToDefaultContent();
 		handleAlert();
+		clickOnSaveButton();
+		switchToDefaultContent();
 		verifyNCW_CCEDEmailPresent(emailType, emailID);
 	}
 
@@ -2228,7 +2229,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void selectOneIndividual(String text,String field){
-		wait.waitForElementToBeVisible(element("img_activeMember",text));
+		//wait.waitForElementToBeVisible(element("img_activeMember",text));
 		if(checkIfElementIsThere("img_activeMember",text)){
 			isElementDisplayed("img_activeMember",text);
 			element("img_activeMember",text).click();

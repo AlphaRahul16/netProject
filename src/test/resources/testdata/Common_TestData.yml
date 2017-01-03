@@ -482,8 +482,8 @@ MemberShipRenewal:
     addACSRenewalCycle:
          name: ACS
          expMonth: 12
-         expYear: 2018
-         renewalYear: 2018
+         expYear: 2017
+         renewalYear: 2017
          type: Selenium
          renewalLength: 1
     queryName: "Member Query by Member Number – Multiple"
@@ -491,7 +491,7 @@ MemberShipRenewal:
     maxWaitTimeInMinutesForStatus: 30 
     renewalInformation: 
          association: ACS
-         renewalYear: 2018  
+         renewalYear: 2017
          batch: "ACS: SELENIUM_BATCH"
     renewalDetailsForSchedule: 
          status: SCHEDULED
@@ -668,6 +668,6 @@ ACS_MGM:
 email:
   send: true
   recepients: 
- ##   recepient1: avnishrawat@qainfotech.net 
- ##   recepient2: kanikasharma@qainfotech.com
+    recepient1: avnishrawat@qainfotech.net 
+    recepient2: kanikasharma@qainfotech.com
     recepient3: hitasheesil@qainfotech.com

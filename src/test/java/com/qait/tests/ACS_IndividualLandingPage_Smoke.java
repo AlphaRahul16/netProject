@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
@@ -46,7 +47,7 @@ public class ACS_IndividualLandingPage_Smoke extends BaseTest {
 	@Test
 	public void Step01_TC01_Launch_IWeb_Application_And_Navigate_To_Funds() {
 		 
-
+        Reporter.log("CASE ID:"+caseID);  
 		mapSheetData = test.homePageIWEB.addValuesInMap("landingPage", caseID);
 		test.launchApplication(app_url_IWEB);
 		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"), YamlReader.getYamlValue("Authentication.password"));
@@ -65,7 +66,7 @@ public class ACS_IndividualLandingPage_Smoke extends BaseTest {
 
 	@Test
 	public void Step02_TC02_Retreive_Landing_Page_Details_And_Get_Login_Status_From_Sheet() {
-		 
+        Reporter.log("CASE ID:"+caseID);  
 		mapFundOrder = test.fundpofilePage.arrangeDisplayOrderInAscendingOrder(donationcount, mapSheetData);
 
 		String[] loginAs = { mapSheetData.get("Login as Member?"), mapSheetData.get("Login as Non Member?"),
@@ -91,8 +92,7 @@ public class ACS_IndividualLandingPage_Smoke extends BaseTest {
 
 	@Test
 	public void Step03_TC03_Navigate_To_ContactInfo_Page_And_Login() {
-		 
-
+        Reporter.log("CASE ID:"+caseID);  
 		uniquelastname = mapSheetData.get("Guest_LastName") + System.currentTimeMillis();
 		test.asm_Donate.clickOnLoginButtonForSpecifiedUser(memberLoginDetails, mapSheetData.get("ValidEmailAddress"),
 				mapSheetData.get("Login_via_MemberNumber"), memberDetails);
@@ -104,8 +104,7 @@ public class ACS_IndividualLandingPage_Smoke extends BaseTest {
 
 	@Test
 	public void Step04_TC04_Navigate_To_Confirm_Your_Donation_Page_And_Verify_Details() {
-		 
-
+        Reporter.log("CASE ID:"+caseID);  
 		test.asm_Donate.sendCardOrEmailFromSpreadsheet(mapSheetData.get("SelectSendCardOption?"),
 				mapSheetData.get("InHonorOf?"), mapSheetData.get("InMemoryOf?"), mapSheetData.get("DonotSendCard?"),
 				mapSheetData.get("SendCardVia_Email?"), mapSheetData.get("SendCardVia_PostalMail?"));
@@ -129,8 +128,7 @@ public class ACS_IndividualLandingPage_Smoke extends BaseTest {
 
 	@Test
 	public void Step05_TC05_Verify_ThankyouMessage_At_Confirm_Your_Donation_Page() {
-		 
-
+        Reporter.log("CASE ID:"+caseID);  
 		test.asm_Donate.verifyProductPledgedSummaryOnConfirmDonationPage(ProductNames, totalAmount,
 				mapSheetData.get("Pledge_Months"));
 		TotalAmountMap = test.asm_Donate.verifyTotalAmountOnDonationPage(totalAmount,
@@ -142,7 +140,8 @@ public class ACS_IndividualLandingPage_Smoke extends BaseTest {
 
 	@Test
 	public void Step06_TC06_Navigate_To_Iweb_And_Retreive_Lastest_Invoice_For_Donor() {
-		 
+        Reporter.log("CASE ID:"+caseID);  
+
 		test.launchApplication(app_url_IWEB);
 		test.memberShipPage.navigateToMemberLatestInvoicePage(memberLoginDetails);
 		if (memberLoginDetails.get(0).equals("2")) {
@@ -160,7 +159,8 @@ public class ACS_IndividualLandingPage_Smoke extends BaseTest {
 
 	@Test
 	public void Step07_TC07_Navigate_To_Iweb_And_verify_Lastest_Invoice_For_User() {
-		 
+        Reporter.log("CASE ID:"+caseID);  
+
 		test.invoicePage.validateBalanceAndTotalForInvoiceForIndividualLandingPages(TotalAmountMap, totalAmount);
 		test.invoicePage.verifyEmailStatus(TotalAmountMap);
 		test.invoicePage.expandDetailsMenu("line items");

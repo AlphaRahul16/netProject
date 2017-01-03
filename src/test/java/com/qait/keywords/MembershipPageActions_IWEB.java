@@ -2934,7 +2934,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyTransferPackagePage() {
-		if(ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("dev7") || System.getProperty("tier").equalsIgnoreCase("dev7")){
+		if(ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("dev7")){
 			isElementDisplayed("heading_transferPackage","Edit - Membership");
 		}
 		else

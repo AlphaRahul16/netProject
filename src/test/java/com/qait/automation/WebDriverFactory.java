@@ -8,14 +8,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -23,8 +21,6 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
-
-import com.qait.automation.utils.ConfigPropertyReader;
 
 public class WebDriverFactory {
 	private static String browser;
@@ -142,11 +138,16 @@ public class WebDriverFactory {
 		String firefoxProfilePath = "."+File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"Profile_"
 				+ tier;
 		String autoAuthPath = "."+File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"AddOn"+File.separator+"autoauth-2.1-fx+fn_0.xpi";
-		File firefoxProfile = new File(firefoxProfilePath);// path of firefox
+		File firefoxProfile = new File(firefoxProfilePath);
 
 		profile = new FirefoxProfile(firefoxProfile);
-		File extension = new File(autoAuthPath);// path of AutoAuth
-		profile.addExtension(extension);
+		File extension = new File(autoAuthPath);
+		try {
+			profile.addExtension(extension);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		}
 		else
 			profile = new FirefoxProfile();
@@ -180,13 +181,6 @@ public class WebDriverFactory {
 		profile.setPreference("browser.download.panel.shown",false);
 		profile.setPreference("browser.download.useToolkitUI",true);
 		profile.setPreference("dom.disable_beforeunload", true);
-
-//		profile.setPreference("network.http.phishy-userpass-length", 255);
-//		profile.setPreference("network.automatic-ntlm-auth.trusted-uris","yourDomain");
-//		profile.setAcceptUntrustedCertificates(true);
-//		//return new FirefoxDriver(ffBinary,profile);
-//		return new FirefoxDriver(profile);
-
 //		profile.setPreference("network.http.phishy-userpass-length", 255);
 //		profile.setPreference("network.automatic-ntlm-auth.trusted-uris","yourDomain");
 //		return new FirefoxDriver(ffbinary,profile);

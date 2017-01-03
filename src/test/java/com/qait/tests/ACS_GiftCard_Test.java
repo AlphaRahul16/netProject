@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
@@ -204,4 +205,3 @@ public class ACS_GiftCard_Test extends BaseTest{
 		
 		
 }
->>>>>>> aa3b1a947180061bf77233f4b593b7220623718c
