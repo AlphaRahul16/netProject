@@ -486,12 +486,12 @@ MemberShipRenewal:
          renewalYear: 2017
          type: Selenium
          renewalLength: 1
-    queryName: "Member Query by Member Number – Multiple"
-    timeSlabInMinutes: 12
+    queryName: "Selenium - Select One Member"
+    timeSlabInMinutes: 6
     maxWaitTimeInMinutesForStatus: 30 
     renewalInformation: 
          association: ACS
-         renewalYear: 2017
+         renewalYear: 2017  
          batch: "ACS: SELENIUM_BATCH"
     renewalDetailsForSchedule: 
          status: SCHEDULED
@@ -664,6 +664,8 @@ ACS_MGM:
     query1: "Selenium - Find Active Regular Member with ACSID"
     query2: "selenium - MGM Find Inactive Regular Member"
     query3: "selenium - Find Active Member with Renewal"
+    newQuery: "Selenium - Find Member - No MGM Nominations"
+
                     
 email:
   send: true

@@ -1,4 +1,3 @@
-
 package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
@@ -6,9 +5,11 @@ import static com.qait.automation.utils.YamlReader.getYamlValue;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
+
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.DateUtil;
@@ -30,7 +31,7 @@ public class Membership_Renewal_Test extends BaseTest {
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 
-	@Test
+	@Test(dependsOnMethods = "Step00_Launch_Application_Under_Test")
 	public void Step01_Add_ACS_Renewal_Cycle() {
 		String date[] = DateUtil.getNextDate("month", 6);
 		test.homePageIWEB.GoToMemberShipSetupProfile();
@@ -44,10 +45,11 @@ public class Membership_Renewal_Test extends BaseTest {
 				getMemRenewalInfo.getMemRenewalAddACSRenewalCycle("type"),
 				getMemRenewalInfo
 						.getMemRenewalAddACSRenewalCycle("renewalLength"));
+	
 	}
 
-	@Test
-	public void Step02_Find_Two_Member_And_Get_Detail() {
+	@Test(dependsOnMethods = "Step01_Add_ACS_Renewal_Cycle")
+	public void Step02_Find_A_Member_And_Get_Detail() {
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnMemberShipTab();
 		test.homePageIWEB.clickOnSideBarTab("Members");
@@ -73,7 +75,7 @@ public class Membership_Renewal_Test extends BaseTest {
 //		obj[1] = memberDetail2;
 	}
 
-	@Test
+	@Test(dependsOnMethods = "Step02_Find_A_Member_And_Get_Detail")
 	public void Step03_Navigate_To_Add_Membership_Renewal_And_Fill_Details() {
 		test.memberShipPage.clickOnSideBar("ACS Renew Memberships");
 		runTaskDateTime = test.membershipRenewalPage
@@ -85,7 +87,7 @@ public class Membership_Renewal_Test extends BaseTest {
 								.getMemRenewalInfo("timeSlabInMinutes"));
 	}
 
-	@Test
+	@Test(dependsOnMethods = "Step03_Navigate_To_Add_Membership_Renewal_And_Fill_Details")
 	public void Step04_verify_Renewal_For_Scheduled_Processing_Success() {
 		test.membershipRenewalPage
 				.verifyRenewalForScheduled(
@@ -121,16 +123,15 @@ public class Membership_Renewal_Test extends BaseTest {
 						.getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));
 	}
 
-	@Test
+	@Test(dependsOnMethods = "Step04_verify_Renewal_For_Scheduled_Processing_Success")
 	public void Step05_Fill_Details_In_Create_Renewal_Invoices() {
 		time = test.membershipRenewalPage
 				.navigateToCreateRenewalInvoicesAndEnterInvoiceTaskStartTimeAndDate(getMemRenewalInfo
 						.getMemRenewalInfo("timeSlabInMinutes"));
 		test.membershipRenewalPage.verifyErrorMessage();
-
 	}
 
-	@Test
+	@Test(dependsOnMethods = "Step05_Fill_Details_In_Create_Renewal_Invoices")
 	public void Step06_Verify_Renewal_Details_For_create_Renewal_Invoices() {
 		test.membershipRenewalPage
 				.verifyCreateInvoiceTaskStartTimeAndDate(time);
@@ -152,8 +153,10 @@ public class Membership_Renewal_Test extends BaseTest {
 								.getMemRenewalInfo("maxWaitTimeInMinutesForStatus"));
 	}
 
-	@Test //(invocationCount = 2)
+	@Test(dependsOnMethods = "Step06_Verify_Renewal_Details_For_create_Renewal_Invoices")
 	public void Step07_Navigate_To_Membership_Profile_Page_And_Verify_Details_Test() {
+
+
 		@SuppressWarnings("unchecked")
 		List<String> memberDetails = (List<String>) obj[invocationCount];
 		test.homePageIWEB.clickOnModuleTab();
@@ -208,4 +211,3 @@ public class Membership_Renewal_Test extends BaseTest {
 		test.printMethodName(method.getName());
 	}
 }
-

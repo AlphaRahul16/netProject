@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -207,10 +208,11 @@ public class ASM_MGMPage extends GetPage {
 
 	public String verifyNomineeStatus(String status, String email) {
 		boolean flag = true;
-		isElementDisplayed("link_nomineeStatus", email);
+
 		for (int i = 0; i < 30; i++) {
-			String nomineeStatus = element("link_nomineeStatus", email).getText().trim();
 			wait.hardWait(2);
+			isElementDisplayed("link_nomineeStatus", email);
+			String nomineeStatus = element("link_nomineeStatus", email).getText().trim();
 			if (status.equals(nomineeStatus)) {
 				flag = true;
 				break;
@@ -222,10 +224,43 @@ public class ASM_MGMPage extends GetPage {
 		logMessage("ASSERT PASSED: Status of the nominee is " + status + "\n");
 		return getCurrentURL();
 	}
+	// public String verifyNomineeStatus(String status, String email) {
+	// System.out.println("status" + status);
+	// boolean flag = false;
+	// int attempts = 0;
+	// for (int i = 0; i < 30; i++) {
+	// wait.hardWait(2);
+	//// while (attempts < 2) {
+	//// try {
+	// isElementDisplayed("link_nomineeStatus", email);
+	// String nomineeStatus = element("link_nomineeStatus",
+	// email).getText().trim();
+	// if (status.equals(nomineeStatus)) {
+	// flag = true;
+	// break;
+	// } else {
+	// flag = false;
+	//// }
+	//// } catch (StaleElementReferenceException e) {
+	//// attempts++;
+	//// logMessage("[INFO:] Status on MGM Dashboard is not same after " +
+	// attempts + "\n");
+	//// }
+	// }
+	//// if (flag == true) {
+	//// break;
+	//// }
+	// }
+	// Assert.assertTrue(flag,"ASSERT FAILED: nominee status is not same \n");
+	//
+	// logMessage("ASSERT PASSED: Status of the nominee is " + status + "\n");
+	// return getCurrentURL();
+	// }
 
 	public void clickOnNomineeStatus(String email) {
 		isElementDisplayed("link_nomineeStatus", email);
-		element("link_nomineeStatus", email).click();
+		clickUsingXpathInJavaScriptExecutor(element("link_nomineeStatus", email));
+		// element("link_nomineeStatus", email).click();
 		logMessage("STEP: Nominee Status link is clicked \n");
 	}
 
@@ -303,17 +338,20 @@ public class ASM_MGMPage extends GetPage {
 		return uniqueEmails;
 	}
 
-	public void verifythatAllInviteeExistOnMGMDashboard(List<String> emails) {
+	public void verifythatAllInviteesExistOnMGM(List<String> emails, String status) {
 		List<String> uniqueEmails = getAllInvitees();
 		for (int i = 0; i < emails.size(); i++) {
-			System.out.println("emails::" + emails.get(i)+"::::::::");
+			System.out.println("emails::" + emails.get(i) + "::::::::");
 		}
 		for (int i = 0; i < uniqueEmails.size(); i++) {
-			System.out.println("uniqueEmails::" + uniqueEmails.get(i)+"::::::::");
+			System.out.println("uniqueEmails::" + uniqueEmails.get(i) + "::::::::");
 		}
 		boolean flag = true;
 		for (String email : emails) {
 			if (uniqueEmails.contains(email.trim())) {
+				String nomineeStatus = element("link_nomineeStatus", email).getText().trim();
+				Assert.assertEquals(nomineeStatus, status);
+				logMessage("ASSERT PASSED: Nominee status is " + status + " for " + email + " member \n ");
 				flag = true;
 			} else {
 				flag = false;
@@ -326,20 +364,20 @@ public class ASM_MGMPage extends GetPage {
 
 	private List<String> getAllInvitees() {
 		List<String> uniqueEmails = new ArrayList<>();
-		int pageLinkSize = elements("link_pages").size();
+		int pageLinkSize = 0;
+		// int pageLinkSize = elements("link_pages").size();
 		int i = 0;
-		do {
-			for (int count = 0; count < elements("lbl_nomineeEmail").size(); count++) {
-				isElementDisplayed("lbl_nomineeEmail");
-				wait.hardWait(5);
-				uniqueEmails.add(elements("lbl_nomineeEmail").get(count).getText().trim());
-			}
-			i++;
-			if (i > pageLinkSize) {
-				break;
-			}
-			clickOnPageLinkOnMGM(i);
-		} while (i <= pageLinkSize);
+		// do {
+		for (int count = 0; count < elements("lbl_nomineeEmail").size(); count++) {
+			isElementDisplayed("lbl_nomineeEmail");
+			uniqueEmails.add(elements("lbl_nomineeEmail").get(count).getText().trim());
+		}
+		// i++;
+		// if (i > pageLinkSize) {
+		// break;
+		// }
+		// clickOnPageLinkOnMGM(i);
+		// } while (i <= pageLinkSize);
 		return uniqueEmails;
 	}
 

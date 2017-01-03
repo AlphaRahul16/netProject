@@ -47,7 +47,7 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 
 	public String editEmailOnUpdateAboutYouPage(String email) {
 		email = email.replaceAll("XXX", "");
-		String newEmail= new StringBuffer(email).insert(email.length()-4, "xxx").toString();
+		String newEmail = new StringBuffer(email).insert(email.length() - 4, "xxx").toString();
 		sendKeysUsingXpathInJavaScriptExecutor(element("inp_editME"), newEmail);
 		clickButtonById("btnEmailSave", "Save");
 		logMessage("STEP: Email address is changed into '" + email + "' \n");
@@ -78,7 +78,7 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 			clickButtonByInputValue("Update About You");
 			verifyPageHeader("title_header", "top-title", "Update About You");
 			updatedValues = updateDetailsForTeacher("GradesTaughtChk");
-			// updatedValues = updateDetailsForTeacher("SubjectsTaughtChk");
+			List<String> updatedValuesSubject = checkTheValuesOnUpdateAboutYou("SubjectsTaughtChk");
 			logMessage("STEP: Update the details of About You for " + memberType + "\n");
 			clickButtonByInputValue("Save");
 		} else {
@@ -106,6 +106,7 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 			size--;
 			elements("chked_labelsOnUpdateAboutYou", value).get(size).click();
 		}
+
 		logMessage("STEP: All checked values are unchecked \n");
 	}
 
@@ -208,7 +209,7 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 
 	private void selectCreditCardInfo(String creditCardInfo, String value) {
 		isElementDisplayed("list_cardInfo", creditCardInfo);
-	//	wait.waitForPageToLoadCompletely();
+		// wait.waitForPageToLoadCompletely();
 		selectProvidedTextFromDropDown(element("list_cardInfo", creditCardInfo), value);
 		logMessage("STEP :" + creditCardInfo + " is selected  as " + value + "\n");
 

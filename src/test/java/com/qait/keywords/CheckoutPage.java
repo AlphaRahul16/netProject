@@ -557,7 +557,6 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	}
 
 	public String verifyTotal(String currency) {
-		System.out.println("currency :-" + currency);
 		double productSubTotalInfloat = Double
 				.parseDouble(getTotal("Product Subtotal").replaceAll("\\" + currency, "").replaceAll(",", ""));
 		double shippingTotalInfloat = Double
