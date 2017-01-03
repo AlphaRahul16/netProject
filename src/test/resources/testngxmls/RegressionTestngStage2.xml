@@ -142,7 +142,7 @@
 		</classes>
 	</test>
 
-	<test name="ACS Giving Application Smoke Test" group-by-instances="true">
+	<test name="ACS Individaul Application Smoke Test" group-by-instances="true">
 		<classes>
 			<class name="com.qait.tests.ACS_IndividualLandingPage_Smoke"></class>
 		</classes>
