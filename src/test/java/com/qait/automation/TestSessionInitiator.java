@@ -9,6 +9,7 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
@@ -346,7 +347,12 @@ public class TestSessionInitiator {
 	}
 
 	public void closeBrowserSession() {
-		driver.quit();
+//		driver.quit();
+		try {
+		    Runtime.getRuntime().exec("taskkill /F /IM chromedriver.exe");
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
 	}
 
 	public void deleteAllCookies() {
