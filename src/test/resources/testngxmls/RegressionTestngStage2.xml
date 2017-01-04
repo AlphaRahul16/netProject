@@ -1,11 +1,11 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="ACS Tests" preserve-order="true" thread-count="2"
 	configfailurepolicy="continue" parallel="tests">
-	<test name="ACS Address Validation Test">
-		<classes>
-			<class name="com.qait.tests.ACS_Address_Validation_Test" />
-		</classes>
-	</test>
+<!-- 	<test name="ACS Address Validation Test"> -->
+<!-- 		<classes> -->
+<!-- 			<class name="com.qait.tests.ACS_Address_Validation_Test" /> -->
+<!-- 		</classes> -->
+<!-- 	</test> -->
 
 	<test name="ACS_AddressChangeTermsInvoice_Test"
 		group-by-instances="true">
@@ -32,11 +32,11 @@
 		</classes>
 	</test>
 
-	<test name="ACS Reports" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_Reports"></class>
-		</classes>
-	</test>
+<!-- 	<test name="ACS Reports" group-by-instances="true"> -->
+<!-- 		<classes> -->
+<!-- 			<class name="com.qait.tests.ACS_Reports"></class> -->
+<!-- 		</classes> -->
+<!-- 	</test> -->
 
 	<test name="ACS_Apply_Payment_Test" parallel="false">
 		<classes>
@@ -44,17 +44,17 @@
 		</classes>
 	</test>
 
-	<test name="ACS Void Invoice Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_Void_Invoice_Test"></class>
-		</classes>
-	</test>
-
-<!-- 	<test name="ACS_ReturnCancelRefund" group-by-instances="true"> -->
+<!-- 	<test name="ACS Void Invoice Test" group-by-instances="true"> -->
 <!-- 		<classes> -->
-<!-- 			<class name="com.qait.tests.ACS_ReturnCancelRefund"></class> -->
+<!-- 			<class name="com.qait.tests.ACS_Void_Invoice_Test"></class> -->
 <!-- 		</classes> -->
 <!-- 	</test> -->
+
+	<test name="ACS_ReturnCancelRefund" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_ReturnCancelRefund"></class>
+		</classes>
+	</test>
 
 <!-- 	<test name="COE Inventory Smoke Test" group-by-instances="true"> -->
 <!-- 		<classes> -->
@@ -68,17 +68,17 @@
 <!-- 		</classes> -->
 <!-- 	</test> -->
 
-<!-- 	<test name="ACS Rubber Insurance Test" group-by-instances="true"> -->
-<!-- 		<classes> -->
-<!-- 			<class name="com.qait.tests.ACS_Rubber_Insurance_Test"></class> -->
-<!-- 		</classes> -->
-<!-- 	</test> -->
+	<test name="ACS Rubber Insurance Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_Rubber_Insurance_Test"></class>
+		</classes>
+	</test>
 
-<!-- 	<test name="ACS Chapter Relationships Test" group-by-instances="true"> -->
-<!-- 		<classes> -->
-<!-- 			<class name="com.qait.tests.ACS_Chapter_Relationships_Test"></class> -->
-<!-- 		</classes> -->
-<!-- 	</test> -->
+	<test name="ACS Chapter Relationships Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_Chapter_Relationships_Test"></class>
+		</classes>
+	</test>
 
 <!-- 	<test name="Create Member" group-by-instances="true"> -->
 <!-- 		<classes> -->
@@ -93,11 +93,11 @@
 <!-- 		</classes> -->
 <!-- 	</test> -->
 
-<!-- 	<test name="ACS StoreFactoryClass"> -->
-<!-- 		<classes> -->
-<!-- 			<class name="com.qait.tests.ACS_StoreFactoryClass"></class> -->
-<!-- 		</classes> -->
-<!-- 	</test> -->
+	<test name="ACS StoreFactoryClass">
+		<classes>
+			<class name="com.qait.tests.ACS_StoreFactoryClass"></class>
+		</classes>
+	</test>
 
 <!-- 	<test name="ACS Giving Application Smoke Test" group-by-instances="true"> -->
 <!-- 		<classes> -->
@@ -154,11 +154,11 @@
 <!-- 		</classes> -->
 <!-- 	</test> -->
 
-<!-- 	<test name="ACS PBA Test" group-by-instances="true"> -->
-<!-- 		<classes> -->
-<!-- 			<class name="com.qait.tests.ACS_PBA_Test" /> -->
-<!-- 		</classes> -->
-<!-- 	</test> -->
+	<test name="ACS PBA Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_PBA_Test" />
+		</classes>
+	</test>
 
 <!-- 	<test name="ACS AwardsVoting Test" thread-count="10" parallel="instances"> -->
 <!-- 		<classes> -->

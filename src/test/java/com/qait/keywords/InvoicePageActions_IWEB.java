@@ -862,7 +862,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		else{
 		isElementDisplayed("txt_discount",productName);
-		Assert.assertEquals(element("txt_discount", productName).getText().trim(),DateUtil.getCurrentdateInStringWithGivenFormate("MM/d/yyyy"),"ASSERT FAILED: Payment date is not verified as current date\n");
+		Assert.assertEquals(element("txt_discount", productName).getText().trim(),DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy"),"ASSERT FAILED: Payment date is not verified as current date\n");
 		logMessage("ASSERT FAILED: Payment date for product "+productName+" is verified as current date\n");
 		}
 	}
