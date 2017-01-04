@@ -4,8 +4,11 @@ import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 
+import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -36,6 +39,14 @@ public class ACS_PBA_Test extends BaseTest{
 	
 	@Test
 	public void Step01_Launch_Iweb_Application_And_Verify_User_Is_On_Home_Page() {
+		InetAddress ipAddr;
+		try {
+			ipAddr = InetAddress.getLocalHost();
+			Reporter.log(" ip addr:"+ipAddr,true);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
