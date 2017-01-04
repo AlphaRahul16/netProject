@@ -4205,7 +4205,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("STEP: Primary Telephone type is " + type);
 			return type;
 		} else
-			return "NoTelephoneNumber";
+			return "home";
 	}
 
 	public void verifyTelephoneDetails(String tabName, String telephoneType, String telephoneNumber) {
@@ -4323,7 +4323,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		Assert.assertEquals(getMemberDetailsOnMemberShipProfile("import name"), importName);
 		Assert.assertEquals(getMemberDetailsOnMemberShipProfile("description"), description);
 		Assert.assertEquals(getMemberDetailsOnMemberShipProfile("type"), fileType);
-		String importDate = DateUtil.getCurrentdateInStringWithGivenFormate("MM/d/yyyy");
+		String importDate = DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy");
 		Assert.assertEquals(getMemberDetailsOnMemberShipProfile("import date"), importDate);
 		Assert.assertTrue(getMemberDetailsOnMemberShipProfile("import file").trim().contains(Import_File));
 		Assert.assertEquals(getMemberDetailsOnMemberShipProfile("import name"), importName);
@@ -4409,6 +4409,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		List<String> memTypeArray = new ArrayList<String>();
 		memTypeArray.add("Cancelled");
 		memTypeArray.add("Terminated by Process-chp");
+		memTypeArray.add("Resigned-Unacceptable");
 		List<String> techDivisions = new ArrayList<String>();
 		if (checkIfElementIsThere("txt_divisionMember", "Division Member")) {
 			int size = elements("txt_divisionMember", "Division Member").size();

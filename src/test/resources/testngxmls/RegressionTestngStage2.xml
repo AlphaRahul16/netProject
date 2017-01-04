@@ -7,12 +7,12 @@
 <!-- 		</classes> -->
 <!-- 	</test> -->
 
-	<test name="ACS_AddressChangeTermsInvoice_Test"
-		group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_AddressChangeTermsInvoice_Test"></class>
-		</classes>
-	</test>
+<!-- 	<test name="ACS_AddressChangeTermsInvoice_Test" -->
+<!-- 		group-by-instances="true"> -->
+<!-- 		<classes> -->
+<!-- 			<class name="com.qait.tests.ACS_AddressChangeTermsInvoice_Test"></class> -->
+<!-- 		</classes> -->
+<!-- 	</test> -->
 
 <!-- 	<test name="ACS MYD Transfer" group-by-instances="true"> -->
 <!-- 		<classes> -->
@@ -50,11 +50,11 @@
 <!-- 		</classes> -->
 <!-- 	</test> -->
 
-	<test name="ACS_ReturnCancelRefund" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_ReturnCancelRefund"></class>
-		</classes>
-	</test>
+<!-- 	<test name="ACS_ReturnCancelRefund" group-by-instances="true"> -->
+<!-- 		<classes> -->
+<!-- 			<class name="com.qait.tests.ACS_ReturnCancelRefund"></class> -->
+<!-- 		</classes> -->
+<!-- 	</test> -->
 
 <!-- 	<test name="COE Inventory Smoke Test" group-by-instances="true"> -->
 <!-- 		<classes> -->
