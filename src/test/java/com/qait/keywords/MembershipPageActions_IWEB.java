@@ -191,7 +191,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_runQuery");
 		clickUsingXpathInJavaScriptExecutor(element("btn_runQuery"));
 		logMessage("STEP : Click on run query button \n");
-		wait.hardWait(2);
+		wait.hardWait(6);
 		// wait.waitForPageToLoadCompletely();
 		waitForSpinner();
 		wait.hardWait(1);

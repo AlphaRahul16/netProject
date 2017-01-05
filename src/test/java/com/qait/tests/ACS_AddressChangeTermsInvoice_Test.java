@@ -41,14 +41,6 @@ public class ACS_AddressChangeTermsInvoice_Test extends BaseTest{
 	
 	@Test
 	public void Step01_Launch_Iweb_Application() {
-		InetAddress ipAddr;
-		try {
-			ipAddr = InetAddress.getLocalHost();
-			Reporter.log(" ip addr:"+ipAddr,true);
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		test.launchApplication(app_url_iweb);
 		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
