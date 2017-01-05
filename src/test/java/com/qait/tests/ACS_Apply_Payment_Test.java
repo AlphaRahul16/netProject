@@ -34,85 +34,85 @@ public class ACS_Apply_Payment_Test extends BaseTest {
 
 	}
 
-//	@Test
-//	public void Step01_Navigate_To_Membership_Module_And_Find_Member_Test() {
-//		test.homePageIWEB.clickOnModuleTab();
-//		test.homePageIWEB.clickOnTab("Membership");
-//		test.homePageIWEB.clickOnSideBarTab("Members");
-//		test.homePageIWEB.clickOnTab("Find Members");
-//		test.individualsPage
-//				.selectFieldValueToFindMember(
-//						"Association",
-//						YamlReader
-//								.getYamlValue("ACS_ApplyPayment.DetailsToFindMember.Association"));
-//		test.individualsPage
-//				.selectFieldValueToFindMember(
-//						"Member Type",
-//						YamlReader
-//								.getYamlValue("ACS_ApplyPayment.DetailsToFindMember.MemberType"));
-//		test.individualsPage
-//				.selectFieldValueToFindMember(
-//						"Member Status",
-//						YamlReader
-//								.getYamlValue("ACS_ApplyPayment.DetailsToFindMember.MemberStatus"));
-//		test.individualsPage
-//				.selectFieldValueToFindMember(
-//						"Member Package",
-//						YamlReader
-//								.getYamlValue("ACS_ApplyPayment.DetailsToFindMember.MemberPackage"));
-//		test.individualsPage.clickGoButton();
-//		test.individualsPage.handleAlert();
-//		test.memberShipPage.clickOnAnyRandomMember();
-//
-//	}
-//
-//	@Test
-//	public void Step02_Navigate_To_Product_Invoice_And_Verify_Details_Before_Apply_Payment_Test() {
-//		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("invoices");
-//
-//		test.invoicePage.clickOnGoToArrowButton();
-//		test.invoicePage.verifyMemberDetails_question("proforma", YamlReader
-//				.getYamlValue("ACS_ApplyPayment.BeforeApplyPayment.proforma"));
-//		test.invoicePage
-//				.verifyMemberDetails_question(
-//						"paid in full",
-//						YamlReader
-//								.getYamlValue("ACS_ApplyPayment.BeforeApplyPayment.paidInFull"));
-//		test.invoicePage.verifyBalanceInInvoice(test.invoicePage
-//				.getMemberDetails("invoice total"));
-//		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("line items");
-//		test.invoicePage.verifyPaidClosedValueNo();
-//
-//	}
-//
-//	@Test
-//	public void Step03_Add_Payment_And_Verify_Details_After_Apply_Payment_Test() {
-//		test.invoicePage.clickOnAddPaymentIcon();
-//		test.applyPayment.switchToFrame("iframe1");
-//		test.applyPayment
-//				.verifyCheckBoxSelectedAtSelectInvoiceTab("auto default");
-//		test.applyPayment
-//				.verifyCheckBoxSelectedAtSelectInvoiceTab("auto distribute payment");
-//		test.applyPayment.clickOnNextButton();
-//
-//		test.applyPayment.selectBatch(YamlReader
-//				.getYamlValue("ACS_ApplyPayment.Batch"));
-//		test.applyPayment.enterDetailsForPayment(YamlReader
-//				.getYamlValue("ACS_ApplyPayment.PaymentMethod.Select"));
-//		test.applyPayment.clickOnSaveButton();
-//		test.applyPayment.switchToDefaultContent();
-//		// test.invoicePage.verifyMemberDetails_question("proforma", YamlReader
-//		// .getYamlValue("ACS_ApplyPayment.AfterApplyPayment.proforma"));
-//		test.invoicePage
-//				.verifyMemberDetails_question(
-//						"paid in full",
-//						YamlReader
-//								.getYamlValue("ACS_ApplyPayment.AfterApplyPayment.paidInFull"));
-//		test.invoicePage.verifyBalanceInInvoice(YamlReader
-//				.getYamlValue("ACS_ApplyPayment.AfterApplyPayment.balance"));
-//		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("line items");
-//		test.invoicePage.verifyPaidClosedStatus_Yes();
-//	}
+	@Test
+	public void Step01_Navigate_To_Membership_Module_And_Find_Member_Test() {
+		test.homePageIWEB.clickOnModuleTab();
+		test.homePageIWEB.clickOnTab("Membership");
+		test.homePageIWEB.clickOnSideBarTab("Members");
+		test.homePageIWEB.clickOnTab("Find Members");
+		test.individualsPage
+				.selectFieldValueToFindMember(
+						"Association",
+						YamlReader
+								.getYamlValue("ACS_ApplyPayment.DetailsToFindMember.Association"));
+		test.individualsPage
+				.selectFieldValueToFindMember(
+						"Member Type",
+						YamlReader
+								.getYamlValue("ACS_ApplyPayment.DetailsToFindMember.MemberType"));
+		test.individualsPage
+				.selectFieldValueToFindMember(
+						"Member Status",
+						YamlReader
+								.getYamlValue("ACS_ApplyPayment.DetailsToFindMember.MemberStatus"));
+		test.individualsPage
+				.selectFieldValueToFindMember(
+						"Member Package",
+						YamlReader
+								.getYamlValue("ACS_ApplyPayment.DetailsToFindMember.MemberPackage"));
+		test.individualsPage.clickGoButton();
+		test.individualsPage.handleAlert();
+		test.memberShipPage.clickOnAnyRandomMember();
+
+	}
+
+	@Test
+	public void Step02_Navigate_To_Product_Invoice_And_Verify_Details_Before_Apply_Payment_Test() {
+		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("invoices");
+
+		test.invoicePage.clickOnGoToArrowButton();
+		test.invoicePage.verifyMemberDetails_question("proforma", YamlReader
+				.getYamlValue("ACS_ApplyPayment.BeforeApplyPayment.proforma"));
+		test.invoicePage
+				.verifyMemberDetails_question(
+						"paid in full",
+						YamlReader
+								.getYamlValue("ACS_ApplyPayment.BeforeApplyPayment.paidInFull"));
+		test.invoicePage.verifyBalanceInInvoice(test.invoicePage
+				.getMemberDetails("invoice total"));
+		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("line items");
+		test.invoicePage.verifyPaidClosedValueNo();
+
+	}
+
+	@Test
+	public void Step03_Add_Payment_And_Verify_Details_After_Apply_Payment_Test() {
+		test.invoicePage.clickOnAddPaymentIcon();
+		test.applyPayment.switchToFrame("iframe1");
+		test.applyPayment
+				.verifyCheckBoxSelectedAtSelectInvoiceTab("auto default");
+		test.applyPayment
+				.verifyCheckBoxSelectedAtSelectInvoiceTab("auto distribute payment");
+		test.applyPayment.clickOnNextButton();
+
+		test.applyPayment.selectBatch(YamlReader
+				.getYamlValue("ACS_ApplyPayment.Batch"));
+		test.applyPayment.enterDetailsForPayment(YamlReader
+				.getYamlValue("ACS_ApplyPayment.PaymentMethod.Select"));
+		test.applyPayment.clickOnSaveButton();
+		test.applyPayment.switchToDefaultContent();
+		// test.invoicePage.verifyMemberDetails_question("proforma", YamlReader
+		// .getYamlValue("ACS_ApplyPayment.AfterApplyPayment.proforma"));
+		test.invoicePage
+				.verifyMemberDetails_question(
+						"paid in full",
+						YamlReader
+								.getYamlValue("ACS_ApplyPayment.AfterApplyPayment.paidInFull"));
+		test.invoicePage.verifyBalanceInInvoice(YamlReader
+				.getYamlValue("ACS_ApplyPayment.AfterApplyPayment.balance"));
+		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("line items");
+		test.invoicePage.verifyPaidClosedStatus_Yes();
+	}
 
 	@BeforeClass
 	public void Open_Browser_Window() {
