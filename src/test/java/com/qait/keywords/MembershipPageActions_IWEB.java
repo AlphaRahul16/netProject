@@ -191,7 +191,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_runQuery");
 		clickUsingXpathInJavaScriptExecutor(element("btn_runQuery"));
 		logMessage("STEP : Click on run query button \n");
-		wait.hardWait(2);
+		wait.hardWait(6);
 		// wait.waitForPageToLoadCompletely();
 		waitForSpinner();
 		wait.hardWait(1);
@@ -2934,7 +2934,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyTransferPackagePage() {
-		if(ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("dev7") || System.getProperty("tier").equalsIgnoreCase("dev7")){
+		if(ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("dev7")){
 			isElementDisplayed("heading_transferPackage","Edit - Membership");
 		}
 		else
@@ -4205,7 +4205,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("STEP: Primary Telephone type is " + type);
 			return type;
 		} else
-			return "NoTelephoneNumber";
+			return "home";
 	}
 
 	public void verifyTelephoneDetails(String tabName, String telephoneType, String telephoneNumber) {
@@ -4323,7 +4323,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		Assert.assertEquals(getMemberDetailsOnMemberShipProfile("import name"), importName);
 		Assert.assertEquals(getMemberDetailsOnMemberShipProfile("description"), description);
 		Assert.assertEquals(getMemberDetailsOnMemberShipProfile("type"), fileType);
-		String importDate = DateUtil.getCurrentdateInStringWithGivenFormate("MM/d/yyyy");
+		String importDate = DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy");
 		Assert.assertEquals(getMemberDetailsOnMemberShipProfile("import date"), importDate);
 		Assert.assertTrue(getMemberDetailsOnMemberShipProfile("import file").trim().contains(Import_File));
 		Assert.assertEquals(getMemberDetailsOnMemberShipProfile("import name"), importName);
@@ -4409,6 +4409,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		List<String> memTypeArray = new ArrayList<String>();
 		memTypeArray.add("Cancelled");
 		memTypeArray.add("Terminated by Process-chp");
+		memTypeArray.add("Resigned-Unacceptable");
 		List<String> techDivisions = new ArrayList<String>();
 		if (checkIfElementIsThere("txt_divisionMember", "Division Member")) {
 			int size = elements("txt_divisionMember", "Division Member").size();
@@ -4556,7 +4557,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	    String srcCode;
 	    HomePageActions_IWEB objHome=new HomePageActions_IWEB(driver);
 	    MembershipPageActions_IWEB obj=new MembershipPageActions_IWEB(driver);
-		while(i<=3){
+		while(i<=4){
 			srcCode=getDomesticSourceCode(); //map().get("SourceCodeType")
 			if(!srcCode.equals("")){
 				clickOnArrowButton(srcCode);
