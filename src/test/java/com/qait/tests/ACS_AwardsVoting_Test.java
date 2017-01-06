@@ -25,13 +25,13 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 
 	String app_url_IWEB, app_url_Awards, currentAwardName;
 	String[] startEndDate;
-	Map<String, List<String>> memberDetail = new HashMap<>();
+	Map<String, List<String>> memberDetail = new HashMap<String, List<String>>();
 	List<String> memberDetails, nameOfJudges, rescusedJudges;
-	Set<String> numberOfNomineesInEntrants = new HashSet<>();
+	Set<String> numberOfNomineesInEntrants = new HashSet<String>();
 	int numberOfDivisions, maxPossibleNominees;
 	Map<String, String> mapAwardsNomination = new HashMap<String, String>();
 	Map<String, String> createMemberCredentials;
-	List<List<String>> listOfFirstAndLastName = new ArrayList<>();
+	List<List<String>> listOfFirstAndLastName = new ArrayList<List<String>>();
 
 	Map<Integer, String> confirmNominees = new HashMap<Integer, String>();
 	List<Map<Integer, String>> listsOfRanks = new ArrayList<Map<Integer, String>>();
@@ -53,7 +53,7 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.homePageIWEB.clickOnTab("Awards");
 		test.homePageIWEB.clickOnTab("Find Award");		
 		test.individualsPage.enterFieldValue("Award Year",
-				DateUtil.getAnyDateForType("YYYY", 2, "year"));
+				DateUtil.getAnyDateForType("YYYY", 1, "year"));
 		test.individualsPage.clickGoButton();
 //		test.individualsPage.enterFieldValue("Award Name:", "ACS Award in Inorganic Chemistry");
 //		test.individualsPage.enterFieldValue("Award Year:", "2018");
@@ -204,7 +204,7 @@ public class ACS_AwardsVoting_Test extends BaseTest {
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Awards");
 		test.homePageIWEB.clickOnTab("Find Award");
-		test.individualsPage.enterFieldValue("Award Year",DateUtil.getAnyDateForType("YYYY", 2, "year"));
+		test.individualsPage.enterFieldValue("Award Year",DateUtil.getAnyDateForType("YYYY", 1, "year"));
 //		test.individualsPage.enterFieldValue("Award Name","ACS Award in Inorganic Chemistry");
 //		test.individualsPage.enterFieldValue("Award Year","2018");
 		test.individualsPage.clickGoButton();

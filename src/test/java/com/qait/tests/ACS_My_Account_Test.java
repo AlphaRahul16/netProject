@@ -26,9 +26,9 @@ public class ACS_My_Account_Test extends BaseTest {
 	int number;
 	private String caseID;
 	Map<String, Boolean> skipTest = new HashMap<String, Boolean>();
-	Map<String, String> changedValues = new HashMap<>();
-	List<String> memberDetails = new ArrayList<>();
-	List<String> techDivisions = new ArrayList<>();
+	Map<String, String> changedValues = new HashMap<String, String>();
+	List<String> memberDetails = new ArrayList<String>();
+	List<String> techDivisions = new ArrayList<String>();
 	String myApplications[] = { "ACS Fellows", "Member Get A Member", "Email Newsletters", "Gift a Membership" };
 
 	@BeforeClass

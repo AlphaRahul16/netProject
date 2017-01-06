@@ -60,6 +60,7 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test extends BaseTest {
 	@Test
 	public void Step01_Verify_Email_Address_IWEB_Test() {
 
+		System.out.println("----case id:"+caseID);
 		test.homePageIWEB
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 		test.homePageIWEB.clickFindForIndividualsSearch();
@@ -73,6 +74,7 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test extends BaseTest {
 	@Test
 	public void Step02_CCED_Lookup_Test() {
 
+		System.out.println("----case id:"+caseID);
 		test.launchApplication(test.asm_CCEDPage.map().get("Application URL")
 				.replaceAll("Stage2", ConfigPropertyReader.getProperty("tier")));
 		test.asm_CCEDPage.verifyPageTitle("Chemists Celebrate Earth Day");
@@ -88,6 +90,7 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test extends BaseTest {
 	@Test
 	public void Step03_NCW_Lookup_Test() {
 
+		System.out.println("----case id:"+caseID);
 		test.launchApplication(test.asm_NCWPage.map().get("Application URL")
 				.replaceAll("Stage2", ConfigPropertyReader.getProperty("tier")));
 		test.asm_NCWPage.verifyPageTitle("National Chemistry Week");

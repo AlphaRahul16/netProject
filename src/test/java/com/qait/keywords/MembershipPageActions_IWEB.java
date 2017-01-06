@@ -191,7 +191,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_runQuery");
 		clickUsingXpathInJavaScriptExecutor(element("btn_runQuery"));
 		logMessage("STEP : Click on run query button \n");
-		wait.hardWait(2);
+		wait.hardWait(6);
 		// wait.waitForPageToLoadCompletely();
 		waitForSpinner();
 		wait.hardWait(1);
@@ -2901,11 +2901,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyTransferPackagePage() {
+
 		if (ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("dev7")
 				|| System.getProperty("tier").equalsIgnoreCase("dev7")) {
 			isElementDisplayed("heading_transferPackage", "Edit - Membership");
 		} else
 			isElementDisplayed("heading_transferPackage", "Transfer Package");
+
 		logMessage("STEP : Member navigated to Transfer Package Page\n");
 		switchToFrame("iframe1");
 	}
@@ -4172,7 +4174,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("STEP: Primary Telephone type is " + type);
 			return type;
 		} else
-			return "NoTelephoneNumber";
+			return "home";
 	}
 
 	public void verifyTelephoneDetails(String tabName, String telephoneType, String telephoneNumber) {
@@ -4376,6 +4378,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		List<String> memTypeArray = new ArrayList<String>();
 		memTypeArray.add("Cancelled");
 		memTypeArray.add("Terminated by Process-chp");
+		memTypeArray.add("Resigned-Unacceptable");
 		List<String> techDivisions = new ArrayList<String>();
 		if (checkIfElementIsThere("txt_divisionMember", "Division Member")) {
 			int size = elements("txt_divisionMember", "Division Member").size();
@@ -4517,15 +4520,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		element("lnk_sourceCode", srcCodeName).click();
 		logMessage("STEP: Source Code " + srcCodeName + " is selected\n");
 	}
-
-	public void selectDomesticProduct() {
-		int i = 1;
-		String srcCode;
-		HomePageActions_IWEB objHome = new HomePageActions_IWEB(driver);
-		MembershipPageActions_IWEB obj = new MembershipPageActions_IWEB(driver);
-		while (i <= 3) {
-			srcCode = getDomesticSourceCode(); // map().get("SourceCodeType")
-			if (!srcCode.equals("")) {
+	
+	public void selectDomesticProduct(){
+	    int i=1;
+	    String srcCode;
+	    HomePageActions_IWEB objHome=new HomePageActions_IWEB(driver);
+	    MembershipPageActions_IWEB obj=new MembershipPageActions_IWEB(driver);
+		while(i<=4){
+			srcCode=getDomesticSourceCode(); //map().get("SourceCodeType")
+			if(!srcCode.equals("")){
 				clickOnArrowButton(srcCode);
 				break;
 			} else {

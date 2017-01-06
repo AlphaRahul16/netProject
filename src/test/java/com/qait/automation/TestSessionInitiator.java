@@ -313,6 +313,11 @@ public class TestSessionInitiator {
 
 	public void closeBrowserSession() {
 		driver.quit();
+//		try {
+//		    Runtime.getRuntime().exec("taskkill /F /IM chromedriver.exe");
+//		} catch (IOException e) {
+//		    e.printStackTrace();
+//		}
 	}
 
 	public void deleteAllCookies() {
