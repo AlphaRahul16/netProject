@@ -135,7 +135,7 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 	
 	public boolean pollTextForIe(String type,String batchValue){
 		boolean flag=false;
-		int pollingTimeOut=Integer.parseInt(ConfigPropertyReader.getProperty("pollingTimeOut"));
+		int pollingTimeOut=Integer.parseInt(ConfigPropertyReader.getProperty("pollingTimeOut").trim());
 		for(int i=1;i<=pollingTimeOut;i++){
 			try {
 				Thread.sleep(1000);

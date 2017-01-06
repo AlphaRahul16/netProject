@@ -30,7 +30,7 @@ public class ConfirmationPage extends ASCSocietyGenericPage {
 
 	public String getMemberDetail(String detail) {
 		isElementDisplayed("txt_memberDetail", detail);
-		logMessage("STEP: Member detail on OMA is fetched as "+element("txt_memberDetail", detail).getText()+"\n");
+		logMessage("STEP: "+detail+" on OMA is fetched as "+element("txt_memberDetail", detail).getText()+"\n");
 		return element("txt_memberDetail", detail).getText();
 	}
 

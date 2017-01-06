@@ -16,38 +16,7 @@ import com.qait.automation.utils.DateUtil;
 public class Test{  
 	public static void main(String args[]){
 	String type="home";
-//	type=Character.toUpperCase(type.charAt(0))+type.substring(1);
-//		System.out.println(Character.toUpperCase(type.charAt(0))+type.substring(1));
-//
-//	    System.out.println(DateUtil.convertStringToParticularDateFormat("2/2022","MM/yyyy"))	;	
-//	    
-	String currentDate = DateUtil.getCurrentTime("hh:mm a", "EST5EDT");
 
-	Date dateInDate = DateUtil.convertStringToDate(currentDate, "hh:mm a");
-	    System.out.println(DateUtils.addMinutes(dateInDate,
-				Integer.parseInt("8")));
-	    
-	    String srcCode = "";
-	    
-	    if(srcCode.equals("")){
-	    	System.out.println("1");
-	    }
-	    System.out.println(DateUtil.getCurrentdateInStringWithGivenFormate("M/dd/yyyy"));
-	    System.out.println(DateUtil.getCurrentdateInStringWithGivenFormate("M/dd/yyyy").compareTo("5/29/2019"));
-	    /*);
-=======
-		String currentDate = DateUtil.getCurrentTime("hh:mm a", "IST");
-		System.out.println(currentDate);
-		Date dateInDate = DateUtil.convertStringToDate(currentDate, "hh:mm a");
-		Date dateAfterMinutesAdded = DateUtils.addMinutes(dateInDate,
-				Integer.parseInt("5"));
-		SimpleDateFormat sdf = new SimpleDateFormat("h:mm:ss a");
-		String dateWithTimeSlabInString = sdf.format(dateAfterMinutesAdded);
-		System.out.println(dateWithTimeSlabInString);
-		String runTaskDateTime = DateUtil
-				.getCurrentdateInStringWithGivenFormateForTimeZone(
-						"MM/dd/YYYY", "IST")
-				+ " " + dateWithTimeSlabInString;
 		
 /*
 >>>>>>> 68943518e4a9ecf9c1831a26d6e64447cfdc035a

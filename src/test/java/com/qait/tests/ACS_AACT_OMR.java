@@ -71,8 +71,6 @@ public class ACS_AACT_OMR extends BaseTest {
 		weblogin = test.memberShipPage.selectValidUserForAACTOMR(getYamlValue("AACT_OMR.queryName"), queryPageUrl);
 		test.memberShipPage.clickOnCustomerNameAndNavigateToMembershipPage();
 		customerFullNameList = test.memberShipPage.getMemberDetails_AACTOMR();
-		// countryName=test.memberShipPage.getMemberCountryName();
-
 	}
 
 	@Test(dependsOnMethods = "Step02_Select_Members_Tab_And_Select_Valid_User_For_AACT_OMR")
