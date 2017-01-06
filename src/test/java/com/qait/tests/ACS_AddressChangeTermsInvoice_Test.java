@@ -23,7 +23,7 @@ public class ACS_AddressChangeTermsInvoice_Test extends BaseTest{
 	String app_url_iweb, chpName;
 
 	Map<String, String> membershipDateList = new HashMap<String, String>();
-	List<String> addressType = new ArrayList<>();
+	List<String> addressType = new ArrayList<String>();
 
 	@BeforeClass
 	public void open_Browser_Window() {

@@ -25,7 +25,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 	Map<String, List<String>> reportAnswers = new HashMap<String, List<String>>();
 	Map<String, List<String>> eventsMap = new HashMap<String, List<String>>();
 	static int scarfReportIterationCount = 1;
-	List<String> list = new ArrayList<>();
+	List<String> list = new ArrayList<String>();
 	String arrayData[] = { "Event", "Location", "Date", "No of ACS Student", "No of NON ACS Chapter Members",
 			"No of Faculty", "People Served" };
 	String titleArray[] = { "Events", "Location", "Date", "Number of ACS Student", "Number of Non-ACS Chapter Members",

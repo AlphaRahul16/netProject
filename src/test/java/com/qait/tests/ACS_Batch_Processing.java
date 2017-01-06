@@ -19,7 +19,7 @@ public class ACS_Batch_Processing extends BaseTest {
 	String app_url_iweb;
 	String batchName;
 	int numberOfDivisions;
-	List<String> batchValues = new ArrayList<>();
+	List<String> batchValues = new ArrayList<String>();
 
 	@Test
 	public void Step_01_Navigate_To_Accounting_Module_And_Click_Query_Batch() {
