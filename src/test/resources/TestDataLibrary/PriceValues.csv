@@ -10,8 +10,8 @@ CASE ID	Price value?	productTax?	productShipping?	CENproductName?	CENprice?	CENT
 9	$81.00	$0.00	$0.00	Chemical & Engineering News	$0.00	$0.00	$75.00					$16.00	$0.00	$0.00	$99.00	$0.00	$0.00
 10																	
 11																	
-12	$162.00	$0.00	$0.00	Chemical & Engineering News	$0.00	$0.00	$75.00					$16.00	$0.00	$0.00	$99.00	$0.00	$0.00
-13	$81.00	$0.00	$0.00	Chemical & Engineering News	$0.00	$0.00	$75.00					$16.00	$0.00	$0.00	$99.00	$0.00	$0.00
+12	$166.00	$0.00	$0.00	Chemical & Engineering News	$0.00	$0.00	$75.00					$20.00	$0.00	$0.00	$99.00	$0.00	$0.00
+13	$83.00	$0.00	$0.00	Chemical & Engineering News	$0.00	$0.00	$75.00					$20.00	$0.00	$0.00	$99.00	$0.00	$0.00
 14																	
 15	$54.00	$0.00	$0.00									$10.00	$0.00	$0.00	$99.00	$0.00	$0.00
 16	$27.00	$0.00	$0.00									$10.00	$0.00	$0.00	$99.00	$0.00	$0.00
@@ -24,4 +24,4 @@ CASE ID	Price value?	productTax?	productShipping?	CENproductName?	CENprice?	CENT
 23																	
 24	$81.00	$0.00	$0.00	Chemical & Engineering News	$0.00	$0.00	$75.00		$0.00	$0.00	$0.00	$0.00	$0.00	$0.00	$0.00	$0.00	$0.00
 25																	
-26	$162.00	$0.00	$0.00	Chemical & Engineering News	$0.00	$0.00	$75.00					$20.00	$0.00	$0.00	$99.00	$0.00	$0.00
+26	$166.00	$0.00	$0.00	Chemical & Engineering News	$0.00	$0.00	$75.00					$20.00	$0.00	$0.00	$99.00	$0.00	$0.00

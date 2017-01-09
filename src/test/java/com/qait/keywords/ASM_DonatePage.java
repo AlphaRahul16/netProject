@@ -662,7 +662,7 @@ public class ASM_DonatePage extends GetPage {
 			try
 			{
 				wait.hardWait(2);
-				System.out.println("asfsfsffs");
+				
 			verifyMemberOrNonMemberDetails("Name", "Address");
 			verifyMemberOrNonMemberDetails("Email", "Email");
 			verifyMemberOrNonMemberDetails("Phone", "PhoneNo");

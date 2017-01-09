@@ -19,7 +19,7 @@ public class ACS_My_Account_Action extends ASCSocietyGenericPage{
 
 	WebDriver driver;
 	String pageName = "ACS_MyAccount",app_url_IWEB,app_url_MyAccount;
-	HashMap<String, String> changedValues= new HashMap<>();
+	HashMap<String, String> changedValues= new HashMap<String, String>();
 
 	public ACS_My_Account_Action(WebDriver driver){
 		super(driver,"ACS_MyAccount");

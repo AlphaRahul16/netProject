@@ -27,7 +27,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 	String[] userDetail,quantities,memberDetail;
 	boolean isErrorMessage;
 	static Map<String, Boolean> errorMap = new HashMap<String, Boolean>();
-	Map<String,String> productAmounts=new HashMap<>();
+	Map<String,String> productAmounts=new HashMap<String,String>();
 
 	public ACS_GiftCard_Test() {
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "GiftCard_Scenariosheet";

@@ -75,7 +75,6 @@ public class ACS_Member_Transfer_Smoke_Test extends BaseTest{
 		} else if (dataList.get("Initial MP Exp Date").equalsIgnoreCase("Past")) {
 			test.memberShipPage.selectAndRunQuery("Selenium - Member Transfer Query - Past Expire");
 		}
-
 		test.individualsPage.enterValueInMemberStatusField("Member Type", "ACS : " + dataList.get("Initial Mbr Type"));
 		test.individualsPage.enterValueInMemberStatusField("Member Status",
 				"ACS : " + dataList.get("Initial Mbr Status"));

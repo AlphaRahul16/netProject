@@ -57,7 +57,7 @@ public class ReformatTestFile {
 		}
 	}
 
-protected	String readLargerTextFile(String aFileName) throws IOException {
+	protected String readLargerTextFile(String aFileName) throws IOException {
 		String html = "";
 		Path path = Paths.get(aFileName);
 		try (Scanner scanner = new Scanner(path, "ISO-8859-1")) {
@@ -69,8 +69,9 @@ protected	String readLargerTextFile(String aFileName) throws IOException {
 		return html;
 	}
 
-	public static void createMemberTransferCompleteTestLog(String aFileName, String html,String scenarioID) {
-		String filePath = aFileName + File.separator + DateUtil.getCurrentdateInStringWithGivenFormate("dd MMM YYYY")+File.separator +"MT"+scenarioID+".html";
+	public static void createMemberTransferCompleteTestLog(String aFileName, String html, String scenarioID) {
+		String filePath = aFileName + File.separator + DateUtil.getCurrentdateInStringWithGivenFormate("dd MMM YYYY")
+				+ File.separator + "MT" + scenarioID + ".html";
 		Path path = Paths.get(filePath);
 		File file = new File(filePath);
 		file.getParentFile().mkdirs();
@@ -82,11 +83,11 @@ protected	String readLargerTextFile(String aFileName) throws IOException {
 		}
 		try (BufferedWriter writer = new BufferedWriter(
 				new OutputStreamWriter(new FileOutputStream(filePath), "ISO-8859-1"))) {
-		
+
 			writer.write(html);
 
-		} catch(Exception e){
-			
+		} catch (Exception e) {
+
 		}
 	}
 }

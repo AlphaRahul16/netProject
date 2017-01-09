@@ -86,7 +86,6 @@ public class ACS_Apply_Payment_Test extends BaseTest {
 		test.applyPayment
 				.verifyCheckBoxSelectedAtSelectInvoiceTab("auto distribute payment");
 		test.applyPayment.clickOnNextButton();
-
 		test.applyPayment.selectBatch(YamlReader
 				.getYamlValue("ACS_ApplyPayment.Batch"));
 		test.applyPayment.enterDetailsForPayment(YamlReader

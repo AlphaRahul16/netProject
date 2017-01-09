@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileDeleteStrategy;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -166,6 +167,8 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		// e.printStackTrace();
 		// }
 		if (sourceFile.exists()) {
+
+			System.out.println(sourceFile.delete());
 			sourceFile.delete();
 			logMessage("STEP: Already Existed File is deleted from location " + sourceFile.getAbsolutePath());
 		}
@@ -421,7 +424,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 				System.out.println("PDF Content::" + pdfContent);
 				verifyDetailsFromPDFFile(pdfContent, membershipType, "Membership Type");
 				verifyDetailsFromPDFFile(pdfContent, invoiceTotal, "invoice Total");
-				verifyDetailsFromPDFFile(pdfContent, DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
+				verifyDetailsFromPDFFile(pdfContent, DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy", "EST5EDT"),
 						"Payment Date");
 				verifyDetailsFromPDFFile(pdfContent, customerID, "Membership ID");
 				verifyDetailsFromPDFFile(pdfContent, productName, "Product Name");

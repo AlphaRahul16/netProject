@@ -1,5 +1,5 @@
 CASE ID	 Execute	How do you want to receive ChemMatters?	Gender	CreditCardType	CreditCardNumber	ExpirationMonth	ExpirationYear	CcvNumber	Experience	GradMonth	GradYear
 1	No	Print	Male	Visa/MC	4111111111111110	8	2022	123	11	August	2018
 2	No	Electronic	Female	Visa/MC	4111111111111110	8	2022	123	11	August	2018
-3	Yes	Print and Electronic	Prefer Not to Say	Visa/MC	4111111111111111	8	2022	123	11	August	2018
+3	No	Print and Electronic	Prefer Not to Say	Visa/MC	4111111111111111	8	2022	123	11	August	2018
 4	Yes	None	Prefer Not to Say	Visa/MC	4111111111111111	8	2022	123	11	August	2018

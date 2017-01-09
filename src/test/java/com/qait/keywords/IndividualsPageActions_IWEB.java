@@ -2051,9 +2051,9 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 				"Chapter Role is not " + chapterRole);
 		logMessage("ASSERT PASSED : chapter " + chapterName + " role is verified as " + chapterName);
 		Assert.assertTrue(element("txt_quantity", chapterName).getText().trim()
-				.equals(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy")), "Date is not current date");
+				.equals(DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy", "EST5EDT")), "Date is not current date");
 		logMessage("ASSERT PASSED : Date for chapter " + chapterName + " is current date "
-				+ DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"));
+				+ DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy"));
 
 	}
 
