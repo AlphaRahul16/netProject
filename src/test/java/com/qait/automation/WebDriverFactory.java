@@ -72,6 +72,7 @@ public class WebDriverFactory {
 		browser = selConfig.get("browser");
 		if (browser.equalsIgnoreCase("firefox")) {
 			cap = DesiredCapabilities.firefox();
+			cap.setCapability(FirefoxDriver.PROFILE, getFirefoxProfile(selConfig.get("tier")));
 		} else if (browser.equalsIgnoreCase("chrome")) {
 			cap = DesiredCapabilities.chrome();
 		} else if (browser.equalsIgnoreCase("Safari")) {
@@ -186,4 +187,24 @@ public class WebDriverFactory {
 //		return new FirefoxDriver(ffbinary,profile);
 		return new FirefoxDriver(profile);
 	}
+	
+	public static FirefoxProfile getFirefoxProfile(String tier){
+		FirefoxProfile profile = null;
+		if(tier.equalsIgnoreCase("Dev7")){
+		String firefoxProfilePath = "."+File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"Profile_"
+				+ tier;
+		String autoAuthPath = "."+File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"AddOn"+File.separator+"autoauth-2.1-fx+fn_0.xpi";
+		File firefoxProfile = new File(firefoxProfilePath);
+
+		profile = new FirefoxProfile(firefoxProfile);
+		File extension = new File(autoAuthPath);
+		try {
+			profile.addExtension(extension);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+		return profile;
+}
 }
