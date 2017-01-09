@@ -299,10 +299,10 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		logMessage("STEP : Add button is clicked in btn_add \n");
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);
-		isElementDisplayed("chk_archive");
-		element("chk_archive").click();
-		logMessage("STEP : Add button is clicked in chk_archive \n");
-
+		if(checkIfElementIsThere("chk_archive")){
+			element("chk_archive").click();
+			logMessage("STEP : Add button is clicked in chk_archive \n");
+		}
 	}
 
 	public void clickOnSaveButton() {
