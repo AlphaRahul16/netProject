@@ -68,7 +68,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public List<String> verifyVisibilityOfGivenListCategory(String listType) {
-		List<String> categoryList = new ArrayList<>();
+		List<String> categoryList = new ArrayList<String>();
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		wait.resetImplicitTimeout(5);
@@ -307,7 +307,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 	// }
 
 	public List<String> getMailingCategoryList(String tabName) {
-		List<String> categoryList = new ArrayList<>();
+		List<String> categoryList = new ArrayList<String>();
 		isElementDisplayed("list_categoriesInMailingList");
 		for (int i = 1; i <= elements("list_categoriesInMailingList").size(); i++) {
 			if (!element("txt_listData", tabName, String.valueOf(5), String.valueOf(i)).getText().equals(" ")) {

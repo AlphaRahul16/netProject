@@ -21,7 +21,7 @@ public class ACS_Email_Communication_Preferences_Test extends BaseTest{
 	String app_url_IWEB, webLogin, app_url_email, mailingListName,
 			mailingListType,customerId,userName;
 	List<String> mailingListCategories;
-	List<String>categoryList=new ArrayList<>();
+	List<String>categoryList=new ArrayList<String>();
 	Map<String,List<String>> mailingListMap=new HashMap<String,List<String>>();
 
 	@BeforeClass

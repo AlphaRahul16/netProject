@@ -8,14 +8,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -24,15 +22,13 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
-import com.qait.automation.utils.ConfigPropertyReader;
-
 public class WebDriverFactory {
 	private static String browser;
 	String seleniumServer;
 	static String downloadFilePath = System.getProperty("user.dir")
 			+ File.separator + "src" + File.separator + "test" + File.separator
 			+ "resources" + File.separator + "DownloadedFiles";
-	private static final DesiredCapabilities capabilities = new DesiredCapabilities();
+	private static DesiredCapabilities capabilities = new DesiredCapabilities();
 
 	public WebDriver getDriver(Map<String, String> seleniumconfig) {
 
@@ -42,7 +38,7 @@ public class WebDriverFactory {
 
 		if (seleniumServer.equalsIgnoreCase("local")) {
 			if (browser.equalsIgnoreCase("firefox")) {
-				return getFirefoxDriver();
+				return getFirefoxDriver(seleniumconfig.get("tier"));
 			} else if (browser.equalsIgnoreCase("chrome")) {
 				
 				if(System.getProperty("os.name").equals("Linux"))
@@ -76,6 +72,7 @@ public class WebDriverFactory {
 		browser = selConfig.get("browser");
 		if (browser.equalsIgnoreCase("firefox")) {
 			cap = DesiredCapabilities.firefox();
+			cap.setCapability(FirefoxDriver.PROFILE, getFirefoxProfile(selConfig.get("tier")));
 		} else if (browser.equalsIgnoreCase("chrome")) {
 			cap = DesiredCapabilities.chrome();
 		} else if (browser.equalsIgnoreCase("Safari")) {
@@ -121,8 +118,14 @@ public class WebDriverFactory {
 	
 	private static WebDriver getInternetExplorerDriver(String driverpath) {
 		System.setProperty("webdriver.ie.driver", driverpath);
+		capabilities = DesiredCapabilities.internetExplorer();
 		capabilities.setCapability("ignoreZoomSetting", true);
-		capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+//		capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+////		  DesiredCapabilities ieCapabilities = null;
+//		capabilities.setBrowserName("internet explorer");
+//		
+//		//capabilities.setVersion("9");
+//	//	System.out.println("----"+capabilities.);
 		return new InternetExplorerDriver(capabilities);
 	}
 
@@ -130,37 +133,27 @@ public class WebDriverFactory {
 		return new SafariDriver();
 	}
 
-
-	private static WebDriver getFirefoxDriver() {
-		String path="C:"+File.separator+"Program Files (x86)"+File.separator+"Mozilla Firefox"+File.separator+"firefox.exe";
-		File binaryPath=new File(path);
-//        System.out.println("------binary file:"+binaryPath);
-		FirefoxBinary ffbinary=new FirefoxBinary(binaryPath);
-//
-////		File pathToBinary = new File("C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe");
-////		FirefoxBinary ffBinary = new FirefoxBinary(pathToBinary);
-//	       
-////		WebDriver driver = new FirefoxDriver(ffBinary,firefoxProfile);
-////		System.setProperty("webdriver.firefox.binary",binaryPath);
-////        binary.setEnvironmentProperty("binary", "C:"+File.separator+"Program Files (x86)"+File.separator+"Mozilla Firefox"+File.separator+"firefox.exe");
-//		
-//        String firefoxProfilePath = "./src/test/resources/Profile/Profile_"
-//				+ ConfigPropertyReader.getProperty("tier");
-//        System.out.println("------"+firefoxProfilePath);
+	private static WebDriver getFirefoxDriver(String tier) {
 		FirefoxProfile profile;
-//		String autoAuthPath = "src/test/resources/AddOn/autoauth-2.1-fx+fn.xpi";
-//		File firefoxProfile = new File(firefoxProfilePath);// path of firefox
-//
-//		profile = new FirefoxProfile(firefoxProfile);
-//		File extension = new File(autoAuthPath);// path of AutoAuth
-//		try {
-//			profile.addExtension(extension);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		if(tier.equalsIgnoreCase("Dev7")){
+		String firefoxProfilePath = "."+File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"Profile_"
+				+ tier;
+		String autoAuthPath = "."+File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"AddOn"+File.separator+"autoauth-2.1-fx+fn_0.xpi";
+		File firefoxProfile = new File(firefoxProfilePath);
+
+		profile = new FirefoxProfile(firefoxProfile);
+		File extension = new File(autoAuthPath);
+		try {
+			profile.addExtension(extension);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
+		else
+			profile = new FirefoxProfile();
 	
-		profile = new FirefoxProfile();
+//		profile = new FirefoxProfile();
 		profile.setPreference("browser.download.useDownloadDir", true);
 		profile.setPreference("browser.cache.disk.enable", false);
 		profile.setPreference("browser.download.folderList", 2);
@@ -189,16 +182,29 @@ public class WebDriverFactory {
 		profile.setPreference("browser.download.panel.shown",false);
 		profile.setPreference("browser.download.useToolkitUI",true);
 		profile.setPreference("dom.disable_beforeunload", true);
-
 //		profile.setPreference("network.http.phishy-userpass-length", 255);
 //		profile.setPreference("network.automatic-ntlm-auth.trusted-uris","yourDomain");
-//		profile.setAcceptUntrustedCertificates(true);
-//		//return new FirefoxDriver(ffBinary,profile);
-//		return new FirefoxDriver(profile);
-
-//		profile.setPreference("network.http.phishy-userpass-length", 255);
-//		profile.setPreference("network.automatic-ntlm-auth.trusted-uris","yourDomain");
-		return new FirefoxDriver(ffbinary,profile);
-//		return new FirefoxDriver(profile);
+//		return new FirefoxDriver(ffbinary,profile);
+		return new FirefoxDriver(profile);
 	}
+	
+	public static FirefoxProfile getFirefoxProfile(String tier){
+		FirefoxProfile profile = null;
+		if(tier.equalsIgnoreCase("Dev7")){
+		String firefoxProfilePath = "."+File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"Profile_"
+				+ tier;
+		String autoAuthPath = "."+File.separator+"src"+File.separator+"test"+File.separator+"resources"+File.separator+"AddOn"+File.separator+"autoauth-2.1-fx+fn_0.xpi";
+		File firefoxProfile = new File(firefoxProfilePath);
+
+		profile = new FirefoxProfile(firefoxProfile);
+		File extension = new File(autoAuthPath);
+		try {
+			profile.addExtension(extension);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+		return profile;
+}
 }

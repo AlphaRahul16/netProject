@@ -55,6 +55,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		String giftinfo[] = { "first gift (join) date", "first gift amount", "highest gift date", "highest gift amount",
 				"latest gift date", "latest gift amount", "ytd amount", "last-year amount", "lifetime amount" };
 		wait.waitForPageToLoadCompletely();
+		wait.hardWait(3);
 		hardWaitForIEBrowser(10);
 		for (String info : giftinfo) {
 			if (element("txt_giftInformation", info).getText().trim().equals("")) {
@@ -86,7 +87,8 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 
 	public void selectFundCode(String field, String code) {
         hardWaitForIEBrowser(8);
-		isElementDisplayed("list_fundraisingCode", field);
+        dynamicWait(10,"list_fundraisingCode", field);
+//		isElementDisplayed("list_fundraisingCode", field);
 		selectProvidedTextFromDropDown(element("list_fundraisingCode", field), code);
 		logMessage("STEP : " + field + " is entered as " + code);
 	}
@@ -104,7 +106,9 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		element("inp_giftAmount", field).clear();
 		element("inp_giftAmount", field).sendKeys(amount);
 		logMessage("STEP : " + field + " entered as " + amount + "\n");
+		wait.hardWait(4);
         element("table_form").click();
+        logMessage("STEP: table_form is clicked\n");
 //		wait.hardWait(2);
 //		clickUsingXpathInJavaScriptExecutor(element("table_form"));
 	}
@@ -123,6 +127,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(6);
 		isElementDisplayed("inp_giftAmount", field);
+		wait.hardWait(2);
 		System.out.println(element("inp_giftAmount", field).getAttribute("value"));
 		Assert.assertEquals(element("inp_giftAmount", field).getAttribute("value"), amount,
 				"ASSERT FAILED : Deductible amount value is not same as the Gift amount "+amount+"\n");
@@ -172,7 +177,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 				"latest gift date", "latest gift amount", "ytd amount", "lifetime amount" };
 		for (String info : giftinfo) {
 			if (info.contains("date")) {
-				verifyGiftInformationIsDispalyed(info, DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy"));
+				verifyGiftInformationIsDispalyed(info, DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST"));
 			} else
 				verifyGiftInformationIsDispalyed(info, expectedValue);
 		}
@@ -249,12 +254,21 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 					+ element("txt_listData", tabName, String.valueOf(index2), String.valueOf(i)).getText().trim());
 			System.out.println("----" + DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy"));
 
+			if(ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Dev7")){
 			if (element("txt_listData", tabName, String.valueOf(index1), String.valueOf(i)).getText().trim()
-					.equals("Yes")
+					.equals("No")
 					&& element("txt_listData", tabName, String.valueOf(index2), String.valueOf(i)).getText().trim()
 							.equals(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy"))) {
 				break;
 			}
+		  }else{
+				if (element("txt_listData", tabName, String.valueOf(index1), String.valueOf(i)).getText().trim()
+						.equals("Yes")
+						&& element("txt_listData", tabName, String.valueOf(index2), String.valueOf(i)).getText().trim()
+								.equals(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy"))) {
+					break;
+				}
+		  }
 		}
 		verifyGiftIsAdded(tabName, amount, 5, "Gift Amount", i);
 		verifyGiftIsAdded(tabName, fundCode, 7, "Fund Code", i);

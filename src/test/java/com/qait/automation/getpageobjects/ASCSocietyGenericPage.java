@@ -5,12 +5,15 @@ import static com.qait.automation.utils.DataProvider.csvReaderRowSpecific;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.commons.io.FileCleaningTracker;
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.io.RandomAccessBufferedFileInputStream;
 import org.apache.pdfbox.pdfparser.PDFParser;
@@ -49,23 +52,18 @@ public class ASCSocietyGenericPage extends GetPage {
 
 	}
 
-	public void verifyFieldVisibility(String element, String visibility)
-			throws NoSuchElementException {
+	public void verifyFieldVisibility(String element, String visibility) throws NoSuchElementException {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
-				"hiddenFieldTimeOut"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		if (visibility.equalsIgnoreCase("hide")) {
 			try {
-				Reporter.log("Waiting for the element: " + element
-						+ " to not to show up", true);
+				Reporter.log("Waiting for the element: " + element + " to not to show up", true);
 				wait.resetImplicitTimeout(0);
 				wait.resetExplicitTimeout(hiddenFieldTimeOut);
 				wait.waitForPageToLoadCompletely();
 				isElementDisplayed(element);
-				org.testng.Assert
-						.fail("ASSERT FAILED : "
-								+ element
-								+ " is found visible even though it is expected to be hidden");
+				org.testng.Assert.fail(
+						"ASSERT FAILED : " + element + " is found visible even though it is expected to be hidden");
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
 			} catch (NoSuchElementException e) {
@@ -86,25 +84,22 @@ public class ASCSocietyGenericPage extends GetPage {
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
 				logMessage("ASSERT FAILED: " + element + " is Show");
-				throw new NoSuchElementException(
-						"visibility' field is not displayed in Application.");
+				throw new NoSuchElementException("visibility' field is not displayed in Application.");
 			}
-		} else if (!(visibility.equalsIgnoreCase("N") || visibility
-				.equalsIgnoreCase("Y"))) {
+		} else if (!(visibility.equalsIgnoreCase("N") || visibility.equalsIgnoreCase("Y"))) {
 			logMessage("Data is not valid in sheet");
 			throw new NoSuchElementException("data is not valid in sheet");
 		}
 	}
 
-	public void verifyFieldVisibility(String element, String replacementText,
-			String visibility) throws NoSuchElementException {
+	public void verifyFieldVisibility(String element, String replacementText, String visibility)
+			throws NoSuchElementException {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
-				"hiddenFieldTimeOut"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		if (visibility.equalsIgnoreCase("hide")) {
 			try {
-				Reporter.log("Waiting for the element: " + element + " "
-						+ replacementText + " to not to show up\n", true);
+				Reporter.log("Waiting for the element: " + element + " " + replacementText + " to not to show up\n",
+						true);
 				wait.resetImplicitTimeout(5);
 
 				wait.resetExplicitTimeout(hiddenFieldTimeOut);
@@ -115,16 +110,12 @@ public class ASCSocietyGenericPage extends GetPage {
 				// hidden
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
-				Assert.fail("ASSERT FAILED: "
-						+ element
-						+ " "
-						+ replacementText
+				Assert.fail("ASSERT FAILED: " + element + " " + replacementText
 						+ " is found visible even though it is expected to be hidden\n");
 			} catch (NoSuchElementException e) {
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
-				logMessage("ASSERT PASS : " + element + " " + replacementText
-						+ " is hidden\n");
+				logMessage("ASSERT PASS : " + element + " " + replacementText + " is hidden\n");
 			}
 		} else if (visibility.equalsIgnoreCase("show")) {
 			try {
@@ -137,10 +128,8 @@ public class ASCSocietyGenericPage extends GetPage {
 			} catch (NoSuchElementException e) {
 				wait.resetImplicitTimeout(timeOut);
 				wait.resetExplicitTimeout(timeOut);
-				logMessage("ASSERT FAILED : " + element + " " + replacementText
-						+ " is Show\n");
-				throw new NoSuchElementException(
-						"visibility' field is not displayed in Application.\n");
+				logMessage("ASSERT FAILED : " + element + " " + replacementText + " is Show\n");
+				throw new NoSuchElementException("visibility' field is not displayed in Application.\n");
 			}
 
 		} else {
@@ -150,77 +139,60 @@ public class ASCSocietyGenericPage extends GetPage {
 	}
 
 	public String getOmaSheetValue(String caseId, String valueFromDataSheet) {
-		String csvLine = csvReaderRowSpecific(
-				getYamlValue("csv-data-file.path_OMA"),
+		String csvLine = csvReaderRowSpecific(getYamlValue("csv-data-file.path_OMA"),
 				getYamlValue("csv-data-file.has-header"), caseId);
-		return DataProvider.getSpecificColumnFromCsvLine(csvLine, csvSeparator,
-				DataProvider.getColumnNumber(valueFromDataSheet)).trim();
+		return DataProvider
+				.getSpecificColumnFromCsvLine(csvLine, csvSeparator, DataProvider.getColumnNumber(valueFromDataSheet))
+				.trim();
 	}
 
 	public String getPriceSheetValue(String caseId, String valueFromDataSheet) {
-		String csvLine = csvReaderRowSpecific(
-				getYamlValue("csv-data-file.path_PriceValue"),
+		String csvLine = csvReaderRowSpecific(getYamlValue("csv-data-file.path_PriceValue"),
 				getYamlValue("csv-data-file.has-header"), caseId);
 		return DataProvider.getSpecificColumnFromCsvLine(csvLine, csvSeparator,
-				DataProvider.getColumnNumberForPriceValue(valueFromDataSheet))
-				.trim();
+				DataProvider.getColumnNumberForPriceValue(valueFromDataSheet)).trim();
 	}
 
 	public String getAACT_OmaSheetValue(String caseId, String valueFromDataSheet) {
-		String csvLine = csvReaderRowSpecific(
-				getYamlValue("csv-data-file.path_AACT_OMA"),
+		String csvLine = csvReaderRowSpecific(getYamlValue("csv-data-file.path_AACT_OMA"),
 				getYamlValue("csv-data-file.has-header"), caseId);
 		return DataProvider.getSpecificColumnFromCsvLine(csvLine, csvSeparator,
-				DataProvider.getColumnNumber_AACTOMA(valueFromDataSheet))
-				.trim();
+				DataProvider.getColumnNumber_AACTOMA(valueFromDataSheet)).trim();
 	}
 
-	public String getACS_Store_SheetValue(String caseId,
-			String valueFromDataSheet) {
-		String csvLine = csvReaderRowSpecific(
-				getYamlValue("csv-data-file.path_ACS_Store"),
+	public String getACS_Store_SheetValue(String caseId, String valueFromDataSheet) {
+		String csvLine = csvReaderRowSpecific(getYamlValue("csv-data-file.path_ACS_Store"),
 				getYamlValue("csv-data-file.has-header"), caseId);
 		return DataProvider.getSpecificColumnFromCsvLine(csvLine, csvSeparator,
-				DataProvider.getColumnNumber_ACS_Store(valueFromDataSheet))
-				.trim();
+				DataProvider.getColumnNumber_ACS_Store(valueFromDataSheet)).trim();
 	}
 
-	public String getACS_Giving_SheetValue(String caseId,
-			String valueFromDataSheet) {
-		String csvLine = csvReaderRowSpecific(
-				getYamlValue("csv-data-file.path_giving_donate"),
+	public String getACS_Giving_SheetValue(String caseId, String valueFromDataSheet) {
+		String csvLine = csvReaderRowSpecific(getYamlValue("csv-data-file.path_giving_donate"),
 				getYamlValue("csv-data-file.has-header"), caseId);
 		return DataProvider.getSpecificColumnFromCsvLine(csvLine, csvSeparator,
-				DataProvider.getColumnNumber_ACS_Giving(valueFromDataSheet))
-				.trim();
+				DataProvider.getColumnNumber_ACS_Giving(valueFromDataSheet)).trim();
 	}
 
-	public String getCreateMember_SheetValue(String caseId,
-			String valueFromDataSheet) {
-		String csvLine = csvReaderRowSpecific(
-				getYamlValue("csv-data-file.path_createMember"),
+	public String getCreateMember_SheetValue(String caseId, String valueFromDataSheet) {
+		String csvLine = csvReaderRowSpecific(getYamlValue("csv-data-file.path_createMember"),
 				getYamlValue("csv-data-file.has-header"), caseId);
 		return DataProvider.getSpecificColumnFromCsvLine(csvLine, csvSeparator,
-				DataProvider.getColumnNumber_CreateMember(valueFromDataSheet))
-				.trim();
+				DataProvider.getColumnNumber_CreateMember(valueFromDataSheet)).trim();
 	}
 
-	public HashMap<String, String> addValuesInMap(String sheetName,
-			String caseID) {
+	public HashMap<String, String> addValuesInMap(String sheetName, String caseID) {
 
 		YamlReader.setYamlFilePath();
-		String csvLine = csvReaderRowSpecific(
-				getYamlValue("csv-data-file.path_" + sheetName), "false",
+		String csvLine = csvReaderRowSpecific(getYamlValue("csv-data-file.path_" + sheetName), "false",
 				String.valueOf(1));
-		String csvLine1 = csvReaderRowSpecific(
-				getYamlValue("csv-data-file.path_" + sheetName), "true",
+		String csvLine1 = csvReaderRowSpecific(getYamlValue("csv-data-file.path_" + sheetName), "true",
 				String.valueOf(caseID));
 		numberOfColumns = csvLine.split(csvSeparator).length;
 		for (int i = 1; i < numberOfColumns; i++) {
 
-			hashMap.put(csvLine.split(csvSeparator)[i].trim(), DataProvider
-					.getSpecificColumnFromCsvLine(csvLine1, csvSeparator, i)
-					.trim());
+			hashMap.put(csvLine.split(csvSeparator)[i].trim(),
+					DataProvider.getSpecificColumnFromCsvLine(csvLine1, csvSeparator, i).trim());
 
 		}
 
@@ -232,8 +204,7 @@ public class ASCSocietyGenericPage extends GetPage {
 		return hashMap;
 	}
 
-	public static void extractAndCompareTextFromPdfFile(String filename,
-			String texttocompare, int totalnumberofpages) {
+	public static void extractAndCompareTextFromPdfFile(String filename, String texttocompare, int totalnumberofpages) {
 		String textinpdf;
 		try {
 			textinpdf = extractFromPdf(filename, 1).trim();
@@ -250,21 +221,21 @@ public class ASCSocietyGenericPage extends GetPage {
 		}
 	}
 
-	public static String extractFromPdf(String filename, int totalnumberofpages)
-			throws IOException {
-		String uploadedfilepath = "./src/test/resources/DownloadedFiles/"
-				+ filename + ".pdf";
+	public static String extractFromPdf(String filename, int totalnumberofpages) throws IOException {
+		Object marker=null;
+		String uploadedfilepath = "./src/test/resources/DownloadedFiles/" + filename + ".pdf";
 		String parsedText = "";
 		PDFTextStripper pdfStripper = null;
 		PDDocument pdDoc = null;
 		COSDocument cosDoc = null;
 		PDFParser parser = null;
 		File file = null;
+		RandomAccessBufferedFileInputStream raf=null;
 
 		try {
 			file = new File(uploadedfilepath);
-			parser = new PDFParser(
-					new RandomAccessBufferedFileInputStream(file));
+			raf = new RandomAccessBufferedFileInputStream(file);
+			parser = new PDFParser(raf);
 			parser.parse();
 			cosDoc = parser.getDocument();
 			pdfStripper = new PDFTextStripper();
@@ -273,6 +244,7 @@ public class ASCSocietyGenericPage extends GetPage {
 			pdfStripper.setEndPage(2);
 			parsedText = pdfStripper.getText(pdDoc);
 			System.out.println("Parsed Text::" + parsedText);
+			
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
 		} finally {
@@ -281,30 +253,28 @@ public class ASCSocietyGenericPage extends GetPage {
 					cosDoc.close();
 				if (pdDoc != null)
 					pdDoc.close();
+				raf.close();
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 
-		parsedText = parsedText.replaceAll(
-				System.getProperty("line.separator"), "");
+		parsedText = parsedText.replaceAll(System.getProperty("line.separator"), "");
 
 		return parsedText;
 	}
 
-	public void extractAndCompareTextFromPdfFile(String filename,
-			String texttocompare, int totalnumberofpages, String fileFrom) {
+	public void extractAndCompareTextFromPdfFile(String filename, String texttocompare, int totalnumberofpages,
+			String fileFrom) {
 
 		try {
 			String textinpdf = extractFromPdf(filename, 1, fileFrom).trim();
 			String textarray[] = texttocompare.trim().split(" ");
 			for (int i = 0; i < textarray.length; i++) {
-				Assert.assertTrue(textinpdf.trim()
-						.contains(textarray[i].trim()), "ASSERT FAILED: "
-						+ texttocompare
-						+ " CONTENT IN THE PDF FILE IS NOT MATCHED\n ");
-				logMessage("ASSERT PASSED :" + texttocompare
-						+ " CONTENT IN THE PDF FILE IS MATCHED \n");
+				Assert.assertTrue(textinpdf.trim().contains(textarray[i].trim()),
+						"ASSERT FAILED: " + texttocompare + " CONTENT IN THE PDF FILE IS NOT MATCHED\n ");
+				logMessage("ASSERT PASSED :" + texttocompare + " CONTENT IN THE PDF FILE IS MATCHED \n");
 			}
 
 			if (fileFrom == "downloads" || fileFrom == "System") {
@@ -317,9 +287,7 @@ public class ASCSocietyGenericPage extends GetPage {
 
 					if (f.getName().contains(filename)) {
 
-						FileWriter file = new FileWriter(
-								"./src/test/resources/DownloadedFiles/"
-										+ f.getName());
+						FileWriter file = new FileWriter("./src/test/resources/DownloadedFiles/" + f.getName());
 						File ff = new File("D:/" + f.getName());
 						file.flush();
 						file.close();
@@ -336,8 +304,7 @@ public class ASCSocietyGenericPage extends GetPage {
 		}
 	}
 
-	public String extractFromPdf(String filename, int totalnumberofpages,
-			String fileFrom) throws IOException {
+	public String extractFromPdf(String filename, int totalnumberofpages, String fileFrom) throws IOException {
 		String filepath = null;
 		if (fileFrom == "System" || fileFrom == "uploads") {
 			filepath = "./src/test/resources/UploadFiles/" + filename + ".pdf";
@@ -370,8 +337,7 @@ public class ASCSocietyGenericPage extends GetPage {
 				file = new File(filepath);
 				count++;
 			}
-			parser = new PDFParser(
-					new RandomAccessBufferedFileInputStream(file));
+			parser = new PDFParser(new RandomAccessBufferedFileInputStream(file));
 			parser.parse();
 			cosDoc = parser.getDocument();
 			pdfStripper = new PDFTextStripper();
@@ -401,18 +367,15 @@ public class ASCSocietyGenericPage extends GetPage {
 
 		wait.waitForPageToLoadCompletely();
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
-				"hiddenFieldTimeOut"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("btn_detailsMenuAACT", menuName);
-			clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT",
-					menuName));
+			clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT", menuName));
 			// element("btn_detailsMenuAACT", menuName).click();
 
-			logMessage("STEP : " + menuName + " bar is clicked to expand"
-					+ "\n");
+			logMessage("STEP : " + menuName + " bar is clicked to expand" + "\n");
 
 			memPage.waitForSpinner();
 		} catch (NoSuchElementException | AssertionError | TimeoutException Exp) {
@@ -428,8 +391,7 @@ public class ASCSocietyGenericPage extends GetPage {
 		memPage = new MembershipPageActions_IWEB(driver);
 
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
-				"hiddenFieldTimeOut"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(10);
@@ -450,15 +412,13 @@ public class ASCSocietyGenericPage extends GetPage {
 	public boolean isElementPresentOrNot(String elem) {
 		boolean flag = false;
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
-				"hiddenFieldTimeOut"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(10);
 			element(elem).isDisplayed();
 
-			System.out.println("STEP : Element " + element(elem).toString()
-					+ " is displayed");
+			System.out.println("STEP : Element " + element(elem).toString() + " is displayed");
 
 			flag = true;
 			wait.resetImplicitTimeout(timeOut);
@@ -478,8 +438,7 @@ public class ASCSocietyGenericPage extends GetPage {
 		wait.hardWait(2);
 		hardWaitForIEBrowser(5);
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
-				"hiddenFieldTimeOut"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 
 		if (checkIfElementIsThere("icon_up", menuName)) {
 			logMessage("STEP : " + menuName + " menu bar is already expanded\n");
@@ -489,11 +448,9 @@ public class ASCSocietyGenericPage extends GetPage {
 				wait.resetImplicitTimeout(2);
 				wait.resetExplicitTimeout(hiddenFieldTimeOut);
 				isElementDisplayed("btn_detailsMenuAACT", menuName);
-				clickUsingXpathInJavaScriptExecutor(element(
-						"btn_detailsMenuAACT", menuName));
+				clickUsingXpathInJavaScriptExecutor(element("btn_detailsMenuAACT", menuName));
 				// element("btn_detailsMenuAACT", menuName).click();
-				logMessage("STEP : " + menuName + " bar is clicked to expand"
-						+ "\n");
+				logMessage("STEP : " + menuName + " bar is clicked to expand" + "\n");
 				memPage.waitForSpinner();
 			} catch (NoSuchElementException | AssertionError | TimeoutException Exp) {
 				wait.resetImplicitTimeout(timeOut);
@@ -507,8 +464,7 @@ public class ASCSocietyGenericPage extends GetPage {
 	}
 
 	public static int generateRandomNumberWithInRange(int MinRange, int MaxRange) {
-		int randomNumber = MinRange
-				+ (int) (Math.random() * ((MaxRange - MinRange) + 1));
+		int randomNumber = MinRange + (int) (Math.random() * ((MaxRange - MinRange) + 1));
 		return randomNumber;
 	}
 

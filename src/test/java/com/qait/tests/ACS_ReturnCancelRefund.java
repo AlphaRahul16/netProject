@@ -20,7 +20,7 @@ public class ACS_ReturnCancelRefund extends BaseTest {
 	String creditbatchName, refundbatchname;
 	String invoiceTotal;
 	ArrayList<String> refundInfo;
-	List<String> batchValues = new ArrayList<>();
+	List<String> batchValues = new ArrayList<String>();
 
 	@Test
 	public void Step01_Navigate_To_Find_Batch_Tab_Under_Accounting_Module() {

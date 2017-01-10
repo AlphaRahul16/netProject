@@ -1,7 +1,10 @@
 package com.qait.tests;
 
 import java.lang.reflect.Method;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
+import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -83,7 +86,6 @@ public class ACS_Apply_Payment_Test extends BaseTest {
 		test.applyPayment
 				.verifyCheckBoxSelectedAtSelectInvoiceTab("auto distribute payment");
 		test.applyPayment.clickOnNextButton();
-
 		test.applyPayment.selectBatch(YamlReader
 				.getYamlValue("ACS_ApplyPayment.Batch"));
 		test.applyPayment.enterDetailsForPayment(YamlReader

@@ -138,7 +138,7 @@ public class MemberShipRenewalPage extends GetPage {
 
 		Date dateInDate = DateUtil.convertStringToDate(currentDate, "hh:mm a");
 		Date dateAfterMinutesAdded = DateUtils.addMinutes(dateInDate,
-				Integer.parseInt(timeSlab) + 3);
+				Integer.parseInt(timeSlab) + 8);
 		System.out.println("dateAfterMinutesAdded:" + dateAfterMinutesAdded);
 		SimpleDateFormat sdf = new SimpleDateFormat("h:mm:ss a");
 		String dateWithTimeSlabInString = sdf.format(dateAfterMinutesAdded);
@@ -378,11 +378,12 @@ public class MemberShipRenewalPage extends GetPage {
 
 				if (element("txt_renewalCycleName", "status").getText().trim()
 						.equalsIgnoreCase(status)) {
+
+					logMessage("ASSERT PASSED : Preview status " + status
+							+ " is verified\n");
 					System.out
 							.println(element("txt_renewalCycleName", "status")
 									.getText().trim());
-					logMessage("ASSERT PASSED : Preview status " + status
-							+ " is verified\n");
 					break;
 				}
 			}

@@ -74,7 +74,7 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 	}
 	public List<String> enterDetailsForBatchProcessingAndClickSaveButton()
 	{
-		List<String> batchValues=new ArrayList<>();
+		List<String> batchValues=new ArrayList<String>();
 		if(isBrowser("ie")|| isBrowser("internet explorer")){
 			switchToFrame("iframe1");
 		}

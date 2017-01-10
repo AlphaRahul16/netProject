@@ -1,3 +1,4 @@
+
 package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
@@ -276,10 +277,5 @@ public class ACS_GiftCard_Test extends BaseTest{
 		
 		
 	}
-	
-
-	
-	
-		
-		
 }
+	

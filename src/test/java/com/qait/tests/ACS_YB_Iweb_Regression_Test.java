@@ -19,6 +19,7 @@ import com.qait.automation.utils.YamlReader;
 public class ACS_YB_Iweb_Regression_Test extends BaseTest {
 
 	String app_url_iweb_yb;
+	
 	String[] divisionFields={"tax id:","officer change month:"};
 	String[] localSectionFields={"district number:","district number rest:","primary region:","officer change month:","tax id:"};
 	String[] regionalMeetingFields={"Location city:","Location state:","Host:"};

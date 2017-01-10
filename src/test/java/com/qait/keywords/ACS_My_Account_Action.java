@@ -19,7 +19,7 @@ public class ACS_My_Account_Action extends ASCSocietyGenericPage{
 
 	WebDriver driver;
 	String pageName = "ACS_MyAccount",app_url_IWEB,app_url_MyAccount;
-	HashMap<String, String> changedValues= new HashMap<>();
+	HashMap<String, String> changedValues= new HashMap<String, String>();
 
 	public ACS_My_Account_Action(WebDriver driver){
 		super(driver,"ACS_MyAccount");
@@ -30,7 +30,11 @@ public class ACS_My_Account_Action extends ASCSocietyGenericPage{
 	
 	public void clickOnLoginButton(String btnName){
 		isElementDisplayed("btn_registerMember",btnName);
-		element("btn_registerMember",btnName).click();
+		if(isBrowser("ie") || isBrowser("internet explorer")){
+			clickUsingXpathInJavaScriptExecutor(element("btn_registerMember",btnName));
+		}
+		else
+		    element("btn_registerMember",btnName).click();
 		logMessage("STEP: Clicked on "+btnName+" button\n");
 	}
 	
@@ -123,6 +127,12 @@ public class ACS_My_Account_Action extends ASCSocietyGenericPage{
 	public void verifyEmailSavedMessage(String expectedMsg,String field){
 		isElementDisplayed(field);
 		Assert.assertEquals(element(field).getText().trim(),expectedMsg,"ASSERT FAILED: "+expectedMsg+" is not verified\n");
+		logMessage("ASSERT PASSED: "+expectedMsg+" message is verified\n");
+	}
+	
+	public void verifyPhoneSavedMessage(String expectedMsg,String telephoneType){
+		isElementDisplayed("msg_phoneSave",telephoneType);
+		Assert.assertEquals(element("msg_phoneSave",telephoneType).getText().trim(),expectedMsg,"ASSERT FAILED: "+expectedMsg+" is not verified\n");
 		logMessage("ASSERT PASSED: "+expectedMsg+" message is verified\n");
 	}
 	

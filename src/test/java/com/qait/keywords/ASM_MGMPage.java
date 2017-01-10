@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -61,7 +62,12 @@ public class ASM_MGMPage extends GetPage {
 
 	public void clickOnLoginButton() {
 		isElementDisplayed("btn_login");
-		element("btn_login").click();
+		if (isBrowser("ie")) {
+			clickUsingXpathInJavaScriptExecutor(element("btn_login"));
+		} else {
+			element("btn_login").click();
+		}
+
 		logMessage("STEP : Click on login button \n");
 
 	}
@@ -207,10 +213,11 @@ public class ASM_MGMPage extends GetPage {
 
 	public String verifyNomineeStatus(String status, String email) {
 		boolean flag = true;
-		isElementDisplayed("link_nomineeStatus", email);
+
 		for (int i = 0; i < 30; i++) {
-			String nomineeStatus = element("link_nomineeStatus", email).getText().trim();
 			wait.hardWait(2);
+			isElementDisplayed("link_nomineeStatus", email);
+			String nomineeStatus = element("link_nomineeStatus", email).getText().trim();
 			if (status.equals(nomineeStatus)) {
 				flag = true;
 				break;
@@ -222,10 +229,43 @@ public class ASM_MGMPage extends GetPage {
 		logMessage("ASSERT PASSED: Status of the nominee is " + status + "\n");
 		return getCurrentURL();
 	}
+	// public String verifyNomineeStatus(String status, String email) {
+	// System.out.println("status" + status);
+	// boolean flag = false;
+	// int attempts = 0;
+	// for (int i = 0; i < 30; i++) {
+	// wait.hardWait(2);
+	//// while (attempts < 2) {
+	//// try {
+	// isElementDisplayed("link_nomineeStatus", email);
+	// String nomineeStatus = element("link_nomineeStatus",
+	// email).getText().trim();
+	// if (status.equals(nomineeStatus)) {
+	// flag = true;
+	// break;
+	// } else {
+	// flag = false;
+	//// }
+	//// } catch (StaleElementReferenceException e) {
+	//// attempts++;
+	//// logMessage("[INFO:] Status on MGM Dashboard is not same after " +
+	// attempts + "\n");
+	//// }
+	// }
+	//// if (flag == true) {
+	//// break;
+	//// }
+	// }
+	// Assert.assertTrue(flag,"ASSERT FAILED: nominee status is not same \n");
+	//
+	// logMessage("ASSERT PASSED: Status of the nominee is " + status + "\n");
+	// return getCurrentURL();
+	// }
 
 	public void clickOnNomineeStatus(String email) {
 		isElementDisplayed("link_nomineeStatus", email);
-		element("link_nomineeStatus", email).click();
+		clickUsingXpathInJavaScriptExecutor(element("link_nomineeStatus", email));
+		// element("link_nomineeStatus", email).click();
 		logMessage("STEP: Nominee Status link is clicked \n");
 	}
 
@@ -249,7 +289,12 @@ public class ASM_MGMPage extends GetPage {
 
 	public void clickOnRenewYourMembershipNow() {
 		isElementDisplayed("link_applyACSmembership", "Renew your membership now");
-		element("link_applyACSmembership", "Renew your membership now").click();
+		if (isBrowser("ie")) {
+			clickUsingXpathInJavaScriptExecutor(element("link_applyACSmembership", "Renew your membership now"));
+		} else {
+			element("link_applyACSmembership", "Renew your membership now").click();
+		}
+
 		logMessage("ASSERT PASSED:Renew your membership now link is present \n");
 		wait.waitForPageToLoadCompletely();
 		logMessage("STEP: 'Renew your membership now' link is clicked \n");
@@ -303,43 +348,57 @@ public class ASM_MGMPage extends GetPage {
 		return uniqueEmails;
 	}
 
-	public void verifythatAllInviteeExistOnMGMDashboard(List<String> emails) {
+	public void verifythatAllInviteesExistOnMGM(List<String> emails, String status) {
 		List<String> uniqueEmails = getAllInvitees();
-		for (int i = 0; i < emails.size(); i++) {
-			System.out.println("emails::" + emails.get(i)+"::::::::");
-		}
-		for (int i = 0; i < uniqueEmails.size(); i++) {
-			System.out.println("uniqueEmails::" + uniqueEmails.get(i)+"::::::::");
-		}
+		List<String> notfoundEmails = new ArrayList<>();
+		// for (int i = 0; i < emails.size(); i++) {
+		// System.out.println("emails::" + emails.get(i) + "::::::::");
+		// }
+		// for (int i = 0; i < uniqueEmails.size(); i++) {
+		// System.out.println("uniqueEmails::" + uniqueEmails.get(i) +
+		// "::::::::");
+		// }
 		boolean flag = true;
 		for (String email : emails) {
 			if (uniqueEmails.contains(email.trim())) {
-				flag = true;
+				String nomineeStatus = element("link_nomineeStatus", email).getText().trim();
+				Assert.assertEquals(nomineeStatus, status);
+				logMessage("ASSERT PASSED: Nominee status is " + status + " for " + email + " member \n ");
+				// flag = true;
 			} else {
-				flag = false;
-				break;
+				notfoundEmails.add(email);
+				// flag = false;
+				// break;
 			}
 		}
+		if (notfoundEmails.size() > 0) {
+			for (String emailNotFound : notfoundEmails) {
+				logMessage("Email " + emailNotFound + "not found");
+			}
+			flag = false;
+		} else {
+			flag = true;
+		}
 		Assert.assertTrue(flag, "ASSERT FAILED: Invitee is not Present in MGM \n");
-		logMessage("\n ASSERT PASSED: All invitees are present on MGM Dashboard \n");
+		logMessage("ASSERT PASSED: All invitees are present on MGM Dashboard \n");
 	}
 
 	private List<String> getAllInvitees() {
 		List<String> uniqueEmails = new ArrayList<>();
-		int pageLinkSize = elements("link_pages").size();
+		int pageLinkSize = 0;
+		// int pageLinkSize = elements("link_pages").size();
 		int i = 0;
-		do {
-			for (int count = 0; count < elements("lbl_nomineeEmail").size(); count++) {
-				isElementDisplayed("lbl_nomineeEmail");
-				wait.hardWait(5);
-				uniqueEmails.add(elements("lbl_nomineeEmail").get(count).getText().trim());
-			}
-			i++;
-			if (i > pageLinkSize) {
-				break;
-			}
-			clickOnPageLinkOnMGM(i);
-		} while (i <= pageLinkSize);
+		// do {
+		for (int count = 0; count < elements("lbl_nomineeEmail").size(); count++) {
+			isElementDisplayed("lbl_nomineeEmail");
+			uniqueEmails.add(elements("lbl_nomineeEmail").get(count).getText().trim());
+		}
+		// i++;
+		// if (i > pageLinkSize) {
+		// break;
+		// }
+		// clickOnPageLinkOnMGM(i);
+		// } while (i <= pageLinkSize);
 		return uniqueEmails;
 	}
 
