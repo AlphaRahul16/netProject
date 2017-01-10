@@ -56,18 +56,6 @@ table_queryResult                                css                            
 btn_saveForBillingAdd                             id                            ButtonSave   
 table_lineItems                                   id                         UPDATEGRIDCONTROL_DOD_Invoice_DetailGRIDDIV 
 list_billAddress                                 id                         inv_cxa_key  
-btn_add                                              id                      inv_cxa_key_oAddHyperLink
-chk_doNotValidate                                  css                         #adr_no_validation_flag
-inp_addressLine                                    id                           adr_line1
-inp_city                                            id                         adr_city
-inp_country                                       id                           adr_county
-list_state                                        id                          adr_state
-inp_postalCode                                    id                         adr_post_code
-inp_district                                       id                         adr_county
-inp_congressional                                id                            adr_cong_dist
-inp_province                                      id                         adr_intl_province
-inp_mail                                          id                         cxa_mail_stop
-btn_saveForBillingAdd                             id                            ButtonSave   
 table_lineItems                                   id                         UPDATEGRIDCONTROL_DOD_Invoice_DetailGRIDDIV 
 frame_selectProduct                              id                             menu_a83665ae18eb43488c5d83ce5f6027f8  
 list_billAddress                                 id                         inv_cxa_key   
@@ -223,14 +211,13 @@ inp_customerName								id								cst_sort_name_dn
 list_liabilityExpense							id								cdd_gla_cr_key
 btn_preProcess									id								PreProcess
 btn_search										id								Look_Up_cst_id
-list_batchCreditPage							id								cdt_bat_key
 table_header									xpath							//a[contains(text(),'${text}')]
 btn_addBatchCredit								css								#cdt_bat_key_oAddHyperLink>img
 txt_creditAvailable								xpath							.//*[@id='cst_credit_available']
 inp_customerID									css								#cst_id
 td_lineItems									xpath						//td/a[contains(text(),'${text}')]/.. /following-sibling::td[${index}]/a
 txt_netTotal									xpath							//*[@id='ivd_nettotal']
-txt_netBalanceNetForum								xpath							//td/a[contains(text(),'${text}')]/.. /following-sibling::td[9]/span
+txt_netBalanceNetForum								xpath							//td/a[contains(text(),'${text}')]/.. /following-sibling::td[${index}]/span
 label_transCode									xpath								.//*[@id='F1_cdt_code']
 img_arrow								       css									 #dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(1) > a > img
 txt_tableRow								  css									#dgDynamicList > tbody > tr:nth-child(${randomNumber}) > td:nth-child(10)
@@ -246,8 +233,12 @@ table_data										xpath							.//table[@class='table']//tr[2]
 
 drpdwn_merchendiseProduct                       id                            prd_ptp_key
 inp_referencenumber                             id                            pin_other_ref_number
-
-
+inp_salePrice                                   id                            ivd_price
+drpdwn_overrideReason                           id                            ivd_ovr_key
+inp_redeemGcNumber                              id                            cdt_gc_number
+btn_findRedeemableGc                            id                            ExtensionFindGiftCardButton
+chkbx_redeemGc                                  xpath                         //td[contains(text(),'Gift Card')]/preceding-sibling::td//input
+inp_netPayment                                  xpath                         //a[contains(text(),'${name}')]/../following-sibling::td/input
 
 
 

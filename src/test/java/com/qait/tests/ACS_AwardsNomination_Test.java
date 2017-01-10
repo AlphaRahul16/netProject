@@ -56,7 +56,7 @@ public class ACS_AwardsNomination_Test extends BaseTest{
 		test.homePageIWEB.clickOnTab("Awards");
 		test.homePageIWEB.clickOnTab("Find Award");
 		test.individualsPage.enterFieldValue("Award Year",
-				DateUtil.getAnyDateForType("YYYY", 2, "year"));
+				DateUtil.getAnyDateForType("YYYY", 1, "year"));
 		test.individualsPage.clickGoButton();
 		currentAwardName = test.individualsPage
 				.selectRandomGeneralAward_AwardNomination(DataProvider
@@ -116,7 +116,7 @@ public class ACS_AwardsNomination_Test extends BaseTest{
 		test.homePageIWEB.clickOnTab("Awards");
 		test.homePageIWEB.clickOnTab("Find Award");
 		test.individualsPage.enterFieldValue("Award Year",
-				DateUtil.getAnyDateForType("YYYY", 2, "year"));
+				DateUtil.getAnyDateForType("YYYY", 1, "year"));
 		test.individualsPage.clickGoButton();
 
 		test.individualsPage

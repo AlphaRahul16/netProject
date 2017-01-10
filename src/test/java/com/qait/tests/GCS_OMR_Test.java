@@ -21,17 +21,17 @@ public class GCS_OMR_Test extends BaseTest {
 
 	String app_url_IWEB, app_url_OMR;
 	static String sheetname, invoiceNumber;
-	private int caseID;
+	private String caseID;
 	Map<String, String> mapGcsOMR = new HashMap<String, String>();
 	private List<String> memDetails;
 	Map<String, String> mapRenewedProductDetails=new HashMap<String, String>();
 
 	public GCS_OMR_Test() {
-		sheetname = com.qait.tests.Data_Provider_Factory_Class_Xml.sheetName = "GCS_OMR";
+		sheetname =  com.qait.tests.DataProvider_FactoryClass.sheetName = "GCS_OMR";
 	}
 
-	@Factory(dataProviderClass = com.qait.tests.Data_Provider_Factory_Class_Xml.class, dataProvider = "data")
-	public GCS_OMR_Test(int caseID) {
+	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
+	public GCS_OMR_Test(String caseID) {
 		this.caseID = caseID;
 	}
 
@@ -39,7 +39,7 @@ public class GCS_OMR_Test extends BaseTest {
 	public void open_Browser_Window() {
 
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
-		mapGcsOMR = XlsReader.addValuesInTheMapForExcel(sheetname, caseID);
+		mapGcsOMR = test.homePageIWEB.addValuesInMap(sheetname, caseID);
 		app_url_OMR = getYamlValue("app_url_OMR");
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		test.launchApplication(app_url_IWEB);
@@ -127,7 +127,7 @@ public class GCS_OMR_Test extends BaseTest {
 						mapGcsOMR.get("CreditCardExpiration_Month"),
 						mapGcsOMR.get("CreditCardExpiration_Year"),
 						mapGcsOMR.get("CreditCard_CVV_Number"),
-						mapGcsOMR.get("Bank_Name"));
+						mapGcsOMR.get("Bank_Name").trim());
 
 	}
 

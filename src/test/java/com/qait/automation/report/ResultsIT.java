@@ -4,15 +4,21 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
+import javax.lang.model.util.Elements;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
@@ -26,10 +32,16 @@ import javax.mail.internet.MimeMultipart;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
 import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -38,6 +50,7 @@ import org.xml.sax.SAXException;
 
 import com.qait.automation.utils.DateUtil;
 import com.qait.automation.utils.YamlReader;
+
 
 public class ResultsIT extends ReformatTestFile {
 
@@ -54,10 +67,12 @@ public class ResultsIT extends ReformatTestFile {
     YamlReader util = new YamlReader();
     final String projectName = "ACS Society";
     private String totaltest;
-    private String passedResults;
+    private String passedResults,executiontime;
 	private String testname;
+	private String xmlPath = "./target/surefire-reports/testng-results.xml";
     public static int count = 0;
-
+    
+    NumberFormat integerFormat = NumberFormat.getIntegerInstance();
     @BeforeClass
     void setupMailConfig() {
     	YamlReader.setYamlFilePath();
@@ -73,6 +88,7 @@ public class ResultsIT extends ReformatTestFile {
     	{
     	 testname=System.getProperty("testngxml", System.getProperty("test")).replace(".xml", "").trim();
     	}
+    	System.out.println("Testname "+testname);
    
     	//String html = readLargerTextFile("./target/surefire-reports/"+this.getClass().getSimpleName()+".html");
        String html = readLargerTextFile("./target/surefire-reports/emailable-report.html");
@@ -121,7 +137,7 @@ public class ResultsIT extends ReformatTestFile {
 
     @SuppressWarnings("static-access")
     private String setBodyText() throws IOException {
-    	String browserValue,username;
+    	String browserValue,tier;
         List<String> failedResultsList = printFailedTestInformation();
         String[] failedResultArray = new String[failedResultsList.size()];
         for (int i = 0; i < failedResultArray.length; i++) {
@@ -132,28 +148,37 @@ public class ResultsIT extends ReformatTestFile {
         }
         else
         	browserValue=System.getProperty("browser");
-        System.out.println("user name "+System.getProperty("user.name"));
-        username = System.getProperty("user.name");
         
+        if(System.getProperty("tier")==null){
+        	tier= getProperty("./Config.properties", "tier");
+        }
+        else
+        	tier=System.getProperty("tier");
+        
+
         String mailtext = "";
 
         mailtext = "Hi All,<br>";
         mailtext = mailtext
-                + "</br><b>" + projectName + " Test Automation Result:: (Executed by : "+username+" )</b></br><br>";
+                + "</br><b>" + projectName + " Test Automation Result </b></br><br>";
         mailtext = mailtext
                 + "<br><b><font style = Courier, color = green>Test Name: </font></b>"
-                + getTestName();
+                + getTestName(); 
         mailtext = mailtext
                 + "<br><b><font color = green>Browser: </font></b>"
                 + browserValue.toUpperCase();
+        
+        mailtext = mailtext
+                + "<br><b><font color = green>Environment: </font></b>"
+                + tier.toUpperCase();
         mailtext = mailtext
                 + "<br><b><font color = green>Test Case Executed By: </font></b>"
                 + projectName + " Automation Team";
         mailtext = mailtext
                 + "<br><b><font color = green>Test Date: </font></b>" + today;
-        mailtext = mailtext + "<b>" + testSetResult() + "</b>";
-
-        mailtext = mailtext + "<br><br>";
+       // mailtext = mailtext + "<b>" + testSetResult() + "</b>";
+        mailtext = mailtext+ writeResultsTableInEmail(xmlPath);
+        mailtext = mailtext + "<br></br>";
 
         mailtext = mailtext
                 + "<br><br>Note: This is a system generated mail. Please do not reply."
@@ -169,6 +194,7 @@ public class ResultsIT extends ReformatTestFile {
 
         return mailtext;
     }
+    
 
     private String setMailSubject() {
 
@@ -182,7 +208,7 @@ public class ResultsIT extends ReformatTestFile {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(
                     val.toString()));
         }
-      // message.addRecipient(Message.RecipientType.BCC, new InternetAddress("rahulyadav@qainfotech.com"));
+       message.addRecipient(Message.RecipientType.BCC, new InternetAddress("rahulyadav@qainfotech.com"));
 
     }
 
@@ -251,13 +277,11 @@ public class ResultsIT extends ReformatTestFile {
     private String testSetResult() throws IOException {
         String messageToBeSent = "";
         String overallRes = "";
-
-        String filepath = "./target/surefire-reports/testng-results.xml";
-        overallRes = parseTestNgXmlFile(filepath);
+        overallRes = parseTestNgXmlFile(xmlPath);
         messageToBeSent = "<br>" + overallRes;
         return messageToBeSent;
     }
-
+    
     private String parseTestNgXmlFile(String filepath) {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder;
@@ -295,21 +319,9 @@ public class ResultsIT extends ReformatTestFile {
         System.out.println("Message is " + msgOutput);
         return msgOutput;
     }
-
-    private String checkFilePresent() {
-        File folder = new File("./target/surefire-reports");
-        String[] fileNames = folder.list();
-        for (int i = 0; i < fileNames.length; i++) {
-            if (fileNames[i].contains("TEST-TestSuite")) {
-                return "./target/surefire-reports/" + fileNames[i];
-            } else if (fileNames[i].contains("TEST-com")) {
-                return "./target/surefire-reports/" + fileNames[i];
-            }
-        }
-        return "";
-    }
-
-    private void parseTestNgXmlFile1(String filepath) {
+    
+    private String writeResultsTableInEmail(String filepath) 
+    {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder;
         Document dom = null;
@@ -323,13 +335,54 @@ public class ResultsIT extends ReformatTestFile {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        NodeList nodes = dom.getElementsByTagName("testng-results");
-        Element ele = (Element) nodes.item(0);
-        totaltest = ele.getAttribute("total");
-        passedResults = ele.getAttribute("passed");
-        failureResults = ele.getAttribute("failed");
-        skippedResults = ele.getAttribute("skipped");
+        String label,msgOutput = "";
+        NodeList testsExecuted = dom.getElementsByTagName("test");
+        int testcount= testsExecuted.getLength();
+  
+     	msgOutput = msgOutput + "<style>"+
+         		"table {border-collapse: collapse; width: 60%; border: 1px solid black;}th, td {text-align:center;padding: px;border: 1px solid black;}tr:nth-child(even){background-color: #f2f2f2}th {background-color: #4caf50;color: white;}</style></head><h4><u>Result Summary</u></h4><br><table><tr><th>Test Name</th><th>Total Tests</th><th>Passed</th><th>Skipped</th><th>Failed</th><th>Execution Time</th></tr>";
+     	for(int i=0;i<testcount;i++)
+    	{
+    	 Element ele = (Element)testsExecuted.item(i);
+    	label= ele.getAttribute("name");
+    	System.out.println(label);
+    	
+    	totaltest=toString().valueOf(getExecutionResults(dom,"//test[@name='"+label+"']/class/test-method[not(@is-config)]"));
+    	executiontime = ele.getAttribute("duration-ms");
+    	passedResult = toString().valueOf(getExecutionResults(dom,"//test[@name='"+label+"']/class/test-method[@status='PASS' and not(@is-config)]"));
+    	skippedResults =toString().valueOf(getExecutionResults(dom,"//test[@name='"+label+"']/class/test-method[@status='SKIP']"));
+    	
+    	msgOutput = msgOutput + "<tr><td id=\"#t\""+i + "\">" + label+ "</td><td>"+totaltest+"</td><td>"+passedResult+"</td><td>"+skippedResults+"</td><td>"+count+"</td><td>"+executiontime+"</td></tr>";
+    	}
+     	//msgOutput = msgOutput + "</body>";
+ 
+        return msgOutput;
+    	
     }
+    
+   public int getExecutionResults( Document dom,String xpath1)
+    {
+	   int teststatus=0;
+    	XPathFactory xPathfactory = XPathFactory.newInstance();
+        XPath xpath = xPathfactory.newXPath();
+        XPathExpression expr = null;
+        NodeList nl = null;
+		try {
+			System.out.println(xpath1);
+			expr = xpath.compile(xpath1);
+			nl = (NodeList) expr.evaluate(dom, XPathConstants.NODESET);
+			teststatus=nl.getLength();
+		} catch (XPathExpressionException e) {
+			e.printStackTrace();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		
+		}
+         return teststatus;
+    }
+   
 
     private List<String> printFailedTestInformation() {
         String filepath = "./target/surefire-reports/testng-results.xml";
@@ -406,4 +459,5 @@ public class ResultsIT extends ReformatTestFile {
         table = table + "</tbody></table>";
         return table;
     }
+	
 }

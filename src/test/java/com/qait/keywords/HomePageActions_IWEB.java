@@ -3,6 +3,7 @@ package com.qait.keywords;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
+import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 
@@ -272,6 +273,23 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
+	public void EnterTestMethodNameToSkipInMap_GiftCard(Map<String, Boolean> skipTest, String caseID) {
+		
+		switch(caseID)
+		{
+		case "1":skipTest.put("Step_04_Click_Select_Product_And_Merchandise_Option_and_Verify_Centralized_Order_Entry_Merchandise_Window", true);
+		         skipTest.put("Step_06_Select_Second_Individual_For__AACT_Gift_Card", true);
+			     break;
+		case "2":skipTest.put("Step_11_Enter_Payment_Details_At_Checkout_Page", true);
+		         skipTest.put("Step_06_Select_Second_Individual_For__AACT_Gift_Card", true);
+			     break;
+		case "3":skipTest.put("Step_04_Click_Select_Product_And_Merchandise_Option_and_Verify_Centralized_Order_Entry_Merchandise_Window", true);	
+			     break;
+			     
+			     
+		}
+
+	}
 //	public void skipMethodAccordingToScenario(boolean condition, String methodName) {
 //		// TODO Auto-generated method stub
 //		if(test.homePageIWEB.map().get("Scenario").trim().equals("1"))
