@@ -323,8 +323,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED :" + middleName + " is verified as middle name\n");
 		verifyElementTextContains("txt_memberDetails", lastName);
 		logMessage("ASSERT PASSED :" + lastName + " is verified as last name\n");
-
-		verifyElementTextContains("txt_memberDetails", map().get("street"));
+		verifyElementTextContentCaseInSensitive("txt_memberDetails", map().get("street"));
+		//verifyElementTextContains("txt_memberDetails", map().get("street"));
 		logMessage("ASSERT PASSED :" + map().get("street") + " is verified as street\n");
 		verifyElementTextContains("txt_memberDetails", map().get("city"));
 		logMessage("ASSERT PASSED :" + map().get("city") + " is verified as city\n");
@@ -354,8 +354,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		if (!(memDetails[3].equalsIgnoreCase(""))) {
 			System.out.println("******Member" + memDetails[3]);
 			System.out.println(element("txt_memberDetails").getText());
-			
-			Assert.assertTrue(element("txt_memberDetails").getText().contains(memDetails[3]));
+			verifyElementTextContentCaseInSensitive("txt_memberDetails", memDetails[3]);
+			//Assert.assertTrue(element("txt_memberDetails").getText().contains(memDetails[3]));
 			//verifyElementTextContent("txt_memberDetails", memDetails[3]);
 			logMessage("ASSERT PASSED :" + memDetails[3] + " is verified in txt_memberDetails\n");
 		}

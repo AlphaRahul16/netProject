@@ -1,6 +1,6 @@
 CASE ID	Price value?	productTax?	productShipping?	CENproductName?	CENprice?	CENTax?	CENShipping?	LsproductName?	LSDues?	LSTax?	LSShipping?	divisionPrice?	divisionTax?	divisionShipping?	pubsPrice?	pubsTax?	pubsShipping?
 1	$162.00	$0.00	$0.00	Chemical & Engineering News	$0.00	$0.00	$0.00	Jacksonville LS Voluntary 2Y Dues	$10.00	$0.00	$0.00	$20.00	$0.00	$0.00	$99.00	$0.00	$0.00
-2	$54.00	$0.00	$0.00	Chemical & Engineering News	$0.00	$0.00	$68.00		$0.00	$0.00	$0.00	$10.00	$0.00	$0.00	$0.00	$0.00	$0.00
+2	$54.00	$0.00	$0.00	Chemical & Engineering News	$0.00	$0.00	$75.00		$0.00	$0.00	$0.00	$10.00	$0.00	$0.00	$0.00	$0.00	$0.00
 3	$162.00	$0.00	$0.00	Chemical & Engineering News	$0.00	$0.00	$0.00										
 4	$162.00	$0.00	$0.00	Chemical & Engineering News	$0.00	$0.00	$75.00										
 5	$81.00	$0.00	$0.00	Chemical & Engineering News	$0.00	$0.00	$75.00										

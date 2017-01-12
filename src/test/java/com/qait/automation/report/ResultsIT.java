@@ -2,6 +2,8 @@ package com.qait.automation.report;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+import java.awt.Desktop;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,6 +25,9 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -36,374 +41,442 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.DateUtil;
 import com.qait.automation.utils.YamlReader;
 
 public class ResultsIT extends ReformatTestFile {
 
-    String today = new Date().toString();
-    String resultOfRun = null;
-    String host = "smtp.gmail.com";
-    String from = "automation.resultsqait@gmail.com";
-    String password = "QaitAutomation";
-    int port = 25;
-    String failureResults = "";
-    String skippedResults = "";
-    String passedResult = "";
-    boolean sendResults = false;
-    YamlReader util = new YamlReader();
-    final String projectName = "ACS Society";
-    private String totaltest;
-    private String passedResults;
+	String today = new Date().toString();
+	String resultOfRun = null;
+	String host = "smtp.gmail.com";
+	String from = "automation.resultsqait@gmail.com";
+	String password = "QaitAutomation";
+	int port = 25, value = -1;
+	String failureResults = "";
+	String skippedResults = "";
+	String passedResult = "";
+	boolean sendResults = false;
+	YamlReader util = new YamlReader();
+	final String projectName = "ACS Society";
+	private String totaltest;
+	private String passedResults;
 	private String testname;
-    public static int count = 0;
+	public static int count = 0;
 
-    @BeforeClass
-    void setupMailConfig() {
-    	YamlReader.setYamlFilePath();
-    }
-    public ResultsIT(String testname) {
-    	this.testname = testname;
+	@BeforeClass
+	void setupMailConfig() {
+		YamlReader.setYamlFilePath();
 	}
 
-    @Test
-    public void changeTimeStamp() throws IOException  {
-    	System.out.println("Testname "+testname);
-    	if(testname.contains("Default"))
-    	{
-    	 testname=System.getProperty("testngxml", System.getProperty("test")).replace(".xml", "").trim();
-    	}
-   
-    	//String html = readLargerTextFile("./target/surefire-reports/"+this.getClass().getSimpleName()+".html");
-       String html = readLargerTextFile("./target/surefire-reports/emailable-report.html");
-        String logspath="./Acslogs/"+DateUtil.getCurrentdateInStringWithGivenFormate("dd MMM yyyy")+"/"
-        +testname+" "+DateUtil.getCurrentdateInStringWithGivenFormate("HH_mm_ss_a")+"_emailable-report.html";
-        html = replacealltimestamp(html);
-        writeLargerTextFile("./target/surefire-reports/emailable-report.html", html);
-        System.out.println("=============Path==================="+logspath);
-       writeLargerTextFile(logspath, html);
-    }
-    
+	public ResultsIT(String testname) {
+		this.testname = testname;
+	}
 
-    @Test(dependsOnMethods = "changeTimeStamp")
-    public void sendResultsMail() throws MessagingException, IOException {
+	@Test
+	public void changeTimeStamp() throws IOException {
+		System.out.println("Testname " + testname);
+		if (testname.contains("Default")) {
+			testname = System
+					.getProperty("testngxml", System.getProperty("test"))
+					.replace(".xml", "").trim();
+		}
 
-        if (true) { // send email is true *************************
-            Message message = new MimeMessage(getSession());
-            message.addFrom(new InternetAddress[]{(new InternetAddress(from))});
-            setMailRecipient(message);
-            message.setContent(setAttachment());
-            message.setSubject(setMailSubject());
-            Session session = getSession();
-            Transport transport = session.getTransport("smtps");
-            transport.connect(host, from, password);
-            transport.sendMessage(message, message.getAllRecipients());
-            transport.close();
-        }
-        System.out.println("Reports emailed");
+		// String html =
+		// readLargerTextFile("./target/surefire-reports/"+this.getClass().getSimpleName()+".html");
+		String html = readLargerTextFile("./target/surefire-reports/emailable-report.html");
+		String logspath = "./Acslogs/"
+				+ DateUtil
+						.getCurrentdateInStringWithGivenFormate("dd MMM yyyy")
+				+ "/" + testname + " "
+				+ DateUtil.getCurrentdateInStringWithGivenFormate("HH_mm_ss_a")
+				+ "_emailable-report.html";
+		html = replacealltimestamp(html);
+		writeLargerTextFile("./target/surefire-reports/emailable-report.html",
+				html);
+		System.out.println("=============Path===================" + logspath);
+		writeLargerTextFile(logspath, html);
+	}
 
-    }
+	@Test(dependsOnMethods = "changeTimeStamp")
+	public void sendResultsMail() throws MessagingException, IOException {
 
-   
+		if (true) { // send email is true *************************
+			Message message = new MimeMessage(getSession());
+			message.addFrom(new InternetAddress[] { (new InternetAddress(from)) });
+			setMailRecipient(message);
+			message.setContent(setAttachment());
+			message.setSubject(setMailSubject());
+			Session session = getSession();
+			Transport transport = session.getTransport("smtps");
+			transport.connect(host, from, password);
+			transport.sendMessage(message, message.getAllRecipients());
+			if (System.getProperty("popUp") == null) {
+				if (getProperty("./Config.properties", "popUp")
+						.equalsIgnoreCase("yes")) {
+					openPopUp();
+				}
 
-    private Session getSession() {
-    	 Authenticator authenticator = new Authenticator(from, password);
-        Properties properties = new Properties();
-        properties.setProperty("mail.transport.protocol", "smtps");
-        properties.put("mail.smtps.auth", "true");
-        properties.setProperty("mail.smtp.submitter", authenticator
-                .getPasswordAuthentication().getUserName());
-        properties.setProperty("mail.smtp.auth", "true");
-        properties.setProperty("mail.smtp.host", host);
-        properties.setProperty("mail.smtp.port", String.valueOf(port));
-        return Session.getInstance(properties, authenticator);
-    }
+			} else if (System.getProperty("popUp").equalsIgnoreCase("yes")) {
+				openPopUp();
+			}
 
-    @SuppressWarnings("static-access")
-    private String setBodyText() throws IOException {
-    	String browserValue,username;
-        List<String> failedResultsList = printFailedTestInformation();
-        String[] failedResultArray = new String[failedResultsList.size()];
-        for (int i = 0; i < failedResultArray.length; i++) {
-            failedResultArray[i] = failedResultsList.get(i);
-        }
-        if(System.getProperty("browser")==null){
-        	browserValue= getProperty("./Config.properties", "browser");
-        }
-        else
-        	browserValue=System.getProperty("browser");
-        System.out.println("user name "+System.getProperty("user.name"));
-        username = System.getProperty("user.name");
-        
-        String mailtext = "";
+			transport.close();
+		}
+		System.out.println("Reports emailed");
 
-        mailtext = "Hi All,<br>";
-        mailtext = mailtext
-                + "</br><b>" + projectName + " Test Automation Result:: (Executed by : "+username+" )</b></br><br>";
-        mailtext = mailtext
-                + "<br><b><font style = Courier, color = green>Test Name: </font></b>"
-                + getTestName();
-        mailtext = mailtext
-                + "<br><b><font color = green>Browser: </font></b>"
-                + browserValue.toUpperCase();
-        mailtext = mailtext
-                + "<br><b><font color = green>Test Case Executed By: </font></b>"
-                + projectName + " Automation Team";
-        mailtext = mailtext
-                + "<br><b><font color = green>Test Date: </font></b>" + today;
-        mailtext = mailtext + "<b>" + testSetResult() + "</b>";
+	}
 
-        mailtext = mailtext + "<br><br>";
+	private void openPopUp() {
+		Toolkit.getDefaultToolkit().beep();
+		JFrame frame = new JFrame();
+		final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		frame.setBounds(100, 100, 1000, 600);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		tabbedPane.setBounds(0, 0, 1000, 600);
+		frame.getContentPane().add(tabbedPane);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setAlwaysOnTop(true);
+		Object[] options = { "View Report", "Ok" };
+		value = JOptionPane.showOptionDialog(frame, "Engineer-" + " QAIT "
+				+ "\nTotal Test: " + totaltest + " \nFailure Results: "
+				+ failureResults + "\nPassed Result: " + passedResult
+				+ "\nSkipped Results: " + skippedResults, "Execution Results",
+				JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+				options, "Yes");
 
-        mailtext = mailtext
-                + "<br><br>Note: This is a system generated mail. Please do not reply."
-                + "</br></br>";
-        mailtext = mailtext
-                + "<br>If you have any queries mail to <a href=mailto:" + from + "?subject=Reply-of-Automation-Status"
-                + today.replaceAll(" ", "_") + ">" + projectName + " AUTOMATION </a></br>";
-        mailtext = mailtext
-                + "<br><br>The detailed test results are given in the attached <i>emailable-report.html</i> </br></br>";
-        mailtext = mailtext + "<br><br>Best Regards" + "</br></br>";
-        mailtext = mailtext + "<br>" + projectName + " Automation Team" + "</br>";
-        
+		if (value == 0) {
+			File htmlFile = new File(System.getProperty("user.dir")
+					+ "\\target\\surefire-reports\\emailable-report.html");// ./target/surefire-reports/emailable-report.html");
+			try {
+				System.out.println("opening file");
+				Desktop.getDesktop().browse(htmlFile.toURI());
 
-        return mailtext;
-    }
+			} catch (IOException io) {
+				io.printStackTrace();
+			}
 
-    private String setMailSubject() {
+		}
+		try {
+			Runtime.getRuntime().exec("taskkill /f /im cmd.exe");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-        return (projectName + " Automated Test Results: " + failureResults + " Failures | " + today);
-    }
+	private Session getSession() {
+		Authenticator authenticator = new Authenticator(from, password);
+		Properties properties = new Properties();
+		properties.setProperty("mail.transport.protocol", "smtps");
+		properties.put("mail.smtps.auth", "true");
+		properties.setProperty("mail.smtp.submitter", authenticator
+				.getPasswordAuthentication().getUserName());
+		properties.setProperty("mail.smtp.auth", "true");
+		properties.setProperty("mail.smtp.host", host);
+		properties.setProperty("mail.smtp.port", String.valueOf(port));
+		return Session.getInstance(properties, authenticator);
+	}
 
-    private void setMailRecipient(Message message) throws AddressException, MessagingException, IOException {
+	@SuppressWarnings("static-access")
+	private String setBodyText() throws IOException {
+		String browserValue, username;
+		List<String> failedResultsList = printFailedTestInformation();
+		String[] failedResultArray = new String[failedResultsList.size()];
+		for (int i = 0; i < failedResultArray.length; i++) {
+			failedResultArray[i] = failedResultsList.get(i);
+		}
+		if (System.getProperty("browser") == null) {
+			browserValue = getProperty("./Config.properties", "browser");
+		} else
+			browserValue = System.getProperty("browser");
+		System.out.println("user name " + System.getProperty("user.name"));
+		username = System.getProperty("user.name");
 
-        Map<String, Object> emailMap = YamlReader.getYamlValues("email.recepients");
-        for (Object val : emailMap.values()) {
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(
-                    val.toString()));
-        }
-       message.addRecipient(Message.RecipientType.BCC, new InternetAddress("rahulyadav@qainfotech.com"));
+		String mailtext = "";
 
-    }
+		mailtext = "Hi All,<br>";
+		mailtext = mailtext + "</br><b>" + projectName
+				+ " Test Automation Result:: (Executed by : " + username
+				+ " )</b></br><br>";
+		mailtext = mailtext
+				+ "<br><b><font style = Courier, color = green>Test Name: </font></b>"
+				+ getTestName();
+		mailtext = mailtext + "<br><b><font color = green>Browser: </font></b>"
+				+ browserValue.toUpperCase();
+		mailtext = mailtext
+				+ "<br><b><font color = green>Test Case Executed By: </font></b>"
+				+ projectName + " Automation Team";
+		mailtext = mailtext
+				+ "<br><b><font color = green>Test Date: </font></b>" + today;
+		mailtext = mailtext + "<b>" + testSetResult() + "</b>";
 
-    private Multipart setAttachment() throws MessagingException, IOException {
-        // Create the message part
-        MimeBodyPart messageBodyPart = new MimeBodyPart();
+		mailtext = mailtext + "<br><br>";
 
-        // Fill the message
-        messageBodyPart.setContent(setBodyText(), "text/html");
+		mailtext = mailtext
+				+ "<br><br>Note: This is a system generated mail. Please do not reply."
+				+ "</br></br>";
+		mailtext = mailtext
+				+ "<br>If you have any queries mail to <a href=mailto:" + from
+				+ "?subject=Reply-of-Automation-Status"
+				+ today.replaceAll(" ", "_") + ">" + projectName
+				+ " AUTOMATION </a></br>";
+		mailtext = mailtext
+				+ "<br><br>The detailed test results are given in the attached <i>emailable-report.html</i> </br></br>";
+		mailtext = mailtext + "<br><br>Best Regards" + "</br></br>";
+		mailtext = mailtext + "<br>" + projectName + " Automation Team"
+				+ "</br>";
 
-        MimeMultipart multipart = new MimeMultipart();
-        multipart.addBodyPart(messageBodyPart);
+		return mailtext;
+	}
 
-        // Part two is attachment
-        messageBodyPart = new MimeBodyPart();
-        addAttachment(multipart, messageBodyPart,
-                "./target/surefire-reports/emailable-report.html");
+	private String setMailSubject() {
 
-        return multipart;
-    }
+		return (projectName + " Automated Test Results: " + failureResults
+				+ " Failures | " + today);
+	}
 
-    private static void addAttachment(Multipart multipart,
-            MimeBodyPart messageBodyPart, String filename)
-            throws MessagingException {
-        messageBodyPart = new MimeBodyPart();
-        File f = new File(filename);
-        DataSource source = new FileDataSource(f);
-        messageBodyPart.setDataHandler(new DataHandler(source));
-        messageBodyPart.setFileName(f.getName());
-        multipart.addBodyPart(messageBodyPart);
-    }
+	private void setMailRecipient(Message message) throws AddressException,
+			MessagingException, IOException {
 
-    private String getTestName() {
-        String test = System.getProperty("test", "null");
-        String testsuite = System.getProperty("testsuite", "null");
-        String testName;
-        if (test != "null") {
-            testName = test + " was executed";
-            return testName;
-        } else if (testsuite != "null") {
-            testName = testsuite + "were executed";
-            return testName;
-        } else {
-            testName = "Complete Automated SMOKE Test Suite Executed";
-            return testName;
-        }
-    }
+		Map<String, Object> emailMap = YamlReader
+				.getYamlValues("email.recepients");
+		for (Object val : emailMap.values()) {
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(
+					val.toString()));
+		}
+		message.addRecipient(Message.RecipientType.BCC, new InternetAddress(
+				"rahulyadav@qainfotech.com"));
 
-    private String getTextFile() {
-        String textFile = "";
-        File folder = new File("./target/surefire-reports/");
-        String[] fileNames = folder.list();
-        int total = 0;
-        for (int i = 0; i < fileNames.length; i++) {
-            if (fileNames[i].contains(".txt")) {
-                total++;
-                assert total == 1;
-                textFile = fileNames[i];
-                System.out.println("Text File Path: " + textFile);
-                return textFile;
-            }
-        }
-        return textFile;
-    }
+	}
 
-    private String testSetResult() throws IOException {
-        String messageToBeSent = "";
-        String overallRes = "";
+	private Multipart setAttachment() throws MessagingException, IOException {
+		// Create the message part
+		MimeBodyPart messageBodyPart = new MimeBodyPart();
 
-        String filepath = "./target/surefire-reports/testng-results.xml";
-        overallRes = parseTestNgXmlFile(filepath);
-        messageToBeSent = "<br>" + overallRes;
-        return messageToBeSent;
-    }
+		// Fill the message
+		messageBodyPart.setContent(setBodyText(), "text/html");
 
-    private String parseTestNgXmlFile(String filepath) {
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder;
-        Document dom = null;
-        try {
-            dBuilder = dbFactory.newDocumentBuilder();
-            dom = dBuilder.parse(filepath);
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        NodeList nodes = dom.getElementsByTagName("testng-results");
-        Element ele = (Element) nodes.item(0);
-        String msgOutput = "Tests run: ";
-        failureResults = ele.getAttribute("failed");
-        skippedResults = ele.getAttribute("skipped");
-        passedResult = ele.getAttribute("passed");
-        NodeList nodes1 = dom.getElementsByTagName("suite");
-        Element ele1 = (Element) nodes1.item(0);
-        String totalTime = ele1.getAttribute("duration-ms");
-        if (Math.round(Double.parseDouble(totalTime) / 1000) > 60) {
-            totalTime = String
-                    .valueOf(Math.round((Double.parseDouble(totalTime) / 1000) / 60)) + " minutes";
-        } else {
-            totalTime = String
-                    .valueOf(Math.round(Double.parseDouble(totalTime) / 1000)) + " seconds";
-        }
-        msgOutput = msgOutput + ele.getAttribute("total") + " ,Passed: "
-                + passedResult + " ,Failures: " + ele.getAttribute("failed")
-                + " ,Skipped: " + ele.getAttribute("skipped")
-                + " ,Total Execution Time: " + totalTime;
-        System.out.println("Message is " + msgOutput);
-        return msgOutput;
-    }
+		MimeMultipart multipart = new MimeMultipart();
+		multipart.addBodyPart(messageBodyPart);
 
-    private String checkFilePresent() {
-        File folder = new File("./target/surefire-reports");
-        String[] fileNames = folder.list();
-        for (int i = 0; i < fileNames.length; i++) {
-            if (fileNames[i].contains("TEST-TestSuite")) {
-                return "./target/surefire-reports/" + fileNames[i];
-            } else if (fileNames[i].contains("TEST-com")) {
-                return "./target/surefire-reports/" + fileNames[i];
-            }
-        }
-        return "";
-    }
+		// Part two is attachment
+		messageBodyPart = new MimeBodyPart();
+		addAttachment(multipart, messageBodyPart,
+				"./target/surefire-reports/emailable-report.html");
 
-    private void parseTestNgXmlFile1(String filepath) {
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder;
-        Document dom = null;
-        try {
-            dBuilder = dbFactory.newDocumentBuilder();
-            dom = dBuilder.parse(filepath);
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        NodeList nodes = dom.getElementsByTagName("testng-results");
-        Element ele = (Element) nodes.item(0);
-        totaltest = ele.getAttribute("total");
-        passedResults = ele.getAttribute("passed");
-        failureResults = ele.getAttribute("failed");
-        skippedResults = ele.getAttribute("skipped");
-    }
+		return multipart;
+	}
 
-    private List<String> printFailedTestInformation() {
-        String filepath = "./target/surefire-reports/testng-results.xml";
-        File file = new File(filepath);
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder;
-        Document dom = null;
-        try {
-            dBuilder = dbFactory.newDocumentBuilder();
-            dom = dBuilder.parse(file);
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        List<String> list = identifyTagsAndTraverseThroguhElements(dom);
-        System.out.println("Number of Failed Test Cases:- " + count);
-        return list;
-    }
+	private static void addAttachment(Multipart multipart,
+			MimeBodyPart messageBodyPart, String filename)
+			throws MessagingException {
+		messageBodyPart = new MimeBodyPart();
+		File f = new File(filename);
+		DataSource source = new FileDataSource(f);
+		messageBodyPart.setDataHandler(new DataHandler(source));
+		messageBodyPart.setFileName(f.getName());
+		multipart.addBodyPart(messageBodyPart);
+	}
 
-    private List<String> identifyTagsAndTraverseThroguhElements(Document dom) {
+	private String getTestName() {
+		String test = System.getProperty("test", "null");
+		String testsuite = System.getProperty("testsuite", "null");
+		String testName;
+		if (test != "null") {
+			testName = test + " was executed";
+			return testName;
+		} else if (testsuite != "null") {
+			testName = testsuite + "were executed";
+			return testName;
+		} else {
+			testName = "Complete Automated SMOKE Test Suite Executed";
+			return testName;
+		}
+	}
 
-        List<String> list = new ArrayList<String>();
+	private String getTextFile() {
+		String textFile = "";
+		File folder = new File("./target/surefire-reports/");
+		String[] fileNames = folder.list();
+		int total = 0;
+		for (int i = 0; i < fileNames.length; i++) {
+			if (fileNames[i].contains(".txt")) {
+				total++;
+				assert total == 1;
+				textFile = fileNames[i];
+				System.out.println("Text File Path: " + textFile);
+				return textFile;
+			}
+		}
+		return textFile;
+	}
 
-        NodeList nodes = dom.getElementsByTagName("test-method");
-        try {
-            NodeList nodesMessage = dom.getElementsByTagName("full-stacktrace");
-            for (int i = 0, j = 0; i < nodes.getLength() && j < nodesMessage.getLength(); i++) {
+	private String testSetResult() throws IOException {
+		String messageToBeSent = "";
+		String overallRes = "";
 
-                Element ele1 = (Element) nodes.item(i);
-                Element ele2 = (Element) nodesMessage.item(j);
+		String filepath = "./target/surefire-reports/testng-results.xml";
+		overallRes = parseTestNgXmlFile(filepath);
+		messageToBeSent = "<br>" + overallRes;
+		return messageToBeSent;
+	}
 
-                if (ele1.getAttribute("status").equalsIgnoreCase("FAIL")) {
-                    count++;
-                    String[] testMethodResonOfFailure = getNameTestReason(ele1, ele2);
-                    list.add(testMethodResonOfFailure[0]);
-                    list.add(testMethodResonOfFailure[1]);
-                    list.add(testMethodResonOfFailure[2]);
+	private String parseTestNgXmlFile(String filepath) {
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder;
+		Document dom = null;
+		try {
+			dBuilder = dbFactory.newDocumentBuilder();
+			dom = dBuilder.parse(filepath);
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		NodeList nodes = dom.getElementsByTagName("testng-results");
+		Element ele = (Element) nodes.item(0);
+		String msgOutput = "Tests run: ";
+		failureResults = ele.getAttribute("failed");
+		skippedResults = ele.getAttribute("skipped");
+		passedResult = ele.getAttribute("passed");
+		NodeList nodes1 = dom.getElementsByTagName("suite");
+		Element ele1 = (Element) nodes1.item(0);
+		String totalTime = ele1.getAttribute("duration-ms");
+		if (Math.round(Double.parseDouble(totalTime) / 1000) > 60) {
+			totalTime = String.valueOf(Math.round((Double
+					.parseDouble(totalTime) / 1000) / 60)) + " minutes";
+		} else {
+			totalTime = String
+					.valueOf(Math.round(Double.parseDouble(totalTime) / 1000))
+					+ " seconds";
+		}
+		msgOutput = msgOutput + ele.getAttribute("total") + " ,Passed: "
+				+ passedResult + " ,Failures: " + ele.getAttribute("failed")
+				+ " ,Skipped: " + ele.getAttribute("skipped")
+				+ " ,Total Execution Time: " + totalTime;
+		totaltest = ele.getAttribute("total");
+		System.out.println("Message is " + msgOutput);
+		return msgOutput;
+	}
 
-                    j++;
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("No Failures");
-            Reporter.log("No Failures!!");
-        }
-        return list;
+	private String checkFilePresent() {
+		File folder = new File("./target/surefire-reports");
+		String[] fileNames = folder.list();
+		for (int i = 0; i < fileNames.length; i++) {
+			if (fileNames[i].contains("TEST-TestSuite")) {
+				return "./target/surefire-reports/" + fileNames[i];
+			} else if (fileNames[i].contains("TEST-com")) {
+				return "./target/surefire-reports/" + fileNames[i];
+			}
+		}
+		return "";
+	}
 
-    }
+	private void parseTestNgXmlFile1(String filepath) {
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder;
+		Document dom = null;
+		try {
+			dBuilder = dbFactory.newDocumentBuilder();
+			dom = dBuilder.parse(filepath);
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		NodeList nodes = dom.getElementsByTagName("testng-results");
+		Element ele = (Element) nodes.item(0);
+		totaltest = ele.getAttribute("total");
+		passedResults = ele.getAttribute("passed");
+		failureResults = ele.getAttribute("failed");
+		skippedResults = ele.getAttribute("skipped");
+	}
 
-    private String[] getNameTestReason(Element el1, Element el2) {
-        String[] returnNameTestReason = new String[3];
-        NamedNodeMap name = el1.getParentNode().getParentNode().getAttributes();
+	private List<String> printFailedTestInformation() {
+		String filepath = "./target/surefire-reports/testng-results.xml";
+		File file = new File(filepath);
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder;
+		Document dom = null;
+		try {
+			dBuilder = dbFactory.newDocumentBuilder();
+			dom = dBuilder.parse(file);
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		List<String> list = identifyTagsAndTraverseThroguhElements(dom);
+		System.out.println("Number of Failed Test Cases:- " + count);
+		return list;
+	}
 
-        returnNameTestReason[0] = name.getNamedItem("name").toString().replaceAll("name=", "");
-        returnNameTestReason[1] = el1.getAttribute("name");
-        returnNameTestReason[2] = el2.getTextContent();
-        return returnNameTestReason;
+	private List<String> identifyTagsAndTraverseThroguhElements(Document dom) {
 
-    }
+		List<String> list = new ArrayList<String>();
 
-    private String giveTable(String[] failedResults) {
-        String table = "";
-        table = table + "<table border='3'><tbody><tr style='background:red'><th><b>Test Case</b></th>"
-                + "<th><b>Test Method</b></th></tr>";
+		NodeList nodes = dom.getElementsByTagName("test-method");
+		try {
+			NodeList nodesMessage = dom.getElementsByTagName("full-stacktrace");
+			for (int i = 0, j = 0; i < nodes.getLength()
+					&& j < nodesMessage.getLength(); i++) {
 
-        for (int k = 0; k < failedResults.length; k += 3) {
-            table = table + "<tr valign='top'><b>" + failedResults[k] + "</b>" + "<b><td>" + failedResults[k + 1] + "</b></tr>";
+				Element ele1 = (Element) nodes.item(i);
+				Element ele2 = (Element) nodesMessage.item(j);
 
-        }
+				if (ele1.getAttribute("status").equalsIgnoreCase("FAIL")) {
+					count++;
+					String[] testMethodResonOfFailure = getNameTestReason(ele1,
+							ele2);
+					list.add(testMethodResonOfFailure[0]);
+					list.add(testMethodResonOfFailure[1]);
+					list.add(testMethodResonOfFailure[2]);
 
-        table = table + "</tbody></table>";
-        return table;
-    }
+					j++;
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("No Failures");
+			Reporter.log("No Failures!!");
+		}
+		return list;
+
+	}
+
+	private String[] getNameTestReason(Element el1, Element el2) {
+		String[] returnNameTestReason = new String[3];
+		NamedNodeMap name = el1.getParentNode().getParentNode().getAttributes();
+
+		returnNameTestReason[0] = name.getNamedItem("name").toString()
+				.replaceAll("name=", "");
+		returnNameTestReason[1] = el1.getAttribute("name");
+		returnNameTestReason[2] = el2.getTextContent();
+		return returnNameTestReason;
+
+	}
+
+	private String giveTable(String[] failedResults) {
+		String table = "";
+		table = table
+				+ "<table border='3'><tbody><tr style='background:red'><th><b>Test Case</b></th>"
+				+ "<th><b>Test Method</b></th></tr>";
+
+		for (int k = 0; k < failedResults.length; k += 3) {
+			table = table + "<tr valign='top'><b>" + failedResults[k] + "</b>"
+					+ "<b><td>" + failedResults[k + 1] + "</b></tr>";
+
+		}
+
+		table = table + "</tbody></table>";
+		return table;
+	}
 }
