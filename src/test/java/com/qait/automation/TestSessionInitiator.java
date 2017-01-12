@@ -220,21 +220,16 @@ public class TestSessionInitiator {
 	private void _configureBrowser() {
 		driver = wdfactory.getDriver(_getSessionConfig());
 		driver.manage().window().maximize();
-		driver.manage()
-				.timeouts()
-				.implicitlyWait(Integer.parseInt(getProperty("timeout")),
-						TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(Integer.parseInt(getProperty("timeout")), TimeUnit.SECONDS);
 	}
 
 	public Map<String, String> _getSessionConfig() {
-		String[] configKeys = { "tier", "browser", "seleniumserver",
-				"seleniumserverhost", "timeout", "driverpath" };
+		String[] configKeys = { "tier", "browser", "seleniumserver", "seleniumserverhost", "timeout", "driverpath" };
 		Map<String, String> config = new HashMap<String, String>();
 		for (String string : configKeys) {
 			try {
 				if (System.getProperty(string).isEmpty())
-					config.put(string,
-							getProperty("./Config.properties", string));
+					config.put(string, getProperty("./Config.properties", string));
 				else
 					config.put(string, System.getProperty(string));
 			} catch (NullPointerException e) {
@@ -249,56 +244,32 @@ public class TestSessionInitiator {
 	}
 
 	public void launchApplication(String baseurl) {
-		
+
 		try {
-			Reporter.log(
-					"The test browser is :- "
-							+ _getSessionConfig().get("browser") + "\n", true);
+			Reporter.log("The test browser is :- " + _getSessionConfig().get("browser") + "\n", true);
 			deleteAllCookies();
-			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie") || _getSessionConfig()
-					.get("browser").equalsIgnoreCase("internetexplorer"))) {
-				if (baseurl
-						.contains("https://stag-12iweb/NFStage")) {
-					baseurl = baseurl
-							.replaceAll(
-									"https://stag",
-									"https://"
-											+ YamlReader
-													.getYamlValue("Authentication.userName")
-											+ ":"
-											+ URLEncoder.encode(
-													YamlReader
-															.getYamlValue("Authentication.password"),
-													"UTF-8") + "@stag");
+			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")
+					|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer"))) {
+				if (baseurl.contains("https://stag-12iweb/NFStage")) {
+					baseurl = baseurl.replaceAll("https://stag",
+							"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
+									+ URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), "UTF-8")
+									+ "@stag");
 					driver.get(baseurl);
-				}
-				else if(baseurl.contains("https://dev-eweb12/YBDev3/iWeb") ||
-						baseurl.contains("https://dev-eweb12/NFDev") ||
-						(baseurl.contains("https://dev-eweb12.acs.org/NFDev") && _getSessionConfig().get("browser").equalsIgnoreCase("chrome"))){
-					baseurl = baseurl.replaceAll(
-							"https://dev",
-							"https://"
-									+ YamlReader
-											.getYamlValue("Authentication.userName")
-									+ ":"
-									+ URLEncoder.encode(
-											YamlReader
-													.getYamlValue("Authentication.password"),
-											"UTF-8") + "@dev");
-			driver.get(baseurl);
-				}			
-				else {
-			baseurl = baseurl
-							.replaceAll(
-									"https://iwebtest",
-									"https://"
-											+ YamlReader
-													.getYamlValue("Authentication.userName")
-											+ ":"
-											+ URLEncoder.encode(
-													YamlReader
-															.getYamlValue("Authentication.password"),
-													"UTF-8") + "@iwebtest");
+				} else if (baseurl.contains("https://dev-eweb12/YBDev3/iWeb")
+						|| baseurl.contains("https://dev-eweb12/NFDev")
+						|| (baseurl.contains("https://dev-eweb12.acs.org/NFDev")
+								&& _getSessionConfig().get("browser").equalsIgnoreCase("chrome"))) {
+					baseurl = baseurl.replaceAll("https://dev",
+							"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
+									+ URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), "UTF-8")
+									+ "@dev");
+					driver.get(baseurl);
+				} else {
+					baseurl = baseurl.replaceAll("https://iwebtest",
+							"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
+									+ URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), "UTF-8")
+									+ "@iwebtest");
 				}
 
 				driver.get(baseurl);
@@ -309,34 +280,28 @@ public class TestSessionInitiator {
 			if (!_getSessionConfig().get("browser").equalsIgnoreCase("ie")) {
 				if (baseurl.contains("iweb")) {
 					Reporter.log("\nThe application url is :- "
-							+ baseurl
-									.replace(baseurl.split("@")[0], "https://")
-									.replace("@", ""), true);
-				} else if ((baseurl.contains("dev") && _getSessionConfig().get("browser").equalsIgnoreCase("chrome")) || baseurl.contains("https://dev-eweb12/YBDev3/iWeb")) {
-					
+							+ baseurl.replace(baseurl.split("@")[0], "https://").replace("@", ""), true);
+				} else if ((baseurl.contains("dev") && _getSessionConfig().get("browser").equalsIgnoreCase("chrome"))
+						|| baseurl.contains("https://dev-eweb12/YBDev3/iWeb")) {
+
 					Reporter.log("\nThe application url is :- "
-							+ baseurl
-									.replace(baseurl.split("@")[0], "https://")
-									.replace("@", ""), true);
+							+ baseurl.replace(baseurl.split("@")[0], "https://").replace("@", ""), true);
 				} else
 					Reporter.log("\nThe application url is :- " + baseurl, true);
 			}
 			if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/"))
-					&& (ConfigPropertyReader.getProperty("browser")
-							.equalsIgnoreCase("IE")
-							|| ConfigPropertyReader.getProperty("browser")
-									.equalsIgnoreCase("ie") || ConfigPropertyReader
-							.getProperty("browser").equalsIgnoreCase(
-									"internetexplorer"))) {
-				//((JavascriptExecutor) driver).executeScript("document.documentMode=10");
+					&& (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
+							|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
+							|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer"))) {
+				// ((JavascriptExecutor)
+				// driver).executeScript("document.documentMode=10");
 				try {
 					Thread.sleep(8000);
 				} catch (InterruptedException e1) {
 					System.out.println(e1.getMessage());
 				}
 			}
-			if (!baseurl
-					.equalsIgnoreCase("https://iwebtest.acs.org/NFStage3/iweb")) {
+			if (!baseurl.equalsIgnoreCase("https://iwebtest.acs.org/NFStage3/iweb")) {
 				handleSSLCertificateCondition(baseurl);
 			}
 
@@ -368,12 +333,9 @@ public class TestSessionInitiator {
 			driver.get("javascript:document.getElementById('overridelink').click();");
 			System.out.println("Step : handle SSL certificate condition\n");
 			if (baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/")
-					&& ConfigPropertyReader.getProperty("browser")
-							.equalsIgnoreCase("IE")
-					|| ConfigPropertyReader.getProperty("browser")
-							.equalsIgnoreCase("ie")
-					|| ConfigPropertyReader.getProperty("browser")
-							.equalsIgnoreCase("internetexplorer")) {
+					&& ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
+					|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
+					|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer")) {
 				try {
 					Thread.sleep(5000);
 				} catch (InterruptedException e1) {
@@ -386,12 +348,9 @@ public class TestSessionInitiator {
 		}
 
 		if (baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/")
-				&& ConfigPropertyReader.getProperty("browser")
-						.equalsIgnoreCase("IE")
-				|| ConfigPropertyReader.getProperty("browser")
-						.equalsIgnoreCase("ie")
-				|| ConfigPropertyReader.getProperty("browser")
-						.equalsIgnoreCase("internetexplorer")) {
+				&& ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
+				|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
+				|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer")) {
 			try {
 				Thread.sleep(5000);
 			} catch (InterruptedException e1) {
@@ -460,52 +419,48 @@ public class TestSessionInitiator {
 	public void printMethodName(String testName) {
 		Reporter.log("\nMethod Name :- " + testName.toUpperCase() + "\n", true);
 	}
-	
-	public void enterAuthentication(String uName, String password) {
-			System.out.println("in authentication");
-			setClipboardData(uName);
-			Robot robot;
-			try {
-				robot = new Robot();
-				setClipboardData(uName);
-				robot.delay(2000);
-				robot.keyPress(KeyEvent.VK_CONTROL);
-				robot.keyPress(KeyEvent.VK_V);
-				robot.keyRelease(KeyEvent.VK_V);
-				robot.keyRelease(KeyEvent.VK_CONTROL);
-				robot.delay(2000);
-				robot.keyPress(KeyEvent.VK_TAB);
-				robot.keyRelease(KeyEvent.VK_TAB);
-				setClipboardData(password);
-				robot.delay(2000);
-				robot.keyPress(KeyEvent.VK_CONTROL);
-				robot.keyPress(KeyEvent.VK_V);
-				robot.keyRelease(KeyEvent.VK_V);
-				robot.keyRelease(KeyEvent.VK_CONTROL);
-				robot.delay(2000);
-				robot.keyPress(KeyEvent.VK_ENTER);
-				robot.keyRelease(KeyEvent.VK_ENTER);
-				System.out.println("after authentication");
-			} catch (AWTException e) {
-				e.printStackTrace();
-			}
-	}
-		
-		public static void setClipboardData(String string) {
-			StringSelection stringSelection = new StringSelection(string);
-			Toolkit.getDefaultToolkit().getSystemClipboard()
-					.setContents(stringSelection, null);
-		}
-		
-		public boolean isBrowser(String browserName) {
-			if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase(
-					browserName)) {
-				return true;
-			} else {
-				return false;
-			}
-		}
 
-	
+	public void enterAuthentication(String uName, String password) {
+		System.out.println("in authentication");
+		setClipboardData(uName);
+		Robot robot;
+		try {
+			robot = new Robot();
+			setClipboardData(uName);
+			robot.delay(2000);
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_V);
+			robot.keyRelease(KeyEvent.VK_V);
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+			robot.delay(2000);
+			robot.keyPress(KeyEvent.VK_TAB);
+			robot.keyRelease(KeyEvent.VK_TAB);
+			setClipboardData(password);
+			robot.delay(2000);
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_V);
+			robot.keyRelease(KeyEvent.VK_V);
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+			robot.delay(2000);
+			robot.keyPress(KeyEvent.VK_ENTER);
+			robot.keyRelease(KeyEvent.VK_ENTER);
+			System.out.println("after authentication");
+		} catch (AWTException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void setClipboardData(String string) {
+		StringSelection stringSelection = new StringSelection(string);
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+	}
+
+	public boolean isBrowser(String browserName) {
+		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase(browserName)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 }

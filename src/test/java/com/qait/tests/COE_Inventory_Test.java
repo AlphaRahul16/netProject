@@ -53,7 +53,7 @@ public class COE_Inventory_Test extends BaseTest {
 	}
 
 	@Test
-	public void Step02_Select_And_Run_Query_And_Verify_User_Is_On_Individual_Profile_Page() {
+	public void Step02_Run_Query_And_Verify_User_Is_On_Individual_Profile_Page() {
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Query Individual");
 		test.memberShipPage.selectAndRunQuery(getYamlValue("COE_Inventory.queryName"));

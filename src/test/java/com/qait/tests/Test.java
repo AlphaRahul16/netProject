@@ -10,11 +10,13 @@ import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 
 public class Test {
-	public static void main(String[] args) {
-//		System.out.print("\007");
-//	    System.out.flush();
-	}
 }
+
+//	public static void main(String[] args) {
+////		System.out.print("\007");
+////	    System.out.flush();
+//	}
+//}
 //	public static void main(String args[]) {
 //		
 //		 String server = "data.qainfotech.com";

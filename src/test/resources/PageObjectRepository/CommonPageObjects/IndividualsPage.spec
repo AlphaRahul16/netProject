@@ -84,6 +84,7 @@ txt_updatedLogsBPA                        xpath                //td[starts-with(
 img_activeMember                          xpath                 //td[starts-with(text(),'${value}')]/preceding-sibling::td//img
 icon_up                                   xpath                 //span[text()='${value}']/preceding-sibling::a/i[@class='icon-chevron-up']
 btn_detailsMenuAACT                       xpath                 //span[text()='${menuName}']/../a[1]/i[@class='icon-chevron-down']
+btn_rapidFormLookup                       id                   Look_Up_cst_id
 
 #Chapter Relationships
 

@@ -271,25 +271,31 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		System.out.println("discount value:" + discount);
 		System.out.println(
 				"================" + Math.round((ACSMemberDuesCurrentYear - (ACSMemberDuesCurrentYear * discount))));
-		String discountedPrice = "$" + df.format(
-				Math.round((ACSMemberDuesCurrentYear - (ACSMemberDuesCurrentYear * discount))) * mutliYearInInteger);
+		String discountedPrice =priceValues = element("txt_amount", map().get("Product?")).getText().replace("$", "");
+		Float actualPriceValue = Float.parseFloat(priceValues);
+		String actualPriceValueInString =element("txt_amount", map().get("Product?")).getText().trim();
+				//"$" + actualPriceValue;
+//		String discountedPrice = "$" + df.format(
+//				Math.round((ACSMemberDuesCurrentYear - (ACSMemberDuesCurrentYear * discount))) * mutliYearInInteger);
 		System.out.println(discountedPrice);
 
 		if (mutliYearInInteger > 1) {
-			System.out.println("sheet value : " + map().get(mutliYearInInteger + " Year Term Price 2016?").trim());
-			Assert.assertEquals(discountedPrice, map().get(mutliYearInInteger + " Year Term Price 2016?").trim());
-			logMessage("ASSERT PASSED : DiscountedPrice in actual is " + discountedPrice + " discountedPrice in sheet"
-					+ map().get(mutliYearInInteger + " Year Term Price 2016?") + "\n");
-			System.out.println("discounted price:" + discountedPrice);
+			System.out.println("sheet value : " + map().get(mutliYearInInteger + " Year Term Price "+DateUtil.getCurrentYear()+"?").trim());
+			//verifyPriceType(map().get("Product?"), "amount", map().get(mutliYearInInteger + " Year Term Price "+DateUtil.getCurrentYear()+"?").trim(), mutliYearInInteger);
+			Assert.assertEquals(actualPriceValueInString, map().get(mutliYearInInteger + " Year Term Price "+DateUtil.getCurrentYear()+"?").trim());
+			logMessage("ASSERT PASSED : DiscountedPrice in actual is " + actualPriceValueInString + " discountedPrice in sheet"
+					+ map().get(mutliYearInInteger + " Year Term Price "+DateUtil.getCurrentYear()+"?") + "\n");
+			System.out.println("discounted price:" + actualPriceValueInString);
 		} else {
 			System.out.println("sheet value : " + map().get(DateUtil.getCurrentYear() + " DUES").trim());
-			Assert.assertEquals(discountedPrice, map().get(DateUtil.getCurrentYear() + " DUES").trim());
-			logMessage("ASSERT PASSED : DiscountedPrice in actual is " + discountedPrice + " discountedPrice in sheet"
+			//verifyPriceType(map().get("Product?"), "amount", map().get(mutliYearInInteger + " Year Term Price "+DateUtil.getCurrentYear()+"?").trim(), 1);
+			Assert.assertEquals(actualPriceValueInString, map().get(DateUtil.getCurrentYear() + " DUES").trim());
+			logMessage("ASSERT PASSED : DiscountedPrice in actual is " + actualPriceValueInString + " discountedPrice in sheet"
 					+ map().get(DateUtil.getCurrentYear() + " DUES") + "\n");
-			System.out.println("discounted price:" + discountedPrice);
+			System.out.println("discounted price:" + actualPriceValueInString);
 		}
 
-		verifyPriceType(map().get("Product?"), "amount", discountedPrice, 1);
+		
 
 	}
 
@@ -877,25 +883,34 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		logMessage("Step :  ACS Gift Card Redeem code is applied succesfully\n");
 	}
 	
-	public void verifyTotalAfterApplyingGiftCard(String currency,String toalbeforeGC,String gcprice)
+	public double verifyTotalAfterApplyingGiftCard(String currency,String toalbeforeGC,String gcprice)
 	{
 		wait.hardWait(10);
 		double totalafterGC = Double
 				.parseDouble(getTotal("Total").replaceAll("\\" + currency, "").replaceAll(",", ""));
-		System.out.println(gcprice);
-		System.out.println(toalbeforeGC);
-		System.out.println(totalafterGC);
 		double actualtotal=Double.parseDouble(toalbeforeGC)-Double.parseDouble(gcprice);
-		System.out.println(actualtotal);
+		Assert.assertTrue(totalafterGC==actualtotal);
+		logMessage("ASSERT PASSED : Total amount after applying Gift card of amount "+gcprice+" is "+actualtotal);
+		getActualCreditUsedInGCPayment(actualtotal,Double.parseDouble(gcprice));
+		actualtotal=getActualCreditUsedInGCPayment(actualtotal,Double.parseDouble(gcprice));
+		return actualtotal;
 		
 	}
 	
-	public String getToalpriceonCheckoutPage()
+	private double getActualCreditUsedInGCPayment(double actualtotal,double gcprice) {
+		if(actualtotal>gcprice)
+		actualtotal = gcprice;
+
+	    return actualtotal;
+		
+	}
+
+	public String getToalpriceOnCheckoutPage()
 	{
 		double TotalInDouble = Double
 				.parseDouble(getTotal("Total").replaceAll("\\" + currency, "").replaceAll(",", ""));
 		String formatedPrice = String.format("%.02f", TotalInDouble);
-		logMessage("Step : Total amount on checkout page is fetched as "+formatedPrice);
+		logMessage("Step : Total amount on checkout page before applying gift card is fetched as "+formatedPrice);
 		return formatedPrice;
 	}
 

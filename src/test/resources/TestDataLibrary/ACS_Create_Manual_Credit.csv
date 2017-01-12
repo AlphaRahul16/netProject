@@ -1,4 +1,3 @@
 caseID	caseID Execute	paymentmethod?	Card Number?	CVV?	Batch Name?	Security Group?	firstName	middleName	lastName	country	street	city	state	abrv_state	In_postalCode	Out_postalCode	sourceCode	memberType
 1	Yes	BOA - Check	1234		Selenium Batch	QA	qait	automation	selenium	UNITED STATES	3401 Hillview Ave	Palo Alto	California	CA	94304	94304-1320	6430X	Regular Member
-2	Yes	Visa/MC	4111111111111110	111	Selenium Batch	QA	qait	automation	selenium	UNITED STATES	3401 Hillview Ave	Palo Alto	California	CA	94304	94304-1320	6430X	Regular Member
-3																		
+2	no	Visa/MC	4111111111111110	111	Selenium Batch	QA	qait	automation	selenium	UNITED STATES	3401 Hillview Ave	Palo Alto	California	CA	94304	94304-1320	6430X	Regular Member

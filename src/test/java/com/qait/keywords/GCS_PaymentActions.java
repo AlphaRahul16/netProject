@@ -141,8 +141,7 @@ public class GCS_PaymentActions extends ASCSocietyGenericPage {
 		logMessage("STEP : Major Bank radio button is selected\n");
 	}
 
-	private void selectBankNameFromListForPaymentThroughNetBanking(
-			String BankName) {
+	private void selectBankNameFromListForPaymentThroughNetBanking(String BankName) {
 		isElementDisplayed("drpdwn_BankName");
 		selectProvidedTextFromDropDown(element("drpdwn_BankName"), BankName);
 		logMessage("STEP : " + BankName + " is selected from list on Names\n");

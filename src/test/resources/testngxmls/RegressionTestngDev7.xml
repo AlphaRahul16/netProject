@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Test" verbose="1" configfailurepolicy="continue">
-	<test name="ACS Address Validation Test" thread-count="10"
+	<!-- <test name="ACS Address Validation Test" thread-count="10"
 		parallel="instances">
 		<classes>
 			<class name="com.qait.tests.ACS_Address_Validation_Test" />
@@ -24,9 +24,9 @@
 		<classes>
 			<class name="com.qait.tests.Subscription_Fulfillment_Test"></class>
 		</classes>
-	</test>
+	</test> -->
 
-	<test name="ACS_Batch_Processing" parallel="false">
+	<test name="ACS_Batch_Processing">
 		<classes>
 			<class name="com.qait.tests.ACS_Batch_Processing"></class>
 		</classes>
@@ -38,7 +38,7 @@
 		</classes>
 	</test>
 
-	<test name="ACS_Apply_Payment_Test" parallel="false">
+	<!-- <test name="ACS_Apply_Payment_Test" parallel="false">
 		<classes>
 			<class name="com.qait.tests.ACS_Apply_Payment_Test"></class>
 		</classes>
@@ -91,6 +91,6 @@
 		<classes>
 			<class name="com.qait.tests.Inventory_Product_Fulfillment_Test"></class>
 		</classes>
-	</test>
+	</test> -->
 
 </suite>

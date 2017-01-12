@@ -575,6 +575,23 @@ public class GetPage extends BaseUi {
 //		}
 //	}
 	
+	static int count =0;
+	 public void dynamicWait(int timeout,String element,String replacement){
+	     try{
+	      if(count<timeout){
+	       wait.resetImplicitTimeout(2);
+	       isElementDisplayed(element,replacement);
+	      }
+	     }
+	     catch(NoSuchElementException e){
+	      count++;
+	      dynamicWait(timeout,element,replacement);
+	     }
+	     {
+	    	 int deafultTm = Integer.parseInt(ConfigPropertyReader.getProperty("timeout"));
+	    	 wait.resetImplicitTimeout(deafultTm);
+	     }
+	    }
 
 	
 }

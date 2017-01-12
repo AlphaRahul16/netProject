@@ -62,7 +62,12 @@ public class ASM_MGMPage extends GetPage {
 
 	public void clickOnLoginButton() {
 		isElementDisplayed("btn_login");
-		element("btn_login").click();
+		if (isBrowser("ie")) {
+			clickUsingXpathInJavaScriptExecutor(element("btn_login"));
+		} else {
+			element("btn_login").click();
+		}
+
 		logMessage("STEP : Click on login button \n");
 
 	}
@@ -284,7 +289,12 @@ public class ASM_MGMPage extends GetPage {
 
 	public void clickOnRenewYourMembershipNow() {
 		isElementDisplayed("link_applyACSmembership", "Renew your membership now");
-		element("link_applyACSmembership", "Renew your membership now").click();
+		if (isBrowser("ie")) {
+			clickUsingXpathInJavaScriptExecutor(element("link_applyACSmembership", "Renew your membership now"));
+		} else {
+			element("link_applyACSmembership", "Renew your membership now").click();
+		}
+
 		logMessage("ASSERT PASSED:Renew your membership now link is present \n");
 		wait.waitForPageToLoadCompletely();
 		logMessage("STEP: 'Renew your membership now' link is clicked \n");
@@ -340,26 +350,37 @@ public class ASM_MGMPage extends GetPage {
 
 	public void verifythatAllInviteesExistOnMGM(List<String> emails, String status) {
 		List<String> uniqueEmails = getAllInvitees();
-		for (int i = 0; i < emails.size(); i++) {
-			System.out.println("emails::" + emails.get(i) + "::::::::");
-		}
-		for (int i = 0; i < uniqueEmails.size(); i++) {
-			System.out.println("uniqueEmails::" + uniqueEmails.get(i) + "::::::::");
-		}
+		List<String> notfoundEmails = new ArrayList<>();
+		// for (int i = 0; i < emails.size(); i++) {
+		// System.out.println("emails::" + emails.get(i) + "::::::::");
+		// }
+		// for (int i = 0; i < uniqueEmails.size(); i++) {
+		// System.out.println("uniqueEmails::" + uniqueEmails.get(i) +
+		// "::::::::");
+		// }
 		boolean flag = true;
 		for (String email : emails) {
 			if (uniqueEmails.contains(email.trim())) {
 				String nomineeStatus = element("link_nomineeStatus", email).getText().trim();
 				Assert.assertEquals(nomineeStatus, status);
 				logMessage("ASSERT PASSED: Nominee status is " + status + " for " + email + " member \n ");
-				flag = true;
+				// flag = true;
 			} else {
-				flag = false;
-				break;
+				notfoundEmails.add(email);
+				// flag = false;
+				// break;
 			}
 		}
+		if (notfoundEmails.size() > 0) {
+			for (String emailNotFound : notfoundEmails) {
+				logMessage("Email " + emailNotFound + "not found");
+			}
+			flag = false;
+		} else {
+			flag = true;
+		}
 		Assert.assertTrue(flag, "ASSERT FAILED: Invitee is not Present in MGM \n");
-		logMessage("\n ASSERT PASSED: All invitees are present on MGM Dashboard \n");
+		logMessage("ASSERT PASSED: All invitees are present on MGM Dashboard \n");
 	}
 
 	private List<String> getAllInvitees() {
