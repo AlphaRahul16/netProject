@@ -16,28 +16,30 @@ public class Test {
 	        int port = 21;
 	        String user = "acs@qait";
 	        String pass = "@cs@123";
-	 
-	        FTPClient ftpClient = new FTPClient();
-	        try {
-	 
-	            ftpClient.connect(server, port);
-	            ftpClient.login(user, pass);
-	            ftpClient.enterLocalPassiveMode();
-	 
-	            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
-	 
-	            // APPROACH #1: uploads first file using an InputStream
-	            File firstLocalFile = new File("D:\\netforumqatests\\target\\surefire-reports\\emailable-report.html");
-	 
-	            String firstRemoteFile = "Projects.zip";
-	            InputStream inputStream = new FileInputStream(firstLocalFile);
-	 
-	            System.out.println("Start uploading first file");
-	            boolean done = ftpClient.storeFile(firstRemoteFile, inputStream);
-	            inputStream.close();
-	            if (done) {
-	                System.out.println("The first file is uploaded successfully.");
-	            }
+	        System.out.println("Abc"+org.apache.commons.lang3.StringUtils.containsIgnoreCase("Abc","Abc"));
+	}}
+//	 
+//	        FTPClient ftpClient = new FTPClient();
+//	        try {
+//	 
+//	            ftpClient.connect(server, port);
+//	            ftpClient.login(user, pass);
+//	            ftpClient.enterLocalPassiveMode();
+//	 
+//	            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+//	 
+//	            // APPROACH #1: uploads first file using an InputStream
+//	            File firstLocalFile = new File("D:\\netforumqatests\\target\\surefire-reports\\emailable-report.html");
+//	 
+//	            String firstRemoteFile = "Projects.zip";
+//	            InputStream inputStream = new FileInputStream(firstLocalFile);
+//	 
+//	            System.out.println("Start uploading first file");
+//	            boolean done = ftpClient.storeFile(firstRemoteFile, inputStream);
+//	            inputStream.close();
+//	            if (done) {
+//	                System.out.println("The first file is uploaded successfully.");
+//	            }
 	 
 //	            File secondLocalFile = new File("D:\\D\\Documents\\ACS_OMA\\ACS_Society\\Society\\target\\surefire-reports\\emailable-report.html");
 //	            String secondRemoteFile = "Projects.zip";
@@ -59,21 +61,21 @@ public class Test {
 //	                System.out.println("The second file is uploaded successfully.");
 //	            }
 //	 
-	        } catch (IOException ex) {
-	            System.out.println("Error: " + ex.getMessage());
-	            ex.printStackTrace();
-	        } finally {
-	            try {
-	                if (ftpClient.isConnected()) {
-	                    //ftpClient.logout();
-	                    ftpClient.disconnect();
-	                }
-	            } catch (IOException ex) {
-	                ex.printStackTrace();
-	            }
-	        }
-	}}
-		
+//	        } catch (IOException ex) {
+//	            System.out.println("Error: " + ex.getMessage());
+//	            ex.printStackTrace();
+//	        } finally {
+//	            try {
+//	                if (ftpClient.isConnected()) {
+//	                    //ftpClient.logout();
+//	                    ftpClient.disconnect();
+//	                }
+//	            } catch (IOException ex) {
+//	                ex.printStackTrace();
+//	            }
+//	        }
+//	}}
+//		
 		
 //		try {
 //			System.out.println("1");

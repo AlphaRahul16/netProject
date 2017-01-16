@@ -1503,6 +1503,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public String searchAndGetDisplayName() {
 		clickOnSearchDisplayNameButton();
+		if(checkIfElementIsThere("icon_arrow")){
+			element("icon_arrow").click();
+		}
 		return getDisplayName();
 	}
 
@@ -2411,6 +2414,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public String[] addSubscriptionInOrderEntry_CreateMem(String prodCode, int numberOfSubscription) {
 		switchToFrame("iframe1");
 		enterProductCode(prodCode);
+		
 		displayName = searchAndGetDisplayName();
 
 		logMessage("STEP : Display name is : " + displayName + "\n");

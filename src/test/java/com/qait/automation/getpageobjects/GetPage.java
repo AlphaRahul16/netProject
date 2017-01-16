@@ -564,7 +564,15 @@ public class GetPage extends BaseUi {
 //			}
 //		}
 //	}
-	
+	protected void verifyElementTextContentCaseSensitive(String elementName,
+			String expectedText) {
+		wait.waitForElementToBeVisible(element(elementName));
+		//org.apache.commons.lang3.StringUtils.containsIgnoreCase(element(elementName).getAttribute("textContent"),expectedText);
+		assertThat("ASSERT FAILED : Element '" + elementName + "' Text is not as expected: ", 
+				org.apache.commons.lang3.StringUtils.containsIgnoreCase(element(elementName).getAttribute("textContent"),expectedText));
+		logMessage("ASSERT PASSED : Element " + elementName
+				+ " is visible and Text is " + expectedText);
+	}
 
 	
 }

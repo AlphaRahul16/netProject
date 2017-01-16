@@ -241,6 +241,7 @@ btn_browse										id									a40_file
 label_profile_title			  					xpath							 //div[text()='${value}']
 label_heading_data								xapth							//span[text()='${value}']
 table_data										xpath							.//table[@class='table']//tr[2]
+icon_arrow										xpath							//*[@class='DataFormListTDDataGridAlternatingItemLink dataGridItemLink']
 
 #Gift Card
 
