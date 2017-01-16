@@ -46,6 +46,16 @@ public class GetPage extends BaseUi {
 		layouttest.checklayout(tagsToBeTested);
 	}
 
+	protected void verifyElementTextContentCaseInSensitive(String elementName,
+			   String expectedText) {
+			  wait.waitForElementToBeVisible(element(elementName));
+			  //org.apache.commons.lang3.StringUtils.containsIgnoreCase(element(elementName).getAttribute("textContent"),expectedText);
+			  assertThat("ASSERT FAILED : Element '" + elementName + "' Text is not as expected: ", 
+			    org.apache.commons.lang3.StringUtils.containsIgnoreCase(element(elementName).getAttribute("textContent"),expectedText));
+			  logMessage("ASSERT PASSED : Element " + elementName
+			    + " is visible and Text is " + expectedText);
+			 }
+	
 	public void testPageLayout(String tagToBeTested) {
 		testPageLayout(Arrays.asList(tagToBeTested));
 	}
@@ -564,15 +574,24 @@ public class GetPage extends BaseUi {
 //			}
 //		}
 //	}
-	protected void verifyElementTextContentCaseSensitive(String elementName,
-			String expectedText) {
-		wait.waitForElementToBeVisible(element(elementName));
-		//org.apache.commons.lang3.StringUtils.containsIgnoreCase(element(elementName).getAttribute("textContent"),expectedText);
-		assertThat("ASSERT FAILED : Element '" + elementName + "' Text is not as expected: ", 
-				org.apache.commons.lang3.StringUtils.containsIgnoreCase(element(elementName).getAttribute("textContent"),expectedText));
-		logMessage("ASSERT PASSED : Element " + elementName
-				+ " is visible and Text is " + expectedText);
-	}
+	static int count =0;
+	 public void dynamicWait(int timeout,String element,String replacement){
+	     try{
+	      if(count<timeout){
+	       wait.resetImplicitTimeout(2);
+	       isElementDisplayed(element,replacement);
+	      }
+	     }
+	     catch(NoSuchElementException e){
+	      count++;
+	      dynamicWait(timeout,element,replacement);
+	     }
+	     {
+	    	 int deafultTm = Integer.parseInt(ConfigPropertyReader.getProperty("timeout"));
+	    	 wait.resetImplicitTimeout(deafultTm);
+	     }
+	    }
+
 
 	
 }

@@ -1,11 +1,7 @@
 target
 test-output
 Acslogs
-src\test\resources\Profile_Stage2
-src\test\resources\Profile_Stage3
-src\test\resources\Profile_Stage12\*
 **/.~lock*
-
 .project
 .classpath
 .settings

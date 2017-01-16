@@ -800,4 +800,13 @@ public class BaseUi {
 		}
 	}
 	
+	public void verifyTextwithValues(WebElement ele, String value)
+	{
+		String expectedtext=getElementText(ele).trim();
+		Assert.assertTrue(value.equals(expectedtext),value+" doesnot matches with "+expectedtext);
+		logMessage("ASSERT PASSED : expected "+expectedtext+" matches with "+value);
+		
+		
+	}
+	
 }

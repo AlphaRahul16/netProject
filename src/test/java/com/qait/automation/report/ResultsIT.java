@@ -2,17 +2,25 @@ package com.qait.automation.report;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+import java.awt.Desktop;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
+import javax.lang.model.util.Elements;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
@@ -23,19 +31,30 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
 import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.DateUtil;
 import com.qait.automation.utils.YamlReader;
 
@@ -46,7 +65,7 @@ public class ResultsIT extends ReformatTestFile {
 	String host = "smtp.gmail.com";
 	String from = "automation.resultsqait@gmail.com";
 	String password = "QaitAutomation";
-	int port = 25;
+	int port = 25, value = -1;
 	String failureResults = "";
 	String skippedResults = "";
 	String passedResult = "";
@@ -71,16 +90,23 @@ public class ResultsIT extends ReformatTestFile {
 	public void changeTimeStamp() throws IOException {
 		System.out.println("Testname " + testname);
 		if (testname.contains("Default")) {
-			testname = System.getProperty("testngxml", System.getProperty("test")).replace(".xml", "").trim();
+			testname = System
+					.getProperty("testngxml", System.getProperty("test"))
+					.replace(".xml", "").trim();
 		}
 
 		// String html =
 		// readLargerTextFile("./target/surefire-reports/"+this.getClass().getSimpleName()+".html");
 		String html = readLargerTextFile("./target/surefire-reports/emailable-report.html");
-		String logspath = "./Acslogs/" + DateUtil.getCurrentdateInStringWithGivenFormate("dd MMM yyyy") + "/" + testname
-				+ " " + DateUtil.getCurrentdateInStringWithGivenFormate("HH_mm_ss_a") + "_emailable-report.html";
+		String logspath = "./Acslogs/"
+				+ DateUtil
+						.getCurrentdateInStringWithGivenFormate("dd MMM yyyy")
+				+ "/" + testname + " "
+				+ DateUtil.getCurrentdateInStringWithGivenFormate("HH_mm_ss_a")
+				+ "_emailable-report.html";
 		html = replacealltimestamp(html);
-		writeLargerTextFile("./target/surefire-reports/emailable-report.html", html);
+		writeLargerTextFile("./target/surefire-reports/emailable-report.html",
+				html);
 		System.out.println("=============Path===================" + logspath);
 		writeLargerTextFile(logspath, html);
 	}
@@ -98,10 +124,59 @@ public class ResultsIT extends ReformatTestFile {
 			Transport transport = session.getTransport("smtps");
 			transport.connect(host, from, password);
 			transport.sendMessage(message, message.getAllRecipients());
+			if (System.getProperty("popUp") == null) {
+				if (getProperty("./Config.properties", "popUp")
+						.equalsIgnoreCase("yes")) {
+					openPopUp();
+				}
+
+			} else if (System.getProperty("popUp").equalsIgnoreCase("yes")) {
+				openPopUp();
+			}
+
 			transport.close();
 		}
 		System.out.println("Reports emailed");
 
+	}
+
+	private void openPopUp() {
+		Toolkit.getDefaultToolkit().beep();
+		JFrame frame = new JFrame();
+		final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		frame.setBounds(100, 100, 1000, 600);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		tabbedPane.setBounds(0, 0, 1000, 600);
+		frame.getContentPane().add(tabbedPane);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setAlwaysOnTop(true);
+		Object[] options = { "View Report", "Ok" };
+		value = JOptionPane.showOptionDialog(frame, "Engineer-" + " QAIT "
+				+ "\nTotal Test: " + totaltest + " \nFailure Results: "
+				+ failureResults + "\nPassed Result: " + passedResult
+				+ "\nSkipped Results: " + skippedResults, "Execution Results",
+				JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+				options, "Yes");
+
+		if (value == 0) {
+			File htmlFile = new File(System.getProperty("user.dir")
+					+ "\\target\\surefire-reports\\emailable-report.html");// ./target/surefire-reports/emailable-report.html");
+			try {
+				System.out.println("opening file");
+				Desktop.getDesktop().browse(htmlFile.toURI());
+
+			} catch (IOException io) {
+				io.printStackTrace();
+			}
+
+		}
+		try {
+			Runtime.getRuntime().exec("taskkill /f /im cmd.exe");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private Session getSession() {
@@ -109,7 +184,8 @@ public class ResultsIT extends ReformatTestFile {
 		Properties properties = new Properties();
 		properties.setProperty("mail.transport.protocol", "smtps");
 		properties.put("mail.smtps.auth", "true");
-		properties.setProperty("mail.smtp.submitter", authenticator.getPasswordAuthentication().getUserName());
+		properties.setProperty("mail.smtp.submitter", authenticator
+				.getPasswordAuthentication().getUserName());
 		properties.setProperty("mail.smtp.auth", "true");
 		properties.setProperty("mail.smtp.host", host);
 		properties.setProperty("mail.smtp.port", String.valueOf(port));
@@ -134,41 +210,57 @@ public class ResultsIT extends ReformatTestFile {
 		String mailtext = "";
 
 		mailtext = "Hi All,<br>";
-		mailtext = mailtext + "</br><b>" + projectName + " Test Automation Result:: (Executed by : " + username
+		mailtext = mailtext + "</br><b>" + projectName
+				+ " Test Automation Result:: (Executed by : " + username
 				+ " )</b></br><br>";
-		mailtext = mailtext + "<br><b><font style = Courier, color = green>Test Name: </font></b>" + getTestName();
-		mailtext = mailtext + "<br><b><font color = green>Browser: </font></b>" + browserValue.toUpperCase();
-		mailtext = mailtext + "<br><b><font color = green>Test Case Executed By: </font></b>" + projectName
-				+ " Automation Team";
-		mailtext = mailtext + "<br><b><font color = green>Test Date: </font></b>" + today;
+		mailtext = mailtext
+				+ "<br><b><font style = Courier, color = green>Test Name: </font></b>"
+				+ getTestName();
+		mailtext = mailtext + "<br><b><font color = green>Browser: </font></b>"
+				+ browserValue.toUpperCase();
+		mailtext = mailtext
+				+ "<br><b><font color = green>Test Case Executed By: </font></b>"
+				+ projectName + " Automation Team";
+		mailtext = mailtext
+				+ "<br><b><font color = green>Test Date: </font></b>" + today;
 		mailtext = mailtext + "<b>" + testSetResult() + "</b>";
 
 		mailtext = mailtext + "<br><br>";
 
-		mailtext = mailtext + "<br><br>Note: This is a system generated mail. Please do not reply." + "</br></br>";
-		mailtext = mailtext + "<br>If you have any queries mail to <a href=mailto:" + from
-				+ "?subject=Reply-of-Automation-Status" + today.replaceAll(" ", "_") + ">" + projectName
+		mailtext = mailtext
+				+ "<br><br>Note: This is a system generated mail. Please do not reply."
+				+ "</br></br>";
+		mailtext = mailtext
+				+ "<br>If you have any queries mail to <a href=mailto:" + from
+				+ "?subject=Reply-of-Automation-Status"
+				+ today.replaceAll(" ", "_") + ">" + projectName
 				+ " AUTOMATION </a></br>";
 		mailtext = mailtext
 				+ "<br><br>The detailed test results are given in the attached <i>emailable-report.html</i> </br></br>";
 		mailtext = mailtext + "<br><br>Best Regards" + "</br></br>";
-		mailtext = mailtext + "<br>" + projectName + " Automation Team" + "</br>";
+		mailtext = mailtext + "<br>" + projectName + " Automation Team"
+				+ "</br>";
 
 		return mailtext;
 	}
 
 	private String setMailSubject() {
 
-		return (projectName + " Automated Test Results: " + failureResults + " Failures | " + today);
+		return (projectName + " Automated Test Results: " + failureResults
+				+ " Failures | " + today);
 	}
 
-	private void setMailRecipient(Message message) throws AddressException, MessagingException, IOException {
+	private void setMailRecipient(Message message) throws AddressException,
+			MessagingException, IOException {
 
-		Map<String, Object> emailMap = YamlReader.getYamlValues("email.recepients");
+		Map<String, Object> emailMap = YamlReader
+				.getYamlValues("email.recepients");
 		for (Object val : emailMap.values()) {
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(val.toString()));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(
+					val.toString()));
 		}
-		message.addRecipient(Message.RecipientType.BCC, new InternetAddress("rahulyadav@qainfotech.com"));
+		message.addRecipient(Message.RecipientType.BCC, new InternetAddress(
+				"rahulyadav@qainfotech.com"));
 
 	}
 
@@ -184,12 +276,14 @@ public class ResultsIT extends ReformatTestFile {
 
 		// Part two is attachment
 		messageBodyPart = new MimeBodyPart();
-		addAttachment(multipart, messageBodyPart, "./target/surefire-reports/emailable-report.html");
+		addAttachment(multipart, messageBodyPart,
+				"./target/surefire-reports/emailable-report.html");
 
 		return multipart;
 	}
 
-	private static void addAttachment(Multipart multipart, MimeBodyPart messageBodyPart, String filename)
+	private static void addAttachment(Multipart multipart,
+			MimeBodyPart messageBodyPart, String filename)
 			throws MessagingException {
 		messageBodyPart = new MimeBodyPart();
 		File f = new File(filename);
@@ -202,7 +296,6 @@ public class ResultsIT extends ReformatTestFile {
 	private String getTestName() {
 		String test = System.getProperty("test", "null");
 		String testsuite = System.getProperty("testsuite", "null");
-		String testngxml = System.getProperty("testngxml", "null");
 		String testName;
 		if (test != "null") {
 			testName = test + " was executed";
@@ -210,11 +303,8 @@ public class ResultsIT extends ReformatTestFile {
 		} else if (testsuite != "null") {
 			testName = testsuite + "were executed";
 			return testName;
-		} else if (testngxml != "null") {
-				testName = testngxml + "were executed";
-				return testName;
-			}else {
-			testName = "Complete Automated Test Suite Executed";
+		} else {
+			testName = "Complete Automated SMOKE Test Suite Executed";
 			return testName;
 		}
 	}
@@ -270,13 +360,18 @@ public class ResultsIT extends ReformatTestFile {
 		Element ele1 = (Element) nodes1.item(0);
 		String totalTime = ele1.getAttribute("duration-ms");
 		if (Math.round(Double.parseDouble(totalTime) / 1000) > 60) {
-			totalTime = String.valueOf(Math.round((Double.parseDouble(totalTime) / 1000) / 60)) + " minutes";
+			totalTime = String.valueOf(Math.round((Double
+					.parseDouble(totalTime) / 1000) / 60)) + " minutes";
 		} else {
-			totalTime = String.valueOf(Math.round(Double.parseDouble(totalTime) / 1000)) + " seconds";
+			totalTime = String
+					.valueOf(Math.round(Double.parseDouble(totalTime) / 1000))
+					+ " seconds";
 		}
-		msgOutput = msgOutput + ele.getAttribute("total") + " ,Passed: " + passedResult + " ,Failures: "
-				+ ele.getAttribute("failed") + " ,Skipped: " + ele.getAttribute("skipped") + " ,Total Execution Time: "
-				+ totalTime;
+		msgOutput = msgOutput + ele.getAttribute("total") + " ,Passed: "
+				+ passedResult + " ,Failures: " + ele.getAttribute("failed")
+				+ " ,Skipped: " + ele.getAttribute("skipped")
+				+ " ,Total Execution Time: " + totalTime;
+		totaltest = ele.getAttribute("total");
 		System.out.println("Message is " + msgOutput);
 		return msgOutput;
 	}
@@ -344,14 +439,16 @@ public class ResultsIT extends ReformatTestFile {
 		NodeList nodes = dom.getElementsByTagName("test-method");
 		try {
 			NodeList nodesMessage = dom.getElementsByTagName("full-stacktrace");
-			for (int i = 0, j = 0; i < nodes.getLength() && j < nodesMessage.getLength(); i++) {
+			for (int i = 0, j = 0; i < nodes.getLength()
+					&& j < nodesMessage.getLength(); i++) {
 
 				Element ele1 = (Element) nodes.item(i);
 				Element ele2 = (Element) nodesMessage.item(j);
 
 				if (ele1.getAttribute("status").equalsIgnoreCase("FAIL")) {
 					count++;
-					String[] testMethodResonOfFailure = getNameTestReason(ele1, ele2);
+					String[] testMethodResonOfFailure = getNameTestReason(ele1,
+							ele2);
 					list.add(testMethodResonOfFailure[0]);
 					list.add(testMethodResonOfFailure[1]);
 					list.add(testMethodResonOfFailure[2]);
@@ -371,7 +468,8 @@ public class ResultsIT extends ReformatTestFile {
 		String[] returnNameTestReason = new String[3];
 		NamedNodeMap name = el1.getParentNode().getParentNode().getAttributes();
 
-		returnNameTestReason[0] = name.getNamedItem("name").toString().replaceAll("name=", "");
+		returnNameTestReason[0] = name.getNamedItem("name").toString()
+				.replaceAll("name=", "");
 		returnNameTestReason[1] = el1.getAttribute("name");
 		returnNameTestReason[2] = el2.getTextContent();
 		return returnNameTestReason;
@@ -380,16 +478,18 @@ public class ResultsIT extends ReformatTestFile {
 
 	private String giveTable(String[] failedResults) {
 		String table = "";
-		table = table + "<table border='3'><tbody><tr style='background:red'><th><b>Test Case</b></th>"
+		table = table
+				+ "<table border='3'><tbody><tr style='background:red'><th><b>Test Case</b></th>"
 				+ "<th><b>Test Method</b></th></tr>";
 
 		for (int k = 0; k < failedResults.length; k += 3) {
-			table = table + "<tr valign='top'><b>" + failedResults[k] + "</b>" + "<b><td>" + failedResults[k + 1]
-					+ "</b></tr>";
+			table = table + "<tr valign='top'><b>" + failedResults[k] + "</b>"
+					+ "<b><td>" + failedResults[k + 1] + "</b></tr>";
 
 		}
 
 		table = table + "</tbody></table>";
 		return table;
 	}
+
 }

@@ -79,7 +79,7 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 	}
 
 	public String enterBatchName(int i){
-		hardWaitForIEBrowser(4);
+		wait.hardWait(5);
 		isElementDisplayed("txt_batchDetails",String.valueOf(i));
 		hardWaitForIEBrowser(2);
 		element("txt_batchDetails",String.valueOf(i)).clear();
