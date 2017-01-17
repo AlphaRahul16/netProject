@@ -239,8 +239,8 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("STEP : User is on Committee Setup Page");
 	}
 	
-	public void enterAuthentication(String uName, String password) {
-		if ((isBrowser("ie") || isBrowser("internetexplorer"))) {
+	public void enterAuthentication(String uName, String password,String baseUrl) {
+		if ((isBrowser("ie") || isBrowser("internetexplorer") || baseUrl.contains("https://dev-eweb12/NFDev7"))) {
 			System.out.println("in authentication");
 			uName="ACS1\\"+uName;
 			setClipboardData(uName);

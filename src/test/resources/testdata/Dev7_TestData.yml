@@ -17,11 +17,13 @@ app_url_egift: https://dev-eweb12/NFDev7/egift
 app_url_Nominate: https://dev-eweb12/NFDev7/nominate
 app_url_MemberNumberLookup: https://dev-eweb12/NFDev7/membernumberlookup
 app_url_NCW: https://dev-eweb12/NFDev7/ncwlookup
-app_url_IwebReporting: https://stag-12iweb/NFStage2/iweb
+app_url_IwebReporting: https://dev-eweb12/NFDev7/iweb
 app_url_PUBS: https://dev-eweb12/NFDev7/pba
 app_url_EwebReporting: https://dev-eweb12/NFDev7/studentchaptersonline
 app_url_Awards: https://dev-eweb12/NFDev7/awards
-app_url_ScarfReviewing: https://www.ewebtest.acs.org/NFStage2/studentchaptersreview
+app_url_ScarfReviewing: https://dev-eweb12/NFDev7/studentchaptersreview
+app_url_IwebMyAccount: https://dev-eweb12.acs.org/NFDev7/iweb
+app_url_SourceCodeOMA: https://jointest.acs.org/NFStage2/oma?sc=
 
 Authentication: 
   userName: C00767
