@@ -324,7 +324,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		verifyElementTextContains("txt_memberDetails", lastName);
 		logMessage("ASSERT PASSED :" + lastName + " is verified as last name\n");
 
-		verifyElementTextContains("txt_memberDetails", map().get("street"));
+		verifyElementTextContentCaseSensitive("txt_memberDetails", map().get("street"));
+//		verifyElementTextContains("txt_memberDetails", map().get("street"));
 		logMessage("ASSERT PASSED :" + map().get("street") + " is verified as street\n");
 		verifyElementTextContains("txt_memberDetails", map().get("city"));
 		logMessage("ASSERT PASSED :" + map().get("city") + " is verified as city\n");
@@ -351,14 +352,14 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		verifyElementTextContent("txt_memberDetails", memDetails[2]);
 		logMessage("ASSERT PASSED :" + memDetails[2] + " is verified in txt_memberDetails\n");
 
-		if (!(memDetails[3].equalsIgnoreCase(""))) {
-			System.out.println("******Member" + memDetails[3]);
-			System.out.println(element("txt_memberDetails").getText());
-			
-			Assert.assertTrue(element("txt_memberDetails").getText().contains(memDetails[3]));
-			//verifyElementTextContent("txt_memberDetails", memDetails[3]);
-			logMessage("ASSERT PASSED :" + memDetails[3] + " is verified in txt_memberDetails\n");
-		}
+		 if (!(memDetails[3].equalsIgnoreCase(""))) {
+			   System.out.println("******Member" + memDetails[3]);
+			   System.out.println("address"+element("txt_memberDetails").getText());
+			   verifyElementTextContentCaseSensitive("txt_memberDetails",memDetails[3]);
+			  // Assert.assertTrue(element("txt_memberDetails").getText().contains(memDetails[3]));
+			   //verifyElementTextContent("txt_memberDetails", memDetails[3]);
+			   logMessage("ASSERT PASSED :" + memDetails[3] + " is verified in txt_memberDetails\n");
+			  }
 		System.out.println("******Member" + memDetails[4]);
 		verifyElementTextContent("txt_memberDetails", memDetails[4]);
 		logMessage("ASSERT PASSED :" + memDetails[4] + " is verified in txt_memberDetails\n");
@@ -563,6 +564,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void navigateToContactInfoMenuOnHoveringMore() {
 		try {
 			wait.hardWait(5);
+			handleAlert();
 			isElementDisplayed("img_moreMenu");
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
 			logMessage("Step : Navigate to Contact Info menu on clicking more button\n");

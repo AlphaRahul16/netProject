@@ -1,6 +1,7 @@
 package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
+import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -896,6 +897,21 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyPaymentDetailsForGiftCard(String batchname, String cardpricevalue) {
 		
 		
+	}
+	
+	public void clickOnNextButton(){
+		isElementDisplayed("btn_next");
+		element("btn_next").click();
+		logMessage("Step: Clicked on Next button\n");
+	}
+	
+	public void enterPaymentDetails(String batchName,String paymentType, String paymentMethod,
+			String cardNumber, String expireDate,String cvvNo, String checkNumber){
+		MembershipPageActions_IWEB objFundraising=new MembershipPageActions_IWEB(driver);
+		switchToFrame("iframe1");
+        clickOnNextButton();
+        objFundraising.selectBatchAndPaymentDetails_AddressChangeProforma(batchName,paymentType,paymentMethod,cardNumber,expireDate,cvvNo,checkNumber);
+		switchToDefaultContent();
 	}
 
 }
