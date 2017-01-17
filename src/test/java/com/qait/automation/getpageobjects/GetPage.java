@@ -32,6 +32,7 @@ public class GetPage extends BaseUi {
 
 	protected WebDriver webdriver;
 	String pageName;
+	static int count =0;
 	LayoutValidation layouttest;
 	final String case1 = "";
 
@@ -280,8 +281,8 @@ public class GetPage extends BaseUi {
 				+ " is visible and Text is " + expectedText);
 	}
 
-	protected boolean isElementDisplayed(String elementName)
-			throws NoSuchElementException {
+	protected boolean isElementDisplayed(String elementName)  
+			throws NoSuchElementException ,AssertionError {
 		scriptExecutionController();
 		boolean result = wait.waitForElementToBeVisible(element(elementName))
 				.isDisplayed();
@@ -565,7 +566,7 @@ public class GetPage extends BaseUi {
 //		}
 //	}
 	
-	static int count =0;
+
 	 public void dynamicWait(int timeout,String element,String replacement){
 	     try{
 	      if(count<timeout){

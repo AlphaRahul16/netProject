@@ -9,9 +9,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.codec.language.ColognePhonetic;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.LineIterator;
 
+import com.google.common.base.CaseFormat;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 
 public class DataProvider {
@@ -30,7 +32,9 @@ public class DataProvider {
 			String csvSeparator, int columnNumber) {
 		String returnStr = ""; // return blank if value / column not present
 		try {
+	
 			returnStr = csvLine.split(csvSeparator)[columnNumber];
+			returnStr = returnStr.replaceAll("\"", "").trim();
 		} catch (ArrayIndexOutOfBoundsException ex) {
 			// Reporter.log(
 			// "Column Number "
@@ -70,6 +74,8 @@ public class DataProvider {
 				}
 			}
 		}
+
+		System.out.println("row"+rowNumberExact);
 		int rowNumber = Integer.parseInt(rowNumberExact) - 1;
 
 		return dataRows.get(rowNumber);
@@ -118,6 +124,7 @@ public class DataProvider {
 				}
 			}
 		}
+		System.out.println("rows total"+count);
 
 		return count;
 	}
@@ -188,9 +195,8 @@ public class DataProvider {
 		String firstCSVLine = csvReaderRowSpecific(csvdatafilepath, "false",
 				"1");
 		String[] arr = firstCSVLine.split(csvSeparator);
-		for (int i = 0; i <= arr.length - 1; i++) {
-			if (arr[i].trim().equalsIgnoreCase(columnName)) {
-
+		for (int i = 0; i <= arr.length - 1; i++) {		
+			if (arr[i].replaceAll("\"", "").trim().equalsIgnoreCase(columnName)) {
 				return i;
 			}
 		}
@@ -264,17 +270,21 @@ public class DataProvider {
 			String value = getSpecificColumnFromCsvLine(csvLine, csvSeparator,
 					getColumnNumber_CreateMember(executeColumnName));
 
-			if (value.equalsIgnoreCase(executeColumnValue)) {
+			System.out.println("value "+value+"---"+executeColumnValue);
+			if (value.contains(executeColumnValue)) {
+				System.out.println("In if");
 				String csvLine1 = csvReaderRowSpecific(
 						getYamlValue("csv-data-file.path_" + sheetName),
 						"true", String.valueOf(i));
 				String value1 = DataProvider.getSpecificColumnFromCsvLine(
 						csvLine1, csvSeparator,
 						getColumnNumber_CreateMember(caseIdColumnName));
+				System.out.println("value1 "+value1);
 				listOfCaseIdToExecute.add(value1);
 				caseCount++;
 			}
 		}
+		System.out.println("list "+listOfCaseIdToExecute.size());
 
 		return listOfCaseIdToExecute;
 	}

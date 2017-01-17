@@ -1417,10 +1417,10 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	private void verifySupporterDocumentsContainsUploadedFile(Map<String, String> mapAwardsNomination,
 			String SupporterNumber) {
-		System.out.println(element("txt_subscriptionName", SupporterNumber).getAttribute("href"));
+		System.out.println(element("lnk_awardsSupporterDoc", SupporterNumber).getAttribute("href"));
 		System.out.println(mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber));
-	//	Assert.assertTrue(element("lnk_awardsSupporterDoc", SupporterNumber).getAttribute("href")
-		//		.contains(mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber)));
+		Assert.assertTrue(element("lnk_awardsSupporterDoc", SupporterNumber).getAttribute("href")
+				.contains(mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber)));
 		logMessage("ASSERT PASSED : Document for supporter " + SupporterNumber + " succesfully verified as "
 				+ mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber));
 	}
@@ -2273,6 +2273,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		else
 		{
+			System.out.println(productName);
 		isElementDisplayed("txt_updatedLogsBPA",productName,"3");
 		pricevalue=element("txt_updatedLogsBPA",productName,"3").getText().trim();
 		}

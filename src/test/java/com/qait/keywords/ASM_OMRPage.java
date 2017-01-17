@@ -684,7 +684,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		}
 		switchToEwebRenewalFrame();
 		wait.hardWait(2);
-		wait.hardWait(2);
+		dynamicWait(20, "txt_productname", "1");
 		scrollDown(elements("txt_productname").get(0));
 		System.out.println(elements("txt_productname").size());
 		List<WebElement> productName= elements("txt_productname");
@@ -902,7 +902,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	public void verifyPrintReceiptMessageAfterPayment() {
 		wait.waitForPageToLoadCompletely();
 		//switchToEwebRenewalFrame();
-		wait.hardWait(10);
+		//wait.hardWait(10);
+		dynamicWait(20, "btn_printreceipt", "1");
 		Object display= executeJavascriptReturnValue("window.getComputedStyle(document.getElementById('eWebFrame').contentWindow.document.querySelector('#print-invoice>input')).display");
 		System.out.println(display.toString());
 		Assert.assertTrue(display.toString().contains("inline"));
