@@ -31,13 +31,13 @@ csv-data-file:
   path_SourceCodes: ./src/test/resources/TestDataLibrary/ACS_SourceCodes_Datasheet.csv 
   path_MGM: ./src/test/resources/TestDataLibrary/ACS_MGM_Datesheet.csv
   path_GiftCard_Scenariosheet: ./src/test/resources/TestDataLibrary/GiftCard_Scenariosheet.csv
+  path_GCS_OMR: ./src/test/resources/TestDataLibrary/GCS_OMR_Datasheet.csv
 
   data-separator: '\t'
   has-header: true
 
 excel-data-file:
   path_ScarfReporting: ./src/test/resources/TestDataLibrary/Scarf_Reporting_DataSheet.xls
-  path_GCS_OMR: ./src/test/resources/TestDataLibrary/GCS_OMR_Datasheet.xls
   path_BPA_Scenariosheet: ./src/test/resources/TestDataLibrary/BPA_Scenariosheet.xls
  
 
@@ -396,7 +396,7 @@ ASM_Nominate_SmokeChecklistData:
     FileUploadErrorMessage: Only txt, pdf, doc, docx, png, bmp, tiff, tif, gif, jpg, jpeg are allowed    
     
 ACS_Store:
-    password: password   
+    password: password 
     maxWaitTimeForPrintMessage: 30
     members:
          member1: 
@@ -673,3 +673,4 @@ email:
     recepient1: avnishrawat@qainfotech.net 
     recepient2: kanikasharma@qainfotech.com
     recepient3: hitasheesil@qainfotech.com
+

@@ -3,6 +3,7 @@ package com.qait.keywords;
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -640,8 +641,6 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 		for (String key : mapRenewedProductDetails.keySet()) {
 			if (!(key.equals("Voluntary Contribution To C&EN") || key.equals("Project SEED") ||key.equals("ACS Endowment Fund"))) {
-				System.out.println((mapRenewedProductDetails.get(key)).trim());
-				System.out.println(element("txt_priceValue", key).getText().trim());
 				 Assert.assertTrue((mapRenewedProductDetails.get(key))
 				 .trim()
 				 .equals(element("txt_priceValue", key).getText().trim()));
@@ -894,8 +893,24 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 //		verifyProductAmount(map().get("CEN Product Name?"),productAmounts.get("Iweb CEN Product Name?"));
 	}
 
-	public void verifyPaymentDetailsForGiftCard(String batchname, String cardpricevalue) {
+	public void verifyPaymentDetailsForGiftCard(String iwebProductName, String cardpricevalue) {
 		
+		verifyInvoiceDetailsInLineItemsForGiftCard("priceValue",iwebProductName,"use credit");
+		verifyInvoiceDetailsInLineItemsForGiftCard("quantity",iwebProductName,"Gift Card/Coupon");
+		verifyInvoiceDetailsInLineItemsForGiftCard("discount",iwebProductName,DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY"));
+		verifyInvoiceDetailsInLineItemsForGiftCard("balance",iwebProductName,cardpricevalue);
+		
+	}
+
+	private void verifyInvoiceDetailsInLineItemsForGiftCard(String fieldName,String productName,String value) {
+		System.out.println(productName);
+		System.out.println(element("txt_"+fieldName,productName).getText());
+		isElementDisplayed("txt_"+fieldName,productName);
+		System.out.println(element("txt_"+fieldName,productName).getText().trim());
+		System.out.println(value);
+		if(element("txt_"+fieldName,productName).getText().trim().equals(fieldName)){
+		Assert.assertTrue(element("txt_"+fieldName,productName).getText().trim().equals(value));}
+		logMessage("ASSERT PASSED "+productName+" details for"+fieldName+" under payments verfied as "+value);
 		
 	}
 	

@@ -883,25 +883,34 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		logMessage("Step :  ACS Gift Card Redeem code is applied succesfully\n");
 	}
 	
-	public void verifyTotalAfterApplyingGiftCard(String currency,String toalbeforeGC,String gcprice)
+	public double verifyTotalAfterApplyingGiftCard(String currency,String toalbeforeGC,String gcprice)
 	{
 		wait.hardWait(10);
 		double totalafterGC = Double
 				.parseDouble(getTotal("Total").replaceAll("\\" + currency, "").replaceAll(",", ""));
-		System.out.println(gcprice);
-		System.out.println(toalbeforeGC);
-		System.out.println(totalafterGC);
 		double actualtotal=Double.parseDouble(toalbeforeGC)-Double.parseDouble(gcprice);
-		System.out.println(actualtotal);
+		Assert.assertTrue(totalafterGC==actualtotal);
+		logMessage("ASSERT PASSED : Total amount after applying Gift card of amount "+gcprice+" is "+actualtotal);
+		getActualCreditUsedInGCPayment(actualtotal,Double.parseDouble(gcprice));
+		actualtotal=getActualCreditUsedInGCPayment(actualtotal,Double.parseDouble(gcprice));
+		return actualtotal;
 		
 	}
 	
-	public String getToalpriceonCheckoutPage()
+	private double getActualCreditUsedInGCPayment(double actualtotal,double gcprice) {
+		if(actualtotal>gcprice)
+		actualtotal = gcprice;
+
+	    return actualtotal;
+		
+	}
+
+	public String getToalpriceOnCheckoutPage()
 	{
 		double TotalInDouble = Double
 				.parseDouble(getTotal("Total").replaceAll("\\" + currency, "").replaceAll(",", ""));
 		String formatedPrice = String.format("%.02f", TotalInDouble);
-		logMessage("Step : Total amount on checkout page is fetched as "+formatedPrice);
+		logMessage("Step : Total amount on checkout page before applying gift card is fetched as "+formatedPrice);
 		return formatedPrice;
 	}
 

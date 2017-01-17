@@ -135,10 +135,9 @@ public class MemberShipRenewalPage extends GetPage {
 	public String enterRunTaskDateTime(String timeSlab) {
 		isElementDisplayed("inp_runTaskDateTime");
 		String currentDate = DateUtil.getCurrentTime("hh:mm a", "EST5EDT");
-
 		Date dateInDate = DateUtil.convertStringToDate(currentDate, "hh:mm a");
 		Date dateAfterMinutesAdded = DateUtils.addMinutes(dateInDate,
-				Integer.parseInt(timeSlab) + 8);
+				Integer.parseInt(timeSlab) + 11);
 		System.out.println("dateAfterMinutesAdded:" + dateAfterMinutesAdded);
 		SimpleDateFormat sdf = new SimpleDateFormat("h:mm:ss a");
 		String dateWithTimeSlabInString = sdf.format(dateAfterMinutesAdded);
@@ -146,7 +145,7 @@ public class MemberShipRenewalPage extends GetPage {
 				+ dateWithTimeSlabInString);
 		String runTaskDateTime = DateUtil
 				.getCurrentdateInStringWithGivenFormateForTimeZone(
-						"MM/dd/YYYY", "EST5EDT")
+						"M/dd/YYYY", "EST5EDT")
 				+ " " + dateWithTimeSlabInString;
 		System.out.println("runTaskDateTime:" + runTaskDateTime);
 		element("inp_runTaskDateTime").click();
@@ -154,13 +153,12 @@ public class MemberShipRenewalPage extends GetPage {
 		element("inp_runTaskDateTime").clear();
 		wait.hardWait(3);
 		element("inp_runTaskDateTime").sendKeys(runTaskDateTime);
-
 		element("inp_runTaskDateTime").sendKeys(Keys.ENTER);
 		wait.hardWait(2);
 		logMessage("STEP : Enter " + runTaskDateTime
 				+ " for run task date time\n");
 		String runTaskDateTime1 = DateUtil
-				.getCurrentdateInStringWithGivenFormateForTimeZone("MM/d/YYYY",
+				.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY",
 						"EST5EDT")
 				+ " " + dateWithTimeSlabInString;
 		return runTaskDateTime1;
@@ -319,11 +317,11 @@ public class MemberShipRenewalPage extends GetPage {
 		switchToFrame("iframe1");
 		enterInvoiceTaskDetails("date",
 				DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone(
-						"MM/dd/YYYY", "EST5EDT"));
+						"M/dd/YYYY", "EST5EDT"));
 		String currentDate = DateUtil.getCurrentTime("hh:mma", "EST5EDT");
 		Date dateInDate = DateUtil.convertStringToDate(currentDate, "hh:mma");
 		Date dateAfterMinutesAdded = DateUtils.addMinutes(dateInDate,
-				Integer.parseInt(timeSlab) + 3);
+				Integer.parseInt(timeSlab) + 11);
 		SimpleDateFormat sdf = new SimpleDateFormat("hh:mma");
 		String dateWithTimeSlabInString = sdf.format(dateAfterMinutesAdded);
 		enterInvoiceTaskDetails("time", dateWithTimeSlabInString);
@@ -352,7 +350,7 @@ public class MemberShipRenewalPage extends GetPage {
 	public void verifyCreateInvoiceTaskStartTimeAndDate(String time) {
 		verifyScheduleDetails("create invoice task start date",
 				DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone(
-						"MM/d/YYYY", "EST5EDT"));
+						"M/d/YYYY", "EST5EDT"));
 		verifyScheduleDetails("create invoice task start time", time);
 
 	}

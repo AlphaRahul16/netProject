@@ -6,7 +6,5 @@
 		<classes>
 			<class name="com.qait.tests.ACS_Create_Member_Test"></class>
 		</classes>
-	</test>
-	
-	
+	</test>	
 </suite>
