@@ -156,7 +156,7 @@ public class ACS_FellowNominate extends BaseTest{
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		app_url_nominateFellow = getYamlValue("app_url_nominateFellow");
 		test.launchApplication(app_url_IWEB);
-		test.homePageIWEB.enterAuthenticationAutoIt();
+		
 	}
 
 	@BeforeMethod
