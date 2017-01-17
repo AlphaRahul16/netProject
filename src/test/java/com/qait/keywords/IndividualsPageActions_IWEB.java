@@ -325,7 +325,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		verifyElementTextContains("txt_memberDetails", lastName);
 		logMessage("ASSERT PASSED :" + lastName + " is verified as last name\n");
 
-		verifyElementTextContains("txt_memberDetails", map().get("street"));
+		verifyElementTextContentCaseInSensitive("txt_memberDetails", map().get("street"));
+		//verifyElementTextContains("txt_memberDetails", map().get("street"));
 		logMessage("ASSERT PASSED :" + map().get("street") + " is verified as street\n");
 		verifyElementTextContains("txt_memberDetails", map().get("city"));
 		logMessage("ASSERT PASSED :" + map().get("city") + " is verified as city\n");
@@ -355,12 +356,13 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		if (!(memDetails[3].equalsIgnoreCase(""))) {
 			System.out.println("******Member" + memDetails[3]);
 			System.out.println(element("txt_memberDetails").getText());
-			
-			Assert.assertTrue(element("txt_memberDetails").getText().contains(memDetails[3]));
+			verifyElementTextContentCaseInSensitive("txt_memberDetails", memDetails[3]);
+			//Assert.assertTrue(element("txt_memberDetails").getText().contains(memDetails[3]));
 			//verifyElementTextContent("txt_memberDetails", memDetails[3]);
 			logMessage("ASSERT PASSED :" + memDetails[3] + " is verified in txt_memberDetails\n");
 		}
 		System.out.println("******Member" + memDetails[4]);
+		//verifyElementTextContentCaseSensitive("txt_memberDetails", memDetails[4]);
 		verifyElementTextContent("txt_memberDetails", memDetails[4]);
 		logMessage("ASSERT PASSED :" + memDetails[4] + " is verified in txt_memberDetails\n");
 		System.out.println("******Member" + memDetails[5]);
@@ -564,6 +566,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void navigateToContactInfoMenuOnHoveringMore() {
 		try {
 			wait.hardWait(5);
+			handleAlert();
 			isElementDisplayed("img_moreMenu");
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
 			logMessage("Step : Navigate to Contact Info menu on clicking more button\n");
@@ -2051,7 +2054,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public void verifyCurrentRecordisAddedInChapterRelationship(String chapterName, String chapterRole) {
+	public void verifyCurrentRecordisAddedInChapterRelationship(String chapterName, String chapterRole,String dateFormate) {
 		switchToDefaultContent();
 		waitForSpinner();
 		System.out.println(chapterName);
@@ -2063,10 +2066,10 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		System.out.println(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"));
 		logMessage("ASSERT PASSED : chapter " + chapterName + " role is verified as " + chapterName);
 		Assert.assertTrue(element("txt_quantity", chapterName).getText().trim()
-				.equals(DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy", "EST5EDT")), "Date is not current date");
+				.equals(DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone(dateFormate, "EST5EDT")), "Date is not current date");
 
 		logMessage("ASSERT PASSED : Date for chapter " + chapterName + " is current date "
-				+ DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy"));
+				+ DateUtil.getCurrentdateInStringWithGivenFormate(dateFormate));
 
 	}
 

@@ -63,9 +63,9 @@ public class ACS_Scarf_Reporting{
 		
 	@Test
 	public void Step01_Launch_Iweb_Application() {
+		
 		test.launchApplication(app_url_iweb);
-		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
-				YamlReader.getYamlValue("Authentication.password"));
+
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 //		chapterName="Monroe Community College Student Chapter";
 	}

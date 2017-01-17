@@ -128,7 +128,8 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 			element("chkbox_update").click();
 		}
 		isElementDisplayed("btn_submit");
-		element("btn_submit").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_submit"));
+		//element("btn_submit").click();
 	}
 
 	public void verifyUpdatedAddressOnYellowBookHomePage(String address) {

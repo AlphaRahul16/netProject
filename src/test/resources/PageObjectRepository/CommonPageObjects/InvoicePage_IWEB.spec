@@ -45,5 +45,6 @@ hdng_childMenu                  xpath                 //span[text()='${menuName}
 txt_tableColumn                 xpath                 //span[text()='${menuName}']/../../following-sibling::tr//table//tr[%{index1}]//td[#{index2}]
 table_rows                      xpath                 //table[@class='table']//tr
 icon_applyDiscount              id                    ACSApplyDiscountsAction
+btn_next                        xpath                 //input[contains(@value,'Next')]
 ====================================================================================================================================
 

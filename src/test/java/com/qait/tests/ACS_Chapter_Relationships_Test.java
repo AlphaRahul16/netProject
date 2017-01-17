@@ -66,7 +66,7 @@ public class ACS_Chapter_Relationships_Test extends BaseTest {
 	@Test
 	public void Step_04_Verify_Current_Record_Is_Added_In_Individual_Relationships() {
 		
-		test.individualsPage.verifyCurrentRecordisAddedInChapterRelationship(Chaptername,mapChapterRelationships.get("Relationship_Type_To_Add"));
+		test.individualsPage.verifyCurrentRecordisAddedInChapterRelationship(Chaptername,mapChapterRelationships.get("Relationship_Type_To_Add"),"M/d/yyyy");
 	}
 	@Test
 	public void Step_05_Navigate_To_Query_Chapters_In_Membership_Module_And_Run_Query_To_Find_Active_Chapter() {
@@ -78,14 +78,14 @@ public class ACS_Chapter_Relationships_Test extends BaseTest {
 	}
 	@Test
 	public void Step_06_Navigate_To_Relations_Tab_And_Expand_Individual_Relationships_Tab() {
+		
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Relations");
 		test.individualsPage.expandDetailsMenu("individual relationships");
 		test.fundpofilePage.clickAddDonationButton("individual relationships");
 	}
 	@Test
-	public void Step_07_Add_Individual_Relationships_To_The_Chapter_And_Save_Changes() {
+	public void Step_07_Add_Individual_Relationships_To_The_Chapter_And_Save_Changes() {	
 		
-
 		test.individualsPage.enterIndividualSortName("sort name", mapChapterRelationships.get("Individual_Sort_Name"));
 		test.individualsPage.addIndividualRelationshipsToChapter();
 		test.individualsPage.addRelationshiptype(mapChapterRelationships.get("Relationship_Type_To_Add"));
@@ -97,7 +97,7 @@ public class ACS_Chapter_Relationships_Test extends BaseTest {
 	public void Step_08_Verify_Current_Record_Is_Added_In_Chapter_Relationships() {
 		
 	
-		test.individualsPage.verifyCurrentRecordisAddedInChapterRelationship(individualname,mapChapterRelationships.get("Relationship_Type_To_Add"));
+		test.individualsPage.verifyCurrentRecordisAddedInChapterRelationship(individualname,mapChapterRelationships.get("Relationship_Type_To_Add"),"MM/dd/yyyy");
 	}	
 	@Test
 	public void Step_09_Edit_Existing_Record_And_Verify_The_C() {
@@ -105,7 +105,7 @@ public class ACS_Chapter_Relationships_Test extends BaseTest {
 		test.individualsPage.clickPencilButtonToEditIndividualRecord(individualname);
 		test.individualsPage.addRelationshiptype(mapChapterRelationships.get("Individual_Relationship_Type_To_Edit"));
 		test.individualsPage.clickOnSaveButton();
-		test.individualsPage.verifyCurrentRecordisAddedInChapterRelationship(individualname,mapChapterRelationships.get("Individual_Relationship_Type_To_Edit"));
+		test.individualsPage.verifyCurrentRecordisAddedInChapterRelationship(individualname,mapChapterRelationships.get("Individual_Relationship_Type_To_Edit"),"MM/dd/yyyy");
 	}
 	
 }

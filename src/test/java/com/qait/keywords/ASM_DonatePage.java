@@ -971,7 +971,6 @@ public class ASM_DonatePage extends GetPage {
 				.equals(pledgeProductName));
 		logMessage("ASSERT PASSED : Product name on confirm donation page is displayed as : "
 				+ pledgeProductName);
-
 	}
 
 	public String[] getDisplayedProductNamesOnEweb(String[] productNameKey, String  OtherProgramName) {

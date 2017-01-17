@@ -244,7 +244,6 @@ public class TestSessionInitiator {
 	}
 
 	public void launchApplication(String baseurl) {
-
 		try {
 			Reporter.log("The test browser is :- " + _getSessionConfig().get("browser") + "\n", true);
 			deleteAllCookies();
