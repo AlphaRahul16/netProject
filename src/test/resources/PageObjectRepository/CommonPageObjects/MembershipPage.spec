@@ -199,6 +199,11 @@ txt_sourceCode                                  xpath                           
 txt_memberDetails                               xpath                           (//span[text()='${tabName}']/parent::td/parent::tr/following-sibling::tr//tr[not(contains(@style,'none'))])[%{index1}]/td[#{column}]
 txt_recordNo									css							  #dgDynamicList>tbody>tr:nth-child(3)>td:nth-child(6)
 txt_weblogin									css								#dgDynamicList>tbody>tr:nth-child(3)>td:nth-child(${index})
+txt_chapterName                                 xpath                           //td[contains(text(),'Local Section Member')]/following-sibling::td[contains(text(),'Active')]/following-sibling::td[contains(text(),'${effDate}')]/following-sibling::td[contains(text(),'%{expDate}')]/..//td[#{index}]
+txt_termDates                                   xpath                          //span[text()='${tabName}']/parent::td/parent::tr/following-sibling::tr//td[contains(text(),'Regular Member')]/following-sibling::td[contains(text(),'Active')]/following-sibling::td[${column}]
+lnk_goToRecord                                  xpath                          //td[contains(text(),'Regular Member')]/following-sibling::td[contains(text(),'Active')]/preceding-sibling::td[${column}]/a/i
+lst_childTable                                  xpath                          (//th/a)[2]/../../following-sibling::tr
+txt_date                                        xpath                          (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[${colNumber}]
 ##----------------------------------------------------------Credit_Page-------------------------------------------------------------------------
 icon_expand										css								.icon-chevron-down
 drpdown_batchNameCreditPage						css								#cdt_bat_key

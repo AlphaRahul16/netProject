@@ -35,7 +35,6 @@ public class ACS_GiftCard_Test extends BaseTest{
 
 	public ACS_GiftCard_Test() {
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "GiftCard_Scenariosheet";
-		System.out.println("In Cons");
 		
 	}
 
@@ -75,6 +74,14 @@ public class ACS_GiftCard_Test extends BaseTest{
 					YamlReader.getYamlValue("Authentication.userName"),
 					YamlReader.getYamlValue("Authentication.password"));
 			test.homePageIWEB.clickOnSideBarTab("Individuals");
+			for (String name: giftCardMap.keySet()){
+
+	            String key =name.toString();
+	            String value = giftCardMap.get(name).toString();  
+	            System.out.println(key + " " + value);  
+
+
+	} 
 			
 		}
 		@Test(groups={"1","2","3"})

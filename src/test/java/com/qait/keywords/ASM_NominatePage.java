@@ -468,23 +468,6 @@ public class ASM_NominatePage extends GetPage {
 			wait.hardWait(1);
 			elements("btn_selectNomineeSupport1").get(0).click();
 			wait.hardWait(1);
-
-			//chooseUniqueNomineeForAwardsNomination(flag,mapAwardsNomination,formNumber);
-		
-		//}
-//		catch(Exception e)
-//		{
-//			if(formNumber!=3)
-//			{
-//				wait.hardWait(3);
-//				mapNomineeNames.put("supporter"+formNumber, elements("txt_supporterNames").get(formNumber-1).getText().trim());
-//				logMessage("Step : Supporter "+formNumber+" name is saved as "+mapNomineeNames.get("supporter"+formNumber));
-//			}
-//		}
-//		wait.resetImplicitTimeout(timeOut);
-//		wait.resetExplicitTimeout(timeOut);
-	
-		
 		logMessage("STEP : Select Nominee button is clicked in btn_selectNomineeSupport1\n");
 
 	}
@@ -899,8 +882,6 @@ public class ASM_NominatePage extends GetPage {
 	public void verifyAwardStatusOnHomePageAwardNomination(String awardName,String expectedStatus)
 	{
 		isElementDisplayed("txt_awardStatus",awardName);
-		System.out.println(element("txt_awardStatus",awardName).getText());
-		System.out.println(expectedStatus);
 		Assert.assertTrue(element("txt_awardStatus",awardName).getText().trim().equals(expectedStatus));
 		logMessage("ASSERT PASSED : Award Nomination status on Home page verified as "+expectedStatus+"\n");
 	}
@@ -916,50 +897,22 @@ public class ASM_NominatePage extends GetPage {
 	}
 
 	private void verifyNominationDetailsOnConfirmNominationPage(Map<String, String> mapAwardsNomination) {
-		System.out.println(elements("chkbox_labPractice").get(0).getText());
+
 		Assert.assertTrue(elements("chkbox_labPractice").get(0).getText().trim().equals(mapAwardsNomination.get("SafeLabPractices?")));
 		logMessage("ASSERT PASSED : Safe Laboratory Practices on confirm Nomination Page is verified as "+mapAwardsNomination.get("SafeLabPractices?"));
 		
-		System.out.println(elements("chkbox_labPractice").get(1).getText());
+
 		Assert.assertTrue(elements("chkbox_labPractice").get(1).getText().trim().equals(mapAwardsNomination.get("DisscussAwardNomination?")));
-		System.out.println(element("txt_confirmSuggestedCitatio").getText().trim());
 		logMessage("ASSERT PASSED : Have you discussed this award nomination with the nominee on confirm Nomination Page is verified as "+mapAwardsNomination.get("DisscussAwardNomination?"));
-		
-		System.out.println(element("txt_positionTitle").getText());
+
 		Assert.assertTrue(element("txt_positionTitle").getText().trim().equals(mapAwardsNomination.get("EligibilityQuestions_NomineePosition")));
 		logMessage("ASSERT PASSED : Nominee's present position on confirm Nomination Page is verified as "+mapAwardsNomination.get("EligibilityQuestions_NomineePosition"));
 		
-		System.out.println(element("txt_industry").getText());
 		Assert.assertTrue(element("txt_industry").getText().trim().equals(mapAwardsNomination.get("EligibilityQuestions_professionalDiscipline")));
 		logMessage("ASSERT PASSED : Nominee's professional discipline on confirm Nomination Page is verified as "+mapAwardsNomination.get("EligibilityQuestions_professionalDiscipline"));
-		
-		System.out.println(element("txt_confirmSuggestedCitation").getText().trim());
+
 		Assert.assertTrue(element("txt_confirmSuggestedCitation").getText().trim().contains(mapAwardsNomination.get("SuggestCitation_Text")));
 		logMessage("ASSERT PASSED : Suggested citation on confirm Nomination Page is verified as "+mapAwardsNomination.get("SuggestCitation_Text"));
-	}
-	
-
-
-	public void verifyDocumentsAreDownloadableOnConfirmNominationPage(String name) {
-		if(isBrowser("firefox"))
-		{
-		String downloadFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
-				+ File.separator + "resources" + File.separator + "DownloadedFiles";
-		isElementDisplayed("lnk_downloaddocumentsLink");
-		element("lnk_downloaddocumentsLink").click();
-		switchWindow();
-		wait.waitForPageToLoadCompletely();
-		try {
-			Runtime.getRuntime().exec("./src/test/resources/PopUpHandlers/AwardsNominationDownloadPopup.exe");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		logMessage("STEP : Open button is clicked for " + name + "\n");
-		//Assert.assertTrue(isFileDownloaded(downloadFilePath, name),
-		//		"Failed to download Expected document");
-logMessage("ASSERT PASSED : Pdf file downloaded for "+name+" submitted nomination\n");
-
-		}
 	}
 	
 

@@ -40,12 +40,11 @@ import org.testng.Reporter;
 
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.SeleniumWait;
-
-
+import com.qait.automation.utils.YamlReader;
 
 /**
  * 
- * @author 
+ * @author
  * 
  */
 public class BaseUi {
@@ -56,14 +55,14 @@ public class BaseUi {
 	int timeOut, hiddenFieldTimeOut;
 	boolean flag = false;;
 	static String lastWindow;
-	
+
 	protected BaseUi(WebDriver driver, String pageName) {
 		PageFactory.initElements(driver, this);
 		this.driver = driver;
 		this.pageName = pageName;
 		this.wait = new SeleniumWait(driver, Integer.parseInt(getProperty(
 				"Config.properties", "timeout")));
-		
+
 	}
 
 	protected String getPageTitle() {
@@ -73,13 +72,11 @@ public class BaseUi {
 	protected void logMessage(String message) {
 		Reporter.log(message, true);
 
-	
 	}
-	
-	public void launchUrl(String url)
-	{
+
+	public void launchUrl(String url) {
 		driver.get(url);
-		logMessage("STEP: Launch Application URL "+url+"\n");
+		logMessage("STEP: Launch Application URL " + url + "\n");
 	}
 
 	public String getCurrentURL() {
@@ -191,7 +188,6 @@ public class BaseUi {
 		driver.switchTo().frame(element);
 	}
 
-
 	public void switchToFrame(int i) {
 		driver.switchTo().frame(i);
 	}
@@ -236,10 +232,9 @@ public class BaseUi {
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 			driver.switchTo().defaultContent();
-		} catch(UnhandledAlertException e){
+		} catch (UnhandledAlertException e) {
 			logMessage("UnHandledAlert Exception thrown");
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println("No Alert window appeared...");
 		}
 		wait.resetImplicitTimeout(timeOut);
@@ -276,13 +271,13 @@ public class BaseUi {
 					"timeout"));
 			hiddenFieldTimeOut = Integer.parseInt(getProperty(
 					"Config.properties", "hiddenFieldTimeOut"));
-			//wait.hardWait(2);
+			// wait.hardWait(2);
 			wait.resetImplicitTimeout(4);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
-		    
+
 			Alert alert = driver.switchTo().alert();
 			String alertText = alert.getText();
-			
+
 			logMessage("Alert message is " + alertText);
 			alert.accept();
 			wait.resetImplicitTimeout(timeOut);
@@ -308,7 +303,7 @@ public class BaseUi {
 		Select sel = new Select(el);
 		try {
 			sel.selectByVisibleText(text);
-			logMessage("STEP : Selected option is "+text);
+			logMessage("STEP : Selected option is " + text);
 		} catch (StaleElementReferenceException ex1) {
 			// wait.waitForElementToBeVisible(el);
 			// scrollDown(el);
@@ -338,7 +333,7 @@ public class BaseUi {
 			wait.waitForElementToBeVisible(element);
 			scrollDown(element);
 			element.click();
-			logMessage("Clicked Element " + element+"");
+			logMessage("Clicked Element " + element + "");
 		} catch (StaleElementReferenceException ex1) {
 			// wait.waitForElementToBeClickable(element);
 			// scrollDown(element);
@@ -400,7 +395,7 @@ public class BaseUi {
 			driver.switchTo().window(current);
 		}
 	}
-	
+
 	public boolean isWindow() {
 		String window = driver.getWindowHandle();
 		Set<String> windows = driver.getWindowHandles();
@@ -492,9 +487,10 @@ public class BaseUi {
 			wait.hardWait(seconds);
 		}
 	}
-	
+
 	public void hardWaitForChromeBrowser(int seconds) {
-		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("chrome")
+		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase(
+				"chrome")
 				|| ConfigPropertyReader.getProperty("browser")
 						.equalsIgnoreCase("ie")
 				|| ConfigPropertyReader.getProperty("browser")
@@ -605,48 +601,50 @@ public class BaseUi {
 
 	public void enterAuthentication(String uName, String password) {
 
-		if ((isBrowser("ie") || isBrowser("internetexplorer"))) {
+		if ((isBrowser("ie") || isBrowser("internetexplorer"))
+				) {
 			System.out.println("in authentication");
 			setClipboardData(uName);
-			 Robot robot;
-			 try {
-			 robot = new Robot();
-			 setClipboardData(uName);
-			 robot.delay(2000);
-			 robot.keyPress(KeyEvent.VK_CONTROL);
-			 robot.keyPress(KeyEvent.VK_V);
-			 robot.keyRelease(KeyEvent.VK_V);
-			 robot.keyRelease(KeyEvent.VK_CONTROL);
-			 robot.delay(2000);
-			 robot.keyPress(KeyEvent.VK_TAB);
-			 robot.keyRelease(KeyEvent.VK_TAB);
-			 setClipboardData(password);
-			 robot.delay(2000);
-			 robot.keyPress(KeyEvent.VK_CONTROL);
-			 robot.keyPress(KeyEvent.VK_V);
-			 robot.keyRelease(KeyEvent.VK_V);
-			 robot.keyRelease(KeyEvent.VK_CONTROL);
-			 robot.delay(2000);
-			 robot.keyPress(KeyEvent.VK_ENTER);
-			 robot.keyRelease(KeyEvent.VK_ENTER);
-			 } catch (AWTException e) {
-			 e.printStackTrace();
-			 }
+			Robot robot;
+			try {
+				robot = new Robot();
+				setClipboardData(uName);
+				robot.delay(2000);
+				robot.keyPress(KeyEvent.VK_CONTROL);
+				robot.keyPress(KeyEvent.VK_V);
+				robot.keyRelease(KeyEvent.VK_V);
+				robot.keyRelease(KeyEvent.VK_CONTROL);
+				robot.delay(2000);
+				robot.keyPress(KeyEvent.VK_TAB);
+				robot.keyRelease(KeyEvent.VK_TAB);
+				setClipboardData(password);
+				robot.delay(2000);
+				robot.keyPress(KeyEvent.VK_CONTROL);
+				robot.keyPress(KeyEvent.VK_V);
+				robot.keyRelease(KeyEvent.VK_V);
+				robot.keyRelease(KeyEvent.VK_CONTROL);
+				robot.delay(2000);
+				robot.keyPress(KeyEvent.VK_ENTER);
+				robot.keyRelease(KeyEvent.VK_ENTER);
+			} catch (AWTException e) {
+				e.printStackTrace();
+			}
 
-			
-	}
+		}
 
 	}
 
 	public void enterAuthenticationAutoIt() {
 		try {
-			if(isBrowser("chrome")){
-			Runtime.getRuntime().exec(
-					"./src/test/resources/PopUpHandlers/popup.exe");}
-			else{if(isBrowser("ie")||isBrowser("internetExplorer")){
+			if (isBrowser("chrome")) {
 				Runtime.getRuntime().exec(
-						"./src/test/resources/PopUpHandlers/windowPopUp_IE.exe");}
-			
+						"./src/test/resources/PopUpHandlers/popup.exe");
+			} else {
+				if (isBrowser("ie") || isBrowser("internetExplorer")) {
+					Runtime.getRuntime()
+							.exec("./src/test/resources/PopUpHandlers/windowPopUp_IE.exe");
+				}
+
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -668,7 +666,7 @@ public class BaseUi {
 	public void checkCheckbox(WebElement ele) {
 
 		if (!ele.isSelected()) {
-//			ele.click();
+			// ele.click();
 			clickUsingXpathInJavaScriptExecutor(ele);
 			logMessage("STEP : check checkbox \n");
 		} else {
@@ -710,62 +708,64 @@ public class BaseUi {
 
 		return flag;
 	}
-	
-	public  void switchToWindowHavingIndex(int i) {
-		Set<String> ar=driver.getWindowHandles(); 
-		System.out.println("windows size: "+ar.size());
-		String windows[]=ar.toArray(new String[ar.size()]);
-		for(String window:windows)
-			System.out.println("windows data: "+window);
-		driver.switchTo().window(windows[i]);	 
-    }
+
+	public void switchToWindowHavingIndex(int i) {
+		Set<String> ar = driver.getWindowHandles();
+		System.out.println("windows size: " + ar.size());
+		String windows[] = ar.toArray(new String[ar.size()]);
+		for (String window : windows)
+			System.out.println("windows data: " + window);
+		driver.switchTo().window(windows[i]);
+	}
 
 	public void changeWindow(int i) {
-	    //wait.hardWait(1);
-	    Set<String> windows = driver.getWindowHandles();
-        System.out.println("Windows: " + windows.size());
+		// wait.hardWait(1);
+		Set<String> windows = driver.getWindowHandles();
+		System.out.println("Windows: " + windows.size());
 
-	    if (i > 0) {
-	      for (int j = 0; j < 9; j++) {
-	        System.out.println("Windows: " + windows.size());
-	       
-	        if (windows.size() >= 2) {
-	          try {
-	            Thread.sleep(1000);
-	          } catch (Exception ex) {
-	            ex.printStackTrace();
-	          }
-	          break;
-	        }
-	        windows = driver.getWindowHandles();
-	      }
-	    }
-	    String wins[] = windows.toArray(new String[windows.size()]);
-	    driver.switchTo().window(wins[i]);
-	    wait.hardWait(1);
-	    System.out.println("Title: " + driver.switchTo().window(wins[i]).getTitle());
-	  }
-	
+		if (i > 0) {
+			for (int j = 0; j < 9; j++) {
+				System.out.println("Windows: " + windows.size());
+
+				if (windows.size() >= 2) {
+					try {
+						Thread.sleep(1000);
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+					break;
+				}
+				windows = driver.getWindowHandles();
+			}
+		}
+		String wins[] = windows.toArray(new String[windows.size()]);
+		driver.switchTo().window(wins[i]);
+		wait.hardWait(1);
+		System.out.println("Title: "
+				+ driver.switchTo().window(wins[i]).getTitle());
+	}
+
 	protected void SwitchToPopUpWindowAndVerifyTitle() {
 		changeWindow(1);
-        System.out.println(getPageTitle());
-        logMessage("STEP : Switched to Pop Up Window, title is "+getPageTitle());
-        changeWindow(0);
-		
+		System.out.println(getPageTitle());
+		logMessage("STEP : Switched to Pop Up Window, title is "
+				+ getPageTitle());
+		changeWindow(0);
+
 	}
-	
+
 	public boolean isSafariBrowser() {
-		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("Safari")
+		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase(
+				"Safari")
 				|| ConfigPropertyReader.getProperty("browser")
-						.equalsIgnoreCase("safari")){
+						.equalsIgnoreCase("safari")) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
-	
-	public void handleAlertUsingRobot(){
+
+	public void handleAlertUsingRobot() {
 		Robot robot;
 		try {
 			robot = new Robot();
@@ -777,36 +777,35 @@ public class BaseUi {
 			e.printStackTrace();
 			System.out.println("---no alert present");
 		}
-		
+
 	}
-	
-	public void switchWindow(String current){
+
+	public void switchWindow(String current) {
 		Set<String> handles = driver.getWindowHandles();
-		System.out.println("-----current window value:"+current);
- 		for(String handle : handles){
- 			if(!(handle.equalsIgnoreCase(current))){
- 					driver.switchTo().window(handle);
- 					break;
- 			}
- 		}  		
-//        System.out.println("In "+getPageTitle());
-        driver.switchTo().window(current);
+		System.out.println("-----current window value:" + current);
+		for (String handle : handles) {
+			if (!(handle.equalsIgnoreCase(current))) {
+				driver.switchTo().window(handle);
+				break;
+			}
+		}
+		// System.out.println("In "+getPageTitle());
+		driver.switchTo().window(current);
 	}
-	
-	
-	public void waitForPageToLoad(){
-		while(!executeJavascript1("document.readyState").equals("complete")){
-			
+
+	public void waitForPageToLoad() {
+		while (!executeJavascript1("document.readyState").equals("complete")) {
+
 		}
 	}
-	
-	public void verifyTextwithValues(WebElement ele, String value)
-	{
-		String expectedtext=getElementText(ele).trim();
-		Assert.assertTrue(value.equals(expectedtext),value+" doesnot matches with "+expectedtext);
-		logMessage("ASSERT PASSED : expected "+expectedtext+" matches with "+value);
-		
-		
+
+	public void verifyTextwithValues(WebElement ele, String value) {
+		String expectedtext = getElementText(ele).trim();
+		Assert.assertTrue(value.equals(expectedtext), value
+				+ " doesnot matches with " + expectedtext);
+		logMessage("ASSERT PASSED : expected " + expectedtext
+				+ " matches with " + value);
+
 	}
-	
+
 }

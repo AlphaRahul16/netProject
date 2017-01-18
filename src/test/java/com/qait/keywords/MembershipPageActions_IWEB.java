@@ -2503,6 +2503,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public String getCustomerID() {
 		switchToDefaultContent();
+		handleAlert();
 		wait.waitForPageToLoadCompletely();
 		customerContactId = element("txt_ContactId").getText().trim();
 		logMessage("STEP : Customer id is " + customerContactId + " \n");
@@ -4896,10 +4897,231 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 	}
 
-	public void enterSalesPriceForGCMembership(String salesprice) {
-		isElementDisplayed("inp_salePrice");
-		sendKeysUsingXpathInJavaScriptExecutor(element("inp_salePrice"), salesprice);
-		logMessage("Step : Sales price value entered as " + salesprice);
+	public void enterSalesPriceForGCMembership(String salesprice)
+	 {
+	  isElementDisplayed("inp_salePrice");
+	  sendKeysUsingXpathInJavaScriptExecutor(element("inp_salePrice"), salesprice);
+	  logMessage("Step : Sales price value entered as "+salesprice);
+	 }
+	public String getEffectiveAndExpireDates(String tabName, int row, int column) {
+		return element("txt_memberDetails", tabName, String.valueOf(row), String.valueOf(column)).getText().trim();
+	}
+
+	// public Map<String, String> getTermDatesOfIndividualMembership(String
+	// tabName) {
+	// Map<String, String> individualDates = new HashMap<>();
+	// wait.waitForPageToLoadCompletely();
+	// isElementDisplayed("list_tableData", tabName);
+	// int size=elements("list_tableData", tabName).size();
+	// for (int i = 2; i <= size ; i++) {
+	// if (element("txt_memberDetails", tabName, String.valueOf(i),
+	// String.valueOf(6)).getText()
+	// .contains("Active")) {
+	// individualDates.put("EffectiveDate", getEffectiveAndExpireDates(tabName,
+	// i, 9));
+	// individualDates.put("ExpireDate", getEffectiveAndExpireDates(tabName, i,
+	// 10));
+	// break;
+	// }
+	// }
+	// return individualDates;
+	// }
+
+	public Map<String, String> getTermDatesOfIndividualMembership(String tabName) {
+		Map<String, String> individualDates = new HashMap<>();
+		wait.waitForPageToLoadCompletely();
+		isElementDisplayed("txt_termDates", tabName, String.valueOf(3));
+		String effectiveDate = element("txt_termDates", tabName, String.valueOf(3)).getText().trim();
+		// effectiveDate=DateUtil.convertStringToParticularDateFormat(effectiveDate,"MM/dd/yyyy");
+		logMessage("Step: Effective date is " + effectiveDate);
+		individualDates.put("EffectiveDate", effectiveDate);
+
+		isElementDisplayed("txt_termDates", tabName, String.valueOf(4));
+		String expireDate = element("txt_termDates", tabName, String.valueOf(4)).getText().trim();
+		// expireDate=DateUtil.convertStringToParticularDateFormat(expireDate,
+		// "MM/dd/yyyy");
+		logMessage("Step: Expire date is " + expireDate);
+		individualDates.put("ExpireDate", expireDate);
+		return individualDates;
+	}
+
+	public String verifyTermDatesOfChapterMembership(String tabName, Map<String, String> datesMap) {
+		String chapterName = null;
+		// isElementDisplayed("txt_chapterName",
+		// datesMap.get("EffectiveDate").toString(),
+		// datesMap.get("ExpireDate").toString(), "4");
+
+		chapterName = element("txt_chapterName",
+				DateUtil.convertStringToParticularDateFormat(datesMap.get("EffectiveDate").toString(), "MM/dd/yyyy"),
+				DateUtil.convertStringToParticularDateFormat(datesMap.get("ExpireDate").toString(), "MM/dd/yyyy"), "4")
+						.getText().trim();
+		logMessage("ASSERT PASSED: Term Dates are verified for National and Chapter memberships having chapter as "
+				+ chapterName);
+		return chapterName;
+	}
+
+	public void clickOnGoToRecordLink(String column) {
+		isElementDisplayed("lnk_goToRecord", column);
+		element("lnk_goToRecord", column).click();
+		logMessage("Step: goto record link is clicked for active individual membership\n");
+	}
+
+	public String getInvoiceId(int rowNo, int colNo) {
+		isElementDisplayed("txt_date", String.valueOf(rowNo), String.valueOf(colNo));
+		return element("txt_date", String.valueOf(rowNo), String.valueOf(colNo)).getText().trim();
+	}
+
+	public void getInvoiceHavingTermDatesNotWithinRange() {
+		boolean value = false;
+		String termStartDate, termEndDate;
+		int i;
+		isElementDisplayed("lst_childTable");
+		for (i = 1; i <= elements("lst_childTable").size(); i++) {
+			termStartDate = element("txt_endDate", String.valueOf(i), String.valueOf(14)).getText().trim();
+			termEndDate = element("txt_endDate", String.valueOf(i), String.valueOf(15)).getText().trim();
+			if (termStartDate.equals("") || termEndDate.equals("")) {
+				continue;
+			}
+			value = verfiyEndAndStartDate(termEndDate, termStartDate);
+			if (!value) {
+				value = true;
+				break;
+			}
+		}
+		Assert.assertTrue(value,
+				"ASSERT FAILED: No Invoice is having Term start and end date as not in current date's range \n");
+		logMessage("ASSERT PASSED: Invoice Id " + getInvoiceId(i, 12)
+				+ " is having Term start and end date as not in current date's range \n");
+	}
+
+	public void getInvoiceHavingTermDateWithinRange() {
+		boolean value = false;
+		String termStartDate, termEndDate;
+		int i;
+		isElementDisplayed("lst_childTable");
+		for (i = 1; i <= elements("lst_childTable").size(); i++) {
+			termStartDate = element("txt_endDate", String.valueOf(i), String.valueOf(14)).getText().trim();
+			termEndDate = element("txt_endDate", String.valueOf(i), String.valueOf(15)).getText().trim();
+			if (termStartDate.equals("") || termEndDate.equals("")) {
+				continue;
+			}
+			value = verfiyEndAndStartDate(termEndDate, termStartDate);
+			if (value)
+				break;
+		}
+		Assert.assertTrue(value,
+				"ASSERT FAILED: No Invoice is having Term start and end date in current date's range \n");
+		logMessage("ASSERT PASSED: Invoice Id " + getInvoiceId(i, 12)
+				+ " is having Term start and end date in current date's range \n");
+	}
+
+	public void getInvoiceId(String caseId) {
+		verifyTermEndDateAndStartDateIsEmpty();
+		logMessage("Step: Invoice Id " + getInvoiceId(1, 12) + " is having Term start and end date as null\n");
+		if (caseId.equals("3"))
+			getInvoiceHavingTermDatesNotWithinRange();
+		else
+			getInvoiceHavingTermDateWithinRange();
+	}
+
+	public void verifyMemberPaymentStatus(String caseId) {
+		String paymentStatus = getPaymentStatus();
+		if (caseId.equals("3")) {
+			Assert.assertTrue((paymentStatus.equals("Grace") || paymentStatus.equals("Unpaid")),
+					"ASSERT FAILED: Payment status is not verified as " + paymentStatus);
+			logMessage("ASSERT PASSED: Payment status is verified as " + paymentStatus);
+		} else {
+			Assert.assertTrue(paymentStatus.equals("Paid"),
+					"ASSERT PASSED: Payment status is not verified as " + paymentStatus);
+			logMessage("ASSERT PASSED: Payment status is verified as " + paymentStatus);
+		}
+	}
+
+	public void verifyTermDatesAreUnchanged(Map termDates, String tabName) {
+		Assert.assertTrue(
+				element("txt_termDates", tabName, String.valueOf(3)).getText().trim()
+						.equals(termDates.get("EffectiveDate").toString()),
+				"ASSERT FAILED: Effective date " + termDates.get("EffectiveDate").toString() + " is changed\n");
+		logMessage("ASSERT PASSED: Effective date " + termDates.get("EffectiveDate").toString() + " is unchanged\n");
+
+		Assert.assertTrue(
+				element("txt_termDates", tabName, String.valueOf(4)).getText().trim()
+						.equals(termDates.get("ExpireDate").toString()),
+				"ASSERT FAILED: Expire date " + termDates.get("EffectiveDate").toString() + " is changed\n");
+		logMessage("ASSERT PASSED: Expire date " + termDates.get("ExpireDate").toString() + " is unchanged\n");
+	}
+
+	public void verifyAdditionOfNewLSAndDetailsOfOldLS(String oldChpName,String newChpName,Map individualDates) {
+		navigateToBackPage();
+		expandDetailsMenuIfAlreadyExpanded("chapter memberships");
+		verifyOldLSStatusIsTransfered(oldChpName);
+		verifyTerminateDateIsCurrentDate(oldChpName,DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/dd/yyyy", "EST5EDT"),7,"Terminate date");
+		verifyTerminateDateIsCurrentDate(newChpName,DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/dd/yyyy", "EST5EDT"),3,"Join date");
+		verifyTerminateDateIsCurrentDate(newChpName,DateUtil.convertStringToParticularDateFormat(individualDates.get("ExpireDate").toString(), "MM/dd/yyyy"),5,"Effective date");
+		verifyTerminateDateIsCurrentDate(newChpName,DateUtil.convertStringToParticularDateFormat(individualDates.get("ExpireDate").toString(), "MM/dd/yyyy"),6,"Expire date");
+		logMessage("Step: New Local Setion "+newChpName+" is added successfully\n");
+	}
+
+	public void verifyOldLSStatusIsTransfered(String oldLSName) {
+		isElementDisplayed("txt_payments", oldLSName, String.valueOf(2));
+		Assert.assertTrue(element("txt_payments", oldLSName, String.valueOf(2)).getText().trim().equals("Transferred"),
+				"ASSERT PASSED: Member status of " + oldLSName + " has not changed to Transferred\n");
+		logMessage("ASSERT PASSED: Member status of " + oldLSName + " is changed to Transferred\n");
+	}
+
+	public void verifyTerminateDateIsCurrentDate(String oldLSName,String date,int column,String field) {
+		isElementDisplayed("txt_payments", oldLSName, String.valueOf(column));
+		Assert.assertTrue(
+				element("txt_payments", oldLSName, String.valueOf(column)).getText().trim()
+						.equals(date),
+				"ASSERT PASSED: "+field+" of " + oldLSName + " is not "+date+"\n");
+		logMessage("ASSERT PASSED: "+field+" of " + oldLSName + " is "+date+"\n");
+	}
+	
+	public void verifyAdditionOfNewInvoiceOnMembershipProfilePage(String invoiceName){
+		verifyTerminateDateIsCurrentDate(invoiceName,DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST5EDT"),9,"Invoice Transaction date");
+		logMessage("ASSERT PASSED: Newly created invoice on Membership profile page is "+invoiceName+"\n");
+	}
+	
+	public void verifyDetailsForNewLS(String invoiceName,String value,String field){
+		isElementDisplayed("txt_payments",invoiceName,String.valueOf(6));
+		Assert.assertTrue(!element("txt_payments",invoiceName,String.valueOf(6)).getText().trim().equals(value));
+		logMessage("ASSERT PASSED: Newly created invoice is having "+field+" as "+element("txt_payments",invoiceName,String.valueOf(6)).getText().trim());
+	}
+	
+	public void selectBatchAndPaymentDetails_AddressChangeProforma(String batchName, String paymentType, String paymentMethod,
+			String cardNumber, String expireDate, String cvvNumber, String checkNumber) {
+
+		holdExecution(2000);
+
+		if (verifyBatchIsPresent(batchName)) {
+			selectOrderEntryInfo("batch", batchName);
+		} else {
+			addBatch(batchName.replaceAll("ACS: ", ""), "QA");
+		}
+		waitForSpinner();
+//		selectOrderEntryInfo("PaymentType", paymentType);
+//		waitForSpinner();
+		selectOrderEntryInfo("paymentMethod", paymentMethod);
+		waitForSpinner();
+		System.out.println("check number" + checkNumber);
+
+		if (paymentMethod.equalsIgnoreCase("Visa/MC")) {
+			enterCardDetails("cardNumber", cardNumber);
+			selectMemberInfo("expireDate", expireDate);
+			enterCardDetails("cvvNumber", cvvNumber);
+		} else if (paymentMethod.equalsIgnoreCase("BOA - Check")) {
+			enterCardDetails("checkNumber", checkNumber);
+
+		} else {
+			Assert.fail("ASSERT FAILED : Payment method " + paymentMethod + " is not correct \n");
+		}
+
+		selectBillingAddressIfNotPrePopulated();
+		clickOnSaveAndFinish();
+		handleAlert();
+
+		verifyPageTitleContains("CRM | Individuals |");
 	}
 
 	public void selectOverrideReasonForGC(String overrideReason) {

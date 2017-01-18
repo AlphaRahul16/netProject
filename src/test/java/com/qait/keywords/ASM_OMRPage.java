@@ -414,7 +414,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		  executeJavascript("document.getElementById('eWebFrame').contentWindow.document.getElementById('btnSubmitOmrPaymentTop').click()");
 		  }
 		  logMessage("STEP : Click on Pay button at Top \n");
-		  wait.resetExplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
 		  wait.resetImplicitTimeout(timeOut);
 		  
 		 }
@@ -684,7 +684,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		}
 		switchToEwebRenewalFrame();
 		wait.hardWait(2);
-		wait.hardWait(2);
+		dynamicWait(20, "txt_productname", "1");
 		scrollDown(elements("txt_productname").get(0));
 		System.out.println(elements("txt_productname").size());
 		List<WebElement> productName= elements("txt_productname");
@@ -902,7 +902,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	public void verifyPrintReceiptMessageAfterPayment() {
 		wait.waitForPageToLoadCompletely();
 		//switchToEwebRenewalFrame();
-		wait.hardWait(10);
+		dynamicWait(20, "btn_printreceipt", "1");
 		Object display= executeJavascriptReturnValue("window.getComputedStyle(document.getElementById('eWebFrame').contentWindow.document.querySelector('#print-invoice>input')).display");
 		System.out.println(display.toString());
 		Assert.assertTrue(display.toString().contains("inline"));

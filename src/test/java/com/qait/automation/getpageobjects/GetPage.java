@@ -32,6 +32,7 @@ public class GetPage extends BaseUi {
 
 	protected WebDriver webdriver;
 	String pageName;
+	static int count =0;
 	LayoutValidation layouttest;
 	final String case1 = "";
 
@@ -290,8 +291,8 @@ public class GetPage extends BaseUi {
 				+ " is visible and Text is " + expectedText);
 	}
 
-	protected boolean isElementDisplayed(String elementName)
-			throws NoSuchElementException {
+	protected boolean isElementDisplayed(String elementName)  
+			throws NoSuchElementException ,AssertionError {
 		scriptExecutionController();
 		boolean result = wait.waitForElementToBeVisible(element(elementName))
 				.isDisplayed();
@@ -519,6 +520,11 @@ public class GetPage extends BaseUi {
 				+ "/membernumberlookup/";
 		String case2 = "https://ewebtest.acs.org/NF" + url + "/ccedlookup";
 		String case3 = "https://ewebtest.acs.org/NF" + url + "/ncwlookup";
+		
+//		String case1 = "https://dev-eweb12/NF" + url
+//				+ "/membernumberlookup/";
+//		String case2 = "https://dev-eweb12/NF" + url + "/ccedlookup";
+//		String case3 = "https://dev-eweb12/NF" + url + "/ncwlookup";
 
 		if (AppUrl.equalsIgnoreCase(case1)) {
 			skipTest.put("Step01_Verify_Email_Address_IWEB_Test", true);
@@ -574,7 +580,7 @@ public class GetPage extends BaseUi {
 //			}
 //		}
 //	}
-	static int count =0;
+
 	 public void dynamicWait(int timeout,String element,String replacement){
 	     try{
 	      if(count<timeout){
@@ -592,6 +598,14 @@ public class GetPage extends BaseUi {
 	     }
 	    }
 
-
+	 protected void verifyElementTextContentCaseSensitive(String elementName,
+			   String expectedText) {
+			  wait.waitForElementToBeVisible(element(elementName));
+			  //org.apache.commons.lang3.StringUtils.containsIgnoreCase(element(elementName).getAttribute("textContent"),expectedText);
+			  assertThat("ASSERT FAILED : Element '" + elementName + "' Text is not as expected: ", 
+			    org.apache.commons.lang3.StringUtils.containsIgnoreCase(element(elementName).getAttribute("textContent"),expectedText));
+			  logMessage("ASSERT PASSED : Element " + elementName
+			    + " is visible and Text is " + expectedText);
+			 }
 	
 }

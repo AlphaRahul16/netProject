@@ -324,6 +324,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED :" + middleName + " is verified as middle name\n");
 		verifyElementTextContains("txt_memberDetails", lastName);
 		logMessage("ASSERT PASSED :" + lastName + " is verified as last name\n");
+
 		verifyElementTextContentCaseInSensitive("txt_memberDetails", map().get("street"));
 		//verifyElementTextContains("txt_memberDetails", map().get("street"));
 		logMessage("ASSERT PASSED :" + map().get("street") + " is verified as street\n");
@@ -565,6 +566,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void navigateToContactInfoMenuOnHoveringMore() {
 		try {
 			wait.hardWait(5);
+			handleAlert();
 			isElementDisplayed("img_moreMenu");
 			clickUsingXpathInJavaScriptExecutor(element("img_moreMenu"));
 			logMessage("Step : Navigate to Contact Info menu on clicking more button\n");
@@ -1418,10 +1420,10 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	private void verifySupporterDocumentsContainsUploadedFile(Map<String, String> mapAwardsNomination,
 			String SupporterNumber) {
-		System.out.println(element("txt_subscriptionName", SupporterNumber).getAttribute("href"));
+		System.out.println(element("lnk_awardsSupporterDoc", SupporterNumber).getAttribute("href"));
 		System.out.println(mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber));
-	//	Assert.assertTrue(element("lnk_awardsSupporterDoc", SupporterNumber).getAttribute("href")
-		//		.contains(mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber)));
+		Assert.assertTrue(element("lnk_awardsSupporterDoc", SupporterNumber).getAttribute("href")
+				.contains(mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber)));
 		logMessage("ASSERT PASSED : Document for supporter " + SupporterNumber + " succesfully verified as "
 				+ mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber));
 	}
@@ -2274,6 +2276,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		else
 		{
+			System.out.println(productName);
 		isElementDisplayed("txt_updatedLogsBPA",productName,"3");
 		pricevalue=element("txt_updatedLogsBPA",productName,"3").getText().trim();
 		}

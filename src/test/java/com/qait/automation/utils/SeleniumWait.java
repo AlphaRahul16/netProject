@@ -85,6 +85,8 @@ public class SeleniumWait {
 		elementHighlight(webElements.get(webElements.size() - 1));
 		return webElements;
 	}
+	
+	
 
 	public boolean waitForElementToBeInVisible(By locator) {
 		return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator)) != null;
@@ -201,5 +203,7 @@ public class SeleniumWait {
 		}
 
 	}
+	
+	
 
 }

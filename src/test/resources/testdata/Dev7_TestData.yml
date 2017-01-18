@@ -31,6 +31,8 @@ app_url_MGMUrl: https://dev-eweb12/NFDev7/mgm
 app_url_MGMjoin: https://jointest.acs.org/NFStage2/oma?appID=
 app_url_MGMOputOut: https://www.ewebtest.acs.org/NFStage2/eweb/ACSMGMTemplate.aspx?site=ACS_MGM&WebCode=optout&appID=
 app_url_MGMLogout: https://www.ewebtest.acs.org/NFStage2/eweb/acslogout.aspx
+app_url_IwebMyAccount: https://dev-eweb12.acs.org/NFDev7/iweb
+app_url_SourceCodeOMA: https://jointest.acs.org/NFStage2/oma?sc=
 
 Authentication: 
   userName: C00767
