@@ -229,6 +229,7 @@ label_profile_title			  					xpath							 //div[text()='${value}']
 label_heading_data								xapth							//span[text()='${value}']
 table_data										xpath							.//table[@class='table']//tr[2]
 icon_arrow										xpath							//*[@class='DataFormListTDDataGridAlternatingItemLink dataGridItemLink']
+list_batchCreditPage								id									inv_bat_key_oAddHyperLink
 
 #Gift Card
 

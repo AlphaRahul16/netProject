@@ -967,8 +967,8 @@ public class ASM_DonatePage extends GetPage {
 		String pledgeProductName = donateProgramNames[0] + " Pledge";
 		System.out.println(pledgeProductName);
 		System.out.println(element("txt_confirmDonation_product").getText());
-		Assert.assertTrue(element("txt_confirmDonation_product").getText()
-				.equals(pledgeProductName));
+		Assert.assertTrue(pledgeProductName
+				.contains(element("txt_confirmDonation_product").getText()));
 		logMessage("ASSERT PASSED : Product name on confirm donation page is displayed as : "
 				+ pledgeProductName);
 

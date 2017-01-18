@@ -71,10 +71,16 @@ public class COE_Inventory_Test extends BaseTest {
 	@Test
 	public void Step04_Click_Select_Product_And_Merchandise_Option_and_Verify_Centralized_Order_Entry_Merchandise_Window() {
 		test.memberShipPage.clickOnSelectProduct();
-		test.memberShipPage.selectRandomProductForCRMInventory();
+		test.memberShipPage.selectMerchandise("merchandise");
+		test.memberShipPage.enterProductCode(test.homePageIWEB.map().get("Product Code").trim());
+		test.memberShipPage.clickOnSearchDisplayNameButton();
 		productName = test.memberShipPage.getProductNameFromCOEPage();
 		productCode = test.memberShipPage.getProductCodeFromCOEPage();
 		test.memberShipPage.clickOnSaveAndFinish();
+//		test.memberShipPage.selectRandomProductForCRMInventory();
+//		productName = test.memberShipPage.getProductNameFromCOEPage();
+//		productCode = test.memberShipPage.getProductCodeFromCOEPage();
+//		test.memberShipPage.clickOnSaveAndFinish();
 	}
 
 	@Test
