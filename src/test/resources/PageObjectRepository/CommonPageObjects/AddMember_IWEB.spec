@@ -18,6 +18,4 @@ btn_addVerifySave                           id                            SaveBu
 list_state_ver		                        id                            DropDownListState_adr
 list_country_ver							id							  DropDownListCountry_adr
 inp_city									id							  adr_city
-inp_memberDetailInAdd                       xpath                         (//label[text()='${detailName}:']/preceding-sibling::input)[1]
-inp_memberDetailCityState                   xpath                         (//label[text()='${detailName}:']/following-sibling::input)[1]
 =============================================================================================================================================
