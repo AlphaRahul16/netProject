@@ -75,7 +75,6 @@ public class DataProvider {
 			}
 		}
 
-		System.out.println("row"+rowNumberExact);
 		int rowNumber = Integer.parseInt(rowNumberExact) - 1;
 		return dataRows.get(rowNumber);
 	}

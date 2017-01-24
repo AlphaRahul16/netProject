@@ -37,7 +37,19 @@ public class ACS_Address_Change_On_Proforma_Test extends BaseTest {
 //		System.setProperty("caseid",caseID);
 //		System.out.println("scenario:::::"+System.getProperty("caseID"));
 //	}
+	
+	public ACS_Address_Change_On_Proforma_Test() {
+		com.qait.tests.DataProvider_FactoryClass.sheetName = "AddressChangeOnProforma";
+	}
 
+	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
+	public ACS_Address_Change_On_Proforma_Test(String caseID) {
+		this.caseID = caseID;
+	    System.out.println(this.caseID);
+	    System.setProperty("caseID", this.caseID);
+
+	}
+	
 	@BeforeClass(alwaysRun = true)
 	public void Start_Test_Session() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
@@ -49,19 +61,6 @@ public class ACS_Address_Change_On_Proforma_Test extends BaseTest {
 	@BeforeMethod
 	public void handleTestMethodName(Method method) {
 		test.printMethodName(method.getName());
-	}
-	
-	public ACS_Address_Change_On_Proforma_Test() {
-		com.qait.tests.DataProvider_FactoryClass.sheetName = "AddressChangeOnProforma";
-		System.out.println("in cons");
-	}
-
-	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
-	public ACS_Address_Change_On_Proforma_Test(String caseID) {
-		this.caseID = caseID;
-	    System.out.println(this.caseID);
-	    System.setProperty("caseID", this.caseID);
-
 	}
 	
 	@Test //(groups={"3","4"})
