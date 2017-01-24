@@ -4875,9 +4875,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 	}
 
-	public String getEffectiveAndExpireDates(String tabName, int row, int column) {
-		return element("txt_memberDetails", tabName, String.valueOf(row), String.valueOf(column)).getText().trim();
-	}
+//	public String getEffectiveAndExpireDates(String tabName, int row, int column) {
+//		return element("txt_memberDetails", tabName, String.valueOf(row), String.valueOf(column)).getText().trim();
+//	}
 
 	// public Map<String, String> getTermDatesOfIndividualMembership(String
 	// tabName) {
@@ -5023,13 +5023,18 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED: Expire date " + termDates.get("ExpireDate").toString() + " is unchanged\n");
 	}
 
-	public void verifyAdditionOfNewLSAndDetailsOfOldLS(String oldChpName,String newChpName,Map individualDates) {
+	public void verifyAdditionOfNewLSAndDetailsOfOldLS(String oldChpName,String newChpName,Map individualDates,String caseId) {
 		navigateToBackPage();
 		expandDetailsMenuIfAlreadyExpanded("chapter memberships");
 		verifyOldLSStatusIsTransfered(oldChpName);
 		verifyTerminateDateIsCurrentDate(oldChpName,DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/dd/yyyy", "EST5EDT"),7,"Terminate date");
 		verifyTerminateDateIsCurrentDate(newChpName,DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/dd/yyyy", "EST5EDT"),3,"Join date");
-		verifyTerminateDateIsCurrentDate(newChpName,DateUtil.convertStringToParticularDateFormat(individualDates.get("ExpireDate").toString(), "MM/dd/yyyy"),5,"Effective date");
+		if(caseId.equals("3")){
+			verifyTerminateDateIsCurrentDate(newChpName,DateUtil.convertStringToParticularDateFormat(individualDates.get("ExpireDate").toString(), "MM/dd/yyyy"),5,"Effective date");
+		}
+		else
+			verifyTerminateDateIsCurrentDate(newChpName,DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/dd/yyyy", "EST5EDT"),5,"Effective date");
+
 		verifyTerminateDateIsCurrentDate(newChpName,DateUtil.convertStringToParticularDateFormat(individualDates.get("ExpireDate").toString(), "MM/dd/yyyy"),6,"Expire date");
 		logMessage("Step: New Local Setion "+newChpName+" is added successfully\n");
 	}
@@ -5046,7 +5051,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		Assert.assertTrue(
 				element("txt_payments", oldLSName, String.valueOf(column)).getText().trim()
 						.equals(date),
-				"ASSERT PASSED: "+field+" of " + oldLSName + " is not "+date+"\n");
+				"ASSERT FAILED: "+field+" of " + oldLSName + " is not "+date+"\n");
 		logMessage("ASSERT PASSED: "+field+" of " + oldLSName + " is "+date+"\n");
 	}
 	
@@ -5055,13 +5060,21 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED: Newly created invoice on Membership profile page is "+invoiceName+"\n");
 	}
 	
-	public void verifyDetailsForNewLS(String invoiceName,String value,String field){
-		isElementDisplayed("txt_payments",invoiceName,String.valueOf(6));
-		Assert.assertTrue(!element("txt_payments",invoiceName,String.valueOf(6)).getText().trim().equals(value));
-		logMessage("ASSERT PASSED: Newly created invoice is having "+field+" as "+element("txt_payments",invoiceName,String.valueOf(6)).getText().trim());
+	public void verifyDetailsForNewLS(String invoiceName,String value,String field,int index){
+		isElementDisplayed("txt_payments",invoiceName,String.valueOf(index));
+		System.out.println("-------#####"+element("txt_payments",invoiceName,String.valueOf(index)).getText().trim());
+		Assert.assertTrue(!element("txt_payments",invoiceName,String.valueOf(index)).getText().trim().equals(value));
+		logMessage("ASSERT PASSED: Newly created invoice is having "+field+" as "+element("txt_payments",invoiceName,String.valueOf(index)).getText().trim());
 	}
 	
-	public void selectBatchAndPaymentDetails_AddressChangeProforma(String batchName, String paymentType, String paymentMethod,
+	public void verifyPaidValueForNewLS(String invoiceName,String value,String field,int index){
+		isElementDisplayed("txt_payments",invoiceName,String.valueOf(index));
+		System.out.println("-------#####"+element("txt_payments",invoiceName,String.valueOf(index)).getText().trim());
+		Assert.assertTrue(element("txt_payments",invoiceName,String.valueOf(index)).getText().trim().equals(value));
+		logMessage("ASSERT PASSED: Newly created invoice is having "+field+" as "+element("txt_payments",invoiceName,String.valueOf(index)).getText().trim());
+	}
+	
+	public void selectBatchAndPaymentDetails_AddressChangeProforma(String batchName,String paymentMethod,
 			String cardNumber, String expireDate, String cvvNumber, String checkNumber) {
 
 		holdExecution(2000);
@@ -5076,7 +5089,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 //		waitForSpinner();
 		selectOrderEntryInfo("paymentMethod", paymentMethod);
 		waitForSpinner();
-		System.out.println("check number" + checkNumber);
+//		System.out.println("check number" + checkNumber);
 
 		if (paymentMethod.equalsIgnoreCase("Visa/MC")) {
 			enterCardDetails("cardNumber", cardNumber);
@@ -5089,11 +5102,17 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			Assert.fail("ASSERT FAILED : Payment method " + paymentMethod + " is not correct \n");
 		}
 
-		selectBillingAddressIfNotPrePopulated();
-		clickOnSaveAndFinish();
+//		selectBillingAddressIfNotPrePopulated();
+		clickOnSaveButtonAddPayment();
 		handleAlert();
 
-		verifyPageTitleContains("CRM | Individuals |");
+//		verifyPageTitleContains("CRM | Individuals |");
+	}
+	
+	public void clickOnSaveButtonAddPayment(){
+		isElementDisplayed("btn_saveAddPayment");
+		element("btn_saveAddPayment").click();
+		logMessage("Step: Save button is clicked\n");
 	}
 
 	public void enterSalesPriceForGCMembership(String salesprice)
@@ -5207,6 +5226,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		System.out.println(element("td_lineItems", productName,index).getText().trim());
 		Assert.assertTrue(Float.parseFloat(element("td_lineItems", productName,index).getText().trim())==netcredit);
 		logMessage("ASSERT PASSED: Net credit of "+productName+" on centralized entry page is " + netcredit);
+	}
+	
+	public void verifyLSDatesFlipToSynchWithNationalDates(String newChpName,Map individualDates){
+		verifyTerminateDateIsCurrentDate(newChpName,DateUtil.convertStringToParticularDateFormat(individualDates.get("EffectiveDate").toString(), "MM/dd/yyyy"),5,"Effective date");
+		verifyTerminateDateIsCurrentDate(newChpName,DateUtil.convertStringToParticularDateFormat(individualDates.get("ExpireDate").toString(), "MM/dd/yyyy"),6,"Expire date");
 	}
 	
 }

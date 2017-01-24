@@ -184,7 +184,7 @@ public class ACS_SourceCodes_Test extends BaseTest {
 		test.memberShipPage.verifyMemberDetails("invoices (open batch)", 2,7, "N", "Proforma");//7, 1
 		test.memberShipPage.verifyMemberDetails("invoices (open batch)",2, 8, "N", "Invoice Open");//8, 1
         test.memberShipPage.clickOnGoToRecordButton(invoiceNumber, "1");	
-		test.invoicePage.verifyMemberDetails("transaction date", DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY"));
+		test.invoicePage.verifyMemberDetails("transaction date", DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY","EST5EDT"));
         test.invoicePage.verifyInvoiceProfile("proforma", "No");
 		test.invoicePage.verifyInvoiceProfile("invoice total", Total);
 		test.invoicePage.verifyInvoiceProfile("balance", "$0.00");

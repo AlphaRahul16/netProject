@@ -171,12 +171,12 @@ public class ResultsIT extends ReformatTestFile {
 			}
 
 		}
-		try {
-			Runtime.getRuntime().exec("taskkill /f /im cmd.exe");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			Runtime.getRuntime().exec("taskkill /f /im cmd.exe");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 	private Session getSession() {
@@ -211,8 +211,7 @@ public class ResultsIT extends ReformatTestFile {
 
 		mailtext = "Hi All,<br>";
 		mailtext = mailtext + "</br><b>" + projectName
-				+ " Test Automation Result:: (Executed by : " + username
-				+ " )</b></br><br>";
+				+ " Test Automation Result::  " + " )</b></br><br>";  //(Executed by : + username
 		mailtext = mailtext
 				+ "<br><b><font style = Courier, color = green>Test Name: </font></b>"
 				+ getTestName();
