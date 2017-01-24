@@ -57,7 +57,7 @@ txt_tableEntryArrow                       xpath                //a[contains(text
 txt_citationAwards                        css                  div[id*='citation']>pre
 txt_supporterNameAwardsNomination         xpath                (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[4]
 btn_entryReceivedAwards                   xpath                //a[contains(text(),'Entry Received')]
-lnk_awardsSupporterDoc                    xpath                (//th/a)[2]/../../following-sibling::tr[1]//td[5]/a
+lnk_awardsSupporterDoc                    xpath                (//th/a)[2]/../../following-sibling::tr[${value}]//td[5]/a
 lnk_awardsLettersDoc                      xpath                 //td[contains(text(),'${letterName}')]/preceding-sibling::td[1]/a
 btn_editAwardsEntry                       css                   img[alt*='edit']
 txtarea_CitationRecommedation             xpath                 //label[contains(text(),'${value}')]/preceding-sibling::textarea

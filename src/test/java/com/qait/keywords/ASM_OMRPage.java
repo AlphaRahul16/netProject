@@ -188,11 +188,13 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	public void clickProccedWithPaymentinINR(String buttontext)
 	{
 		wait.waitForPageToLoadCompletely();
-//	switchToEwebRenewalFrame();
+		switchToDefaultContent();
+	switchToEwebRenewalFrame();
 //	isElementDisplayed("rad_undergraduate", buttontext);
 //	element("rad_undergraduate", buttontext).click();
 	wait.hardWait(14);
 	wait.waitForPageToLoadCompletely();
+	dynamicWait(20, "btn_PayINR", "1");
 	executeJavascript("document.getElementById('eWebFrame').contentWindow.document.getElementsByClassName('btn btn-blue')[0].click()");
 	logMessage("STEP : Button "+buttontext+" is clicked\n");
 	wait.waitForPageToLoadCompletely();
@@ -402,11 +404,12 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 
 	public void clickOnSubmitPayment() {
 		  wait.hardWait(14);
+		  dynamicWait(20, "btn_submitPayment", "1");
 		  wait.waitForPageToLoadCompletely();
 		  try
 		  {
 		   wait.resetExplicitTimeout(hiddenFieldTimeOut);
-		   wait.resetImplicitTimeout(4);
+		   wait.resetImplicitTimeout(10);
 		   performClickByActionBuilder(element("btn_submitPayment"));
 		  }
 		  catch(Exception e)
@@ -902,6 +905,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	public void verifyPrintReceiptMessageAfterPayment() {
 		wait.waitForPageToLoadCompletely();
 		//switchToEwebRenewalFrame();
+		wait.hardWait(8);
 		dynamicWait(20, "btn_printreceipt", "1");
 		Object display= executeJavascriptReturnValue("window.getComputedStyle(document.getElementById('eWebFrame').contentWindow.document.querySelector('#print-invoice>input')).display");
 		System.out.println(display.toString());

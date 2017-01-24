@@ -16,7 +16,27 @@ public class Test {
 	        int port = 21;
 	        String user = "acs@qait";
 	        String pass = "@cs@123";
-	        System.out.println("Abc"+org.apache.commons.lang3.StringUtils.containsIgnoreCase("Abc","Abc"));
+	        //System.out.println("Abc"+org.apache.commons.lang3.StringUtils.containsIgnoreCase("Abc","Abc"));
+	        
+	    	String a = "aabcgdbdgeads";
+			int i,j,count;
+			char temp;
+			String b[] = new String[15];
+			System.out.println(a.length());
+			for(i=0;i<a.length()-1;i++)
+			{
+				 count = 1;
+				System.out.println("before"+i);
+				temp = a.charAt(i++);
+				System.out.println("after"+i);
+				if(a.charAt(i)==temp)
+				{
+					count++;
+					
+				}
+				
+				System.out.println(temp+" count is "+count);
+			}
 	}}
 //	 
 //	        FTPClient ftpClient = new FTPClient();

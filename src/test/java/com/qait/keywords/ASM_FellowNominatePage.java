@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.text.WordUtils;
+import org.jboss.netty.util.internal.SystemPropertyUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
@@ -331,9 +332,15 @@ public class ASM_FellowNominatePage extends GetPage {
 
 	public void clickReturnToDashBoardButton() {
 		isElementDisplayed("btn_ReturnToDashboard");
-
 		element("btn_ReturnToDashboard").click();
 		logMessage("STEP : Return To Dashboard is clicked\n");
+	}
+	
+	public void clickReturnToDashBoardButtonOnPopUp()
+	{
+		isElementDisplayed("btn_ReturnToDashboardPopUp");
+		element("btn_ReturnToDashboardPopUp").click();
+		logMessage("STEP : Return To Dashboard on Pop Up is clicked\n");
 	}
 
 	public void selectNominationFieldValue(String fieldName, String fieldValue) {
@@ -465,7 +472,7 @@ public class ASM_FellowNominatePage extends GetPage {
 		enterNominationDetails("Title", title);
 		enterNominationDetails("FromDate", fromDate);
 		enterNominationDetails("ToDate", toDate);
-		clickOnSaveButton("affiliation");
+		
 	}
 
 	public void fillDetailsForVolunteerServiceToTheACSComunity(String title, String fromDate, String toDate,
@@ -474,18 +481,22 @@ public class ASM_FellowNominatePage extends GetPage {
 		enterNominationDetails("FromDate", fromDate);
 		enterNominationDetails("ToDate", toDate);
 		// clickOnAllFieldsRequiredHeading();
-		System.out.println("1");
 		String frame = WordUtils.capitalize(saveName);
-		System.out.println("11");
 		// switchoFrame("txt" + frame + "Desc_ifr");
 		System.out.println(frame);
 		switchToFrame(element("frameGeneral", frame));
-		System.out.println("2");
 		enterDescription(description);
-		System.out.println("3");
 		switchToDefaultContent();
-		System.out.println("4");
-		clickOnSaveButton(saveName);
+
+	}
+
+	private void enterImpactSummary(String fieldValue) {
+		
+		isElementDisplayed("txtarea_impactsummary");
+		element("txtarea_impactsummary").clear();
+		element("txtarea_impactsummary").sendKeys(fieldValue);
+		logMessage("STEP : " + fieldValue + " is entered in Volunteer Service \n");
+		
 	}
 
 	public void clickOnAllFieldsRequiredHeading() {
@@ -664,7 +675,7 @@ public class ASM_FellowNominatePage extends GetPage {
 		getFellowNominated = new YamlInformationProvider(mapFellowNominatedSmoke);
 		wait.waitForPageToLoadCompletely();
 		wait.waitForPageToLoadCompletely();
-		ClickCodeOfConductButton(getFellowNominated.getASM_fellowNominated("CodeOfConductResponse"));
+		ClickCodeOfConductButton(getFellowNominated.getASM_fellowNominated("CodeOfConductResponse"),getFellowNominated.getASM_fellowNominated("CodeConExplain"));
 		clickOnSaveButton("codeofconduct");
 		verifyNumberOfCitationsAs("Code of Conduct", "1");
 
@@ -679,6 +690,11 @@ public class ASM_FellowNominatePage extends GetPage {
 				getFellowNominated.getASM_fellowNominated_ProfOrgDetails("Position_title"),
 				getFellowNominated.getASM_fellowNominated_ProfOrgDetails("FromDate"),
 				getFellowNominated.getASM_fellowNominated_ProfOrgDetails("ToDate"));
+		clickReturnToDashBoardButtonOnPopUp();
+		verifyPopUpDataonReturningToDashboard(getFellowNominated.getASM_fellowNominated("EditDataSavedMsg"));
+		clickGotoDashboardButtonOnPopUp();
+		returnToCurrentNomination("Professional Organization Affiliations");
+		clickOnSaveButton("affiliation");
 		verifyNumberOfCitationsAs("Professional Organization Affiliations", "1");
 
 		selectNominationChecklistName("Volunteer Service to the ACS Community");
@@ -686,6 +702,8 @@ public class ASM_FellowNominatePage extends GetPage {
 				getFellowNominated.getASM_fellowNominated_ProfDetails("FromDate"),
 				getFellowNominated.getASM_fellowNominated_ProfDetails("ToDate"),
 				getFellowNominated.getASM_fellowNominated_ProfDetails("Description"), "service");
+		enterImpactSummary(getFellowNominated.getASM_fellowNominated_ProfDetails("impactSummaryMsg"));
+		clickOnSaveButton("service");
 		verifyNumberOfCitationsAs("Volunteer Service to the ACS Community", "1");
 
 		selectNominationChecklistName("Contributions to the Science / Profession");
@@ -693,6 +711,8 @@ public class ASM_FellowNominatePage extends GetPage {
 				getFellowNominated.getASM_fellowNominated_ProfDetails("FromDate"),
 				getFellowNominated.getASM_fellowNominated_ProfDetails("ToDate"),
 				getFellowNominated.getASM_fellowNominated_ProfDetails("Description"), "contribution");
+		enterImpactSummary(getFellowNominated.getASM_fellowNominated_ProfDetails("impactSummaryMsg"));
+		clickOnSaveButton("contribution");
 		verifyNumberOfCitationsAs("Contributions to the Science / Profession", "1");
 
 		selectNominationChecklistName("Honors and Awards");
@@ -730,7 +750,7 @@ public class ASM_FellowNominatePage extends GetPage {
 		clickOnContinueToNextButton();
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(4);
-		verifyEditFunctionalityForSavedNomination(NominationType);
+		verifyEditFunctionalityForSavedNomination(NominationType,getFellowNominated.getASM_fellowNominated("CodeConExplain"));
 		clickOnContinueToSubmit();
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);
@@ -741,12 +761,40 @@ public class ASM_FellowNominatePage extends GetPage {
 		clickOnSubmitButton();
 	}
 
-	private void verifyEditFunctionalityForSavedNomination(String NominationType) {
+	private void returnToCurrentNomination(String NominationName) {
+		
+		isElementDisplayed("btn_Edit");
+		element("btn_Edit").click();
+		wait.hardWait(6);
+		selectNominationChecklistName(NominationName);
+		wait.hardWait(6);
+		wait.waitForElementToBeVisible(element("btn_Edit"));
+		element("btn_Edit").click();
+		logMessage("STEP : User returned to current nomination\n");
+		
+	}
+
+	private void clickGotoDashboardButtonOnPopUp() {
+		isElementDisplayed("btn_gotoDashboardOnPopUp");
+		element("btn_gotoDashboardOnPopUp").click();
+		logMessage("STEP : Goto Dashboard nutton on PopUp is clicked\n");
+		
+	}
+
+	private void verifyPopUpDataonReturningToDashboard(String popupdata) {
+		isElementDisplayed("returnPopUp");
+		System.out.println(element("returnPopUp").getText());
+		System.out.println(popupdata);
+		Assert.assertTrue(element("returnPopUp").getText().equals(popupdata));
+		logMessage("STEP : Return To Dashboard data is verified as "+popupdata);
+		
+	}
+	private void verifyEditFunctionalityForSavedNomination(String NominationType, String cocExplain) {
 		if (NominationType.equals("Individual")) {
 			clickOnHomeButton();
 			clickOnEditButtonForSavedNomination("Individual Nomination");
 			selectNominationChecklistName("Edit");
-			EditCodeOfConductResponse();
+			EditCodeOfConductResponse(cocExplain);
 			clickOnSaveButton("codeofconduct");
 			selectNominationChecklistName("Submit Nomination");
 		}
@@ -760,10 +808,11 @@ public class ASM_FellowNominatePage extends GetPage {
 
 	}
 
-	private void EditCodeOfConductResponse() {
+	private void EditCodeOfConductResponse(String cocExplain) {
 		System.out.println(element("btn_codeofconduct_checked").getAttribute("value"));
 		if (element("btn_codeofconduct_checked").getAttribute("value").equals("1")) {
 			click(element("rad_codeConductNo"));
+			explainCodeOfConductIfNo(cocExplain);
 		} else if (element("btn_codeofconduct_checked").getAttribute("value").equals("0")) {
 			click(element("rad_codeConductYes"));
 		}
@@ -1027,7 +1076,7 @@ public class ASM_FellowNominatePage extends GetPage {
 
 	}
 
-	private void ClickCodeOfConductButton(String choice) {
+	private void ClickCodeOfConductButton(String choice, String conductExplanation) {
 		System.out.println(getFellowNominated.getASM_fellowNominated("CodeOfConductResponse"));
 		choice = choice.replace("\"", "").trim();
 		if (choice.equalsIgnoreCase("Yes")) {
@@ -1038,29 +1087,42 @@ public class ASM_FellowNominatePage extends GetPage {
 			System.out.println("Choice is " + choice);
 			isElementDisplayed("rad_codeConductNo");
 			click(element("rad_codeConductNo"));
+			explainCodeOfConductIfNo(conductExplanation);
 		}
 		logMessage("STEP : Code of conduct details filled with choice as : " + choice);
 
 	}
+	
+	private void explainCodeOfConductIfNo(String conductExplanation) {
+			EnterTextInField(element("txtarea_CodeOfConductExpl"), conductExplanation);
+			logMessage("Step : Code of Conduct Explanation is entered as "+conductExplanation);
+		
+	}
 
-	private void verifyDetailsForCodeOfConduct(String Value, String FellowType) {
+	private void verifyDetailsForCodeOfConduct(String Value,String cocexplanation, String FellowType) {
 		isElementDisplayed("txt_codeOfConductValue");
 		System.out.println(element("txt_codeOfConductValue").getText());
 		Value = Value.replace("\"", "");
 		System.out.println(Value);
 		if (FellowType.equals("Individual")) {
 			if (Value.equals("No")) {
-				Assert.assertTrue(element("txt_codeOfConductValue").getText().trim().equals("Yes"));
-				logMessage("ASSERT PASSED : Code Of Conduct value verified as Yes\n");
+				verifyCodeOfConductDetailsOnIweb("Yes","");
 			} else if (Value.equals("Yes")) {
-				Assert.assertTrue(element("txt_codeOfConductValue").getText().trim().equals("No"));
-				logMessage("ASSERT PASSED : Code Of Conduct value verified as No\n");
+				verifyCodeOfConductDetailsOnIweb("No", cocexplanation);
 			}
 		} else {
-			Assert.assertTrue(element("txt_codeOfConductValue").getText().trim().equals(Value.trim()));
-			logMessage("ASSERT PASSED : Code Of Conduct value verified as " + Value);
+			verifyCodeOfConductDetailsOnIweb(Value, cocexplanation);
 		}
 
+	}
+	
+	private void verifyCodeOfConductDetailsOnIweb(String expectedValue,String cocexplanation)
+	{
+		isElementDisplayed("txt_codeOfConductValue");
+		Assert.assertTrue(element("txt_codeOfConductValue").getText().trim().equals(expectedValue));
+		logMessage("ASSERT PASSED : Code Of Conduct value verified as "+expectedValue);
+		Assert.assertTrue(element("txt_cocExplanation").getText().trim().equals(cocexplanation));
+		logMessage("ASSERT PASSED : Code Of Conduct Explanation on iweb verified as "+cocexplanation);
 	}
 
 	private void verifyScienceAndCommunityCitationMessages(String ScienceMsg, String CommunityMsg) {
@@ -1079,13 +1141,15 @@ public class ASM_FellowNominatePage extends GetPage {
 				getFellowNominated.getASM_fellowNominated_ProfDetails("Description"),
 				getFellowNominated.getASM_fellowNominated_ProfDetails("FromDate"),
 				getFellowNominated.getASM_fellowNominated_ProfDetails("ToDate"),
-				getFellowNominated.getASM_fellowNominated_ProfDetails("ToDate") };
+				getFellowNominated.getASM_fellowNominated_ProfDetails("ToDate"),
+				getFellowNominated.getASM_fellowNominated_ProfDetails("impactSummaryMsg")};
 
 		String[] ProfessionalOrg = { getFellowNominated.getASM_fellowNominated_ProfOrgDetails("ProfessionalOrg"),
 				getFellowNominated.getASM_fellowNominated_ProfOrgDetails("Position_title"),
 				getFellowNominated.getASM_fellowNominated_ProfOrgDetails("FromDate"),
 				getFellowNominated.getASM_fellowNominated_ProfOrgDetails("ToDate"),
-				getFellowNominated.getASM_fellowNominated_ProfOrgDetails("ToDate") };
+				getFellowNominated.getASM_fellowNominated_ProfOrgDetails("ToDate"),
+				};
 
 		String[] honors = { getFellowNominated.getASM_fellowNominated_HonorAndAwardsDetails("Name"),
 				getFellowNominated.getASM_fellowNominated_HonorAndAwardsDetails("Sponcor"),
@@ -1124,7 +1188,7 @@ public class ASM_FellowNominatePage extends GetPage {
 		mapFellowNominatedSmoke = YamlReader.getYamlValues("ACS_fellowNominatedData");
 		getFellowNominated = new YamlInformationProvider(mapFellowNominatedSmoke);
 		expandDetailsMenu("code of conduct");
-		verifyDetailsForCodeOfConduct(getFellowNominated.getASM_fellowNominated("CodeOfConductResponse"), FellowType);
+		verifyDetailsForCodeOfConduct(getFellowNominated.getASM_fellowNominated("CodeOfConductResponse"),getFellowNominated.getASM_fellowNominated("CodeConExplain"), FellowType);
 		collapseDetailsMenu("code of conduct");
 
 		expandDetailsMenu("award citations");
