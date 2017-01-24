@@ -244,9 +244,6 @@ public class TestSessionInitiator {
 	}
 
 	public void launchApplication(String baseurl) {
-//			homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
-//				YamlReader.getYamlValue("Authentication.password"),baseurl);
-
 		try {
 			Reporter.log("The test browser is :- " + _getSessionConfig().get("browser") + "\n", true);
 			deleteAllCookies();

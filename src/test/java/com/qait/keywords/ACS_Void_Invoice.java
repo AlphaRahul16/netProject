@@ -304,5 +304,6 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 		wait.hardWait(1);
 		return batchName;
 	}
+	
 
 }

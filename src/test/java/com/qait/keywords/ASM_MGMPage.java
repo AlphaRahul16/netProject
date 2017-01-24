@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -351,24 +352,23 @@ public class ASM_MGMPage extends GetPage {
 	public void verifythatAllInviteesExistOnMGM(List<String> emails, String status) {
 		List<String> uniqueEmails = getAllInvitees();
 		List<String> notfoundEmails = new ArrayList<>();
-		// for (int i = 0; i < emails.size(); i++) {
-		// System.out.println("emails::" + emails.get(i) + "::::::::");
-		// }
-		// for (int i = 0; i < uniqueEmails.size(); i++) {
-		// System.out.println("uniqueEmails::" + uniqueEmails.get(i) +
-		// "::::::::");
-		// }
-		boolean flag = true;
+
+		boolean flag = true;int i=0;String nomineeStatus= "";
 		for (String email : emails) {
 			if (uniqueEmails.contains(email.trim())) {
-				String nomineeStatus = element("link_nomineeStatus", email).getText().trim();
+				try{
+					nomineeStatus = element("link_nomineeStatus", email).getText().trim();
+					System.out.println("nomineeStatus*******"+nomineeStatus);
+				}catch(NoSuchElementException e){
+					clickOnPageLinkOnMGM(i);
+					nomineeStatus = element("link_nomineeStatus", email).getText().trim();
+					System.out.println("nomineeStatus*******"+nomineeStatus);
+				}				
+				
 				Assert.assertEquals(nomineeStatus, status);
 				logMessage("ASSERT PASSED: Nominee status is " + status + " for " + email + " member \n ");
-				// flag = true;
 			} else {
 				notfoundEmails.add(email);
-				// flag = false;
-				// break;
 			}
 		}
 		if (notfoundEmails.size() > 0) {
@@ -385,20 +385,20 @@ public class ASM_MGMPage extends GetPage {
 
 	private List<String> getAllInvitees() {
 		List<String> uniqueEmails = new ArrayList<>();
-		int pageLinkSize = 0;
-		// int pageLinkSize = elements("link_pages").size();
+		
+		 int pageLinkSize = elements("link_pages").size();
 		int i = 0;
-		// do {
+		 do {
 		for (int count = 0; count < elements("lbl_nomineeEmail").size(); count++) {
 			isElementDisplayed("lbl_nomineeEmail");
 			uniqueEmails.add(elements("lbl_nomineeEmail").get(count).getText().trim());
 		}
-		// i++;
-		// if (i > pageLinkSize) {
-		// break;
-		// }
-		// clickOnPageLinkOnMGM(i);
-		// } while (i <= pageLinkSize);
+		 i++;
+		 if (i > pageLinkSize) {
+		 break;
+		 }
+		 clickOnPageLinkOnMGM(i);
+		 } while (i <= pageLinkSize);
 		return uniqueEmails;
 	}
 
