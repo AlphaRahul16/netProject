@@ -226,7 +226,7 @@ public class ASCSocietyGenericPage extends GetPage {
 
 	public static String extractFromPdf(String filename, int totalnumberofpages) throws IOException {
 		Object marker=null;
-		String uploadedfilepath = "./src/test/resources/UploadFiles/" + filename + ".pdf";
+		String uploadedfilepath = "./src/test/resources/DownloadedFiles/" + filename + ".pdf";
 		String parsedText = "";
 		PDFTextStripper pdfStripper = null;
 		PDDocument pdDoc = null;

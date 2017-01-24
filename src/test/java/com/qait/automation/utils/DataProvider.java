@@ -75,9 +75,7 @@ public class DataProvider {
 			}
 		}
 
-		System.out.println("row"+rowNumberExact);
 		int rowNumber = Integer.parseInt(rowNumberExact) - 1;
-
 		return dataRows.get(rowNumber);
 	}
 
@@ -270,9 +268,7 @@ public class DataProvider {
 			String value = getSpecificColumnFromCsvLine(csvLine, csvSeparator,
 					getColumnNumber_CreateMember(executeColumnName));
 
-			System.out.println("value "+value+"---"+executeColumnValue);
 			if (value.contains(executeColumnValue)) {
-				System.out.println("In if");
 				String csvLine1 = csvReaderRowSpecific(
 						getYamlValue("csv-data-file.path_" + sheetName),
 						"true", String.valueOf(i));

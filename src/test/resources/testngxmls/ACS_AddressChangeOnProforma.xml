@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ACS Tests" preserve-order="true" thread-count="1" configfailurepolicy="continue">
+<test name="ACS_Address_Change_On_Proforma_Test" >
+  <method-selectors>
+       <method-selector><script language="beanshell"><![CDATA[
+        String caseid = System.getProperty("caseID");
+        groups.containsKey(caseid)
+       ]]></script></method-selector>
+   </method-selectors>
+    <classes>
+       <class name="com.qait.tests.ACS_Address_Change_On_Proforma_Test"></class>
+   </classes> 
+  </test>
+  </suite>

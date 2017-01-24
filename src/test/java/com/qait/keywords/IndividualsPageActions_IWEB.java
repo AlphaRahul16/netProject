@@ -1838,6 +1838,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		enterNewAddressDetails("postal code", postalCode);
 		selectAddressType(addressType.get(0));
 		selectAddressState(state);
+		wait.hardWait(2);
 		selectAddressCheckboxes("primary");
 		selectAddressCheckboxes("billing");
 		selectAddressCheckboxes("do not validate");

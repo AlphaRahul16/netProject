@@ -106,7 +106,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		element("inp_giftAmount", field).clear();
 		element("inp_giftAmount", field).sendKeys(amount);
 		logMessage("STEP : " + field + " entered as " + amount + "\n");
-		wait.hardWait(4);
+//		wait.hardWait(2);
         element("table_form").click();
         logMessage("STEP: table_form is clicked\n");
 //		wait.hardWait(2);
@@ -175,6 +175,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 	public void verifyNewGiftInformation(String expectedValue) {
 		String giftinfo[] = { "first gift (join) date", "first gift amount", "highest gift date", "highest gift amount",
 				"latest gift date", "latest gift amount", "ytd amount", "lifetime amount" };
+		wait.hardWait(2);
 		for (String info : giftinfo) {
 			if (info.contains("date")) {
 				verifyGiftInformationIsDispalyed(info, DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST"));
@@ -258,7 +259,9 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 			if (element("txt_listData", tabName, String.valueOf(index1), String.valueOf(i)).getText().trim()
 					.equals("No")
 					&& element("txt_listData", tabName, String.valueOf(index2), String.valueOf(i)).getText().trim()
-							.equals(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy"))) {
+							.equals(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy")) &&
+							element("txt_listData", tabName, String.valueOf(9), String.valueOf(i)).getText().trim()
+							.equals("ACS Website")) {
 				break;
 			}
 		  }else{
