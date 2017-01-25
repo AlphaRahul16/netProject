@@ -3,6 +3,8 @@ package com.qait.keywords;
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.awt.Button;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -1420,10 +1422,11 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	private void verifySupporterDocumentsContainsUploadedFile(Map<String, String> mapAwardsNomination,
 			String SupporterNumber) {
-		System.out.println(element("lnk_awardsSupporterDoc", SupporterNumber).getAttribute("href"));
+		String docurl = element("lnk_awardsSupporterDoc", SupporterNumber).getAttribute("href");
+		docurl=docurl.replaceAll("%20", " ");
+		System.out.println(docurl);
 		System.out.println(mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber));
-		Assert.assertTrue(element("lnk_awardsSupporterDoc", SupporterNumber).getAttribute("href")
-				.contains(mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber)));
+		Assert.assertTrue(docurl.contains(mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber)));
 		logMessage("ASSERT PASSED : Document for supporter " + SupporterNumber + " succesfully verified as "
 				+ mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber));
 	}
