@@ -1,3 +1,3 @@
 caseID	caseID Execute	ScenarioNo	PaymentMethod	CardNumber	CVV	paymentType	ChequeNumber	Query
 1	No	3	BOA - Check	123		prepaid	1111	Selenium - Member with Proforma USA expired
-2	Yes	4	Visa/MC	4111111111111111	111	prepaid		Selenium - Find Random Active Member with Proforma USA not expired
+2	Yes	4	Visa/MC	4111111111111111	111	prepaid		Selenium – Member with Proforma USA not expired

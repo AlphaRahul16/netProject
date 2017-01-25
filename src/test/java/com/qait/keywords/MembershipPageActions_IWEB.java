@@ -28,6 +28,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 import com.fasterxml.jackson.core.format.MatchStrength;
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.report.ReformatTestFile;
 import com.qait.automation.utils.ConfigPropertyReader;
@@ -4994,9 +4995,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ " is having Term start and end date as not in current date's range \n");
 	}
 
-	public void getInvoiceHavingTermDateWithinRange() {
+	public String getInvoiceHavingTermDateWithinRange() {
 		boolean value = false;
-		String termStartDate, termEndDate;
+		String termStartDate, termEndDate,invoiceId;
 		int i;
 		isElementDisplayed("lst_childTable");
 		for (i = 1; i <= elements("lst_childTable").size(); i++) {
@@ -5009,19 +5010,31 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			if (value)
 				break;
 		}
+		invoiceId=getInvoiceId(i, 12);
 		Assert.assertTrue(value,
 				"ASSERT FAILED: No Invoice is having Term start and end date in current date's range \n");
-		logMessage("ASSERT PASSED: Invoice Id " + getInvoiceId(i, 12)
+		logMessage("ASSERT PASSED: Invoice Id " + invoiceId
 				+ " is having Term start and end date in current date's range \n");
+		return invoiceId;
 	}
 
 	public void getInvoiceId(String caseId) {
-		verifyTermEndDateAndStartDateIsEmpty();
+		String invoiceId;
 		logMessage("Step: Invoice Id " + getInvoiceId(1, 12) + " is having Term start and end date as null\n");
-		if (caseId.equals("3"))
+		if (caseId.equals("3")){
+			verifyTermEndDateAndStartDateIsEmpty();
 			getInvoiceHavingTermDatesNotWithinRange();
-		else
-			getInvoiceHavingTermDateWithinRange();
+		}
+		else{
+			verifyTermEndDateAndStartDateIsEmpty();
+			clickOnGoToRecordButton(getInvoiceId(1, 12),"9");
+			verifyMemberDetailsOnMemberShipProfile("proforma","Yes");
+			navigateToBackPage();
+			invoiceId=getInvoiceHavingTermDateWithinRange();
+			clickOnGoToRecordButton(invoiceId,"9");
+			verifyMemberDetailsOnMemberShipProfile("proforma","No");
+			navigateToBackPage();
+		}
 	}
 
 	public void verifyMemberPaymentStatus(String caseId) {
@@ -5053,6 +5066,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyAdditionOfNewLSAndDetailsOfOldLS(String oldChpName,String newChpName,Map individualDates,String caseId) {
 		navigateToBackPage();
+		handleAlert();
 		expandDetailsMenuIfAlreadyExpanded("chapter memberships");
 		verifyOldLSStatusIsTransfered(oldChpName);
 		verifyTerminateDateIsCurrentDate(oldChpName,DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/dd/yyyy", "EST5EDT"),7,"Terminate date");

@@ -24,22 +24,10 @@ public class ACS_Address_Change_On_Proforma_Test extends BaseTest {
 	private String caseID;
 	Map<String,String> individualDates=new HashMap<>();
 	List<String> addressType = new ArrayList<String>();
-
-
-//	@BeforeClass(alwaysRun=true)
-//	public void open_Browser_Window() {
-//		System.out.println("Before class");
-//		test = new TestSessionInitiator(this.getClass().getSimpleName());
-//		System.out.println("Before class");
-//		app_url_iweb = getYamlValue("app_url_IWEB");
-//		System.out.println("------case id:::::"+caseID);
-//		test.homePageIWEB.addValuesInMap("AddressChangeOnProforma", caseID); 
-//		System.setProperty("caseid",caseID);
-//		System.out.println("scenario:::::"+System.getProperty("caseID"));
-//	}
 	
 	public ACS_Address_Change_On_Proforma_Test() {
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "AddressChangeOnProforma";
+		
 	}
 
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
@@ -47,15 +35,14 @@ public class ACS_Address_Change_On_Proforma_Test extends BaseTest {
 		this.caseID = caseID;
 	    System.out.println(this.caseID);
 	    System.setProperty("caseID", this.caseID);
-
 	}
-	
+		
 	@BeforeClass(alwaysRun = true)
-	public void Start_Test_Session() {
-		test = new TestSessionInitiator(this.getClass().getSimpleName());
-		app_url_iweb = getYamlValue("app_url_IWEB");
-		System.out.println("before class");
-		test.homePage.addValuesInMap("AddressChangeOnProforma", caseID);
+		public void Start_Test_Session() {
+			test = new TestSessionInitiator(this.getClass().getSimpleName());
+			app_url_iweb = getYamlValue("app_url_IWEB");
+			System.out.println("before class");
+		    test.homePage.addValuesInMap("AddressChangeOnProforma", caseID);
 	}
 	
 	@BeforeMethod
@@ -71,51 +58,51 @@ public class ACS_Address_Change_On_Proforma_Test extends BaseTest {
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 	
-	@Test(groups={"4"})
+	@Test//(groups={"4"})
 	public void Step02_Navigate_To_CRM_Module_And_Execute_Query(){//scenario3
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Query Individual");
 		test.memberShipPage 
-				.selectAndRunQuery("Selenium – Member with Proforma USA expired");  //test.memberShipPage.map().get("Query") "Selenium - Find Random Active Member with Proforma USA not expired "
+				.selectAndRunQuery("Selenium – Member with Proforma USA not expired");  //"Selenium – Member with Proforma USA expired"   test.memberShipPage.map().get("Query") "Selenium - Find Random Active Member with Proforma USA not expired "
 		test.memberShipPage.verifyOueryAskAtRunTimePage();
 	    test.memberShipPage.clickOnGoButtonAfterPackageSelection();
 	    test.memberShipPage.getCustomerID();  //------ alert handling
 	}
 	
-//	@Test
-//	public void Step03_Verify_Term_Dates_For_National_And_Chapter_Membership(){//scenario3
-//		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("individual memberships");
-//		individualDates=test.memberShipPage.getTermDatesOfIndividualMembership("individual memberships");
-//		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("chapter memberships");
-//		oldLocalSection=test.memberShipPage.verifyTermDatesOfChapterMembership("chapter memberships", individualDates);
-//		test.memberShipPage.clickOnGoToRecordLink("3");
-//	}
-//	
-//	@Test
-//	public void Step04_Verfiy_Invoice_With_Null_Term_Dates_And_Click_On_Customer_Name(){//scenario3
-//		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("invoices");
-//		test.memberShipPage.getInvoiceId(test.memberShipPage.map().get("ScenarioNo"));	//caseId
-//		test.memberShipPage.verifyMemberPaymentStatus(test.memberShipPage.map().get("ScenarioNo"));//caseId
-//		test.memberShipPage.clickOnCustomerName();
-//	}
-//	
-//	@Test
-//	public void Step05_Add_new_Local_Section(){//scenario3
-//		test.individualsPage.navigateToContactInfoMenuOnHoveringMore();
-//		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("addresses");
-//		addressType = test.individualsPage.verifyAddressType("addresses");
-//		test.individualsPage.clickOnPlusSign("addresses", 2);
-//		test.individualsPage.addNewAddress(
-//				YamlReader.getYamlValue("AddressChange.organization"),
-//				YamlReader.getYamlValue("AddressChange.department"),
-//				YamlReader.getYamlValue("AddressChange.address"),
-//				YamlReader.getYamlValue("AddressChange.city"),
-//				YamlReader.getYamlValue("AddressChange.postalCode"),
-//				YamlReader.getYamlValue("AddressChange.state"), addressType);
-//		test.individualsPage.verifyAdditionOfNewAddress(addressType.get(0),
-//				"addresses");
-//	}
-//	
+	@Test
+	public void Step03_Verify_Term_Dates_For_National_And_Chapter_Membership(){//scenario3
+		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("individual memberships");
+		individualDates=test.memberShipPage.getTermDatesOfIndividualMembership("individual memberships");
+		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("chapter memberships");
+		oldLocalSection=test.memberShipPage.verifyTermDatesOfChapterMembership("chapter memberships", individualDates);
+		test.memberShipPage.clickOnGoToRecordLink("3");
+	}
+	
+	@Test
+	public void Step04_Verfiy_Invoice_With_Null_Term_Dates_And_Click_On_Customer_Name(){//scenario3
+		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("invoices");
+		test.memberShipPage.getInvoiceId(test.memberShipPage.map().get("ScenarioNo"));	//caseId
+		test.memberShipPage.verifyMemberPaymentStatus(test.memberShipPage.map().get("ScenarioNo"));//caseId
+		test.memberShipPage.clickOnCustomerName();
+	}
+	
+	@Test
+	public void Step05_Add_new_Local_Section(){//scenario3
+		test.individualsPage.navigateToContactInfoMenuOnHoveringMore();
+		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("addresses");
+		addressType = test.individualsPage.verifyAddressType("addresses");
+		test.individualsPage.clickOnPlusSign("addresses", 2);
+		test.individualsPage.addNewAddress(
+				YamlReader.getYamlValue("AddressChange.organization"),
+				YamlReader.getYamlValue("AddressChange.department"),
+				YamlReader.getYamlValue("AddressChange.address"),
+				YamlReader.getYamlValue("AddressChange.city"),
+				YamlReader.getYamlValue("AddressChange.postalCode"),
+				YamlReader.getYamlValue("AddressChange.state"), addressType);
+		test.individualsPage.verifyAdditionOfNewAddress(addressType.get(0),
+				"addresses");
+	}
+	
 //	@Test
 //	public void Step06_Verify_Individual_Membership_Details_Are_Unchnaged(){//scenario3
 //		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Membership");

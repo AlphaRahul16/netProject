@@ -33,7 +33,7 @@ public class Subscription_Fulfillment_Test extends BaseTest{
 				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step00_Launch_Application_Under_Test")
 	public void Step01_Search_Member_In_Individual_Test() {
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.selectAndRunQueryMembership("Query Individual",
@@ -44,7 +44,7 @@ public class Subscription_Fulfillment_Test extends BaseTest{
 		// memberDetails = test.memberShipPage.selectMemberAndGetDetails();
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step01_Search_Member_In_Individual_Test")
 	public void Step02_Add_Subscription_Through_Order_Entry_Test() {
 		test.memberShipPage.navigateToSubscriptionThroughOrderEntry();
 		subscriptionName = test.memberShipPage
@@ -59,7 +59,7 @@ public class Subscription_Fulfillment_Test extends BaseTest{
 		test.homePageIWEB.GoToSubscriptionModule();
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step02_Add_Subscription_Through_Order_Entry_Test")
 	public void Step03_Edit_Subscription_And_Verify_Preview_Status_For_Scheduled_Test() {
 		taskStartTime = test.subscriptionPage.editSubscription(
 				subscriptionName, getSubscriptionInfo
@@ -75,7 +75,7 @@ public class Subscription_Fulfillment_Test extends BaseTest{
 								.getSubscriptionInfo("maxWaitTimeInMinutesForPreviewStatus"));
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step03_Edit_Subscription_And_Verify_Preview_Status_For_Scheduled_Test")
 	public void Step04_Verify_Subscription_Details_For_Preview_Complete_Test() {
 		test.subscriptionPage
 				.verifyPreviewStatusInListForFirst(
@@ -102,14 +102,14 @@ public class Subscription_Fulfillment_Test extends BaseTest{
 								.getSubsFul_PreviewComplete("updateStartIssue"));
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step04_Verify_Subscription_Details_For_Preview_Complete_Test")
 	public void Step05_Enter_Required_Data_In_Commit_Preview_Test() {
 		commitStartTime = test.subscriptionPage
 				.navigateToCommitPreviewAndEnterRequiredData(getSubscriptionInfo
 						.getSubsFul_Committed("startLapTimeInMinutes"));
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step05_Enter_Required_Data_In_Commit_Preview_Test")
 	public void Step06_Verify_Subscription_Details_For_Commited_Test() {
 		test.subscriptionPage
 				.verifySubscriptionDetails(
@@ -159,7 +159,7 @@ public class Subscription_Fulfillment_Test extends BaseTest{
 
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step06_Verify_Subscription_Details_For_Commited_Test")
 	public void Step07_Navigate_To_Subscriber_Profile_Page_And_Verify_Details_Test() {
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.GoToCRMModule();

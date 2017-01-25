@@ -58,7 +58,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 		public void skipMethodsAccordingToTheScenarioExecuted(Method method) {
 			
 //			if (!skipTest.containsKey(method.getName())) {
-//				System.out.println("not"+method.getName());
+//				System.out.println("not"+method.getName());     GiftCard_Scenariosheet
 //				skipTest.put(method.getName(), false);
 //			}
 //			if (skipTest.get(method.getName())) {
