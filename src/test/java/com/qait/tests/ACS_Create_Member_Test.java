@@ -95,7 +95,7 @@ public class ACS_Create_Member_Test extends BaseTest {
 		test.homePage.verifyCurrentTab("Checkout");
 	}
 
-	@Test(dependsOnMethods = "Step04_Enter_Benefits_Info")
+	// @Test(dependsOnMethods = "Step04_Enter_Benefits_Info")
 	public void Step05_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page() {
 		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);

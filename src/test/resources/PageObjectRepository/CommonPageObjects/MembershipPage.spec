@@ -234,6 +234,7 @@ label_profile_title			  					xpath							 //div[text()='${value}']
 label_heading_data								xapth							//span[text()='${value}']
 table_data										xpath							.//table[@class='table']//tr[2]
 icon_arrow										xpath							//*[@class='DataFormListTDDataGridAlternatingItemLink dataGridItemLink']
+inp_memExpireDate                               xpath                           //td[@class='DataFormTD']/input
 btn_saveAddPayment                              css                            input[id='Bottom_1']
 list_batchCreditPage								id									inv_bat_key_oAddHyperLink
 
