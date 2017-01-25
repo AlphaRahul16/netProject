@@ -73,7 +73,7 @@ btn_CancelEligibity                                         id                  
 rad_codeConductYes                                          id                                 cocFlagYes
 rad_codeConductNo                                           id                                 cocFlagNo
 txt_citationNumber                                          xpath                              //a[text()='${value}']/following-sibling::span
-btn_ReturnToDashboard                                       xpath                              //input[@value='Return to the Dashboard']
+btn_ReturnToDashboard                                       css                               input[value*='Return to the Dashboard']
 txt_NomineeName1                                            css                                .name
 rad_lastNameMemNumber                                       css                                input[value*='rbLogin1']
 txt_codeOfConductValue                                      xpath                              //a[contains(text(),'Value')]/../../following-sibling::tr/td[5]
@@ -91,4 +91,11 @@ btn_home                                                    classname           
 txt_errmsg_renomination                                     css                                 span[id*='CantFind']
 btn_chooseFile                                              xpath                               (//a[@id='aBrowse'])[1]
 btn_deleteFile                                              xpath                               //a[@id='aRemove']
+txtarea_CodeOfConductExpl                                   css                                 #divcocNoResponse>textarea
+returnPopUp                                                 css                                 div[id*='ReturnToDashboardPopup']
+btn_gotoDashboardOnPopUp                                    xpath                                 //a[text()='Go to Dashboard']
+btn_Edit                                                    xpath                                //a[text()='Edit']
+txtarea_impactsummary                                       id                                   txtImpactSummary
+btn_ReturnToDashboardPopUp                                  css                                  .btn.preview-save
+txt_cocExplanation                                          xpath                                 //a[contains(text(),'Value')]/../../following-sibling::tr/td[6]
 =======================================================================================================================================================================================

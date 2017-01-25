@@ -73,10 +73,16 @@ public class ACS_FellowNominate extends BaseTest{
 	@Test
 	// For Login Into Fellow Nominate Application
 	public void Step02_TC02_Enter_Valid_Credentials_To_Login_Into_Application() {
+		//test.homePageIWEB.addValuesInMap("fellowNominate", caseID);
 		memberDetails = test.memberShipPage.getCustomerFullNameAndContactID();
+		
+	
 		test.launchApplication(app_url_nominateFellow);
 		test.asm_FellowNomiate.loginInToApplicationByLastNameAndMemberNumber(
 				memberDetails.get(0).split(" ")[0], memberDetails.get(1));
+		
+//		test.asm_FellowNomiate.loginInToApplicationByLastNameAndMemberNumber(
+//				"LN1484902286954", "31185096");
 		test.asm_FellowNomiate.verifyUserIsOnFellowsDashboard();
 	}
 
@@ -156,7 +162,7 @@ public class ACS_FellowNominate extends BaseTest{
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		app_url_nominateFellow = getYamlValue("app_url_nominateFellow");
 		test.launchApplication(app_url_IWEB);
-		
+
 	}
 
 	@BeforeMethod

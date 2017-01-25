@@ -179,6 +179,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 	private void clickSaveButton() {
 		isElementDisplayed("btn_save");
 		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
+		wait.waitForPageToLoadCompletely();
 		// click(element("btn_save"));
 		logMessage("STEP :  btn_save is clicked\n");
 	}

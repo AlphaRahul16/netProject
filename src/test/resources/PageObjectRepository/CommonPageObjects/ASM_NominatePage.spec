@@ -73,4 +73,5 @@ inp_support2FindByNumber                        xpath                       (//i
 btn_findSupporter1ByNumber                     xpath                        (//input[contains(@id,'doSearchByNumber_searchSupporter')])[1]
 btn_findSupporter2ByNumber                     xpath                        (//input[contains(@id,'doSearchByNumber_searchSupporter')])[2]
 list_selectDiscipline                          css                          #nomineeIndustry>select
+txtarea_codeOfConductExplained                 css                          #codeofconductExplained>textarea
 =================================================================================================================================

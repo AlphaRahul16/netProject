@@ -182,16 +182,19 @@ public class ASCSocietyGenericPage extends GetPage {
 	}
 
 	public HashMap<String, String> addValuesInMap(String sheetName, String caseID) {
-
+		String csvline2;
 		YamlReader.setYamlFilePath();
 		String csvLine = csvReaderRowSpecific(getYamlValue("csv-data-file.path_" + sheetName), "false",
 				String.valueOf(1));
+		System.out.println(getYamlValue("csv-data-file.path_" + sheetName));
 		String csvLine1 = csvReaderRowSpecific(getYamlValue("csv-data-file.path_" + sheetName), "true",
 				String.valueOf(caseID));
 		numberOfColumns = csvLine.split(csvSeparator).length;
 		for (int i = 1; i < numberOfColumns; i++) {
-
-			hashMap.put(csvLine.split(csvSeparator)[i].trim(),
+			 csvline2=csvLine.split(csvSeparator)[i].trim();
+			 csvline2 = csvline2.replace("\"", "").trim();
+			 System.out.println(csvline2);
+			hashMap.put(csvline2,
 					DataProvider.getSpecificColumnFromCsvLine(csvLine1, csvSeparator, i).trim());
 
 		}

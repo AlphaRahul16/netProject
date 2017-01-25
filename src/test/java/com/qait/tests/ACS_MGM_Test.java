@@ -3,6 +3,7 @@ package com.qait.tests;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.testng.Reporter;
@@ -176,29 +177,33 @@ public class ACS_MGM_Test extends BaseTest {
 		test.asm_MGM.verifyNomineeStatus(StatusOnEweb.get(0), uniqueEmail);
 		test.launchApplication(app_url_MGMLogout);
 	}
-
 	@Test
-	public void Step09_Launch_MGM_Application_To_Invite_New_Member_For_Scenario1_Scenario5() {
+	public void Step09_Fetch_DefaultSourcecode_For_Scenario1_Scenario5(){
 		Reporter.log("\n ****** CASE ID : " + caseID + " ******\n", true);
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Membership");
 		test.memberShipPage.clickOnTab("Membership Setup");
 		sourceCode = test.memberShipPage.getDefaultSourceCodeForMGM(test.homePageIWEB.map().get("Country"));
+	}
+	@Test
+	public void Step09_Launch_MGM_Application_To_Invite_New_Member_For_Scenario1_Scenario5_Scenario6() {
+		
 		Launch_IWeb_Application_And_Run_Query("Individuals", "Query Individual", getYamlValue("ACS_MGM.query1"), 0,
 				"CRM");
 		webLogin = test.memberShipPage.getCstWebLogin();
 		IWEBurl = test.individualsPage.getCurrentURL();
 		test.launchApplication(app_url_MGMUrl);
 		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
+
+	}
+
+	@Test
+	public void Step10_Invite_Nominee_And_Verify_Nominee_Status_On_MGM_And_IWEB_Scenario1_Scenario5() {
+		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		fname = test.homePageIWEB.map().get("MGM_FNAME").trim() + System.currentTimeMillis();
 		lname = test.homePageIWEB.map().get("MGM_LNAME").trim() + System.currentTimeMillis();
 		uniqueEmail = test.asm_MGM.submitMemberDetailsToInvite(fname, lname,
 				test.homePageIWEB.map().get("MGM_Email").trim());
-	}
-
-	@Test
-	public void Step10_Verify_Nominee_Status_On_MGM_And_IWEB_Scenario1_Scenario5() {
-		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		MGMpageURL = test.asm_MGM.verifyNomineeStatus(StatusOnEweb.get(0), uniqueEmail);
 		test.memberShipPage.verifyNomineeStatusOnIWEB(IWEBurl, StatusOnIweb.get(0), uniqueEmail, fname, lname);
 		test.asm_MGM.clickOnresendLink(resendCount, MGMpageURL, uniqueEmail, IWEBurl, fname, lname,
@@ -222,6 +227,7 @@ public class ACS_MGM_Test extends BaseTest {
 		test.memberShipPage.verifyNomineeStatusOnIWEB(memberDetailUrl2, StatusOnIweb.get(0), uniqueEmail, fname, lname);
 		test.launchApplication(app_url_MGMLogout);
 	}
+	
 
 	@Test
 	public void Step12_New_Individual_Joins_ACS_And_Verify_Source_Code_Is_Prepopulated_For_Scenario1_Scenario5() {
@@ -290,13 +296,8 @@ public class ACS_MGM_Test extends BaseTest {
 	}
 
 	@Test
-	public void Step17_Launch_MGM_Application_And_Invite_New_Member_For_Scenario6() {
-		Launch_IWeb_Application_And_Run_Query("Individuals", "Query Individual", getYamlValue("ACS_MGM.newQuery"), 2,
-				"CRM");
-		memberDetails = test.memberShipPage.getWebloginAndRecordNumber();
-		IWEBurl = test.individualsPage.getCurrentURL();
-		test.launchApplication(app_url_MGMUrl);
-		test.asm_MGM.loginInToApplication(memberDetails.get(1).trim(), getYamlValue("password"));
+	public void Step17_Invite_New_Members_For_Scenario6() {
+
 		uniqueEmails = test.asm_MGM.InviteNewMembersAccordingToInviteeNumber(
 				test.homePageIWEB.map().get("Number_Of_Invitee").trim(),
 				test.homePageIWEB.map().get("MGM_FNAME").trim(), test.homePageIWEB.map().get("MGM_LNAME").trim(),

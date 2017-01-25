@@ -201,7 +201,6 @@ public class WebDriverFactory {
 		try {
 			profile.addExtension(extension);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
