@@ -45,7 +45,7 @@ public class Membership_Renewal_Test extends BaseTest {
 				getMemRenewalInfo.getMemRenewalAddACSRenewalCycle("type"),
 				getMemRenewalInfo
 						.getMemRenewalAddACSRenewalCycle("renewalLength"));
-	
+
 	}
 
 	@Test(dependsOnMethods = "Step01_Add_ACS_Renewal_Cycle")
@@ -56,23 +56,17 @@ public class Membership_Renewal_Test extends BaseTest {
 		test.memberShipPage.clickOnSideBar("Query Membership");
 		test.memberShipPage.selectAndRunQuery("Selenium - Renewal Query");
 		test.memberShipPage.selectMemberForRenewal("Regular");
+		test.memberShipPage.enterMembershipExpireDateInQuery(DateUtil
+				.getAnyDateForType("M/dd/YYYY", 6, "month"));
+		test.memberShipPage.clickOnGoButtonInRunQuery();
 		test.individualsPage.selectOneIndividual("Active", "member status");
 		customerId = test.memberShipPage.getContactIdOfUser("Member");
 		memberDetail1 = test.memberShipPage.getMemberDetailsOnMembershipPage();
-
-//		test.memberShipPage.clickOnSideBar("Query Membership");
-//		test.memberShipPage.selectAndRunQuery("Selenium - Renewal Query");
-//		test.memberShipPage.selectMemberForRenewal("Regular");
-//		test.individualsPage.selectOneIndividual("Active", "member status");
-//		memberDetail2 = test.memberShipPage.getMemberDetailsOnMembershipPage();
-
 		test.memberShipPage.selectAndRunQueryMembership("Query Membership",
-				"Selenium - Select One Member"); //getMemRenewalInfo.getMemRenewalInfo("queryName")
-		test.memberShipPage.enterSingleCustomerIdInRunQuery(memberDetail1.get(3));
-//		test.memberShipPage.enterCustomerIdsInRunQuery(memberDetail1.get(3),
-//				memberDetail2.get(3));
+				"Selenium - Select One Member");
+		test.memberShipPage.enterSingleCustomerIdInRunQuery(memberDetail1
+				.get(3));
 		obj[0] = memberDetail1;
-//		obj[1] = memberDetail2;
 	}
 
 	@Test(dependsOnMethods = "Step02_Find_A_Member_And_Get_Detail")
@@ -156,7 +150,6 @@ public class Membership_Renewal_Test extends BaseTest {
 	@Test(dependsOnMethods = "Step06_Verify_Renewal_Details_For_create_Renewal_Invoices")
 	public void Step07_Navigate_To_Membership_Profile_Page_And_Verify_Details_Test() {
 
-
 		@SuppressWarnings("unchecked")
 		List<String> memberDetails = (List<String>) obj[invocationCount];
 		test.homePageIWEB.clickOnModuleTab();
@@ -190,7 +183,7 @@ public class Membership_Renewal_Test extends BaseTest {
 		test.invoicePage.verifyInvoiceDetailsOnInvoiceProfilePage(
 				memberDetails.get(8), memberDetails.get(7));
 
-		// invocationCount++;
+		
 	}
 
 	/**
