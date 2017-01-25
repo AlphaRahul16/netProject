@@ -314,7 +314,6 @@ public class ResultsIT extends ReformatTestFile {
                 + passedResult + " ,Failures: " + ele.getAttribute("failed")
                 + " ,Skipped: " + ele.getAttribute("skipped")
                 + " ,Total Execution Time: " + totalTime;
-        System.out.println("Message is " + msgOutput);
         return msgOutput;
     }
     
@@ -343,7 +342,6 @@ public class ResultsIT extends ReformatTestFile {
     	{
     	 Element ele = (Element)testsExecuted.item(i);
     	label= ele.getAttribute("name");
-    	System.out.println(label);
     	
     	totaltest=toString().valueOf(getExecutionResults(dom,"//test[@name='"+label+"']/class/test-method[not(@is-config)]"));
     	executiontime = ele.getAttribute("duration-ms");
