@@ -4384,14 +4384,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			String reportingStartDate) {
 		int endDate, startDate;
 		logMessage("Current Date :"
-				+ DateUtil.getCurrentdateInStringWithGivenFormate("M/dd/yyyy"));
+				+ DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/dd/yyyy","EST5EDT"));
 		logMessage("End Date :" + reportingEndDate);
 		endDate = DateUtil.convertStringToDate(
-				DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
+				DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/dd/yyyy","EST5EDT"),
 				"MM/dd/yyyy").compareTo(
 				DateUtil.convertStringToDate(reportingEndDate, "MM/dd/yyyy"));
 		logMessage("Current Date :"
-				+ DateUtil.getCurrentdateInStringWithGivenFormate("M/dd/yyyy"));
+				+ DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/dd/yyyy","EST5EDT"));
 		// logMessage("Start Date:" +
 		// DateUtil.convertStringToDate(reportingStartDate, "MM/dd/yyyy"));
 		logMessage("Start Date :" + reportingStartDate);
@@ -5809,8 +5809,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 					+ paymentStatus);
 		} else {
 			Assert.assertTrue(paymentStatus.equals("Paid"),
-					"ASSERT PASSED: Payment status is not verified as "
-							+ paymentStatus);
+					"ASSERT PASSED: Payment status is not verified as Paid");
 			logMessage("ASSERT PASSED: Payment status is verified as "
 					+ paymentStatus);
 		}
@@ -5838,7 +5837,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyAdditionOfNewLSAndDetailsOfOldLS(String oldChpName,String newChpName,Map individualDates,String caseId) {
-		navigateToBackPage();
+//		navigateToBackPage();
 		handleAlert();
 		expandDetailsMenuIfAlreadyExpanded("chapter memberships");
 		verifyOldLSStatusIsTransfered(oldChpName);
@@ -5855,7 +5854,24 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyOldLSStatusIsTransfered(String oldLSName) {
+		boolean flag=false;
 		isElementDisplayed("txt_payments", oldLSName, String.valueOf(2));
+		if(elements("txt_payments", oldLSName, String.valueOf(2)).size()>1){
+			for(WebElement elem: elements("txt_payments", oldLSName, String.valueOf(2))){
+			if(elem.getText().trim().equals("Transferred")){
+				flag=true;
+			}
+		  }if(flag){
+
+				logMessage("ASSERT PASSED: Member status of " + oldLSName
+						+ " is changed to Transferred\n");
+		  }
+		//	  ------(add assertion fail)
+		}
+		else
+		{
+			
+		}
 		Assert.assertTrue(element("txt_payments", oldLSName, String.valueOf(2))
 				.getText().trim().equals("Transferred"),
 				"ASSERT PASSED: Member status of " + oldLSName
