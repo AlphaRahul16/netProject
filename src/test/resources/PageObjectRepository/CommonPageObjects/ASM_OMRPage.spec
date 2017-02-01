@@ -67,4 +67,5 @@ btn_paidStatus                              css                                 
 txt_productIndividualAmount                 xpath                                     //span[text()='${value}']/../following-sibling::td[3]/span
 txt_AsteriskFields                          css                                       span[id*='${value}']
 logo_OMR                                    css                                     .app-logo>h2
+btn_PayINR                                  css                                      .btn.btn-blue
 =================================================================================================================================================

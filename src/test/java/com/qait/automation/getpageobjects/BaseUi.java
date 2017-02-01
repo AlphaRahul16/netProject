@@ -465,6 +465,7 @@ public class BaseUi {
 
 	public void EnterTextInField(WebElement ele, String Text) {
 		System.out.println(Text);
+		wait.hardWait(3);
 		ele.click();
 		ele.clear();
 		ele.sendKeys(Text);

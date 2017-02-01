@@ -58,7 +58,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 		public void skipMethodsAccordingToTheScenarioExecuted(Method method) {
 			
 //			if (!skipTest.containsKey(method.getName())) {
-//				System.out.println("not"+method.getName());
+//				System.out.println("not"+method.getName());     GiftCard_Scenariosheet
 //				skipTest.put(method.getName(), false);
 //			}
 //			if (skipTest.get(method.getName())) {
@@ -123,10 +123,10 @@ public class ACS_GiftCard_Test extends BaseTest{
 			
 			lineitemsname=test.memberShipPage.getAddedLineItemsNamesInOrderEntry();
 			
-			test.memberShipPage.selectAndAddBatchIFNotPresentForGiftCard(batchprefix+giftCardMap.get("GC_Batch_Name?"),giftCardMap.get("Payment_Type"),giftCardMap.get("Payment_Method"));
+			test.memberShipPage.selectAndAddBatchIFNotPresent(batchprefix+giftCardMap.get("GC_Batch_Name?"),giftCardMap.get("Payment_Type"),giftCardMap.get("Payment_Method"));
 			test.memberShipPage.fillAllTypeOFPaymentDetails(giftCardMap.get("Payment_Method"), giftCardMap.get("Visa_Card_Number"), giftCardMap.get("Diners_Card_Number"), giftCardMap.get("Reference_Number"),
-					giftCardMap.get("Discover_Card_Number"), giftCardMap.get("Expiry_Date"), giftCardMap.get("CVV_Number"), giftCardMap.get("Check_Number"));
-				
+					giftCardMap.get("Discover_Card_Number"),test.homePageIWEB.map().get("AMEX_Card_Number"), giftCardMap.get("Expiry_Date"), giftCardMap.get("CVV_Number"), giftCardMap.get("Check_Number"));
+				test.memberShipPage.navigateToCRMPageByClickingSaveAndFinish();
 		}
 		
 		
@@ -139,7 +139,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 			test.individualsPage.collapseDetailsMenu("gift cards purchased");
 		}
 		
-		@Test(groups={"3"})
+		/*@Test(groups={"3"})
 		public void Step_07_Select_Second_Individual_For__AACT_Gift_Card()
 		{
 			Step_01_Run_Query_To_Find_Individual();
@@ -283,6 +283,6 @@ public class ACS_GiftCard_Test extends BaseTest{
 		test.invoicePage.verifyPaymentDetailsForGiftCard(giftCardMap.get("Iweb Product Name?"),cardpricevalue);
 		
 		
-	}
+	}*/
 }
 	

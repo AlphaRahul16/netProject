@@ -196,6 +196,11 @@ public class ObjectFileReader {
 		case DEV8:
 		case dev8:
 			tier= "DEV8/";
+			break;
+		case Dev9:
+		case DEV9:
+		case dev9:
+			tier= "DEV9/";
 		case Dev3:
 		case DEV3:
 		case dev3:

@@ -95,6 +95,8 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 
 	public void verifyGiftDate(String dateType) {
 		isElementDisplayed("txt_" + dateType);
+		System.out.println(element("txt_" + dateType).getAttribute("value"));
+		System.out.println(DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST"));
 		Assert.assertEquals(element("txt_" + dateType).getAttribute("value"),
 				DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST"),
 				"ASSERT FAILED : " + dateType + " is not verified as Current date "+DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST")+"\n");
@@ -106,7 +108,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		element("inp_giftAmount", field).clear();
 		element("inp_giftAmount", field).sendKeys(amount);
 		logMessage("STEP : " + field + " entered as " + amount + "\n");
-		wait.hardWait(4);
+//		wait.hardWait(2);
         element("table_form").click();
         logMessage("STEP: table_form is clicked\n");
 //		wait.hardWait(2);
@@ -128,8 +130,9 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		wait.hardWait(6);
 		isElementDisplayed("inp_giftAmount", field);
 		wait.hardWait(2);
+		System.out.println(amount);
 		System.out.println(element("inp_giftAmount", field).getAttribute("value"));
-		Assert.assertEquals(element("inp_giftAmount", field).getAttribute("value"), amount,
+		Assert.assertEquals(element("inp_giftAmount", field).getAttribute("value"), amount+".00",
 				"ASSERT FAILED : Deductible amount value is not same as the Gift amount "+amount+"\n");
 		logMessage("ASSERT PASSED : Deductible amount value is same as the Gift amount "+amount+"\n");
 	}
@@ -175,6 +178,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 	public void verifyNewGiftInformation(String expectedValue) {
 		String giftinfo[] = { "first gift (join) date", "first gift amount", "highest gift date", "highest gift amount",
 				"latest gift date", "latest gift amount", "ytd amount", "lifetime amount" };
+		wait.hardWait(2);
 		for (String info : giftinfo) {
 			if (info.contains("date")) {
 				verifyGiftInformationIsDispalyed(info, DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST"));
@@ -186,10 +190,10 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 
 	public void verifyGiftIsAdded(String tabName, String expectedValue, int index, String giftInfo, int rowIndex) {
 		isElementDisplayed("txt_listData", tabName, String.valueOf(index), String.valueOf(1));
-		// System.out.println("-----expected:" + expectedValue);
-		// System.out.println("-----actual:"
-		// + element("txt_listData", tabName, String.valueOf(index),
-		// String.valueOf(1)).getText().trim());
+		 System.out.println("-----expected:" + expectedValue);
+		 System.out.println("-----actual:"
+		 + element("txt_listData", tabName, String.valueOf(index),
+		 String.valueOf(1)).getText().trim());
 		Assert.assertEquals(
 				element("txt_listData", tabName, String.valueOf(index), String.valueOf(rowIndex)).getText().trim(),
 				expectedValue, "ASSERT FAILED : " + giftInfo + " is not verified as " + expectedValue + "\n");
@@ -258,7 +262,9 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 			if (element("txt_listData", tabName, String.valueOf(index1), String.valueOf(i)).getText().trim()
 					.equals("No")
 					&& element("txt_listData", tabName, String.valueOf(index2), String.valueOf(i)).getText().trim()
-							.equals(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy"))) {
+							.equals(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy")) &&
+							element("txt_listData", tabName, String.valueOf(9), String.valueOf(i)).getText().trim()
+							.equals("ACS Website")) {
 				break;
 			}
 		  }else{

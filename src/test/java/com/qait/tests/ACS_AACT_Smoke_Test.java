@@ -118,7 +118,7 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 
 	}
 
-	@Test(dependsOnMethods = { "Step05_Verify_Details_At_Confirmation_Page" })
+	//@Test(dependsOnMethods = { "Step05_Verify_Details_At_Confirmation_Page" })
 	public void Step06_Launch_Application_Under_Test() {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
@@ -129,7 +129,7 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 
-	@Test(dependsOnMethods = { "Step06_Launch_Application_Under_Test" })
+	//@Test(dependsOnMethods = { "Step06_Launch_Application_Under_Test" })
 	public void Step07_Search_Member_In_IWEB_Application_And_Verify_Member_Details() {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
@@ -149,7 +149,7 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 		test.invoicePage.verifyInvoicedDetails_AACTOMA(caseID, "Invoice", invoiceNumber);
 	}
 
-	@Test(dependsOnMethods = { "Step07_Search_Member_In_IWEB_Application_And_Verify_Member_Details" })
+	//@Test(dependsOnMethods = { "Step07_Search_Member_In_IWEB_Application_And_Verify_Member_Details" })
 	public void Step08_Search_Individual_In_IWEB_Application_And_Verify_Details() {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);

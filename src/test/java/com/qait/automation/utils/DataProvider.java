@@ -74,10 +74,11 @@ public class DataProvider {
 				}
 			}
 		}
-
-		System.out.println("row"+rowNumberExact);
+		
+		System.out.println("----data rows size"+dataRows.size());
+		System.out.println("-----rowNumberExact:"+rowNumberExact);
 		int rowNumber = Integer.parseInt(rowNumberExact) - 1;
-
+		System.out.println("-----rowNumber:"+rowNumber);
 		return dataRows.get(rowNumber);
 	}
 
@@ -270,9 +271,7 @@ public class DataProvider {
 			String value = getSpecificColumnFromCsvLine(csvLine, csvSeparator,
 					getColumnNumber_CreateMember(executeColumnName));
 
-			System.out.println("value "+value+"---"+executeColumnValue);
 			if (value.contains(executeColumnValue)) {
-				System.out.println("In if");
 				String csvLine1 = csvReaderRowSpecific(
 						getYamlValue("csv-data-file.path_" + sheetName),
 						"true", String.valueOf(i));

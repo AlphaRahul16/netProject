@@ -224,6 +224,7 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 	}
 
 	private void checktheCheckbox(String checkboxname) {
+		wait.hardWait(5);
 		isElementDisplayed("unchked_label", checkboxname);
 		element("unchked_label", checkboxname).click();
 		logMessage("STEP: Auto Renew checkbox is selected \n");

@@ -688,7 +688,7 @@ public class ASM_NominatePage extends GetPage {
 
 		try
 		{
-			wait.resetImplicitTimeout(2);
+			wait.resetImplicitTimeout(8);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("btn_nominatorAdressConfirm");
 			element("btn_nominatorAdressConfirm").click();
@@ -770,11 +770,20 @@ public class ASM_NominatePage extends GetPage {
 		verifyCurrentTab("Verify Eligibility");
 	//	selectNoForYearOfExperience(); // Button deleted in New Build, verified date 11/08/2016
 		selectSafeLabPracticesRadioButton(mapAwardsNomination.get("SafeLabPractices?"));
+		explainCodeOfConductIfNo(mapAwardsNomination.get("SafeLabPractices?"),mapAwardsNomination.get("CodeOfConduct_Explaination?"));
 		selectValueForDiscussedAwardNominationRadioButton(mapAwardsNomination.get("DisscussAwardNomination?"));
 		enterNomineePosition(mapAwardsNomination.get("EligibilityQuestions_NomineePosition"));
 		selectDiscipline(mapAwardsNomination.get("EligibilityQuestions_professionalDiscipline"));
 	}
 	
+	private void explainCodeOfConductIfNo(String codeStatus, String conductExplanation) {
+		
+			EnterTextInField(element("txtarea_codeOfConductExplained"), conductExplanation);
+			logMessage("Step : Code of Conduct Explanation is entered as "+conductExplanation);
+		
+		
+	}
+
 	public void selectSupporterts(String formNumber,Map<String,String> createMemberCredentials)
 	{
 		System.out.println("Nominee"+(Integer.parseInt(formNumber)+1)+"Name");

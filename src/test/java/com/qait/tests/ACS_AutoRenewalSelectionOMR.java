@@ -31,11 +31,9 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest{
 		test.homePageIWEB.clickOnTab("Query Individual");
 		queryPageUrl=test.individualsPage.getCurrentURL();
 		test.memberShipPage.selectValidUserForAutoRenewal(YamlReader.getYamlValue("ACS_AutoRenewal_Selection_In_OMR.AutoRenewal_Query"),queryPageUrl);
-		
-
 	}
 	
-	@Test
+	@Test(dependsOnMethods="Step01_launch_Iweb_And_Select_Valid_User_For_AutoRenewal_In_OMR")
 	public void Step02_Navigate_To_Individual_Page_And_Get_Customer_FullName_And_Contact_ID()
 	{
 		test.individualsPage.clickGotoRecordForRenewal();
@@ -44,11 +42,9 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest{
 
 	}
 
-	@Test
-
+	@Test(dependsOnMethods="Step02_Navigate_To_Individual_Page_And_Get_Customer_FullName_And_Contact_ID")
 	public void Step03_Launch_OMR_Eweb_And_Verify_OMR_Homepage_Is_Displayed()
 	{
-
 		test.launchApplication(app_url_OMR);
 		test.asm_OMR.loginIntoOMRApplication(memDetails);
 		test.asm_OMR.selectNoIfRegularToEmeritusPromptAppears();
@@ -56,8 +52,7 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest{
 		test.asm_OMR.verifyWelcomePage();
 	}
 
-	@Test
-
+	@Test(dependsOnMethods="Step03_Launch_OMR_Eweb_And_Verify_OMR_Homepage_Is_Displayed")
 	public void Step04_Save_Respective_Products_Amounts_And_Submit_Payment_Details() {
 
 		mapRenewedProductDetails = test.asm_OMR.saveProductsWithRespectiveRenewalAmount();
@@ -69,13 +64,14 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest{
 		test.asm_OMR.clickOnSubmitPayment();
 
 	}
-	@Test
+	
+	@Test(dependsOnMethods="Step04_Save_Respective_Products_Amounts_And_Submit_Payment_Details")
 	public void Step05_Verify_Print_Receipt_Message_On_Summary_Page()
 	{
 		test.asm_OMR.verifyPrintReceiptMessageAfterPayment();
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step05_Verify_Print_Receipt_Message_On_Summary_Page")
 	public void Step06_Launch_Iweb_And_Navigate_To_Membership_Page()
 	{
 		test.launchApplication(app_url_IWEB);
@@ -86,19 +82,16 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest{
 		test.memberShipPage.expandDetailsMenu("individual memberships");
 	}
 	
-	@Test
+	@Test(dependsOnMethods="Step06_Launch_Iweb_And_Navigate_To_Membership_Page")
 	public void Step07_Navigate_To_Invoice_For_Renewed_Product_And_Verify_AutoPay_Status_After_Renewal()
-	{
-		
-	
+	{	
 		test.memberShipPage.navigateToInvoicePageForRenewedProduct();
 		test.memberShipPage.verifyAutoPayStatusAfterAutoRenewal("chkmk");
 	}
 	
-	@Test
+	@Test(dependsOnMethods="Step07_Navigate_To_Invoice_For_Renewed_Product_And_Verify_AutoPay_Status_After_Renewal")
 	public void Step08_Expand_Stored_Payment_Information_And_Verify_Child_Form_Is_Populated()
-	{
-	
+	{	
 		test.memberShipPage.expandDetailsMenu("stored payment information");
 		test.invoicePage.verifyStorePaymentInformationChildFormIsPopulated(memDetails.get(0).split(" ")[1]);
 	}

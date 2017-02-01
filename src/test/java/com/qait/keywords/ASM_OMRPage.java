@@ -188,11 +188,13 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	public void clickProccedWithPaymentinINR(String buttontext)
 	{
 		wait.waitForPageToLoadCompletely();
-//	switchToEwebRenewalFrame();
+		switchToDefaultContent();
+	switchToEwebRenewalFrame();
 //	isElementDisplayed("rad_undergraduate", buttontext);
 //	element("rad_undergraduate", buttontext).click();
 	wait.hardWait(14);
 	wait.waitForPageToLoadCompletely();
+	dynamicWait(20, "btn_PayINR", "1");
 	executeJavascript("document.getElementById('eWebFrame').contentWindow.document.getElementsByClassName('btn btn-blue')[0].click()");
 	logMessage("STEP : Button "+buttontext+" is clicked\n");
 	wait.waitForPageToLoadCompletely();
@@ -402,11 +404,12 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 
 	public void clickOnSubmitPayment() {
 		  wait.hardWait(14);
+		  dynamicWait(20, "btn_submitPayment", "1");
 		  wait.waitForPageToLoadCompletely();
 		  try
 		  {
 		   wait.resetExplicitTimeout(hiddenFieldTimeOut);
-		   wait.resetImplicitTimeout(4);
+		   wait.resetImplicitTimeout(10);
 		   performClickByActionBuilder(element("btn_submitPayment"));
 		  }
 		  catch(Exception e)
@@ -708,6 +711,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 				scrollDown(elements("btn_removerenewals",renewalName).get(i));
 				elements("btn_removerenewals",renewalName).get(i).click();
 				wait.hardWait(2);
+				pageRefresh();
+				wait.waitForPageToLoadCompletely();
 			}
 		}
 		catch(Exception e)
@@ -1030,6 +1035,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	public void verifyDiscountedPriceIsDisplayedOnOMREweb(String productName,int expectedDiscount,String Productamount) {
 		holdScriptExecution();
 		switchToEwebRenewalFrame();
+		holdScriptExecution();
+		dynamicWait(30,"txt_productIndividualAmount", productName);
 		System.out.println(element("txt_productIndividualAmount",productName).getText().replaceAll("[^\\d.]", ""));
 		System.out.println(expectedDiscount);
 		System.out.println(Productamount);

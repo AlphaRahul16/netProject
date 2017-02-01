@@ -176,13 +176,12 @@ public class ResultsIT extends ReformatTestFile {
                 + projectName + " Automation Team";
         mailtext = mailtext
                 + "<br><b><font color = green>Test Date: </font></b>" + today;
-       // mailtext = mailtext + "<b>" + testSetResult() + "</b>";
-        mailtext = mailtext+ writeResultsTableInEmail(xmlPath);
-        mailtext = mailtext + "<br></br>";
-
+        mailtext = mailtext + "<b>" + testSetResult() + "</b>";
+        mailtext = mailtext +"</br>"+writeResultsTableInEmail(xmlPath);
+        
         mailtext = mailtext
-                + "<br><br>Note: This is a system generated mail. Please do not reply."
-                + "</br></br>";
+                + "<br>Note: This is a system generated mail. Please do not reply."
+                + "</br>";
         mailtext = mailtext
                 + "<br>If you have any queries mail to <a href=mailto:" + from + "?subject=Reply-of-Automation-Status"
                 + today.replaceAll(" ", "_") + ">" + projectName + " AUTOMATION </a></br>";
@@ -195,10 +194,10 @@ public class ResultsIT extends ReformatTestFile {
         return mailtext;
     }
     
-
+ 
     private String setMailSubject() {
 
-        return (projectName + " Automated Test Results: " + failureResults + " Failures | " + today);
+        return (projectName + " Automated Test Results: " + count + " Failures | " + today);
     }
 
     private void setMailRecipient(Message message) throws AddressException, MessagingException, IOException {
@@ -316,7 +315,6 @@ public class ResultsIT extends ReformatTestFile {
                 + passedResult + " ,Failures: " + ele.getAttribute("failed")
                 + " ,Skipped: " + ele.getAttribute("skipped")
                 + " ,Total Execution Time: " + totalTime;
-        System.out.println("Message is " + msgOutput);
         return msgOutput;
     }
     
@@ -339,23 +337,22 @@ public class ResultsIT extends ReformatTestFile {
         NodeList testsExecuted = dom.getElementsByTagName("test");
         int testcount= testsExecuted.getLength();
   
-     	msgOutput = msgOutput + "<style>"+
-         		"table {border-collapse: collapse; width: 60%; border: 1px solid black;}th, td {text-align:center;padding: px;border: 1px solid black;}tr:nth-child(even){background-color: #f2f2f2}th {background-color: #4caf50;color: white;}</style></head><h4><u>Result Summary</u></h4><br><table><tr><th>Test Name</th><th>Total Tests</th><th>Passed</th><th>Skipped</th><th>Failed</th><th>Execution Time</th></tr>";
+     	msgOutput =msgOutput = msgOutput + "<style>"+
+         		"table {border-collapse: collapse; width: 60%; border: 1px solid black;}th, td {text-align:left;padding: px;border: 1px solid black;}tr:nth-child(even){background-color: #f2f2f2}th {background-color: #4caf50;color: white;}</style><h4><u>Result Summary</u></h4><br><table><tr><th>Test Name</th><th>Total Tests</th><th>Passed</th><th>Skipped</th><th>Failed</th><th>Execution Time</th></tr>";
      	for(int i=0;i<testcount;i++)
     	{
     	 Element ele = (Element)testsExecuted.item(i);
     	label= ele.getAttribute("name");
-    	System.out.println(label);
     	
     	totaltest=toString().valueOf(getExecutionResults(dom,"//test[@name='"+label+"']/class/test-method[not(@is-config)]"));
     	executiontime = ele.getAttribute("duration-ms");
     	passedResult = toString().valueOf(getExecutionResults(dom,"//test[@name='"+label+"']/class/test-method[@status='PASS' and not(@is-config)]"));
     	skippedResults =toString().valueOf(getExecutionResults(dom,"//test[@name='"+label+"']/class/test-method[@status='SKIP']"));
+    	failureResults =toString().valueOf(getExecutionResults(dom,"//test[@name='"+label+"']/class/test-method[@status='FAIL']"));
     	
-    	msgOutput = msgOutput + "<tr><td id=\"#t\""+i + "\">" + label+ "</td><td>"+totaltest+"</td><td>"+passedResult+"</td><td>"+skippedResults+"</td><td>"+count+"</td><td>"+executiontime+"</td></tr>";
+    	msgOutput = msgOutput + "<tr><td id=\"#t\""+i + "\">" + label+ "</td><td>"+totaltest+"</td><td>"+passedResult+"</td><td>"+skippedResults+"</td><td>"+failureResults+"</td><td>"+executiontime+"</td></tr>";
     	}
-     	//msgOutput = msgOutput + "</body>";
- 
+        msgOutput = msgOutput + "</table>";
         return msgOutput;
     	
     }

@@ -862,7 +862,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		else{
 		isElementDisplayed("txt_discount",productName);
-		Assert.assertEquals(element("txt_discount", productName).getText().trim(),DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy"),"ASSERT FAILED: Payment date is not verified as current date\n");
+		Assert.assertEquals(element("txt_discount", productName).getText().trim(),DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST5EDT"),"ASSERT FAILED: Payment date is not verified as current date\n");
 		logMessage("ASSERT FAILED: Payment date for product "+productName+" is verified as current date\n");
 		}
 	}
@@ -920,12 +920,12 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step: Clicked on Next button\n");
 	}
 	
-	public void enterPaymentDetails(String batchName,String paymentType, String paymentMethod,
+	public void enterPaymentDetails(String batchName,String paymentMethod,
 			String cardNumber, String expireDate,String cvvNo, String checkNumber){
 		MembershipPageActions_IWEB objFundraising=new MembershipPageActions_IWEB(driver);
 		switchToFrame("iframe1");
         clickOnNextButton();
-        objFundraising.selectBatchAndPaymentDetails_AddressChangeProforma(batchName,paymentType,paymentMethod,cardNumber,expireDate,cvvNo,checkNumber);
+        objFundraising.selectBatchAndPaymentDetails_AddressChangeProforma(batchName,paymentMethod,cardNumber,expireDate,cvvNo,checkNumber);
 		switchToDefaultContent();
 	}
 

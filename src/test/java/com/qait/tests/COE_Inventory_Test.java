@@ -20,7 +20,7 @@ public class COE_Inventory_Test extends BaseTest {
 	String price;
 	List<String> customerFullNameList;
 	String productName = null, productCode = null;
-	private String caseID;
+	private String caseID,batchprefix="ACS: ";
 
 	public COE_Inventory_Test() {
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "COE_Inventory";
@@ -52,7 +52,7 @@ public class COE_Inventory_Test extends BaseTest {
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step01_Launch_Iweb_Application_And_Verify_User_Is_On_Home_Page")
 	public void Step02_Run_Query_And_Verify_User_Is_On_Individual_Profile_Page() {
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Query Individual");
@@ -62,13 +62,13 @@ public class COE_Inventory_Test extends BaseTest {
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Individuals | " + individualName);
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step02_Run_Query_And_Verify_User_Is_On_Individual_Profile_Page")
 	public void Step03_Click_On_Order_Entry_Button_And_Verify_Centralized_Order_Entry_Page() {
 		test.memberShipPage.clickOnOrderEntryIcon();
 		test.memberShipPage.verifyCentralizedOrderEntryPage("Centralized Order Entry");
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step03_Click_On_Order_Entry_Button_And_Verify_Centralized_Order_Entry_Page")
 	public void Step04_Click_Select_Product_And_Merchandise_Option_and_Verify_Centralized_Order_Entry_Merchandise_Window() {
 		test.memberShipPage.clickOnSelectProduct();
 		test.memberShipPage.selectMerchandise("merchandise");
@@ -83,34 +83,40 @@ public class COE_Inventory_Test extends BaseTest {
 //		test.memberShipPage.clickOnSaveAndFinish();
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step04_Click_Select_Product_And_Merchandise_Option_and_Verify_Centralized_Order_Entry_Merchandise_Window")
 	public void Step05_Verify_that_Selected_Item_Is_Added_Into_Line_Items() {
 		test.memberShipPage.verifyProductNameInLineItem(productName);
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step05_Verify_that_Selected_Item_Is_Added_Into_Line_Items")
 	public void Step06_Select_Selenium_Batch_And_Payment_Details_For_CRM_Inventory_And_Verify_Centralized_Order_Entry_page() {
-		test.memberShipPage.selectBatchAndPaymentDetailsForCRMInventory(
+	/*	test.memberShipPage.selectBatchAndPaymentDetailsForCRMInventory(
 				YamlReader.getYamlValue("Acs_CreateMember_IWEB.batch"),
 				YamlReader.getYamlValue("COE_Inventory.PaymentType"),
-				test.homePageIWEB.map().get("paymentmethod?").trim(),
-				test.homePageIWEB.map().get("Card Number?").trim(), YamlReader
+				test.homePageIWEB.map().get("Payment_Method").trim(),test.homePageIWEB.map().get("Card Number?").trim(), YamlReader
 				.getYamlValue("Acs_CreateMember_IWEB.expireDate"), 
 				test.homePageIWEB.map().get("CVV?").trim(),
-				YamlReader.getYamlValue("COE_Inventory.checkNumber"));
+				YamlReader.getYamlValue("COE_Inventory.checkNumber"));*/
+		
+		
+		test.memberShipPage.selectAndAddBatchIFNotPresent(batchprefix+test.homePageIWEB.map().get("Batch_Name?"),test.homePageIWEB.map().get("Payment_Type"),test.homePageIWEB.map().get("Payment_Method"));
+		test.memberShipPage.fillAllTypeOFPaymentDetails(test.homePageIWEB.map().get("Payment_Method"), test.homePageIWEB.map().get("Visa_Card_Number"), test.homePageIWEB.map().get("Diners_Card_Number"), test.homePageIWEB.map().get("Reference_Number"),
+				test.homePageIWEB.map().get("Discover_Card_Number"),test.homePageIWEB.map().get("AMEX_Card_Number") ,test.homePageIWEB.map().get("Expiry_Date"), test.homePageIWEB.map().get("CVV_Number"), test.homePageIWEB.map().get("Check_Number"));
+		test.memberShipPage.navigateToCRMPageByClickingSaveAndFinish();
+		
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step06_Select_Selenium_Batch_And_Payment_Details_For_CRM_Inventory_And_Verify_Centralized_Order_Entry_page")
 	public void Step07_Click_on_More_tab_And_Select_Invoices_Option_and_Expand_Invoices_Open_Batch() {
 		test.individualsPage.navigateToInvoicesMenuOnHoveringMore();
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step07_Click_on_More_tab_And_Select_Invoices_Option_and_Expand_Invoices_Open_Batch")
 	public void Step08_Verify_Invoice_Added_In_Invoices_With_Current_Date_As_Trancation_Date() {
 		test.memberShipPage.verifyInvoiceIsAdded(customerFullNameList.get(0).trim());
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step08_Verify_Invoice_Added_In_Invoices_With_Current_Date_As_Trancation_Date")
 	public void Step09_Verify_Paid_In_Full_Yes_And_Current_Date_As_Transaction_Date_And_Product_Code_On_Invoice_Profile_Page() {
 		test.memberShipPage.clickOnStudentMemberName(1);
 		test.invoicePage.verifyInvoiceProfile("Yes");

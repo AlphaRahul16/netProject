@@ -3,6 +3,8 @@ package com.qait.keywords;
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.awt.Button;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -1420,12 +1422,22 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	private void verifySupporterDocumentsContainsUploadedFile(Map<String, String> mapAwardsNomination,
 			String SupporterNumber) {
-		System.out.println(element("lnk_awardsSupporterDoc", SupporterNumber).getAttribute("href"));
-		System.out.println(mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber));
-		Assert.assertTrue(element("lnk_awardsSupporterDoc", SupporterNumber).getAttribute("href")
-				.contains(mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber)));
+		 String supportNo2 = null;
+		if(SupporterNumber.equals("1"))
+		{
+			supportNo2="2";
+		}
+		else
+		{
+			supportNo2="1";
+		}
+		String docurl = element("lnk_awardsSupporterDoc", SupporterNumber).getAttribute("href");
+		docurl=docurl.replaceAll("%20", " ");
+		System.out.println(docurl);
+		System.out.println(mapAwardsNomination.get("FileNameForSupportForm" + supportNo2));
+		Assert.assertTrue(docurl.contains(mapAwardsNomination.get("FileNameForSupportForm" + supportNo2)));
 		logMessage("ASSERT PASSED : Document for supporter " + SupporterNumber + " succesfully verified as "
-				+ mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber));
+				+ mapAwardsNomination.get("FileNameForSupportForm" + supportNo2));
 	}
 
 	private void verifySupporterNamesOnAwardEntryProfilePage(Map<String, String> createMemberCredentials,
@@ -1835,6 +1847,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		enterNewAddressDetails("postal code", postalCode);
 		selectAddressType(addressType.get(0));
 		selectAddressState(state);
+		wait.hardWait(2);
 		selectAddressCheckboxes("primary");
 		selectAddressCheckboxes("billing");
 		selectAddressCheckboxes("do not validate");
@@ -2289,7 +2302,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		{
 			String GiftCardNumber=getMemberType();
 			System.out.println("Redeemed code is "+GiftCardNumber);
-			verifyGiftCardDetailsOnIweb(GiftCardNumber, "4", DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/dd/YYYY","EST"));
+			verifyGiftCardDetailsOnIweb(GiftCardNumber, "4", DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/dd/YYYY","EST"));
 			verifyGiftCardDetailsOnIweb(GiftCardNumber, "5", batchName);
 			verifyGiftCardDetailsOnIweb(GiftCardNumber, "6", "N");
 			verifyGiftCardDetailsOnIweb(GiftCardNumber, "7", priceValue);
@@ -2298,7 +2311,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		
 		public void verifyGiftItemPurchasedDetailsAfterRedeeming(String GiftCardNumber, String priceValue)
 		{
-			verifyGiftCardDetailsOnIweb(GiftCardNumber, "4", DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/dd/YYYY","EST"));
+			verifyGiftCardDetailsOnIweb(GiftCardNumber, "4", DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/dd/YYYY","EST"));
 			verifyGiftCardDetailsOnIweb(GiftCardNumber, "6", "Y");
 			verifyGiftCardDetailsOnIweb(GiftCardNumber, "7", priceValue);
 		}
