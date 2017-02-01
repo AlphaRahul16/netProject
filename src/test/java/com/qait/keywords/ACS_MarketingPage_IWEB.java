@@ -176,9 +176,11 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnSaveButtonDisplayedOnMailingListPopUp() {
 		isElementDisplayed("btn_save");
-//		element("btn_save").click();
-		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
+		element("btn_save").click();		
+		//clickUsingXpathInJavaScriptExecutor(element("btn_save"));
+		wait.hardWait(5);
 		logMessage("STEP : Save button is clicked\n");
+		//pageRefresh();
 		switchToDefaultContent();
 	}
 
@@ -227,8 +229,6 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(2);
 		MembershipPageActions_IWEB obj = new MembershipPageActions_IWEB(driver);
-		hardWaitForIEBrowser(15);
-		hardWaitForChromeBrowser(25);
 		obj.expandDetailsMenuIfAlreadyExpanded("list members");
 		hardWaitForIEBrowser(4);
 		Assert.assertTrue(isElementDisplayed("btn_ArrowProdName", userName));

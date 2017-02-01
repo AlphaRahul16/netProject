@@ -2897,10 +2897,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyTransferPackagePage() {
 
-		if (ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("dev7")
-				|| System.getProperty("tier").equalsIgnoreCase("dev7")) {
-			isElementDisplayed("heading_transferPackage", "Edit - Membership");
-		} else
+//		if (ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("dev7")
+//				|| System.getProperty("tier").equalsIgnoreCase("dev7")) {
+//			isElementDisplayed("heading_transferPackage", "Edit - Membership");
+//		} else
 			isElementDisplayed("heading_transferPackage", "Transfer Package");
 
 		logMessage("STEP : Member navigated to Transfer Package Page\n");

@@ -424,7 +424,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 				System.out.println("PDF Content::" + pdfContent);
 				verifyDetailsFromPDFFile(pdfContent, membershipType, "Membership Type");
 				verifyDetailsFromPDFFile(pdfContent, invoiceTotal, "invoice Total");
-				verifyDetailsFromPDFFile(pdfContent, DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy", "EST5EDT"),
+				verifyDetailsFromPDFFile(pdfContent, DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/dd/yyyy", "EST5EDT"),
 						"Payment Date");
 				verifyDetailsFromPDFFile(pdfContent, customerID, "Membership ID");
 				verifyDetailsFromPDFFile(pdfContent, productName, "Product Name");

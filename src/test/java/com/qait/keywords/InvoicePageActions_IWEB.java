@@ -32,7 +32,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyInvoiceProfile(String paidInFull) {
 		verifyMemberDetails_question("paid in full", paidInFull);
-		verifyMemberDetails("transaction date", DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY"));
+		verifyMemberDetails("transaction date", DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY","EST5EDT"));
 	}
 
 	public void verifyProductCodeInlineItem(String prodCode, String prodName) {
