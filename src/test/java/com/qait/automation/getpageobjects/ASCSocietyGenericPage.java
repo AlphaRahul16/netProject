@@ -35,10 +35,10 @@ public class ASCSocietyGenericPage extends GetPage {
 	protected WebDriver webdriver;
 	protected String pageName;
 	LayoutValidation layouttest;
-	String csvSeparator = getYamlValue("csv-data-file.data-separator");
+	static String csvSeparator = getYamlValue("csv-data-file.data-separator");
 	protected int timeOut;
 	protected int hiddenFieldTimeOut;
-	int numberOfColumns;
+	static int numberOfColumns;
 	static int count;
 	ArrayList<String> listOfCaseIdToExecute = new ArrayList<String>();
 	MembershipPageActions_IWEB memPage;
@@ -181,7 +181,7 @@ public class ASCSocietyGenericPage extends GetPage {
 				DataProvider.getColumnNumber_CreateMember(valueFromDataSheet)).trim();
 	}
 
-	public HashMap<String, String> addValuesInMap(String sheetName, String caseID) {
+	public static HashMap<String, String> addValuesInMap(String sheetName, String caseID) {
 		String csvline2;
 		YamlReader.setYamlFilePath();
 		String csvLine = csvReaderRowSpecific(getYamlValue("csv-data-file.path_" + sheetName), "false",
@@ -203,7 +203,7 @@ public class ASCSocietyGenericPage extends GetPage {
 
 	}
 
-	public HashMap<String, String> map() {
+	public static HashMap<String, String> map() {
 		return hashMap;
 	}
 

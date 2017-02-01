@@ -253,11 +253,11 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 					+ element("txt_listData", tabName, String.valueOf(index1), String.valueOf(i)).getText().trim());
 			System.out.println("----"
 					+ element("txt_listData", tabName, String.valueOf(index2), String.valueOf(i)).getText().trim());
-			System.out.println("----" + DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy"));
+			System.out.println("----" + DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST5EDT"));
 
 			if(ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Dev7")){
 			if (element("txt_listData", tabName, String.valueOf(index1), String.valueOf(i)).getText().trim()
-					.equals("No")
+					.equals("Yes")
 					&& element("txt_listData", tabName, String.valueOf(index2), String.valueOf(i)).getText().trim()
 							.equals(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy")) &&
 							element("txt_listData", tabName, String.valueOf(9), String.valueOf(i)).getText().trim()
@@ -268,7 +268,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 				if (element("txt_listData", tabName, String.valueOf(index1), String.valueOf(i)).getText().trim()
 						.equals("Yes")
 						&& element("txt_listData", tabName, String.valueOf(index2), String.valueOf(i)).getText().trim()
-								.equals(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy"))) {
+								.equals(DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST5EDT"))) {
 					break;
 				}
 		  }

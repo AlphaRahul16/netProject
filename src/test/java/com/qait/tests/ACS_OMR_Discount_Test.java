@@ -52,9 +52,6 @@ public class ACS_OMR_Discount_Test extends BaseTest{
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Membership");
 		test.homePageIWEB.clickOnSideBarTab("Members");
-		
-		
-
 	}
 	
 	@Test

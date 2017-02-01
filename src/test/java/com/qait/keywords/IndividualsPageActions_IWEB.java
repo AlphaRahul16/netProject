@@ -146,7 +146,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		enterEmailIDToAdd(emailID);
 		clickOnSaveButton();
 		handleAlert();
-		clickOnSaveButton();
+//		clickOnSaveButton();
 		switchToDefaultContent();
 		verifyNCW_CCEDEmailPresent(emailType, emailID);
 	}
@@ -1789,38 +1789,22 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			return false;
 	}
 
-	public List<String> verifyAddressType(String tabName) {
+	public List<String> verifyAddressType(String tabName,List<String> addressType) {
 		int i;
-		List<String> addressType = new ArrayList<>();
-		addressType.add("work");
-		addressType.add("work 2");
-		addressType.add("work 3");
-		// waitForPageToLoad();
-
 		isElementDisplayed("list_memberDetails", tabName);
 		System.out.println("size:" + elements("list_memberDetails", tabName).size());
 		for (i = 1; i < elements("list_memberDetails", tabName).size(); i++) {
 			String addressMode = element("txt_memberDetailsForChapter", tabName, String.valueOf(4), String.valueOf(i))
 					.getText().trim();
-			switch (addressMode) {
-			case "work":
+			if(addressType.contains(addressMode)){
 				addressType.remove(addressMode);
 				logMessage("STEP : Address type " + addressMode + " is already present");
-				break;
-			case "work 2":
-				addressType.remove(addressMode);
-				logMessage("STEP : Address type " + addressMode + " is already present");
-				break;
-			case "work 3":
-				addressType.remove(addressMode);
-				logMessage("STEP : Address type " + addressMode + " is already present");
-				break;
 			}
 		}
 		System.out.println(addressType);
 		return addressType;
 	}
-
+	
 	public void clickOnPlusSign(String tabName, int index) {
 		isElementDisplayed("btn_plusIcon", tabName, String.valueOf(index));
 		clickUsingXpathInJavaScriptExecutor(element("btn_plusIcon", tabName, String.valueOf(index)));
