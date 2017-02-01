@@ -38,7 +38,7 @@
 		</classes>
 	</test>
 
-	<!-- <test name="ACS_Apply_Payment_Test" parallel="false">
+	 <test name="ACS_Apply_Payment_Test" parallel="false">
 		<classes>
 			<class name="com.qait.tests.ACS_Apply_Payment_Test"></class>
 		</classes>
@@ -74,7 +74,7 @@
 		</classes>
 	</test>
 
-	<test name="ACS Chapter Relationships Test" group-by-instances="true">
+<!--<test name="ACS Chapter Relationships Test" group-by-instances="true">
 		<classes>
 			<class name="com.qait.tests.ACS_Chapter_Relationships_Test"></class>
 		</classes>

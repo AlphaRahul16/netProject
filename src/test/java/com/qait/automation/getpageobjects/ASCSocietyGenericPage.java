@@ -187,6 +187,7 @@ public class ASCSocietyGenericPage extends GetPage {
 		String csvLine = csvReaderRowSpecific(getYamlValue("csv-data-file.path_" + sheetName), "false",
 				String.valueOf(1));
 		System.out.println(getYamlValue("csv-data-file.path_" + sheetName));
+		System.out.println(caseID);
 		String csvLine1 = csvReaderRowSpecific(getYamlValue("csv-data-file.path_" + sheetName), "true",
 				String.valueOf(caseID));
 		numberOfColumns = csvLine.split(csvSeparator).length;
@@ -208,9 +209,10 @@ public class ASCSocietyGenericPage extends GetPage {
 	}
 
 	public static void extractAndCompareTextFromPdfFile(String filename, String texttocompare, int totalnumberofpages) {
-		String textinpdf;
+		String textinpdf,filepath;
+		filepath = "./src/test/resources/UploadFiles/" + filename + ".pdf";
 		try {
-			textinpdf = extractFromPdf(filename, 1).trim();
+			textinpdf = extractFromPdf(filename, filepath,1).trim();
 			String textarray[] = texttocompare.trim().split(" ");
 			for (int i = 0; i < (textarray.length) - 1; i++) {
 				System.out.println("textarray[i]= " + textarray[i]);
@@ -224,9 +226,8 @@ public class ASCSocietyGenericPage extends GetPage {
 		}
 	}
 
-	public static String extractFromPdf(String filename, int totalnumberofpages) throws IOException {
+	public static String extractFromPdf(String filename, String filepath,int totalnumberofpages) throws IOException {
 		Object marker=null;
-		String uploadedfilepath = "./src/test/resources/DownloadedFiles/" + filename + ".pdf";
 		String parsedText = "";
 		PDFTextStripper pdfStripper = null;
 		PDDocument pdDoc = null;
@@ -236,7 +237,7 @@ public class ASCSocietyGenericPage extends GetPage {
 		RandomAccessBufferedFileInputStream raf=null;
 
 		try {
-			file = new File(uploadedfilepath);
+			file = new File(filepath);
 			raf = new RandomAccessBufferedFileInputStream(file);
 			parser = new PDFParser(raf);
 			parser.parse();
