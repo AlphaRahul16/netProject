@@ -48,14 +48,16 @@ public class ACS_Chapter_Relationships_Test extends BaseTest {
 		test.homePageIWEB.clickOnTab("Query Individual");
 		test.memberShipPage.selectAndRunQuery(mapChapterRelationships.get("CRM_Query_Name"));
 	}
-	@Test
+	
+	@Test(dependsOnMethods="Step_01_Navigate_To_Query_Individual_Page_And_Run_Query_To_Find_Random_Active_Member")
 	public void Step_02_Navigate_To_Relations_Tab_And_Expand_Chapter_Relationships_Tab() {
 	
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Relations");
 		test.individualsPage.expandDetailsMenu("chapter relationships");
 		test.fundpofilePage.clickAddDonationButton("chapter relationships");
 	}
-	@Test
+	
+	@Test(dependsOnMethods="Step_02_Navigate_To_Relations_Tab_And_Expand_Chapter_Relationships_Tab")
 	public void Step_03_Add_Chapter_Relationships_To_Random_Member_And_Save_Changes() {
 		
 		Chaptername=test.individualsPage.addChapterRelationshipsToIndividual();
@@ -63,12 +65,14 @@ public class ACS_Chapter_Relationships_Test extends BaseTest {
         test.individualsPage.enterStartDateForChapter(DateUtil.getCurrentdateInStringWithGivenFormate("MM/d/yyyy"));
 		test.individualsPage.clickOnSaveButton();
 	}
-	@Test
+	
+	@Test(dependsOnMethods="Step_03_Add_Chapter_Relationships_To_Random_Member_And_Save_Changes")
 	public void Step_04_Verify_Current_Record_Is_Added_In_Individual_Relationships() {
 		
 		test.individualsPage.verifyCurrentRecordisAddedInChapterRelationship(Chaptername,mapChapterRelationships.get("Relationship_Type_To_Add"),"M/d/yyyy");
 	}
-	@Test
+	
+	@Test(dependsOnMethods="Step_04_Verify_Current_Record_Is_Added_In_Individual_Relationships")
 	public void Step_05_Navigate_To_Query_Chapters_In_Membership_Module_And_Run_Query_To_Find_Active_Chapter() {
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Membership");
@@ -76,14 +80,16 @@ public class ACS_Chapter_Relationships_Test extends BaseTest {
 		test.homePageIWEB.clickOnTab("Query Chapter");
 		test.memberShipPage.selectAndRunQuery(mapChapterRelationships.get("Chapter_Query_Name"));
 	}
-	@Test
+	
+	@Test(dependsOnMethods="Step_05_Navigate_To_Query_Chapters_In_Membership_Module_And_Run_Query_To_Find_Active_Chapter")
 	public void Step_06_Navigate_To_Relations_Tab_And_Expand_Individual_Relationships_Tab() {
 		
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Relations");
 		test.individualsPage.expandDetailsMenu("individual relationships");
 		test.fundpofilePage.clickAddDonationButton("individual relationships");
 	}
-	@Test
+	
+	@Test(dependsOnMethods="Step_06_Navigate_To_Relations_Tab_And_Expand_Individual_Relationships_Tab")
 	public void Step_07_Add_Individual_Relationships_To_The_Chapter_And_Save_Changes() {	
 		
 		test.individualsPage.enterIndividualSortName("sort name", mapChapterRelationships.get("Individual_Sort_Name"));
@@ -93,13 +99,15 @@ public class ACS_Chapter_Relationships_Test extends BaseTest {
 		individualname=test.individualsPage.getindividualRelationshipName("sort name");
 		test.individualsPage.clickOnSaveButton();
 	}
-	@Test
+	
+	@Test(dependsOnMethods="Step_07_Add_Individual_Relationships_To_The_Chapter_And_Save_Changes")
 	public void Step_08_Verify_Current_Record_Is_Added_In_Chapter_Relationships() {
 		
 	
 		test.individualsPage.verifyCurrentRecordisAddedInChapterRelationship(individualname,mapChapterRelationships.get("Relationship_Type_To_Add"),"MM/dd/yyyy");
 	}	
-	@Test
+	
+	@Test(dependsOnMethods="Step_08_Verify_Current_Record_Is_Added_In_Chapter_Relationships")
 	public void Step_09_Edit_Existing_Record_And_Verify_The_C() {
 		
 		test.individualsPage.clickPencilButtonToEditIndividualRecord(individualname);

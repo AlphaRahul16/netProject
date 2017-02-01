@@ -29,14 +29,14 @@ public class ACS_ReturnCancelRefund extends BaseTest {
 		test.homePageIWEB.clickOnTab("Query Invoice");
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step01_Navigate_To_Find_Batch_Tab_Under_Accounting_Module")
 	public void Step02_Search_For_Store_Batches_And_Navigate_To_Invoice_Profile_Page() {
 
 		test.memberShipPage.selectAndRunQuery("Selenium return/cancel");
 
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step02_Search_For_Store_Batches_And_Navigate_To_Invoice_Profile_Page")
 	public void Step03_Select_Random_Invoice_Record_And_Fetch_Data_For_That_Invoice() {
 
 		invoiceTotal = test.invoicePage
@@ -44,7 +44,7 @@ public class ACS_ReturnCancelRefund extends BaseTest {
 
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step03_Select_Random_Invoice_Record_And_Fetch_Data_For_That_Invoice")
 	public void Step04_Click_On_Void_Invoice_Button_And_Verify_Void_Invoice_Message() {
 		test.acsVoidInvoice.clickOnVoidInvoiceButton("return/cancel", 3);
 		creditbatchName = test.acsVoidInvoice.createBatch(1, 6, "QA");
@@ -53,7 +53,7 @@ public class ACS_ReturnCancelRefund extends BaseTest {
 				.verifyVoidInvoiceMessage(getYamlValue("VoidWithAdjustment.voidMessage"));
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step04_Click_On_Void_Invoice_Button_And_Verify_Void_Invoice_Message")
 	public void Step05_Navigate_To_Other_ACTG_On_Membership_Page_And_Verify_Credit_Has_Been_Added_To_List() {
 		test.memberShipPage.clickOnCustomerNameAndNavigateToMembershipPage();
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Other Actg");
@@ -62,7 +62,7 @@ public class ACS_ReturnCancelRefund extends BaseTest {
 				invoiceTotal);
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step05_Navigate_To_Other_ACTG_On_Membership_Page_And_Verify_Credit_Has_Been_Added_To_List")
 	public void Step06_Navigate_To_Batch_Profile_Page_And_Process_batch_For_Close() {
 		test.acsVoidInvoice.clickOnGotoCreditRecord(creditbatchName);
 		test.acsVoidInvoice
@@ -78,7 +78,7 @@ public class ACS_ReturnCancelRefund extends BaseTest {
 				batchValues.get(0));
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step06_Navigate_To_Batch_Profile_Page_And_Process_batch_For_Close")
 	public void Step07_Navigate_To_Add_Refund_Page_And_Search_For_Current_Refunds() {
 		test.homePageIWEB.clickOnSideBarTab("Refund");
 		test.homePageIWEB.clickOnTab("Add Refund");
@@ -87,7 +87,7 @@ public class ACS_ReturnCancelRefund extends BaseTest {
 		test.acsVoidInvoice.clickSearchRefundsButton();
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step07_Navigate_To_Add_Refund_Page_And_Search_For_Current_Refunds")
 	public void Step08_Create_New_Batch_For_Refund_And_And_Fetch_Refund_Info() {
 		refundbatchname = test.acsVoidInvoice.createBatchForRefunds(1, 6, "QA");
 		test.acsbatchProcessing.uncheckAllRefundCCACHCheckboxes();
@@ -95,7 +95,7 @@ public class ACS_ReturnCancelRefund extends BaseTest {
 		test.acsVoidInvoice.clickOnSaveButtonAndHandelAlert();
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step08_Create_New_Batch_For_Refund_And_And_Fetch_Refund_Info")
 	public void Step10_Verify_Refund_And_Credit_Details() {
 		test.invoicePage.expandDetailsMenu("refund detail");
 		test.acsbatchProcessing.verifyRefundDetails(refundInfo, "refund");
@@ -105,7 +105,7 @@ public class ACS_ReturnCancelRefund extends BaseTest {
 		test.invoicePage.collapseDetailsMenu("related credit");
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step10_Verify_Refund_And_Credit_Details")
 	public void Step11_Prcoess_Refund_Batch_For_Close_And_Verify_FTP_Button_Is_Inactive() {
 		test.acsVoidInvoice
 				.NavigateToBatchProfilePageByClickingOnBatchName(refundbatchname);

@@ -43,7 +43,7 @@ public class ACS_Apply_Payment_Test extends BaseTest {
 
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step00_Launch_Iweb_Application")
 	public void Step01_Navigate_To_Membership_Module_And_Find_Member_Test() {
 		
 		test.homePageIWEB.clickOnModuleTab();
@@ -72,7 +72,7 @@ public class ACS_Apply_Payment_Test extends BaseTest {
 
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step01_Navigate_To_Membership_Module_And_Find_Member_Test")
 	public void Step02_Navigate_To_Product_Invoice_And_Verify_Details_Before_Apply_Payment_Test() {
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("invoices");
 
@@ -89,7 +89,7 @@ public class ACS_Apply_Payment_Test extends BaseTest {
 
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step02_Navigate_To_Product_Invoice_And_Verify_Details_Before_Apply_Payment_Test")
 	public void Step03_Add_Payment_And_Verify_Details_After_Apply_Payment_Test() {
 		test.invoicePage.clickOnAddPaymentIcon();
 		test.applyPayment.switchToFrame("iframe1");

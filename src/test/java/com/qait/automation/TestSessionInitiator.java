@@ -311,7 +311,6 @@ public class TestSessionInitiator {
 	}
 
 	public void closeBrowserSession() {
-		driver.close();
 		driver.quit();
 //		try {
 //		    Runtime.getRuntime().exec("taskkill /F /IM chromedriver.exe");

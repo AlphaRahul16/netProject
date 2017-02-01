@@ -677,6 +677,6 @@ email:
   send: true
   recepients: 
      recepient1: rahulyadav@qainfotech.com
-#    recepient2: kanikasharma@qainfotech.com
-#    recepient3: hitasheesil@qainfotech.com
+     recepient2: kanikasharma@qainfotech.com
+     recepient3: hitasheesil@qainfotech.com
 

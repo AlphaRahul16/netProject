@@ -28,6 +28,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 import com.fasterxml.jackson.core.format.MatchStrength;
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.report.ReformatTestFile;
 import com.qait.automation.utils.ConfigPropertyReader;
@@ -4392,14 +4393,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			String reportingStartDate) {
 		int endDate, startDate;
 		logMessage("Current Date :"
-				+ DateUtil.getCurrentdateInStringWithGivenFormate("M/dd/yyyy"));
+				+ DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/dd/yyyy","EST5EDT"));
 		logMessage("End Date :" + reportingEndDate);
 		endDate = DateUtil.convertStringToDate(
-				DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
+				DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/dd/yyyy","EST5EDT"),
 				"MM/dd/yyyy").compareTo(
 				DateUtil.convertStringToDate(reportingEndDate, "MM/dd/yyyy"));
 		logMessage("Current Date :"
-				+ DateUtil.getCurrentdateInStringWithGivenFormate("M/dd/yyyy"));
+				+ DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/dd/yyyy","EST5EDT"));
 		// logMessage("Start Date:" +
 		// DateUtil.convertStringToDate(reportingStartDate, "MM/dd/yyyy"));
 		logMessage("Start Date :" + reportingStartDate);
@@ -5764,17 +5765,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ getInvoiceId(i, 12)
 				+ " is having Term start and end date as not in current date's range \n");
 	}
-
-	public void getInvoiceHavingTermDateWithinRange() {
+	
+	public String getInvoiceHavingTermDateWithinRange() {
 		boolean value = false;
-		String termStartDate, termEndDate;
+		String termStartDate, termEndDate,invoiceId;
 		int i;
 		isElementDisplayed("lst_childTable");
 		for (i = 1; i <= elements("lst_childTable").size(); i++) {
-			termStartDate = element("txt_endDate", String.valueOf(i),
-					String.valueOf(14)).getText().trim();
-			termEndDate = element("txt_endDate", String.valueOf(i),
-					String.valueOf(15)).getText().trim();
+			termStartDate = element("txt_endDate", String.valueOf(i), String.valueOf(14)).getText().trim();
+			termEndDate = element("txt_endDate", String.valueOf(i), String.valueOf(15)).getText().trim();
 			if (termStartDate.equals("") || termEndDate.equals("")) {
 				continue;
 			}
@@ -5782,22 +5781,30 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			if (value)
 				break;
 		}
-		Assert.assertTrue(
-				value,
-				"ASSERT FAILED: No Invoice is having Term start and end date in current date's range \n");
-		logMessage("ASSERT PASSED: Invoice Id "
-				+ getInvoiceId(i, 12)
+		invoiceId=getInvoiceId(i, 12);
+		Assert.assertTrue(value,"ASSERT FAILED: No Invoice is having Term start and end date in current date's range \n");
+		logMessage("ASSERT PASSED: Invoice Id " + invoiceId
 				+ " is having Term start and end date in current date's range \n");
+		return invoiceId;
 	}
 
 	public void getInvoiceId(String caseId) {
-		verifyTermEndDateAndStartDateIsEmpty();
-		logMessage("Step: Invoice Id " + getInvoiceId(1, 12)
-				+ " is having Term start and end date as null\n");
-		if (caseId.equals("3"))
+		String invoiceId;
+		logMessage("Step: Invoice Id " + getInvoiceId(1, 12) + " is having Term start and end date as null\n");
+		if (caseId.equals("3")){
+			verifyTermEndDateAndStartDateIsEmpty();
 			getInvoiceHavingTermDatesNotWithinRange();
-		else
-			getInvoiceHavingTermDateWithinRange();
+		}
+		else{
+			verifyTermEndDateAndStartDateIsEmpty();
+			clickOnGoToRecordButton(getInvoiceId(1, 12),"9");
+			verifyMemberDetailsOnMemberShipProfile("proforma","Yes");
+			navigateToBackPage();
+			invoiceId=getInvoiceHavingTermDateWithinRange();
+			clickOnGoToRecordButton(invoiceId,"9");
+			verifyMemberDetailsOnMemberShipProfile("proforma","No");
+			navigateToBackPage();
+		}
 	}
 
 	public void verifyMemberPaymentStatus(String caseId) {
@@ -5811,8 +5818,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 					+ paymentStatus);
 		} else {
 			Assert.assertTrue(paymentStatus.equals("Paid"),
-					"ASSERT PASSED: Payment status is not verified as "
-							+ paymentStatus);
+					"ASSERT PASSED: Payment status is not verified as Paid");
 			logMessage("ASSERT PASSED: Payment status is verified as "
 					+ paymentStatus);
 		}
@@ -5840,7 +5846,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyAdditionOfNewLSAndDetailsOfOldLS(String oldChpName,String newChpName,Map individualDates,String caseId) {
-		navigateToBackPage();
+//		navigateToBackPage();
+		handleAlert();
 		expandDetailsMenuIfAlreadyExpanded("chapter memberships");
 		verifyOldLSStatusIsTransfered(oldChpName);
 		verifyTerminateDateIsCurrentDate(oldChpName,DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/dd/yyyy", "EST5EDT"),7,"Terminate date");
@@ -5856,7 +5863,24 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyOldLSStatusIsTransfered(String oldLSName) {
+		boolean flag=false;
 		isElementDisplayed("txt_payments", oldLSName, String.valueOf(2));
+		if(elements("txt_payments", oldLSName, String.valueOf(2)).size()>1){
+			for(WebElement elem: elements("txt_payments", oldLSName, String.valueOf(2))){
+			if(elem.getText().trim().equals("Transferred")){
+				flag=true;
+			}
+		  }if(flag){
+
+				logMessage("ASSERT PASSED: Member status of " + oldLSName
+						+ " is changed to Transferred\n");
+		  }
+		//	  ------(add assertion fail)
+		}
+		else
+		{
+			
+		}
 		Assert.assertTrue(element("txt_payments", oldLSName, String.valueOf(2))
 				.getText().trim().equals("Transferred"),
 				"ASSERT PASSED: Member status of " + oldLSName

@@ -39,7 +39,7 @@ public class ACS_Rubber_Insurance_Test extends BaseTest {
 		test.homePageIWEB.verifyUserIsOnHomePage("Add - ACS Import Match");
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step01_Launch_Iweb_Application_And_Navigate_To_Add_file")
 	public void Step02_Import_File_For_Rubber_Insurance() {
 		importedFile = test.memberShipPage.importProfileSheet(test.homePageIWEB
 				.map().get("Import_Name").trim(),
@@ -50,7 +50,7 @@ public class ACS_Rubber_Insurance_Test extends BaseTest {
 		test.memberShipPage.clickOnSaveButtonForBillingAddress();
 	}
 
-	@Test
+	@Test(dependsOnMethods="Step02_Import_File_For_Rubber_Insurance")
 	public void Step03_Verify_ACS_Import_Match_Profile_Page_And_Match_total_child_form_is_not_null() {
 		test.memberShipPage.verifyACSImportMatchProfilePage(importedFile,
 				test.homePageIWEB.map().get("Description"), test.homePageIWEB
