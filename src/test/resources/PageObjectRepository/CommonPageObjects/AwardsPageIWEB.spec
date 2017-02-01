@@ -18,7 +18,6 @@ lbl_addRound                              xpath               span[text()='Add -
 inp_editRound_Judge                       xpath              //label[text()='${labeltext}:']/preceding-sibling::input
 list_awardJudge                           xpath              (//table[@class='DataFormChildTABLE'])[2]//td[starts-with(text(),'Round ${1}')]
 list_selectRoundNumber                    id                  awj_aws_key
-btn_search                                classname           LookUpHyperLink
 img_goToJudge                             xpath               (//td[contains(text(),'@')]/preceding-sibling::td[7]//img)[${indexNumber}]
 link_goToRecord                           xpath               //td[starts-with(text(),'Round ${roundNumber}')]/preceding-sibling::td[1]/a[@title='goto record']
 list_judgeNames_awardJudges				  xpath				  //a[@title='goto record']/../following-sibling::td[1]
