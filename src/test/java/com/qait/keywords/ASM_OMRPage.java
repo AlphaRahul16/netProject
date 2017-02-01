@@ -711,6 +711,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 				scrollDown(elements("btn_removerenewals",renewalName).get(i));
 				elements("btn_removerenewals",renewalName).get(i).click();
 				wait.hardWait(2);
+				pageRefresh();
+				wait.waitForPageToLoadCompletely();
 			}
 		}
 		catch(Exception e)
@@ -905,8 +907,9 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	public void verifyPrintReceiptMessageAfterPayment() {
 		wait.waitForPageToLoadCompletely();
 		//switchToEwebRenewalFrame();
-		wait.hardWait(8);
+		
 		dynamicWait(20, "btn_printreceipt", "1");
+		wait.hardWait(15);
 		Object display= executeJavascriptReturnValue("window.getComputedStyle(document.getElementById('eWebFrame').contentWindow.document.querySelector('#print-invoice>input')).display");
 		System.out.println(display.toString());
 		Assert.assertTrue(display.toString().contains("inline"));
@@ -1033,6 +1036,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	public void verifyDiscountedPriceIsDisplayedOnOMREweb(String productName,int expectedDiscount,String Productamount) {
 		holdScriptExecution();
 		switchToEwebRenewalFrame();
+		holdScriptExecution();
+		dynamicWait(30,"txt_productIndividualAmount", productName);
 		System.out.println(element("txt_productIndividualAmount",productName).getText().replaceAll("[^\\d.]", ""));
 		System.out.println(expectedDiscount);
 		System.out.println(Productamount);

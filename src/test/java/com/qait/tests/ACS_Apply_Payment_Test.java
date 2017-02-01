@@ -3,10 +3,13 @@ package com.qait.tests;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
@@ -16,6 +19,20 @@ import com.qait.automation.utils.YamlReader;
 public class ACS_Apply_Payment_Test extends BaseTest {
 
 	String app_url_IWEB;
+	private String caseID,batchprefix = "ACS: ";
+	Map<String,String> applyPaymentMap = new HashMap<String, String>();
+	
+	public ACS_Apply_Payment_Test() {
+		com.qait.tests.DataProvider_FactoryClass.sheetName = "Apply_Payment_Sheet";
+		
+	}
+
+	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
+	public ACS_Apply_Payment_Test(String caseID) {
+		this.caseID = caseID;
+	    System.out.println(this.caseID);
+	    System.setProperty("caseID", this.caseID);
+	}
 
 	@Test
 	public void Step00_Launch_Iweb_Application() {
@@ -28,6 +45,7 @@ public class ACS_Apply_Payment_Test extends BaseTest {
 
 	@Test
 	public void Step01_Navigate_To_Membership_Module_And_Find_Member_Test() {
+		
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Membership");
 		test.homePageIWEB.clickOnSideBarTab("Members");
@@ -35,23 +53,19 @@ public class ACS_Apply_Payment_Test extends BaseTest {
 		test.individualsPage
 				.selectFieldValueToFindMember(
 						"Association",
-						YamlReader
-								.getYamlValue("ACS_ApplyPayment.DetailsToFindMember.Association"));
+						applyPaymentMap.get("Association"));
 		test.individualsPage
 				.selectFieldValueToFindMember(
 						"Member Type",
-						YamlReader
-								.getYamlValue("ACS_ApplyPayment.DetailsToFindMember.MemberType"));
+						applyPaymentMap.get("MemberType"));
 		test.individualsPage
 				.selectFieldValueToFindMember(
 						"Member Status",
-						YamlReader
-								.getYamlValue("ACS_ApplyPayment.DetailsToFindMember.MemberStatus"));
+						applyPaymentMap.get("MemberStatus"));
 		test.individualsPage
 				.selectFieldValueToFindMember(
 						"Member Package",
-						YamlReader
-								.getYamlValue("ACS_ApplyPayment.DetailsToFindMember.MemberPackage"));
+						applyPaymentMap.get("MemberPackage"));
 		test.individualsPage.clickGoButton();
 		test.individualsPage.handleAlert();
 		test.memberShipPage.clickOnAnyRandomMember();
@@ -63,13 +77,11 @@ public class ACS_Apply_Payment_Test extends BaseTest {
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("invoices");
 
 		test.invoicePage.clickOnGoToArrowButton();
-		test.invoicePage.verifyMemberDetails_question("proforma", YamlReader
-				.getYamlValue("ACS_ApplyPayment.BeforeApplyPayment.proforma"));
+		test.invoicePage.verifyMemberDetails_question("proforma", applyPaymentMap.get("BeforeApplyPayment_proforma"));
 		test.invoicePage
 				.verifyMemberDetails_question(
 						"paid in full",
-						YamlReader
-								.getYamlValue("ACS_ApplyPayment.BeforeApplyPayment.paidInFull"));
+						applyPaymentMap.get("BeforeApplyPayment_paidInFull"));
 		test.invoicePage.verifyBalanceInInvoice(test.invoicePage
 				.getMemberDetails("invoice total"));
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("line items");
@@ -86,21 +98,18 @@ public class ACS_Apply_Payment_Test extends BaseTest {
 		test.applyPayment
 				.verifyCheckBoxSelectedAtSelectInvoiceTab("auto distribute payment");
 		test.applyPayment.clickOnNextButton();
-		test.applyPayment.selectBatch(YamlReader
-				.getYamlValue("ACS_ApplyPayment.Batch"));
-		test.applyPayment.enterDetailsForPayment(YamlReader
-				.getYamlValue("ACS_ApplyPayment.PaymentMethod.Select"));
+		
+		test.applyPayment.selectBatch(batchprefix+applyPaymentMap.get("Batch_Name?"));
+		test.memberShipPage.selectOrderEntryInfo("paymentMethod", applyPaymentMap.get("Payment_Method"));
+		test.memberShipPage.fillAllTypeOFPaymentDetails(applyPaymentMap.get("Payment_Method"), applyPaymentMap.get("Visa_Card_Number"), applyPaymentMap.get("Diners_Card_Number"), applyPaymentMap.get("Reference_Number"),
+				applyPaymentMap.get("Discover_Card_Number"),test.homePageIWEB.map().get("AMEX_Card_Number"), applyPaymentMap.get("Expiry_Date"), applyPaymentMap.get("CVV_Number"), applyPaymentMap.get("Check_Number"));
 		test.applyPayment.clickOnSaveButton();
 		test.applyPayment.switchToDefaultContent();
-		// test.invoicePage.verifyMemberDetails_question("proforma", YamlReader
-		// .getYamlValue("ACS_ApplyPayment.AfterApplyPayment.proforma"));
 		test.invoicePage
 				.verifyMemberDetails_question(
 						"paid in full",
-						YamlReader
-								.getYamlValue("ACS_ApplyPayment.AfterApplyPayment.paidInFull"));
-		test.invoicePage.verifyBalanceInInvoice(YamlReader
-				.getYamlValue("ACS_ApplyPayment.AfterApplyPayment.balance"));
+						applyPaymentMap.get("AfterApplyPayment_paidInFull"));
+		test.invoicePage.verifyBalanceInInvoice(applyPaymentMap.get("AfterApplyPayment_balance"));
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("line items");
 		test.invoicePage.verifyPaidClosedStatus_Yes();
 	}
@@ -109,6 +118,7 @@ public class ACS_Apply_Payment_Test extends BaseTest {
 	public void Open_Browser_Window() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url_IWEB = YamlReader.getYamlValue("app_url_IWEB");
+		applyPaymentMap = test.homePage.addValuesInMap("Apply_Payment_Sheet", caseID);
 	}
 
 	@BeforeMethod

@@ -306,6 +306,8 @@ public class MemberShipRenewalPage extends GetPage {
 
 	public void clickOnCreateRenewalInvoices() {
 		isElementDisplayed("btn_createRenewalInvoices");
+		wait.hardWait(3);
+		wait.waitForElementToBeClickable(element("btn_createRenewalInvoices"));
 		element("btn_createRenewalInvoices").click();
 		logMessage("STEP : Create renewal invoice button is clicked\n");
 	}
@@ -313,7 +315,7 @@ public class MemberShipRenewalPage extends GetPage {
 	public String navigateToCreateRenewalInvoicesAndEnterInvoiceTaskStartTimeAndDate(
 			String timeSlab) {
 		clickOnCreateRenewalInvoices();
-		isElementDisplayed("txt_scheduleCreateRenewalInvoice");
+		//isElementDisplayed("txt_scheduleCreateRenewalInvoice");
 		switchToFrame("iframe1");
 		enterInvoiceTaskDetails("date",
 				DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone(
@@ -324,10 +326,10 @@ public class MemberShipRenewalPage extends GetPage {
 				Integer.parseInt(timeSlab) + 11);
 		SimpleDateFormat sdf = new SimpleDateFormat("hh:mma");
 		String dateWithTimeSlabInString = sdf.format(dateAfterMinutesAdded);
-		enterInvoiceTaskDetails("time", dateWithTimeSlabInString);
-		clickOnSaveButton();
-		wait.hardWait(1);
-		switchToDefaultContent();
+//		enterInvoiceTaskDetails("time", dateWithTimeSlabInString);
+//		clickOnSaveButton();
+//		wait.hardWait(1);
+//		switchToDefaultContent();
 		return dateWithTimeSlabInString;
 	}
 

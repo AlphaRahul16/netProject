@@ -65,12 +65,15 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		enterMemberDetail("addressLine1", street);
 		wait.hardWait(5);
 		if(ConfigPropertyReader.getProperty("tier").contains("dev") || ConfigPropertyReader.getProperty("tier").contains("Dev"))
+			
 			enterMemberDetailsCity("city/state/zip", city);
 		else
 			enterMemberDetails("city/state/zip", city);
 		wait.hardWait(3);
+		
 		if (!(abrState.equalsIgnoreCase(""))) {
 			wait.hardWait(5);
+			waitForSpinner();
 			selectMemberDetails("state", abrState);
 			waitForSpinner();
 		}
@@ -121,6 +124,7 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 	public void enterMemberDetailsCity(String detailName, String detailValue) {
 		//wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(2);
+		waitForSpinner();
 		isElementDisplayed("inp_memberDetailCityState", detailName);
 		element("inp_memberDetailCityState", detailName).click();
 		waitForSpinner();

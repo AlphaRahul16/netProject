@@ -801,6 +801,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		selectProvidedTextFromDropDown(element("list_" + orderEntryInfo), value);
 		logMessage("STEP : " + orderEntryInfo + " is selected as " + value
 				+ "\n");
+		wait.hardWait(3);
 	}
 
 	public void clickOnSaveAndFinish() {
@@ -820,6 +821,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(15);
 		logMessage("STEP : Save and finish button is clicked\n");
 		waitForSpinner();
+	}
+	
+	public void navigateToCRMPageByClickingSaveAndFinish()
+	{
+		clickOnSaveAndFinish();
+		handleAlert();
+		verifyPageTitleContains("CRM | Individuals |");
 	}
 
 	public void enterCardDetails(String cardInfo, String cardValue) {
@@ -2849,7 +2857,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnEditNameAndAddress();
 		wait.hardWait(5);
 		switchToDefaultContent();
-		switchToFrame("iframe1");
+		wait.hardWait(5);
+		switchToFrame(element("iframe"));
 		customerLname = getNameFromEditNameAndAddressButton("lastName") + " "
 				+ getNameFromEditNameAndAddressButton("firstName") + " "
 				+ getNameFromEditNameAndAddressButton("middleName");
@@ -5464,7 +5473,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 
-	public void selectAndAddBatchIFNotPresentForGiftCard(String batchName,
+	public void selectAndAddBatchIFNotPresent(String batchName,
 			String paymentType, String paymentMethod) {
 
 		holdExecution(2000);
@@ -5476,9 +5485,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		waitForSpinner();
 		selectOrderEntryInfo("PaymentType", paymentType);
-		waitForSpinner();
 		selectOrderEntryInfo("paymentMethod", paymentMethod);
-		waitForSpinner();
+
 	}
 
 	private void fillCardInformation(String cardNumber, String expireDate,
@@ -5491,7 +5499,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void fillAllTypeOFPaymentDetails(String PaymentMethod,
 			String cardNumber, String dinerscardNumber, String referenceNumber,
-			String discovercardNumber, String expireDate, String cvvNumber,
+			String discovercardNumber,String AMEXcardNumber, String expireDate, String cvvNumber,
 
 			String checkNumber) {
 		switch (PaymentMethod) {
@@ -5518,14 +5526,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		case "Discover":
 			fillCardInformation(discovercardNumber, expireDate, cvvNumber);
 			break;
+		case "AMEX":
+			fillCardInformation(AMEXcardNumber, expireDate, cvvNumber);
+			break;
 
 		case "Gift Card Adjustment":
 			enterCardDetails("referencenumber", referenceNumber);
 			break;
 		}
-		clickOnSaveAndFinish();
-		handleAlert();
-		verifyPageTitleContains("CRM | Individuals |");
+
 	}
 
 	public String _getSourceCode(String sourceCodetype) {

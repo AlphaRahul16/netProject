@@ -83,10 +83,17 @@ public class ACS_Fundraising_Module_Test extends BaseTest {
 	public void Step05_Create_A_New_Batch_And_Enter_Payment_Details() {
 		batchName = test.acsVoidInvoice.createBatchForFundraising(1, 6, "QA");
 		test.acsVoidInvoice.switchToIframe1();
-		test.acsFundraising.selectBatchAndPaymentDetails_Fundraising(batchName,
-				test.memberShipPage.map().get("paymentType"), test.memberShipPage.map().get("paymentmethod"),
-				test.memberShipPage.map().get("Card Number"), getYamlValue("ACS_Fundraising_Module.CreditCardExpiration"),
-				test.memberShipPage.map().get("CVV"), getYamlValue("ACS_Fundraising_Module.checkNumber"));
+//		test.acsFundraising.selectBatchAndPaymentDetails_Fundraising(batchName,
+//				test.memberShipPage.map().get("paymentType"), test.memberShipPage.map().get("paymentmethod"),
+//				test.memberShipPage.map().get("Card Number"), getYamlValue("ACS_Fundraising_Module.CreditCardExpiration"),
+//				test.memberShipPage.map().get("CVV"), getYamlValue("ACS_Fundraising_Module.checkNumber"));
+		
+		test.memberShipPage.selectOrderEntryInfo("PaymentType", test.homePage.map().get("Payment_Type"));
+		test.memberShipPage.selectOrderEntryInfo("paymentMethod", test.homePage.map().get("Payment_Method"));
+		test.memberShipPage.fillAllTypeOFPaymentDetails(test.homePage.map().get("Payment_Method"), test.homePage.map().get("Visa_Card_Number"), test.homePage.map().get("Diners_Card_Number"), test.homePage.map().get("Reference_Number"),
+				test.homePage.map().get("Discover_Card_Number"),test.homePageIWEB.map().get("AMEX_Card_Number"), test.homePage.map().get("Expiry_Date"), test.homePage.map().get("CVV_Number"), test.homePage.map().get("Check_Number"));
+		test.acsFundraising.clickOnSaveButton();
+		
 	}
 
 	@Test(dependsOnMethods="Step05_Create_A_New_Batch_And_Enter_Payment_Details")
@@ -94,7 +101,7 @@ public class ACS_Fundraising_Module_Test extends BaseTest {
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("gifts");
 		test.acsFundraising.verifyGiftIsAdded("gifts", DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST"), 4,
 				"Gift Date", 1);
-		test.acsFundraising.verifyGiftIsAdded("gifts", test.memberShipPage.map().get("Gift Amount"), 5, "gift amount",
+		test.acsFundraising.verifyGiftIsAdded("gifts", test.memberShipPage.map().get("Gift Amount")+".00", 5, "gift amount",
 				1);
 		test.acsFundraising.verifyGiftIsAdded("gifts", test.memberShipPage.map().get("Fund Code"), 7, "Fund code", 1);
 		test.acsFundraising.verifyGiftIsAdded("gifts", "Fundraising", 8, "Campaign", 1);

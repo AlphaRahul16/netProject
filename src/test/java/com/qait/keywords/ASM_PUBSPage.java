@@ -124,7 +124,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 
 	public void verifyDataFromPdfFile() throws IOException {
 		System.out.println("===================================================================================");
-		String pdfContent = extractFromPdf("report", 1);
+		String pdfContent = extractFromPdf("report", 1,"downloads");
 		System.out.println("PDF Content::" + pdfContent);
 
 		for (String product_Name : productName) {
@@ -420,7 +420,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 			if (flag) {
 				Assert.assertTrue(flag);
 				logMessage("ASSERTION PASSED: report.pdf file is downloaded");
-				String pdfContent = extractFromPdf("report", 1);
+				String pdfContent = extractFromPdf("report", 1,"downloads");
 				System.out.println("PDF Content::" + pdfContent);
 				verifyDetailsFromPDFFile(pdfContent, membershipType, "Membership Type");
 				verifyDetailsFromPDFFile(pdfContent, invoiceTotal, "invoice Total");

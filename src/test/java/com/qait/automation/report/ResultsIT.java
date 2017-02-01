@@ -177,7 +177,8 @@ public class ResultsIT extends ReformatTestFile {
         mailtext = mailtext
                 + "<br><b><font color = green>Test Date: </font></b>" + today;
         mailtext = mailtext + "<b>" + testSetResult() + "</b>";
-        mailtext = mailtext +writeResultsTableInEmail(xmlPath);
+        mailtext = mailtext +"</br>"+writeResultsTableInEmail(xmlPath);
+        
         mailtext = mailtext
                 + "<br>Note: This is a system generated mail. Please do not reply."
                 + "</br>";
@@ -193,7 +194,7 @@ public class ResultsIT extends ReformatTestFile {
         return mailtext;
     }
     
-
+ 
     private String setMailSubject() {
 
         return (projectName + " Automated Test Results: " + count + " Failures | " + today);
@@ -337,7 +338,7 @@ public class ResultsIT extends ReformatTestFile {
         int testcount= testsExecuted.getLength();
   
      	msgOutput =msgOutput = msgOutput + "<style>"+
-         		"table {border-collapse: collapse; width: 60%; border: 1px solid black;}th, td {text-align:center;padding: px;border: 1px solid black;}tr:nth-child(even){background-color: #f2f2f2}th {background-color: #4caf50;color: white;}</style><h4><u>Result Summary</u></h4><br><table><tr><th>Test Name</th><th>Total Tests</th><th>Passed</th><th>Skipped</th><th>Failed</th><th>Execution Time</th></tr>";
+         		"table {border-collapse: collapse; width: 60%; border: 1px solid black;}th, td {text-align:left;padding: px;border: 1px solid black;}tr:nth-child(even){background-color: #f2f2f2}th {background-color: #4caf50;color: white;}</style><h4><u>Result Summary</u></h4><br><table><tr><th>Test Name</th><th>Total Tests</th><th>Passed</th><th>Skipped</th><th>Failed</th><th>Execution Time</th></tr>";
      	for(int i=0;i<testcount;i++)
     	{
     	 Element ele = (Element)testsExecuted.item(i);
@@ -347,8 +348,9 @@ public class ResultsIT extends ReformatTestFile {
     	executiontime = ele.getAttribute("duration-ms");
     	passedResult = toString().valueOf(getExecutionResults(dom,"//test[@name='"+label+"']/class/test-method[@status='PASS' and not(@is-config)]"));
     	skippedResults =toString().valueOf(getExecutionResults(dom,"//test[@name='"+label+"']/class/test-method[@status='SKIP']"));
+    	failureResults =toString().valueOf(getExecutionResults(dom,"//test[@name='"+label+"']/class/test-method[@status='FAIL']"));
     	
-    	msgOutput = msgOutput + "<tr><td id=\"#t\""+i + "\">" + label+ "</td><td>"+totaltest+"</td><td>"+passedResult+"</td><td>"+skippedResults+"</td><td>"+count+"</td><td>"+executiontime+"</td></tr>";
+    	msgOutput = msgOutput + "<tr><td id=\"#t\""+i + "\">" + label+ "</td><td>"+totaltest+"</td><td>"+passedResult+"</td><td>"+skippedResults+"</td><td>"+failureResults+"</td><td>"+executiontime+"</td></tr>";
     	}
         msgOutput = msgOutput + "</table>";
         return msgOutput;
