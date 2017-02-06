@@ -178,18 +178,19 @@ public class ASCSocietyGenericPage extends GetPage {
 		String csvLine = csvReaderRowSpecific(getYamlValue("csv-data-file.path_createMember"),
 				getYamlValue("csv-data-file.has-header"), caseId);
 		return DataProvider.getSpecificColumnFromCsvLine(csvLine, csvSeparator,
-				DataProvider.getColumnNumber_CreateMember(valueFromDataSheet)).trim();
+				DataProvider.getColumnNumber_CreateMember(valueFromDataSheet, csvLine)).trim();
 	}
 
 	public static HashMap<String, String> addValuesInMap(String sheetName, String caseID) {
 		String csvline2;
 		YamlReader.setYamlFilePath();
-		String csvLine = csvReaderRowSpecific(getYamlValue("csv-data-file.path_" + sheetName), "false",
-				String.valueOf(1));
-		System.out.println(getYamlValue("csv-data-file.path_" + sheetName));
-		System.out.println(caseID);
-		String csvLine1 = csvReaderRowSpecific(getYamlValue("csv-data-file.path_" + sheetName), "true",
-				String.valueOf(caseID));
+		String sheetPath=DataProvider.getCsvSheetPath(sheetName);
+//		String csvLine = csvReaderRowSpecific(getYamlValue("csv-data-file.path_" + sheetName), "false",
+//				String.valueOf(1));
+		String csvLine = csvReaderRowSpecific(sheetPath, "false",String.valueOf(1));
+//		System.out.println(getYamlValue("csv-data-file.path_" + sheetName));
+//		System.out.println(caseID);
+		String csvLine1 = csvReaderRowSpecific(sheetPath, "true",String.valueOf(caseID));
 		numberOfColumns = csvLine.split(csvSeparator).length;
 		for (int i = 1; i < numberOfColumns; i++) {
 			 csvline2=csvLine.split(csvSeparator)[i].trim();

@@ -132,7 +132,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 		System.out.println(amount);
 		System.out.println(element("inp_giftAmount", field).getAttribute("value"));
-		Assert.assertEquals(element("inp_giftAmount", field).getAttribute("value"), amount+".00",
+		Assert.assertEquals(element("inp_giftAmount", field).getAttribute("value"), amount,
 				"ASSERT FAILED : Deductible amount value is not same as the Gift amount "+amount+"\n");
 		logMessage("ASSERT PASSED : Deductible amount value is same as the Gift amount "+amount+"\n");
 	}
@@ -258,9 +258,9 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 					+ element("txt_listData", tabName, String.valueOf(index2), String.valueOf(i)).getText().trim());
 			System.out.println("----" + DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST5EDT"));
 
-			if(ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Dev7")){
+			if(ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Dev9")){
 			if (element("txt_listData", tabName, String.valueOf(index1), String.valueOf(i)).getText().trim()
-					.equals("Yes")
+					.equals("No")
 					&& element("txt_listData", tabName, String.valueOf(index2), String.valueOf(i)).getText().trim()
 							.equals(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy")) &&
 							element("txt_listData", tabName, String.valueOf(9), String.valueOf(i)).getText().trim()

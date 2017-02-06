@@ -2257,7 +2257,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		//wait.waitForElementToBeVisible(element("img_activeMember",text));
 		if(checkIfElementIsThere("img_activeMember",text)){
 			isElementDisplayed("img_activeMember",text);
-			element("img_activeMember",text).click();
+			clickUsingXpathInJavaScriptExecutor(element("img_activeMember",text));
+//			element("img_activeMember",text).click();
 			logMessage("STEP: Individual with "+text+" "+field+" is selected\n");
 		}
 		else
