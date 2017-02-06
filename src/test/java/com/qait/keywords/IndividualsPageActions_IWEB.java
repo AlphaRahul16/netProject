@@ -2257,7 +2257,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		//wait.waitForElementToBeVisible(element("img_activeMember",text));
 		if(checkIfElementIsThere("img_activeMember",text)){
 			isElementDisplayed("img_activeMember",text);
-			element("img_activeMember",text).click();
+//			element("img_activeMember",text).click();
+			clickUsingXpathInJavaScriptExecutor(element("img_activeMember",text));
 			logMessage("STEP: Individual with "+text+" "+field+" is selected\n");
 		}
 		else
@@ -2286,7 +2287,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		{
 			String GiftCardNumber=getMemberType();
 			System.out.println("Redeemed code is "+GiftCardNumber);
-			verifyGiftCardDetailsOnIweb(GiftCardNumber, "4", DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/dd/YYYY","EST"));
+			verifyGiftCardDetailsOnIweb(GiftCardNumber, "4", DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY","EST"));
 			verifyGiftCardDetailsOnIweb(GiftCardNumber, "5", batchName);
 			verifyGiftCardDetailsOnIweb(GiftCardNumber, "6", "N");
 			verifyGiftCardDetailsOnIweb(GiftCardNumber, "7", priceValue);
