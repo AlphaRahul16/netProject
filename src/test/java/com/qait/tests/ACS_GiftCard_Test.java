@@ -67,7 +67,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 //			}
 		}
 		
-		@Test(groups={"1","2","3"})
+		@Test(groups={"1","2","3","4","5","6","7","8"})
 		public void Step_00_Edit_Existing_BPA() {
 			test.launchApplication(app_url_IWEB);
 			test.homePage.enterAuthentication(
@@ -84,21 +84,21 @@ public class ACS_GiftCard_Test extends BaseTest{
 	} 
 			
 		}
-		@Test(groups={"1","2","3"})
+		@Test(groups={"1","2","3","4","5","6","7","8"})
 		public void Step_01_Run_Query_To_Find_Individual() {
 			test.homePageIWEB.clickOnTab("Query Individual");
 			test.memberShipPage.selectAndRunQuery("Selenium - Find Active Regular Member");
 			customerId=test.memberShipPage.getContactIdOfUser("User");
 		}
 		
-		@Test(groups={"1","2","3"})
+		@Test(groups={"1","2","3","4","5","6","7","8"})
 		public void Step_02_Click_On_Order_Entry_Button_And_Verify_Centralized_Order_Page() {
 			test.memberShipPage.clickOnOrderEntryIcon();
 			test.memberShipPage.verifyCentralizedOrderEntryPage("Centralized Order Entry");
 			
 		}
 		
-		@Test(groups={"1","2","3"})
+		@Test(groups={"1","2","3","4","5","6","7","8"})
 		public void Step_03_Click_On_Select_Product_And_Select_Merchandise_Option_and_Verify_Centralized_Order_Entry_Merchandise_Window() {
 			test.memberShipPage.clickOnSelectProduct();
 			test.memberShipPage.selectMerchandise("merchandise");
@@ -116,7 +116,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 
 		}
 		
-		@Test(groups={"1","2","3"})
+		@Test(groups={"1","2","3","4","5","6","7","8"})
 		public void Step_05_Verify_that_Selected_Item_Is_Added_Into_Line_Items() {
 			test.memberShipPage.clickOnSaveAndFinish();
 			test.memberShipPage.verifyProductNameInLineItem(giftCardMap.get("Gift_CardName_In_LineItems?").trim());
@@ -131,7 +131,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 		
 		
 		
-		@Test(groups={"1","2","3"})
+		@Test(groups={"1","2","3","4","5","6","7","8"})
 		public void Step_06_Verify_on_CRM() {
 			test.individualsPage.navigateToGeneralMenuOnHoveringMore("Other Actg");
 			test.individualsPage.expandDetailsMenu("gift cards purchased");

@@ -815,7 +815,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			hoverClick(element("btn_saveAndFinish"));
 			clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
 		} else
-			hoverClick(element("btn_saveAndFinish"));
+			clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
+
+//			hoverClick(element("btn_saveAndFinish"));
+
 		// element("btn_saveAndFinish").click();
 		// clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
 		// element("btn_saveAndFinish").click();
@@ -2534,6 +2537,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyPrice(String itemName, String price) {
 		hardWaitForIEBrowser(4);
 		wait.hardWait(4);
+//		clickUsingXpathInJavaScriptExecutor(element("txt_priceOrderEntryLineItmes", itemName));
+//		element("txt_priceOrderEntryLineItmes", itemName).click();
 		scrollDown(element("txt_priceOrderEntryLineItmes", itemName));
 		isElementDisplayed("txt_priceOrderEntryLineItmes", itemName);
 		String actualPrice = element("txt_priceOrderEntryLineItmes", itemName)

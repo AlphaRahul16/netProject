@@ -223,7 +223,7 @@ public class TestSessionInitiator {
 		driver.manage().timeouts().implicitlyWait(Integer.parseInt(getProperty("timeout")), TimeUnit.SECONDS);
 	}
 
-	public Map<String, String> _getSessionConfig() {
+	public static Map<String, String> _getSessionConfig() {
 		String[] configKeys = { "tier", "browser", "seleniumserver", "seleniumserverhost", "timeout", "driverpath" };
 		Map<String, String> config = new HashMap<String, String>();
 		for (String string : configKeys) {
@@ -257,8 +257,7 @@ public class TestSessionInitiator {
 					driver.get(baseurl);
 				} else if (baseurl.contains("https://dev-eweb12/YBDev3/iWeb")
 						|| baseurl.contains("https://dev-eweb12/NFDev")
-						|| (baseurl.contains("https://dev-eweb12.acs.org/NFDev")
-								&& _getSessionConfig().get("browser").equalsIgnoreCase("chrome"))) {
+						|| (baseurl.contains("https://dev-eweb12.acs.org/NFDev"))) {
 					baseurl = baseurl.replaceAll("https://dev",
 							"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
 									+ URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), "UTF-8")
@@ -270,7 +269,6 @@ public class TestSessionInitiator {
 									+ URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), "UTF-8")
 									+ "@iwebtest");
 				}
-
 				driver.get(baseurl);
 			} else {
 				driver.get(baseurl);

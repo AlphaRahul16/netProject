@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.LogManager;
 
 import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
@@ -36,6 +37,7 @@ public class ACS_Apply_Payment_Test extends BaseTest {
 
 	@Test
 	public void Step00_Launch_Iweb_Application() {
+		Reporter.log("CASE ID::"+this.caseID,true);
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.enterAuthentication(
 				YamlReader.getYamlValue("Authentication.userName"),
@@ -45,7 +47,7 @@ public class ACS_Apply_Payment_Test extends BaseTest {
 
 	@Test(dependsOnMethods="Step00_Launch_Iweb_Application")
 	public void Step01_Navigate_To_Membership_Module_And_Find_Member_Test() {
-		
+		Reporter.log("CASE ID::"+this.caseID,true);
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Membership");
 		test.homePageIWEB.clickOnSideBarTab("Members");
@@ -74,6 +76,7 @@ public class ACS_Apply_Payment_Test extends BaseTest {
 
 	@Test(dependsOnMethods="Step01_Navigate_To_Membership_Module_And_Find_Member_Test")
 	public void Step02_Navigate_To_Product_Invoice_And_Verify_Details_Before_Apply_Payment_Test() {
+		Reporter.log("CASE ID::"+this.caseID,true);
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("invoices");
 
 		test.invoicePage.clickOnGoToArrowButton();
@@ -91,6 +94,7 @@ public class ACS_Apply_Payment_Test extends BaseTest {
 
 	@Test(dependsOnMethods="Step02_Navigate_To_Product_Invoice_And_Verify_Details_Before_Apply_Payment_Test")
 	public void Step03_Add_Payment_And_Verify_Details_After_Apply_Payment_Test() {
+		Reporter.log("CASE ID::"+this.caseID,true);
 		test.invoicePage.clickOnAddPaymentIcon();
 		test.applyPayment.switchToFrame("iframe1");
 		test.applyPayment
@@ -109,7 +113,7 @@ public class ACS_Apply_Payment_Test extends BaseTest {
 				.verifyMemberDetails_question(
 						"paid in full",
 						applyPaymentMap.get("AfterApplyPayment_paidInFull"));
-		test.invoicePage.verifyBalanceInInvoice(applyPaymentMap.get("AfterApplyPayment_balance"));
+		test.invoicePage.verifyBalanceInInvoice(applyPaymentMap.get("AfterApplyPayment_balance")+".00");
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("line items");
 		test.invoicePage.verifyPaidClosedStatus_Yes();
 	}
