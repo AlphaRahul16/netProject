@@ -1,6 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Test" verbose="1" configfailurepolicy="continue">
-	<!-- <test name="ACS Address Validation Test" thread-count="10"
+    
+	<test name="ACS Address Validation Test" thread-count="10"
 		parallel="instances">
 		<classes>
 			<class name="com.qait.tests.ACS_Address_Validation_Test" />
@@ -19,13 +20,7 @@
 			<class name="com.qait.tests.ACS_AddressChangeTermsInvoice_Test"></class>
 		</classes>
 	</test>
-
-	<test name="Subscription Fulfillment" parallel="false">
-		<classes>
-			<class name="com.qait.tests.Subscription_Fulfillment_Test"></class>
-		</classes>
-	</test> -->
-
+	
 	<test name="ACS_Batch_Processing">
 		<classes>
 			<class name="com.qait.tests.ACS_Batch_Processing"></class>
@@ -38,7 +33,8 @@
 		</classes>
 	</test>
 
-	 <test name="ACS_Apply_Payment_Test" parallel="false">
+	<test name="ACS_Apply_Payment_Test" parallel="false">
+
 		<classes>
 			<class name="com.qait.tests.ACS_Apply_Payment_Test"></class>
 		</classes>
@@ -55,10 +51,22 @@
 			<class name="com.qait.tests.ACS_ReturnCancelRefund"></class>
 		</classes>
 	</test>
+	
+	<test name="Subscription Fulfillment" parallel="false">
+		<classes>
+			<class name="com.qait.tests.Subscription_Fulfillment_Test"></class>
+		</classes>
+	</test>
 
 	<test name="COE Inventory Smoke Test" group-by-instances="true">
 		<classes>
 			<class name="com.qait.tests.COE_Inventory_Test"></class>
+		</classes>
+	</test>
+	
+	<test name="inventory product fulfillmet" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.Inventory_Product_Fulfillment_Test"></class>
 		</classes>
 	</test>
 
@@ -87,10 +95,5 @@
 	</test>
 
 
-<test name="inventory product fulfillmet" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.Inventory_Product_Fulfillment_Test"></class>
-		</classes>
-	</test> -->
 
 </suite>

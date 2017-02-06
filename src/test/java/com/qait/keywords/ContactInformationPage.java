@@ -50,8 +50,8 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 		try {
 			wait.hardWait(3);
 			isElementDisplayed("btn_continue");
-			element("btn_continue").click();
-			// clickUsingXpathInJavaScriptExecutor(element("btn_continue"));
+			//element("btn_continue").click();
+			 clickUsingXpathInJavaScriptExecutor(element("btn_continue"));
 			wait.hardWait(1);
 			logMessage("STEP : Click on btn_continue\n");
 		} catch (StaleElementReferenceException stlRef) {

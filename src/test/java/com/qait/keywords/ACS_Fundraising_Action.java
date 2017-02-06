@@ -2,6 +2,7 @@ package com.qait.keywords;
 
 import java.text.DecimalFormat;
 
+import org.apache.poi.util.SystemOutLogger;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
@@ -148,6 +149,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_save");
 		// element("btn_save").click();
 		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
+		wait.hardWait(5);
 		logMessage("STEP : Clicked on Save button\n");
 		switchToDefaultContent();
 	}
@@ -181,7 +183,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 		for (String info : giftinfo) {
 			if (info.contains("date")) {
-				verifyGiftInformationIsDispalyed(info, DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST"));
+				verifyGiftInformationIsDispalyed(info, DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST5EDT"));
 			} else
 				verifyGiftInformationIsDispalyed(info, expectedValue);
 		}
@@ -202,7 +204,9 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 
 	public void verifyGiftInformationIsDispalyed(String giftField, String expectedValue) {
 		isElementDisplayed("txt_giftInformation", giftField);
-		Assert.assertEquals(element("txt_giftInformation", giftField).getText().trim(), expectedValue, "");
+		System.out.println("-----exp:"+expectedValue);
+		System.out.println("-----actual:"+element("txt_giftInformation", giftField).getText().trim());
+		Assert.assertEquals(element("txt_giftInformation", giftField).getText().trim(), expectedValue, "ASSERT FAILED : " + giftField + " value is not verified as " + expectedValue + "\n");
 		logMessage("ASSERT PASSED : " + giftField + " value is verified as " + expectedValue + "\n");
 	}
 
