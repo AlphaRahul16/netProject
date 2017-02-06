@@ -4,8 +4,8 @@
 <test name="ACS_Address_Change_On_Proforma_Test" >
   <method-selectors>
        <method-selector><script language="beanshell"><![CDATA[
-        String caseid = System.getProperty("caseID");
-        groups.containsKey(caseid)
+        String scenario = System.getProperty("scenario");
+        groups.containsKey(scenario)
        ]]></script></method-selector>
    </method-selectors>
     <classes>

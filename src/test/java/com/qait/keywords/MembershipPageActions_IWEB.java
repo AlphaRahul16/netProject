@@ -708,6 +708,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("STEP : Customer name is " + customerName);
 		clickUsingXpathInJavaScriptExecutor(element("link_customerName"));
 		logMessage("STEP : Customer name link is clicked in link_customerName\n");
+		handleAlert();
 		return customerName;
 	}
 
@@ -814,7 +815,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			hoverClick(element("btn_saveAndFinish"));
 			clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
 		} else
-			hoverClick(element("btn_saveAndFinish"));
+			clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
+
+//			hoverClick(element("btn_saveAndFinish"));
+
 		// element("btn_saveAndFinish").click();
 		// clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
 		// element("btn_saveAndFinish").click();
@@ -2533,6 +2537,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyPrice(String itemName, String price) {
 		hardWaitForIEBrowser(4);
 		wait.hardWait(4);
+//		clickUsingXpathInJavaScriptExecutor(element("txt_priceOrderEntryLineItmes", itemName));
+//		element("txt_priceOrderEntryLineItmes", itemName).click();
 		scrollDown(element("txt_priceOrderEntryLineItmes", itemName));
 		isElementDisplayed("txt_priceOrderEntryLineItmes", itemName);
 		String actualPrice = element("txt_priceOrderEntryLineItmes", itemName)
@@ -3205,10 +3211,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyTransferPackagePage() {
 
-		if (ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("dev7")
-				|| System.getProperty("tier").equalsIgnoreCase("dev7")) {
-			isElementDisplayed("heading_transferPackage", "Edit - Membership");
-		} else
+//		if (ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("dev7")
+//				|| System.getProperty("tier").equalsIgnoreCase("dev7")) {
+//			isElementDisplayed("heading_transferPackage", "Edit - Membership");
+//		} else
 			isElementDisplayed("heading_transferPackage", "Transfer Package");
 
 		logMessage("STEP : Member navigated to Transfer Package Page\n");
@@ -5872,33 +5878,50 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				flag=true;
 			}
 		  }if(flag){
-
 				logMessage("ASSERT PASSED: Member status of " + oldLSName
 						+ " is changed to Transferred\n");
 		  }
-		//	  ------(add assertion fail)
+		  else
+			  Assert.assertFalse(true,"ASSERT FAILED: Member status of " + oldLSName
+						+ " has not changed to Transferred\n");
 		}
 		else
 		{
-			
+			Assert.assertTrue(element("txt_payments", oldLSName, String.valueOf(2))
+					.getText().trim().equals("Transferred"),
+					"ASSERT FAILED: Member status of " + oldLSName
+							+ " has not changed to Transferred\n");
+			logMessage("ASSERT PASSED: Member status of " + oldLSName
+					+ " is changed to Transferred\n");
 		}
-		Assert.assertTrue(element("txt_payments", oldLSName, String.valueOf(2))
-				.getText().trim().equals("Transferred"),
-				"ASSERT PASSED: Member status of " + oldLSName
-						+ " has not changed to Transferred\n");
-		logMessage("ASSERT PASSED: Member status of " + oldLSName
-				+ " is changed to Transferred\n");
 	}
 
 	public void verifyTerminateDateIsCurrentDate(String oldLSName, String date,
 			int column, String field) {
+		boolean flag=false;
 		isElementDisplayed("txt_payments", oldLSName, String.valueOf(column));
+		if(elements("txt_payments", oldLSName, String.valueOf(column)).size()>1){
+			for(WebElement elem: elements("txt_payments", oldLSName, String.valueOf(column))){
+				if(elem.getText().trim().equals(date)){
+					flag=true;
+					break;
+				}
+			}
+			if(flag){
+				logMessage("ASSERT PASSED: " + field + " of " + oldLSName + " is "
+						+ date + "\n");
+			}
+			else
+				Assert.assertFalse(true, "ASSERT FAILED: "+ field + " of " + oldLSName + " is not " + date + "\n");
+		}
+		else{
 		Assert.assertTrue(
 				element("txt_payments", oldLSName, String.valueOf(column))
-						.getText().trim().equals(date), "ASSERT PASSED: "
+						.getText().trim().equals(date), "ASSERT FAILED: "
 						+ field + " of " + oldLSName + " is not " + date + "\n");
 		logMessage("ASSERT PASSED: " + field + " of " + oldLSName + " is "
 				+ date + "\n");
+		}
 	}
 
 	public void verifyDetailsForNewLS(String invoiceName, String value,

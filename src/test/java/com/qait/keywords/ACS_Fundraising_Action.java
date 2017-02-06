@@ -2,6 +2,7 @@ package com.qait.keywords;
 
 import java.text.DecimalFormat;
 
+import org.apache.poi.util.SystemOutLogger;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
@@ -132,7 +133,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 		System.out.println(amount);
 		System.out.println(element("inp_giftAmount", field).getAttribute("value"));
-		Assert.assertEquals(element("inp_giftAmount", field).getAttribute("value"), amount+".00",
+		Assert.assertEquals(element("inp_giftAmount", field).getAttribute("value"), amount,
 				"ASSERT FAILED : Deductible amount value is not same as the Gift amount "+amount+"\n");
 		logMessage("ASSERT PASSED : Deductible amount value is same as the Gift amount "+amount+"\n");
 	}
@@ -148,6 +149,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_save");
 		// element("btn_save").click();
 		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
+		wait.hardWait(5);
 		logMessage("STEP : Clicked on Save button\n");
 		switchToDefaultContent();
 	}
@@ -181,7 +183,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 		for (String info : giftinfo) {
 			if (info.contains("date")) {
-				verifyGiftInformationIsDispalyed(info, DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST"));
+				verifyGiftInformationIsDispalyed(info, DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST5EDT"));
 			} else
 				verifyGiftInformationIsDispalyed(info, expectedValue);
 		}
@@ -202,7 +204,9 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 
 	public void verifyGiftInformationIsDispalyed(String giftField, String expectedValue) {
 		isElementDisplayed("txt_giftInformation", giftField);
-		Assert.assertEquals(element("txt_giftInformation", giftField).getText().trim(), expectedValue, "");
+		System.out.println("-----exp:"+expectedValue);
+		System.out.println("-----actual:"+element("txt_giftInformation", giftField).getText().trim());
+		Assert.assertEquals(element("txt_giftInformation", giftField).getText().trim(), expectedValue, "ASSERT FAILED : " + giftField + " value is not verified as " + expectedValue + "\n");
 		logMessage("ASSERT PASSED : " + giftField + " value is verified as " + expectedValue + "\n");
 	}
 
@@ -256,9 +260,9 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 					+ element("txt_listData", tabName, String.valueOf(index1), String.valueOf(i)).getText().trim());
 			System.out.println("----"
 					+ element("txt_listData", tabName, String.valueOf(index2), String.valueOf(i)).getText().trim());
-			System.out.println("----" + DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy"));
+			System.out.println("----" + DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST5EDT"));
 
-			if(ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Dev7")){
+			if(ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Dev9")){
 			if (element("txt_listData", tabName, String.valueOf(index1), String.valueOf(i)).getText().trim()
 					.equals("No")
 					&& element("txt_listData", tabName, String.valueOf(index2), String.valueOf(i)).getText().trim()
@@ -271,7 +275,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 				if (element("txt_listData", tabName, String.valueOf(index1), String.valueOf(i)).getText().trim()
 						.equals("Yes")
 						&& element("txt_listData", tabName, String.valueOf(index2), String.valueOf(i)).getText().trim()
-								.equals(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy"))) {
+								.equals(DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST5EDT"))) {
 					break;
 				}
 		  }

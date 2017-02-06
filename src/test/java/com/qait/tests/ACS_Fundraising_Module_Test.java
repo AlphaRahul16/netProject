@@ -101,7 +101,7 @@ public class ACS_Fundraising_Module_Test extends BaseTest {
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("gifts");
 		test.acsFundraising.verifyGiftIsAdded("gifts", DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST"), 4,
 				"Gift Date", 1);
-		test.acsFundraising.verifyGiftIsAdded("gifts", test.memberShipPage.map().get("Gift Amount")+".00", 5, "gift amount",
+		test.acsFundraising.verifyGiftIsAdded("gifts", test.memberShipPage.map().get("Gift Amount"), 5, "gift amount",
 				1);
 		test.acsFundraising.verifyGiftIsAdded("gifts", test.memberShipPage.map().get("Fund Code"), 7, "Fund code", 1);
 		test.acsFundraising.verifyGiftIsAdded("gifts", "Fundraising", 8, "Campaign", 1);

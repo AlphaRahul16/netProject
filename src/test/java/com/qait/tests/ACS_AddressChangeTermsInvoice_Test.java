@@ -76,9 +76,13 @@ public class ACS_AddressChangeTermsInvoice_Test extends BaseTest{
 
 	@Test(dependsOnMethods="Step03_Expand_individual_membership_tab_and_get_effective_date")
 	public void Step04_Naviagate_To_Contact_Info_Option_And_Add_New_Address() {
+		List<String> addressForms = new ArrayList<>();
+		addressForms.add("work");
+		addressForms.add("work 2");
+		addressForms.add("work 3");
 		test.individualsPage.navigateToContactInfoMenuOnHoveringMore();
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("addresses");
-		addressType = test.individualsPage.verifyAddressType("addresses");
+		addressType = test.individualsPage.verifyAddressType("addresses",addressForms);
 		test.individualsPage.clickOnPlusSign("addresses", 2);
 		test.individualsPage.addNewAddress(
 				YamlReader.getYamlValue("AddressChange.organization"),

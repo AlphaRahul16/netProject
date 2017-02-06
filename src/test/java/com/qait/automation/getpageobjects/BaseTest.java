@@ -15,8 +15,9 @@ public class BaseTest {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
 
+
 	//@AfterClass(alwaysRun = true)
 	public void Close_Browser_Session() {
-		test.closeBrowserSession();
+		test.closeBrowserWindow();
 	}
 }
