@@ -56,7 +56,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 
 		@BeforeMethod(alwaysRun = true)
 		public void skipMethodsAccordingToTheScenarioExecuted(Method method) {
-			
+			test.printMethodName(method.getName());
 //			if (!skipTest.containsKey(method.getName())) {
 //				System.out.println("not"+method.getName());     GiftCard_Scenariosheet
 //				skipTest.put(method.getName(), false);
@@ -67,7 +67,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 //			}
 		}
 		
-		@Test(groups={"1","2","3"})
+		@Test(groups={"1","2","3","4","5","6","7","8","9"})
 		public void Step_00_Edit_Existing_BPA() {
 			test.launchApplication(app_url_IWEB);
 			test.homePage.enterAuthentication(
@@ -84,21 +84,21 @@ public class ACS_GiftCard_Test extends BaseTest{
 	} 
 			
 		}
-		@Test(groups={"1","2","3"})
+		@Test(groups={"1","2","3","4","5","6","7","8","9"})
 		public void Step_01_Run_Query_To_Find_Individual() {
 			test.homePageIWEB.clickOnTab("Query Individual");
 			test.memberShipPage.selectAndRunQuery("Selenium - Find Active Regular Member");
 			customerId=test.memberShipPage.getContactIdOfUser("User");
 		}
 		
-		@Test(groups={"1","2","3"})
+		@Test(groups={"1","2","3","4","5","6","7","8","9"})
 		public void Step_02_Click_On_Order_Entry_Button_And_Verify_Centralized_Order_Page() {
 			test.memberShipPage.clickOnOrderEntryIcon();
 			test.memberShipPage.verifyCentralizedOrderEntryPage("Centralized Order Entry");
 			
 		}
 		
-		@Test(groups={"1","2","3"})
+		@Test(groups={"1","2","3","4","5","6","7","8","9"})
 		public void Step_03_Click_On_Select_Product_And_Select_Merchandise_Option_and_Verify_Centralized_Order_Entry_Merchandise_Window() {
 			test.memberShipPage.clickOnSelectProduct();
 			test.memberShipPage.selectMerchandise("merchandise");
@@ -116,7 +116,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 
 		}
 		
-		@Test(groups={"1","2","3"})
+		@Test(groups={"1","2","3","4","5","6","7","8","9"})
 		public void Step_05_Verify_that_Selected_Item_Is_Added_Into_Line_Items() {
 			test.memberShipPage.clickOnSaveAndFinish();
 			test.memberShipPage.verifyProductNameInLineItem(giftCardMap.get("Gift_CardName_In_LineItems?").trim());
@@ -131,7 +131,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 		
 		
 		
-		@Test(groups={"1","2","3"})
+		@Test(groups={"1","2","3","4","5","6","7","8","9"})
 		public void Step_06_Verify_on_CRM() {
 			test.individualsPage.navigateToGeneralMenuOnHoveringMore("Other Actg");
 			test.individualsPage.expandDetailsMenu("gift cards purchased");
@@ -139,7 +139,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 			test.individualsPage.collapseDetailsMenu("gift cards purchased");
 		}
 		
-		/*@Test(groups={"3"})
+		@Test(groups={"3"})
 		public void Step_07_Select_Second_Individual_For__AACT_Gift_Card()
 		{
 			Step_01_Run_Query_To_Find_Individual();
@@ -154,16 +154,16 @@ public class ACS_GiftCard_Test extends BaseTest{
 			totalpriceAACT=test.memberShipPage.goToAddMembershipAndFillDetails_DivisionAsFellowPrequisite(1);
 		}
 		
-		@Test(groups={"3"})
-		public void Step_09_Scenario3_AACT_Redeem()
-		{
-			test.memberShipPage.selectAndAddBatchIFNotPresentForGiftCard(batchprefix+giftCardMap.get("GC_Batch_Name?"),giftCardMap.get("Payment_Type"),"Gift Card Adjustment");
-			test.memberShipPage.findRedeemableGiftCardAndRedeemItFForAACTGc("Redeem Gift Card", GiftCardNumber);
-			test.memberShipPage.verifyTotalCreditAndRemaningBalanceInOrderEntry(giftCardMap.get("Iweb Product Name?").trim(),cardpricevalue,totalpriceAACT);
-			test.memberShipPage.clickOnSaveAndFinish();
-		}
+//		@Test(groups={"3"})
+//		public void Step_09_Scenario3_AACT_Redeem()
+//		{
+//			test.memberShipPage.selectAndAddBatchIFNotPresentForGiftCard(batchprefix+giftCardMap.get("GC_Batch_Name?"),giftCardMap.get("Payment_Type"),"Gift Card Adjustment");
+//			test.memberShipPage.findRedeemableGiftCardAndRedeemItFForAACTGc("Redeem Gift Card", GiftCardNumber);
+//			test.memberShipPage.verifyTotalCreditAndRemaningBalanceInOrderEntry(giftCardMap.get("Iweb Product Name?").trim(),cardpricevalue,totalpriceAACT);
+//			test.memberShipPage.clickOnSaveAndFinish();
+//		}
 		
-		@Test(groups={"1","2"})
+		@Test(groups={"1","2","4","5","6","7","8","9"})
 		public void Step_10_Enter_Contact_Information() {
 			test.launchApplication(app_url_OMA);
 			Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
@@ -181,7 +181,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 			Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		}
 
-		@Test(groups={"1","2"})
+		@Test(groups={"1","2","4","5","6","7","8","9"})
 		public void Step_11_Enter_Education_And_Employment_Info() {
 			Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 			Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
@@ -189,7 +189,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 			test.ContactInfoPage.clickContinue();
 		}
 
-		@Test(groups={"1","2"})
+		@Test(groups={"1","2","4","5","6","7","8","9"})
 		public void Step_12_Enter_Benefits_Info() {
 			Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 			Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
@@ -200,7 +200,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 			test.homePage.verifyCurrentTab("Checkout");
 		}
 
-		@Test(groups={"1","2"})
+		@Test(groups={"1","2","4","5","6","7","8","9"})
 		public void Step_13_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page() {
 			Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 			Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
@@ -212,7 +212,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 		}
 		
 		
-		@Test(groups={"1","2"})
+		@Test(groups={"1","2","4","5","6","7","8","9"})
 		public void Step_14_Enter_Payment_Details_At_Checkout_Page()
 		{
 			test.checkoutPage.enterPaymentInfo(
@@ -222,7 +222,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 					YamlReader.getYamlValue("creditCardInfo.cvv-number"));
 		}
 		
-		@Test(groups={"1","2"})
+		@Test(groups={"1","2","4","5","6","7","8","9"})
 		public void Step_15_Click_I_Attest_Checkbox_And_Navigate_To_Confirmation_Page()
 		{
 			test.checkoutPage.clickAtTestStatement();
@@ -232,7 +232,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 			redeemedCustomerID=test.confirmationPage.getMemberDetail("member-number");
 		}
 		
-	@Test(groups={"1","2"})
+	@Test(groups={"1","2","4","5","6","7","8","9"})
 	public void Step_16_Launch_Application_Under_Test() {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
@@ -242,7 +242,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 		
 	}
 	
-	@Test(groups={"1","2"})
+	@Test(groups={"1","2","4","5","6","7","8","9"})
 	public void Step_17_Search_Indiviudual_By_ContactID()
 	{
 		test.homePageIWEB.clickFindForIndividualsSearch();
@@ -254,7 +254,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 		test.individualsPage.clickOnRedeemedCustomerIDInGiftCardPurchasedBar(redeemedCustomerID);
 	}	
 	
-	@Test(groups={"1","2","3"})
+	@Test(groups={"1","2","3","4","5","6","7","8","9"})
 	public void Step_18_Verify_Redeemed_Customer_Details_on_Iweb()
 	{
 		test.individualsPage.expandDetailsMenu("gift cards redeemed");
@@ -262,7 +262,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 		
 	}
 	
-	@Test(groups={"1","2","3"})
+	@Test(groups={"1","2","3","4","5","6","7","8","9"})
 	public void Step_19_Verify_Credit_Details_On_Iweb()
 	{
 		test.individualsPage.expandDetailsMenu("credits");
@@ -271,7 +271,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 		
 	}
 
-	@Test(groups={"1","2","3"})
+	@Test(groups={"1","2","3","4","5","6","7","8","9"})
 	public void Step_20_Verify_Redeemed_Customer_Details_on_Iweb()
 	{
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Invoices");
@@ -283,6 +283,6 @@ public class ACS_GiftCard_Test extends BaseTest{
 		test.invoicePage.verifyPaymentDetailsForGiftCard(giftCardMap.get("Iweb Product Name?"),cardpricevalue);
 		
 		
-	}*/
+	}
 }
 	

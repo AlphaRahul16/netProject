@@ -5486,6 +5486,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		waitForSpinner();
 		selectOrderEntryInfo("PaymentType", paymentType);
+		waitForSpinner();
 		selectOrderEntryInfo("paymentMethod", paymentMethod);
 
 	}

@@ -2273,7 +2273,9 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		//wait.waitForElementToBeVisible(element("img_activeMember",text));
 		if(checkIfElementIsThere("img_activeMember",text)){
 			isElementDisplayed("img_activeMember",text);
-			element("img_activeMember",text).click();
+//			hoverClick(element("img_activeMember",text));
+			clickUsingXpathInJavaScriptExecutor(element("img_activeMember",text));
+//			element("img_activeMember",text).click();
 			logMessage("STEP: Individual with "+text+" "+field+" is selected\n");
 		}
 		else
@@ -2302,16 +2304,16 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		{
 			String GiftCardNumber=getMemberType();
 			System.out.println("Redeemed code is "+GiftCardNumber);
-			verifyGiftCardDetailsOnIweb(GiftCardNumber, "4", DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/dd/YYYY","EST"));
+			verifyGiftCardDetailsOnIweb(GiftCardNumber, "4", DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY","EST"));
 			verifyGiftCardDetailsOnIweb(GiftCardNumber, "5", batchName);
 			verifyGiftCardDetailsOnIweb(GiftCardNumber, "6", "N");
 			verifyGiftCardDetailsOnIweb(GiftCardNumber, "7", priceValue);
 			return GiftCardNumber;
 		}
-		
+
 		public void verifyGiftItemPurchasedDetailsAfterRedeeming(String GiftCardNumber, String priceValue)
 		{
-			verifyGiftCardDetailsOnIweb(GiftCardNumber, "4", DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/dd/YYYY","EST"));
+			verifyGiftCardDetailsOnIweb(GiftCardNumber, "4", DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY","EST"));
 			verifyGiftCardDetailsOnIweb(GiftCardNumber, "6", "Y");
 			verifyGiftCardDetailsOnIweb(GiftCardNumber, "7", priceValue);
 		}
@@ -2329,12 +2331,13 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			System.out.println(value);
 			System.out.println(element("txt_updatedLogsBPA",GiftCardNumber,index).getText().trim());
 			Assert.assertTrue(element("txt_updatedLogsBPA",GiftCardNumber,index).getText().trim().contains(value));
-			logMessage("ASSERT PASSED : gift card details on iweb is verified as "+value);
+			logMessage("ASSERT P0"
+					+ "cccccccccccccc        ASSED : gift card details on iweb is verified as "+value);
 		}
 
 		public void verifyRedeemedGiftCardDetails(String giftCardNumber, String pricevalue) {
 		
-			verifyGiftCardDetailsOnIweb(giftCardNumber, "1", DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/dd/YYYY","EST"));
+			verifyGiftCardDetailsOnIweb(giftCardNumber, "1", DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY","EST"));
 			verifyGiftCardDetailsOnIweb(giftCardNumber, "3", pricevalue);
 		    
 		}
