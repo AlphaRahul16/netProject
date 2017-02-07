@@ -436,10 +436,6 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		if (!flag) {
 			Assert.assertTrue(flag, "ASSERT FAILED: report.pdf is not downloaded");
 		}
-//		if(isBrowser("chrome")){
-//			changeWindow(1);
-//			driver.close();
-//		}
 	}
 
 	private void verifyDetailsFromPDFFile(String pdfContent, String value, String text) {

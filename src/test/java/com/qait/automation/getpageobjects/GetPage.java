@@ -32,7 +32,7 @@ public class GetPage extends BaseUi {
 
 	protected WebDriver webdriver;
 	String pageName;
-	static int count =0;
+	static int count = 0;
 	LayoutValidation layouttest;
 	final String case1 = "";
 
@@ -47,29 +47,26 @@ public class GetPage extends BaseUi {
 		layouttest.checklayout(tagsToBeTested);
 	}
 
-	protected void verifyElementTextContentCaseInSensitive(String elementName,
-			   String expectedText) {
-			  wait.waitForElementToBeVisible(element(elementName));
-			  //org.apache.commons.lang3.StringUtils.containsIgnoreCase(element(elementName).getAttribute("textContent"),expectedText);
-			  assertThat("ASSERT FAILED : Element '" + elementName + "' Text is not as expected: ", 
-			    org.apache.commons.lang3.StringUtils.containsIgnoreCase(element(elementName).getAttribute("textContent"),expectedText));
-			  logMessage("ASSERT PASSED : Element " + elementName
-			    + " is visible and Text is " + expectedText);
-			 }
-	
+	protected void verifyElementTextContentCaseInSensitive(String elementName, String expectedText) {
+		wait.waitForElementToBeVisible(element(elementName));
+		// org.apache.commons.lang3.StringUtils.containsIgnoreCase(element(elementName).getAttribute("textContent"),expectedText);
+		assertThat("ASSERT FAILED : Element '" + elementName + "' Text is not as expected: ",
+				org.apache.commons.lang3.StringUtils
+						.containsIgnoreCase(element(elementName).getAttribute("textContent"), expectedText));
+		logMessage("ASSERT PASSED : Element " + elementName + " is visible and Text is " + expectedText);
+	}
+
 	public void testPageLayout(String tagToBeTested) {
 		testPageLayout(Arrays.asList(tagToBeTested));
 	}
 
 	public void testPageLayout() {
-		testPageLayout(Arrays.asList(getProperty("./Config.properties",
-				"browser")));
+		testPageLayout(Arrays.asList(getProperty("./Config.properties", "browser")));
 	}
 
 	protected boolean checkIfElementIsThere(String eleString) {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
-				"hiddenFieldTimeOut"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 
 		boolean flag = false;
 		try {
@@ -92,14 +89,12 @@ public class GetPage extends BaseUi {
 		return flag;
 	}
 
-	protected boolean checkIfElementIsThere(String eleString,
-			String replacementEleString) {
+	protected boolean checkIfElementIsThere(String eleString, String replacementEleString) {
 		boolean flag = false;
 		wait.resetImplicitTimeout(8);
 		wait.resetExplicitTimeout(10);
 		try {
-			if (webdriver.findElement(
-					getLocator(eleString, replacementEleString)).isDisplayed()) {
+			if (webdriver.findElement(getLocator(eleString, replacementEleString)).isDisplayed()) {
 				flag = true;
 			} else {
 				flag = false;
@@ -109,15 +104,15 @@ public class GetPage extends BaseUi {
 		}
 		return flag;
 	}
-	
-	protected boolean checkIfElementIsThere(String eleString,
-			String replacementEleString1, String replacementEleString2) {
+
+	protected boolean checkIfElementIsThere(String eleString, String replacementEleString1,
+			String replacementEleString2) {
 		boolean flag = false;
 		wait.resetImplicitTimeout(2);
 		wait.resetExplicitTimeout(10);
 		try {
-			if (webdriver.findElement(
-					getLocator(eleString, replacementEleString1,replacementEleString2)).isDisplayed()) {
+			if (webdriver.findElement(getLocator(eleString, replacementEleString1, replacementEleString2))
+					.isDisplayed()) {
 				flag = true;
 			} else {
 				flag = false;
@@ -127,15 +122,17 @@ public class GetPage extends BaseUi {
 		}
 		return flag;
 	}
-	
-	protected boolean checkIfElementIsThere(String eleString,
-			String replacementEleString1, String replacementEleString2, String replacementEleString3) {
+
+	protected boolean checkIfElementIsThere(String eleString, String replacementEleString1,
+			String replacementEleString2, String replacementEleString3) {
 		boolean flag = false;
 		wait.resetImplicitTimeout(2);
 		wait.resetExplicitTimeout(10);
 		try {
-			if (webdriver.findElement(
-					getLocator(eleString, replacementEleString1,replacementEleString2, replacementEleString3)).isDisplayed()) {
+			if (webdriver
+					.findElement(
+							getLocator(eleString, replacementEleString1, replacementEleString2, replacementEleString3))
+					.isDisplayed()) {
 				flag = true;
 			} else {
 				flag = false;
@@ -152,71 +149,59 @@ public class GetPage extends BaseUi {
 		switchToDefaultContent();
 		String[] frameIdentifiers = frameNames.split(":");
 		for (String frameId : frameIdentifiers) {
-			wait.waitForFrameToBeAvailableAndSwitchToIt(getLocator(frameId
-					.trim()));
+			wait.waitForFrameToBeAvailableAndSwitchToIt(getLocator(frameId.trim()));
 		}
 	}
 
-	protected WebElement element(String elementToken)
-			throws NoSuchElementException {
+	protected WebElement element(String elementToken) throws NoSuchElementException {
 		return element(elementToken, "");
 	}
 
-	protected WebElement element(String elementToken, String replacement)
-			throws NoSuchElementException {
+	protected WebElement element(String elementToken, String replacement) throws NoSuchElementException {
 		WebElement elem = null;
 		By locator = getLocator(elementToken, replacement);
 		try {
-			elem = wait.waitForElementToBeVisible(webdriver
-					.findElement(locator));
+			elem = wait.waitForElementToBeVisible(webdriver.findElement(locator));
 		} catch (TimeoutException excp) {
-			throw new NoSuchElementException("Element " + elementToken
-					+ " with locator " + locator.toString().substring(2)
-					+ " not found on the " + this.pageName + " !!!");
+			throw new NoSuchElementException("Element " + elementToken + " with locator "
+					+ locator.toString().substring(2) + " not found on the " + this.pageName + " !!!");
 		}
 		return elem;
 	}
 
-	protected WebElement element(String elementToken, String replacement1,
-			String replacement2) throws NoSuchElementException {
+	protected WebElement element(String elementToken, String replacement1, String replacement2)
+			throws NoSuchElementException {
 		WebElement elem = null;
 		By locator = getLocator(elementToken, replacement1, replacement2);
 		try {
-			elem = wait.waitForElementToBeVisible(webdriver
-					.findElement(locator));
+			elem = wait.waitForElementToBeVisible(webdriver.findElement(locator));
 		} catch (TimeoutException excp) {
-			throw new NoSuchElementException("Element " + elementToken
-					+ " with locator " + locator.toString().substring(2)
-					+ " not found on the " + this.pageName + " !!!");
+			throw new NoSuchElementException("Element " + elementToken + " with locator "
+					+ locator.toString().substring(2) + " not found on the " + this.pageName + " !!!");
 		}
 		return elem;
 	}
 
-	protected WebElement element(String elementToken, String replacement1,
-			String replacement2, String replacement3)
+	protected WebElement element(String elementToken, String replacement1, String replacement2, String replacement3)
 			throws NoSuchElementException {
 		WebElement elem = null;
-		By locator = getLocator(elementToken, replacement1, replacement2,
-				replacement3);
+		By locator = getLocator(elementToken, replacement1, replacement2, replacement3);
 		try {
-			elem = wait.waitForElementToBeVisible(webdriver
-					.findElement(locator));
+			elem = wait.waitForElementToBeVisible(webdriver.findElement(locator));
 		} catch (TimeoutException excp) {
-			throw new NoSuchElementException("Element " + elementToken
-					+ " with locator " + locator.toString().substring(2)
-					+ " not found on the " + this.pageName + " !!!");
+			throw new NoSuchElementException("Element " + elementToken + " with locator "
+					+ locator.toString().substring(2) + " not found on the " + this.pageName + " !!!");
 		}
 		return elem;
 	}
 
 	protected List<WebElement> elements(String elementToken, String replacement) {
-		return wait.waitForElementsToBeVisible(webdriver
-				.findElements(getLocator(elementToken, replacement)));
+		return wait.waitForElementsToBeVisible(webdriver.findElements(getLocator(elementToken, replacement)));
 	}
-	
+
 	protected List<WebElement> elements(String elementToken, String replacement1, String replacement2) {
-		return wait.waitForElementsToBeVisible(webdriver
-				.findElements(getLocator(elementToken, replacement1,replacement2)));
+		return wait.waitForElementsToBeVisible(
+				webdriver.findElements(getLocator(elementToken, replacement1, replacement2)));
 	}
 
 	protected List<WebElement> elements(String elementToken) {
@@ -230,74 +215,56 @@ public class GetPage extends BaseUi {
 		logMessage("String compare Assertion passed.");
 	}
 
-	protected boolean isElementDisplayed(String elementName,
-			String elementTextReplace) {
+	protected boolean isElementDisplayed(String elementName, String elementTextReplace) {
 		wait.waitForElementToBeVisible(element(elementName, elementTextReplace));
 		boolean result = element(elementName, elementTextReplace).isDisplayed();
-		assertTrue(result, "ASSERT FAILED : Element '" + elementName
-				+ "with text " + elementTextReplace + "' is not displayed.");
-		logMessage("ASSERT PASSED : Element " + elementName + " with text "
-				+ elementTextReplace + " is displayed.");
+		assertTrue(result,
+				"ASSERT FAILED : Element '" + elementName + "with text " + elementTextReplace + "' is not displayed.");
+		logMessage("ASSERT PASSED : Element " + elementName + " with text " + elementTextReplace + " is displayed.");
 		return result;
 	}
 
-	protected boolean isElementDisplayed(String elementName,
-			String elementTextReplace1, String elementTextReplace2,
+	protected boolean isElementDisplayed(String elementName, String elementTextReplace1, String elementTextReplace2,
 			String elementTextReplace3) {
-		wait.waitForElementToBeVisible(element(elementName,
-				elementTextReplace1, elementTextReplace2, elementTextReplace3));
-		boolean result = element(elementName, elementTextReplace1,
-				elementTextReplace2, elementTextReplace3).isDisplayed();
-		assertTrue(result, "ASSERT FAILED : Element '" + elementName
-				+ "with text " + elementTextReplace1 + elementTextReplace2
-				+ elementTextReplace3 + "' is not displayed.");
-		logMessage("ASSERT PASSED : Element " + elementName + " with text "
-				+ elementTextReplace1 + elementTextReplace2
+		wait.waitForElementToBeVisible(
+				element(elementName, elementTextReplace1, elementTextReplace2, elementTextReplace3));
+		boolean result = element(elementName, elementTextReplace1, elementTextReplace2, elementTextReplace3)
+				.isDisplayed();
+		assertTrue(result, "ASSERT FAILED : Element '" + elementName + "with text " + elementTextReplace1
+				+ elementTextReplace2 + elementTextReplace3 + "' is not displayed.");
+		logMessage("ASSERT PASSED : Element " + elementName + " with text " + elementTextReplace1 + elementTextReplace2
 				+ elementTextReplace3 + " is displayed.");
 		return result;
 	}
 
-	protected boolean isElementDisplayed(String elementName,
-			String elementTextReplace1, String elementTextReplace2) {
-		wait.waitForElementToBeVisible(element(elementName,
-				elementTextReplace1, elementTextReplace2));
-		boolean result = element(elementName, elementTextReplace1,
-				elementTextReplace2).isDisplayed();
-		assertTrue(result, "ASSERT FAILED : Element '" + elementName
-				+ "with text " + elementTextReplace1 + elementTextReplace2
-				+ "' is not displayed.");
-		logMessage("ASSERT PASSED : Element " + elementName + " with text "
-				+ elementTextReplace1 + "," + elementTextReplace2
-				+ " is displayed.");
+	protected boolean isElementDisplayed(String elementName, String elementTextReplace1, String elementTextReplace2) {
+		wait.waitForElementToBeVisible(element(elementName, elementTextReplace1, elementTextReplace2));
+		boolean result = element(elementName, elementTextReplace1, elementTextReplace2).isDisplayed();
+		assertTrue(result, "ASSERT FAILED : Element '" + elementName + "with text " + elementTextReplace1
+				+ elementTextReplace2 + "' is not displayed.");
+		logMessage("ASSERT PASSED : Element " + elementName + " with text " + elementTextReplace1 + ","
+				+ elementTextReplace2 + " is displayed.");
 		return result;
 	}
 
 	protected void verifyElementText(String elementName, String expectedText) {
 		wait.waitForElementToBeVisible(element(elementName));
 		assertEquals(element(elementName).getText().trim(), expectedText,
-				"ASSERT FAILED : Element '" + elementName
-						+ "' Text is not as expected: ");
-		logMessage("ASSERT PASSED: Element " + elementName
-				+ " is visible and Text is " + expectedText);
+				"ASSERT FAILED : Element '" + elementName + "' Text is not as expected: ");
+		logMessage("ASSERT PASSED: Element " + elementName + " is visible and Text is " + expectedText);
 	}
 
-	protected void verifyElementTextContains(String elementName,
-			String expectedText) {
+	protected void verifyElementTextContains(String elementName, String expectedText) {
 		wait.waitForElementToBeVisible(element(elementName));
-		assertThat("ASSERT FAILED : Element '" + elementName
-				+ "' Text is not as expected: ",
+		assertThat("ASSERT FAILED : Element '" + elementName + "' Text is not as expected: ",
 				element(elementName).getText(), containsString(expectedText));
-		logMessage("ASSERT PASSED : Element " + elementName
-				+ " is visible and Text is " + expectedText);
+		logMessage("ASSERT PASSED : Element " + elementName + " is visible and Text is " + expectedText);
 	}
 
-	protected boolean isElementDisplayed(String elementName)  
-			throws NoSuchElementException ,AssertionError {
+	protected boolean isElementDisplayed(String elementName) throws NoSuchElementException, AssertionError {
 		scriptExecutionController();
-		boolean result = wait.waitForElementToBeVisible(element(elementName))
-				.isDisplayed();
-		assertTrue(result, "ASSERT FAILED : Element '" + elementName
-				+ "' is not displayed.");
+		boolean result = wait.waitForElementToBeVisible(element(elementName)).isDisplayed();
+		assertTrue(result, "ASSERT FAILED : Element '" + elementName + "' is not displayed.");
 		logMessage("ASSERT PASSED : Element " + elementName + " is displayed.");
 		return result;
 	}
@@ -305,10 +272,8 @@ public class GetPage extends BaseUi {
 	protected boolean isElementEnabled(String elementName, boolean expected) {
 		wait.waitForElementToBeVisible(element(elementName));
 		boolean result = expected && element(elementName).isEnabled();
-		assertTrue(result, "ASSERT FAILED : Element '" + elementName
-				+ "' is  ENABLED :- " + !expected);
-		logMessage("ASSERT PASSED : Element " + elementName + " is enabled :- "
-				+ expected);
+		assertTrue(result, "ASSERT FAILED : Element '" + elementName + "' is  ENABLED :- " + !expected);
+		logMessage("ASSERT PASSED : Element " + elementName + " is enabled :- " + expected);
 		return result;
 	}
 
@@ -328,16 +293,14 @@ public class GetPage extends BaseUi {
 		return getBy(locator[1].trim(), locator[2].trim());
 	}
 
-	protected By getLocator(String elementToken, String replacement1,
-			String replacement2) {
+	protected By getLocator(String elementToken, String replacement1, String replacement2) {
 		String[] locator = getELementFromFile(this.pageName, elementToken);
 		locator[2] = locator[2].replaceFirst("\\$\\{.+?\\}", replacement1);
 		locator[2] = locator[2].replaceFirst("\\$\\{.+?\\}", replacement2);
 		return getBy(locator[1].trim(), locator[2].trim());
 	}
 
-	protected By getLocator(String elementToken, String replacement1,
-			String replacement2, String replacement3) {
+	protected By getLocator(String elementToken, String replacement1, String replacement2, String replacement3) {
 		String[] locator = getELementFromFile(this.pageName, elementToken);
 		locator[2] = locator[2].replaceFirst("\\$\\{.+?\\}", replacement1);
 		locator[2] = locator[2].replaceFirst("\\%\\{.+?\\}", replacement2);
@@ -471,21 +434,12 @@ public class GetPage extends BaseUi {
 		}
 	}
 
-	public void enterTestMethodNameToSkipInMap(
-			Map<String, Boolean> individualMember, boolean isIndividualMember) {
-		individualMember.put("Step03_Enter_Member_Details_In_About_You_Page",
-				isIndividualMember);
-		individualMember
-				.put("Step04_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page",
-						isIndividualMember);
-		individualMember.put("Step05_Verify_Details_At_Confirmation_Page",
-				isIndividualMember);
-		individualMember
-				.put("Step07_Search_Member_In_IWEB_Application_And_Verify_Member_Details",
-						isIndividualMember);
-		individualMember
-				.put("Step08_Search_Individual_In_IWEB_Application_And_Verify_Details",
-						!isIndividualMember);
+	public void enterTestMethodNameToSkipInMap(Map<String, Boolean> individualMember, boolean isIndividualMember) {
+		individualMember.put("Step03_Enter_Member_Details_In_About_You_Page", isIndividualMember);
+		individualMember.put("Step04_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page", isIndividualMember);
+		individualMember.put("Step05_Verify_Details_At_Confirmation_Page", isIndividualMember);
+		individualMember.put("Step07_Search_Member_In_IWEB_Application_And_Verify_Member_Details", isIndividualMember);
+		individualMember.put("Step08_Search_Individual_In_IWEB_Application_And_Verify_Details", !isIndividualMember);
 	}
 
 	public void handleAuthenticationPopup(String username, String password) {
@@ -502,54 +456,46 @@ public class GetPage extends BaseUi {
 		// }
 	}
 
-	protected void verifyElementTextContent(String elementName,
-			String expectedText) {
+	protected void verifyElementTextContent(String elementName, String expectedText) {
 		wait.waitForElementToBeVisible(element(elementName));
-		assertThat("ASSERT FAILED : Element '" + elementName
-				+ "' Text is not as expected: ", element(elementName)
-				.getAttribute("textContent"), containsString(expectedText));
-		logMessage("ASSERT PASSED : Element " + elementName
-				+ " is visible and Text is " + expectedText);
+		assertThat("ASSERT FAILED : Element '" + elementName + "' Text is not as expected: ",
+				element(elementName).getAttribute("textContent"), containsString(expectedText));
+		logMessage("ASSERT PASSED : Element " + elementName + " is visible and Text is " + expectedText);
 	}
 
-	public void EnterTestMethodNameToSkipInMap_MemberNumber_CCED_NCW(
-			Map<String, Boolean> skipTest, String AppUrl) {
+	public void EnterTestMethodNameToSkipInMap_MemberNumber_CCED_NCW(Map<String, Boolean> skipTest, String AppUrl) {
 		String url = ConfigPropertyReader.getProperty("tier");
 
-//		String case1 = "https://ewebtest.acs.org/NF" + url
-//				+ "/membernumberlookup/";
-//		String case2 = "https://ewebtest.acs.org/NF" + url + "/ccedlookup";
-//		String case3 = "https://ewebtest.acs.org/NF" + url + "/ncwlookup";
-		String case1 = "https://dev-eweb12.acs.org/NF" + url
-				+ "/membernumberlookup";
-		String case2 = "https://dev-eweb12.acs.org/NF" + url + "/ccedlookup";
-		String case3 = "https://dev-eweb12.acs.org/NF" + url + "/ncwlookup";
+		String stageCase1 = "https://ewebtest.acs.org/NF" + url + "/membernumberlookup";
+		String stageCase2 = "https://ewebtest.acs.org/NF" + url + "/ccedlookup";
+		String stageCase3 = "https://ewebtest.acs.org/NF" + url + "/ncwlookup";
+		String devCase1 = "https://dev-eweb12.acs.org/NF" + url + "/membernumberlookup";
+		String devCase2 = "https://dev-eweb12.acs.org/NF" + url + "/ccedlookup";
+		String devCase3 = "https://dev-eweb12.acs.org/NF" + url + "/ncwlookup";
 
-		if (AppUrl.equalsIgnoreCase(case1)) {
+		if (AppUrl.equalsIgnoreCase(stageCase1) || AppUrl.equalsIgnoreCase(devCase1)) {
 			skipTest.put("Step01_Verify_Email_Address_IWEB_Test", true);
 			skipTest.put("Step02_CCED_Lookup_Test", true);
 			skipTest.put("Step03_NCW_Lookup_Test", true);
-		} else if (AppUrl.equalsIgnoreCase(case2)) {
+		} else if (AppUrl.equalsIgnoreCase(stageCase2) || AppUrl.equalsIgnoreCase(devCase2)) {
 			skipTest.put("Step00_Member_Number_Lookup_Test", true);
 			skipTest.put("Step03_NCW_Lookup_Test", true);
-		} else if (AppUrl.equalsIgnoreCase(case3)) {
+		} else if (AppUrl.equalsIgnoreCase(stageCase3) || AppUrl.equalsIgnoreCase(devCase3)) {
 			skipTest.put("Step00_Member_Number_Lookup_Test", true);
 			skipTest.put("Step02_CCED_Lookup_Test", true);
 		} else {
 			logMessage("Error: Invalid Application URL in DataSheet\n");
 		}
 	}
-	
-	public void EnterTestMethodNameToSkipInMap_InMyAccount(
-			Map<String, Boolean> skipTest, String memberType) {
-		String url = ConfigPropertyReader.getProperty("tier");
 
+	public void EnterTestMethodNameToSkipInMap_InMyAccount(Map<String, Boolean> skipTest, String memberType) {
+		String url = ConfigPropertyReader.getProperty("tier");
 		String case1 = "New Member";
 		String case2 = "Existing Member";
 
 		if (memberType.equalsIgnoreCase(case1)) {
 			skipTest.put("Step02_Launch_Iweb_Application_And_Find_Existing_Member", true);
-			skipTest.put("Step05_Verify_Techincal_Divisions_And_My_Applications",true);
+			skipTest.put("Step05_Verify_Techincal_Divisions_And_My_Applications", true);
 		} else if (memberType.equalsIgnoreCase(case2)) {
 			skipTest.put("Step01_Launch_My_Account_Application_And_Create_New_Member", true);
 		} else {
@@ -557,54 +503,40 @@ public class GetPage extends BaseUi {
 		}
 	}
 
-	public static <T,E>T getMapFirstMatchedKeyByValue(Map<T, E> map,E value)
-	{
+	public static <T, E> T getMapFirstMatchedKeyByValue(Map<T, E> map, E value) {
 		for (Entry<T, E> entry : map.entrySet()) {
-	        if (Objects.equals(value, entry.getValue())) {
-	        	System.out.println(entry.getKey());
-	        	System.out.println(value);
-	            return entry.getKey();
-	        }
-	    }
+			if (Objects.equals(value, entry.getValue())) {
+				System.out.println(entry.getKey());
+				System.out.println(value);
+				return entry.getKey();
+			}
+		}
 		return null;
-}
-//	public void enterTestMethodNameToSkip(Map<String, Boolean> skipTest)
-//	{
-//		for(String s:cases){
-//			if (skipTest.containsKey(methodName)) {
-//				skipTest.put("Step07_Run_Query_For_Scenario2", true);
-//				skipTest.put("Step08_Invite_New_Member_Click_On_Apply_for_ACS_Membership_link",true);
-//			}else{
-//				logMessage("INFO: Invalid case \n");
-//			}
-//		}
-//	}
-
-	 public void dynamicWait(int timeout,String element,String replacement){
-	     try{
-	      if(count<timeout){
-	       wait.resetImplicitTimeout(2);
-	       isElementDisplayed(element,replacement);
-	      }
-	     }
-	     catch(NoSuchElementException e){
-	      count++;
-	      dynamicWait(timeout,element,replacement);
-	     }
-	     {
-	    	 int deafultTm = Integer.parseInt(ConfigPropertyReader.getProperty("timeout"));
-	    	 wait.resetImplicitTimeout(deafultTm);
-	     }
-	    }
-
-	 protected void verifyElementTextContentCaseSensitive(String elementName,
-			   String expectedText) {
-			  wait.waitForElementToBeVisible(element(elementName));
-			  //org.apache.commons.lang3.StringUtils.containsIgnoreCase(element(elementName).getAttribute("textContent"),expectedText);
-			  assertThat("ASSERT FAILED : Element '" + elementName + "' Text is not as expected: ", 
-			    org.apache.commons.lang3.StringUtils.containsIgnoreCase(element(elementName).getAttribute("textContent"),expectedText));
-			  logMessage("ASSERT PASSED : Element " + elementName
-			    + " is visible and Text is " + expectedText);
-			 }
+	}
 	
+	public void dynamicWait(int timeout, String element, String replacement) {
+		try {
+			if (count < timeout) {
+				wait.resetImplicitTimeout(2);
+				isElementDisplayed(element, replacement);
+			}
+		} catch (NoSuchElementException e) {
+			count++;
+			dynamicWait(timeout, element, replacement);
+		}
+		{
+			int deafultTm = Integer.parseInt(ConfigPropertyReader.getProperty("timeout"));
+			wait.resetImplicitTimeout(deafultTm);
+		}
+	}
+
+	protected void verifyElementTextContentCaseSensitive(String elementName, String expectedText) {
+		wait.waitForElementToBeVisible(element(elementName));
+		// org.apache.commons.lang3.StringUtils.containsIgnoreCase(element(elementName).getAttribute("textContent"),expectedText);
+		assertThat("ASSERT FAILED : Element '" + elementName + "' Text is not as expected: ",
+				org.apache.commons.lang3.StringUtils
+						.containsIgnoreCase(element(elementName).getAttribute("textContent"), expectedText));
+		logMessage("ASSERT PASSED : Element " + elementName + " is visible and Text is " + expectedText);
+	}
+
 }
