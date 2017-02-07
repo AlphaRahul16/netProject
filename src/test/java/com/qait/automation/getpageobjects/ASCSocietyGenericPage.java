@@ -195,7 +195,6 @@ public class ASCSocietyGenericPage extends GetPage {
 		for (int i = 1; i < numberOfColumns; i++) {
 			 csvline2=csvLine.split(csvSeparator)[i].trim();
 			 csvline2 = csvline2.replace("\"", "").trim();
-			 System.out.println(csvline2);
 			hashMap.put(csvline2,
 					DataProvider.getSpecificColumnFromCsvLine(csvLine1, csvSeparator, i).trim());
 

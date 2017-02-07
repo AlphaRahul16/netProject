@@ -380,13 +380,6 @@ public class TestSessionInitiator {
 		Reporter.log("\nThe application url is :- " + baseURL, true);
 	}
 
-	// public void navigateToIWEBUrlOnNewBrowserTab(String baseURL) {
-	//
-	// launchApplication(baseURL);
-	//
-	//
-	//
-	// }
 
 	public void openApplicationInNewTab(String baseURL) {
 		Robot robot;

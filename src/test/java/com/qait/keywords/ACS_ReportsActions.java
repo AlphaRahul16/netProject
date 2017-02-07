@@ -42,6 +42,7 @@ public class ACS_ReportsActions extends ASCSocietyGenericPage  {
 
 
 	public void clickGoReportButtonForReport(String reportName) {
+		System.out.println("*********8reportName"+reportName);
 		isElementDisplayed("txt_reportName",reportName);
 		isElementDisplayed("btn_goReport",reportName);
 		hardWaitForIEBrowser(3);

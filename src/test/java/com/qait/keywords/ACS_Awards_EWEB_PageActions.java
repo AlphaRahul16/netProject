@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -75,8 +76,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		isElementDisplayed("inp_" + credential1_2);
 		element("inp_" + credential1_2).clear();
 		element("inp_" + credential1_2).sendKeys(credentialValue);
-		logMessage("STEP : " + credentialValue + " is entered in "
-				+ credentialType + "\n");
+		logMessage("STEP : " + credentialValue + " is entered in " + credentialType + "\n");
 
 	}
 
@@ -210,8 +210,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		}
 	}
 
-	public List<List<String>> selectRandomNominees(
-			int numberOfNomineesToSelect, int round, List<String> nameOfJudges,
+	public List<List<String>> selectRandomNominees(int numberOfNomineesToSelect, int round, List<String> nameOfJudges,
 			Map<String, String> nominee_WithRankOne) {
 
 		if (numberOfNomineesToSelect < nameOfJudges.size() && (round == round - 1) && (round == 1)) {
@@ -324,27 +323,12 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 	}
 
 	public void waitForLoaderToDisappear() {
-		// timeOut = Integer.parseInt(getProperty("Config.properties",
-		// "timeout"));
-		// hiddenFieldTimeOut =
-		// Integer.parseInt(getProperty("Config.properties",
-		// "hiddenFieldTimeOut"));
-		// try {
-		//
-		//
-		// wait.hardWait(4);
-		// wait.waitForPageToLoadCompletely();
-		// wait.resetImplicitTimeout(5);
-		// wait.resetExplicitTimeout(hiddenFieldTimeOut);
-		// isElementDisplayed("img_profileLinkLoader");
-		// wait.resetImplicitTimeout(timeOut);
-		// wait.resetExplicitTimeout(timeOut);
-		// } catch (Exception exp) {
-		// wait.resetImplicitTimeout(timeOut);
-		// wait.resetExplicitTimeout(timeOut);
-		// }
+		try {
+			wait.waitForElementToDisappear(element("img_profileLinkLoader"));
+		} catch (NoSuchElementException e) {
+			logMessage("Step: Loader is not present \n");
+		}
 
-		wait.waitForElementToDisappear(element("img_profileLinkLoader"));
 	}
 
 	public void saveStickyNotes() {
@@ -384,16 +368,18 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 
 	public void verifyDownloadedPdfContent(String awardName, int count) {
 		try {
-			String textinpdf = extractFromPdf("AwardNomination("+(count+1)+")", 21,"downloads").trim();
-			System.out.println("------pdf text :"+textinpdf);
-			Assert.assertTrue(textinpdf.contains(awardName), "ASSERT FAILED: Award name "+awardName+" is not verified in the Pdf file\n");
-			logMessage("ASSERT PASSED : Award name "+awardName+" is verified in the Pdf file\n");
+			String textinpdf = extractFromPdf("AwardNomination(" + (count + 1) + ")", 21, "downloads").trim();
+			System.out.println("------pdf text :" + textinpdf);
+			Assert.assertTrue(textinpdf.contains(awardName),
+					"ASSERT FAILED: Award name " + awardName + " is not verified in the Pdf file\n");
+			logMessage("ASSERT PASSED : Award name " + awardName + " is verified in the Pdf file\n");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-//		extractAndCompareTextFromPdfFile("AwardNomination(" + (count + 1) + ").pdf", awardName, 21, "downloads");
+		// extractAndCompareTextFromPdfFile("AwardNomination(" + (count + 1) +
+		// ").pdf", awardName, 21, "downloads");
 	}
 
 	public void verifyNominationDocuments_viewProfileLink(String awardName) {

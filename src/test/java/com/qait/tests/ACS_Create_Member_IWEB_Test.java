@@ -17,7 +17,7 @@ import com.qait.automation.utils.YamlReader;
 public class ACS_Create_Member_IWEB_Test extends BaseTest {
 
 	private String caseID;
-	public String contactID, batchprefix="ACS: ";
+	public String contactID, batchprefix = "ACS: ";
 	private String[] memDetails;
 	int numberOfDivisions, numberOfSubscriptions;
 	String app_url_IWEB = getYamlValue("app_url_IWEB");
@@ -76,7 +76,7 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 	public void Step05_Sell_Division() {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		numberOfDivisions = test.memberShipPage.getDivisionNumbers();
-		test.memberShipPage.goToAddMembershipAndFillDetails_Division(numberOfDivisions);    //-------
+		test.memberShipPage.goToAddMembershipAndFillDetails_Division(numberOfDivisions); // -------
 	}
 
 	@Test
@@ -90,18 +90,22 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 	public void Step07_Verify_NetPrice_Amount_And_Make_Payment() {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		test.memberShipPage.verifyNetPriceValue("netbalance");
-//		test.memberShipPage.selectBatchAndPaymentDetails_subscription(
-//				YamlReader.getYamlValue("Acs_CreateMember_IWEB.batch"),
-//				YamlReader.getYamlValue("Acs_CreateMember_IWEB.PaymentType"),
-//				YamlReader.getYamlValue("creditCardDetails.PaymentMethod.Select"),
-//				YamlReader.getYamlValue("creditCardDetails.paymentMethodVisaMC.Number"),
-//				YamlReader.getYamlValue("Acs_CreateMember_IWEB.expireDate"),
-//				YamlReader.getYamlValue("creditCardDetails.paymentMethodVisaMC.cvv-number"),
-//				YamlReader.getYamlValue("creditCardDetails.paymentMethodBOACheck.CheckNumber"));
-//			
-		test.memberShipPage.selectAndAddBatchIFNotPresent(batchprefix+test.homePageIWEB.map().get("Batch_Name?"),test.homePageIWEB.map().get("Payment_Type"),test.homePageIWEB.map().get("Payment_Method"));
-		test.memberShipPage.fillAllTypeOFPaymentDetails(test.homePageIWEB.map().get("Payment_Method"), test.homePageIWEB.map().get("Visa_Card_Number"), test.homePageIWEB.map().get("Diners_Card_Number"), test.homePageIWEB.map().get("Reference_Number"),
-				test.homePageIWEB.map().get("Discover_Card_Number"),test.homePageIWEB.map().get("AMEX_Card_Number") ,test.homePageIWEB.map().get("Expiry_Date"), test.homePageIWEB.map().get("CVV_Number"), test.homePageIWEB.map().get("Check_Number"));
+		// test.memberShipPage.selectBatchAndPaymentDetails_subscription(
+		// YamlReader.getYamlValue("Acs_CreateMember_IWEB.batch"),
+		// YamlReader.getYamlValue("Acs_CreateMember_IWEB.PaymentType"),
+		// YamlReader.getYamlValue("creditCardDetails.PaymentMethod.Select"),
+		// YamlReader.getYamlValue("creditCardDetails.paymentMethodVisaMC.Number"),
+		// YamlReader.getYamlValue("Acs_CreateMember_IWEB.expireDate"),
+		// YamlReader.getYamlValue("creditCardDetails.paymentMethodVisaMC.cvv-number"),
+		// YamlReader.getYamlValue("creditCardDetails.paymentMethodBOACheck.CheckNumber"));
+		//
+		test.memberShipPage.selectAndAddBatchIFNotPresent(batchprefix + test.homePageIWEB.map().get("Batch_Name?"),
+				test.homePageIWEB.map().get("Payment_Type"), test.homePageIWEB.map().get("Payment_Method"));
+		test.memberShipPage.fillAllTypeOFPaymentDetails(test.homePageIWEB.map().get("Payment_Method"),
+				test.homePageIWEB.map().get("Visa_Card_Number"), test.homePageIWEB.map().get("Diners_Card_Number"),
+				test.homePageIWEB.map().get("Reference_Number"), test.homePageIWEB.map().get("Discover_Card_Number"),
+				test.homePageIWEB.map().get("AMEX_Card_Number"), test.homePageIWEB.map().get("Expiry_Date"),
+				test.homePageIWEB.map().get("CVV_Number"), test.homePageIWEB.map().get("Check_Number"));
 		test.memberShipPage.navigateToCRMPageByClickingSaveAndFinish();
 	}
 
