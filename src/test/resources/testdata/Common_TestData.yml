@@ -22,18 +22,18 @@ csv-data-file:
   path_OMR_Discount: ./src/test/resources/TestDataLibrary/OMR_DiscountDatasheet.csv
   path_OMA_Discount: ./src/test/resources/TestDataLibrary/OMA-Discount_data_sheet.csv
   path_CreditApply: ./src/test/resources/TestDataLibrary/ACS_Create_Manual_Credit.csv
-  path_Fundraising: ./src/test/resources/Payment_Processor_DataLibrary/Fundraising_data_sheet.csv
+  path_Fundraising: ./src/test/resources/TestDataLibrary/Fundraising_data_sheet.csv
   path_MyAccount: ./src/test/resources/TestDataLibrary/My_Account_Datasheet.csv
   path_Import_Profile: ./src/test/resources/TestDataLibrary/Rubber_Import_Insurance_Profile.csv
   path_Chapter_Relationships: ./src/test/resources/TestDataLibrary/Chapter_Relationship_Datasheet.csv
   path_AACT_OMR: ./src/test/resources/TestDataLibrary/AACT_OMR_Datasheet.csv
   path_SourceCodes: ./src/test/resources/TestDataLibrary/ACS_SourceCodes_Datasheet.csv 
   path_MGM: ./src/test/resources/TestDataLibrary/ACS_MGM_Datesheet.csv
-  path_GiftCard_Scenariosheet: ./src/test/resources/Payment_Processor_DataLibrary/GiftCard_Scenariosheet.csv
+  path_GiftCard_Scenariosheet: ./src/test/resources/TestDataLibrary/GiftCard_Scenariosheet.csv
   path_GCS_OMR: ./src/test/resources/TestDataLibrary/GCS_OMR_Datasheet.csv
   path_AddressChangeOnProforma: ./src/test/resources/TestDataLibrary/Address_Change_On_Proforma_DataSheet.csv
-  path_COE_Inventory: ./src/test/resources/Payment_Processor_DataLibrary/COEInventory.csv
-  path_Apply_Payment_Sheet: ./src/test/resources/Payment_Processor_DataLibrary/Apply_Payment_Sheet.csv
+  path_COE_Inventory: ./src/test/resources/TestDataLibrary/COEInventory.csv
+  path_Apply_Payment_Sheet: ./src/test/resources/TestDataLibrary/Apply_Payment_Sheet.csv
 
   data-separator: '\t'
   has-header: true

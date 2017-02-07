@@ -1,4 +1,4 @@
-CASE ID	caseID Execute	Member?	Email	First_Name	Last_Name	UserName	Edit_Email	Phone_Number	Company	Country	City	Address Line 1	State	Zip_Code	ACS_Member	Primary_Member?	Password	Expected_AddressIweb?	New_Password
+caseID	caseID Execute	Member?	Email	First_Name	Last_Name	UserName	Edit_Email	Phone_Number	Company	Country	City	Address Line 1	State	Zip_Code	ACS_Member	Primary_Member?	Password	Expected_AddressIweb?	New_Password
 1	No	New Member	testUserSelenium@acs.org	Selenium	Tester	acstest_sel	testSelenium@acs.org	(202)872-	ACS	UNITED STATES	Washington	1155 16th Street Nw	District of Columbia	20036	Yes	Yes	password	1155 16th St Nw	password123
 2	Yes	Existing Member					testSelenium@acs.org	(202)872-				box 23			Yes	Yes	password		password123
 3	No	New Member	testUserSelenium@acs.org	Selenium	Tester	acstest_sel	testSelenium@acs.org	(202)872-	ACS	UNITED STATES	Washington	1155 16th Street Nw	District of Columbia	20036	No	Yes	password	1155 16th St Nw	password123

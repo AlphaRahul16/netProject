@@ -92,7 +92,7 @@ public class ACS_Email_Communication_Preferences_Test extends BaseTest{
 		userName = test.acsMarketingPageIweb
 				.getUserNameFromAddUserPopUpTextField();
 		test.acsMarketingPageIweb
-				.clickOnSaveButtonDisplayedOnMailingListPopUp();
+				.clickOnSaveButtonDisplayedOnMailingList();
 		test.acsMarketingPageIweb.verifyUserNameInList();
 	}
 
