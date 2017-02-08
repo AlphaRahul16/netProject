@@ -97,8 +97,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnRunQuery();
 	}
 
-	public List<String> selectAndRunQueryForMemberOrNonMember(String caseId) {
-		String memberStatus = getACS_Store_SheetValue(caseId, "Member?");
+	public List<String> selectAndRunQueryForMemberOrNonMember(String memberStatus,String caseId) {
 		logMessage("STEP : Member status is " + memberStatus
 				+ " in spreadsheet\n");
 		if (memberStatus.equalsIgnoreCase("Y")) {

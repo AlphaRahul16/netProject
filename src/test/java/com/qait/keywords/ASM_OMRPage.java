@@ -190,12 +190,13 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		switchToDefaultContent();
 	switchToEwebRenewalFrame();
-//	isElementDisplayed("rad_undergraduate", buttontext);
-//	element("rad_undergraduate", buttontext).click();
+
 	wait.hardWait(14);
 	wait.waitForPageToLoadCompletely();
-	dynamicWait(20, "btn_PayINR", "1");
-	executeJavascript("document.getElementById('eWebFrame').contentWindow.document.getElementsByClassName('btn btn-blue')[0].click()");
+	dynamicWait(40, "btn_PayINR", "1");
+	isElementDisplayed("rad_undergraduate", buttontext);
+	element("rad_undergraduate", buttontext).click();
+	//executeJavascript("document.getElementById('eWebFrame').contentWindow.document.getElementsByClassName('btn btn-blue')[0].click()");
 	logMessage("STEP : Button "+buttontext+" is clicked\n");
 	wait.waitForPageToLoadCompletely();
 	switchToDefaultContent();
@@ -273,13 +274,30 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	}
 
 	public void submitPaymentDetails(String cardType, String cardholderName,
-			String cardNumber, String cvvNumber, String date_Value,
+			String cardNumber,String dinerscardNumber,
+			String discovercardNumber,String AMEXcardNumber, String cvvNumber, String date_Value,
 			String year_Value) {
 		switchToDefaultContent();
 		switchToFrame("eWebFrame");
 		selectCreditCardType(cardType);
 		enterCreditCardHolderName(cardholderName);
-		enterCreditCardNumber(cardNumber);
+		
+		switch (cardType) {
+		case "Visa/MC":
+			enterCreditCardNumber(cardNumber);
+			break;
+		case "Diners":
+			enterCreditCardNumber(dinerscardNumber);
+			break;
+		case "Discover":
+			enterCreditCardNumber(discovercardNumber);
+			break;
+		case "AMEX":
+			enterCreditCardNumber(AMEXcardNumber);
+			break;
+
+		}
+
 		enterCVVNumber(cvvNumber);
 		wait.hardWait(1);
 		// selectExpirationDate_Year("Date", date_Value);

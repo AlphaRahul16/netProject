@@ -185,6 +185,7 @@ public class ASCSocietyGenericPage extends GetPage {
 		String csvline2;
 		YamlReader.setYamlFilePath();
 		String sheetPath=DataProvider.getCsvSheetPath(sheetName);
+		System.out.println(sheetPath);
 //		String csvLine = csvReaderRowSpecific(getYamlValue("csv-data-file.path_" + sheetName), "false",
 //				String.valueOf(1));
 		String csvLine = csvReaderRowSpecific(sheetPath, "false",String.valueOf(1));
