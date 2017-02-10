@@ -48,7 +48,7 @@ public class ACS_Store_Test extends BaseTest{
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnSideBar("Query Individual");
 		memberStoreDetails = test.memberShipPage
-				.selectAndRunQueryForMemberOrNonMember(mapACSStore.get("Member?"),caseID);
+				.selectAndRunQueryForMemberOrNonMember(caseID);
 	}
 
 	@Test
