@@ -326,10 +326,10 @@ public class MemberShipRenewalPage extends GetPage {
 				Integer.parseInt(timeSlab) + 11);
 		SimpleDateFormat sdf = new SimpleDateFormat("hh:mma");
 		String dateWithTimeSlabInString = sdf.format(dateAfterMinutesAdded);
-//		enterInvoiceTaskDetails("time", dateWithTimeSlabInString);
-//		clickOnSaveButton();
-//		wait.hardWait(1);
-//		switchToDefaultContent();
+		enterInvoiceTaskDetails("time", dateWithTimeSlabInString);
+		clickOnSaveButton();
+		wait.hardWait(1);
+		switchToDefaultContent();
 		return dateWithTimeSlabInString;
 	}
 

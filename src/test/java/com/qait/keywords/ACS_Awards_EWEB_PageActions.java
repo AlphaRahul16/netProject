@@ -310,7 +310,7 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		try{
 		isElementDisplayed("list_img_pdfProfileDownload", nomineeFirstNames.get(1).get(randomNumber));
 		waitForLoaderToDisappear();
-		}catch(Exception e){
+		}catch(NoSuchElementException e){
 			logMessage("STEP: Page loader image is not present\n");
 		}
 		clickUsingXpathInJavaScriptExecutor(
