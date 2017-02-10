@@ -778,13 +778,14 @@ public class ASM_NominatePage extends GetPage {
 	}
 	
 	private void explainCodeOfConductIfNo(String codeStatus, String conductExplanation) {
-		
-		if(codeStatus.equalsIgnoreCase("No"))
+		  
+		  if(codeStatus.equalsIgnoreCase("No"))
 		  {
-			EnterTextInField(element("txtarea_codeOfConductExplained"), conductExplanation);
-			logMessage("Step : Code of Conduct Explanation is entered as "+conductExplanation);
+		   EnterTextInField(element("txtarea_codeOfConductExplained"), conductExplanation);
+		   logMessage("Step : Code of Conduct Explanation is entered as "+conductExplanation);
+		  
 		  }
-	}
+    }
 
 	public void selectSupporterts(String formNumber,Map<String,String> createMemberCredentials)
 	{

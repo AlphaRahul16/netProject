@@ -462,7 +462,7 @@ public class GetPage extends BaseUi {
 				element(elementName).getAttribute("textContent"), containsString(expectedText));
 		logMessage("ASSERT PASSED : Element " + elementName + " is visible and Text is " + expectedText);
 	}
-
+	
 	public void EnterTestMethodNameToSkipInMap_MemberNumber_CCED_NCW(Map<String, Boolean> skipTest, String AppUrl) {
 		String url = ConfigPropertyReader.getProperty("tier");
 

@@ -1,10 +1,10 @@
-caseID	caseID Execute	Batch_Name?	Payment_Type	Product Code	Payment_Method	Visa_Card_Number	Diners_Card_Number	AMEX_Card_Number	Discover_Card_Number	Check_Number	Reference_Number	Expiry_Date	CVV_Number
-1	No	SELENIUM_BATCH	prepaid	209-116-1000	Visa/MC	4457010000000010						2018/12	349
-2	No	SELENIUM_BATCH	prepaid	209-116-1000	check					1111			
-3	No	SELENIUM_BATCH	prepaid	209-116-1000	BOA - Check					1111			
-4	No	SELENIUM_BATCH	prepaid	209-116-1000	AMEX			375000026600004				2018/12	421
-5	No	SELENIUM_BATCH	prepaid	209-116-1000	Discover				6011010000000000			2018/12	758
-6	No	SELENIUM_BATCH	prepaid	209-116-1000	cash						1234567890		
-7	No	SELENIUM_BATCH	prepaid	209-116-1000	Diners		5412345438954640					2018/12	234
-8	No	SELENIUM_BATCH	prepaid	209-116-1000	Visa/MC	5112000100000000						2018/12	123
-9	Yes	SELENIUM_BATCH	prepaid	209-116-1000	Diners		36474027424147					2018/12	123
+"caseID"	"caseID Execute"	"Batch_Name?"	"Payment_Type"	"Product Code"	"Payment_Method"	"Visa_Card_Number"	"Diners_Card_Number"	"AMEX_Card_Number"	"Discover_Card_Number"	"Check_Number"	"Reference_Number"	"Expiry_Date"	"CVV_Number"
+1	"Yes"	"SELENIUM_BATCH"	"prepaid"	"209-116-1000"	"Visa/MC"	"4457010000000009"						"2018/06"	349
+2	"No"	"SELENIUM_BATCH"	"prepaid"	"209-116-1000"	"check"					1111			
+3	"Yes"	"SELENIUM_BATCH"	"prepaid"	"209-116-1000"	"BOA - Check"					1111			
+4	"Yes"	"SELENIUM_BATCH"	"prepaid"	"209-116-1000"	"AMEX"			"375000026600004"				"2018/06"	421
+5	"Yes"	"SELENIUM_BATCH"	"prepaid"	"209-116-1000"	"Discover"				"6011010000000003"			"2018/06"	758
+6	"Yes"	"SELENIUM_BATCH"	"prepaid"	"209-116-1000"	"cash"						1234567890	"2018/06"	
+7	"Yes"	"SELENIUM_BATCH"	"prepaid"	"209-116-1000"	"Diners"		"5412345438954638"					"2018/06"	234
+8	"No"	"SELENIUM_BATCH"	"prepaid"	"209-116-1000"	"Visa/MC"	"5112000100000003"						"2018/06"	123
+9	"Yes"	"SELENIUM_BATCH"	"prepaid"	"209-116-1000"	"Diners"		"36474027424147"					"2018/06"	123

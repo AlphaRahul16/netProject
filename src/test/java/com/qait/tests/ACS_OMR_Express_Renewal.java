@@ -18,6 +18,7 @@ public class ACS_OMR_Express_Renewal extends BaseTest {
 	private String expressURL, customername;
 	private String imvoicenumber;
 	Map<String, String> mapRenewedProductDetails =  new HashMap<String, String>();
+	Map<String, String> mapExpressRenewal =  new HashMap<String, String>();
 	
 	@BeforeClass
 	public void open_Browser_Window() {
@@ -38,7 +39,7 @@ public class ACS_OMR_Express_Renewal extends BaseTest {
 	
 	@Test(dependsOnMethods={"Step01_Launch_IWEB_Application_And_Run_Express_Renewal_Query"})
 	public void Step02_Enter_Before_Amd_After_Expiry_Dates_And_Fetch_Express_Renewal_URL() {
-	//	test.memberShipPage.enterExpiryDatesBeforeAndAfterExpressRenewal();
+		//test.memberShipPage.enterExpiryDatesBeforeAndAfterExpressRenewal();
 		test.memberShipPage.clickOnGoButtonAfterPackageSelection();
 		expressURL=test.memberShipPage.fetchExpressURLForRenewal();
 	}
@@ -62,11 +63,13 @@ public class ACS_OMR_Express_Renewal extends BaseTest {
 
 	@Test(dependsOnMethods={"Step04_Save_All_Renewed_product_Details_And_Fetch_Member_Name"})
 	public void Step05_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage() {
-		test.asm_OMR.submitPaymentDetails(YamlReader.getYamlValue("creditCardInfo.Type"),
-				(customername.split(" ")[0]+" "+customername.split(" ")[1]),
-				YamlReader.getYamlValue("creditCardInfo.Number"), YamlReader.getYamlValue("creditCardInfo.cvv-number"),
-				YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[0],
-				YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[1]);
+		
+		test.asm_OMR.submitPaymentDetails(mapExpressRenewal.get("CreditCard_Type"),
+				(customername.split(" ")[0]+" "+customername.split(" ")[1]), mapExpressRenewal.get("Visa_Card_Number"), mapExpressRenewal.get("Diners_Card_Number"),
+				mapExpressRenewal.get("Discover_Card_Number"),mapExpressRenewal.get("AMEX_Card_Number"),
+				mapExpressRenewal.get("CreditCard_CVV_Number"), mapExpressRenewal
+						.get("CreditCardExpiration_Month"), mapExpressRenewal
+						.get("CreditCardExpiration_Year"));
 
 		test.asm_OMR
 				.verifyRenewedProductsSummaryOnCheckOutPage(mapRenewedProductDetails);

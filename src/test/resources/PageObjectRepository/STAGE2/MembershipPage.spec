@@ -183,3 +183,4 @@ arrow_selectMember                              xpath                           
 btn_CurrentYearPencil                           xpath                           //td[contains(text(),'Yes')]/preceding-sibling::td//i
 inp_dateForReviewModes                          xpath                           //input[@title='${reviewtitle}']
 mbr_autoPay                                     css                             img[title*='mbr_auto_pay'][src*='${value}']
+

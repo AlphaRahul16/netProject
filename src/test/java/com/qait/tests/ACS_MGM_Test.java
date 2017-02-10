@@ -169,10 +169,10 @@ public class ACS_MGM_Test extends BaseTest {
 		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		test.asm_MGM.clickOnRenewYourMembershipNow();
 		test.asm_OMR.OMRLogo("Online Membership Renewal");
-		test.asm_OMR.submitPaymentDetails(YamlReader.getYamlValue("creditCardInfo.Type"), fname_Iweb + " " + lname_Iweb,
-				YamlReader.getYamlValue("creditCardInfo.Number"), YamlReader.getYamlValue("creditCardInfo.cvv-number"),
-				YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[0],
-				YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[1]);
+//		test.asm_OMR.submitPaymentDetails(YamlReader.getYamlValue("creditCardInfo.Type"), fname_Iweb + " " + lname_Iweb,
+//				YamlReader.getYamlValue("creditCardInfo.Number"), YamlReader.getYamlValue("creditCardInfo.cvv-number"),
+//				YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[0],
+//				YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[1]);
 		test.asm_OMR.clickOnSubmitPayment();
 		test.launchApplication(app_url_MGMLogout);
 		test.launchApplication(app_url_MGMUrl);

@@ -64,7 +64,7 @@ chkbox_termsAndCondition                    css                                 
 btn_continueToPayment                       css                                       #btnPayment
 btn_renewalLength                           css                                       span[id*='RenewalLength']
 btn_paidStatus                              css                                       .payment-status
-txt_productIndividualAmount                 xpath                                     //span[text()='${value}']/../following-sibling::td[3]/span
+txt_productIndividualAmount                 css                                     span[id*='lblAmount']
 txt_AsteriskFields                          css                                       span[id*='${value}']
 logo_OMR                                    css                                     .app-logo>h2
 btn_PayINR                                  css                                      .btn.btn-blue

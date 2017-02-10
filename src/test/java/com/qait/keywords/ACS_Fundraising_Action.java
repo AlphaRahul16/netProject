@@ -130,7 +130,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(6);
 		isElementDisplayed("inp_giftAmount", field);
-		wait.hardWait(2);
+		wait.hardWait(4);
 		System.out.println(amount);
 		System.out.println(element("inp_giftAmount", field).getAttribute("value"));
 		Assert.assertEquals(element("inp_giftAmount", field).getAttribute("value"), amount,
@@ -244,6 +244,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		element("txt_paymentDate").clear();
 		element("txt_paymentDate").sendKeys(nextDate[1] + "/" + nextDate[2] + "/" + nextDate[0]);
 		obj.waitForSpinner();
+		wait.hardWait(2);
 		element("txt_calendarDate").click();
 		logMessage("STEP : First payment date entered as " + nextDate[1] + "/" + nextDate[2] + "/" + nextDate[0]);
 		obj.waitForSpinner();
@@ -280,7 +281,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 				}
 		  }
 		}
-		verifyGiftIsAdded(tabName, amount, 5, "Gift Amount", i);
+		verifyGiftIsAdded(tabName, amount+".00", 5, "Gift Amount", i);
 		verifyGiftIsAdded(tabName, fundCode, 7, "Fund Code", i);
 		verifyGiftIsAdded(tabName, appealCode, 9, "Appeal Code", i);
 	}

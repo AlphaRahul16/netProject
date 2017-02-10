@@ -68,7 +68,7 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		if(ConfigPropertyReader.getProperty("tier").contains("Stage7") || ConfigPropertyReader.getProperty("tier").contains("stage7"))		
 			enterMemberDetailsCity("city/state/zip", city);
 		else
-			enterMemberDetails("city/state/zip", city);
+			enterMemberDetails("city/state/zip", city);		
 		wait.hardWait(3);
 
 		if (!(abrState.equalsIgnoreCase(""))) {

@@ -78,7 +78,8 @@ public class ACS_OMR_Smoke_Test extends BaseTest {
 	public void Step06_TC01_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage() {
 		test.asm_OMR.submitPaymentDetails(mapOMR.get("CreditCard_Type"),
 				(memDetails.get(0).split(" ")[1] + " " + memDetails.get(0)
-						.split(" ")[0]), mapOMR.get("CreditCard_Number"),
+						.split(" ")[0]), toString().valueOf(mapOMR.get("Visa_Card_Number").trim()), mapOMR.get("Diners_Card_Number"),
+				mapOMR.get("Discover_Card_Number"),mapOMR.get("AMEX_Card_Number"),
 				mapOMR.get("CreditCard_CVV_Number"), mapOMR
 						.get("CreditCardExpiration_Month"), mapOMR
 						.get("CreditCardExpiration_Year"));
@@ -89,39 +90,39 @@ public class ACS_OMR_Smoke_Test extends BaseTest {
 		test.asm_OMR.verifyPrintReceiptMessageAfterPayment();
 	}
 
-//	@Test
-//	public void Step07_TC01_Navigate_to_Latest_invoice_And_verify_Details_After_Renewal() {
-//
-//		test.launchApplication(app_url_IWEB);
-//		test.homePageIWEB.clickOnSideBarTab("Invoice");
-//		test.memberShipPage.clickOnSideBar("Find Invoice");
-//		test.individualsPage.enterFieldValue("Invoice Code", memDetails.get(2));
-//		test.individualsPage.clickGoButton();
-//		test.invoicePage.verifyInvoiceDetailsAfterRenewal();
-//		test.invoicePage.expandDetailsMenu("line items");
-//		test.invoicePage
-//				.verifyRenewedProductsPriceInsideLineItems(mapRenewedProductDetails);
-//		test.invoicePage.collapseDetailsMenu("line items");
-//		test.invoicePage.verifyAdjustedLinesItemsForEmeritusMember(
-//				mapOMR.get("Member_Status?"), mapRenewedProductDetails);
-//
-//	}
-//
-//	@Test
-//	public void Step08_TC01_Navigate_to_Membership_Page_And_Verify_Details_After_Renewal() {
-//		test.memberShipPage.clickOnCustomerNameAndNavigateToMembershipPage();
-//		test.invoicePage.expandDetailsMenu("individual memberships");
-//		test.memberShipPage.navigateToInvoicePageForRenewedProduct();
-//		test.invoicePage.verifyPaymentStatusAfterRenewal(mapOMR
-//				.get("Member_Status?"));
-//		test.invoicePage.expandDetailsMenu("invoices");
-//		test.memberShipPage.verifyTermStartDateAndEndDatesAreNotEmpty();
-//		test.invoicePage.collapseDetailsMenu("invoices");
-//	}
+	@Test
+	public void Step07_TC01_Navigate_to_Latest_invoice_And_verify_Details_After_Renewal() {
+
+		test.launchApplication(app_url_IWEB);
+		test.homePageIWEB.clickOnSideBarTab("Invoice");
+		test.memberShipPage.clickOnSideBar("Find Invoice");
+		test.individualsPage.enterFieldValue("Invoice Code", memDetails.get(2));
+		test.individualsPage.clickGoButton();
+		test.invoicePage.verifyInvoiceDetailsAfterRenewal();
+		test.invoicePage.expandDetailsMenu("line items");
+		test.invoicePage
+				.verifyRenewedProductsPriceInsideLineItems(mapRenewedProductDetails);
+		test.invoicePage.collapseDetailsMenu("line items");
+		test.invoicePage.verifyAdjustedLinesItemsForEmeritusMember(
+				mapOMR.get("Member_Status?"), mapRenewedProductDetails);
+
+	}
+
+	@Test
+	public void Step08_TC01_Navigate_to_Membership_Page_And_Verify_Details_After_Renewal() {
+		test.memberShipPage.clickOnCustomerNameAndNavigateToMembershipPage();
+		test.invoicePage.expandDetailsMenu("individual memberships");
+		test.memberShipPage.navigateToInvoicePageForRenewedProduct();
+		test.invoicePage.verifyPaymentStatusAfterRenewal(mapOMR
+				.get("Member_Status?"));
+		test.invoicePage.expandDetailsMenu("invoices");
+		test.memberShipPage.verifyTermStartDateAndEndDatesAreNotEmpty();
+		test.invoicePage.collapseDetailsMenu("invoices");
+	}
 
 	@BeforeClass
 	public void open_Browser_Window() {
-		test = new TestSessionInitiator(this.getClass().getSimpleName());
+	//	test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url_OMR = getYamlValue("app_url_OMR");
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		test.launchApplication(app_url_IWEB);

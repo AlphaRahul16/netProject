@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
@@ -21,23 +22,24 @@ public class ACS_Store_Test extends BaseTest{
 	String app_url_Store;
 	String app_url_IWEB;
 	String headerName = this.getClass().getSimpleName();
-	YamlInformationProvider getACSStore;
-	YamlInformationProvider getStoreCaseId;
 	String invoice_number;
-	Map<String, Object> mapACSStore;
+	Map<String, String> mapACSStore = new HashMap<String, String>();
 	Map<String, String> mapGetMemberDetailsInStore;
 	Map<String, String> mapShippingAddressDetails = new HashMap<String, String>();
 	List<String> memberStoreDetails;
 	Map<String, Object> userInfo = null;
 
-	ACS_Store_Test(Map<String, Object> usereInfoMap) {
-		this.userInfo = usereInfoMap;
-		getStoreCaseId = new YamlInformationProvider(usereInfoMap);
+	public ACS_Store_Test() {
+		com.qait.tests.DataProvider_FactoryClass.sheetName = "ACS_Store";
 	}
 
+	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
+	public ACS_Store_Test(String caseID) {
+		this.caseID = caseID;
+	}
 	@Test
 	public void Step01_TC01_Search_Product_Using_Product_key() {
-		String caseId = getStoreCaseId.get_ACSStoreCaseId("CASEID");
+		mapACSStore=test.homePageIWEB.addValuesInMap("ACS_Store", caseID);
 		test.launchApplication(app_url_IWEB);
 		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"), YamlReader.getYamlValue("Authentication.password"));
 		
@@ -46,75 +48,65 @@ public class ACS_Store_Test extends BaseTest{
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnSideBar("Query Individual");
 		memberStoreDetails = test.memberShipPage
-				.selectAndRunQueryForMemberOrNonMember(caseId);
+				.selectAndRunQueryForMemberOrNonMember(caseID);
 	}
 
 	@Test
 	public void Step02_TC02_Navigate_To_Shopping_Cart_Page_And_Verify_Product_Details() {
-		String caseId = getStoreCaseId.get_ACSStoreCaseId("CASEID");
-		String Product_id = test.homePageIWEB.getACS_Store_SheetValue(caseId,
-				"Product_id");
+		String Product_id = mapACSStore.get("Product_id").trim();
 		test.launchApplication(app_url_Store);
-		test.asm_storePage.searchText(Product_id);
+		test.asm_storePage.searchText(toString().valueOf(Product_id));
 		test.asm_storePage.verifySearchSuccessfully();
 		test.asm_storePage.NavigateToShoppingCartPage(
 				memberStoreDetails.get(1),
-				getACSStore.getACSStoreInfo("password"));
+				"password");
 		test.asm_storePage.verifyUserIsOnShoppingCartPage();
 		mapGetMemberDetailsInStore = test.asm_storePage
-				.verifyProductDetailsOnShoppingCartPage(caseId, "priceValue",
-						"discount", "description");
+				.verifyProductDetailsOnShoppingCartPage(caseID, mapACSStore.get("priceValue?"),mapACSStore.get("discount?"),mapACSStore.get("description?"));
+
 
 	}
 
 	@Test
 	public void Step03_TC03_Navigate_To_Secure_Checkout_Page_And_Get_Prepopulated_Address_Feilds() {
-		String caseId = getStoreCaseId.get_ACSStoreCaseId("CASEID");
-		String Address = test.homePageIWEB.getACS_Store_SheetValue(caseId,
-				"Address");
-		String City = test.homePageIWEB.getACS_Store_SheetValue(caseId, "City");
-		String ZipCode = test.homePageIWEB.getACS_Store_SheetValue(caseId,
-				"ZipCode");
-		String State = test.homePageIWEB.getACS_Store_SheetValue(caseId,
-				"State");
 
 		test.asm_storePage.clickProceedToCheckoutAtBottom();
 		mapShippingAddressDetails = test.asm_storePage
 				.getPrepopulatedShippingAddressFeildsAndContinue();
 		test.asm_storePage.selectAndEnterNewShippingAddress(
 				mapShippingAddressDetails.get("First Name"),
-				mapShippingAddressDetails.get("Last Name"), Address, City,
-				State, ZipCode);
+				mapShippingAddressDetails.get("Last Name"), mapACSStore.get("Address"), mapACSStore.get("City"),
+				mapACSStore.get("State"), mapACSStore.get("ZipCode"));
 
 	}
 
 	@Test
 	public void Step04_TC04_Fill_Payment_Details_On_Payment_Information_Page() {
-		test.asm_storePage.enterPaymentInformation_ACSStore(
-				getACSStore.getCreditCardInfo("Type"),
-				mapShippingAddressDetails.get("First Name") + " "
-						+ mapShippingAddressDetails.get("Last Name"),
-				getACSStore.getCreditCardInfo("Number"),
-				getACSStore.getCreditCardInfo("CreditCardExpiration"),
-				getACSStore.getCreditCardInfo("cvv-number"));
+//		test.asm_storePage.enterPaymentInformation_ACSStore(
+//				 mapACSStore.get("Payment_Method"),
+//				mapShippingAddressDetails.get("First Name") + " "
+//						+ mapShippingAddressDetails.get("Last Name"),
+//						mapACSStore.get("Payment_Method"),
+//						mapACSStore.get("Payment_Method"),
+//						mapACSStore.get("Payment_Method"));
+		test.asm_storePage.enterPaymentInfo("CardHolderName", mapShippingAddressDetails.get("First Name") + " "
+				+ mapShippingAddressDetails.get("Last Name"));
+		
+		test.asm_storePage.enterPaymentInformation_ACSStoreForAllPaymentTypes(mapACSStore.get("Payment_Method"), mapACSStore.get("Visa_Card_Number"), mapACSStore.get("Diners_Card_Number"), mapACSStore.get("Reference_Number"),
+				mapACSStore.get("Discover_Card_Number"),mapACSStore.get("AMEX_Card_Number") ,mapACSStore.get("Expiry_Date"), mapACSStore.get("CVV_Number"), mapACSStore.get("Check_Number"));
 		test.asm_storePage
 				.verifyApplicationAcceptsDataAndNavigatesToSecureCheckoutPage();
 	}
 
 	@Test
 	public void Step05_TC05_Verify_Order_Summary_And_Place_The_order() {
-		String caseId = getStoreCaseId.get_ACSStoreCaseId("CASEID");
-		String Shipping = test.homePageIWEB.getACS_Store_SheetValue(caseId,
-				"Shipping?");
-		String Tax = test.homePageIWEB.getACS_Store_SheetValue(caseId, "Tax?");
+		String Shipping = mapACSStore.get("Shipping?");
+		String Tax = mapACSStore.get("Tax?");
 		String orderTotal = test.asm_storePage
 				.getOrderTotalSummaryAtCheckoutPage();
-		test.asm_storePage.verifyOrderSummaryAtCheckoutPage(caseId, Shipping,
-				Tax, orderTotal);
+		test.asm_storePage.verifyOrderSummaryAtCheckoutPage(mapACSStore,orderTotal);
 		test.asm_storePage.clickPlaceYourOrder();
-		test.asm_storePage.verifyThankyouMessageAfterOrderCompletion(
-				getACSStore.getACSStoreInfo("maxWaitTimeForPrintMessage"),
-				"Print Your Receipt");
+		test.asm_storePage.verifyThankyouMessageAfterOrderCompletion(YamlReader.getYamlValue("ACS_Store.maxWaitTimeForPrintMessage"),"Print Your Receipt");
 	}
 
 	@Test
@@ -142,9 +134,8 @@ public class ACS_Store_Test extends BaseTest{
 
 	@Test
 	public void Step08_TC08_Verify_User_Store_Details_On_Invoice_Profile_Page() {
-		String caseId = getStoreCaseId.get_ACSStoreCaseId("CASEID");
 		mapGetMemberDetailsInStore = test.asm_storePage
-				.verifyBillingAndShippingAddress(caseId);
+				.verifyBillingAndShippingAddress(caseID);
 		test.invoicePage.verifyInvoiceProfile("balance", "0.00");
 		test.invoicePage.verifyInvoiceProfile("invoice total",
 				mapGetMemberDetailsInStore.get("Order Total"));
@@ -162,10 +153,8 @@ public class ACS_Store_Test extends BaseTest{
 	public void OpenBrowserWindow() {
 		System.out.println("asfseg");
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
-		mapACSStore = YamlReader.getYamlValues("ACS_Store");
-		app_url_IWEB = getYamlValue("app_url_IWEB");
-		getACSStore = new YamlInformationProvider(mapACSStore);
-		app_url_Store = getYamlValue("app_url_Store");
+		app_url_IWEB = YamlReader.getYamlValue("app_url_IWEB");
+		app_url_Store = YamlReader.getYamlValue("app_url_Store");
 
 	}
 	@BeforeMethod

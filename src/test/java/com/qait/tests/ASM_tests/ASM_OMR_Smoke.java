@@ -261,13 +261,13 @@ public class ASM_OMR_Smoke {
 		test.asm_OMR.loginIntoApplication_LastName_MemberNumber(
 				memberDetail.get(0), memberDetail.get(1));
 		test.asm_OMR.renewConfirmYourInformation();
-		test.asm_OMR.submitPaymentDetails(
-				YamlReader.getYamlValue("creditCardInfo.Type"),
-				DataProvider.getColumnData(tcId, headerName),
-				YamlReader.getYamlValue("creditCardInfo.Number"),
-				YamlReader.getYamlValue("creditCardInfo.cvv-number"),
-				getASM_OMR.getASM_OMR_CreditCardDate("expirationDate"),
-				getASM_OMR.getASM_OMR_CreditCardDate("expirationYear"));
+//		test.asm_OMR.submitPaymentDetails(
+//				YamlReader.getYamlValue("creditCardInfo.Type"),
+//				DataProvider.getColumnData(tcId, headerName),
+//				YamlReader.getYamlValue("creditCardInfo.Number"),
+//				YamlReader.getYamlValue("creditCardInfo.cvv-number"),
+//				getASM_OMR.getASM_OMR_CreditCardDate("expirationDate"),
+//				getASM_OMR.getASM_OMR_CreditCardDate("expirationYear"));
 		test.asm_OMR.clickOnSubmitPayment();
 		test.asm_OMR.verifyNavigationPage(getASM_OMR
 				.getASM_OMR("pageOnMakePayment"));
@@ -289,13 +289,13 @@ public class ASM_OMR_Smoke {
 		test.asm_OMR.loginIntoApplication_LastName_MemberNumber(
 				memberDetail.get(0), memberDetail.get(1));
 		test.asm_OMR.renewConfirmYourInformation();
-		test.asm_OMR.submitPaymentDetails(
-				YamlReader.getYamlValue("creditCardInfo.Type"),
-				YamlReader.getYamlValue("creditCardInfo.Holder-name"),
-				YamlReader.getYamlValue("creditCardInfo.Number"),
-				DataProvider.getColumnData(tcId, headerName),
-				getASM_OMR.getASM_OMR_CreditCardDate("expirationDate"),
-				getASM_OMR.getASM_OMR_CreditCardDate("expirationYear"));
+//		test.asm_OMR.submitPaymentDetails(
+//				YamlReader.getYamlValue("creditCardInfo.Type"),
+//				YamlReader.getYamlValue("creditCardInfo.Holder-name"),
+//				YamlReader.getYamlValue("creditCardInfo.Number"),
+//				DataProvider.getColumnData(tcId, headerName),
+//				getASM_OMR.getASM_OMR_CreditCardDate("expirationDate"),
+//				getASM_OMR.getASM_OMR_CreditCardDate("expirationYear"));
 		test.asm_OMR.clickOnSubmitPayment();
 		test.asm_OMR.verifyNavigationPage(getASM_OMR
 				.getASM_OMR("pageOnMakePayment"));
@@ -317,13 +317,13 @@ public class ASM_OMR_Smoke {
 		test.asm_OMR.loginIntoApplication_LastName_MemberNumber(
 				memberDetail.get(0), memberDetail.get(1));
 		test.asm_OMR.renewConfirmYourInformation();
-		test.asm_OMR.submitPaymentDetails(
+	/*	test.asm_OMR.submitPaymentDetails(
 				YamlReader.getYamlValue("creditCardInfo.Type"),
 				YamlReader.getYamlValue("creditCardInfo.Holder-name"),
 				DataProvider.getColumnData(tcId, headerName),
 				YamlReader.getYamlValue("creditCardInfo.cvv-number"),
 				getASM_OMR.getASM_OMR_CreditCardDate("expirationDate"),
-				getASM_OMR.getASM_OMR_CreditCardDate("expirationYear"));
+				getASM_OMR.getASM_OMR_CreditCardDate("expirationYear"));*/
 		test.asm_OMR.clickOnSubmitPayment();
 		test.asm_OMR.verifyNavigationPage(getASM_OMR
 				.getASM_OMR("pageOnMakePayment"));
@@ -345,13 +345,13 @@ public class ASM_OMR_Smoke {
 		test.asm_OMR.loginIntoApplication_LastName_MemberNumber(
 				memberDetail.get(0), memberDetail.get(1));
 		test.asm_OMR.renewConfirmYourInformation();
-		test.asm_OMR.submitPaymentDetails(
-				YamlReader.getYamlValue("creditCardInfo.Type"),
-				YamlReader.getYamlValue("creditCardInfo.Holder-name"),
-				DataProvider.getColumnData(tcId, headerName),
-				YamlReader.getYamlValue("creditCardInfo.cvv-number"),
-				getASM_OMR.getASM_OMR_CreditCardDate("expirationDate"),
-				getASM_OMR.getASM_OMR_CreditCardDate("expirationYear"));
+//		test.asm_OMR.submitPaymentDetails(
+//				YamlReader.getYamlValue("creditCardInfo.Type"),
+//				YamlReader.getYamlValue("creditCardInfo.Holder-name"),
+//				DataProvider.getColumnData(tcId, headerName),
+//				YamlReader.getYamlValue("creditCardInfo.cvv-number"),
+//				getASM_OMR.getASM_OMR_CreditCardDate("expirationDate"),
+//				getASM_OMR.getASM_OMR_CreditCardDate("expirationYear"));
 		test.asm_OMR.verifyErrorMessage(getASM_OMR
 				.getASM_OMR("creditCardErrorMessage"));
 		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader

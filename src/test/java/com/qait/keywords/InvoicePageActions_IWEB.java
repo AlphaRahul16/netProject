@@ -594,7 +594,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 				logMessage("ASSERT PASSED : Email verification on feild email? is verified as No\n");
 			}
 		} catch (NullPointerException e) {
-			Assert.assertTrue(element("txt_emailStatus").getText().equals("Yes"));
+			Assert.assertTrue(element("txt_emailStatus").getText().equalsIgnoreCase("Yes"));
 			logMessage("ASSERT PASSED : Email verification on feild email? is verified as Yes\n");
 		}
 	}
@@ -928,5 +928,19 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
         objFundraising.selectBatchAndPaymentDetails_AddressChangeProforma(batchName,paymentMethod,cardNumber,expireDate,cvvNo,checkNumber);
 		switchToDefaultContent();
 	}
+	
+	public void verifyIndividualPaymentAmountEqualsPaymentTotal()
+	{
+		float sum=0;
+		for (WebElement ele : elements("table_discount")) {
+			sum=sum+Float.parseFloat(ele.getText());
+		}
+		System.out.println(Float.parseFloat(element("inp_invoiceValue","invoice total").getText()));
+		System.out.println(sum);
+		
+		Assert.assertTrue(Float.parseFloat(element("inp_invoiceValue","invoice total").getText())==sum);
+		logMessage("ASSERT PASSED : Payment total is equal to sum of individual product total as "+sum);
+	}
+	
 
 }
