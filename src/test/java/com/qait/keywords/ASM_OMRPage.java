@@ -566,11 +566,14 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	}
 
 	private void addACSContributions(Map<String, String> mapOMR) {
+		if(mapOMR.get("Contribution_To_Add?").length()!=0)
+		{
 		clickAddMembershipButton("Add ACS Contribution");
 
 		//isElementDisplayed("txt_legend","My ACS Contributions");
 		enterContributionForParticularSubscription(mapOMR);
 		clickSaveButtonToAddMembership();
+		}
 	}
 
 	private void enterContributionForParticularSubscription(Map<String, String> mapOMR) {

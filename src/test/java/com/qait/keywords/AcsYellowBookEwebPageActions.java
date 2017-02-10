@@ -240,6 +240,7 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 
 	public void fillTheTestDataInSelectedCommitteeInputBoxAndClickOnSubmitButton() {
 		wait.waitForPageToLoadCompletely();
+		handleAlert();
 		isElementDisplayed("inp_committee");
 		for (WebElement element : elements("inp_committee")) {
 			element.sendKeys("Test" + System.currentTimeMillis());

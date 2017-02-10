@@ -516,14 +516,14 @@ public class GetPage extends BaseUi {
 			Map<String, Boolean> skipTest, String AppUrl) {
 		String url = ConfigPropertyReader.getProperty("tier");
 
-//		String case1 = "https://ewebtest.acs.org/NF" + url
-//				+ "/membernumberlookup/";
-//		String case2 = "https://ewebtest.acs.org/NF" + url + "/ccedlookup";
-//		String case3 = "https://ewebtest.acs.org/NF" + url + "/ncwlookup";
-		String case1 = "https://dev-eweb12.acs.org/NF" + url
+		String case1 = "https://ewebtest.acs.org/NF" + url
 				+ "/membernumberlookup";
-		String case2 = "https://dev-eweb12.acs.org/NF" + url + "/ccedlookup";
-		String case3 = "https://dev-eweb12.acs.org/NF" + url + "/ncwlookup";
+		String case2 = "https://ewebtest.acs.org/NF" + url + "/ccedlookup";
+		String case3 = "https://ewebtest.acs.org/NF" + url + "/ncwlookup";
+//		String case1 = "https://dev-eweb12.acs.org/NF" + url
+//				+ "/membernumberlookup";
+//		String case2 = "https://dev-eweb12.acs.org/NF" + url + "/ccedlookup";
+//		String case3 = "https://dev-eweb12.acs.org/NF" + url + "/ncwlookup";
 
 		if (AppUrl.equalsIgnoreCase(case1)) {
 			skipTest.put("Step01_Verify_Email_Address_IWEB_Test", true);

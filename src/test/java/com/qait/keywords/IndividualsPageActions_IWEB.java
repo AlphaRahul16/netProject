@@ -1558,6 +1558,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		handleAlert();
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("txt_individualInfo");
+		System.out.println("----exp:"+expectedData);
+		System.out.println("----actual:"+element("txt_individualInfo").getText().trim());
 		Assert.assertTrue(element("txt_individualInfo").getText().trim().contains(expectedData),
 				"Assertion Failed: Individual address is not correctly updated");
 		logMessage("ASSERT PASSED: Individual address is updated correctly");

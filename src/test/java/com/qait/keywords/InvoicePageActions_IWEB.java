@@ -594,7 +594,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 				logMessage("ASSERT PASSED : Email verification on feild email? is verified as No\n");
 			}
 		} catch (NullPointerException e) {
-			Assert.assertTrue(element("txt_emailStatus").getText().equals("Yes"));
+			Assert.assertTrue(element("txt_emailStatus").getText().equalsIgnoreCase("Yes"));
 			logMessage("ASSERT PASSED : Email verification on feild email? is verified as Yes\n");
 		}
 	}
