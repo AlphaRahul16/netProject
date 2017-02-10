@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 caseID	caseID Execute	paymentmethod?	Card Number?	CVV?	Product Code
 1	Yes	BOA - Check	1234		209-116-1000
 2	Yes	Visa/MC	4111111111111111	123	209-116-1000
+=======
+caseID	caseID Execute	Payment_Method	Card Number?	CVV_Number	Product Code	Payment_Type	Batch_Name?	Expiry_Date	Visa_Card_Number
+1	Yes	BOA - Check	1234		209-116-1000	prepaid	SELENIUM_BATCH		
+2	Yes	Visa/MC	4111111111111111	123	105-147-4160	prepaid	SELENIUM_BATCH	2018/12	4111111111111111
+>>>>>>> bc13643828ae09fe784f46c0a530cca068167735

@@ -814,14 +814,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			hoverClick(element("btn_saveAndFinish"));
 			clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
 		} else
-			clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
-
-//			hoverClick(element("btn_saveAndFinish"));
-
+			//clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
+			hoverClick(element("btn_saveAndFinish"));
 		// element("btn_saveAndFinish").click();
-		// clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
-		// element("btn_saveAndFinish").click();
-
 		wait.hardWait(15);
 		logMessage("STEP : Save and finish button is clicked\n");
 		waitForSpinner();
@@ -838,7 +833,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		isElementDisplayed("inp_" + cardInfo);
 		// element("inp_" + cardInfo).click();
-		element("inp_" + cardInfo).sendKeys(cardValue);
+		System.out.println("cardbvalue"+ cardValue);
+		sendKeysUsingXpathInJavaScriptExecutor(element("inp_" + cardInfo), cardValue);
+		//element("inp_" + cardInfo).sendKeys(cardValue);
 		logMessage("STEP : Enter " + cardValue + " in inp_" + cardInfo + " \n");
 
 	}
@@ -3012,7 +3009,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void selectValidUserForRenewal(Map<String, String> mapOMR) {
 		if (MemberTransferLoopCount < 3) {
 			clickOnTab("Query Membership");
-			selectAndRunQuery("Selenium - Renewal Query OMR");
+			selectAndRunQuery("Selenium - Renewal Query");
 			selectMemberForRenewal(mapOMR.get("Member_Status?"));
 			clickOnGoButtonInRunQuery();
 			// expandDetailsMenuIfAlreadyExpanded("invoices");
@@ -3030,6 +3027,16 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ " attempt\n");
 
 	}
+	
+	public void selectUserForIwebRenewal(Map<String, String> mapRenewalIWeb)
+	{
+		clickOnTab("Query Membership");
+		selectAndRunQuery("Selenium - Renewal Query");
+		selectMemberForRenewal(mapRenewalIWeb.get("Member_Status?"));
+		clickOnGoButtonInRunQuery();
+		expandDetailsMenu("invoices");
+		verifyTermStartDateAndEndDatesAreEmpty(mapRenewalIWeb);
+	}
 
 	public void verifyPaymentStatusBeforeRenewal(Map<String, String> mapOMR) {
 		if (!mapOMR.get("Member_Status?").equals("Emeritus")) {
@@ -3037,10 +3044,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				wait.resetImplicitTimeout(4);
 				wait.resetExplicitTimeout(hiddenFieldTimeOut);
 
-				Assert.assertTrue(element("txt_PaymentStatus", "Payment Status")
-						.getText().equals("Unpaid"));
+				Assert.assertFalse(element("txt_PaymentStatus", "Payment Status")
+						.getText().equals("Paid"));
 			} catch (AssertionError e) {
-				logMessage("ASSERT PASSED : Payment status before renewal is not Unpaid for "
+				logMessage("ASSERT PASSED : Payment status before renewal is Paid for "
 						+ MemberTransferLoopCount
 
 						+ " attempt thus looping back\n");
@@ -4662,8 +4669,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_effectiveDateMemberType", customerName);
 		String actual = element("txt_effectiveDateMemberType", customerName)
 				.getText().trim();
-		// String expected = DateUtil.getCurrentdateInStringWithGivenFormate();
-		String expected = DateUtil
+			String expected = DateUtil
 				.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy",
 						"EST5EDT");
 		Assert.assertEquals(actual, expected);
@@ -5507,7 +5513,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void fillAllTypeOFPaymentDetails(String PaymentMethod,
 			String cardNumber, String dinerscardNumber, String referenceNumber,
 			String discovercardNumber,String AMEXcardNumber, String expireDate, String cvvNumber,
-
 			String checkNumber) {
 		switch (PaymentMethod) {
 		case "Visa/MC":

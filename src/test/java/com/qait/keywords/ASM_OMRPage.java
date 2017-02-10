@@ -760,6 +760,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			elements("btns_remove").get(0).click();
 			wait.hardWait(2);
+			pageRefresh();
+			wait.hardWait(2);
 			System.out.println("After remove"+element("txt_productFinalTotal","Total").getText().replace("$", "").trim());
 			if(Float.parseFloat(element("txt_productFinalTotal","Total").getText().replace("$", "").trim())!=0.0)
 			{
@@ -1054,19 +1056,19 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		holdScriptExecution();
 		switchToEwebRenewalFrame();
 		holdScriptExecution();
-		dynamicWait(30,"txt_productIndividualAmount", productName);
-		System.out.println(element("txt_productIndividualAmount",productName).getText().replaceAll("[^\\d.]", ""));
+		dynamicWait(30,"txt_productIndividualAmount","");
+		System.out.println(elements("txt_productIndividualAmount").get(0).getText().replaceAll("[^\\d.]", ""));
 		System.out.println(expectedDiscount);
 		System.out.println(Productamount);
-		isElementDisplayed("txt_productIndividualAmount",productName);
+		isElementDisplayed("txt_productIndividualAmount");
 		if(expectedDiscount==0)
 		{
-			Assert.assertTrue(element("txt_productIndividualAmount",productName).getText().replaceAll("[^\\d.]", "").trim().equals(Productamount));
+			Assert.assertTrue(elements("txt_productIndividualAmount").get(0).getText().replaceAll("[^\\d.]", "").trim().equals(Productamount));
 			logMessage("ASSERT PASSED : Product '"+productName+"' amount on eweb with it's is already discounted amount is verified as "+Productamount);
 		}
 		else
 		{
-			Assert.assertTrue(element("txt_productIndividualAmount",productName).getText().replaceAll("[^\\d.]", "").trim().equals(expectedDiscount+".00"));
+			Assert.assertTrue(elements("txt_productIndividualAmount").get(0).getText().replaceAll("[^\\d.]", "").trim().equals(expectedDiscount+".00"));
 			logMessage("ASSERT PASSED : Product '"+productName+"' amount on eweb with discounted amount is verified as "+expectedDiscount);
 		}
 		switchToDefaultContent();

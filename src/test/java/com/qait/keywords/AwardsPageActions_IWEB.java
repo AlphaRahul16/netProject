@@ -731,6 +731,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void addJudges(int roundNumber) {
 		System.out.println("=======================add judge========================");
+		wait.hardWait(4);
 		clickOnAddRoundButton("award judges");
 		switchToFrame("iframe1");
 		selectProvidedTextFromDropDown(element("list_selectRoundNumber"), "Round " + roundNumber);

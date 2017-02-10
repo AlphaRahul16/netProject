@@ -80,7 +80,6 @@ public class ACS_GiftCard_Test extends BaseTest{
 	            String value = giftCardMap.get(name).toString();  
 	            System.out.println(key + " " + value);  
 
-
 	} 
 			
 		}
@@ -140,7 +139,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 		
 		
 
-		@Test(groups={"1","2","3","4","5","6","7","8","9"})
+		/*@Test(groups={"1","2","3","4","5","6","7","8","9"})
 
 		public void Step_06_Verify_on_CRM() {
 			test.individualsPage.navigateToGeneralMenuOnHoveringMore("Other Actg");
@@ -293,6 +292,6 @@ public class ACS_GiftCard_Test extends BaseTest{
 		test.invoicePage.verifyPaymentDetailsForGiftCard(giftCardMap.get("Iweb Product Name?"),cardpricevalue);
 		
 		
-	}
+	}*/
 }
 	

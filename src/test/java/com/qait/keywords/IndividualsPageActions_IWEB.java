@@ -1462,15 +1462,15 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	private void verifyLetterDocuments_AwardsNomination(Map<String, String> mapAwardsNomination, String lettername,
 			String datasheetValue) {
 		if (datasheetValue.equalsIgnoreCase("FileNameForSupportForm1")) {
-			System.out.println(elements("lnk_awardsLettersDoc", lettername).get(0).getAttribute("onclick"));
-			System.out.println(mapAwardsNomination.get(datasheetValue));
-			Assert.assertTrue(elements("lnk_awardsLettersDoc", lettername).get(0).getAttribute("onclick")
-					.contains(mapAwardsNomination.get(datasheetValue)));
-			logMessage("ASSERT PASSED : File uploaded for Support form 1 is displayed under Documents \n");
-		} else if (datasheetValue.equalsIgnoreCase("FileNameForSupportForm2")) {
 			System.out.println(elements("lnk_awardsLettersDoc", lettername).get(1).getAttribute("onclick"));
 			System.out.println(mapAwardsNomination.get(datasheetValue));
 			Assert.assertTrue(elements("lnk_awardsLettersDoc", lettername).get(1).getAttribute("onclick")
+					.contains(mapAwardsNomination.get(datasheetValue)));
+			logMessage("ASSERT PASSED : File uploaded for Support form 1 is displayed under Documents \n");
+		} else if (datasheetValue.equalsIgnoreCase("FileNameForSupportForm2")) {
+			System.out.println(elements("lnk_awardsLettersDoc", lettername).get(0).getAttribute("onclick"));
+			System.out.println(mapAwardsNomination.get(datasheetValue));
+			Assert.assertTrue(elements("lnk_awardsLettersDoc", lettername).get(0).getAttribute("onclick")
 					.contains(mapAwardsNomination.get(datasheetValue)));
 			logMessage("ASSERT PASSED : File uploaded for Support form 2 is displayed under Documents \n");
 		} else {
@@ -1524,11 +1524,11 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 				.equals(mapAwardsNomination.get("EligibilityQuestions_NomineePosition")));
 		logMessage("ASSERT PASSED : Present Position field is verified as "
 				+ mapAwardsNomination.get("EligibilityQuestions_NomineePosition") + "\n");
-		System.out.println(element("drpdwn_industrytype", "protocols").getText());
-		Assert.assertTrue(element("drpdwn_industrytype", "protocols").getText().trim()
-				.equals(mapAwardsNomination.get("SafeLabPractices?")));
-		logMessage("ASSERT PASSED : Saftey protocols field is verified as "
-				+ mapAwardsNomination.get("SafeLabPractices?") + "\n");
+		//System.out.println(element("drpdwn_industrytype", "protocols").getText());
+		//Assert.assertTrue(element("drpdwn_industrytype", "protocols").getText().trim()
+			//	.equals(mapAwardsNomination.get("SafeLabPractices?")));
+	//	logMessage("ASSERT PASSED : Saftey protocols field is verified as "
+	//			+ mapAwardsNomination.get("SafeLabPractices?") + "\n");
 		System.out.println(elements("drpdwn_industrytype", "nominee").get(1).getText());
 		Assert.assertTrue(elements("drpdwn_industrytype", "nominee").get(1).getText().trim()
 				.equals(mapAwardsNomination.get("EligibilityQuestions_professionalDiscipline")));
