@@ -307,11 +307,14 @@ public class ACS_Awards_EWEB_PageActions extends ASCSocietyGenericPage {
 		int min = 0;
 		Random rand = new Random();
 		int randomNumber = rand.nextInt((max - min) + 1) + min;
+		try{
 		isElementDisplayed("list_img_pdfProfileDownload", nomineeFirstNames.get(1).get(randomNumber));
 		waitForLoaderToDisappear();
+		}catch(Exception e){
+			logMessage("STEP: Page loader image is not present\n");
+		}
 		clickUsingXpathInJavaScriptExecutor(
 				element("list_img_pdfProfileDownload", nomineeFirstNames.get(1).get(randomNumber)));
-
 		logMessage("STEP : Profile pdf link is clicked for " + nomineeFirstNames.get(1).get(randomNumber) + " user \n");
 
 	}

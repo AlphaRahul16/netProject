@@ -173,11 +173,20 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 		switchToFrame("iframe1");
 
 	}
+	
+	public void clickOnSaveButtonDisplayedOnMailingList() {
+		isElementDisplayed("btn_save");
+		element("btn_save").click();		
+//		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
+		wait.hardWait(5);
+		logMessage("STEP : Save button is clicked\n");
+		switchToDefaultContent();
+	}
 
 	public void clickOnSaveButtonDisplayedOnMailingListPopUp() {
 		isElementDisplayed("btn_save");
-		element("btn_save").click();		
-		//clickUsingXpathInJavaScriptExecutor(element("btn_save"));
+//		element("btn_save").click();		
+		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
 		wait.hardWait(5);
 		logMessage("STEP : Save button is clicked\n");
 		//pageRefresh();

@@ -275,7 +275,6 @@ public class DataProvider {
 				String value1 = DataProvider.getSpecificColumnFromCsvLine(
 						csvLine1, csvSeparator,
 						getColumnNumber_CreateMember(caseIdColumnName,sheetPath));
-//				System.out.println("value1 "+value1);
 				listOfCaseIdToExecute.add(value1);
 				caseCount++;
 			}
@@ -341,7 +340,6 @@ public class DataProvider {
 		if(_getSessionConfig().get("tier").equalsIgnoreCase("dev9")){
 			sheetPath=getYamlValue("csv-data-file.path_" + sheetName);
 			sheetPath=sheetPath.replace("TestDataLibrary", "Payment_Processor_DataLibrary");
-			System.out.println("^^^^^^^sheetpath:"+sheetPath);
 		}
 		else
 			sheetPath=getYamlValue("csv-data-file.path_" + sheetName);
