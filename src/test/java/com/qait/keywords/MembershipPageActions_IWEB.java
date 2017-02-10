@@ -2611,7 +2611,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnEditNameAndAddress();
 		wait.hardWait(5);
 		switchToDefaultContent();
-		wait.hardWait(5);
+		wait.hardWait(9);
 		switchToFrame(element("iframe"));
 		customerLname = getNameFromEditNameAndAddressButton("lastName") + " "
 				+ getNameFromEditNameAndAddressButton("firstName") + " "
@@ -2931,12 +2931,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyTransferPackagePage() {
-
-		try {
-			isElementDisplayed("heading_transferPackage", "Transfer Package");
-		} catch (NoSuchElementException e) {
-			isElementDisplayed("heading_transferPackage", "Edit - Membership");
-		}
+		isElementDisplayed("heading_transferPackage");
 		logMessage("STEP : Member navigated to Transfer Package Page\n");
 		switchToFrame("iframe1");
 	}

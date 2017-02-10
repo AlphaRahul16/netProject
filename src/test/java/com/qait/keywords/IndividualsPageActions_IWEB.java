@@ -1524,11 +1524,11 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 				.equals(mapAwardsNomination.get("EligibilityQuestions_NomineePosition")));
 		logMessage("ASSERT PASSED : Present Position field is verified as "
 				+ mapAwardsNomination.get("EligibilityQuestions_NomineePosition") + "\n");
-		//System.out.println(element("drpdwn_industrytype", "protocols").getText());
-		//Assert.assertTrue(element("drpdwn_industrytype", "protocols").getText().trim()
-			//	.equals(mapAwardsNomination.get("SafeLabPractices?")));
-	//	logMessage("ASSERT PASSED : Saftey protocols field is verified as "
-	//			+ mapAwardsNomination.get("SafeLabPractices?") + "\n");
+		System.out.println(element("drpdwn_industrytype", "protocols").getText());
+//		Assert.assertTrue(element("drpdwn_industrytype", "protocols").getText().trim()
+//				.equals(mapAwardsNomination.get("SafeLabPractices?")));
+//		logMessage("ASSERT PASSED : Saftey protocols field is verified as "
+//				+ mapAwardsNomination.get("SafeLabPractices?") + "\n");
 		System.out.println(elements("drpdwn_industrytype", "nominee").get(1).getText());
 		Assert.assertTrue(elements("drpdwn_industrytype", "nominee").get(1).getText().trim()
 				.equals(mapAwardsNomination.get("EligibilityQuestions_professionalDiscipline")));
@@ -1550,7 +1550,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			clickUsingXpathInJavaScriptExecutor(element("txt_gotorecordrenewal", "1"));
 		}
 		else
-		    element("txt_gotorecordrenewal", "1").click();
+			clickUsingXpathInJavaScriptExecutor(element("txt_gotorecordrenewal", "1"));
+//		    element("txt_gotorecordrenewal", "1").click();
 		logMessage("STEP : Goto record is clicked for latest Invoice\n");
 	}
 
@@ -1558,6 +1559,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		handleAlert();
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("txt_individualInfo");
+		System.out.println("----exp:"+expectedData);
+		System.out.println("----actual:"+element("txt_individualInfo").getText().trim());
 		Assert.assertTrue(element("txt_individualInfo").getText().trim().contains(expectedData),
 				"Assertion Failed: Individual address is not correctly updated");
 		logMessage("ASSERT PASSED: Individual address is updated correctly");

@@ -584,11 +584,14 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	}
 
 	private void addACSContributions(Map<String, String> mapOMR) {
+		if(mapOMR.get("Contribution_To_Add?").length()!=0)
+		{
 		clickAddMembershipButton("Add ACS Contribution");
 
 		//isElementDisplayed("txt_legend","My ACS Contributions");
 		enterContributionForParticularSubscription(mapOMR);
 		clickSaveButtonToAddMembership();
+		}
 	}
 
 	private void enterContributionForParticularSubscription(Map<String, String> mapOMR) {
@@ -928,7 +931,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		//switchToEwebRenewalFrame();
 		dynamicWait(40, "btn_printreceipt", "1");
-		wait.hardWait(5);
+		wait.hardWait(10);
 		Object display= executeJavascriptReturnValue("window.getComputedStyle(document.getElementById('eWebFrame').contentWindow.document.querySelector('#print-invoice>input')).display");
 		System.out.println(display.toString());
 		Assert.assertTrue(display.toString().contains("inline"));

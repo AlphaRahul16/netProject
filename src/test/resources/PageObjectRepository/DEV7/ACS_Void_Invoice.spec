@@ -22,5 +22,5 @@ lnk_batchName                                  xpath                            
 inp_creditDate                                  id                                dtb${'type'}Date
 btn_searchRefund                                id                                ACSDateRangeButton
 img_spinner                                    css                                #__UPIMG
-link_addbatch                                  xpath                             //div[@class='AddEditLinkDiv']/a/span
+lnk_addbatch                                   css                                .icon-plus-sign
 ======================================================================================================================================

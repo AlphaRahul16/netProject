@@ -527,6 +527,7 @@ public class ASM_NominatePage extends GetPage {
 	}
 
 	public void clickOnContinueButton() {
+		wait.hardWait(3);
 		isElementDisplayed("btn_continue");
 		element("btn_continue").click();
 		logMessage("STEP : continue button is clicked in btn_continue\n");
@@ -777,14 +778,14 @@ public class ASM_NominatePage extends GetPage {
 	}
 	
 	private void explainCodeOfConductIfNo(String codeStatus, String conductExplanation) {
-		
-		if(codeStatus.equalsIgnoreCase("No"))
-		{
-			EnterTextInField(element("txtarea_codeOfConductExplained"), conductExplanation);
-			logMessage("Step : Code of Conduct Explanation is entered as "+conductExplanation);
-		
-		}
-	}
+		  
+		  if(codeStatus.equalsIgnoreCase("No"))
+		  {
+		   EnterTextInField(element("txtarea_codeOfConductExplained"), conductExplanation);
+		   logMessage("Step : Code of Conduct Explanation is entered as "+conductExplanation);
+		  
+		  }
+    }
 
 	public void selectSupporterts(String formNumber,Map<String,String> createMemberCredentials)
 	{

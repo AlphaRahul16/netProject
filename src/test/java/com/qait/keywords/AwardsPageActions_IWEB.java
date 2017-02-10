@@ -717,6 +717,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 				int numberOfJudgesToAdd = 5 - numberOfJudges;
 				System.out.println(numberOfJudgesToAdd);
 				for (int i = 1; i <= numberOfJudgesToAdd; i++) {
+					wait.hardWait(2);
 					addJudges(roundNumber);
 				}
 			}
@@ -802,7 +803,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnSearchButtonOnEditRecord() {
 		System.out.println("--------in clickOnSearchButtonOnEditRecord");
 		wait.waitForPageToLoadCompletely();
-		wait.hardWait(2);
+		wait.hardWait(8);
 		isElementDisplayed("btn_search");
 		wait.waitForElementToBeClickable(element("btn_search"));
 //		clickUsingXpathInJavaScriptExecutor(element("btn_search"));

@@ -462,22 +462,25 @@ public class GetPage extends BaseUi {
 				element(elementName).getAttribute("textContent"), containsString(expectedText));
 		logMessage("ASSERT PASSED : Element " + elementName + " is visible and Text is " + expectedText);
 	}
-
+	
 	public void EnterTestMethodNameToSkipInMap_MemberNumber_CCED_NCW(Map<String, Boolean> skipTest, String AppUrl) {
 		String url = ConfigPropertyReader.getProperty("tier");
 
-		String case1 = "/membernumberlookup";
-		String case2 = "/ccedlookup";
-		String case3 = "/ncwlookup";
-		
-		if (AppUrl.contains(case1)) {
+		String stageCase1 = "https://ewebtest.acs.org/NF" + url + "/membernumberlookup";
+		String stageCase2 = "https://ewebtest.acs.org/NF" + url + "/ccedlookup";
+		String stageCase3 = "https://ewebtest.acs.org/NF" + url + "/ncwlookup";
+		String devCase1 = "https://dev-eweb12.acs.org/NF" + url + "/membernumberlookup";
+		String devCase2 = "https://dev-eweb12.acs.org/NF" + url + "/ccedlookup";
+		String devCase3 = "https://dev-eweb12.acs.org/NF" + url + "/ncwlookup";
+
+		if (AppUrl.equalsIgnoreCase(stageCase1) || AppUrl.equalsIgnoreCase(devCase1)) {
 			skipTest.put("Step01_Verify_Email_Address_IWEB_Test", true);
 			skipTest.put("Step02_CCED_Lookup_Test", true);
 			skipTest.put("Step03_NCW_Lookup_Test", true);
-		} else if (AppUrl.contains(case2)) {
+		} else if (AppUrl.equalsIgnoreCase(stageCase2) || AppUrl.equalsIgnoreCase(devCase2)) {
 			skipTest.put("Step00_Member_Number_Lookup_Test", true);
 			skipTest.put("Step03_NCW_Lookup_Test", true);
-		} else if (AppUrl.contains(case3)) {
+		} else if (AppUrl.equalsIgnoreCase(stageCase3) || AppUrl.equalsIgnoreCase(devCase3)) {
 			skipTest.put("Step00_Member_Number_Lookup_Test", true);
 			skipTest.put("Step02_CCED_Lookup_Test", true);
 		} else {
