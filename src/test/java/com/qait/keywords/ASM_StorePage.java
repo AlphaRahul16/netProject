@@ -498,13 +498,13 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 
 	public Map<String, String> verifyProductDetailsOnShoppingCartPage(String caseId, String priceValue, String discount,
 			String description) {
-		verifyProductDetails(caseId, priceValue);
-		verifyProductDetails(caseId, discount);
-		verifyProductDetails(caseId, description);
+		verifyProductDetails("priceValue", priceValue);
+		verifyProductDetails("discount", discount);
+		verifyProductDetails("description", description);
 		double totalPriceOfProduct = Double
-				.parseDouble(getACS_Store_SheetValue(caseId, "priceValue?").replace("$", "").trim())
+				.parseDouble(priceValue.replace("$", "").trim())
 				* Integer.parseInt(element("txt_quantity").getAttribute("value"))
-				- Double.parseDouble(getACS_Store_SheetValue(caseId, "discount?").replace("$", "").trim());
+				- Double.parseDouble(discount.replace("$", "").trim());
 		Assert.assertTrue(getProductDetails("total") == totalPriceOfProduct);
 		logMessage("ASSERT PASSED : Total price with discount is verified as " + totalPriceOfProduct + "\n");   
 		return map;
@@ -525,12 +525,14 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		return Double.toString(ordertotal);
 	}
 
-	private void verifyProductDetails(String caseId,String productDetail) {
-		Assert.assertTrue(element("txt_"+productDetail).getText().replace("$", "").trim()
-				.equalsIgnoreCase(getACS_Store_SheetValue(caseId, productDetail + "?").replace("$", "").trim()));
-		logMessage("ASSERT PASSED : Store " + productDetail + " is successfully verified as "
-				+ element("txt_" + productDetail).getText().trim() + "\n");
-		map.put(productDetail,element("txt_"+productDetail).getText().replace("$", "").trim());
+	private void verifyProductDetails(String productName,String productvalues) {
+		System.out.println(element("txt_"+productName).getText().replace("$", "").trim());
+		System.out.println(productvalues.replace("$", "").trim());
+		Assert.assertTrue(element("txt_"+productName).getText().replace("$", "").trim()
+				.equalsIgnoreCase(productvalues.replace("$", "").trim()));
+		logMessage("ASSERT PASSED : Store " + productName + " is successfully verified as "
+				+ element("txt_" + productName).getText().trim() + "\n");
+		map.put(productName,element("txt_"+productName).getText().replace("$", "").trim());
 	}
 
 	private double getProductDetails(String detail) {
@@ -563,15 +565,15 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		logMessage("STEP : Get value of " + name + " as " + map.get(name) + "\n");
 	}
 
-	public void verifyOrderSummaryAtCheckoutPage(String caseId, String Shipping, String Tax,String orderTotal) {
-		verifyProductDetailsFromMappedValues(caseId,"priceValue");
-		verifyProductDetailsFromMappedValues(caseId,"description");
-		verifyProductDetailsFromMappedValues(caseId,"quantity");
-		verifyProductDetailsFromMappedValues(caseId,"discount");
-		getShippingSummaryDetailsFromMappedValues(caseId,"Shipping",Shipping);
+	public void verifyOrderSummaryAtCheckoutPage(Map<String,String> mapACSstore,String orderTotal) {
+		verifyProductDetailsFromMappedValues("priceValue",mapACSstore.get("priceValue?"));
+		verifyProductDetailsFromMappedValues("description",mapACSstore.get("description?"));
+		verifyProductDetailsFromMappedValues("quantity",mapACSstore.get("quantity?"));
+		verifyProductDetailsFromMappedValues("discount",mapACSstore.get("discount?"));
+		getShippingSummaryDetailsFromMappedValues("Shipping",mapACSstore.get("Shipping?"));
 		//getShippingSummaryDetailsFromMappedValues("Subtotal",mapGetMemberDetailsInStore);
-		getShippingSummaryDetailsFromMappedValues(caseId,"Tax",Tax);
-		getShippingSummaryDetailsFromMappedValues(caseId,"Order Total",orderTotal);
+		getShippingSummaryDetailsFromMappedValues("Tax",mapACSstore.get("Tax?"));
+		getShippingSummaryDetailsFromMappedValues("Order Total",orderTotal);
 
 	}
 	
@@ -596,6 +598,47 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		selectPaymentInfo("Expiration", Expiration);
 		enterPaymentInfo("CVV", CVV);
 	}
+	
+	public void enterPaymentInformation_ACSStoreForAllPaymentTypes(String PaymentMethod,
+			String cardNumber, String dinerscardNumber, String referenceNumber,
+			String discovercardNumber,String AMEXcardNumber, String expireDate, String cvvNumber,
+			String checkNumber) {
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(8);
+		selectPaymentInfo("CardType", PaymentMethod);
+
+		switch (PaymentMethod) {
+		case "Visa/MC":
+			enterPaymentInfo("CCNumber", cardNumber);
+			break;
+
+		case "BOA - Check":
+			enterPaymentInfo("CCNumber", checkNumber);
+			break;
+
+		case "check":
+			enterPaymentInfo("CCNumber", checkNumber);
+			break;
+
+		case "cash":
+			enterPaymentInfo("CCNumber", referenceNumber);
+			break;
+
+		case "Diners":
+			enterPaymentInfo("CCNumber", dinerscardNumber);
+			break;
+
+		case "Discover":
+			enterPaymentInfo("CCNumber", discovercardNumber);
+			break;
+		case "AMEX":
+			enterPaymentInfo("CCNumber", AMEXcardNumber);
+			break;
+
+		}
+		selectPaymentInfo("Expiration", expireDate);
+		enterPaymentInfo("CVV", cvvNumber);
+	}
 
 	private void getPrepopulatedShippingAddressValues(String name) {
 		isElementDisplayed("inp_shipping_adress", name);
@@ -608,7 +651,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		verifySecureCheckoutPageIsPresent();
 	}
 
-	private void getShippingSummaryDetailsFromMappedValues(String caseId,String name, String sheetvalue) {
+	private void getShippingSummaryDetailsFromMappedValues(String name, String sheetvalue) {
 		isElementDisplayed("txt_order_shipping_summary", name);
 		wait.hardWait(2);
 		double sheetvaluefloat= Double.parseDouble(sheetvalue);
@@ -631,10 +674,12 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : Place your order button clicked\n");
 	}
 
-	private void verifyProductDetailsFromMappedValues(String caseId,String name) {
+	private void verifyProductDetailsFromMappedValues(String name,String value) {
 		hardWaitForIEBrowser(2);
 		isElementDisplayed("txt_summary_"+name);
-		Assert.assertTrue(getACS_Store_SheetValue(caseId, name + "?").replace("$", "").trim().equals(element("txt_summary_"+name).getText().replace("$", "").trim()));
+		System.out.println(value);
+		System.out.println(element("txt_summary_"+name).getText().replace("$", "").trim());
+		Assert.assertTrue(value.replace("$", "").trim().equals(element("txt_summary_"+name).getText().replace("$", "").trim()));
 		logMessage("ASSERT PASSED : Product details for " + name + " verified successfully as " +element("txt_summary_" + name).getText()+"\n");
 	}
 

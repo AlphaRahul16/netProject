@@ -34,5 +34,4 @@ chk_advancedView             xpath              //span//label[text()='Advanced V
 drpdwn_selectSearchvalue     xpath              //span[starts-with(text(),'${search option}')]/../following-sibling::td/select
 txt_enterSearchValue         xpath            //span[starts-with(text(),'${search option}')]/../following-sibling::td/input
 txt_individualInfo           id               F1_cxa_mailing_label_html
-
 ======================================================================================================================================

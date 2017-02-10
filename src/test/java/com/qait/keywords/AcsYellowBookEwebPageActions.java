@@ -135,6 +135,8 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 	public void verifyUpdatedAddressOnYellowBookHomePage(String address) {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("txt_updated_add");
+		System.out.println("address******"+address);
+		System.out.println("Address vUI"+element("txt_updated_add").getText().trim());
 		// logMessage(element("txt_updated_add").getText().trim());
 		Assert.assertTrue(element("txt_updated_add").getText().trim().contains(address));
 		logMessage("ASSERTION PASSED : Verified Updated Address" + address + " on Yellow Book Home Page");

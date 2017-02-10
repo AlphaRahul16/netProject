@@ -928,5 +928,19 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
         objFundraising.selectBatchAndPaymentDetails_AddressChangeProforma(batchName,paymentMethod,cardNumber,expireDate,cvvNo,checkNumber);
 		switchToDefaultContent();
 	}
+	
+	public void verifyIndividualPaymentAmountEqualsPaymentTotal()
+	{
+		float sum=0;
+		for (WebElement ele : elements("table_discount")) {
+			sum=sum+Float.parseFloat(ele.getText());
+		}
+		System.out.println(Float.parseFloat(element("inp_invoiceValue","invoice total").getText()));
+		System.out.println(sum);
+		
+		Assert.assertTrue(Float.parseFloat(element("inp_invoiceValue","invoice total").getText())==sum);
+		logMessage("ASSERT PASSED : Payment total is equal to sum of individual product total as "+sum);
+	}
+	
 
 }
