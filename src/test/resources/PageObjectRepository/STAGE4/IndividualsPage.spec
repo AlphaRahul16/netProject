@@ -26,5 +26,11 @@ txt_contactId               xpath     //span[contains(text(),'contact id')]/prec
 img_aactMember              xpath      //span[contains(.,'aact member:')]/following-sibling::span/img[@title='New Image']
 img_member                  xpath      //span[contains(.,'aact member:')]/following-sibling::span/img[@title='Non Member']
 img_noMemberBenefits        xpath       //span[contains(.,'aact member:')]/following-sibling::span/img[@title='No Member Benefits']
-img_spinner                xpath          //*[contains(@src,'updating.gif')]
+img_spinner                xpath          //*[contains(@src,'updating.gif')]        
+link_pages                               css              *[class*='GridPagerLink']     
+link_nextPage                           css               *[class*='GridPagerLink'] :nth-child(1) 
+link_paging                               xpath               //table[@class='DataFormChildTABLE']//table//tr[1]//a[starts-with(text(),'${page no}')]
+chk_advancedView                         xpath              //span//label[text()='Advanced View']//../input
+drpdwn_selectSearchvalue                 xpath              //span[starts-with(text(),'${search option}')]/../following-sibling::td/select
+txt_enterSearchValue                     xpath            //span[starts-with(text(),'${search option}')]/../following-sibling::td/input
 ======================================================================================================================================

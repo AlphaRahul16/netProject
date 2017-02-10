@@ -1,3 +1,3 @@
-caseID	caseID Execute	paymentmethod	Card Number	CVV	Constituent Sort Name	Fund Code	Gift Amount	Batch Name	Security Group	paymentType	Appeal Code	Pledge Amount
+caseID	caseID Execute	Payment_Method	Card Number?	CVV_Number	Constituent Sort Name	Fund Code	Gift Amount	Batch Name	Security Group	Payment_Type	Appeal Code	Pledge Amount
 1	Yes	BOA - Check	123		b%	AACT G	100.00	SeleniumTesting	QA	prepaid	ACS Website	300.00
-2	No	Visa/MC	4111111111111110	111	b%	AACT G	100.00	SeleniumTesting	QA	prepaid	ACS Website	300.00
+2	No	Visa/MC	4111111111111111	123	b%	AACT G	100.00	SeleniumTesting	QA	prepaid	ACS Website	300.00
