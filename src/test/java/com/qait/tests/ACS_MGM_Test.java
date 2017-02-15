@@ -165,7 +165,7 @@ public class ACS_MGM_Test extends BaseTest {
 	}
 
 	@Test
-	public void Step08_Renew_Membership_And_Invite_A_New_Member_Scenario4() {
+	public void Step08_Renew_Membership_And_Invite_A_New_Member_Scenario4() { //uncommented paymnet steps 
 		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		test.asm_MGM.clickOnRenewYourMembershipNow();
 		test.asm_OMR.OMRLogo("Online Membership Renewal");

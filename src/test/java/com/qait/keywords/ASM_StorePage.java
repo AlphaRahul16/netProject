@@ -751,11 +751,51 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 
 	public void selectState(WebElement el)
 	{
-
 		Select dropdown = new Select(el);
 		dropdown.selectByValue("KY");
 		logMessage("STEP : State is entered as Kentucky\n");
+	}
+	
+	public void enterPaymentInformation_OMAForAllPaymentTypes(String PaymentMethod,
+			String cardNumber, String dinerscardNumber, String referenceNumber,
+			String discovercardNumber,String AMEXcardNumber, String expireMonth, String cvvNumber,
+			String checkNumber, String expireYear) {
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(8);
+		selectPaymentInfo("CreditCardType", PaymentMethod);
 
+		switch (PaymentMethod) {
+		case "Visa/MC":
+			enterPaymentInfo("CreditCardNumber", cardNumber);
+			break;
+
+		case "BOA - Check":
+			enterPaymentInfo("CreditCardNumber", checkNumber);
+			break;
+
+		case "check":
+			enterPaymentInfo("CreditCardNumber", checkNumber);
+			break;
+
+		case "cash":
+			enterPaymentInfo("CreditCardNumber", referenceNumber);
+			break;
+
+		case "Diners":
+			enterPaymentInfo("CreditCardNumber", dinerscardNumber);
+			break;
+
+		case "Discover":
+			enterPaymentInfo("CreditCardNumber", discovercardNumber);
+			break;
+		case "AMEX":
+			enterPaymentInfo("CreditCardNumber", AMEXcardNumber);
+			break;
+
+		}
+		selectPaymentInfo("ExpirationMonth", expireMonth);
+		selectPaymentInfo("ExpirationYear", expireYear);
+		enterPaymentInfo("CcvNumber", cvvNumber);
 	}
 
 

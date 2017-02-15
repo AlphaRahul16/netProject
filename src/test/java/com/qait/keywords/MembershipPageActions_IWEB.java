@@ -84,6 +84,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// waitForSpinner();
 		isElementDisplayed("txt_loadOnExistingQueryLabel");
 		selectExistingQuery(queryName);
+		wait.hardWait(4);
 		waitForSpinner();
 		if (isBrowser("ie") || isBrowser("internet explorer")) {
 

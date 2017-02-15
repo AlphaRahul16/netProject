@@ -3,10 +3,6 @@ package com.qait.tests;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.lang.reflect.Method;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
-import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

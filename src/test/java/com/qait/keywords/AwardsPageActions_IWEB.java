@@ -510,6 +510,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnAddRoundButton(String tabName) {
+//		wait.hardWait(8);
 		isElementDisplayed("btn_addRounds_judges", tabName);
 		clickUsingXpathInJavaScriptExecutor(element("btn_addRounds_judges", tabName));
 		// element("btn_addRounds_judges", tabName).click();
@@ -738,8 +739,11 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		selectProvidedTextFromDropDown(element("list_selectRoundNumber"), "Round " + roundNumber);
 		logMessage("STEP : Round " + roundNumber + " is selected in list_selectRoundNumber\n");
 		waitForSpinner();
+		System.out.println("-----1");
 		clearJudgeNameOnAdd();
+		System.out.println("-----2");
 		clickOnStageAwardLabel();
+		System.out.println("-----3");
 		clickOnSearchButtonOnEditRecord();
 		wait.hardWait(2);
 		switchToDefaultContent();
@@ -805,9 +809,9 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(8);
 		isElementDisplayed("btn_search");
-		wait.waitForElementToBeClickable(element("btn_search"));
-//		clickUsingXpathInJavaScriptExecutor(element("btn_search"));
-		 element("btn_search").click();
+//		wait.waitForElementToBeClickable(element("btn_search"));
+		clickUsingXpathInJavaScriptExecutor(element("btn_search"));
+//		 element("btn_search").click();
 		logMessage("STEP : Search button is clicked \n");
 	}
 
