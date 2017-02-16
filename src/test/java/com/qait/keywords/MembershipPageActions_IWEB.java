@@ -1109,6 +1109,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
 		logMessage("STEP : " + menuName + " bar is clicked to expand" + "\n");
+		wait.hardWait(2);
 		waitForSpinner();
 
 	}

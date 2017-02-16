@@ -2058,6 +2058,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 		waitForSpinner();
 		System.out.println(chapterName);
+		wait.hardWait(4);
 		System.out.println(element("txt_priceValue", chapterName).getText().trim());
 		System.out.println(chapterRole);
 		isElementDisplayed("txt_divisionPubName", chapterName);

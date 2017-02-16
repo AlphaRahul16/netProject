@@ -21,13 +21,13 @@
 		</classes>
 	</test>
 
-	<test name="Subscription Fulfillment" parallel="false">
+	<test name="Subscription Fulfillment">
 		<classes>
 			<class name="com.qait.tests.Subscription_Fulfillment_Test"></class>
 		</classes>
 	</test>
 
-	<test name="ACS_Batch_Processing" parallel="false">
+	<test name="ACS_Batch_Processing">
 		<classes>
 			<class name="com.qait.tests.ACS_Batch_Processing"></class>
 		</classes>
@@ -39,7 +39,7 @@
 		</classes>
 	</test>
 
-	<test name="ACS_Apply_Payment_Test" parallel="false">
+	<test name="ACS_Apply_Payment_Test">
 		<classes>
 			<class name="com.qait.tests.ACS_Apply_Payment_Test"></class>
 		</classes>
@@ -63,7 +63,7 @@
 <!-- 		</classes> -->
 <!-- 	</test> -->
 
-<!-- 	<test name="Fundraising Module" thread-count="10" parallel="instances"> -->
+<!-- 	<test name="Fundraising Module"> -->
 <!-- 		<classes> -->
 <!-- 			<class name="com.qait.tests.ACS_Fundraising_Module_Test" /> -->
 <!-- 		</classes> -->
@@ -161,7 +161,7 @@
 		</classes>
 	</test>
 
-<!-- 	<test name="ACS AwardsVoting Test" thread-count="10" parallel="instances"> -->
+<!-- 	<test name="ACS AwardsVoting Test"> -->
 <!-- 		<classes> -->
 <!-- 			<class name="com.qait.tests.ACS_AwardsVoting_Test" /> -->
 <!-- 		</classes> -->
@@ -197,7 +197,7 @@
 <!-- 		</classes> -->
 <!-- 	</test> -->
 
-	<test name="ACS BPA 1 and BPA 2" thread-count="2" parallel="instances">
+	<test name="ACS BPA 1 and BPA 2">
 		<classes>
 			<class name="com.qait.tests.ACS_BPA_Test" />
 		</classes>
