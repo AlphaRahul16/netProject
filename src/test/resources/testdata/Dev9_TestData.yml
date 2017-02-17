@@ -25,14 +25,12 @@ app_url_ScarfReviewing: https://dev-eweb12/NFDev9/studentchaptersreview
 app_url_MyAccount: https://aemwwwtst.acs.org/content/acs/en.html
 app_url_IwebMyAccount: https://dev-eweb12/NFDev9/iweb
 app_url_MyAccountNewUser: https://accounttest.acs.org/ssoamweb/account/signUp
+app_url_SourceCodeOMA: https://jointest.acs.org/NFDev9/oma?sc=
 app_url_AACT_OMR: https://renewdev.teachchemistry.org/NFDev9/aactomr/
-app_url_SourceCodeOMA: https://jointest.acs.org/NFStage2/oma?sc=
 app_url_MGMUrl: https://dev-eweb12/NFDev9/mgm
-app_url_MGMjoin: https://jointest.acs.org/NFStage2/oma?appID=
-app_url_MGMOputOut: https://www.ewebtest.acs.org/NFStage2/eweb/ACSMGMTemplate.aspx?site=ACS_MGM&WebCode=optout&appID=
-app_url_MGMLogout: https://www.ewebtest.acs.org/NFStage2/eweb/acslogout.aspx
-app_url_IwebMyAccount: https://dev-eweb12.acs.org/NFDev9/iweb
-app_url_SourceCodeOMA: https://jointest.acs.org/NFStage2/oma?sc=
+app_url_MGMjoin: https://dev-eweb12/NFDev9/oma?appID=
+app_url_MGMOputOut: https://dev-eweb12/NFDev9/eweb/ACSMGMTemplate.aspx?site=ACS_MGM&WebCode=optout&appID=
+app_url_MGMLogout: https://dev-eweb12/NFDev9/eweb/acslogout.aspx
 
 Authentication: 
   userName: C00186

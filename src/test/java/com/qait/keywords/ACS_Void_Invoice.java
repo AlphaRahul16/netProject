@@ -39,8 +39,8 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 		String batchName;
 		hardWaitForIEBrowser(5);
 		switchToIframe1();
-		isElementDisplayed("link_addbatch");
-		clickUsingXpathInJavaScriptExecutor(element("link_addbatch"));
+		isElementDisplayed("lnk_addbatch");
+		clickUsingXpathInJavaScriptExecutor(element("lnk_addbatch"));
 		logMessage("STEP : Adding a new batch\n");
 		switchToDefaultContent();
 		switchToFrame("iframe2");

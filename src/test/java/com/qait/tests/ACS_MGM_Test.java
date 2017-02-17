@@ -98,9 +98,15 @@ public class ACS_MGM_Test extends BaseTest {
 		test.BenefitsPage.addACSPublicationAndTechnicalDivision(caseID);
 		test.ContactInfoPage.clickContinue();
 
-		test.checkoutPage.enterPaymentInfo(YamlReader.getYamlValue("creditCardInfo.Type"),
-				fname_Iweb + " " + lname_Iweb, YamlReader.getYamlValue("creditCardInfo.Number"),
-				YamlReader.getYamlValue("creditCardInfo.cvv-number"));
+//		test.checkoutPage.enterPaymentInfo(YamlReader.getYamlValue("creditCardInfo.Type"),
+//				fname_Iweb + " " + lname_Iweb, YamlReader.getYamlValue("creditCardInfo.Number"),
+//				YamlReader.getYamlValue("creditCardInfo.cvv-number"));
+		
+		test.asm_storePage.enterPaymentInfo("CardholderName","testSelenium");
+		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes(test.homePageIWEB.map().get("Payment_Method"), test.homePageIWEB.map().get("Visa_Card_Number"), test.homePageIWEB.map().get("Diners_Card_Number"), test.homePageIWEB.map().get("Reference_Number"),
+				test.homePageIWEB.map().get("Discover_Card_Number"),test.homePageIWEB.map().get("AMEX_Card_Number") ,test.homePageIWEB.map().get("Expiry_Month"), test.homePageIWEB.map().get("CVV_Number"), test.homePageIWEB.map().get("Check_Number"),test.homePageIWEB.map().get("Expiry_Year"));
+
+		
 		test.checkoutPage.clickAtTestStatement();
 		test.ContactInfoPage.clickContinue();
 		test.checkoutPage.clickSubmitButtonAtBottom();
@@ -165,7 +171,7 @@ public class ACS_MGM_Test extends BaseTest {
 	}
 
 	@Test
-	public void Step08_Renew_Membership_And_Invite_A_New_Member_Scenario4() {
+	public void Step08_Renew_Membership_And_Invite_A_New_Member_Scenario4() { //uncommented paymnet steps 
 		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		test.asm_MGM.clickOnRenewYourMembershipNow();
 		test.asm_OMR.OMRLogo("Online Membership Renewal");
@@ -173,6 +179,11 @@ public class ACS_MGM_Test extends BaseTest {
 //				YamlReader.getYamlValue("creditCardInfo.Number"), YamlReader.getYamlValue("creditCardInfo.cvv-number"),
 //				YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[0],
 //				YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[1]);
+		
+		test.asm_OMR.submitPaymentDetails(test.homePageIWEB.map().get("Payment_Method"),"testSelenium", toString().valueOf(test.homePageIWEB.map().get("Visa_Card_Number").trim()), test.homePageIWEB.map().get("Diners_Card_Number"),
+				test.homePageIWEB.map().get("Discover_Card_Number"),test.homePageIWEB.map().get("AMEX_Card_Number"),
+				test.homePageIWEB.map().get("CVV_Number"), test.homePageIWEB.map().get("Expiry_Month"), test.homePageIWEB.map().get("Expiry_Year"));
+		
 		test.asm_OMR.clickOnSubmitPayment();
 		test.launchApplication(app_url_MGMLogout);
 		test.launchApplication(app_url_MGMUrl);
@@ -254,8 +265,14 @@ public class ACS_MGM_Test extends BaseTest {
 		test.ContactInfoPage.clickContinue();
 		test.checkoutPage.verifySourceCodeIsAlreadyPrepoulated(sourceCode);
 
-		test.checkoutPage.enterPaymentInfo(YamlReader.getYamlValue("creditCardInfo.Type"), fname + " " + lname,
-				YamlReader.getYamlValue("creditCardInfo.Number"), YamlReader.getYamlValue("creditCardInfo.cvv-number"));
+//		test.checkoutPage.enterPaymentInfo(YamlReader.getYamlValue("creditCardInfo.Type"), fname + " " + lname,
+//				YamlReader.getYamlValue("creditCardInfo.Number"), YamlReader.getYamlValue("creditCardInfo.cvv-number"));
+		
+		test.asm_storePage.enterPaymentInfo("CardholderName","testSelenium");
+		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes(test.homePageIWEB.map().get("Payment_Method"), test.homePageIWEB.map().get("Visa_Card_Number"), test.homePageIWEB.map().get("Diners_Card_Number"), test.homePageIWEB.map().get("Reference_Number"),
+				test.homePageIWEB.map().get("Discover_Card_Number"),test.homePageIWEB.map().get("AMEX_Card_Number") ,test.homePageIWEB.map().get("Expiry_Month"), test.homePageIWEB.map().get("CVV_Number"), test.homePageIWEB.map().get("Check_Number"),test.homePageIWEB.map().get("Expiry_Year"));
+
+		
 		test.checkoutPage.clickAtTestStatement();
 		test.ContactInfoPage.clickContinue();
 		test.checkoutPage.clickSubmitButtonAtBottom();

@@ -2059,6 +2059,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 		waitForSpinner();
 		System.out.println(chapterName);
+		wait.hardWait(4);
 		System.out.println(element("txt_priceValue", chapterName).getText().trim());
 		System.out.println(chapterRole);
 		isElementDisplayed("txt_divisionPubName", chapterName);
@@ -2222,7 +2223,10 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public String fillDataOnRapidEntryFormAndSaveChanges(Map<String, String> bpaMap, String[] BPATypeInfoArray,
 			String customerID) {
 		String currentdate = DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY");
-		EnterTextInField(element("inp_bpa_info", "customer id"), customerID);
+		
+		wait.hardWait(4);
+		EnterTextInField(element("inp_bpa_info","customer id"), customerID);
+
 		clickSearchLookUpButtonOnBPARapidForm();
 		selectProvidedTextFromDropDown(element("drpdwn_relationshipType", BPATypeInfoArray[0]),
 				bpaMap.get(BPATypeInfoArray[0]));

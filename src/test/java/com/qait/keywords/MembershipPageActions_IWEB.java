@@ -84,6 +84,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// waitForSpinner();
 		isElementDisplayed("txt_loadOnExistingQueryLabel");
 		selectExistingQuery(queryName);
+		wait.hardWait(4);
 		waitForSpinner();
 		if (isBrowser("ie") || isBrowser("internet explorer")) {
 
@@ -170,7 +171,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
-			wait.resetImplicitTimeout(2);
+			wait.resetImplicitTimeout(4);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			// handleAlert();
 			isElementDisplayed("img_spinner");
@@ -1108,6 +1109,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
 		logMessage("STEP : " + menuName + " bar is clicked to expand" + "\n");
+		wait.hardWait(2);
 		waitForSpinner();
 
 	}
