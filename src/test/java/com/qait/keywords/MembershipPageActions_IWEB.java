@@ -171,7 +171,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
-			wait.resetImplicitTimeout(2);
+			wait.resetImplicitTimeout(4);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			// handleAlert();
 			isElementDisplayed("img_spinner");

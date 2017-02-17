@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="ACS Tests" preserve-order="true" thread-count="4"
 	configfailurepolicy="continue" parallel="tests">
-	
+
 	<test name="ACS Address Validation Test">
 		<classes>
 			<class name="com.qait.tests.ACS_Address_Validation_Test" />
@@ -57,17 +57,17 @@
 		</classes>
 	</test>
 
-<!-- 	<test name="COE Inventory Smoke Test" group-by-instances="true"> -->
-<!-- 		<classes> -->
-<!-- 			<class name="com.qait.tests.COE_Inventory_Test"></class> -->
-<!-- 		</classes> -->
-<!-- 	</test> -->
+	<test name="COE Inventory Smoke Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.COE_Inventory_Test"></class>
+		</classes>
+	</test>
 
-<!-- 	<test name="Fundraising Module"> -->
-<!-- 		<classes> -->
-<!-- 			<class name="com.qait.tests.ACS_Fundraising_Module_Test" /> -->
-<!-- 		</classes> -->
-<!-- 	</test> -->
+	<test name="Fundraising Module">
+		<classes>
+			<class name="com.qait.tests.ACS_Fundraising_Module_Test" />
+		</classes>
+	</test>
 
 	<test name="ACS Rubber Insurance Test" group-by-instances="true">
 		<classes>
@@ -81,24 +81,17 @@
 		</classes>
 	</test>
 
-<!-- 	<test name="Create Member" group-by-instances="true"> -->
-<!-- 		<classes> -->
-<!-- 			<class name="com.qait.tests.ACS_Create_Member_IWEB_Test"></class> -->
-<!-- 		</classes> -->
-<!-- 	</test> -->
-
-
 <!-- 	<test name="inventory product fulfillmet" group-by-instances="true"> -->
 <!-- 		<classes> -->
 <!-- 			<class name="com.qait.tests.Inventory_Product_Fulfillment_Test"></class> -->
 <!-- 		</classes> -->
 <!-- 	</test> -->
 
-<!-- 	<test name="ACS StoreFactoryClass"> -->
-<!-- 		<classes> -->
-<!-- 			<class name="com.qait.tests.ACS_StoreFactoryClass"></class> -->
-<!-- 		</classes> -->
-<!-- 	</test> -->
+	<test name="ACS StoreFactoryClass">
+		<classes>
+			<class name="com.qait.tests.ACS_StoreFactoryClass"></class>
+		</classes>
+	</test>
 
 <!-- 	<test name="ACS Giving Application Smoke Test" group-by-instances="true"> -->
 <!-- 		<classes> -->
@@ -125,12 +118,6 @@
 <!-- 		</classes> -->
 <!-- 	</test> -->
 
-<!-- 	<test name="ACS OMR Smoke" group-by-instances="true"> -->
-<!-- 		<classes> -->
-<!-- 			<class name="com.qait.tests.ACS_OMR_Smoke_Test"></class> -->
-<!-- 		</classes> -->
-<!-- 	</test> -->
-
 	<test name="ACS Email Communication Preferences Test">
 		<classes>
 			<class name="com.qait.tests.ACS_Email_Communication_Preferences_Test" />
@@ -143,15 +130,10 @@
 		</classes>
 	</test>
 
-<!-- 	<test name="ACS Individaul Application Smoke Test" group-by-instances="true"> -->
+<!-- 	<test name="ACS Individaul Application Smoke Test" -->
+<!-- 		group-by-instances="true"> -->
 <!-- 		<classes> -->
 <!-- 			<class name="com.qait.tests.ACS_IndividualLandingPage_Smoke"></class> -->
-<!-- 		</classes> -->
-<!-- 	</test> -->
-
-<!-- 	<test name="ACS Create Member Test" group-by-instances="true"> -->
-<!-- 		<classes> -->
-<!-- 			<class name="com.qait.tests.ACS_Create_Member_Test"></class> -->
 <!-- 		</classes> -->
 <!-- 	</test> -->
 
@@ -164,12 +146,6 @@
 <!-- 	<test name="ACS AwardsVoting Test"> -->
 <!-- 		<classes> -->
 <!-- 			<class name="com.qait.tests.ACS_AwardsVoting_Test" /> -->
-<!-- 		</classes> -->
-<!-- 	</test> -->
-
-<!-- 	<test name="OMA Discount Smoke Test" group-by-instances="true"> -->
-<!-- 		<classes> -->
-<!-- 			<class name="com.qait.tests.ACS_OMA_Discount_Test"></class> -->
 <!-- 		</classes> -->
 <!-- 	</test> -->
 
@@ -203,23 +179,22 @@
 		</classes>
 	</test>
 
+	<test name="ACS YB Iweb Regression Test">
+		<classes>
+			<class name="com.qait.tests.ACS_YB_Iweb_Regression_Test" />
+		</classes>
+	</test>
+
 	<test name="ACS_SourceCodes_Test" group-by-instances="true">
 		<classes>
 			<class name="com.qait.tests.ACS_SourceCodes_Test"></class>
 		</classes>
 	</test>
 
-<!-- 	<test name="ACS MGM Test" group-by-instances="true"> -->
-<!-- 		<classes> -->
-<!-- 			<class name="com.qait.tests.ACS_MGM_Test"></class> -->
-<!-- 		</classes> -->
-<!-- 	</test> -->
-
 <!-- 	<test name="ACS Member Transfer Smoke Test" group-by-instances="true"> -->
 <!-- 		<classes> -->
 <!-- 			<class name="com.qait.tests.ACS_Member_Transfer_Smoke_Test"></class> -->
 <!-- 		</classes> -->
 <!-- 	</test> -->
-
 
 </suite>

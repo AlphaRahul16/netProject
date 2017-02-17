@@ -2222,6 +2222,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public String fillDataOnRapidEntryFormAndSaveChanges(Map<String,String> bpaMap,String[] BPATypeInfoArray,String customerID) {
 		String currentdate = DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY");
+		wait.hardWait(4);
 		EnterTextInField(element("inp_bpa_info","customer id"), customerID);
 		clickSearchLookUpButtonOnBPARapidForm();
 		selectProvidedTextFromDropDown(element("drpdwn_relationshipType",BPATypeInfoArray[0]), bpaMap.get(BPATypeInfoArray[0]));
