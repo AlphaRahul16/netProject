@@ -2741,7 +2741,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void selectValidUserForRenewal(Map<String, String> mapOMR) {
 		if (MemberTransferLoopCount < 3) {
 			clickOnTab("Query Membership");
-			selectAndRunQuery("Selenium - Renewal Query");
+			selectAndRunQuery("Selenium - Renewal Query OMR");
 			selectMemberForRenewal(mapOMR.get("Member_Status?"));
 			clickOnGoButtonInRunQuery();
 			// expandDetailsMenuIfAlreadyExpanded("invoices");
@@ -4339,11 +4339,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void enterExpiryDatesBeforeAndAfterExpressRenewal() {
 		isElementDisplayed("inp_customerId");
 		EnterTextInField(elements("inp_customerId").get(0), DateUtil.getAnyDateForType("MM/dd/yyyy", -1, "month"));
-		EnterTextInField(elements("inp_customerId").get(1), DateUtil.getAnyDateForType("MM/dd/yyyy", +5, "date"));
+		EnterTextInField(elements("inp_customerId").get(1), DateUtil.getAnyDateForType("MM/dd/yyyy", +1, "month"));
 		logMessage("Step : Expiry Date greater than is entered as "
 				+ DateUtil.getAnyDateForType("MM/dd/yyyy", -1, "month"));
 		logMessage(
-				"Step : Expiry Date less than is entered as " + DateUtil.getAnyDateForType("MM/dd/yyyy", +5, "date"));
+				"Step : Expiry Date less than is entered as " + DateUtil.getAnyDateForType("MM/dd/yyyy", +1, "month"));
 	}
 
 	public String fetchExpressURLForRenewal() {

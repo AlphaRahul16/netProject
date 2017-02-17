@@ -139,15 +139,15 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 			logMessage("ASSERTION PASSED : Verified Product Amount " + product_Amount + " in Invoice Receipt");
 		}
 
-		for (String product_Name : productName) {
-			System.out.println("In PDF Method::" + product_Name);
-			if (product_Name.contains(YamlReader.getYamlValue("ACS_PBA_Product.shortName"))) {
-				Assert.assertTrue(pdfContent.contains(YamlReader.getYamlValue("ACS_PBA_Product.fullName")));
-			} else {
-				Assert.assertTrue(pdfContent.contains(product_Name));
-			}
-			logMessage("ASSERTION PASSED : Verified Product Name " + product_Name + " is available in Invoice Receipt");
-		}
+//		for (String product_Name : productName) {
+//			System.out.println("In PDF Method::" + product_Name);
+//			if (product_Name.contains(YamlReader.getYamlValue("ACS_PBA_Product.shortName"))) {
+//				Assert.assertTrue(pdfContent.contains(YamlReader.getYamlValue("ACS_PBA_Product.fullName")));
+//			} else {
+//				Assert.assertTrue(pdfContent.contains(product_Name));
+//			}
+//			logMessage("ASSERTION PASSED : Verified Product Name " + product_Name + " is available in Invoice Receipt");
+//		}
 
 	}
 

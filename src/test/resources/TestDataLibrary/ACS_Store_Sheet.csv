@@ -1,3 +1,7 @@
-CASE ID	Product_id	Member?	priceValue?	discount?	Shipping?	description?	Tax?	quantity?	Address	City	ZipCode	State
-1	N5504	Y	$4.50	$0.00	7.6	Periodic Table Poster - MEMB	0	1	2815 Taylorsville Road	Louisville	40205	Kentucky
-2	N5504	N	$5.00	$0.00	7.6	Periodic Table Poster - NM	0	1	2815 Taylorsville Road	Louisville	40205	Kentucky
+caseID	caseID Execute	Product_id	Member?	priceValue?	discount?	Shipping?	description?	Tax?	quantity?	Address	City	ZipCode	State	Batch_Name?	Payment_Type	Product Code	Payment_Method	Visa_Card_Number	Diners_Card_Number	AMEX_Card_Number	Discover_Card_Number	Check_Number	Reference_Number	Expiry_Date	CVV_Number
+1	Yes	N5504	Y	$4.50	$0.00	7.6	Periodic Table Poster - MEMB	0	1	2815 Taylorsville Road	Louisville	40205	Kentucky	SELENIUM_BATCH	prepaid	209-116-1000	Visa/MC	4111111111111111						06/2018	123
+2	Yes	N5504	N	$5.00	$0.00	7.6	Periodic Table Poster - NM	0	1	2815 Taylorsville Road	Louisville	40205	Kentucky	SELENIUM_BATCH	prepaid	209-116-1000	Visa/MC	4111111111111111		375000026600004				06/2018	123
+3	No	N5504	Y	$4.50	$0.00	7.6	Periodic Table Poster - MEMB	0	1	2815 Taylorsville Road	Louisville	40205	Kentucky	SELENIUM_BATCH	prepaid	209-116-1000	Discover				6011010000000000			06/2018	758
+4	No	N5504	Y	$4.50	$0.00	7.6	Periodic Table Poster - MEMB	0	1	2815 Taylorsville Road	Louisville	40205	Kentucky	SELENIUM_BATCH	prepaid	209-116-1000	Diners		5412345438954640					06/2018	234
+5	No	N5504	N	$5.00	$0.00	7.6	Periodic Table Poster - NM	0	1	2815 Taylorsville Road	Louisville	40205	Kentucky	SELENIUM_BATCH	prepaid	209-116-1000	Visa/MC	5112000100000000						06/2018	123
+6	No	N5504	N	$5.00	$0.00	7.6	Periodic Table Poster - NM	0	1	2815 Taylorsville Road	Louisville	40205	Kentucky	SELENIUM_BATCH	prepaid	209-116-1000	Diners		36474027424147					06/2018	123
