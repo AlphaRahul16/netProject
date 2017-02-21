@@ -304,6 +304,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		selectExpirationDate_Year("Year", year_Value);
 		checkEula();
 		clickOnContinueButton();
+		wait.hardWait(20);
 		switchToDefaultContent();
 
 	}
@@ -584,11 +585,14 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	}
 
 	private void addACSContributions(Map<String, String> mapOMR) {
+		if(mapOMR.get("Contribution_To_Add?").length()!=0)
+		{
 		clickAddMembershipButton("Add ACS Contribution");
 
 		//isElementDisplayed("txt_legend","My ACS Contributions");
 		enterContributionForParticularSubscription(mapOMR);
 		clickSaveButtonToAddMembership();
+		}
 	}
 
 	private void enterContributionForParticularSubscription(Map<String, String> mapOMR) {
