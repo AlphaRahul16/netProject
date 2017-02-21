@@ -268,6 +268,7 @@ public class TestSessionInitiator {
 							"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
 									+ URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), "UTF-8")
 									+ "@iwebtest");
+					System.out.println("-----baseUrl:"+baseurl);
 				}
 				driver.get(baseurl);
 			} else {
@@ -410,7 +411,7 @@ public class TestSessionInitiator {
 		Reporter.log("\nMethod Name :- " + testName.toUpperCase() + "\n", true);
 	}
 
-	public void enterAuthentication(String uName, String password) {
+	public void enterAuthentication(String uName, String password, String baseurl) {
 		System.out.println("in authentication");
 		setClipboardData(uName);
 		Robot robot;

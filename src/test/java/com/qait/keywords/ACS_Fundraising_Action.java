@@ -97,9 +97,9 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 	public void verifyGiftDate(String dateType) {
 		isElementDisplayed("txt_" + dateType);
 		System.out.println(element("txt_" + dateType).getAttribute("value"));
-		System.out.println(DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST"));
+		System.out.println(DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST5EDT"));
 		Assert.assertEquals(element("txt_" + dateType).getAttribute("value"),
-				DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST"),
+				DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST5EDT"),
 				"ASSERT FAILED : " + dateType + " is not verified as Current date "+DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST")+"\n");
 		logMessage("ASSERT PASSED : " + dateType + " is verified as Current date "+DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST")+"\n");
 	}
@@ -281,7 +281,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 				}
 		  }
 		}
-		verifyGiftIsAdded(tabName, amount+".00", 5, "Gift Amount", i);
+		verifyGiftIsAdded(tabName, amount, 5, "Gift Amount", i);
 		verifyGiftIsAdded(tabName, fundCode, 7, "Fund Code", i);
 		verifyGiftIsAdded(tabName, appealCode, 9, "Appeal Code", i);
 	}

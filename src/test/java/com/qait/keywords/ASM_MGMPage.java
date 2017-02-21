@@ -391,6 +391,7 @@ public class ASM_MGMPage extends GetPage {
 		 do {
 		for (int count = 0; count < elements("lbl_nomineeEmail").size(); count++) {
 			isElementDisplayed("lbl_nomineeEmail");
+			wait.hardWait(2);
 			uniqueEmails.add(elements("lbl_nomineeEmail").get(count).getText().trim());
 		}
 		 i++;
