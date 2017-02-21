@@ -3,6 +3,7 @@ package com.qait.tests;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.testng.Reporter;
@@ -19,6 +20,7 @@ public class ACS_Renewal_Iweb_Test extends BaseTest {
 	String app_url_IWEB,invoiceNumber;
 	private String caseID,batchprefix = "ACS: ";
 	Map<String,String> mapRenewalIweb = new HashMap<String, String>();
+	List<String> individualDatelist;
 	
 	public ACS_Renewal_Iweb_Test() {
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "Renewal_IWeb_Sheet";
@@ -79,6 +81,7 @@ public class ACS_Renewal_Iweb_Test extends BaseTest {
 	public void Step04_Navigate_To_payment_tab_And_Verify_Payment_Amount() {
 		Reporter.log("CASE ID::"+this.caseID,true);
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Payments");
+		test.individualsPage.expandDetailsMenu("payments");
 		test.invoicePage.verifyIndividualPaymentAmountEqualsPaymentTotal();
 		
 	}
@@ -86,6 +89,15 @@ public class ACS_Renewal_Iweb_Test extends BaseTest {
 	@Test
 	public void Step05_Navigate_to_Membership_Page_And_Verify_Details_After_Renewal() {
 		test.memberShipPage.clickOnCustomerNameAndNavigateToMembershipPage();
+		test.individualsPage.expandDetailsMenu("individual memberships");
+		individualDatelist=test.individualsPage.verifyDatesArePopulatedUnderIndividualMemberships("Active Renewed-No Response");
+		test.individualsPage.collapseDetailsMenu("individual memberships");
+		test.individualsPage.expandDetailsMenu("chapter memberships");
+		test.individualsPage.verifyDatesUnderChapterMembershipMatchesIndividualDates("Active Renewed-No Response",individualDatelist);
+		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Subscriptions");
+		
+		
+		
 	}
 	
 	@BeforeClass

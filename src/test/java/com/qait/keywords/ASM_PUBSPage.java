@@ -326,8 +326,8 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		isElementDisplayed("tr_saved");
 	}
 
-	public void submitPaymentDetails(String cardType, String cardholderName, String cardNumber, String cvvNumber,
-			String year_Value) {
+	public void submitPaymentDetails(String cardType, String cardholderName, String cardNumber,String dinerscardNumber,
+			String discovercardNumber,String AMEXcardNumber, String cvvNumber,String year_Value) {
 		verifyPaymentPage();
 		selectCreditCardType(cardType);
 		enterCreditCardHolderName(cardholderName);

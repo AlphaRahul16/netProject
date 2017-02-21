@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
@@ -30,8 +31,18 @@ public class ACS_OMR_Express_Renewal extends BaseTest {
 				YamlReader.getYamlValue("Authentication.password"));
 	}
 	
+	public ACS_OMR_Express_Renewal() {
+		  com.qait.tests.DataProvider_FactoryClass.sheetName = "OMR_Express_Datasheet";
+	}
+
+	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
+	public ACS_OMR_Express_Renewal(String caseID) {
+		this.caseID = caseID;
+	}
+	
 	@Test
 	public void Step01_Launch_IWEB_Application_And_Run_Express_Renewal_Query() {
+		mapExpressRenewal = test.homePageIWEB.addValuesInMap("OMR_Express_Datasheet", caseID);
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.homePageIWEB.clickOnTab("Query Individual");
 		test.memberShipPage.selectAndRunQuery("Selenium - BP Renewal Express Url");
@@ -39,7 +50,7 @@ public class ACS_OMR_Express_Renewal extends BaseTest {
 	
 	@Test(dependsOnMethods={"Step01_Launch_IWEB_Application_And_Run_Express_Renewal_Query"})
 	public void Step02_Enter_Before_Amd_After_Expiry_Dates_And_Fetch_Express_Renewal_URL() {
-		//test.memberShipPage.enterExpiryDatesBeforeAndAfterExpressRenewal();
+		test.memberShipPage.enterExpiryDatesBeforeAndAfterExpressRenewal();
 		test.memberShipPage.clickOnGoButtonAfterPackageSelection();
 		expressURL=test.memberShipPage.fetchExpressURLForRenewal();
 	}
@@ -64,10 +75,10 @@ public class ACS_OMR_Express_Renewal extends BaseTest {
 	@Test(dependsOnMethods={"Step04_Save_All_Renewed_product_Details_And_Fetch_Member_Name"})
 	public void Step05_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage() {
 		
-		test.asm_OMR.submitPaymentDetails(mapExpressRenewal.get("CreditCard_Type"),
+		test.asm_OMR.submitPaymentDetails(mapExpressRenewal.get("Payment_Method"),
 				(customername.split(" ")[0]+" "+customername.split(" ")[1]), mapExpressRenewal.get("Visa_Card_Number"), mapExpressRenewal.get("Diners_Card_Number"),
 				mapExpressRenewal.get("Discover_Card_Number"),mapExpressRenewal.get("AMEX_Card_Number"),
-				mapExpressRenewal.get("CreditCard_CVV_Number"), mapExpressRenewal
+				mapExpressRenewal.get("CVV_Number"), mapExpressRenewal
 						.get("CreditCardExpiration_Month"), mapExpressRenewal
 						.get("CreditCardExpiration_Year"));
 

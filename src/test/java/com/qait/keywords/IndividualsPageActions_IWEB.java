@@ -2314,8 +2314,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			System.out.println(value);
 			System.out.println(element("txt_updatedLogsBPA",GiftCardNumber,index).getText().trim());
 			Assert.assertTrue(element("txt_updatedLogsBPA",GiftCardNumber,index).getText().trim().contains(value));
-			logMessage("ASSERT P0"
-					+ "cccccccccccccc        ASSED : gift card details on iweb is verified as "+value);
+			logMessage("ASSERT PASSED"
+					+ " gift card details on iweb is verified as "+value);
 		}
 
 		public void verifyRedeemedGiftCardDetails(String giftCardNumber, String pricevalue) {
@@ -2324,6 +2324,36 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			verifyGiftCardDetailsOnIweb(giftCardNumber, "3", pricevalue);
 		    
 		}
+		
+		public List<String> verifyDatesArePopulatedUnderIndividualMemberships(String mbrStatus){
+			
+			List<String> individualDatelist = new ArrayList<String>();
+			Assert.assertTrue(element("txt_total", mbrStatus).getText().trim().length()!=0,"Effective date is not populated under individual membership tab");
+			individualDatelist.add(element("txt_total", mbrStatus).getText().trim());
+			Assert.assertTrue(element("txt_payment", mbrStatus).getText().trim().length()!=0,"Expire date is not populated under individual membership tab");
+			individualDatelist.add(element("txt_payment", mbrStatus).getText().trim());
+			logMessage("ASSERT PASSED : All Dates are now populated under individual membership tab\n");
+			return individualDatelist;
+			
+}
+		
+		public void verifyDatesUnderChapterMembershipMatchesIndividualDates(String mbrStatus,List<String> individualDatelist){
+			verifyDatesUnderChapterMembership(elements("txt_total",mbrStatus), individualDatelist, 0);
+			verifyDatesUnderChapterMembership(elements("txt_payment",mbrStatus), individualDatelist, 1);
+		}
+
+		private void verifyDatesUnderChapterMembership(List<WebElement> elements,List<String> individualDatelist,int count) {
+			for (WebElement ele : elements) {
+				Date chapterdate=DateUtil.convertStringToDate(ele.getText(), "MM/dd/YYYY");
+				Date individualdate=DateUtil.convertStringToDate(individualDatelist.get(count), "MM/dd/YYYY");
+				System.out.println(chapterdate);
+				System.out.println(individualdate);
+				Assert.assertTrue(individualdate.compareTo(chapterdate)==0);
+				logMessage("ASSERT PASSED : individual date "+individualDatelist.get(count)+" is equal to chapter Dates "+ele.getText());
+			}
+			
+		}
+
 		
 	}
 	
