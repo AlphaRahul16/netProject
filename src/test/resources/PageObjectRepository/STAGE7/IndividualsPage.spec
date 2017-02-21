@@ -74,5 +74,5 @@ link_paging                               xpath               //table[@class='Da
 chk_advancedView                         xpath              //span//label[text()='Advanced View']//../input
 drpdwn_selectSearchvalue                 xpath              //span[starts-with(text(),'${search option}')]/../following-sibling::td/select
 txt_enterSearchValue                     xpath            //span[starts-with(text(),'${search option}')]/../following-sibling::td/input
-img_look_up							      css	                .LookUpHyperLink
+img_look_up							      css	             .glyphicon.iconpro-search
 ======================================================================================================================================
