@@ -21,11 +21,11 @@
 		</classes>
 	</test>
 
-	<test name="Subscription Fulfillment">
-		<classes>
-			<class name="com.qait.tests.Subscription_Fulfillment_Test"></class>
-		</classes>
-	</test>
+<!-- 	<test name="Subscription Fulfillment"> -->
+<!-- 		<classes> -->
+<!-- 			<class name="com.qait.tests.Subscription_Fulfillment_Test"></class> -->
+<!-- 		</classes> -->
+<!-- 	</test> -->
 
 	<test name="ACS_Batch_Processing">
 		<classes>
