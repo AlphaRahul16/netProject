@@ -2587,7 +2587,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			cst = element("txt_current", String.valueOf(1)).getText().trim();
 			element("txt_current", String.valueOf(1)).click();
 		}
-
 		logMessage("STEP : CstWebLogin is fetched as " + cst);
 		return cst;
 
