@@ -4486,7 +4486,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyDetailsForPaymentsChildForm(String type, String cardType, String membershipType,
 			String invoiceTotal, String productName) {
 		verifyDetailsForAACTOMR(cardType, type, "1", "Card Type");
-		verifyDetailsForAACTOMR(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy"), type, "3", "Payment Date");
+		verifyDetailsForAACTOMR(DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST5EDT"), type, "3", "Payment Date");
 		verifyDetailsForAACTOMR(invoiceTotal.replace("$", "").trim(), type, "4", "Invoice Total");
 		verifyMembershipTypeForAACTOMR(type, "2", membershipType, "Membership Type");
 		verifyMembershipTypeForAACTOMR(type, "2", productName, "Product Name");
