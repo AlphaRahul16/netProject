@@ -744,10 +744,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			hoverClick(element("btn_saveAndFinish"));
 			clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
 		} else
-			// clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
-			hoverClick(element("btn_saveAndFinish"));
+			 clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
+//			hoverClick(element("btn_saveAndFinish"));
 		// element("btn_saveAndFinish").click();
-		wait.hardWait(15);
+		wait.hardWait(25);
 		logMessage("STEP : Save and finish button is clicked\n");
 		waitForSpinner();
 	}
@@ -5043,7 +5043,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public String getInvoiceHavingTermDateWithinRange() {
 		boolean value = false;
-		String termStartDate, termEndDate, invoiceId;
+		String termStartDate, termEndDate, invoiceId = null;
 		int i;
 		isElementDisplayed("lst_childTable");
 		for (i = 1; i <= elements("lst_childTable").size(); i++) {
@@ -5053,10 +5053,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				continue;
 			}
 			value = verfiyEndAndStartDate(termEndDate, termStartDate);
-			if (value)
+			if (value){
+				invoiceId = getInvoiceId(i, 12);
 				break;
+			}
 		}
-		invoiceId = getInvoiceId(i, 12);
 		Assert.assertTrue(value,
 				"ASSERT FAILED: No Invoice is having Term start and end date in current date's range \n");
 		logMessage("ASSERT PASSED: Invoice Id " + invoiceId

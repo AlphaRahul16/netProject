@@ -101,7 +101,7 @@ public class ACS_OMR_Discount_Test extends BaseTest{
 	@Test
 	public void Step07_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage() {
 		test.asm_OMR.submitPaymentDetails(mapOMRDiscount.get("CreditCard_Type"),
-				(memDetails.get(0).split(" ")[1] + " " + memDetails.get(0).split(" ")[0]), mapOMRDiscount.get("Visa_Card_Number"), mapOMRDiscount.get("Diners_Card_Number"),
+				(memDetails.get(0) + " " + memDetails.get(1)), mapOMRDiscount.get("Visa_Card_Number"), mapOMRDiscount.get("Diners_Card_Number"),
 				mapOMRDiscount.get("Discover_Card_Number"),mapOMRDiscount.get("AMEX_Card_Number"),
 				mapOMRDiscount.get("CreditCard_CVV_Number"), mapOMRDiscount
 						.get("CreditCardExpiration_Month"), mapOMRDiscount
