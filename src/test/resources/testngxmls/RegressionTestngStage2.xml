@@ -95,7 +95,7 @@
 
 	<test name="ACS StoreFactoryClass">
 		<classes>
-			<class name="com.qait.tests.ACS_StoreFactoryClass"></class>
+			<class name="com.qait.tests.ACS_Store_Test"></class>
 		</classes>
 	</test>
 
