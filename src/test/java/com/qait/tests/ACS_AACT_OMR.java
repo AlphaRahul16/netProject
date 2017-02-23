@@ -128,6 +128,11 @@ public class ACS_AACT_OMR extends BaseTest {
 				ASCSocietyGenericPage.map().get("CcvNumber").trim(),
 				ASCSocietyGenericPage.map().get("ExpirationMonth").trim(),
 				ASCSocietyGenericPage.map().get("ExpirationYear").trim());
+//		test.acs_aactOmr.enterPaymentInfo(ASCSocietyGenericPage.map().get("Payment_Method").trim(), CardHolderName,
+//				ASCSocietyGenericPage.map().get("CreditCardNumber").trim(),
+//				ASCSocietyGenericPage.map().get("CVV_Number").trim(),
+//				ASCSocietyGenericPage.map().get("ExpirationMonth").trim(),
+//				ASCSocietyGenericPage.map().get("ExpirationYear").trim());
 		test.acs_aactOmr.checkAutoRenwealCheckbox("chkAutoRenewal");
 		test.acs_aactOmr.clickButtonById("btnNext", "Continue");
 	}

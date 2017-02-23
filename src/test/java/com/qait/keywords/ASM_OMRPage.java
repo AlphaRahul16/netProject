@@ -932,7 +932,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		//switchToEwebRenewalFrame();
 		dynamicWait(40, "btn_printreceipt", "1");
-		wait.hardWait(5);
+		wait.hardWait(10);
 		Object display= executeJavascriptReturnValue("window.getComputedStyle(document.getElementById('eWebFrame').contentWindow.document.querySelector('#print-invoice>input')).display");
 		System.out.println(display.toString());
 		Assert.assertTrue(display.toString().contains("inline"));

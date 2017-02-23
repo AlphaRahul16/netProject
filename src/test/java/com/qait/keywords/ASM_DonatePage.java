@@ -338,6 +338,7 @@ public class ASM_DonatePage extends GetPage {
 	public void enterCreditCardNumber(String cardNumber) {
 		wait.hardWait(3);
 		isElementDisplayed("inp_cardNumber");
+		System.out.println("------cardNumber:"+cardNumber);
 		element("inp_cardNumber").sendKeys(cardNumber);
 		logMessage("STEP : " + cardNumber + " is entered in inp_cardNumber\n");
 	}

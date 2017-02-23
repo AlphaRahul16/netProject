@@ -95,9 +95,9 @@ public class ACS_Renewal_Iweb_Test extends BaseTest {
 		test.individualsPage.expandDetailsMenu("chapter memberships");
 		test.individualsPage.verifyDatesUnderChapterMembershipMatchesIndividualDates("Active Renewed-No Response",individualDatelist);
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Subscriptions");
-		
-		
-		
+		test.individualsPage.expandDetailsMenu("active subscriptions");
+		test.individualsPage.verifyActiveSubscriptionDatesIfAvailable(invoiceNumber,individualDatelist);
+
 	}
 	
 	@BeforeClass
@@ -105,9 +105,9 @@ public class ACS_Renewal_Iweb_Test extends BaseTest {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		test.launchApplication(app_url_IWEB);
-		test.homePageIWEB.enterAuthentication(
-				YamlReader.getYamlValue("Authentication.userName"),
-				YamlReader.getYamlValue("Authentication.password"));
+//		test.homePageIWEB.enterAuthentication(
+//				YamlReader.getYamlValue("Authentication.userName"),
+//				YamlReader.getYamlValue("Authentication.password"));
 	}
 	
 

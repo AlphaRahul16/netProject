@@ -157,6 +157,15 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 		logMessage("STEP : End date filled is entered as " + DateUtil.getAnyDateForType(format, 1, "month"));
 
 	}
+	
+	public void clickOnSaveButton() {
+		isElementDisplayed("btn_save");
+//		element("btn_save").click();		
+		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
+		logMessage("STEP : Save button is clicked\n");
+		wait.hardWait(5);
+		switchToDefaultContent();
+	}
 
 	public void sendListInformationToMailingListPopUp(String listName, String listType) {
 		// switchToFrame(1);
@@ -166,7 +175,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 		selectShowOnlineInCreateMailingListPopUp();
 		sendStartDateInCreateMailingListPopUpWithFormat("MM/dd/YYYY");
 		sendEndDateInCreateMailingListPopUpWithFormat("MM/dd/YYYY");
-		clickOnSaveButtonDisplayedOnMailingListPopUp();
+		clickOnSaveButton();
 	}
 
 	public void switchToIframe1() {
@@ -184,12 +193,10 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnSaveButtonDisplayedOnMailingListPopUp() {
-		isElementDisplayed("btn_save");
-//		element("btn_save").click();		
+		isElementDisplayed("btn_save");	
 		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
 		wait.hardWait(5);
 		logMessage("STEP : Save button is clicked\n");
-		//pageRefresh();
 		switchToDefaultContent();
 	}
 
@@ -200,8 +207,8 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public String getUserNameFromAddUserPopUpTextField() {
-		wait.hardWait(3);
-		hardWaitForIEBrowser(4);
+		wait.hardWait(10);
+		hardWaitForIEBrowser(8);
 		isElementDisplayed("txt_name");
 		userName = element("txt_name").getAttribute("value");
 		logMessage("STEP : Added user name is " + userName + "\n");

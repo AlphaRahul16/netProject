@@ -84,6 +84,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// waitForSpinner();
 		isElementDisplayed("txt_loadOnExistingQueryLabel");
 		selectExistingQuery(queryName);
+		wait.hardWait(4);
 		waitForSpinner();
 		if (isBrowser("ie") || isBrowser("internet explorer")) {
 
@@ -170,7 +171,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
-			wait.resetImplicitTimeout(2);
+			wait.resetImplicitTimeout(4);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			// handleAlert();
 			isElementDisplayed("img_spinner");
@@ -1108,6 +1109,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
 		logMessage("STEP : " + menuName + " bar is clicked to expand" + "\n");
+		wait.hardWait(2);
 		waitForSpinner();
 
 	}
@@ -2585,7 +2587,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			cst = element("txt_current", String.valueOf(1)).getText().trim();
 			element("txt_current", String.valueOf(1)).click();
 		}
-
 		logMessage("STEP : CstWebLogin is fetched as " + cst);
 		return cst;
 
@@ -2611,7 +2612,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnEditNameAndAddress();
 		wait.hardWait(5);
 		switchToDefaultContent();
-		wait.hardWait(5);
+		wait.hardWait(9);
 		switchToFrame(element("iframe"));
 		customerLname = getNameFromEditNameAndAddressButton("lastName") + " "
 				+ getNameFromEditNameAndAddressButton("firstName") + " "
@@ -2931,12 +2932,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyTransferPackagePage() {
-
-		try {
-			isElementDisplayed("heading_transferPackage", "Transfer Package");
-		} catch (NoSuchElementException e) {
-			isElementDisplayed("heading_transferPackage", "Edit - Membership");
-		}
+		isElementDisplayed("heading_transferPackage");
 		logMessage("STEP : Member navigated to Transfer Package Page\n");
 		switchToFrame("iframe1");
 	}

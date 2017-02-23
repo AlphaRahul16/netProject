@@ -21,6 +21,7 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 	public String[] enterContactInformation(String email, String firstName, String lastName, String addressType,
 			String address, String city, String country, String state, String zipCode) {
 
+		wait.hardWait(6);
 		String userEmail = enterEmail(email);
 		String fname = enterMemberContactDetail("firstName", firstName); // + System.currentTimeMillis()
 		String lname = enterMemberContactDetail("lastName", lastName + System.currentTimeMillis());

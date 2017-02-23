@@ -137,7 +137,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public void editEmail_NCW_CCED(String emailType, String emailID, String position) {  //-------------
+	public void editEmail_NCW_CCED(String emailType, String emailID, String position) { // -------------
 		clickOnEditButton(position);
 		switchToFrame("iframe1");
 		selectEmailType(emailType);
@@ -146,7 +146,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		enterEmailIDToAdd(emailID);
 		clickOnSaveButton();
 		handleAlert();
-//		clickOnSaveButton();
+		// clickOnSaveButton();
 		switchToDefaultContent();
 		verifyNCW_CCEDEmailPresent(emailType, emailID);
 	}
@@ -328,7 +328,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED :" + lastName + " is verified as last name\n");
 
 		verifyElementTextContentCaseInSensitive("txt_memberDetails", map().get("street"));
-		//verifyElementTextContains("txt_memberDetails", map().get("street"));
+		// verifyElementTextContains("txt_memberDetails", map().get("street"));
 		logMessage("ASSERT PASSED :" + map().get("street") + " is verified as street\n");
 		verifyElementTextContains("txt_memberDetails", map().get("city"));
 		logMessage("ASSERT PASSED :" + map().get("city") + " is verified as city\n");
@@ -359,12 +359,13 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			System.out.println("******Member" + memDetails[3]);
 			System.out.println(element("txt_memberDetails").getText());
 			verifyElementTextContentCaseInSensitive("txt_memberDetails", memDetails[3]);
-			//Assert.assertTrue(element("txt_memberDetails").getText().contains(memDetails[3]));
-			//verifyElementTextContent("txt_memberDetails", memDetails[3]);
+			// Assert.assertTrue(element("txt_memberDetails").getText().contains(memDetails[3]));
+			// verifyElementTextContent("txt_memberDetails", memDetails[3]);
 			logMessage("ASSERT PASSED :" + memDetails[3] + " is verified in txt_memberDetails\n");
 		}
 		System.out.println("******Member" + memDetails[4]);
-		//verifyElementTextContentCaseSensitive("txt_memberDetails", memDetails[4]);
+		// verifyElementTextContentCaseSensitive("txt_memberDetails",
+		// memDetails[4]);
 		verifyElementTextContent("txt_memberDetails", memDetails[4]);
 		logMessage("ASSERT PASSED :" + memDetails[4] + " is verified in txt_memberDetails\n");
 		System.out.println("******Member" + memDetails[5]);
@@ -617,9 +618,9 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			clickUsingXpathInJavaScriptExecutor(element("link_moreMenuName", "Subscriptions"));
 			logMessage("STEP : Subscription link is clicked\n");
 			waitForSpinner();
-//			isElementDisplayed("btn_memberShip", "active subscriptions");
+			// isElementDisplayed("btn_memberShip", "active subscriptions");
 			expandDetailsMenuIfAlreadyExpanded("active subscriptions");
-//			element("btn_memberShip", "active subscriptions").click();
+			// element("btn_memberShip", "active subscriptions").click();
 			wait.hardWait(2);
 			logMessage("STEP : Navigate to subscription menu on clicking more button\n");
 		} catch (StaleElementReferenceException stEx) {
@@ -819,14 +820,17 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			wait.hardWait(2);
 			wait.waitForPageToLoadCompletely();
 			expandDetailsMenuIfAlreadyExpanded("invoices (open batch)");
-//			isElementDisplayed("btn_memberShip", "invoices (open batch)");
-//			if (isIEBrowser()) {
-//				clickUsingXpathInJavaScriptExecutor(element("btn_memberShip", "invoices (open batch)"));
-//			} else {
-//				element("btn_memberShip", "invoices (open batch)").click();
-//			}
-//			logMessage("STEP : Invoices (open batch) drop down button is clicked\n");
-//			logMessage("STEP : Navigate to Invoices menu on clicking more button\n");
+			// isElementDisplayed("btn_memberShip", "invoices (open batch)");
+			// if (isIEBrowser()) {
+			// clickUsingXpathInJavaScriptExecutor(element("btn_memberShip",
+			// "invoices (open batch)"));
+			// } else {
+			// element("btn_memberShip", "invoices (open batch)").click();
+			// }
+			// logMessage("STEP : Invoices (open batch) drop down button is
+			// clicked\n");
+			// logMessage("STEP : Navigate to Invoices menu on clicking more
+			// button\n");
 		} catch (StaleElementReferenceException stlEx) {
 			isElementDisplayed("img_moreMenu");
 			if (isIEBrowser()) {
@@ -988,7 +992,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 					String PriceValueExpected = String.valueOf(formatedPrice);
 
 					String priceValueActual = element("txt_" + detailName, productName).getText().trim();
-//					Assert.assertTrue(priceValueActual.equalsIgnoreCase(PriceValueExpected));
+					// Assert.assertTrue(priceValueActual.equalsIgnoreCase(PriceValueExpected));
 					logMessage("ASSERT PASSED : " + priceValueActual + " is verified in txt_" + detailName + "\n");
 					return priceValueActual;
 				} else {
@@ -998,7 +1002,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 					String formatedPrice = String.format("%.02f", priceValueInSheet);
 					String PriceValueExpected = String.valueOf(formatedPrice);
 
-//					Assert.assertTrue(priceValueActual.equalsIgnoreCase(PriceValueExpected));
+					// Assert.assertTrue(priceValueActual.equalsIgnoreCase(PriceValueExpected));
 					logMessage(
 							"ASSERT PASSED : " + priceValueActual + " price is verified in txt_" + detailName + "\n");
 
@@ -1269,20 +1273,17 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void SelectFellowNominatorForVerification(String NomineeName, String NominatorName) {
-		try{
-		
-		if (element("txt_NominatorName", NomineeName).getText().equals(NominatorName)) {
-			clickUsingXpathInJavaScriptExecutor(element("txt_NominatorName", NomineeName));
-			logMessage("STEP : Nominee fellow selected from the list as " + NomineeName);
-		}	
-         else {
-			logMessage("STEP : Nominee Fellow is not present in the list\n");
-		}
-		
-		}
-		catch(NoSuchElementException e)
-		{
-			logMessage("Step : Only one record is present in search results as "+NominatorName);
+		try {
+
+			if (element("txt_NominatorName", NomineeName).getText().equals(NominatorName)) {
+				clickUsingXpathInJavaScriptExecutor(element("txt_NominatorName", NomineeName));
+				logMessage("STEP : Nominee fellow selected from the list as " + NomineeName);
+			} else {
+				logMessage("STEP : Nominee Fellow is not present in the list\n");
+			}
+
+		} catch (NoSuchElementException e) {
+			logMessage("Step : Only one record is present in search results as " + NominatorName);
 		}
 
 	}
@@ -1422,17 +1423,14 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	private void verifySupporterDocumentsContainsUploadedFile(Map<String, String> mapAwardsNomination,
 			String SupporterNumber) {
-		 String supportNo2 = null;
-		if(SupporterNumber.equals("1"))
-		{
-			supportNo2="2";
-		}
-		else
-		{
-			supportNo2="1";
+		String supportNo2 = null;
+		if (SupporterNumber.equals("1")) {
+			supportNo2 = "2";
+		} else {
+			supportNo2 = "1";
 		}
 		String docurl = element("lnk_awardsSupporterDoc", SupporterNumber).getAttribute("href");
-		docurl=docurl.replaceAll("%20", " ");
+		docurl = docurl.replaceAll("%20", " ");
 		System.out.println(docurl);
 		System.out.println(mapAwardsNomination.get("FileNameForSupportForm" + supportNo2));
 		Assert.assertTrue(docurl.contains(mapAwardsNomination.get("FileNameForSupportForm" + supportNo2)));
@@ -1476,8 +1474,9 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		} else {
 			System.out.println(element("lnk_awardsLettersDoc", lettername).getAttribute("onclick"));
 			System.out.println(mapAwardsNomination.get(datasheetValue));
-			//Assert.assertTrue(element("lnk_awardsLettersDoc", lettername).getAttribute("onclick")
-					//.contains(mapAwardsNomination.get(datasheetValue)));
+			// Assert.assertTrue(element("lnk_awardsLettersDoc",
+			// lettername).getAttribute("onclick")
+			// .contains(mapAwardsNomination.get(datasheetValue)));
 			logMessage("ASSERT PASSED : File uploaded for " + lettername + " is displayed under Documents \n");
 		}
 	}
@@ -1524,11 +1523,12 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 				.equals(mapAwardsNomination.get("EligibilityQuestions_NomineePosition")));
 		logMessage("ASSERT PASSED : Present Position field is verified as "
 				+ mapAwardsNomination.get("EligibilityQuestions_NomineePosition") + "\n");
-		//System.out.println(element("drpdwn_industrytype", "protocols").getText());
-		//Assert.assertTrue(element("drpdwn_industrytype", "protocols").getText().trim()
-			//	.equals(mapAwardsNomination.get("SafeLabPractices?")));
-	//	logMessage("ASSERT PASSED : Saftey protocols field is verified as "
-	//			+ mapAwardsNomination.get("SafeLabPractices?") + "\n");
+		System.out.println(element("drpdwn_industrytype", "protocols").getText());
+		// Assert.assertTrue(element("drpdwn_industrytype",
+		// "protocols").getText().trim()
+		// .equals(mapAwardsNomination.get("SafeLabPractices?")));
+		// logMessage("ASSERT PASSED : Saftey protocols field is verified as "
+		// + mapAwardsNomination.get("SafeLabPractices?") + "\n");
 		System.out.println(elements("drpdwn_industrytype", "nominee").get(1).getText());
 		Assert.assertTrue(elements("drpdwn_industrytype", "nominee").get(1).getText().trim()
 				.equals(mapAwardsNomination.get("EligibilityQuestions_professionalDiscipline")));
@@ -1546,11 +1546,11 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickGotoRecordForRenewal() {
 		isElementDisplayed("txt_gotorecordrenewal", "1");
-		if(isBrowser("ie") || isBrowser("internet explorer")){
+		if (isBrowser("ie") || isBrowser("internet explorer")) {
 			clickUsingXpathInJavaScriptExecutor(element("txt_gotorecordrenewal", "1"));
-		}
-		else
-		    element("txt_gotorecordrenewal", "1").click();
+		} else
+			clickUsingXpathInJavaScriptExecutor(element("txt_gotorecordrenewal", "1"));
+		// element("txt_gotorecordrenewal", "1").click();
 		logMessage("STEP : Goto record is clicked for latest Invoice\n");
 	}
 
@@ -1558,6 +1558,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		handleAlert();
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("txt_individualInfo");
+		System.out.println("----exp:" + expectedData);
+		System.out.println("----actual:" + element("txt_individualInfo").getText().trim());
 		Assert.assertTrue(element("txt_individualInfo").getText().trim().contains(expectedData),
 				"Assertion Failed: Individual address is not correctly updated");
 		logMessage("ASSERT PASSED: Individual address is updated correctly");
@@ -1798,14 +1800,14 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			return false;
 	}
 
-	public List<String> verifyAddressType(String tabName,List<String> addressType) {
+	public List<String> verifyAddressType(String tabName, List<String> addressType) {
 		int i;
 		isElementDisplayed("list_memberDetails", tabName);
 		System.out.println("size:" + elements("list_memberDetails", tabName).size());
 		for (i = 1; i < elements("list_memberDetails", tabName).size(); i++) {
 			String addressMode = element("txt_memberDetailsForChapter", tabName, String.valueOf(4), String.valueOf(i))
 					.getText().trim();
-			if(addressType.contains(addressMode)){
+			if (addressType.contains(addressMode)) {
 				addressType.remove(addressMode);
 				logMessage("STEP : Address type " + addressMode + " is already present");
 			}
@@ -1813,7 +1815,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		System.out.println(addressType);
 		return addressType;
 	}
-	
+
 	public void clickOnPlusSign(String tabName, int index) {
 		isElementDisplayed("btn_plusIcon", tabName, String.valueOf(index));
 		clickUsingXpathInJavaScriptExecutor(element("btn_plusIcon", tabName, String.valueOf(index)));
@@ -1896,20 +1898,20 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyChapterStatusIsTransferred(String tabName, String chpName) {
-		int i,index=0;
-		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/dd/yyyy","EDT");
+		int i, index = 0;
+		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/dd/yyyy", "EDT");
 		isElementDisplayed("list_memberDetails", tabName);
 		for (i = 1; i < elements("list_memberDetails", tabName).size(); i++) {
 			if (element("txt_memberDetailsForChapter", tabName, String.valueOf(4), String.valueOf(i)).getText().trim()
 					.equals(chpName) && checkTerminateDateIsNull(i, tabName, currentDate, 11)) {
 				flag = true;
-				index=i;
+				index = i;
 				break;
 			}
 		}
 		// Assert.assertTrue(flag,"ASSERT FAILED : Mbr Status of Chapter
 		// "+chpName+" is not changed to Transferred\n");
-		System.out.println("-------index:"+index);
+		System.out.println("-------index:" + index);
 		Assert.assertTrue(checkTerminateDateIsNull(index, tabName, "Transferred", 6),
 				"ASSERT FAILED : Mbr Status of Chapter " + chpName + " is not changed to Transferred\n");
 		logMessage("ASSERT PASSED : Mbr Status of Chapter " + chpName + " is changed to Transferred\n");
@@ -1992,7 +1994,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		String chapterName;
 		switchToFrame(element("iframe1"));
 		clickLookUpButton();
-		chapterName=clickActiveChapterName();
+		chapterName = clickActiveChapterName();
 		return chapterName;
 	}
 
@@ -2005,19 +2007,20 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			for (WebElement ele : elements("txt_active_chapters")) {
 				activeChapters.add(ele);
 			}
-			System.out.println(activeChapters.size());
+			System.out.println("active chapter size"+activeChapters.size());
 			chapterName = activeChapters.get(generateRandomNumberWithInRange(0, activeChapters.size())).getText();
 			logMessage("Step : Random active Chapter Name displayed as " + chapterName);
 			element("txt_divisionPubName", chapterName).click();
-			logMessage("Step: chapter " + chapterName + " is selected from the list");
+			logMessage("Step: ****************chapter " + chapterName + " is selected from the list");
 		} catch (Exception e) {
+			System.out.println("In catch**********");
 			MembershipPageActions_IWEB membershipPage = new MembershipPageActions_IWEB(driver);
 			membershipPage.clickOnRandomPage();
 			clickActiveChapterName();
 		}
 		wait.resetExplicitTimeout(timeOut);
 		wait.resetImplicitTimeout(timeOut);
-		
+		System.out.println("chapter name" + chapterName);
 		return chapterName;
 
 	}
@@ -2051,10 +2054,12 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public void verifyCurrentRecordisAddedInChapterRelationship(String chapterName, String chapterRole,String dateFormate) {
+	public void verifyCurrentRecordisAddedInChapterRelationship(String chapterName, String chapterRole,
+			String dateFormate) {
 		switchToDefaultContent();
 		waitForSpinner();
 		System.out.println(chapterName);
+		wait.hardWait(4);
 		System.out.println(element("txt_priceValue", chapterName).getText().trim());
 		System.out.println(chapterRole);
 		isElementDisplayed("txt_divisionPubName", chapterName);
@@ -2062,8 +2067,10 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 				"Chapter Role is not " + chapterRole);
 		System.out.println(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"));
 		logMessage("ASSERT PASSED : chapter " + chapterName + " role is verified as " + chapterName);
-		Assert.assertTrue(element("txt_quantity", chapterName).getText().trim()
-				.equals(DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone(dateFormate, "EST5EDT")), "Date is not current date");
+		Assert.assertTrue(
+				element("txt_quantity", chapterName).getText().trim()
+						.equals(DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone(dateFormate, "EST5EDT")),
+				"Date is not current date");
 
 		logMessage("ASSERT PASSED : Date for chapter " + chapterName + " is current date "
 				+ DateUtil.getCurrentdateInStringWithGivenFormate(dateFormate));
@@ -2138,105 +2145,107 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		return expectedamount;
 
 	}
-	
 
-	public void clickImageButtonsOnAdditionalInformationPanel(String buttonName)
-	{
-		isElementDisplayed("img_demoGraphics",buttonName);
-		element("img_demoGraphics",buttonName).click();
-		logMessage("Step : Button "+buttonName+" is clicked on individuals profile page\n");
+	public void clickImageButtonsOnAdditionalInformationPanel(String buttonName) {
+		isElementDisplayed("img_demoGraphics", buttonName);
+		element("img_demoGraphics", buttonName).click();
+		logMessage("Step : Button " + buttonName + " is clicked on individuals profile page\n");
 	}
-	
+
 	public void enterBPAJobTitleDates(String field) {
 		String date = DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY");
 		isElementDisplayed("inp_bpa_info", field);
 		sendKeysUsingXpathInJavaScriptExecutor(element("inp_bpa_info", field), date);
-		logMessage("STEP : "+field+" date for is entered as " +date);
+		logMessage("STEP : " + field + " date for is entered as " + date);
 		wait.hardWait(2);
 	}
 
-	public Map<String,String> fillBPAInformationAfterClickinhDemographics(String[] BPATypeInfoArray) {
-		Map<String,String> bpaDetailsMap = new HashMap<String,String>();
+	public Map<String, String> fillBPAInformationAfterClickinhDemographics(String[] BPATypeInfoArray) {
+		Map<String, String> bpaDetailsMap = new HashMap<String, String>();
 		switchToFrame("iframe1");
 		addRandomBpaIndustryAndJobTitleNameOnForm(BPATypeInfoArray[0]);
 		addRandomBpaIndustryAndJobTitleNameOnForm(BPATypeInfoArray[1]);
 		enterBPAJobTitleDates(BPATypeInfoArray[2]);
 		enterBPAJobTitleDates(BPATypeInfoArray[3]);
-		bpaDetailsMap=saveBPAUpdatedDetails(bpaDetailsMap,BPATypeInfoArray[0],"sin_key");
-		bpaDetailsMap=saveBPAUpdatedDetails(bpaDetailsMap,BPATypeInfoArray[1],"ttl_key");
+		bpaDetailsMap = saveBPAUpdatedDetails(bpaDetailsMap, BPATypeInfoArray[0], "sin_key");
+		bpaDetailsMap = saveBPAUpdatedDetails(bpaDetailsMap, BPATypeInfoArray[1], "ttl_key");
 		clickOnSaveButton();
-        wait.hardWait(4);
+		wait.hardWait(4);
 		waitForSpinner();
 		switchToDefaultContent();
 		bpaDetailsMap.get("industry");
 		bpaDetailsMap.get("title");
 		return bpaDetailsMap;
-		
-	}
-	
-	public Map<String, String> saveBPAUpdatedDetails(Map<String,String> bpaDetailsMap,String nametype,String nameid) {
-		 isElementDisplayed("drpdwn_industrytype",nameid);
-		 bpaDetailsMap.put(nametype,element("drpdwn_industrytype",nameid).getText());
-		 logMessage("Step : Details fetched after bpa updation for "+nametype+" is "+element("drpdwn_industrytype",nameid).getText());
-		 return bpaDetailsMap;
+
 	}
 
+	public Map<String, String> saveBPAUpdatedDetails(Map<String, String> bpaDetailsMap, String nametype,
+			String nameid) {
+		isElementDisplayed("drpdwn_industrytype", nameid);
+		bpaDetailsMap.put(nametype, element("drpdwn_industrytype", nameid).getText());
+		logMessage("Step : Details fetched after bpa updation for " + nametype + " is "
+				+ element("drpdwn_industrytype", nameid).getText());
+		return bpaDetailsMap;
+	}
 
 	public void addRandomBpaIndustryAndJobTitleNameOnForm(String type) {
 
-		isElementDisplayed("drpdwn_relationshipType",type);
-		selectDropDownValue(element("drpdwn_relationshipType",type),generateRandomNumberWithInRange(1,(elements("drpdwn_options",type).size()-2)));
+		isElementDisplayed("drpdwn_relationshipType", type);
+		selectDropDownValue(element("drpdwn_relationshipType", type),
+				generateRandomNumberWithInRange(1, (elements("drpdwn_options", type).size() - 2)));
 		wait.hardWait(4);
-		logMessage("Step : "+type+" name is selected as randomly as " +getSelectedTextFromDropDown(element("drpdwn_relationshipType",type)));
+		logMessage("Step : " + type + " name is selected as randomly as "
+				+ getSelectedTextFromDropDown(element("drpdwn_relationshipType", type)));
 
 	}
 
-	public void verifyDemographicChangeLogChildform(String[] BPATypeInfoArray,Map<String,String> bpaMap) {
+	public void verifyDemographicChangeLogChildform(String[] BPATypeInfoArray, Map<String, String> bpaMap) {
 		String currentdate = DateUtil.getCurrentdateInStringWithGivenFormate("M/d/YYYY");
-		verifyChildFormForUpdatedDemographicLog(BPATypeInfoArray[0],bpaMap.get(BPATypeInfoArray[0]));
-		verifyChildFormForUpdatedDemographicLog(BPATypeInfoArray[1],bpaMap.get(BPATypeInfoArray[1]));
-		verifyChildFormForUpdatedDemographicLog(BPATypeInfoArray[2],currentdate);
-		verifyChildFormForUpdatedDemographicLog(BPATypeInfoArray[3],currentdate);
+		verifyChildFormForUpdatedDemographicLog(BPATypeInfoArray[0], bpaMap.get(BPATypeInfoArray[0]));
+		verifyChildFormForUpdatedDemographicLog(BPATypeInfoArray[1], bpaMap.get(BPATypeInfoArray[1]));
+		verifyChildFormForUpdatedDemographicLog(BPATypeInfoArray[2], currentdate);
+		verifyChildFormForUpdatedDemographicLog(BPATypeInfoArray[3], currentdate);
 	}
-	
-	public void verifyChildFormForUpdatedDemographicLog(String fieldName,String fieldValue)
-	{
-		try
-		{
-		isElementDisplayed("txt_updatedLogsBPA",fieldName,"1");
-		String actualfieldValue=elements("txt_updatedLogsBPA",fieldName,"1").get(0).getText().trim();
-		System.out.println(actualfieldValue);
-		System.out.println(fieldValue);
-		Assert.assertTrue(fieldValue.trim().contains(actualfieldValue),"demographic change log is not updated\n");
-		logMessage("ASSERT PASSED : Demographic log for "+fieldName+" is verified as "+fieldValue);
-		}
-		catch(NoSuchElementException e)
-		{
-			logMessage("Step : "+fieldName+" as "+fieldValue+" is not present in acs demograph logs\n");
+
+	public void verifyChildFormForUpdatedDemographicLog(String fieldName, String fieldValue) {
+		try {
+			isElementDisplayed("txt_updatedLogsBPA", fieldName, "1");
+			String actualfieldValue = elements("txt_updatedLogsBPA", fieldName, "1").get(0).getText().trim();
+			System.out.println(actualfieldValue);
+			System.out.println(fieldValue);
+			Assert.assertTrue(fieldValue.trim().contains(actualfieldValue), "demographic change log is not updated\n");
+			logMessage("ASSERT PASSED : Demographic log for " + fieldName + " is verified as " + fieldValue);
+		} catch (NoSuchElementException e) {
+			logMessage("Step : " + fieldName + " as " + fieldValue + " is not present in acs demograph logs\n");
 		}
 	}
 
-	public String fillDataOnRapidEntryFormAndSaveChanges(Map<String,String> bpaMap,String[] BPATypeInfoArray,String customerID) {
+	public String fillDataOnRapidEntryFormAndSaveChanges(Map<String, String> bpaMap, String[] BPATypeInfoArray,
+			String customerID) {
 		String currentdate = DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY");
-		EnterTextInField(element("inp_bpa_info","customer id"), customerID);
-		clickSearchLookUpButtonOnBPARapidForm();
-		selectProvidedTextFromDropDown(element("drpdwn_relationshipType",BPATypeInfoArray[0]), bpaMap.get(BPATypeInfoArray[0]));
-		wait.hardWait(9);
-		sendKeysUsingXpathInJavaScriptExecutor(element("inp_bpa_info",BPATypeInfoArray[2]), currentdate);
-		selectProvidedTextFromDropDown(element("drpdwn_relationshipType",("job "+BPATypeInfoArray[1])),bpaMap.get(BPATypeInfoArray[1]));
-		wait.hardWait(9);
-		sendKeysUsingXpathInJavaScriptExecutor(element("inp_bpa_info",BPATypeInfoArray[3]), currentdate);
-		addRandomBpaIndustryAndJobTitleNameOnForm("bpa promo code");
-        String promocode=getSelectedTextFromDropDown(element("drpdwn_relationshipType","bpa promo code"));
-        logMessage("Step : Promocode is entered as "+promocode);
-		saveRapidFormInformationForBPA();
 		
+		wait.hardWait(4);
+		EnterTextInField(element("inp_bpa_info","customer id"), customerID);
+
+		clickSearchLookUpButtonOnBPARapidForm();
+		selectProvidedTextFromDropDown(element("drpdwn_relationshipType", BPATypeInfoArray[0]),
+				bpaMap.get(BPATypeInfoArray[0]));
+		wait.hardWait(9);
+		sendKeysUsingXpathInJavaScriptExecutor(element("inp_bpa_info", BPATypeInfoArray[2]), currentdate);
+		selectProvidedTextFromDropDown(element("drpdwn_relationshipType", ("job " + BPATypeInfoArray[1])),
+				bpaMap.get(BPATypeInfoArray[1]));
+		wait.hardWait(9);
+		sendKeysUsingXpathInJavaScriptExecutor(element("inp_bpa_info", BPATypeInfoArray[3]), currentdate);
+		addRandomBpaIndustryAndJobTitleNameOnForm("bpa promo code");
+		String promocode = getSelectedTextFromDropDown(element("drpdwn_relationshipType", "bpa promo code"));
+		logMessage("Step : Promocode is entered as " + promocode);
+		saveRapidFormInformationForBPA();
+
 		return promocode;
 
 	}
-	
-	private void clickSearchLookUpButtonOnBPARapidForm()
-	{
+
+	private void clickSearchLookUpButtonOnBPARapidForm() {
 		isElementDisplayed("btn_rapidFormLookup");
 		element("btn_rapidFormLookup").click();
 		logMessage("Step : Individual look up button is clicked\n");
@@ -2253,46 +2262,42 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public void selectOneIndividual(String text,String field){
-		//wait.waitForElementToBeVisible(element("img_activeMember",text));
-		if(checkIfElementIsThere("img_activeMember",text)){
+	public void selectOneIndividual(String text, String field) {
+		// wait.waitForElementToBeVisible(element("img_activeMember",text));
+		if (checkIfElementIsThere("img_activeMember", text)) {
 
-			clickUsingXpathInJavaScriptExecutor(element("img_activeMember",text));
-//			element("img_activeMember",text).click();
-			logMessage("STEP: Individual with "+text+" "+field+" is selected\n");
-		}
-		else
+			clickUsingXpathInJavaScriptExecutor(element("img_activeMember", text));
+			// element("img_activeMember",text).click();
+			logMessage("STEP: Individual with " + text + " " + field + " is selected\n");
+		} else
 			logMessage("STEP: Individual list does not appeared. User is navigated to Membership profile page\n");
 		wait.waitForPageToLoadCompletely();
 	}
 
-	public String getPriceValueOfGiftCard(String productName,String salePrice,String caseID) {
+	public String getPriceValueOfGiftCard(String productName, String salePrice, String caseID) {
 		String pricevalue = null;
-		if(caseID.equals("2"))
-		{
-			pricevalue=salePrice;
-		}
-		else
-		{
+		if (caseID.equals("2")) {
+			pricevalue = salePrice;
+		} else {
 			System.out.println(productName);
-		isElementDisplayed("txt_updatedLogsBPA",productName,"3");
-		pricevalue=element("txt_updatedLogsBPA",productName,"3").getText().trim();
+			isElementDisplayed("txt_updatedLogsBPA", productName, "3");
+			pricevalue = element("txt_updatedLogsBPA", productName, "3").getText().trim();
 		}
-		logMessage("Step : Price value is fetched for "+productName+" as "+pricevalue);
+		logMessage("Step : Price value is fetched for " + productName + " as " + pricevalue);
 		return pricevalue;
-		
+
 	}
 
-		public String verifyGiftItemPurchasedDetailsBeforeRedeeming(String batchName, String priceValue)
-		{
-			String GiftCardNumber=getMemberType();
-			System.out.println("Redeemed code is "+GiftCardNumber);
-			verifyGiftCardDetailsOnIweb(GiftCardNumber, "4", DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY","EST"));
-			verifyGiftCardDetailsOnIweb(GiftCardNumber, "5", batchName);
-			verifyGiftCardDetailsOnIweb(GiftCardNumber, "6", "N");
-			verifyGiftCardDetailsOnIweb(GiftCardNumber, "7", priceValue);
-			return GiftCardNumber;
-		}
+	public String verifyGiftItemPurchasedDetailsBeforeRedeeming(String batchName, String priceValue) {
+		String GiftCardNumber = getMemberType();
+		System.out.println("Redeemed code is " + GiftCardNumber);
+		verifyGiftCardDetailsOnIweb(GiftCardNumber, "4",
+				DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY", "EST"));
+		verifyGiftCardDetailsOnIweb(GiftCardNumber, "5", batchName);
+		verifyGiftCardDetailsOnIweb(GiftCardNumber, "6", "N");
+		verifyGiftCardDetailsOnIweb(GiftCardNumber, "7", priceValue);
+		return GiftCardNumber;
+	}
 
 		public void verifyGiftItemPurchasedDetailsAfterRedeeming(String GiftCardNumber, String priceValue)
 		{
@@ -2344,7 +2349,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 		private void verifyDatesUnderChapterMembership(List<WebElement> elements,List<String> individualDatelist,int count) {
 			for (WebElement ele : elements) {
-				Date chapterdate=DateUtil.convertStringToDate(ele.getText(), "MM/dd/YYYY");
+				Date chapterdate=DateUtil.convertStringToDate(ele.getText().trim(), "MM/dd/YYYY");
 				Date individualdate=DateUtil.convertStringToDate(individualDatelist.get(count), "MM/dd/YYYY");
 				System.out.println(chapterdate);
 				System.out.println(individualdate);
@@ -2354,7 +2359,34 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			
 		}
 
+		public void verifyActiveSubscriptionDatesIfAvailable(String invoiceNumber,List<String> individualDatelist) {
+			if(element("txt_priceValue",invoiceNumber).getText().trim().equals("Chemical and Engineering News"))
+			{
+				logMessage("Step : active subscription Start and End dates for C&EN are empty\n");
+			}
+			else
+			{
+				verifyDatesUnderChapterMembership(elements("txt_total",invoiceNumber), individualDatelist, 0);
+				verifyDatesUnderChapterMembership(elements("txt_payment",invoiceNumber), individualDatelist, 1);
+//			isElementDisplayed("txt_total",invoiceNumber);
+//			isElementDisplayed("txt_payment",invoiceNumber);
+//			System.out.println(element("txt_total",invoiceNumber).getText());
+//			System.out.println(individualDatelist.get(0));
+//			System.out.println(element("txt_payment",invoiceNumber).getText());
+//			System.out.println(individualDatelist.get(1));
+//			Assert.assertTrue(element("txt_total",invoiceNumber).getText().trim().equals(individualDatelist.get(0)));
+//			logMessage("ASSERT PASSED : Start date for active subscription is same as individual dates as "+individualDatelist.get(0));
+//			Assert.assertTrue(element("txt_payment",invoiceNumber).getText().trim().equals(individualDatelist.get(1)));
+//			logMessage("ASSERT PASSED : End date for active subscription is same as individual dates as "+individualDatelist.get(1));
+			}
 		
-	}
+			
+		}
+		
 	
+
+		
+
+}
+
 

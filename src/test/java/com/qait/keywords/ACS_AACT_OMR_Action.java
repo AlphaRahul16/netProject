@@ -194,6 +194,17 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 		wait.hardWait(3);
 		enterCreditCardInfo("CcvNumber", CvvNumber);
 	}
+	public void enterPaymentInfo(String creditCardType, String creditCardHolderName, String creditCardNumber,String vreditCardNumber,
+			String CvvNumber, String expMonth, String expYear) {
+		selectCreditCardInfo("CreditCardType", creditCardType);
+		enterCreditCardInfo("CardholderName", creditCardHolderName);
+		enterCreditCardInfo("CreditCardNumber", creditCardNumber);
+		selectCreditCardInfo("ExpirationMonth", expMonth);
+		selectCreditCardInfo("ExpirationYear", expYear);
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(3);
+		enterCreditCardInfo("CcvNumber", CvvNumber);
+	}
 
 	private void enterCreditCardInfo(String creditCardInfo, String value) {
 		isElementDisplayed("inp_cardInfo", creditCardInfo);
