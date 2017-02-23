@@ -744,7 +744,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			hoverClick(element("btn_saveAndFinish"));
 			clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
 		} else
-			 clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
+			hoverClick(element("btn_saveAndFinish"));
+//			 clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
 //			hoverClick(element("btn_saveAndFinish"));
 		// element("btn_saveAndFinish").click();
 		wait.hardWait(25);

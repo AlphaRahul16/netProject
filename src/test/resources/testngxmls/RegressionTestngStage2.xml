@@ -93,11 +93,11 @@
 	<!-- </classes> -->
 	<!-- </test> -->
 
-	<test name="ACS StoreFactoryClass">
-		<classes>
-			<class name="com.qait.tests.ACS_Store_Test"></class>
-		</classes>
-	</test>
+<!-- 	<test name="ACS StoreFactoryClass"> -->
+<!-- 		<classes> -->
+<!-- 			<class name="com.qait.tests.ACS_Store_Test"></class> -->
+<!-- 		</classes> -->
+<!-- 	</test> -->
 
 	<test name="ACS Giving Application Smoke Test" group-by-instances="true">
 		<classes>
@@ -185,11 +185,11 @@
 	</classes>
 	</test>
 
-	<test name="ACS_SourceCodes_Test" group-by-instances="true">
-	<classes>
-	<class name="com.qait.tests.ACS_SourceCodes_Test"></class>
-	</classes>
-	</test>
+<!-- 	<test name="ACS_SourceCodes_Test" group-by-instances="true"> -->
+<!-- 	<classes> -->
+<!-- 	<class name="com.qait.tests.ACS_SourceCodes_Test"></class> -->
+<!-- 	</classes> -->
+<!-- 	</test> -->
 
 	<!-- <test name="ACS Member Transfer Smoke Test" group-by-instances="true"> -->
 	<!-- <classes> -->
