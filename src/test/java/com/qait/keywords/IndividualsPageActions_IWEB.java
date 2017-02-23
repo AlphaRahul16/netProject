@@ -2311,10 +2311,10 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	private void verifyGiftCardDetailsOnIweb(String GiftCardNumber, String index, String value) {
 		isElementDisplayed("txt_updatedLogsBPA", GiftCardNumber, index);
-		System.out.println(value);
-		System.out.println(element("txt_updatedLogsBPA", GiftCardNumber, index).getText().trim());
-		Assert.assertTrue(element("txt_updatedLogsBPA", GiftCardNumber, index).getText().trim().contains(value));
-		logMessage("ASSERT PASSED" + " gift card details on iweb is verified as " + value);
+		Assert.assertTrue(element("txt_updatedLogsBPA", GiftCardNumber, index).getText().trim().contains(value),
+				"ASSERT FAILED: Expected value is " + value + " but found "
+						+ element("txt_updatedLogsBPA", GiftCardNumber, index).getText().trim());
+		logMessage("ASSERT PASSED : gift card details on iweb is verified as " + value);
 	}
 
 	public void verifyRedeemedGiftCardDetails(String giftCardNumber, String pricevalue) {

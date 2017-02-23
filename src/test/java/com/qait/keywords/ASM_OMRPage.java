@@ -51,7 +51,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	}
 
 	public void loginIntoApplication_LastName_MemberNumber(String lastName, String memberNumber) {
-		System.out.println("1");
+		wait.hardWait(4);
 		switchToFrame(element("iframe_ewebframe"));
 		wait.hardWait(2);
 		selectLoginRadioButton("LNMemNo");
@@ -893,6 +893,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 
 	public void selectNoIfRegularToEmeritusPromptAppears() {
 
+		wait.hardWait(4);
 		switchToEwebRenewalFrame();
 		try {
 			wait.resetImplicitTimeout(5);
