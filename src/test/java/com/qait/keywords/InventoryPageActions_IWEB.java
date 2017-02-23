@@ -69,7 +69,8 @@ public class InventoryPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifySoldProductIsCheckedByDefaultUnderSelectOrdersToFulfill(String productName) {
 		waitForSpinner();
 		isElementDisplayed("chkbox_soldproduct",productName);
-		Assert.assertTrue(element("chkbox_soldproduct",productName).isSelected());
+		Assert.assertTrue(element("chkbox_soldproduct",productName).isSelected(),
+				"ASSERTION FAILED : Verified Sold Product "+productName+" is not Checked By Default Under Select Orders to Fulfill");
 		logMessage("ASSERTION PASSED : Verified Sold Product "+productName+" Is Checked By Default Under Select Orders to Fulfill");
 	}
 	

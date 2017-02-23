@@ -2,18 +2,15 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
-import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.poi.hssf.record.PrecisionRecord;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DateUtil;
 
@@ -261,42 +258,17 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 				logMessage("STEP : Multiyear flag is not present in price value sheet\n");
 			}
 		}
-		DecimalFormat df = new DecimalFormat("0.00");
-		System.out.println("-------------"
-				+ map().get("ACS MEMBER DUES " + DateUtil.getCurrentYear()).trim().replaceAll("\\$", ""));
-		Double ACSMemberDuesCurrentYear = Double
-				.parseDouble(map().get("ACS MEMBER DUES " + DateUtil.getCurrentYear()).trim().replaceAll("\\$", ""));
-		System.out.println("acs price sheet:" + ACSMemberDuesCurrentYear);
-		Double discount = (Double.parseDouble(map().get("Discount %").trim()) / 100);
-		System.out.println("discount value:" + discount);
-		System.out.println(
-				"================" + Math.round((ACSMemberDuesCurrentYear - (ACSMemberDuesCurrentYear * discount))));
-		String discountedPrice =priceValues = element("txt_amount", map().get("Product?")).getText().replace("$", "");
-		Float actualPriceValue = Float.parseFloat(priceValues);
 		String actualPriceValueInString =element("txt_amount", map().get("Product?")).getText().trim();
-				//"$" + actualPriceValue;
-//		String discountedPrice = "$" + df.format(
-//				Math.round((ACSMemberDuesCurrentYear - (ACSMemberDuesCurrentYear * discount))) * mutliYearInInteger);
-		System.out.println(discountedPrice);
-
 		if (mutliYearInInteger > 1) {
-			System.out.println("sheet value : " + map().get(mutliYearInInteger + " Year Term Price "+DateUtil.getCurrentYear()+"?").trim());
-			//verifyPriceType(map().get("Product?"), "amount", map().get(mutliYearInInteger + " Year Term Price "+DateUtil.getCurrentYear()+"?").trim(), mutliYearInInteger);
 			Assert.assertEquals(actualPriceValueInString, map().get(mutliYearInInteger + " Year Term Price "+DateUtil.getCurrentYear()+"?").trim());
 			logMessage("ASSERT PASSED : DiscountedPrice in actual is " + actualPriceValueInString + " discountedPrice in sheet"
 					+ map().get(mutliYearInInteger + " Year Term Price "+DateUtil.getCurrentYear()+"?") + "\n");
-			System.out.println("discounted price:" + actualPriceValueInString);
-		} else {
-			System.out.println("sheet value : " + map().get(DateUtil.getCurrentYear() + " DUES").trim());
+			} else {
 			//verifyPriceType(map().get("Product?"), "amount", map().get(mutliYearInInteger + " Year Term Price "+DateUtil.getCurrentYear()+"?").trim(), 1);
 			Assert.assertEquals(actualPriceValueInString, map().get(DateUtil.getCurrentYear() + " DUES").trim());
 			logMessage("ASSERT PASSED : DiscountedPrice in actual is " + actualPriceValueInString + " discountedPrice in sheet"
 					+ map().get(DateUtil.getCurrentYear() + " DUES") + "\n");
-			System.out.println("discounted price:" + actualPriceValueInString);
 		}
-
-		
-
 	}
 
 	public String[] verifyPriceValues(String caseId) {
@@ -429,12 +401,12 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 				String priceValueInDataSheet = "$" + String.valueOf(price * multiYear);
 				Float actualPriceValue = Float.parseFloat(priceValues);
 				String actualPriceValueInString = "$" + actualPriceValue;
-//				Assert.assertEquals(actualPriceValueInString, priceValueInDataSheet);
+				Assert.assertEquals(actualPriceValueInString, priceValueInDataSheet);
 				logMessage("ASSERT PASSED : " + priceValue + " " + priceType + " for " + productName
 						+ " is verified in txt_" + priceType + "\n");
 			} else {
 				isElementDisplayed("txt_" + priceType, productName);
-//				Assert.assertEquals("$" + priceValues, priceValue);
+				Assert.assertEquals("$" + priceValues, priceValue);
 				logMessage("ASSERT PASSED : " + priceValue + " is verified in txt_" + priceType + "\n");
 			}
 		}
@@ -517,17 +489,6 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	// return totalAmountActual;
 	// }
 
-	// private String getTotal(String value) {
-	// if (value.equalsIgnoreCase("Tax")) {
-	// isElementDisplayed("txt_taxTotal", value);
-	// return element("txt_taxTotal", value).getText();
-	// } else {
-	// isElementDisplayed("txt_total", value);
-	// return element("txt_total", value).getText();
-	// }
-	// }
-
-	// =================
 	private String getTotalAmountValue(String totalPriceName) {
 		for (WebElement element : elements("list_Totalvalues", totalPriceName)) {
 			currency = element.getText().charAt(0);
@@ -832,7 +793,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	
 	public Map<String,String> verifyAdditionOfProductAndGetPrice(){
 		changeMembershipYear();
-		productAmounts.put("Iweb Pub Name?", verifyProductsAmount(map().get("Iweb Pub Name?")));
+		//productAmounts.put("Iweb Pub Name?", verifyProductsAmount(map().get("Iweb Pub Name?")));
 		productAmounts.put("Iweb Division Name?", verifyProductsAmount(map().get("Iweb Division Name?")));
 		productAmounts.put("Product?", verifyProductsAmount(map().get("Product?")));
 		productAmounts.put("Iweb LS Name?", verifyProductsAmount(map().get("Iweb LS Name?")));
@@ -889,7 +850,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		double totalafterGC = Double
 				.parseDouble(getTotal("Total").replaceAll("\\" + currency, "").replaceAll(",", ""));
 		double actualtotal=Double.parseDouble(toalbeforeGC)-Double.parseDouble(gcprice);
-		Assert.assertTrue(totalafterGC==actualtotal);
+		Assert.assertTrue(totalafterGC==actualtotal,"ASSERT FAILED: Expected value is "+totalafterGC+" but found "+ actualtotal);
 		logMessage("ASSERT PASSED : Total amount after applying Gift card of amount "+gcprice+" is "+actualtotal);
 		getActualCreditUsedInGCPayment(actualtotal,Double.parseDouble(gcprice));
 		actualtotal=getActualCreditUsedInGCPayment(actualtotal,Double.parseDouble(gcprice));

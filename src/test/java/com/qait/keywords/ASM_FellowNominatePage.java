@@ -22,7 +22,6 @@ import org.testng.Assert;
 import com.qait.automation.getpageobjects.GetPage;
 import com.qait.automation.utils.YamlReader;
 
-
 public class ASM_FellowNominatePage extends GetPage {
 	WebDriver driver;
 	static String pagename = "ASM_FellowNominatePage";
@@ -208,15 +207,22 @@ public class ASM_FellowNominatePage extends GetPage {
 		clickOnContinueWithNomination();
 		clickOnConfirmSelection();
 		System.out.println(mapFellowNomineeDetails.get("Nominee " + NominationType));
-		selectSearchTypeAndSearchNominee(searchType, ReverseStringWords(mapFellowNomineeDetails.get("Nominee " + NominationType)));
-		//verifyErrorMessageForReNomination();
-	
+		selectSearchTypeAndSearchNominee(searchType,
+				ReverseStringWords(mapFellowNomineeDetails.get("Nominee " + NominationType)));
+		// verifyErrorMessageForReNomination();
+
 	}
+
 	private void verifyErrorMessageForReNomination() {
 		wait.hardWait(2);
 		wait.waitForElementToBeVisible(element("txt_errmsg_renomination"));
-		Assert.assertTrue(element("txt_errmsg_renomination").getText().contains("We were unable to locate a person with the information you provided"));
-		logMessage("ASSERT PASSED : Error message for re-nomination of same persion verified as "+element("txt_errmsg_renomination").getText());
+		Assert.assertTrue(
+				element("txt_errmsg_renomination").getText()
+						.contains("We were unable to locate a person with the information you provided"),
+				"ASSERT FAILED: Expected message should contains 'We were unable to locate a person with the information you provided' but found "
+						+ element("txt_errmsg_renomination").getText());
+		logMessage("ASSERT PASSED : Error message for re-nomination of same persion verified as "
+				+ element("txt_errmsg_renomination").getText());
 	}
 
 	private void saveNomineeInformation(String NominationType) {
@@ -224,7 +230,7 @@ public class ASM_FellowNominatePage extends GetPage {
 		NomineeName = ReverseStringWords(element("txt_NomineeName").getText());
 		System.out.println("Nominee Name " + NomineeName);
 		mapFellowNomineeDetails.put("Nominee " + NominationType, NomineeName);
-		logMessage("Nominee Name for "+NominationType+" is "+NomineeName);
+		logMessage("Nominee Name for " + NominationType + " is " + NomineeName);
 
 	}
 
@@ -285,7 +291,7 @@ public class ASM_FellowNominatePage extends GetPage {
 	public void selectNominee() {
 		wait.hardWait(5);
 		wait.waitForPageToLoadCompletely();
-		//wait.waitForElementToBeVisible(element("btn_firstNominee"));
+		// wait.waitForElementToBeVisible(element("btn_firstNominee"));
 		isElementDisplayed("btn_firstNominee");
 		element("btn_firstNominee").click();
 		logMessage("STEP : Select first nominee in btn_firstNominee\n");
@@ -335,9 +341,8 @@ public class ASM_FellowNominatePage extends GetPage {
 		element("btn_ReturnToDashboard").click();
 		logMessage("STEP : Return To Dashboard is clicked\n");
 	}
-	
-	public void clickReturnToDashBoardButtonOnPopUp()
-	{
+
+	public void clickReturnToDashBoardButtonOnPopUp() {
 		isElementDisplayed("btn_ReturnToDashboardPopUp");
 		element("btn_ReturnToDashboardPopUp").click();
 		logMessage("STEP : Return To Dashboard on Pop Up is clicked\n");
@@ -472,7 +477,7 @@ public class ASM_FellowNominatePage extends GetPage {
 		enterNominationDetails("Title", title);
 		enterNominationDetails("FromDate", fromDate);
 		enterNominationDetails("ToDate", toDate);
-		
+
 	}
 
 	public void fillDetailsForVolunteerServiceToTheACSComunity(String title, String fromDate, String toDate,
@@ -491,12 +496,12 @@ public class ASM_FellowNominatePage extends GetPage {
 	}
 
 	private void enterImpactSummary(String fieldValue) {
-		
+
 		isElementDisplayed("txtarea_impactsummary");
 		element("txtarea_impactsummary").clear();
 		element("txtarea_impactsummary").sendKeys(fieldValue);
 		logMessage("STEP : " + fieldValue + " is entered in Volunteer Service \n");
-		
+
 	}
 
 	public void clickOnAllFieldsRequiredHeading() {
@@ -675,7 +680,8 @@ public class ASM_FellowNominatePage extends GetPage {
 		getFellowNominated = new YamlInformationProvider(mapFellowNominatedSmoke);
 		wait.waitForPageToLoadCompletely();
 		wait.waitForPageToLoadCompletely();
-		ClickCodeOfConductButton(getFellowNominated.getASM_fellowNominated("CodeOfConductResponse"),getFellowNominated.getASM_fellowNominated("CodeConExplain"));
+		ClickCodeOfConductButton(getFellowNominated.getASM_fellowNominated("CodeOfConductResponse"),
+				getFellowNominated.getASM_fellowNominated("CodeConExplain"));
 		clickOnSaveButton("codeofconduct");
 		verifyNumberOfCitationsAs("Code of Conduct", "1");
 
@@ -750,7 +756,8 @@ public class ASM_FellowNominatePage extends GetPage {
 		clickOnContinueToNextButton();
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(4);
-		verifyEditFunctionalityForSavedNomination(NominationType,getFellowNominated.getASM_fellowNominated("CodeConExplain"));
+		verifyEditFunctionalityForSavedNomination(NominationType,
+				getFellowNominated.getASM_fellowNominated("CodeConExplain"));
 		clickOnContinueToSubmit();
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);
@@ -762,7 +769,7 @@ public class ASM_FellowNominatePage extends GetPage {
 	}
 
 	private void returnToCurrentNomination(String NominationName) {
-		
+
 		isElementDisplayed("btn_Edit");
 		element("btn_Edit").click();
 		wait.hardWait(6);
@@ -771,24 +778,25 @@ public class ASM_FellowNominatePage extends GetPage {
 		wait.waitForElementToBeVisible(element("btn_Edit"));
 		element("btn_Edit").click();
 		logMessage("STEP : User returned to current nomination\n");
-		
+
 	}
 
 	private void clickGotoDashboardButtonOnPopUp() {
 		isElementDisplayed("btn_gotoDashboardOnPopUp");
 		element("btn_gotoDashboardOnPopUp").click();
 		logMessage("STEP : Goto Dashboard nutton on PopUp is clicked\n");
-		
+
 	}
 
 	private void verifyPopUpDataonReturningToDashboard(String popupdata) {
 		isElementDisplayed("returnPopUp");
 		System.out.println(element("returnPopUp").getText());
 		System.out.println(popupdata);
-		Assert.assertTrue(element("returnPopUp").getText().equals(popupdata));
-		logMessage("STEP : Return To Dashboard data is verified as "+popupdata);
-		
+		Assert.assertEquals(element("returnPopUp").getText(),(popupdata));
+		logMessage("STEP : Return To Dashboard data is verified as " + popupdata);
+
 	}
+
 	private void verifyEditFunctionalityForSavedNomination(String NominationType, String cocExplain) {
 		if (NominationType.equals("Individual")) {
 			clickOnHomeButton();
@@ -825,7 +833,7 @@ public class ASM_FellowNominatePage extends GetPage {
 		wait.waitForPageToLoadCompletely();
 		System.out.println(element("txt_citationNumber", tabName).getText());
 		System.out.println(numberOfCitations);
-		Assert.assertTrue(element("txt_citationNumber", tabName).getText().equals(numberOfCitations));
+		Assert.assertEquals(element("txt_citationNumber", tabName).getText(),(numberOfCitations));
 		logMessage("ASSERT PASSED : " + tabName + " citation number is verified as " + numberOfCitations + "\n");
 	}
 
@@ -852,33 +860,33 @@ public class ASM_FellowNominatePage extends GetPage {
 		logMessage("STEP : " + fileName + " is uploaded in " + fieldname + " \n");
 		verifyFileUploaded(fileName, fieldname);
 	}
-	
-	public void uploadFileUsingJavascipt(String filename,String frameName,String section){
-		String iframe = "document.getElementById('"+frameName+"')";
+
+	public void uploadFileUsingJavascipt(String filename, String frameName, String section) {
+		String iframe = "document.getElementById('" + frameName + "')";
 		String path = "src" + File.separator + "test" + File.separator + "resources" + File.separator + "UploadFiles"
 				+ File.separator;
-		File filePath=new File(path+filename);
-		if(checkIfElementIsThere("btn_deleteFile"))
+		File filePath = new File(path + filename);
+		if (checkIfElementIsThere("btn_deleteFile"))
 			logMessage("STEP : File already uploaded");
-		else{
-		isElementDisplayed("btn_chooseFile");
-		
-		executeJavascript("document.getElementById('"+frameName+"');"+ 
-		        iframe+".style.visibility='visible';"+ iframe+".style.display='block';"+
-		        iframe+".setAttribute('height','500');"+ iframe+ ".setAttribute('width','500');"+
-		        iframe+".contentWindow.document.getElementById('fuName').style.visibility='visible';"+
-		        iframe+".contentWindow.document.getElementById('fuName').style.display='block';"+
-		        iframe+".contentWindow.document.getElementById('fuName').setAttribute('height','500');"+
-		        iframe+".contentWindow.document.getElementById('fuName').setAttribute('width','500')");
-		System.out.println("javascript loaded");
-		switchToFrame(driver.findElement(By.cssSelector("#"+frameName)));
-		isElementDisplayed("inp_upload");
-		element("inp_upload").sendKeys(filePath.getAbsolutePath());
-        switchToDefaultContent();
-        wait.hardWait(4);
-        logMessage("STEP : "+ filename +" file is uploaded\n");
-        isElementDisplayed("btn_deleteFile");
-        logMessage("ASSERT PASS : File is uploaded for "+section);
+		else {
+			isElementDisplayed("btn_chooseFile");
+
+			executeJavascript("document.getElementById('" + frameName + "');" + iframe + ".style.visibility='visible';"
+					+ iframe + ".style.display='block';" + iframe + ".setAttribute('height','500');" + iframe
+					+ ".setAttribute('width','500');" + iframe
+					+ ".contentWindow.document.getElementById('fuName').style.visibility='visible';" + iframe
+					+ ".contentWindow.document.getElementById('fuName').style.display='block';" + iframe
+					+ ".contentWindow.document.getElementById('fuName').setAttribute('height','500');" + iframe
+					+ ".contentWindow.document.getElementById('fuName').setAttribute('width','500')");
+			System.out.println("javascript loaded");
+			switchToFrame(driver.findElement(By.cssSelector("#" + frameName)));
+			isElementDisplayed("inp_upload");
+			element("inp_upload").sendKeys(filePath.getAbsolutePath());
+			switchToDefaultContent();
+			wait.hardWait(4);
+			logMessage("STEP : " + filename + " file is uploaded\n");
+			isElementDisplayed("btn_deleteFile");
+			logMessage("ASSERT PASSED : File is uploaded for " + section);
 		}
 	}
 
@@ -1004,15 +1012,13 @@ public class ASM_FellowNominatePage extends GetPage {
 		verifyTabOnDashboard("My Fellows Nominations");
 
 	}
-	
 
 	private void verifyTabOnDashboard(String tabname) {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(2);
 		isElementDisplayed("txt_dashboardHeadings", tabname);
-		System.out.println("actual : " + element("txt_dashboardHeadings", tabname).getText());
-		System.out.println("expected : " + tabname);
-		Assert.assertTrue(element("txt_dashboardHeadings", tabname).getText().contains(tabname));
+		Assert.assertTrue(element("txt_dashboardHeadings", tabname).getText().contains(tabname),
+				"ASSERT FAILED: Expected is "+tabname+" but found "+element("txt_dashboardHeadings", tabname).getText());
 		logMessage("ASSERT PASSED : " + tabname + " is verified on dashboard\n");
 
 	}
@@ -1092,21 +1098,21 @@ public class ASM_FellowNominatePage extends GetPage {
 		logMessage("STEP : Code of conduct details filled with choice as : " + choice);
 
 	}
-	
+
 	private void explainCodeOfConductIfNo(String conductExplanation) {
-			EnterTextInField(element("txtarea_CodeOfConductExpl"), conductExplanation);
-			logMessage("Step : Code of Conduct Explanation is entered as "+conductExplanation);
-		
+		EnterTextInField(element("txtarea_CodeOfConductExpl"), conductExplanation);
+		logMessage("Step : Code of Conduct Explanation is entered as " + conductExplanation);
+
 	}
 
-	private void verifyDetailsForCodeOfConduct(String Value,String cocexplanation, String FellowType) {
+	private void verifyDetailsForCodeOfConduct(String Value, String cocexplanation, String FellowType) {
 		isElementDisplayed("txt_codeOfConductValue");
 		System.out.println(element("txt_codeOfConductValue").getText());
 		Value = Value.replace("\"", "");
 		System.out.println(Value);
 		if (FellowType.equals("Individual")) {
 			if (Value.equals("No")) {
-				verifyCodeOfConductDetailsOnIweb("Yes","");
+				verifyCodeOfConductDetailsOnIweb("Yes", "");
 			} else if (Value.equals("Yes")) {
 				verifyCodeOfConductDetailsOnIweb("No", cocexplanation);
 			}
@@ -1115,22 +1121,19 @@ public class ASM_FellowNominatePage extends GetPage {
 		}
 
 	}
-	
-	private void verifyCodeOfConductDetailsOnIweb(String expectedValue,String cocexplanation)
-	{
+
+	private void verifyCodeOfConductDetailsOnIweb(String expectedValue, String cocexplanation) {
 		isElementDisplayed("txt_codeOfConductValue");
-		Assert.assertTrue(element("txt_codeOfConductValue").getText().trim().equals(expectedValue));
-		logMessage("ASSERT PASSED : Code Of Conduct value verified as "+expectedValue);
-		Assert.assertTrue(element("txt_cocExplanation").getText().trim().equals(cocexplanation));
-		logMessage("ASSERT PASSED : Code Of Conduct Explanation on iweb verified as "+cocexplanation);
+		Assert.assertEquals(element("txt_codeOfConductValue").getText().trim(), expectedValue);
+		logMessage("ASSERT PASSED : Code Of Conduct value verified as " + expectedValue);
+		Assert.assertEquals(element("txt_cocExplanation").getText().trim(), cocexplanation);
+		logMessage("ASSERT PASSED : Code Of Conduct Explanation on iweb verified as " + cocexplanation);
 	}
 
 	private void verifyScienceAndCommunityCitationMessages(String ScienceMsg, String CommunityMsg) {
-		System.out.println("Science msg " + elements("txt_codeOfConductValue").get(0).getText());
-		System.out.println("Community msg " + elements("txt_codeOfConductValue").get(1).getText());
-		Assert.assertTrue(elements("txt_codeOfConductValue").get(0).getText().trim().equals(ScienceMsg.trim()));
+		Assert.assertEquals(elements("txt_codeOfConductValue").get(0).getText().trim(),(ScienceMsg.trim()));
 		logMessage("ASSERT PASSED : Science Citation Message is verified as " + ScienceMsg);
-		Assert.assertTrue(elements("txt_codeOfConductValue").get(1).getText().trim().equals(CommunityMsg.trim()));
+		Assert.assertEquals(elements("txt_codeOfConductValue").get(1).getText().trim(),(CommunityMsg.trim()));
 		logMessage("ASSERT PASSED : Community Citation Message is verified as " + CommunityMsg);
 	}
 
@@ -1142,14 +1145,13 @@ public class ASM_FellowNominatePage extends GetPage {
 				getFellowNominated.getASM_fellowNominated_ProfDetails("FromDate"),
 				getFellowNominated.getASM_fellowNominated_ProfDetails("ToDate"),
 				getFellowNominated.getASM_fellowNominated_ProfDetails("ToDate"),
-				getFellowNominated.getASM_fellowNominated_ProfDetails("impactSummaryMsg")};
+				getFellowNominated.getASM_fellowNominated_ProfDetails("impactSummaryMsg") };
 
 		String[] ProfessionalOrg = { getFellowNominated.getASM_fellowNominated_ProfOrgDetails("ProfessionalOrg"),
 				getFellowNominated.getASM_fellowNominated_ProfOrgDetails("Position_title"),
 				getFellowNominated.getASM_fellowNominated_ProfOrgDetails("FromDate"),
 				getFellowNominated.getASM_fellowNominated_ProfOrgDetails("ToDate"),
-				getFellowNominated.getASM_fellowNominated_ProfOrgDetails("ToDate"),
-				};
+				getFellowNominated.getASM_fellowNominated_ProfOrgDetails("ToDate"), };
 
 		String[] honors = { getFellowNominated.getASM_fellowNominated_HonorAndAwardsDetails("Name"),
 				getFellowNominated.getASM_fellowNominated_HonorAndAwardsDetails("Sponcor"),
@@ -1158,26 +1160,23 @@ public class ASM_FellowNominatePage extends GetPage {
 		if (MenuName.equals("professional organization affiliation")) {
 
 			for (int i = 0; i < ProfessionalOrg.length; i++) {
-				System.out.println(element("txt_fellowIwebDetails", toString().valueOf(index)).getText());
-				Assert.assertTrue(element("txt_fellowIwebDetails", toString().valueOf(index)).getText().trim()
-						.equals(ProfessionalOrg[i].trim()));
-				logMessage("ASSERT PASSED : Details in "+MenuName+" verified as "+ProfessionalOrg[i].trim());
+				Assert.assertEquals(element("txt_fellowIwebDetails", toString().valueOf(index)).getText().trim()
+						,(ProfessionalOrg[i].trim()));
+				logMessage("ASSERT PASSED : Details in " + MenuName + " verified as " + ProfessionalOrg[i].trim());
 				index++;
 			}
 		} else if (MenuName.equals("honors and awards")) {
 			for (int i = 0; i < honors.length; i++) {
-				System.out.println(element("txt_fellowIwebDetails", toString().valueOf(index)).getText());
-				Assert.assertTrue(element("txt_fellowIwebDetails", toString().valueOf(index)).getText().trim()
-						.equals(honors[i].trim()));
-				logMessage("ASSERT PASSED : Details in "+MenuName+" verified as "+honors[i].trim());
+				Assert.assertEquals(element("txt_fellowIwebDetails", toString().valueOf(index)).getText().trim()
+						,(honors[i].trim()));
+				logMessage("ASSERT PASSED : Details in " + MenuName + " verified as " + honors[i].trim());
 				index++;
 			}
 		} else {
 			for (int i = 0; i < AcsServicesArray.length; i++) {
-				System.out.println(element("txt_fellowIwebDetails", toString().valueOf(index)).getText());
-				Assert.assertTrue(element("txt_fellowIwebDetails", toString().valueOf(index)).getText().trim()
-						.equals(AcsServicesArray[i].trim()));
-				logMessage("ASSERT PASSED : Details in "+MenuName+" verified as "+AcsServicesArray[i].trim());
+				Assert.assertEquals(element("txt_fellowIwebDetails", toString().valueOf(index)).getText().trim()
+						,(AcsServicesArray[i].trim()));
+				logMessage("ASSERT PASSED : Details in " + MenuName + " verified as " + AcsServicesArray[i].trim());
 				index++;
 			}
 		}
@@ -1188,7 +1187,8 @@ public class ASM_FellowNominatePage extends GetPage {
 		mapFellowNominatedSmoke = YamlReader.getYamlValues("ACS_fellowNominatedData");
 		getFellowNominated = new YamlInformationProvider(mapFellowNominatedSmoke);
 		expandDetailsMenu("code of conduct");
-		verifyDetailsForCodeOfConduct(getFellowNominated.getASM_fellowNominated("CodeOfConductResponse"),getFellowNominated.getASM_fellowNominated("CodeConExplain"), FellowType);
+		verifyDetailsForCodeOfConduct(getFellowNominated.getASM_fellowNominated("CodeOfConductResponse"),
+				getFellowNominated.getASM_fellowNominated("CodeConExplain"), FellowType);
 		collapseDetailsMenu("code of conduct");
 
 		expandDetailsMenu("award citations");
@@ -1211,7 +1211,6 @@ public class ASM_FellowNominatePage extends GetPage {
 		expandDetailsMenu("professional organization affiliation");
 		verifyServiceToAcsDetailsForFellowNomination("professional organization affiliation");
 		collapseDetailsMenu("professional organization affiliation");
-		
 
 		expandDetailsMenu("nominee letters");
 		collapseDetailsMenu("nominee letters");
@@ -1223,6 +1222,7 @@ public class ASM_FellowNominatePage extends GetPage {
 		System.out.println("Map FelloeType " + mapFellowNomineeDetails.get("Nominee " + fellowType));
 		return mapFellowNomineeDetails.get("Nominee " + fellowType);
 	}
+
 	public void verifyUserIsAbleToViewSubmittedNominations() {
 
 		clickOnViewButtonForSavedNomination("Individual Nomination");
@@ -1244,7 +1244,7 @@ public class ASM_FellowNominatePage extends GetPage {
 	}
 
 	private void verifyUserIsAbleToSeeAllViewButtons() {
-		Assert.assertTrue(elements("btn_view").size() == 9);
+		Assert.assertTrue(elements("btn_view").size() == 9,"ASSERT FAILED: Expected size of the button is '9' nut found "+elements("btn_view").size());
 		logMessage("STEP : All view Button are enabled\n");
 	}
 
@@ -1257,22 +1257,7 @@ public class ASM_FellowNominatePage extends GetPage {
 		logMessage("STEP : Print PDF button is clicked for " + Fellowtype + "\n");
 		Assert.assertTrue(isFileDownloaded(downloadFilePath, "FellowsNomination"),
 				"Failed to download Expected document");
-logMessage("ASSERT PASSED : Pdf file downloaded for "+Fellowtype+" submitted nomination\n");
+		logMessage("ASSERT PASSED : Pdf file downloaded for " + Fellowtype + " submitted nomination\n");
 	}
 
-
-
-
-
-
-	
-	
-	
-	
-		
-	}
-
-
-	
-
-
+}

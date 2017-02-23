@@ -19,7 +19,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 	WebDriver driver;
 	String pagename = "ASM_StorePage";
 	Map<String, String> map = new HashMap<String, String>();
-	Map<String, String> map2  = new HashMap<String, String>();
+	Map<String, String> map2 = new HashMap<String, String>();
 	Map<String, Object> mapStoreSmoke = YamlReader.getYamlValues("ASM_StoreSmokeChecklist_Data");
 	YamlInformationProvider getStoreSmokeValue = new YamlInformationProvider(mapStoreSmoke);
 	ASMErrorPage asmErrorPage;
@@ -105,7 +105,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		wait.hardWait(3);
 		isElementDisplayed("btn_verify");
 		clickUsingXpathInJavaScriptExecutor(element("btn_verify"));
-		//element("btn_verify").click();
+		// element("btn_verify").click();
 		logMessage("STEP : Verify button is clicked in btn_verify\n");
 	}
 
@@ -239,7 +239,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 	public void selectValidTextsInBillingAddressFields(String billingAddressFieldName,
 			String billingAddressFieldValue) {
 		isElementDisplayed("list_billing" + billingAddressFieldName, billingAddressFieldName);
-		selectProvidedTextFromDropDown(element("list_billing"+billingAddressFieldName), billingAddressFieldValue);
+		selectProvidedTextFromDropDown(element("list_billing" + billingAddressFieldName), billingAddressFieldValue);
 		logMessage("STEP : " + billingAddressFieldValue + " is entered for list_billing" + billingAddressFieldName
 				+ " in list_billing\n");
 	}
@@ -331,7 +331,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		element("inp_phone_email", phone_email).clear();
 		element("inp_phone_email", phone_email).sendKeys(getStoreSmokeValue.getASM_StoreShippingAddress(phone_email));
 		logMessage("STEP : " + getStoreSmokeValue.getASM_StoreShippingAddress(phone_email)
-		+ "  is entered in inp_phone_email\n");
+				+ "  is entered in inp_phone_email\n");
 	}
 
 	public void checkAddNewShippingPhoneNumber() {
@@ -405,15 +405,15 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(5);
 		isElementDisplayed("txt_box_Quantity");
-		Assert.assertTrue(element("txt_box_Quantity").getAttribute("value").equals(quantity));
+		Assert.assertEquals(element("txt_box_Quantity").getAttribute("value"), (quantity));
 		logMessage("ASSERT PASSED : Quantity is prepolulated feild with value 1\n");
 		map.put("quantity", element("txt_box_Quantity").getAttribute("value"));
 		logMessage("STEP : Quantity value stored as 1\n");
 	}
 
 	public void verifyUserIsOnShoppingCartPage() {
-       wait.waitForPageToLoadCompletely();
-		Assert.assertTrue(element("txt_shoppingCart").getText().equals("Shopping Cart"),
+		wait.waitForPageToLoadCompletely();
+		Assert.assertEquals(element("txt_shoppingCart").getText(), ("Shopping Cart"),
 				"Shopping Cart page is not Displayed");
 		logMessage("ASSERT PASSED : Shopping cart page displayed\n");
 	}
@@ -423,13 +423,13 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		wait.hardWait(2);
 		isElementDisplayed("msg_thankyou");
-		Assert.assertTrue(element("msg_thankyou").getText().trim().equals("Thank you, your order is complete!"));
+		Assert.assertEquals(element("msg_thankyou").getText().trim(), ("Thank you, your order is complete!"));
 		logMessage("ASSERT PASSED : Thank you message verified as " + element("msg_thankyou").getText().trim() + "\n");
 		try {
 			wait.resetImplicitTimeout(2);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("lnk_print_receipt");
-			Assert.assertTrue(element("lnk_print_receipt").getText().trim().equals(printReceiptMessage));
+			Assert.assertEquals(element("lnk_print_receipt").getText().trim(), (printReceiptMessage));
 			logMessage(
 					"ASSERT PASSED : Link print receipt is shown as " + element("lnk_print_receipt").getText() + "\n");
 			wait.resetImplicitTimeout(timeOut);
@@ -477,23 +477,32 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		verifyMemnberDetails("First Name");
 		verifyMemnberDetails("Last Name");
 
-		logMessage("ASSERT PASSED : Billing address successfully verified as "+element("txt_mailing_address").getText().trim()+"\n");
+		logMessage("ASSERT PASSED : Billing address successfully verified as "
+				+ element("txt_mailing_address").getText().trim() + "\n");
 		return map;
 	}
 
-	private void verifyMemnberAddress(String caseId,String name) {
+	private void verifyMemnberAddress(String caseId, String name) {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("txt_mailing_address");
 		String mailing_address = element("txt_mailing_address").getText().trim();
-		mailing_address= mailing_address.replace("Road", "Rd").replace("Kentucky", "KY");
-		Assert.assertTrue(mailing_address.trim().contains(getACS_Store_SheetValue(caseId, name).replace("Road", "Rd").replace("Kentucky", "KY").trim()));
-		logMessage("ASSERT PASSED : " + name + " in mailing address successfully verified as "+getACS_Store_SheetValue(caseId, name)+"\n");
+		mailing_address = mailing_address.replace("Road", "Rd").replace("Kentucky", "KY");
+		Assert.assertTrue(
+				mailing_address.contains(
+						getACS_Store_SheetValue(caseId, name).replace("Road", "Rd").replace("Kentucky", "KY").trim()),
+				"Expected is "
+						+ getACS_Store_SheetValue(caseId, name).replace("Road", "Rd").replace("Kentucky", "KY").trim()
+						+ "\n but found " + mailing_address);
+		logMessage("ASSERT PASSED : " + name + " in mailing address successfully verified as "
+				+ getACS_Store_SheetValue(caseId, name) + "\n");
 	}
+
 	private void verifyMemnberDetails(String name) {
 		isElementDisplayed("txt_mailing_address");
 		String mailing_address = element("txt_mailing_address").getText().trim();
-		Assert.assertTrue(mailing_address.contains(map2.get(name)));
-		logMessage("ASSERT PASSED : " + name + " in mailing address successfully verified as "+map2.get(name)+"\n");
+		Assert.assertTrue(mailing_address.contains(map2.get(name)),
+				"ASSERT FAILED: Expected is " + map2.get(name) + " but found " + mailing_address);
+		logMessage("ASSERT PASSED : " + name + " in mailing address successfully verified as " + map2.get(name) + "\n");
 	}
 
 	public Map<String, String> verifyProductDetailsOnShoppingCartPage(String caseId, String priceValue, String discount,
@@ -501,59 +510,56 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		verifyProductDetails("priceValue", priceValue);
 		verifyProductDetails("discount", discount);
 		verifyProductDetails("description", description);
-		double totalPriceOfProduct = Double
-				.parseDouble(priceValue.replace("$", "").trim())
+		double totalPriceOfProduct = Double.parseDouble(priceValue.replace("$", "").trim())
 				* Integer.parseInt(element("txt_quantity").getAttribute("value"))
 				- Double.parseDouble(discount.replace("$", "").trim());
-		Assert.assertTrue(getProductDetails("total") == totalPriceOfProduct);
-		logMessage("ASSERT PASSED : Total price with discount is verified as " + totalPriceOfProduct + "\n");   
+		Assert.assertTrue(getProductDetails("total") == totalPriceOfProduct,
+				"ASSERT FAILED: Expected value is " + totalPriceOfProduct + " but found " + getProductDetails("total"));
+		logMessage("ASSERT PASSED : Total price with discount is verified as " + totalPriceOfProduct + "\n");
 		return map;
 	}
 
-	public String getOrderTotalSummaryAtCheckoutPage()
-	{
+	public String getOrderTotalSummaryAtCheckoutPage() {
 
 		double ordertotal = getStoreSummaryValues("Subtotal") + getStoreSummaryValues("Shipping")
-		+ getStoreSummaryValues("Tax");
-		System.out.println("actual"+ordertotal);
+				+ getStoreSummaryValues("Tax");
 		double roundOffOrderTotal = Math.round(ordertotal * 100.0) / 100.0;
-		System.out.println("actual roundoff"+roundOffOrderTotal);
-		Assert.assertTrue(getStoreSummaryValues("Order Total") == roundOffOrderTotal);
-
+		Assert.assertTrue(getStoreSummaryValues("Order Total") == roundOffOrderTotal,
+				"ASSERT FAILED: Expected value is " + roundOffOrderTotal + " but found "
+						+ getStoreSummaryValues("Order Total"));
 		logMessage("ASSERT PASSED : Order total is verified as " + roundOffOrderTotal + "\n");
-		;
 		return Double.toString(ordertotal);
 	}
 
-	private void verifyProductDetails(String productName,String productvalues) {
-		System.out.println(element("txt_"+productName).getText().replace("$", "").trim());
-		System.out.println(productvalues.replace("$", "").trim());
-		Assert.assertTrue(element("txt_"+productName).getText().replace("$", "").trim()
-				.equalsIgnoreCase(productvalues.replace("$", "").trim()));
+	private void verifyProductDetails(String productName, String productvalues) {
+		Assert.assertTrue(
+				element("txt_" + productName).getText().replace("$", "").trim()
+						.equalsIgnoreCase(productvalues.replace("$", "").trim()),
+				"ASSERT FAILED: Expected value is " + productvalues.replace("$", "") + " but found "
+						+ element("txt_" + productName).getText().replace("$", ""));
 		logMessage("ASSERT PASSED : Store " + productName + " is successfully verified as "
 				+ element("txt_" + productName).getText().trim() + "\n");
-		map.put(productName,element("txt_"+productName).getText().replace("$", "").trim());
+		map.put(productName, element("txt_" + productName).getText().replace("$", "").trim());
 	}
 
 	private double getProductDetails(String detail) {
 		isElementDisplayed("txt_" + detail);
-		map.put(detail,element("txt_" + detail).getText().replace("$", "").trim());
+		map.put(detail, element("txt_" + detail).getText().replace("$", "").trim());
 		return Double.parseDouble(element("txt_" + detail).getText().replace("$", "").trim());
 	}
 
 	private double getStoreSummaryValues(String storeName) {
-		//wait.waitForPageToLoadCompletely();
+		// wait.waitForPageToLoadCompletely();
 		wait.hardWait(2);
-		//isElementDisplayed("txt_"+storeName);
+		// isElementDisplayed("txt_"+storeName);
 		map.put(storeName, element("txt_store_Summary", storeName).getText().trim());
 		return Double.parseDouble(element("txt_store_Summary", storeName).getText().trim());
 	}
 
-
 	public void clickOnSearchedProductLink() {
 		isElementDisplayed("lnk_searched_product");
 		map.put("Product Name", element("lnk_searched_product").getText().trim());
-		logMessage("STEP : Searched product is displayed as " + map.get("Product Name")+"\n");
+		logMessage("STEP : Searched product is displayed as " + map.get("Product Name") + "\n");
 		element("lnk_searched_product").click();
 		logMessage("STEP : Searched product is clicked\n");
 
@@ -565,25 +571,25 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		logMessage("STEP : Get value of " + name + " as " + map.get(name) + "\n");
 	}
 
-	public void verifyOrderSummaryAtCheckoutPage(Map<String,String> mapACSstore,String orderTotal) {
-		verifyProductDetailsFromMappedValues("priceValue",mapACSstore.get("priceValue?"));
-		verifyProductDetailsFromMappedValues("description",mapACSstore.get("description?"));
-		verifyProductDetailsFromMappedValues("quantity",mapACSstore.get("quantity?"));
-		verifyProductDetailsFromMappedValues("discount",mapACSstore.get("discount?"));
-		getShippingSummaryDetailsFromMappedValues("Shipping",mapACSstore.get("Shipping?"));
-		//getShippingSummaryDetailsFromMappedValues("Subtotal",mapGetMemberDetailsInStore);
-		getShippingSummaryDetailsFromMappedValues("Tax",mapACSstore.get("Tax?"));
-		getShippingSummaryDetailsFromMappedValues("Order Total",orderTotal);
+	public void verifyOrderSummaryAtCheckoutPage(Map<String, String> mapACSstore, String orderTotal) {
+		verifyProductDetailsFromMappedValues("priceValue", mapACSstore.get("priceValue?"));
+		verifyProductDetailsFromMappedValues("description", mapACSstore.get("description?"));
+		verifyProductDetailsFromMappedValues("quantity", mapACSstore.get("quantity?"));
+		verifyProductDetailsFromMappedValues("discount", mapACSstore.get("discount?"));
+		getShippingSummaryDetailsFromMappedValues("Shipping", mapACSstore.get("Shipping?"));
+		// getShippingSummaryDetailsFromMappedValues("Subtotal",mapGetMemberDetailsInStore);
+		getShippingSummaryDetailsFromMappedValues("Tax", mapACSstore.get("Tax?"));
+		getShippingSummaryDetailsFromMappedValues("Order Total", orderTotal);
 
 	}
-	
+
 	public <map> Map<String, String> getPrepopulatedShippingAddressFeildsAndContinue() {
 		hardWaitForIEBrowser(7);
 		getPrepopulatedShippingAddressValues("First Name");
 		getPrepopulatedShippingAddressValues("Last Name");
 		getPrepopulatedShippingAddressValues("Email");
-		map2.put("Country",element("inp_dropdown", "Country").getAttribute("value"));
-		map2.put("Phone",element("inp_dropdown", "Phone").getAttribute("value"));
+		map2.put("Country", element("inp_dropdown", "Country").getAttribute("value"));
+		map2.put("Phone", element("inp_dropdown", "Phone").getAttribute("value"));
 		return map2;
 
 	}
@@ -598,11 +604,10 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		selectPaymentInfo("Expiration", Expiration);
 		enterPaymentInfo("CVV", CVV);
 	}
-	
-	public void enterPaymentInformation_ACSStoreForAllPaymentTypes(String PaymentMethod,
-			String cardNumber, String dinerscardNumber, String referenceNumber,
-			String discovercardNumber,String AMEXcardNumber, String expireDate, String cvvNumber,
-			String checkNumber) {
+
+	public void enterPaymentInformation_ACSStoreForAllPaymentTypes(String PaymentMethod, String cardNumber,
+			String dinerscardNumber, String referenceNumber, String discovercardNumber, String AMEXcardNumber,
+			String expireDate, String cvvNumber, String checkNumber) {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(8);
 		selectPaymentInfo("CardType", PaymentMethod);
@@ -654,33 +659,30 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 	private void getShippingSummaryDetailsFromMappedValues(String name, String sheetvalue) {
 		isElementDisplayed("txt_order_shipping_summary", name);
 		wait.hardWait(2);
-		double sheetvaluefloat= Double.parseDouble(sheetvalue);
-		sheetvaluefloat= Math.round(sheetvaluefloat * 100.0) / 100.0;
+		double sheetvaluefloat = Double.parseDouble(sheetvalue);
+		sheetvaluefloat = Math.round(sheetvaluefloat * 100.0) / 100.0;
 		double actualvalue = Double.parseDouble(element("txt_order_shipping_summary", name).getText());
-
-		System.out.println(sheetvaluefloat);
-		System.out.println(actualvalue);
-		Assert.assertTrue(actualvalue==sheetvaluefloat);
+		Assert.assertTrue(actualvalue == sheetvaluefloat,
+				"ASSERT FAILED: Expected value is " + sheetvaluefloat + " but found "+actualvalue);
 		map.put(name, element("txt_order_shipping_summary", name).getText());
-		logMessage(
-				"ASSERT PASSED : Product summary details for " + name + " verified successfully as " + element("txt_order_shipping_summary", name).getText()+"\n");
+		logMessage("ASSERT PASSED : Product summary details for " + name + " verified successfully as "
+				+ element("txt_order_shipping_summary", name).getText() + "\n");
 	}
 
 	public void clickPlaceYourOrder() {
 		isElementDisplayed("btn_placeOrder");
 		logMessage("STEP : Click place your order button\n");
 		clickUsingXpathInJavaScriptExecutor(element("btn_placeOrder"));
-		//element("btn_placeOrder").click();
-		logMessage("ASSERT PASSED : Place your order button clicked\n");
+		// element("btn_placeOrder").click();
+		logMessage("STEP : Place your order button clicked\n");
 	}
 
-	private void verifyProductDetailsFromMappedValues(String name,String value) {
+	private void verifyProductDetailsFromMappedValues(String name, String value) {
 		hardWaitForIEBrowser(2);
-		isElementDisplayed("txt_summary_"+name);
-		System.out.println(value);
-		System.out.println(element("txt_summary_"+name).getText().replace("$", "").trim());
-		Assert.assertTrue(value.replace("$", "").trim().equals(element("txt_summary_"+name).getText().replace("$", "").trim()));
-		logMessage("ASSERT PASSED : Product details for " + name + " verified successfully as " +element("txt_summary_" + name).getText()+"\n");
+		isElementDisplayed("txt_summary_" + name);
+		Assert.assertEquals(value.replace("$", "").trim(),(element("txt_summary_" + name).getText().replace("$", "").trim()));
+		logMessage("ASSERT PASSED : Product details for " + name + " verified successfully as "
+				+ element("txt_summary_" + name).getText() + "\n");
 	}
 
 	public void holdScriptExecutionToVerifyPreviewStatus() {
@@ -695,6 +697,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		}
 
 	}
+
 	protected void selectProvidedTextFromDropDown(WebElement el, String text) {
 		wait.waitForElementToBeVisible(el);
 		scrollDown(el);
@@ -704,17 +707,14 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 			sel.selectByVisibleText(text);
 		} catch (StaleElementReferenceException ex1) {
 			sel.selectByVisibleText(text);
-			logMessage("Select Element " + el
-					+ " after catching Stale Element Exception");
+			logMessage("Select Element " + el + " after catching Stale Element Exception");
 		} catch (Exception ex2) {
-			logMessage("Element " + el + " could not be clicked! "
-					+ ex2.getMessage());
+			logMessage("Element " + el + " could not be clicked! " + ex2.getMessage());
 		}
 	}
 
-
-	public void selectAndEnterNewShippingAddress(String FirstName,String LastName,String AdrLine1,
-			String City,String State,String ZipCode) {
+	public void selectAndEnterNewShippingAddress(String FirstName, String LastName, String AdrLine1, String City,
+			String State, String ZipCode) {
 
 		clickNewShippingAddressButton();
 		enterValidTextsInShippingAddressFields("FirstName", FirstName);
@@ -725,8 +725,9 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		enterValidTextsInShippingAddressFields("ZipCode", ZipCode);
 		clickOnContinue();
 	}
-	public void selectAndEnterNewBillingAddress(String FirstName,String LastName,String AdrLine1,
-			String City,String State,String ZipCode) {
+
+	public void selectAndEnterNewBillingAddress(String FirstName, String LastName, String AdrLine1, String City,
+			String State, String ZipCode) {
 		clickNewBillingAddressButton();
 		enterValidTextsInBillingAddressFields("FirstName", FirstName);
 		enterValidTextsInBillingAddressFields("LastName", LastName);
@@ -744,22 +745,20 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 
 	private void clickNewShippingAddressButton() {
 		clickUsingXpathInJavaScriptExecutor(element("btn_newShip"));
-		//element("btn_newShip").click();
+		// element("btn_newShip").click();
 		logMessage("STEP : Click new Shipping Address button\n");
 
 	}
 
-	public void selectState(WebElement el)
-	{
+	public void selectState(WebElement el) {
 		Select dropdown = new Select(el);
 		dropdown.selectByValue("KY");
 		logMessage("STEP : State is entered as Kentucky\n");
 	}
-	
-	public void enterPaymentInformation_OMAForAllPaymentTypes(String PaymentMethod,
-			String cardNumber, String dinerscardNumber, String referenceNumber,
-			String discovercardNumber,String AMEXcardNumber, String expireMonth, String cvvNumber,
-			String checkNumber, String expireYear) {
+
+	public void enterPaymentInformation_OMAForAllPaymentTypes(String PaymentMethod, String cardNumber,
+			String dinerscardNumber, String referenceNumber, String discovercardNumber, String AMEXcardNumber,
+			String expireMonth, String cvvNumber, String checkNumber, String expireYear) {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(8);
 		selectPaymentInfo("CreditCardType", PaymentMethod);
@@ -799,6 +798,5 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		selectPaymentInfo("ExpirationYear", expireYear);
 		enterPaymentInfo("CcvNumber", cvvNumber);
 	}
-
 
 }

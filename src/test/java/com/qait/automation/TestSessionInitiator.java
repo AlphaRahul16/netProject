@@ -268,7 +268,6 @@ public class TestSessionInitiator {
 							"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
 									+ URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), "UTF-8")
 									+ "@iwebtest");
-					System.out.println("-----baseUrl:"+baseurl);
 				}
 				driver.get(baseurl);
 			} else {

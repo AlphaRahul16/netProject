@@ -1,9 +1,9 @@
 caseID	caseID Execute	Association	MemberType	MemberStatus	MemberPackage	BeforeApplyPayment_proforma	BeforeApplyPayment_paidInFull	AfterApplyPayment_proforma	AfterApplyPayment_paidInFull	AfterApplyPayment_balance	Batch_Name?	Payment_Method	Visa_Card_Number	Diners_Card_Number	AMEX_Card_Number	Discover_Card_Number	Check_Number	Reference_Number	Expiry_Date	CVV_Number
-1	Yes	ACS	ACS : Regular Member	ACS : Active Renewed-No Response	ACS : Regular Member : Regular Member Dues C&EN-Print	Yes	No	No	Yes	0	SELENIUM_BATCH	Visa/MC	4111111111111111						2018/12	123
+1	No	ACS	ACS : Regular Member	ACS : Active Renewed-No Response	ACS : Regular Member : Regular Member Dues C&EN-Print	Yes	No	No	Yes	0	SELENIUM_BATCH	Visa/MC	4111111111111111						2018/12	123
 2	No	ACS	ACS : Regular Member	ACS : Active Renewed-No Response	ACS : Regular Member : Regular Member Dues C&EN-Print	Yes	No	No	Yes	0	SELENIUM_BATCH	Diners		5412345438954640					2018/12	234
 3	No	ACS	ACS : Regular Member	ACS : Active Renewed-No Response	ACS : Regular Member : Regular Member Dues C&EN-Print	Yes	No	No	Yes	0	SELENIUM_BATCH	AMEX			375000026600004				2018/12	421
 4	No	ACS	ACS : Regular Member	ACS : Active Renewed-No Response	ACS : Regular Member : Regular Member Dues C&EN-Print	Yes	No	No	Yes	0	SELENIUM_BATCH	Discover				6011010000000000			2018/12	758
 5	No	ACS	ACS : Regular Member	ACS : Active Renewed-No Response	ACS : Regular Member : Regular Member Dues C&EN-Print	Yes	No	No	Yes	0	SELENIUM_BATCH	Visa/MC	5112000100000000						2018/12	123
-6	No	ACS	ACS : Regular Member	ACS : Active Renewed-No Response	ACS : Regular Member : Regular Member Dues C&EN-Print	Yes	No	No	Yes	0	SELENIUM_BATCH	BOA - Check					1111			
+6	Yes	ACS	ACS : Regular Member	ACS : Active Renewed-No Response	ACS : Regular Member : Regular Member Dues C&EN-Print	Yes	No	No	Yes	0	SELENIUM_BATCH	BOA - Check					1111			
 7	No	ACS	ACS : Regular Member	ACS : Active Renewed-No Response	ACS : Regular Member : Regular Member Dues C&EN-Print	Yes	No	No	Yes	0	SELENIUM_BATCH	cash						1234567890		
 8	No	ACS	ACS : Regular Member	ACS : Active Renewed-No Response	ACS : Regular Member : Regular Member Dues C&EN-Print	Yes	No	No	Yes	0	SELENIUM_BATCH	check					1111			

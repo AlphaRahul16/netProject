@@ -65,7 +65,7 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		hardWaitForChromeBrowser(6);
 		enterMemberDetail("addressLine1", street);
 		wait.hardWait(5);
-		if(ConfigPropertyReader.getProperty("tier").contains("Stage7") || ConfigPropertyReader.getProperty("tier").contains("stage7"))		
+		if(ConfigPropertyReader.getProperty("tier").contains("dev9") || ConfigPropertyReader.getProperty("tier").contains("Dev9"))		
 			enterMemberDetailsCity("city/state/zip", city);
 		else
 			enterMemberDetails("city/state/zip", city);		
@@ -164,12 +164,12 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		try {
 			isElementDisplayed("inp_" + detailName);
 			String actualText = element("inp_" + detailName).getAttribute("value").trim();
-			Assert.assertTrue(actualText.equalsIgnoreCase(detailValue));
+			Assert.assertTrue(actualText.equalsIgnoreCase(detailValue),"ASSERT FAILED: Expected is "+detailValue+ " but fiund "+ actualText);
 			logMessage("ASSERT PASSED : Verified " + detailValue + " in " + detailName + " \n");
 		} catch (StaleElementReferenceException E) {
 			isElementDisplayed("inp_" + detailName);
 			String actualText = element("inp_" + detailName).getAttribute("value").trim();
-			Assert.assertTrue(actualText.equalsIgnoreCase(detailValue));
+			Assert.assertTrue(actualText.equalsIgnoreCase(detailValue),"ASSERT FAILED: Expected is "+detailValue+ " but fiund "+ actualText);
 			logMessage("ASSERT PASSED : Verified " + detailValue + " in " + detailName + " \n");
 		}
 	}
@@ -177,7 +177,7 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 	public void getAndVerifyMemberDetailInAddVerify(String detailName, String detailValue) {
 		isElementDisplayed("inp_addVerify", detailName);
 		String actualText = element("inp_addVerify", detailName).getAttribute("value").trim();
-		Assert.assertTrue(actualText.equalsIgnoreCase(detailValue));
+		Assert.assertTrue(actualText.equalsIgnoreCase(detailValue),"ASSERT FAILED: Expected is "+detailValue+ " but fiund "+ actualText);
 		logMessage("ASSERT PASSED : Verified " + detailValue + " in " + detailName + " \n");
 	}
 

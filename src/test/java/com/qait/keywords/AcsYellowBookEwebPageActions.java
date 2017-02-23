@@ -76,7 +76,7 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("hd_welcome");
 		Assert.assertTrue(element("hd_welcome").getText().contains(judgeName.split(" ")[0]),
-				"Heading is not contains last name");
+				"ASSERT FAILED : Heading is not contains last name");
 		Assert.assertTrue(element("hd_welcome").getText().contains(judgeName.split(" ")[1]),
 				"Heading is not contains first name");
 		logMessage("ASSERT PASSED : Judge name " + judgeName + " login successfully\n");
@@ -129,16 +129,17 @@ public class AcsYellowBookEwebPageActions extends ASCSocietyGenericPage {
 		}
 		isElementDisplayed("btn_submit");
 		clickUsingXpathInJavaScriptExecutor(element("btn_submit"));
-		//element("btn_submit").click();
+		// element("btn_submit").click();
 	}
 
 	public void verifyUpdatedAddressOnYellowBookHomePage(String address) {
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("txt_updated_add");
-		System.out.println("address******"+address);
-		System.out.println("Address vUI"+element("txt_updated_add").getText().trim());
+		System.out.println("address******" + address);
+		System.out.println("Address vUI" + element("txt_updated_add").getText().trim());
 		// logMessage(element("txt_updated_add").getText().trim());
-		Assert.assertTrue(element("txt_updated_add").getText().trim().contains(address));
+		Assert.assertTrue(element("txt_updated_add").getText().trim().contains(address),
+				"Expected Address is " + address + " but found " + element("txt_updated_add").getText().trim());
 		logMessage("ASSERTION PASSED : Verified Updated Address" + address + " on Yellow Book Home Page");
 	}
 
