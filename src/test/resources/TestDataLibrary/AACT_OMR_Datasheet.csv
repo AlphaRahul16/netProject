@@ -1,5 +1,8 @@
-caseID	 caseID Execute	How do you want to receive ChemMatters?	Gender	Payment_Method	Card_Number	Expiry_Month	Expiry_Year	CVV_Number	Experience	GradMonth	GradYear
-1	No	Print	Male	Visa/MC	4111111111111111	8	2022	123	11	August	2018
-2	No	Electronic	Female	Visa/MC	4111111111111111	8	2022	123	11	August	2018
-3	No	Print and Electronic	Prefer Not to Say	Visa/MC	4111111111111111	8	2022	123	11	August	2018
-4	Yes	None	Prefer Not to Say	Visa/MC	4111111111111111	8	2022	123	11	August	2018
+caseID	 caseID Execute	How do you want to receive ChemMatters?	Gender	Payment_Method	Expiry_Month	Expiry_Year	CVV_Number	Experience	GradMonth	GradYear	Visa_Card_Number	Diners_Card_Number	AMEX_Card_Number	Discover_Card_Number	Check_Number	Reference_Number
+1	No	Print	Male	Visa/MC	8	2022	123	11	August	2018						
+2	No	Electronic	Female	Visa/MC	8	2022	123	11	August	2018						
+3	No	Print and Electronic	Prefer Not to Say	Visa/MC	8	2022	123	11	August	2018						
+4	Yes	None	Prefer Not to Say	AMEX	8	2022	123	11	August	2018						
+				Discover	8	2022										
+				Diners	8	2022										
+				Diners	8	2022										
