@@ -385,6 +385,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	public void verifyUserIsOnEwebLoginPage() {
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(2);
+		wait.hardWait(4);
 		isElementDisplayed("inp_userName");
 		isElementDisplayed("inp_password");
 		isElementDisplayed("btn_verify");

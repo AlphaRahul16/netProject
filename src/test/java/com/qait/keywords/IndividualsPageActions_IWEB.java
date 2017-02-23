@@ -2314,7 +2314,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		Assert.assertTrue(element("txt_updatedLogsBPA", GiftCardNumber, index).getText().trim().contains(value),
 				"ASSERT FAILED: Expected value is " + value + " but found "
 						+ element("txt_updatedLogsBPA", GiftCardNumber, index).getText().trim());
-		logMessage("ASSERT P0" + "cccccccccccccc        ASSED : gift card details on iweb is verified as " + value);
+		logMessage("ASSERT PASSED : gift card details on iweb is verified as " + value);
 	}
 
 	public void verifyRedeemedGiftCardDetails(String giftCardNumber, String pricevalue) {

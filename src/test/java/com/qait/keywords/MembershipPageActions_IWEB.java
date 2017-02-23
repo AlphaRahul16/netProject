@@ -1488,6 +1488,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void enterProductCode(String prodCode) {
 		hardWaitForIEBrowser(5);
+		wait.hardWait(2);
 		switchToDefaultContent();
 		switchToFrame(element("iframe"));
 		isElementDisplayed("inp_prdCode");
@@ -2954,6 +2955,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyTransferPackagePage() {
+		wait.hardWait(4);
 		isElementDisplayed("heading_transferPackage");
 		logMessage("STEP : Member navigated to Transfer Package Page\n");
 		switchToFrame("iframe1");
