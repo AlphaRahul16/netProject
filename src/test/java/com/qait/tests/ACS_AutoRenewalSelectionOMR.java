@@ -3,6 +3,7 @@ package com.qait.tests;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
@@ -22,7 +24,12 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest{
 	String queryPageUrl;
 	private List<String> memDetails;
 	Map<String,String> mapRenewedProductDetails;
-
+	Map<String, String> mapOMR = new HashMap<String, String>();
+	private String sheetname;
+	public ACS_AutoRenewalSelectionOMR() {
+		sheetname = com.qait.tests.DataProvider_FactoryClass.sheetName = "AutoRenewalSelectionOMR";
+		System.out.println("SheetName" + sheetname);
+	}
 
 	@Test
 	public void Step01_launch_Iweb_And_Select_Valid_User_For_AutoRenewal_In_OMR()
@@ -56,11 +63,18 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest{
 	public void Step04_Save_Respective_Products_Amounts_And_Submit_Payment_Details() {
 
 		mapRenewedProductDetails = test.asm_OMR.saveProductsWithRespectiveRenewalAmount();
-		test.asm_OMR.submitPaymentDetailsForAutoRenewal(YamlReader.getYamlValue("creditCardInfo.Type"),
-				(memDetails.get(0).split(" ")[1] + " " + memDetails.get(0).split(" ")[0]),
-				YamlReader.getYamlValue("creditCardInfo.Number"), YamlReader.getYamlValue("creditCardInfo.cvv-number"),
-				YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[0],
-				YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[1]);
+//		test.asm_OMR.submitPaymentDetailsForAutoRenewal(YamlReader.getYamlValue("creditCardInfo.Type"),
+//				(memDetails.get(0).split(" ")[1] + " " + memDetails.get(0).split(" ")[0]),
+//				YamlReader.getYamlValue("creditCardInfo.Number"), YamlReader.getYamlValue("creditCardInfo.cvv-number"),
+//				YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[0],
+//				YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[1]);
+		test.asm_OMR.submitPaymentDetails(mapOMR.get("CreditCard_Type"),
+				(memDetails.get(0).split(" ")[1] + " " + memDetails.get(0)
+						.split(" ")[0]), toString().valueOf(mapOMR.get("Visa_Card_Number").trim()), mapOMR.get("Diners_Card_Number"),
+				mapOMR.get("Discover_Card_Number"),mapOMR.get("AMEX_Card_Number"),
+				mapOMR.get("CVV_Number"), mapOMR
+						.get("CreditCardExpiration_Month"), mapOMR
+						.get("CreditCardExpiration_Year"));
 		test.asm_OMR.clickOnSubmitPayment();
 
 	}
@@ -99,6 +113,7 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest{
 
 	@BeforeClass
 	public void open_Browser_Window() {
+		mapOMR = test.homePageIWEB.addValuesInMap(sheetname, caseID);
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url_OMR = getYamlValue("app_url_OMR");
 		app_url_IWEB = getYamlValue("app_url_IWEB");
