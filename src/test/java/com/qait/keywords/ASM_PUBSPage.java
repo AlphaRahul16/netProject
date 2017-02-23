@@ -316,12 +316,29 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		isElementDisplayed("tr_saved");
 	}
 
-	public void submitPaymentDetails(String cardType, String cardholderName, String cardNumber, String cvvNumber,
-			String year_Value) {
+	public void submitPaymentDetails(String PaymentMethod, String cardholderName, String cardNumber,String dinerscardNumber,
+			String discovercardNumber,String AMEXcardNumber, String cvvNumber,String year_Value) {
 		verifyPaymentPage();
-		selectCreditCardType(cardType);
+		selectCreditCardType(PaymentMethod);
 		enterCreditCardHolderName(cardholderName);
-		enterCreditCardNumber(cardNumber);
+		switch (PaymentMethod) {
+		case "Visa/MC":
+			enterCreditCardNumber(cardNumber);
+			break;
+
+		case "Diners":
+			enterCreditCardNumber( dinerscardNumber);
+			break;
+
+		case "Discover":
+			enterCreditCardNumber(discovercardNumber);
+			break;
+		case "AMEX":
+			enterCreditCardNumber(AMEXcardNumber);
+			break;
+
+		}
+		
 		enterCVVNumber(cvvNumber);
 		selectExpirationYear(year_Value);
 		clickOnConfirmOrderButton();

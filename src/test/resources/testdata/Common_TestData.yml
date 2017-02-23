@@ -1,5 +1,5 @@
 
-csv-data-file:
+csv-data-file: 
   path_AACT_OMR: ./src/test/resources/TestDataLibrary/AACT_OMR_Datasheet.csv
   path_OMA: ./src/test/resources/TestDataLibrary/OMA Business Rules.csv
   path_PriceValue: ./src/test/resources/TestDataLibrary/PriceValues.csv
@@ -35,6 +35,8 @@ csv-data-file:
   path_COE_Inventory: ./src/test/resources/TestDataLibrary/COEInventory.csv
   path_Apply_Payment_Sheet: ./src/test/resources/TestDataLibrary/Apply_Payment_Sheet.csv
   path_Renewal_IWeb_Sheet: ./src/test/resources/TestDataLibrary/Renewal_IWeb_Datasheet.csv
+  path_OMR_Express_Datasheet: ./src/test/resources/TestDataLibrary/OMR_Express_Datasheet.csv
+  path_PBA_Datasheet: ./src/test/resources/TestDataLibrary/PBA_Datasheet.csv
   path_AutoRenewalSelectionOMR:   ./src/test/resources/TestDataLibrary/AutoRenewalSelectionOMR.csv
   
   data-separator: '\t'

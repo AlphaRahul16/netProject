@@ -45,7 +45,7 @@ public class ACS_MGM_Test extends BaseTest {
 		app_url_MGMjoin = getYamlValue("app_url_MGMjoin");
 		app_url_MGMOptOut = getYamlValue("app_url_MGMOputOut");
 		app_url_MGMLogout = getYamlValue("app_url_MGMLogout");
-		ASCSocietyGenericPage.addValuesInMap("MGM", caseID);
+		ASCSocietyGenericPage.addValuesInMap("MGM", toString().valueOf(caseID));
 		test.launchApplication(app_url_IWEB);
 		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));

@@ -792,7 +792,9 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 			break;
 
 		}
+		wait.hardWait(4);
 		selectPaymentInfo("ExpirationMonth", expireMonth);
+		wait.hardWait(4);
 		selectPaymentInfo("ExpirationYear", expireYear);
 		enterPaymentInfo("CcvNumber", cvvNumber);
 	}
