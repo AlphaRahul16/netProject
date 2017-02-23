@@ -287,6 +287,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		selectExpirationDate_Year("Year", year_Value);
 		checkEula();
 		clickOnContinueButton();
+		wait.hardWait(20);
 		switchToDefaultContent();
 
 	}

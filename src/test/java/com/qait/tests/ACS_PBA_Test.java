@@ -6,11 +6,14 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
@@ -23,6 +26,16 @@ public class ACS_PBA_Test extends BaseTest {
 	String app_url_IWEB, individualName, webLogin, app_url_PUBS, passportAmountValue, subscriptionsAmountValue,
 			totalAmount, customerId;
 	String fName, LName;
+	Map<String, String> mapPba = new HashMap<String, String>();
+
+	public ACS_PBA_Test() {
+		com.qait.tests.DataProvider_FactoryClass.sheetName = "PBA_Datasheet";
+	}
+
+	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
+	public ACS_PBA_Test(String caseID) {
+		this.caseID = caseID;
+	}
 
 	@BeforeClass
 	public void Open_Browser_Window() {
@@ -38,6 +51,7 @@ public class ACS_PBA_Test extends BaseTest {
 
 	@Test
 	public void Step01_Launch_Iweb_Application_And_Verify_User_Is_On_Home_Page() {
+		mapPba = test.homePageIWEB.addValuesInMap("PBA_Datasheet", caseID);
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
@@ -85,11 +99,10 @@ public class ACS_PBA_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step05_Add_Product_For_EPassport_And_ESubscriptions_And_Verify_Total_Amount_For_Added_Products")
 	public void Step06_Fill_Billing_Information_And_Place_Order() {
-		test.asm_PUBSPage.submitPaymentDetails(YamlReader.getYamlValue("Acs_CreateMember_IWEB.paymentMethod"),
-				memDetails.get(0).split(" ")[1] + " " + memDetails.get(0).split(" ")[0],
-				YamlReader.getYamlValue("Acs_CreateMember_IWEB.cardNumber"),
-				YamlReader.getYamlValue("Acs_CreateMember_IWEB.cvvNumber"),
-				YamlReader.getYamlValue("Acs_CreateMember_IWEB.yearValue"));
+		test.asm_PUBSPage.submitPaymentDetails(mapPba.get("Payment_Method"),
+				memDetails.get(0).split(" ")[1] + " " + memDetails.get(0).split(" ")[0], mapPba.get("Visa_Card_Number"),
+				mapPba.get("Diners_Card_Number"), mapPba.get("Discover_Card_Number"), mapPba.get("AMEX_Card_Number"),
+				mapPba.get("CVV_Number"), mapPba.get("CreditCardExpiration_Year"));
 		test.asm_PUBSPage.clickOnPlaceOrder();
 	}
 
@@ -99,18 +112,15 @@ public class ACS_PBA_Test extends BaseTest {
 		test.asm_PUBSPage.verifyDataFromPdfFile();
 	}
 
-	// @Test(dependsOnMethods =
-	// "Step07_Verify_ProductName_And_ProductAmount_With_Downloaded_PDF_Receipt")
-	// public void
-	// Step08_Verify_Selected_Products_With_Amount_On_Iweb_Application() {
-	// test.launchApplication(app_url_IWEB);
-	// test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and
-	// Setup");
-	// test.homePageIWEB.clickOnSideBarTab("Individuals");
-	// test.memberShipPage.clickOnTab("Find Individual");
-	// test.asm_PUBSPage.clickOnGoButtonWithCustomerLoginId(customerId);
-	// test.asm_PUBSPage.clickOnActiveSubscription();
-	// test.asm_PUBSPage.verifyDataFromInitialPage();
-	// }
+	@Test(dependsOnMethods = "Step07_Verify_ProductName_And_ProductAmount_With_Downloaded_PDF_Receipt")
+	public void Step08_Verify_Selected_Products_With_Amount_On_Iweb_Application() {
+		test.launchApplication(app_url_IWEB);
+		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
+		test.homePageIWEB.clickOnSideBarTab("Individuals");
+		test.memberShipPage.clickOnTab("Find Individual");
+		test.asm_PUBSPage.clickOnGoButtonWithCustomerLoginId(customerId);
+		test.asm_PUBSPage.clickOnActiveSubscription();
+		test.asm_PUBSPage.verifyDataFromInitialPage();
+	}
 
 }

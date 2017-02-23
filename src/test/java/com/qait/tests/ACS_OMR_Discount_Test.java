@@ -51,7 +51,7 @@ public class ACS_OMR_Discount_Test extends BaseTest {
 	public void handleTestMethodName(Method method) {
 		test.printMethodName(method.getName());
 	}
-	
+
 	@Test
 	public void Step01_Launch_IWEB_Application_And_Navigate_To_Find_Members_Tab() {
 		mapOMRDiscount = test.homePageIWEB.addValuesInMap(sheetname, caseID);
@@ -105,12 +105,12 @@ public class ACS_OMR_Discount_Test extends BaseTest {
 
 	@Test
 	public void Step07_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage() {
-		test.asm_OMR.submitPaymentDetails(mapOMRDiscount.get("CreditCard_Type"),
-				(memDetails.get(0) + " " + memDetails.get(1)), mapOMRDiscount.get("Visa_Card_Number"), mapOMRDiscount.get("Diners_Card_Number"),
-				mapOMRDiscount.get("Discover_Card_Number"),mapOMRDiscount.get("AMEX_Card_Number"),
-				mapOMRDiscount.get("CreditCard_CVV_Number"), mapOMRDiscount
-						.get("CreditCardExpiration_Month"), mapOMRDiscount
-						.get("CreditCardExpiration_Year"));
+		test.asm_OMR.submitPaymentDetails(mapOMRDiscount.get("Payment_Method"),
+				(memDetails.get(1) + " " + memDetails.get(0)), mapOMRDiscount.get("Visa_Card_Number"),
+				mapOMRDiscount.get("Diners_Card_Number"),
+				mapOMRDiscount.get("Discover_Card_Number"), mapOMRDiscount.get("AMEX_Card_Number"),
+				mapOMRDiscount.get("CreditCard_CVV_Number"), mapOMRDiscount.get("CreditCardExpiration_Month"),
+				mapOMRDiscount.get("CreditCardExpiration_Year"));
 		test.asm_OMR.verifyRenewedProductsSummaryOnCheckOutPage(mapRenewedProductDetails);
 		test.asm_OMR.clickOnSubmitPayment();
 		// test.asm_OMR.verifyPrintReceiptMessageAfterPayment();

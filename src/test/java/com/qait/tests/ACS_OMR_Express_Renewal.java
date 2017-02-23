@@ -23,14 +23,6 @@ public class ACS_OMR_Express_Renewal extends BaseTest {
 	Map<String, String> mapExpressRenewal = new HashMap<String, String>();
 	Map<String, String> mapOMR = new HashMap<String, String>();
 	
-	public ACS_OMR_Express_Renewal() {
-		sheetname = com.qait.tests.DataProvider_FactoryClass.sheetName = "OMR";
-		}
-
-	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
-	public ACS_OMR_Express_Renewal(String caseID) {
-		this.caseID = caseID;
-	}
 
 	@BeforeClass
 	public void open_Browser_Window() {
@@ -40,10 +32,20 @@ public class ACS_OMR_Express_Renewal extends BaseTest {
 		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
 	}
+	
+	public ACS_OMR_Express_Renewal() {
+		  com.qait.tests.DataProvider_FactoryClass.sheetName = "OMR_Express_Datasheet";
+	}
 
+	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
+	public ACS_OMR_Express_Renewal(String caseID) {
+		this.caseID = caseID;
+	}
+	
 	@Test
 	public void Step01_Launch_IWEB_Application_And_Run_Express_Renewal_Query() {
-		mapExpressRenewal = test.homePageIWEB.addValuesInMap(sheetname, caseID);
+		mapExpressRenewal = test.homePageIWEB.addValuesInMap("OMR_Express_Datasheet", caseID);
+
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.homePageIWEB.clickOnTab("Query Individual");
 		test.memberShipPage.selectAndRunQuery("Selenium - BP Renewal Express Url");
@@ -75,16 +77,17 @@ public class ACS_OMR_Express_Renewal extends BaseTest {
 	}
 
 	@Test(dependsOnMethods = { "Step04_Save_All_Renewed_product_Details_And_Fetch_Member_Name" })
-	public void Step05_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage() {
+	public void Step05_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage() {	
+		test.asm_OMR.submitPaymentDetails(mapExpressRenewal.get("Payment_Method"),
+				(customername.split(" ")[0]+" "+customername.split(" ")[1]), mapExpressRenewal.get("Visa_Card_Number"), mapExpressRenewal.get("Diners_Card_Number"),
+				mapExpressRenewal.get("Discover_Card_Number"),mapExpressRenewal.get("AMEX_Card_Number"),
+				mapExpressRenewal.get("CVV_Number"), mapExpressRenewal
+						.get("CreditCardExpiration_Month"), mapExpressRenewal
+						.get("CreditCardExpiration_Year"));
 
-		test.asm_OMR.submitPaymentDetails(mapExpressRenewal.get("CreditCard_Type"),
-				(customername.split(" ")[0] + " " + customername.split(" ")[1]),
-				mapExpressRenewal.get("Visa_Card_Number"), mapExpressRenewal.get("Diners_Card_Number"),
-				mapExpressRenewal.get("Discover_Card_Number"), mapExpressRenewal.get("AMEX_Card_Number"),
-				mapExpressRenewal.get("CVV_Number"), mapExpressRenewal.get("CreditCardExpiration_Month"),
-				mapExpressRenewal.get("CreditCardExpiration_Year"));
+		test.asm_OMR
+				.verifyRenewedProductsSummaryOnCheckOutPage(mapRenewedProductDetails);
 
-		test.asm_OMR.verifyRenewedProductsSummaryOnCheckOutPage(mapRenewedProductDetails);
 		test.asm_OMR.clickOnSubmitPayment();
 		imvoicenumber = test.asm_OMR.geInvoiceNumberOnOMRReceiptPage("RenewalNumber");
 		test.asm_OMR.verifyPrintReceiptMessageAfterPayment();
