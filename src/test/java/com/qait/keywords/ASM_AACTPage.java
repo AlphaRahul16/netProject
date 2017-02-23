@@ -107,11 +107,15 @@ public class ASM_AACTPage extends ASCSocietyGenericPage {
 				isElementDisplayed("inp_schoolWorkInfo", detailType);
 			}
 			try {
-				Assert.assertTrue(element("inp_schoolWorkInfo", detailType).getAttribute("value").trim()
-						.equalsIgnoreCase(detailValue));
+				Assert.assertTrue(
+						element("inp_schoolWorkInfo", detailType).getAttribute("value").trim()
+								.equalsIgnoreCase(detailValue),
+						"ASSERT FAILED: Expected is " + detailValue + " but found "
+								+ element("inp_schoolWorkInfo", detailType).getAttribute("value").trim());
 			} catch (StaleElementReferenceException stlExp) {
 				Assert.assertTrue(element("inp_schoolWorkInfo", detailType).getAttribute("value").trim()
-						.equalsIgnoreCase(detailValue));
+						.equalsIgnoreCase(detailValue),"ASSERT FAILED: Expected is " + detailValue + " but found "+
+								element("inp_schoolWorkInfo", detailType).getAttribute("value").trim());
 			}
 			logMessage("ASSERT PASSED : " + detailValue + " is verified in " + detailType + "\n");
 		} else {
@@ -138,7 +142,8 @@ public class ASM_AACTPage extends ASCSocietyGenericPage {
 	public String verifySelectedDropDownValue(String detailType, String detailValue) {
 		if (!detailValue.equalsIgnoreCase("null")) {
 			isElementDisplayed("txt_selectedDetail", detailType);
-			Assert.assertTrue(element("txt_selectedDetail", detailType).getText().equalsIgnoreCase(detailValue));
+			Assert.assertTrue(element("txt_selectedDetail", detailType).getText().equalsIgnoreCase(detailValue),
+					"ASSERT FAILED: Expected is " + detailValue + " but found "+element("txt_selectedDetail", detailType).getText());
 			logMessage("AASERT PASSED : " + detailValue + " is verified for " + detailType + " \n");
 			return detailValue;
 		} else {
@@ -362,8 +367,5 @@ public class ASM_AACTPage extends ASCSocietyGenericPage {
 		// TODO Auto-generated method stub
 
 	}
-
-	
-	
 
 }

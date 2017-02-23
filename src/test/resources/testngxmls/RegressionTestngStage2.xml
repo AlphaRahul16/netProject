@@ -2,11 +2,11 @@
 <suite name="ACS Tests" preserve-order="true" thread-count="1"
 	configfailurepolicy="continue" parallel="tests">
 
-	<!-- <test name="ACS Address Validation Test"> -->
-	<!-- <classes> -->
-	<!-- <class name="com.qait.tests.ACS_Address_Validation_Test" /> -->
-	<!-- </classes> -->
-	<!-- </test> -->
+	<test name="ACS Address Validation Test">
+		<classes>
+			<class name="com.qait.tests.ACS_Address_Validation_Test" />
+		</classes>
+	</test>
 
 	<!-- <test name="ACS_AddressChangeTermsInvoice_Test" -->
 	<!-- group-by-instances="true"> -->
@@ -63,11 +63,11 @@
 	<!-- </classes> -->
 	<!-- </test> -->
 
-	<test name="Fundraising Module" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_Fundraising_Module_Test" />
-		</classes>
-	</test>
+<!-- 	<test name="Fundraising Module" group-by-instances="true"> -->
+<!-- 		<classes> -->
+<!-- 			<class name="com.qait.tests.ACS_Fundraising_Module_Test" /> -->
+<!-- 		</classes> -->
+<!-- 	</test> -->
 
 	<!-- <test name="ACS Rubber Insurance Test" group-by-instances="true"> -->
 	<!-- <classes> -->
@@ -81,17 +81,17 @@
 	<!-- </classes> -->
 	<!-- </test> -->
 
-	<test name="inventory product fulfillment" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.Inventory_Product_Fulfillment_Test"></class>
-		</classes>
-	</test>
+<!-- 	<test name="inventory product fulfillment" group-by-instances="true"> -->
+<!-- 		<classes> -->
+<!-- 			<class name="com.qait.tests.Inventory_Product_Fulfillment_Test"></class> -->
+<!-- 		</classes> -->
+<!-- 	</test> -->
 
-	<test name="ACS Create Member IWEB Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_Create_Member_IWEB_Test"></class>
-		</classes>
-	</test>
+<!-- 	<test name="ACS Create Member IWEB Test" group-by-instances="true"> -->
+<!-- 		<classes> -->
+<!-- 			<class name="com.qait.tests.ACS_Create_Member_IWEB_Test"></class> -->
+<!-- 		</classes> -->
+<!-- 	</test> -->
 
 	<!-- <test name="ACS StoreFactoryClass"> -->
 	<!-- <classes> -->

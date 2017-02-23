@@ -141,8 +141,11 @@ public class ASM_CCEDPage extends ASCSocietyGenericPage {
 
 	public void VerifyThankyouMessage() {
 		isElementDisplayed("txt_thankYouMessage");
-		Assert.assertTrue(element("txt_thankYouMessage").getText().trim()
-				.equalsIgnoreCase("Thank you. Your form has been submitted."));
+		Assert.assertTrue(
+				element("txt_thankYouMessage").getText().trim()
+						.equalsIgnoreCase("Thank you. Your form has been submitted."),
+				"Expected message is 'Thank you. Your form has been submitted.' but found "
+						+ element("txt_thankYouMessage").getText().trim());
 		logMessage("ASSERT PASSED : Thank you message Thank you. Your form has been submitted. is verified\n");
 	}
 

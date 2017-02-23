@@ -85,7 +85,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 			isElementDisplayed("td_subscription", name, String.valueOf(getProductAmount(productAmount.get(i))));
 			i++;
 		}
-		logMessage("ASSERTION PASSED : Verified Product Names and amount under Active Subscription on IWEB");
+		logMessage("ASSERT PASSED : Verified Product Names and amount under Active Subscription on IWEB");
 	}
 
 	public void waitForSpinner() {
@@ -127,27 +127,25 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		System.out.println("===================================================================================");
 		String pdfContent = extractFromPdf("report", 1,"downloads");
 		System.out.println("PDF Content::" + pdfContent);
-
-		for (String product_Name : productName) {
-			System.out.println("In PDF Method::" + product_Name);
-		}
-
 		System.out.println("====================================================================================");
 
 		for (String product_Amount : productAmount) {
 			System.out.println("In PDF Method for Amount::" + product_Amount);
-			Assert.assertTrue(pdfContent.contains(product_Amount));
+			Assert.assertTrue(pdfContent.contains(product_Amount),
+					"ASSERT FAILED: PDF content does not contain product amount as "+product_Amount);
 			logMessage("ASSERTION PASSED : Verified Product Amount " + product_Amount + " in Invoice Receipt");
 		}
 
 		for (String product_Name : productName) {
 			System.out.println("In PDF Method::" + product_Name);
-			if (product_Name.contains(YamlReader.getYamlValue("ACS_PBA_Product.shortName"))) {
+			if (product_Name.contains(YamlReader.getYamlValue("ACS_PBA_Product.fullName"))) {
 				System.out.println("***************" + product_Name);
-				Assert.assertTrue(pdfContent.contains(YamlReader.getYamlValue("ACS_PBA_Product.fullName")));
+				Assert.assertTrue(pdfContent.contains(YamlReader.getYamlValue("ACS_PBA_Product.shortName")),
+						"ASSERT FAILED: PDF content does not contain product amount as "+product_Name);
 			} else {
 				System.out.println("*******:" + product_Name);
-				Assert.assertTrue(pdfContent.contains(product_Name));
+				Assert.assertTrue(pdfContent.contains(product_Name),
+						"ASSERT FAILED: PDF content does not contain product amount as "+product_Name);
 			}
 			logMessage("ASSERTION PASSED : Verified Product Name " + product_Name + " is available in Invoice Receipt");
 		}
@@ -160,18 +158,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 				+ ".pdf";
 
 		File sourceFile = new File(source);
-		// try {
-		// System.out.println("-----"+sourceFile.exists());
-		// FileUtils.forceDelete(sourceFile);
-		// logMessage("Already Existed File is deleted from location " +
-		// sourceFile.getAbsolutePath());
-		// } catch (IOException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
 		if (sourceFile.exists()) {
-
-			System.out.println(sourceFile.delete());
 			sourceFile.delete();
 			logMessage("STEP: Already Existed File is deleted from location " + sourceFile.getAbsolutePath());
 		}
@@ -401,7 +388,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		isElementDisplayed("inp_userName");
 		isElementDisplayed("inp_password");
 		isElementDisplayed("btn_verify");
-		logMessage("ASSERTION PASSED : Verified User Is On Eweb Login Page");
+		logMessage("ASSERT PASSED : Verified User Is On Eweb Login Page");
 	}
 
 	public void verifyUserIsOnHomePageForEwebPBA(String individualName) {
@@ -411,7 +398,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 		String s = (String) executeJavascriptReturnValue("document.getElementsByTagName('span')[3].innerHTML;");
 		Assert.assertTrue(individualName.contains(s));
-		logMessage("ASSERTION PASSED : Verified User Is On Home Page for Eweb Application");
+		logMessage("ASSERT PASSED : Verified User Is On Home Page for Eweb Application");
 	}
 
 	public void verifyDataFromPdfFileForAACTOMR(String membershipType, String invoiceTotal, String customerID,
@@ -422,7 +409,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 			flag = _verifyPDFFileIsDownloadedForAACTOMR("report");
 			if (flag) {
 				Assert.assertTrue(flag);
-				logMessage("ASSERTION PASSED: report.pdf file is downloaded");
+				logMessage("ASSERT PASSED: report.pdf file is downloaded");
 				String pdfContent = extractFromPdf("report", 1,"downloads");
 				System.out.println("PDF Content::" + pdfContent);
 				verifyDetailsFromPDFFile(pdfContent, membershipType, "Membership Type");
@@ -442,8 +429,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	}
 
 	private void verifyDetailsFromPDFFile(String pdfContent, String value, String text) {
-		System.out.println(value + " as " + text);
-		Assert.assertTrue(pdfContent.contains(value));
+		Assert.assertTrue(pdfContent.contains(value),"ASSERTION FAILED :" + text + " does not has expected value as " + value);
 		logMessage("ASSERTION PASSED : Verified " + text + " as " + value);
 
 	}
@@ -455,6 +441,5 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		File sourceFile = new File(source);
 		boolean flag = sourceFile.exists();
 		return flag;
-		// Assert.assertTrue(sourceFile.exists());
 	}
 }

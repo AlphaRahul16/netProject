@@ -97,7 +97,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnRunQuery();
 	}
 
-
 	public List<String> selectAndRunQueryForMemberOrNonMember(String caseId) {
 		String memberStatus = getACS_Store_SheetValue(caseId, "Member?");
 		logMessage("STEP : Member status is " + memberStatus + " in spreadsheet\n");
@@ -664,7 +663,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyCrossMarked(String memberDetailsName) {
 		isElementDisplayed("img_cross", memberDetailsName);
-		Assert.assertTrue(element("img_cross", memberDetailsName).getAttribute("src").contains("img_list_delete1.gif"));
+		Assert.assertTrue(element("img_cross", memberDetailsName).getAttribute("src").contains("img_list_delete1.gif"),
+				"ASSERT FAILED: Expected value should contains 'img_list_delete1.gif' but found "
+						+ element("img_cross", memberDetailsName).getAttribute("src"));
 		logMessage("ASSERT PASSED : Cross marked is verified for " + memberDetailsName + "\n");
 	}
 
@@ -869,12 +870,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		try {
 			isElementDisplayed("img_ticked", index);
 			String src = element("img_ticked", index).getAttribute("src");
-			Assert.assertTrue(src.contains("img_chkmk.gif"));
+			Assert.assertTrue(src.contains("img_chkmk.gif"),
+					"ASSERT FAILED: Expected value should contains 'img_chkmk.gif' but found " + src);
 		} catch (StaleElementReferenceException stlExp) {
-			System.out.println("Stale element catched\n");
+
 			isElementDisplayed("img_ticked", index);
 			String src = element("img_ticked", index).getAttribute("src");
-			Assert.assertTrue(src.contains("img_chkmk.gif"));
+			Assert.assertTrue(src.contains("img_chkmk.gif"),
+					"ASSERT FAILED: Expected value should contains 'img_chkmk.gif' but found " + src);
 		}
 
 		logMessage("ASSERT PASSED : Verified ticked mark for " + memberDetailsName + "\n");
@@ -1661,7 +1664,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		expandDetailsMenuIfAlreadyExpanded("detail");
 		isElementDisplayed("txt_joinDate_chapter", "create credit");
 		Assert.assertTrue(element("txt_joinDate_chapter", "create credit").getText().trim().equals(creditAmount),
-				"ASSERT FAILED : Credit amount is not same");
+				"ASSERT FAILED : Credit amount is not same. Expected value is " + creditAmount + " but found "
+						+ element("txt_joinDate_chapter", "create credit").getText());
 		logMessage("ASSERT PASSED : credit amount is: " + creditAmount);
 	}
 
@@ -1853,7 +1857,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_recordNumberAtMemberQuery");
 		String recordNumber = element("txt_recordNumberAtMemberQuery").getText().trim();
 
-		Assert.assertTrue(recordNumber.equalsIgnoreCase("(" + numberOfRecords + " records)"));
+		Assert.assertTrue(recordNumber.equalsIgnoreCase("(" + numberOfRecords + " records)"),
+				"ASSERT FAILED: Expected value is " + "(" + numberOfRecords + " records)" + " but found "
+						+ recordNumber);
 		logMessage("STEP : Multiple records are presents in the List - Member Query by Member Number - Multiple \n");
 
 	}
@@ -1885,16 +1891,19 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_membershipProfileInfo", memberdetail);
 
 		Assert.assertTrue(
-				element("txt_membershipProfileInfo", memberdetail).getText().trim().equalsIgnoreCase(memberValue));
+				element("txt_membershipProfileInfo", memberdetail).getText().trim().equalsIgnoreCase(memberValue),
+				"ASSERT FAILED: Expected value is " + "(" + memberValue + " records)" + " but found "
+						+ element("txt_membershipProfileInfo", memberdetail).getText().trim());
 		logMessage("ASSERT PASSED : " + memberValue + " is verified for " + memberValue + " \n");
 
 	}
 
 	public void verifyMemberDetailsOnMemberShipProfile(String memberdetail, String memberValue) {
 		isElementDisplayed("txt_membershipProfileDetails", memberdetail);
-
 		Assert.assertTrue(
-				element("txt_membershipProfileDetails", memberdetail).getText().trim().equalsIgnoreCase(memberValue));
+				element("txt_membershipProfileDetails", memberdetail).getText().trim().equalsIgnoreCase(memberValue),
+				"ASSERT FAILED: Expected value is " + memberValue + " but found "
+						+ element("txt_membershipProfileDetails", memberdetail).getText().trim());
 		logMessage("ASSERT PASSED : " + memberdetail + " having value " + memberValue + " is verified as " + memberValue
 				+ " \n");
 
@@ -1903,29 +1912,32 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyProductNameInInvoice(String productName, boolean pageLink) {
 		if (pageLink) {
 			isElementDisplayed("txt_productNameOnPage");
-
-			Assert.assertTrue(element("txt_productNameOnPage").getText().trim().equalsIgnoreCase(productName));
-			logMessage("ASSERT PASSED : Product name " + productName + " in invoice is verified\n");
+			Assert.assertTrue(element("txt_productNameOnPage").getText().trim().equalsIgnoreCase(productName),
+					"ASSERT FAILED: Expected value is " + productName + " but found "
+							+ element("txt_productNameOnPage").getText().trim());
 		} else {
 			isElementDisplayed("txt_productName");
-
-			Assert.assertTrue(element("txt_productName").getText().trim().equalsIgnoreCase(productName));
-			logMessage("ASSERT PASSED : Product name " + productName + " in invoice is verified\n");
-
+			Assert.assertTrue(element("txt_productName").getText().trim().equalsIgnoreCase(productName),
+					"ASSERT FAILED: Expected value is " + productName + " but found "
+							+ element("txt_productName").getText().trim());
 		}
+		logMessage("ASSERT PASSED : Product name " + productName + " in invoice is verified\n");
 
 	}
 
 	public void verifyInvoiceIDInInvoice(String invoiceID, boolean pageLink) {
 		if (pageLink) {
 			isElementDisplayed("txt_invoiceIdOnPage");
-
-			Assert.assertTrue(element("txt_invoiceIdOnPage").getText().trim().equalsIgnoreCase(invoiceID));
+			Assert.assertTrue(element("txt_invoiceIdOnPage").getText().trim().equalsIgnoreCase(invoiceID),
+					"ASSERT FAILED: Expected value is " + invoiceID + " but found "
+							+ element("txt_invoiceIdOnPage").getText().trim());
 			logMessage("ASSERT PASSED : Invoice id is " + invoiceID + " in invoice is verified\n");
 		} else {
 			isElementDisplayed("txt_invoiceId");
 
-			Assert.assertTrue(element("txt_invoiceId").getText().trim().equalsIgnoreCase(invoiceID));
+			Assert.assertTrue(element("txt_invoiceId").getText().trim().equalsIgnoreCase(invoiceID),
+					"ASSERT FAILED: Expected value is " + invoiceID + " but found "
+							+ element("txt_invoiceId").getText().trim());
 			logMessage("ASSERT PASSED : Invoice id is " + invoiceID + " in invoice is verified\n");
 
 		}
@@ -1935,29 +1947,32 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyTermStartDateInvoice(String startDate, boolean pageLink) {
 		if (pageLink) {
 			isElementDisplayed("txt_termStartDateOnPage");
-
-			Assert.assertTrue(element("txt_termStartDateOnPage").getText().trim().equalsIgnoreCase(startDate));
-			logMessage("ASSERT PASSED : Term start date is " + startDate + " in invoice is verified\n");
+			Assert.assertTrue(element("txt_termStartDateOnPage").getText().trim().equalsIgnoreCase(startDate),
+					"ASSERT FAILED: Expected value is " + startDate + " but found "
+							+ element("txt_termStartDateOnPage").getText().trim());
 		} else {
 			isElementDisplayed("txt_termStartDate");
-
-			Assert.assertTrue(element("txt_termStartDate").getText().trim().equalsIgnoreCase(startDate));
-			logMessage("ASSERT PASSED : Term start date is " + startDate + " in invoice is verified\n");
+			Assert.assertTrue(element("txt_termStartDate").getText().trim().equalsIgnoreCase(startDate),
+					"ASSERT FAILED: Expected value is " + startDate + " but found "
+							+ element("txt_termStartDate").getText().trim());
 		}
+		logMessage("ASSERT PASSED : Term start date is " + startDate + " in invoice is verified\n");
 	}
 
 	public void verifyTermEndDateInvoice(String endDate, boolean pageLink) {
 		if (pageLink) {
 			isElementDisplayed("txt_termEndDateOnPage");
-
-			Assert.assertTrue(element("txt_termEndDateOnPage").getText().trim().equalsIgnoreCase(endDate));
+			Assert.assertTrue(element("txt_termEndDateOnPage").getText().trim().equalsIgnoreCase(endDate),
+					"ASSERT FAILED: Expected value is " + endDate + " but found "
+							+ element("txt_termEndDateOnPage").getText().trim());
 			logMessage("ASSERT PASSED : Term end date is " + endDate
 					+ " in invoice is verified in txt_termEndDateOnPage\n");
 
 		} else {
 			isElementDisplayed("txt_termEndDate");
-
-			Assert.assertTrue(element("txt_termEndDate").getText().trim().equalsIgnoreCase(endDate));
+			Assert.assertTrue(element("txt_termEndDate").getText().trim().equalsIgnoreCase(endDate),
+					"ASSERT FAILED: Expected value is " + endDate + " but found "
+							+ element("txt_termEndDate").getText().trim());
 			logMessage("ASSERT PASSED : Term end date is " + endDate
 					+ " in invoice is verified in txt_termEndDateOnPage\n");
 
@@ -1966,8 +1981,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyPaymentStatus(String paymentStatus) {
 		isElementDisplayed("txt_paymentStatus");
-
-		Assert.assertTrue(element("txt_paymentStatus").getText().equalsIgnoreCase(paymentStatus));
+		Assert.assertTrue(element("txt_paymentStatus").getText().equalsIgnoreCase(paymentStatus),
+				"ASSERT FAILED: Expected value is " + paymentStatus + " but found "
+						+ element("txt_paymentStatus").getText().trim());
 		logMessage("ASSERT PASSED : Payment status " + paymentStatus + " is verified in txt_paymentStatus\n");
 	}
 
@@ -2322,9 +2338,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		String formatedPrice = String.format("%.02f", newPrice);
 		if (!map().get("complimentary").equalsIgnoreCase("On")) {
-			System.out.println("actual:" + actualPrice);
-			System.out.println("expected :" + formatedPrice);
-			Assert.assertTrue(actualPrice.equalsIgnoreCase(formatedPrice));
+			Assert.assertTrue(actualPrice.equalsIgnoreCase(formatedPrice),
+					"ASSERT FAILED: Expected value is " + formatedPrice + " but found " + actualPrice);
 			logMessage("ASSERT PASSED : Price " + formatedPrice + " is verified for " + itemName
 					+ " in txt_priceOrderEntryLineItmes\n");
 		}
@@ -2475,7 +2490,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			netIndividualBalance = netIndividualBalance
 					+ Float.parseFloat(elements("list_priceOrderEntryNetBalance", netPriceName).get(i).getText());
 		}
-		Assert.assertTrue(netBalance.equalsIgnoreCase(String.valueOf(String.format("%.2f", netIndividualBalance))));
+		Assert.assertTrue(netBalance.equalsIgnoreCase(String.valueOf(String.format("%.2f", netIndividualBalance))),
+				"ASSERT FAILED: Expected value is " + String.valueOf(String.format("%.2f", netIndividualBalance))
+						+ " but found " + netBalance);
 		logMessage("ASSERT PASSED : " + netBalance + " is verified for net balance\n");
 	}
 
@@ -2757,9 +2774,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("STEP : Member selected in " + MemberTransferLoopCount + " attempt\n");
 
 	}
-	
-	public void selectUserForIwebRenewal(Map<String, String> mapRenewalIWeb)
-	{
+
+	public void selectUserForIwebRenewal(Map<String, String> mapRenewalIWeb) {
 		clickOnTab("Query Membership");
 		selectAndRunQuery("Selenium - Renewal Query");
 		selectMemberForRenewal(mapRenewalIWeb.get("Member_Status?"));
@@ -2773,26 +2789,26 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			try {
 				wait.resetImplicitTimeout(4);
 				wait.resetExplicitTimeout(hiddenFieldTimeOut);
-
-				Assert.assertFalse(element("txt_PaymentStatus", "Payment Status")
-						.getText().equals("Paid"));
+				Assert.assertFalse(element("txt_PaymentStatus", "Payment Status").getText().equals("Paid"),
+						"ASSERT FAILED: Expected value is 'Paid' but found "
+								+ element("txt_PaymentStatus", "Payment Status").getText());
 			} catch (AssertionError e) {
 				selectValidUserForRenewal(mapOMR);
-			} 
-				
 			}
-			wait.resetExplicitTimeout(timeOut);
-			wait.resetImplicitTimeout(timeOut);
-			logMessage("ASSERT PASSED : Payment status before renewal is Unpaid");
+
 		}
-
-
+		wait.resetExplicitTimeout(timeOut);
+		wait.resetImplicitTimeout(timeOut);
+		logMessage("ASSERT PASSED : Payment status before renewal is Unpaid");
+	}
 
 	public void verifyPaymentStatusForGCSOMR(Map<String, String> mapGcsOMR) {
 		try {
 			wait.resetImplicitTimeout(4);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
-			Assert.assertTrue(element("txt_PaymentStatus", "Payment Status").getText().equals("Unpaid"));
+			Assert.assertTrue(element("txt_PaymentStatus", "Payment Status").getText().equals("Unpaid"),
+					"ASSERT FAILED: Expected value is 'Unpaid' but found "
+							+ element("txt_PaymentStatus", "Payment Status").getText());
 		} catch (AssertionError e) {
 			logMessage("ASSERT PASSED : Payment status before renewal is not Unpaid for\n");
 			selectValidUserForRenewalAccordingToCountry(mapGcsOMR);
@@ -2807,7 +2823,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		try {
 			wait.resetImplicitTimeout(4);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
-			Assert.assertTrue(element("txt_PaymentStatus", "Payment Status").getText().equals("Unpaid"));
+			Assert.assertTrue(element("txt_PaymentStatus", "Payment Status").getText().equals("Unpaid"),
+					"ASSERT FAILED: Expected value is 'Unpaid' but found "
+							+ element("txt_PaymentStatus", "Payment Status").getText());
 		} catch (AssertionError e) {
 			logMessage("ASSERT PASSED : Payment status before renewal is not Unpaid for " + MemberTransferLoopCount
 					+ " attempt thus looping back\n");
@@ -2852,7 +2870,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyMemberTypeAndPackage(String expectedType, String expectedStatus) {
 		isElementDisplayed("txt_memberInfo", "member type");
 		Assert.assertTrue(expectedType.equals(element("txt_memberInfo", "member type").getText().trim()),
-				"ASSERT FAIL : Member Type is not Regular Member\n");
+				"ASSERT FAIL : Member Type is not Regular Member but found"
+						+ element("txt_memberInfo", "member type").getText().trim() + " \n");
 		logMessage("ASSERT PASS : Member Type is Regular Member\n");
 
 		isElementDisplayed("txt_memberInfo", "member status");
@@ -2908,7 +2927,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		memberPackage = memberPackage.split(": ", 3)[2];
 		isElementDisplayed("txt_memberInfo", "member package");
 		Assert.assertTrue(memberPackage.equals(element("txt_memberInfo", "member package").getText().trim()),
-				"ASSERT FAIL : Member Package is not " + memberPackage + "\n");
+				"ASSERT FAIL : Member Package is not " + memberPackage + " but found"
+						+ element("txt_memberInfo", "member package").getText().trim() + "\n");
 		logMessage("ASSERT PASS : Member Package is " + memberPackage + "\n");
 	}
 
@@ -2918,7 +2938,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(15);
 		isElementDisplayed("txt_memberInfo", "renewal package");
 		Assert.assertTrue(renewalPackage.equals(element("txt_memberInfo", "renewal package").getText().trim()),
-				"ASSERT FAIL : Renewal Package is not " + renewalPackage + "\n");
+				"ASSERT FAIL : Renewal Package is not " + renewalPackage + " but found"
+						+ element("txt_memberInfo", "renewal package").getText().trim() + "\n");
 		logMessage("ASSERT PASS : Renewal Package is " + renewalPackage + "\n");
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
@@ -3931,20 +3952,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyPayment(int index) {
 		isElementDisplayed("txt_endDate", String.valueOf(index), String.valueOf(8));
 		String payment = element("txt_endDate", String.valueOf(index), String.valueOf(8)).getText().trim();
-		Assert.assertTrue(Double.parseDouble(payment) == 0.00, "ASSERT FAILED : Payment value is not 0.00\n");
+		Assert.assertTrue(Double.parseDouble(payment) == 0.00,
+				"ASSERT FAILED : Payment value is not 0.00 but found " + payment + "\n");
 		logMessage("ASSERT PASSED : Payment value is 0.00\n");
 	}
 
 	public void verifyBalance(int index) {
 		isElementDisplayed("txt_endDate", String.valueOf(index), String.valueOf(9));
 		String balance = element("txt_endDate", String.valueOf(index), String.valueOf(9)).getText().trim();
-		Assert.assertNotEquals(Double.parseDouble(balance), 0.00, 0.01, "ASSERT FAILED : Balance value is null\n");// (Double.parseDouble(balance)==0.00,"ASSERT
-		// FAILED
-		// :
-		// Balance
-		// value
-		// is
-		// 0.00");
+		Assert.assertNotEquals(Double.parseDouble(balance), 0.00, 0.01, "ASSERT FAILED : Balance value is null\n");
 		logMessage("ASSERT PASSED : Balance value is not null\n");
 	}
 
@@ -4035,9 +4051,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.hardWait(7);
 		isElementDisplayed("lineitem_product", productName);
 		String prodName = element("lineitem_product", productName).getText();
-		System.out.println(prodName);
-		System.out.println(productName);
-		Assert.assertTrue(productName.trim().contains(prodName));
+		Assert.assertTrue(productName.trim().contains(prodName),
+				"ASSERT FAILED: Expected value is " + productName + " but found " + prodName);
 		logMessage("STEP : " + productName + " Product is added in Line Items \n");
 	}
 
@@ -4051,7 +4066,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		Double credit_avl = Double.parseDouble(credit_amount) - Double.parseDouble(netTotal);
 		String credit_available = String.valueOf(df.format(credit_avl));
 		Assert.assertTrue(element("txt_joinDate_chapter", batchName).getText().trim().equals(credit_available),
-				"ASSERT FAILED: credit available is not matched");
+				"ASSERT FAILED: credit available is not matched.Expected value is " + credit_available + " but found "
+						+ element("txt_joinDate_chapter", batchName).getText().trim());
 		logMessage("ASSERT PASSED : credit available information in credits child forms is " + credit_available + "\n");
 
 		logMessage("\n ************ SUCCESSFULL *************\n");
@@ -4236,7 +4252,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyAddress(String tabName, int index1, int index2, String expectedValue, String field) {
 		Assert.assertTrue(
-
 				element("txt_telephoneType", tabName, String.valueOf(index1), String.valueOf(index2)).getText().trim()
 						.contains(expectedValue),
 				"ASSERT FAILED: " + field + " is not verified as " + expectedValue + "\n");
@@ -4325,7 +4340,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		Assert.assertEquals(getMemberDetailsOnMemberShipProfile("type"), fileType);
 		String importDate = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy", "EST5EDT");
 		Assert.assertEquals(getMemberDetailsOnMemberShipProfile("import date"), importDate);
-		Assert.assertTrue(getMemberDetailsOnMemberShipProfile("import file").trim().contains(Import_File));
+		Assert.assertTrue(getMemberDetailsOnMemberShipProfile("import file").trim().contains(Import_File),
+				"ASSERT FAILED: Expected value is " + Import_File + " but found "
+						+ getMemberDetailsOnMemberShipProfile("import file").trim());
 		Assert.assertEquals(getMemberDetailsOnMemberShipProfile("import name"), importName);
 		logMessage("Step: ACS Import Match Profile Page is verifed \n");
 	}
@@ -4486,7 +4503,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyDetailsForPaymentsChildForm(String type, String cardType, String membershipType,
 			String invoiceTotal, String productName) {
 		verifyDetailsForAACTOMR(cardType, type, "1", "Card Type");
-		verifyDetailsForAACTOMR(DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST5EDT"), type, "3", "Payment Date");
+		verifyDetailsForAACTOMR(DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy", "EST5EDT"), type,
+				"3", "Payment Date");
 		verifyDetailsForAACTOMR(invoiceTotal.replace("$", "").trim(), type, "4", "Invoice Total");
 		verifyMembershipTypeForAACTOMR(type, "2", membershipType, "Membership Type");
 		verifyMembershipTypeForAACTOMR(type, "2", productName, "Product Name");
@@ -4494,14 +4512,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	private void verifyMembershipTypeForAACTOMR(String type, String index, String membershipType, String label) {
 		isElementDisplayed("txt_membershipType", type, index);
-		Assert.assertTrue(element("txt_membershipType", type, index).getText().contains(membershipType));
+		Assert.assertTrue(element("txt_membershipType", type, index).getText().contains(membershipType),
+				"ASSERT FAILED: Expected value is " + membershipType + " but found "
+						+ element("txt_membershipType", type, index).getText());
 		logMessage("ASSERT PASSED: " + label + " is verified as " + membershipType);
 	}
 
 	private void verifyDetailsForAACTOMR(String value, String text, String index, String label) {
 		isElementDisplayed("txt_payments", text, index);
 		Assert.assertEquals(element("txt_payments", text, index).getText().replace("$", "").trim(), value);
-		// Assert.assertTrue(.contains());
 		logMessage("ASSERT PASSED: " + label + " is verified as " + value + "\n");
 
 	}
@@ -4585,20 +4604,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_sourceCode", label);
 		Date date1 = DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"),
 				"MM/dd/yyyy");
-		System.out.println("date1:" + date1);
 		Date date2 = DateUtil.convertStringToDate(DateUtil.convertStringToParticularDateFormat(
 				element("txt_sourceCode", label).getText().trim(), "MM/dd/yyyy"), "MM/dd/yyyy");
-		System.out.println("date2:" + date2);
-		System.out.println("compared value:" + date1.before(date2));
 		Assert.assertTrue(date1.before(date2),
 				"ASSERT FAILED: Source Code is not active as current date is not less than end date\n");
 		logMessage("ASSERT PASSED: Source Code is active as current date is less than end date\n");
 	}
 
 	public void verifyMemberDetails(String tabName, int index1, int index2, String expectedValue, String field) {
-		System.out.println(
-				"-------" + element("txt_memberDetails", tabName, String.valueOf(index1), String.valueOf(index2))
-						.getText().trim());
 		Assert.assertTrue(expectedValue.equalsIgnoreCase(
 				element("txt_memberDetails", tabName, String.valueOf(index1), String.valueOf(index2)).getText().trim()),
 				"ASSERT FAILED: " + field + " is not verified as " + expectedValue + "\n");
@@ -4686,9 +4699,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyDetailsForNominator(String label, String value, String rowNum, String index) {
 		isElementDisplayed("txt_endDate", rowNum, index);
 		String valueFromIWEB = element("txt_endDate", rowNum, index).getText().trim();
-		System.out.println(valueFromIWEB);
-		System.out.println(value);
-		// Assert.assertEquals(valueFromIWEB, value);
+		Assert.assertEquals(valueFromIWEB, value);
 		logMessage("ASSERT PASSED: " + label + " is verfied as " + value);
 	}
 
@@ -5331,9 +5342,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	private void verifyNetBalanceOfLineItemsOnOrderEntry(String fieldtype, String productName, float actualbalance,
 			String index) {
 		isElementDisplayed("txt_netBalanceNetForum", productName, index);
-		System.out.println(Float.parseFloat(element("txt_netBalanceNetForum", productName, index).getText().trim()));
-		Assert.assertTrue(Float
-				.parseFloat(element("txt_netBalanceNetForum", productName, index).getText().trim()) == actualbalance);
+		Assert.assertTrue(
+				Float.parseFloat(
+						element("txt_netBalanceNetForum", productName, index).getText().trim()) == actualbalance,
+				"ASSERT FAILED: Expected value is " + actualbalance + " but found "
+						+ element("txt_netBalanceNetForum", productName, index).getText().trim());
 		logMessage("ASSERT PASSED: Net " + fieldtype + " of " + productName + " on centralized entry page is "
 				+ actualbalance);
 	}
@@ -5342,14 +5355,18 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("inp_netPayment", ProductName);
 		System.out.println(Float.parseFloat(element("inp_netPayment", ProductName).getAttribute("value").trim()));
 		Assert.assertTrue(
-				Float.parseFloat(element("inp_netPayment", ProductName).getAttribute("value").trim()) == actualPayment);
+				Float.parseFloat(element("inp_netPayment", ProductName).getAttribute("value").trim()) == actualPayment,
+				"ASSERT FAILED: Expected value is " + actualPayment + " but found "
+						+ element("inp_netPayment", ProductName).getAttribute("value"));
 		logMessage("ASSERT PASSED: Net Payment on centralized entry page is " + actualPayment);
 	}
 
 	private void verifyNetCreditOfLineItemsOnOrderEntry(String productName, float netcredit, String index) {
 		isElementDisplayed("td_lineItems", productName, index);
 		System.out.println(element("td_lineItems", productName, index).getText().trim());
-		Assert.assertTrue(Float.parseFloat(element("td_lineItems", productName, index).getText().trim()) == netcredit);
+		Assert.assertTrue(Float.parseFloat(element("td_lineItems", productName, index).getText().trim()) == netcredit,
+				"ASSERT FAILED: Expected value is " + netcredit + " but found "
+						+ element("td_lineItems", productName, index).getText().trim());
 		logMessage("ASSERT PASSED: Net credit of " + productName + " on centralized entry page is " + netcredit);
 	}
 

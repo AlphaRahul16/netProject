@@ -18,10 +18,6 @@ public class ASMErrorPage extends GetPage {
 	}
 
 	public void verifyASMError(String errorMsz) {
-		
-//		isElementDisplayed("txt_ASMerror", errorMsz);
-//		logMessage("ASSERT PASSED : " + errorMsz
-//				+ " is verified in txt_ASMerror\n");
 		getASMErrorId(errorMsz);
 		navigateToBackPage();
 	}
@@ -53,22 +49,15 @@ public class ASMErrorPage extends GetPage {
 		wait.resetImplicitTimeout(timeOut);
 	}
 
-//	public void getASMErrorId(String errorMsz) {
-//		isElementDisplayed("txt_ASMerror", errorMsz);
-//		String asmErrorText = element("txt_ASMerror", errorMsz).getText();
-//		String[] splitAsmError = asmErrorText.split("Your support ID is: ");
-//		String supportId = splitAsmError[1];
-//		logMessage("ASSERT PASSED : ASM Support ID is : " + supportId + "\n");
-//	}
 	public void getASMErrorId(String errorMsz) {
 		try
 		{
 		wait.resetImplicitTimeout(2);
-		System.out.println("sfsfsfsf");
 		isElementDisplayed("txt_asmNumber");
 		String asmErrorText = element("txt_asmNumber").getText();
 //		String[] splitAsmError = asmErrorText.split("Your support ID is: ");
 //		String supportId = splitAsmError[1];
+		Assert.assertEquals(errorMsz, asmErrorText);
 		logMessage("ASSERT PASSED : ASM Error Number is : " + asmErrorText + "\n");
 		}
 		catch(Exception e2)

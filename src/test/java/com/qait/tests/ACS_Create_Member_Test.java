@@ -107,7 +107,7 @@ public class ACS_Create_Member_Test extends BaseTest {
 		// + " " + userDetail[2],
 		// YamlReader.getYamlValue("creditCardInfo.Number"),
 		// YamlReader.getYamlValue("creditCardInfo.cvv-number"));
-		test.asm_storePage.enterPaymentInfo("CardholderName", "testSelenium");
+		test.asm_storePage.enterPaymentInfo("CardholderName", "test Selenium");
 		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes(test.homePageIWEB.map().get("Payment_Method"),
 				test.homePageIWEB.map().get("Visa_Card_Number"), test.homePageIWEB.map().get("Diners_Card_Number"),
 				test.homePageIWEB.map().get("Reference_Number"), test.homePageIWEB.map().get("Discover_Card_Number"),

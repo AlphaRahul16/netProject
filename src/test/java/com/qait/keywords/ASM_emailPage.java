@@ -240,7 +240,8 @@ public class ASM_emailPage extends GetPage {
 
 	public void verifyEmailAddedSuccessfully(String productname, String addedEmail) {
 		isElementDisplayed("txt_addedEmail", productname);
-		Assert.assertTrue(element("txt_addedEmail", productname).getText().equalsIgnoreCase(addedEmail));
+		Assert.assertTrue(element("txt_addedEmail", productname).getText().equalsIgnoreCase(addedEmail),
+				"ASSERT FAILED: Expected added email is "+addedEmail+" but found "+element("txt_addedEmail", productname).getText());
 		logMessage("ASSERT PASSED : Added email " + addedEmail + " is verified\n");
 	}
 

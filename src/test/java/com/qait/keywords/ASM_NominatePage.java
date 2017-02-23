@@ -21,8 +21,8 @@ public class ASM_NominatePage extends GetPage {
 	static String pagename = "ASM_NominatePage";
 	int timeOut, hiddenFieldTimeOut;
 	boolean flag;
-	static int NomineeVisitedAwards=0;
-	Map<String,String> mapNomineeNames=new HashMap<String, String>();
+	static int NomineeVisitedAwards = 0;
+	Map<String, String> mapNomineeNames = new HashMap<String, String>();
 
 	public ASM_NominatePage(WebDriver driver) {
 		super(driver, pagename);
@@ -85,8 +85,8 @@ public class ASM_NominatePage extends GetPage {
 		logMessage("STEP : ACS ID radio button is selected in rad_acsId\n");
 	}
 
-	public void navigateToVerifyEligibilityTab(String awardName,
-			String nomineeName, String nomineePosition, String discipline) {
+	public void navigateToVerifyEligibilityTab(String awardName, String nomineeName, String nomineePosition,
+			String discipline) {
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);
 		clickOnConfirmButton();
@@ -112,11 +112,9 @@ public class ASM_NominatePage extends GetPage {
 		selectDiscipline(discipline);
 	}
 
-	public void navigateToPrepareNominationTab(String awardName,
-			String nomineeName, String nomineePosition, String discipline,
-			String suggestedCitation, String recommendation,
-			String pubPatentsFilename, String biographicalSketchFileName,
-			String supportForm1FileName, String support1LastName) {
+	public void navigateToPrepareNominationTab(String awardName, String nomineeName, String nomineePosition,
+			String discipline, String suggestedCitation, String recommendation, String pubPatentsFilename,
+			String biographicalSketchFileName, String supportForm1FileName, String support1LastName) {
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);
 		clickOnConfirmButton();
@@ -141,15 +139,12 @@ public class ASM_NominatePage extends GetPage {
 		selectDiscipline(discipline);
 		patentQuestion();
 		selectNoForYearOfExperience();
-		try
-		{
+		try {
 			wait.resetImplicitTimeout(2);
 
 			uploadFileForPatent("test.pdf");
 			wait.resetImplicitTimeout(timeOut);
-		}
-		catch(NoSuchElementException e)
-		{
+		} catch (NoSuchElementException e) {
 			wait.resetImplicitTimeout(timeOut);
 		}
 		clickOnContinueButton();
@@ -178,13 +173,11 @@ public class ASM_NominatePage extends GetPage {
 		selectFileToUpload(fieldName, Filename, index);
 	}
 
-
-
 	public void verifyErrorMessageOnInvalidFileUpload(String errorMessage) {
 
-		Assert.assertTrue(getAlertText().contains(errorMessage));
-		logMessage("ASSERT PASSED : Error message " + errorMessage
-				+ " is verified on uploaded invalid file\n");
+		Assert.assertTrue(getAlertText().contains(errorMessage),
+				"ASSERT FAILED: Error msg should contains '" + errorMessage + "' but found " + getAlertText());
+		logMessage("ASSERT PASSED : Error message " + errorMessage + " is verified on uploaded invalid file\n");
 
 	}
 
@@ -198,16 +191,16 @@ public class ASM_NominatePage extends GetPage {
 		selectFileToUpload("recommendation", fileName, "0");
 		waitForSpinnerOnUpload();
 	}
+
 	public void uploadInValidFileInRecommendation(String fileName) {
 		selectUploadRecommendation();
 		selectFileToUpload("recommendation", fileName, "0");
-		//		waitForSpinnerOnUpload();
+		// waitForSpinnerOnUpload();
 	}
 
 	public void removeIncompletedSubmision() {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
-				"hiddenFieldTimeOut"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
 			wait.resetImplicitTimeout(10);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
@@ -220,7 +213,7 @@ public class ASM_NominatePage extends GetPage {
 				waitForSpinnerOnUpload();
 			}
 			waitForSpinnerOnUpload();
-			//isElementDisplayed("txt_nominationRemoved");
+			// isElementDisplayed("txt_nominationRemoved");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 			logMessage("STEP : Incomplete submission removed \n");
@@ -233,8 +226,7 @@ public class ASM_NominatePage extends GetPage {
 
 	public void removeUploadedFile(String nominationFieldName) {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
-				"hiddenFieldTimeOut"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
 			wait.resetImplicitTimeout(0);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
@@ -259,43 +251,37 @@ public class ASM_NominatePage extends GetPage {
 		logMessage("STEP : Select upload button for recommendation in rad_uploadRecommendation\n");
 	}
 
-	public void uploadFileForSupportForm(String support2LastName,
-			String supportForm2FileName, String supportFormNumber) {
+	public void uploadFileForSupportForm(String support2LastName, String supportForm2FileName,
+			String supportFormNumber) {
 		clickOnIKnowTheirName_Support(supportFormNumber);
 		enterLastName_support(supportFormNumber, support2LastName);
 		waitForSpinnerOnSearch();
 		wait.hardWait(5);
 		if (supportFormNumber.equalsIgnoreCase("2")) {
 			clickOnSelectNomineeButtonForSupport2();
-			selectFileToUpload("supporter" + supportFormNumber,
-					supportForm2FileName, "4");
+			selectFileToUpload("supporter" + supportFormNumber, supportForm2FileName, "4");
 		} else if (supportFormNumber.equalsIgnoreCase("1")) {
 			clickOnSelectNomineeButton();
-			selectFileToUpload("supporter" + supportFormNumber,
-					supportForm2FileName, "3");
+			selectFileToUpload("supporter" + supportFormNumber, supportForm2FileName, "3");
 		}
 
 	}
 
 	public void clickOnConfirmButton() {
-		try
-		{
+		try {
 			wait.resetImplicitTimeout(2);
 			isElementDisplayed("btn_confirm");
 			element("btn_confirm").click();
 			wait.resetExplicitTimeout(timeOut);
 			logMessage("STEP : Confirm button is clicked in btn_confirm\n");
-		}
-		catch(NoSuchElementException e)
-		{
+		} catch (NoSuchElementException e) {
 			wait.resetExplicitTimeout(timeOut);
 		}
 	}
 
 	public void waitForSpinner() {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
-				"hiddenFieldTimeOut"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
 			wait.resetImplicitTimeout(5);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
@@ -311,8 +297,7 @@ public class ASM_NominatePage extends GetPage {
 
 	public void waitForSpinnerOnSearch() {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
-				"hiddenFieldTimeOut"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
 			wait.hardWait(2);
 			wait.resetImplicitTimeout(3);
@@ -330,8 +315,7 @@ public class ASM_NominatePage extends GetPage {
 
 	public void waitForSpinnerOnUpload() {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
-				"hiddenFieldTimeOut"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
 			wait.hardWait(1);
 			wait.resetImplicitTimeout(3);
@@ -347,11 +331,10 @@ public class ASM_NominatePage extends GetPage {
 			logMessage("Spinner is not present \n");
 		}
 	}
-	
+
 	public void waitForSpinnerOnSubmitNomination() {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
-				"hiddenFieldTimeOut"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
 			wait.hardWait(1);
 			wait.resetImplicitTimeout(3);
@@ -380,8 +363,8 @@ public class ASM_NominatePage extends GetPage {
 	public void clickOnAwardInList() {
 		isElementDisplayed("li_awards");
 		for (WebElement element : elements("li_awards")) {
-			if (!(element.getText().endsWith("(team)") || element.getText()
-					.equalsIgnoreCase("ACS Award for Creative Invention:2017"))) {
+			if (!(element.getText().endsWith("(team)")
+					|| element.getText().equalsIgnoreCase("ACS Award for Creative Invention:2017"))) {
 				String awardName = element.getText();
 				element.click();
 				logMessage("STEP : " + awardName + " is clicked in li_awards\n");
@@ -422,58 +405,55 @@ public class ASM_NominatePage extends GetPage {
 		element("inp_findbymembernumber").sendKeys(membernumber);
 		logMessage("STEP : " + membernumber + " is entered in inp_findbymembernumber\n");
 	}
-	
-	public void clickFindMemberBynumberButton()
-	{
+
+	public void clickFindMemberBynumberButton() {
 
 		wait.hardWait(1);
 		isElementDisplayed("btn_findMemberByNumber");
 		element("btn_findMemberByNumber").click();
 		logMessage("STEP : Find Member button is clicked in btn_findMemberByNumber\n");
-		
+
 	}
-	
-	public void enterSupporterMemberNumber(String formnumber,String membernumber) {
-		isElementDisplayed("inp_support"+formnumber+"FindByNum");
-		element("inp_support"+formnumber+"FindByNum").sendKeys(membernumber);
+
+	public void enterSupporterMemberNumber(String formnumber, String membernumber) {
+		isElementDisplayed("inp_support" + formnumber + "FindByNum");
+		element("inp_support" + formnumber + "FindByNum").sendKeys(membernumber);
 		logMessage("STEP : " + membernumber + " is entered in inp_findbymembernumber\n");
 	}
-	
+
 	public void ClickSupporterFindMemberButton(String formnumber) {
-		isElementDisplayed("btn_findSupporter"+formnumber+"ByNumber");
-		element("btn_findSupporter"+formnumber+"ByNumber").click();
-		logMessage("STEP : Find Member for supporter "+formnumber+" is clicked inp_findbymembernumber\n");
+		isElementDisplayed("btn_findSupporter" + formnumber + "ByNumber");
+		element("btn_findSupporter" + formnumber + "ByNumber").click();
+		logMessage("STEP : Find Member for supporter " + formnumber + " is clicked inp_findbymembernumber\n");
 	}
+
 	public void clickOnSelectNomineeButton() {
-		try
-		{
+		try {
 			wait.hardWait(1);
 			wait.resetImplicitTimeout(3);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
-		
+
 			elements("btn_selectNomineeSupport1").get(0).click();
-			
-		}
-		catch(Exception e)
-		{
+
+		} catch (Exception e) {
 			System.out.println("Exception");
 		}
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
 		logMessage("STEP : Select Nominee button is clicked in btn_selectNomineeSupport1\n");
 	}
-	
+
 	public void clickOnSelectNomineeButtonForAwardsNomination() {
 
-			wait.hardWait(1);
-			elements("btn_selectNomineeSupport1").get(0).click();
-			wait.hardWait(1);
+		wait.hardWait(1);
+		elements("btn_selectNomineeSupport1").get(0).click();
+		wait.hardWait(1);
 		logMessage("STEP : Select Nominee button is clicked in btn_selectNomineeSupport1\n");
 
 	}
 
 	public void clickOnSelectNomineeButtonForSupport2() {
-		
+
 		isElementDisplayed("btn_selectNomineeSupport2");
 		element("btn_selectNomineeSupport2").click();
 		logMessage("STEP : Select Nominee button is clicked in btn_selectNomineeSupport2\n");
@@ -493,9 +473,10 @@ public class ASM_NominatePage extends GetPage {
 	}
 
 	public void selectSafeLabPracticesRadioButton(String value) {
-		isElementDisplayed("rad_dynsafelabpractice",value);
-		element("rad_dynsafelabpractice",value).click();
-		logMessage("STEP : Safe laboratory practices radio button "+value+" is selected for unknown in rad_dynsafelabpractice\n");
+		isElementDisplayed("rad_dynsafelabpractice", value);
+		element("rad_dynsafelabpractice", value).click();
+		logMessage("STEP : Safe laboratory practices radio button " + value
+				+ " is selected for unknown in rad_dynsafelabpractice\n");
 	}
 
 	public void selectNoForDiscussedAwardNominationRadioButton() {
@@ -505,25 +486,22 @@ public class ASM_NominatePage extends GetPage {
 	}
 
 	public void selectValueForDiscussedAwardNominationRadioButton(String value) {
-		isElementDisplayed("rad_disscusNomination",value);
-		element("rad_disscusNomination",value).click();
-		logMessage("STEP : Have discussed award nomination radio button as "+value+"\n");
+		isElementDisplayed("rad_disscusNomination", value);
+		element("rad_disscusNomination", value).click();
+		logMessage("STEP : Have discussed award nomination radio button as " + value + "\n");
 	}
 
 	public void selectDiscipline(String discipline) {
 		isElementDisplayed("list_selectDiscipline");
-		selectProvidedTextFromDropDown(element("list_selectDiscipline"),
-				discipline);
-		logMessage("STEP : " + discipline
-				+ " is selected in list_selectDiscipline\n");
+		selectProvidedTextFromDropDown(element("list_selectDiscipline"), discipline);
+		logMessage("STEP : " + discipline + " is selected in list_selectDiscipline\n");
 	}
 
 	public void enterNomineePosition(String positionName) {
 		isElementDisplayed("inp_nomineePosition");
 		element("inp_nomineePosition").clear();
 		element("inp_nomineePosition").sendKeys(positionName);
-		logMessage("STEP : " + positionName
-				+ " is entered in inp_nomineePosition\n");
+		logMessage("STEP : " + positionName + " is entered in inp_nomineePosition\n");
 	}
 
 	public void clickOnContinueButton() {
@@ -542,66 +520,58 @@ public class ASM_NominatePage extends GetPage {
 	public void enterSuggstedCitation(String suggestedCitation) {
 		isElementDisplayed("txtAr_suggestedCitation");
 		element("txtAr_suggestedCitation").sendKeys(suggestedCitation);
-		logMessage("STEP : " + suggestedCitation
-				+ " is entered in txtAr_suggestedCitation\n");
+		logMessage("STEP : " + suggestedCitation + " is entered in txtAr_suggestedCitation\n");
 	}
 
 	public void enterRecommendation(String recommendation) {
 		isElementDisplayed("txtAr_recommendation");
 		element("txtAr_recommendation").sendKeys(recommendation);
-		logMessage("STEP : " + recommendation
-				+ " is entered in txtAr_recommendation\n");
+		logMessage("STEP : " + recommendation + " is entered in txtAr_recommendation\n");
 	}
 
-	public void selectFileToUpload(String fieldname, String fileName,
-			String inputNumber) {
+	public void selectFileToUpload(String fieldname, String fileName, String inputNumber) {
 		wait.hardWait(5);
 		removeUploadedFile(fieldname);
-		String path = "src" + File.separator + "test" + File.separator
-				+ "resources" + File.separator + "UploadFiles" + File.separator;
+		String path = "src" + File.separator + "test" + File.separator + "resources" + File.separator + "UploadFiles"
+				+ File.separator;
 		File filePath = new File(path + fileName);
 		isElementDisplayed("inp_" + fieldname + "Uploads");
 		WebElement ele = (WebElement) executeJavascript1("return document.getElementsByClassName('qq-upload-button')["
 				+ inputNumber + "].getElementsByTagName('input')[0]");
 		ele.sendKeys(filePath.getAbsolutePath());
 		hardWaitForIEBrowser(2);
-		logMessage("STEP : " + fileName + " is uploaded in " + fieldname
-				+ " \n");
+		logMessage("STEP : " + fileName + " is uploaded in " + fieldname + " \n");
 	}
-	
-	public void selectFileToUpload_Awards(String fieldname, String fileName,
-			String inputNumber) {
+
+	public void selectFileToUpload_Awards(String fieldname, String fileName, String inputNumber) {
 		wait.hardWait(1);
-		String path = "src" + File.separator + "test" + File.separator
-				+ "resources" + File.separator + "UploadFiles" + File.separator;
+		String path = "src" + File.separator + "test" + File.separator + "resources" + File.separator + "UploadFiles"
+				+ File.separator;
 		File filePath = new File(path + fileName);
 		wait.hardWait(2);
-		isElementDisplayed("btn_upload_item",fieldname);
+		isElementDisplayed("btn_upload_item", fieldname);
 		WebElement ele = (WebElement) executeJavascript1("return document.getElementsByClassName('qq-upload-button')["
 				+ inputNumber + "].getElementsByTagName('input')[0]");
 		ele.sendKeys(filePath.getAbsolutePath());
 		hardWaitForIEBrowser(2);
-		logMessage("STEP : " + fileName + " is uploaded in " + fieldname
-				+ " \n");
+		logMessage("STEP : " + fileName + " is uploaded in " + fieldname + " \n");
 	}
 
 	public void clickOnIKnowTheirName_Support(String formNumber) {
 		isElementDisplayed("inp_support" + formNumber + "IKnowThierName");
 		element("inp_support" + formNumber + "IKnowThierName").click();
-		logMessage("STEP : I Konw Their Name radio button is clicked for supportform "
-				+ formNumber
-				+ " in inp_support "
-				+ formNumber
-				+ " IKnowThierName");
+		logMessage("STEP : I Konw Their Name radio button is clicked for supportform " + formNumber + " in inp_support "
+				+ formNumber + " IKnowThierName");
 	}
 
 	public void enterLastName_support(String formNumber, String lastName) {
 		isElementDisplayed("inp_support" + formNumber + "FindByName");
 		wait.hardWait(1);
-		//element("inp_support" + formNumber + "FindByName").sendKeys(lastName);
+		// element("inp_support" + formNumber +
+		// "FindByName").sendKeys(lastName);
 		element("inp_support" + formNumber + "FindByName").sendKeys(Keys.chord(Keys.CONTROL, "a"), lastName);
-		logMessage("STEP : " + lastName + " is entered in support form "
-				+ formNumber + " in inp_support " + formNumber + " FindByName \n");
+		logMessage("STEP : " + lastName + " is entered in support form " + formNumber + " in inp_support " + formNumber
+				+ " FindByName \n");
 	}
 
 	public void clickOnSubmitButton() {
@@ -632,8 +602,7 @@ public class ASM_NominatePage extends GetPage {
 
 	public void patentQuestion() {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
-				"hiddenFieldTimeOut"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
 			wait.resetImplicitTimeout(0);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
@@ -655,10 +624,8 @@ public class ASM_NominatePage extends GetPage {
 
 	public void selectDateContent(String day_month_year, String value) {
 		isElementDisplayed("list_patentDate_" + day_month_year);
-		selectProvidedTextFromDropDown(element("list_patentDate_"
-				+ day_month_year), value);
-		logMessage("STEP : " + day_month_year + " is selected in "
-				+ day_month_year + " \n");
+		selectProvidedTextFromDropDown(element("list_patentDate_" + day_month_year), value);
+		logMessage("STEP : " + day_month_year + " is selected in " + day_month_year + " \n");
 	}
 
 	public void enterPatentInfo(String infoType, String infoValue) {
@@ -669,8 +636,7 @@ public class ASM_NominatePage extends GetPage {
 
 	public void selectNoForYearOfExperience() {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
-				"hiddenFieldTimeOut"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
 			wait.resetImplicitTimeout(0);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
@@ -685,65 +651,57 @@ public class ASM_NominatePage extends GetPage {
 		}
 
 	}
+
 	public void clickOnConfirmNominatorAdressDetailsIfAppears_AwardNomination() {
 
-		try
-		{
+		try {
 			wait.resetImplicitTimeout(8);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("btn_nominatorAdressConfirm");
 			element("btn_nominatorAdressConfirm").click();
 			wait.waitForElementToDisappear(element("btn_nominatorAdressConfirm"));
-		}
-		catch(NoSuchElementException e)
-		{
+		} catch (NoSuchElementException e) {
 			logMessage("STEP : Confirm Address button does not appeared\n");
 			wait.resetImplicitTimeout(timeOut);
 			wait.resetExplicitTimeout(timeOut);
 		}
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
-		logMessage("STEP : Nominator address details confirmed"+"\n");
+		logMessage("STEP : Nominator address details confirmed" + "\n");
 	}
 
-	public void selectAwardFromAwardListAndVerifyNominationMessage(String currentAwardName)
-	{
+	public void selectAwardFromAwardListAndVerifyNominationMessage(String currentAwardName) {
 		verifyAwardIsPresentInAwardListAndSelectAward(currentAwardName);
 		verifyTooltipMessageAppearsAfterSelectingAward();
 	}
 
-
 	private void verifyTooltipMessageAppearsAfterSelectingAward() {
 		wait.hardWait(3);
 		isElementDisplayed("txt_NominationTooltip");
-		verifyElementTextContains("txt_NominationTooltip","Nominations must be submitted before");
+		verifyElementTextContains("txt_NominationTooltip", "Nominations must be submitted before");
 
 	}
 
 	private void verifyAwardIsPresentInAwardListAndSelectAward(String currentAwardName) {
 
 		clickOnArrowButton();
-		for (WebElement iterable_element :  elements("list_drpdnAwards")) {
-			if(iterable_element.getText().trim().equals(currentAwardName))
-			{
-				Assert.assertTrue(iterable_element.getText().trim().equals(currentAwardName));
-				logMessage("ASSERT PASSED : "+currentAwardName+" is displayed in awards dropdown\n");
+		for (WebElement iterable_element : elements("list_drpdnAwards")) {
+			if (iterable_element.getText().trim().equals(currentAwardName)) {
+				Assert.assertEquals(iterable_element.getText().trim(), currentAwardName);
+				logMessage("ASSERT PASSED : " + currentAwardName + " is displayed in awards dropdown\n");
 				iterable_element.click();
 			}
 		}
-		logMessage("STEP : "+currentAwardName+" is selected from the list\n");
-
+		logMessage("STEP : " + currentAwardName + " is selected from the list\n");
 
 	}
 
-	public void SearchNomineeByMemeberNameOrNumber(Map<String,String> mapAwardsNomination,Map<String,String> createMemberCredentials) {
-		if(mapAwardsNomination.get("SearchNomieeBy_memberNumber?").equalsIgnoreCase("Yes"))
-		{
+	public void SearchNomineeByMemeberNameOrNumber(Map<String, String> mapAwardsNomination,
+			Map<String, String> createMemberCredentials) {
+		if (mapAwardsNomination.get("SearchNomieeBy_memberNumber?").equalsIgnoreCase("Yes")) {
 			enterMemberNumber(createMemberCredentials.get("Nominee1Number"));
 			clickFindMemberBynumberButton();
-		}
-		else
-		{
+		} else {
 			wait.waitForPageToLoadCompletely();
 			wait.hardWait(2);
 			selectIKnowTheirNameRadioButton();
@@ -752,210 +710,198 @@ public class ASM_NominatePage extends GetPage {
 		}
 		waitForSpinner();
 		clickOnSelectNomineeButtonForAwardsNomination();
-	
+
 		wait.waitForPageToLoadCompletely();
 
 	}
 
 	private String saveNomineeInformation() {
-        wait.hardWait(5);
+		wait.hardWait(5);
 		String NomineeName = ReverseStringWords(element("txt_Nomineename_123").getText());
 		System.out.println("Nominee Name " + NomineeName);
-		logMessage("STEP : Nominator Name is "+NomineeName);
-        return NomineeName;
+		logMessage("STEP : Nominator Name is " + NomineeName);
+		return NomineeName;
 	}
 
-
-	public void FillEligibilityQuestionsDetails_AwardsNomination(Map<String,String> mapAwardsNomination)
-	{
+	public void FillEligibilityQuestionsDetails_AwardsNomination(Map<String, String> mapAwardsNomination) {
 		verifyCurrentTab("Verify Eligibility");
-	//	selectNoForYearOfExperience(); // Button deleted in New Build, verified date 11/08/2016
+		// selectNoForYearOfExperience(); // Button deleted in New Build,
+		// verified date 11/08/2016
 		selectSafeLabPracticesRadioButton(mapAwardsNomination.get("SafeLabPractices?"));
-		explainCodeOfConductIfNo(mapAwardsNomination.get("SafeLabPractices?"),mapAwardsNomination.get("CodeOfConduct_Explaination?"));
+		explainCodeOfConductIfNo(mapAwardsNomination.get("SafeLabPractices?"),
+				mapAwardsNomination.get("CodeOfConduct_Explaination?"));
 		selectValueForDiscussedAwardNominationRadioButton(mapAwardsNomination.get("DisscussAwardNomination?"));
 		enterNomineePosition(mapAwardsNomination.get("EligibilityQuestions_NomineePosition"));
 		selectDiscipline(mapAwardsNomination.get("EligibilityQuestions_professionalDiscipline"));
 	}
-	
-	private void explainCodeOfConductIfNo(String codeStatus, String conductExplanation) {
-		  
-		  if(codeStatus.equalsIgnoreCase("No"))
-		  {
-		   EnterTextInField(element("txtarea_codeOfConductExplained"), conductExplanation);
-		   logMessage("Step : Code of Conduct Explanation is entered as "+conductExplanation);
-		  
-		  }
-    }
 
-	public void selectSupporterts(String formNumber,Map<String,String> createMemberCredentials)
-	{
-		System.out.println("Nominee"+(Integer.parseInt(formNumber)+1)+"Name");
-		enterLastName_support(formNumber, createMemberCredentials.get("Nominee"+(Integer.parseInt(formNumber)+1)+"Name").split(" ")[0]);
+	private void explainCodeOfConductIfNo(String codeStatus, String conductExplanation) {
+
+		if (codeStatus.equalsIgnoreCase("No")) {
+			EnterTextInField(element("txtarea_codeOfConductExplained"), conductExplanation);
+			logMessage("Step : Code of Conduct Explanation is entered as " + conductExplanation);
+
+		}
+	}
+
+	public void selectSupporterts(String formNumber, Map<String, String> createMemberCredentials) {
+		System.out.println("Nominee" + (Integer.parseInt(formNumber) + 1) + "Name");
+		enterLastName_support(formNumber,
+				createMemberCredentials.get("Nominee" + (Integer.parseInt(formNumber) + 1) + "Name").split(" ")[0]);
 		waitForSpinnerOnSearch();
 		clickOnSelectNomineeButtonForAwardsNomination();
 	}
-	
 
-	public void FillDetailsOnVerifyEligibilityPage(Map<String,String> mapAwardsNomination,Map<String,String> createMemberCredentials)
-	{
+	public void FillDetailsOnVerifyEligibilityPage(Map<String, String> mapAwardsNomination,
+			Map<String, String> createMemberCredentials) {
 		enterSuggstedCitation(mapAwardsNomination.get("SuggestCitation_Text"));
 		EnterTextOrUploadFileInRecomendation_AwardsNomination(mapAwardsNomination.get("UploadFileFor_Recommendation?"),
-				mapAwardsNomination.get("Recommendation_Text"),mapAwardsNomination.get("FileNameForReccomendation"));
-		
-		
+				mapAwardsNomination.get("Recommendation_Text"), mapAwardsNomination.get("FileNameForReccomendation"));
+
 		selectFileToUpload_Awards("pubsAndPatents", mapAwardsNomination.get("FileNameForPubPatents"), "1");
 		waitForSpinnerOnUpload();
 		verifyOpenAndRemoveButtonIsDisplayedOnUploadingFile("pubsAndPatents");
-		
+
 		selectFileToUpload_Awards("biography", mapAwardsNomination.get("FileNameForBioSketch"), "2");
 		waitForSpinnerOnUpload();
 		verifyOpenAndRemoveButtonIsDisplayedOnUploadingFile("biography");
-		SelectSupporterByMemberNumberOrName("1",mapAwardsNomination,createMemberCredentials);
+		SelectSupporterByMemberNumberOrName("1", mapAwardsNomination, createMemberCredentials);
 		selectFileToUpload_Awards("supporter1", mapAwardsNomination.get("FileNameForSupportForm1"), "3");
 		waitForSpinnerOnUpload();
 		verifyOpenAndRemoveButtonIsDisplayedOnUploadingFile("supporter1");
-		
-		SelectSupporterByMemberNumberOrName("2",mapAwardsNomination,createMemberCredentials);
+
+		SelectSupporterByMemberNumberOrName("2", mapAwardsNomination, createMemberCredentials);
 		selectFileToUpload_Awards("supporter2", mapAwardsNomination.get("FileNameForSupportForm2"), "4");
 		waitForSpinnerOnUpload();
 		verifyOpenAndRemoveButtonIsDisplayedOnUploadingFile("supporter2");
-		
-		//clickOnContinueButton();
+
+		// clickOnContinueButton();
 	}
 
-	public void SelectSupporterByMemberNumberOrName(String formNumber, Map<String, String> mapAwardsNomination,Map<String, String> createMemberCredentials) {
-		if(formNumber.equals("1"))
-		{
-		if(mapAwardsNomination.get("SearchSupporter1By_memberNumber").equalsIgnoreCase("Yes"))
-		{
-			enterSupporterMemberNumber(formNumber, createMemberCredentials.get("Nominee2Number"));
-			ClickSupporterFindMemberButton(formNumber);
-			clickOnSelectNomineeButtonForAwardsNomination();
-		}
-		else
-		{
-		clickOnIKnowTheirName_Support(formNumber);
-		selectSupporterts(formNumber,createMemberCredentials);
-		}
-		}
-		else if(formNumber.equals("2"))
-		{
-			if(mapAwardsNomination.get("SearchSupporter2By_memberNumber").equalsIgnoreCase("Yes"))
-			{
-				enterSupporterMemberNumber(formNumber,createMemberCredentials.get("Nominee3Number"));
+	public void SelectSupporterByMemberNumberOrName(String formNumber, Map<String, String> mapAwardsNomination,
+			Map<String, String> createMemberCredentials) {
+		if (formNumber.equals("1")) {
+			if (mapAwardsNomination.get("SearchSupporter1By_memberNumber").equalsIgnoreCase("Yes")) {
+				enterSupporterMemberNumber(formNumber, createMemberCredentials.get("Nominee2Number"));
 				ClickSupporterFindMemberButton(formNumber);
 				clickOnSelectNomineeButtonForAwardsNomination();
+			} else {
+				clickOnIKnowTheirName_Support(formNumber);
+				selectSupporterts(formNumber, createMemberCredentials);
 			}
-			else
-			{
-			clickOnIKnowTheirName_Support(formNumber);
-			selectSupporterts(formNumber,createMemberCredentials);
-			}
+		} else if (formNumber.equals("2")) {
+			if (mapAwardsNomination.get("SearchSupporter2By_memberNumber").equalsIgnoreCase("Yes")) {
+				enterSupporterMemberNumber(formNumber, createMemberCredentials.get("Nominee3Number"));
+				ClickSupporterFindMemberButton(formNumber);
+				clickOnSelectNomineeButtonForAwardsNomination();
+			} else {
+				clickOnIKnowTheirName_Support(formNumber);
+				selectSupporterts(formNumber, createMemberCredentials);
 			}
 		}
-	
+	}
 
-	public void EnterTextOrUploadFileInRecomendation_AwardsNomination(String isUploadFile,String RecommendationText,String fileNameReccomendation)
-	{
-		if(isUploadFile.equalsIgnoreCase("Yes"))
-          {
+	public void EnterTextOrUploadFileInRecomendation_AwardsNomination(String isUploadFile, String RecommendationText,
+			String fileNameReccomendation) {
+		if (isUploadFile.equalsIgnoreCase("Yes")) {
 			uploadFileInRecommendation(fileNameReccomendation);
 			verifyOpenAndRemoveButtonIsDisplayedOnUploadingFile("recommendation");
-          }
-      else
-        {
-    	  enterRecommendation(RecommendationText);
-         }
+		} else {
+			enterRecommendation(RecommendationText);
+		}
 	}
-	
-	private void verifyOpenAndRemoveButtonIsDisplayedOnUploadingFile(String Typeid)
-	{
-		
-		isElementDisplayed("link_remove",Typeid);
-		logMessage("Step : Remove button is displayed for type "+Typeid);
-		isElementDisplayed("link_open",Typeid);
-		logMessage("STEP : Open button is displayed for type "+Typeid);
+
+	private void verifyOpenAndRemoveButtonIsDisplayedOnUploadingFile(String Typeid) {
+
+		isElementDisplayed("link_remove", Typeid);
+		logMessage("Step : Remove button is displayed for type " + Typeid);
+		isElementDisplayed("link_open", Typeid);
+		logMessage("STEP : Open button is displayed for type " + Typeid);
 	}
-	
-	public void clickSaveForLaterButtonToNavigateToHomePage()
-	{
+
+	public void clickSaveForLaterButtonToNavigateToHomePage() {
 		isElementDisplayed("btn_saveForLater");
 		element("btn_saveForLater").click();
 		logMessage("STEP : save for later button is clicked, naviagtes to home page\n");
 	}
-	
-	public void clickEditButtonOnHomePage()
-	{
+
+	public void clickEditButtonOnHomePage() {
 		isElementDisplayed("btn_editNominee");
 		element("btn_editNominee").click();
 		logMessage("STEP : edit Nominee button is clicked\n");
 	}
-	
-	public void verifyAwardStatusOnHomePageAwardNomination(String awardName,String expectedStatus)
-	{
-		isElementDisplayed("txt_awardStatus",awardName);
-		Assert.assertTrue(element("txt_awardStatus",awardName).getText().trim().equals(expectedStatus));
-		logMessage("ASSERT PASSED : Award Nomination status on Home page verified as "+expectedStatus+"\n");
+
+	public void verifyAwardStatusOnHomePageAwardNomination(String awardName, String expectedStatus) {
+		isElementDisplayed("txt_awardStatus", awardName);
+		Assert.assertEquals(element("txt_awardStatus", awardName).getText().trim(), expectedStatus,
+				"ASSERT FAILED: Expected status is " + expectedStatus + " but found "
+						+ element("txt_awardStatus", awardName).getText().trim());
+		logMessage("ASSERT PASSED : Award Nomination status on Home page verified as " + expectedStatus + "\n");
 	}
 
 	public void NavigateToConfirmNominationPageAndVerifyNominationDetails(Map<String, String> mapAwardsNomination) {
-	    clickEditButtonOnHomePage();
-        clickOnContinueButton();
-        wait.hardWait(2);
-	    clickOnContinueButton();
-		verifyNominationDetailsOnConfirmNominationPage(mapAwardsNomination);                        
-		                             
-                           
+		clickEditButtonOnHomePage();
+		clickOnContinueButton();
+		wait.hardWait(2);
+		clickOnContinueButton();
+		verifyNominationDetailsOnConfirmNominationPage(mapAwardsNomination);
+
 	}
 
 	private void verifyNominationDetailsOnConfirmNominationPage(Map<String, String> mapAwardsNomination) {
 
-		Assert.assertTrue(elements("chkbox_labPractice").get(0).getText().trim().equals(mapAwardsNomination.get("SafeLabPractices?")));
-		logMessage("ASSERT PASSED : Safe Laboratory Practices on confirm Nomination Page is verified as "+mapAwardsNomination.get("SafeLabPractices?"));
-		
+		Assert.assertEquals(elements("chkbox_labPractice").get(0).getText().trim(),
+				(mapAwardsNomination.get("SafeLabPractices?")));
+		logMessage("ASSERT PASSED : Safe Laboratory Practices on confirm Nomination Page is verified as "
+				+ mapAwardsNomination.get("SafeLabPractices?"));
 
-		Assert.assertTrue(elements("chkbox_labPractice").get(1).getText().trim().equals(mapAwardsNomination.get("DisscussAwardNomination?")));
-		logMessage("ASSERT PASSED : Have you discussed this award nomination with the nominee on confirm Nomination Page is verified as "+mapAwardsNomination.get("DisscussAwardNomination?"));
+		Assert.assertEquals(elements("chkbox_labPractice").get(1).getText().trim(),
+				(mapAwardsNomination.get("DisscussAwardNomination?")));
+		logMessage(
+				"ASSERT PASSED : Have you discussed this award nomination with the nominee on confirm Nomination Page is verified as "
+						+ mapAwardsNomination.get("DisscussAwardNomination?"));
 
-		Assert.assertTrue(element("txt_positionTitle").getText().trim().equals(mapAwardsNomination.get("EligibilityQuestions_NomineePosition")));
-		logMessage("ASSERT PASSED : Nominee's present position on confirm Nomination Page is verified as "+mapAwardsNomination.get("EligibilityQuestions_NomineePosition"));
-		
-		Assert.assertTrue(element("txt_industry").getText().trim().equals(mapAwardsNomination.get("EligibilityQuestions_professionalDiscipline")));
-		logMessage("ASSERT PASSED : Nominee's professional discipline on confirm Nomination Page is verified as "+mapAwardsNomination.get("EligibilityQuestions_professionalDiscipline"));
+		Assert.assertEquals(element("txt_positionTitle").getText().trim(),
+				(mapAwardsNomination.get("EligibilityQuestions_NomineePosition")));
+		logMessage("ASSERT PASSED : Nominee's present position on confirm Nomination Page is verified as "
+				+ mapAwardsNomination.get("EligibilityQuestions_NomineePosition"));
 
-		Assert.assertTrue(element("txt_confirmSuggestedCitation").getText().trim().contains(mapAwardsNomination.get("SuggestCitation_Text")));
-		logMessage("ASSERT PASSED : Suggested citation on confirm Nomination Page is verified as "+mapAwardsNomination.get("SuggestCitation_Text"));
+		Assert.assertEquals(element("txt_industry").getText().trim(),
+				(mapAwardsNomination.get("EligibilityQuestions_professionalDiscipline")));
+		logMessage("ASSERT PASSED : Nominee's professional discipline on confirm Nomination Page is verified as "
+				+ mapAwardsNomination.get("EligibilityQuestions_professionalDiscipline"));
+
+		Assert.assertTrue(
+				element("txt_confirmSuggestedCitation").getText().trim()
+						.contains(mapAwardsNomination.get("SuggestCitation_Text")),
+				"ASSERT FAILED: Expected value is '" + mapAwardsNomination.get("SuggestCitation_Text") + " but found "
+						+ element("txt_confirmSuggestedCitation").getText().trim());
+		logMessage("ASSERT PASSED : Suggested citation on confirm Nomination Page is verified as "
+				+ mapAwardsNomination.get("SuggestCitation_Text"));
 	}
-	
-
 
 	public void navigateToHomePageFromEligibilityQuestionPage() {
 		clickEditButtonOnHomePage();
 		clickOnContinueButton();
 		wait.waitForPageToLoadCompletely();
 		clickOnConfirm_preparedNominationButton();
-		
+
 	}
+
 	public void loginInToAwardsNominateApplication(Map<String, String> mapAwardsNomination,
 			Map<String, String> createMemberCredentials) {
-			loginInToApplication(createMemberCredentials.get("Nominee0Name").split(" ")[0],createMemberCredentials.get("Nominee0Number"));
-	
-		
+		loginInToApplication(createMemberCredentials.get("Nominee0Name").split(" ")[0],
+				createMemberCredentials.get("Nominee0Number"));
+
 	}
 
 	public void verifyPdfContent() {
-		ASCSocietyGenericPage.extractAndCompareTextFromPdfFile("Test Biographical Sketch","Test Biography",1);
-		ASCSocietyGenericPage.extractAndCompareTextFromPdfFile("Test Publications & Patents","Test Publications",1);
-		ASCSocietyGenericPage.extractAndCompareTextFromPdfFile("Test Recommendation","Test Recommendation",1);
-		ASCSocietyGenericPage.extractAndCompareTextFromPdfFile("Test Support Form 1","Support Form 1",1);
-		ASCSocietyGenericPage.extractAndCompareTextFromPdfFile("Test Support Form 2","Support Form 2",1);
-		
+		ASCSocietyGenericPage.extractAndCompareTextFromPdfFile("Test Biographical Sketch", "Test Biography", 1);
+		ASCSocietyGenericPage.extractAndCompareTextFromPdfFile("Test Publications & Patents", "Test Publications", 1);
+		ASCSocietyGenericPage.extractAndCompareTextFromPdfFile("Test Recommendation", "Test Recommendation", 1);
+		ASCSocietyGenericPage.extractAndCompareTextFromPdfFile("Test Support Form 1", "Support Form 1", 1);
+		ASCSocietyGenericPage.extractAndCompareTextFromPdfFile("Test Support Form 2", "Support Form 2", 1);
+
 	}
 
-
-
-
-
-
 }
-

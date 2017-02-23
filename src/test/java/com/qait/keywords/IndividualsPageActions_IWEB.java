@@ -384,10 +384,12 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 		isElementDisplayed("img_aactMember");
 		if (getAACT_OmaSheetValue(caseId, "Is Create Only Individual?").equalsIgnoreCase("Y")) {
-			Assert.assertTrue(element("img_aactMember").getAttribute("src").endsWith("delete1.gif"));
+			Assert.assertTrue(element("img_aactMember").getAttribute("src").endsWith("delete1.gif"),
+					"ASSERT FAILED: " + element("img_aactMember").getAttribute("src"));
 			logMessage("ASSERT PASSED : AACT Individual Member created\n");
 		} else if (getAACT_OmaSheetValue(caseId, "Is Create Only Individual?").equalsIgnoreCase("N")) {
-			Assert.assertTrue(element("img_aactMember").getAttribute("src").endsWith("chkmk.gif"));
+			Assert.assertTrue(element("img_aactMember").getAttribute("src").endsWith("chkmk.gif"),
+					"ASSERT FAILED: " + element("img_aactMember").getAttribute("src"));
 			logMessage("ASSERT PASSED : AACT Member created\n");
 		} else {
 			logMessage("Value in Is Create Only Individual? column is null\n");
@@ -992,7 +994,9 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 					String PriceValueExpected = String.valueOf(formatedPrice);
 
 					String priceValueActual = element("txt_" + detailName, productName).getText().trim();
-					// Assert.assertTrue(priceValueActual.equalsIgnoreCase(PriceValueExpected));
+					Assert.assertTrue(priceValueActual.equalsIgnoreCase(PriceValueExpected),
+							"ASSERT FAILED: Expected value is " + PriceValueExpected + " but found "
+									+ priceValueActual);
 					logMessage("ASSERT PASSED : " + priceValueActual + " is verified in txt_" + detailName + "\n");
 					return priceValueActual;
 				} else {
@@ -1002,10 +1006,11 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 					String formatedPrice = String.format("%.02f", priceValueInSheet);
 					String PriceValueExpected = String.valueOf(formatedPrice);
 
-					// Assert.assertTrue(priceValueActual.equalsIgnoreCase(PriceValueExpected));
+					Assert.assertTrue(priceValueActual.equalsIgnoreCase(PriceValueExpected),
+							"ASSERT FAILED: Expected value is " + PriceValueExpected + " but found "
+									+ priceValueActual);
 					logMessage(
 							"ASSERT PASSED : " + priceValueActual + " price is verified in txt_" + detailName + "\n");
-
 					return priceValueActual;
 				}
 			}
@@ -1025,7 +1030,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			String priceValueActual = element("txt_" + detailName, productName).getText().trim();
 			String formatedPrice = String.format("%.02f", Float.parseFloat(detailValue));
 			String PriceValueExpected = String.valueOf(formatedPrice);
-			Assert.assertTrue(priceValueActual.equalsIgnoreCase(PriceValueExpected));
+			Assert.assertTrue(priceValueActual.equalsIgnoreCase(PriceValueExpected),
+					"ASSERT FAILED: Expected value is " + PriceValueExpected + " but found " + priceValueActual);
 			logMessage("ASSERT PASSED : " + priceValueActual + " price is verified in txt_" + detailName + "\n");
 			return priceValueActual;
 
@@ -1174,16 +1180,16 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 				"EST5EDT");
 		isElementDisplayed("txt_term" + start_EndDate, productName);
 		if (start_EndDate.equalsIgnoreCase("StartDate")) {
-			System.out.println(element("txt_term" + start_EndDate, productName).getText().trim());
-			System.out.println(currentDate);
 			Assert.assertTrue(
-					element("txt_term" + start_EndDate, productName).getText().trim().equalsIgnoreCase(currentDate));
+					element("txt_term" + start_EndDate, productName).getText().trim().equalsIgnoreCase(currentDate),
+					"ASSERT FAILED: Expected value is " + currentDate + " but found "
+							+ element("txt_term" + start_EndDate, productName).getText().trim());
 			logMessage("ASSERT PASSED : TermStartDate is " + currentDate + " verified");
 		} else if (start_EndDate.equalsIgnoreCase("EndDate")) {
-			System.out.println(element("txt_term" + start_EndDate, productName).getText().trim());
-			System.out.println(nextYearDate);
 			Assert.assertTrue(
-					element("txt_term" + start_EndDate, productName).getText().trim().equalsIgnoreCase(nextYearDate));
+					element("txt_term" + start_EndDate, productName).getText().trim().equalsIgnoreCase(nextYearDate),
+					"ASSERT FAILED: Expected value is " + nextYearDate + " but found "
+							+ element("txt_term" + start_EndDate, productName).getText().trim());
 			logMessage("ASSERT PASSED : TermEndDate is " + nextYearDate + " verified");
 		}
 	}
@@ -1251,10 +1257,12 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		String expected = detailValue;
 
 		if (detailName.equalsIgnoreCase("StartIssue")) {
-			Assert.assertTrue(actual.startsWith(expected));
+			Assert.assertTrue(actual.startsWith(expected),
+					"ASSERT FAILED: Expected value is " + expected + " but found " + actual);
 			logMessage("ASSERT PASSED : " + detailValue + " is verified for " + detailName + " \n");
 		} else {
-			Assert.assertTrue(actual.equalsIgnoreCase(expected));
+			Assert.assertTrue(actual.equalsIgnoreCase(expected),
+					"ASSERT FAILED: Expected value is " + expected + " but found " + actual);
 			logMessage("ASSERT PASSED : " + detailValue + " is verified for " + detailName + " \n");
 		}
 
@@ -1409,10 +1417,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyDetailsForAwardsNomination(Map<String, String> mapAwardsNomination,
 			Map<String, String> createMemberCredentials) {
-		System.out.println(mapAwardsNomination.get("SuggestCitation_Text"));
-		System.out.println(element("txt_citationAwards").getText().trim());
-		Assert.assertTrue(
-				element("txt_citationAwards").getText().trim().equals(mapAwardsNomination.get("SuggestCitation_Text")));
+		Assert.assertEquals(element("txt_citationAwards").getText().trim(),
+				(mapAwardsNomination.get("SuggestCitation_Text")));
 		logMessage("ASSERT PASSED : Citiation field on Award Entry Profile is verified as "
 				+ mapAwardsNomination.get("SuggestCitation_Text"));
 		verifySupporterNamesOnAwardEntryProfilePage(createMemberCredentials, "1");
@@ -1431,9 +1437,9 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		String docurl = element("lnk_awardsSupporterDoc", SupporterNumber).getAttribute("href");
 		docurl = docurl.replaceAll("%20", " ");
-		System.out.println(docurl);
-		System.out.println(mapAwardsNomination.get("FileNameForSupportForm" + supportNo2));
-		Assert.assertTrue(docurl.contains(mapAwardsNomination.get("FileNameForSupportForm" + supportNo2)));
+		Assert.assertTrue(docurl.contains(mapAwardsNomination.get("FileNameForSupportForm" + supportNo2)),
+				"ASSERT FAILED: Expected value is " + mapAwardsNomination.get("FileNameForSupportForm" + supportNo2)
+						+ " but found " + docurl);
 		logMessage("ASSERT PASSED : Document for supporter " + SupporterNumber + " succesfully verified as "
 				+ mapAwardsNomination.get("FileNameForSupportForm" + supportNo2));
 	}
@@ -1445,11 +1451,13 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		for (int i = 0; i < supporters.length; i++) {
 			if (createMemberCredentials.get("Nominee" + (Integer.parseInt(SupporterNumber) + 1) + "Name")
 					.contains(supporters[0])) {
-				System.out.println(
-						createMemberCredentials.get("Nominee" + (Integer.parseInt(SupporterNumber) + 1) + "Name"));
-				System.out.println(supporters[i]);
-				Assert.assertTrue(createMemberCredentials
-						.get("Nominee" + (Integer.parseInt(SupporterNumber) + 1) + "Name").contains(supporters[i]));
+				Assert.assertTrue(
+						createMemberCredentials.get("Nominee" + (Integer.parseInt(SupporterNumber) + 1) + "Name")
+								.contains(supporters[i]),
+						"ASSERT FAILED: "
+								+ createMemberCredentials
+										.get("Nominee" + (Integer.parseInt(SupporterNumber) + 1) + "Name")
+								+ " doest not contains " + supporters[i]);
 			}
 		}
 		logMessage("ASSERT PASSED : Supporter " + SupporterNumber
@@ -1460,23 +1468,25 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	private void verifyLetterDocuments_AwardsNomination(Map<String, String> mapAwardsNomination, String lettername,
 			String datasheetValue) {
 		if (datasheetValue.equalsIgnoreCase("FileNameForSupportForm1")) {
-			System.out.println(elements("lnk_awardsLettersDoc", lettername).get(1).getAttribute("onclick"));
-			System.out.println(mapAwardsNomination.get(datasheetValue));
-			Assert.assertTrue(elements("lnk_awardsLettersDoc", lettername).get(1).getAttribute("onclick")
-					.contains(mapAwardsNomination.get(datasheetValue)));
+			Assert.assertTrue(
+					elements("lnk_awardsLettersDoc", lettername).get(1).getAttribute("onclick")
+							.contains(mapAwardsNomination.get(datasheetValue)),
+					"ASSERT FAILED: " + elements("lnk_awardsLettersDoc", lettername).get(1).getAttribute("onclick")
+							+ " doest not contains " + mapAwardsNomination.get(datasheetValue));
 			logMessage("ASSERT PASSED : File uploaded for Support form 1 is displayed under Documents \n");
 		} else if (datasheetValue.equalsIgnoreCase("FileNameForSupportForm2")) {
-			System.out.println(elements("lnk_awardsLettersDoc", lettername).get(0).getAttribute("onclick"));
-			System.out.println(mapAwardsNomination.get(datasheetValue));
-			Assert.assertTrue(elements("lnk_awardsLettersDoc", lettername).get(0).getAttribute("onclick")
-					.contains(mapAwardsNomination.get(datasheetValue)));
+			Assert.assertTrue(
+					elements("lnk_awardsLettersDoc", lettername).get(0).getAttribute("onclick")
+							.contains(mapAwardsNomination.get(datasheetValue)),
+					"ASSERT FAILED: " + elements("lnk_awardsLettersDoc", lettername).get(0).getAttribute("onclick")
+							+ " doest not contains " + mapAwardsNomination.get(datasheetValue));
 			logMessage("ASSERT PASSED : File uploaded for Support form 2 is displayed under Documents \n");
 		} else {
-			System.out.println(element("lnk_awardsLettersDoc", lettername).getAttribute("onclick"));
-			System.out.println(mapAwardsNomination.get(datasheetValue));
-			// Assert.assertTrue(element("lnk_awardsLettersDoc",
-			// lettername).getAttribute("onclick")
-			// .contains(mapAwardsNomination.get(datasheetValue)));
+			Assert.assertTrue(
+					element("lnk_awardsLettersDoc", lettername).getAttribute("onclick")
+							.contains(mapAwardsNomination.get(datasheetValue)),
+					"ASSERT FAILED: " + element("lnk_awardsLettersDoc", lettername).getAttribute("onclick")
+							+ " doest not contains " + mapAwardsNomination.get(datasheetValue));
 			logMessage("ASSERT PASSED : File uploaded for " + lettername + " is displayed under Documents \n");
 		}
 	}
@@ -1502,36 +1512,30 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	private void verifyAwardDetailsAndRecommendations(Map<String, String> mapAwardsNomination) {
-		System.out.println(element("txtarea_CitationRecommedation", "citation").getText().trim());
-		Assert.assertTrue(element("txtarea_CitationRecommedation", "citation").getText().trim()
-				.equals(mapAwardsNomination.get("SuggestCitation_Text")));
+		Assert.assertEquals(element("txtarea_CitationRecommedation", "citation").getText().trim(),
+				(mapAwardsNomination.get("SuggestCitation_Text")));
 		logMessage("ASSERT PASSED : Citation field is verified as " + mapAwardsNomination.get("SuggestCitation_Text")
 				+ "\n");
 		if (!mapAwardsNomination.get("UploadFileFor_Recommendation?").equals("Yes")
 				&& mapAwardsNomination.get("Recommendation_Text").length() != 0) {
-			System.out.println(element("txtarea_CitationRecommedation", "Recommendation").getText().trim());
-			Assert.assertTrue(element("txtarea_CitationRecommedation", "Recommendation").getText().trim()
-					.equals(mapAwardsNomination.get("Recommendation_Text")));
+			Assert.assertEquals(element("txtarea_CitationRecommedation", "Recommendation").getText().trim(),
+					(mapAwardsNomination.get("Recommendation_Text")));
 			logMessage("ASSERT PASSED : Recommendation text is verified as "
 					+ mapAwardsNomination.get("Recommendation_Text") + "\n");
 		} else {
 			logMessage("ASSERT PASSED : File is uploaded for recommendation, text field is empty\n");
 		}
-		System.out.println(element("inp_presentposition").getAttribute("value").trim());
-		System.out.println(mapAwardsNomination.get("EligibilityQuestions_NomineePosition"));
-		Assert.assertTrue(element("inp_presentposition").getAttribute("value").trim()
-				.equals(mapAwardsNomination.get("EligibilityQuestions_NomineePosition")));
+		Assert.assertEquals(element("inp_presentposition").getAttribute("value").trim(),
+				(mapAwardsNomination.get("EligibilityQuestions_NomineePosition")));
 		logMessage("ASSERT PASSED : Present Position field is verified as "
 				+ mapAwardsNomination.get("EligibilityQuestions_NomineePosition") + "\n");
-		System.out.println(element("drpdwn_industrytype", "protocols").getText());
 		// Assert.assertTrue(element("drpdwn_industrytype",
 		// "protocols").getText().trim()
 		// .equals(mapAwardsNomination.get("SafeLabPractices?")));
 		// logMessage("ASSERT PASSED : Saftey protocols field is verified as "
 		// + mapAwardsNomination.get("SafeLabPractices?") + "\n");
-		System.out.println(elements("drpdwn_industrytype", "nominee").get(1).getText());
-		Assert.assertTrue(elements("drpdwn_industrytype", "nominee").get(1).getText().trim()
-				.equals(mapAwardsNomination.get("EligibilityQuestions_professionalDiscipline")));
+		Assert.assertEquals(elements("drpdwn_industrytype", "nominee").get(1).getText().trim(),
+				(mapAwardsNomination.get("EligibilityQuestions_professionalDiscipline")));
 		logMessage("ASSERT PASSED : Industry type field is verified as "
 				+ mapAwardsNomination.get("EligibilityQuestions_professionalDiscipline") + "\n");
 
@@ -1558,8 +1562,6 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		handleAlert();
 		wait.waitForPageToLoadCompletely();
 		isElementDisplayed("txt_individualInfo");
-		System.out.println("----exp:" + expectedData);
-		System.out.println("----actual:" + element("txt_individualInfo").getText().trim());
 		Assert.assertTrue(element("txt_individualInfo").getText().trim().contains(expectedData),
 				"Assertion Failed: Individual address is not correctly updated");
 		logMessage("ASSERT PASSED: Individual address is updated correctly");
@@ -1577,7 +1579,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_bioHonors");
 		logMessage("Expected Biography data : " + expectedHonors);
 		logMessage("Actual Biography data : " + element("txt_bioHonors").getText().trim());
-		Assert.assertTrue(expectedHonors.equals(element("txt_bioHonors").getText().trim()),
+		Assert.assertEquals(expectedHonors, (element("txt_bioHonors").getText().trim()),
 				"Assertion Failed: Biography honors data does not matches");
 		logMessage("Assertion Passed : Biography honors data matches");
 		clickOnCancelButton();
@@ -1592,7 +1594,9 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyCommitteeMembersStatus(List<String> committeeList) {
 		expandDetailsMenu("acsyb nominations");
 		for (String committee : committeeList) {
-			Assert.assertTrue(element("txt_quantity", committee).getText().trim().equalsIgnoreCase("Pending"));
+			Assert.assertTrue(element("txt_quantity", committee).getText().trim().equalsIgnoreCase("Pending"),
+					"ASSERT FAILED: Expetected value is 'Pending' but found "
+							+ element("txt_quantity", committee).getText().trim());
 			logMessage("ASSERT PASSED : Committee " + committee + " status is pending");
 		}
 	}
@@ -1911,7 +1915,6 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		// Assert.assertTrue(flag,"ASSERT FAILED : Mbr Status of Chapter
 		// "+chpName+" is not changed to Transferred\n");
-		System.out.println("-------index:" + index);
 		Assert.assertTrue(checkTerminateDateIsNull(index, tabName, "Transferred", 6),
 				"ASSERT FAILED : Mbr Status of Chapter " + chpName + " is not changed to Transferred\n");
 		logMessage("ASSERT PASSED : Mbr Status of Chapter " + chpName + " is changed to Transferred\n");
@@ -2007,7 +2010,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			for (WebElement ele : elements("txt_active_chapters")) {
 				activeChapters.add(ele);
 			}
-			System.out.println("active chapter size"+activeChapters.size());
+			System.out.println("active chapter size" + activeChapters.size());
 			chapterName = activeChapters.get(generateRandomNumberWithInRange(0, activeChapters.size())).getText();
 			logMessage("Step : Random active Chapter Name displayed as " + chapterName);
 			element("txt_divisionPubName", chapterName).click();
@@ -2117,8 +2120,6 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public int verifyDiscountedPriceFortheRecord(String percentagediscount, String[] productprice) {
 		int expectedamount = 0;
-		System.out.println("product price" + productprice[2]);
-		System.out.println("product amount" + productprice[1]);
 		if (productprice[2] == null) {
 			logMessage("Step : Product price is already discounted to " + productprice[1]);
 
@@ -2126,9 +2127,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 			expectedamount = getActualDiscountedAmount((100 - Integer.parseInt(percentagediscount)),
 					Float.parseFloat(productprice[1]));
-			System.out.println("expected amount " + expectedamount);
-			System.out.println(element("txt_quantity", productprice[0]).getText());
-			Assert.assertTrue(element("txt_quantity", productprice[0]).getText().trim().equals(expectedamount + ".00"));
+			Assert.assertEquals(element("txt_quantity", productprice[0]).getText().trim(), expectedamount + ".00");
 			logMessage("ASSERT PASSED : Discounted amount is exactly " + percentagediscount + " % of actual amount "
 					+ productprice[1]);
 		}
@@ -2211,9 +2210,9 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		try {
 			isElementDisplayed("txt_updatedLogsBPA", fieldName, "1");
 			String actualfieldValue = elements("txt_updatedLogsBPA", fieldName, "1").get(0).getText().trim();
-			System.out.println(actualfieldValue);
-			System.out.println(fieldValue);
-			Assert.assertTrue(fieldValue.trim().contains(actualfieldValue), "demographic change log is not updated\n");
+			Assert.assertTrue(fieldValue.trim().contains(actualfieldValue),
+					"demographic change log is not updated Expected value is " + actualfieldValue + " but found "
+							+ fieldValue + "\n");
 			logMessage("ASSERT PASSED : Demographic log for " + fieldName + " is verified as " + fieldValue);
 		} catch (NoSuchElementException e) {
 			logMessage("Step : " + fieldName + " as " + fieldValue + " is not present in acs demograph logs\n");
@@ -2223,9 +2222,9 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	public String fillDataOnRapidEntryFormAndSaveChanges(Map<String, String> bpaMap, String[] BPATypeInfoArray,
 			String customerID) {
 		String currentdate = DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY");
-		
+
 		wait.hardWait(4);
-		EnterTextInField(element("inp_bpa_info","customer id"), customerID);
+		EnterTextInField(element("inp_bpa_info", "customer id"), customerID);
 
 		clickSearchLookUpButtonOnBPARapidForm();
 		selectProvidedTextFromDropDown(element("drpdwn_relationshipType", BPATypeInfoArray[0]),
@@ -2279,7 +2278,6 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		if (caseID.equals("2")) {
 			pricevalue = salePrice;
 		} else {
-			System.out.println(productName);
 			isElementDisplayed("txt_updatedLogsBPA", productName, "3");
 			pricevalue = element("txt_updatedLogsBPA", productName, "3").getText().trim();
 		}
@@ -2290,7 +2288,6 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public String verifyGiftItemPurchasedDetailsBeforeRedeeming(String batchName, String priceValue) {
 		String GiftCardNumber = getMemberType();
-		System.out.println("Redeemed code is " + GiftCardNumber);
 		verifyGiftCardDetailsOnIweb(GiftCardNumber, "4",
 				DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY", "EST"));
 		verifyGiftCardDetailsOnIweb(GiftCardNumber, "5", batchName);
@@ -2314,9 +2311,9 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	private void verifyGiftCardDetailsOnIweb(String GiftCardNumber, String index, String value) {
 		isElementDisplayed("txt_updatedLogsBPA", GiftCardNumber, index);
-		System.out.println(value);
-		System.out.println(element("txt_updatedLogsBPA", GiftCardNumber, index).getText().trim());
-		Assert.assertTrue(element("txt_updatedLogsBPA", GiftCardNumber, index).getText().trim().contains(value));
+		Assert.assertTrue(element("txt_updatedLogsBPA", GiftCardNumber, index).getText().trim().contains(value),
+				"ASSERT FAILED: Expected value is " + value + " but found "
+						+ element("txt_updatedLogsBPA", GiftCardNumber, index).getText().trim());
 		logMessage("ASSERT P0" + "cccccccccccccc        ASSED : gift card details on iweb is verified as " + value);
 	}
 

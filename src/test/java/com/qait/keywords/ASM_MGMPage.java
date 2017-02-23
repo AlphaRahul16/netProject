@@ -280,23 +280,22 @@ public class ASM_MGMPage extends GetPage {
 	public void clickOnApplyForACSMembership() {
 		hardWaitForIEBrowser(5);
 		isElementDisplayed("link_applyACSmembership", "Apply for ACS Membership");
+		logMessage("ASSERT PASSED: Apply for ACS Mambership link is present for Non active member \n");
 		if (isBrowser("ie") || isBrowser("internet explorer")) {
 			clickUsingXpathInJavaScriptExecutor(element("link_applyACSmembership", "Apply for ACS Membership"));
 		} else
-			element("link_applyACSmembership", "Apply for ACS Membership").click();
-		logMessage("ASSERT PASSED: Apply for ACS Mambership link is present for Non active member \n");
+			element("link_applyACSmembership", "Apply for ACS Membership").click();		
 		logMessage("STEP: 'Apply for ACS Mambership' link is clicked \n");
 	}
 
 	public void clickOnRenewYourMembershipNow() {
 		isElementDisplayed("link_applyACSmembership", "Renew your membership now");
-		if (isBrowser("ie")) {
+		logMessage("ASSERT PASSED:Renew your membership now link is present \n");
+		if (isBrowser("ie")|| isBrowser("internet explorer")) {
 			clickUsingXpathInJavaScriptExecutor(element("link_applyACSmembership", "Renew your membership now"));
 		} else {
 			element("link_applyACSmembership", "Renew your membership now").click();
-		}
-
-		logMessage("ASSERT PASSED:Renew your membership now link is present \n");
+		}		
 		wait.waitForPageToLoadCompletely();
 		logMessage("STEP: 'Renew your membership now' link is clicked \n");
 	}
@@ -319,7 +318,6 @@ public class ASM_MGMPage extends GetPage {
 	}
 
 	public void inviteButtonIsNotDisplayed() {
-
 		Assert.assertFalse(checkIfElementIsThere("btn_invite"), "ASSERT FAILED: Invite option is given \n");
 		logMessage("ASSERT PASSED: Active member with a renewal is not given the option to invite a member\n");
 	}

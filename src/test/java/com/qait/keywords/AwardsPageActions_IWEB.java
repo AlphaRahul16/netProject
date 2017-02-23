@@ -178,9 +178,8 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 				} else
 					logMessage("[INFO] : Awards Voting is not closed\n");
 				clickOnAwardsName_RoundName(awardName);
-			}
-			else
-				logMessage("STEP : Round "+roundNumber+" status is not closed\n");
+			} else
+				logMessage("STEP : Round " + roundNumber + " status is not closed\n");
 		}
 	}
 
@@ -255,7 +254,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("link_editRecord", roundNumber);
 		element("link_editRecord", roundNumber).click();
 		logMessage("STEP : Edit record button is clicked in link_editRecord\n");
-		//isElementDisplayed("txt_editRoundPage");
+		// isElementDisplayed("txt_editRoundPage");
 	}
 
 	public void editStartEndDate(String start_endDate, String value) {
@@ -333,7 +332,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			if (sizeOfNominees > 0) {
 				isElementDisplayed("btn_editChild", "acs award winner");
 				int sizeOfEditButton = elements("btn_editChild", "acs award winner").size();
-				System.out.println("-------size of edit button value:"+sizeOfEditButton);
+				System.out.println("-------size of edit button value:" + sizeOfEditButton);
 				for (int i = 1; i <= sizeOfEditButton; i++) {
 					// for (WebElement ele :
 					// elements("btn_editChild","acs award winner")) {
@@ -358,7 +357,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 
 	}
-	
+
 	public void editPreviousWinnerNominees() {
 
 		wait.hardWait(4);
@@ -368,21 +367,21 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			if (sizeOfNominees > 0) {
 				isElementDisplayed("btn_editChild", "acs award winner");
 				int sizeOfEditButton = elements("btn_editChild", "acs award winner").size();
-				System.out.println("-------size of edit button value:"+sizeOfEditButton);
+				System.out.println("-------size of edit button value:" + sizeOfEditButton);
 				for (int i = 1; i <= sizeOfEditButton; i++) {
 					// for (WebElement ele :
 					// elements("btn_editChild","acs award winner")) {
 					// ele.click();
 					System.out.println("-------in for loop");
-						System.out.println("-----in if loop");
-						elements("btn_editChild", "acs award winner").get(j).click();
-						wait.hardWait(1);
-						wait.waitForPageToLoadCompletely();
-						switchToFrame("iframe1");
-						selectProvidedTextFromDropDown(element("drpdwn_selectWinnerCategory"), "Please select");
-						clickOnSaveButton();
-						switchToDefaultContent();
-						logMessage("STEP : Edit winner nominees from judges\n");
+					System.out.println("-----in if loop");
+					elements("btn_editChild", "acs award winner").get(j).click();
+					wait.hardWait(1);
+					wait.waitForPageToLoadCompletely();
+					switchToFrame("iframe1");
+					selectProvidedTextFromDropDown(element("drpdwn_selectWinnerCategory"), "Please select");
+					clickOnSaveButton();
+					switchToDefaultContent();
+					logMessage("STEP : Edit winner nominees from judges\n");
 				}
 			}
 		}
@@ -510,7 +509,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnAddRoundButton(String tabName) {
-//		wait.hardWait(8);
+		// wait.hardWait(8);
 		isElementDisplayed("btn_addRounds_judges", tabName);
 		clickUsingXpathInJavaScriptExecutor(element("btn_addRounds_judges", tabName));
 		// element("btn_addRounds_judges", tabName).click();
@@ -634,25 +633,25 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 				int sizeOfEditJudges = elements("btn_editJudges").size();
 				System.out.println("Size of edit judges: " + sizeOfEditJudges);
-				try{
-				for (int j = 0; j < sizeOfEditJudges; j++) {
-					// for (WebElement ele : elements("btn_editJudges")) {
-					wait.hardWait(7);
-					// ele.click();
-					isElementDisplayed("btn_editJudges");
-					elements("btn_editJudges").get(0).click();
-					switchToFrame("iframe1");
-					logMessage("STEP : Click to edit judge");
-					clickOnDeleteJudgeButton();
-					waitForAlertToAppear();
-					switchToDefaultContent();
-					/*
-					 * clickUsingXpathInJavaScriptExecutor(elements(
-					 * "btnList_yellowPointerExpand").get(i - 2)); logMessage(
-					 * "Step : expand yellow pointer\n");
-					 */
-				}
-				}catch(StaleElementReferenceException e){
+				try {
+					for (int j = 0; j < sizeOfEditJudges; j++) {
+						// for (WebElement ele : elements("btn_editJudges")) {
+						wait.hardWait(7);
+						// ele.click();
+						isElementDisplayed("btn_editJudges");
+						elements("btn_editJudges").get(0).click();
+						switchToFrame("iframe1");
+						logMessage("STEP : Click to edit judge");
+						clickOnDeleteJudgeButton();
+						waitForAlertToAppear();
+						switchToDefaultContent();
+						/*
+						 * clickUsingXpathInJavaScriptExecutor(elements(
+						 * "btnList_yellowPointerExpand").get(i - 2));
+						 * logMessage( "Step : expand yellow pointer\n");
+						 */
+					}
+				} catch (StaleElementReferenceException e) {
 					elements("btn_editJudges").get(0).click();
 					switchToFrame("iframe1");
 					logMessage("STEP : Click to edit judge");
@@ -809,9 +808,9 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(8);
 		isElementDisplayed("btn_search");
-//		wait.waitForElementToBeClickable(element("btn_search"));
+		// wait.waitForElementToBeClickable(element("btn_search"));
 		clickUsingXpathInJavaScriptExecutor(element("btn_search"));
-//		 element("btn_search").click();
+		// element("btn_search").click();
 		logMessage("STEP : Search button is clicked \n");
 	}
 
@@ -986,8 +985,8 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			wait.hardWait(2);
 			clickOnJudgeNameToNavigateOnProfilePage(newJudgeName);
 			waitForSpinner();
-			
-			MembershipPageActions_IWEB obj=new MembershipPageActions_IWEB(driver);
+
+			MembershipPageActions_IWEB obj = new MembershipPageActions_IWEB(driver);
 			obj.clickOnEditNameAndAddress();
 			wait.hardWait(2);
 			switchToFrame("iframe1");
@@ -998,7 +997,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 			judgeCustomerID_Weblogin.add(getCustomerID(judgeName));
 			judgeCustomerID_Weblogin.add(customerLname);
 
-//			judgeCustomerID_Weblogin.add(getWebLogin(judgeName));
+			// judgeCustomerID_Weblogin.add(getWebLogin(judgeName));
 
 			judgeDetailsMap.put(judgeName, judgeCustomerID_Weblogin);
 
@@ -1138,7 +1137,9 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyClosedStatusOnUpdatingScore(String closedMessage) {
 		isElementDisplayed("txt_closedStatus");
-		Assert.assertTrue(element("txt_closedStatus").getText().equalsIgnoreCase(closedMessage));
+		Assert.assertTrue(element("txt_closedStatus").getText().equalsIgnoreCase(closedMessage),
+				"ASSERT FAILED: Expected value is " + closedMessage + " but found "
+						+ element("txt_closedStatus").getText());
 		logMessage("ASSERT PASSED : Closed status is verified as " + closedMessage + "\n");
 	}
 
@@ -1168,18 +1169,16 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyNomineeWinnerStatus(int round) {
 		int status = round;
-
-		System.out.println("Round" + status + " Winner Status? \n " + map().get("Round" + status + " Winner Status?"));
 		for (WebElement winnerStatus : elements("list_acsEntriesNotStage_ColWinnerStatus")) {
 			if (winnerStatus.getText().trim().equalsIgnoreCase(map().get("Round" + status + " Winner Status?"))) {
-
+				
 				logMessage("ASSERT PASSED : Winner status is verified as"
 						+ map().get("Round" + status + " Winner Status?") + "\n");
 				flag = true;
 				break;
 			}
-			logMessage("ASSERT FAILED : Error in Winner status. Actual" + winnerStatus.getText().trim() + " and expected"
-					+ map().get("Round" + status + " Winner Status?") + "\n");
+			logMessage("ASSERT FAILED : Error in Winner status. Actual" + winnerStatus.getText().trim()
+					+ " and expected" + map().get("Round" + status + " Winner Status?") + "\n");
 
 		}
 		if (!flag) {

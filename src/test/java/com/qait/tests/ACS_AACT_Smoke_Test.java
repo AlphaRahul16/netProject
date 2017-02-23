@@ -94,9 +94,16 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 		test.checkoutPage.verifyPriceValues_AACT(caseID);
 		productSubTotal = test.checkoutPage.verifyProductSubTotal("4", "Product Subtotal");
 		test.checkoutPage.selectAndVerifyAllAndDefaultDeliveryMethods(caseID);
-		test.checkoutPage.enterPaymentInfo(YamlReader.getYamlValue("creditCardInfo.Type"),
-				userUniqueDetail.get(1) + " " + userUniqueDetail.get(2),
-				YamlReader.getYamlValue("creditCardInfo.Number"), YamlReader.getYamlValue("creditCardInfo.cvv-number"));
+//		test.checkoutPage.enterPaymentInfo(YamlReader.getYamlValue("creditCardInfo.Type"),
+//				userUniqueDetail.get(1) + " " + userUniqueDetail.get(2),
+//				YamlReader.getYamlValue("creditCardInfo.Number"), YamlReader.getYamlValue("creditCardInfo.cvv-number"));
+		test.asm_storePage.enterPaymentInfo("CardholderName", userUniqueDetail.get(1) + " " + userUniqueDetail.get(2));
+		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes(test.homePageIWEB.map().get("Payment_Method"),
+				test.homePageIWEB.map().get("Visa_Card_Number"), test.homePageIWEB.map().get("Diners_Card_Number"),
+				test.homePageIWEB.map().get("Reference_Number"), test.homePageIWEB.map().get("Discover_Card_Number"),
+				test.homePageIWEB.map().get("AMEX_Card_Number"), test.homePageIWEB.map().get("Expiry_Month"),
+				test.homePageIWEB.map().get("CVV_Number"), test.homePageIWEB.map().get("Check_Number"),
+				test.homePageIWEB.map().get("Expiry_Year"));
 		test.checkoutPage.clickAtTestStatement();
 		test.ContactInfoPage.clickContinue();
 		test.checkoutPage.clickSubmitButtonAtBottom();
@@ -118,7 +125,7 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 
 	}
 
-	//@Test(dependsOnMethods = { "Step05_Verify_Details_At_Confirmation_Page" })
+	@Test(dependsOnMethods = { "Step05_Verify_Details_At_Confirmation_Page" })
 	public void Step06_Launch_Application_Under_Test() {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
@@ -129,7 +136,7 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 
-	//@Test(dependsOnMethods = { "Step06_Launch_Application_Under_Test" })
+	@Test(dependsOnMethods = { "Step06_Launch_Application_Under_Test" })
 	public void Step07_Search_Member_In_IWEB_Application_And_Verify_Member_Details() {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
@@ -149,7 +156,7 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 		test.invoicePage.verifyInvoicedDetails_AACTOMA(caseID, "Invoice", invoiceNumber);
 	}
 
-	//@Test(dependsOnMethods = { "Step07_Search_Member_In_IWEB_Application_And_Verify_Member_Details" })
+	@Test(dependsOnMethods = { "Step07_Search_Member_In_IWEB_Application_And_Verify_Member_Details" })
 	public void Step08_Search_Individual_In_IWEB_Application_And_Verify_Details() {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
