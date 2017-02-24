@@ -37,7 +37,7 @@ csv-data-file:
   path_Renewal_IWeb_Sheet: ./src/test/resources/TestDataLibrary/Renewal_IWeb_Datasheet.csv
   path_OMR_Express_Datasheet: ./src/test/resources/TestDataLibrary/OMR_Express_Datasheet.csv
   path_PBA_Datasheet: ./src/test/resources/TestDataLibrary/PBA_Datasheet.csv
-  path_AutoRenewalSelectionOMR:   ./src/test/resources/TestDataLibrary/AutoRenewalSelectionOMR.csv
+  path_AutoRenewal_OMR:   ./src/test/resources/TestDataLibrary/AutoRenewalSelectionOMR.csv
   
   data-separator: '\t'
   has-header: true

@@ -4176,7 +4176,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyAutoPayStatusAfterAutoRenewal(String value) {
 		hardWaitForIEBrowser(5);
-		isElementDisplayed("mbr_autoPay", value);
 		Assert.assertTrue(isElementDisplayed("mbr_autoPay", value), "Auto Pay renewal image is not checked\n");
 		logMessage("ASSERT PASSED : <b>AutoPay Renewal image is checked</b>\n");
 	}
