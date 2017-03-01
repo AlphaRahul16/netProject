@@ -410,7 +410,7 @@ public class TestSessionInitiator {
 		Reporter.log("\nMethod Name :- " + testName.toUpperCase() + "\n", true);
 	}
 
-	public void enterAuthentication(String uName, String password) {
+	public void enterAuthentication(String uName, String password, String baseurl) {
 		System.out.println("in authentication");
 		setClipboardData(uName);
 		Robot robot;

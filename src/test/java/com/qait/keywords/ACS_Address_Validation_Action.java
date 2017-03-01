@@ -61,7 +61,7 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 		logMessage("STEP : Expected Zipcode: "+expectedZipCode);
 		logMessage("STEP : Actual Zipcode: "+element("input_zipcode").getAttribute("value").trim());
 		Assert.assertTrue(expectedZipCode.equals(element("input_zipcode").getAttribute("value").trim()),
-				"ASSERT FAILED : The ZipCode does not matches\n");
+				"ASSERT FAILED : Expected zip code is "+expectedZipCode+" but found "+element("input_zipcode").getAttribute("value").trim()+"\n");
 		logMessage("ASSERT PASSED : The ZipCode matches \n");
 	}
 

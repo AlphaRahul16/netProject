@@ -460,8 +460,6 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		}
 	}
 
-	
-
 	public int clickOnNextReportPages(String pagecount) {
 		int loopLength;
 		wait.hardWait(5);
@@ -491,7 +489,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 	public void clickOnSelfAssessmentSaveButton(String btnValue) {
 		wait.hardWait(1);
 		isElementDisplayed("btn_saveEvent", btnValue);
-//		element("btn_saveEvent", btnValue).click();
+		// element("btn_saveEvent", btnValue).click();
 		clickUsingXpathInJavaScriptExecutor(element("btn_saveEvent", btnValue));
 		logMessage("STEP : Clicked on " + btnValue + " button\n");
 	}
@@ -547,7 +545,7 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		return eventsMap;
 	}
 
-	public String getEventCategory(){
+	public String getEventCategory() {
 		wait.hardWait(5);
 		isElementDisplayed("txt_eventCategory");
 		return element("txt_eventCategory").getText().trim();
@@ -604,12 +602,12 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnGreenChemistryCheckbox() {
-//		isElementDisplayed("chkbox_greenChemistry");
-		System.out.println("----status:"+element("chkbox_greenChemistry").isSelected());
-		if(element("chkbox_greenChemistry").isSelected()){
-		element("chkbox_greenChemistry").click();
-		logMessage(
-				"STEP : Unchecked the 'Check this box if you choose NOT to submit any green chemistry events.' checkbox\n");
+		// isElementDisplayed("chkbox_greenChemistry");
+		System.out.println("----status:" + element("chkbox_greenChemistry").isSelected());
+		if (element("chkbox_greenChemistry").isSelected()) {
+			element("chkbox_greenChemistry").click();
+			logMessage(
+					"STEP : Unchecked the 'Check this box if you choose NOT to submit any green chemistry events.' checkbox\n");
 		}
 	}
 
@@ -658,8 +656,8 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnACSSideBarTab(String tabName, int index) {
-		isElementDisplayed("tab_sideBar", tabName,String.valueOf(index));
-		element("tab_sideBar", tabName,String.valueOf(index)).click();
+		isElementDisplayed("tab_sideBar", tabName, String.valueOf(index));
+		element("tab_sideBar", tabName, String.valueOf(index)).click();
 		logMessage("STEP : Clicked on " + tabName + " tab\n");
 	}
 
@@ -698,8 +696,8 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 	public void verifyChemistryUndergraduateMajorsInReport(String chemUndergrads) {
 		isElementDisplayed("txt_iwebUndergrads");
 		Assert.assertTrue(chemUndergrads.equals(element("txt_iwebUndergrads").getText()),
-				"ASSERT FAILED : Chemistry Undergraduate Majors value " + chemUndergrads
-						+ " is not verified in report\n");
+				"ASSERT FAILED : Expected Chemistry Undergraduate Majors value is " + chemUndergrads
+						+ " in report but found" + element("txt_iwebUndergrads").getText() + "\n");
 		logMessage(
 				"ASSERT PASSED : Chemistry Undergraduate Majors value " + chemUndergrads + " is verified in report\n");
 	}
@@ -707,14 +705,16 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 	public void verifyfacultyCountInReport(String facultyCount) {
 		isElementDisplayed("txt_iwebFacultyCount");
 		Assert.assertTrue(facultyCount.equals(element("txt_iwebFacultyCount").getText()),
-				"ASSERT FAILED : Faculty count value " + facultyCount + " is not verified in report\n");
+				"ASSERT FAILED : Expected Faculty count value is " + facultyCount + " in report but found "
+						+ element("txt_iwebFacultyCount").getText());
 		logMessage("ASSERT PASSED : Faculty count value " + facultyCount + " is verified in report\n");
 	}
 
 	public void verifyIwebReportStatus() {
 		isElementDisplayed("txt_iwebReportStatus");
 		Assert.assertTrue(element("txt_iwebReportStatus").getText().trim().equals("Submitted"),
-				"ASSERT FAILED : Report status is not submitted\n");
+				"ASSERT FAILED : Expected Report status is 'Submitted' but found "
+						+ element("txt_iwebReportStatus").getText().trim() + "\n");
 		logMessage("ASSERT PASSED : Report status is Submitted\n");
 	}
 
@@ -840,9 +840,9 @@ public class ACS_Scarf_Reporting extends ASCSocietyGenericPage {
 		}
 		return eventsMap;
 	}
-	
-	public void verifyNotSubmitReportCheckboxIsUnslected(){
-		if(element("chkbox_notSubmitReport").isSelected()){
+
+	public void verifyNotSubmitReportCheckboxIsUnslected() {
+		if (element("chkbox_notSubmitReport").isSelected()) {
 			element("chkbox_notSubmitReport").click();
 		}
 	}

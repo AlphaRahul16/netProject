@@ -4,7 +4,7 @@ caseID	caseID Execute	Constituent Sort Name	Fund Code	Gift Amount	Batch Name	Sec
 3	No	b%	AACT G	100.00	SeleniumTesting	QA	prepaid	ACS Website	300.00	SELENIUM_BATCH	AMEX			375000026600004				2018/12	421
 4	No	b%	AACT G	100.00	SeleniumTesting	QA	prepaid	ACS Website	300.00	SELENIUM_BATCH	Discover				6011010000000000			2018/12	758
 5	No	b%	AACT G	100.00	SeleniumTesting	QA	prepaid	ACS Website	300.00	SELENIUM_BATCH	Visa/MC	5112000100000000						2018/12	123
-6	No	b%	AACT G	100.00	SeleniumTesting	QA	prepaid	ACS Website	300.00	SELENIUM_BATCH	BOA - Check					1111			
+6	Yes	b%	AACT G	100.00	SeleniumTesting	QA	prepaid	ACS Website	300.00	SELENIUM_BATCH	BOA - Check					1111			
 7	No	b%	AACT G	100.00	SeleniumTesting	QA	prepaid	ACS Website	300.00	SELENIUM_BATCH	cash						1234567890		
 8	No	b%	AACT G	100.00	SeleniumTesting	QA	prepaid	ACS Website	300.00	SELENIUM_BATCH	check					1111			
 9	No	b%	AACT G	100.00	SeleniumTesting	QA	prepaid	ACS Website	300.00	SELENIUM_BATCH	Diners		36474027424147					2018/12	123

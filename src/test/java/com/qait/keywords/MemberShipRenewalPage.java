@@ -29,17 +29,16 @@ public class MemberShipRenewalPage extends GetPage {
 		this.driver = driver;
 	}
 
-	public String addACSRenewalCycle(String expMonth, String expYear,
-			String renewalYear, String type, String renewalLength) {
+	public String addACSRenewalCycle(String expMonth, String expYear, String renewalYear, String type,
+			String renewalLength) {
 		// verifyAddACSRenewalCyclePage();
 		// switchToFrame("iframe1");
 		selectACSCycleRenewalDetail("expireMonth", expMonth);
 		selectACSCycleRenewalDetail("expireYear", expYear);
 		selectACSCycleRenewalDetail("renewalYear", renewalYear);
 		selectACSCycleRenewalDetail("renewalLength", renewalLength);
-		String actualName = type + "_"
-				+ DateUtil.getCurrentdateInStringWithGivenFormate("MM-dd-YYYY")
-				+ "_" + System.currentTimeMillis();
+		String actualName = type + "_" + DateUtil.getCurrentdateInStringWithGivenFormate("MM-dd-YYYY") + "_"
+				+ System.currentTimeMillis();
 		enterACSCycleRenewalDetails("type", actualName);
 		waitForSpinner();
 		wait.waitForPageToLoadCompletely();
@@ -59,26 +58,21 @@ public class MemberShipRenewalPage extends GetPage {
 	public void clickOnPlusIcon(String membershipSetupName) {
 		isElementDisplayed("btn_plusIconMemSetup", membershipSetupName);
 		element("btn_plusIconMemSetup", membershipSetupName).click();
-		logMessage("STEP : Plus icon is clicked for " + membershipSetupName
-				+ " \n");
+		logMessage("STEP : Plus icon is clicked for " + membershipSetupName + " \n");
 	}
 
 	public void verifyAddACSRenewalCyclePage() {
 		isElementDisplayed("txt_addACSRenewalCycle");
 	}
 
-	public void selectACSCycleRenewalDetail(String detailName,
-			String detailValue) {
+	public void selectACSCycleRenewalDetail(String detailName, String detailValue) {
 		isElementDisplayed("list_" + detailName);
-		selectProvidedTextFromDropDown(element("list_" + detailName),
-				detailValue);
-		logMessage("STEP : Select " + detailValue + " for " + detailName
-				+ " \n");
+		selectProvidedTextFromDropDown(element("list_" + detailName), detailValue);
+		logMessage("STEP : Select " + detailValue + " for " + detailName + " \n");
 		waitForSpinner();
 	}
 
-	public void enterACSCycleRenewalDetails(String detailName,
-			String detailValue) {
+	public void enterACSCycleRenewalDetails(String detailName, String detailValue) {
 		isElementDisplayed("inp_" + detailName);
 		element("inp_" + detailName).sendKeys(detailValue);
 		logMessage("STEP : " + detailValue + " is entered for " + detailValue);
@@ -93,8 +87,7 @@ public class MemberShipRenewalPage extends GetPage {
 
 	public void waitForSpinner() {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
-		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties",
-				"hiddenFieldTimeOut"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
 			// handleAlert();
 			wait.resetImplicitTimeout(2);
@@ -111,24 +104,17 @@ public class MemberShipRenewalPage extends GetPage {
 		}
 	}
 
-	public void selectValueAtAddMembershipRenewalPage(String detailName,
-			String detailValue) {
+	public void selectValueAtAddMembershipRenewalPage(String detailName, String detailValue) {
 		isElementDisplayed("list_dropdownAtAddMembershipRenewal", detailName);
-		selectProvidedTextFromDropDown(
-				element("list_dropdownAtAddMembershipRenewal", detailName),
-				detailValue);
-		logMessage("STEP : Select value " + detailValue + " for " + detailName
-				+ "\n");
+		selectProvidedTextFromDropDown(element("list_dropdownAtAddMembershipRenewal", detailName), detailValue);
+		logMessage("STEP : Select value " + detailValue + " for " + detailName + "\n");
 		waitForSpinner();
 	}
 
-	public void selectBatchAtAddMembershipRenewalPage(String detailName,
-			String detailValue) {
+	public void selectBatchAtAddMembershipRenewalPage(String detailName, String detailValue) {
 		isElementDisplayed("list_selectBatch", detailName);
-		selectProvidedTextFromDropDown(element("list_selectBatch", detailName),
-				detailValue);
-		logMessage("STEP : Select value " + detailValue + " for " + detailName
-				+ "\n");
+		selectProvidedTextFromDropDown(element("list_selectBatch", detailName), detailValue);
+		logMessage("STEP : Select value " + detailValue + " for " + detailName + "\n");
 		waitForSpinner();
 	}
 
@@ -136,16 +122,12 @@ public class MemberShipRenewalPage extends GetPage {
 		isElementDisplayed("inp_runTaskDateTime");
 		String currentDate = DateUtil.getCurrentTime("hh:mm a", "EST5EDT");
 		Date dateInDate = DateUtil.convertStringToDate(currentDate, "hh:mm a");
-		Date dateAfterMinutesAdded = DateUtils.addMinutes(dateInDate,
-				Integer.parseInt(timeSlab) + 11);
+		Date dateAfterMinutesAdded = DateUtils.addMinutes(dateInDate, Integer.parseInt(timeSlab) + 11);
 		System.out.println("dateAfterMinutesAdded:" + dateAfterMinutesAdded);
 		SimpleDateFormat sdf = new SimpleDateFormat("h:mm:ss a");
 		String dateWithTimeSlabInString = sdf.format(dateAfterMinutesAdded);
-		System.out.println("dateWithTimeSlabInString:"
-				+ dateWithTimeSlabInString);
-		String runTaskDateTime = DateUtil
-				.getCurrentdateInStringWithGivenFormateForTimeZone(
-						"M/dd/YYYY", "EST5EDT")
+		System.out.println("dateWithTimeSlabInString:" + dateWithTimeSlabInString);
+		String runTaskDateTime = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/dd/YYYY", "EST5EDT")
 				+ " " + dateWithTimeSlabInString;
 		System.out.println("runTaskDateTime:" + runTaskDateTime);
 		element("inp_runTaskDateTime").click();
@@ -155,22 +137,17 @@ public class MemberShipRenewalPage extends GetPage {
 		element("inp_runTaskDateTime").sendKeys(runTaskDateTime);
 		element("inp_runTaskDateTime").sendKeys(Keys.ENTER);
 		wait.hardWait(2);
-		logMessage("STEP : Enter " + runTaskDateTime
-				+ " for run task date time\n");
-		String runTaskDateTime1 = DateUtil
-				.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY",
-						"EST5EDT")
+		logMessage("STEP : Enter " + runTaskDateTime + " for run task date time\n");
+		String runTaskDateTime1 = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY", "EST5EDT")
 				+ " " + dateWithTimeSlabInString;
 		return runTaskDateTime1;
 	}
 
-	public String fillDetailsAtAddMembershipRenewalPage(String association,
-			String renewalYear, String renewalCycleName, String batchName,
-			String timeSlab) {
+	public String fillDetailsAtAddMembershipRenewalPage(String association, String renewalYear, String renewalCycleName,
+			String batchName, String timeSlab) {
 		selectValueAtAddMembershipRenewalPage("association", association);
 		selectValueAtAddMembershipRenewalPage("renewal year", renewalYear);
-		selectValueAtAddMembershipRenewalPage("renewal cycle name",
-				renewalCycleName);
+		selectValueAtAddMembershipRenewalPage("renewal cycle name", renewalCycleName);
 		selectBatchAtAddMembershipRenewalPage("batch", batchName);
 		String runTaskDateTime = enterRunTaskDateTime(timeSlab);
 
@@ -188,17 +165,15 @@ public class MemberShipRenewalPage extends GetPage {
 		return runTaskDateTime;
 	}
 
-	public void verifyRenewalForScheduled(String renewalCycleName,
-			String associationCode, String runTaskDateTime, String proforma,
-			String status, String createInvoiceScheduleTask, String batchName) {
+	public void verifyRenewalForScheduled(String renewalCycleName, String associationCode, String runTaskDateTime,
+			String proforma, String status, String createInvoiceScheduleTask, String batchName) {
 		verifyRenewalCycleName("renewal cycle name", renewalCycleName);
 		verifyScheduleDetails("association code", associationCode);
 		verifyScheduleDetails_question("proforma", proforma);
 
 		verifyRunTaskdateTimeName(runTaskDateTime);
 		verifyRenewalCycleName("status", status);
-		verifyScheduleDetails_question("create invoice scheduled task",
-				createInvoiceScheduleTask);
+		verifyScheduleDetails_question("create invoice scheduled task", createInvoiceScheduleTask);
 
 		verifyBatchAtRenewal(batchName.replaceAll("ACS: ", ""));
 	}
@@ -208,8 +183,7 @@ public class MemberShipRenewalPage extends GetPage {
 
 		isStringMatching(element("txt_beginDate").getText().trim(), detailValue);
 
-		logMessage("ASSERT PASSED : " + detailValue
-				+ " is verified for run task datetime \n");
+		logMessage("ASSERT PASSED : " + detailValue + " is verified for run task datetime \n");
 	}
 
 	public void verifyBatchAtRenewal(String batchName) {
@@ -219,29 +193,24 @@ public class MemberShipRenewalPage extends GetPage {
 
 	public void verifyRenewalCycleName(String detailName, String detailValue) {
 		isElementDisplayed("txt_renewalCycleName", detailName);
-		Assert.assertTrue(element("txt_renewalCycleName", detailName).getText()
-				.trim().equalsIgnoreCase(detailValue));
-		logMessage("ASSERT PASSED : " + detailValue + " is verified for "
-				+ detailName + " \n");
+		Assert.assertTrue(element("txt_renewalCycleName", detailName).getText().trim().equalsIgnoreCase(detailValue),
+				"ASSERT FAILED: Expected value is " + detailValue + " but found "
+						+ element("txt_renewalCycleName", detailName).getText());
+		logMessage("ASSERT PASSED : " + detailValue + " is verified for " + detailName + " \n");
 	}
 
 	public void verifyScheduleDetails(String detailName, String detailValue) {
 		isElementDisplayed("txt_renewalDetails", detailName);
-		isStringMatching(element("txt_renewalDetails", detailName).getText()
-				.trim(), detailValue);
-		logMessage("ASSERT PASSED : " + detailValue + " is verified for "
-				+ detailName + " \n");
+		isStringMatching(element("txt_renewalDetails", detailName).getText().trim(), detailValue);
+		logMessage("ASSERT PASSED : " + detailValue + " is verified for " + detailName + " \n");
 	}
 
-	public void verifyScheduleDetails_question(String detailName,
-			String detailValue) {
+	public void verifyScheduleDetails_question(String detailName, String detailValue) {
 		isElementDisplayed("txt_renewalDetail_q", detailName);
 
-		isStringMatching(element("txt_renewalDetail_q", detailName).getText()
-				.trim(), detailValue);
+		isStringMatching(element("txt_renewalDetail_q", detailName).getText().trim(), detailValue);
 
-		logMessage("ASSERT PASSED : " + detailValue + " is verified for "
-				+ detailName + " \n");
+		logMessage("ASSERT PASSED : " + detailValue + " is verified for " + detailName + " \n");
 	}
 
 	public void clickOnSubInfoDropdown(String subInfoName) {
@@ -253,43 +222,34 @@ public class MemberShipRenewalPage extends GetPage {
 	public void verifyRenewalsSubInfo(String detailName, String detailValue) {
 		isElementDisplayed("txt_" + detailName);
 
-		isStringMatching(element("txt_" + detailName).getText().trim(),
-				detailValue);
+		isStringMatching(element("txt_" + detailName).getText().trim(), detailValue);
 
-		logMessage("ASSERT PASSED : " + detailValue + " is verified for "
-				+ detailName + " \n");
+		logMessage("ASSERT PASSED : " + detailValue + " is verified for " + detailName + " \n");
 	}
 
-	public void verifyRenewalSubDetails(String numberOfRenewals,
-			String numberofInvoicesCreated, String numberOfErrors,
+	public void verifyRenewalSubDetails(String numberOfRenewals, String numberofInvoicesCreated, String numberOfErrors,
 			String waitTime) {
 		verifyRenewalsSubInfo("numberOfRenewal", numberOfRenewals);
 		// verifyRenewalsSubInfo("numberOfInvoicesCreated",
 		// numberofInvoicesCreated);
-		isElementDisplayed("txt_" + "numberOfInvoicesCreated",
-				numberofInvoicesCreated);
-		if (element("txt_numberOfInvoicesCreated").getText().trim()
-				.equalsIgnoreCase(numberofInvoicesCreated)) {
-			logMessage("AASERT PASSED : Number of invoice created "
-					+ numberofInvoicesCreated + " is verified\n");
+		isElementDisplayed("txt_" + "numberOfInvoicesCreated", numberofInvoicesCreated);
+		if (element("txt_numberOfInvoicesCreated").getText().trim().equalsIgnoreCase(numberofInvoicesCreated)) {
+			logMessage("AASERT PASSED : Number of invoice created " + numberofInvoicesCreated + " is verified\n");
 		} else {
 			int count = (Integer.parseInt(waitTime)) / 2;
 			for (int i = 1; i <= count; i++) {
 				if (i > 1) {
 					System.out.print("\r");
-					System.out.println("******Script waited for: " + i * 2
-							+ " minutes******\n");
+					System.out.println("******Script waited for: " + i * 2 + " minutes******\n");
 					System.out.println("");
 				}
 				holdScriptExecutionToVerifyInvoiceCreated(numberofInvoicesCreated);
 				pageRefresh();
-				isElementDisplayed("txt_" + "numberOfInvoicesCreated",
-						numberofInvoicesCreated);
+				isElementDisplayed("txt_" + "numberOfInvoicesCreated", numberofInvoicesCreated);
 
-				if (element("txt_numberOfInvoicesCreated").getText().trim()
-						.equalsIgnoreCase(numberofInvoicesCreated)) {
-					logMessage("ASSERT PASSED : Number of Invoices Created "
-							+ numberofInvoicesCreated + " is verified\n");
+				if (element("txt_numberOfInvoicesCreated").getText().trim().equalsIgnoreCase(numberofInvoicesCreated)) {
+					logMessage(
+							"ASSERT PASSED : Number of Invoices Created " + numberofInvoicesCreated + " is verified\n");
 					break;
 				}
 			}
@@ -312,24 +272,21 @@ public class MemberShipRenewalPage extends GetPage {
 		logMessage("STEP : Create renewal invoice button is clicked\n");
 	}
 
-	public String navigateToCreateRenewalInvoicesAndEnterInvoiceTaskStartTimeAndDate(
-			String timeSlab) {
+	public String navigateToCreateRenewalInvoicesAndEnterInvoiceTaskStartTimeAndDate(String timeSlab) {
 		clickOnCreateRenewalInvoices();
-		//isElementDisplayed("txt_scheduleCreateRenewalInvoice");
+		// isElementDisplayed("txt_scheduleCreateRenewalInvoice");
 		switchToFrame("iframe1");
 		enterInvoiceTaskDetails("date",
-				DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone(
-						"M/dd/YYYY", "EST5EDT"));
+				DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/dd/YYYY", "EST5EDT"));
 		String currentDate = DateUtil.getCurrentTime("hh:mma", "EST5EDT");
 		Date dateInDate = DateUtil.convertStringToDate(currentDate, "hh:mma");
-		Date dateAfterMinutesAdded = DateUtils.addMinutes(dateInDate,
-				Integer.parseInt(timeSlab) + 11);
+		Date dateAfterMinutesAdded = DateUtils.addMinutes(dateInDate, Integer.parseInt(timeSlab) + 11);
 		SimpleDateFormat sdf = new SimpleDateFormat("hh:mma");
 		String dateWithTimeSlabInString = sdf.format(dateAfterMinutesAdded);
-//		enterInvoiceTaskDetails("time", dateWithTimeSlabInString);
-//		clickOnSaveButton();
-//		wait.hardWait(1);
-//		switchToDefaultContent();
+		enterInvoiceTaskDetails("time", dateWithTimeSlabInString);
+		clickOnSaveButton();
+		wait.hardWait(1);
+		switchToDefaultContent();
 		return dateWithTimeSlabInString;
 	}
 
@@ -344,31 +301,27 @@ public class MemberShipRenewalPage extends GetPage {
 
 		flag = validateTextFormat(element("txt_errorMessage").getText().trim());
 		Assert.assertTrue(flag);
-		logMessage("ASSERT PASSED : Renewal message "
-				+ element("txt_errorMessage").getText().trim()
-				+ " is verified\n");
+		logMessage(
+				"ASSERT PASSED : Renewal message " + element("txt_errorMessage").getText().trim() + " is verified\n");
 	}
 
 	public void verifyCreateInvoiceTaskStartTimeAndDate(String time) {
 		verifyScheduleDetails("create invoice task start date",
-				DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone(
-						"M/d/YYYY", "EST5EDT"));
+				DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY", "EST5EDT"));
 		verifyScheduleDetails("create invoice task start time", time);
 
 	}
 
 	public void holdScriptUntilVerifyStatus(String status, String waitTime) {
 		isElementDisplayed("txt_renewalCycleName", "status");
-		if (element("txt_renewalCycleName", "status").getText().trim()
-				.equalsIgnoreCase(status)) {
+		if (element("txt_renewalCycleName", "status").getText().trim().equalsIgnoreCase(status)) {
 			logMessage("AASERT PASSED : Status " + status + " is verified\n");
 		} else {
 			int count = (Integer.parseInt(waitTime)) / 1;
 			for (int i = 1; i <= count; i++) {
 				if (i > 1) {
 					System.out.print("\r");
-					System.out.println("******Script waited for: " + (i - 1)
-							+ " minutes******\n");
+					System.out.println("******Script waited for: " + (i - 1) + " minutes******\n");
 					System.out.println("");
 				}
 
@@ -376,14 +329,10 @@ public class MemberShipRenewalPage extends GetPage {
 				pageRefresh();
 				isElementDisplayed("txt_renewalCycleName", "status");
 
-				if (element("txt_renewalCycleName", "status").getText().trim()
-						.equalsIgnoreCase(status)) {
+				if (element("txt_renewalCycleName", "status").getText().trim().equalsIgnoreCase(status)) {
 
-					logMessage("ASSERT PASSED : Preview status " + status
-							+ " is verified\n");
-					System.out
-							.println(element("txt_renewalCycleName", "status")
-									.getText().trim());
+					logMessage("ASSERT PASSED : Preview status " + status + " is verified\n");
+					System.out.println(element("txt_renewalCycleName", "status").getText().trim());
 					break;
 				}
 			}
@@ -392,11 +341,9 @@ public class MemberShipRenewalPage extends GetPage {
 
 	}
 
-	public void holdScriptExecutionToVerifyPreviewStatus(String status,
-			int minutesToHoldScript) {
-		logMessage("===== Automation script is on hold for "
-				+ minutesToHoldScript + " minutes to verify preview status "
-				+ status + " =====\n");
+	public void holdScriptExecutionToVerifyPreviewStatus(String status, int minutesToHoldScript) {
+		logMessage("===== Automation script is on hold for " + minutesToHoldScript
+				+ " minutes to verify preview status " + status + " =====\n");
 		String lapsedMinutes = "";
 		for (int minutes = 1; minutes <= minutesToHoldScript; minutes++) {
 			for (int i = 0; i <= 59; i++) {
@@ -407,14 +354,13 @@ public class MemberShipRenewalPage extends GetPage {
 			lapsedMinutes = String.valueOf(minutes) + " min : ";
 		}
 		System.out.print("\r");
-		System.out.println("Time:- " + minutesToHoldScript
-				+ " minutes            ");
+		System.out.println("Time:- " + minutesToHoldScript + " minutes            ");
 		System.out.println("");
 	}
 
 	public void holdScriptExecutionToVerifyInvoiceCreated(String invoiceCreated) {
-		logMessage("===== Automation script is on hold for 2 minutes to verify invoice created "
-				+ invoiceCreated + " =====\n");
+		logMessage("===== Automation script is on hold for 2 minutes to verify invoice created " + invoiceCreated
+				+ " =====\n");
 		String lapsedMinutes = "";
 		for (int minutes = 1; minutes <= 2; minutes++) {
 			for (int i = 0; i <= 59; i++) {
@@ -438,8 +384,7 @@ public class MemberShipRenewalPage extends GetPage {
 
 	public void verifyACSRenewalCycleAdded(String renewalCycleName) {
 		isElementDisplayed("txt_addACSRenewalCycle", renewalCycleName);
-		logMessage("ASSERT PASSED : ACS renewal cycle " + renewalCycleName
-				+ " is added in txt_addACSRenewalCycle\n");
+		logMessage("ASSERT PASSED : ACS renewal cycle " + renewalCycleName + " is added in txt_addACSRenewalCycle\n");
 	}
 
 	public void clickOnAcsRenewalCycleTab() {

@@ -163,7 +163,8 @@ public class ASM_NCWPage extends ASCSocietyGenericPage {
 	public void VerifyThankyouMessage() {
 		isElementDisplayed("txt_thankYouMessage");
 		Assert.assertTrue(element("txt_thankYouMessage").getText().trim()
-				.equalsIgnoreCase("Thank you. Your form has been submitted."));
+				.equalsIgnoreCase("Thank you. Your form has been submitted."),
+				"ASSERT FAILED: Expected msg is 'Thank you. Your form has been submitted.' but found "+element("txt_thankYouMessage").getText().trim());
 		logMessage("ASSERT PASSED : Thank you message Thank you. Your form has been submitted. is verified\n");
 	}
 }

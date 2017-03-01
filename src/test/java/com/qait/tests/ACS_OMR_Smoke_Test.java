@@ -76,12 +76,11 @@ public class ACS_OMR_Smoke_Test extends BaseTest {
 
 	@Test
 	public void Step06_TC01_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage() {
-		test.asm_OMR.submitPaymentDetails(mapOMR.get("CreditCard_Type"),
-				(memDetails.get(0).split(" ")[1] + " " + memDetails.get(0)
-						.split(" ")[0]), toString().valueOf(mapOMR.get("Visa_Card_Number").trim()), mapOMR.get("Diners_Card_Number"),
+		test.asm_OMR.submitPaymentDetails(mapOMR.get("Payment_Method"),
+				(memDetails.get(1) + " " + memDetails.get(0)), toString().valueOf(mapOMR.get("Visa_Card_Number").trim()), mapOMR.get("Diners_Card_Number"),
 				mapOMR.get("Discover_Card_Number"),mapOMR.get("AMEX_Card_Number"),
-				mapOMR.get("CreditCard_CVV_Number"), mapOMR
-						.get("CreditCardExpiration_Month"), mapOMR
+				 toString().valueOf(mapOMR.get("CVV_Number")), mapOMR
+					.get("CreditCardExpiration_Month"), mapOMR
 						.get("CreditCardExpiration_Year"));
 
 		test.asm_OMR
@@ -122,7 +121,7 @@ public class ACS_OMR_Smoke_Test extends BaseTest {
 
 	@BeforeClass
 	public void open_Browser_Window() {
-	//	test = new TestSessionInitiator(this.getClass().getSimpleName());
+		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url_OMR = getYamlValue("app_url_OMR");
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		test.launchApplication(app_url_IWEB);

@@ -489,8 +489,6 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 			logMessage(messageType + " message is displayed. Message : "
 					+ actualMsg);
 			boolean flag = actualMsg.equals(warningMessage);
-
-			System.out.println("warning msz :" + warningMessage);
 			Assert.assertTrue(actualMsg.equals(warningMessage),
 					"Expected and Actual " + messageType
 							+ " messages differ. Message expected : "

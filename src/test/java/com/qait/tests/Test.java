@@ -5,39 +5,65 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 
-public class Test {
-	public static void main(String args[]) {
+import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.getpageobjects.BaseTest;
+
+import static com.qait.automation.utils.YamlReader.getYamlValue;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Factory;
+import com.qait.automation.utils.XlsReader;
+import com.qait.automation.utils.YamlReader;
+
+public class Test extends BaseTest{
+
+	TestSessionInitiator test;
+	
+	
+	public void Step01_Launch_Iweb_Application() {
 		
-		 String server = "data.qainfotech.com";
-	        int port = 21;
-	        String user = "acs@qait";
-	        String pass = "@cs@123";
-	        //System.out.println("Abc"+org.apache.commons.lang3.StringUtils.containsIgnoreCase("Abc","Abc"));
-	        
-	    	String a = "aabcgdbdgeads";
-			int i,j,count;
-			char temp;
-			String b[] = new String[15];
-			System.out.println(a.length());
-			for(i=0;i<a.length()-1;i++)
-			{
-				 count = 1;
-				System.out.println("before"+i);
-				temp = a.charAt(i++);
-				System.out.println("after"+i);
-				if(a.charAt(i)==temp)
-				{
-					count++;
-					
-				}
-				
-				System.out.println(temp+" count is "+count);
-			}
-	}}
+	}
+}
+//	public static void main(String args[]) {
+//		
+//		 String server = "data.qainfotech.com";
+//	        int port = 21;
+//	        String user = "acs@qait";
+//	        String pass = "@cs@123";
+//	        //System.out.println("Abc"+org.apache.commons.lang3.StringUtils.containsIgnoreCase("Abc","Abc"));
+//	        
+//	    	String a = "aabcgdbdgeads";
+//			int i,j,count;
+//			char temp;
+//			String b[] = new String[15];
+//			System.out.println(a.length());
+//			for(i=0;i<a.length()-1;i++)
+//			{
+//				 count = 1;
+//				System.out.println("before"+i);
+//				temp = a.charAt(i++);
+//				System.out.println("after"+i);
+//				if(a.charAt(i)==temp)
+//				{
+//					count++;
+//					
+//				}
+//				
+//				System.out.println(temp+" count is "+count);
+//			}
+//	}}
 //	 
 //	        FTPClient ftpClient = new FTPClient();
 //	        try {

@@ -1,6 +1,5 @@
 package com.qait.keywords;
 
-
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -49,23 +48,20 @@ public class ASM_MeetingPage extends GetPage {
 	public void enterTextInSpecialService(String textValue) {
 		isElementDisplayed("txtarea_specialService");
 		element("txtarea_specialService").sendKeys(textValue);
-		logMessage("STEP : " + textValue
-				+ " is entered in txtarea_specialService\n");
+		logMessage("STEP : " + textValue + " is entered in txtarea_specialService\n");
 	}
 
 	public void verifyAletText(String alertText) {
 		String actualAlertText = getAlertText();
-		Assert.assertTrue(actualAlertText.equalsIgnoreCase(alertText));
-		logMessage("ASSERT PASSED : Alert message " + alertText
-				+ " is verified\n");
+		Assert.assertTrue(actualAlertText.equalsIgnoreCase(alertText),
+				"ASSERT FAILED: Expected alert text is " + alertText + " but found " + actualAlertText);
+		logMessage("ASSERT PASSED : Alert message " + alertText + " is verified\n");
 	}
 
-	public void selectReqiuredFieldsOnRegistration(
-			String professionalDiscipline, String conference,
+	public void selectReqiuredFieldsOnRegistration(String professionalDiscipline, String conference,
 			String speakerPoster) {
 		isElementDisplayed("list_professionalDiscipline");
-		selectProvidedTextFromDropDown(element("list_professionalDiscipline"),
-				professionalDiscipline);
+		selectProvidedTextFromDropDown(element("list_professionalDiscipline"), professionalDiscipline);
 		waitForSpinnerToDisappear();
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(2);
@@ -101,8 +97,7 @@ public class ASM_MeetingPage extends GetPage {
 	public void verifyLoginErrorMessagePresent(String errorMessage) {
 		isElementDisplayed("txt_loginErrorMessage");
 		verifyElementTextContains("txt_loginErrorMessage", errorMessage);
-		logMessage("ASSERT PASSED : Error message " + errorMessage
-				+ " is appeared on invalid credentials\n");
+		logMessage("ASSERT PASSED : Error message " + errorMessage + " is appeared on invalid credentials\n");
 	}
 
 	public void checkAttendeeList() {
@@ -115,8 +110,8 @@ public class ASM_MeetingPage extends GetPage {
 		}
 	}
 
-	public void enterPaymentInfo(String cardType, String cardHolderName,
-			String cardNumber, String expirationDate, String CCVNumber) {
+	public void enterPaymentInfo(String cardType, String cardHolderName, String cardNumber, String expirationDate,
+			String CCVNumber) {
 		selectCardInfo("cardType", cardType);
 		inputCardInfo("cardHolderName", cardHolderName);
 		inputCardInfo("cardNumber", cardNumber);
@@ -128,8 +123,7 @@ public class ASM_MeetingPage extends GetPage {
 	public void selectCardInfo(String cardDetail, String cardInfo) {
 		isElementDisplayed("list_" + cardDetail);
 		selectProvidedTextFromDropDown(element("list_" + cardDetail), cardInfo);
-		logMessage("STEP : " + cardInfo + " is selected in " + cardDetail
-				+ "\n");
+		logMessage("STEP : " + cardInfo + " is selected in " + cardDetail + "\n");
 	}
 
 	public void inputCardInfo(String cardDetail, String cardInfo) {
@@ -141,9 +135,9 @@ public class ASM_MeetingPage extends GetPage {
 	public void checkAdvancedRegistrationAndTicketEvents() {
 		checkAdvanceRegistration();
 		checkTicketEvents();
-//		checkNumberOfNightsCheckbox();
-//		enterNumberOfNights(numberOfNights);
-		
+		// checkNumberOfNightsCheckbox();
+		// enterNumberOfNights(numberOfNights);
+
 		clickOnContinueButton();
 	}
 
@@ -175,8 +169,7 @@ public class ASM_MeetingPage extends GetPage {
 	public void selectOneWordAndCopyPasteInSpecialServiceTextArea() {
 		Actions act = new Actions(driver);
 		isElementDisplayed("txt_eventRegistration");
-		act.clickAndHold(element("txt_eventRegistration"))
-				.moveToElement(element("txt_eventRegistration"), 0, 10)
+		act.clickAndHold(element("txt_eventRegistration")).moveToElement(element("txt_eventRegistration"), 0, 10)
 				.release().build().perform();
 		// act.doubleClick(element("txt_eventRegistration")).build().perform();
 		act.sendKeys(Keys.chord(Keys.CONTROL, "c"));
@@ -200,8 +193,7 @@ public class ASM_MeetingPage extends GetPage {
 	public void enterNumberOfNights(String numberOfNights) {
 		isElementDisplayed("inp_numberOfNights");
 		element("inp_numberOfNights").sendKeys(numberOfNights);
-		logMessage("STEP : " + numberOfNights
-				+ " is entered in checkNumberOfNightsCheckbox\n");
+		logMessage("STEP : " + numberOfNights + " is entered in checkNumberOfNightsCheckbox\n");
 	}
 
 }

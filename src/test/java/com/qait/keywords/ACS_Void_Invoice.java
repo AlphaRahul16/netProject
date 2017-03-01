@@ -39,8 +39,8 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 		String batchName;
 		hardWaitForIEBrowser(5);
 		switchToIframe1();
-		isElementDisplayed("link_addbatch");
-		clickUsingXpathInJavaScriptExecutor(element("link_addbatch"));
+		isElementDisplayed("lnk_addbatch");
+		clickUsingXpathInJavaScriptExecutor(element("lnk_addbatch"));
 		logMessage("STEP : Adding a new batch\n");
 		switchToDefaultContent();
 		switchToFrame("iframe2");
@@ -55,8 +55,8 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 	{
 		String batchName;
 
-		isElementDisplayed("link_addbatch");
-		clickUsingXpathInJavaScriptExecutor(element("link_addbatch"));
+		isElementDisplayed("lnk_addbatch");
+		clickUsingXpathInJavaScriptExecutor(element("lnk_addbatch"));
 		logMessage("STEP : Adding a new batch\n");
 		switchToDefaultContent();
 		switchToIframe1();
@@ -140,14 +140,14 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 		boolean flag=false;int i=0;
 		wait.hardWait(3);
 		isElementDisplayed("table_productName",productName);
-//		for(WebElement ele: elements("table_productName",productName)){
-//			if(ele.getText().trim().equals(productName)){
-//				flag=true;
-//				i++;
-//				break;
-//			}
-//		}
-//		Assert.assertTrue(flag,"ASSERT FAILED : Product "+productName+" is not present under Line Items menu\n");
+		for(WebElement ele: elements("table_productName",productName)){
+			if(ele.getText().trim().equals(productName)){
+				flag=true;
+				i++;
+				break;
+			}
+		}
+		Assert.assertTrue(flag,"ASSERT FAILED : Product "+productName+" is not present under Line Items menu\n");
 		logMessage("ASSERT PASSED : Product "+productName+" is present under Line Items menu\n");
 	}
 
@@ -157,11 +157,6 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 		for(WebElement ele: elements("lst_productNames",invoiceNo)){
 			productList.add(ele.getText().trim());
 		}
-		
-//		isElementDisplayed("list_productNames",String.valueOf(index));
-//		for(WebElement ele: elements("list_productNames",String.valueOf(index))){
-//			productList.add(ele.getText().trim());
-//		}
 		for (String str : productList) {
 			System.out.println(str);
 		}
@@ -243,14 +238,14 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 		for (WebElement ele : elements("txt_creditbatchName")) {
 			if(ele.getText().equals(batchName))
 			{
-				Assert.assertTrue(ele.getText().equals(batchName),"Batch Name is not present in the list");
+				Assert.assertTrue(ele.getText().equals(batchName),"ASSERT FAILED: Expected Batch Name is "+batchName+"in the list but found "+ele.getText());
 				logMessage("ASSERT PASSED : Batch name is present in the list as "+batchName);
 			}
 		}
 
-		Assert.assertTrue(element("txt_creditBatchDate",batchName).getText().trim().equals(DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYY","EST").trim()));
-		logMessage("STEP : Credit date is verify as "+DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYY","EST"));
-		Assert.assertTrue(element("txt_CreditTotal",batchName).getText().trim().equals(totalCredit),"Amount credit is not as expected");
+		Assert.assertEquals(element("txt_creditBatchDate",batchName).getText().trim(),DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYY","EST5EDT").trim());
+		logMessage("STEP : Credit date is verify as "+DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYY","EST5EDT"));
+		Assert.assertEquals(element("txt_CreditTotal",batchName).getText().trim(),totalCredit,"ASSERT FAILED : Amount credit is not as expected");
 		logMessage("ASSERT PASSED : Credited amount successfully verified as "+totalCredit);
 	}
 

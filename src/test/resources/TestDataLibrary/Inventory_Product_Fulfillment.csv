@@ -1,0 +1,3 @@
+caseID	caseID Execute	Payment_Method	CVV_Number	Product Code	Payment_Type	Batch_Name?	Expiry_Date	Visa_Card_Number	Check_Number
+1	No	BOA - Check		105-155-4140	prepaid	SELENIUM_BATCH			123
+2	Yes	Visa/MC	123	105-147-4160	prepaid	SELENIUM_BATCH	2018/12	4111111111111111	

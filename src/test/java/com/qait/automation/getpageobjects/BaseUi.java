@@ -602,8 +602,7 @@ public class BaseUi {
 
 	public void enterAuthentication(String uName, String password) {
 
-		if ((isBrowser("ie") || isBrowser("internetexplorer"))
-				) {
+		if ((isBrowser("ie") || isBrowser("internetexplorer"))) {
 			System.out.println("in authentication");
 			setClipboardData(uName);
 			Robot robot;

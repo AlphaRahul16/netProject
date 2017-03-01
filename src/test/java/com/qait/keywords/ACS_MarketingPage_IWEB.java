@@ -207,7 +207,7 @@ public class ACS_MarketingPage_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public String getUserNameFromAddUserPopUpTextField() {
-		wait.hardWait(8);
+		wait.hardWait(10);
 		hardWaitForIEBrowser(8);
 		isElementDisplayed("txt_name");
 		userName = element("txt_name").getAttribute("value");

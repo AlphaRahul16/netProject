@@ -26,8 +26,7 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 		this.driver = driver;
 	}
 
-	public String addSubscription(String subscriptionName,
-			String fulfillmentType) {
+	public String addSubscription(String subscriptionName, String fulfillmentType) {
 		clickOnSideBarTab("Subscription Fulfillment Batches");
 		clickOnSubLinkSideBar("ACS Group Fulfillment");
 		verifyAddSubscriptionFulfillmentBatchHeading("Add - Subscription Fulfillment Batch");
@@ -50,8 +49,7 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 	}
 
-	public String editSubscription(String subscriptionName, String timeSlab,
-			String fulfillmentType) {
+	public String editSubscription(String subscriptionName, String timeSlab, String fulfillmentType) {
 		clickOnSideBarTab("Subscription Fulfillment Batches");
 		clickOnSubLinkSideBar("ACS Group Fulfillment");
 		verifyAddSubscriptionFulfillmentBatchHeading("Add - Subscription Fulfillment Batch");
@@ -63,8 +61,7 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 		clickOnSaveButton();
 		wait.hardWait(5);
 		isElementDisplayed("icon_printReports");
-		if (Integer.parseInt(DateUtil.getCurrentTime("ss", "EST5EDT")) < Integer
-				.parseInt(currentSeconds)) {
+		if (Integer.parseInt(DateUtil.getCurrentTime("ss", "EST5EDT")) < Integer.parseInt(currentSeconds)) {
 			Date dateInDate = DateUtil.convertStringToDate(startTime, "hh:mma");
 			Date dateAfterMinutesAdded = DateUtils.addMinutes(dateInDate, 1);
 			SimpleDateFormat sdf = new SimpleDateFormat("hh:mma");
@@ -89,33 +86,28 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 
 		Date dateInDate = DateUtil.convertStringToDate(currentDate, "hh:mma");
 		System.out.println("actual time:" + dateInDate);
-		Date dateAfterMinutesAdded = DateUtils.addMinutes(dateInDate,
-				Integer.parseInt(timeSlab));
+		Date dateAfterMinutesAdded = DateUtils.addMinutes(dateInDate, Integer.parseInt(timeSlab));
 
 		element("inp_tskStartTime").clear();
 		SimpleDateFormat sdf = new SimpleDateFormat("hh:mma");
 		String dateWithTimeSlabInString = sdf.format(dateAfterMinutesAdded);
 		System.out.println("date after added :" + dateWithTimeSlabInString);
 		if (dateWithTimeSlabInString.startsWith("0")) {
-			element("inp_tskStartTime").sendKeys(
-					dateWithTimeSlabInString.replaceFirst("0", ""));
-			logMessage("STEP : Task start time is edited to "
-					+ dateWithTimeSlabInString.replaceFirst("0", "") + "\n");
+			element("inp_tskStartTime").sendKeys(dateWithTimeSlabInString.replaceFirst("0", ""));
+			logMessage("STEP : Task start time is edited to " + dateWithTimeSlabInString.replaceFirst("0", "") + "\n");
 			return dateWithTimeSlabInString.replaceFirst("0", "");
 		} else {
 			element("inp_tskStartTime").sendKeys(dateWithTimeSlabInString);
-			logMessage("STEP : Task start time is edited to "
-					+ dateWithTimeSlabInString + "\n");
+			logMessage("STEP : Task start time is edited to " + dateWithTimeSlabInString + "\n");
 			return dateWithTimeSlabInString;
 		}
 	}
 
-	public String navigateToListFulfillmentBatchesAndVerifyPreviewStatusAndStartTimeForFirst(
-			String previewStatus, String time) {
+	public String navigateToListFulfillmentBatchesAndVerifyPreviewStatusAndStartTimeForFirst(String previewStatus,
+			String time) {
 		clickOnSubLinkSideBar("List Fulfillment Batches");
 		// verifyPreviewStatusInListForFirst(previewStatus);
-		if (previewStatus.equalsIgnoreCase("scheduled")
-				|| previewStatus.equalsIgnoreCase("committed")) {
+		if (previewStatus.equalsIgnoreCase("scheduled") || previewStatus.equalsIgnoreCase("committed")) {
 			verifyTskStartTime(time);
 			return time;
 		} else {
@@ -129,24 +121,19 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 
 	}
 
-	public void verifyPreviewStatusInListForFirst(String previewStatus,
-			String waitTime) {
+	public void verifyPreviewStatusInListForFirst(String previewStatus, String waitTime) {
 		hardWaitForIEBrowser(4);
 		isElementDisplayed("txt_firstPreviewStatusInList");
-		if (element("txt_firstPreviewStatusInList").getText().trim()
-				.equalsIgnoreCase(previewStatus)) {
-			logMessage("ASSERT PASSED : Preview status " + previewStatus
-					+ " is verified\n");
+		if (element("txt_firstPreviewStatusInList").getText().trim().equalsIgnoreCase(previewStatus)) {
+			logMessage("ASSERT PASSED : Preview status " + previewStatus + " is verified\n");
 		} else {
 			int count = (Integer.parseInt(waitTime)) / 5;
 			for (int i = 1; i <= count; i++) {
 				holdScriptExecutionToVerifyPreviewStatus();
 				pageRefresh();
 				isElementDisplayed("txt_firstPreviewStatusInList");
-				if (element("txt_firstPreviewStatusInList").getText().trim()
-						.equalsIgnoreCase(previewStatus)) {
-					logMessage("AsSERT PASSED : Preview status "
-							+ previewStatus + " is verified\n");
+				if (element("txt_firstPreviewStatusInList").getText().trim().equalsIgnoreCase(previewStatus)) {
+					logMessage("AsSERT PASSED : Preview status " + previewStatus + " is verified\n");
 					break;
 				}
 			}
@@ -159,27 +146,22 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_firstTskStartTimeInList");
 		// Assert.assertTrue(element("txt_firstTskStartTimeInList").getText()
 		// .equalsIgnoreCase(time));
-		logMessage("ASSERT PASSED : " + time
-				+ " is verified for task start time in member list\n");
+		logMessage("ASSERT PASSED : " + time + " is verified for task start time in member list\n");
 	}
 
 	public void clickOnSideBarTab(String tabName) {
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(4);
 		isElementDisplayed("hd_subscriptionFulfillment", tabName);
-		clickUsingXpathInJavaScriptExecutor(element(
-				"hd_subscriptionFulfillment", tabName));
-		logMessage("STEP : Click on tab " + tabName
-				+ " in hd_subscriptionFulfillment \n");
+		clickUsingXpathInJavaScriptExecutor(element("hd_subscriptionFulfillment", tabName));
+		logMessage("STEP : Click on tab " + tabName + " in hd_subscriptionFulfillment \n");
 	}
 
 	public void clickOnSubLinkSideBar(String linkName) {
 		isElementDisplayed("link_subTabSidebar", linkName);
-		clickUsingXpathInJavaScriptExecutor(element("link_subTabSidebar",
-				linkName));
+		clickUsingXpathInJavaScriptExecutor(element("link_subTabSidebar", linkName));
 		// element("link_subTabSidebar", linkName).click();
-		logMessage("STEP : Sublink " + linkName
-				+ " is clicked in link_subTabSidebar\n");
+		logMessage("STEP : Sublink " + linkName + " is clicked in link_subTabSidebar\n");
 	}
 
 	public void verifyAddSubscriptionFulfillmentBatchHeading(String headingName) {
@@ -191,8 +173,7 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 
 	public void checkSubscriptionName(String subscriptionName) {
 		isElementDisplayed("chk_subscription", subscriptionName);
-		clickUsingXpathInJavaScriptExecutor(element("chk_subscription",
-				subscriptionName));
+		clickUsingXpathInJavaScriptExecutor(element("chk_subscription", subscriptionName));
 		// element("chk_subscription", subscriptionName).click();
 		logMessage("STEP : Subscription " + subscriptionName + " is checked\n");
 	}
@@ -227,20 +208,16 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 		clickOnFirstSubscriptionTaskInList();
 	}
 
-	public void verifySubscriptionDetails(String subscriptionName,
-			String scheduledTask, String time, String scheduledTaskCompleted,
-			String previewStatus, String commitScheduledTask,
-			String fulfillmentType, String updateStartIssue) {
+	public void verifySubscriptionDetails(String subscriptionName, String scheduledTask, String time,
+			String scheduledTaskCompleted, String previewStatus, String commitScheduledTask, String fulfillmentType,
+			String updateStartIssue) {
 		verifySubscriptionDetail("subscription:", subscriptionName);
 		verifySubscriptionDetail("scheduled task?", scheduledTask);
-		String currentDateEST = DateUtil
-				.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY",
-						"EST5EDT");
+		String currentDateEST = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY", "EST5EDT");
 
 		// verifySubscriptionDetail("start date:", currentDateEST);
 		// verifySubscriptionDetail("time:", time);
-		verifySubscriptionDetail("scheduled task completed?",
-				scheduledTaskCompleted);
+		verifySubscriptionDetail("scheduled task completed?", scheduledTaskCompleted);
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(10);
 		pageRefresh();
@@ -248,8 +225,7 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 		verifySubscriptionDetail("commit scheduled task?", commitScheduledTask);
 		verifyFulfillmentType("fulfillment type:", fulfillmentType);
 		verifySubscriptionDetail("update start issue?", updateStartIssue);
-		if (previewStatus.equalsIgnoreCase("commit started")
-				|| previewStatus.equalsIgnoreCase("committed")) {
+		if (previewStatus.equalsIgnoreCase("commit started") || previewStatus.equalsIgnoreCase("committed")) {
 			verifySubscriptionDetail("commit start time:", commitStartTime);
 			verifySubscriptionDetail("commit start date:", currentDateEST);
 		}
@@ -260,44 +236,36 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 		try {
 			isElementDisplayed("label_fulfillmentType", detailName);
 
-			Assert.assertTrue(element("label_fulfillmentType", detailName)
-					.getText().trim().equalsIgnoreCase(detailValue));
-			logMessage("ASSERT PASSED : "
-					+ detailValue
-					+ " is verified for fulfillment type in label_fulfillmentType\n");
+			Assert.assertTrue(
+					element("label_fulfillmentType", detailName).getText().trim().equalsIgnoreCase(detailValue),
+					"ASSERT FAILED: Expected value is " + detailValue + " but found "
+							+ element("label_fulfillmentType", detailName).getText().trim());
 		} catch (StaleElementReferenceException stlExp) {
-			System.out.println("stale element handled\n");
 			isElementDisplayed("label_fulfillmentType", detailName);
-			Assert.assertTrue(element("label_fulfillmentType", detailName)
-					.getText().trim().equalsIgnoreCase(detailValue));
-			logMessage("ASSERT PASSED : "
-					+ detailValue
-					+ " is verified for fulfillment type in label_subscriptionDetail\n");
+			Assert.assertTrue(
+					element("label_fulfillmentType", detailName).getText().trim().equalsIgnoreCase(detailValue),
+					"ASSERT FAILED: Expected value is " + detailValue + " but found "
+							+ element("label_fulfillmentType", detailName).getText().trim());
 		}
+		logMessage("ASSERT PASSED : " + detailValue
+				+ " is verified for fulfillment type in label_subscriptionDetail\n");
 	}
 
 	public void verifySubscriptionDetail(String detailName, String detailValue) {
 		try {
 			hardWaitForIEBrowser(5);
 			isElementDisplayed("label_subscriptionDetail", detailName);
-			System.out
-					.println("actual : "
-							+ element("label_subscriptionDetail", detailName)
-									.getText());
-			System.out.println("expected: " + detailValue);
-			Assert.assertTrue(element("label_subscriptionDetail", detailName)
-					.getText().trim().equalsIgnoreCase(detailValue));
-			logMessage("ASSERT PASSED : " + detailValue + " is verified for "
-					+ detailName + " in label_subscriptionDetail\n");
-		} catch (StaleElementReferenceException stlExp) {
-			System.out.println("stale element handled\n");
+			Assert.assertTrue(element("label_subscriptionDetail", detailName).getText().trim().equalsIgnoreCase(detailValue),
+					"ASSERT FAILED:  Expected value is " + detailValue + " but found "
+							+ element("label_subscriptionDetail", detailName).getText().trim());
+			} catch (StaleElementReferenceException stlExp) {
 			isElementDisplayed("label_subscriptionDetail", detailName);
-			Assert.assertTrue(element("label_subscriptionDetail", detailName)
-					.getText().trim().equalsIgnoreCase(detailValue));
-			logMessage("ASSERT PASSED : " + detailValue + " is verified for "
-					+ detailName + " in label_subscriptionDetail\n");
-
+			Assert.assertTrue(element("label_subscriptionDetail", detailName).getText().trim().equalsIgnoreCase(detailValue),
+					"ASSERT FAILED:  Expected value is " + detailValue + " but found "
+							+ element("label_subscriptionDetail", detailName).getText().trim());
 		}
+		logMessage("ASSERT PASSED : " + detailValue + " is verified for " + detailName
+				+ " in label_subscriptionDetail\n");
 
 	}
 
@@ -320,13 +288,11 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 	public String navigateToCommitPreviewAndEnterRequiredData(String timeSlab) {
 		clickOnCommitPreviewButton();
 		switchToFrame("iframe1");
-		enterStartDateInCommitPreview(DateUtil
-				.getCurrentdateInStringWithGivenFormateForTimeZone(
-						"MM/dd/YYYY", "EST5EDT"));
+		enterStartDateInCommitPreview(
+				DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/dd/YYYY", "EST5EDT"));
 		String currentDate = DateUtil.getCurrentTime("hh:mma", "EST5EDT");
 		Date dateInDate = DateUtil.convertStringToDate(currentDate, "hh:mma");
-		Date dateAfterMinutesAdded = DateUtils.addMinutes(dateInDate,
-				Integer.parseInt(timeSlab));
+		Date dateAfterMinutesAdded = DateUtils.addMinutes(dateInDate, Integer.parseInt(timeSlab));
 		SimpleDateFormat sdf = new SimpleDateFormat("hh:mma");
 		String dateWithTimeSlabInString = sdf.format(dateAfterMinutesAdded);
 		enterStartTimeInCommitPreview(dateWithTimeSlabInString);
@@ -350,15 +316,13 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 	public void enterStartDateInCommitPreview(String date) {
 		isElementDisplayed("inp_commitStartDate");
 		element("inp_commitStartDate").sendKeys(date);
-		logMessage("STEP : Start date " + date
-				+ " is entered in commit preview\n");
+		logMessage("STEP : Start date " + date + " is entered in commit preview\n");
 	}
 
 	public void enterStartTimeInCommitPreview(String startTime) {
 		isElementDisplayed("inp_commitStartTime");
 		element("inp_commitStartTime").sendKeys(startTime);
-		logMessage("STEP : Start time " + startTime
-				+ " is entered in commit preview\n");
+		logMessage("STEP : Start time " + startTime + " is entered in commit preview\n");
 	}
 
 	public void getDownDatabase(String name) {
@@ -368,8 +332,7 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 
 	}
 
-	public void verifyIssueInSubscriptionFulfillmentBatchSummary(
-			String issueName) {
+	public void verifyIssueInSubscriptionFulfillmentBatchSummary(String issueName) {
 		isElementDisplayed("subscriptionFulfillmentBacthSummary");
 		if (isBrowser("ie") || isBrowser("internet explorer"))
 			clickUsingXpathInJavaScriptExecutor(element("subscriptionFulfillmentBacthSummary"));
@@ -383,10 +346,8 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 
 	public String getDetailsValueOnSubscriberPage(String detailName) {
 		isElementDisplayed("label_subscriptionDetail", detailName);
-		String detailValue = getElementText(element("label_subscriptionDetail",
-				detailName));
-		logMessage("STEP : The " + detailName + " is " + detailValue
-				+ " on subscriber page\n");
+		String detailValue = getElementText(element("label_subscriptionDetail", detailName));
+		logMessage("STEP : The " + detailName + " is " + detailValue + " on subscriber page\n");
 		return detailValue;
 	}
 
@@ -395,40 +356,34 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 		String issues = getDetailsValueOnSubscriberPage("#issues:");
 		logMessage("STEP : Remaining is " + remaining + " \n");
 		logMessage("STEP : Issues is :" + issues + " \n");
-		Assert.assertTrue((Integer.parseInt(issues) - 1) == Integer
-				.parseInt(remaining));
+		Assert.assertTrue((Integer.parseInt(issues) - 1) == Integer.parseInt(remaining));
 		logMessage("AASERT PASSED : Remaining issue is one less than the Issues\n");
 
 	}
 
-	public void verifyDetailsOnSubscriberProfile(String numberFulfilled,
-			String customerID, String subName) {
+	public void verifyDetailsOnSubscriberProfile(String numberFulfilled, String customerID, String subName) {
 		verifySubscriptionDetail("number fulfilled:", numberFulfilled);
 		verifySubscriptionDetail("customer id:", customerID);
 		if (subName.equalsIgnoreCase("Jrnl of Chemical Theory & Computation")) {
 			verifySubName("Journal of Chemical Theory and Computation");
-		} else if (subName
-				.equalsIgnoreCase("Jrnl of The American Chemical Society")) {
+		} else if (subName.equalsIgnoreCase("Jrnl of The American Chemical Society")) {
 			verifySubName("Journal of the American Chemical Society");
 		}
 		verifyRemainingIsOneLessThanIssues();
 		expandDetailsMenu("issues fulfilled");
-//		expandDetailsMenuIfAlreadyExpanded("issues fulfilled");
+		// expandDetailsMenuIfAlreadyExpanded("issues fulfilled");
 		verifyFulfillmentDate(subName);
 	}
 
 	public void verifyFulfillmentDate(String subscriptionName) {
 		hardWaitForIEBrowser(3);
 		isElementDisplayed("txt_fulfillmentDate", subscriptionName);
-		Assert.assertTrue(element("txt_fulfillmentDate", subscriptionName)
-				.getText()
-				.trim()
-				.equalsIgnoreCase(
-						DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone(
-								"M/d/YYYY", "EST5EDT")));
+		Assert.assertTrue(element("txt_fulfillmentDate", subscriptionName).getText().trim()
+				.equalsIgnoreCase(DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY", "EST5EDT")),
+				"ASSERT FAILED: Expected value is "+DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY", "EST5EDT")+ 
+				" but found "+element("txt_fulfillmentDate", subscriptionName).getText().trim());
 		logMessage("ASSERT PASSED : Fulfillment date "
-				+ DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone(
-						"MM/d/YYYY", "EST5EDT")
+				+ DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/d/YYYY", "EST5EDT")
 				+ " is verified as the current date \n");
 	}
 
@@ -444,14 +399,9 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 			for (int j = 1; j <= pageNumber; j++) {
 				int size = elements("rows_table").size();
 				for (int i = 1; i < size; i++) {
-					if (element("txt_subscriptionName", String.valueOf(i + 1))
-							.getText().contains(subscriptionName)) {
-						if (element("txt_startDateInTable",
-								String.valueOf(i + 1))
-								.getText()
-								.contains(
-										DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone(
-												"MM/d/YYYY", "EST5EDT"))) {
+					if (element("txt_subscriptionName", String.valueOf(i + 1)).getText().contains(subscriptionName)) {
+						if (element("txt_startDateInTable", String.valueOf(i + 1)).getText().contains(
+								DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/d/YYYY", "EST5EDT"))) {
 
 							element("lnk_arrow", String.valueOf(i + 1)).click();
 							logMessage("STEP : Go to record button is clicked \n");
@@ -472,15 +422,10 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 			wait.hardWait(3);
 			int size = elements("rows_table").size();
 			for (int i = 1; i < size; i++) {
-				if (element("txt_subscriptionName", String.valueOf(i + 1))
-						.getText().contains(subscriptionName)) {
-					if (element("txt_startDateInTable", String.valueOf(i + 1))
-							.getText()
-							.contains(
-									DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone(
-											"MM/d/YYYY", "EST5EDT"))) {
-						if (!element("txt_issueInTable", String.valueOf(i + 1))
-								.getText().equalsIgnoreCase("0")) {
+				if (element("txt_subscriptionName", String.valueOf(i + 1)).getText().contains(subscriptionName)) {
+					if (element("txt_startDateInTable", String.valueOf(i + 1)).getText().contains(
+							DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/d/YYYY", "EST5EDT"))) {
+						if (!element("txt_issueInTable", String.valueOf(i + 1)).getText().equalsIgnoreCase("0")) {
 							element("lnk_arrow", String.valueOf(i + 1)).click();
 							logMessage("STEP : Go to record button is clicked \n");
 							flag = true;
@@ -497,8 +442,7 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 	public void clickOnPageLink(String pageNumber) {
 		isElementDisplayed("link_pageLink", pageNumber);
 		element("link_pageLink", pageNumber).click();
-		logMessage("STEP : Click on page number " + pageNumber
-				+ " in link_pageLink\n");
+		logMessage("STEP : Click on page number " + pageNumber + " in link_pageLink\n");
 	}
 
 	public boolean isPaginationAppear() {

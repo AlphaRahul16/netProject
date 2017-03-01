@@ -48,7 +48,7 @@ public class ACS_Yb_Iweb_Action extends ASCSocietyGenericPage{
 	
 	public void verifyCommitteeType(String label,String committeeType){
 		isElementDisplayed("txt_committeeDetails",label);
-		Assert.assertTrue(committeeType.equals(element("txt_committeeDetails",label).getText().trim()), "ASSERT FAILED: Committee type is not verified as "+committeeType+"\n");
+		Assert.assertEquals(committeeType,element("txt_committeeDetails",label).getText().trim(), "ASSERT FAILED: Committee type is not verified as "+committeeType+"\n");
 		logMessage("ASSERT PASSED: Committee type is verified as "+committeeType+"\n");
 	}
 	

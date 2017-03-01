@@ -1,0 +1,9 @@
+"caseID"	"caseID Execute"	"CreditCardExpiration_Year"	"Payment_Method"	"Visa_Card_Number"	"Diners_Card_Number"	"AMEX_Card_Number"	"Discover_Card_Number"	"CVV_Number"
+1	"Yes"	2019	"Visa/MC"	"4457010000000009"				349
+2	"Yes"	2019	"Discover"				"6011010000000003"	758
+3	"Yes"	2019	"Visa/MC"	"5112000100000003"				123
+4	"Yes"	2019	"AMEX"			"375000026600004"		421
+5	"Yes"	2019	"Diners"		"5412345438954638"			234
+6	"Yes"	2019	"Diners"		"36474027424147
+"			123
+7	"No"	2019	"AMEX"			375000026600004		421

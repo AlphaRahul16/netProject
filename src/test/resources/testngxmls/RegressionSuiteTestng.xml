@@ -1,77 +1,29 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="ACS Tests" preserve-order="true" thread-count="1"
-	configfailurepolicy="continue" parallel="tests">
+	configfailurepolicy="continue">
 
-	<test name="Subscription Fulfillment" parallel="false"
-		group-by-instances="true">
+	<test name="ACS_Apply_Payment_Test" group-by-instances="true">
 		<classes>
-			<class name="com.qait.tests.Subscription_Fulfillment_Test"></class>
+			<class name="com.qait.tests.ACS_Apply_Payment_Test"></class>
 		</classes>
 	</test>
 
-	<test name="ACS_Rubber_Insurance_Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_Rubber_Insurance_Test"></class>
-		</classes>
-	</test>
-	<test name="Inventory_Product_Fulfillment_Test"
-		group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.Inventory_Product_Fulfillment_Test"></class>
-		</classes>
-	</test>
-	<test name="COE_Inventory_Test" group-by-instances="true">
+	<test name="COE Inventory Smoke Test" group-by-instances="true">
 		<classes>
 			<class name="com.qait.tests.COE_Inventory_Test"></class>
 		</classes>
 	</test>
-	<test name="ACS_PBA_Test" group-by-instances="true">
+	<test name="ACS Gift Card Test" group-by-instances="true">
+		<method-selectors>
+			<method-selector>
+				<script language="beanshell"><![CDATA[
+        String caseid = System.getProperty("caseID");
+        groups.containsKey(caseid)
+       ]]></script>
+			</method-selector>
+		</method-selectors>
 		<classes>
-			<class name="com.qait.tests.ACS_PBA_Test"></class>
-		</classes>
-	</test>
-
-	<test name="ACS CCED NCW MemberLookUp" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_CCED_NCW_MemberNumberLookup_Test"></class>
-		</classes>
-	</test>
-	<test name="ACS Chapter Relationships Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_Chapter_Relationships_Test"></class>
-		</classes>
-	</test>
-
-	<test name="ACS Return Cancel Refund" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_ReturnCancelRefund" />
-		</classes>
-	</test>
-
-	<test name="ACS MGM Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_MGM_Test"></class>
-		</classes>
-	</test>
-	<test name="ACS AACT OMR Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_AACT_OMR"></class>
-		</classes>
-	</test>
-	<test name="ACS_AACT_Smoke_Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_AACT_Smoke_Test"></class>
-		</classes>
-	</test>
-	<test name="OMA Discount Smoke Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_OMA_Discount_Test"></class>
-		</classes>
-	</test>
-	<test name="ACS Create Member Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_Create_Member_Test"></class>
+			<class name="com.qait.tests.ACS_GiftCard_Test"></class>
 		</classes>
 	</test>
 </suite>

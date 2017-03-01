@@ -32,7 +32,8 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyInvoiceProfile(String paidInFull) {
 		verifyMemberDetails_question("paid in full", paidInFull);
-		verifyMemberDetails("transaction date", DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY","EST5EDT"));
+		verifyMemberDetails("transaction date",
+				DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/YYYY", "EST5EDT"));
 	}
 
 	public void verifyProductCodeInlineItem(String prodCode, String prodName) {
@@ -43,7 +44,8 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_code", prodName);
 		String productCode = element("txt_code", prodName).getText().trim();
 
-		Assert.assertTrue(productCode.contains(prodCode));
+		Assert.assertTrue(productCode.contains(prodCode),
+				"ASSERT FAILED: Expected value is " + prodCode + " but found " + productCode);
 		logMessage("ASSERT PASSED : Product Code is matched in Line Item");
 
 	}
@@ -51,7 +53,6 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyInvoiceDetailsGCSOMA(String invoiceNumber, String Total, String paidInFull) {
 		enterInvoiceNumber(invoiceNumber);
 		clickOnSearchButton();
-		System.out.println("total ; " + Total);
 		verifyInvoiceProfile("invoice total", Total);
 		verifyInvoiceProfile("balance", "0.00");
 		verifyMemberDetails_question("paid in full", paidInFull);
@@ -180,15 +181,20 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 					Float priceValueInSheet = Float.parseFloat(PriceInString) * multiYearInInteger;
 					String formatedPrice = String.format("%.02f", priceValueInSheet);
 					String PriceValueExpected = String.valueOf(formatedPrice);
-//					Assert.assertTrue(element("txt_" + detailName, productName).getText().trim()
-//							.equalsIgnoreCase(PriceValueExpected));
+					Assert.assertTrue(
+							element("txt_" + detailName, productName).getText().trim()
+									.equalsIgnoreCase(PriceValueExpected),
+							"ASSERT FAILED: Expected value is " + PriceValueExpected + " but found "
+									+ element("txt_" + detailName, productName).getText().trim());
 					logMessage("ASSERT PASSED : " + element("txt_" + detailName, productName).getText().trim()
 							+ " is verified in txt_" + detailName + "\n");
 				} else {
 					isElementDisplayed("txt_" + detailName, productName);
 					String ExpectedPrice = detailValue.replaceAll("\\$", "");
-//					Assert.assertTrue(
-//							element("txt_" + detailName, productName).getText().trim().equalsIgnoreCase(ExpectedPrice));
+					Assert.assertTrue(
+							element("txt_" + detailName, productName).getText().trim().equalsIgnoreCase(ExpectedPrice),
+							"ASSERT FAILED: Expected value is " + ExpectedPrice + " but found "
+									+ element("txt_" + detailName, productName).getText().trim());
 					logMessage("ASSERT PASSED : " + element("txt_" + detailName, productName).getText().trim()
 							+ " is verified in txt_" + detailName + "\n");
 				}
@@ -197,7 +203,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyInvoiceDetailsInLineItems(String name, Map<String, String> mapGetMemberDetailsInStore) {
-		Assert.assertTrue(element("table_" + name).getText().trim().equals(mapGetMemberDetailsInStore.get(name)));
+		Assert.assertEquals(element("table_" + name).getText().trim(), mapGetMemberDetailsInStore.get(name));
 		logMessage("ASSERT PASSED : " + name + " details on invoice profile succesfully verified as "
 				+ mapGetMemberDetailsInStore.get(name) + "\n");
 	}
@@ -216,7 +222,9 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 			isElementDisplayed("txt_" + detailName, productName);
 			String ExpectedPrice = detailValue.replaceAll("\\$", "");
 			Assert.assertTrue(
-					element("txt_" + detailName, productName).getText().trim().equalsIgnoreCase(ExpectedPrice));
+					element("txt_" + detailName, productName).getText().trim().equalsIgnoreCase(ExpectedPrice),
+					"ASSERT FAILED: Expected value is " + ExpectedPrice + " but found "
+							+ element("txt_" + detailName, productName).getText().trim());
 			logMessage("ASSERT PASSED : " + element("txt_" + detailName, productName).getText().trim()
 					+ " is verified in txt_" + detailName);
 		}
@@ -228,7 +236,9 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		} else {
 			isElementDisplayed("txt_" + detailName, productName);
 			String ExpectedPrice = detailValue.replaceAll("\\$", "");
-			Assert.assertTrue(element("txt_" + detailName, productName).getText().trim().contains(ExpectedPrice));
+			Assert.assertTrue(element("txt_" + detailName, productName).getText().trim().contains(ExpectedPrice),
+					"ASSERT FAILED: Expected value is " + ExpectedPrice + " but found "
+							+ element("txt_" + detailName, productName).getText().trim());
 			logMessage("ASSERT PASSED : " + element("txt_" + detailName, productName).getText().trim()
 					+ " is verified in txt_" + detailName + "\n");
 		}
@@ -241,12 +251,11 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		} else {
 			isElementDisplayed("txt_invoiceValues", detailName);
 			String detailValueWithOutDollar = detailValue.replace("$", "");
-
-			System.out.println(detailValueWithOutDollar);
-			System.out.println(element("txt_invoiceValues", detailName).getText().trim());
-			Assert.assertTrue(element("txt_invoiceValues", detailName).getText().trim()
-
-					.equalsIgnoreCase(detailValueWithOutDollar));
+			Assert.assertTrue(
+					element("txt_invoiceValues", detailName).getText().trim()
+							.equalsIgnoreCase(detailValueWithOutDollar),
+					"ASSERT FAILED: Expected value is " + detailValueWithOutDollar + " but found "
+							+ element("txt_invoiceValues", detailName).getText().trim());
 			logMessage("ASSERT PASSED : " + detailValueWithOutDollar + " is verified in txt_" + detailName + "\n");
 		}
 	}
@@ -260,7 +269,9 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 			isElementDisplayed("inp_invoiceAACT", detailName);
 			String detailValueWithOutDollar = detailValue.replace("$", "");
 			Assert.assertTrue(
-					element("inp_invoiceAACT", detailName).getText().trim().equalsIgnoreCase(detailValueWithOutDollar));
+					element("inp_invoiceAACT", detailName).getText().trim().equalsIgnoreCase(detailValueWithOutDollar),
+					"ASSERT FAILED: Expected value is " + detailValueWithOutDollar + " but found "
+							+ element("txt_invoiceValues", detailName).getText().trim());
 			logMessage("ASSERT PASSED : " + detailValueWithOutDollar + " is verified in " + detailName + "\n");
 		}
 	}
@@ -326,17 +337,17 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyMemberDetails_question(String detailName, String detailValue) {
 		hardWaitForIEBrowser(5);
 		isElementDisplayed("txt_memberDetail_q", detailName);
-		System.out.println("actual : " + element("txt_memberDetail_q", detailName).getText().trim());
-		System.out.println("exp: " + detailValue);
-		Assert.assertTrue(element("txt_memberDetail_q", detailName).getText().trim().equalsIgnoreCase(detailValue));
+		Assert.assertTrue(element("txt_memberDetail_q", detailName).getText().trim().equalsIgnoreCase(detailValue),
+				"ASSERT FAILED: Expected value is " + detailValue + " but found "
+						+ element("txt_memberDetail_q", detailName).getText().trim());
 		logMessage("ASSERT PASSED : " + detailValue + " is verified for " + detailName + " field\n");
 	}
 
 	public void verifyMemberDetails(String detailName, String detailValue) {
 		isElementDisplayed("txt_memberDetails", detailName);
-		System.out.println("actual : " + element("txt_memberDetails", detailName).getText().trim());
-		System.out.println("exp:" + detailValue);
-		Assert.assertTrue(element("txt_memberDetails", detailName).getText().trim().equalsIgnoreCase(detailValue));
+		Assert.assertTrue(element("txt_memberDetails", detailName).getText().trim().equalsIgnoreCase(detailValue),
+				"ASSERT FAILED: Expected value is " + detailValue + " but found "
+						+ element("txt_memberDetails", detailName).getText().trim());
 		logMessage("ASSERT PASSED : " + detailValue + " is verified for " + detailName + " \n");
 	}
 
@@ -444,9 +455,13 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 		String pledgedProduct = mapIwebProductDetails.get(productNameKey[0]).get(1).split(" ")[0] + " P";
 		if (element("table_description").getText().trim().contains(productNameKey[0])) {
-			Assert.assertTrue(element("table_description").getText().trim().equals(productNameKey[0] + " Pledge"));
+			Assert.assertTrue(element("table_description").getText().trim().equals(productNameKey[0] + " Pledge"),
+					"ASSERT FAILED: Expected value is " + productNameKey[0] + " Pledge" + " but found "
+							+ element("table_description").getText().trim());
 			logMessage("ASSERT PASSED : Program Name inside Line items is verifed as " + productNameKey[0] + " Pledge");
-			Assert.assertTrue(element("table_code").getText().trim().equals(pledgedProduct));
+			Assert.assertTrue(element("table_code").getText().trim().equals(pledgedProduct),
+					"ASSERT FAILED: Expected value is " + pledgedProduct + " but found "
+							+ element("table_code").getText().trim());
 			logMessage("ASSERT PASSED : Program Code inside Line items is verifed as " + pledgedProduct);
 		}
 	}
@@ -458,19 +473,22 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 				if (elements("table_description").get(i).getText().trim()
 						.equals(mapIwebProductDetails.get(productNameKey[j]).get(0)) && Amount[j].length() != 0) {
-					Assert.assertTrue(elements("table_description").get(i).getText().trim()
-							.equals(mapIwebProductDetails.get(productNameKey[j]).get(0)));
+					Assert.assertTrue(
+							elements("table_description").get(i).getText().trim()
+									.equals(mapIwebProductDetails.get(productNameKey[j]).get(0)),
+							"ASSERT FAILED: Expected value is " + mapIwebProductDetails.get(productNameKey[j]).get(0)
+									+ " but found " + elements("table_description").get(i).getText().trim());
 					logMessage("ASSERT PASSED : Product Display Name verified as "
 							+ mapIwebProductDetails.get(productNameKey[j]).get(0) + "\n");
-					Assert.assertTrue(elements("table_code").get(i).getText().trim()
-							.equals(mapIwebProductDetails.get(productNameKey[j]).get(1)));
+					Assert.assertEquals(elements("table_code").get(i).getText().trim(),
+							(mapIwebProductDetails.get(productNameKey[j]).get(1)));
 					logMessage("ASSERT PASSED : Product Code for Product " + productNameKey[j] + " is verified as "
 							+ mapIwebProductDetails.get(productNameKey[j]).get(1) + "\n");
-					Assert.assertTrue(elements("table_quantity").get(i).getText().trim().equals("1"));
+					Assert.assertEquals(elements("table_quantity").get(i).getText().trim(), "1");
 					logMessage("ASSERT PASSED : Product Quantity for " + productNameKey[j] + " is verified as 1 \n");
-					Assert.assertTrue(elements("table_discount").get(i).getText().trim().equals("0.00"));
+					Assert.assertEquals(elements("table_discount").get(i).getText().trim(), ("0.00"));
 					logMessage("ASSERT PASSED : Product discount for" + productNameKey[j] + " is verified as 0.00 \n");
-					Assert.assertTrue(elements("table_balance").get(i).getText().trim().equals("0.00"));
+					Assert.assertEquals(elements("table_balance").get(i).getText().trim(), ("0.00"));
 					logMessage("ASSERT PASSED : Product balance for " + productNameKey[j] + " is verified as 0.00 \n");
 					verifyEachProductAmountOnListItems(mapIwebProductDetails.get(productNameKey[j]).get(0), Amount);
 				}
@@ -481,17 +499,17 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	private void verifyProductDetailsWhenProgramIsNotPledgedForIndividualLandingPage(String[] Amount,
 			String[] productNameKey, Map<String, String> mapSheetDetails) {
 		for (int i = 0; i < elements("table_description").size(); i++) {
-			Assert.assertTrue(elements("table_description").get(i).getText().trim().equals(productNameKey[0]));
+			Assert.assertEquals(elements("table_description").get(i).getText().trim(), (productNameKey[0]));
 			logMessage("ASSERT PASSED : Product Display Name verified as " + productNameKey[0] + "\n");
-			Assert.assertTrue(
-					elements("table_code").get(i).getText().trim().equals(mapSheetDetails.get("Application_Codes")));
+			Assert.assertEquals(elements("table_code").get(i).getText().trim(),
+					(mapSheetDetails.get("Application_Codes")));
 			logMessage("ASSERT PASSED : Product Code for Product " + productNameKey[0] + " is verified as "
 					+ mapSheetDetails.get("Application_Codes") + "\n");
-			Assert.assertTrue(elements("table_quantity").get(i).getText().trim().equals("1"));
+			Assert.assertEquals(elements("table_quantity").get(i).getText().trim(), "1");
 			logMessage("ASSERT PASSED : Product Quantity for " + productNameKey[0] + " is verified as 1 \n");
-			Assert.assertTrue(elements("table_discount").get(i).getText().trim().equals("0.00"));
+			Assert.assertEquals(elements("table_discount").get(i).getText().trim(), ("0.00"));
 			logMessage("ASSERT PASSED : Product discount for" + productNameKey[0] + " is verified as 0.00 \n");
-			Assert.assertTrue(elements("table_balance").get(i).getText().trim().equals("0.00"));
+			Assert.assertEquals(elements("table_balance").get(i).getText().trim(), ("0.00"));
 			logMessage("ASSERT PASSED : Product balance for " + productNameKey[0] + " is verified as 0.00 \n");
 
 		}
@@ -501,11 +519,12 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 			String[] productNameKey, Map<String, String> mapSheetDetails) {
 
 		String pledgedProduct = mapSheetDetails.get("Application_Codes").split(" ")[0] + " P";
-		System.out.println(pledgedProduct);
 		if (element("table_description").getText().trim().contains(productNameKey[0])) {
-			Assert.assertTrue(element("table_description").getText().trim().equals(productNameKey[0] + " Pledge"));
+			Assert.assertEquals(element("table_description").getText().trim(), (productNameKey[0] + " Pledge"));
 			logMessage("ASSERT PASSED : Program Name inside Line items is verifed as " + productNameKey[0] + " Pledge");
-			Assert.assertTrue(element("table_code").getText().trim().equals(pledgedProduct));
+			Assert.assertTrue(element("table_code").getText().trim().equals(pledgedProduct),
+					"ASSERT FAILED: Expected value is " + pledgedProduct + " but found "
+							+ element("table_code").getText().trim());
 			logMessage("ASSERT PASSED : Program Code inside Line items is verifed as " + pledgedProduct);
 		}
 	}
@@ -532,7 +551,9 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	private void verifyAmountForParticularProduct(String Productname, String Amount) {
-		Assert.assertTrue(element("table_productPrice", Productname).getText().trim().equals(Amount + ".00"));
+		Assert.assertTrue(element("table_productPrice", Productname).getText().trim().equals(Amount + ".00"),
+				"ASSERT FAILED: Expected value is " + Amount + ".00" + " but found "
+						+ element("table_productPrice", Productname).getText().trim());
 		logMessage("ASSERT PASSED : Product amount for " + Productname + " on iweb is verified as " + Amount + ".00\n");
 
 	}
@@ -545,7 +566,9 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	private void verifyOtherProgramNameOnInvoiceDetails(String otherProgramName) {
 		if (otherProgramName.length() != 0) {
-			Assert.assertTrue(element("txt_givingInvoiceOtherProgram").getText().trim().equals(otherProgramName));
+			Assert.assertTrue(element("txt_givingInvoiceOtherProgram").getText().trim().equals(otherProgramName),
+					"ASSERT FAILED: Expected value is " + otherProgramName + " but found "
+							+ element("txt_givingInvoiceOtherProgram").getText().trim());
 			logMessage("ASSERT PASSED : Other Program Name in Giving Invoice Details is verified as : "
 					+ otherProgramName + "\n");
 		} else {
@@ -556,11 +579,15 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	private void verifyCardSendViaEmailOrPost(String viaEmail, String viaPostmail, String dontsend, String isSendCard) {
 		if (viaEmail.length() != 0 && viaEmail.equalsIgnoreCase("YES") && isSendCard.equalsIgnoreCase("YES")) {
-			Assert.assertTrue(element("txt_givingInvoiceEmailPost").getText().trim().equals("email"));
+			Assert.assertTrue(element("txt_givingInvoiceEmailPost").getText().trim().equals("email"),
+					"ASSERT FAILED: Expected value is " + "email" + " but found "
+							+ element("txt_givingInvoiceEmailPost").getText().trim());
 			logMessage("ASSERT PASSED : Card Send via in Giving Invoice Details is verified as : email\n");
 		} else if (viaPostmail.length() != 0 && viaPostmail.equalsIgnoreCase("YES")
 				&& isSendCard.equalsIgnoreCase("YES")) {
-			Assert.assertTrue(element("txt_givingInvoiceEmailPost").getText().trim().equals("post"));
+			Assert.assertTrue(element("txt_givingInvoiceEmailPost").getText().trim().equals("post"),
+					"ASSERT FAILED: Expected value is " + "post" + " but found "
+							+ element("txt_givingInvoiceEmailPost").getText().trim());
 			logMessage("ASSERT PASSED : Card Send via in Giving Invoice Details is verified as : post\n");
 		} else if (dontsend.length() != 0 && dontsend.equalsIgnoreCase("YES") && isSendCard.equalsIgnoreCase("YES")) {
 			logMessage(
@@ -578,10 +605,12 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		System.out.println("Send card status" + isSendCard);
 		if ((emailstatusformsheet.equalsIgnoreCase("YES") || emailstatusformsheet2.equalsIgnoreCase("YES")
 				|| emailstatusformsheet3.equalsIgnoreCase("YES")) && (isSendCard.equalsIgnoreCase("YES"))) {
-			Assert.assertTrue(element("txt_emailStatus").getText().equals("Yes"));
+			Assert.assertTrue(element("txt_emailStatus").getText().equals("Yes"), "ASSERT FAILED: Expected value is "
+					+ "Yes" + " but found " + element("txt_emailStatus").getText().trim());
 			logMessage("ASSERT PASSED : Email verification on feild email? is verified as Yes\n");
 		} else {
-			Assert.assertTrue(element("txt_emailStatus").getText().equals("No"));
+			Assert.assertTrue(element("txt_emailStatus").getText().equals("No"), "ASSERT FAILED: Expected value is "
+					+ "No" + " but found " + element("txt_emailStatus").getText().trim());
 			logMessage("ASSERT PASSED : Email verification on feild email? is verified as No\n");
 		}
 
@@ -590,11 +619,14 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyEmailStatus(Map<String, String> totalAmountMap) {
 		try {
 			if (totalAmountMap.get("pledgedMonthlyTotal").equals("true")) {
-				Assert.assertTrue(element("txt_emailStatus").getText().equals("No"));
+				Assert.assertTrue(element("txt_emailStatus").getText().equals("No"), "ASSERT FAILED: Expected value is "
+						+ "No" + " but found " + element("txt_emailStatus").getText().trim());
 				logMessage("ASSERT PASSED : Email verification on feild email? is verified as No\n");
 			}
 		} catch (NullPointerException e) {
-			Assert.assertTrue(element("txt_emailStatus").getText().equalsIgnoreCase("Yes"));
+			Assert.assertTrue(element("txt_emailStatus").getText().equalsIgnoreCase("Yes"),
+					"ASSERT FAILED: Expected value is " + "Yes" + " but found "
+							+ element("txt_emailStatus").getText().trim());
 			logMessage("ASSERT PASSED : Email verification on feild email? is verified as Yes\n");
 		}
 	}
@@ -619,19 +651,22 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyInvoiceDetailsAfterRenewal() {
 		verifyInvoiceProfile("proforma", "No");
 		Assert.assertTrue(element("txt_invoiceValues", "balance").getText().trim().equalsIgnoreCase("0.00"),
-				"Balance is not 0.00");
+				"Balance is not 0.00 found " + element("txt_invoiceValues", "balance").getText().trim());
 		verifyInvoiceProfile("paid in full", "Yes");
 		logMessage("ASSERT PASSED : Balance amount after renewal is 0.00\n");
 
 	}
 
 	public void verifyPaymentStatusAfterRenewal(String memberstatus) {
-		System.out.println(element("txt_code", "Payment Status").getText());
 		if (memberstatus.equals("Emeritus")) {
-			Assert.assertTrue(element("txt_code", "Payment Status").getText().equals("Free"));
+			Assert.assertTrue(element("txt_code", "Payment Status").getText().equals("Free"),
+					"ASSERT FAILED: Expected value is 'Free' but found "
+							+ element("txt_code", "Payment Status").getText());
 			logMessage("ASSERT PASSED : Payment status for " + memberstatus + " after renewal is Free");
 		} else {
-			Assert.assertTrue(element("txt_code", "Payment Status").getText().equals("Paid"));
+			Assert.assertTrue(element("txt_code", "Payment Status").getText().equals("Paid"),
+					"ASSERT FAILED: Expected value is 'Paid' but found "
+							+ element("txt_code", "Payment Status").getText());
 			logMessage("ASSERT PASSED : Payment status for " + memberstatus + " after renewal is Free");
 		}
 
@@ -640,10 +675,13 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyRenewedProductsPriceInsideLineItems(Map<String, String> mapRenewedProductDetails) {
 
 		for (String key : mapRenewedProductDetails.keySet()) {
-			if (!(key.equals("Voluntary Contribution To C&EN") || key.equals("Project SEED") ||key.equals("ACS Endowment Fund"))) {
-				 Assert.assertTrue((mapRenewedProductDetails.get(key))
-				 .trim()
-				 .equals(element("txt_priceValue", key).getText().trim()));
+			if (!(key.equals("Voluntary Contribution To C&EN") || key.equals("Project SEED")
+					|| key.equals("ACS Endowment Fund"))) {
+				Assert.assertTrue(
+						(mapRenewedProductDetails.get(key)).trim()
+								.equals(element("txt_priceValue", key).getText().trim()),
+						"ASSERT FAILED: Expected value is '" + (mapRenewedProductDetails.get(key)).trim()
+								+ "' but found " + element("txt_priceValue", key).getText().trim());
 				logMessage("ASSERT PASSED : " + key + " price inside line items verified as "
 						+ mapRenewedProductDetails.get(key));
 			}
@@ -651,7 +689,9 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyPaymentStatusBeforeRenewal() {
-		Assert.assertTrue(element("txt_code", "Payment Status").getText().equals("Unpaid"));
+		Assert.assertTrue(element("txt_code", "Payment Status").getText().equals("Unpaid"),
+				"ASSERT FAILED: Expected value is 'Unpaid' but found "
+						+ element("txt_code", "Payment Status").getText());
 		logMessage("ASSERT PASSED : Payment status before renewal is Free");
 	}
 
@@ -660,8 +700,8 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 		if (membesstatus.equals("Emeritus")) {
 			expandDetailsMenu("adjusted/voided line items");
-			Assert.assertTrue((mapRenewedProductDetails.get("Voluntary Contribution To C&EN")).trim()
-					.equals(elements("txt_priceValue", "Voluntary Contribution To C&EN").get(1).getText().trim()));
+			Assert.assertEquals((mapRenewedProductDetails.get("Voluntary Contribution To C&EN")).trim(),
+					(elements("txt_priceValue", "Voluntary Contribution To C&EN").get(1).getText().trim()));
 			logMessage("ASSERT PASSED : Voluntary Contribution To C&EN price inside line items verified as "
 					+ mapRenewedProductDetails.get("Voluntary Contribution To C&EN"));
 			collapseDetailsMenu("adjusted/voided line items");
@@ -677,8 +717,6 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyBalanceIsNotNull(String detailName, double detailValue) {
 		isElementDisplayed("txt_memberDetails", detailName);
-		System.out.println("actual : " + element("txt_memberDetails", detailName).getText().trim());
-		System.out.println("exp:" + detailValue);
 		Assert.assertTrue(
 				Double.parseDouble(element("txt_memberDetails", detailName).getText().trim()) != (detailValue),
 				"ASSERT FAILED : " + detailName + " is not " + detailName);
@@ -732,7 +770,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 					&& elements("txt_termEndDate").get(i).getText().equalsIgnoreCase(" ")) {
 				isElementDisplayed("btn_goToArrow");
 				clickUsingXpathInJavaScriptExecutor(element("btn_goToArrow", String.valueOf(i)));
-//				element("btn_goToArrow", String.valueOf(i)).click();
+				// element("btn_goToArrow", String.valueOf(i)).click();
 				logMessage("STEP : Go To Arrow button is clicked for empty term start and end date\n");
 				break;
 			}
@@ -760,8 +798,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyStorePaymentInformationChildFormIsPopulated(String firstName) {
 		isElementDisplayed("txt_code", firstName);
 		isElementDisplayed("txt_priceValue", firstName);
-		System.out.println(element("txt_code", firstName).getText().isEmpty());
-		System.out.println(element("txt_priceValue", firstName).getText().isEmpty());
+
 		Assert.assertFalse(element("txt_code", firstName).getText().isEmpty());
 		Assert.assertFalse(element("txt_priceValue", firstName).getText().isEmpty());
 		logMessage("ASSERT PASSED : Child form is populated under stored payment information for " + firstName);
@@ -819,9 +856,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyGlobalConstituentSystemLogForGCSOMR(String appName, String paymentMode) {
-		System.out.println(paymentMode);
 		isElementDisplayed("txt_priceValue", appName);
-		System.out.println(elements("txt_priceValue", appName).get(0).getText());
 		Assert.assertTrue(elements("txt_priceValue", appName).get(0).getText().trim().equals("INR"),
 				"Payment not done in INR");
 		logMessage("ASSERT PASSED : Currency is verified as INR in acs global constituent system log\n");
@@ -829,13 +864,13 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_quantity", appName);
 		System.out.println(elements("txt_quantity", appName).get(0).getText());
 		Assert.assertTrue(elements("txt_quantity", appName).get(0).getText().trim().equals("PAYMENT_SUCCESS"),
-				"Payment status is not success");
+				"Payment status is not success but " + elements("txt_quantity", appName).get(0).getText());
 		logMessage("ASSERT PASSED : Payment status is PAYMENT_SUCCESS in acs global constituent system log\n");
 
 		isElementDisplayed("txt_discount", appName);
-		System.out.println(elements("txt_discount", appName).get(0).getText());
 		Assert.assertTrue(elements("txt_discount", appName).get(0).getText().trim().contains(paymentMode),
-				"Payment Mode is " + paymentMode);
+				"ASSERT FAILED: Expected Payment Mode is " + paymentMode + "but found "
+						+ elements("txt_discount", appName).get(0).getText());
 		logMessage("ASSERT PASSED : Payment MOde is verified as" + paymentMode
 				+ " in acs global constituent system log\n");
 
@@ -848,99 +883,99 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		waitForSpinner();
 
 	}
-	public void verifyDetailsOfInvoiceProfilePageforAACTOMR(String Total,String paidInFull,String proforma)
-	{
-		Total=Total.replace("$", "");
+
+	public void verifyDetailsOfInvoiceProfilePageforAACTOMR(String Total, String paidInFull, String proforma) {
+		Total = Total.replace("$", "");
 		verifyInvoiceProfile("invoice total", Total.trim());
 		verifyMemberDetails_question("paid in full", paidInFull);
 		verifyMemberDetails_question("proforma", proforma);
 	}
-	
-	public void verifyPaymentDate(String productName){
-		if(productName.equals("")){
+
+	public void verifyPaymentDate(String productName) {
+		if (productName.equals("")) {
 			logMessage("STEP: Product name is not present in the datasheet\n");
-		}
-		else{
-		isElementDisplayed("txt_discount",productName);
-		Assert.assertEquals(element("txt_discount", productName).getText().trim(),DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST5EDT"),"ASSERT FAILED: Payment date is not verified as current date\n");
-		logMessage("ASSERT FAILED: Payment date for product "+productName+" is verified as current date\n");
+		} else {
+			isElementDisplayed("txt_discount", productName);
+			Assert.assertEquals(element("txt_discount", productName).getText().trim(),
+					DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy", "EST5EDT"),
+					"ASSERT FAILED: Payment date is not verified as current date\n");
+			logMessage("ASSERT FAILED: Payment date for product " + productName + " is verified as current date\n");
 		}
 	}
-	
-	public void verifyProductsPaymentDateAsCurrentDate(){
+
+	public void verifyProductsPaymentDateAsCurrentDate() {
 		verifyPaymentDate(map().get("Iweb LS Name?"));
 		verifyPaymentDate(map().get("Iweb Product Name?"));
 		verifyPaymentDate(map().get("Iweb Pub Name?"));
 		verifyPaymentDate(map().get("Iweb Division Name?"));
 	}
-	
-	public void verifyProductAmount(String prodName, String amount){
-		if(prodName.equals("")){
+
+	public void verifyProductAmount(String prodName, String amount) {
+		if (prodName.equals("")) {
 			logMessage("STEP: Product name is not present in the datasheet\n");
+		} else {
+			isElementDisplayed("txt_balance", prodName);
+			Assert.assertEquals(element("txt_balance", prodName).getText().trim(), amount,
+					"ASSERT FAILED: Price for product " + prodName + " is not verified as " + amount + "but found "
+							+ element("txt_balance", prodName).getText() + "\n");
+			logMessage("ASSERT PASSED: Price for product " + prodName + " is verified as " + amount + "\n");
 		}
-		else{
-		isElementDisplayed("txt_balance",prodName);
-		Assert.assertEquals(element("txt_balance",prodName).getText().trim(), amount,"ASSERT FAILED: Price for product "+prodName+" is not verified as "+amount+"\n");
-		logMessage("ASSERT PASSED: Price for product "+prodName+" is verified as "+amount+"\n");
-	    }
 	}
-	
-	public void verifyProductAmountonIweb(Map<String,String> productAmounts){
-		verifyProductAmount(map().get("Iweb Pub Name?"),productAmounts.get("Iweb Pub Name?"));
-		verifyProductAmount(map().get("Iweb Division Name?"),productAmounts.get("Iweb Division Name?"));
-		verifyProductAmount(map().get("Iweb Product Name?"),productAmounts.get("Product?"));
-		verifyProductAmount(map().get("Iweb LS Name?"),productAmounts.get("Iweb LS Name?"));
-//		verifyProductAmount(map().get("CEN Product Name?"),productAmounts.get("Iweb CEN Product Name?"));
+
+	public void verifyProductAmountonIweb(Map<String, String> productAmounts) {
+		verifyProductAmount(map().get("Iweb Pub Name?"), productAmounts.get("Iweb Pub Name?"));
+		verifyProductAmount(map().get("Iweb Division Name?"), productAmounts.get("Iweb Division Name?"));
+		verifyProductAmount(map().get("Iweb Product Name?"), productAmounts.get("Product?"));
+		verifyProductAmount(map().get("Iweb LS Name?"), productAmounts.get("Iweb LS Name?"));
+		// verifyProductAmount(map().get("CEN Product
+		// Name?"),productAmounts.get("Iweb CEN Product Name?"));
 	}
 
 	public void verifyPaymentDetailsForGiftCard(String iwebProductName, String cardpricevalue) {
-		
-		verifyInvoiceDetailsInLineItemsForGiftCard("priceValue",iwebProductName,"use credit");
-		verifyInvoiceDetailsInLineItemsForGiftCard("quantity",iwebProductName,"Gift Card/Coupon");
-		verifyInvoiceDetailsInLineItemsForGiftCard("discount",iwebProductName,DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY"));
-		verifyInvoiceDetailsInLineItemsForGiftCard("balance",iwebProductName,cardpricevalue);
-		
+
+		verifyInvoiceDetailsInLineItemsForGiftCard("priceValue", iwebProductName, "use credit");
+		verifyInvoiceDetailsInLineItemsForGiftCard("quantity", iwebProductName, "Gift Card/Coupon");
+		verifyInvoiceDetailsInLineItemsForGiftCard("discount", iwebProductName,
+				DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/YYYY"));
+		verifyInvoiceDetailsInLineItemsForGiftCard("balance", iwebProductName, cardpricevalue);
+
 	}
 
-	private void verifyInvoiceDetailsInLineItemsForGiftCard(String fieldName,String productName,String value) {
+	private void verifyInvoiceDetailsInLineItemsForGiftCard(String fieldName, String productName, String value) {
 		System.out.println(productName);
-		System.out.println(element("txt_"+fieldName,productName).getText());
-		isElementDisplayed("txt_"+fieldName,productName);
-		System.out.println(element("txt_"+fieldName,productName).getText().trim());
-		System.out.println(value);
-		if(element("txt_"+fieldName,productName).getText().trim().equals(fieldName)){
-		Assert.assertTrue(element("txt_"+fieldName,productName).getText().trim().equals(value));}
-		logMessage("ASSERT PASSED "+productName+" details for"+fieldName+" under payments verfied as "+value);
-		
+		System.out.println(element("txt_" + fieldName, productName).getText());
+		isElementDisplayed("txt_" + fieldName, productName);
+		if (element("txt_" + fieldName, productName).getText().trim().equals(fieldName)) {
+			Assert.assertEquals(element("txt_" + fieldName, productName).getText().trim(),value);
+		}
+		logMessage("ASSERT PASSED " + productName + " details for" + fieldName + " under payments verfied as " + value);
+
 	}
-	
-	public void clickOnNextButton(){
+
+	public void clickOnNextButton() {
 		isElementDisplayed("btn_next");
 		element("btn_next").click();
 		logMessage("Step: Clicked on Next button\n");
 	}
-	
-	public void enterPaymentDetails(String batchName,String paymentMethod,
-			String cardNumber, String expireDate,String cvvNo, String checkNumber){
-		MembershipPageActions_IWEB objFundraising=new MembershipPageActions_IWEB(driver);
+
+	public void enterPaymentDetails(String batchName, String paymentMethod, String cardNumber, String expireDate,
+			String cvvNo, String checkNumber) {
+		MembershipPageActions_IWEB objFundraising = new MembershipPageActions_IWEB(driver);
 		switchToFrame("iframe1");
-        clickOnNextButton();
-        objFundraising.selectBatchAndPaymentDetails_AddressChangeProforma(batchName,paymentMethod,cardNumber,expireDate,cvvNo,checkNumber);
+		clickOnNextButton();
+		objFundraising.selectBatchAndPaymentDetails_AddressChangeProforma(batchName, paymentMethod, cardNumber,
+				expireDate, cvvNo, checkNumber);
 		switchToDefaultContent();
 	}
-	
-	public void verifyIndividualPaymentAmountEqualsPaymentTotal()
-	{
-		float sum=0;
+
+	public void verifyIndividualPaymentAmountEqualsPaymentTotal() {
+		float sum = 0;
 		for (WebElement ele : elements("table_discount")) {
-			sum=sum+Float.parseFloat(ele.getText());
+			sum = sum + Float.parseFloat(ele.getText());
 		}
-		System.out.println(Float.parseFloat(element("inp_invoiceValue","invoice total").getText()));
-		System.out.println(sum);
-		
-		Assert.assertTrue(Float.parseFloat(element("inp_invoiceValue","invoice total").getText())==sum);
-		logMessage("ASSERT PASSED : Payment total is equal to sum of individual product total as "+sum);
+		Assert.assertTrue(Float.parseFloat(element("inp_invoiceValue", "invoice total").getText()) == sum,
+				"ASSERT FAILED: Expected value is "+sum+" but found "+element("inp_invoiceValue", "invoice total").getText());
+		logMessage("ASSERT PASSED : Payment total is equal to sum of individual product total as " + sum);
 	}
-	
 
 }

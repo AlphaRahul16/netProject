@@ -158,8 +158,6 @@ public class ASM_GivingGreenPage extends GetPage {
 
 	public void verifyLoginErrorMessagePresent(String errorMessage) {
 		isElementDisplayed("txt_loginErrorMessage");
-		System.out.println("error message is : "
-				+ element("txt_loginErrorMessage").getText());
 		verifyElementTextContains("txt_loginErrorMessage", errorMessage);
 		logMessage("ASSERT PASSED : Error message " + errorMessage
 				+ " is appeared on invalid credentials\n");
@@ -169,35 +167,6 @@ public class ASM_GivingGreenPage extends GetPage {
 		isElementDisplayed("btn_logout");
 		element("btn_logout").click();
 		logMessage("STEP : Logout Application in btn_logout\n");
-	}
-
-	public void verifyCurrentPage(String pageName) {
-//		wait.waitForPageToLoadCompletely();
-//		url = getCurrentURL();
-//
-//		String[] splitUrl = url.split("Code=");
-//		if (splitUrl[1].equalsIgnoreCase("allprograms")) {
-//			
-//			Assert.assertTrue(pageName.contains("Make a donation"));
-//			logMessage("ASSERT PASSED : current page is Make a donation page\n");
-//
-//		} else if (splitUrl[1].equalsIgnoreCase("ContactInfo")) {
-//			
-//			Assert.assertTrue(pageName.contains("Contact info"));
-//			logMessage("ASSERT PASSED : current page is Contact info page\n");
-//
-//		} else if (splitUrl[1].equalsIgnoreCase("Checkout")) {
-//			
-//			Assert.assertTrue(pageName.contains("Confirm your donation"));
-//			logMessage("ASSERT PASSED : current page is Confirm your donation page\n");
-//
-//		} else if (splitUrl[1].equalsIgnoreCase("confirmation")) {
-//			
-//			Assert.assertTrue(pageName.contains("confirmation"));
-//			logMessage("ASSERT PASSED : current page is confirmation page\n");
-//		} else {
-//			Assert.fail("Current page is not expected\n");
-//		}
 	}
 
 	public void enterRequiredDetailsInNonMemberForm(String email, String phone,
@@ -240,5 +209,33 @@ public class ASM_GivingGreenPage extends GetPage {
 		logMessage("ASSERT PASSED : Verified error message " + errorMessage
 				+ " in txt_creditCardError\n");
 	}
+	 public void verifyCurrentPage(String pageName) {
+		//  wait.waitForPageToLoadCompletely();
+		//  url = getCurrentURL();
+		//
+		//  String[] splitUrl = url.split("Code=");
+		//  if (splitUrl[1].equalsIgnoreCase("allprograms")) {
+		//   
+		//   Assert.assertTrue(pageName.contains("Make a donation"));
+		//   logMessage("ASSERT PASSED : current page is Make a donation page\n");
+		//
+		//  } else if (splitUrl[1].equalsIgnoreCase("ContactInfo")) {
+		//   
+		//   Assert.assertTrue(pageName.contains("Contact info"));
+		//   logMessage("ASSERT PASSED : current page is Contact info page\n");
+		//
+		//  } else if (splitUrl[1].equalsIgnoreCase("Checkout")) {
+		//   
+		//   Assert.assertTrue(pageName.contains("Confirm your donation"));
+		//   logMessage("ASSERT PASSED : current page is Confirm your donation page\n");
+		//
+		//  } else if (splitUrl[1].equalsIgnoreCase("confirmation")) {
+		//   
+		//   Assert.assertTrue(pageName.contains("confirmation"));
+		//   logMessage("ASSERT PASSED : current page is confirmation page\n");
+		//  } else {
+		//   Assert.fail("Current page is not expected\n");
+		//  }
+		 }
 
 }

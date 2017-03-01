@@ -3,6 +3,7 @@ package com.qait.keywords;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
@@ -79,6 +80,8 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 			verifyPageHeader("title_header", "top-title", "Update About You");
 			updatedValues = updateDetailsForTeacher("GradesTaughtChk");
 			List<String> updatedValuesSubject = checkTheValuesOnUpdateAboutYou("SubjectsTaughtChk");
+			// List<String>updatedValuesSubject =
+			// updateDetailsForTeacher("SubjectsTaughtChk");
 			logMessage("STEP: Update the details of About You for " + memberType + "\n");
 			clickButtonByInputValue("Save");
 		} else {
@@ -95,19 +98,25 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 
 	public void verifyPageHeader(String locator, String text, String title) {
 		isElementDisplayed(locator, text);
-		Assert.assertTrue(title.trim().equals(element(locator, text).getText().trim()));
+		Assert.assertTrue(title.trim().equals(element(locator, text).getText().trim()),
+				"ASSERT FAILED: Expected Page header is " + title + " but found "
+						+ element(locator, text).getText().trim());
 		logMessage("ASSERT PASSED: Verified Page header is " + title + "\n");
 	}
 
 	public void getCheckedValuesOnUpdateAboutYou(String value) {
-		isElementDisplayed("chked_labelsOnUpdateAboutYou", value);
-		int size = elements("chked_labelsOnUpdateAboutYou", value).size();
-		while (size > 0) {
-			size--;
-			elements("chked_labelsOnUpdateAboutYou", value).get(size).click();
+		try {
+			isElementDisplayed("chked_labelsOnUpdateAboutYou", value);
+			int size = elements("chked_labelsOnUpdateAboutYou", value).size();
+			while (size > 0) {
+				size--;
+				elements("chked_labelsOnUpdateAboutYou", value).get(size).click();
+			}
+			logMessage("STEP: All checked values are unchecked \n");
+		} catch (NoSuchElementException e) {
+			logMessage("STEP: No value is already checked");
 		}
 
-		logMessage("STEP: All checked values are unchecked \n");
 	}
 
 	public List<String> checkTheValuesOnUpdateAboutYou(String value) {
@@ -135,10 +144,13 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 			logMessage("STEP: 'Chemistry teaching experience' is entered as " + experience + " \n");
 		}
 		if (memberType.equalsIgnoreCase("Student")) {
+			isElementDisplayed("list_cardInfo", "GradMonth");
+			isElementDisplayed("list_cardInfo", "GradYear");
 			selectProvidedTextFromDropDown(element("list_cardInfo", "GradMonth"), gradMonth);
 			selectProvidedTextFromDropDown(element("list_cardInfo", "GradYear"), gradYear);
 			logMessage("STEP: 'Graduation month' is entered as " + gradMonth + " and year as " + gradYear + " \n");
 		}
+		isElementDisplayed("list_cardInfo", "Gender");
 		selectProvidedTextFromDropDown(element("list_cardInfo", "Gender"), gender);
 		logMessage("STEP: Gender is selected as " + gender + "\n");
 	}
@@ -167,25 +179,13 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 
 			size--;
 		}
-		Assert.assertTrue(flag);
+		Assert.assertTrue(flag, "ASSERT FAILED: All Details are not verified ");
 		logMessage("ASSERT PASSED: All the Details of " + listName + " is verified \n");
 	}
 
-	public void enterPaymentInfo(String creditCardType, List<String> creditCardHolderName, String creditCardNumber,
+	public void enterPaymentInfo(String paymentMethod, String creditCardHolderName, String creditCardNumber,
 			String CvvNumber, String expMonth, String expYear) {
-		selectCreditCardInfo("CreditCardType", creditCardType);
-		enterCreditCardHolderName("CardholderName", creditCardHolderName);
-		enterCreditCardInfo("CreditCardNumber", creditCardNumber);
-		selectCreditCardInfo("ExpirationMonth", expMonth);
-		selectCreditCardInfo("ExpirationYear", expYear);
-		wait.waitForPageToLoadCompletely();
-		wait.hardWait(3);
-		enterCreditCardInfo("CcvNumber", CvvNumber);
-	}
-
-	public void enterPaymentInfo(String creditCardType, String creditCardHolderName, String creditCardNumber,
-			String CvvNumber, String expMonth, String expYear) {
-		selectCreditCardInfo("CreditCardType", creditCardType);
+		selectCreditCardInfo("CreditCardType", paymentMethod);
 		enterCreditCardInfo("CardholderName", creditCardHolderName);
 		enterCreditCardInfo("CreditCardNumber", creditCardNumber);
 		selectCreditCardInfo("ExpirationMonth", expMonth);
@@ -199,12 +199,6 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 		isElementDisplayed("inp_cardInfo", creditCardInfo);
 		element("inp_cardInfo", creditCardInfo).sendKeys(value);
 		logMessage("STEP :" + creditCardInfo + "is entered  as " + value + "\n");
-	}
-
-	private void enterCreditCardHolderName(String creditCardInfo, List<String> value) {
-		isElementDisplayed("inp_cardInfo", creditCardInfo);
-		element("inp_cardInfo", creditCardInfo).sendKeys(value.get(0) + " " + value.get(1));
-		logMessage("STEP :" + creditCardInfo + " is entered  as " + value + "\n");
 	}
 
 	private void selectCreditCardInfo(String creditCardInfo, String value) {
@@ -245,7 +239,8 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 			text = text.replace("year(s)", "").trim();
 		}
 		text.trim();
-		Assert.assertTrue(value.equals(text));
+		Assert.assertTrue(value.equals(text),
+				"ASSERT FAILED: Expected value of " + locator + " is " + value + " but found " + text);
 		logMessage("ASSERT PASSED: " + locator + " is verified as " + value + "\n");
 	}
 
@@ -309,7 +304,8 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 		String text = element("txt_detailsAboutYou", locator).getText().trim();
 		Assert.assertTrue("************".equals(text.substring(0, 12).trim()));
 		logMessage("ASSERT PASSED: Credit Card number has first eleven digits as * \n");
-		Assert.assertTrue(creditCardNumber.substring(12).trim().equals(text.substring(12).trim()));
+		Assert.assertTrue(creditCardNumber.substring(12).trim().equals(text.substring(12).trim()),
+				"ASSERT FAILED: Last four digit of Credit Card doest not match");
 		logMessage("ASSERT PASSED: Credit Card number displays only last four digits \n");
 
 	}
@@ -327,7 +323,8 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 	}
 
 	public void verifyMembershipType(String type, String category) {
-		Assert.assertTrue(type.equals(getMembershipName(category)));
+		Assert.assertTrue(type.equals(getMembershipName(category)),
+				"ASSERT FAILED: Expected Membership type is " + type + " but found " + getMembershipName(category));
 		logMessage("ASSERT PASSED: Membership type is verified as " + type);
 
 	}

@@ -1,9 +1,9 @@
-"caseID"	"caseID Execute"	"Member_Status?"	"MemberPackage"	"BeforeApplyPayment_proforma"	"BeforeApplyPayment_paidInFull"	"AfterApplyPayment_proforma"	"AfterApplyPayment_paidInFull"	"AfterApplyPayment_balance"	"Batch_Name?"	"Payment_Method"	"Visa_Card_Number"	"Diners_Card_Number"	"AMEX_Card_Number"	"Discover_Card_Number"	"Check_Number"	"Reference_Number"	"Expiry_Date"	"CVV_Number"
-1	"Yes"	"Regular"	"ACS : Regular Member : Regular Member Dues C&EN-Print"	"Yes"	"No"	"No"	"Yes"	0	"SELENIUM_BATCH"	"Visa/MC"	"4111111111111111"						"2018/12"	123
-2	"No"	"Regular"	"ACS : Regular Member : Regular Member Dues C&EN-Print"	"Yes"	"No"	"No"	"Yes"	0	"SELENIUM_BATCH"	"Diners"		"5412345438954638"					"2018/12"	234
-3	"No"	"Regular"	"ACS : Regular Member : Regular Member Dues C&EN-Print"	"Yes"	"No"	"No"	"Yes"	0	"SELENIUM_BATCH"	"AMEX"			"375000026600004"				"2018/12"	421
-4	"No"	"Regular"	"ACS : Regular Member : Regular Member Dues C&EN-Print"	"Yes"	"No"	"No"	"Yes"	0	"SELENIUM_BATCH"	"Discover"				"6011010000000003"			"2018/12"	758
-5	"No"	"Regular"	"ACS : Regular Member : Regular Member Dues C&EN-Print"	"Yes"	"No"	"No"	"Yes"	0	"SELENIUM_BATCH"	"Visa/MC"	"5112000100000003"						"2018/12"	123
-6	"No"	"Regular"	"ACS : Regular Member : Regular Member Dues C&EN-Print"	"Yes"	"No"	"No"	"Yes"	0	"SELENIUM_BATCH"	"BOA - Check"					1111			
-7	"No"	"Regular"	"ACS : Regular Member : Regular Member Dues C&EN-Print"	"Yes"	"No"	"No"	"Yes"	0	"SELENIUM_BATCH"	"cash"						1234567890		
-8	"No"	"Regular"	"ACS : Regular Member : Regular Member Dues C&EN-Print"	"Yes"	"No"	"No"	"Yes"	0	"SELENIUM_BATCH"	"Diners"		36474027424147			1111		"2018/12"	123
+"caseID"	"caseID Execute"	"Member_Status?"	"BeforeApplyPayment_proforma"	"BeforeApplyPayment_paidInFull"	"AfterApplyPayment_proforma"	"AfterApplyPayment_paidInFull"	"AfterApplyPayment_balance"	"Batch_Name?"	"Payment_Method"	"Visa_Card_Number"	"Diners_Card_Number"	"AMEX_Card_Number"	"Discover_Card_Number"	"Check_Number"	"Reference_Number"	"Expiry_Date"	"CVV_Number"
+1	"Yes"	"Regular"	"Yes"	"No"	"No"	"Yes"	0	"SELENIUM_BATCH"	"Visa/MC"	"4111111111111111"						"2018/12"	123
+2	"No"	"Regular"	"Yes"	"No"	"No"	"Yes"	0	"SELENIUM_BATCH"	"Diners"		"5412345438954638"					"2018/12"	234
+3	"No"	"Regular"	"Yes"	"No"	"No"	"Yes"	0	"SELENIUM_BATCH"	"AMEX"			"375000026600004"				"2018/12"	421
+4	"No"	"Regular"	"Yes"	"No"	"No"	"Yes"	0	"SELENIUM_BATCH"	"Discover"				"6011010000000003"			"2018/12"	758
+5	"No"	"Regular"	"Yes"	"No"	"No"	"Yes"	0	"SELENIUM_BATCH"	"Visa/MC"	"5112000100000003"						"2018/12"	123
+6	"No"	"Regular"	"Yes"	"No"	"No"	"Yes"	0	"SELENIUM_BATCH"	"BOA - Check"					1111			
+7	"No"	"Regular"	"Yes"	"No"	"No"	"Yes"	0	"SELENIUM_BATCH"	"cash"						1234567890		
+8	"No"	"Regular"	"Yes"	"No"	"No"	"Yes"	0	"SELENIUM_BATCH"	"Diners"		36474027424147			1111		"2018/12"	123

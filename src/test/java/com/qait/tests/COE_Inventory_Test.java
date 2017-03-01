@@ -98,7 +98,7 @@ public class COE_Inventory_Test extends BaseTest {
 		 * test.homePageIWEB.map().get("CVV?").trim(),
 		 * YamlReader.getYamlValue("COE_Inventory.checkNumber"));
 		 */
-		test.memberShipPage.selectAndAddBatchIFNotPresent(batchprefix + ASCSocietyGenericPage.map().get("Batch_Name?"),
+		test.memberShipPage.selectAndAddBatchIFNotPresent(batchprefix + ASCSocietyGenericPage.map().get("Batch_Name?"+System.currentTimeMillis()),
 				ASCSocietyGenericPage.map().get("Payment_Type"), ASCSocietyGenericPage.map().get("Payment_Method"));
 		test.memberShipPage.fillAllTypeOFPaymentDetails(ASCSocietyGenericPage.map().get("Payment_Method"),
 				ASCSocietyGenericPage.map().get("Visa_Card_Number"), ASCSocietyGenericPage.map().get("Diners_Card_Number"),

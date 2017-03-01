@@ -41,12 +41,12 @@ public class ASM_PUBS_Smoke {
 				getPUBSInfo.getASM_PUBSInfo("userName"),
 				getPUBSInfo.getASM_PUBSInfo("password"));
 		test.asm_PUBSPage.addSubscription();
-		test.asm_PUBSPage.submitPaymentDetails(
-				YamlReader.getYamlValue("creditCardInfo.Type"),
-				YamlReader.getYamlValue("creditCardInfo.Holder-name"),
-				DataProvider.getColumnData(tcId, headerName),
-				YamlReader.getYamlValue("creditCardInfo.cvv-number"),
-				getPUBSInfo.getASM_PUBSInfo("expirationYear"));
+//		test.asm_PUBSPage.submitPaymentDetails(
+//				YamlReader.getYamlValue("creditCardInfo.Type"),
+//				YamlReader.getYamlValue("creditCardInfo.Holder-name"),
+//				DataProvider.getColumnData(tcId, headerName),
+//				YamlReader.getYamlValue("creditCardInfo.cvv-number"),
+//				getPUBSInfo.getASM_PUBSInfo("expirationYear"));
 		test.asm_PUBSPage.clickOnPlaceOrder();
 		test.asm_PUBSPage.verifyReceiptPage();
 		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
@@ -61,12 +61,12 @@ public class ASM_PUBS_Smoke {
 				getPUBSInfo.getASM_PUBSInfo("userName"),
 				getPUBSInfo.getASM_PUBSInfo("password"));
 		test.asm_PUBSPage.addSubscription();
-		test.asm_PUBSPage.submitPaymentDetails(
-				YamlReader.getYamlValue("creditCardInfo.Type"),
-				YamlReader.getYamlValue("creditCardInfo.Holder-name"),
-				DataProvider.getColumnData(tcId, headerName),
-				YamlReader.getYamlValue("creditCardInfo.cvv-number"),
-				getPUBSInfo.getASM_PUBSInfo("expirationYear"));
+//		test.asm_PUBSPage.submitPaymentDetails(
+//				YamlReader.getYamlValue("creditCardInfo.Type"),
+//				YamlReader.getYamlValue("creditCardInfo.Holder-name"),
+//				DataProvider.getColumnData(tcId, headerName),
+//				YamlReader.getYamlValue("creditCardInfo.cvv-number"),
+//				getPUBSInfo.getASM_PUBSInfo("expirationYear"));
 		test.asm_PUBSPage.verifyPaymentPage();
 		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
 				.getYamlValue("ASM_URLRejectedErrorMsz"));
@@ -80,12 +80,12 @@ public class ASM_PUBS_Smoke {
 				getPUBSInfo.getASM_PUBSInfo("userName"),
 				getPUBSInfo.getASM_PUBSInfo("password"));
 		test.asm_PUBSPage.addSubscription();
-		test.asm_PUBSPage.submitPaymentDetails(
-				YamlReader.getYamlValue("creditCardInfo.Type"),
-				YamlReader.getYamlValue("creditCardInfo.Holder-name"),
-				YamlReader.getYamlValue("creditCardInfo.Number"),
-				DataProvider.getColumnData(tcId, headerName),
-				getPUBSInfo.getASM_PUBSInfo("expirationYear"));
+//		test.asm_PUBSPage.submitPaymentDetails(
+//				YamlReader.getYamlValue("creditCardInfo.Type"),
+//				YamlReader.getYamlValue("creditCardInfo.Holder-name"),
+//				YamlReader.getYamlValue("creditCardInfo.Number"),
+//				DataProvider.getColumnData(tcId, headerName),
+//				getPUBSInfo.getASM_PUBSInfo("expirationYear"));
 		test.asm_PUBSPage.clickOnPlaceOrder();
 		test.asm_PUBSPage.verifyReceiptPage();
 		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
@@ -100,12 +100,12 @@ public class ASM_PUBS_Smoke {
 				getPUBSInfo.getASM_PUBSInfo("userName"),
 				getPUBSInfo.getASM_PUBSInfo("password"));
 		test.asm_PUBSPage.addSubscription();
-		test.asm_PUBSPage.submitPaymentDetails(
-				YamlReader.getYamlValue("creditCardInfo.Type"),
-				DataProvider.getColumnData(tcId, headerName),
-				YamlReader.getYamlValue("creditCardInfo.Number"),
-				YamlReader.getYamlValue("creditCardInfo.cvv-number"),
-				getPUBSInfo.getASM_PUBSInfo("expirationYear"));
+//		test.asm_PUBSPage.submitPaymentDetails(
+//				YamlReader.getYamlValue("creditCardInfo.Type"),
+//				DataProvider.getColumnData(tcId, headerName),
+//				YamlReader.getYamlValue("creditCardInfo.Number"),
+//				YamlReader.getYamlValue("creditCardInfo.cvv-number"),
+//				getPUBSInfo.getASM_PUBSInfo("expirationYear"));
 		test.asm_PUBSPage.clickOnPlaceOrder();
 		test.asm_PUBSPage.verifyReceiptPage();
 		test.asmErrorPage.verifyASMErrorNotPresent(YamlReader
