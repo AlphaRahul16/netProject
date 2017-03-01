@@ -281,7 +281,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 				}
 		  }
 		}
-		verifyGiftIsAdded(tabName, amount+".00", 5, "Gift Amount", i);
+		verifyGiftIsAdded(tabName, amount, 5, "Gift Amount", i);
 		verifyGiftIsAdded(tabName, fundCode, 7, "Fund Code", i);
 		verifyGiftIsAdded(tabName, appealCode, 9, "Appeal Code", i);
 	}

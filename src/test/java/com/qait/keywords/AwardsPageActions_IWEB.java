@@ -510,6 +510,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnAddRoundButton(String tabName) {
+		wait.hardWait(4);
 		isElementDisplayed("btn_addRounds_judges", tabName);
 		clickUsingXpathInJavaScriptExecutor(element("btn_addRounds_judges", tabName));
 		// element("btn_addRounds_judges", tabName).click();
