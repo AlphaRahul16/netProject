@@ -355,7 +355,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 
 	public void enterPaymentInfo(String infoName, String infoValue) {
 		isElementDisplayed("inp_paymentInfo", infoName);
-		element("inp_paymentInfo", infoName).clear();
+		//element("inp_paymentInfo", infoName).clear();
 		element("inp_paymentInfo", infoName).sendKeys(infoValue);
 		logMessage("STEP : " + infoValue + "  is entered in inp_paymentInfo\n");
 	}
@@ -762,7 +762,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(8);
 		selectPaymentInfo("CreditCardType", PaymentMethod);
-
+		System.out.println(cardNumber);
 		switch (PaymentMethod) {
 		case "Visa/MC":
 			enterPaymentInfo("CreditCardNumber", cardNumber);

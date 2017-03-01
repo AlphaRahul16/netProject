@@ -24,7 +24,7 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 	private String caseID;
 
 	public Inventory_Product_Fulfillment_Test() {
-		com.qait.tests.DataProvider_FactoryClass.sheetName = "COE_Inventory";
+		com.qait.tests.DataProvider_FactoryClass.sheetName = "Inventory_Product_Fulfillment";
 	}
 
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
@@ -96,11 +96,14 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 		// YamlReader.getYamlValue("Acs_CreateMember_IWEB.expireDate"),
 		// test.homePageIWEB.map().get("CVV?").trim(),
 		// YamlReader.getYamlValue("COE_Inventory.checkNumber"));
-		test.memberShipPage.selectAndAddBatchIFNotPresent(batchprefix + ASCSocietyGenericPage.map().get("Batch_Name?"),
+		test.memberShipPage.selectAndAddBatchIFNotPresent(
+				batchprefix + ASCSocietyGenericPage.map().get("Batch_Name?") + System.currentTimeMillis(),
 				ASCSocietyGenericPage.map().get("Payment_Type"), ASCSocietyGenericPage.map().get("Payment_Method"));
 		test.memberShipPage.fillAllTypeOFPaymentDetails(ASCSocietyGenericPage.map().get("Payment_Method"),
-				ASCSocietyGenericPage.map().get("Visa_Card_Number"), ASCSocietyGenericPage.map().get("Diners_Card_Number"),
-				ASCSocietyGenericPage.map().get("Reference_Number"), ASCSocietyGenericPage.map().get("Discover_Card_Number"),
+				ASCSocietyGenericPage.map().get("Visa_Card_Number"),
+				ASCSocietyGenericPage.map().get("Diners_Card_Number"),
+				ASCSocietyGenericPage.map().get("Reference_Number"),
+				ASCSocietyGenericPage.map().get("Discover_Card_Number"),
 				ASCSocietyGenericPage.map().get("AMEX_Card_Number"), ASCSocietyGenericPage.map().get("Expiry_Date"),
 				ASCSocietyGenericPage.map().get("CVV_Number"), ASCSocietyGenericPage.map().get("Check_Number"));
 		test.memberShipPage.navigateToCRMPageByClickingSaveAndFinish();

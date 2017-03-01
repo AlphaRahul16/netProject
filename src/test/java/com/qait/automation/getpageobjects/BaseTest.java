@@ -14,8 +14,7 @@ public class BaseTest {
 	public void take_screenshot_on_failure(ITestResult result) {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
-
-
+	
 	@AfterClass(alwaysRun = true)
 	public void Close_Browser_Session() {
 		test.closeBrowserWindow();

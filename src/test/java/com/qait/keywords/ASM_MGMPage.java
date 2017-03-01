@@ -361,7 +361,7 @@ public class ASM_MGMPage extends GetPage {
 					clickOnPageLinkOnMGM(i);
 					nomineeStatus = element("link_nomineeStatus", email).getText().trim();
 					System.out.println("nomineeStatus*******"+nomineeStatus);
-				}				
+				}		
 				
 				Assert.assertEquals(nomineeStatus, status);
 				logMessage("ASSERT PASSED: Nominee status is " + status + " for " + email + " member \n ");
