@@ -120,7 +120,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 
 	public void verifyMemberDetail(String caseId) {
 		MemberDetails("memberName", map().get("Member Type?"));
-		MemberDetails("productName", map().get("Product?"));
+		//MemberDetails("productName", map().get("Product?"));
 	}
 
 	public void verifyMemberDetail_AACTOMA(String caseId) {

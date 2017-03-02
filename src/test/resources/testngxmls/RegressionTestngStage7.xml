@@ -65,11 +65,6 @@
 			<class name="com.qait.tests.Inventory_Product_Fulfillment_Test" />
 		</classes>
 	</test>
-	<test name="ACS PBA Test" group-by-instances="true" >
-        <classes>
-            <class name="com.qait.tests.ACS_PBA_Test" />
-        </classes>
-    </test>
 	<test name="ACS_SourceCodes_Test" group-by-instances="true">
 		<classes>
 			<class name="com.qait.tests.ACS_SourceCodes_Test"></class>

@@ -90,7 +90,7 @@ public class ACS_Apply_Payment_Test extends BaseTest {
 		test.memberShipPage.fillAllTypeOFPaymentDetails(applyPaymentMap.get("Payment_Method"),
 				applyPaymentMap.get("Visa_Card_Number"), applyPaymentMap.get("Diners_Card_Number"),
 				applyPaymentMap.get("Reference_Number"), applyPaymentMap.get("Discover_Card_Number"),
-				test.homePageIWEB.map().get("AMEX_Card_Number"), applyPaymentMap.get("Expiry_Date"),
+				applyPaymentMap.get("AMEX_Card_Number"), applyPaymentMap.get("Expiry_Date"),
 				applyPaymentMap.get("CVV_Number"), applyPaymentMap.get("Check_Number"));
 		test.applyPayment.clickOnSaveButton();
 		test.applyPayment.switchToDefaultContent();

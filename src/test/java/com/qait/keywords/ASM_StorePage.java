@@ -355,7 +355,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 
 	public void enterPaymentInfo(String infoName, String infoValue) {
 		isElementDisplayed("inp_paymentInfo", infoName);
-		element("inp_paymentInfo", infoName).clear();
+		//element("inp_paymentInfo", infoName).clear();
 		element("inp_paymentInfo", infoName).sendKeys(infoValue);
 		logMessage("STEP : " + infoValue + "  is entered in inp_paymentInfo\n");
 	}
@@ -732,6 +732,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		selectPaymentInfo("CreditCardType", map().get("Payment_Method"));
 		paymentMethod=map().get("Payment_Method");
 		enterPaymentInfo("CreditCardNumber", map().get(paymentMethod+"_Card_Number"));
+
 		wait.hardWait(4);
 		selectPaymentInfo("ExpirationMonth", map().get("Expiry_Month"));
 		wait.hardWait(4);

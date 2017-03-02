@@ -3,6 +3,7 @@ package com.qait.keywords;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
@@ -79,6 +80,8 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 			verifyPageHeader("title_header", "top-title", "Update About You");
 			updatedValues = updateDetailsForTeacher("GradesTaughtChk");
 			List<String> updatedValuesSubject = checkTheValuesOnUpdateAboutYou("SubjectsTaughtChk");
+			// List<String>updatedValuesSubject =
+			// updateDetailsForTeacher("SubjectsTaughtChk");
 			logMessage("STEP: Update the details of About You for " + memberType + "\n");
 			clickButtonByInputValue("Save");
 		} else {
@@ -102,13 +105,18 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 	}
 
 	public void getCheckedValuesOnUpdateAboutYou(String value) {
-		isElementDisplayed("chked_labelsOnUpdateAboutYou", value);
-		int size = elements("chked_labelsOnUpdateAboutYou", value).size();
-		while (size > 0) {
-			size--;
-			elements("chked_labelsOnUpdateAboutYou", value).get(size).click();
+		try {
+			isElementDisplayed("chked_labelsOnUpdateAboutYou", value);
+			int size = elements("chked_labelsOnUpdateAboutYou", value).size();
+			while (size > 0) {
+				size--;
+				elements("chked_labelsOnUpdateAboutYou", value).get(size).click();
+			}
+			logMessage("STEP: All checked values are unchecked \n");
+		} catch (NoSuchElementException e) {
+			logMessage("STEP: No value is already checked");
 		}
-		logMessage("STEP: All checked values are unchecked \n");
+
 	}
 
 	public List<String> checkTheValuesOnUpdateAboutYou(String value) {
@@ -186,7 +194,6 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 		wait.hardWait(3);
 		enterCreditCardInfo("CcvNumber", CvvNumber);
 	}
-	
 
 	private void enterCreditCardInfo(String creditCardInfo, String value) {
 		isElementDisplayed("inp_cardInfo", creditCardInfo);
@@ -195,9 +202,9 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 	}
 
 	private void selectCreditCardInfo(String creditCardInfo, String value) {
-		isElementDisplayed("list_cardInfo");
+		isElementDisplayed("list_cardInfo", creditCardInfo);
 		// wait.waitForPageToLoadCompletely();
-		selectProvidedTextFromDropDown(element("list_cardInfo"), value);
+		selectProvidedTextFromDropDown(element("list_cardInfo", creditCardInfo), value);
 		logMessage("STEP :" + creditCardInfo + " is selected  as " + value + "\n");
 
 	}

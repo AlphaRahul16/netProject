@@ -46,6 +46,7 @@ public class ACS_MGM_Test extends BaseTest {
 		app_url_MGMOptOut = getYamlValue("app_url_MGMOputOut");
 		app_url_MGMLogout = getYamlValue("app_url_MGMLogout");
 		test.homePage.addValuesInMap("MGM", toString().valueOf(caseID));
+
 		test.launchApplication(app_url_IWEB);
 		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
@@ -62,7 +63,7 @@ public class ACS_MGM_Test extends BaseTest {
 	public void skipMethodsAccordingToTheScenarioExecuted(Method method) {
 		scenarioNo = ASCSocietyGenericPage.map().get("Scenario").trim();
 		test.printMethodName(method.getName());
-		// Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		if (!(method.getName().contains("Scenario" + scenarioNo))) {
 			throw new SkipException("Tests Skipped for expected work flows!");
 		}
@@ -97,14 +98,12 @@ public class ACS_MGM_Test extends BaseTest {
 
 		test.BenefitsPage.addACSPublicationAndTechnicalDivision(caseID);
 		test.ContactInfoPage.clickContinue();
-
 //		test.checkoutPage.enterPaymentInfo(YamlReader.getYamlValue("creditCardInfo.Type"),
 //				fname_Iweb + " " + lname_Iweb, YamlReader.getYamlValue("creditCardInfo.Number"),
 //				YamlReader.getYamlValue("creditCardInfo.cvv-number"));
 		
 		test.asm_storePage.enterPaymentInfo("CardholderName","test Selenium");
 		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes();
-		
 		test.checkoutPage.clickAtTestStatement();
 		test.ContactInfoPage.clickContinue();
 		test.checkoutPage.clickSubmitButtonAtBottom();
@@ -169,7 +168,9 @@ public class ACS_MGM_Test extends BaseTest {
 	}
 
 	@Test
-	public void Step08_Renew_Membership_And_Invite_A_New_Member_Scenario4() { //uncommented paymnet steps 
+	public void Step08_Renew_Membership_And_Invite_A_New_Member_Scenario4() { // uncommented
+																				// payment
+																				// steps
 		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		test.asm_MGM.clickOnRenewYourMembershipNow();
 		test.asm_OMR.OMRLogo("Online Membership Renewal");
@@ -179,7 +180,6 @@ public class ACS_MGM_Test extends BaseTest {
 //				YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[1]);
 		
 		test.asm_OMR.submitPaymentDetails("test Selenium");
-		
 		test.asm_OMR.clickOnSubmitPayment();
 		test.launchApplication(app_url_MGMLogout);
 		test.launchApplication(app_url_MGMUrl);
@@ -261,13 +261,11 @@ public class ACS_MGM_Test extends BaseTest {
 		test.BenefitsPage.addACSPublicationAndTechnicalDivision(caseID);
 		test.ContactInfoPage.clickContinue();
 		test.checkoutPage.verifySourceCodeIsAlreadyPrepoulated(sourceCode);
-
 //		test.checkoutPage.enterPaymentInfo(YamlReader.getYamlValue("creditCardInfo.Type"), fname + " " + lname,
 //				YamlReader.getYamlValue("creditCardInfo.Number"), YamlReader.getYamlValue("creditCardInfo.cvv-number"));
 		
 		test.asm_storePage.enterPaymentInfo("CardholderName","test Selenium");
 		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes();
-		
 		test.checkoutPage.clickAtTestStatement();
 		test.ContactInfoPage.clickContinue();
 		test.checkoutPage.clickSubmitButtonAtBottom();
@@ -316,7 +314,6 @@ public class ACS_MGM_Test extends BaseTest {
 
 	@Test
 	public void Step17_Invite_New_Members_For_Scenario6() {
-
 		uniqueEmails = test.asm_MGM.InviteNewMembersAccordingToInviteeNumber(
 				ASCSocietyGenericPage.map().get("Number_Of_Invitee").trim(),
 				ASCSocietyGenericPage.map().get("MGM_FNAME").trim(),
@@ -335,7 +332,6 @@ public class ACS_MGM_Test extends BaseTest {
 	public void Launch_IWeb_Application_And_Run_Query(String sideBarTab, String tab, String query, int times,
 			String moduleName) {
 		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
-
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab(moduleName);
 		test.homePageIWEB.clickOnSideBarTab(sideBarTab);
