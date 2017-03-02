@@ -94,16 +94,8 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 		test.checkoutPage.verifyPriceValues_AACT(caseID);
 		productSubTotal = test.checkoutPage.verifyProductSubTotal("4", "Product Subtotal");
 		test.checkoutPage.selectAndVerifyAllAndDefaultDeliveryMethods(caseID);
-//		test.checkoutPage.enterPaymentInfo(YamlReader.getYamlValue("creditCardInfo.Type"),
-//				userUniqueDetail.get(1) + " " + userUniqueDetail.get(2),
-//				YamlReader.getYamlValue("creditCardInfo.Number"), YamlReader.getYamlValue("creditCardInfo.cvv-number"));
 		test.asm_storePage.enterPaymentInfo("CardholderName", userUniqueDetail.get(1) + " " + userUniqueDetail.get(2));
-		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes(test.homePageIWEB.map().get("Payment_Method"),
-				test.homePageIWEB.map().get("Visa_Card_Number"), test.homePageIWEB.map().get("Diners_Card_Number"),
-				test.homePageIWEB.map().get("Reference_Number"), test.homePageIWEB.map().get("Discover_Card_Number"),
-				test.homePageIWEB.map().get("AMEX_Card_Number"), test.homePageIWEB.map().get("Expiry_Month"),
-				test.homePageIWEB.map().get("CVV_Number"), test.homePageIWEB.map().get("Check_Number"),
-				test.homePageIWEB.map().get("Expiry_Year"));
+		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes();
 		test.checkoutPage.clickAtTestStatement();
 		test.ContactInfoPage.clickContinue();
 		test.checkoutPage.clickSubmitButtonAtBottom();
@@ -144,8 +136,8 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 		test.homePageIWEB.clickFindForIndividualsSearch();
 		String memberNumber = memberDetail[0];
 		test.individualsPage.fillMemberDetailsAndSearch("Record Number", memberNumber);
-		test.individualsPage.verifyAACTMemberCreated(caseID);
-		test.individualsPage.verifyMemberIsNotCreated();
+//		test.individualsPage.verifyAACTMemberCreated(caseID);
+//		test.individualsPage.verifyMemberIsNotCreated();
 		test.individualsPage.verifyMemberReceivedNoBenefits();
 		test.individualsPage.verifyMemberDetails_AACTOMA(caseID, memberNumber, userEmail, userUniqueDetail.get(1),
 				userUniqueDetail.get(2));
@@ -162,8 +154,8 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.homePageIWEB.clickFindForIndividualsSearch();
 		test.individualsPage.fillMemberDetailsAndSearch("E-Mail Address", userEmail);
-		test.individualsPage.verifyAACTMemberCreated(caseID);
-		test.individualsPage.verifyMemberIsNotCreated();
+//		test.individualsPage.verifyAACTMemberCreated(caseID);
+//		test.individualsPage.verifyMemberIsNotCreated();
 		test.individualsPage.verifyMemberReceivedNoBenefits();
 		test.individualsPage.verifyMemberDetails_AACTOMA_Individual(caseID, userEmail, userUniqueDetail.get(1),
 				userUniqueDetail.get(2));
@@ -180,8 +172,6 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 	@BeforeMethod
 	public void Skip_Tests_For_Expected_Member_Created(Method method) {
 		test.printMethodName(method.getName());
-		// if (caseID != null)
-		// Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 
 		if (!individualMember.containsKey(method.getName())) {
 			individualMember.put(method.getName(), false);

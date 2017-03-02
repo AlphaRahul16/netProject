@@ -99,9 +99,9 @@ public class ACS_AddressChangeTermsInvoice_Test extends BaseTest{
 	public void Step05_Navigate_To_Membbership_Tab_And_Verify_Transferred_Chapter() {
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Membership");
 		test.memberShipPage
-				.expandDetailsMenuIfAlreadyExpanded("individual memberships");
+				.expandDetailsMenuIfAlreadyExpanded("Individual Memberships");
 		test.memberShipPage
-				.expandDetailsMenuIfAlreadyExpanded("chapter memberships");
+				.expandDetailsMenuIfAlreadyExpanded("Chapter Memberships");
 		test.individualsPage.verifyChapterStatusIsTransferred(
 				"chapter memberships", chpName);
 	}

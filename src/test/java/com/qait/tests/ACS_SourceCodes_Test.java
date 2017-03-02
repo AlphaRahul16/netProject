@@ -122,12 +122,7 @@ public class ACS_SourceCodes_Test extends BaseTest {
 		test.checkoutPage.enterSourceCodeDetails(sourceCode, test.homePageIWEB.map().get("Scenario1_LaunchOMA"));
 		sourceCode = test.checkoutPage.verifySourceCodeIsValid(sourceCode);
 		test.asm_storePage.enterPaymentInfo("CardholderName", "test Selenium");
-		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes(test.homePageIWEB.map().get("Payment_Method"),
-				test.homePageIWEB.map().get("Visa_Card_Number"), test.homePageIWEB.map().get("Diners_Card_Number"),
-				test.homePageIWEB.map().get("Reference_Number"), test.homePageIWEB.map().get("Discover_Card_Number"),
-				test.homePageIWEB.map().get("AMEX_Card_Number"), test.homePageIWEB.map().get("Expiry_Month"),
-				test.homePageIWEB.map().get("CVV_Number"), test.homePageIWEB.map().get("Check_Number"),
-				test.homePageIWEB.map().get("Expiry_Year"));
+		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes();
 
 		test.checkoutPage.clickAtTestStatement();
 		test.ContactInfoPage.clickContinue();

@@ -142,7 +142,6 @@ public class ObjectFileReader {
 		} catch (NullPointerException e) {
 			tier = Tiers.valueOf(getProperty("Config.properties", "tier"))
 					.toString();
-
 		}
 		switch (Tiers.valueOf(tier)) {
 		case production:
@@ -206,10 +205,12 @@ public class ObjectFileReader {
 		case DEV9:
 		case dev9:
 			tier= "DEV9/";
+			break;
 		case Dev3:
 		case DEV3:
 		case dev3:
 			tier= "DEV3/";
+			break;
 		}
 	}
 }

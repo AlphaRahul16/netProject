@@ -119,10 +119,7 @@ public class ACS_IndividualLandingPage_Smoke extends BaseTest {
 		test.asm_Donate.BreakMyDonationForMonthlyPaymentsForIndividualLanding(mapSheetData.get("BreakMyDonation?"),
 				mapSheetData.get("Pledge_Months"));
 		test.asm_Donate.enterPaymentDetailsForACSDonateSmoke(memberLoginDetails,
-				mapSheetData.get("Payment_Method"),
-				mapSheetData.get("Guest_FirstName") + " " + uniquelastname,  mapSheetData.get("Visa_Card_Number"), mapSheetData.get("Diners_Card_Number"),
-				mapSheetData.get("Discover_Card_Number"),mapSheetData.get("AMEX_Card_Number"),mapSheetData.get("CVV_Number"), mapSheetData.get("CreditCardExpiration_Month"),
-				mapSheetData.get("CreditCardExpiration_Year"));
+				mapSheetData.get("Guest_FirstName") + " " + uniquelastname,mapSheetData);
 
 	}
 
