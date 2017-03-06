@@ -1,7 +1,7 @@
 "caseID"	"caseID Execute"	"Member_Status?"	"Login_With_AcsID?"	"Login_With_LastNameMemberNumber?"	"Login_With_LastNameNoticeNumber?"	"Stud_Degree_Type"	"Receive_C&EN?"	"Renew_For_Years?"	"Technical_Division_To_Add?"	"Publications_To_Add?"	"MemBenefits_To_Add?"	"Contribution_To_Add?"	"Contribution_Amount?"	"CreditCardExpiration_Month"	"CreditCardExpiration_Year"	"Payment_Method"	"Visa_Card_Number"	"Diners_Card_Number"	"AMEX_Card_Number"	"Discover_Card_Number"	"CVV_Number"
-1	"No"	"Regular"		"Yes"			"print"	1						6	2019	"Visa/MC"	"4457010000000009"				349
+1	"Yes"	"Regular"		"Yes"			"print"	1						6	2019	"Visa/MC"	"4457010000000009"				349
 2	"Yes"	"Student"			"Yes"	"Associate"	"print"							6	2019	"Discover"				"6011010000000003"	758
-3	"No"	"Regular"		"Yes"			"print"							6	2019	"Visa/MC"	"5112000100000003"				123
+3	"Yes"	"Regular"		"Yes"			"print"							6	2019	"Visa/MC"	"5112000100000003"				123
 4	"Yes"	"Regular"		"Yes"			"print"	1						6	2019	"AMEX"			"375000026600004"		421
 5	"Yes"	"Student"			"Yes"	"Associate"	"print"							6	2019	"Diners"		"5412345438954638"			234
 6	"No"	"Emeritus"		"Yes"			"print"							6	2019	"Diners"		36474027424147			123

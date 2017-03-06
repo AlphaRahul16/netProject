@@ -28,8 +28,8 @@ table_balance                   xpath                //a/../../following-sibling
 table_Shipping                  xpath                 .//a/../../following-sibling::tr/td[@id='UP17']
 img_spinner                     id                     __UPIMG
 icon_up                         xpath                 //span[contains(text(),'${value}')]/preceding-sibling::a/i[@class='icon-chevron-up']
-txt_memberDetail_q              xpath                 //label[text()='${labelname}?']/preceding-sibling::span[1]
 txt_memberDetails               xpath                 //label[text()='${labelname}:']/preceding-sibling::span[1]
+txt_memberDetail_q              xpath                 //label[text()='${labelname}?']/preceding-sibling::span[1]
 lnk_batch                       xpath                 //a[contains(text(),'${batchName}')]
 txt_invoiceDetailsInTable       xpath                 (//td[starts-with(text(),'${detailValue}')])[1]
 table_productPrice              xpath                 //td[contains(text(),'${value}')]/following-sibling::td[2]

@@ -1429,19 +1429,19 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	private void verifySupporterDocumentsContainsUploadedFile(Map<String, String> mapAwardsNomination,
 			String SupporterNumber) {
-		String supportNo2 = null;
-		if (SupporterNumber.equals("1")) {
+		//String supportNo2 = null;
+		/*if (SupporterNumber.equals("1")) {
 			supportNo2 = "2";
 		} else {
 			supportNo2 = "1";
-		}
+		}*/
 		String docurl = element("lnk_awardsSupporterDoc", SupporterNumber).getAttribute("href");
 		docurl = docurl.replaceAll("%20", " ");
-		Assert.assertTrue(docurl.contains(mapAwardsNomination.get("FileNameForSupportForm" + supportNo2)),
-				"ASSERT FAILED: Expected value is " + mapAwardsNomination.get("FileNameForSupportForm" + supportNo2)
+		Assert.assertTrue(docurl.contains(mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber)),
+				"ASSERT FAILED: Expected value is " + mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber)
 						+ " but found " + docurl);
 		logMessage("ASSERT PASSED : Document for supporter " + SupporterNumber + " succesfully verified as "
-				+ mapAwardsNomination.get("FileNameForSupportForm" + supportNo2));
+				+ mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber));
 	}
 
 	private void verifySupporterNamesOnAwardEntryProfilePage(Map<String, String> createMemberCredentials,
@@ -1488,6 +1488,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 					"ASSERT FAILED: " + element("lnk_awardsLettersDoc", lettername).getAttribute("onclick")
 							+ " doest not contains " + mapAwardsNomination.get(datasheetValue));
 			logMessage("ASSERT PASSED : File uploaded for " + lettername + " is displayed under Documents \n");
+
 		}
 	}
 

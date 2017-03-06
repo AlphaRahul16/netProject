@@ -1462,6 +1462,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// TODO Remove hard wait after handling stale element exception
 		holdExecution(2000);
 		isElementDisplayed("table_lineItems");
+		
 
 	}
 

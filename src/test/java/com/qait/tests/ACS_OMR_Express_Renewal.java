@@ -28,9 +28,8 @@ public class ACS_OMR_Express_Renewal extends BaseTest {
 	public void open_Browser_Window() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url_IWEB = getYamlValue("app_url_IWEB");
+		test.enterAuthenticationAutoIt();
 		test.launchApplication(app_url_IWEB);
-		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
-				YamlReader.getYamlValue("Authentication.password"));
 	}
 	
 	public ACS_OMR_Express_Renewal() {

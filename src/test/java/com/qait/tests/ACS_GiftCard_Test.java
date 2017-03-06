@@ -37,6 +37,15 @@ public class ACS_GiftCard_Test extends BaseTest{
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "GiftCard_Scenariosheet";
 		
 	}
+	@BeforeClass(alwaysRun = true)
+	public void Start_Test_Session() {
+		test = new TestSessionInitiator(this.getClass().getSimpleName());
+		app_url_IWEB = getYamlValue("app_url_IWEB");
+		app_url_OMA=getYamlValue("app_url_OMA");
+		System.out.println("before class");
+		giftCardMap = test.homePage.addValuesInMap("GiftCard_Scenariosheet", caseID);
+	}
+
 
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
 	public ACS_GiftCard_Test(String caseID) {
@@ -45,15 +54,7 @@ public class ACS_GiftCard_Test extends BaseTest{
 	    System.setProperty("caseID", this.caseID);
 	}
 		
-		@BeforeClass(alwaysRun = true)
-		public void Start_Test_Session() {
-			test = new TestSessionInitiator(this.getClass().getSimpleName());
-			app_url_IWEB = getYamlValue("app_url_IWEB");
-			app_url_OMA=getYamlValue("app_url_OMA");
-			System.out.println("before class");
-			giftCardMap = test.homePage.addValuesInMap("GiftCard_Scenariosheet", caseID);
-		}
-
+		
 		@BeforeMethod(alwaysRun = true)
 		public void skipMethodsAccordingToTheScenarioExecuted(Method method) {
 			test.printMethodName(method.getName());
