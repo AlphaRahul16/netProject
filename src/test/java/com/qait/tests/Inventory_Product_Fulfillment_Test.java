@@ -5,6 +5,7 @@ import static com.qait.automation.utils.YamlReader.getYamlValue;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
@@ -42,11 +43,13 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 
 	@BeforeMethod
 	public void handleTestMethodName(Method method) {
+		Reporter.log("CASE ID::" + this.caseID, true);
 		test.printMethodName(method.getName());
 	}
 
 	@Test
 	public void Step01_Launch_Iweb_Application_And_Verify_User_Is_On_Home_Page() {
+		Reporter.log("CASE ID::" + this.caseID, true);
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
@@ -55,6 +58,7 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step01_Launch_Iweb_Application_And_Verify_User_Is_On_Home_Page")
 	public void Step02_Select_And_Run_Query_And_Verify_User_Is_On_Individual_Profile_Page() {
+		Reporter.log("CASE ID::" + this.caseID, true);
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnTab("Query Individual");
 		test.memberShipPage.selectAndRunQuery(getYamlValue("Product_Fulfillment_Inventory.queryName"));
@@ -65,6 +69,7 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step02_Select_And_Run_Query_And_Verify_User_Is_On_Individual_Profile_Page")
 	public void Step03_Click_On_Order_Entry_Button_And_Verify_Centralized_Order_Entry_Page() {
+		Reporter.log("CASE ID::" + this.caseID, true);
 		test.memberShipPage.clickOnOrderEntryIcon();
 		// test.memberShipPage.verifyCentralizedOrderEntryPage("Centralized
 		// Order Entry");
@@ -72,6 +77,7 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step03_Click_On_Order_Entry_Button_And_Verify_Centralized_Order_Entry_Page")
 	public void Step04_Click_Select_Product_And_Merchandise_Option_and_Verify_Centralized_Order_Entry_Merchandise_Window() {
+		Reporter.log("CASE ID::" + this.caseID, true);
 		test.memberShipPage.clickOnSelectProduct();
 		test.memberShipPage.selectMerchandise("merchandise");
 		test.memberShipPage.enterProductCode(ASCSocietyGenericPage.map().get("Product Code").trim());
@@ -83,11 +89,13 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step04_Click_Select_Product_And_Merchandise_Option_and_Verify_Centralized_Order_Entry_Merchandise_Window")
 	public void Step05_Verify_that_Selected_Item_Is_Added_Into_Line_Items() {
+		Reporter.log("CASE ID::" + this.caseID, true);
 		test.memberShipPage.verifyProductNameInLineItem(productName);
 	}
 
 	@Test(dependsOnMethods = "Step05_Verify_that_Selected_Item_Is_Added_Into_Line_Items")
 	public void Step06_Select_Selenium_Batch_And_Payment_Details_For_CRM_Inventory_And_Verify_Centralized_Order_Entry_page() {
+		Reporter.log("CASE ID::" + this.caseID, true);
 		// test.memberShipPage.selectBatchAndPaymentDetailsForCRMInventory(
 		// YamlReader.getYamlValue("Acs_CreateMember_IWEB.batch"),
 		// YamlReader.getYamlValue("COE_Inventory.PaymentType"),
@@ -111,16 +119,19 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step06_Select_Selenium_Batch_And_Payment_Details_For_CRM_Inventory_And_Verify_Centralized_Order_Entry_page")
 	public void Step07_Click_on_More_tab_And_Select_Invoices_Option_and_Expand_Invoices_Open_Batch() {
+		Reporter.log("CASE ID::" + this.caseID, true);
 		test.individualsPage.navigateToInvoicesMenuOnHoveringMore();
 	}
 
 	@Test(dependsOnMethods = "Step07_Click_on_More_tab_And_Select_Invoices_Option_and_Expand_Invoices_Open_Batch")
 	public void Step08_Verify_Invoice_Added_In_Invoices_With_Current_Date_As_Trancation_Date() {
+		Reporter.log("CASE ID::" + this.caseID, true);
 		test.memberShipPage.verifyInvoiceIsAdded(customerFullNameList.get(0).trim());
 	}
 
 	@Test(dependsOnMethods = "Step08_Verify_Invoice_Added_In_Invoices_With_Current_Date_As_Trancation_Date")
 	public void Step09_Navigate_To_Inventory_Module_And_Click_On_Overview_Under_Fulfillment_Orders_And_Verify_User_Is_On_Fulfillment_Orders_Page() {
+		Reporter.log("CASE ID::" + this.caseID, true);
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Inventory");
 		test.homePageIWEB.verifyUserIsOnHomePage("Inventory | Overview | Overview and Setup");
@@ -130,28 +141,33 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step09_Navigate_To_Inventory_Module_And_Click_On_Overview_Under_Fulfillment_Orders_And_Verify_User_Is_On_Fulfillment_Orders_Page")
 	public void Step10_Click_On_Process_Fullfill_Orders_Link_And_Verify_User_Is_On_Order_Fulfillment_With_Packing_Slips_Page() {
+		Reporter.log("CASE ID::" + this.caseID, true);
 		test.inventoryIweb.clickOnProcessFulfillOrdersLink();
 		test.homePageIWEB.verifyUserIsOnHomePage("Inventory | Fulfillment | Order Fulfillment with Packing Slips");
 	}
 
 	@Test(dependsOnMethods = "Step10_Click_On_Process_Fullfill_Orders_Link_And_Verify_User_Is_On_Order_Fulfillment_With_Packing_Slips_Page")
 	public void Step11_Click_On_Search_Button_On_Entering_Invoice_Start_And_End_Date_And_Verify_Sold_Product_Is_Checked_By_Default_Under_Select_Orders_To_Fulfill() {
+		Reporter.log("CASE ID::" + this.caseID, true);
 		test.inventoryIweb.enterInvoiceDateFromAndToAndClickOnSearchButton();
 		test.inventoryIweb.verifySoldProductIsCheckedByDefaultUnderSelectOrdersToFulfill(productName);
 	}
 
 	@Test(dependsOnMethods = "Step11_Click_On_Search_Button_On_Entering_Invoice_Start_And_End_Date_And_Verify_Sold_Product_Is_Checked_By_Default_Under_Select_Orders_To_Fulfill")
 	public void Step12_Click_On_Process_Selected_Items_Button_To_Confirm_Orders_And_Verify_Fulfillment_Reports() {
+		Reporter.log("CASE ID::" + this.caseID, true);
 		test.inventoryIweb.verifyFulfillmentReportsOnClickingProcessSelectedItems();
 	}
 
 	@Test(dependsOnMethods = "Step12_Click_On_Process_Selected_Items_Button_To_Confirm_Orders_And_Verify_Fulfillment_Reports")
 	public void Step13_Click_On_Continue_Button_And_Verify_Fulfillment_Reports_Page() {
+		Reporter.log("CASE ID::" + this.caseID, true);
 		test.inventoryIweb.verifyFulfillmentGroupProfilePage(productName);
 	}
 
 	@Test(dependsOnMethods = "Step13_Click_On_Continue_Button_And_Verify_Fulfillment_Reports_Page")
 	public void Step14_Click_On_Shipped_Button_And_Verify_Fulfillment_Group_Profile_Page() {
+		Reporter.log("CASE ID::" + this.caseID, true);
 		test.inventoryIweb.VerifyFulfillmentGroupProfilePageOnClickingShippedButton();
 		test.homePageIWEB.verifyUserIsOnHomePage("Inventory | Fulfillment | Fulfillment Group Profile");
 		// test.inventoryIweb.verifyProductNameUnderLineItems(productName);
@@ -159,6 +175,7 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 
 	@Test(dependsOnMethods = "Step14_Click_On_Shipped_Button_And_Verify_Fulfillment_Group_Profile_Page")
 	public void Step15_Click_On_Icon_ACS_Fulfillment_Reports_And_Verify_Alert_Message() {
+		Reporter.log("CASE ID::" + this.caseID, true);
 		test.inventoryIweb.verifyAlertMessageOnClickingACSFulfillmentReportsIcon();
 	}
 

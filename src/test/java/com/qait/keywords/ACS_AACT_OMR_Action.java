@@ -1,7 +1,10 @@
 package com.qait.keywords;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -72,22 +75,38 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 		logMessage("STEP: '" + label + "' is selected as " + type);
 	}
 
-	public List<String> updateDetailsfoAboutYouSection() {
-		memberType = element("txt_detailsAboutYou", "MemberCategory").getText().trim();
-		List<String> updatedValues = new ArrayList<String>();
-		if (memberType.equalsIgnoreCase("Teacher") || memberType.equalsIgnoreCase("Student")) {
+	public Map<String, List<String>> updateDetailsInAboutYouSection(String membershipType) {
+		 memberType = element("txt_detailsAboutYou", "MemberCategory").getText().trim();
+		// logMessage("STEP: Member type is "+memberType);
+		Map<String, List<String>> updatedDetailsOfMember = new HashMap<String, List<String>>();
+
+		if (membershipType.equalsIgnoreCase("Teacher") || membershipType.equalsIgnoreCase("Student")) {
 			clickButtonByInputValue("Update About You");
 			verifyPageHeader("title_header", "top-title", "Update About You");
-			updatedValues = updateDetailsForTeacher("GradesTaughtChk");
-			List<String> updatedValuesSubject = checkTheValuesOnUpdateAboutYou("SubjectsTaughtChk");
-			// List<String>updatedValuesSubject =
-			// updateDetailsForTeacher("SubjectsTaughtChk");
-			logMessage("STEP: Update the details of About You for " + memberType + "\n");
+			// updatedValuesGrade = updateDetailsForTeacher("GradesTaughtChk");
+			List<String> updatedValuesGrade = updateDetailsForTeacher("GradesTaughtChk");
+			List<String> updatedValuesSubject = updateDetailsForTeacher("SubjectsTaughtChk");
+			// List<String>updatedValuesSetting =
+			// updateDetailsForTeacher("InstructionalSettingsChk");
+			try {
+				isElementDisplayed("chked_labelsOnUpdateAboutYou", "InstructionalSettingsChk");
+				logMessage("STEP: Instructional Settings are already checked \n");
+
+			} catch (NoSuchElementException e) {
+				elements("unchked_label").get(1).click();
+				logMessage("STEP: Checked the values for Instructional Settings \n");
+			}
+
+			updatedDetailsOfMember.put("GradesList", updatedValuesGrade);
+			updatedDetailsOfMember.put("SubjectsList", updatedValuesSubject);
+			// updatedDetailsOfMember.put("Setting", updatedValuesSetting);
+
+			logMessage("STEP: Update the details of About You for " + membershipType + "\n");
 			clickButtonByInputValue("Save");
 		} else {
-			logMessage("STEP: Member type is " + memberType + "\n");
+			logMessage("STEP: Member type is " + membershipType + "\n");
 		}
-		return updatedValues;
+		return updatedDetailsOfMember;
 	}
 
 	public List<String> updateDetailsForTeacher(String value) {
@@ -119,25 +138,48 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 
 	}
 
+//	public List<String> checkTheValuesOnUpdateAboutYou(String value) {
+//
+//		List<String> checkedValues = new ArrayList<String>();
+//		int size = elements("unchked_label", value).size();
+//		System.out.println("**********size" + size);
+//		int max = 12, min = 1;
+//		Random rand = new Random();
+//		int randomNumber = rand.nextInt((size - min) + 1) + min;
+//		System.out.println("**********Random no" + randomNumber);
+//		for (int i = size - 1; i > randomNumber; i--) {
+//
+//			// checkedValues.add(elements("txt_label",
+//			// value).get(i).getText().trim());
+//			checkedValues.add(elements("unchked_label", value).get(i).getText().trim());
+//			// System.out.println("checked values " + elements("txt_label",
+//			// value).get(i).getText().trim());
+//			elements("unchked_label", value).get(i).click();
+//			logMessage("STEP: " + elements("txt_label", value).get(i).getText().trim() + " is checked for " + value
+//					+ "\n");
+//		}
+//		logMessage("\nSTEP: values of '" + value + "' field are updated \n");
+//		return checkedValues;
+//	}
 	public List<String> checkTheValuesOnUpdateAboutYou(String value) {
 
-		List<String> checkedValues = new ArrayList<String>();
-		int size = elements("unchked_label", value).size();
-		for (int i = size - 1; i > size - 10; i--) {
+		  List<String> checkedValues = new ArrayList<String>();
+		  int size = elements("unchked_label", value).size();
+		  for (int i = size - 1; i > size - 10; i--) {
 
-			checkedValues.add(elements("txt_label", value).get(i).getText().trim());
-			// System.out.println("checked values " + elements("txt_label",
-			// value).get(i).getText().trim());
-			elements("unchked_label", value).get(i).click();
-			logMessage("STEP: " + elements("txt_label", value).get(i).getText().trim() + " is checked for " + value
-					+ "\n");
-		}
-		logMessage("\nSTEP: values of '" + value + "' field are updated \n");
-		return checkedValues;
-	}
+		   checkedValues.add(elements("txt_label", value).get(i).getText().trim());
+		   // System.out.println("checked values " + elements("txt_label",
+		   // value).get(i).getText().trim());
+		   elements("unchked_label", value).get(i).click();
+		   logMessage("STEP: " + elements("txt_label", value).get(i).getText().trim() + " is checked for " + value
+		     + "\n");
+		  }
+		  logMessage("\nSTEP: values of '" + value + "' field are updated \n");
+		  return checkedValues;
+		 }
 
 	public void enterGenderExperienceAndGraduationDetails(String gender, String experience, String gradMonth,
-			String gradYear) {
+			String gradYear,String memberType) {
 		if (memberType.equalsIgnoreCase("Teacher") || memberType.equalsIgnoreCase("Student")) {
 			isElementDisplayed("inp_value", "YearsExp");
 			sendKeysUsingXpathInJavaScriptExecutor(element("inp_value", "YearsExp"), experience);
@@ -155,16 +197,13 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 		logMessage("STEP: Gender is selected as " + gender + "\n");
 	}
 
-	public void verifyDetailsOfUpdateAboutYou(List<String> checkedValues) {
+	// public void verifyDetailsOfUpdateAboutYou(List<String> checkedValues) {
+	//
+	//
+	// // verifyDetailsOfList(checkedValues,"SubjectsList");
+	// }
 
-		if (memberType.equalsIgnoreCase("Teacher") || memberType.equalsIgnoreCase("Student")) {
-			verifyDetailsOfList(checkedValues, "GradesList");
-		}
-
-		// verifyDetailsOfList(checkedValues,"SubjectsList");
-	}
-
-	private void verifyDetailsOfList(List<String> checkedValues, String listName) {
+	private void verifyDetailsOfList(Map<String, List<String>> checkedValues, String listName) {
 
 		int size = checkedValues.size();
 		isElementDisplayed("txt_detailsAboutYou", listName);
@@ -172,7 +211,7 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 		String details = element("txt_detailsAboutYou", listName).getText().trim();
 		while (size > 0) {
 
-			if (!details.contains(checkedValues.get(size - 1))) {
+			if (!details.contains(checkedValues.get(listName).get(size - 1))) {
 				flag = false;
 				break;
 			}
@@ -209,11 +248,12 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 
 	}
 
-	public void checkAutoRenwealCheckbox(String checkboxname) {
+	public void checkAutoRenwealCheckbox(String memberType) {
 		if (!memberType.equalsIgnoreCase("Student")) {
-			checktheCheckbox(checkboxname);
+			checktheCheckbox("chkAutoRenewal");
 			wait.hardWait(5);
 			isElementDisplayed("inp_editEmail", "lblWarning");
+			logMessage("Step: Auto renewal check box is checked \n");
 		}
 	}
 
@@ -266,7 +306,7 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 
 	public void verifyWorkAddressIsPrimary(boolean isPrimary) {
 
-		if (isPrimary) {
+		if (!isPrimary) {
 			isElementDisplayed("txt_detailsAboutYou", "workPrimary");
 			logMessage("STEP: verified school/work address is primary");
 		} else {
@@ -347,6 +387,15 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 		String details = element("txt_membershipItems", "1").getText();
 		logMessage("STEP: " + field + " is '" + details + "' \n");
 		return details;
+	}
+
+	public void verifyDetailsOfUpdateAboutYou(String membershipType, Map<String, List<String>> updatedDetailsOfMember) {
+		// TODO Auto-generated method stub
+		if (membershipType.equalsIgnoreCase("Teacher") || membershipType.equalsIgnoreCase("Student")) {
+			verifyDetailsOfList(updatedDetailsOfMember, "GradesList");
+			verifyDetailsOfList(updatedDetailsOfMember, "SubjectsList");
+		}
+
 	}
 
 }

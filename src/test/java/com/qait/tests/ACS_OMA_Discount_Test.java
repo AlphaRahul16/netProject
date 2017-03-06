@@ -68,7 +68,7 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.homePage.verifyCurrentTab("Benefits");
-		//test.BenefitsPage.addACSPublicationAndTechnicalDivision(caseID);
+		test.BenefitsPage.addACSPublicationAndTechnicalDivision(caseID);
 		test.BenefitsPage.verifyCENPresent(caseID);
 		test.ContactInfoPage.clickContinue();
 		test.homePage.verifyCurrentTab("Checkout");
@@ -79,22 +79,25 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		test.checkoutPage.verifyMultiYearShow_Hide(ASCSocietyGenericPage.map().get("multiYearFlag?"));
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
-		//test.checkoutPage.verifyPriceValues_OMADiscount(caseID);
+		test.checkoutPage.verifyPriceValues_OMADiscount(caseID);
 		test.checkoutPage.verifyMemberDetail(caseID);
 		test.checkoutPage.verifyMemberEmail(userEmail);
 		productSubTotal = test.checkoutPage.verifyProductSubTotal("4", "Product Subtotal");
 		Total = test.checkoutPage.verifyTotal(currency);
-		//test.checkoutPage.verifyTechnicalDivision(caseID);
-		//test.checkoutPage.verifyPublication(caseID);
+		test.checkoutPage.verifyTechnicalDivision(caseID);
+		test.checkoutPage.verifyPublication(caseID);
 		// test.checkoutPage.enterPaymentInfo(
 		// YamlReader.getYamlValue("creditCardInfo.Type"), userDetail[1]
 		// + " " + userDetail[2],
 		// YamlReader.getYamlValue("creditCardInfo.Number"),
 		// YamlReader.getYamlValue("creditCardInfo.cvv-number"));
-		test.asm_storePage.enterPaymentInfo("CardholderName", "test Selenium");
-		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes(ASCSocietyGenericPage.map().get("Payment_Method"),
-				ASCSocietyGenericPage.map().get("Visa/MC_Card_Number"), ASCSocietyGenericPage.map().get("Diners_Card_Number"),
-				ASCSocietyGenericPage.map().get("Reference_Number"), ASCSocietyGenericPage.map().get("Discover_Card_Number"),
+		test.asm_storePage.enterPaymentInfo("CardholderName",  userDetail[1] + " " + userDetail[2]);
+		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes(
+				ASCSocietyGenericPage.map().get("Payment_Method"),
+				ASCSocietyGenericPage.map().get("Visa/MC_Card_Number"),
+				ASCSocietyGenericPage.map().get("Diners_Card_Number"),
+				ASCSocietyGenericPage.map().get("Reference_Number"),
+				ASCSocietyGenericPage.map().get("Discover_Card_Number"),
 				ASCSocietyGenericPage.map().get("AMEX_Card_Number"), ASCSocietyGenericPage.map().get("Expiry_Month"),
 				ASCSocietyGenericPage.map().get("CVV_Number"), ASCSocietyGenericPage.map().get("Check_Number"),
 				ASCSocietyGenericPage.map().get("Expiry_Year"));

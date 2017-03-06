@@ -63,14 +63,7 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest {
 
 		mapRenewedProductDetails = test.asm_OMR.saveProductsWithRespectiveRenewalAmount();
 		toString();
-		// test.asm_OMR.submitPaymentDetailsForAutoRenewal(YamlReader.getYamlValue("creditCardInfo.Type"),
-		// (memDetails.get(0).split(" ")[1] + " " + memDetails.get(0).split("
-		// ")[0]),
-		// YamlReader.getYamlValue("creditCardInfo.Number"),
-		// YamlReader.getYamlValue("creditCardInfo.cvv-number"),
-		// YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[0],
-		// YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[1]);
-		test.asm_OMR.submitPaymentDetails(ASCSocietyGenericPage.map().get("Payment_Method"),
+		test.asm_OMR.submitPaymentDetailsForAutoRenewal(ASCSocietyGenericPage.map().get("Payment_Method"),
 				(memDetails.get(0).split(" ")[1] + " " + memDetails.get(0).split(" ")[0]),
 				String.valueOf(ASCSocietyGenericPage.map().get("Visa_Card_Number").trim()),
 				ASCSocietyGenericPage.map().get("Diners_Card_Number"),
@@ -78,6 +71,20 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest {
 				ASCSocietyGenericPage.map().get("AMEX_Card_Number"), ASCSocietyGenericPage.map().get("CVV_Number"),
 				ASCSocietyGenericPage.map().get("CreditCardExpiration_Month"),
 				ASCSocietyGenericPage.map().get("CreditCardExpiration_Year"));
+		// (memDetails.get(0).split(" ")[1] + " " + memDetails.get(0).split("
+		// ")[0]),
+		// YamlReader.getYamlValue("creditCardInfo.Number"),
+		// YamlReader.getYamlValue("creditCardInfo.cvv-number"),
+		// YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[0],
+		// YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[1]);
+//		test.asm_OMR.submitPaymentDetails(ASCSocietyGenericPage.map().get("Payment_Method"),
+//				(memDetails.get(0).split(" ")[1] + " " + memDetails.get(0).split(" ")[0]),
+//				String.valueOf(ASCSocietyGenericPage.map().get("Visa_Card_Number").trim()),
+//				ASCSocietyGenericPage.map().get("Diners_Card_Number"),
+//				ASCSocietyGenericPage.map().get("Discover_Card_Number"),
+//				ASCSocietyGenericPage.map().get("AMEX_Card_Number"), ASCSocietyGenericPage.map().get("CVV_Number"),
+//				ASCSocietyGenericPage.map().get("CreditCardExpiration_Month"),
+//				ASCSocietyGenericPage.map().get("CreditCardExpiration_Year"));
 		test.asm_OMR.clickOnSubmitPayment();
 
 	}
