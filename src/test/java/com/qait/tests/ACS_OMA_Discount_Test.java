@@ -68,7 +68,7 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.homePage.verifyCurrentTab("Benefits");
-		//test.BenefitsPage.addACSPublicationAndTechnicalDivision(caseID);
+		test.BenefitsPage.addACSPublicationAndTechnicalDivision(caseID);
 		test.BenefitsPage.verifyCENPresent(caseID);
 		test.ContactInfoPage.clickContinue();
 		test.homePage.verifyCurrentTab("Checkout");
@@ -93,7 +93,7 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 		// YamlReader.getYamlValue("creditCardInfo.cvv-number"));
 		test.asm_storePage.enterPaymentInfo("CardholderName", "test Selenium");
 		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes(ASCSocietyGenericPage.map().get("Payment_Method"),
-				ASCSocietyGenericPage.map().get("Visa/MC_Card_Number"), ASCSocietyGenericPage.map().get("Diners_Card_Number"),
+				ASCSocietyGenericPage.map().get("Visa_Card_Number"), ASCSocietyGenericPage.map().get("Diners_Card_Number"),
 				ASCSocietyGenericPage.map().get("Reference_Number"), ASCSocietyGenericPage.map().get("Discover_Card_Number"),
 				ASCSocietyGenericPage.map().get("AMEX_Card_Number"), ASCSocietyGenericPage.map().get("Expiry_Month"),
 				ASCSocietyGenericPage.map().get("CVV_Number"), ASCSocietyGenericPage.map().get("Check_Number"),
