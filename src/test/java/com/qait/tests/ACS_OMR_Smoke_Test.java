@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -36,6 +37,7 @@ public class ACS_OMR_Smoke_Test extends BaseTest {
 
 	@Test
 	public void Step01_TC01_launch_Iweb_And_Select_Valid_User_For_Renewal() {
+		Reporter.log("STEP: Case id : "+caseID,true);
 		mapOMR = test.homePageIWEB.addValuesInMap(sheetname, caseID);
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Membership");
@@ -76,13 +78,7 @@ public class ACS_OMR_Smoke_Test extends BaseTest {
 
 	@Test
 	public void Step06_TC01_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage() {
-		test.asm_OMR.submitPaymentDetails(mapOMR.get("Payment_Method"),
-				(memDetails.get(1) + " " + memDetails.get(0)), toString().valueOf(mapOMR.get("Visa_Card_Number").trim()), mapOMR.get("Diners_Card_Number"),
-				mapOMR.get("Discover_Card_Number"),mapOMR.get("AMEX_Card_Number"),
-				 toString().valueOf(mapOMR.get("CVV_Number")), mapOMR
-					.get("CreditCardExpiration_Month"), mapOMR
-						.get("CreditCardExpiration_Year"));
-
+		test.asm_OMR.submitPaymentDetails(memDetails.get(1) + " " + memDetails.get(0));
 		test.asm_OMR
 				.verifyRenewedProductsSummaryOnCheckOutPage(mapRenewedProductDetails);
 		test.asm_OMR.clickOnSubmitPayment();

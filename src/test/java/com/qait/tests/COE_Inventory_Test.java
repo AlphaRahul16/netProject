@@ -22,7 +22,7 @@ public class COE_Inventory_Test extends BaseTest {
 	String price;
 	List<String> customerFullNameList;
 	String productName = null, productCode = null;
-	private String caseID, batchprefix = "ACS: ";
+	private String batchprefix = "ACS: ";
 
 	public COE_Inventory_Test() {
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "COE_Inventory";
@@ -36,7 +36,7 @@ public class COE_Inventory_Test extends BaseTest {
 	@BeforeClass
 	public void OpenBrowserWindow() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
-		ASCSocietyGenericPage.addValuesInMap("COE_Inventory", caseID);
+		test.homePage.addValuesInMap("COE_Inventory", caseID);
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		System.out.println("App URL Iweb::" + app_url_IWEB);
 	}
@@ -49,8 +49,8 @@ public class COE_Inventory_Test extends BaseTest {
 
 	@Test
 	public void Step01_Launch_Iweb_Application_And_Verify_User_Is_On_Home_Page() {
-		Reporter.log("CASE ID::" + this.caseID, true);
-		System.out.println("------"+test.homePageIWEB.map().get("Batch_Name?"));
+
+		Reporter.log("STEP: Case id : "+caseID,true);
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));

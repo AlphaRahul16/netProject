@@ -23,7 +23,7 @@ public class ACS_Address_Change_On_Proforma_Test extends BaseTest {
 	String app_url_iweb, oldLocalSection;
 	String newChpName = "Chemical Society of", invoiceName = "Chem Society Of Washington",
 			batchName = "ACS: Selenium_Batch";
-	private String caseID;
+//	private String caseID;
 	Map<String, String> individualDates = new HashMap<>();
 	List<String> addressType = new ArrayList<String>();
 

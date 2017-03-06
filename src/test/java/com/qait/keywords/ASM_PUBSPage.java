@@ -111,8 +111,8 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_printReceipt");
 		element("btn_printReceipt").click();
 		logMessage("STEP : Clicked on print order receipt !!");
-		wait.hardWait(15);
-		_verifyPDFFileIsDownloaded("report");
+//		wait.hardWait(15);
+//		_verifyPDFFileIsDownloaded("report");
 	}
 
 	private void _verifyPDFFileIsDownloaded(String fileName) {
@@ -316,31 +316,31 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		isElementDisplayed("tr_saved");
 	}
 
-	public void submitPaymentDetails(String PaymentMethod, String cardholderName, String cardNumber,String dinerscardNumber,
-			String discovercardNumber,String AMEXcardNumber, String cvvNumber,String year_Value) {
+	public void submitPaymentDetails(String cardholderName) {
 		verifyPaymentPage();
-		selectCreditCardType(PaymentMethod);
+		selectCreditCardType(map().get("Payment_Method"));
 		enterCreditCardHolderName(cardholderName);
-		switch (PaymentMethod) {
-		case "Visa/MC":
-			enterCreditCardNumber(cardNumber);
-			break;
-
-		case "Diners":
-			enterCreditCardNumber( dinerscardNumber);
-			break;
-
-		case "Discover":
-			enterCreditCardNumber(discovercardNumber);
-			break;
-		case "AMEX":
-			enterCreditCardNumber(AMEXcardNumber);
-			break;
-
-		}
+		enterCreditCardNumber(map().get(map().get("Payment_Method")+"_Card_Number"));
+//		switch (PaymentMethod) {
+//		case "Visa/MC":
+//			enterCreditCardNumber(cardNumber);
+//			break;
+//
+//		case "Diners":
+//			enterCreditCardNumber( dinerscardNumber);
+//			break;
+//
+//		case "Discover":
+//			enterCreditCardNumber(discovercardNumber);
+//			break;
+//		case "AMEX":
+//			enterCreditCardNumber(AMEXcardNumber);
+//			break;
+//
+//		}
 		
-		enterCVVNumber(cvvNumber);
-		selectExpirationYear(year_Value);
+		enterCVVNumber(map().get("CVV_Number"));
+		selectExpirationYear(map().get("CreditCardExpiration_Year"));
 		clickOnConfirmOrderButton();
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);

@@ -92,7 +92,7 @@ public class ACS_Create_Member_Test extends BaseTest {
 		test.homePage.verifyCurrentTab("Checkout");
 	}
 
-	@Test(dependsOnMethods = "Step04_Enter_Benefits_Info")
+	@Test(dependsOnMethods = "Step04_Enter_Benefits_Info") 
 	public void Step05_Verify_Contact_Info_And_Enter_Payment_At_Checkout_Page() {
 		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
@@ -103,18 +103,8 @@ public class ACS_Create_Member_Test extends BaseTest {
 		Total = test.checkoutPage.verifyTotal(currency);
 		test.checkoutPage.verifyTechnicalDivision(caseID);
 		test.checkoutPage.verifyPublication(caseID);
-		// test.checkoutPage.enterPaymentInfo(
-		// YamlReader.getYamlValue("creditCardInfo.Type"), userDetail[1]
-		// + " " + userDetail[2],
-		// YamlReader.getYamlValue("creditCardInfo.Number"),
-		// YamlReader.getYamlValue("creditCardInfo.cvv-number"));
-		test.asm_storePage.enterPaymentInfo("CardholderName", userDetail[1]+ " " + userDetail[2]);
-		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes(ASCSocietyGenericPage.map().get("Payment_Method"),
-				test.homePageIWEB.map().get("Visa_Card_Number"), test.homePageIWEB.map().get("Diners_Card_Number"),
-				test.homePageIWEB.map().get("Reference_Number"), test.homePageIWEB.map().get("Discover_Card_Number"),
-				test.homePageIWEB.map().get("AMEX_Card_Number"), test.homePageIWEB.map().get("Expiry_Month"),
-				test.homePageIWEB.map().get("CVV_Number"), test.homePageIWEB.map().get("Check_Number"),
-				test.homePageIWEB.map().get("Expiry_Year"));
+		test.asm_storePage.enterPaymentInfo("CardholderName", "test Selenium");
+		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes();
 
 		test.checkoutPage.clickAtTestStatement();
 		test.ContactInfoPage.clickContinue();

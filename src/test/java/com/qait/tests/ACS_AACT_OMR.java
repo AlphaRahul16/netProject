@@ -58,7 +58,7 @@ public class ACS_AACT_OMR extends BaseTest {
 
 	@Test
 	public void Step01_Launch_IWEB_Application() {
-		ASCSocietyGenericPage.addValuesInMap("AACT_OMR", caseID);
+		test.homePageIWEB.addValuesInMap("AACT_OMR", caseID);
 		test.launchApplication(app_url_IWEB);
 		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
@@ -79,9 +79,8 @@ public class ACS_AACT_OMR extends BaseTest {
 	}
 
 	@Test(dependsOnMethods = "Step02_Select_Members_Tab_And_Select_Valid_User_For_AACT_OMR")
-	// @Test
 	public void Step03_Launch_EWEB_Application_And_Login_With_Weblogin() {
-		ASCSocietyGenericPage.addValuesInMap("AACT_OMR", caseID);
+		test.homePage.addValuesInMap("AACT_OMR", caseID);
 		test.launchApplication(app_url_AACT_OMR);
 		test.homePage.verifyUserIsOnHomePage("AACT OMR >> Login");
 		// weblogin="amyhageman";

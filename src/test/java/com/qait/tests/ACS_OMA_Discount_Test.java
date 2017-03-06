@@ -91,17 +91,9 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 		// + " " + userDetail[2],
 		// YamlReader.getYamlValue("creditCardInfo.Number"),
 		// YamlReader.getYamlValue("creditCardInfo.cvv-number"));
-		test.asm_storePage.enterPaymentInfo("CardholderName",  userDetail[1] + " " + userDetail[2]);
-		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes(
-				ASCSocietyGenericPage.map().get("Payment_Method"),
-				ASCSocietyGenericPage.map().get("Visa/MC_Card_Number"),
-				ASCSocietyGenericPage.map().get("Diners_Card_Number"),
-				ASCSocietyGenericPage.map().get("Reference_Number"),
-				ASCSocietyGenericPage.map().get("Discover_Card_Number"),
-				ASCSocietyGenericPage.map().get("AMEX_Card_Number"), ASCSocietyGenericPage.map().get("Expiry_Month"),
-				ASCSocietyGenericPage.map().get("CVV_Number"), ASCSocietyGenericPage.map().get("Check_Number"),
-				ASCSocietyGenericPage.map().get("Expiry_Year"));
 
+		test.asm_storePage.enterPaymentInfo("CardholderName",  userDetail[1] + " " + userDetail[2]);
+		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes();
 		test.checkoutPage.clickAtTestStatement();
 		test.ContactInfoPage.clickContinue();
 		test.checkoutPage.clickSubmitButtonAtBottom();

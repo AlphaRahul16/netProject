@@ -745,12 +745,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			hoverClick(element("btn_saveAndFinish"));
 			clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
 		} else
-			hoverClick(element("btn_saveAndFinish"));
-//			 clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
+			 clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
+
 //			hoverClick(element("btn_saveAndFinish"));
 		// element("btn_saveAndFinish").click();
-		wait.hardWait(25);
 		logMessage("STEP : Save and finish button is clicked\n");
+		wait.hardWait(25);
 		waitForSpinner();
 	}
 
@@ -1088,7 +1088,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnTab(String tabName) {
-		wait.hardWait(2);
+		wait.hardWait(4);
 		isElementDisplayed("link_tabsOnModule", tabName);
 		if (isBrowser("safari"))
 			element("link_tabsOnModule", tabName).click();
@@ -2473,13 +2473,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 		waitForSpinner();
 		wait.hardWait(2);
-		// isStringMatching(displayName,
-		// map().get("subscription" + numberOfSubscription));
+//		 isStringMatching(displayName,
+//		 map().get("subscription" + numberOfSubscription));
 
 		logMessage("ASSERT PASSED : Subscription name " + map().get("subscription" + numberOfSubscription)
 				+ " is matched\n");
-		// verifyItemAddedInLineItems(displayName.split(" - ")[0]);
+//		 verifyItemAddedInLineItems(displayName.split(" - ")[0]);
 		String[] arr = { displayName.split(" - ")[0], totalPrice };
+		System.out.println("-----arr:"+arr);
 		return arr;
 	}
 

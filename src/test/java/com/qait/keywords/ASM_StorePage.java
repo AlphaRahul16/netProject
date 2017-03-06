@@ -605,44 +605,13 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		enterPaymentInfo("CVV", CVV);
 	}
 
-	public void enterPaymentInformation_ACSStoreForAllPaymentTypes(String PaymentMethod, String cardNumber,
-			String dinerscardNumber, String referenceNumber, String discovercardNumber, String AMEXcardNumber,
-			String expireDate, String cvvNumber, String checkNumber) {
+	public void enterPaymentInformation_ACSStoreForAllPaymentTypes() {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(8);
-		selectPaymentInfo("CardType", PaymentMethod);
-
-		switch (PaymentMethod) {
-		case "Visa/MC":
-			enterPaymentInfo("CCNumber", cardNumber);
-			break;
-
-		case "BOA - Check":
-			enterPaymentInfo("CCNumber", checkNumber);
-			break;
-
-		case "check":
-			enterPaymentInfo("CCNumber", checkNumber);
-			break;
-
-		case "cash":
-			enterPaymentInfo("CCNumber", referenceNumber);
-			break;
-
-		case "Diners":
-			enterPaymentInfo("CCNumber", dinerscardNumber);
-			break;
-
-		case "Discover":
-			enterPaymentInfo("CCNumber", discovercardNumber);
-			break;
-		case "AMEX":
-			enterPaymentInfo("CCNumber", AMEXcardNumber);
-			break;
-
-		}
-		selectPaymentInfo("Expiration", expireDate);
-		enterPaymentInfo("CVV", cvvNumber);
+		selectPaymentInfo("CardType", map().get("Payment_Method"));
+		enterPaymentInfo("CCNumber", map().get(map().get("Payment_Method")+"_Card_Number"));
+		selectPaymentInfo("Expiration", map().get("Expiry_Date"));
+		enterPaymentInfo("CVV", map().get("CVV_Number"));
 	}
 
 	private void getPrepopulatedShippingAddressValues(String name) {
@@ -756,48 +725,19 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		logMessage("STEP : State is entered as Kentucky\n");
 	}
 
-	public void enterPaymentInformation_OMAForAllPaymentTypes(String PaymentMethod, String cardNumber,
-			String dinerscardNumber, String referenceNumber, String discovercardNumber, String AMEXcardNumber,
-			String expireMonth, String cvvNumber, String checkNumber, String expireYear) {
+	public void enterPaymentInformation_OMAForAllPaymentTypes() {
+	    String paymentMethod;
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(8);
-		selectPaymentInfo("CreditCardType", PaymentMethod);
-		System.out.println(cardNumber);
-		switch (PaymentMethod) {
-		case "Visa/MC":
-			enterPaymentInfo("CreditCardNumber", cardNumber);
-			break;
-
-		case "BOA - Check":
-			enterPaymentInfo("CreditCardNumber", checkNumber);
-			break;
-
-		case "check":
-			enterPaymentInfo("CreditCardNumber", checkNumber);
-			break;
-
-		case "cash":
-			enterPaymentInfo("CreditCardNumber", referenceNumber);
-			break;
-
-		case "Diners":
-			enterPaymentInfo("CreditCardNumber", dinerscardNumber);
-			break;
-
-		case "Discover":
-			enterPaymentInfo("CreditCardNumber", discovercardNumber);
-			break;
-		case "AMEX":
-			enterPaymentInfo("CreditCardNumber", AMEXcardNumber);
-			break;
-
-		}
+		selectPaymentInfo("CreditCardType", map().get("Payment_Method"));
+		paymentMethod=map().get("Payment_Method");
+		enterPaymentInfo("CreditCardNumber", map().get(paymentMethod+"_Card_Number"));
 		wait.hardWait(4);
-		selectPaymentInfo("ExpirationMonth", expireMonth);
+		selectPaymentInfo("ExpirationMonth", map().get("Expiry_Month"));
 		wait.hardWait(4);
-		selectPaymentInfo("ExpirationYear", expireYear);
-		enterPaymentInfo("CcvNumber", cvvNumber);
-		
+		selectPaymentInfo("ExpirationYear", map().get("Expiry_Year"));
+		enterPaymentInfo("CcvNumber", map().get("CVV_Number"));
+
 	}
 
 }
