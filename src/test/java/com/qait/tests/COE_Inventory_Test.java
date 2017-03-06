@@ -36,21 +36,18 @@ public class COE_Inventory_Test extends BaseTest {
 	@BeforeClass
 	public void OpenBrowserWindow() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
-		test.homePage.addValuesInMap("COE_Inventory", caseID);
+		ASCSocietyGenericPage.addValuesInMap("COE_Inventory", caseID);
 		app_url_IWEB = getYamlValue("app_url_IWEB");
-		System.out.println("App URL Iweb::" + app_url_IWEB);
 	}
 
 	@BeforeMethod
 	public void handleTestMethodName(Method method) {
-		Reporter.log("CASE ID::" + this.caseID, true);
 		test.printMethodName(method.getName());
+		Reporter.log("CASE ID::" + this.caseID+"\n", true);
 	}
 
 	@Test
 	public void Step01_Launch_Iweb_Application_And_Verify_User_Is_On_Home_Page() {
-
-		Reporter.log("STEP: Case id : "+caseID,true);
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
@@ -103,8 +100,8 @@ public class COE_Inventory_Test extends BaseTest {
 		 * YamlReader.getYamlValue("COE_Inventory.checkNumber"));
 		 */
 		test.memberShipPage.selectAndAddBatchIFNotPresent(
-				batchprefix + test.homePageIWEB.map().get("Batch_Name?") + System.currentTimeMillis(),
-				test.homePageIWEB.map().get("Payment_Type"), test.homePageIWEB.map().get("Payment_Method"));
+				batchprefix + ASCSocietyGenericPage.map().get("Batch_Name?") + System.currentTimeMillis(),
+				ASCSocietyGenericPage.map().get("Payment_Type"), ASCSocietyGenericPage.map().get("Payment_Method"));
 		
 		test.memberShipPage.fillAllTypeOFPaymentDetails(ASCSocietyGenericPage.map().get("Payment_Method"),
 				ASCSocietyGenericPage.map().get("Visa_Card_Number"),
