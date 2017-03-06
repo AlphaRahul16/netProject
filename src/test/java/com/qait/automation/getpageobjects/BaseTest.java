@@ -8,7 +8,7 @@ import com.qait.automation.TestSessionInitiator;
 
 public class BaseTest {
 	public TestSessionInitiator test;
-	protected static String caseID;
+	protected String caseID;
 
 	@AfterMethod(alwaysRun=true)
 	public void take_screenshot_on_failure(ITestResult result) {

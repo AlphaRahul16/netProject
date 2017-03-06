@@ -45,8 +45,8 @@ public class ACS_MGM_Test extends BaseTest {
 		app_url_MGMjoin = getYamlValue("app_url_MGMjoin");
 		app_url_MGMOptOut = getYamlValue("app_url_MGMOputOut");
 		app_url_MGMLogout = getYamlValue("app_url_MGMLogout");
-		toString();
-		ASCSocietyGenericPage.addValuesInMap("MGM", String.valueOf(caseID));
+		test.homePage.addValuesInMap("MGM", toString().valueOf(caseID));
+
 		test.launchApplication(app_url_IWEB);
 		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
@@ -98,20 +98,12 @@ public class ACS_MGM_Test extends BaseTest {
 
 		test.BenefitsPage.addACSPublicationAndTechnicalDivision(caseID);
 		test.ContactInfoPage.clickContinue();
-
-		// test.checkoutPage.enterPaymentInfo(YamlReader.getYamlValue("creditCardInfo.Type"),
-		// fname_Iweb + " " + lname_Iweb,
-		// YamlReader.getYamlValue("creditCardInfo.Number"),
-		// YamlReader.getYamlValue("creditCardInfo.cvv-number"));
-
-		test.asm_storePage.enterPaymentInfo("CardholderName", fname_Iweb + " " + lname_Iweb);
-		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes(ASCSocietyGenericPage.map().get("Payment_Method"),
-				ASCSocietyGenericPage.map().get("Visa_Card_Number"), ASCSocietyGenericPage.map().get("Diners_Card_Number"),
-				ASCSocietyGenericPage.map().get("Reference_Number"), ASCSocietyGenericPage.map().get("Discover_Card_Number"),
-				ASCSocietyGenericPage.map().get("AMEX_Card_Number"), ASCSocietyGenericPage.map().get("Expiry_Month"),
-				ASCSocietyGenericPage.map().get("CVV_Number"), ASCSocietyGenericPage.map().get("Check_Number"),
-				ASCSocietyGenericPage.map().get("Expiry_Year"));
-
+//		test.checkoutPage.enterPaymentInfo(YamlReader.getYamlValue("creditCardInfo.Type"),
+//				fname_Iweb + " " + lname_Iweb, YamlReader.getYamlValue("creditCardInfo.Number"),
+//				YamlReader.getYamlValue("creditCardInfo.cvv-number"));
+		
+		test.asm_storePage.enterPaymentInfo("CardholderName","test Selenium");
+		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes();
 		test.checkoutPage.clickAtTestStatement();
 		test.ContactInfoPage.clickContinue();
 		test.checkoutPage.clickSubmitButtonAtBottom();
@@ -182,18 +174,12 @@ public class ACS_MGM_Test extends BaseTest {
 		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		test.asm_MGM.clickOnRenewYourMembershipNow();
 		test.asm_OMR.OMRLogo("Online Membership Renewal");
-		// test.asm_OMR.submitPaymentDetails(YamlReader.getYamlValue("creditCardInfo.Type"),
-		// fname_Iweb + " " + lname_Iweb,
-		// YamlReader.getYamlValue("creditCardInfo.Number"),
-		// YamlReader.getYamlValue("creditCardInfo.cvv-number"),
-		// YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[0],
-		// YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[1]);
-		test.asm_OMR.submitPaymentDetails(ASCSocietyGenericPage.map().get("Payment_Method"), fname_Iweb + " " + lname_Iweb,
-				String.valueOf(ASCSocietyGenericPage.map().get("Visa_Card_Number").trim()),
-				ASCSocietyGenericPage.map().get("Diners_Card_Number"), ASCSocietyGenericPage.map().get("Discover_Card_Number"),
-				ASCSocietyGenericPage.map().get("AMEX_Card_Number"), ASCSocietyGenericPage.map().get("CVV_Number"),
-				ASCSocietyGenericPage.map().get("Expiry_Month"), ASCSocietyGenericPage.map().get("Expiry_Year"));
-
+//		test.asm_OMR.submitPaymentDetails(YamlReader.getYamlValue("creditCardInfo.Type"), fname_Iweb + " " + lname_Iweb,
+//				YamlReader.getYamlValue("creditCardInfo.Number"), YamlReader.getYamlValue("creditCardInfo.cvv-number"),
+//				YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[0],
+//				YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[1]);
+		
+		test.asm_OMR.submitPaymentDetails("test Selenium");
 		test.asm_OMR.clickOnSubmitPayment();
 		test.launchApplication(app_url_MGMLogout);
 		test.launchApplication(app_url_MGMUrl);
@@ -275,20 +261,11 @@ public class ACS_MGM_Test extends BaseTest {
 		test.BenefitsPage.addACSPublicationAndTechnicalDivision(caseID);
 		test.ContactInfoPage.clickContinue();
 		test.checkoutPage.verifySourceCodeIsAlreadyPrepoulated(sourceCode);
-
-		// test.checkoutPage.enterPaymentInfo(YamlReader.getYamlValue("creditCardInfo.Type"),
-		// fname + " " + lname,
-		// YamlReader.getYamlValue("creditCardInfo.Number"),
-		// YamlReader.getYamlValue("creditCardInfo.cvv-number"));
-
-		test.asm_storePage.enterPaymentInfo("CardholderName", fname+" "+lname);
-		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes(ASCSocietyGenericPage.map().get("Payment_Method"),
-				ASCSocietyGenericPage.map().get("Visa_Card_Number"), ASCSocietyGenericPage.map().get("Diners_Card_Number"),
-				ASCSocietyGenericPage.map().get("Reference_Number"), ASCSocietyGenericPage.map().get("Discover_Card_Number"),
-				ASCSocietyGenericPage.map().get("AMEX_Card_Number"), ASCSocietyGenericPage.map().get("Expiry_Month"),
-				ASCSocietyGenericPage.map().get("CVV_Number"), ASCSocietyGenericPage.map().get("Check_Number"),
-				ASCSocietyGenericPage.map().get("Expiry_Year"));
-
+//		test.checkoutPage.enterPaymentInfo(YamlReader.getYamlValue("creditCardInfo.Type"), fname + " " + lname,
+//				YamlReader.getYamlValue("creditCardInfo.Number"), YamlReader.getYamlValue("creditCardInfo.cvv-number"));
+		
+		test.asm_storePage.enterPaymentInfo("CardholderName","test Selenium");
+		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes();
 		test.checkoutPage.clickAtTestStatement();
 		test.ContactInfoPage.clickContinue();
 		test.checkoutPage.clickSubmitButtonAtBottom();

@@ -79,7 +79,7 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		test.checkoutPage.verifyMultiYearShow_Hide(ASCSocietyGenericPage.map().get("multiYearFlag?"));
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
-		//test.checkoutPage.verifyPriceValues_OMADiscount(caseID);
+		test.checkoutPage.verifyPriceValues_OMADiscount(caseID);
 		test.checkoutPage.verifyMemberDetail(caseID);
 		test.checkoutPage.verifyMemberEmail(userEmail);
 		productSubTotal = test.checkoutPage.verifyProductSubTotal("4", "Product Subtotal");
@@ -92,13 +92,7 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 		// YamlReader.getYamlValue("creditCardInfo.Number"),
 		// YamlReader.getYamlValue("creditCardInfo.cvv-number"));
 		test.asm_storePage.enterPaymentInfo("CardholderName", "test Selenium");
-		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes(ASCSocietyGenericPage.map().get("Payment_Method"),
-				ASCSocietyGenericPage.map().get("Visa_Card_Number"), ASCSocietyGenericPage.map().get("Diners_Card_Number"),
-				ASCSocietyGenericPage.map().get("Reference_Number"), ASCSocietyGenericPage.map().get("Discover_Card_Number"),
-				ASCSocietyGenericPage.map().get("AMEX_Card_Number"), ASCSocietyGenericPage.map().get("Expiry_Month"),
-				ASCSocietyGenericPage.map().get("CVV_Number"), ASCSocietyGenericPage.map().get("Check_Number"),
-				ASCSocietyGenericPage.map().get("Expiry_Year"));
-
+		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes();
 		test.checkoutPage.clickAtTestStatement();
 		test.ContactInfoPage.clickContinue();
 		test.checkoutPage.clickSubmitButtonAtBottom();

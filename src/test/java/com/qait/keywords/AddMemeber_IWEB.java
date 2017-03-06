@@ -65,7 +65,7 @@ public class AddMemeber_IWEB extends ASCSocietyGenericPage {
 		hardWaitForChromeBrowser(6);
 		enterMemberDetail("addressLine1", street);
 		wait.hardWait(5);
-		if(ConfigPropertyReader.getProperty("tier").contains("stage7") || ConfigPropertyReader.getProperty("tier").contains("Stage7"))		
+		if(ConfigPropertyReader.getProperty("tier").contains("Stage7") || ConfigPropertyReader.getProperty("tier").contains("stage7"))		
 			enterMemberDetailsCity("city/state/zip", city);
 		else
 			enterMemberDetails("city/state/zip", city);		

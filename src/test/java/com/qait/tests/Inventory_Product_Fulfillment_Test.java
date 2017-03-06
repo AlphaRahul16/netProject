@@ -21,7 +21,7 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 	String price, batchprefix = "ACS: ";
 	List<String> customerFullNameList;
 	String productName = null, productCode = null;
-	private String caseID;
+//	private String caseID;
 
 	public Inventory_Product_Fulfillment_Test() {
 		com.qait.tests.DataProvider_FactoryClass.sheetName = "Inventory_Product_Fulfillment";
@@ -35,7 +35,7 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 	@BeforeClass
 	public void OpenBrowserWindow() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
-		ASCSocietyGenericPage.addValuesInMap("COE_Inventory", caseID);
+		test.homePage.addValuesInMap("COE_Inventory", caseID);
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		System.out.println("App URL Iweb::" + app_url_IWEB);
 	}
@@ -47,6 +47,7 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 
 	@Test
 	public void Step01_Launch_Iweb_Application_And_Verify_User_Is_On_Home_Page() {
+		System.out.println("Step: Case Id is "+this.caseID);
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
@@ -66,8 +67,7 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 	@Test(dependsOnMethods = "Step02_Select_And_Run_Query_And_Verify_User_Is_On_Individual_Profile_Page")
 	public void Step03_Click_On_Order_Entry_Button_And_Verify_Centralized_Order_Entry_Page() {
 		test.memberShipPage.clickOnOrderEntryIcon();
-		// test.memberShipPage.verifyCentralizedOrderEntryPage("Centralized
-		// Order Entry");
+		 test.memberShipPage.verifyCentralizedOrderEntryPage("Centralized Order Entry");
 	}
 
 	@Test(dependsOnMethods = "Step03_Click_On_Order_Entry_Button_And_Verify_Centralized_Order_Entry_Page")
