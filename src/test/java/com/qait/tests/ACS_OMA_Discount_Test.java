@@ -84,14 +84,15 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 		test.checkoutPage.verifyMemberEmail(userEmail);
 		productSubTotal = test.checkoutPage.verifyProductSubTotal("4", "Product Subtotal");
 		Total = test.checkoutPage.verifyTotal(currency);
-		//test.checkoutPage.verifyTechnicalDivision(caseID);
-		//test.checkoutPage.verifyPublication(caseID);
+		test.checkoutPage.verifyTechnicalDivision(caseID);
+		test.checkoutPage.verifyPublication(caseID);
 		// test.checkoutPage.enterPaymentInfo(
 		// YamlReader.getYamlValue("creditCardInfo.Type"), userDetail[1]
 		// + " " + userDetail[2],
 		// YamlReader.getYamlValue("creditCardInfo.Number"),
 		// YamlReader.getYamlValue("creditCardInfo.cvv-number"));
-		test.asm_storePage.enterPaymentInfo("CardholderName", "test Selenium");
+
+		test.asm_storePage.enterPaymentInfo("CardholderName",  userDetail[1] + " " + userDetail[2]);
 		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes();
 		test.checkoutPage.clickAtTestStatement();
 		test.ContactInfoPage.clickContinue();

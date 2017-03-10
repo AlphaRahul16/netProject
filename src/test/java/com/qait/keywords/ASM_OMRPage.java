@@ -309,17 +309,34 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 	}
 
-	public void submitPaymentDetailsForAutoRenewal(String cardType, String cardholderName, String cardNumber,
-			String cvvNumber, String date_Value, String year_Value) {
+	public void submitPaymentDetailsForAutoRenewal(String cardType, String cardholderName, String cardNumber, String dinerscardNumber,
+			String discovercardNumber, String AMEXcardNumber, String cvvNumber, String date_Value, String year_Value) {
 		switchToDefaultContent();
 		switchToFrame("eWebFrame");
 		selectCreditCardType(cardType);
 		enterCreditCardHolderName(cardholderName);
-		enterCreditCardNumber(cardNumber);
+
+		switch (cardType) {
+		case "Visa/MC":
+			enterCreditCardNumber(cardNumber);
+			break;
+		case "Diners":
+			enterCreditCardNumber(dinerscardNumber);
+			break;
+		case "Discover":
+			enterCreditCardNumber(discovercardNumber);
+			break;
+		case "AMEX":
+			enterCreditCardNumber(AMEXcardNumber);
+			break;
+
+		}
+
 		enterCVVNumber(cvvNumber);
 		wait.hardWait(1);
 		// selectExpirationDate_Year("Date", date_Value);
 		selectExpirationDate_Year("Year", year_Value);
+		
 		checkAutoRenewalBox();
 		checkEula();
 		hardWaitForIEBrowser(4);

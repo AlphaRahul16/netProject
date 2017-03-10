@@ -63,7 +63,6 @@ public class ACS_AutoRenewalSelectionOMR extends BaseTest {
 
 		mapRenewedProductDetails = test.asm_OMR.saveProductsWithRespectiveRenewalAmount();
 		toString();
-		//test.asm_OMR.submitPaymentDetailsForAutoRenewal(YamlReader.getYamlValue("creditCardInfo.Type"),
 		// (memDetails.get(0).split(" ")[1] + " " + memDetails.get(0).split("
 		// ")[0]),
 		// YamlReader.getYamlValue("creditCardInfo.Number"),

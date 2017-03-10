@@ -732,12 +732,12 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 		selectPaymentInfo("CreditCardType", map().get("Payment_Method"));
 		paymentMethod=map().get("Payment_Method");
 		enterPaymentInfo("CreditCardNumber", map().get(paymentMethod+"_Card_Number"));
-
 		wait.hardWait(4);
 		selectPaymentInfo("ExpirationMonth", map().get("Expiry_Month"));
 		wait.hardWait(4);
 		selectPaymentInfo("ExpirationYear", map().get("Expiry_Year"));
 		enterPaymentInfo("CcvNumber", map().get("CVV_Number"));
+
 	}
 
 }

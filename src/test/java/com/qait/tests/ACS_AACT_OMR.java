@@ -5,7 +5,9 @@ import static com.qait.automation.utils.YamlReader.getYamlValue;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
@@ -25,6 +27,7 @@ public class ACS_AACT_OMR extends BaseTest {
 	private String caseID, email, membershipType, invoiceTotal, queryPageUrl;
 	private boolean isPrimary;
 	List<String> customerFullNameList;
+	Map<String, List<String>> updatedDetailsOfMember = new HashMap<String, List<String>>();
 
 	String app_url_IWEB = getYamlValue("app_url_IWEB");
 	String app_url_AACT_OMR = getYamlValue("app_url_AACT_OMR");
@@ -36,14 +39,15 @@ public class ACS_AACT_OMR extends BaseTest {
 	@BeforeClass
 	public void initiateTestSession() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
-		if (caseID != null) {
-			Reporter.log("       TEST CASE ID : " + caseID + "       \n", true);
-		}
+
 	}
 
 	@BeforeMethod
 	public void printCaseIdExecuted(Method method) {
 		test.printMethodName(method.getName());
+		if (caseID != null) {
+			Reporter.log("       TEST CASE ID : " + caseID + "       \n", true);
+		}
 
 	}
 
@@ -79,10 +83,10 @@ public class ACS_AACT_OMR extends BaseTest {
 		test.homePage.addValuesInMap("AACT_OMR", caseID);
 		test.launchApplication(app_url_AACT_OMR);
 		test.homePage.verifyUserIsOnHomePage("AACT OMR >> Login");
+		// weblogin="amyhageman";
 		test.acs_aactOmr.loginWithWeblogin(weblogin, "password");
 		test.award_ewebPage.clickOnLoginButton();
 		test.homePage.verifyUserIsOnHomePage("AACT OMR >> Demographics");
-
 	}
 
 	@Test(dependsOnMethods = "Step03_Launch_EWEB_Application_And_Login_With_Weblogin")
@@ -102,19 +106,19 @@ public class ACS_AACT_OMR extends BaseTest {
 				ASCSocietyGenericPage.map().get("How do you want to receive ChemMatters?"), membershipType,
 				customerFullNameList.get(2).trim());
 		productName = test.acs_aactOmr.getMembershipDetailsFromMembershipInvoiceTable("Product Name");
-		updatedValues = test.acs_aactOmr.updateDetailsfoAboutYouSection();
+		updatedDetailsOfMember = test.acs_aactOmr.updateDetailsInAboutYouSection(membershipType);
 	}
 
 	@Test(dependsOnMethods = "Step05_Select_Value_For_Delivery_Method_And_Update_Details_Of_About_You")
 	public void Step06_Verify_Details_Of_About_You_And_Enter_Gender_Experience_Gradutaion_Date() {
 
 		test.acs_aactOmr.verifydetailsOnOnlineMembershipRenewalPage(email, "EmailAddress");
-		test.acs_aactOmr.verifyDetailsOfUpdateAboutYou(updatedValues);
 		test.acs_aactOmr.verifyWorkAddressIsPrimary(isPrimary);
+		test.acs_aactOmr.verifyDetailsOfUpdateAboutYou(membershipType, updatedDetailsOfMember);
 		test.acs_aactOmr.enterGenderExperienceAndGraduationDetails(ASCSocietyGenericPage.map().get("Gender").trim(),
 				ASCSocietyGenericPage.map().get("Experience").trim(),
-				ASCSocietyGenericPage.map().get("GradMonth").trim(),
-				ASCSocietyGenericPage.map().get("GradYear").trim());
+				ASCSocietyGenericPage.map().get("GradMonth").trim(), ASCSocietyGenericPage.map().get("GradYear").trim(),
+				membershipType);
 	}
 
 	@Test(dependsOnMethods = "Step06_Verify_Details_Of_About_You_And_Enter_Gender_Experience_Gradutaion_Date")
@@ -127,7 +131,7 @@ public class ACS_AACT_OMR extends BaseTest {
 				ASCSocietyGenericPage.map().get("CVV_Number").trim(),
 				ASCSocietyGenericPage.map().get("Expiry_Month").trim(),
 				ASCSocietyGenericPage.map().get("Expiry_Year").trim());
-		test.acs_aactOmr.checkAutoRenwealCheckbox("chkAutoRenewal");
+		test.acs_aactOmr.checkAutoRenwealCheckbox(membershipType);
 		test.acs_aactOmr.clickButtonById("btnNext", "Continue");
 	}
 
@@ -204,7 +208,7 @@ public class ACS_AACT_OMR extends BaseTest {
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Payments");
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("payments");
 		test.memberShipPage.verifyDetailsForPaymentsChildForm("Payment",
-				ASCSocietyGenericPage.map().get("CreditCardType").trim(), membershipType, invoiceTotal, productName);
+				ASCSocietyGenericPage.map().get("Payment_Method").trim(), membershipType, invoiceTotal, productName);
 	}
 
 }

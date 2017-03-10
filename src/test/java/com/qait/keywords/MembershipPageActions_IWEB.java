@@ -4793,7 +4793,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void selectAndAddBatchIFNotPresent(String batchName, String paymentType, String paymentMethod) {
 
 		holdExecution(2000);
-
+		System.out.println("******batch name"+batchName);
 		if (verifyBatchIsPresent(batchName)) {
 			selectOrderEntryInfo("batch", batchName);
 		} else {
