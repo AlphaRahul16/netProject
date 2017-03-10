@@ -745,7 +745,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			hoverClick(element("btn_saveAndFinish"));
 			clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
 		} else
-			 clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
+			hoverClick(element("btn_saveAndFinish"));
+//			 clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
 
 //			hoverClick(element("btn_saveAndFinish"));
 		// element("btn_saveAndFinish").click();
@@ -2332,7 +2333,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// clickUsingXpathInJavaScriptExecutor(element("txt_priceOrderEntryLineItmes",
 		// itemName));
 		// element("txt_priceOrderEntryLineItmes", itemName).click();
-		scrollDown(element("txt_priceOrderEntryLineItmes", itemName));
+//		scrollDown(element("txt_priceOrderEntryLineItmes", itemName));
 		isElementDisplayed("txt_priceOrderEntryLineItmes", itemName);
 		String actualPrice = element("txt_priceOrderEntryLineItmes", itemName).getText().trim();
 
@@ -2386,6 +2387,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 			handleAlert();
 			waitForSpinner();
+			isElementDisplayed("form_coe");
+			hoverAndClickOnCoeForm("form_coe");
 			hardWaitForIEBrowser(4);
 
 			verifyPrice(productName_TotalPrice[0], map().get("Sub" + i + "_SalePrice?"));
@@ -2480,7 +2483,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ " is matched\n");
 //		 verifyItemAddedInLineItems(displayName.split(" - ")[0]);
 		String[] arr = { displayName.split(" - ")[0], totalPrice };
-		System.out.println("-----arr:"+arr);
 		return arr;
 	}
 
@@ -3814,6 +3816,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyDataBeforeTransferFullFilledTheCriteria(LinkedHashMap<String, String> beforeList,
 			HashMap<String, String> dataList, String ID, String custId) {
 		boolean flag = true;
+		System.out.println("-----beforeList:"+beforeList.values());
 		for (Map.Entry before : beforeList.entrySet()) {
 			System.out.println("Before Key::" + before.getKey().toString().trim() + "1");
 			System.out.println("Data List Key Value::" + dataList.get(before.getKey().toString() + "1"));

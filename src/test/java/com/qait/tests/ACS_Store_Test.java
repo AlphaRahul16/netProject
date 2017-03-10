@@ -139,7 +139,6 @@ public class ACS_Store_Test extends BaseTest {
 
 	@BeforeClass
 	public void OpenBrowserWindow() {
-		System.out.println("asfseg");
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url_IWEB = YamlReader.getYamlValue("app_url_IWEB");
 		app_url_Store = YamlReader.getYamlValue("app_url_Store");

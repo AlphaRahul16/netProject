@@ -265,7 +265,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		selectCreditCardType(map().get("Payment_Method"));
 		enterCreditCardHolderName(cardholderName);
 		String paymentMethod = map().get("Payment_Method");
-		enterCreditCardNumber(map().get(paymentMethod+"_Card_Number"));
+		enterCreditCardNumber(map().get(paymentMethod + "_Card_Number"));
 
 		enterCVVNumber(map().get("CVV_Number"));
 		wait.hardWait(1);
@@ -275,6 +275,29 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		clickOnContinueButton();
 		wait.hardWait(20);
 		switchToDefaultContent();
+
+	}
+
+	public void submitPaymentDetailsForAutoRenewal(String cardholderName) {
+		wait.hardWait(4);
+		switchToDefaultContent();
+		switchToFrame("eWebFrame");
+		selectCreditCardType(map().get("Payment_Method"));
+		enterCreditCardHolderName(cardholderName);
+		String paymentMethod = map().get("Payment_Method");
+		enterCreditCardNumber(map().get(paymentMethod + "_Card_Number"));
+
+		enterCVVNumber(map().get("CVV_Number"));
+		wait.hardWait(1);
+		selectExpirationDate_Year("Date", map().get("CreditCardExpiration_Month"));
+		selectExpirationDate_Year("Year", map().get("CreditCardExpiration_Year"));
+		checkAutoRenewalBox();
+		checkEula();
+		hardWaitForIEBrowser(4);
+		clickOnContinueButton();
+		switchToDefaultContent();
+		wait.hardWait(4);
+		wait.waitForPageToLoadCompletely();
 
 	}
 
