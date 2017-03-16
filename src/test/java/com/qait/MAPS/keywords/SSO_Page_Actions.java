@@ -47,6 +47,13 @@ public class SSO_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("Step : "+fieldname+" on SSO Page is entered as "+fieldvalue);
 		
 	}
+	
+	public void clickOnTabOnUpperNavigationBar(String tabName)
+	{
+		isElementDisplayed("btn_nav_Heading",tabName);
+		click(element("btn_nav_Heading",tabName));
+		logMessage("Step : Log In Button is clicked on SSO Page");
+	}
 
 
 
