@@ -321,7 +321,6 @@ public class ASM_DonatePage extends GetPage {
 	public void enterCreditCardNumber(String cardNumber) {
 		wait.hardWait(3);
 		isElementDisplayed("inp_cardNumber");
-		System.out.println("------cardNumber:" + cardNumber);
 		element("inp_cardNumber").sendKeys(cardNumber);
 		logMessage("STEP : " + cardNumber + " is entered in inp_cardNumber\n");
 	}
@@ -371,10 +370,8 @@ public class ASM_DonatePage extends GetPage {
 
 	}
 
-	public void enterPaymentDetailsForACSDonateSmoke(List<String> memberLoginDetails, String paymentMethod,
-			String cardHolderName, String cardNumber, String dinerscardNumber, String discovercardNumber,
-			String AMEXcardNumber, String cvvNumber, String date_Value, String year_Value) {
-		selectCreditCardType(paymentMethod);
+	public void enterPaymentDetailsForACSDonateSmoke(List<String> memberLoginDetails,String cardHolderName,Map<String,String> dataMap) {
+		selectCreditCardType(dataMap.get("Payment_Method"));
 		if (memberLoginDetails.size() != 1) {
 			System.out.println(memberLoginDetails.size());
 			System.out.println(MemberFullName.get(0));
@@ -385,25 +382,27 @@ public class ASM_DonatePage extends GetPage {
 		} else if (memberLoginDetails.size() == 1) {
 			enterCreditCardHolderName(cardHolderName);
 		}
+		
+		enterCreditCardNumber(dataMap.get(dataMap.get("Payment_Method")+"_Card_Number"));
 
-		switch (paymentMethod) {
-		case "Visa/MC":
-			enterCreditCardNumber(cardNumber);
-			break;
-		case "Diners":
-			enterCreditCardNumber(dinerscardNumber);
-			break;
-		case "Discover":
-			enterCreditCardNumber(discovercardNumber);
-			break;
-		case "AMEX":
-			enterCreditCardNumber(AMEXcardNumber);
-			break;
-
-		}
-		enterCVVNumber(cvvNumber);
-		selectExpirationDate_Year("Date", date_Value);
-		selectExpirationDate_Year("Year", year_Value);
+//		switch (paymentMethod) {
+//		case "Visa/MC":
+//			enterCreditCardNumber(cardNumber);
+//			break;
+//		case "Diners":
+//			enterCreditCardNumber(dinerscardNumber);
+//			break;
+//		case "Discover":
+//			enterCreditCardNumber(discovercardNumber);
+//			break;
+//		case "AMEX":
+//			enterCreditCardNumber(AMEXcardNumber);
+//			break;
+//
+//		}
+		enterCVVNumber(dataMap.get("CVV_Number"));
+		selectExpirationDate_Year("Date", dataMap.get("CreditCardExpiration_Month"));
+		selectExpirationDate_Year("Year", dataMap.get("CreditCardExpiration_Year"));
 		clickOnSubmitPaymentButton();
 
 	}

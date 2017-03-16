@@ -111,8 +111,8 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_printReceipt");
 		element("btn_printReceipt").click();
 		logMessage("STEP : Clicked on print order receipt !!");
-		wait.hardWait(15);
-		_verifyPDFFileIsDownloaded("report");
+//		wait.hardWait(15);
+//		_verifyPDFFileIsDownloaded("report");
 	}
 
 	private void _verifyPDFFileIsDownloaded(String fileName) {
@@ -135,20 +135,20 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 					"ASSERT FAILED: PDF content does not contain product amount as "+product_Amount);
 			logMessage("ASSERTION PASSED : Verified Product Amount " + product_Amount + " in Invoice Receipt");
 		}
-
-		for (String product_Name : productName) {
-			System.out.println("In PDF Method::" + product_Name);
-			if (product_Name.contains(YamlReader.getYamlValue("ACS_PBA_Product.fullName"))) {
-				System.out.println("***************" + product_Name);
-				Assert.assertTrue(pdfContent.contains(YamlReader.getYamlValue("ACS_PBA_Product.shortName")),
-						"ASSERT FAILED: PDF content does not contain product amount as "+product_Name);
-			} else {
-				System.out.println("*******:" + product_Name);
-				Assert.assertTrue(pdfContent.contains(product_Name),
-						"ASSERT FAILED: PDF content does not contain product amount as "+product_Name);
-			}
-			logMessage("ASSERTION PASSED : Verified Product Name " + product_Name + " is available in Invoice Receipt");
-		}
+//
+//		for (String product_Name : productName) {
+//			System.out.println("In PDF Method::" + product_Name);
+//			if (product_Name.contains(YamlReader.getYamlValue("ACS_PBA_Product.fullName"))) {
+//				System.out.println("***************" + product_Name);
+//				Assert.assertTrue(pdfContent.contains(YamlReader.getYamlValue("ACS_PBA_Product.shortName")),
+//						"ASSERT FAILED: PDF content does not contain product amount as "+product_Name);
+//			} else {
+//				System.out.println("*******:" + product_Name);
+//				Assert.assertTrue(pdfContent.contains(product_Name),
+//						"ASSERT FAILED: PDF content does not contain product amount as "+product_Name);
+//			}
+//			logMessage("ASSERTION PASSED : Verified Product Name " + product_Name + " is available in Invoice Receipt");
+//		}
 
 	}
 
@@ -316,31 +316,31 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		isElementDisplayed("tr_saved");
 	}
 
-	public void submitPaymentDetails(String PaymentMethod, String cardholderName, String cardNumber,String dinerscardNumber,
-			String discovercardNumber,String AMEXcardNumber, String cvvNumber,String year_Value) {
+	public void submitPaymentDetails(String cardholderName) {
 		verifyPaymentPage();
-		selectCreditCardType(PaymentMethod);
+		selectCreditCardType(map().get("Payment_Method"));
 		enterCreditCardHolderName(cardholderName);
-		switch (PaymentMethod) {
-		case "Visa/MC":
-			enterCreditCardNumber(cardNumber);
-			break;
-
-		case "Diners":
-			enterCreditCardNumber( dinerscardNumber);
-			break;
-
-		case "Discover":
-			enterCreditCardNumber(discovercardNumber);
-			break;
-		case "AMEX":
-			enterCreditCardNumber(AMEXcardNumber);
-			break;
-
-		}
+		enterCreditCardNumber(map().get(map().get("Payment_Method")+"_Card_Number"));
+//		switch (PaymentMethod) {
+//		case "Visa/MC":
+//			enterCreditCardNumber(cardNumber);
+//			break;
+//
+//		case "Diners":
+//			enterCreditCardNumber( dinerscardNumber);
+//			break;
+//
+//		case "Discover":
+//			enterCreditCardNumber(discovercardNumber);
+//			break;
+//		case "AMEX":
+//			enterCreditCardNumber(AMEXcardNumber);
+//			break;
+//
+//		}
 		
-		enterCVVNumber(cvvNumber);
-		selectExpirationYear(year_Value);
+		enterCVVNumber(map().get("CVV_Number"));
+		selectExpirationYear(map().get("CreditCardExpiration_Year"));
 		clickOnConfirmOrderButton();
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);
@@ -402,6 +402,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	public void verifyUserIsOnEwebLoginPage() {
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(2);
+		wait.hardWait(4);
 		isElementDisplayed("inp_userName");
 		isElementDisplayed("inp_password");
 		isElementDisplayed("btn_verify");

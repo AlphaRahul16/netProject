@@ -51,7 +51,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	}
 
 	public void loginIntoApplication_LastName_MemberNumber(String lastName, String memberNumber) {
-		System.out.println("1");
+		wait.hardWait(4);
 		switchToFrame(element("iframe_ewebframe"));
 		wait.hardWait(2);
 		selectLoginRadioButton("LNMemNo");
@@ -262,7 +262,58 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 	}
 
-	public void submitPaymentDetails(String cardType, String cardholderName, String cardNumber, String dinerscardNumber,
+	public void submitPaymentDetails(String cardholderName) {
+		wait.hardWait(4);
+		switchToDefaultContent();
+		switchToFrame("eWebFrame");
+		selectCreditCardType(map().get("Payment_Method"));
+		enterCreditCardHolderName(cardholderName);
+		String paymentMethod = map().get("Payment_Method");
+		enterCreditCardNumber(map().get(paymentMethod + "_Card_Number"));
+
+		enterCVVNumber(map().get("CVV_Number"));
+		wait.hardWait(1);
+		selectExpirationDate_Year("Date", map().get("CreditCardExpiration_Month"));
+		selectExpirationDate_Year("Year", map().get("CreditCardExpiration_Year"));
+		checkEula();
+		clickOnContinueButton();
+		wait.hardWait(20);
+		switchToDefaultContent();
+
+	}
+
+	public void submitPaymentDetailsForAutoRenewal(String cardholderName) {
+		wait.hardWait(4);
+		switchToDefaultContent();
+		switchToFrame("eWebFrame");
+		selectCreditCardType(map().get("Payment_Method"));
+		enterCreditCardHolderName(cardholderName);
+		String paymentMethod = map().get("Payment_Method");
+		enterCreditCardNumber(map().get(paymentMethod + "_Card_Number"));
+
+		enterCVVNumber(map().get("CVV_Number"));
+		wait.hardWait(1);
+		selectExpirationDate_Year("Date", map().get("CreditCardExpiration_Month"));
+		selectExpirationDate_Year("Year", map().get("CreditCardExpiration_Year"));
+		checkAutoRenewalBox();
+		checkEula();
+		hardWaitForIEBrowser(4);
+		clickOnContinueButton();
+		switchToDefaultContent();
+		wait.hardWait(4);
+		wait.waitForPageToLoadCompletely();
+
+	}
+
+	public void navigateToCheckOutPageForGCSOMR() {
+		switchToDefaultContent();
+		switchToFrame("eWebFrame");
+		checkEula();
+		clickOnContinueButton();
+		switchToDefaultContent();
+	}
+
+	public void submitPaymentDetailsForAutoRenewal(String cardType, String cardholderName, String cardNumber, String dinerscardNumber,
 			String discovercardNumber, String AMEXcardNumber, String cvvNumber, String date_Value, String year_Value) {
 		switchToDefaultContent();
 		switchToFrame("eWebFrame");
@@ -289,32 +340,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		wait.hardWait(1);
 		// selectExpirationDate_Year("Date", date_Value);
 		selectExpirationDate_Year("Year", year_Value);
-		checkEula();
-		clickOnContinueButton();
-		wait.hardWait(20);
-		switchToDefaultContent();
-
-	}
-
-	public void navigateToCheckOutPageForGCSOMR() {
-		switchToDefaultContent();
-		switchToFrame("eWebFrame");
-		checkEula();
-		clickOnContinueButton();
-		switchToDefaultContent();
-	}
-
-	public void submitPaymentDetailsForAutoRenewal(String cardType, String cardholderName, String cardNumber,
-			String cvvNumber, String date_Value, String year_Value) {
-		switchToDefaultContent();
-		switchToFrame("eWebFrame");
-		selectCreditCardType(cardType);
-		enterCreditCardHolderName(cardholderName);
-		enterCreditCardNumber(cardNumber);
-		enterCVVNumber(cvvNumber);
-		wait.hardWait(1);
-		// selectExpirationDate_Year("Date", date_Value);
-		selectExpirationDate_Year("Year", year_Value);
+		
 		checkAutoRenewalBox();
 		checkEula();
 		hardWaitForIEBrowser(4);
@@ -897,6 +923,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 
 	public void selectNoIfRegularToEmeritusPromptAppears() {
 
+		wait.hardWait(4);
 		switchToEwebRenewalFrame();
 		try {
 			wait.resetImplicitTimeout(5);

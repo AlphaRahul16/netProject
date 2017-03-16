@@ -1,5 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="ACS Tests" preserve-order="true" thread-count="1" configfailurepolicy="continue">
+<suite name="ACS Tests" preserve-order="true" thread-count="1"
+	configfailurepolicy="continue">
 
 	<test name="ACS_Apply_Payment_Test" group-by-instances="true">
 		<classes>
@@ -12,15 +13,17 @@
 			<class name="com.qait.tests.COE_Inventory_Test"></class>
 		</classes>
 	</test>
-	<test name="ACS Gift Card Test" group-by-instances="true" >
-  <method-selectors>
-       <method-selector><script language="beanshell"><![CDATA[
+	<test name="ACS Gift Card Test" group-by-instances="true">
+		<method-selectors>
+			<method-selector>
+				<script language="beanshell"><![CDATA[
         String caseid = System.getProperty("caseID");
         groups.containsKey(caseid)
-       ]]></script></method-selector>
-   </method-selectors>
-    <classes>
-       <class name="com.qait.tests.ACS_GiftCard_Test"></class>
-   </classes> 
+       ]]></script>
+			</method-selector>
+		</method-selectors>
+		<classes>
+			<class name="com.qait.tests.ACS_GiftCard_Test"></class>
+		</classes>
 	</test>
 </suite>

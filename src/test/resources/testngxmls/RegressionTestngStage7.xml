@@ -1,0 +1,133 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ACS Tests" preserve-order="true" thread-count="1"
+	configfailurepolicy="continue" parallel="tests">
+
+<!-- 	<test name="ACS AACT Smoke Test" group-by-instances="true"> -->
+<!-- 		<classes> -->
+<!-- 			<class name="com.qait.tests.ACS_AACT_Smoke_Test"></class> -->
+<!-- 		</classes> -->
+<!-- 	</test> -->
+	<test name="ACS_AddressChangeTermsInvoice_Test"
+		group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_AddressChangeTermsInvoice_Test"></class>
+		</classes>
+	</test>
+	<test name="ACS Address Validation Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_Address_Validation_Test" />
+		</classes>
+	</test>
+	<test name="ACS MYD Transfer" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_MYD_Transfer"></class>
+		</classes>
+	</test>
+	<test name="ACS_Batch_Processing">
+		<classes>
+			<class name="com.qait.tests.ACS_Batch_Processing"></class>
+		</classes>
+	</test>
+	<test name="ACS Reports" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_Reports"></class>
+		</classes>
+	</test>
+	<test name="ACS BPA 1 and BPA 2" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_BPA_Test" />
+		</classes>
+	</test>
+	<test name="ACS_Apply_Payment_Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_Apply_Payment_Test"></class>
+		</classes>
+	</test>
+	<test name="COE Inventory Smoke Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.COE_Inventory_Test"></class>
+		</classes>
+	</test>
+<!-- 	<test name="ACS Individual Landing Page Smoke Test" -->
+<!-- 		group-by-instances="true"> -->
+<!-- 		<classes> -->
+<!-- 			<class name="com.qait.tests.ACS_IndividualLandingPage_Smoke"></class> -->
+<!-- 		</classes> -->
+<!-- 	</test> -->
+<!-- 	<test name="ACS Giving Application Smoke Test" group-by-instances="true"> -->
+<!-- 		<classes> -->
+<!-- 			<class name="com.qait.tests.ACS_GivingApplication_Smoke"></class> -->
+<!-- 		</classes> -->
+<!-- 	</test> -->
+	<test name="Inventory Product Fulfillment Test"
+		group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.Inventory_Product_Fulfillment_Test" />
+		</classes>
+	</test>
+<!-- 	<test name="ACS_SourceCodes_Test" group-by-instances="true"> -->
+<!-- 		<classes> -->
+<!-- 			<class name="com.qait.tests.ACS_SourceCodes_Test"></class> -->
+<!-- 		</classes> -->
+<!-- 	</test> -->
+	<test name="Subscription Fulfillment" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.Subscription_Fulfillment_Test"></class>
+		</classes>
+	</test>
+<!-- 	<test name="ACS AACT OMR Test" group-by-instances="true"> -->
+<!-- 		<classes> -->
+<!-- 			<class name="com.qait.tests.ACS_AACT_OMR"></class> -->
+<!-- 		</classes> -->
+<!-- 	</test> -->
+	<test name="ACS AutoRenewal" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_AutoRenewalSelectionOMR"></class>
+		</classes>
+	</test>
+	<test name="ACS Awards Nomination Smoke Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_AwardsNomination_Test"></class>
+		</classes>
+	</test>
+	<test name="ACS AwardsVoting Test">
+		<classes>
+			<class name="com.qait.tests.ACS_AwardsVoting_Test" />
+		</classes>
+	</test>
+	<test name="ACS CCED NCW MemberLookUp" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_CCED_NCW_MemberNumberLookup_Test"></class>
+		</classes>
+	</test>
+	<test name="ACS Chapter Relationships Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_Chapter_Relationships_Test"></class>
+		</classes>
+	</test>
+	<test name="ACS Email Communication Preferences Test">
+		<classes>
+			<class name="com.qait.tests.ACS_Email_Communication_Preferences_Test" />
+		</classes>
+	</test>
+<!-- 	<test name="Express Renewal Smoke Test" group-by-instances="true"> -->
+<!-- 		<classes> -->
+<!-- 			<class name="com.qait.tests.ACS_OMR_Express_Renewal"></class> -->
+<!-- 		</classes> -->
+<!-- 	</test> -->
+	<test name="Fundraising Module" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_Fundraising_Module_Test" />
+		</classes>
+	</test>
+	<test name="ACS Return Cancel Refund" thread-count="10" parallel="instances">
+		<classes>
+			<class name="com.qait.tests.ACS_ReturnCancelRefund" />
+		</classes>
+	</test>
+	    <test name="ACS Void Invoice Test">
+        <classes>
+            <class name="com.qait.tests.ACS_Void_Invoice_Test" />
+        </classes>
+    </test>
+</suite>

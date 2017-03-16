@@ -747,10 +747,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		} else
 			hoverClick(element("btn_saveAndFinish"));
 //			 clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
+
 //			hoverClick(element("btn_saveAndFinish"));
 		// element("btn_saveAndFinish").click();
-		wait.hardWait(25);
 		logMessage("STEP : Save and finish button is clicked\n");
+		wait.hardWait(25);
 		waitForSpinner();
 	}
 
@@ -1088,7 +1089,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnTab(String tabName) {
-		wait.hardWait(2);
+		wait.hardWait(4);
 		isElementDisplayed("link_tabsOnModule", tabName);
 		if (isBrowser("safari"))
 			element("link_tabsOnModule", tabName).click();
@@ -1489,6 +1490,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void enterProductCode(String prodCode) {
 		hardWaitForIEBrowser(5);
+		wait.hardWait(2);
 		switchToDefaultContent();
 		switchToFrame(element("iframe"));
 		isElementDisplayed("inp_prdCode");
@@ -2332,7 +2334,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// clickUsingXpathInJavaScriptExecutor(element("txt_priceOrderEntryLineItmes",
 		// itemName));
 		// element("txt_priceOrderEntryLineItmes", itemName).click();
-		scrollDown(element("txt_priceOrderEntryLineItmes", itemName));
+//		scrollDown(element("txt_priceOrderEntryLineItmes", itemName));
 		isElementDisplayed("txt_priceOrderEntryLineItmes", itemName);
 		String actualPrice = element("txt_priceOrderEntryLineItmes", itemName).getText().trim();
 
@@ -2386,6 +2388,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 			handleAlert();
 			waitForSpinner();
+			isElementDisplayed("form_coe");
+			hoverAndClickOnCoeForm("form_coe");
 			hardWaitForIEBrowser(4);
 
 			verifyPrice(productName_TotalPrice[0], map().get("Sub" + i + "_SalePrice?"));
@@ -2473,12 +2477,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 		waitForSpinner();
 		wait.hardWait(2);
-		// isStringMatching(displayName,
-		// map().get("subscription" + numberOfSubscription));
+//		 isStringMatching(displayName,
+//		 map().get("subscription" + numberOfSubscription));
 
 		logMessage("ASSERT PASSED : Subscription name " + map().get("subscription" + numberOfSubscription)
 				+ " is matched\n");
-		// verifyItemAddedInLineItems(displayName.split(" - ")[0]);
+//		 verifyItemAddedInLineItems(displayName.split(" - ")[0]);
 		String[] arr = { displayName.split(" - ")[0], totalPrice };
 		return arr;
 	}
@@ -2955,6 +2959,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyTransferPackagePage() {
+		wait.hardWait(4);
 		isElementDisplayed("heading_transferPackage");
 		logMessage("STEP : Member navigated to Transfer Package Page\n");
 		switchToFrame("iframe1");
@@ -3812,6 +3817,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyDataBeforeTransferFullFilledTheCriteria(LinkedHashMap<String, String> beforeList,
 			HashMap<String, String> dataList, String ID, String custId) {
 		boolean flag = true;
+		System.out.println("-----beforeList:"+beforeList.values());
 		for (Map.Entry before : beforeList.entrySet()) {
 			System.out.println("Before Key::" + before.getKey().toString().trim() + "1");
 			System.out.println("Data List Key Value::" + dataList.get(before.getKey().toString() + "1"));
@@ -4175,7 +4181,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyAutoPayStatusAfterAutoRenewal(String value) {
 		hardWaitForIEBrowser(5);
-		isElementDisplayed("mbr_autoPay", value);
 		Assert.assertTrue(isElementDisplayed("mbr_autoPay", value), "Auto Pay renewal image is not checked\n");
 		logMessage("ASSERT PASSED : <b>AutoPay Renewal image is checked</b>\n");
 	}
@@ -4789,7 +4794,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void selectAndAddBatchIFNotPresent(String batchName, String paymentType, String paymentMethod) {
 
 		holdExecution(2000);
-
+		System.out.println("******batch name"+batchName);
 		if (verifyBatchIsPresent(batchName)) {
 			selectOrderEntryInfo("batch", batchName);
 		} else {

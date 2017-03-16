@@ -1,5 +1,5 @@
 
-csv-data-file:
+csv-data-file: 
   path_AACT_OMR: ./src/test/resources/TestDataLibrary/AACT_OMR_Datasheet.csv
   path_OMA: ./src/test/resources/TestDataLibrary/OMA Business Rules.csv
   path_PriceValue: ./src/test/resources/TestDataLibrary/PriceValues.csv
@@ -37,6 +37,9 @@ csv-data-file:
   path_Renewal_IWeb_Sheet: ./src/test/resources/TestDataLibrary/Renewal_IWeb_Datasheet.csv
   path_OMR_Express_Datasheet: ./src/test/resources/TestDataLibrary/OMR_Express_Datasheet.csv
   path_PBA_Datasheet: ./src/test/resources/TestDataLibrary/PBA_Datasheet.csv
+  path_AutoRenewal_OMR:   ./src/test/resources/TestDataLibrary/AutoRenewalSelectionOMR.csv
+  path_Inventory_Product_Fulfillment: ./src/test/resources/TestDataLibrary/Inventory_Product_Fulfillment.csv
+  
   data-separator: '\t'
   has-header: true
 
@@ -151,7 +154,7 @@ ACS_fellowNominatedData:
          GraduationYear: 2001  
     CodeOfConductResponse: "No"
     CodeConExplain: Test Code of Conduct Explanation
-    EditDataSavedMsg : Your edits on this page have been saved.  If you wish to return to your Nominator Dashboard so you can review your saved and submitted nominations, work on another nomination, or log out, click "Go to Dashboard."  If you still have work to do on this nomination, click "Return to Nomination" and you will be taken back to where you left off.
+    EditDataSavedMsg : Your nomination has been saved.  If you wish to return to your Nominator Dashboard so you can review your saved or submitted nominations, work on another nomination, or log out, select "Go to Dashboard."  If you would like to continue working on this nomination, select "Return to Nomination" and you will be returned to the most recent screen.
     CommunityCitationMsg: This is a Community Message
     ScienceCitationMsg: This is a Science Message
     ProfessionalHistory: 

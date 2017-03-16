@@ -93,6 +93,10 @@ public class YamlReader {
 				|| tier.equalsIgnoreCase("Stage7")
 				|| tier.equalsIgnoreCase("stage7")) {
 			yamlFilePath = "src/test/resources/testdata/STAGE7_TestData.yml";}
+		else if (tier.equalsIgnoreCase("Maps")
+				|| tier.equalsIgnoreCase("maps")
+				|| tier.equalsIgnoreCase("MAPS")) {
+			yamlFilePath = "src/test/resources/testdata/MAPS_TestData.yml";}
 		else {
 			Reporter.log(
 					"YOU HAVE PROVIDED WRONG TIER IN CONFIG!!! using dev test data",

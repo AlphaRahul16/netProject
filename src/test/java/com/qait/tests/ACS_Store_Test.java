@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
@@ -40,6 +41,7 @@ public class ACS_Store_Test extends BaseTest {
 
 	@Test
 	public void Step01_TC01_Search_Product_Using_Product_key() {
+		Reporter.log("Step: Case Id is :"+caseID,true);
 		mapACSStore = test.homePageIWEB.addValuesInMap("ACS_Store", caseID);
 		test.launchApplication(app_url_IWEB);
 		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
@@ -87,11 +89,7 @@ public class ACS_Store_Test extends BaseTest {
 		test.asm_storePage.enterPaymentInfo("CardHolderName",
 				mapShippingAddressDetails.get("First Name") + " " + mapShippingAddressDetails.get("Last Name"));
 
-		test.asm_storePage.enterPaymentInformation_ACSStoreForAllPaymentTypes(mapACSStore.get("Payment_Method"),
-				mapACSStore.get("Visa_Card_Number"), mapACSStore.get("Diners_Card_Number"),
-				mapACSStore.get("Reference_Number"), mapACSStore.get("Discover_Card_Number"),
-				mapACSStore.get("AMEX_Card_Number"), mapACSStore.get("Expiry_Date"), mapACSStore.get("CVV_Number"),
-				mapACSStore.get("Check_Number"));
+		test.asm_storePage.enterPaymentInformation_ACSStoreForAllPaymentTypes();
 		test.asm_storePage.verifyApplicationAcceptsDataAndNavigatesToSecureCheckoutPage();
 	}
 
@@ -141,7 +139,6 @@ public class ACS_Store_Test extends BaseTest {
 
 	@BeforeClass
 	public void OpenBrowserWindow() {
-		System.out.println("asfseg");
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		app_url_IWEB = YamlReader.getYamlValue("app_url_IWEB");
 		app_url_Store = YamlReader.getYamlValue("app_url_Store");

@@ -77,13 +77,7 @@ public class ACS_OMR_Express_Renewal extends BaseTest {
 
 	@Test(dependsOnMethods = { "Step04_Save_All_Renewed_product_Details_And_Fetch_Member_Name" })
 	public void Step05_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage() {	
-		test.asm_OMR.submitPaymentDetails(mapExpressRenewal.get("Payment_Method"),
-				(customername.split(" ")[0]+" "+customername.split(" ")[1]), mapExpressRenewal.get("Visa_Card_Number"), mapExpressRenewal.get("Diners_Card_Number"),
-				mapExpressRenewal.get("Discover_Card_Number"),mapExpressRenewal.get("AMEX_Card_Number"),
-				mapExpressRenewal.get("CVV_Number"), mapExpressRenewal
-						.get("CreditCardExpiration_Month"), mapExpressRenewal
-						.get("CreditCardExpiration_Year"));
-
+		test.asm_OMR.submitPaymentDetails(customername.split(" ")[0]+" "+customername.split(" ")[1]);
 		test.asm_OMR
 				.verifyRenewedProductsSummaryOnCheckOutPage(mapRenewedProductDetails);
 

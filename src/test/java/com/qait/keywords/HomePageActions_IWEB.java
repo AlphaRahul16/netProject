@@ -175,9 +175,8 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnModuleTab() {		
 	
 		wait.waitForPageToLoadCompletely();
+		wait.hardWait(4);
 		isElementDisplayed("btn_tabs");
-		wait.hardWait(1);
-		hardWaitForChromeBrowser(3);
 		if(isBrowser("safari"))
 			element("btn_tabs").click();
 		else
