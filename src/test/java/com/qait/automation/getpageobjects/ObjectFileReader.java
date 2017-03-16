@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.utils.ConfigPropertyReader;
 
 /**
@@ -43,14 +44,14 @@ public class ObjectFileReader {
 				pageObjectRepositoryPath="PageObjectRepository_Maps/";
 				filepath="src/test/resources/"+pageObjectRepositoryPath;
 				 commonspecFile = new FileReader(filepath + pageName
-						+ ".spec");
-				
+						+ ".spec");			
 			}
 			else
 			{
 			pageObjectRepositoryPath="PageObjectRepository/";
 			
 			filepath="src/test/resources/"+pageObjectRepositoryPath;
+
 			commonspecFile = new FileReader(filepath + commonPageObjects + pageName
 					+ ".spec");
 			 particularspecFile = new FileReader(filepath + tier + pageName

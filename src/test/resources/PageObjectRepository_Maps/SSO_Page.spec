@@ -6,5 +6,6 @@ txt_MAPS_title                         classname                          header
 inp_fields                             css                                input[name='${value}']
 btn_Login                              css                                .help-block>a[href*='WELCOME']
 btn_nav_Heading                        xpath                              //li[@class='nav-link']/a[contains(text(),'${headingName}')]
+tab_homePage                           xpath                              //li[@class='active nav-link']//a[contains(text(),'${value}')]
 ======================================================================================================================================
                 

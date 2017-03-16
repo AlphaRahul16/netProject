@@ -28,5 +28,10 @@ public class Maps_Submission_Test extends BaseTest {
 	public void MAPS_3_LogIn_With_Valid_Credentials() {
         test.maps_SSOPage.loginWithValidCredentials(YamlReader.getYamlValue("LogIn_Details.userID"), YamlReader.getYamlValue("LogIn_Details.password"));
 	}
+	
+	@Test
+	public void MAPS_6_Verify_User_Is_Navigated_To_Welcome_Page() {
+		test.maps_SSOPage.verifyUserIsOnWelcomePage("Welcome");	
+	}
 
 }
