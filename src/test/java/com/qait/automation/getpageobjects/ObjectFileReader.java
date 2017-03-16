@@ -21,6 +21,7 @@ public class ObjectFileReader {
 	static String tier;
 	static String commonPageObjects = "CommonPageObjects/";
 	static String filepath = "src/test/resources/";
+	static FileReader commonspecFile;
 
 	public static String[] getELementFromFile(String pageName,
 			String elementName) {
@@ -39,15 +40,23 @@ public class ObjectFileReader {
 		String pageObjectRepositoryPath;
 		try{
 			if(ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("maps")){
-				pageObjectRepositoryPath="PageObjectRepository_maps/";
+				pageObjectRepositoryPath="PageObjectRepository_Maps/";
+				filepath="src/test/resources/"+pageObjectRepositoryPath;
+				 commonspecFile = new FileReader(filepath + pageName
+						+ ".spec");
+				
 			}
 			else
-				pageObjectRepositoryPath="PageObjectRepository/";
+			{
+			pageObjectRepositoryPath="PageObjectRepository/";
+			
 			filepath="src/test/resources/"+pageObjectRepositoryPath;
-			FileReader commonspecFile = new FileReader(filepath + commonPageObjects + pageName
+			commonspecFile = new FileReader(filepath + commonPageObjects + pageName
 					+ ".spec");
 			 particularspecFile = new FileReader(filepath + tier + pageName
 					+ ".spec");
+			}
+			System.out.println(filepath + pageName);
 			return getElement(commonspecFile, elementName);
 		}
 		catch (NullPointerException e) {
