@@ -20,11 +20,13 @@ public class Maps_Submission_Test extends BaseTest {
 	
 	@Test
 	public void MAPS_1_Launch_Application() {
-     System.out.println("-----------");
 		test.launchMAPSApplication(maps_url);
-		
-		Assert.assertTrue(test.maps_SSOPage.verifyUserIsOnMAPSHomePage("Meeting Abstracts Programming System"), message);
-
+		test.maps_SSOPage.verifyUserIsOnMAPSHomePage("Meeting Abstracts Programming System");
+	}
+	
+	@Test
+	public void MAPS_3_LogIn_With_Valid_Credentials() {
+        test.maps_SSOPage.loginWithValidCredentials(YamlReader.getYamlValue("LogIn_Details.userID"), YamlReader.getYamlValue("LogIn_Details.password"));
 	}
 
 }

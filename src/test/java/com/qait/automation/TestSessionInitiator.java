@@ -24,6 +24,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Reporter;
 
 import com.qait.MAPS.keywords.SSO_Page_Actions;
+import com.qait.MAPS.keywords.Submission_Page_Actions;
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.TakeScreenshot;
 import com.qait.automation.utils.YamlReader;
@@ -145,6 +146,7 @@ public class TestSessionInitiator {
 	public ACS_AACT_OMR_Action acs_aactOmr;
 	public ACS_Yb_Iweb_Action acsYbIweb;
 	public SSO_Page_Actions maps_SSOPage;
+	public Submission_Page_Actions maps_submissionPage;
 
 	public TakeScreenshot takescreenshot;
 
@@ -203,6 +205,7 @@ public class TestSessionInitiator {
 		acs_aactOmr = new ACS_AACT_OMR_Action(driver);
 		acsYbIweb = new ACS_Yb_Iweb_Action(driver);
 		maps_SSOPage = new SSO_Page_Actions(driver);
+		maps_submissionPage = new Submission_Page_Actions(driver);
 	}
 
 	/**

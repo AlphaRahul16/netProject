@@ -27,20 +27,24 @@ public class SSO_Page_Actions extends ASCSocietyGenericPage {
 	
 	public void loginWithValidCredentials(String userid, String password)
 	{
-		enterLoginFields("");
-		
+		enterLoginFields("LOGIN_USER_ID",userid);
+		enterLoginFields("PASSWORD",password);
 		clickLoginButton();
 	}
 
 
 	private void clickLoginButton() {
-		// TODO Auto-generated method stub
+	isElementDisplayed("btn_Login");
+	click(element("btn_Login"));
+	logMessage("Step : Log In Button is clicked on SSO Page");
 		
 	}
 
 
-	private void enterLoginFields(String fieldname) {
-		
+	private void enterLoginFields(String fieldname ,String fieldvalue) {
+		isElementDisplayed("inp_fields",fieldname);
+		EnterTextInField(element("inp_fields",fieldname),fieldvalue );
+		logMessage("Step : "+fieldname+" on SSO Page is entered as "+fieldvalue);
 		
 	}
 
