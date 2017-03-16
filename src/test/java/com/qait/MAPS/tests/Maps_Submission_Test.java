@@ -19,19 +19,35 @@ public class Maps_Submission_Test extends BaseTest {
 	}
 	
 	@Test
-	public void MAPS_1_Launch_Application() {
+	public void Test01_MAPS_1_Launch_Application() {
 		test.launchMAPSApplication(maps_url);
 		test.maps_SSOPage.verifyUserIsOnMAPSHomePage("Meeting Abstracts Programming System");
 	}
 	
 	@Test
-	public void MAPS_3_LogIn_With_Valid_Credentials() {
+	public void Test02_MAPS_3_LogIn_With_Valid_Credentials() {
         test.maps_SSOPage.loginWithValidCredentials(YamlReader.getYamlValue("LogIn_Details.userID"), YamlReader.getYamlValue("LogIn_Details.password"));
 	}
 	
 	@Test
-	public void MAPS_6_Verify_User_Is_Navigated_To_Welcome_Page() {
-		test.maps_SSOPage.verifyUserIsOnWelcomePage("Welcome");	
+	public void Test03_MAPS_6_Verify_User_Is_Navigated_To_Welcome_Page() {
+		test.maps_SSOPage.verifyUserIsOnTabPage("Welcome");	
 	}
+	
+	@Test
+	public void Test04_MAPS_30_Click_On_Submission_In_Top_Navigation_Menu() {
+		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Submission");
+		test.maps_SSOPage.verifyUserIsOnTabPage("Submission");	
+		test.maps_submissionPage.verifyPageHeaderForASection("View Submissions");
+	}
+	
+	@Test
+	public void Test05_MAPS_32_Click_On_Create_New_Submission_Page_Lik_And_Verify_That_User_Is_Navigated_To_Program_Area_Page() {
+		test.maps_submissionPage.clickOnCreateNewSubmissionLink("Create New Submission");	
+		test.maps_submissionPage.verifyPageHeaderForASection("Program Area");
+	}
+	
+	
+	
 
 }
