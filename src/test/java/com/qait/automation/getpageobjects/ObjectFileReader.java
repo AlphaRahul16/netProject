@@ -57,7 +57,7 @@ public class ObjectFileReader {
 			 particularspecFile = new FileReader(filepath + tier + pageName
 					+ ".spec");
 			}
-			System.out.println(filepath + pageName);
+
 			return getElement(commonspecFile, elementName);
 		}
 		catch (NullPointerException e) {

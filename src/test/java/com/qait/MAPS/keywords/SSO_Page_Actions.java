@@ -52,15 +52,13 @@ public class SSO_Page_Actions extends ASCSocietyGenericPage {
 	{
 		isElementDisplayed("btn_nav_Heading",tabName);
 		click(element("btn_nav_Heading",tabName));
-		logMessage("Step : Log In Button is clicked on SSO Page");
+		logMessage("Step : "+tabName+" on upper navigation bar is clicked");
 	}
 
 	
-	public void verifyUserIsOnWelcomePage(String tabName){
+	public void verifyUserIsOnTabPage(String tabName){
 		isElementDisplayed("tab_homePage",tabName);
-		logMessage("ASSERT PASSED: User is navigated to "+tabName+" page\n");
+		logMessage("ASSERT PASSED : User is navigated to "+tabName+" page\n");
 	}
-
-
 
 }
