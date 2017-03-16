@@ -180,6 +180,7 @@ public class ACS_IndividualLandingPage_Smoke extends BaseTest {
 	@BeforeMethod
 	public void handleTestMethodName(Method method) {
 		test.printMethodName(method.getName());
+		Reporter.log("CASE ID:" + caseID,true);
 	}
 
 }

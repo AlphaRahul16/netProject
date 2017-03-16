@@ -269,8 +269,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 
 		enterCVVNumber(map().get("CVV_Number"));
 		wait.hardWait(1);
-		selectExpirationDate_Year("Date", map().get("CreditCardExpiration_Month"));
-		selectExpirationDate_Year("Year", map().get("CreditCardExpiration_Year"));
+		selectExpirationDate_Year("Date", map().get("Expiry_Month"));
+		selectExpirationDate_Year("Year", map().get("Expiry_Year"));
 		checkEula();
 		clickOnContinueButton();
 		wait.hardWait(20);

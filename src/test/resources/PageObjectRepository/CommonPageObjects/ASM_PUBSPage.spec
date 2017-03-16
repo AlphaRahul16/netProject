@@ -16,6 +16,7 @@ inp_cardHolderName                         xpath                              //
 inp_cardNumber                             xpath                              //input[contains(@id,'CreditCard_pin_cc_number')]
 inp_CVVNumber                              xpath                              //input[contains(@id,'CreditCard_pin_cc_security_code')]
 list_expirationYear                        xpath                              //select[contains(@id,'CreditCard_pin_cc_expire_ccExpYear')]
+list_expirationmonth						xpath								//select[contains(@id,'CreditCard_pin_cc_expire_ccExpDate')]
 btn_ConfirmOrder                            xpath                              //input[contains(@id,'btnConfirmOrder')]
 btn_placeOrder                             id                                 btnPlaceOrder
 txt_receipt                                xpath                              //span[text()='Receipt']
