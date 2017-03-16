@@ -4,4 +4,11 @@ Page Title: MAPS_Submission_Page
 ======================================================================================================================================
 lnk_createSubmission                                xpath                            //a[contains(text(),'${linkName}')]
 txt_pageHeader                                      css                              .page-header>h1
+iframe                                              xpath                            //div[@id='cke_${index}_contents']//iframe
+txt_title                                           xpath                            //body[contains(@class,'cke_editable cke')]
+btn_saveContinue                                    id                               saveAndContinueBtn
+btn_selectImage                                     id                               ABSTRACT_IMAGE_FILE
+btn_uploadImage                                     id                               uploadImageBtn
+select_symposiumType                                id                               ${dropdownType}_combobox
+
 ======================================================================================================================================

@@ -47,7 +47,24 @@ public class Maps_Submission_Test extends BaseTest {
 		test.maps_submissionPage.verifyPageHeaderForASection("Program Area");
 	}
 	
+	@Test
+	public void Test06_MAPS_32_Click_On_Create_New_Submission_Page_Lik_And_Verify_That_User_Is_Navigated_To_Program_Area_Page() {
 	
+		
+	}
 	
+	@Test
+	public void Test07_MAPS_94_Submit_Details_On_Title_Body_Page() {//verification to be added in the end
+		test.maps_submissionPage.submitTitleAndBodyDetails("Test Title","Test Abstract");
+		test.maps_submissionPage.uploadImage("test");
+		test.maps_submissionPage.clickOnSaveAndContinueButton();
+	}
+	
+	@Test
+	public void Test08_MAPS_106_Submit_Details_Select_Symposium_Page() {
+		test.maps_submissionPage.submitDetailsOnSelectSymposiumPage("1. Oral Only","Coffee & Cocoa Products","1. Consider for Sci-Mix");
+		test.maps_submissionPage.clickOnSaveAndContinueButton();
+	}
+
 
 }

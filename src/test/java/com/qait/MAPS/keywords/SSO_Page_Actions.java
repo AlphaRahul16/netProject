@@ -58,9 +58,7 @@ public class SSO_Page_Actions extends ASCSocietyGenericPage {
 	
 	public void verifyUserIsOnTabPage(String tabName){
 		isElementDisplayed("tab_homePage",tabName);
-		logMessage("ASSERT PASSED: User is navigated to "+tabName+" page\n");
+		logMessage("ASSERT PASSED : User is navigated to "+tabName+" page\n");
 	}
-
-
 
 }
