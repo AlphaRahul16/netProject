@@ -1,5 +1,6 @@
 package com.qait.MAPS.tests;
 
+import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -21,7 +22,8 @@ public class Maps_Submission_Test extends BaseTest {
 	public void MAPS_1_Launch_Application() {
      System.out.println("-----------");
 		test.launchMAPSApplication(maps_url);
-		test.maps_SSOPage.verifyUserIsOnMAPSHomePage();
+		
+		Assert.assertTrue(test.maps_SSOPage.verifyUserIsOnMAPSHomePage("Meeting Abstracts Programming System"), message);
 
 	}
 
