@@ -1427,21 +1427,42 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		verifySupporterDocumentsContainsUploadedFile(mapAwardsNomination, "2");
 	}
 
+	// private void verifySupporterDocumentsContainsUploadedFile(Map<String,
+	// String> mapAwardsNomination,
+	// String SupporterNumber) {
+	// String supportNo2 = null;
+	//// if (SupporterNumber.equals("1")) {
+	//// supportNo2 = "2";
+	//// } else {
+	//// supportNo2 = "1";
+	//// }
+	// String docurl = element("lnk_awardsSupporterDoc",
+	// SupporterNumber).getAttribute("href");
+	// docurl = docurl.replaceAll("%20", " ");
+	// Assert.assertTrue(docurl.contains(mapAwardsNomination.get("FileNameForSupportForm"
+	// + supportNo2)),
+	// "ASSERT FAILED: Expected value is " +
+	// mapAwardsNomination.get("FileNameForSupportForm" + supportNo2)
+	// + " but found " + docurl);
+	// logMessage("ASSERT PASSED : Document for supporter " + SupporterNumber +
+	// " succesfully verified as "
+	// + mapAwardsNomination.get("FileNameForSupportForm" + supportNo2));
+	// }
+
 	private void verifySupporterDocumentsContainsUploadedFile(Map<String, String> mapAwardsNomination,
 			String SupporterNumber) {
-		String supportNo2 = null;
-		if (SupporterNumber.equals("1")) {
-			supportNo2 = "2";
-		} else {
-			supportNo2 = "1";
-		}
+		// String supportNo2 = null;
+		/*
+		 * if (SupporterNumber.equals("1")) { supportNo2 = "2"; } else {
+		 * supportNo2 = "1"; }
+		 */
 		String docurl = element("lnk_awardsSupporterDoc", SupporterNumber).getAttribute("href");
 		docurl = docurl.replaceAll("%20", " ");
-		Assert.assertTrue(docurl.contains(mapAwardsNomination.get("FileNameForSupportForm" + supportNo2)),
-				"ASSERT FAILED: Expected value is " + mapAwardsNomination.get("FileNameForSupportForm" + supportNo2)
-						+ " but found " + docurl);
+		Assert.assertTrue(docurl.contains(mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber)),
+				"ASSERT FAILED: Expected value is "
+						+ mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber) + " but found " + docurl);
 		logMessage("ASSERT PASSED : Document for supporter " + SupporterNumber + " succesfully verified as "
-				+ mapAwardsNomination.get("FileNameForSupportForm" + supportNo2));
+				+ mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber));
 	}
 
 	private void verifySupporterNamesOnAwardEntryProfilePage(Map<String, String> createMemberCredentials,
@@ -1902,8 +1923,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyChapterStatusIsTransferred(String tabName, String chpName) {
-		int i,index=0;
-		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/dd/yyyy","EST5EDT");
+		int i, index = 0;
+		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("MM/dd/yyyy", "EST5EDT");
 		isElementDisplayed("list_memberDetails", tabName);
 		for (i = 1; i < elements("list_memberDetails", tabName).size(); i++) {
 			if (element("txt_memberDetailsForChapter", tabName, String.valueOf(4), String.valueOf(i)).getText().trim()

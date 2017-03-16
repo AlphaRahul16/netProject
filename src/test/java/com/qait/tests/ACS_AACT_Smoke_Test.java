@@ -136,8 +136,8 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 		test.homePageIWEB.clickFindForIndividualsSearch();
 		String memberNumber = memberDetail[0];
 		test.individualsPage.fillMemberDetailsAndSearch("Record Number", memberNumber);
-//		test.individualsPage.verifyAACTMemberCreated(caseID);
-//		test.individualsPage.verifyMemberIsNotCreated();
+		test.individualsPage.verifyAACTMemberCreated(caseID);
+		test.individualsPage.verifyMemberIsNotCreated();
 		test.individualsPage.verifyMemberReceivedNoBenefits();
 		test.individualsPage.verifyMemberDetails_AACTOMA(caseID, memberNumber, userEmail, userUniqueDetail.get(1),
 				userUniqueDetail.get(2));
@@ -154,8 +154,8 @@ public class ACS_AACT_Smoke_Test extends BaseTest {
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
 		test.homePageIWEB.clickFindForIndividualsSearch();
 		test.individualsPage.fillMemberDetailsAndSearch("E-Mail Address", userEmail);
-//		test.individualsPage.verifyAACTMemberCreated(caseID);
-//		test.individualsPage.verifyMemberIsNotCreated();
+		test.individualsPage.verifyAACTMemberCreated(caseID);
+		test.individualsPage.verifyMemberIsNotCreated();
 		test.individualsPage.verifyMemberReceivedNoBenefits();
 		test.individualsPage.verifyMemberDetails_AACTOMA_Individual(caseID, userEmail, userUniqueDetail.get(1),
 				userUniqueDetail.get(2));

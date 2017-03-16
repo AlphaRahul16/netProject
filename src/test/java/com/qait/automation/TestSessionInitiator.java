@@ -224,7 +224,7 @@ public class TestSessionInitiator {
 	}
 
 	public static Map<String, String> _getSessionConfig() {
-		String[] configKeys = { "tier", "browser", "seleniumserver", "seleniumserverhost", "timeout", "driverpath" };
+		String[] configKeys = { "tier", "browser", "seleniumserver", "seleniumserverhost", "timeout", "driverpath","product" };
 		Map<String, String> config = new HashMap<String, String>();
 		for (String string : configKeys) {
 			try {

@@ -689,7 +689,7 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void verifyNumberOfJudgesAndAdd(int roundNumber) {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
-		try {
+//		try {
 			wait.resetImplicitTimeout(0);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("list_awardJudge");
@@ -706,22 +706,22 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 				}
 
 			}
-		} catch (Exception e) {
-			wait.resetImplicitTimeout(timeOut);
-			wait.resetExplicitTimeout(timeOut);
-			logMessage("[INFO] : Judges are not present in the list of judges \n");
-			int numberOfJudges = 0;
-			System.out.println("number of judges" + numberOfJudges);
-
-			if (numberOfJudges < 5) {
-				int numberOfJudgesToAdd = 5 - numberOfJudges;
-				System.out.println(numberOfJudgesToAdd);
-				for (int i = 1; i <= numberOfJudgesToAdd; i++) {
-					wait.hardWait(2);
-					addJudges(roundNumber);
-				}
-			}
-		}
+//		} catch (Exception e) {
+//			wait.resetImplicitTimeout(timeOut);
+//			wait.resetExplicitTimeout(timeOut);
+//			logMessage("[INFO] : Judges are not present in the list of judges \n");
+//			int numberOfJudges = 0;
+//			System.out.println("number of judges" + numberOfJudges);
+//
+//			if (numberOfJudges < 5) {
+//				int numberOfJudgesToAdd = 5 - numberOfJudges;
+//				System.out.println(numberOfJudgesToAdd);
+//				for (int i = 1; i <= numberOfJudgesToAdd; i++) {
+//					wait.hardWait(2);
+//					addJudges(roundNumber);
+//				}
+//			}
+//		}
 	}
 
 	public void addJudgesForRound(int roundNumber) {

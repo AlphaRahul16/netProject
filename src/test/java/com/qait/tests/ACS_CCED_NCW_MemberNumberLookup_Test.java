@@ -42,7 +42,7 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test extends BaseTest {
 				"Selenium - Find Active Regular Member");
 		memberDetailsMap = test.memberShipPage.getMemberDetails_Iweb();
 		test.navigateToURL(test.homePageIWEB.map().get("Application URL")
-				.replaceAll("Stage2", ConfigPropertyReader.getProperty("tier")));
+				.replaceAll("Stage7", ConfigPropertyReader.getProperty("tier")));
 		test.memNumLookupPage.enterMemberDetailsInMemberNumberLookup(
 				memberDetailsMap.get("firstName"),
 				memberDetailsMap.get("lastName"),
@@ -76,7 +76,7 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test extends BaseTest {
 
 		System.out.println("----case id:"+caseID);
 		test.launchApplication(test.asm_CCEDPage.map().get("Application URL")
-				.replaceAll("Stage2", ConfigPropertyReader.getProperty("tier")));
+				.replaceAll("Stage7", ConfigPropertyReader.getProperty("tier")));
 		test.asm_CCEDPage.verifyPageTitle("Chemists Celebrate Earth Day");
 		test.asm_CCEDPage
 				.selectSearchTypeAndNavigateToCoordinator(test.asm_CCEDPage
@@ -92,7 +92,7 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test extends BaseTest {
 
 		System.out.println("----case id:"+caseID);
 		test.launchApplication(test.asm_NCWPage.map().get("Application URL")
-				.replaceAll("Stage2", ConfigPropertyReader.getProperty("tier")));
+				.replaceAll("Stage7", ConfigPropertyReader.getProperty("tier")));
 		test.asm_NCWPage.verifyPageTitle("National Chemistry Week");
 		test.asm_NCWPage
 				.selectSearchTypeAndNavigateToCoordinator(test.asm_NCWPage
