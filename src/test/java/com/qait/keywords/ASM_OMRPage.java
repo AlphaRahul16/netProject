@@ -184,11 +184,15 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 
 		wait.hardWait(14);
 		wait.waitForPageToLoadCompletely();
-		dynamicWait(40, "btn_PayINR", "1");
+		dynamicWait(40, "rad_undergraduate", buttontext);
+		try{
 		isElementDisplayed("rad_undergraduate", buttontext);
 		element("rad_undergraduate", buttontext).click();
-		// executeJavascript("document.getElementById('eWebFrame').contentWindow.document.getElementsByClassName('btn
-		// btn-blue')[0].click()");
+		}
+		catch(Exception e)
+		{
+		 executeJavascript("document.getElementById('eWebFrame').contentWindow.document.getElementsByClassName('btn btn-blue')[0].click()");
+		}
 		logMessage("STEP : Button " + buttontext + " is clicked\n");
 		wait.waitForPageToLoadCompletely();
 		switchToDefaultContent();
@@ -269,8 +273,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 
 		enterCVVNumber(map().get("CVV_Number"));
 		wait.hardWait(1);
-		selectExpirationDate_Year("Date", map().get("CreditCardExpiration_Month"));
-		selectExpirationDate_Year("Year", map().get("CreditCardExpiration_Year"));
+		selectExpirationDate_Year("Date", map().get("Expiry_Month"));
+		selectExpirationDate_Year("Year", map().get("Expiry_Year"));
 		checkEula();
 		clickOnContinueButton();
 		wait.hardWait(20);
@@ -727,7 +731,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 			System.out.println(
 					"Before remove" + element("txt_productFinalTotal", "Total").getText().replace("$", "").trim());
 			wait.hardWait(2);
-			wait.resetImplicitTimeout(4);
+			wait.resetImplicitTimeout(8);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			elements("btns_remove").get(0).click();
 			wait.hardWait(2);

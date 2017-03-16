@@ -134,7 +134,7 @@ public class ACS_IndividualLandingPage_Smoke extends BaseTest {
 		test.asm_Donate.verifyConfirmationEmailAfterDonation(mapSheetData.get("ValidEmailAddress"));
 	}
 
-	@Test
+	//@Test
 	public void Step06_TC06_Navigate_To_Iweb_And_Retreive_Lastest_Invoice_For_Donor() {
 		Reporter.log("CASE ID:" + caseID);
 
@@ -153,7 +153,7 @@ public class ACS_IndividualLandingPage_Smoke extends BaseTest {
 
 	}
 
-	@Test
+	//@Test
 	public void Step07_TC07_Navigate_To_Iweb_And_verify_Lastest_Invoice_For_User() {
 		Reporter.log("CASE ID:" + caseID);
 
@@ -180,6 +180,7 @@ public class ACS_IndividualLandingPage_Smoke extends BaseTest {
 	@BeforeMethod
 	public void handleTestMethodName(Method method) {
 		test.printMethodName(method.getName());
+		Reporter.log("CASE ID:" + caseID,true);
 	}
 
 }

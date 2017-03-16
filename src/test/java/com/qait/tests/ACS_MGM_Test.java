@@ -45,8 +45,8 @@ public class ACS_MGM_Test extends BaseTest {
 		app_url_MGMjoin = getYamlValue("app_url_MGMjoin");
 		app_url_MGMOptOut = getYamlValue("app_url_MGMOputOut");
 		app_url_MGMLogout = getYamlValue("app_url_MGMLogout");
-		test.homePage.addValuesInMap("MGM", toString().valueOf(caseID));
-
+		// toString();
+		ASCSocietyGenericPage.addValuesInMap("MGM", String.valueOf(caseID));
 		test.launchApplication(app_url_IWEB);
 		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
@@ -61,12 +61,12 @@ public class ACS_MGM_Test extends BaseTest {
 
 	@BeforeMethod
 	public void skipMethodsAccordingToTheScenarioExecuted(Method method) {
-		scenarioNo = ASCSocietyGenericPage.map().get("Scenario").trim();
-		test.printMethodName(method.getName());
-		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
+		scenarioNo = ASCSocietyGenericPage.map().get("Scenario").trim();		
 		if (!(method.getName().contains("Scenario" + scenarioNo))) {
 			throw new SkipException("Tests Skipped for expected work flows!");
 		}
+		test.printMethodName(method.getName());
+		Reporter.log("CASE ID::" + this.caseID + "\n", true);
 	}
 
 	@Test
@@ -81,7 +81,6 @@ public class ACS_MGM_Test extends BaseTest {
 
 	@Test
 	public void Step02_Launch_MGM_Application_And_Verify_All_Details_Are_Prepopulated_On_Clicking_Apply_for_ACS_Membership_link_For_Scenario2() {
-		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		test.launchApplication(app_url_MGMUrl);
 		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
 		test.asm_MGM.clickOnApplyForACSMembership();
@@ -90,7 +89,6 @@ public class ACS_MGM_Test extends BaseTest {
 
 	@Test
 	public void Step03_Activate_The_Membership_On_OMA_And_Invite_New_Member_From_MGM_Scenario2() {
-		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		test.ContactInfoPage.clickContinue();
 
 		test.EduAndEmpPage.enterEducationAndEmploymentInformation();
@@ -98,11 +96,12 @@ public class ACS_MGM_Test extends BaseTest {
 
 		test.BenefitsPage.addACSPublicationAndTechnicalDivision(caseID);
 		test.ContactInfoPage.clickContinue();
-//		test.checkoutPage.enterPaymentInfo(YamlReader.getYamlValue("creditCardInfo.Type"),
-//				fname_Iweb + " " + lname_Iweb, YamlReader.getYamlValue("creditCardInfo.Number"),
-//				YamlReader.getYamlValue("creditCardInfo.cvv-number"));
-		
-		test.asm_storePage.enterPaymentInfo("CardholderName","test Selenium");
+		// test.checkoutPage.enterPaymentInfo(YamlReader.getYamlValue("creditCardInfo.Type"),
+		// fname_Iweb + " " + lname_Iweb,
+		// YamlReader.getYamlValue("creditCardInfo.Number"),
+		// YamlReader.getYamlValue("creditCardInfo.cvv-number"));
+
+		test.asm_storePage.enterPaymentInfo("CardholderName", "test Selenium");
 		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes();
 		test.checkoutPage.clickAtTestStatement();
 		test.ContactInfoPage.clickContinue();
@@ -126,7 +125,6 @@ public class ACS_MGM_Test extends BaseTest {
 
 	@Test
 	public void Step05_Invite_Non_Member_And_Verify_Nominee_Status_On_MGM_And_IWEB_For_Scenario3() {
-		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		test.launchApplication(app_url_MGMUrl);
 		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
 		uniqueEmail = test.asm_MGM.submitMemberDetailsToInvite(ASCSocietyGenericPage.map().get("MGM_FNAME").trim(),
@@ -143,7 +141,6 @@ public class ACS_MGM_Test extends BaseTest {
 
 	@Test
 	public void Step06_New_Individual_Opts_Out_And_Confirm_Status_On_IWEB_And_MGM_Dashboard_Scenario3() {
-		Reporter.log("******** Application ID-" + app_ID + "********");
 		test.launchApplication(app_url_MGMOptOut + app_ID);
 		test.launchApplication(app_url_MGMUrl);
 		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
@@ -171,15 +168,15 @@ public class ACS_MGM_Test extends BaseTest {
 	public void Step08_Renew_Membership_And_Invite_A_New_Member_Scenario4() { // uncommented
 																				// payment
 																				// steps
-		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		test.asm_MGM.clickOnRenewYourMembershipNow();
 		test.asm_OMR.OMRLogo("Online Membership Renewal");
-//		test.asm_OMR.submitPaymentDetails(YamlReader.getYamlValue("creditCardInfo.Type"), fname_Iweb + " " + lname_Iweb,
-//				YamlReader.getYamlValue("creditCardInfo.Number"), YamlReader.getYamlValue("creditCardInfo.cvv-number"),
-//				YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[0],
-//				YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[1]);
-		
-		test.asm_OMR.submitPaymentDetails("test Selenium");
+		// test.asm_OMR.submitPaymentDetails(YamlReader.getYamlValue("creditCardInfo.Type"),
+		// fname_Iweb + " " + lname_Iweb,
+		// YamlReader.getYamlValue("creditCardInfo.Number"),
+		// YamlReader.getYamlValue("creditCardInfo.cvv-number"),
+		// YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[0],
+		// YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[1]);
+		test.asm_OMR.submitPaymentDetails(fname_Iweb + " " + lname_Iweb);
 		test.asm_OMR.clickOnSubmitPayment();
 		test.launchApplication(app_url_MGMLogout);
 		test.launchApplication(app_url_MGMUrl);
@@ -193,7 +190,6 @@ public class ACS_MGM_Test extends BaseTest {
 
 	@Test
 	public void Step09_Fetch_DefaultSourcecode_For_Scenario1_Scenario5() {
-		Reporter.log("\n ****** CASE ID : " + caseID + " ******\n", true);
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Membership");
 		test.memberShipPage.clickOnTab("Membership Setup");
@@ -214,7 +210,6 @@ public class ACS_MGM_Test extends BaseTest {
 
 	@Test
 	public void Step10_Invite_Nominee_And_Verify_Nominee_Status_On_MGM_And_IWEB_Scenario1_Scenario5() {
-		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		fname = ASCSocietyGenericPage.map().get("MGM_FNAME").trim() + System.currentTimeMillis();
 		lname = ASCSocietyGenericPage.map().get("MGM_LNAME").trim() + System.currentTimeMillis();
 		uniqueEmail = test.asm_MGM.submitMemberDetailsToInvite(fname, lname,
@@ -246,7 +241,6 @@ public class ACS_MGM_Test extends BaseTest {
 
 	@Test
 	public void Step12_New_Individual_Joins_ACS_And_Verify_Source_Code_Is_Prepopulated_For_Scenario1_Scenario5() {
-		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		test.launchApplication(app_url_MGMjoin + app_ID);
 
 		test.ContactInfoPage.enterContactInformationWithMemberNumber(uniqueEmail, fname, lname, "",
@@ -261,10 +255,12 @@ public class ACS_MGM_Test extends BaseTest {
 		test.BenefitsPage.addACSPublicationAndTechnicalDivision(caseID);
 		test.ContactInfoPage.clickContinue();
 		test.checkoutPage.verifySourceCodeIsAlreadyPrepoulated(sourceCode);
-//		test.checkoutPage.enterPaymentInfo(YamlReader.getYamlValue("creditCardInfo.Type"), fname + " " + lname,
-//				YamlReader.getYamlValue("creditCardInfo.Number"), YamlReader.getYamlValue("creditCardInfo.cvv-number"));
-		
-		test.asm_storePage.enterPaymentInfo("CardholderName","test Selenium");
+		// test.checkoutPage.enterPaymentInfo(YamlReader.getYamlValue("creditCardInfo.Type"),
+		// fname + " " + lname,
+		// YamlReader.getYamlValue("creditCardInfo.Number"),
+		// YamlReader.getYamlValue("creditCardInfo.cvv-number"));
+
+		test.asm_storePage.enterPaymentInfo("CardholderName", "test Selenium");
 		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes();
 		test.checkoutPage.clickAtTestStatement();
 		test.ContactInfoPage.clickContinue();
@@ -275,7 +271,6 @@ public class ACS_MGM_Test extends BaseTest {
 
 	@Test
 	public void Step13_Nominee_Joins_From_Member1_Invitation_And_Verify_Status_As_Joined_On_MGM_IWEB_Scenario5_Scenario1() {
-		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		test.launchApplication(app_url_MGMUrl);
 		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
 		test.asm_MGM.verifyNomineeStatus(StatusOnEweb.get(1), uniqueEmail);
@@ -289,7 +284,6 @@ public class ACS_MGM_Test extends BaseTest {
 
 	@Test
 	public void Step14_Verify_Nominee_Status_As_Already_A_Member_On_Iweb_And_MGM_For_Member2_Scenario5() {
-		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		test.launchApplication(app_url_MGMUrl);
 		test.asm_MGM.loginInToApplication(webLogin2, getYamlValue("password"));
 		test.asm_MGM.verifyNomineeStatus(StatusOnEweb.get(2), uniqueEmail);
@@ -299,7 +293,6 @@ public class ACS_MGM_Test extends BaseTest {
 
 	@Test
 	public void Step15_Verify_Nomiee_Details_On_IWEB_Scenario1() {
-		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		test.memberShipPage.clickOnConstitID_underMyACSNominations();
 		test.memberShipPage.verifyNomieeDetails(app_ID, ASCSocietyGenericPage.map().get("Program").trim(),
 				ASCSocietyGenericPage.map().get("Channel").trim(), StatusOnIweb.get(1), "Paid", sourceCode, memberID);
@@ -307,7 +300,6 @@ public class ACS_MGM_Test extends BaseTest {
 
 	@Test
 	public void Step16_Verify_User_Is_Navigated_To_The_Nominators_Record_Page_On_Clicking_The_NominatorID_Link_For_Scenario1() {
-		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		test.memberShipPage.clickOnNominatorID_underMyACSApplication();
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Individuals |" + customerFullNameList.get(0).trim());
 	}
@@ -323,7 +315,6 @@ public class ACS_MGM_Test extends BaseTest {
 
 	@Test
 	public void Step18_Verify_All_Invitees_On_MGM_And_IWEB_For_Scenario6() {
-		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		test.asm_MGM.verifythatAllInviteesExistOnMGM(uniqueEmails, StatusOnEweb.get(0));
 		test.launchApplication(IWEBurl);
 		test.memberShipPage.verifythatAllInviteesExistOnIWEB(uniqueEmails, StatusOnIweb.get(0));
@@ -331,7 +322,6 @@ public class ACS_MGM_Test extends BaseTest {
 
 	public void Launch_IWeb_Application_And_Run_Query(String sideBarTab, String tab, String query, int times,
 			String moduleName) {
-		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab(moduleName);
 		test.homePageIWEB.clickOnSideBarTab(sideBarTab);

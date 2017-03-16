@@ -341,9 +341,15 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		
 		enterCVVNumber(map().get("CVV_Number"));
 		selectExpirationYear(map().get("CreditCardExpiration_Year"));
+		selectExpirationMonth(map().get("CreditCardExpiration_Month"));
 		clickOnConfirmOrderButton();
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(3);
+	}
+	public void selectExpirationMonth(String value) {
+		isElementDisplayed("list_expirationmonth");
+		selectProvidedTextFromDropDown(element("list_expirationmonth"), value);
+		logMessage("STEP : " + value + " is selected for expiration month \n");
 	}
 
 	public void selectCreditCardType(String cardType) {

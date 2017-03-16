@@ -634,22 +634,7 @@ public class BaseUi {
 
 	}
 
-	public void enterAuthenticationAutoIt() {
-		try {
-			if (isBrowser("chrome")) {
-				Runtime.getRuntime().exec(
-						"./src/test/resources/PopUpHandlers/popup.exe");
-			} else {
-				if (isBrowser("ie") || isBrowser("internetExplorer")) {
-					Runtime.getRuntime()
-							.exec("./src/test/resources/PopUpHandlers/windowPopUp_IE.exe");
-				}
 
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public String getElementText(WebElement element) {
 		return element.getText();

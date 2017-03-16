@@ -347,6 +347,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_memberDetails", detailName);
 		Assert.assertTrue(element("txt_memberDetails", detailName).getText().trim().equalsIgnoreCase(detailValue),
 				"ASSERT FAILED: Expected value is " + detailValue + " but found "
+
 						+ element("txt_memberDetails", detailName).getText().trim());
 		logMessage("ASSERT PASSED : " + detailValue + " is verified for " + detailName + " \n");
 	}

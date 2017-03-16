@@ -744,12 +744,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		if (isBrowser("ie") || isBrowser("internet explorer")) {
 			hoverClick(element("btn_saveAndFinish"));
 			clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
-		} else
+		} else {
+			//clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
 			hoverClick(element("btn_saveAndFinish"));
-//			 clickUsingXpathInJavaScriptExecutor(element("btn_saveAndFinish"));
+			//element("btn_saveAndFinish").click();
+		}
 
-//			hoverClick(element("btn_saveAndFinish"));
-		// element("btn_saveAndFinish").click();
 		logMessage("STEP : Save and finish button is clicked\n");
 		wait.hardWait(25);
 		waitForSpinner();
@@ -765,7 +765,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 		isElementDisplayed("inp_" + cardInfo);
 		// element("inp_" + cardInfo).click();
-		System.out.println("cardbvalue" + cardValue);
+		System.out.println("cardvalue" + cardValue);
 		sendKeysUsingXpathInJavaScriptExecutor(element("inp_" + cardInfo), cardValue);
 		// element("inp_" + cardInfo).sendKeys(cardValue);
 		logMessage("STEP : Enter " + cardValue + " in inp_" + cardInfo + " \n");
@@ -1463,6 +1463,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// TODO Remove hard wait after handling stale element exception
 		holdExecution(2000);
 		isElementDisplayed("table_lineItems");
+		
 
 	}
 
@@ -2476,12 +2477,12 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		switchToDefaultContent();
 		waitForSpinner();
 		wait.hardWait(2);
-//		 isStringMatching(displayName,
-//		 map().get("subscription" + numberOfSubscription));
+		// isStringMatching(displayName,
+		// map().get("subscription" + numberOfSubscription));
 
 		logMessage("ASSERT PASSED : Subscription name " + map().get("subscription" + numberOfSubscription)
 				+ " is matched\n");
-//		 verifyItemAddedInLineItems(displayName.split(" - ")[0]);
+		// verifyItemAddedInLineItems(displayName.split(" - ")[0]);
 		String[] arr = { displayName.split(" - ")[0], totalPrice };
 		return arr;
 	}
@@ -4793,13 +4794,14 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	public void selectAndAddBatchIFNotPresent(String batchName, String paymentType, String paymentMethod) {
 
 		holdExecution(2000);
-		System.out.println("******batch name"+batchName);
+		System.out.println("******batch name" + batchName);
 		if (verifyBatchIsPresent(batchName)) {
 			selectOrderEntryInfo("batch", batchName);
 		} else {
 			addBatch(batchName.replaceAll("ACS: ", ""), "QA");
 		}
 		waitForSpinner();
+		wait.hardWait(3);
 		selectOrderEntryInfo("PaymentType", paymentType);
 		waitForSpinner();
 		selectOrderEntryInfo("paymentMethod", paymentMethod);
@@ -5070,7 +5072,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				continue;
 			}
 			value = verfiyEndAndStartDate(termEndDate, termStartDate);
-			if (value){
+			if (value) {
 				invoiceId = getInvoiceId(i, 12);
 				break;
 			}

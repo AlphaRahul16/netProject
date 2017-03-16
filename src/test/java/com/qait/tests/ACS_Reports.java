@@ -34,8 +34,6 @@ public class ACS_Reports extends BaseTest{
 	@Test
 	public void Step01_Navigate_To_Reports_Module()
 	{
-		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
-				YamlReader.getYamlValue("Authentication.password"));		
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Reports");
 
@@ -59,8 +57,10 @@ public class ACS_Reports extends BaseTest{
 		app_url_IWEB =getYamlValue("app_url_IWEB");
 		mapReportDetails = YamlReader.getYamlValues("Acs_Reports");
 		getReportsDetails=new YamlInformationProvider(mapReportDetails);
+		test.enterAuthenticationAutoIt();
 		test.launchApplication(app_url_IWEB);
-		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"), YamlReader.getYamlValue("Authentication.password"));
+		
+		
 
 	}
 
