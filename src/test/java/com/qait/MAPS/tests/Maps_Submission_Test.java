@@ -20,11 +20,14 @@ public class Maps_Submission_Test extends BaseTest {
 	
 	@Test
 	public void MAPS_1_Launch_Application() {
-     System.out.println("-----------");
-		test.launchMAPSApplication(maps_url);
-		
+		test.launchMAPSApplication(maps_url);	
 		Assert.assertTrue(test.maps_SSOPage.verifyUserIsOnMAPSHomePage("Meeting Abstracts Programming System"), message);
 
+	}
+	
+	@Test
+	public void MAPS_6_Verify_User_Is_Navigated_To_Welcome_Page() {
+		test.maps_SSOPage.verifyUserIsOnWelcomePage("Welcome");	
 	}
 
 }
