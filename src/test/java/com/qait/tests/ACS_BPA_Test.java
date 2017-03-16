@@ -34,10 +34,9 @@ public class ACS_BPA_Test extends BaseTest {
 	@Test
 	public void Step_01_Edit_Existing_BPA() {
 		app_url_IWEB = getYamlValue("app_url_IWEB");
-		test.launchApplication(app_url_IWEB);
-		test.homePage.enterAuthentication(
-				YamlReader.getYamlValue("Authentication.userName"),
-				YamlReader.getYamlValue("Authentication.password"));
+		//test.enterAuthenticationAutoIt();
+		test.launch(app_url_IWEB);
+		//test.enterAuthenticationAutoIt();
 
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.homePageIWEB.clickOnTab("Query Individual");

@@ -8,6 +8,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.qait.automation.utils.ConfigPropertyReader;
+
 /**
  * This class reads the PageObjectRepository text files. Uses buffer reader.
  * 
@@ -18,7 +20,7 @@ public class ObjectFileReader {
 
 	static String tier;
 	static String commonPageObjects = "CommonPageObjects/";
-	static String filepath = "src/test/resources/PageObjectRepository/";
+	static String filepath = "src/test/resources/";
 
 	public static String[] getELementFromFile(String pageName,
 			String elementName) {
@@ -34,7 +36,14 @@ public class ObjectFileReader {
 	public static String[] setSpecFiles(String pageName,
 			String elementName) throws Exception {
 		FileReader particularspecFile=null;
+		String pageObjectRepositoryPath;
 		try{
+			if(ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("maps")){
+				pageObjectRepositoryPath="PageObjectRepository_maps/";
+			}
+			else
+				pageObjectRepositoryPath="PageObjectRepository/";
+			filepath="src/test/resources/"+pageObjectRepositoryPath;
 			FileReader commonspecFile = new FileReader(filepath + commonPageObjects + pageName
 					+ ".spec");
 			 particularspecFile = new FileReader(filepath + tier + pageName
@@ -210,6 +219,11 @@ public class ObjectFileReader {
 		case DEV3:
 		case dev3:
 			tier= "DEV3/";
+			break;
+		case MAPS:
+		case maps:
+		case Maps:
+			tier= "MAPS/";
 			break;
 		}
 	}

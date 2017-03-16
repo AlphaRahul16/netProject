@@ -108,7 +108,7 @@ public class ACS_PBA_Test extends BaseTest {
 	@Test(dependsOnMethods = "Step06_Fill_Billing_Information_And_Place_Order")
 	public void Step07_Verify_ProductName_And_ProductAmount_With_Downloaded_PDF_Receipt() throws IOException {
 		test.asm_PUBSPage.clickOnPrintOrderReceipt();
-//		test.asm_PUBSPage.verifyDataFromPdfFile();
+		test.asm_PUBSPage.verifyDataFromPdfFile();
 	}
 
 	@Test(dependsOnMethods = "Step07_Verify_ProductName_And_ProductAmount_With_Downloaded_PDF_Receipt")

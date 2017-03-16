@@ -154,7 +154,7 @@ ACS_fellowNominatedData:
          GraduationYear: 2001  
     CodeOfConductResponse: "No"
     CodeConExplain: Test Code of Conduct Explanation
-    EditDataSavedMsg : Your edits on this page have been saved.  If you wish to return to your Nominator Dashboard so you can review your saved and submitted nominations, work on another nomination, or log out, click "Go to Dashboard."  If you still have work to do on this nomination, click "Return to Nomination" and you will be taken back to where you left off.
+    EditDataSavedMsg : Your nomination has been saved.  If you wish to return to your Nominator Dashboard so you can review your saved or submitted nominations, work on another nomination, or log out, select "Go to Dashboard."  If you would like to continue working on this nomination, select "Return to Nomination" and you will be returned to the most recent screen.
     CommunityCitationMsg: This is a Community Message
     ScienceCitationMsg: This is a Science Message
     ProfessionalHistory: 

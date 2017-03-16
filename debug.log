@@ -197,7 +197,62 @@
 [0213/181653.101:ERROR:process_info.cc(608)] range at 0xff6e4000, size 0xf84 fully unreadable
 [0213/181653.101:ERROR:process_info.cc(608)] range at 0xff6e1000, size 0xf84 fully unreadable
 [0213/181653.101:ERROR:process_info.cc(608)] range at 0xff6de000, size 0xf84 fully unreadable
-[0313/072956.906:ERROR:process_reader_win.cc(142)] SuspendThread: Access is denied. (0x5)
-[0313/072957.019:ERROR:exception_snapshot_win.cc(87)] thread ID 13088 not found in process
-[0313/072957.036:WARNING:crash_report_exception_handler.cc(60)] ProcessSnapshotWin::Initialize failed
-[0313/072957.036:ERROR:scoped_process_suspend.cc(38)] NtResumeProcess: An attempt was made to access an exiting process.  (0xc000010a)
+[0314/145753.286:ERROR:process_info.cc(608)] range at 0xff12e000, size 0x230 fully unreadable
+[0314/145753.902:ERROR:process_info.cc(608)] range at 0xff12d000, size 0xf84 fully unreadable
+[0314/145753.903:ERROR:process_info.cc(608)] range at 0xff12a000, size 0xf84 fully unreadable
+[0314/145753.904:ERROR:process_info.cc(608)] range at 0xff127000, size 0xf84 fully unreadable
+[0314/145753.904:ERROR:process_info.cc(608)] range at 0xff0ff000, size 0xf84 fully unreadable
+[0314/145753.904:ERROR:process_info.cc(608)] range at 0xff0fc000, size 0xf84 fully unreadable
+[0314/145753.904:ERROR:process_info.cc(608)] range at 0xff0f9000, size 0xf84 fully unreadable
+[0314/145753.904:ERROR:process_info.cc(608)] range at 0xff0f6000, size 0xf84 fully unreadable
+[0314/145753.904:ERROR:process_info.cc(608)] range at 0xfefcf000, size 0xf84 fully unreadable
+[0314/145753.904:ERROR:process_info.cc(608)] range at 0xfefcc000, size 0xf84 fully unreadable
+[0314/145753.904:ERROR:process_info.cc(608)] range at 0xfefc9000, size 0xf84 fully unreadable
+[0314/145753.904:ERROR:process_info.cc(608)] range at 0xfefc0000, size 0xf84 fully unreadable
+[0314/145753.904:ERROR:process_info.cc(608)] range at 0xfefbd000, size 0xf84 fully unreadable
+[0314/145753.904:ERROR:process_info.cc(608)] range at 0xfefb4000, size 0xf84 fully unreadable
+[0314/145753.904:ERROR:process_info.cc(608)] range at 0xfefc6000, size 0xf84 fully unreadable
+[0314/145753.904:ERROR:process_info.cc(608)] range at 0xfefc3000, size 0xf84 fully unreadable
+[0314/145754.280:ERROR:process_info.cc(372)] NtQuerySystemInformation SystemExtendedHandleInformation: {Not Enough Quota} Not enough virtual memory or paging file quota is available to complete the specified operation.  (0xc0000017)
+[0314/162059.379:ERROR:process_info.cc(608)] range at 0xffa1e000, size 0x230 fully unreadable
+[0314/162059.644:ERROR:process_info.cc(608)] range at 0xffa1d000, size 0xf84 fully unreadable
+[0314/162059.644:ERROR:process_info.cc(608)] range at 0xffa1a000, size 0xf84 fully unreadable
+[0314/162059.644:ERROR:process_info.cc(608)] range at 0xffa17000, size 0xf84 fully unreadable
+[0314/162059.644:ERROR:process_info.cc(608)] range at 0xff9ef000, size 0xf84 fully unreadable
+[0314/162059.644:ERROR:process_info.cc(608)] range at 0xff9ec000, size 0xf84 fully unreadable
+[0314/162059.644:ERROR:process_info.cc(608)] range at 0xff9e9000, size 0xf84 fully unreadable
+[0314/162059.644:ERROR:process_info.cc(608)] range at 0xff9e6000, size 0xf84 fully unreadable
+[0314/162059.644:ERROR:process_info.cc(608)] range at 0xff8bf000, size 0xf84 fully unreadable
+[0314/162059.644:ERROR:process_info.cc(608)] range at 0xff8bc000, size 0xf84 fully unreadable
+[0314/163938.450:ERROR:process_info.cc(608)] range at 0xfe8a5000, size 0x230 fully unreadable
+[0314/163938.504:ERROR:process_info.cc(608)] range at 0xfe8af000, size 0xf84 fully unreadable
+[0314/163938.504:ERROR:process_info.cc(608)] range at 0xfe8ac000, size 0xf84 fully unreadable
+[0314/163938.504:ERROR:process_info.cc(608)] range at 0xfe87f000, size 0xf84 fully unreadable
+[0314/163938.504:ERROR:process_info.cc(608)] range at 0xfe87c000, size 0xf84 fully unreadable
+[0314/163938.504:ERROR:process_info.cc(608)] range at 0xfe879000, size 0xf84 fully unreadable
+[0314/163938.505:ERROR:process_info.cc(608)] range at 0xfe876000, size 0xf84 fully unreadable
+[0314/163938.505:ERROR:process_info.cc(608)] range at 0xfe74f000, size 0xf84 fully unreadable
+[0314/163938.505:ERROR:process_info.cc(608)] range at 0xfe74c000, size 0xf84 fully unreadable
+[0314/163938.505:ERROR:process_info.cc(608)] range at 0xfe749000, size 0xf84 fully unreadable
+[0314/163938.505:ERROR:process_info.cc(608)] range at 0xfe746000, size 0xf84 fully unreadable
+[0314/163938.505:ERROR:process_info.cc(608)] range at 0xfe740000, size 0xf84 fully unreadable
+[0314/163938.505:ERROR:process_info.cc(608)] range at 0xfe743000, size 0xf84 fully unreadable
+[0314/163938.505:ERROR:process_info.cc(608)] range at 0xfe73a000, size 0xf84 fully unreadable
+[0314/163938.505:ERROR:process_info.cc(608)] range at 0xfe73d000, size 0xf84 fully unreadable
+[0314/163946.212:ERROR:process_info.cc(372)] NtQuerySystemInformation SystemExtendedHandleInformation: {Not Enough Quota} Not enough virtual memory or paging file quota is available to complete the specified operation.  (0xc0000017)
+[0314/163946.568:ERROR:process_info.cc(608)] range at 0xfee1c000, size 0x230 fully unreadable
+[0314/163946.707:ERROR:process_info.cc(608)] range at 0xfee1f000, size 0xf84 fully unreadable
+[0314/163946.707:ERROR:process_info.cc(608)] range at 0xfee1a000, size 0xf84 fully unreadable
+[0314/163946.707:ERROR:process_info.cc(608)] range at 0xfee17000, size 0xf84 fully unreadable
+[0314/163946.707:ERROR:process_info.cc(608)] range at 0xfedef000, size 0xf84 fully unreadable
+[0314/163946.707:ERROR:process_info.cc(608)] range at 0xfedec000, size 0xf84 fully unreadable
+[0314/163946.707:ERROR:process_info.cc(608)] range at 0xfede9000, size 0xf84 fully unreadable
+[0314/163946.707:ERROR:process_info.cc(608)] range at 0xfede6000, size 0xf84 fully unreadable
+[0314/163946.707:ERROR:process_info.cc(608)] range at 0xfecbf000, size 0xf84 fully unreadable
+[0314/163946.707:ERROR:process_info.cc(608)] range at 0xfecbc000, size 0xf84 fully unreadable
+[0314/163946.707:ERROR:process_info.cc(608)] range at 0xfecb9000, size 0xf84 fully unreadable
+[0314/163946.707:ERROR:process_info.cc(608)] range at 0xfecb6000, size 0xf84 fully unreadable
+[0314/163946.707:ERROR:process_info.cc(608)] range at 0xfecb3000, size 0xf84 fully unreadable
+[0315/114043.431:ERROR:process_info.cc(608)] range at 0xfe766000, size 0x230 fully unreadable
+[0315/114043.599:ERROR:process_info.cc(608)] range at 0xfe76f000, size 0xf84 fully unreadable
+[0315/114043.599:ERROR:process_info.cc(608)] range at 0xfe76c000, size 0xf84 fully unreadable

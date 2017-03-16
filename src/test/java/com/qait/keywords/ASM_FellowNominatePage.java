@@ -697,7 +697,7 @@ public class ASM_FellowNominatePage extends GetPage {
 				getFellowNominated.getASM_fellowNominated_ProfOrgDetails("FromDate"),
 				getFellowNominated.getASM_fellowNominated_ProfOrgDetails("ToDate"));
 		clickReturnToDashBoardButtonOnPopUp();
-		verifyPopUpDataonReturningToDashboard(getFellowNominated.getASM_fellowNominated("EditDataSavedMsg"));
+		//verifyPopUpDataonReturningToDashboard(getFellowNominated.getASM_fellowNominated("EditDataSavedMsg"));
 		clickGotoDashboardButtonOnPopUp();
 		returnToCurrentNomination("Professional Organization Affiliations");
 		clickOnSaveButton("affiliation");

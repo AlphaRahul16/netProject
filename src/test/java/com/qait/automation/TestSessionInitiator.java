@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.logging.Log;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -224,7 +225,7 @@ public class TestSessionInitiator {
 	}
 
 	public static Map<String, String> _getSessionConfig() {
-		String[] configKeys = { "tier", "browser", "seleniumserver", "seleniumserverhost", "timeout", "driverpath" };
+		String[] configKeys = { "tier", "browser", "seleniumserver", "seleniumserverhost", "timeout", "driverpath","product" };
 		Map<String, String> config = new HashMap<String, String>();
 		for (String string : configKeys) {
 			try {
@@ -268,6 +269,7 @@ public class TestSessionInitiator {
 							"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
 									+ URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), "UTF-8")
 									+ "@iwebtest");
+					
 				}
 				driver.get(baseurl);
 			} else {
@@ -293,7 +295,7 @@ public class TestSessionInitiator {
 				// ((JavascriptExecutor)
 				// driver).executeScript("document.documentMode=10");
 				try {
-					Thread.sleep(8000);
+					Thread.sleep(3000);
 				} catch (InterruptedException e1) {
 					System.out.println(e1.getMessage());
 				}
@@ -305,6 +307,8 @@ public class TestSessionInitiator {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		
+		System.out.println("launched application");
 
 	}
 
@@ -452,5 +456,32 @@ public class TestSessionInitiator {
 			return false;
 		}
 	}
+	
+	public void enterAuthenticationAutoIt() {
+		System.out.println(isBrowser("firefox"));
+		try {
+			System.out.println(isBrowser("firefox"));
+			if (isBrowser("firefox")) {
+				System.out.println("Auto1");
+				Runtime.getRuntime().exec(
+						"./src/test/resources/PopUpHandlers/PopUp.exe");
+				System.out.println("Executed");
+			} else {
+				if (isBrowser("ie") || isBrowser("internetExplorer")) {
+					Runtime.getRuntime()
+							.exec("./src/test/resources/PopUpHandlers/windowPopUp_IE.exe");
+				}
 
-}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void launch(String app_url_IWEB) {
+		driver.get(app_url_IWEB);
+		
+	}
+		}
+		
+

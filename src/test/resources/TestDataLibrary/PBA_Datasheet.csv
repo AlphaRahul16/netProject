@@ -1,8 +1,2 @@
 caseID	caseID Execute	CreditCardExpiration_Month	CreditCardExpiration_Year	Payment_Method	Visa/MC_Card_Number	Diners_Card_Number	AMEX_Card_Number	Discover_Card_Number	CVV_Number
 1	Yes	12	2019	Visa/MC	4111111111111111				123
-2	No	12	2019	Discover		6011010000000000			758
-3	No	12	2019	Visa/MC	5112000100000000				123
-4	No	12	2019	AMEX			375000026600004		421
-5	No	12	2019	Diners				5412345438954640	234
-6	No	12	2019	Diners				36474027424147	123
-7	No	12	2019	AMEX			375000026600004		421
