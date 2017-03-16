@@ -4,5 +4,5 @@
 3	"Yes"	"Regular"		"Yes"			"print"							6	2019	"Visa/MC"	"5112000100000003"				123
 4	"Yes"	"Regular"		"Yes"			"print"	1						6	2019	"AMEX"			"375000026600004"		421
 5	"Yes"	"Student"			"Yes"	"Associate"	"print"							6	2019	"Diners"		"5412345438954638"			234
-6	"No"	"Emeritus"		"Yes"			"print"							6	2019	"Diners"		36474027424147			123
+6	"Yes"	"Regular"		"Yes"			"print"							6	2019	"Diners"		36474027424147			123
 7	"Yes"	"Regular"		"Yes"			"print"	1						6	2019	"AMEX"			"375000026600004"		421
