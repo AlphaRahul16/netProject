@@ -3,6 +3,7 @@ package com.qait.MAPS.keywords;
 import java.io.File;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 
@@ -54,6 +55,18 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 	public void selectSymposium(String dropdownType,String dropdownValue){
 		isElementDisplayed("select_symposiumType",dropdownType);
 		selectProvidedTextFromDropDown(element("select_symposiumType",dropdownType), dropdownValue);
+	}
+	
+	public void verifyAuthorIsPresent(){
+		isElementDisplayed("list_authors");
+		Assert.assertTrue(elements("").size()>1,"ASSERT FAILED: Author Details are not already present\n");
+		logMessage("ASSERT PASSED: Author Details are already present\n");
+	}
+	
+	public void clickOnShowAffiliationButton(){
+		isElementDisplayed("btn_showAffiliations");
+		click(element("btn_showAffiliations"));
+		logMessage("Step : Show Affiliations button is clicked\n");
 	}
 
 }

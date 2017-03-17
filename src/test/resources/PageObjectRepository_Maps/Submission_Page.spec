@@ -8,4 +8,6 @@ btn_saveContinue                   id                               saveAndConti
 btn_selectImage                    id                               ABSTRACT_IMAGE_FILE
 btn_uploadImage                    id                               uploadImageBtn
 select_symposiumType               id                               ${dropdownType}_combobox
+list_authors                       css                              #authors>tbody>tr>td:nth-child(3)
+btn_showAffiliations               css                              #authors>tbody>tr:nth-child(1)>td:nth-child(3)>div>p>a
 ======================================================================================================================================
