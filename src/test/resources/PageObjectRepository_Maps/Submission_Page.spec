@@ -9,6 +9,17 @@ txt_title                                           xpath                       
 btn_saveContinue                                    id                               saveAndContinueBtn
 btn_selectImage                                     id                               ABSTRACT_IMAGE_FILE
 btn_uploadImage                                     id                               uploadImageBtn
-select_symposiumType                                id                               ${dropdownType}_combobox
+select_presentationType                             id                               ${dropdownType}_combobox
+btn_activeProgram                                   css                              input[id*='XIK_SELECTED_ROLE_ID']:not([disabled])
+btn_ContinueProgram                                 css                              .row-fluid>.confirm-submit-btn
+btn_popUp_Continue                                  xpath                            //button[contains(text(),'${linkName}')]
+btn_showAffiliations                                css                              a[id*='affiliationBtn']
+select_affiliations                                 xpath                           (//select[contains(@id,'${fieldName}')])[1]
+inp_institution_Fields                              xpath                           //label[contains(text(),'${fieldName}')]/following-sibling::input
+txt_createInstitution_dialog                        id                              CreateInstModalLabel
+select_Institution_dialog                           css                             select[name*='${name}']                 
+list_authors                                        css                              #authors>tbody>tr>td:nth-child(3)
+btn_showAffiliations                                css                              #authors>tbody>tr:nth-child(1)>td:nth-child(3)>div>p>a
+select_symposiumType                                css                              #symposia_title_combobox>option:nth-child(2)
 
 ======================================================================================================================================

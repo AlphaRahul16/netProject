@@ -42,28 +42,42 @@ public class Maps_Submission_Test extends BaseTest {
 	}
 	
 	@Test
-	public void Test05_MAPS_32_Click_On_Create_New_Submission_Page_Lik_And_Verify_That_User_Is_Navigated_To_Program_Area_Page() {
-		test.maps_submissionPage.clickOnCreateNewSubmissionLink("Create New Submission");	
+	public void Test05_MAPS_32_Click_On_Create_New_Submission_Page_Link_And_Verify_That_User_Is_Navigated_To_Program_Area_Page() {
+		test.maps_submissionPage.clickOnNamedButton("Create New Submission");	
 		test.maps_submissionPage.verifyPageHeaderForASection("Program Area");
 	}
 	
 	@Test
-	public void Test06_MAPS_32_Click_On_Create_New_Submission_Page_Lik_And_Verify_That_User_Is_Navigated_To_Program_Area_Page() {
-	
-		
+	public void Test06_MAPS_42_Select_A_Active_Program_Area_And_Click_Continue_Button_User_Navigated_To_Title_Body_Page() {
+		test.maps_submissionPage.selectRandomActiveSubmissionProgram();
+		test.maps_submissionPage.clickOnContinueButtonOnProgramArea();
+		test.maps_submissionPage.clickOnPopUpContinueButtonOnSelectingProgramArea("Continue With This Type");
+		test.maps_submissionPage.verifyPageHeaderForASection("Title/Body");
 	}
 	
 	@Test
 	public void Test07_MAPS_94_Submit_Details_On_Title_Body_Page() {//verification to be added in the end
 		test.maps_submissionPage.submitTitleAndBodyDetails("Test Title","Test Abstract");
-		test.maps_submissionPage.uploadImage("test");
+		test.maps_submissionPage.uploadImage("test.jpeg");
 		test.maps_submissionPage.clickOnSaveAndContinueButton();
+		test.maps_submissionPage.verifyPageHeaderForASection("Select Symposium");
 	}
 	
 	@Test
 	public void Test08_MAPS_106_Submit_Details_Select_Symposium_Page() {
 		test.maps_submissionPage.submitDetailsOnSelectSymposiumPage("1. Oral Only","Coffee & Cocoa Products","1. Consider for Sci-Mix");
 		test.maps_submissionPage.clickOnSaveAndContinueButton();
+		test.maps_submissionPage.verifyPageHeaderForASection("Authors");
+		
+	}
+	
+	@Test
+	public void Test09_MAPS_118_Verify_Application_Creates_New_institution_And_Navigates_Back_To_Author_Page() {//verification to be added in the end
+		test.maps_submissionPage.clickShowAffiliationsButton();
+		test.maps_submissionPage.selectAMandatoryAffiliation("AUTHOR_INSTITUTION", "Create New Institution");
+		test.maps_submissionPage.createNewInstitution(YamlReader.getYamlValue("Submission_Author_Step.institution"), YamlReader.getYamlValue("Submission_Author_Step.department"), 
+				YamlReader.getYamlValue("Submission_Author_Step.city"), YamlReader.getYamlValue("Submission_Author_Step.state"), YamlReader.getYamlValue("Submission_Author_Step.country"));
+		test.maps_submissionPage.verifyPageHeaderForASection("Authors");
 	}
 
 

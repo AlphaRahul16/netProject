@@ -19,9 +19,8 @@ public class SSO_Page_Actions extends ASCSocietyGenericPage {
 	public void verifyUserIsOnMAPSHomePage(String title) {
 		boolean flag=false;
 		isElementDisplayed("txt_MAPS_title");
-		System.out.println(element("txt_MAPS_title").getText().trim());
 		Assert.assertTrue(element("txt_MAPS_title").getText().trim().contains(title),"User is not on MAPS homepage");
-		logMessage("ASSERT PASSED : User is on MAPS home page");
+		logMessage("ASSERT PASSED : User is on MAPS home page\n");
 
 	}
 	
@@ -36,7 +35,7 @@ public class SSO_Page_Actions extends ASCSocietyGenericPage {
 	private void clickLoginButton() {
 	isElementDisplayed("btn_Login");
 	click(element("btn_Login"));
-	logMessage("Step : Log In Button is clicked on SSO Page");
+	logMessage("Step : Log In Button is clicked on SSO Page\n");
 		
 	}
 
@@ -44,7 +43,7 @@ public class SSO_Page_Actions extends ASCSocietyGenericPage {
 	private void enterLoginFields(String fieldname ,String fieldvalue) {
 		isElementDisplayed("inp_fields",fieldname);
 		EnterTextInField(element("inp_fields",fieldname),fieldvalue );
-		logMessage("Step : "+fieldname+" on SSO Page is entered as "+fieldvalue);
+		logMessage("Step : "+fieldname+" on SSO Page is entered as "+fieldvalue+"\n");
 		
 	}
 	
@@ -53,6 +52,7 @@ public class SSO_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_nav_Heading",tabName);
 		click(element("btn_nav_Heading",tabName));
 		logMessage("Step : "+tabName+" on upper navigation bar is clicked \n");
+
 	}
 
 	
