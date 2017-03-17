@@ -58,8 +58,9 @@ public class Maps_Submission_Test extends BaseTest {
 	@Test
 	public void Test07_MAPS_94_Submit_Details_On_Title_Body_Page() {//verification to be added in the end
 		test.maps_submissionPage.submitTitleAndBodyDetails("Test Title","Test Abstract");
-		test.maps_submissionPage.uploadImage("test");
+		test.maps_submissionPage.uploadImage("test.jpeg");
 		test.maps_submissionPage.clickOnSaveAndContinueButton();
+		test.maps_submissionPage.verifyPageHeaderForASection("Select Symposium");
 	}
 	
 	@Test

@@ -47,9 +47,9 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 	}
 	
 	public void submitDetailsOnSelectSymposiumPage(String presentationType, String symposium,String sciMix){
-		selectSymposium("type",presentationType);
-		selectSymposium("symposia_title",symposium);
-		selectSymposium("sub_type",sciMix);
+		selectPresentationType("type",presentationType);
+		selectSymposium();
+		selectPresentationType("sub_type",sciMix);
 
 	}
 
@@ -73,9 +73,15 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 
 	
 
-	public void selectSymposium(String dropdownType,String dropdownValue){
-		isElementDisplayed("select_symposiumType",dropdownType);
-		selectProvidedTextFromDropDown(element("select_symposiumType",dropdownType), dropdownValue);
+	public void selectPresentationType(String dropdownType,String dropdownValue){
+		isElementDisplayed("select_presentationType",dropdownType);
+		selectProvidedTextFromDropDown(element("select_presentationType",dropdownType), dropdownValue);
+	}
+	
+	public void selectSymposium(){
+		isElementDisplayed("select_symposiumType");
+//		selectDropDownValue(element("select_symposiumType"), 2);
+		click(element("select_symposiumType"));
 	}
 	
 	public void verifyAuthorIsPresent(){
@@ -93,6 +99,7 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 	public void selectRandomActiveSubmissionProgram()
 	{
 		int sizeofActivePrograms;
+		wait.hardWait(4);
 		isElementDisplayed("btn_activeProgram");
 		sizeofActivePrograms = elements("btn_activeProgram").size();
 		click(elements("btn_activeProgram").get(ASCSocietyGenericPage.generateRandomNumberWithInRange(0,sizeofActivePrograms)));
