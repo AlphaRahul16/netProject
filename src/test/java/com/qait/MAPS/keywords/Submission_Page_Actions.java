@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Random;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
@@ -80,11 +82,19 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 	
 	public void selectRandomActiveSubmissionProgram()
 	{
-		int sizeofActivePrograms;
+		int sizeofActivePrograms, randomProgram;
 		isElementDisplayed("btn_activeProgram");
 		sizeofActivePrograms = elements("btn_activeProgram").size();
-		click(elements("btn_activeProgram").get(ASCSocietyGenericPage.generateRandomNumberWithInRange(0,sizeofActivePrograms)));
+		randomProgram = generateRandomNumberWithInRange(0,sizeofActivePrograms);
+		click(elements("btn_activeProgram").get(randomProgram));
 		logMessage("Step : Active Submission program is selected\n");
+	}
+	
+	public String getSelectedProgramName()
+	{
+		String programName = null;
+		programName=element("txt_activeProgramName").getText().trim();
+		return programName;
 	}
 
 	public void clickOnContinueButtonOnProgramArea() {
@@ -136,12 +146,73 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		
 	}
 
-//	public void verifyCreatedInstitutionIsSelected(String selectionType,String yamlValue) {
-//		element("select_affiliations",selectionType).getAttribute(name)
-//		selec
-//		
-//	}
+	public void verifyCreatedInstitutionIsSelected(String selectionType,String institution) {
+		isElementDisplayed("select_affiliations",selectionType);
+		String selectedinstitution= getSelectedTextFromDropDown(element("select_affiliations",selectionType));
+		System.out.println(selectedinstitution);
+		System.out.println(institution);
+		Assert.assertTrue(selectedinstitution.contains(institution));
+		logMessage("ASSERT PASSED : verified Created institution is selected\n");
+		
+	}
+
+	public void clickAddAuthorButton() {
+		
+		isElementDisplayed("btn_addAuthor");
+		click(element("btn_addAuthor"));
+		logMessage("Step : Add author button is clicked\n");
+		
+	}
+
+	public void searchAuthorByEnteringDetails(String searchCriteria, String searchValue) {
+		enterInputFieldsOnInstitutionPopUpBox(searchCriteria, searchValue);
+		clickOnNamedButton("Search");
+		
+	}
+
+	public void verifyValidSearchResultsAreDisplayed(String searchValue) {
+		if(searchValue.contains("Name"))
+		{
+			Assert.assertTrue(element("txt_AuthorsearchResults","Name").getText().contains("searchValue"));
+			logMessage("ASSERT PASSED : Verified search results is equal to entered Name as "+searchValue);
+		}
+		else if( searchValue.contains("Email"))
+		{
+			Assert.assertTrue(element("txt_AuthorsearchResults","Email").getText().contains("searchValue"));
+			logMessage("ASSERT PASSED : Verified search results is equal to entered Email as "+searchValue);
+		}
+		
+		
+	}
 	
+	public void verifySuccessAlertMessage(String successmsg)
+	{
+		isElementDisplayed("txt_successAlert");
+		Assert.assertTrue(element("txt_successAlert").getText().equals(successmsg), " expected success message is not displayed\n");
+		logMessage("ASSERT PASSED : success message is verified on submission as "+successmsg+"/n");
+
+	}
+	
+	public void verifyNamedSectionIsDisplayed(String SectionName)
+	{
+		isElementDisplayed("tbl_section",SectionName);
+		logMessage("ASSERT PASSED : "+SectionName+" section is displayed for abstracts\n");
+	}
+
+	public void verifyApplicationDisplaysSpecifiedAbstractUnderSpecifiedSections(String sectionName, String Status) {
+		isElementDisplayed("txt_Tablesections_Status",sectionName);
+		for (WebElement ele : elements("txt_Tablesections_Status",sectionName)) {
+			Assert.assertTrue(ele.getText().trim().equals(Status),"Status under "+sectionName+" is not "+Status+"/n");
+			
+		}
+		logMessage("Status under "+sectionName+" is verified as "+Status+"/n");
+		
+	}
+	
+	public void logOutFromMAPSApplication()
+	{
+		clickOnNamedButton("Log Out");
+	}
 	
 
 }

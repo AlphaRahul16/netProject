@@ -11,6 +11,7 @@ import com.qait.automation.utils.YamlReader;
 
 public class Maps_Submission_Test extends BaseTest {
 	private String maps_url;
+	private String programName;
 	
 	@BeforeClass
 	public void Start_Test_Session() {
@@ -50,6 +51,7 @@ public class Maps_Submission_Test extends BaseTest {
 	@Test
 	public void Test06_MAPS_42_Select_A_Active_Program_Area_And_Click_Continue_Button_User_Navigated_To_Title_Body_Page() {
 		test.maps_submissionPage.selectRandomActiveSubmissionProgram();
+		programName=test.maps_submissionPage.getSelectedProgramName();
 		test.maps_submissionPage.clickOnContinueButtonOnProgramArea();
 		test.maps_submissionPage.clickOnPopUpContinueButtonOnSelectingProgramArea("Continue With This Type");
 		test.maps_submissionPage.verifyPageHeaderForASection("Title/Body");
@@ -71,12 +73,27 @@ public class Maps_Submission_Test extends BaseTest {
 	}
 	
 	@Test
-	public void Test09_Verify_Application_Creates_New_institution_And_Navigates_Back_To_Author_Page() {//verification to be added in the end
+	public void Test09_MAPS_118_Verify_Application_Creates_New_institution_And_Navigates_Back_To_Author_Page() {//verification to be added in the end
 		test.maps_submissionPage.clickShowAffiliationsButton();
 		test.maps_submissionPage.selectAMandatoryAffiliation("AUTHOR_INSTITUTION", "Create New Institution");
 		test.maps_submissionPage.createNewInstitution(YamlReader.getYamlValue("Submission_Author_Step.institution"), YamlReader.getYamlValue("Submission_Author_Step.department"), 
 				YamlReader.getYamlValue("Submission_Author_Step.city"), YamlReader.getYamlValue("Submission_Author_Step.state"), YamlReader.getYamlValue("Submission_Author_Step.country"));
 		test.maps_submissionPage.verifyPageHeaderForASection("Authors");
+		test.maps_submissionPage.verifyCreatedInstitutionIsSelected("AUTHOR_INSTITUTION",YamlReader.getYamlValue("Submission_Author_Step.institution"));
+		test.maps_submissionPage.clickAddAuthorButton();
+		test.maps_submissionPage.searchAuthorByEnteringDetails(YamlReader.getYamlValue("Submission_Author_Step.author_search_criteria"), YamlReader.getYamlValue("Submission_Author_Step.author_search_value"));
+		test.maps_submissionPage.verifyValidSearchResultsAreDisplayed(YamlReader.getYamlValue("Submission_Author_Step.author_search_value"));
+		test.maps_submissionPage.clickOnSaveAndContinueButton();
+		test.maps_submissionPage.verifyPageHeaderForASection("Disclosures");
+		
+		
+		test.maps_submissionPage.verifySuccessAlertMessage(YamlReader.getYamlValue("Success_alert_msg"));
+		test.maps_submissionPage.verifyNamedSectionIsDisplayed("drafts");
+		test.maps_submissionPage.verifyApplicationDisplaysSpecifiedAbstractUnderSpecifiedSections("drafts","Draft");  
+		test.maps_submissionPage.verifyNamedSectionIsDisplayed("submissions");
+		test.maps_submissionPage.verifyApplicationDisplaysSpecifiedAbstractUnderSpecifiedSections("subs","Under Review");
+		
+		test.maps_submissionPage.logOutFromMAPSApplication();
 	}
 
 
