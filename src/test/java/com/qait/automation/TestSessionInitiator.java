@@ -16,67 +16,16 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.logging.Log;
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Reporter;
 
-import com.qait.MAPS.keywords.SSO_Page_Actions;
-import com.qait.MAPS.keywords.Submission_Page_Actions;
+import com.qait.MAPS.keywords.*;
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.TakeScreenshot;
 import com.qait.automation.utils.YamlReader;
-import com.qait.keywords.ACS_AACT_OMR_Action;
-import com.qait.keywords.ACS_Address_Validation_Action;
-import com.qait.keywords.ACS_Apply_Payment_Actions;
-import com.qait.keywords.ACS_Awards_EWEB_PageActions;
-import com.qait.keywords.ACS_BatchProcessingActions;
-import com.qait.keywords.ACS_Fundraising_Action;
-import com.qait.keywords.ACS_MarketingPage_IWEB;
-import com.qait.keywords.ACS_My_Account_Action;
-import com.qait.keywords.ACS_ReportsActions;
-import com.qait.keywords.ACS_Scarf_Reporting;
-import com.qait.keywords.ACS_Scarf_ReviewingActions;
-import com.qait.keywords.ACS_Scarf_Reviewing_Eweb_Action;
-import com.qait.keywords.ACS_Void_Invoice;
-import com.qait.keywords.ACS_Yb_Iweb_Action;
-import com.qait.keywords.ASMErrorPage;
-import com.qait.keywords.ASM_AACTPage;
-import com.qait.keywords.ASM_CCEDPage;
-import com.qait.keywords.ASM_DonatePage;
-import com.qait.keywords.ASM_EGiftPage;
-import com.qait.keywords.ASM_FellowNominatePage;
-import com.qait.keywords.ASM_GivingGreenPage;
-import com.qait.keywords.ASM_MGMPage;
-import com.qait.keywords.ASM_MeetingPage;
-import com.qait.keywords.ASM_NCWPage;
-import com.qait.keywords.ASM_NominatePage;
-import com.qait.keywords.ASM_OMRPage;
-import com.qait.keywords.ASM_PUBSPage;
-import com.qait.keywords.ASM_StorePage;
-import com.qait.keywords.ASM_emailPage;
-import com.qait.keywords.ASM_memberNumberLookupPage;
-import com.qait.keywords.AcsYellowBookEwebPageActions;
-import com.qait.keywords.AddMemeber_IWEB;
-import com.qait.keywords.AwardsPageActions_IWEB;
-import com.qait.keywords.BenefitsPage;
-import com.qait.keywords.CheckoutPage;
-import com.qait.keywords.ConfirmationPage;
-import com.qait.keywords.ContactInformationPage;
-import com.qait.keywords.EducationAndEmploymentPage;
-import com.qait.keywords.FundProfilePage;
-import com.qait.keywords.GCS_PaymentActions;
-import com.qait.keywords.HomePageActions;
-import com.qait.keywords.HomePageActions_IWEB;
-import com.qait.keywords.IndividualsPageActions_IWEB;
-import com.qait.keywords.InventoryPageActions_IWEB;
-import com.qait.keywords.InvoicePageActions_IWEB;
-import com.qait.keywords.MemberNumberLookupPage;
-import com.qait.keywords.MemberShipRenewalPage;
-import com.qait.keywords.MembershipPageActions_IWEB;
-import com.qait.keywords.SubscriptionPage;
+import com.qait.keywords.*;
 
 public class TestSessionInitiator {
 
@@ -147,6 +96,7 @@ public class TestSessionInitiator {
 	public ACS_Yb_Iweb_Action acsYbIweb;
 	public SSO_Page_Actions maps_SSOPage;
 	public Submission_Page_Actions maps_submissionPage;
+	public Review_Page_Actions instanceOfReviewPage;
 
 	public TakeScreenshot takescreenshot;
 
@@ -206,6 +156,7 @@ public class TestSessionInitiator {
 		acsYbIweb = new ACS_Yb_Iweb_Action(driver);
 		maps_SSOPage = new SSO_Page_Actions(driver);
 		maps_submissionPage = new Submission_Page_Actions(driver);
+		instanceOfReviewPage = new Review_Page_Actions(driver);
 	}
 
 	/**
@@ -231,7 +182,8 @@ public class TestSessionInitiator {
 	}
 
 	public static Map<String, String> _getSessionConfig() {
-		String[] configKeys = { "tier", "browser", "seleniumserver", "seleniumserverhost", "timeout", "driverpath","product" };
+		String[] configKeys = { "tier", "browser", "seleniumserver", "seleniumserverhost", "timeout", "driverpath",
+				"product" };
 		Map<String, String> config = new HashMap<String, String>();
 		for (String string : configKeys) {
 			try {
@@ -275,7 +227,7 @@ public class TestSessionInitiator {
 							"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
 									+ URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), "UTF-8")
 									+ "@iwebtest");
-					
+
 				}
 				driver.get(baseurl);
 			} else {
@@ -313,18 +265,18 @@ public class TestSessionInitiator {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 		System.out.println("launched application");
 
 	}
 
 	public void closeBrowserSession() {
 		driver.quit();
-//		try {
-//		    Runtime.getRuntime().exec("taskkill /F /IM chromedriver.exe");
-//		} catch (IOException e) {
-//		    e.printStackTrace();
-//		}
+		// try {
+		// Runtime.getRuntime().exec("taskkill /F /IM chromedriver.exe");
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
 	}
 
 	public void deleteAllCookies() {
@@ -389,7 +341,6 @@ public class TestSessionInitiator {
 		driver.navigate().to(baseURL);
 		Reporter.log("\nThe application url is :- " + baseURL, true);
 	}
-
 
 	public void openApplicationInNewTab(String baseURL) {
 		Robot robot;
@@ -462,20 +413,18 @@ public class TestSessionInitiator {
 			return false;
 		}
 	}
-	
+
 	public void enterAuthenticationAutoIt() {
 		System.out.println(isBrowser("firefox"));
 		try {
 			System.out.println(isBrowser("firefox"));
 			if (isBrowser("firefox")) {
 				System.out.println("Auto1");
-				Runtime.getRuntime().exec(
-						"./src/test/resources/PopUpHandlers/PopUp.exe");
+				Runtime.getRuntime().exec("./src/test/resources/PopUpHandlers/PopUp.exe");
 				System.out.println("Executed");
 			} else {
 				if (isBrowser("ie") || isBrowser("internetExplorer")) {
-					Runtime.getRuntime()
-							.exec("./src/test/resources/PopUpHandlers/windowPopUp_IE.exe");
+					Runtime.getRuntime().exec("./src/test/resources/PopUpHandlers/windowPopUp_IE.exe");
 				}
 
 			}
@@ -484,12 +433,8 @@ public class TestSessionInitiator {
 		}
 	}
 
-
 	public void launchMAPSApplication(String maps_url) {
 		driver.get(maps_url);
-		
-		
-	}
-		}
-		
 
+	}
+}
