@@ -3,3 +3,11 @@ MAPS_Url: https://acsnm253.beta.abstractcentral.com/?NO_SSO_OVERRIDE_FL=Y
 LogIn_Details:
   userID: R_Yadav
   password: Password123
+  
+Submission_Author_Step: 
+   institution: Test_Institution
+   department: QA
+   city: Florida
+   country: United States
+   state: Ohio
+   
