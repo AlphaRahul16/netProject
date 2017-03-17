@@ -52,7 +52,7 @@ public class SSO_Page_Actions extends ASCSocietyGenericPage {
 	{
 		isElementDisplayed("btn_nav_Heading",tabName);
 		click(element("btn_nav_Heading",tabName));
-		logMessage("Step : "+tabName+" on upper navigation bar is clicked");
+		logMessage("Step : "+tabName+" on upper navigation bar is clicked \n");
 	}
 
 	
