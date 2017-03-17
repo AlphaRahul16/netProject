@@ -21,5 +21,11 @@ select_Institution_dialog                           css                         
 list_authors                                        css                              #authors>tbody>tr>td:nth-child(3)
 btn_showAffiliations                                css                              #authors>tbody>tr:nth-child(1)>td:nth-child(3)>div>p>a
 select_symposiumType                                css                              #symposia_title_combobox>option:nth-child(2)
-
+btn_saveandContinueFooter                           xpath                            //div[@class='modal-footer']//a[contains(text(),'${value}')]
+txt_popupHeader                                     id                               myModalLabel
+lnk_submissionSteps                                 xpath                            //a[contains(@class,'left-side-menu-item') and contains(text(),'${linkName}')]
+radio_disclosures                                   xpath                            //h3[text()='${headerName}']/..//label[@class='radio'][${index}]
+chckbox_disclosures                                 xpath                            //h3[text()='${label}']/..//label[@class='checkbox']/input
+btn_submit                                          id                               submit_btn
+img_chkCompletedStep                                css                              #Step${index}>i
 ======================================================================================================================================
