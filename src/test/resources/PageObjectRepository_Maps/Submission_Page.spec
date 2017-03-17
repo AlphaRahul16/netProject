@@ -9,7 +9,7 @@ txt_title                                           xpath                       
 btn_saveContinue                                    id                               saveAndContinueBtn
 btn_selectImage                                     id                               ABSTRACT_IMAGE_FILE
 btn_uploadImage                                     id                               uploadImageBtn
-select_symposiumType                                id                               ${dropdownType}_combobox
+select_presentationType                             id                               ${dropdownType}_combobox
 btn_activeProgram                                   css                              input[id*='XIK_SELECTED_ROLE_ID']:not([disabled])
 btn_ContinueProgram                                 css                              .row-fluid>.confirm-submit-btn
 btn_popUp_Continue                                  xpath                            //button[contains(text(),'${linkName}')]
@@ -25,4 +25,13 @@ txt_Tablesections_Status                            xpath                       
 tbl_section                                         id                              table_${value}    
 txt_activeProgramName                               xpath                           //input[contains(@id,'XIK_SELECTED_ROLE_ID') and not(@disabled)]/../../following-sibling::td[1]
 sel_Drafts_options                                  xpath                           //td[contains(text(),'${programName}')]/preceding-sibling::td/select/option
+list_authors                                        css                              #authors>tbody>tr>td:nth-child(3)
+select_symposiumType                                css                              #symposia_title_combobox>option:nth-child(2)
+btn_saveandContinueFooter                           xpath                            //div[@class='modal-footer']//a[contains(text(),'${value}')]
+txt_popupHeader                                     id                               myModalLabel
+lnk_submissionSteps                                 xpath                            //a[contains(@class,'left-side-menu-item') and contains(text(),'${linkName}')]
+radio_disclosures                                   xpath                            //h3[text()='${headerName}']/..//label[@class='radio'][${index}]
+chckbox_disclosures                                 xpath                            //h3[text()='${label}']/..//label[@class='checkbox']/input
+btn_submit                                          id                               submit_btn
+img_chkCompletedStep                                css                              #Step${index}>i
 ======================================================================================================================================
