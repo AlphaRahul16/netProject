@@ -52,7 +52,7 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		click(element("btn_uploadImage"));
 	}
 
-	public void submitDetailsOnSelectSymposiumPage(String presentationType, String symposium, String sciMix) {
+	public void submitDetailsOnSelectSymposiumPage(String presentationType,String sciMix) {
 		selectPresentationType("type", presentationType);
 		selectSymposium();
 		selectPresentationType("sub_type", sciMix);
@@ -289,6 +289,23 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 			isElementDisplayed("img_chkCompletedStep",String.valueOf(index));
 			logMessage("ASSERT PASSED: Step"+index+" is verified as complete\n");
 		}
+	}
+	
+	public void selectEditActionForSubmittedAbstracts(String programName,String action){
+		isElementDisplayed("select_submissionAction",programName);
+		selectProvidedTextFromDropDown(element("select_submissionAction",programName), action);
+		logMessage("Step: "+action+" action is selected for "+programName+"\n");
+	}
+	
+	public void verifyPopUpHeaderOnSubmissionPage(String headerName){
+		isElementDisplayed("btn_draftStatus",headerName);
+		logMessage("ASSERT PASSED: Poup window "+headerName+" is verified\n");
+	}
+	
+	public void clickOnDraftStatusActionButton(String headerName){
+		isElementDisplayed("btn_draftStatus",headerName);
+		click(element("btn_draftStatus",headerName));
+		logMessage("Step : "+headerName+" is clicked\n");
 	}
 
 	public void verifyAvailableOptionsForDraftedProgram(String draftoptions) {

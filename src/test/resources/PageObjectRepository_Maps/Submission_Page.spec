@@ -34,4 +34,6 @@ radio_disclosures                                   xpath                       
 chckbox_disclosures                                 xpath                            //h3[text()='${label}']/..//label[@class='checkbox']/input
 btn_submit                                          id                               submit_btn
 img_chkCompletedStep                                css                              #Step${index}>i
+select_submissionAction                             xpath                            //td[@data-label='Type' and text()='${programName}']/preceding-sibling::td[5]//select
+btn_draftStatus                                     xpath                            //span[text()='${btnName}']
 ======================================================================================================================================
