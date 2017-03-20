@@ -350,7 +350,7 @@ public class ResultsIT extends ReformatTestFile {
     	skippedResults =toString().valueOf(getExecutionResults(dom,"//test[@name='"+label+"']/class/test-method[@status='SKIP']"));
     	failureResults =toString().valueOf(getExecutionResults(dom,"//test[@name='"+label+"']/class/test-method[@status='FAIL']"));
     	
-    	msgOutput = msgOutput + "<tr><td id=\"#t\""+i + "\">" + label+ "</td><td>"+totaltest+"</td><td>"+passedResult+"</td><td>"+skippedResults+"</td><td>"+failureResults+"</td><td>"+executiontime+"</td></tr>";
+    	msgOutput = msgOutput + "<tr><td id=\"#t\""+i + "\">" + label+ "</td><td>"+totaltest+"</td><td>"+passedResult+"</td><td bgcolor='#FFFF00'>"+skippedResults+"</td><td bgcolor='#FF0000'>"+failureResults+"</td><td>"+executiontime+"</td></tr>";
     	}
         msgOutput = msgOutput + "</table>";
         return msgOutput;
