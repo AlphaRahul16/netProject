@@ -60,5 +60,29 @@ public class SSO_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("tab_homePage",tabName);
 		logMessage("ASSERT PASSED : User is navigated to "+tabName+" page\n");
 	}
+	
+	public void clickOnUserProfileName(){
+		isElementDisplayed("tab_accountProfile");
+		click(element("tab_accountProfile"));
+		logMessage("Step: Clicked on User's profile name");
+	}
+	
+	public void clickOnUserInformationLink(String lnkName){
+		isElementDisplayed("lnk_userInfo",lnkName);
+		click(element("lnk_userInfo",lnkName));
+		logMessage("Step : Clicked on "+lnkName+" link\n");
+	}
+	
+	public void clickOnLeftMenuInformationLink(String lnkName){
+		isElementDisplayed("lnk_leftUserInfo",lnkName);
+		click(element("lnk_leftUserInfo",lnkName));
+		logMessage("Step : Clicked on "+lnkName+" left navigation menu\n");
+	}
+	
+	public void verifyPageHeader(String headerName){
+		isElementDisplayed("txt_infoHeader");
+		Assert.assertTrue(element("txt_infoHeader").getText().contains(headerName));
+		logMessage("ASSERT PASSED: Page header is verified as "+headerName+"\n");
+	}
 
 }

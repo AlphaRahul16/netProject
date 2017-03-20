@@ -10,4 +10,7 @@ Submission_Author_Step:
    city: Florida
    country: United States
    state: Ohio
+   author_search_criteria: First/Given Name   # Last/Family Name , Author's Email
+   author_search_value: rishi
    
+Success_alert_msg: Success! Your submission was successfully submitted.

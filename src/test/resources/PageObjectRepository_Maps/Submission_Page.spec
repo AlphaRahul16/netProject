@@ -17,9 +17,21 @@ btn_showAffiliations                                css                         
 select_affiliations                                 xpath                           (//select[contains(@id,'${fieldName}')])[1]
 inp_institution_Fields                              xpath                           //label[contains(text(),'${fieldName}')]/following-sibling::input
 txt_createInstitution_dialog                        id                              CreateInstModalLabel
-select_Institution_dialog                           css                             select[name*='${name}']                 
+select_Institution_dialog                           css                             select[name*='${name}']
+btn_addAuthor                                       css                             #table_authors_inst>div>a[href*='author']
+txt_AuthorsearchResults                             css                             td[data-label='{$value}']
+txt_successAlert                                    css                             .alert-success
+txt_Tablesections_Status                            xpath                           //table[@id='${Sectionname}']//td[@data-label='Status']  
+tbl_section                                         id                              table_${value}    
+txt_activeProgramName                               xpath                           //input[contains(@id,'XIK_SELECTED_ROLE_ID') and not(@disabled)]/../../following-sibling::td[1]
+sel_Drafts_options                                  xpath                           //td[contains(text(),'${programName}')]/preceding-sibling::td/select/option
 list_authors                                        css                              #authors>tbody>tr>td:nth-child(3)
-btn_showAffiliations                                css                              #authors>tbody>tr:nth-child(1)>td:nth-child(3)>div>p>a
 select_symposiumType                                css                              #symposia_title_combobox>option:nth-child(2)
-
+btn_saveandContinueFooter                           xpath                            //div[@class='modal-footer']//a[contains(text(),'${value}')]
+txt_popupHeader                                     id                               myModalLabel
+lnk_submissionSteps                                 xpath                            //a[contains(@class,'left-side-menu-item') and contains(text(),'${linkName}')]
+radio_disclosures                                   xpath                            //h3[text()='${headerName}']/..//label[@class='radio'][${index}]
+chckbox_disclosures                                 xpath                            //h3[text()='${label}']/..//label[@class='checkbox']/input
+btn_submit                                          id                               submit_btn
+img_chkCompletedStep                                css                              #Step${index}>i
 ======================================================================================================================================
