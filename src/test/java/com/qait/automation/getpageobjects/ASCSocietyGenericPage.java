@@ -470,5 +470,24 @@ public class ASCSocietyGenericPage extends GetPage {
 		int randomNumber = MinRange + (int) (Math.random() * ((MaxRange - MinRange) + 1));
 		return randomNumber;
 	}
+	public void waitForLoaderToDisappear() {
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
+		try {
+			wait.resetImplicitTimeout(4);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			// handleAlert();
+			isElementDisplayed("img_Loader");
+			wait.waitForElementToDisappear(element("img_Loader"));
+			logMessage("STEP : Wait for Loader to be disappeared \n");
+
+		} catch (NoSuchElementException Exp) {
+
+			logMessage("STEP : Loader is not present \n");
+		}
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
+	}
+
 
 }
