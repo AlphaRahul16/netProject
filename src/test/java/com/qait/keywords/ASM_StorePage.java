@@ -355,11 +355,11 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 
 	public void enterPaymentInfo(String infoName, String infoValue) {
 		isElementDisplayed("inp_paymentInfo", infoName);
-		//element("inp_paymentInfo", infoName).clear();
-		element("inp_paymentInfo", infoName).sendKeys(infoValue);
+		//element("inp_paymentInfo", infoName).clear();\
+	    sendKeysUsingXpathInJavaScriptExecutor(element("inp_paymentInfo", infoName), infoValue);
+//		element("inp_paymentInfo", infoName).sendKeys(infoValue);
 		logMessage("STEP : " + infoValue + "  is entered in inp_paymentInfo\n");
 	}
-
 	public void selectPaymentInfo(String infoName, String infoValue) {
 		wait.hardWait(3);
 		selectProvidedTextFromDropDown(element("list_paymentInfo", infoName), infoValue);

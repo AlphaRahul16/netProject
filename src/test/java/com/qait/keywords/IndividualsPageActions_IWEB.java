@@ -1141,8 +1141,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnButtonToNavigateFinancialPageInMembershipPage() {
 		isElementDisplayed("btn_invoiceAtMembership");
-		clickUsingXpathInJavaScriptExecutor(element("btn_invoiceAtMembership"));
-
+//		clickUsingXpathInJavaScriptExecutor(element("btn_invoiceAtMembership"));
+		element("btn_invoiceAtMembership").click();
 		logMessage("STEP : User navigate to finance page in btn_memberShip\n");
 	}
 

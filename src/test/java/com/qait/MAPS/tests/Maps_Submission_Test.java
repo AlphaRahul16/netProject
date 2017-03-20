@@ -16,24 +16,17 @@ public class Maps_Submission_Test extends BaseTest {
 	private String maps_url;
 	private String programName;
 
-<<<<<<< HEAD
 	@BeforeClass
-=======
-	@BeforeClass																																																																																																											
->>>>>>> 35124c87fdf8a667544237b56d66c7a6a9135244
 	public void Start_Test_Session() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		maps_url = YamlReader.getYamlValue("MAPS_Url");
 	}
 
-<<<<<<< HEAD
-=======
 	@BeforeMethod
 	public void printCaseIdExecuted(Method method) {
 		test.printMethodName(method.getName());
 	}
 
->>>>>>> 35124c87fdf8a667544237b56d66c7a6a9135244
 	@Test
 	public void Test01_MAPS_1_Launch_Application() {
 		test.launchMAPSApplication(maps_url);
@@ -84,15 +77,8 @@ public class Maps_Submission_Test extends BaseTest {
 	}
 
 	@Test
-<<<<<<< HEAD
 	public void Test08_MAPS_94_Submit_Details_On_Title_Body_Page() {
 		test.maps_submissionPage.submitTitleAndBodyDetails("Test Title", "Test Abstract");
-=======
-
-	public void Test08_MAPS_94_Submit_Details_On_Title_Body_Page() {//verification to be added in the end
-		test.maps_submissionPage.submitTitleAndBodyDetails("Test Title","Test Abstract");
-
->>>>>>> 35124c87fdf8a667544237b56d66c7a6a9135244
 		test.maps_submissionPage.uploadImage("test.jpeg");
 		test.maps_submissionPage.clickOnSaveAndContinueButton();
 		test.maps_submissionPage.verifyPageHeaderForASection("Select Symposium");
@@ -101,22 +87,12 @@ public class Maps_Submission_Test extends BaseTest {
 	@Test
 
 	public void Test09_MAPS_106_Submit_Details_Select_Symposium_Page() {
-<<<<<<< HEAD
 		test.maps_submissionPage.submitDetailsOnSelectSymposiumPage("1. Oral Only","1. Consider for Sci-Mix");
-=======
-		test.maps_submissionPage.submitDetailsOnSelectSymposiumPage("1. Oral Only","Coffee & Cocoa Products","1. Consider for Sci-Mix");
-
->>>>>>> 35124c87fdf8a667544237b56d66c7a6a9135244
 		test.maps_submissionPage.clickOnSaveAndContinueButton();
 		test.maps_submissionPage.verifyPageHeaderForASection("Authors");
-
 	}
 
-<<<<<<< HEAD
 	@Test
-=======
-	@Test
->>>>>>> 35124c87fdf8a667544237b56d66c7a6a9135244
 	public void Test10_MAPS_118_Verify_Application_Creates_New_institution_And_Navigates_Back_To_Author_Page() {
 		test.maps_submissionPage.clickShowAffiliationsButton();
 		test.maps_submissionPage.selectAMandatoryAffiliation("AUTHOR_INSTITUTION", "Create New Institution");
@@ -208,7 +184,6 @@ public class Maps_Submission_Test extends BaseTest {
 		test.maps_submissionPage.verifyPopUpHeaderOnSubmissionPage("Move to Draft status?");
 		test.maps_submissionPage.clickOnDraftStatusActionButton("No, Do Not Move");
 	}
-<<<<<<< HEAD
 
 	/*
 	 * @Test public void
@@ -216,7 +191,4 @@ public class Maps_Submission_Test extends BaseTest {
 	 * test.maps_submissionPage.logOutFromMAPSApplication(); }
 	 */
 
-=======
-*/
->>>>>>> 35124c87fdf8a667544237b56d66c7a6a9135244
 }
