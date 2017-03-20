@@ -6,7 +6,7 @@ lnk_createSubmission                                xpath                       
 txt_pageHeader                                      css                              .page-header>h1
 iframe                                              xpath                            //div[@id='cke_${index}_contents']//iframe
 txt_title                                           xpath                            //body[contains(@class,'cke_editable cke')]
-btn_saveContinue                                    id                               saveAndContinueBtn
+btn_saveContinue                                    xpath                            //div[contains(@class,'row-fluid')]//a[contains(text(),'Save & Continue')]
 btn_selectImage                                     id                               ABSTRACT_IMAGE_FILE
 btn_uploadImage                                     id                               uploadImageBtn
 select_presentationType                             id                               ${dropdownType}_combobox

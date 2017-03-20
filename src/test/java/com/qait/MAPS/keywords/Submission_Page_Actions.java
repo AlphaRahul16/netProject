@@ -68,6 +68,7 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyPageHeaderForASection(String header) {
+		wait.hardWait(10);
 		isElementDisplayed("txt_pageHeader");
 		System.out.println(element("txt_pageHeader").getText().trim());
 		Assert.assertTrue(element("txt_pageHeader").getText().trim().contains(header));
@@ -288,6 +289,7 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		while(index<=count){
 			isElementDisplayed("img_chkCompletedStep",String.valueOf(index));
 			logMessage("ASSERT PASSED: Step"+index+" is verified as complete\n");
+			index++;
 		}
 	}
 	

@@ -119,7 +119,7 @@ public class Maps_Submission_Test extends BaseTest {
 
 	@Test
 
-	public void Test12_MAPS_165_Verify_That_Application_Should_Navigate_To_Disclosures_Page_On_Clicking_Save_And_Continue() {
+	public void Test13_MAPS_165_Verify_That_Application_Should_Navigate_To_Disclosures_Page_On_Clicking_Save_And_Continue() {
 
 		test.maps_submissionPage.clickOnSaveAndContinueButton();
 		test.maps_submissionPage.verifyPageHeaderForASection("Disclosures");
@@ -127,7 +127,7 @@ public class Maps_Submission_Test extends BaseTest {
 
 	@Test
 
-	public void Test13_MAPS_199_Verify_Step_Incomplete_Window_Appears_On_Clicking_Save_And_Continue_Button_And_User_Navigates_To_Review_And_Submit_Page() {
+	public void Test14_MAPS_199_Verify_Step_Incomplete_Window_Appears_On_Clicking_Save_And_Continue_Button_And_User_Navigates_To_Review_And_Submit_Page() {
 		test.maps_submissionPage.clickOnSaveAndContinueButton();
 		test.maps_submissionPage.verifyPopUpHeader("Step Incomplete");
 		test.maps_submissionPage.clickOnSaveAndContinueButtonInFooter("Save & Continue");
@@ -136,7 +136,7 @@ public class Maps_Submission_Test extends BaseTest {
 
 	@Test
 
-	public void Test14_MAPS_239_Fill_Mandatory_Details_On_Disclosure_Page_And_Click_On_Submit_Button() {
+	public void Test15_MAPS_239_Fill_Mandatory_Details_On_Disclosure_Page_And_Click_On_Submit_Button() {
 
 		test.maps_submissionPage.clickOnLinkUnderCreateNewSubmission("Disclosures");
 		test.maps_submissionPage.verifyPageHeaderForASection("Disclosures");
@@ -150,7 +150,7 @@ public class Maps_Submission_Test extends BaseTest {
 
 
 	@Test
-	public void Test15_MAPS_223_Verify_Application_Displays_Abstracts_Drafts_Under_Draft_Section(){
+	public void Test16_MAPS_223_Verify_Application_Displays_Abstracts_Drafts_Under_Draft_Section(){
 		test.maps_submissionPage.verifySuccessAlertMessage(YamlReader.getYamlValue("Success_alert_msg"));
 		test.maps_submissionPage.verifyNamedSectionIsDisplayed("drafts");
 		test.maps_submissionPage.verifyApplicationDisplaysSpecifiedAbstractUnderSpecifiedSections("drafts","Draft");  
@@ -158,32 +158,32 @@ public class Maps_Submission_Test extends BaseTest {
 
 
 	@Test
-	public void Test16_MAPS_229_Verify_Aplication_Displays_Submitted_Abstracts_Under_Submissions_Section() {
+	public void Test17_MAPS_229_Verify_Aplication_Displays_Submitted_Abstracts_Under_Submissions_Section() {
 		test.maps_submissionPage.verifyNamedSectionIsDisplayed("submissions");
 	}
 
 	@Test
-	public void Test17_MAPS_224_Verify_All_Options_Available_Under_Action_Dropdown_Drafts(){
+	public void Test18_MAPS_224_Verify_All_Options_Available_Under_Action_Dropdown_Drafts(){
 		test.maps_submissionPage.verifyAvailableOptionsForDraftedProgram(YamlReader.getYamlValue("Submission_draft_Options"));
 	}
 
 
 	@Test
-	public void Test18_MAPS_230_Verify_Status_Of_Submitted_Abstract_Changed_To_UnderReview()
+	public void Test19_MAPS_230_Verify_Status_Of_Submitted_Abstract_Changed_To_UnderReview()
 	{
 		test.maps_submissionPage.verifyApplicationDisplaysSpecifiedAbstractUnderSpecifiedSections("subs","Under Review");
 	}
 
 
 	@Test
-	public void Test19_MAPS_232_Verify_Application_Displays_Move_To_Draft_Status_Popup_On_Clicking_Edit_Option_For_Submitted_Abstracts() {
+	public void Test20_MAPS_232_Verify_Application_Displays_Move_To_Draft_Status_Popup_On_Clicking_Edit_Option_For_Submitted_Abstracts() {
 		test.maps_submissionPage.selectEditActionForSubmittedAbstracts(programName, "Edit");
 		test.maps_submissionPage.verifyPopUpHeaderOnSubmissionPage("Move to Draft status?");
 		test.maps_submissionPage.clickOnDraftStatusActionButton("No, Do Not Move");
 	}
 
 
-	@Test public void Test25_MAPS_26_Application_LogsOut_On_Clicking_LogOut_Link() {
+	@Test public void Test21_MAPS_26_Application_LogsOut_On_Clicking_LogOut_Link() {
 		test.maps_submissionPage.logOutFromMAPSApplication(); }
 
 
