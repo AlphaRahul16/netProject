@@ -99,7 +99,7 @@ public class ACS_Fundraising_Module_Test extends BaseTest {
 	@Test(dependsOnMethods="Step05_Create_A_New_Batch_And_Enter_Payment_Details")
 	public void Step06_Verify_Gift_Is_Added() {
 		test.memberShipPage.expandDetailsMenuIfAlreadyExpanded("gifts");
-		test.acsFundraising.verifyGiftIsAdded("gifts", DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST"), 4,
+		test.acsFundraising.verifyGiftIsAdded("gifts", DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST5EDT"), 4,
 				"Gift Date", 1);
 		test.acsFundraising.verifyGiftIsAdded("gifts", test.memberShipPage.map().get("Gift Amount"), 5, "gift amount",
 				1);
