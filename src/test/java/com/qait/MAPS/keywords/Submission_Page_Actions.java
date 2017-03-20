@@ -1,6 +1,8 @@
 package com.qait.MAPS.keywords;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.openqa.selenium.WebDriver;
@@ -32,9 +34,12 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnSaveAndContinueButton() {
+		scrollDown(element("btn_saveContinue"));
 		isElementDisplayed("btn_saveContinue");
 		click(element("btn_saveContinue"));
 		logMessage("Step : Clicked on Save & Continue button\n");
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(4);
 	}
 
 	public void uploadImage(String filename) {
@@ -64,7 +69,8 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 
 	public void verifyPageHeaderForASection(String header) {
 		isElementDisplayed("txt_pageHeader");
-		Assert.assertTrue(element("txt_pageHeader").getText().contains(header));
+		System.out.println(element("txt_pageHeader").getText().trim());
+		Assert.assertTrue(element("txt_pageHeader").getText().trim().contains(header));
 		logMessage("ASSERT PASSED: Page header is verified as " + header + "\n");
 	}
 
@@ -300,6 +306,17 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_draftStatus",headerName);
 		click(element("btn_draftStatus",headerName));
 		logMessage("Step : "+headerName+" is clicked\n");
+	}
+
+	public void verifyAvailableOptionsForDraftedProgram(String draftoptions) {
+		
+		String optionsArray[]=draftoptions.split(",");
+		for (WebElement ele : elements("sel_Drafts_options")) {
+			System.out.println(ele.getText().trim());
+			Assert.assertTrue(ele.getText().trim().equals(optionsArray[0].trim()),"Mentioned options are not available under draft options");
+			logMessage("ASSERT PASSED: "+ele.getText().trim()+" options is displayed under draft action\n");
+		}
+		
 	}
 
 }
