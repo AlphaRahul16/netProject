@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
@@ -52,6 +53,7 @@ public class GCS_OMR_Test extends BaseTest {
 	@BeforeMethod
 	public void handleTestMethodName(Method method) {
 		test.printMethodName(method.getName());
+		Reporter.log("CASE ID::" + this.caseID+"\n", true);
 	}
 
 	@Test

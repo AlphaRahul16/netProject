@@ -13,4 +13,11 @@ input_filter						xpath							(//div[contains(text(),'${text}')]/../following-si
 comboBox_reviewPage					xpath							//div[contains(text(),'${text}')]/../following-sibling::td/div[contains(@role,'combobox')]
 listItem							xpath							//div[contains(@role,'listitem')]
 btn_ImportExportExcel				xpath							//button[contains(text(),'${text}')]
+list_ImportExportExcel				xpath							//div[contains(@class,'menu-list')]
+drpdown_role						xpath							//tr[@role='presentation']//input[@name='role']
+btn_expandIcon						xpath							//td[@align='right']//button
+btn_massUpdate						xpath							//button[text()='${btnName}']
+table_ReviewerScoreReport			xpath							//table[contains(@class,'row-table')]
+table_pageination					xpath							//div[contains(@class,'panel-bbar')]//tr[contains(@class,'left-row')]
+input_SaveGridConfig				xpath							//label[contains(text(),'Name')]/following-sibling::div//input
 ======================================================================================================================================
