@@ -59,11 +59,25 @@ public class Maps_Review_Test extends BaseTest {
 		test.instanceOfReviewPage.verifyReviewerScoreReportTable();
 		test.instanceOfReviewPage.verifyPaginationSectionAtTheBottomOfTheTable();
 	}
+
 	@Test
-	public void MAPS_Review_Admin_07_Verify_application_allows_user_to_add_new_view_in_Grid_Configuration_dropdown(){
+	public void MAPS_Review_Admin_07_Verify_application_allows_user_to_add_new_view_in_Grid_Configuration_dropdown() {
 		test.instanceOfReviewPage.clickOnButton("Save/Edit");
 		test.instanceOfReviewPage.verifyAbstractTitleUnderReviewModule("Save Grid Configuration");
-		test.instanceOfReviewPage.enterDetailsAtSaveGridConfigurationPage("Test"+System.currentTimeMillis());
+		test.instanceOfReviewPage.enterDetailsAtSaveGridConfigurationPage("Test" + System.currentTimeMillis());
+		test.instanceOfReviewPage.clickOnButtonAtSaveGridConfigurationPage("Save");
 	}
 
+	@Test
+	public void MAPS_Review_Admin_17_Verify_application_displays_all_results_when_search_term_is_provided_in_the_Filter_field() {
+		String cID = test.instanceOfReviewPage.getValueFromReviewerScoreReportTable();
+		test.instanceOfReviewPage.enterValueInFilter(cID);
+		test.instanceOfReviewPage.verifyTheResult(cID);
+	}
+
+	@Test
+	public void MAPS_Review_Admin_91_Verify_options_available_under_Records_per_Page_dropdown() {
+		String pageSize[] = { "10", "25", "50" };
+		test.instanceOfReviewPage.verifyOptionsffromRecordsPerPageDropdown(pageSize);
+	}
 }
