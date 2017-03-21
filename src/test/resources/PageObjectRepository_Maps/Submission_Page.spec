@@ -6,7 +6,7 @@ lnk_createSubmission                                xpath                       
 txt_pageHeader                                      css                              .page-header>h1
 iframe                                              xpath                            //div[@id='cke_${index}_contents']//iframe
 txt_title                                           xpath                            //body[contains(@class,'cke_editable cke')]
-btn_saveContinue                                    id                               saveAndContinueBtn
+btn_saveContinue                                    xpath                            //div[contains(@class,'row-fluid')]//a[contains(text(),'Save & Continue')]
 btn_selectImage                                     id                               ABSTRACT_IMAGE_FILE
 btn_uploadImage                                     id                               uploadImageBtn
 select_presentationType                             id                               ${dropdownType}_combobox
@@ -34,4 +34,6 @@ radio_disclosures                                   xpath                       
 chckbox_disclosures                                 xpath                            //h3[text()='${label}']/..//label[@class='checkbox']/input
 btn_submit                                          id                               submit_btn
 img_chkCompletedStep                                css                              #Step${index}>i
+select_submissionAction                             xpath                            //td[@data-label='Type' and text()='${programName}']/preceding-sibling::td[5]//select
+btn_draftStatus                                     xpath                            //span[text()='${btnName}']
 ======================================================================================================================================

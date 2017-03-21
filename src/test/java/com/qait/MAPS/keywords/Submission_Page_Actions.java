@@ -1,6 +1,8 @@
 package com.qait.MAPS.keywords;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.openqa.selenium.WebDriver;
@@ -32,9 +34,12 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnSaveAndContinueButton() {
+		scrollDown(element("btn_saveContinue"));
 		isElementDisplayed("btn_saveContinue");
 		click(element("btn_saveContinue"));
 		logMessage("Step : Clicked on Save & Continue button\n");
+		wait.waitForPageToLoadCompletely();
+		wait.hardWait(4);
 	}
 
 	public void uploadImage(String filename) {
@@ -47,7 +52,7 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		click(element("btn_uploadImage"));
 	}
 
-	public void submitDetailsOnSelectSymposiumPage(String presentationType, String symposium, String sciMix) {
+	public void submitDetailsOnSelectSymposiumPage(String presentationType,String sciMix) {
 		selectPresentationType("type", presentationType);
 		selectSymposium();
 		selectPresentationType("sub_type", sciMix);
@@ -63,8 +68,10 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyPageHeaderForASection(String header) {
+		wait.hardWait(10);
 		isElementDisplayed("txt_pageHeader");
-		Assert.assertTrue(element("txt_pageHeader").getText().contains(header));
+		System.out.println(element("txt_pageHeader").getText().trim());
+		Assert.assertTrue(element("txt_pageHeader").getText().trim().contains(header));
 		logMessage("ASSERT PASSED: Page header is verified as " + header + "\n");
 	}
 
@@ -282,7 +289,36 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		while(index<=count){
 			isElementDisplayed("img_chkCompletedStep",String.valueOf(index));
 			logMessage("ASSERT PASSED: Step"+index+" is verified as complete\n");
+			index++;
 		}
+	}
+	
+	public void selectEditActionForSubmittedAbstracts(String programName,String action){
+		isElementDisplayed("select_submissionAction",programName);
+		selectProvidedTextFromDropDown(element("select_submissionAction",programName), action);
+		logMessage("Step: "+action+" action is selected for "+programName+"\n");
+	}
+	
+	public void verifyPopUpHeaderOnSubmissionPage(String headerName){
+		isElementDisplayed("btn_draftStatus",headerName);
+		logMessage("ASSERT PASSED: Poup window "+headerName+" is verified\n");
+	}
+	
+	public void clickOnDraftStatusActionButton(String headerName){
+		isElementDisplayed("btn_draftStatus",headerName);
+		click(element("btn_draftStatus",headerName));
+		logMessage("Step : "+headerName+" is clicked\n");
+	}
+
+	public void verifyAvailableOptionsForDraftedProgram(String draftoptions) {
+		
+		String optionsArray[]=draftoptions.split(",");
+		for (WebElement ele : elements("sel_Drafts_options")) {
+			System.out.println(ele.getText().trim());
+			Assert.assertTrue(ele.getText().trim().equals(optionsArray[0].trim()),"Mentioned options are not available under draft options");
+			logMessage("ASSERT PASSED: "+ele.getText().trim()+" options is displayed under draft action\n");
+		}
+		
 	}
 
 }
