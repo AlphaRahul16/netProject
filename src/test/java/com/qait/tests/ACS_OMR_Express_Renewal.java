@@ -3,7 +3,6 @@ package com.qait.tests;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.testng.annotations.BeforeClass;
@@ -12,7 +11,6 @@ import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.BaseTest;
-import com.qait.automation.utils.YamlReader;
 
 public class ACS_OMR_Express_Renewal extends BaseTest {
 	String app_url_IWEB;

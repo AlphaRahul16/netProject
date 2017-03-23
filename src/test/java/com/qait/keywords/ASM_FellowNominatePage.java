@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.text.WordUtils;
-import org.jboss.netty.util.internal.SystemPropertyUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;

@@ -1,9 +1,7 @@
 package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
-import static com.qait.automation.utils.YamlReader.getYamlValue;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

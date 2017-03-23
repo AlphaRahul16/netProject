@@ -16,9 +16,7 @@ import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
-import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.XlsReader;
-import com.qait.automation.utils.YamlReader;
 
 public class ACS_Scarf_Reporting{
 	static String sheetName;

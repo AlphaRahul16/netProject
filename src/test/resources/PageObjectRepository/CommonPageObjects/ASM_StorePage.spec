@@ -8,7 +8,7 @@ txt_searchList                 xpath              //div[@id='pnlCategoryList']/h
 lnk_logIn                      xpath              //a[text()='Log In']
 inp_userName                   classname          input-user-name
 inp_password                   classname           input-password
-btn_verify               	   xpath               //input[@value='Verify']
+btn_verify               	   id                  btnLogin
 lnk_logOut                     xpath               //a[text()='Log Out']
 lnk_secondFeatureItem          xpath               (//div[@class='pnlProductListing']/a/img)[2]
 btn_addToCart                  xpath               //input[contains(@id,'btnAddToCart')]

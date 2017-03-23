@@ -1,13 +1,9 @@
 package com.qait.MAPS.keywords;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
@@ -39,7 +35,6 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		click(element("btn_saveContinue"));
 		logMessage("Step : Clicked on Save & Continue button\n");
 		wait.waitForPageToLoadCompletely();
-		wait.hardWait(4);
 	}
 
 	public void uploadImage(String filename) {
@@ -68,7 +63,8 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyPageHeaderForASection(String header) {
-		wait.hardWait(10);
+		wait.hardWait(5);
+		dynamicWait(20,"txt_pageHeader", "");
 		isElementDisplayed("txt_pageHeader");
 		System.out.println(element("txt_pageHeader").getText().trim());
 		Assert.assertTrue(element("txt_pageHeader").getText().trim().contains(header));
@@ -99,20 +95,21 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("Step : Show Affiliations button is clicked\n");
 	}
 
-	public void selectRandomActiveSubmissionProgram() {
-		int sizeofActivePrograms;
+	public int selectRandomActiveSubmissionProgram() {
+		int sizeofActivePrograms, randomProg;
 		wait.hardWait(4);
 		isElementDisplayed("btn_activeProgram");
 		sizeofActivePrograms = elements("btn_activeProgram").size();
-		click(elements("btn_activeProgram")
-				.get(ASCSocietyGenericPage.generateRandomNumberWithInRange(0, sizeofActivePrograms)));
+		randomProg=ASCSocietyGenericPage.generateRandomNumberWithInRange(0, (sizeofActivePrograms-1));
+		click(elements("btn_activeProgram").get(randomProg));
 		logMessage("Step : Active Submission program is selected\n");
+		return randomProg;
 	}
 	
-	public String getSelectedProgramName()
+	public String getSelectedProgramName(int index)
 	{
 		String programName = null;
-		programName=element("txt_activeProgramName").getText().trim();
+		programName=element("txt_activeProgramName",toString().valueOf(index)).getText().trim();
 		return programName;
 	}
 

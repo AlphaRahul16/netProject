@@ -1,6 +1,7 @@
 package com.qait.MAPS.tests;
 
 import java.lang.reflect.Method;
+
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -12,6 +13,7 @@ import com.qait.automation.utils.YamlReader;
 public class Maps_Submission_Test extends BaseTest {
 	private String maps_url;
 	private String programName;
+	private int randProgramindex;
 	
 	@BeforeClass
 	public void Start_Test_Session() {
@@ -67,7 +69,7 @@ public class Maps_Submission_Test extends BaseTest {
 	@Test
 	public void Test07_MAPS_42_Select_A_Active_Program_Area_And_Click_Continue_Button_User_Navigated_To_Title_Body_Page() {
 		test.maps_submissionPage.selectRandomActiveSubmissionProgram();
-		programName = test.maps_submissionPage.getSelectedProgramName();
+		programName = test.maps_submissionPage.getSelectedProgramName(randProgramindex);
 		test.maps_submissionPage.clickOnContinueButtonOnProgramArea();
 		test.maps_submissionPage.clickOnPopUpContinueButtonOnSelectingProgramArea("Continue With This Type");
 		test.maps_submissionPage.verifyPageHeaderForASection("Title/Body");

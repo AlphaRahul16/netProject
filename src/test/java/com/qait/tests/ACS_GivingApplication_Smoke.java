@@ -103,13 +103,16 @@ public class ACS_GivingApplication_Smoke extends BaseTest {
 	@Test
 	public void Step04_TC04_Navigate_To_ContactInfo_Page_And_Login() {
 
-		uniquelastname = mapSheetData.get("Guest_LastName") + System.currentTimeMillis();
+	/*	uniquelastname = mapSheetData.get("Guest_LastName") + System.currentTimeMillis();
 		test.asm_Donate.clickOnLoginButtonForSpecifiedUser(memberLoginDetails, mapSheetData.get("ValidEmailAddress"),
-				mapSheetData.get("Login_via_MemberNumber"), memberDetails);
-		test.asm_Donate.enterGuestRequiredDetailsInForm(memberLoginDetails, mapSheetData.get("Guest_FirstName"),
+				mapSheetData.get("Login_via_MemberNumber"), memberDetails);*/
+		test.asm_Donate.loginIntoApplication(memberLoginDetails.get(2), "password");
+		test.asm_Donate.enterValidEmailAddress(mapSheetData.get("ValidEmailAddress"));
+		test.asm_Donate.clickOnSubmitPaymentButton();
+	/*	test.asm_Donate.enterGuestRequiredDetailsInForm(memberLoginDetails, mapSheetData.get("Guest_FirstName"),
 				uniquelastname, mapSheetData.get("ValidEmailAddress"), mapSheetData.get("Guest_Phone"),
 				mapSheetData.get("Guest_Address"), mapSheetData.get("Guest_City"), mapSheetData.get("Guest_State"),
-				mapSheetData.get("Guest_ZipCode"), mapSheetData.get("Guest_Country"));
+				mapSheetData.get("Guest_ZipCode"), mapSheetData.get("Guest_Country"));*/
 	}
 
 	@Test
@@ -152,6 +155,7 @@ public class ACS_GivingApplication_Smoke extends BaseTest {
 		test.asm_Donate.verifyThankyouMessageAfterDonation();
 		test.asm_Donate.verifyPrintReceiptMessageAfterDonation();
 		test.asm_Donate.verifyConfirmationEmailAfterDonation(mapSheetData.get("ValidEmailAddress"));
+		test.asm_Donate.logOut();
 	}
 
 	 @Test

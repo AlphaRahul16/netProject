@@ -4,8 +4,6 @@ import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

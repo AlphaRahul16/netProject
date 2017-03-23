@@ -1,7 +1,6 @@
 package com.qait.automation.getpageobjects;
 
 import org.testng.ITestResult;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 
 import com.qait.automation.TestSessionInitiator;

@@ -11,7 +11,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-import com.fasterxml.jackson.databind.InjectableValues;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DateUtil;
 
@@ -273,8 +272,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 
 		enterCVVNumber(map().get("CVV_Number"));
 		wait.hardWait(1);
-		selectExpirationDate_Year("Date", map().get("CreditCardExpiration_Month"));
-		selectExpirationDate_Year("Year", map().get("CreditCardExpiration_Year"));
+		selectExpirationDate_Year("Date", map().get("Expiry_Month"));
+		selectExpirationDate_Year("Year", map().get("Expiry_Year"));
 		checkEula();
 		clickOnContinueButton();
 		wait.hardWait(20);

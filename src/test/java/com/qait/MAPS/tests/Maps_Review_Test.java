@@ -2,7 +2,6 @@ package com.qait.MAPS.tests;
 
 import java.lang.reflect.Method;
 
-import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

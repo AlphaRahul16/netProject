@@ -1,11 +1,8 @@
 package com.qait.tests;
 
 import java.lang.reflect.Method;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.LogManager;
 
 import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;

@@ -18,7 +18,6 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.poi.ss.formula.functions.Countif.StringMatcher;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -27,8 +26,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
-import com.fasterxml.jackson.core.format.MatchStrength;
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.report.ReformatTestFile;
 import com.qait.automation.utils.ConfigPropertyReader;
@@ -97,8 +94,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnRunQuery();
 	}
 
-	public List<String> selectAndRunQueryForMemberOrNonMember(String caseId) {
-		String memberStatus = getACS_Store_SheetValue(caseId, "Member?");
+	public List<String> selectAndRunQueryForMemberOrNonMember(String memberStatus) {
 		logMessage("STEP : Member status is " + memberStatus + " in spreadsheet\n");
 		if (memberStatus.equalsIgnoreCase("Y")) {
 			selectAndRunQuery("Selenium - Find Active Regular Member");
@@ -106,7 +102,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			wait.hardWait(4);
 			selectAndRunQuery("Selenium - Find Random Non Member");
 		}
-		memberStoreDetails.add(getMemberDetailsOnMemberShipProfile("contact id"));
+		memberStoreDetails.add(element("txt_ContactId").getText().trim());
 		memberStoreDetails.add(getMemberWebLogin());
 		return memberStoreDetails;
 
@@ -1288,6 +1284,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(5);
 		isElementDisplayed("txt_membershipProfileDetails", memberInfo);
 		String info = element("txt_membershipProfileDetails", memberInfo).getText().trim();
+		
 		logMessage("STEP : " + memberInfo + " is " + info + " \n");
 		return info;
 	}
