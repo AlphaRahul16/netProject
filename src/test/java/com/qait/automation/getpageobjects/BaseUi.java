@@ -40,7 +40,6 @@ import org.testng.Reporter;
 
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.SeleniumWait;
-import com.qait.automation.utils.YamlReader;
 
 /**
  * 
@@ -76,6 +75,7 @@ public class BaseUi {
 
 	public void launchUrl(String url) {
 		driver.get(url);
+		wait.waitForPageToLoadCompletely();
 		logMessage("STEP: Launch Application URL " + url + "\n");
 	}
 

@@ -127,7 +127,7 @@ public class ACS_AACT_OMR extends BaseTest {
 		invoiceTotal = test.acs_aactOmr.getDetailsfromOnlineMembershipPage("TotalAmount");
 		CardHolderName = customerFullNameList.get(0).trim();
 		test.acs_aactOmr.enterPaymentInfo(ASCSocietyGenericPage.map().get("Payment_Method").trim(), CardHolderName,
-				ASCSocietyGenericPage.map().get("Visa_Card_Number").trim(),
+				ASCSocietyGenericPage.map().get("Card_Number").trim(),
 				ASCSocietyGenericPage.map().get("CVV_Number").trim(),
 				ASCSocietyGenericPage.map().get("Expiry_Month").trim(),
 				ASCSocietyGenericPage.map().get("Expiry_Year").trim());
@@ -144,7 +144,7 @@ public class ACS_AACT_OMR extends BaseTest {
 		test.acs_aactOmr.verifyDetailsOfSummaryPage(email, ASCSocietyGenericPage.map().get("Gender").trim(),
 				ASCSocietyGenericPage.map().get("Experience").trim(),
 				ASCSocietyGenericPage.map().get("Payment_Method").trim(), CardHolderName,
-				ASCSocietyGenericPage.map().get("Visa_Card_Number").trim(),
+				ASCSocietyGenericPage.map().get("Card_Number").trim(),
 				ASCSocietyGenericPage.map().get("Expiry_Month").trim(),
 				ASCSocietyGenericPage.map().get("Expiry_Year").trim());
 		test.acs_aactOmr.clickOnSubmitPaymentOnOnlineMembershipRenewalPage();

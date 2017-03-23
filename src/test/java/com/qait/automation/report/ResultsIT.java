@@ -6,19 +6,14 @@ import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
-import javax.lang.model.util.Elements;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
@@ -41,7 +36,6 @@ import javax.xml.xpath.XPathFactory;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -350,7 +344,7 @@ public class ResultsIT extends ReformatTestFile {
     	skippedResults =toString().valueOf(getExecutionResults(dom,"//test[@name='"+label+"']/class/test-method[@status='SKIP']"));
     	failureResults =toString().valueOf(getExecutionResults(dom,"//test[@name='"+label+"']/class/test-method[@status='FAIL']"));
     	
-    	msgOutput = msgOutput + "<tr><td id=\"#t\""+i + "\">" + label+ "</td><td>"+totaltest+"</td><td>"+passedResult+"</td><td bgcolor='#FFFF00'>"+skippedResults+"</td><td bgcolor='#FF0000'>"+failureResults+"</td><td>"+executiontime+"</td></tr>";
+    	msgOutput = msgOutput + "<tr><td id=\"#t\""+i + "\">" + label+ "</td><td font color='white' bgcolor='#0000FF'>"+totaltest+"</td><td bgcolor='#00FF00' font color='white'>"+passedResult+"</td><td bgcolor='#FFFF00' font color='white'>"+skippedResults+"</td><td bgcolor='#FF0000' font color='white'>"+failureResults+"</td><td>"+executiontime+"</td></tr>";
     	}
         msgOutput = msgOutput + "</table>";
         return msgOutput;

@@ -1,7 +1,7 @@
 package com.qait.automation.utils;
 
-import static com.qait.automation.utils.YamlReader.getYamlValue;
 import static com.qait.automation.TestSessionInitiator._getSessionConfig;
+import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -10,11 +10,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.codec.language.ColognePhonetic;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.LineIterator;
 
-import com.google.common.base.CaseFormat;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 
 public class DataProvider {
@@ -33,9 +31,10 @@ public class DataProvider {
 			String csvSeparator, int columnNumber) {
 		String returnStr = ""; // return blank if value / column not present
 		try {
-	
+	      
 			returnStr = csvLine.split(csvSeparator)[columnNumber];
 			returnStr = returnStr.replaceAll("\"", "").trim();
+			System.out.println("Keys "+returnStr);
 		} catch (ArrayIndexOutOfBoundsException ex) {
 			// Reporter.log(
 			// "Column Number "

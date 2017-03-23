@@ -3,7 +3,6 @@ package com.qait.tests;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.testng.Reporter;
@@ -61,7 +60,7 @@ public class ACS_MGM_Test extends BaseTest {
 
 	@BeforeMethod
 	public void skipMethodsAccordingToTheScenarioExecuted(Method method) {
-		scenarioNo = ASCSocietyGenericPage.map().get("Scenario").trim();		
+		scenarioNo = ASCSocietyGenericPage.map().get("Scenario").trim();
 		if (!(method.getName().contains("Scenario" + scenarioNo))) {
 			throw new SkipException("Tests Skipped for expected work flows!");
 		}
@@ -101,13 +100,15 @@ public class ACS_MGM_Test extends BaseTest {
 		// YamlReader.getYamlValue("creditCardInfo.Number"),
 		// YamlReader.getYamlValue("creditCardInfo.cvv-number"));
 
-		test.asm_storePage.enterPaymentInfo("CardholderName", "test Selenium");
+		test.asm_storePage.enterPaymentInfo("CardholderName", fname_Iweb + " " + lname_Iweb);
 		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes();
 		test.checkoutPage.clickAtTestStatement();
 		test.ContactInfoPage.clickContinue();
 		test.checkoutPage.clickSubmitButtonAtBottom();
-		test.launchApplication(app_url_MGMLogout);
+		// test.asm_MGM.clickOnlogoutButton(app_url_MGMLogout);
+		// test.launchApplication(app_url_MGMLogout);
 		test.launchApplication(app_url_MGMUrl);
+		test.asm_MGM.clickOnlogoutButton(app_url_MGMLogout);
 		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
 		uniqueEmail = test.asm_MGM.submitMemberDetailsToInvite(ASCSocietyGenericPage.map().get("MGM_FNAME").trim(),
 				ASCSocietyGenericPage.map().get("MGM_LNAME").trim(),
@@ -125,6 +126,7 @@ public class ACS_MGM_Test extends BaseTest {
 
 	@Test
 	public void Step05_Invite_Non_Member_And_Verify_Nominee_Status_On_MGM_And_IWEB_For_Scenario3() {
+		// webLogin="flopezli";
 		test.launchApplication(app_url_MGMUrl);
 		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
 		uniqueEmail = test.asm_MGM.submitMemberDetailsToInvite(ASCSocietyGenericPage.map().get("MGM_FNAME").trim(),
@@ -132,7 +134,9 @@ public class ACS_MGM_Test extends BaseTest {
 				ASCSocietyGenericPage.map().get("MGM_Email").trim());
 
 		MGMpageURL = test.asm_MGM.verifyNomineeStatus(StatusOnEweb.get(0), uniqueEmail);
-		test.launchApplication(app_url_MGMLogout);
+		test.asm_MGM.clickOnlogoutButton(app_url_MGMLogout);
+		// test.launchApplication(app_url_MGMLogout);
+		test.launchApplication(app_url_IWEB);
 		test.memberShipPage.verifyNomineeStatusOnIWEB(IWEBurl, StatusOnIweb.get(0), uniqueEmail,
 				ASCSocietyGenericPage.map().get("MGM_FNAME").trim(),
 				ASCSocietyGenericPage.map().get("MGM_LNAME").trim());
@@ -145,10 +149,13 @@ public class ACS_MGM_Test extends BaseTest {
 		test.launchApplication(app_url_MGMUrl);
 		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
 		MGMpageURL = test.asm_MGM.verifyNomineeStatus(StatusOnEweb.get(1), uniqueEmail);
+		//test.asm_MGM.clickOnlogoutButton(app_url_MGMLogout);
+		//test.launchApplication(IWEBurl);
 		test.memberShipPage.verifyNomineeStatusOnIWEB(IWEBurl, StatusOnIweb.get(1), uniqueEmail,
 				ASCSocietyGenericPage.map().get("MGM_FNAME").trim(),
 				ASCSocietyGenericPage.map().get("MGM_LNAME").trim());
-		test.launchApplication(app_url_MGMLogout);
+		// test.launchApplication(app_url_MGMLogout);
+
 	}
 
 	@Test
@@ -178,14 +185,15 @@ public class ACS_MGM_Test extends BaseTest {
 		// YamlReader.getYamlValue("creditCardInfo.CreditCardExpiration").split("\\/")[1]);
 		test.asm_OMR.submitPaymentDetails(fname_Iweb + " " + lname_Iweb);
 		test.asm_OMR.clickOnSubmitPayment();
-		test.launchApplication(app_url_MGMLogout);
+		test.launchApplication(app_url_MGMUrl);
+		test.asm_MGM.clickOnlogoutButton(app_url_MGMLogout);
 		test.launchApplication(app_url_MGMUrl);
 		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
 		uniqueEmail = test.asm_MGM.submitMemberDetailsToInvite(ASCSocietyGenericPage.map().get("MGM_FNAME").trim(),
 				ASCSocietyGenericPage.map().get("MGM_LNAME").trim(),
 				ASCSocietyGenericPage.map().get("MGM_Email").trim());
 		test.asm_MGM.verifyNomineeStatus(StatusOnEweb.get(0), uniqueEmail);
-		test.launchApplication(app_url_MGMLogout);
+		// test.launchApplication(app_url_MGMLogout);
 	}
 
 	@Test
@@ -215,6 +223,8 @@ public class ACS_MGM_Test extends BaseTest {
 		uniqueEmail = test.asm_MGM.submitMemberDetailsToInvite(fname, lname,
 				ASCSocietyGenericPage.map().get("MGM_Email").trim());
 		MGMpageURL = test.asm_MGM.verifyNomineeStatus(StatusOnEweb.get(0), uniqueEmail);
+		// test.asm_MGM.clickOnlogoutButton(app_url_MGMLogout);
+
 		test.memberShipPage.verifyNomineeStatusOnIWEB(IWEBurl, StatusOnIweb.get(0), uniqueEmail, fname, lname);
 		test.asm_MGM.clickOnresendLink(resendCount, MGMpageURL, uniqueEmail, IWEBurl, fname, lname,
 				StatusOnEwebAfterClickResend, StatusOnIwebAfterClickResend);
@@ -236,7 +246,7 @@ public class ACS_MGM_Test extends BaseTest {
 		test.asm_MGM.submitSameMemberDetailsToInvite(fname, lname, uniqueEmail);
 		test.asm_MGM.verifyNomineeStatus(StatusOnEweb.get(0), uniqueEmail);
 		test.memberShipPage.verifyNomineeStatusOnIWEB(memberDetailUrl2, StatusOnIweb.get(0), uniqueEmail, fname, lname);
-		test.launchApplication(app_url_MGMLogout);
+		// test.launchApplication(app_url_MGMLogout);
 	}
 
 	@Test

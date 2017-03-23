@@ -1,7 +1,7 @@
 app_url_OMA: https://ewebtest.acs.org/NFStage2/oma
 app_url_IWEB: https://iwebtest.acs.org/NFStage2/iweb
 app_url_CCED: https://ewebtest.acs.org/NFStage2/ccedlookup
-app_url_Store: https://ewebtest.acs.org/NFStage2/store/
+app_url_Store: https://www.ewebtest.acs.org/NFStage2/store  
 app_url_AACT: https://ewebtest.acs.org/NFStage2/aactoma
 app_url_email: https://ewebtest.acs.org/NFStage2/emailcenter
 app_url_nominateFellow: https://ewebtest.acs.org/NFStage2/nominatefellow
@@ -10,7 +10,7 @@ app_url_givingDonate: https://ewebtest.acs.org/NFStage2/donate
 app_url_givingGreen: https://ewebtest.acs.org/NFStage2/green
 app_url_givingScholars: https://ewebtest.acs.org/NFStage2/scholars/
 app_url_givingSeed: https://ewebtest.acs.org/NFStage2/seed
-app_url_OMR: https://ewebtest.acs.org/NFStage2/renew
+app_url_OMR: https://www.renewtest.acs.org/NFStage2/renew
 app_url_MGM: https://ewebtest.acs.org/NFStage2/mgm
 app_url_Meeting: https://ewebtest.acs.org/NFStage2/meetings/2012gcec
 app_url_egift: https://ewebtest.acs.org/NFStage2/egift

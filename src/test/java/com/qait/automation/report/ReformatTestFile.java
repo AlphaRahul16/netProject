@@ -46,7 +46,6 @@ public class ReformatTestFile {
 	}
 
 	public void writeLargerTextFile(String aFileName, String html) throws IOException {
-		Path path = Paths.get(aFileName);
 		File file = new File(aFileName);
 		file.getParentFile().mkdirs();
 		file.createNewFile();
@@ -72,7 +71,6 @@ public class ReformatTestFile {
 	public static void createMemberTransferCompleteTestLog(String aFileName, String html, String scenarioID) {
 		String filePath = aFileName + File.separator + DateUtil.getCurrentdateInStringWithGivenFormate("dd MMM YYYY")
 				+ File.separator + "MT" + scenarioID + ".html";
-		Path path = Paths.get(filePath);
 		File file = new File(filePath);
 		file.getParentFile().mkdirs();
 		try {

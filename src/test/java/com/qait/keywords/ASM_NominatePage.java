@@ -3,7 +3,6 @@ package com.qait.keywords;
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -672,7 +671,7 @@ public class ASM_NominatePage extends GetPage {
 
 	public void selectAwardFromAwardListAndVerifyNominationMessage(String currentAwardName) {
 		verifyAwardIsPresentInAwardListAndSelectAward(currentAwardName);
-		verifyTooltipMessageAppearsAfterSelectingAward();
+		//verifyTooltipMessageAppearsAfterSelectingAward();
 	}
 
 	private void verifyTooltipMessageAppearsAfterSelectingAward() {
