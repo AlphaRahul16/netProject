@@ -14,6 +14,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.GetPage;
+import com.qait.automation.utils.ConfigPropertyReader;
 
 public class ASM_MGMPage extends GetPage {
 	WebDriver driver;
@@ -412,6 +413,21 @@ public class ASM_MGMPage extends GetPage {
 		System.out.println("status:::" + status);
 		List<String> statuses = Arrays.asList(status.split(","));
 		return statuses;
+	}
+
+	public void clickOnlogoutButton(String logoutUrl) {
+		if(ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage2")){
+			isElementDisplayed("btn_myAccount");
+			click(element("btn_myAccount"));			
+			isElementDisplayed("link_applyACSmembership","Log Out");
+			clickUsingXpathInJavaScriptExecutor(element("link_applyACSmembership","Log Out"));
+			wait.waitForPageToLoadCompletely();
+			//elements("link_applyACSmembership","Log Out").get(0).click();
+			logMessage("STEP: Log out button is clicked \n");
+		}else{
+			launchUrl(logoutUrl);
+			logMessage("STEP: Log out URL is launched \n");
+		}
 	}
 
 }

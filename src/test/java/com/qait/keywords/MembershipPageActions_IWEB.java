@@ -99,6 +99,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public List<String> selectAndRunQueryForMemberOrNonMember(String caseId) {
 		String memberStatus = getACS_Store_SheetValue(caseId, "Member?");
+		System.out.println("memberStatus"+memberStatus);
 		logMessage("STEP : Member status is " + memberStatus + " in spreadsheet\n");
 		if (memberStatus.equalsIgnoreCase("Y")) {
 			selectAndRunQuery("Selenium - Find Active Regular Member");
@@ -4649,6 +4650,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void verifyNomineeStatusOnIWEB(String url, String status, String email, String fname, String lname) {
+		
 		launchUrl(url);
 		handleAlert();
 		expandDetailsMenuIfAlreadyExpanded("my acs nominations");

@@ -2,93 +2,9 @@
 <suite name="ACS Tests" preserve-order="true" thread-count="4"
 	configfailurepolicy="continue" parallel="tests">
 
-	<test name="ACS_AddressChangeTermsInvoice_Test"
-		group-by-instances="true">
+	<test name="ACS Store" group-by-instances="true">
 		<classes>
-			<class name="com.qait.tests.ACS_AddressChangeTermsInvoice_Test"></class>
-		</classes>
-	</test>
-	<test name="ACS Address Validation Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_Address_Validation_Test" />
-		</classes>
-	</test>
-	<test name="ACS MYD Transfer" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_MYD_Transfer"></class>
-		</classes>
-	</test>
-	<test name="ACS Reports" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_Reports"></class>
-		</classes>
-	</test>
-	<test name="ACS BPA 1 and BPA 2" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_BPA_Test" />
-		</classes>
-	</test>
-	<test name="ACS_Apply_Payment_Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_Apply_Payment_Test"></class>
-		</classes>
-	</test>
-	<test name="ACS Individual Landing Page Smoke Test"
-		group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_IndividualLandingPage_Smoke"></class>
-		</classes>
-	</test>
-	<test name="ACS Giving Application Smoke Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_GivingApplication_Smoke"></class>
-		</classes>
-	</test>
-	<test name="ACS PBA Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_PBA_Test" />
-		</classes>
-	</test>
-	<test name="ACS_SourceCodes_Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_SourceCodes_Test"></class>
-		</classes>
-	</test>
-	<test name="Subscription Fulfillment" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.Subscription_Fulfillment_Test"></class>
-		</classes>
-	</test>
-	<test name="ACS AACT OMR Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_AACT_OMR"></class>
-		</classes>
-	</test>
-	<test name="ACS AutoRenewal" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_AutoRenewalSelectionOMR"></class>
-		</classes>
-	</test>
-	<test name="COE Inventory Smoke Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.COE_Inventory_Test"></class>
-		</classes>
-	</test>
-
-	<test name="Inventory Product Fulfillment Test"
-		group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.Inventory_Product_Fulfillment_Test" />
-		</classes>
-	</test>
-	<test name="ACS Email Communication Preferences Test">
-		<classes>
-			<class name="com.qait.tests.ACS_Email_Communication_Preferences_Test" />
-		</classes>
-	</test>
-	<test name="Fundraising Module" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_Fundraising_Module_Test" />
+			<class name="com.qait.tests.ACS_Store_Test"></class>
 		</classes>
 	</test>
 	<test name="ACS MGM Test" group-by-instances="true">

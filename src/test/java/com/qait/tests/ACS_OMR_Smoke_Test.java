@@ -82,7 +82,7 @@ public class ACS_OMR_Smoke_Test extends BaseTest {
 		test.asm_OMR
 				.verifyRenewedProductsSummaryOnCheckOutPage(mapRenewedProductDetails);
 		test.asm_OMR.clickOnSubmitPayment();
-		test.asm_OMR.verifyPrintReceiptMessageAfterPayment();
+		//test.asm_OMR.verifyPrintReceiptMessageAfterPayment();
 	}
 
 	@Test
