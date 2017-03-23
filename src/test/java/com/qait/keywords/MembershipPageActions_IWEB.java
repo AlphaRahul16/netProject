@@ -97,20 +97,35 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnRunQuery();
 	}
 
-	public List<String> selectAndRunQueryForMemberOrNonMember(String caseId) {
-		String memberStatus = getACS_Store_SheetValue(caseId, "Member?");
-		logMessage("STEP : Member status is " + memberStatus + " in spreadsheet\n");
-		if (memberStatus.equalsIgnoreCase("Y")) {
-			selectAndRunQuery("Selenium - Find Active Regular Member");
-		} else if (memberStatus.equalsIgnoreCase("N")) {
-			wait.hardWait(4);
-			selectAndRunQuery("Selenium - Find Random Non Member");
-		}
-		memberStoreDetails.add(getMemberDetailsOnMemberShipProfile("contact id"));
-		memberStoreDetails.add(getMemberWebLogin());
-		return memberStoreDetails;
+//	public List<String> selectAndRunQueryForMemberOrNonMember(String caseId) {
+//		String memberStatus = getACS_Store_SheetValue(caseId, "Member?");
+//		System.out.println("-----case id: "+caseId);
+//		logMessage("STEP : Member status is " + memberStatus + " in spreadsheet\n");
+//		if (memberStatus.equalsIgnoreCase("Y")) {
+//			selectAndRunQuery("Selenium - Find Active Regular Member");
+//		} else if (memberStatus.equalsIgnoreCase("N")) {
+//			wait.hardWait(4);
+//			selectAndRunQuery("Selenium - Find Random Non Member");
+//		}
+//		memberStoreDetails.add(getMemberDetailsOnMemberShipProfile("contact id"));
+//		memberStoreDetails.add(getMemberWebLogin());
+//		return memberStoreDetails;
+//
+//	}
+	
+	public List<String> selectAndRunQueryForMemberOrNonMember(String memberStatus) {
+		  logMessage("STEP : Member status is " + memberStatus + " in spreadsheet\n");
+		  if (memberStatus.equalsIgnoreCase("Y")) {
+		   selectAndRunQuery("Selenium - Find Active Regular Member");
+		  } else if (memberStatus.equalsIgnoreCase("N")) {
+		   wait.hardWait(4);
+		   selectAndRunQuery("Selenium - Find Random Non Member");
+		  }
+		  memberStoreDetails.add(element("txt_ContactId").getText().trim());
+		  memberStoreDetails.add(getMemberWebLogin());
+		  return memberStoreDetails;
 
-	}
+		 }
 
 	public String getMemberWebLogin() {
 		isElementDisplayed("txt_webLogin");

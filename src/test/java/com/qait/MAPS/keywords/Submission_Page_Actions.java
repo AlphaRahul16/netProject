@@ -36,7 +36,8 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 	public void clickOnSaveAndContinueButton() {
 		scrollDown(element("btn_saveContinue"));
 		isElementDisplayed("btn_saveContinue");
-		click(element("btn_saveContinue"));
+		// click(element("btn_saveContinue"));
+		clickUsingXpathInJavaScriptExecutor(element("btn_saveContinue"));
 		logMessage("Step : Clicked on Save & Continue button\n");
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(4);
@@ -52,7 +53,7 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		click(element("btn_uploadImage"));
 	}
 
-	public void submitDetailsOnSelectSymposiumPage(String presentationType,String sciMix) {
+	public void submitDetailsOnSelectSymposiumPage(String presentationType, String sciMix) {
 		selectPresentationType("type", presentationType);
 		selectSymposium();
 		selectPresentationType("sub_type", sciMix);
@@ -80,7 +81,6 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		selectProvidedTextFromDropDown(element("select_presentationType", dropdownType), dropdownValue);
 	}
 
-
 	public void selectSymposium() {
 		isElementDisplayed("select_symposiumType");
 		// selectDropDownValue(element("select_symposiumType"), 2);
@@ -99,22 +99,34 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("Step : Show Affiliations button is clicked\n");
 	}
 
-	public void selectRandomActiveSubmissionProgram() {
-		int sizeofActivePrograms;
-		wait.hardWait(4);
-		isElementDisplayed("btn_activeProgram");
-		sizeofActivePrograms = elements("btn_activeProgram").size();
-		click(elements("btn_activeProgram")
-				.get(ASCSocietyGenericPage.generateRandomNumberWithInRange(0, sizeofActivePrograms)));
-		logMessage("Step : Active Submission program is selected\n");
-	}
+	// public void selectRandomActiveSubmissionProgram() {
+	// int sizeofActivePrograms;
+	// wait.hardWait(4);
+	// isElementDisplayed("btn_activeProgram");
+	// sizeofActivePrograms = elements("btn_activeProgram").size();
+	// click(elements("btn_activeProgram")
+	// .get(ASCSocietyGenericPage.generateRandomNumberWithInRange(0,
+	// sizeofActivePrograms)));
+	// logMessage("Step : Active Submission program is selected\n");
+	// }
 	
-	public String getSelectedProgramName()
-	{
-		String programName = null;
-		programName=element("txt_activeProgramName").getText().trim();
-		return programName;
-	}
+	public int selectRandomActiveSubmissionProgram() {
+		  int sizeofActivePrograms, randomProg;
+		  wait.hardWait(4);
+		  isElementDisplayed("btn_activeProgram");
+		  sizeofActivePrograms = elements("btn_activeProgram").size();
+		  randomProg=ASCSocietyGenericPage.generateRandomNumberWithInRange(0, (sizeofActivePrograms-1));
+		  click(elements("btn_activeProgram").get(randomProg));
+		  logMessage("Step : Active Submission program is selected\n");
+		  return randomProg;
+		 }
+	public String getSelectedProgramName(int index)
+		 {
+		  String programName = null;
+		  index=+1;
+		  programName=element("txt_activeProgramName",toString().valueOf(index)).getText().trim();
+		  return programName;
+		 }
 
 	public void clickOnContinueButtonOnProgramArea() {
 
@@ -171,154 +183,181 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 	// }
 
 	public void verifyPopUpHeader(String headerName) {
+		wait.hardWait(3);
 		isElementDisplayed("txt_popupHeader");
 		Assert.assertTrue(element("txt_popupHeader").getText().contains(headerName));
 		logMessage("ASSERT PASSED: Popup Header is verified as " + headerName + "\n");
 	}
 
-
-	public void verifyCreatedInstitutionIsSelected(String selectionType,String institution) {
-		isElementDisplayed("select_affiliations",selectionType);
-		String selectedinstitution= getSelectedTextFromDropDown(element("select_affiliations",selectionType));
+	public void verifyCreatedInstitutionIsSelected(String selectionType, String institution) {
+		isElementDisplayed("select_affiliations", selectionType);
+		String selectedinstitution = getSelectedTextFromDropDown(element("select_affiliations", selectionType));
 		System.out.println(selectedinstitution);
 		System.out.println(institution);
 		Assert.assertTrue(selectedinstitution.contains(institution));
 		logMessage("ASSERT PASSED : verified Created institution is selected\n");
-		
+
 	}
 
 	public void clickAddAuthorButton() {
-		
+
 		isElementDisplayed("btn_addAuthor");
 		click(element("btn_addAuthor"));
 		logMessage("Step : Add author button is clicked\n");
-		
+
 	}
 
 	public void searchAuthorByEnteringDetails(String searchCriteria, String searchValue) {
 		enterInputFieldsOnInstitutionPopUpBox(searchCriteria, searchValue);
 		clickOnNamedButton("Search");
-		
+
 	}
 
 	public void verifyValidSearchResultsAreDisplayed(String searchValue) {
-		if(searchValue.contains("Name"))
-		{
-			Assert.assertTrue(element("txt_AuthorsearchResults","Name").getText().contains("searchValue"));
-			logMessage("ASSERT PASSED : Verified search results is equal to entered Name as "+searchValue);
+		if (searchValue.contains("Name")) {
+			Assert.assertTrue(element("txt_AuthorsearchResults", "Name").getText().contains("searchValue"));
+			logMessage("ASSERT PASSED : Verified search results is equal to entered Name as " + searchValue);
+		} else if (searchValue.contains("Email")) {
+			Assert.assertTrue(element("txt_AuthorsearchResults", "Email").getText().contains("searchValue"));
+			logMessage("ASSERT PASSED : Verified search results is equal to entered Email as " + searchValue);
 		}
-		else if( searchValue.contains("Email"))
-		{
-			Assert.assertTrue(element("txt_AuthorsearchResults","Email").getText().contains("searchValue"));
-			logMessage("ASSERT PASSED : Verified search results is equal to entered Email as "+searchValue);
-		}
-		
-		
-	}
-	
-	public void verifySuccessAlertMessage(String successmsg)
-	{
-		isElementDisplayed("txt_successAlert");
-		Assert.assertTrue(element("txt_successAlert").getText().equals(successmsg), " expected success message is not displayed\n");
-		logMessage("ASSERT PASSED : success message is verified on submission as "+successmsg+"/n");
 
 	}
-	
-	public void verifyNamedSectionIsDisplayed(String SectionName)
-	{
-		isElementDisplayed("tbl_section",SectionName);
-		logMessage("ASSERT PASSED : "+SectionName+" section is displayed for abstracts\n");
+
+	public void verifySuccessAlertMessage(String successmsg) {
+		isElementDisplayed("txt_successAlert");
+		System.out.println("Actual:" + element("txt_successAlert").getText().trim());
+		System.out.println("Expected:" + successmsg);
+		Assert.assertTrue(element("txt_successAlert").getText().trim().contains(successmsg),
+				" expected success message is not displayed\n");
+		logMessage("ASSERT PASSED : success message is verified on submission as " + successmsg + "/n");
+
+	}
+
+	public void verifyNamedSectionIsDisplayed(String SectionName) {
+		isElementDisplayed("tbl_section", SectionName);
+		logMessage("ASSERT PASSED : " + SectionName + " section is displayed for abstracts\n");
 	}
 
 	public void verifyApplicationDisplaysSpecifiedAbstractUnderSpecifiedSections(String sectionName, String Status) {
-		isElementDisplayed("txt_Tablesections_Status",sectionName);
-		for (WebElement ele : elements("txt_Tablesections_Status",sectionName)) {
-			Assert.assertTrue(ele.getText().trim().equals(Status),"Status under "+sectionName+" is not "+Status+"/n");
-			
+		isElementDisplayed("txt_Tablesections_Status", sectionName);
+		for (WebElement ele : elements("txt_Tablesections_Status", sectionName)) {
+			Assert.assertTrue(ele.getText().trim().equals(Status),
+					"Status under " + sectionName + " is not " + Status + "/n");
+			logMessage("Status under " + sectionName + " is verified as " + Status + "\n");
 		}
-		logMessage("Status under "+sectionName+" is verified as "+Status+"/n");
-		
 	}
-	
-	public void logOutFromMAPSApplication()
-	{
+
+	public void logOutFromMAPSApplication() {
 		clickOnNamedButton("Log Out");
 	}
+
 	public void clickOnSaveAndContinueButtonInFooter(String btnName) {
 		isElementDisplayed("btn_saveandContinueFooter", btnName);
 		click(element("btn_saveandContinueFooter", btnName));
 		logMessage("Step : Clicked on Save & Continue button on Step Incomplete page\n");
 	}
-	
-	public void clickOnLinkUnderCreateNewSubmission(String lnkName){
-		isElementDisplayed("lnk_submissionSteps",lnkName);
-		click(element("lnk_submissionSteps",lnkName));
-		logMessage("Step : Clicked on "+lnkName+" under Create New Submission section\n");
+
+	public void clickOnLinkUnderCreateNewSubmission(String lnkName) {
+		isElementDisplayed("lnk_submissionSteps", lnkName);
+		click(element("lnk_submissionSteps", lnkName));
+		logMessage("Step : Clicked on " + lnkName + " under Create New Submission section\n");
 
 	}
-	
-	public void enterDetailsInDisclosuresSection(){
-		selectRadioDetailsInDisclosuresSection("Reason for Submitting","1");
-		selectRadioDetailsInDisclosuresSection("Agree to Bylaws","2");
+
+	public void enterDetailsInDisclosuresSection() {
+		selectRadioDetailsInDisclosuresSection("Reason for Submitting", "1");
+		selectRadioDetailsInDisclosuresSection("Agree to Bylaws", "2");
 		selectCheckboxDetailsInDisclosuresSection("Registration Requirement");
 		selectCheckboxDetailsInDisclosuresSection("Meeting Attendance");
 		selectCheckboxDetailsInDisclosuresSection("Withdrawal Confirmation");
 		selectCheckboxDetailsInDisclosuresSection("Multiple Submissions");
 	}
-	
-	public void selectRadioDetailsInDisclosuresSection(String label,String index){
-		isElementDisplayed("radio_disclosures",label,index);
-		click(element("radio_disclosures",label,index));
-		logMessage("Step : "+label+" value is selected as "+element("radio_disclosures",label,index).getText().trim());
+
+	public void selectRadioDetailsInDisclosuresSection(String label, String index) {
+		isElementDisplayed("radio_disclosures", label, index);
+		click(element("radio_disclosures", label, index));
+		logMessage("Step : " + label + " value is selected as "
+				+ element("radio_disclosures", label, index).getText().trim());
 	}
-	
-	public void selectCheckboxDetailsInDisclosuresSection(String label){
-		isElementDisplayed("chckbox_disclosures",label);
-		click(element("chckbox_disclosures",label));
-		logMessage("Step : I agree checkbox is clicked for "+label+" section\n");
+
+	public void selectCheckboxDetailsInDisclosuresSection(String label) {
+		isElementDisplayed("chckbox_disclosures", label);
+		click(element("chckbox_disclosures", label));
+		logMessage("Step : I agree checkbox is clicked for " + label + " section\n");
 	}
-	
-	public void clickOnSubmitButton(){
+
+	public void clickOnSubmitButton() {
 		isElementDisplayed("btn_submit");
 		click(element("btn_submit"));
 		logMessage("Step : Submit button is clicked\n");
 	}
-	
-	public void verifyAllStepsAreCompleteOnReviewAndSubmitPage(int count){
-		int index=1;
-		while(index<=count){
-			isElementDisplayed("img_chkCompletedStep",String.valueOf(index));
-			logMessage("ASSERT PASSED: Step"+index+" is verified as complete\n");
+
+	public void verifyAllStepsAreCompleteOnReviewAndSubmitPage(int count) {
+		int index = 1;
+		while (index <= count) {
+			isElementDisplayed("img_chkCompletedStep", String.valueOf(index));
+			logMessage("ASSERT PASSED: Step" + index + " is verified as complete\n");
 			index++;
 		}
 	}
-	
-	public void selectEditActionForSubmittedAbstracts(String programName,String action){
-		isElementDisplayed("select_submissionAction",programName);
-		selectProvidedTextFromDropDown(element("select_submissionAction",programName), action);
-		logMessage("Step: "+action+" action is selected for "+programName+"\n");
-	}
-	
-	public void verifyPopUpHeaderOnSubmissionPage(String headerName){
-		isElementDisplayed("btn_draftStatus",headerName);
-		logMessage("ASSERT PASSED: Poup window "+headerName+" is verified\n");
-	}
-	
-	public void clickOnDraftStatusActionButton(String headerName){
-		isElementDisplayed("btn_draftStatus",headerName);
-		click(element("btn_draftStatus",headerName));
-		logMessage("Step : "+headerName+" is clicked\n");
+
+	public void selectEditActionForSubmittedAbstracts(String programName, String action) {
+		isElementDisplayed("select_submissionAction", programName);
+		selectProvidedTextFromDropDown(element("select_submissionAction", programName), action);
+		logMessage("Step: " + action + " action is selected for " + programName + "\n");
 	}
 
-	public void verifyAvailableOptionsForDraftedProgram(String draftoptions) {
+	public void verifyPopUpHeaderOnSubmissionPage(String headerName) {
+		isElementDisplayed("btn_draftStatus", headerName);
+		logMessage("ASSERT PASSED: Poup window " + headerName + " is verified\n");
+	}
+
+	public void clickOnDraftStatusActionButton(String headerName) {
+		isElementDisplayed("btn_draftStatus", headerName);
+		click(element("btn_draftStatus", headerName));
+		logMessage("Step : " + headerName + " button is clicked\n");
+	}
+
+	public void verifyAvailableOptionsForDraftedProgram(String draftoptions, String programName, String sectionId) {
+
+		boolean flag=false;
+		String optionsArray[] = draftoptions.split(",",3);
+		System.out.println("----program name:" + programName);
 		
-		String optionsArray[]=draftoptions.split(",");
-		for (WebElement ele : elements("sel_Drafts_options")) {
-			System.out.println(ele.getText().trim());
-			Assert.assertTrue(ele.getText().trim().equals(optionsArray[0].trim()),"Mentioned options are not available under draft options");
-			logMessage("ASSERT PASSED: "+ele.getText().trim()+" options is displayed under draft action\n");
+		for(WebElement ele : elements("sel_Drafts_options", sectionId, programName)){
+			System.out.println("actual:"+ele.getText().trim());
+			for(String str:optionsArray){
+				System.out.println("expected:"+str);
+				if(str.equals(ele.getText().trim())){
+					flag=true;
+					break;
+				}	
+			}
+			Assert.assertTrue(flag, "Mentioned option"+ ele.getText().trim()+" is not available under draft options\n");
+			logMessage("ASSERT PASSED: " + ele.getText().trim() + " option is displayed under draft action\n");
 		}
 		
+		
+		
+//		for (WebElement ele : elements("sel_Drafts_options", sectionId, programName)) {
+//			
+//			System.out.println(ele.getText().trim());
+//			if(ele.getText().trim().equals(optionsArray[i]))
+//				flag=true;
+//			else
+//			System.out.println("expected:" + optionsArray[0]);
+//			Assert.assertTrue(ele.getText().trim().equals(optionsArray[0].trim()),
+//					"Mentioned options are not available under draft options");
+//			logMessage("ASSERT PASSED: " + ele.getText().trim() + " options is displayed under draft action\n");
+//		}
 	}
+	
+	public void selectPreDraftedAbstractForEditing(String sectionId,String programName,String draftOption){
+		isElementDisplayed("sel_Drafts_options",sectionId,programName);
+		selectProvidedTextFromDropDown(element("sel_Drafts_options",sectionId,programName), draftOption);
+		logMessage("Step : "+draftOption+" is selected for "+programName+" program\n");
+	}
+
 
 }

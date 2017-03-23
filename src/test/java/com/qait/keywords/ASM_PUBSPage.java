@@ -111,8 +111,8 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_printReceipt");
 		element("btn_printReceipt").click();
 		logMessage("STEP : Clicked on print order receipt !!");
-//		wait.hardWait(15);
-//		_verifyPDFFileIsDownloaded("report");
+		wait.hardWait(15);
+		_verifyPDFFileIsDownloaded("report");
 	}
 
 	private void _verifyPDFFileIsDownloaded(String fileName) {

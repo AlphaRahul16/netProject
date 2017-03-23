@@ -37,7 +37,7 @@ public class ASM_emailPage extends GetPage {
 	}
 
 	public void verifyMailingListInNewspaperHeading(String listName) {
-		wait.waitForPageToLoadCompletely();
+		wait.hardWait(5);
 		Assert.assertTrue(isElementDisplayed("btn_newslettedHeading", listName),
 				"Mailing list is not displayed in NewsPaper heading");
 		logMessage("ASSERT PASSED : " + listName + " list is displayed in newspaper heading \n");
