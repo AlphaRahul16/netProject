@@ -74,7 +74,6 @@ public class ACS_Fundraising_Module_Test extends BaseTest {
 		test.acsFundraising.verifyGiftDate("giftDate");
 		test.acsFundraising.verifyGiftType(YamlReader.getYamlValue("ACS_Fundraising_Module.giftType"));
 		test.acsFundraising.enterGiftAmount(test.memberShipPage.map().get("Gift Amount"), "gift amount");
-//		test.acsFundraising.clickOnTableForm();
 		test.memberShipPage.waitForSpinner();
 		test.acsFundraising.verifyDeductibleAmount(test.memberShipPage.map().get("Gift Amount"), "tax deductible amt");
 	}
@@ -82,12 +81,7 @@ public class ACS_Fundraising_Module_Test extends BaseTest {
 	@Test(dependsOnMethods="Step04_Adding_A_Gift")
 	public void Step05_Create_A_New_Batch_And_Enter_Payment_Details() {
 		batchName = test.acsVoidInvoice.createBatchForFundraising(1, 6, "QA");
-		test.acsVoidInvoice.switchToIframe1();
-//		test.acsFundraising.selectBatchAndPaymentDetails_Fundraising(batchName,
-//				test.memberShipPage.map().get("paymentType"), test.memberShipPage.map().get("paymentmethod"),
-//				test.memberShipPage.map().get("Card Number"), getYamlValue("ACS_Fundraising_Module.CreditCardExpiration"),
-//				test.memberShipPage.map().get("CVV"), getYamlValue("ACS_Fundraising_Module.checkNumber"));
-		
+		test.acsVoidInvoice.switchToIframe1();	
 		test.memberShipPage.selectOrderEntryInfo("PaymentType", test.homePage.map().get("Payment_Type"));
 		test.memberShipPage.selectOrderEntryInfo("paymentMethod", test.homePage.map().get("Payment_Method"));
 		test.memberShipPage.fillAllTypeOFPaymentDetails(test.homePage.map().get("Payment_Method"), test.homePage.map().get("Visa_Card_Number"), test.homePage.map().get("Diners_Card_Number"), test.homePage.map().get("Reference_Number"),
