@@ -464,14 +464,10 @@ public class GetPage extends BaseUi {
 	}
 	
 	public void EnterTestMethodNameToSkipInMap_MemberNumber_CCED_NCW(Map<String, Boolean> skipTest, String AppUrl) {
-		String url = ConfigPropertyReader.getProperty("tier");
 
 		String case1 = "/membernumberlookup";
 		String case2 = "/ccedlookup";
 		String case3 = "/ncwlookup";
-//		String devCase1 = "https://dev-eweb12.acs.org/NF" + url + "/membernumberlookup";
-//		String devCase2 = "https://dev-eweb12.acs.org/NF" + url + "/ccedlookup";
-//		String devCase3 = "https://dev-eweb12.acs.org/NF" + url + "/ncwlookup";
 
 		if (AppUrl.contains(case1)) {
 			skipTest.put("Step01_Verify_Email_Address_IWEB_Test", true);
@@ -489,7 +485,6 @@ public class GetPage extends BaseUi {
 	}
 
 	public void EnterTestMethodNameToSkipInMap_InMyAccount(Map<String, Boolean> skipTest, String memberType) {
-		String url = ConfigPropertyReader.getProperty("tier");
 		String case1 = "New Member";
 		String case2 = "Existing Member";
 

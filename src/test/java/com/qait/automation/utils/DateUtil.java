@@ -9,8 +9,6 @@ import java.util.TimeZone;
 
 import org.testng.Reporter;
 
-import net.sourceforge.htmlunit.corejs.javascript.regexp.SubString;
-
 public class DateUtil {
 
 	static Calendar cal;

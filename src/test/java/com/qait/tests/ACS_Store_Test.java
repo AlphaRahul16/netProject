@@ -1,7 +1,5 @@
 package com.qait.tests;
 
-import static com.qait.automation.utils.YamlReader.getYamlValue;
-
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +14,6 @@ import org.testng.annotations.Test;
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
-import com.qait.keywords.YamlInformationProvider;
 
 public class ACS_Store_Test extends BaseTest {
 
@@ -50,7 +47,7 @@ public class ACS_Store_Test extends BaseTest {
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 		test.homePageIWEB.clickOnSideBarTab("Individuals");
 		test.memberShipPage.clickOnSideBar("Query Individual");
-		memberStoreDetails = test.memberShipPage.selectAndRunQueryForMemberOrNonMember(caseID);
+		memberStoreDetails = test.memberShipPage.selectAndRunQueryForMemberOrNonMember(mapACSStore.get("Member?"));
 	}
 
 	@Test
@@ -102,6 +99,7 @@ public class ACS_Store_Test extends BaseTest {
 		test.asm_storePage.clickPlaceYourOrder();
 		test.asm_storePage.verifyThankyouMessageAfterOrderCompletion(
 				YamlReader.getYamlValue("ACS_Store.maxWaitTimeForPrintMessage"), "Print Your Receipt");
+		test.asm_storePage.verifyLoginSuccessfully();
 	}
 
 	@Test

@@ -117,6 +117,7 @@ public class ACS_Email_Communication_Preferences_Test extends BaseTest{
 		test.asm_emailPage.verifyMailingListInNewspaperHeading(mailingListName);
 		test.asm_emailPage.verifyMailListIsSubscribed(mailingListName);  
 		test.asm_emailPage.changeNewsLetterActionValue(mailingListName);
+		test.asm_Donate.logOut();
 	}
 	
 

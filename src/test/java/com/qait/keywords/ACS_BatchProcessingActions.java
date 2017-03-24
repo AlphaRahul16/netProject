@@ -152,7 +152,7 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnBatchProcessButtonsAndVerifyPopUpWindowAppears() {
-		clickOnBatchProcessButton("PrePrcoess");
+		clickOnBatchProcessButton("PreProcess");
 		// verifyPopUpWindowVisibility();
 		clickOnBatchProcessButton("CloseButton");
 		// waitForAlertToAppear();

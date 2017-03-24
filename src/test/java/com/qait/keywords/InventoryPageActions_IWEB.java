@@ -2,17 +2,7 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;

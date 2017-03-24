@@ -2,7 +2,6 @@ package com.qait.keywords;
 
 import java.text.DecimalFormat;
 
-import org.apache.poi.util.SystemOutLogger;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
@@ -109,11 +108,8 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		element("inp_giftAmount", field).clear();
 		element("inp_giftAmount", field).sendKeys(amount);
 		logMessage("STEP : " + field + " entered as " + amount + "\n");
-//		wait.hardWait(2);
         element("table_form").click();
         logMessage("STEP: table_form is clicked\n");
-//		wait.hardWait(2);
-//		clickUsingXpathInJavaScriptExecutor(element("table_form"));
 	}
 	
 	public void clickOnTableForm(){
@@ -123,7 +119,6 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 			isElementDisplayed("table_form");
 			clickUsingXpathInJavaScriptExecutor(element("table_form"));
 		}
-//			element("label_giftDate").click();
 	}
 
 	public void verifyDeductibleAmount(String amount, String field) {
@@ -131,7 +126,6 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		wait.hardWait(6);
 		isElementDisplayed("inp_giftAmount", field);
 		wait.hardWait(4);
-		System.out.println(amount);
 		System.out.println(element("inp_giftAmount", field).getAttribute("value"));
 		Assert.assertEquals(element("inp_giftAmount", field).getAttribute("value"), amount,
 				"ASSERT FAILED : Deductible amount value is not same as the Gift amount "+amount+"\n");
@@ -147,7 +141,6 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 
 	public void clickOnSaveButton() {
 		isElementDisplayed("btn_save");
-		// element("btn_save").click();
 		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
 		wait.hardWait(5);
 		logMessage("STEP : Clicked on Save button\n");
@@ -192,10 +185,6 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 
 	public void verifyGiftIsAdded(String tabName, String expectedValue, int index, String giftInfo, int rowIndex) {
 		isElementDisplayed("txt_listData", tabName, String.valueOf(index), String.valueOf(1));
-		 System.out.println("-----expected:" + expectedValue);
-		 System.out.println("-----actual:"
-		 + element("txt_listData", tabName, String.valueOf(index),
-		 String.valueOf(1)).getText().trim());
 		Assert.assertEquals(
 				element("txt_listData", tabName, String.valueOf(index), String.valueOf(rowIndex)).getText().trim(),
 				expectedValue, "ASSERT FAILED : " + giftInfo + " is not verified as " + expectedValue + "\n");
@@ -204,8 +193,6 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 
 	public void verifyGiftInformationIsDispalyed(String giftField, String expectedValue) {
 		isElementDisplayed("txt_giftInformation", giftField);
-		System.out.println("-----exp:"+expectedValue);
-		System.out.println("-----actual:"+element("txt_giftInformation", giftField).getText().trim());
 		Assert.assertEquals(element("txt_giftInformation", giftField).getText().trim(), expectedValue, "ASSERT FAILED : " + giftField + " value is not verified as " + expectedValue + "\n");
 		logMessage("ASSERT PASSED : " + giftField + " value is verified as " + expectedValue + "\n");
 	}
@@ -228,7 +215,6 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		boolean flag = false;
 		MembershipPageActions_IWEB obj = new MembershipPageActions_IWEB(driver);
 		isElementDisplayed("list_batchCreditPage");
-		System.out.println("-----pledge type:" + element("txt_giftType", "pledge type").getText().trim());
 		while (element("txt_giftType", "pledge type").getText().trim().equals("Please select")) {
 			obj.selectOrderEntryInfo("PaymentType", pledgeType);
 			obj.waitForSpinner();
@@ -242,10 +228,13 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_paymentDate");
 		String nextDate[] = DateUtil.getNextDate("month", 1);
 		element("txt_paymentDate").clear();
+		wait.hardWait(2);
 		element("txt_paymentDate").sendKeys(nextDate[1] + "/" + nextDate[2] + "/" + nextDate[0]);
+		logMessage("STEP : First payment date is entered as " + nextDate[1] + "/" + nextDate[2] + "/" + nextDate[0] + "\n");
 		obj.waitForSpinner();
 		wait.hardWait(2);
-		element("txt_calendarDate").click();
+		isElementDisplayed("txt_calendarDate");
+		clickUsingXpathInJavaScriptExecutor(element("txt_calendarDate"));
 		logMessage("STEP : First payment date entered as " + nextDate[1] + "/" + nextDate[2] + "/" + nextDate[0]);
 		obj.waitForSpinner();
 	}
@@ -257,12 +246,6 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		isElementDisplayed("list_tableRows", tabName);
 		for (i = 1; i <= elements("list_tableRows", tabName).size(); i++) {
 			wait.hardWait(1);
-			System.out.println("----"
-					+ element("txt_listData", tabName, String.valueOf(index1), String.valueOf(i)).getText().trim());
-			System.out.println("----"
-					+ element("txt_listData", tabName, String.valueOf(index2), String.valueOf(i)).getText().trim());
-			System.out.println("----" + DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST5EDT"));
-
 			if(ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Dev9")){
 			if (element("txt_listData", tabName, String.valueOf(index1), String.valueOf(i)).getText().trim()
 					.equals("No")
@@ -313,7 +296,6 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		float payments = totalAmount / noOfPayments;
 		int count=1;
 		wait.hardWait(2);
-		System.out.println("----Payment installments are:" + payments);
 		isElementDisplayed("list_folderTable");
 		if (noOfPayments == elements("list_folderTable").size() - 1) {
 			for (int i = 2; i <= elements("list_folderTable").size(); i++) {

@@ -2,9 +2,6 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
-import java.awt.Button;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -18,7 +15,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DateUtil;
 

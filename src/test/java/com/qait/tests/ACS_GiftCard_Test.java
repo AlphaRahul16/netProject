@@ -8,17 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.testng.Reporter;
-import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
-import org.testng.internal.TestNGMethod;
 
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.BaseTest;
-import com.qait.automation.utils.XlsReader;
 import com.qait.automation.utils.YamlReader;
 
 public class ACS_GiftCard_Test extends BaseTest{

@@ -33,8 +33,8 @@ public class ASM_DonatePage extends GetPage {
 	}
 
 	public void loginIntoApplication(String userName, String password) {
-		clickOnLoginButton();
-		clickOnACSIDRadioButton();
+		//clickOnLoginButton();
+		//clickOnACSIDRadioButton();
 		wait.hardWait(3);
 		enterUserName(userName);
 		enterPassword(password);
@@ -617,7 +617,7 @@ public class ASM_DonatePage extends GetPage {
 
 	}
 
-	public void clickOnLoginButtonForSpecifiedUser(List<String> memberLoginDetails, String ValidEmailAddress,
+	public void clickOnLoginButtonForSpecifiedUser(List<String> memberLoginDetails,String ValidEmailAddress,
 			String sheetValue, List<String> memberdetails) {
 		System.out.println("member login details" + memberLoginDetails.size());
 		if (memberLoginDetails.size() > 1) {
@@ -641,9 +641,7 @@ public class ASM_DonatePage extends GetPage {
 			} catch (StaleElementReferenceException e) {
 				System.out.println("sfsfsf");
 			}
-			element("txtbox_inpfeild", "Email").click();
-			element("txtbox_inpfeild", "Email").clear();
-			element("txtbox_inpfeild", "Email").sendKeys(ValidEmailAddress);
+			enterValidEmailAddress(ValidEmailAddress);
 			clickOnSubmitPaymentButton();
 
 		} else {
@@ -651,6 +649,13 @@ public class ASM_DonatePage extends GetPage {
 
 		}
 
+	}
+	
+	public void enterValidEmailAddress(String ValidEmailAddress)
+	{
+		element("txtbox_inpfeild", "Email").click();
+		element("txtbox_inpfeild", "Email").clear();
+		element("txtbox_inpfeild", "Email").sendKeys(ValidEmailAddress);
 	}
 
 	public void verifyMemberOrNonMemberDetails(String inpfeilds, String Address) {

@@ -3,7 +3,6 @@ package com.qait.tests;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.testng.Reporter;

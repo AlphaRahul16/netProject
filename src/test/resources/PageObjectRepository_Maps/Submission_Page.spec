@@ -23,8 +23,8 @@ txt_AuthorsearchResults                             css                         
 txt_successAlert                                    css                             .alert-success
 txt_Tablesections_Status                            xpath                           //table[@id='${Sectionname}']//td[@data-label='Status']  
 tbl_section                                         id                              table_${value}    
-txt_activeProgramName                               xpath                           //input[contains(@id,'XIK_SELECTED_ROLE_ID') and not(@disabled)]/../../following-sibling::td[1]
-sel_Drafts_options                                  xpath                           //td[contains(text(),'${programName}')]/preceding-sibling::td/select/option
+txt_activeProgramName                               xpath                           (//input[contains(@id,'XIK_SELECTED_ROLE_ID') and not(@disabled)]/../../following-sibling::td[1])[${index}]
+sel_Drafts_options                                  xpath                           //table[@id='${sectionName}']//tr[last()]//td[contains(text(),'${programName}')]/preceding-sibling::td/select/option
 list_authors                                        css                              #authors>tbody>tr>td:nth-child(3)
 select_symposiumType                                css                              #symposia_title_combobox>option:nth-child(2)
 btn_saveandContinueFooter                           xpath                            //div[@class='modal-footer']//a[contains(text(),'${value}')]
@@ -36,4 +36,5 @@ btn_submit                                          id                          
 img_chkCompletedStep                                css                              #Step${index}>i
 select_submissionAction                             xpath                            //td[@data-label='Type' and text()='${programName}']/preceding-sibling::td[5]//select
 btn_draftStatus                                     xpath                            //span[text()='${btnName}']
+select_editDraft                                    xpath                            //table[@id='${sectionName}']//tr[last()]//td[contains(text(),'${programName}')]/preceding-sibling::td/select/option
 ======================================================================================================================================

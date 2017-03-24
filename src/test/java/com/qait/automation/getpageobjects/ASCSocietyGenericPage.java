@@ -5,15 +5,12 @@ import static com.qait.automation.utils.DataProvider.csvReaderRowSpecific;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.apache.commons.io.FileCleaningTracker;
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.io.RandomAccessBufferedFileInputStream;
 import org.apache.pdfbox.pdfparser.PDFParser;
@@ -226,7 +223,6 @@ public class ASCSocietyGenericPage extends GetPage {
 	}
 
 	public static String extractFromPdf(String filename, String filepath,int totalnumberofpages) throws IOException {
-		Object marker=null;
 		String parsedText = "";
 		PDFTextStripper pdfStripper = null;
 		PDDocument pdDoc = null;
