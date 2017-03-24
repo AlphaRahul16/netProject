@@ -110,6 +110,7 @@ public class ACS_MGM_Test extends BaseTest {
 		// test.launchApplication(app_url_MGMLogout);
 		test.launchApplication(app_url_MGMUrl);
 		test.asm_MGM.clickOnlogoutButton(app_url_MGMLogout);
+		test.launchApplication(app_url_MGMUrl);
 		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
 		uniqueEmail = test.asm_MGM.submitMemberDetailsToInvite(ASCSocietyGenericPage.map().get("MGM_FNAME").trim(),
 				ASCSocietyGenericPage.map().get("MGM_LNAME").trim(),
