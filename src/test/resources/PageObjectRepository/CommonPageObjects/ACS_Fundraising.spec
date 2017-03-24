@@ -19,7 +19,7 @@ txt_listData                       xpath                   (//span[text()='${tab
 inp_noOfInstallments               id                      ord_num_of_installments
 txt_paymentDate                    id                      ord_first_process_date
 list_batchCreditPage			   id					   inv_bat_key
-txt_calendarDate                   xpath                   //a[contains(@class,'ui-state-active')]
+txt_calendarDate                   xpath                   //a[contains(@class,'ui-state-default ui-state-active')]
 list_tableRows                     xpath                   //span[text()='${tabName}']/parent::td/parent::tr/following-sibling::tr//tr[not(contains(@style,'none'))]
 txt_pledgeDate                     xpath                   //span[text()='${tabName}']/../../following-sibling::tr//tr[not(contains(@style,'none'))]//td[contains(text(),'${date}')]
 lst_pledgeRow                      xpath                   //span[text()='${tabName}']/../../following-sibling::tr//tr[not(contains(@style,'none'))]
