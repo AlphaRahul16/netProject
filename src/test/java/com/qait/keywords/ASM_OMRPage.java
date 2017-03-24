@@ -85,6 +85,13 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		element("btn_logout").click();
 		logMessage("STEP : Logout button is clicked\n");
 	}
+	
+	public void logInToApplication() {
+		isElementDisplayed("btn_logIn");
+		element("btn_logIn").click();
+		logMessage("STEP : Log in button is clicked\n");
+	}
+
 
 	public void selectLoginRadioButton(String loginType) {
 		isElementDisplayed("rad_" + loginType);

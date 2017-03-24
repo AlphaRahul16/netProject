@@ -23,7 +23,7 @@ txt_AuthorsearchResults                             css                         
 txt_successAlert                                    css                             .alert-success
 txt_Tablesections_Status                            xpath                           //table[@id='${Sectionname}']//td[@data-label='Status']  
 tbl_section                                         id                              table_${value}    
-txt_activeProgramName                               xpath                           (//input[contains(@id,'XIK_SELECTED_ROLE_ID') and not(@disabled)]/../../following-sibling::td[1])[${index}]
+txt_activeProgramName                               xpath                           //input[contains(@id,'${value}')]/../../following-sibling::td[1]
 sel_Drafts_options                                  xpath                           //table[@id='${sectionName}']//tr[last()]//td[contains(text(),'${programName}')]/preceding-sibling::td/select/option
 list_authors                                        css                              #authors>tbody>tr>td:nth-child(3)
 select_symposiumType                                css                              #symposia_title_combobox>option:nth-child(2)

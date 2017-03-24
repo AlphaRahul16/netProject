@@ -23,6 +23,7 @@ import org.testng.Reporter;
 
 import com.qait.MAPS.keywords.Review_Page_Actions;
 import com.qait.MAPS.keywords.SSO_Page_Actions;
+import com.qait.MAPS.keywords.Session_Page_Actions;
 import com.qait.MAPS.keywords.Submission_Page_Actions;
 import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.TakeScreenshot;
@@ -147,7 +148,7 @@ public class TestSessionInitiator {
 	public SSO_Page_Actions maps_SSOPage;
 	public Submission_Page_Actions maps_submissionPage;
 	public Review_Page_Actions instanceOfReviewPage;
-
+    public Session_Page_Actions maps_sessionpage;
 	public TakeScreenshot takescreenshot;
 
 	public WebDriver getDriver() {
@@ -207,6 +208,7 @@ public class TestSessionInitiator {
 		maps_SSOPage = new SSO_Page_Actions(driver);
 		maps_submissionPage = new Submission_Page_Actions(driver);
 		instanceOfReviewPage = new Review_Page_Actions(driver);
+		maps_sessionpage = new Session_Page_Actions(driver);
 	}
 
 	/**
