@@ -34,7 +34,6 @@ public class DataProvider {
 	      
 			returnStr = csvLine.split(csvSeparator)[columnNumber];
 			returnStr = returnStr.replaceAll("\"", "").trim();
-			System.out.println("Keys "+returnStr);
 		} catch (ArrayIndexOutOfBoundsException ex) {
 			// Reporter.log(
 			// "Column Number "

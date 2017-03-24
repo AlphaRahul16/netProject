@@ -146,7 +146,7 @@ public class TestSessionInitiator {
 	public ACS_Yb_Iweb_Action acsYbIweb;
 	public SSO_Page_Actions maps_SSOPage;
 	public Submission_Page_Actions maps_submissionPage;
-	public Review_Page_Actions instanceOfReviewPage;
+	public Review_Page_Actions maps_ReviewPage;
 
 	public TakeScreenshot takescreenshot;
 
@@ -206,7 +206,7 @@ public class TestSessionInitiator {
 		acsYbIweb = new ACS_Yb_Iweb_Action(driver);
 		maps_SSOPage = new SSO_Page_Actions(driver);
 		maps_submissionPage = new Submission_Page_Actions(driver);
-		instanceOfReviewPage = new Review_Page_Actions(driver);
+		maps_ReviewPage = new Review_Page_Actions(driver);
 	}
 
 	/**

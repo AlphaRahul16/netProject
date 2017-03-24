@@ -36,47 +36,47 @@ public class Maps_Review_Test extends BaseTest {
 	@Test
 	public void MAPS_Review_Admin_01_Verify_that_application_navigates_to_ReviewerScoreReport_page() {
 		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Review");
-		test.instanceOfReviewPage.verifyPageHeader("Multiple Role Selection");
-		test.instanceOfReviewPage.selectRoleForReview("Review Admin");
-		test.instanceOfReviewPage.clickOnButton("Select");
-		test.instanceOfReviewPage.selectAbstractType("Reviewer Score Report");
-		test.instanceOfReviewPage.verifyAbstractTitleUnderReviewModule("Reviewer Score Report");
+		test.maps_ReviewPage.verifyPageHeader("Multiple Role Selection");
+		test.maps_ReviewPage.selectRoleForReview("Review Admin");
+		test.maps_ReviewPage.clickOnButton("Select");
+		test.maps_ReviewPage.selectAbstractType("Reviewer Score Report");
+		test.maps_ReviewPage.verifyAbstractTitleUnderReviewModule("Reviewer Score Report");
 	}
 
 	@Test
 	public void MAPS_Review_Admin_02_Verify_options_available_on_ReviewerScoreReport_page() {
-		test.instanceOfReviewPage.verifyLinksUnderReviewModule("Save/Edit");
-		test.instanceOfReviewPage.verifyLinksUnderReviewModule("Delete");
-		test.instanceOfReviewPage.verifyLinksUnderReviewModule("Clear Filters");
-		test.instanceOfReviewPage.verifyLinksUnderReviewModule("Hide Reviewer Comments");
-		test.instanceOfReviewPage.verifyTextField("Filter");
-		test.instanceOfReviewPage.verifyDropDown("Found In");
-		test.instanceOfReviewPage.verifyDropDown("Import/Export to Excel");
-		test.instanceOfReviewPage.verifyRoleDropDown();
-		test.instanceOfReviewPage.verifyExpandIconUnderReviewModule();
-		test.instanceOfReviewPage.verifyButton("Mass Update");
-		test.instanceOfReviewPage.verifyReviewerScoreReportTable();
-		test.instanceOfReviewPage.verifyPaginationSectionAtTheBottomOfTheTable();
+		test.maps_ReviewPage.verifyLinksUnderReviewModule("Save/Edit");
+		test.maps_ReviewPage.verifyLinksUnderReviewModule("Delete");
+		test.maps_ReviewPage.verifyLinksUnderReviewModule("Clear Filters");
+		test.maps_ReviewPage.verifyLinksUnderReviewModule("Hide Reviewer Comments");
+		test.maps_ReviewPage.verifyTextField("Filter");
+		test.maps_ReviewPage.verifyDropDown("Found In");
+		test.maps_ReviewPage.verifyDropDown("Import/Export to Excel");
+		test.maps_ReviewPage.verifyRoleDropDown();
+		test.maps_ReviewPage.verifyExpandIconUnderReviewModule();
+		test.maps_ReviewPage.verifyButton("Mass Update");
+		test.maps_ReviewPage.verifyReviewerScoreReportTable();
+		test.maps_ReviewPage.verifyPaginationSectionAtTheBottomOfTheTable();
 	}
 
 	@Test
 	public void MAPS_Review_Admin_07_Verify_application_allows_user_to_add_new_view_in_Grid_Configuration_dropdown() {
-		test.instanceOfReviewPage.clickOnButton("Save/Edit");
-		test.instanceOfReviewPage.verifyAbstractTitleUnderReviewModule("Save Grid Configuration");
-		test.instanceOfReviewPage.enterDetailsAtSaveGridConfigurationPage("Test" + System.currentTimeMillis());
-		test.instanceOfReviewPage.clickOnButtonAtSaveGridConfigurationPage("Save");
+		test.maps_ReviewPage.clickOnButton("Save/Edit");
+		test.maps_ReviewPage.verifyAbstractTitleUnderReviewModule("Save Grid Configuration");
+		test.maps_ReviewPage.enterDetailsAtSaveGridConfigurationPage("Test" + System.currentTimeMillis());
+		test.maps_ReviewPage.clickOnButtonAtSaveGridConfigurationPage("Save");
 	}
 
 	@Test
 	public void MAPS_Review_Admin_17_Verify_application_displays_all_results_when_search_term_is_provided_in_the_Filter_field() {
-		String cID = test.instanceOfReviewPage.getValueFromReviewerScoreReportTable();
-		test.instanceOfReviewPage.enterValueInFilter(cID);
-		test.instanceOfReviewPage.verifyTheResult(cID);
+		String cID = test.maps_ReviewPage.getValueFromReviewerScoreReportTable();
+		test.maps_ReviewPage.enterValueInFilter(cID);
+		test.maps_ReviewPage.verifyTheResult(cID);
 	}
 
 	@Test
 	public void MAPS_Review_Admin_91_Verify_options_available_under_Records_per_Page_dropdown() {
 		String pageSize[] = { "10", "25", "50" };
-		test.instanceOfReviewPage.verifyOptionsffromRecordsPerPageDropdown(pageSize);
+		test.maps_ReviewPage.verifyOptionsffromRecordsPerPageDropdown(pageSize);
 	}
 }
