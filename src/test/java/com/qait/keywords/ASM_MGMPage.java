@@ -1,6 +1,7 @@
 package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
+import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -212,7 +213,7 @@ public class ASM_MGMPage extends GetPage {
 
 	}
 
-	public String verifyNomineeStatus(String status, String email) {
+	public void verifyNomineeStatus(String status, String email) {
 		boolean flag = true;
 
 		for (int i = 0; i < 30; i++) {
@@ -228,7 +229,7 @@ public class ASM_MGMPage extends GetPage {
 		}
 		Assert.assertTrue(flag, "ASSERT FAILED: nominee status is not same \n");
 		logMessage("ASSERT PASSED: Status of the nominee is " + status + "\n");
-		return getCurrentURL();
+		//return getCurrentURL();
 	}
 	// public String verifyNomineeStatus(String status, String email) {
 	// System.out.println("status" + status);
@@ -270,11 +271,11 @@ public class ASM_MGMPage extends GetPage {
 		logMessage("STEP: Nominee Status link is clicked \n");
 	}
 
-	public String verifyStatusAfterClickResend(String MGMpageURL, String email, String status) {
-		launchUrl(MGMpageURL);
+	public void verifyStatusAfterClickResend(String email, String status) {
+		
 		clickOnNomineeStatus(email);
 		verifyNomineeStatus(status, email);
-		return getCurrentURL();
+		//return getCurrentURL();
 	}
 
 	public void clickOnApplyForACSMembership() {
@@ -323,17 +324,19 @@ public class ASM_MGMPage extends GetPage {
 	}
 
 	public void clickOnresendLink(String resendCount, String MGMpageURL, String uniqueEmail, String IWEBurl,
-			String fname, String lname, List<String> ewebStatus, List<String> IwebStatus) {
+			String fname, String lname, List<String> ewebStatus, List<String> IwebStatus,String webLogin,String logoutURL) {
 		membershipPageIweb = new MembershipPageActions_IWEB(driver);
 		// nomineeStatusMap.put(1, nomineeStatus[0]);
 		// nomineeStatusMap.put(2, nomineeStatus[1]);
 		for (int i = 0; i < Integer.parseInt(resendCount); i++) {
-			MGMpageURL = verifyStatusAfterClickResend(MGMpageURL, uniqueEmail, ewebStatus.get(i));
+			launchUrl(MGMpageURL);
+			loginInToApplication(webLogin, getYamlValue("password"));
+			verifyStatusAfterClickResend(uniqueEmail, ewebStatus.get(i));
+			clickOnlogoutButton(logoutURL);
 			membershipPageIweb.verifyNomineeStatusOnIWEB(IWEBurl, IwebStatus.get(i), uniqueEmail, fname, lname);
 			logMessage("\n ASSERT PASSED: Status is verified after click on Resend link " + String.valueOf(i + 1)
 					+ " time \n");
 		}
-
 	}
 
 	public List<String> InviteNewMembersAccordingToInviteeNumber(String inviteeCount, String fname, String lname,
