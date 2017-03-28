@@ -104,9 +104,11 @@ public class ACS_GivingApplication_Smoke extends BaseTest {
 	@Test
 	public void Step04_TC04_Navigate_To_ContactInfo_Page_And_Login() {
 
-	/*	uniquelastname = mapSheetData.get("Guest_LastName") + System.currentTimeMillis();
-		test.asm_Donate.clickOnLoginButtonForSpecifiedUser(memberLoginDetails, mapSheetData.get("ValidEmailAddress"),
-				mapSheetData.get("Login_via_MemberNumber"), memberDetails);*/
+		uniquelastname = mapSheetData.get("Guest_LastName") + System.currentTimeMillis();
+		test.asm_Donate.clickOnLoginButtonForGiving(memberLoginDetails, mapSheetData.get("ValidEmailAddress"), mapSheetData.get("Login_via_MemberNumber"), memberDetails);
+//		test.asm_Donate.clickOnLoginButtonForSpecifiedUser(memberLoginDetails, mapSheetData.get("ValidEmailAddress"),
+//				mapSheetData.get("Login_via_MemberNumber"), memberDetails);
+	//test.asm_Donate.loginIntoApplication(memberLoginDetails.get(2), "password");
 		test.asm_Donate.enterValidEmailAddress(mapSheetData.get("ValidEmailAddress"));
 		test.asm_Donate.clickOnSubmitPaymentButton();
 	/*	test.asm_Donate.enterGuestRequiredDetailsInForm(memberLoginDetails, mapSheetData.get("Guest_FirstName"),
@@ -116,7 +118,6 @@ public class ACS_GivingApplication_Smoke extends BaseTest {
 	}
 
 	@Test
-
 	public void Step05_TC05_Navigate_To_Confirm_Your_Donation_Page_And_Verify_Details() {
 
 		String Amount[] = { mapSheetData.get("Program1 Donate Amount"), mapSheetData.get("Program2 Donate Amount"),

@@ -378,7 +378,8 @@ public class ASM_NominatePage extends GetPage {
 	}
 
 	public void clickOnCreateNewNominationButton() {
-		wait.hardWait(2);
+		wait.hardWait(6);
+		dynamicWait(20,"inp_createNewNomination", " ");
 		isElementDisplayed("inp_createNewNomination");
 		wait.hardWait(1);
 		element("inp_createNewNomination").click();

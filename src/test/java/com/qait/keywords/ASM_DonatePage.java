@@ -12,6 +12,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
+import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.GetPage;
 
 public class ASM_DonatePage extends GetPage {
@@ -996,6 +997,14 @@ public class ASM_DonatePage extends GetPage {
 		System.out.println(totalAmount);
 		totalamount = Double.parseDouble(totalAmount[0]);
 		return totalAmount;
+	}
+	
+	public void clickOnLoginButtonForGiving(List<String> memberLoginDetails,String ValidEmailAddress,
+			String sheetValue, List<String> memberdetails){
+		if(TestSessionInitiator._getSessionConfig().get("tier").equalsIgnoreCase("Stage2"))
+		   clickOnLoginButtonForSpecifiedUser(memberLoginDetails,ValidEmailAddress,sheetValue,memberdetails);
+		else
+			loginIntoApplication(memberLoginDetails.get(2), "password");
 	}
 
 }
