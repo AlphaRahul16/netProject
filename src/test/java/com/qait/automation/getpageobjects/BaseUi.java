@@ -792,5 +792,18 @@ public class BaseUi {
 				+ " matches with " + value);
 
 	}
+	
+	public void includeJquery()
+	{
+		executeJavascript("var jq = document.createElement('script');jq.src = \"https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js\";"
+				+ "document.getElementsByTagName('head')[0].appendChild(jq);jQuery.noConflict();");
+	}
+	
+	public String executeJqueryAndReturnString(String query)
+	{
+
+		
+		return toString().valueOf(executeJavascriptReturnValue(query));
+	}
 
 }

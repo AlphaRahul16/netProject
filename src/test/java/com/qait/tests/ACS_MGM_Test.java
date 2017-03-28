@@ -109,6 +109,7 @@ public class ACS_MGM_Test extends BaseTest {
 		// test.launchApplication(app_url_MGMLogout);
 		test.launchApplication(app_url_MGMUrl);
 		test.asm_MGM.clickOnlogoutButton(app_url_MGMLogout);
+		test.launchApplication(app_url_MGMUrl);
 		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
 		uniqueEmail = test.asm_MGM.submitMemberDetailsToInvite(ASCSocietyGenericPage.map().get("MGM_FNAME").trim(),
 				ASCSocietyGenericPage.map().get("MGM_LNAME").trim(),
@@ -284,7 +285,9 @@ public class ACS_MGM_Test extends BaseTest {
 		test.launchApplication(app_url_MGMUrl);
 		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
 		test.asm_MGM.verifyNomineeStatus(StatusOnEweb.get(1), uniqueEmail);
-		test.launchApplication(app_url_MGMLogout);
+		test.asm_MGM.clickOnlogoutButton(app_url_MGMLogout);
+		//test.launchApplication(app_url_MGMLogout);
+		test.launchApplication(IWEBurl);
 		test.memberShipPage.verifyNominatorDetailsOnIweb(IWEBurl, app_ID,
 				ASCSocietyGenericPage.map().get("Program").trim(), ASCSocietyGenericPage.map().get("Channel").trim(),
 				fname, lname, uniqueEmail, StatusOnIweb.get(1), "Paid", sourceCode, constitID);

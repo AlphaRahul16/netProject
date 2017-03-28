@@ -91,7 +91,8 @@ public class ACS_GivingApplication_Smoke extends BaseTest {
 		test.launchApplication(app_url_givingDonate);
 		String Amount[] = { mapSheetData.get("Program1 Donate Amount"), mapSheetData.get("Program2 Donate Amount"),
 				mapSheetData.get("Program3 Donate Amount"), mapSheetData.get("Other Program Donate Amount") };
-
+        test.asm_Donate.clickOnLoginButton();
+    	test.asm_Donate.loginIntoApplication(memberLoginDetails.get(2), "password");
 		ProductNames = test.asm_Donate.getDisplayedProductNamesOnEweb(productNameKey,
 				mapSheetData.get("Other Program"));
 		test.asm_Donate.verifyProductNamesFromIweb(ProductNames);
@@ -108,8 +109,8 @@ public class ACS_GivingApplication_Smoke extends BaseTest {
 //		test.asm_Donate.clickOnLoginButtonForSpecifiedUser(memberLoginDetails, mapSheetData.get("ValidEmailAddress"),
 //				mapSheetData.get("Login_via_MemberNumber"), memberDetails);
 	//test.asm_Donate.loginIntoApplication(memberLoginDetails.get(2), "password");
-		//test.asm_Donate.enterValidEmailAddress(mapSheetData.get("ValidEmailAddress"));
-		//test.asm_Donate.clickOnSubmitPaymentButton();
+		test.asm_Donate.enterValidEmailAddress(mapSheetData.get("ValidEmailAddress"));
+		test.asm_Donate.clickOnSubmitPaymentButton();
 	/*	test.asm_Donate.enterGuestRequiredDetailsInForm(memberLoginDetails, mapSheetData.get("Guest_FirstName"),
 				uniquelastname, mapSheetData.get("ValidEmailAddress"), mapSheetData.get("Guest_Phone"),
 				mapSheetData.get("Guest_Address"), mapSheetData.get("Guest_City"), mapSheetData.get("Guest_State"),

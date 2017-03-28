@@ -94,29 +94,48 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		click(element("btn_showAffiliations"));
 		logMessage("Step : Show Affiliations button is clicked\n");
 	}
-	
+
 	public int selectRandomActiveSubmissionProgram() {
-		  int sizeofActivePrograms, randomProg;
-		  wait.hardWait(4);
-		  isElementDisplayed("btn_activeProgram");
-		  sizeofActivePrograms = elements("btn_activeProgram").size();
-		  randomProg=ASCSocietyGenericPage.generateRandomNumberWithInRange(0, (sizeofActivePrograms-1));
-		  click(elements("btn_activeProgram").get(randomProg));
-		  logMessage("Step : Active Submission program is selected\n");
-		  return randomProg;
-		 }
+		int sizeofActivePrograms, randomProg;
+		wait.hardWait(4);
+		isElementDisplayed("btn_activeProgram");
+		sizeofActivePrograms = elements("btn_activeProgram").size();
+		randomProg=ASCSocietyGenericPage.generateRandomNumberWithInRange(0, (sizeofActivePrograms-1));
+		click(elements("btn_activeProgram").get(randomProg));
+		logMessage("Step : Active Submission program is selected\n");
+		return randomProg;
+	}
 	public String getSelectedProgramName(int index)
-		 {
-		  String programName = null;
-		  index=+1;
-		  programName=element("txt_activeProgramName",toString().valueOf(index)).getText().trim();
-		  return programName;
-		 }
+	{
+		String programName=null,programid;
+		boolean flag;
+		//includeJquery();
+		//programid=executeJqueryAndReturnString("window.jQuery('input[name=XIK_SELECTED_ROLE_ID]:checked').attr('id')");
+		for (WebElement element : elements("btn_activeProgram")) {
+			programid=element.getAttribute("id");
+			flag=(boolean) executeJavascriptReturnValue("document.getElementById('"+programid+"').checked");
+			if(flag)
+			{
+				System.out.println(element("txt_activeProgramName",programid).getText().trim());
+			}
+			else
+			{
+				System.out.println("Not found");
+			}
+//		System.out.println(element.getCssValue("checked"));
+//		System.out.println(element.ge);
+		}
+		//executeJavascript("");
+		//System.out.println(programid);
+		//programName=element("txt_activeProgramName",programid).getText().trim();
+		//logMessage("Step : selected program name is "+programName);
+		return programName;
+	}
 
 	public void clickOnContinueButtonOnProgramArea() {
-
 		isElementDisplayed("btn_ContinueProgram");
-		click(element("btn_ContinueProgram"));
+		wait.hardWait(5);
+	    element("btn_ContinueProgram").click();
 		logMessage("Step : Continue Button on Program Area page is clicked\n");
 
 	}
@@ -309,7 +328,7 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		boolean flag=false;
 		String optionsArray[] = draftoptions.split(",",3);
 		System.out.println("----program name:" + programName);
-		
+
 		for(WebElement ele : elements("sel_Drafts_options", sectionId, programName)){
 			System.out.println("actual:"+ele.getText().trim());
 			for(String str:optionsArray){
@@ -322,22 +341,22 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 			Assert.assertTrue(flag, "Mentioned option"+ ele.getText().trim()+" is not available under draft options\n");
 			logMessage("ASSERT PASSED: " + ele.getText().trim() + " option is displayed under draft action\n");
 		}
-		
-		
-		
-//		for (WebElement ele : elements("sel_Drafts_options", sectionId, programName)) {
-//			
-//			System.out.println(ele.getText().trim());
-//			if(ele.getText().trim().equals(optionsArray[i]))
-//				flag=true;
-//			else
-//			System.out.println("expected:" + optionsArray[0]);
-//			Assert.assertTrue(ele.getText().trim().equals(optionsArray[0].trim()),
-//					"Mentioned options are not available under draft options");
-//			logMessage("ASSERT PASSED: " + ele.getText().trim() + " options is displayed under draft action\n");
-//		}
+
+
+
+		//		for (WebElement ele : elements("sel_Drafts_options", sectionId, programName)) {
+		//			
+		//			System.out.println(ele.getText().trim());
+		//			if(ele.getText().trim().equals(optionsArray[i]))
+		//				flag=true;
+		//			else
+		//			System.out.println("expected:" + optionsArray[0]);
+		//			Assert.assertTrue(ele.getText().trim().equals(optionsArray[0].trim()),
+		//					"Mentioned options are not available under draft options");
+		//			logMessage("ASSERT PASSED: " + ele.getText().trim() + " options is displayed under draft action\n");
+		//		}
 	}
-	
+
 	public void selectPreDraftedAbstractForEditing(String sectionId,String programName,String draftOption){
 		isElementDisplayed("sel_Drafts_options",sectionId,programName);
 		selectProvidedTextFromDropDown(element("sel_Drafts_options",sectionId,programName), draftOption);
