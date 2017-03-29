@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.utils.ConfigPropertyReader;
 
 /**
@@ -39,7 +40,7 @@ public class ObjectFileReader {
 		FileReader particularspecFile=null;
 		String pageObjectRepositoryPath;
 		try{
-			if(ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("maps")){
+			if(TestSessionInitiator._getSessionConfig().get("tier").equalsIgnoreCase("maps")){
 				pageObjectRepositoryPath="PageObjectRepository_Maps/";
 				filepath="src/test/resources/"+pageObjectRepositoryPath;
 				 commonspecFile = new FileReader(filepath + pageName
