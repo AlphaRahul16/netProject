@@ -5,5 +5,6 @@ Page Title: MAPS_Submission_Page
 ======================================================================================================================================
 txt_userrole							classname							pagecontents
 rdbtn_userrole                          xpath                               //span[contains(text(),'${value}')]/preceding-sibling::input
-
+lnk_selButton                           xpath                              //a[contains(text(),'${linkName}')]
+btn_navPanel                            xpath                              //span[contains(text(),'${linkName}')]
 ======================================================================================================================================

@@ -344,7 +344,7 @@ public class ResultsIT extends ReformatTestFile {
     	skippedResults =toString().valueOf(getExecutionResults(dom,"//test[@name='"+label+"']/class/test-method[@status='SKIP']"));
     	failureResults =toString().valueOf(getExecutionResults(dom,"//test[@name='"+label+"']/class/test-method[@status='FAIL']"));
     	
-    	msgOutput = msgOutput + "<tr><td id=\"#t\""+i + "\">" + label+ "</td><td font color='white' bgcolor='#0000FF'>"+totaltest+"</td><td bgcolor='#00FF00' font color='white'>"+passedResult+"</td><td bgcolor='#FFFF00' font color='white'>"+skippedResults+"</td><td bgcolor='#FF0000' font color='white'>"+failureResults+"</td><td>"+executiontime+"</td></tr>";
+    	msgOutput = msgOutput + "<tr><td id=\"#t\""+i + "\">" + label+ "</td><td bgcolor='#AAAAEF'>"+totaltest+"</td><td bgcolor='#ABD799'>"+passedResult+"</td><td bgcolor='#ffff99'>"+skippedResults+"</td><td bgcolor='#FF6F6F'>"+failureResults+"</td><td>"+executiontime+"</td></tr>";
     	}
         msgOutput = msgOutput + "</table>";
         return msgOutput;
