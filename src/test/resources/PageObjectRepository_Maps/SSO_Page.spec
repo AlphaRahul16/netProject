@@ -9,7 +9,7 @@ btn_nav_Heading                        xpath                              //li[@
 tab_homePage                           xpath                              //li[@class='active nav-link']//a[contains(text(),'${value}')]
 tab_accountProfile                     css                                .dropdown-toggle.modify-account-lnk
 lnk_userInfo                           xpath                              //a[contains(text(),'${infoType}')]
-lnk_leftUserInfo                       xpath                              //a[@class='left-side-menu-item' and contains(text(),'${value}')]
+lnk_leftUserInfo                       xpath                              //a[contains(@class,'left-side-menu-item') and contains(text(),'${value}')]
 txt_infoHeader                         css                                .span9>h1
 ======================================================================================================================================
                 

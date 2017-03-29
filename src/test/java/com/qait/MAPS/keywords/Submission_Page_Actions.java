@@ -117,6 +117,7 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 			if(flag)
 			{
 				System.out.println(element("txt_activeProgramName",programid).getText().trim());
+				programName=element("txt_activeProgramName",programid).getText().trim();
 			}
 			else
 			{
@@ -358,9 +359,15 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void selectPreDraftedAbstractForEditing(String sectionId,String programName,String draftOption){
-		isElementDisplayed("sel_Drafts_options",sectionId,programName);
-		selectProvidedTextFromDropDown(element("sel_Drafts_options",sectionId,programName), draftOption);
+		isElementDisplayed("select_editDraft",sectionId,programName);
+		selectProvidedTextFromDropDown(element("select_editDraft",sectionId,programName), draftOption);
 		logMessage("Step : "+draftOption+" is selected for "+programName+" program\n");
+	}
+	
+	public void verifyStatusOfSubmittedAbstract(String sectionId, String programName, String status){
+		isElementDisplayed("txt_abstractStatus",sectionId,programName);
+		Assert.assertTrue(element("txt_abstractStatus",sectionId,programName).getText().trim().equalsIgnoreCase(status),"ASSERT FAILED: Status of submitted abstract "+programName+" is not "+status+"\n");
+		logMessage("ASSERT PASSED: Status of submitted abstract"+programName+" is "+status+"\n");
 	}
 
 
