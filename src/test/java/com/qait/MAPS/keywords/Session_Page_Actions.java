@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.qait.automation.utils.DateUtil;
 
 public class Session_Page_Actions extends ASCSocietyGenericPage {
 
@@ -16,44 +17,111 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyApplicationDisplaysRadioButtonOnClickingSessionTab(String[] role) {
-		int i=0;
+		int i = 0;
 		isElementDisplayed("txt_userrole");
 		for (WebElement ele : elements("txt_userrole")) {
-			Assert.assertTrue(ele.getText().equals(role[i]), "user role "+role+" is not displayed on application\n");
-			logMessage("ASSERT PASSED : verified user role "+role+" is displayed on session page\n");
+			Assert.assertTrue(ele.getText().equals(role[i]),
+					"user role " + role + " is not displayed on application\n");
+			logMessage("ASSERT PASSED : verified user role " + role + " is displayed on session page\n");
 			i++;
 		}
 	}
 
 	public void clickNamedRadioButtonOnRoleSelectionPage(String role) {
-             isElementDisplayed("rdbtn_userrole",role);
-             element("rdbtn_userrole",role).click();
-             logMessage("Step : "+role+" button is selected on Multiple role selection page\n");
-             wait.waitForPageToLoadCompletely();
+		isElementDisplayed("rdbtn_userrole", role);
+		element("rdbtn_userrole", role).click();
+		logMessage("Step : " + role + " button is selected on Multiple role selection page\n");
+		wait.waitForPageToLoadCompletely();
 	}
-	
-	public void clickButtonToContinueToNextPage(String buttonName)
-	{
-        isElementDisplayed("lnk_selButton",buttonName);
-        element("rdbtn_userrole",buttonName).click();
-        logMessage("Step : "+buttonName+" button is clicked\n");
+
+	public void clickButtonToContinueToNextPage(String buttonName) {
+		isElementDisplayed("lnk_selButton", buttonName);
+		element("lnk_selButton", buttonName).click();
+		logMessage("Step : " + buttonName + " button is clicked\n");
 	}
-	
-	public void clickButtononLeftNavigationPanel(String buttonName)
-	{
-        isElementDisplayed("btn_navPanel",buttonName);
-        element("btn_navPanel",buttonName).click();
-        logMessage("Step : "+buttonName+" button is clicked on left navigation panel\n");
+
+	public void clickButtononLeftNavigationPanel(String buttonName) {
+		isElementDisplayed("btn_navPanel", buttonName);
+		wait.hardWait(2);
+		element("btn_navPanel", buttonName).click();
+		wait.hardWait(2);
+		logMessage("Step : " + buttonName + " button is clicked on left navigation panel\n");
 	}
+
+	public void verifyApplicationShouldDisplayOptionsOnAbstractPage(String options) {
+
+	}
+
+	public void verifyTitleForRoles(String title) {
+//		isElementDisplayed("btn_navPanel",title)
+//		logMessage("Step:");
+	}
+
 	
-	public void verifyApplicationShouldDisplayOptionsOnAbstractPage(String options)
-	{
+
+	public void verifyLeftPanelOptionsOnSessionAdminPage(String[] leftPanelOptions) {
+		// int i = 0;
+		for (String text : leftPanelOptions) {
+			Assert.assertTrue(isElementDisplayed("btn_navPanel", text),
+					" option " + text + " is not displayed on application\n");
+			logMessage("ASSERT PASSED : verified options " + text + " is displayed on session admin page\n");
+			// i++;
+		}
+	}
+
+	public String getValueFromProgramsTable() {
+		isElementDisplayed("txt_programTableData", "program_id");
+		String programID = elements("txt_programTableData", "program_id").get(1).getText();
+		logMessage("STEP: Program id is fetched as " + programID + " from program table \n");
+		return programID;
+	}
+
+	public void verifyTheResultOfFilter(String expProgramID) {
+		isElementDisplayed("txt_programTableData", "program_id");
+		String actualProgramId = elements("txt_programTableData", "program_id").get(1).getText();
+		Assert.assertEquals(elements("txt_programTableData", "program_id").get(1).getText(), expProgramID,
+				"ASSERT FAILED: Expected Program id is " + expProgramID + " but found " + actualProgramId + " \n");
+		logMessage("STEP: Program id is fetched as " + actualProgramId + " from program table \n");
+	}
+
+	public void enterValuesInCreateProgramPage(String ProgramTitle, String interval) {
+		enterValuesForProgram("program_title", ProgramTitle);
+		enterValuesForProgram("start_date", DateUtil.getCurrentdateInStringWithGivenFormate("EEE M/dd/yyyy"));
+		enterValuesForProgram("end_date", DateUtil.getCurrentdateInStringWithGivenFormate("EEE M/dd/yyyy"));
+		selectValuesForProgram("daily_start_time",3);
+		selectValuesForProgram("daily_end_time",4);
+		enterValuesForProgram("interval", interval);
+	}
+
+	private void selectValuesForProgram(String field,int index) {
+		isElementDisplayed("dropdown_programField", field);
+		click(element("dropdown_programField", field));
+		logMessage("STEP: " + field + " is clicked \n");
 		
+		isElementDisplayed("listItem_programField");
+		String value= elements("listItem_programField").get(index).getText();
+		System.out.println(""+value);
+		click(elements("listItem_programField").get(index));
+		logMessage("STEP: " +value + " is selected \n");
 	}
-	
-	
-	
-	
 
+	private void enterValuesForProgram(String field, String value) {
+		isElementDisplayed("inp_programField", field);
+		element("inp_programField", field).sendKeys(value);
+		logMessage("STEP: Enterd " + value + " in " + field + "field \n");
+	}
 
+	public void verifyPopupMessage(String msg) {
+		Assert.assertTrue(isElementDisplayed("btn_navPanel",msg));
+		logMessage("ASSERT PASSED: '" + msg + "' is displayed \n");
+	}
+	public void verifyButtonsOnTypes(String[] options) {
+		// int i = 0;
+		for (String text : options) {
+			Assert.assertTrue(isElementDisplayed("btn_Types", text),
+					" option " + text + " is not displayed on application\n");
+			logMessage("ASSERT PASSED : verified options " + text + " is displayed on session admin page\n");
+			// i++;
+		}
+	}
 }

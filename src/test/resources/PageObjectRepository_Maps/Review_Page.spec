@@ -8,7 +8,6 @@ btn_select							xpath							//a[contains(text(),'${text}')]
 img_Loader							xpath							//img[contains(@src,'preloader')]
 txt_reportType						xpath							//span[contains(text(),'${text}')]
 txt_abstractTitle					xpath							//div[@role='presentation']/span[contains(text(),'${title}')]
-lnk_reviewerScoreReport				xpath							//a[contains(text(),'${text}')]
 input_filter						xpath							(//div[contains(text(),'${text}')]/../following-sibling::td//input)[1]
 comboBox_reviewPage					xpath							//div[contains(text(),'${text}')]/../following-sibling::td/div[contains(@role,'combobox')]
 listItem							xpath							//div[contains(@role,'listitem')]
@@ -22,4 +21,6 @@ table_pageination					xpath							//div[contains(@class,'panel-bbar')]//tr[conta
 input_SaveGridConfig				xpath							//label[contains(text(),'${text}')]/following-sibling::div//input
 txt_tabledata						xpath							(//table[contains(@class,'row-table')]//u)[1]
 img_Loader							xpath							//div[contains(text(),'Loading...')]
+img_dropdown						xpath							//tr[@role='presentation']//input[contains(@id,'input')]
+list_gripConfig						xpath							//div[contains(@class,'combo-list-item')]
 ======================================================================================================================================
