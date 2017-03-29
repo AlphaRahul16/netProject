@@ -91,8 +91,8 @@ public class ACS_GivingApplication_Smoke extends BaseTest {
 		test.launchApplication(app_url_givingDonate);
 		String Amount[] = { mapSheetData.get("Program1 Donate Amount"), mapSheetData.get("Program2 Donate Amount"),
 				mapSheetData.get("Program3 Donate Amount"), mapSheetData.get("Other Program Donate Amount") };
-        test.asm_Donate.clickOnLoginButton();
-    	test.asm_Donate.loginIntoApplication(memberLoginDetails.get(2), "password");
+		test.asm_Donate.clickOnLoginButton();
+		test.asm_Donate.loginIntoApplication(memberLoginDetails.get(2), "password");
 		ProductNames = test.asm_Donate.getDisplayedProductNamesOnEweb(productNameKey,
 				mapSheetData.get("Other Program"));
 		test.asm_Donate.verifyProductNamesFromIweb(ProductNames);
@@ -105,16 +105,24 @@ public class ACS_GivingApplication_Smoke extends BaseTest {
 	public void Step04_TC04_Navigate_To_ContactInfo_Page_And_Login() {
 
 		uniquelastname = mapSheetData.get("Guest_LastName") + System.currentTimeMillis();
-		test.asm_Donate.clickOnLoginButtonForGiving(memberLoginDetails, mapSheetData.get("ValidEmailAddress"), mapSheetData.get("Login_via_MemberNumber"), memberDetails);
-//		test.asm_Donate.clickOnLoginButtonForSpecifiedUser(memberLoginDetails, mapSheetData.get("ValidEmailAddress"),
-//				mapSheetData.get("Login_via_MemberNumber"), memberDetails);
-	//test.asm_Donate.loginIntoApplication(memberLoginDetails.get(2), "password");
+		test.asm_Donate.clickOnLoginButtonForGiving(memberLoginDetails, mapSheetData.get("ValidEmailAddress"),
+				mapSheetData.get("Login_via_MemberNumber"), memberDetails);
+		// test.asm_Donate.clickOnLoginButtonForSpecifiedUser(memberLoginDetails,
+		// mapSheetData.get("ValidEmailAddress"),
+		// mapSheetData.get("Login_via_MemberNumber"), memberDetails);
+		// test.asm_Donate.loginIntoApplication(memberLoginDetails.get(2),
+		// "password");
 		test.asm_Donate.enterValidEmailAddress(mapSheetData.get("ValidEmailAddress"));
 		test.asm_Donate.clickOnSubmitPaymentButton();
-	/*	test.asm_Donate.enterGuestRequiredDetailsInForm(memberLoginDetails, mapSheetData.get("Guest_FirstName"),
-				uniquelastname, mapSheetData.get("ValidEmailAddress"), mapSheetData.get("Guest_Phone"),
-				mapSheetData.get("Guest_Address"), mapSheetData.get("Guest_City"), mapSheetData.get("Guest_State"),
-				mapSheetData.get("Guest_ZipCode"), mapSheetData.get("Guest_Country"));*/
+		/*
+		 * test.asm_Donate.enterGuestRequiredDetailsInForm(memberLoginDetails,
+		 * mapSheetData.get("Guest_FirstName"), uniquelastname,
+		 * mapSheetData.get("ValidEmailAddress"),
+		 * mapSheetData.get("Guest_Phone"), mapSheetData.get("Guest_Address"),
+		 * mapSheetData.get("Guest_City"), mapSheetData.get("Guest_State"),
+		 * mapSheetData.get("Guest_ZipCode"),
+		 * mapSheetData.get("Guest_Country"));
+		 */
 	}
 
 	@Test
@@ -139,8 +147,8 @@ public class ACS_GivingApplication_Smoke extends BaseTest {
 
 		test.asm_Donate.BreakMyDonationForMonthlyPayments(mapSheetData.get("BreakMyDonation?"),
 				mapSheetData.get("Pledge_Months"));
-		test.asm_Donate.enterPaymentDetailsForACSDonateSmoke(memberLoginDetails, 
-				mapSheetData.get("Guest_FirstName") + " " + uniquelastname,mapSheetData);
+		test.asm_Donate.enterPaymentDetailsForACSDonateSmoke(memberLoginDetails,
+				mapSheetData.get("Guest_FirstName") + " " + uniquelastname, mapSheetData);
 
 	}
 
@@ -159,49 +167,42 @@ public class ACS_GivingApplication_Smoke extends BaseTest {
 		test.asm_Donate.logOut();
 	}
 
-	 @Test
-	 public void
-	 Step07_TC_07_Navigate_To_Iweb_And_Retreive_Lastest_Invoice_For_Donor() {
-	
-	 test.launchApplication(app_url_IWEB);
-	 test.memberShipPage.navigateToMemberLatestInvoicePage(memberLoginDetails);
-	 if (memberLoginDetails.get(0).equals("2")) {
-	 test.homePageIWEB.clickFindForIndividualsSearch();
-	 test.individualsPage.enterFieldValue("Last Name", uniquelastname);
-	 test.individualsPage.enterFieldValue("First Name",
-	 mapSheetData.get("Guest_FirstName"));
-	 test.individualsPage.clickGoButton();
-	 test.individualsPage.verifyMemberIsNotCreated();
-	 test.individualsPage.navigateToInvoicesMenuOnHoveringMore();
-	 test.individualsPage.clickOnInvoiceArrowButtonToNavigateFinancialPage();
-	
-	 }
-	
-	 }
-	
-	 @Test
-	 public void
-	 Step08_TC_08_Navigate_To_Iweb_And_verify_Lastest_Invoice_For_User() {
-	
-	 String Amount[] = { mapSheetData.get("Program1 Donate Amount"),
-	 mapSheetData.get("Program2 Donate Amount"),
-	 mapSheetData.get("Program3 Donate Amount"), mapSheetData.get("Other Program Donate Amount") };
-	 test.invoicePage.validateBalanceAndTotalForInvoice(TotalAmountMap);
-	 test.invoicePage.verifyEmailStatus(TotalAmountMap);
-	 test.invoicePage.expandDetailsMenu("line items");
-	 test.invoicePage.verfifyproductDisplayNamesAndCodesInsideLineItems(TotalAmountMap,
-	 Amount, productNameKey,
-	 mapIwebProductDetails);
-	 test.invoicePage.collapseDetailsMenu("line items");
-	 test.invoicePage.expandDetailsMenu("acs giving invoice details");
-	 test.invoicePage.verifyGivingInvoiceDetails(mapSheetData.get("SendCardVia_Email?"),
-	 mapSheetData.get("SendCardVia_PostalMail?"),
-	 mapSheetData.get("DonotSendCard?"),
-	 mapSheetData.get("Other Program"),
-	 mapSheetData.get("SelectSendCardOption?"));
-	
-	 test.invoicePage.collapseDetailsMenu("acs giving invoice details");
-	 }
+	@Test
+	public void Step07_TC_07_Navigate_To_Iweb_And_Retreive_Lastest_Invoice_For_Donor() {
+
+		test.launchApplication(app_url_IWEB);
+		test.memberShipPage.navigateToMemberLatestInvoicePage(memberLoginDetails);
+		if (memberLoginDetails.get(0).equals("2")) {
+			test.homePageIWEB.clickFindForIndividualsSearch();
+			test.individualsPage.enterFieldValue("Last Name", uniquelastname);
+			test.individualsPage.enterFieldValue("First Name", mapSheetData.get("Guest_FirstName"));
+			test.individualsPage.clickGoButton();
+			test.individualsPage.verifyMemberIsNotCreated();
+			test.individualsPage.navigateToInvoicesMenuOnHoveringMore();
+			test.individualsPage.clickOnInvoiceArrowButtonToNavigateFinancialPage();
+
+		}
+
+	}
+
+	@Test
+	public void Step08_TC_08_Navigate_To_Iweb_And_verify_Lastest_Invoice_For_User() {
+
+		String Amount[] = { mapSheetData.get("Program1 Donate Amount"), mapSheetData.get("Program2 Donate Amount"),
+				mapSheetData.get("Program3 Donate Amount"), mapSheetData.get("Other Program Donate Amount") };
+		test.invoicePage.validateBalanceAndTotalForInvoice(TotalAmountMap);
+		test.invoicePage.verifyEmailStatus(TotalAmountMap);
+		test.invoicePage.expandDetailsMenu("line items");
+		test.invoicePage.verfifyproductDisplayNamesAndCodesInsideLineItems(TotalAmountMap, Amount, productNameKey,
+				mapIwebProductDetails);
+		test.invoicePage.collapseDetailsMenu("line items");
+		test.invoicePage.expandDetailsMenu("acs giving invoice details");
+		test.invoicePage.verifyGivingInvoiceDetails(mapSheetData.get("SendCardVia_Email?"),
+				mapSheetData.get("SendCardVia_PostalMail?"), mapSheetData.get("DonotSendCard?"),
+				mapSheetData.get("Other Program"), mapSheetData.get("SelectSendCardOption?"));
+
+		test.invoicePage.collapseDetailsMenu("acs giving invoice details");
+	}
 
 	@BeforeClass
 	public void OpenBrowserWindow() {

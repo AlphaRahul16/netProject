@@ -673,7 +673,7 @@ public class ASM_NominatePage extends GetPage {
 
 	public void selectAwardFromAwardListAndVerifyNominationMessage(String currentAwardName) {
 		verifyAwardIsPresentInAwardListAndSelectAward(currentAwardName);
-		//verifyTooltipMessageAppearsAfterSelectingAward();
+		verifyTooltipMessageAppearsAfterSelectingAward();
 	}
 
 	private void verifyTooltipMessageAppearsAfterSelectingAward() {

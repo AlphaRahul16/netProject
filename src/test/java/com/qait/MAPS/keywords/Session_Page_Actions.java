@@ -25,13 +25,33 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		}
 	}
 
-	private void verifyNamedRadioButtonOnSessionPage(String role) {
-		
-		
-		
-		
+	public void clickNamedRadioButtonOnRoleSelectionPage(String role) {
+             isElementDisplayed("rdbtn_userrole",role);
+             element("rdbtn_userrole",role).click();
+             logMessage("Step : "+role+" button is selected on Multiple role selection page\n");
+             wait.waitForPageToLoadCompletely();
+	}
+	
+	public void clickButtonToContinueToNextPage(String buttonName)
+	{
+        isElementDisplayed("lnk_selButton",buttonName);
+        element("rdbtn_userrole",buttonName).click();
+        logMessage("Step : "+buttonName+" button is clicked\n");
+	}
+	
+	public void clickButtononLeftNavigationPanel(String buttonName)
+	{
+        isElementDisplayed("btn_navPanel",buttonName);
+        element("btn_navPanel",buttonName).click();
+        logMessage("Step : "+buttonName+" button is clicked on left navigation panel\n");
+	}
+	
+	public void verifyApplicationShouldDisplayOptionsOnAbstractPage(String options)
+	{
 		
 	}
+	
+	
 	
 	
 

@@ -1488,16 +1488,16 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			String datasheetValue) {
 		if (datasheetValue.equalsIgnoreCase("FileNameForSupportForm1")) {
 			Assert.assertTrue(
-					elements("lnk_awardsLettersDoc", lettername).get(1).getAttribute("onclick")
+					elements("lnk_awardsLettersDoc", lettername).get(0).getAttribute("onclick")
 							.contains(mapAwardsNomination.get(datasheetValue)),
-					"ASSERT FAILED: " + elements("lnk_awardsLettersDoc", lettername).get(1).getAttribute("onclick")
+					"ASSERT FAILED: " + elements("lnk_awardsLettersDoc", lettername).get(0).getAttribute("onclick")
 							+ " doest not contains " + mapAwardsNomination.get(datasheetValue));
 			logMessage("ASSERT PASSED : File uploaded for Support form 1 is displayed under Documents \n");
 		} else if (datasheetValue.equalsIgnoreCase("FileNameForSupportForm2")) {
 			Assert.assertTrue(
-					elements("lnk_awardsLettersDoc", lettername).get(0).getAttribute("onclick")
+					elements("lnk_awardsLettersDoc", lettername).get(1).getAttribute("onclick")
 							.contains(mapAwardsNomination.get(datasheetValue)),
-					"ASSERT FAILED: " + elements("lnk_awardsLettersDoc", lettername).get(0).getAttribute("onclick")
+					"ASSERT FAILED: " + elements("lnk_awardsLettersDoc", lettername).get(1).getAttribute("onclick")
 							+ " doest not contains " + mapAwardsNomination.get(datasheetValue));
 			logMessage("ASSERT PASSED : File uploaded for Support form 2 is displayed under Documents \n");
 		} else {
