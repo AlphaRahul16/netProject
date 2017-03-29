@@ -12,6 +12,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
+import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.GetPage;
 
 public class ASM_DonatePage extends GetPage {
@@ -377,8 +378,8 @@ public class ASM_DonatePage extends GetPage {
 			System.out.println(memberLoginDetails.get(0));
 			String MemberName = memberLoginDetails.get(0);
 			String arrayName[] = MemberName.split(" ");
-			MemberName = arrayName[(arrayName.length) - 2] + " " + arrayName[(arrayName.length) - 1];
-			enterCreditCardHolderName(MemberName);
+			//MemberName = arrayName[(arrayName.length) - 2] + " " + arrayName[(arrayName.length) - 1];
+			enterCreditCardHolderName(cardHolderName);
 		} else if (memberLoginDetails.size() == 1) {
 			enterCreditCardHolderName(cardHolderName);
 		}
@@ -401,8 +402,8 @@ public class ASM_DonatePage extends GetPage {
 //
 //		}
 		enterCVVNumber(dataMap.get("CVV_Number"));
-		selectExpirationDate_Year("Date", dataMap.get("CreditCardExpiration_Month"));
-		selectExpirationDate_Year("Year", dataMap.get("CreditCardExpiration_Year"));
+		selectExpirationDate_Year("Date", dataMap.get("Expiry_Month"));
+		selectExpirationDate_Year("Year", dataMap.get("Expiry_Year"));
 		clickOnSubmitPaymentButton();
 
 	}
@@ -996,6 +997,14 @@ public class ASM_DonatePage extends GetPage {
 		System.out.println(totalAmount);
 		totalamount = Double.parseDouble(totalAmount[0]);
 		return totalAmount;
+	}
+	
+	public void clickOnLoginButtonForGiving(List<String> memberLoginDetails,String ValidEmailAddress,
+			String sheetValue, List<String> memberdetails){
+		if(TestSessionInitiator._getSessionConfig().get("tier").equalsIgnoreCase("Stage2"))
+		   clickOnLoginButtonForSpecifiedUser(memberLoginDetails,ValidEmailAddress,sheetValue,memberdetails);
+		else
+			loginIntoApplication(memberLoginDetails.get(2), "password");
 	}
 
 }
