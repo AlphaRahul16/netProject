@@ -52,7 +52,7 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 
 	public void verifyLinksUnderNamedModule(String text) {
 		try {
-			Assert.assertTrue(isElementDisplayed("lnk_reviewerScoreReport", text),
+			Assert.assertTrue(isElementDisplayed("btn_select", text),
 					"ASSERT FAILED: Expected link is '" + text + "'\n");
 		} catch (NoSuchElementException e) {
 			Assert.assertTrue(isElementDisplayed("txt_reportType", text),
@@ -187,6 +187,22 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_ImportExportExcel", text);
 		click(element("btn_ImportExportExcel", text));
 		logMessage("STEP: '" + text + "' button is clicked \n");
+
+	}
+
+	public void selectExistingConfigurationFromGridConfigurationDropdown() {
+		isElementDisplayed("img_dropdown");
+		//clickUsingXpathInJavaScriptExecutor(elements("img_dropdown").get(0));
+		elements("img_dropdown").get(0).click();
+		logMessage("STEP: Clicked on grid config drop down");
+		wait.hardWait(3);
+		isElementDisplayed("list_gripConfig");
+		click(elements("list_gripConfig").get(2));
+		logMessage("STEP: Existing configuration from the Grid Configuration dropdown is selected \n ");
+	}
+	public void verifybuttonOnRolesPage(String text) {
+		Assert.assertTrue(isElementDisplayed("btn_ImportExportExcel", text));
+		logMessage("ASSERT PASSED: " + text + " is displayed \n");
 
 	}
 

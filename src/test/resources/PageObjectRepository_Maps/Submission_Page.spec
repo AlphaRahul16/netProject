@@ -36,5 +36,6 @@ btn_submit                                          id                          
 img_chkCompletedStep                                css                              #Step${index}>i
 select_submissionAction                             xpath                            //td[@data-label='Type' and text()='${programName}']/preceding-sibling::td[5]//select
 btn_draftStatus                                     xpath                            //span[text()='${btnName}']
-select_editDraft                                    xpath                            //table[@id='${sectionName}']//tr[last()]//td[contains(text(),'${programName}')]/preceding-sibling::td/select/option
+select_editDraft                                    xpath                            //table[@id='${sectionName}']//tr[last()]//td[contains(text(),'${programName}')]/preceding-sibling::td/select
+txt_abstractStatus                                  xpath                            //table[@id='${sectionName}']//tr[last()]//td[contains(text(),'${programName}')]/following-sibling::td
 ======================================================================================================================================

@@ -48,9 +48,8 @@ public class Maps_Submission_Test extends BaseTest {
 		test.maps_SSOPage.clickOnUserProfileName();
 		test.maps_SSOPage.clickOnUserInformationLink("General Information");
 		test.maps_SSOPage.verifyPageHeader("General Information");
-		// test.maps_SSOPage.clickOnLeftMenuInformationLink("Contact
-		// Information");
-		// test.maps_SSOPage.verifyPageHeader("Contact Information");
+		 test.maps_SSOPage.clickOnLeftMenuInformationLink("Contact Information");
+		 test.maps_SSOPage.verifyPageHeader("Contact Information");
 	}
 
 	@Test
@@ -185,13 +184,13 @@ public class Maps_Submission_Test extends BaseTest {
 
 	@Test
 	public void Test19_MAPS_230_Verify_Status_Of_Submitted_Abstract_Changed_To_UnderReview() {
-		test.maps_submissionPage.verifyApplicationDisplaysSpecifiedAbstractUnderSpecifiedSections("subs",
-				"Under Review");
+		test.maps_submissionPage.verifyStatusOfSubmittedAbstract("subs",programName,"Under Review");
 	}
 
 	@Test
 	public void Test20_MAPS_232_Verify_Application_Displays_Move_To_Draft_Status_Popup_On_Clicking_Edit_Option_For_Submitted_Abstracts() {
-		test.maps_submissionPage.selectEditActionForSubmittedAbstracts(programName, "Edit");
+//		test.maps_submissionPage.selectEditActionForSubmittedAbstracts(programName, "Edit");
+		test.maps_submissionPage.selectPreDraftedAbstractForEditing("subs", programName, "Edit");
 		test.maps_submissionPage.verifyPopUpHeaderOnSubmissionPage("Move to Draft status?");
 		test.maps_submissionPage.clickOnDraftStatusActionButton("No, Do Not Move");
 	}
