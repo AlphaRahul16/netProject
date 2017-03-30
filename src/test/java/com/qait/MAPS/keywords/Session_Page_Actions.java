@@ -51,6 +51,12 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		
 	}
 	
+	public void verifyRefreshButtonAtBottom()
+	{
+		Assert.assertTrue(isElementDisplayed("btn_refresh")," refresh button not available on the page\n");
+		logMessage("ASSERT PASSED : refresh button is displayed at page bottom\n");
+	}
+	
 	
 	
 	
