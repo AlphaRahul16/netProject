@@ -12,7 +12,7 @@ import com.qait.automation.utils.YamlReader;
 
 public class Maps_Review_Test extends BaseTest {
 	private String maps_url;
-
+	private String griduniqueName = "Selenium_Test_Grid_"+System.currentTimeMillis();
 	@BeforeClass
 	public void Start_Test_Session() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
@@ -45,15 +45,16 @@ public class Maps_Review_Test extends BaseTest {
 
 	@Test
 	public void MAPS_Review_Admin_02_Verify_options_available_on_ReviewerScoreReport_page() {
-		test.maps_reviewpage.verifyLinksUnderReviewModule("Save/Edit");
-		test.maps_reviewpage.verifyLinksUnderReviewModule("Delete");
-		test.maps_reviewpage.verifyLinksUnderReviewModule("Clear Filters");
-		test.maps_reviewpage.verifyLinksUnderReviewModule("Hide Reviewer Comments");
+		test.maps_reviewpage.verifyLinksUnderNamedModule("Save/Edit");
+		test.maps_reviewpage.verifyLinksUnderNamedModule("Delete");
+		test.maps_reviewpage.verifyLinksUnderNamedModule("Clear Filters");
+		test.maps_reviewpage.verifyLinksUnderNamedModule("Hide Reviewer Comments");
 		test.maps_reviewpage.verifyTextField("Filter");
+		test.maps_reviewpage.verifyCrossImageForNamedDropDown("Filter");
 		test.maps_reviewpage.verifyDropDown("Found In");
 		test.maps_reviewpage.verifyDropDown("Import/Export to Excel");
 		test.maps_reviewpage.verifyRoleDropDown();
-		test.maps_reviewpage.verifyExpandIconUnderReviewModule();
+		test.maps_reviewpage.verifyExpandIconUnderNamedModule();
 		test.maps_reviewpage.verifyButton("Mass Update");
 		test.maps_reviewpage.verifyReviewerScoreReportTable();
 		test.maps_reviewpage.verifyPaginationSectionAtTheBottomOfTheTable();
@@ -63,7 +64,7 @@ public class Maps_Review_Test extends BaseTest {
 	public void MAPS_Review_Admin_07_Verify_application_allows_user_to_add_new_view_in_Grid_Configuration_dropdown() {
 		test.maps_reviewpage.clickOnButton("Save/Edit");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Save Grid Configuration");
-		test.maps_reviewpage.enterDetailsAtSaveGridConfigurationPage("Test" + System.currentTimeMillis());
+		test.maps_reviewpage.enterDetailsAtSaveGridConfigurationPage(griduniqueName);
 		test.maps_reviewpage.clickOnButtonAtSaveGridConfigurationPage("Save");
 	}
 
