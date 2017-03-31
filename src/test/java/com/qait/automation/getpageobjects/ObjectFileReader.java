@@ -235,6 +235,11 @@ public class ObjectFileReader {
 		case Maps:
 			tier= "MAPS/";
 			break;
+		case STAGE8:
+		case Stage8:
+		case stage8:
+			tier = "STAGE8/";
+			break;
 		}
 	}
 }

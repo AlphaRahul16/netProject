@@ -53,11 +53,9 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyTitleForRoles(String title) {
-//		isElementDisplayed("btn_navPanel",title)
-//		logMessage("Step:");
+		// isElementDisplayed("btn_navPanel",title)
+		// logMessage("Step:");
 	}
-
-	
 
 	public void verifyLeftPanelOptionsOnSessionAdminPage(String[] leftPanelOptions) {
 		// int i = 0;
@@ -88,21 +86,21 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		enterValuesForProgram("program_title", ProgramTitle);
 		enterValuesForProgram("start_date", DateUtil.getCurrentdateInStringWithGivenFormate("EEE M/dd/yyyy"));
 		enterValuesForProgram("end_date", DateUtil.getCurrentdateInStringWithGivenFormate("EEE M/dd/yyyy"));
-		selectValuesForProgram("daily_start_time",3);
-		selectValuesForProgram("daily_end_time",4);
+		selectValuesForProgram("daily_start_time", 3);
+		selectValuesForProgram("daily_end_time", 5);
 		enterValuesForProgram("interval", interval);
 	}
 
-	private void selectValuesForProgram(String field,int index) {
+	private void selectValuesForProgram(String field, int index) {
 		isElementDisplayed("dropdown_programField", field);
 		click(element("dropdown_programField", field));
 		logMessage("STEP: " + field + " is clicked \n");
-		
+
 		isElementDisplayed("listItem_programField");
-		String value= elements("listItem_programField").get(index).getText();
-		System.out.println(""+value);
+		String value = elements("listItem_programField").get(index).getText();
+		System.out.println("" + value);
 		click(elements("listItem_programField").get(index));
-		logMessage("STEP: " +value + " is selected \n");
+		logMessage("STEP: " + value + " is selected \n");
 	}
 
 	private void enterValuesForProgram(String field, String value) {
@@ -112,16 +110,64 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyPopupMessage(String msg) {
-		Assert.assertTrue(isElementDisplayed("btn_navPanel",msg));
+		waitForLoaderToDisappear();
+		Assert.assertTrue(isElementDisplayed("btn_navPanel", msg));
 		logMessage("ASSERT PASSED: '" + msg + "' is displayed \n");
 	}
+
 	public void verifyButtonsOnTypes(String[] options) {
-		// int i = 0;
 		for (String text : options) {
 			Assert.assertTrue(isElementDisplayed("btn_Types", text),
 					" option " + text + " is not displayed on application\n");
 			logMessage("ASSERT PASSED : verified options " + text + " is displayed on session admin page\n");
-			// i++;
 		}
 	}
+
+	public void verifyTextUnderMeetingSetup(String text) {
+		Assert.assertTrue(isElementDisplayed("txt_instruction", text));
+		logMessage("ASSERT PASSED: " + text + " is displayed \n");
+
+	}
+
+	public void entervaluesinAddNewTypes(String typeName, String colorCode, String sessionType) {
+		enterValuesForProgram("session_type_name", typeName);
+		enterValuesForProgram("session_type_description", typeName);
+		enterValuesForProgram("session_type_color2", colorCode);
+		selectValueForSessionType("Session Type", sessionType);
+
+	}
+
+	private void selectValueForSessionType(String label, String value) {
+		isElementDisplayed("radioBtn_sessionType", value);
+		element("radioBtn_sessionType", value).click();
+		logMessage("STEP: " + value + " is selected as " + label + " \n");
+	}
+
+	public void selectValueForSessionDetailType(String value) {
+		isElementDisplayed("inp_sessionType", "session_detail_type_id");
+		element("inp_sessionType", "session_detail_type_id").sendKeys(value);
+		logMessage("STEP: Session Detailed Type is selected as " + value + "\n");
+	}
+
+	public void verifyApplicationShouldAddSessionDetailType(String testType, String colorCode, String sessionType) {
+		verifyDataOfTypePage(testType, colorCode, "Color Code");
+		verifyDataOfTypePage(testType, sessionType, "Session Type");
+	}
+
+	private void verifyDataOfTypePage(String testType, String colorCode, String text) {
+		Assert.assertTrue(isElementDisplayed("tabledata_type", testType, colorCode));
+		logMessage("ASSERT PASSED: '" + testType + "' is displayed with " + text + " " + colorCode);
+	}
+
+	public void verifyListOfProgramAreas(String text) {
+		Assert.assertTrue(isElementDisplayed("list_table"));
+		logMessage("ASSERT PASSED: List of " + text + " is verified \n");
+
+	}
+
+	public void verifyProgramIsaddedInTable() {
+		// TODO Auto-generated method stub
+		isElementDisplayed("txt_instruction","");
+	}
+
 }

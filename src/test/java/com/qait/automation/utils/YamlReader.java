@@ -93,6 +93,10 @@ public class YamlReader {
 				|| tier.equalsIgnoreCase("Stage7")
 				|| tier.equalsIgnoreCase("stage7")) {
 			yamlFilePath = "src/test/resources/testdata/STAGE7_TestData.yml";}
+		else if (tier.equalsIgnoreCase("STAGE8")
+				|| tier.equalsIgnoreCase("Stage8")
+				|| tier.equalsIgnoreCase("stage8")) {
+			yamlFilePath = "src/test/resources/testdata/STAGE8_TestData.yml";}
 		else if (tier.equalsIgnoreCase("Maps")
 				|| tier.equalsIgnoreCase("maps")
 				|| tier.equalsIgnoreCase("MAPS")) {

@@ -157,24 +157,32 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 	public void clickOnButtonAtSaveGridConfigurationPage(String text) {
 		isElementDisplayed("btn_ImportExportExcel", text);
 		click(element("btn_ImportExportExcel", text));
+		wait.hardWait(2);
 		logMessage("STEP: '" + text + "' button is clicked \n");
 
 	}
 
-	public void selectExistingConfigurationFromGridConfigurationDropdown() {
+	public String selectExistingConfigurationFromGridConfigurationDropdown() {
 		isElementDisplayed("img_dropdown");
-		//clickUsingXpathInJavaScriptExecutor(elements("img_dropdown").get(0));
+		// clickUsingXpathInJavaScriptExecutor(elements("img_dropdown").get(0));
 		elements("img_dropdown").get(0).click();
 		logMessage("STEP: Clicked on grid config drop down");
 		wait.hardWait(3);
 		isElementDisplayed("list_gripConfig");
+		String gridConfig = elements("list_gripConfig").get(2).getText();
 		click(elements("list_gripConfig").get(2));
 		logMessage("STEP: Existing configuration from the Grid Configuration dropdown is selected \n ");
+		return gridConfig;
 	}
+
 	public void verifybuttonOnRolesPage(String text) {
 		Assert.assertTrue(isElementDisplayed("btn_ImportExportExcel", text));
 		logMessage("ASSERT PASSED: " + text + " is displayed \n");
 
 	}
 
+	public void verifyApplicationShouldAllowToSelectGridConfiguration(String gridConfig) {
+		isElementDisplayed("");
+		
+	}
 }

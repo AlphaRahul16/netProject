@@ -19,3 +19,16 @@ Submission_Symposium_Step:
    
 Success_alert_msg: "Success! Your submission was successfully submitted."
 Submission_draft_Options: Select ...,Edit Draft,View Emails
+
+Review:
+  GridConfigName: "Test"
+  
+Session:
+  Programs:
+    ProgramTitle: "QAIT_Test"
+    Interval: "30"
+  Types:
+      TestType: "Test Type"
+      ColorCode: "#00FFFF"
+      SessionType: "Session"
+      SessionDetailType: "Newsworthy"

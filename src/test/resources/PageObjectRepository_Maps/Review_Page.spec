@@ -23,4 +23,5 @@ txt_tabledata						xpath							(//table[contains(@class,'row-table')]//u)[1]
 img_Loader							xpath							//div[contains(text(),'Loading...')]
 img_dropdown						xpath							//tr[@role='presentation']//input[contains(@id,'input')]
 list_gripConfig						xpath							//div[contains(@class,'combo-list-item')]
+img_dropdown						xpath							//label[contains(text(),'Session Detail Type')]/following-sibling::div/img
 ======================================================================================================================================

@@ -22,5 +22,7 @@ public enum Tiers {
     STAGE3,Stage3,stage3,
     STAGE2,Stage2,stage2,
 	STAGE1,Stage1,stage1,
-	Maps,MAPS,maps;	
+	STAGE8,Stage8,stage8,
+	Maps,MAPS,maps;
+	
 }

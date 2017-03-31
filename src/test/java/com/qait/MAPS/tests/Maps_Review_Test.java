@@ -63,7 +63,8 @@ public class Maps_Review_Test extends BaseTest {
 	public void MAPS_Review_Admin_07_Verify_application_allows_user_to_add_new_view_in_Grid_Configuration_dropdown() {
 		test.maps_reviewpage.clickOnButton("Save/Edit");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Save Grid Configuration");
-		test.maps_reviewpage.enterDetailsAtSaveGridConfigurationPage("Test" + System.currentTimeMillis());
+		test.maps_reviewpage.enterDetailsAtSaveGridConfigurationPage(
+				YamlReader.getYamlValue("Review.GridConfigName") + System.currentTimeMillis());
 		test.maps_reviewpage.clickOnButtonAtSaveGridConfigurationPage("Save");
 	}
 
