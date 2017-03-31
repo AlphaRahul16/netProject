@@ -103,6 +103,14 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("STEP: " + value + " is selected \n");
 	}
 
+	
+	public void verifyRefreshButtonAtBottom()
+	{
+		Assert.assertTrue(isElementDisplayed("btn_refresh")," refresh button not available on the page\n");
+		logMessage("ASSERT PASSED : refresh button is displayed at page bottom\n");
+	}
+
+
 	private void enterValuesForProgram(String field, String value) {
 		isElementDisplayed("inp_programField", field);
 		element("inp_programField", field).sendKeys(value);

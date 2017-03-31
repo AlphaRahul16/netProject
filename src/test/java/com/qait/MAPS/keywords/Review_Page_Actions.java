@@ -50,7 +50,7 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED: Page title is verified as '" + title + "' \n");
 	}
 
-	public void verifyLinksUnderReviewModule(String text) {
+	public void verifyLinksUnderNamedModule(String text) {
 		try {
 			Assert.assertTrue(isElementDisplayed("btn_select", text),
 					"ASSERT FAILED: Expected link is '" + text + "'\n");
@@ -66,21 +66,50 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 				"ASSERT FAILED: Expected text field is '" + text + "'\n");
 		logMessage("ASSERT PASSED: '" + text + "' text field is verified \n");
 	}
+	
+	public void verifyCrossImageForNamedDropDown(String fieldName)
+	{
+		Assert.assertTrue(isElementDisplayed("img_CrossFilter", fieldName),
+				"ASSERT FAILED: Image for " + fieldName + "is not verified'\n");
+		logMessage("ASSERT PASSED: 'Image for " + fieldName + "is not verified \n");
+		
+	}
 
-	public void verifyDropDown(String text) {
-		try {
-			isElementDisplayed("comboBox_reviewPage", text);
-			click(element("comboBox_reviewPage", text));
-			Assert.assertTrue(isElementDisplayed("listItem"));
-			click(element("comboBox_reviewPage", text));
-		} catch (NoSuchElementException e) {
-			isElementDisplayed("btn_ImportExportExcel", text);
-			click(element("btn_ImportExportExcel", text));
-			Assert.assertTrue(isElementDisplayed("list_ImportExportExcel"));
-			click(element("btn_ImportExportExcel", text));
+	public void verifyDropDown(String fieldName) {
+		
+		switch(fieldName)
+		{
+			case "Found In" :
+				isElementDisplayed("comboBox_reviewPage", fieldName);
+				click(element("comboBox_reviewPage", fieldName));
+				Assert.assertTrue(elements("list_drpdwnoptions").size()>0," no option available on clicking dropdown "+fieldName);
+				click(element("comboBox_reviewPage", fieldName)); 
+			break;
+			
+			case "Records per page" : 
+			isElementDisplayed("drpdwn_records", fieldName);
+			click(element("drpdwn_records", fieldName));
+			Assert.assertTrue(elements("list_drpdwnoptions").size()>0," no option available on clicking dropdown "+fieldName);
+			click(element("drpdwn_records", fieldName)); 
+			break;
+			
+			case "Toggle View":
+			case "Export to Excel":
+			case "Import/Export to Excel":
+				isElementDisplayed("btn_ImportExportExcel",fieldName);
+				click(element("btn_ImportExportExcel",fieldName));
+				Assert.assertTrue(elements("list_drpdwnoptions").size()>0," no option available on clicking dropdown "+fieldName);
+				click(element("btn_ImportExportExcel",fieldName));
+			break;
+			
+			case "Default":
+				logMessage("Step : Dropdown not available\n");
+			
+			logMessage("ASSERT PASSED: '" + fieldName + "' dropdown is verified with options\n");
+				
 		}
+		
 
-		logMessage("ASSERT PASSED: '" + text + "' dropdown is verified \n");
 	}
 
 	public void verifyRoleDropDown() {
@@ -91,7 +120,7 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED: 'Role'dropdown is verified \n");
 	}
 
-	public void verifyExpandIconUnderReviewModule() {
+	public void verifyExpandIconUnderNamedModule() {
 		Assert.assertTrue(isElementDisplayed("btn_expandIcon"),
 				"ASSERT FAILED: 'Expand this grid to full screen' icon is not displayed ");
 		logMessage("ASSERT PASSED: 'Expand this grid to full screen' icon is displayed \n");
