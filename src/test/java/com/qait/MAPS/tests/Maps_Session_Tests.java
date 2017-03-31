@@ -54,17 +54,45 @@ public class Maps_Session_Tests extends BaseTest {
 	
 	}
 	
+//	@Test
+//	public void Test04_MAPS_Session_4_User_Should_Navigate_To_Abstract_Page_On_Clicking_Go_Button() {
+//		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("OPA Staff");
+//		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
+//		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
+//		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");
+//	}
+//
+//	@Test
+//	public void MAPS_Session_67_Verify_options_available_on_Program_Viewer_page(){
+//		
+//	}
+	
 	@Test
-	public void Test04_MAPS_Session_4_User_Should_Navigate_To_Abstract_Page_On_Clicking_Go_Button() {
-		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("OPA Staff");
+	public void MAPS_Session_914_Verify_User_Navigates_To_Room_Availability_Page(){
+//		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Session");
+		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Session Admin");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
-		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
-		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Meeting Setup");
+		test.maps_sessionpage.clickSubHeadingLeftNavigationPanel("Room Availability");
+		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Room Availability");
 	}
-
+	
 	@Test
-	public void MAPS_Session_67_Verify_options_available_on_Program_Viewer_page(){
-		
+	public void MAPS_Session_915_Verify_Sections_Are_Displayed_On_Room_Availability_Page(){
+		test.maps_sessionpage.verifySectionsOnRoomAvailabilityPage("Rooms", 1);
+		test.maps_sessionpage.verifySectionsOnRoomAvailabilityPage("Room Availability", 2);
+	}
+	
+	@Test
+	public void MAPS_Session_919_Verify_Fields_Are_Displayed_Under_Rooms_Section(){
+        test.maps_sessionpage.verifyFilterDropdwonOnRoomAvailabalityPage();
+        test.maps_sessionpage.verifyFieldsOnRoomAvailablityPage("Save/Edit", 1);
+        test.maps_sessionpage.verifyFieldsOnRoomAvailablityPage("Delete", 1);
+	}
+	
+	@Test
+	public void MAPS_Session_920_Verify_Application_Displays_Filter_Results_On_Room_Availability_Page(){
+		test.maps_sessionpage.clickOnArrowButton("Room Name");
 	}
 }
 
