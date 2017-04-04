@@ -13,7 +13,7 @@ btn_saveAndEdit                         xpath                              (//a[
 inp_roomName                            xpath                              //label[text()='${label}']/..//input[@type='text']
 chkbox_room                             xpath                              //label[contains(text(),'${label}')]/..//input[@type='checkbox']
 select_role                             xpath                              //div[text()='${role}']
-drpdwn_filters                          xpath                              (//div[contains(@class,'x-form-field-wrap') and @role="combobox"])[2]
+inp_saveGridFilters                     xpath                              (//div[contains(@class,'x-form-field-wrap') and @role="combobox"])[${index}]//input
 btn_arrow                               xpath                               //div[contains(@qtip,"${label}")]//a
 iframe                                  id                                  com.scholarone.s1agxt.s1agxt
 img_Loader							    xpath							    //img[contains(@src,'preloader')]
@@ -29,5 +29,9 @@ inp_sessionType							xpath								//input[@name='${text}']
 tabledata_type							xpath								//div[contains(text(),'type30mar2017')]/../following-sibling::td/div[contains(text(),'#FF6600')]
 list_table								xpath								//td[@role='gridcell']
 img_Loader								xpath								//div[contains(@class,'progress-bar')]
-listItem_programField						xpath							//div[contains(@class,'combo-list-item')]
+listItem_programField					xpath							    //div[contains(@class,'combo-list-item')]
+inp_filtertext                          xpath                               //div[contains(@class,'x-menu-list')]//input
+lnk_filters                             xpath                               //a[contains(@class,'x-menu-item') and contains(text(),'${dropdownOptions}')]
+inp_roomDetails                         xpath                               //div[@class='x-box-inner']//div[@gxt-dindex="${field}"]//input
+txt_tableData                           xpath                               (//div[contains(@class,'grid3-body')])[${index1}]//table//td[${index2}]
 ======================================================================================================================================

@@ -34,6 +34,7 @@ public class ACS_MGM_Test extends BaseTest {
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
 	public ACS_MGM_Test(String caseID) {
 		this.caseID = caseID;
+		Reporter.log("CASE ID is : "+caseID,true);
 	}
 
 	@BeforeClass

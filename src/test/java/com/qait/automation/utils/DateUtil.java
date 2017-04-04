@@ -46,6 +46,7 @@ public class DateUtil {
 		String result = s.format(new Date(cal.getTimeInMillis()));
 		String year = result.substring(0, 4);
 		String month = result.substring(4, 6);
+		System.out.println("-----next month:"+month);
 		     day = result.substring(6, 8);
 		String[] date = { year, month, day };
 		return date;
@@ -159,7 +160,7 @@ public class DateUtil {
 		String date = df.format(new Date());
 		return date;
 	}
-
+	
 	public static Date convertStringToDate(String dateString, String formate) {
 		DateFormat sourceFormat = new SimpleDateFormat(formate);
 		try {
@@ -173,7 +174,6 @@ public class DateUtil {
 	public static String convertStringToParticularDateFormat(String dateString,String formate){
 		try {
 			Date date= new SimpleDateFormat(formate).parse(dateString);
-	      
 			return new SimpleDateFormat(formate).format(date);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block

@@ -212,8 +212,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED: "+fieldName+" field is present on Rooms Availability page\n");
 	}
 	
-	public void verifyFilterDropdwonOnRoomAvailabalityPage(){
-		isElementDisplayed("drpdwn_filters");
+	public void verifyFilterDropdwonOnRoomAvailabalityPage(int index){
+		isElementDisplayed("inp_saveGridFilters",String.valueOf(index));
 		logMessage("ASSERT PASSED: Filter dropdwon is displayed on Room Availability page\n");
 	}
 	
@@ -241,5 +241,28 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		// TODO Auto-generated method stub
 		isElementDisplayed("txt_instruction","");
 	}
-
+	
+	public void enterFilterText(String drpdwnValue, String filterText){
+		isElementDisplayed("lnk_filters",drpdwnValue);
+		hover(element("lnk_filters",drpdwnValue));
+		isElementDisplayed("inp_filtertext");
+		click(element("inp_filtertext"));
+		element("inp_filtertext").sendKeys(filterText);
+		logMessage("Step : Filter text is entered as "+filterText+"\n");
+	}
+	
+	public void enterProgramName(String roomValue, int index){
+		isElementDisplayed("inp_saveGridFilters",String.valueOf(index));
+		click(element("inp_saveGridFilters",String.valueOf(index)));
+		element("inp_saveGridFilters",String.valueOf(index)).sendKeys(roomValue);
+		logMessage("Step : Room availability value is entered as "+roomValue);
+	}
+	
+	public void verifyFilterResults(String filterResult,int index,int columnIndex){
+		isElementDisplayed("txt_tableData",String.valueOf(index),String.valueOf(columnIndex));
+		for(WebElement ele: elements("txt_tableData",String.valueOf(index),String.valueOf(columnIndex))){
+			Assert.assertEquals(ele.getText().trim(), filterResult,"ASSERT FAILED: Filter results does not contains "+filterResult+"\n");
+		}
+		logMessage("ASSERT PASSED: Filter results does contains "+filterResult+"\n");
+	}
 }

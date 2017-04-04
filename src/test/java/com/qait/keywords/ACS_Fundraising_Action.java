@@ -301,10 +301,13 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 			for (int i = 2; i <= elements("list_folderTable").size(); i++) {
 				String[] ar = DateUtil.getNextDate("month", count);	
 				String date=ar[1] + "/" + ar[2] + "/" + ar[0];
+				System.out.println("-----actual date:"+element("txt_folderData", String.valueOf(i), String.valueOf(4)).getText().trim());
+				System.out.println("-----expected date:"+DateUtil.convertStringToParticularDateFormat(date, "m/d/yyyy"));
+				
 				Assert.assertTrue(element("txt_folderData", String.valueOf(i), String.valueOf(4)).getText().trim()
 								.equals(DateUtil.convertStringToParticularDateFormat(date, "m/d/yyyy")),
-						"ASSERT FAILED: Schedule date for installment "+count+" is not verified as " + DateUtil.convertStringToDate(date, "m/d/yyyy"));
-				logMessage("ASSERT PASSED: Schedule date for installment "+count+" is verified as " + DateUtil.convertStringToDate(date, "m/d/yyyy"));
+						"ASSERT FAILED: Schedule date for installment "+count+" is not verified as " + DateUtil.convertStringToParticularDateFormat(date, "m/d/yyyy"));
+				logMessage("ASSERT PASSED: Schedule date for installment "+count+" is verified as " + DateUtil.convertStringToParticularDateFormat(date, "m/d/yyyy"));
 				Assert.assertTrue(element("txt_folderData", String.valueOf(i), String.valueOf(6)).getText().trim()
 						.equals(df.format(payments)),
 				"ASSERT FAILED : Schedule amount for installment "+count+" is not verified as " + df.format(payments));
