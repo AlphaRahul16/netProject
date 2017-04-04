@@ -16,8 +16,9 @@ btn_Types								xpath								//button[contains(text(),'${text}')]
 txt_instruction							xpath								//div[contains(text(),'${text}')]
 radioBtn_sessionType					xpath								//label[contains(text(),'${text}')]/preceding-sibling::input
 inp_sessionType							xpath								//input[@name='${text}']
-tabledata_type							xpath								//div[contains(text(),'type30mar2017')]/../following-sibling::td/div[contains(text(),'#FF6600')]
+tabledata_type							xpath								//div[contains(text(),'${text1}')]/../following-sibling::td/div[contains(text(),'${text2}')]
 list_table								xpath								//td[@role='gridcell']
 img_Loader								xpath								//div[contains(@class,'progress-bar')]
-listItem_programField						xpath							//div[contains(@class,'combo-list-item')]
+listItem_programField					xpath								//div[contains(@class,'combo-list-item')]
+inp_addHost								xpath								//div[@gxt-dindex='session_host_first_name']/input
 ======================================================================================================================================

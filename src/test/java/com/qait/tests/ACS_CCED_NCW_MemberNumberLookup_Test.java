@@ -107,9 +107,10 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test extends BaseTest {
 	public void Open_Browser_Window() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		test.launchApplication(app_url_IWEB);
-
 		test.homePageIWEB.addValuesInMap("CCED_NCW_MemberNumberLookup", caseID);
+		
 		System.out.println(test.asm_NCWPage.map().get("Application URL"));
+		
 		test.homePageIWEB.EnterTestMethodNameToSkipInMap_MemberNumber_CCED_NCW(
 				skipTest, test.asm_NCWPage.map().get("Application URL"));
 	}

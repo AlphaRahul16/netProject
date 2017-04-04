@@ -66,49 +66,49 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 				"ASSERT FAILED: Expected text field is '" + text + "'\n");
 		logMessage("ASSERT PASSED: '" + text + "' text field is verified \n");
 	}
-	
-	public void verifyCrossImageForNamedDropDown(String fieldName)
-	{
+
+	public void verifyCrossImageForNamedDropDown(String fieldName) {
 		Assert.assertTrue(isElementDisplayed("img_CrossFilter", fieldName),
 				"ASSERT FAILED: Image for " + fieldName + "is not verified'\n");
 		logMessage("ASSERT PASSED: 'Image for " + fieldName + "is not verified \n");
-		
+
 	}
 
 	public void verifyDropDown(String fieldName) {
-		
-		switch(fieldName)
-		{
-			case "Found In" :
-				isElementDisplayed("comboBox_reviewPage", fieldName);
-				click(element("comboBox_reviewPage", fieldName));
-				Assert.assertTrue(elements("list_drpdwnoptions").size()>0," no option available on clicking dropdown "+fieldName);
-				click(element("comboBox_reviewPage", fieldName)); 
+
+		switch (fieldName) {
+		case "Found In":
+			isElementDisplayed("comboBox_reviewPage", fieldName);
+			click(element("comboBox_reviewPage", fieldName));
+			Assert.assertTrue(elements("list_drpdwnoptions").size() > 0,
+					" no option available on clicking dropdown " + fieldName);
+			click(element("comboBox_reviewPage", fieldName));
 			break;
-			
-			case "Records per page" : 
+
+		case "Records per page":
 			isElementDisplayed("drpdwn_records", fieldName);
 			click(element("drpdwn_records", fieldName));
-			Assert.assertTrue(elements("list_drpdwnoptions").size()>0," no option available on clicking dropdown "+fieldName);
-			click(element("drpdwn_records", fieldName)); 
+			Assert.assertTrue(elements("list_drpdwnoptions").size() > 0,
+					" no option available on clicking dropdown " + fieldName);
+			click(element("drpdwn_records", fieldName));
 			break;
-			
-			case "Toggle View":
-			case "Export to Excel":
-			case "Import/Export to Excel":
-				isElementDisplayed("btn_ImportExportExcel",fieldName);
-				click(element("btn_ImportExportExcel",fieldName));
-				Assert.assertTrue(elements("list_drpdwnoptions").size()>0," no option available on clicking dropdown "+fieldName);
-				click(element("btn_ImportExportExcel",fieldName));
+
+		case "Toggle View":
+		case "Export to Excel":
+		case "Import/Export to Excel":
+			isElementDisplayed("btn_ImportExportExcel", fieldName);
+			click(element("btn_ImportExportExcel", fieldName));
+			Assert.assertTrue(elements("list_drpdwnoptions").size() > 0,
+					" no option available on clicking dropdown " + fieldName);
+			click(element("btn_ImportExportExcel", fieldName));
 			break;
-			
-			case "Default":
-				logMessage("Step : Dropdown not available\n");
-			
+
+		case "Default":
+			logMessage("Step : Dropdown not available\n");
+
 			logMessage("ASSERT PASSED: '" + fieldName + "' dropdown is verified with options\n");
-				
+
 		}
-		
 
 	}
 
@@ -210,8 +210,27 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 
 	}
 
-	public void verifyApplicationShouldAllowToSelectGridConfiguration(String gridConfig) {
-		isElementDisplayed("");
+	public void selectValueForSessionDetailType() {
+		isElementDisplayed("dropdown_sessionDetailType");
+		click(element("dropdown_sessionDetailType"));
+		isElementDisplayed("list_gripConfig");
+		String value = elements("list_gripConfig").get(3).getText();
+		click(elements("list_gripConfig").get(3));
+		logMessage("STEP: " + value + " is selected for Session Detail Type \n");
+	}
+
+	public void enterValuesInAddNewHost(String fname, String lname, String email,String institution) {
+		enterValueInInputtextField("session_host_first_name", fname);
+		enterValueInInputtextField("session_host_last_name", lname);
+		enterValueInInputtextField("session_host_institution", institution);
+		enterValueInInputtextField("session_host_email", email);
 		
+	}
+
+	private void enterValueInInputtextField(String text, String value) {
+		// TODO Auto-generated method stub
+		isElementDisplayed("inp_addHost", text);
+		element("inp_addHost", text).sendKeys(value);
+		logMessage("STEP: " + value + " is entered as " + text + "\n");
 	}
 }

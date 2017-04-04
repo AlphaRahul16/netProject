@@ -49,14 +49,14 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 
-	@Test
+	@Test(dependsOnMethods = "Step01_Launch_IWEB_Application_Under_Test")
 	public void Step02_Add_Individual() {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		test.homePageIWEB.clickOnAddIndividual();
 		memDetails = test.addMember.enterMemberDetailsInAddIndividual();
 	}
 
-	@Test
+	@Test(dependsOnMethods = "Step02_Add_Individual")
 	public void Step03_Verify_Individual_Details() {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		contactID = test.individualsPage.verifyMemberDetails_InAddIndividual(memDetails);
@@ -64,7 +64,7 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 		test.individualsPage.verifyMemberReceivedNoBenefits();
 	}
 
-	@Test
+	@Test(dependsOnMethods = "Step03_Verify_Individual_Details")
 	public void Step04_Navigate_To_Order_Entry_And_Sell_Membership() {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		test.memberShipPage.goToOrderEntry();
@@ -72,21 +72,21 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 		test.memberShipPage.goToAddMemebrshipAndFillDetails_LocalSection();
 	}
 
-	@Test
+	@Test(dependsOnMethods = "Step04_Navigate_To_Order_Entry_And_Sell_Membership")
 	public void Step05_Sell_Division() {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		numberOfDivisions = test.memberShipPage.getDivisionNumbers();
 		test.memberShipPage.goToAddMembershipAndFillDetails_Division(numberOfDivisions); // -------
 	}
 
-	@Test
+	@Test(dependsOnMethods = "Step05_Sell_Division")
 	public void Step06_Sell_Subscription() {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		numberOfSubscriptions = test.memberShipPage.getSubscriptionNumbers();
 		test.memberShipPage.navigateToSubscriptionInSelectLinkAndSellSubscription(numberOfSubscriptions);
 	}
 
-	@Test
+	@Test(dependsOnMethods = "Step06_Sell_Subscription")
 	public void Step07_Verify_NetPrice_Amount_And_Make_Payment() {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		test.memberShipPage.verifyNetPriceValue("netbalance");
@@ -99,7 +99,8 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 		// YamlReader.getYamlValue("creditCardDetails.paymentMethodVisaMC.cvv-number"),
 		// YamlReader.getYamlValue("creditCardDetails.paymentMethodBOACheck.CheckNumber"));
 		//
-		test.memberShipPage.selectAndAddBatchIFNotPresent(batchprefix + test.homePageIWEB.map().get("Batch_Name?")+System.currentTimeMillis(),
+		test.memberShipPage.selectAndAddBatchIFNotPresent(
+				batchprefix + test.homePageIWEB.map().get("Batch_Name?") + System.currentTimeMillis(),
 				test.homePageIWEB.map().get("Payment_Type"), test.homePageIWEB.map().get("Payment_Method"));
 		test.memberShipPage.fillAllTypeOFPaymentDetails(test.homePageIWEB.map().get("Payment_Method"),
 				test.homePageIWEB.map().get("Visa_Card_Number"), test.homePageIWEB.map().get("Diners_Card_Number"),
@@ -109,7 +110,7 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 		test.memberShipPage.navigateToCRMPageByClickingSaveAndFinish();
 	}
 
-	@Test
+	@Test(dependsOnMethods = "Step07_Verify_NetPrice_Amount_And_Make_Payment")
 	public void Step08_Verify_Member_Details_In_Individual_And_Chapter_Memberships() {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		test.individualsPage.verifyMemberDetails_MemberProfile(memDetails[1], memDetails[2]);
@@ -117,7 +118,7 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 		test.memberShipPage.verifyMemberDetails_IWEB("chapter memberships", numberOfDivisions);
 	}
 
-	@Test
+	@Test(dependsOnMethods = "Step08_Verify_Member_Details_In_Individual_And_Chapter_Memberships")
 	public void Step09_Verify_Member_Details_In_Subscriptions() {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		test.individualsPage.navigateToSubscriptionAndVerifySubscriptionDetails(numberOfSubscriptions);

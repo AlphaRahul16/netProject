@@ -31,4 +31,9 @@ Session:
       TestType: "Test Type"
       ColorCode: "#00FFFF"
       SessionType: "Session"
-      SessionDetailType: "Newsworthy"
+  Host:
+     First_Name: "FNAME_Host"
+     Last_Name: "LNAME_Host"
+     Email: "EMAIL_Host"
+     institution: "institution"
+      

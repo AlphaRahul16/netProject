@@ -388,17 +388,22 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	}
 
 	private void verifyPriceType(String productName, String priceType, String priceValue, int multiYear) {
+		System.out.println("**********priceValue"+priceValue);
 		if (productName.equalsIgnoreCase("")) {
 
 		} else {
 			priceValues = element("txt_" + priceType, productName).getText().replace("$", "");
+			System.out.println("$$$$$$$$ priceValues from UI"+priceValues);
 			if (priceValue.equalsIgnoreCase("")) {
 				logMessage("STEP : Price value for " + productName + " is not present in data sheet\n");
 			}
 			if (multiYear > 1) {
+				
 				String priceInDataSheet = priceValue.trim().replaceAll("\\$", "");
 				Float price = Float.parseFloat(priceInDataSheet);
 				String priceValueInDataSheet = "$" + String.valueOf(price * multiYear);
+				
+				
 				Float actualPriceValue = Float.parseFloat(priceValues);
 				String actualPriceValueInString = "$" + actualPriceValue;
 				Assert.assertEquals(actualPriceValueInString, priceValueInDataSheet);
