@@ -1,4 +1,4 @@
-Page Title: MAPS_Submission_Page
+Page Title: MAPS_Review_Page
 
 #Object Definitions
 ======================================================================================================================================
@@ -7,7 +7,7 @@ radiobtn_role						xpath							//span[contains(text(),'${role}')]/preceding-sibl
 btn_select							xpath							//a[contains(text(),'${text}')]
 img_Loader							xpath							//img[contains(@src,'preloader')]
 txt_reportType						xpath							//span[contains(text(),'${text}')]
-txt_abstractTitle					xpath							//div[@role='presentation']/span[contains(text(),'${title}')]
+txt_abstractTitle					xpath							(//div[@role='presentation']/span[contains(text(),'${title}')])[1]
 input_filter						xpath							(//div[contains(text(),'${text}')]/../following-sibling::td//input)[1]
 comboBox_reviewPage					xpath							//div[contains(text(),'${text}')]/../following-sibling::td/div[contains(@role,'combobox')]/input
 listItem							xpath							//div[contains(@role,'listitem')]

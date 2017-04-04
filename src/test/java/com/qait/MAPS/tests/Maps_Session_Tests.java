@@ -58,6 +58,34 @@ public class Maps_Session_Tests extends BaseTest {
 	}
 
 	// @Test
+	// public void
+	// Test04_MAPS_Session_4_User_Should_Navigate_To_Abstract_Page_On_Clicking_Go_Button()
+	// {
+	// test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("OPA
+	// Staff");
+	// test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
+	// test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
+	// test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts
+	// Assigned To Me");
+	// }
+	//
+	// @Test
+	// public void
+	// MAPS_Session_67_Verify_options_available_on_Program_Viewer_page(){
+	//
+	// }
+
+	@Test
+	public void Step_04_MAPS_Session_914_Verify_User_Navigates_To_Room_Availability_Page() {
+		// test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Session");
+		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Session Admin");
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Meeting Setup");
+		test.maps_sessionpage.clickSubHeadingLeftNavigationPanel("Room Availability");
+		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Room Availability");
+	}
+
+	// @Test
 	public void Step_04_MAPS_Session_6_User_Should_Navigate_To_Abstract_Page_On_Clicking_Go_Button() {
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("OPA Staff");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
@@ -79,7 +107,6 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_reviewpage.verifyPaginationSectionAtTheBottomOfTheTable();
 		test.maps_reviewpage.verifyDropDown("Records per page");
 		test.maps_sessionpage.verifyRefreshButtonAtBottom();
-
 	}
 
 	// @Test
@@ -90,6 +117,26 @@ public class Maps_Session_Tests extends BaseTest {
 	}
 
 	@Test
+	public void Step_05_MAPS_Session_915_Verify_Sections_Are_Displayed_On_Room_Availability_Page() {
+		test.maps_sessionpage.verifySectionsOnRoomAvailabilityPage("Rooms", 1);
+		test.maps_sessionpage.verifySectionsOnRoomAvailabilityPage("Room Availability", 2);
+	}
+
+	@Test
+	public void Step_06_MAPS_Session_919_Verify_Fields_Are_Displayed_Under_Rooms_Section() {
+		test.maps_sessionpage.verifyFilterDropdwonOnRoomAvailabalityPage(2);
+		test.maps_sessionpage.verifyFieldsOnRoomAvailablityPage("Save/Edit", 1);
+		test.maps_sessionpage.verifyFieldsOnRoomAvailablityPage("Delete", 1);
+	}
+
+	@Test
+	public void Step_07_MAPS_Session_920_Verify_Application_Displays_Filter_Results_On_Room_Availability_Page() {
+		test.maps_sessionpage.enterProgramName("Test Program BT 033017", 1);
+		test.maps_sessionpage.clickOnArrowButton("Room Name");
+		test.maps_sessionpage.enterFilterText("Filters", "Room1");
+		test.maps_sessionpage.verifyFilterResults("Room1", 1, 3);
+	}
+
 	public void MAPS_Session_0784_Verify_Application_navigates_to_Session_Admin_page_on_selecting_the_Session_Admin_radio_button() {
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Session Admin");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
@@ -267,7 +314,7 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Hosts");
 		test.maps_sessionpage.verifyPopupMessage("Hosts");
 		test.maps_reviewpage.clickOnButtonAtSaveGridConfigurationPage("Add New Host");
-		String email=YamlReader.getYamlValue("Session.Host.Email") + System.currentTimeMillis();
+		String email = YamlReader.getYamlValue("Session.Host.Email") + System.currentTimeMillis();
 		test.maps_reviewpage.enterValuesInAddNewHost(
 				YamlReader.getYamlValue("Session.Host.First_Name") + System.currentTimeMillis(),
 				YamlReader.getYamlValue("Session.Host.Last_Name") + System.currentTimeMillis(),

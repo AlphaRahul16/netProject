@@ -109,7 +109,7 @@ public class ACS_PBA_Test extends BaseTest {
 		test.asm_PUBSPage.verifyDataFromPdfFile();
 	}
 
-	@Test(dependsOnMethods = "Step07_Verify_ProductName_And_ProductAmount_With_Downloaded_PDF_Receipt")
+//	@Test(dependsOnMethods = "Step07_Verify_ProductName_And_ProductAmount_With_Downloaded_PDF_Receipt")
 	public void Step08_Verify_Selected_Products_With_Amount_On_Iweb_Application() {
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
