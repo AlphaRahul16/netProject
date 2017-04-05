@@ -16,7 +16,7 @@ public class Maps_Session_Tests extends BaseTest {
 	private String griduniqueName = "Selenium_Test_Grid_" + System.currentTimeMillis();
 	private String[] roles = { "OPA Staff", "Program Viewer", "Program Chair Sessioning", "Abstract Editor",
 			"Session Admin" };
-	private String[] leftPanelOptions = { "Dashboard & Instructions", "Meeting Setup", "Sessioning",
+	private String[] leftPanelOptionsSessionAdmin = { "Dashboard & Instructions", "Meeting Setup", "Sessioning",
 			"Invitations & Email", "Reports", "Data Export" };
 	private String[] importType = { "Download template", "Download resources", "Browse", "Import", "Cancel" };
 	private String[] buttonProgramArea = { "Add Program Area", "Delete Program Areas", "Export to Excel",
@@ -60,7 +60,6 @@ public class Maps_Session_Tests extends BaseTest {
 	}
 
 	@Test
-
 	public void MAPS_Session_0001_Click_On_Session_In_Top_Navigation_Menu() {
 		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Session");
 		test.maps_SSOPage.verifyUserIsOnTabPage("Session");
@@ -195,7 +194,7 @@ public class Maps_Session_Tests extends BaseTest {
 	public void MAPS_Session_0785_Verify_options_available_on_Session_Admin_page() {
 
 		test.maps_reviewpage.verifybuttonOnRolesPage("Set Preferences");
-		test.maps_sessionpage.verifyLeftPanelOptionsOnSessionAdminPage(leftPanelOptions);
+		test.maps_sessionpage.verifyLeftPanelOptionsOnSessionAdminPage(leftPanelOptionsSessionAdmin);
 	}
 
 	// @Test // passed with error
@@ -366,32 +365,27 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_reviewpage.verifyTheResult(email);
 	}
 
-	@Test
+	// @Test //passed
 	public void MAPS_Session_1277_Application_should_navigate_to_the_Roles_page() {
-		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Session");
-		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Session Admin");
-		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Meeting Setup");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Roles");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Roles");
 	}
 
-	@Test
+	// @Test //passed
 	public void MAPS_Session_1279_Application_should_display_Add_New_Role_popup_on_clicking_Add_role_button() {
 		test.maps_reviewpage.clickOnButtonAtSaveGridConfigurationPage("Add Role");
 		test.maps_sessionpage.verifyPopupMessage("Add New Role");
+		test.maps_sessionpage.clickOnButtonUnderSessionModule("Close");
 	}
 
-	@Test
+	// @Test //passed
 	public void MAPS_Session_1308_Verify_sub_options_under_Sessioning_option() {
-		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Session");
-		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Session Admin");
-		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 		test.maps_sessionpage.verifyLeftPanelOptionsOnSessionAdminPage(optionSessioning);
 	}
 
-	//@Test
+	@Test
 	public void MAPS_Session_1503_Application_should_remove_the_selected_abstracts_when_user_clicks_on_Remove_Selected_button() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Symposia");

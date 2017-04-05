@@ -36,4 +36,5 @@ lnk_filters                             xpath                               //a[
 inp_roomDetails                         xpath                               //div[@class='x-box-inner']//div[@gxt-dindex="${field}"]//input
 txt_tableData                           xpath                               (//div[contains(@class,'grid3-body')])[${index1}]//table//td[${index2}]
 img_dropDown                            xpath                                (//div[contains(@class,'x-form-field-wrap') and @role="combobox"])[${index}]//img
+btn_close								xpath								//button[text()='${btnName}']
 ======================================================================================================================================

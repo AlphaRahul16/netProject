@@ -297,4 +297,11 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		Assert.assertTrue(flag,"ASSERT FAILED: Filter value is not "+filterName+" by default\n");
 		logMessage("ASSERT PASSED: Filter value is "+filterName+" by default\n");
 	}
+
+	public void clickOnButtonUnderSessionModule(String text) {
+		// TODO Auto-generated method stub
+		isElementDisplayed("btn_close",text);
+		click(element("btn_close",text));
+		logMessage("STEP: clicked on '"+text+"' button \n");
+	}
 }
