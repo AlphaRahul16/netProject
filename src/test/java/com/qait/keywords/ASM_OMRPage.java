@@ -1102,6 +1102,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		wait.hardWait(4);
 		wait.waitForPageToLoadCompletely();
 		holdScriptExecution();
+		holdScriptExecution();
 		Object invoiceNumberonOMR;
 		String invoice;
 		invoiceNumberonOMR = executeJavascriptReturnValue(

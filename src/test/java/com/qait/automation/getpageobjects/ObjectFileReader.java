@@ -35,7 +35,7 @@ public class ObjectFileReader {
 	}
 
 	public static String[] setSpecFiles(String pageName, String elementName) throws Exception {
-		FileReader particularspecFile = null;
+		// FileReader particularspecFile = null;
 		String pageObjectRepositoryPath;
 		try {
 			if (TestSessionInitiator._getSessionConfig().get("tier").equalsIgnoreCase("maps")) {
@@ -45,12 +45,17 @@ public class ObjectFileReader {
 			} else {
 				pageObjectRepositoryPath = "PageObjectRepository/";
 				filepath = "src/test/resources/" + pageObjectRepositoryPath;
+//				System.out.println("***********commonspecFile" + filepath + commonPageObjects + pageName + ".spec");
 				commonspecFile = new FileReader(filepath + commonPageObjects + pageName + ".spec");
-				particularspecFile = new FileReader(filepath + tier + pageName + ".spec");
+
+				// particularspecFile = new FileReader(filepath + tier +
+				// pageName + ".spec");
 			}
 
 			return getElement(commonspecFile, elementName);
 		} catch (NullPointerException e) {
+//			System.out.println("**************particularspecFile" + filepath + tier + pageName + ".spec");
+			FileReader particularspecFile = new FileReader(filepath + tier + pageName + ".spec");
 			return getElement(particularspecFile, elementName);
 		}
 

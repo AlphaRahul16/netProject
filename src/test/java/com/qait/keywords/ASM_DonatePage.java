@@ -34,8 +34,8 @@ public class ASM_DonatePage extends GetPage {
 	}
 
 	public void loginIntoApplication(String userName, String password) {
-		//clickOnLoginButton();
-		//clickOnACSIDRadioButton();
+	    clickOnLoginButton();
+		clickOnACSIDRadioButton();
 		wait.hardWait(3);
 		enterUserName(userName);
 		enterPassword(password);

@@ -59,7 +59,8 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 	public void clickOnNamedButton(String linkName) {
 		wait.waitForElementToBeVisible(element("lnk_createSubmission", linkName));
 		isElementDisplayed("lnk_createSubmission", linkName);
-		click(element("lnk_createSubmission", linkName));
+		scrollDown(element("lnk_createSubmission", linkName));
+		performClickByActionBuilder(element("lnk_createSubmission", linkName));
 		logMessage("Step : " + linkName + " link is clicked under View Submission tab\n");
 		wait.hardWait(4);
 	}
