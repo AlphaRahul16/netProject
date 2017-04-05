@@ -168,10 +168,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 	
 	public void clickSubHeadingLeftNavigationPanel(String headingName){
-//		wait.hardWait(5);
 		waitForLoaderToDisappear();
 		isElementDisplayed("lnk_sessionTypes",headingName);
-//		click(element("lnk_sessionTypes",headingName));
 		clickUsingXpathInJavaScriptExecutor(element("lnk_sessionTypes",headingName));
 		logMessage("Step : "+headingName+" sub-heading is clicked\n");
 	}
