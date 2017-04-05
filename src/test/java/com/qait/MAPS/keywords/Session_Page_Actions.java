@@ -25,7 +25,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		for (WebElement ele : elements("txt_userrole")) {
 			Assert.assertTrue(ele.getText().equals(role[i]),
 					"user role " + role + " is not displayed on application\n");
-			logMessage("ASSERT PASSED : verified user role " + role + " is displayed on session page\n");
+			logMessage("ASSERT PASSED : verified user role " + role[i] + " is displayed on session page\n");
 			i++;
 		}
 	}
@@ -47,12 +47,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_navPanel", buttonName);
 		wait.hardWait(2);
 		element("btn_navPanel", buttonName).click();
-		wait.hardWait(2);
+		waitForProcessBarToDisappear();
 		logMessage("Step : " + buttonName + " button is clicked on left navigation panel\n");
-	}
-
-	public void verifyApplicationShouldDisplayOptionsOnAbstractPage(String options) {
-
 	}
 
 	public void verifyTitleForRoles(String title) {

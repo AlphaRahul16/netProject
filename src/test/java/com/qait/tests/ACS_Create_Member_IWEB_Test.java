@@ -11,6 +11,7 @@ import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
@@ -42,7 +43,7 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 	@Test
 	public void Step01_Launch_IWEB_Application_Under_Test() {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
-		test.homePageIWEB.addValuesInMap("createMember", caseID);
+		ASCSocietyGenericPage.addValuesInMap("createMember", caseID);
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
@@ -100,13 +101,13 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 		// YamlReader.getYamlValue("creditCardDetails.paymentMethodBOACheck.CheckNumber"));
 		//
 		test.memberShipPage.selectAndAddBatchIFNotPresent(
-				batchprefix + test.homePageIWEB.map().get("Batch_Name?") + System.currentTimeMillis(),
-				test.homePageIWEB.map().get("Payment_Type"), test.homePageIWEB.map().get("Payment_Method"));
-		test.memberShipPage.fillAllTypeOFPaymentDetails(test.homePageIWEB.map().get("Payment_Method"),
-				test.homePageIWEB.map().get("Visa_Card_Number"), test.homePageIWEB.map().get("Diners_Card_Number"),
-				test.homePageIWEB.map().get("Reference_Number"), test.homePageIWEB.map().get("Discover_Card_Number"),
-				test.homePageIWEB.map().get("AMEX_Card_Number"), test.homePageIWEB.map().get("Expiry_Date"),
-				test.homePageIWEB.map().get("CVV_Number"), test.homePageIWEB.map().get("Check_Number"));
+				batchprefix + ASCSocietyGenericPage.map().get("Batch_Name?") + System.currentTimeMillis(),
+				ASCSocietyGenericPage.map().get("Payment_Type"), ASCSocietyGenericPage.map().get("Payment_Method"));
+		test.memberShipPage.fillAllTypeOFPaymentDetails(ASCSocietyGenericPage.map().get("Payment_Method"),
+				ASCSocietyGenericPage.map().get("Visa_Card_Number"), ASCSocietyGenericPage.map().get("Diners_Card_Number"),
+				ASCSocietyGenericPage.map().get("Reference_Number"), ASCSocietyGenericPage.map().get("Discover_Card_Number"),
+				ASCSocietyGenericPage.map().get("AMEX_Card_Number"), ASCSocietyGenericPage.map().get("Expiry_Date"),
+				ASCSocietyGenericPage.map().get("CVV_Number"), ASCSocietyGenericPage.map().get("Check_Number"));
 		test.memberShipPage.navigateToCRMPageByClickingSaveAndFinish();
 	}
 
