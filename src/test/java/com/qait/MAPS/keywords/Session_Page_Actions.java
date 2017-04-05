@@ -154,11 +154,13 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("STEP: " + value + " is selected as " + label + " \n");
 	}
 
-	public void selectValueForSessionDetailType(String value) {
-		isElementDisplayed("inp_sessionType", "session_detail_type_id");
-		element("inp_sessionType", "session_detail_type_id").sendKeys(value);
-		logMessage("STEP: Session Detailed Type is selected as " + value + "\n");
-	}
+//	public void selectValueForSessionDetailType(String value) {
+//		//isElementDisplayed("")
+//		isElementDisplayed("inp_sessionType", "session_detail_type_id");
+//		element("inp_sessionType", "session_detail_type_id").sendKeys(value);
+//		wait.hardWait(5);
+//		logMessage("STEP: Session Detailed Type is selected as " + value + "\n");
+//	}
 
 	public void verifyApplicationShouldAddSessionDetailType(String testType, String colorCode, String sessionType) {
 		verifyDataOfTypePage(testType, colorCode, "Color Code");

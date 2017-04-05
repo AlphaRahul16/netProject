@@ -24,4 +24,8 @@ chkbox_RefundCC                             css                            input
 txt_Refundamount                            css                            td>input[id*='RefundDataGrid'][type='text']
 btn_ftpReport                               id                              ACSRefundReportButton
 tbl_RefundTotal                             xpath                           //td[contains(text(),'${value}')]/following-sibling::td[1]
+txt_processPercentage                       xpath                          (//td[@class='ProgressBarMessage'])[1]
+form_progressBar                            id                             ProgressBar_ProgressBarBackgroundDiv 
+txt_processPercentage                       xpath                          (//td[@class='ProgressBarMessage'])[1]
+form_progressBar                            id                             ProgressBar_ProgressBarBackgroundDiv 
 ======================================================================================================================================

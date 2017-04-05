@@ -25,5 +25,5 @@ img_CrossFilter                     xpath                           (//div[conta
 drpdwn_records                      xpath                           //div[contains(text(),'${text}')]/../preceding-sibling::td[1]//input
 img_dropdown						xpath							//tr[@role='presentation']//input[contains(@id,'input')]
 list_gripConfig						xpath							//div[contains(@class,'combo-list-item')]
-img_dropdown						xpath							//label[contains(text(),'Session Detail Type')]/following-sibling::div/img
+dropdown_sessionDetailType			xpath							//label[contains(text(),'Session Detail Type')]/following-sibling::div/img
 ======================================================================================================================================
