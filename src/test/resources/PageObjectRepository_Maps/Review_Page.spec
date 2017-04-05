@@ -25,5 +25,4 @@ drpdwn_records                      xpath                           //div[contai
 img_dropdown						xpath							//tr[@role='presentation']//input[contains(@id,'input')]
 list_gripConfig						xpath							//div[contains(@class,'combo-list-item')]
 dropdown_sessionDetailType			xpath							//label[contains(text(),'Session Detail Type')]/following-sibling::div/img
-inp_addHost							xpath							//div[@gxt-dindex='${fieldName}']/input
 ======================================================================================================================================
