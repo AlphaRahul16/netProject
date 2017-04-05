@@ -164,10 +164,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 	
 	public void clickSubHeadingLeftNavigationPanel(String headingName){
-//		wait.hardWait(5);
 		waitForLoaderToDisappear();
 		isElementDisplayed("lnk_sessionTypes",headingName);
-//		click(element("lnk_sessionTypes",headingName));
 		clickUsingXpathInJavaScriptExecutor(element("lnk_sessionTypes",headingName));
 		logMessage("Step : "+headingName+" sub-heading is clicked\n");
 	}
@@ -303,5 +301,11 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_close",text);
 		click(element("btn_close",text));
 		logMessage("STEP: clicked on '"+text+"' button \n");
+	}
+
+	public void isPrintSelectedButtonDisplayed(String buttonname) {
+		isElementDisplayed("btn_print_selected");
+		logMessage("ASSERT PASSED : Print Selected Button is displayed on Session page\n");
+
 	}
 }

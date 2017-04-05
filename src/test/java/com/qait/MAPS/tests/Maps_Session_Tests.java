@@ -10,12 +10,14 @@ import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
+
 public class Maps_Session_Tests extends BaseTest {
 
 	private String maps_url;
 	private String griduniqueName = "Selenium_Test_Grid_" + System.currentTimeMillis();
 	private String[] roles = { "OPA Staff", "Program Viewer", "Program Chair Sessioning", "Abstract Editor",
 			"Session Admin" };
+	private String[] programViewerleftpaneloptions = { "Dashboard & Instructions", "Symposia Viewer", "Sessioning", "Session Viewer","Abstracts" };
 	private String[] leftPanelOptionsSessionAdmin = { "Dashboard & Instructions", "Meeting Setup", "Sessioning",
 			"Invitations & Email", "Reports", "Data Export" };
 	private String[] importType = { "Download template", "Download resources", "Browse", "Import", "Cancel" };
@@ -53,13 +55,16 @@ public class Maps_Session_Tests extends BaseTest {
 	 * Test case : Submission class MAPS_3 : login functionality
 	 */
 	@Test
-
 	public void MAPS_3_LogIn_With_Valid_Credentials() {
 		test.maps_SSOPage.loginWithValidCredentials(YamlReader.getYamlValue("LogIn_Details.userID"),
 				YamlReader.getYamlValue("LogIn_Details.password"));
 	}
 
+	/**
+	 *    Session : OPA Staff
+	 */
 	@Test
+
 	public void MAPS_Session_0001_Click_On_Session_In_Top_Navigation_Menu() {
 		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Session");
 		test.maps_SSOPage.verifyUserIsOnTabPage("Session");
@@ -67,6 +72,24 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.verifyApplicationDisplaysRadioButtonOnClickingSessionTab(roles);
 
 	}
+	
+	/**
+	 *    Session : OPA Staff
+	 */
+	 @Test
+	 public void
+	 Test04_MAPS_Session_4_User_Should_Navigate_To_Abstract_Page_On_Clicking_Go_Button()
+	 {
+	 test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("OPA Staff");
+	 test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
+	 test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
+	 test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");
+	 }
+	
+	/**
+	 *  Session : OPA Staff
+	 */
+
 
 	// @Test
 	// public void
@@ -87,6 +110,7 @@ public class Maps_Session_Tests extends BaseTest {
 	// }
 
 	// @Test
+
 	public void Step_04_MAPS_Session_914_Verify_User_Navigates_To_Room_Availability_Page() {
 		// test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Session");
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Session Admin");
@@ -95,17 +119,24 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.clickSubHeadingLeftNavigationPanel("Room Availability");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Room Availability");
 	}
-
-	// @Test
+	
+	
+	/**
+	 *   Session : OPA Staff
+	 */
+	@Test
 	public void Step_04_MAPS_Session_6_User_Should_Navigate_To_Abstract_Page_On_Clicking_Go_Button() {
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("OPA Staff");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 
 	}
-
-	// @Test
-	public void Step_05_MAPS_Session_7_Verify_available_options_on_Session_page() {
+	
+	 /**
+	 *    Session : OPA Staff
+	 */
+	@Test
+	public void Step_05_MAPS_Session_7_Verify_Available_Options_On_Session_OPA_Staff_Page() {
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");
 		test.maps_reviewpage.verifyLinksUnderNamedModule("Save/Edit");
 		test.maps_reviewpage.verifyLinksUnderNamedModule("Delete");
@@ -120,11 +151,64 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.verifyRefreshButtonAtBottom();
 	}
 
-	// @Test
+	/**
+	 *   Session : OPA Staff
+	 */
+	@Test
 	public void Step_06_MAPS_Session_11_Verify_Application_Allows_User_To_Create_A_New_Grid() {
 		test.maps_reviewpage.clickOnButton("Save/Edit");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Save Grid Configuration");
-		test.maps_reviewpage.enterDetailsAtSaveGridConfigurationPage(griduniqueName);
+		test.maps_reviewpage.enterDetailsAtSaveGridConfigurationPage("Abstract_"+griduniqueName);
+	}
+	
+	/**
+	 *   Session : Program Viewer : Symposia
+	 */
+	@Test
+	public void MAPS_Session_67_Click_On_Session_And_Navigate_To_Program_Viewer() {
+		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Session");
+		test.maps_SSOPage.verifyUserIsOnTabPage("Session");
+		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Program Viewer");
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
+		test.maps_reviewpage.verifybuttonOnRolesPage("Set Preferences");
+		test.maps_sessionpage.verifyLeftPanelOptionsOnSessionAdminPage(programViewerleftpaneloptions);
+	}
+	
+	/**
+	 *   Session : Program Viewer : Symposia
+	 */
+	@Test
+	public void MAPS_Session_70_Verify_Available_Options_On_Session_Program_Viewer_Page() { // List of Symposia verification is remaining due to its unavailability
+		test.maps_reviewpage.verifyLinksUnderNamedModule("Save/Edit");
+		test.maps_reviewpage.verifyLinksUnderNamedModule("Delete");
+		test.maps_reviewpage.verifyTextField("Filter");
+		test.maps_reviewpage.verifyCrossImageForNamedDropDown("Filter");
+		test.maps_reviewpage.verifyExpandIconUnderNamedModule();
+		test.maps_reviewpage.verifyDropDown("Found In");
+		test.maps_reviewpage.verifyDropDown("Export");
+
+		test.maps_sessionpage.isPrintSelectedButtonDisplayed("Print Selected");
+		test.maps_reviewpage.verifyPaginationSectionAtTheBottomOfTheTable();
+		test.maps_reviewpage.verifyDropDown("Records per page");
+		test.maps_sessionpage.verifyRefreshButtonAtBottom();
+	}
+	
+	/**
+	 *   Session : Program Viewer : Symposia
+	 */
+	@Test
+	public void MAPS_Session_74_Verify_Application_Allows_User_To_Create_A_New_Grid_In_Symposia() {
+		test.maps_reviewpage.clickOnButton("Save/Edit");
+		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Save Grid Configuration");
+		test.maps_reviewpage.enterDetailsAtSaveGridConfigurationPage("Symposia_"+griduniqueName);
+	}
+	
+	/**
+	 *   Session : Program Viewer : Symposia
+	 */
+	@Test
+	public void MAPS_Session_93_Verify_Application_Print_Selected_Symposia() {
+		
 	}
 
 	// @Test
