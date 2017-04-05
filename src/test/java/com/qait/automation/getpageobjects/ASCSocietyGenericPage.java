@@ -181,18 +181,19 @@ public class ASCSocietyGenericPage extends GetPage {
 	public static HashMap<String, String> addValuesInMap(String sheetName, String caseID) {
 		String csvline2;
 		YamlReader.setYamlFilePath();
-		String sheetPath=DataProvider.getCsvSheetPath(sheetName);
+		String sheetPath = DataProvider.getCsvSheetPath(sheetName);
 		System.out.println(sheetPath);
-	//	String csvLine = csvReaderRowSpecific(getYamlValue("csv-data-file.path_" + sheetName), "false",
-	//			String.valueOf(1));
-		String csvLine = csvReaderRowSpecific(sheetPath, "false",String.valueOf(1));
-		String csvLine1 = csvReaderRowSpecific(sheetPath, "true",String.valueOf(caseID));
+		// String csvLine =
+		// csvReaderRowSpecific(getYamlValue("csv-data-file.path_" + sheetName),
+		// "false",
+		// String.valueOf(1));
+		String csvLine = csvReaderRowSpecific(sheetPath, "false", String.valueOf(1));
+		String csvLine1 = csvReaderRowSpecific(sheetPath, "true", String.valueOf(caseID));
 		numberOfColumns = csvLine.split(csvSeparator).length;
 		for (int i = 1; i < numberOfColumns; i++) {
-			 csvline2=csvLine.split(csvSeparator)[i].trim();
-			 csvline2 = csvline2.replace("\"", "").trim();
-			hashMap.put(csvline2,
-					DataProvider.getSpecificColumnFromCsvLine(csvLine1, csvSeparator, i).trim());
+			csvline2 = csvLine.split(csvSeparator)[i].trim();
+			csvline2 = csvline2.replace("\"", "").trim();
+			hashMap.put(csvline2, DataProvider.getSpecificColumnFromCsvLine(csvLine1, csvSeparator, i).trim());
 
 		}
 
@@ -205,10 +206,10 @@ public class ASCSocietyGenericPage extends GetPage {
 	}
 
 	public static void extractAndCompareTextFromPdfFile(String filename, String texttocompare, int totalnumberofpages) {
-		String textinpdf,filepath;
+		String textinpdf, filepath;
 		filepath = "./src/test/resources/UploadFiles/" + filename + ".pdf";
 		try {
-			textinpdf = extractFromPdf(filename, filepath,1).trim();
+			textinpdf = extractFromPdf(filename, filepath, 1).trim();
 			String textarray[] = texttocompare.trim().split(" ");
 			for (int i = 0; i < (textarray.length) - 1; i++) {
 				System.out.println("textarray[i]= " + textarray[i]);
@@ -222,14 +223,14 @@ public class ASCSocietyGenericPage extends GetPage {
 		}
 	}
 
-	public static String extractFromPdf(String filename, String filepath,int totalnumberofpages) throws IOException {
+	public static String extractFromPdf(String filename, String filepath, int totalnumberofpages) throws IOException {
 		String parsedText = "";
 		PDFTextStripper pdfStripper = null;
 		PDDocument pdDoc = null;
 		COSDocument cosDoc = null;
 		PDFParser parser = null;
 		File file = null;
-		RandomAccessBufferedFileInputStream raf=null;
+		RandomAccessBufferedFileInputStream raf = null;
 
 		try {
 			file = new File(filepath);
@@ -243,7 +244,7 @@ public class ASCSocietyGenericPage extends GetPage {
 			pdfStripper.setEndPage(2);
 			parsedText = pdfStripper.getText(pdDoc);
 			System.out.println("Parsed Text::" + parsedText);
-			
+
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
 		} finally {
@@ -253,7 +254,7 @@ public class ASCSocietyGenericPage extends GetPage {
 				if (pdDoc != null)
 					pdDoc.close();
 				raf.close();
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -466,6 +467,7 @@ public class ASCSocietyGenericPage extends GetPage {
 		int randomNumber = MinRange + (int) (Math.random() * ((MaxRange - MinRange) + 1));
 		return randomNumber;
 	}
+
 	public void waitForLoaderToDisappear() {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
@@ -485,5 +487,23 @@ public class ASCSocietyGenericPage extends GetPage {
 		wait.resetExplicitTimeout(timeOut);
 	}
 
+	public void waitForProcessBarToDisappear() {
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
+		try {
+			wait.resetImplicitTimeout(4);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			// handleAlert();
+			isElementDisplayed("img_processbar");
+			wait.waitForElementToDisappear(element("img_processbar"));
+			logMessage("STEP : Wait for process bar to be disappeared \n");
+
+		} catch (NoSuchElementException Exp) {
+
+			logMessage("STEP : Process bar is not present \n");
+		}
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
+	}
 
 }

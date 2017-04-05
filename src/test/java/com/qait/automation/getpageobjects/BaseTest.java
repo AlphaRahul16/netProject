@@ -10,7 +10,7 @@ public class BaseTest {
 	public TestSessionInitiator test;
 	protected String caseID;
 
-	@AfterMethod(alwaysRun=true)
+	@AfterMethod(alwaysRun = true)
 	public void take_screenshot_on_failure(ITestResult result) {
 		test.takescreenshot.takeScreenShotOnException(result);
 	}
