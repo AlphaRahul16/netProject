@@ -41,20 +41,6 @@ public class XlsReader {
 			Iterator<Row> rowIterator = sheet.iterator();
 			HSSFRow header = sheet.getRow(3);// Header Name
 
-			
-
-//			for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
-//				System.out.println("  " + header.getCell(i));
-//			}
-
-			
-
-			/*
-			 * while (rowIterator.hasNext()) { Row row = rowIterator.next(); //
-			 * For each row, iterate through each columns Iterator<Cell>
-			 * cellIterator = row.cellIterator();// cell iterator int i = 0;
-			 */
-			// }
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

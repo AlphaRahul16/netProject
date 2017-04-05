@@ -2524,8 +2524,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public List<String> getCustomerLastNameAndContactID() {
 		List<String> memberDetails1 = new ArrayList<String>();
+		public List<String> getCustomerLastNameAndContactID() {
 		clickOnEditNameAndAddress();
 		switchToFrame("iframe1");
 		customerLname = getNameFromEditNameAndAddressButton("lastName");

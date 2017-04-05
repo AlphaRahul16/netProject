@@ -19,5 +19,5 @@ inp_sessionType							xpath								//input[@name='${text}']
 tabledata_type							xpath								//div[contains(text(),'type30mar2017')]/../following-sibling::td/div[contains(text(),'#FF6600')]
 list_table								xpath								//td[@role='gridcell']
 img_Loader								xpath								//div[contains(@class,'progress-bar')]
-listItem_programField						xpath							//div[contains(@class,'combo-list-item')]
+listItem_programField				    xpath						     	//div[contains(@class,'combo-list-item')]
 ======================================================================================================================================

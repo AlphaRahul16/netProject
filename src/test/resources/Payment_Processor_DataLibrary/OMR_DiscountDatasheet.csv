@@ -1,12 +1,14 @@
 "caseID"	"caseID Execute"	"Member_Status?"	"Country?"	"Previous_Year_Dues?"	"Current_Year_Dues?"	"Future_Year_Dues?"	"Discount_Percentage?"	"Login_With_AcsID?"	"Login_With_LastNameMemberNumber?"	"Login_With_LastNameNoticeNumber?"	"Stud_Degree_Type"	"Receive_C&EN?"	"Renew_For_Years?"	"Technical_Division_To_Add?"	"Publications_To_Add?"	"MemBenefits_To_Add?"	"Contribution_To_Add?"	"Contribution_Amount?"	"Expiry_Month"	"Expiry_Year"	"Payment_Method"	"Visa/MC_Card_Number"	"Diners_Card_Number"	"AMEX_Card_Number"	"Discover_Card_Number"	"CVV_Number"
-1	"No"	"Regular"	"Brazil"	"$158.00"	"$162.00"	"$166.00"	50		"Yes"			"print"	1		"Yes"		"ACS Endowment Fund "	3	6	2019	"Visa/MC"	"4457010000000009"				349
-2	"No"	"Regular"	"China"	"$158.00"	"$162.00"	"$166.00"	50		"Yes"										6	2019	"Discover"				"6011010000000003"	758
-3	"No"	"Regular"	"Colombia"	"$158.00"	"$162.00"	"$166.00"	50		"Yes"										6	2019	"Visa/MC"	"5112000100000003"				123
-4	"No"	"Regular"	"Iraq"	"$158.00"	"$162.00"	"$166.00"	50		"Yes"										6	2019	"AMEX"			"375000026600004"		421
-5	"No"	"Regular"	"Malaysia"	"$158.00"	"$162.00"	"$166.00"	50		"Yes"			"print"	1			"Yes"	"ACS Endowment Fund "	8	6	2019	"Diners"		"5412345438954638"			234
-6	"No"	"Regular"	"Peru"	"$158.00"	"$162.00"	"$166.00"	50		"Yes"										6	2019	"Diners"		36474027424147			123
-7	"No"	"Regular"	"Romania"	"$158.00"	"$162.00"	"$166.00"	50		"Yes"										6	2019	"AMEX"			"375000026600004"		421
-8	"No"	"Regular"	"South Africa"	"$158.00"	"$162.00"	"$166.00"	50		"Yes"										6	2019	"AMEX"			"375000026600004"		421
-9	"No"	"Regular"	"Thailand"	"$158.00"	"$162.00"	"$166.00"	50		"Yes"										6	2019	"Diners"				"5412345438954638"	234
-10	"Yes"	"Regular"	"Nigeria "	"$158.00"	"$162.00"	"$166.00"	66		"Yes"			"print"	1		"Yes"		"ACS Endowment Fund "	3	12	2019	"Diners"		36474027424147			123
-11	"No"	"Regular"	"India"	"$158.00"	"$162.00"	"$166.00"	66		"Yes"			"print"	1		"Yes"		"ACS Endowment Fund "	3	6	2019	"AMEX"			"375000026600004"		421
+1	"Yes"	"Regular"	"Brazil"	"$158.00"	"$162.00"	"$166.00"	50		"Yes"			"print"	1		"Yes"		"ACS Endowment Fund "	3	10	2019	"Visa/MC"	"4457010000000009"				349
+2	"No"	"Regular"	"China"	"$158.00"	"$162.00"	"$166.00"	50		"Yes"										10	2019	"Discover"				"6011010000000003"	758
+3	"No"	"Regular"	"Colombia"	"$158.00"	"$162.00"	"$166.00"	50		"Yes"										10	2019	"Visa/MC"	"5112000100000003"				123
+4	"No"	"Regular"	"Iraq"	"$158.00"	"$162.00"	"$166.00"	50		"Yes"										10	2019	"AMEX"			"375000026600004"		421
+5	"No"	"Regular"	"Malaysia"	"$158.00"	"$162.00"	"$166.00"	50		"Yes"			"print"	1			"Yes"	"ACS Endowment Fund "	8	10	2019	"Diners"		"5412345438954638"			234
+6	"No"	"Regular"	"Peru"	"$158.00"	"$162.00"	"$166.00"	50		"Yes"										10	2019	"Diners"		36474027424147			123
+7	"No"	"Regular"	"Romania"	"$158.00"	"$162.00"	"$166.00"	50		"Yes"										10	2019	"AMEX"			"375000026600004"		421
+8	"No"	"Regular"	"South Africa"	"$158.00"	"$162.00"	"$166.00"	50		"Yes"										10	2019	"AMEX"			"375000026600004"		421
+9	"No"	"Regular"	"Thailand"	"$158.00"	"$162.00"	"$166.00"	50		"Yes"										10	2019	"Diners"		"5412345438954638"			234
+10	"No"	"Regular"	"Nigeria "	"$158.00"	"$162.00"	"$166.00"	66		"Yes"			"print"	1		"Yes"		"ACS Endowment Fund "	3	10	2019	"Diners"		36474027424147			123
+11	"No"	"Regular"	"India"	"$158.00"	"$162.00"	"$166.00"	66		"Yes"			"print"	1		"Yes"		"ACS Endowment Fund "	3	10	2019	"AMEX"			"375000026600004"		421
+12	"Yes"	"Regular"	"China"	"$158.00"	"$162.00"	"$166.00"	50		"Yes"										10	2019	"Visa/MC"	"4457010000000009"				349
+13	"Yes"	"Regular"	"Nigeria "	"$158.00"	"$162.00"	"$166.00"	66		"Yes"			"print"	1		"Yes"		"ACS Endowment Fund "	3	10	2019	"Visa/MC"	"4457010000000009"				349
