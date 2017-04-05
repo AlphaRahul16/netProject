@@ -94,6 +94,7 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 			break;
 
 		case "Toggle View":
+		case "Export":
 		case "Export to Excel":
 		case "Import/Export to Excel":
 			isElementDisplayed("btn_ImportExportExcel", fieldName);

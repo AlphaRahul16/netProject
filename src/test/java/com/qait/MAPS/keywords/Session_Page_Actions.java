@@ -301,4 +301,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		Assert.assertTrue(flag,"ASSERT FAILED: Filter value is not "+filterName+" by default\n");
 		logMessage("ASSERT PASSED: Filter value is "+filterName+" by default\n");
 	}
+
+	public void isPrintSelectedButtonDisplayed(String buttonname) {
+		isElementDisplayed("btn_print_selected");
+		logMessage("ASSERT PASSED : Print Selected Button is displayed on Session page\n");
+		
+	}
 }
