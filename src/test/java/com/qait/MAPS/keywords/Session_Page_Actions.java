@@ -183,8 +183,9 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("Step : Clicked on "+btnName+" button\n");
 	}
 	
-	public void enterRoomNameOnSaveGridConfiguration(String fieldName,String roomName){
+	public void enterNameOnSaveGridConfiguration(String fieldName,String roomName){
 		isElementDisplayed("inp_roomName",fieldName);
+		element("inp_roomName",fieldName).clear();
 		element("inp_roomName",fieldName).sendKeys(roomName);
 		logMessage("Step : "+fieldName+" is entered as "+roomName+"\n");
 	}
@@ -220,7 +221,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
         isElementDisplayed("btn_navPanel",label);
         hover(element("btn_navPanel",label));
 		isElementDisplayed("btn_arrow",label);
-		click(element("btn_arrow",label));
+		clickUsingXpathInJavaScriptExecutor(element("btn_arrow",label));
+//		click(element("btn_arrow",label));
 		logMessage("Step : Clicked on arrow button next to "+label+"\n");
 	}
 
@@ -244,6 +246,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("lnk_filters",drpdwnValue);
 		hover(element("lnk_filters",drpdwnValue));
 		isElementDisplayed("inp_filtertext");
+		element("inp_filtertext").clear();
 		click(element("inp_filtertext"));
 		element("inp_filtertext").sendKeys(filterText);
 		logMessage("Step : Filter text is entered as "+filterText+"\n");
@@ -257,10 +260,41 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 	
 	public void verifyFilterResults(String filterResult,int index,int columnIndex){
+		wait.hardWait(4);
 		isElementDisplayed("txt_tableData",String.valueOf(index),String.valueOf(columnIndex));
 		for(WebElement ele: elements("txt_tableData",String.valueOf(index),String.valueOf(columnIndex))){
 			Assert.assertEquals(ele.getText().trim(), filterResult,"ASSERT FAILED: Filter results does not contains "+filterResult+"\n");
 		}
-		logMessage("ASSERT PASSED: Filter results does contains "+filterResult+"\n");
+		logMessage("ASSERT PASSED: Filter results contains "+filterResult+"\n");
+	}
+	
+	public void clickOnDropDownImage(int index){
+		isElementDisplayed("img_dropDown",String.valueOf(index));
+		click(element("img_dropDown",String.valueOf(index)));
+		logMessage("Step : Clicked on dropdown image\n");
+	}
+	
+	public void clickOnSaveButton(String btnName){
+		isElementDisplayed("btn_Types",btnName);
+		click(element("btn_Types",btnName));
+		logMessage("Step : Clicked on "+btnName+"\n");
+	}
+	
+	public void verifyFilterIsByDefaultSelected(String filterName,int index){
+		wait.hardWait(3);
+		int count=1;
+		boolean flag=false;
+		while(count<=5){
+			if((getValUsingXpathInJavaScriptExecutor(element("inp_saveGridFilters",String.valueOf(index))).equalsIgnoreCase(filterName))){
+				flag=true;
+				break;
+			}
+			else{
+				count++;
+			}
+		}
+		System.out.println("-----count:"+count);
+		Assert.assertTrue(flag,"ASSERT FAILED: Filter value is not "+filterName+" by default\n");
+		logMessage("ASSERT PASSED: Filter value is "+filterName+" by default\n");
 	}
 }

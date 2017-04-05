@@ -11,6 +11,7 @@ import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
 public class Maps_Session_Tests extends BaseTest {
+
 	private String maps_url;
 	private String griduniqueName = "Selenium_Test_Grid_" + System.currentTimeMillis();
 	private String[] roles = { "OPA Staff", "Program Viewer", "Program Chair Sessioning", "Abstract Editor",
@@ -24,6 +25,8 @@ public class Maps_Session_Tests extends BaseTest {
 			"Owners" };
 	private String[] optionSessioning = { "Symposia", "Sessions & Events", "Symposia Viewer", "Session Viewer",
 			"Session Builder", "Schedule Sessions", "Abstracts" };
+	private String[] filterDropDownButtons = {"Add Room","Delete Room"};
+
 
 	@BeforeClass
 	public void Start_Test_Session() {
@@ -154,6 +157,33 @@ public class Maps_Session_Tests extends BaseTest {
 	// }
 
 	@Test
+
+	public void Step_07_MAPS_Session_920_Verify_Application_Displays_Filter_Results_On_Room_Availability_Page(){
+		test.maps_sessionpage.clickOnDropDownImage(1);
+		test.maps_sessionpage.selectRoleOnSaveGridConfiguration("Test Program BT 033017");
+		test.maps_sessionpage.clickOnArrowButton("Room Name");
+		test.maps_sessionpage.enterFilterText("Filters", "Room1");
+		test.maps_sessionpage.verifyFilterResults("Room1", 1, 3);
+	}
+	
+	@Test
+	public void Step_08_MAPS_Session_921_Verify_New_Filter_Is_Added_Upon_Clicking_Save_Edit_Link(){
+        String gridName="Test"+System.currentTimeMillis();
+        test.maps_sessionpage.clickOnSaveAndEditButton("Save/Edit", 1);
+		test.maps_sessionpage.enterNameOnSaveGridConfiguration("Name:",gridName);
+		test.maps_sessionpage.clickCheckboxOnSaveGridConfiguration("Added Filters");
+		test.maps_sessionpage.clickCheckboxOnSaveGridConfiguration("Make available");
+		test.maps_sessionpage.selectRoleOnSaveGridConfiguration("Session Admin");
+		test.maps_sessionpage.clickOnSaveButton("Save");
+		test.maps_sessionpage.verifyFilterIsByDefaultSelected(gridName, 2);
+		test.maps_sessionpage.verifyFilterResults("Room1", 1, 3);
+	}
+	
+	@Test
+	public void Step_09_MAPS_Session_931_Verify_Buttons_Under_Filter_DropDown(){
+        test.maps_sessionpage.verifyButtonsOnTypes(filterDropDownButtons);
+	}
+
 	public void MAPS_Session_0784_Verify_Application_navigates_to_Session_Admin_page_on_selecting_the_Session_Admin_radio_button() {
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Session Admin");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
