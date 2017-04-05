@@ -155,9 +155,14 @@ public class Maps_Session_Tests extends BaseTest {
 	// test.maps_sessionpage.enterFilterText("Filters", "Room1");
 	// test.maps_sessionpage.verifyFilterResults("Room1", 1, 3);
 	// }
+<<<<<<< HEAD
 
 	@Test
 
+=======
+
+	//@Test
+>>>>>>> 71ffa9ef291e5d7845a89ffca55e1a082f9eb3de
 	public void Step_07_MAPS_Session_920_Verify_Application_Displays_Filter_Results_On_Room_Availability_Page(){
 		test.maps_sessionpage.clickOnDropDownImage(1);
 		test.maps_sessionpage.selectRoleOnSaveGridConfiguration("Test Program BT 033017");
@@ -166,7 +171,7 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.verifyFilterResults("Room1", 1, 3);
 	}
 	
-	@Test
+	//@Test
 	public void Step_08_MAPS_Session_921_Verify_New_Filter_Is_Added_Upon_Clicking_Save_Edit_Link(){
         String gridName="Test"+System.currentTimeMillis();
         test.maps_sessionpage.clickOnSaveAndEditButton("Save/Edit", 1);
@@ -179,11 +184,12 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.verifyFilterResults("Room1", 1, 3);
 	}
 	
-	@Test
+	//@Test
 	public void Step_09_MAPS_Session_931_Verify_Buttons_Under_Filter_DropDown(){
         test.maps_sessionpage.verifyButtonsOnTypes(filterDropDownButtons);
 	}
-
+	
+	@Test
 	public void MAPS_Session_0784_Verify_Application_navigates_to_Session_Admin_page_on_selecting_the_Session_Admin_radio_button() {
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Session Admin");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
@@ -391,7 +397,7 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.verifyLeftPanelOptionsOnSessionAdminPage(optionSessioning);
 	}
 
-	@Test
+	//@Test
 	public void MAPS_Session_1503_Application_should_remove_the_selected_abstracts_when_user_clicks_on_Remove_Selected_button() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Symposia");
