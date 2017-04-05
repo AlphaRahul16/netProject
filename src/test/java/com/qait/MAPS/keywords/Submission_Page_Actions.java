@@ -53,6 +53,7 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		selectSymposium();
 		selectPresentationType("sub_type", sciMix);
 
+
 	}
 
 	public void clickOnNamedButton(String linkName) {

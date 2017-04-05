@@ -454,6 +454,15 @@ public class BaseUi {
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].click();", element);
 	}
+	
+	public String getValUsingXpathInJavaScriptExecutor(WebElement element) {
+		String value;
+		JavascriptExecutor executor = (JavascriptExecutor) driver;
+		value=executor.executeScript("return arguments[0].value;", element).toString();
+		System.out.println("------value:"+value);
+		return value;
+	}
+
 
 	public void EnterTextInFieldByJavascript(String id, String Text) {
 		System.out.println(Text);

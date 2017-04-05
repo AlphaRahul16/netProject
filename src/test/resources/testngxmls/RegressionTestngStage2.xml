@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="ACS Tests" preserve-order="true" thread-count="1"
+<suite name="ACS Tests" preserve-order="true" thread-count="4"
 	configfailurepolicy="continue" parallel="tests">
 
 	<test name="ACS Apply Payment Test" group-by-instances="true">
