@@ -301,8 +301,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		wait.hardWait(1);
 //		selectExpirationDate_Year("Date", map().get("CreditCardExpiration_Month"));
 //		selectExpirationDate_Year("Year", map().get("CreditCardExpiration_Year"));
-		selectExpirationDate_Year("Date", map().get("Expiry_Month"));
-		selectExpirationDate_Year("Year", map().get("Expiry_Year"));
+		selectExpirationDate_Year("Date", map().get("CreditCardExpiration_Month"));
+		selectExpirationDate_Year("Year", map().get("CreditCardExpiration_Year"));
 		checkAutoRenewalBox();
 		checkEula();
 		hardWaitForIEBrowser(4);
@@ -420,7 +420,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 
 	public void clickOnContinueButton() {
 		isElementDisplayed("btn_continue");
-		element("btn_continue").click();
+//		element("btn_continue").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_continue"));
 		logMessage("STEP : Click on continue button in btn_continue\n");
 	}
 

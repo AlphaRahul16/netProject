@@ -24,46 +24,35 @@ public class ObjectFileReader {
 	static String filepath = "src/test/resources/";
 	static FileReader commonspecFile;
 
-	public static String[] getELementFromFile(String pageName,
-			String elementName) {
+	public static String[] getELementFromFile(String pageName, String elementName) {
 		setTier();
 		try {
-		return setSpecFiles(pageName,elementName);
-	} catch (Exception e) {
+			return setSpecFiles(pageName, elementName);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
-	public static String[] setSpecFiles(String pageName,
-			String elementName) throws Exception {
-		FileReader particularspecFile=null;
-		String pageObjectRepositoryPath;
-		try{
-			if(TestSessionInitiator._getSessionConfig().get("tier").equalsIgnoreCase("maps")){
-				pageObjectRepositoryPath="PageObjectRepository_Maps/";
-				filepath="src/test/resources/"+pageObjectRepositoryPath;
-				 commonspecFile = new FileReader(filepath + pageName
-						+ ".spec");			
-			}
-			else
-			{
-			pageObjectRepositoryPath="PageObjectRepository/";
-			
-			filepath="src/test/resources/"+pageObjectRepositoryPath;
 
-			commonspecFile = new FileReader(filepath + commonPageObjects + pageName
-					+ ".spec");
-			 particularspecFile = new FileReader(filepath + tier + pageName
-					+ ".spec");
+	public static String[] setSpecFiles(String pageName, String elementName) throws Exception {
+		FileReader particularspecFile = null;
+		String pageObjectRepositoryPath;
+		try {
+			if (TestSessionInitiator._getSessionConfig().get("tier").equalsIgnoreCase("maps")) {
+				pageObjectRepositoryPath = "PageObjectRepository_Maps/";
+				filepath = "src/test/resources/" + pageObjectRepositoryPath;
+				commonspecFile = new FileReader(filepath + pageName + ".spec");
+			} else {
+				pageObjectRepositoryPath = "PageObjectRepository/";
+				filepath = "src/test/resources/" + pageObjectRepositoryPath;
+				commonspecFile = new FileReader(filepath + commonPageObjects + pageName + ".spec");
+				particularspecFile = new FileReader(filepath + tier + pageName + ".spec");
 			}
 
 			return getElement(commonspecFile, elementName);
-		}
-		catch (NullPointerException e) {
+		} catch (NullPointerException e) {
 			return getElement(particularspecFile, elementName);
 		}
-
 
 	}
 
@@ -72,14 +61,12 @@ public class ObjectFileReader {
 		BufferedReader br = null;
 		String returnElement = "";
 		try {
-			br = new BufferedReader(new FileReader(filepath + tier + pageName
-					+ ".spec"));
+			br = new BufferedReader(new FileReader(filepath + tier + pageName + ".spec"));
 			String line = br.readLine();
 
 			while (line != null && !line.startsWith("========")) {
 				String titleId = line.split(":", 3)[0];
-				if (titleId.equalsIgnoreCase("pagetitle")
-						|| titleId.equalsIgnoreCase("title")
+				if (titleId.equalsIgnoreCase("pagetitle") || titleId.equalsIgnoreCase("title")
 						|| titleId.equalsIgnoreCase("page title")) {
 					returnElement = line;
 					break;
@@ -101,8 +88,7 @@ public class ObjectFileReader {
 		return returnElement.split(":", 2)[1].trim();
 	}
 
-	private static String[] getElement(FileReader specFile, String elementName)
-			throws Exception {
+	private static String[] getElement(FileReader specFile, String elementName) throws Exception {
 		ArrayList<String> elementLines = getSpecSection(specFile);
 		for (String elementLine : elementLines) {
 			if (elementLine.startsWith(elementName)) {
@@ -126,8 +112,7 @@ public class ObjectFileReader {
 						flag = !flag;
 					}
 					if (flag) {
-						elementLines.add(readBuff.trim().replaceAll("[ \t]+",
-								" "));
+						elementLines.add(readBuff.trim().replaceAll("[ \t]+", " "));
 					}
 					if (!elementLines.isEmpty() && !flag) {
 						break;
@@ -140,8 +125,7 @@ public class ObjectFileReader {
 				}
 			}
 		} catch (FileNotFoundException e) {
-			System.out
-					.println("Spec File not found at location :- " + filepath);
+			System.out.println("Spec File not found at location :- " + filepath);
 		} catch (IOException e) {
 			System.out.println("exceptional case");
 		}
@@ -149,18 +133,15 @@ public class ObjectFileReader {
 	}
 
 	private static void setTier() {
-		
+
 		try {
-			if (System.getProperty("tier").contains("defaultTier")
-					|| System.getProperty("tier").isEmpty())
-				tier = Tiers.valueOf(getProperty("Config.properties", "tier"))
-						.toString();
+			if (System.getProperty("tier").contains("defaultTier") || System.getProperty("tier").isEmpty())
+				tier = Tiers.valueOf(getProperty("Config.properties", "tier")).toString();
 			else {
 				tier = System.getProperty("tier");
 			}
 		} catch (NullPointerException e) {
-			tier = Tiers.valueOf(getProperty("Config.properties", "tier"))
-					.toString();
+			tier = Tiers.valueOf(getProperty("Config.properties", "tier")).toString();
 		}
 		switch (Tiers.valueOf(tier)) {
 		case production:
@@ -218,22 +199,22 @@ public class ObjectFileReader {
 		case Dev8:
 		case DEV8:
 		case dev8:
-			tier= "DEV8/";
+			tier = "DEV8/";
 			break;
 		case Dev9:
 		case DEV9:
 		case dev9:
-			tier= "DEV9/";
+			tier = "DEV9/";
 			break;
 		case Dev3:
 		case DEV3:
 		case dev3:
-			tier= "DEV3/";
+			tier = "DEV3/";
 			break;
 		case MAPS:
 		case maps:
 		case Maps:
-			tier= "MAPS/";
+			tier = "MAPS/";
 			break;
 		case STAGE8:
 		case Stage8:

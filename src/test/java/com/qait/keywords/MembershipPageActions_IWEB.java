@@ -3041,11 +3041,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// element("btn_transferNow").click();
 		clickUsingXpathInJavaScriptExecutor(element("btn_transferNow"));
 		logMessage("STEP : Clicked on Transfer Now button\n");
-		System.out.println("----before switch");
 		switchToDefaultContent();
-		System.out.println("----after switch");
 		wait.waitForPageToLoadCompletely();
-		System.out.println("----after wait");
 		// wait.hardWait(4);
 	}
 

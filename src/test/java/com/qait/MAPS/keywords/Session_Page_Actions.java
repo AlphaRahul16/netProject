@@ -1,10 +1,13 @@
 package com.qait.MAPS.keywords;
 
+import org.apache.tools.ant.taskdefs.condition.IsLastModified;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.thoughtworks.selenium.webdriven.commands.IsElementPresent;
 import com.qait.automation.utils.DateUtil;
 
 public class Session_Page_Actions extends ASCSocietyGenericPage {
@@ -151,15 +154,80 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("STEP: " + value + " is selected as " + label + " \n");
 	}
 
-	public void selectValueForSessionDetailType(String value) {
-		isElementDisplayed("inp_sessionType", "session_detail_type_id");
-		element("inp_sessionType", "session_detail_type_id").sendKeys(value);
-		logMessage("STEP: Session Detailed Type is selected as " + value + "\n");
-	}
+//	public void selectValueForSessionDetailType(String value) {
+//		//isElementDisplayed("")
+//		isElementDisplayed("inp_sessionType", "session_detail_type_id");
+//		element("inp_sessionType", "session_detail_type_id").sendKeys(value);
+//		wait.hardWait(5);
+//		logMessage("STEP: Session Detailed Type is selected as " + value + "\n");
+//	}
 
 	public void verifyApplicationShouldAddSessionDetailType(String testType, String colorCode, String sessionType) {
 		verifyDataOfTypePage(testType, colorCode, "Color Code");
 		verifyDataOfTypePage(testType, sessionType, "Session Type");
+	}
+	
+	public void clickSubHeadingLeftNavigationPanel(String headingName){
+//		wait.hardWait(5);
+		waitForLoaderToDisappear();
+		isElementDisplayed("lnk_sessionTypes",headingName);
+//		click(element("lnk_sessionTypes",headingName));
+		clickUsingXpathInJavaScriptExecutor(element("lnk_sessionTypes",headingName));
+		logMessage("Step : "+headingName+" sub-heading is clicked\n");
+	}
+	
+	public void verifySectionsOnRoomAvailabilityPage(String sectionName,int index){
+		isElementDisplayed("heading_sectionName",sectionName,String.valueOf(index));
+		logMessage("ASSERT PASSED: "+sectionName+" section is present on Rooms Availability page\n");
+	}
+	
+	public void clickOnSaveAndEditButton(String btnName, int index){
+		isElementDisplayed("btn_saveAndEdit",btnName,String.valueOf(index));
+		click(element("btn_saveAndEdit",btnName,String.valueOf(index)));
+		logMessage("Step : Clicked on "+btnName+" button\n");
+	}
+	
+	public void enterNameOnSaveGridConfiguration(String fieldName,String roomName){
+		isElementDisplayed("inp_roomName",fieldName);
+		element("inp_roomName",fieldName).clear();
+		element("inp_roomName",fieldName).sendKeys(roomName);
+		logMessage("Step : "+fieldName+" is entered as "+roomName+"\n");
+	}
+	
+	public void clickCheckboxOnSaveGridConfiguration(String fieldname){
+		isElementDisplayed("chkbox_room",fieldname);
+		click(element("chkbox_room",fieldname));
+		logMessage("Step : Clicked on "+fieldname+" checkbox\n");
+	}
+	
+	public void selectRoleOnSaveGridConfiguration(String role){
+		isElementDisplayed("select_role",role);
+		click(element("select_role",role));
+		logMessage("Step : Role is selected as "+role+"\n");
+	}
+	
+	public void verifyCreatedFilterIsByDefaultSelected(String filterName){
+		((JavascriptExecutor) driver).executeScript("$x('(//div[contains(@class,\'x-form-field-wrap\') and @role=\"combobox\"])[2]')");
+	}
+	
+	public void verifyFieldsOnRoomAvailablityPage(String fieldName,int index){
+		isElementDisplayed("btn_saveAndEdit",fieldName,String.valueOf(index));
+		logMessage("ASSERT PASSED: "+fieldName+" field is present on Rooms Availability page\n");
+	}
+	
+	public void verifyFilterDropdwonOnRoomAvailabalityPage(int index){
+		isElementDisplayed("inp_saveGridFilters",String.valueOf(index));
+		logMessage("ASSERT PASSED: Filter dropdwon is displayed on Room Availability page\n");
+	}
+	
+	public void clickOnArrowButton(String label){
+		wait.hardWait(5);
+        isElementDisplayed("btn_navPanel",label);
+        hover(element("btn_navPanel",label));
+		isElementDisplayed("btn_arrow",label);
+		clickUsingXpathInJavaScriptExecutor(element("btn_arrow",label));
+//		click(element("btn_arrow",label));
+		logMessage("Step : Clicked on arrow button next to "+label+"\n");
 	}
 
 	private void verifyDataOfTypePage(String testType, String colorCode, String text) {
@@ -177,5 +245,60 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		// TODO Auto-generated method stub
 		isElementDisplayed("txt_instruction","");
 	}
-
+	
+	public void enterFilterText(String drpdwnValue, String filterText){
+		isElementDisplayed("lnk_filters",drpdwnValue);
+		hover(element("lnk_filters",drpdwnValue));
+		isElementDisplayed("inp_filtertext");
+		element("inp_filtertext").clear();
+		click(element("inp_filtertext"));
+		element("inp_filtertext").sendKeys(filterText);
+		logMessage("Step : Filter text is entered as "+filterText+"\n");
+	}
+	
+	public void enterProgramName(String roomValue, int index){
+		isElementDisplayed("inp_saveGridFilters",String.valueOf(index));
+		click(element("inp_saveGridFilters",String.valueOf(index)));
+		element("inp_saveGridFilters",String.valueOf(index)).sendKeys(roomValue);
+		logMessage("Step : Room availability value is entered as "+roomValue);
+	}
+	
+	public void verifyFilterResults(String filterResult,int index,int columnIndex){
+		wait.hardWait(4);
+		isElementDisplayed("txt_tableData",String.valueOf(index),String.valueOf(columnIndex));
+		for(WebElement ele: elements("txt_tableData",String.valueOf(index),String.valueOf(columnIndex))){
+			Assert.assertEquals(ele.getText().trim(), filterResult,"ASSERT FAILED: Filter results does not contains "+filterResult+"\n");
+		}
+		logMessage("ASSERT PASSED: Filter results contains "+filterResult+"\n");
+	}
+	
+	public void clickOnDropDownImage(int index){
+		isElementDisplayed("img_dropDown",String.valueOf(index));
+		click(element("img_dropDown",String.valueOf(index)));
+		logMessage("Step : Clicked on dropdown image\n");
+	}
+	
+	public void clickOnSaveButton(String btnName){
+		isElementDisplayed("btn_Types",btnName);
+		click(element("btn_Types",btnName));
+		logMessage("Step : Clicked on "+btnName+"\n");
+	}
+	
+	public void verifyFilterIsByDefaultSelected(String filterName,int index){
+		wait.hardWait(3);
+		int count=1;
+		boolean flag=false;
+		while(count<=5){
+			if((getValUsingXpathInJavaScriptExecutor(element("inp_saveGridFilters",String.valueOf(index))).equalsIgnoreCase(filterName))){
+				flag=true;
+				break;
+			}
+			else{
+				count++;
+			}
+		}
+		System.out.println("-----count:"+count);
+		Assert.assertTrue(flag,"ASSERT FAILED: Filter value is not "+filterName+" by default\n");
+		logMessage("ASSERT PASSED: Filter value is "+filterName+" by default\n");
+	}
 }

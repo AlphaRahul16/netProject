@@ -1,11 +1,11 @@
 "caseID"	"caseID Execute"	"Constituent Sort Name"	"Fund Code"	"Gift Amount"	"Batch Name"	"Security Group"	"Payment_Type"	"Appeal Code"	"Pledge Amount"	"Batch_Name?"	"Payment_Method"	"Visa_Card_Number"	"Diners_Card_Number"	"AMEX_Card_Number"	"Discover_Card_Number"	"Check_Number"	"Reference_Number"	"Expiry_Date"	"CVV_Number"
 1	"Yes"	"b%"	"AACT G"	"100.00"	"SeleniumTesting"	"QA"	"prepaid"	"ACS Website"	300.00	"SELENIUM_BATCH"	"Visa/MC"	"4457010000000009"						"2018/12"	349
-2	"Yes"	"b%"	"AACT G"	"100.00"	"SeleniumTesting"	"QA"	"prepaid"	"ACS Website"	300.00	"SELENIUM_BATCH"	"Diners"		"5412345438954638"					"2018/12"	234
-3	"Yes"	"b%"	"AACT G"	"100.00"	"SeleniumTesting"	"QA"	"prepaid"	"ACS Website"	300.00	"SELENIUM_BATCH"	"AMEX"			"375000026600004"				"2018/12"	421
-4	"Yes"	"b%"	"AACT G"	"100.00"	"SeleniumTesting"	"QA"	"prepaid"	"ACS Website"	300.00	"SELENIUM_BATCH"	"Discover"				"6011010000000003"			"2018/12"	758
-5	"Yes"	"b%"	"AACT G"	"100.00"	"SeleniumTesting"	"QA"	"prepaid"	"ACS Website"	300.00	"SELENIUM_BATCH"	"Visa/MC"	"5112000100000003"						"2018/12"	123
-6	"Yes"	"b%"	"AACT G"	"100.00"	"SeleniumTesting"	"QA"	"prepaid"	"ACS Website"	300.00	"SELENIUM_BATCH"	"BOA - Check"					1111			
-7	"Yes"	"b%"	"AACT G"	"100.00"	"SeleniumTesting"	"QA"	"prepaid"	"ACS Website"	300.00	"SELENIUM_BATCH"	"cash"						1234567890		
-8	"Yes"	"b%"	"AACT G"	"100.00"	"SeleniumTesting"	"QA"	"prepaid"	"ACS Website"	300.00	"SELENIUM_BATCH"	"check"					1111			
-9	"Yes"	"b%"	"AACT G"	"100.00"	"SeleniumTesting"	"QA"	"prepaid"	"ACS Website"	300.00	"SELENIUM_BATCH"	"Diners"		"36474027424147"					"2018/12"	123
-10	"Yes"	"b%"	"AACT G"	"100.00"	"SeleniumTesting"	"QA"	"prepaid"	"ACS Website"	300.00	"SELENIUM_BATCH"	"Diners"		"36137596857394"					"2018/12"	123
+2	"No"	"b%"	"AACT G"	"100.00"	"SeleniumTesting"	"QA"	"prepaid"	"ACS Website"	300.00	"SELENIUM_BATCH"	"Diners"		"5412345438954638"					"2018/12"	234
+3	"No"	"b%"	"AACT G"	"100.00"	"SeleniumTesting"	"QA"	"prepaid"	"ACS Website"	300.00	"SELENIUM_BATCH"	"AMEX"			"375000026600004"				"2018/12"	421
+4	"No"	"b%"	"AACT G"	"100.00"	"SeleniumTesting"	"QA"	"prepaid"	"ACS Website"	300.00	"SELENIUM_BATCH"	"Discover"				"6011010000000003"			"2018/12"	758
+5	"No"	"b%"	"AACT G"	"100.00"	"SeleniumTesting"	"QA"	"prepaid"	"ACS Website"	300.00	"SELENIUM_BATCH"	"Visa/MC"	"5112000100000003"						"2018/12"	123
+6	"No"	"b%"	"AACT G"	"100.00"	"SeleniumTesting"	"QA"	"prepaid"	"ACS Website"	300.00	"SELENIUM_BATCH"	"BOA - Check"					1111			
+7	"No"	"b%"	"AACT G"	"100.00"	"SeleniumTesting"	"QA"	"prepaid"	"ACS Website"	300.00	"SELENIUM_BATCH"	"cash"						1234567890		
+8	"No"	"b%"	"AACT G"	"100.00"	"SeleniumTesting"	"QA"	"prepaid"	"ACS Website"	300.00	"SELENIUM_BATCH"	"check"					1111			
+9	"No"	"b%"	"AACT G"	"100.00"	"SeleniumTesting"	"QA"	"prepaid"	"ACS Website"	300.00	"SELENIUM_BATCH"	"Diners"		"36474027424147"					"2018/12"	123
+10	"No"	"b%"	"AACT G"	"100.00"	"SeleniumTesting"	"QA"	"prepaid"	"ACS Website"	300.00	"SELENIUM_BATCH"	"Diners"		"36137596857394"					"2018/12"	123

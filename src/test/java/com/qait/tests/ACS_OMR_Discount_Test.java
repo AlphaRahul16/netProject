@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
@@ -49,10 +50,12 @@ public class ACS_OMR_Discount_Test extends BaseTest {
 	@BeforeMethod
 	public void handleTestMethodName(Method method) {
 		test.printMethodName(method.getName());
+		Reporter.log("CASE ID:::::" + this.caseID + "\n", true);
 	}
 
 	@Test
 	public void Step01_Launch_IWEB_Application_And_Navigate_To_Find_Members_Tab() {
+		
 		mapOMRDiscount = test.homePageIWEB.addValuesInMap(sheetname, caseID);
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Membership");
@@ -61,6 +64,7 @@ public class ACS_OMR_Discount_Test extends BaseTest {
 
 	@Test
 	public void Step02_Select_Valid_User_For_Renewal_And_Verify_Term_Start_And_End_Dates_Is_Empty() {
+		
 		test.memberShipPage.selectValidUserForRenewalAccordingToCountry(mapOMRDiscount);
 		ProductPrice = test.individualsPage.verifyYearForOMRDiscountByPrice(mapOMRDiscount);
 
@@ -68,7 +72,7 @@ public class ACS_OMR_Discount_Test extends BaseTest {
 
 	@Test
 	public void Step03_Verify_Payment_Status_And_Invoice_Details_Before_Renewal() {
-
+	
 		test.individualsPage.clickGotoRecordForRenewal();
 		invoiceNumber = test.invoicePage.verifyInvoiceDetailsBeforeRenewal();
 		test.invoicePage.expandDetailsMenu("line items");
@@ -81,12 +85,14 @@ public class ACS_OMR_Discount_Test extends BaseTest {
 
 	@Test
 	public void Step04_Navigate_to_Membership_Page_And_Fetch_Member_Details() {
+		
 		test.memberShipPage.clickOnCustomerNameAndNavigateToMembershipPage();
 		memDetails = test.memberShipPage.getCustomerFullNameBasedOnInvoice(invoiceNumber);
 	}
 
 	@Test
 	public void Step05_launch_Eweb_Renewal_Application_And_Login_With_Valid_Credentials() {
+		
 		test.launchApplication(app_url_OMR);
 		test.asm_OMR.selectNoIfRegularToEmeritusPromptAppears();
 		test.asm_OMR.loginIntoOMRApplicationForDiscount(mapOMRDiscount, memDetails);
@@ -95,6 +101,7 @@ public class ACS_OMR_Discount_Test extends BaseTest {
 
 	@Test
 	public void Step06_Verify_Member_Can_Renew_For_Multiple_Years_After_Selecting_Currency_As_INR() {
+		
 		test.asm_OMR.FillRequiredDetailsForStudentMember(mapOMRDiscount);
 		test.asm_OMR.verifyDiscountedPriceIsDisplayedOnOMREweb(ProductPrice[0], expectedDiscount, ProductPrice[1]);
 		mapRenewedProductDetails = test.asm_OMR.addMembershipsForRegularMember(mapOMRDiscount);
@@ -104,6 +111,7 @@ public class ACS_OMR_Discount_Test extends BaseTest {
 
 	@Test
 	public void Step07_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage() {
+		
 		test.asm_OMR.submitPaymentDetails(memDetails.get(1) + " " + memDetails.get(0));
 		test.asm_OMR.verifyRenewedProductsSummaryOnCheckOutPage(mapRenewedProductDetails);
 		test.asm_OMR.clickOnSubmitPayment();
@@ -112,7 +120,7 @@ public class ACS_OMR_Discount_Test extends BaseTest {
 
 	@Test
 	public void Step08_Navigate_to_Latest_invoice_And_verify_Details_After_Renewal() {
-
+		
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.clickOnSideBarTab("Invoice");
 		test.memberShipPage.clickOnSideBar("Find Invoice");
