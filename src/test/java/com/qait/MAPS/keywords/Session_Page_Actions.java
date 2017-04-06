@@ -1,5 +1,7 @@
 package com.qait.MAPS.keywords;
 
+import java.util.Random;
+
 import org.apache.tools.ant.taskdefs.condition.IsLastModified;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
@@ -307,7 +309,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void isPrintSelectedButtonDisplayed(String buttonname) {
-		isElementDisplayed("btn_print_selected");
+		isElementDisplayed("btn_Types");
 		logMessage("ASSERT PASSED : Print Selected Button is displayed on Session page\n");
 
 	}
@@ -329,6 +331,14 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public void enterValuesInCreateSymposium(String symposiumTitle, String symposiumType) {
 		enterValuesForProgram("session_name", symposiumTitle);
 		selectValueForSymposium("session_type", symposiumType);
+	}
+
+	public String selectaRandomRecordFromTheList() {
+		isElementDisplayed("chkbox_records");
+		int randomnumber = generateRandomNumberWithInRange(0, (elements("chkbox_records").size()) - 1);
+		click(elements("chkbox_records").get(randomnumber));
+		logMessage("Step : a random record is selected from the list with position " + randomnumber);
+		return element("btn_recordsname", toString().valueOf(randomnumber)).getText();
 	}
 
 	private void selectValueForSymposium(String dropdownName, String symposiumType) {
@@ -375,11 +385,11 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public void addAbstractsInCurrentlyAssignedAbstractsSection() {
 		isElementDisplayed("btn_navPanel", "Search Results");
 		wait.hardWait(5);
-		waitForLoadingImageToDisappear();	
+		waitForLoadingImageToDisappear();
 		isElementDisplayed("txt_hostDetails", "title");
-		
+
 		System.out.println("size***************" + elements("txt_hostDetails", "title").size());
-		
+
 		WebElement Sourcelocator = elements("txt_hostDetails", "title").get(3);
 		isElementDisplayed("txt_dropField");
 		WebElement Destinationlocator = element("txt_dropField");
@@ -398,6 +408,12 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("txt_hostDetails", text);
 		click(elements("txt_hostDetails", text).get(1));
 		logMessage("STEP: An Abstract is selected \n");
+	}
+
+	public void clickOnSaveButton(String btnName) {
+		isElementDisplayed("btn_Types", btnName);
+		click(element("btn_Types", btnName));
+		logMessage("Step : Clicked on " + btnName + "\n");
 	}
 
 }
