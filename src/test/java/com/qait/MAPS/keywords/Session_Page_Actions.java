@@ -1,5 +1,7 @@
 package com.qait.MAPS.keywords;
 
+import java.util.Random;
+
 import org.apache.tools.ant.taskdefs.condition.IsLastModified;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -299,8 +301,17 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void isPrintSelectedButtonDisplayed(String buttonname) {
-		isElementDisplayed("btn_print_selected");
+		isElementDisplayed("btn_Types");
 		logMessage("ASSERT PASSED : Print Selected Button is displayed on Session page\n");
 		
 	}
+
+	public String selectaRandomRecordFromTheList() {
+		isElementDisplayed("chkbox_records");
+		int randomnumber = generateRandomNumberWithInRange(0, (elements("chkbox_records").size())-1);
+		click(elements("chkbox_records").get(randomnumber));
+		logMessage("Step : a random record is selected from the list with position "+randomnumber);
+		return element("btn_recordsname",toString().valueOf(randomnumber)).getText();
+	}
+
 }
