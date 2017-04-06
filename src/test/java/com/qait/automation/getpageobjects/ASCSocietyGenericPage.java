@@ -17,8 +17,11 @@ import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.Reporter;
 
@@ -504,6 +507,11 @@ public class ASCSocietyGenericPage extends GetPage {
 		}
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
+	}
+
+	public void dragAndDrop(WebElement sourceElement, WebElement destinationElement) {
+		Actions action = new Actions(driver);
+		action.dragAndDrop(sourceElement, destinationElement).build().perform();
 	}
 
 }
