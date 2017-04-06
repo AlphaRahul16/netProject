@@ -126,9 +126,9 @@ public class ACS_AACT_OMR extends BaseTest {
 
 		invoiceTotal = test.acs_aactOmr.getDetailsfromOnlineMembershipPage("TotalAmount");
 		CardHolderName = customerFullNameList.get(0).trim();
-		test.acs_aactOmr.enterPaymentInfo(ASCSocietyGenericPage.map().get("Payment_Method").trim(), CardHolderName,
-				ASCSocietyGenericPage.map().get("Payment_Method").trim() + "_"
-						+ ASCSocietyGenericPage.map().get("Card_Number").trim(),
+		String paymentMethod=ASCSocietyGenericPage.map().get("Payment_Method").trim();
+		test.acs_aactOmr.enterPaymentInfo(paymentMethod, CardHolderName,
+				ASCSocietyGenericPage.map().get(paymentMethod+"_"+"Card_Number").trim(),
 				ASCSocietyGenericPage.map().get("CVV_Number").trim(),
 				ASCSocietyGenericPage.map().get("Expiry_Month").trim(),
 				ASCSocietyGenericPage.map().get("Expiry_Year").trim());
@@ -142,10 +142,11 @@ public class ACS_AACT_OMR extends BaseTest {
 				"Membership Renewal Summary");
 		test.acs_aactOmr.verifyMembershipType(membershipType, "MemberCategory");
 		test.acs_aactOmr.verifydetailsOnOnlineMembershipRenewalPage(invoiceTotal, "TotalAmount");
+		String paymentMethod=ASCSocietyGenericPage.map().get("Payment_Method").trim();
 		test.acs_aactOmr.verifyDetailsOfSummaryPage(email, ASCSocietyGenericPage.map().get("Gender").trim(),
 				ASCSocietyGenericPage.map().get("Experience").trim(),
-				ASCSocietyGenericPage.map().get("Payment_Method").trim(), CardHolderName,
-				ASCSocietyGenericPage.map().get("Card_Number").trim(),
+				paymentMethod, CardHolderName,
+				ASCSocietyGenericPage.map().get(paymentMethod+"_"+"Card_Number").trim(),
 				ASCSocietyGenericPage.map().get("Expiry_Month").trim(),
 				ASCSocietyGenericPage.map().get("Expiry_Year").trim());
 		test.acs_aactOmr.clickOnSubmitPaymentOnOnlineMembershipRenewalPage();

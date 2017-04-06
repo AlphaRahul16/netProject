@@ -80,7 +80,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		waitForLoaderToDisappear();
 		isElementDisplayed("txt_programTableData", title);
 		String actualValue = elements("txt_programTableData", title).get(1).getText();
-		System.out.println("***********actualValue:::::"+actualValue);
+		System.out.println("***********actualValue:::::" + actualValue);
 		Assert.assertEquals(actualValue, expValue,
 				"ASSERT FAILED: Expected " + title + " is " + expValue + " but found " + actualValue + " \n");
 		logMessage("STEP:" + actualValue + " is exist as " + title + " \n");
@@ -302,7 +302,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void clickOnButtonUnderSessionModule(String text) {
 		isElementDisplayed("btn_close", text);
-		click(element("btn_close", text));
+		click(elements("btn_close", text).get(0));
 		logMessage("STEP: clicked on '" + text + "' button \n");
 	}
 
@@ -342,22 +342,62 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void addHostforSymposium() {
+		waitForLoadingImageToDisappear();
 		isElementDisplayed("txt_hostDetails", "session_host_last_name");
+
 		WebElement Sourcelocator = elements("txt_hostDetails", "session_host_last_name").get(2);
 		String hostlastname = elements("txt_hostDetails", "session_host_last_name").get(2).getText();
 		isElementDisplayed("txt_dropField");
 		WebElement Destinationlocator = element("txt_dropField");
 		dragAndDrop(Sourcelocator, Destinationlocator);
 		wait.hardWait(2);
-		waitForLoaderToDisappear();
+		waitForLoadingImageToDisappear();
+		// waitForLoaderToDisappear();
 		logMessage("STEP: '" + hostlastname + " is selected as Host \n");
 	}
 
-	public void saveTheCreatedSymposium(String popupTitle, String btnName) {
-		if (checkIfElementIsThere("btn_navPanel", popupTitle)) {
-			clickOnButtonUnderSessionModule(btnName);
-		}
+	public void addRoleForHost(String hostRole) {
+		isElementDisplayed("txt_hostDetails", "session_host_role");
+		System.out.println("size##########" + elements("txt_hostDetails", "session_host_role").size());
+		click(elements("txt_hostDetails", "session_host_role").get(1));
+		isElementDisplayed("listItem_SymposiumType", hostRole);
+		click(element("listItem_SymposiumType", hostRole));
+		logMessage("STEP: " + hostRole + " is selected \n");
 
+	}
+
+	public void searchAbstract(String searchBy, String value) {
+		isElementDisplayed("inp_programField", searchBy);
+		element("inp_programField", searchBy).sendKeys(value);
+		logMessage("STEP: Abstract is searched by " + searchBy + " with value " + value + "\n");
+	}
+
+	public void addAbstractsInCurrentlyAssignedAbstractsSection() {
+		isElementDisplayed("btn_navPanel", "Search Results");
+		wait.hardWait(5);
+		waitForLoadingImageToDisappear();	
+		isElementDisplayed("txt_hostDetails", "title");
+		
+		System.out.println("size***************" + elements("txt_hostDetails", "title").size());
+		
+		WebElement Sourcelocator = elements("txt_hostDetails", "title").get(3);
+		isElementDisplayed("txt_dropField");
+		WebElement Destinationlocator = element("txt_dropField");
+		dragAndDrop(Sourcelocator, Destinationlocator);
+		wait.hardWait(2);
+		waitForLoadingImageToDisappear();
+	}
+
+	public void clickOnButtonByIndexing(String text) {
+		isElementDisplayed("btn_remove", text, "2");
+		click(element("btn_remove", text, "2"));
+		logMessage("STEP: '" + text + "' button is clicked \n");
+	}
+
+	public void selectAbstract(String text) {
+		isElementDisplayed("txt_hostDetails", text);
+		click(elements("txt_hostDetails", text).get(1));
+		logMessage("STEP: An Abstract is selected \n");
 	}
 
 }

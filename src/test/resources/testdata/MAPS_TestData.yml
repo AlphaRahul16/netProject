@@ -39,5 +39,8 @@ Session:
   Symposium:
       Title: "Test_Symposium_Title"
       Type: "Oral"
+      Host_Role: "Organizer"
+      Abstract_AuthorFirstName: "Rahul"
+      Abstract_AuthorLastName: "Yadav"
       
       

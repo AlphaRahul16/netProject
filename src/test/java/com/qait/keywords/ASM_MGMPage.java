@@ -333,6 +333,7 @@ public class ASM_MGMPage extends GetPage {
 			loginInToApplication(webLogin, getYamlValue("password"));
 			verifyStatusAfterClickResend(uniqueEmail, ewebStatus.get(i));
 			clickOnlogoutButton(logoutURL);
+			launchUrl(IWEBurl);
 			membershipPageIweb.verifyNomineeStatusOnIWEB(IWEBurl, IwebStatus.get(i), uniqueEmail, fname, lname);
 			logMessage("\n ASSERT PASSED: Status is verified after click on Resend link " + String.valueOf(i + 1)
 					+ " time \n");
