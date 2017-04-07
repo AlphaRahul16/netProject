@@ -301,8 +301,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		wait.hardWait(1);
 //		selectExpirationDate_Year("Date", map().get("CreditCardExpiration_Month"));
 //		selectExpirationDate_Year("Year", map().get("CreditCardExpiration_Year"));
-		selectExpirationDate_Year("Date", map().get("CreditCardExpiration_Month"));
-		selectExpirationDate_Year("Year", map().get("CreditCardExpiration_Year"));
+		selectExpirationDate_Year("Date", map().get("Expiry_Month"));
+		selectExpirationDate_Year("Year", map().get("Expiry_Year"));
 		checkAutoRenewalBox();
 		checkEula();
 		hardWaitForIEBrowser(4);

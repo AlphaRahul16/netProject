@@ -340,6 +340,11 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("Step : a random record is selected from the list with position " + randomnumber);
 		return element("btn_recordsname", toString().valueOf(randomnumber)).getText();
 	}
+	public void selectaRecordFromTheList(int number) {
+		isElementDisplayed("chkbox_records");
+		click(elements("chkbox_records").get(number));
+		logMessage("Step : a random record is selected from the list with position " + number);
+	}
 
 	private void selectValueForSymposium(String dropdownName, String symposiumType) {
 		isElementDisplayed("dropdown_programField", dropdownName);
@@ -414,6 +419,11 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_Types", btnName);
 		click(element("btn_Types", btnName));
 		logMessage("Step : Clicked on " + btnName + "\n");
+	}
+	public void verifyDataIsDeleted(String title, String expValue) {
+		waitForLoaderToDisappear();
+		Assert.assertFalse(checkIfElementIsThere("txt_programTableData", title));
+		logMessage("STEP:" + expValue + " is deleted \n");
 	}
 
 }
