@@ -29,11 +29,19 @@ inp_sessionType							xpath								//input[@name='${text}']
 tabledata_type							xpath								//div[contains(text(),'${text1}')]/../following-sibling::td/div[contains(text(),'${text2}')]
 list_table								xpath								//td[@role='gridcell']
 img_processbar							xpath								//div[contains(@class,'progress-bar')]
+listItem_programField					xpath								//div[contains(@class,'combo-list-item')]
+img_processbar							xpath								//div[contains(@class,'progress-bar')]
 inp_addHost								xpath								//div[@gxt-dindex='${fieldName}']/input
 inp_filtertext                          xpath                               //div[contains(@class,'x-menu-list')]//input
 lnk_filters                             xpath                               //a[contains(@class,'x-menu-item') and contains(text(),'${dropdownOptions}')]
-inp_roomDetails                         xpath                               //div[@class='x-box-inner']//div[@gxt-dindex="${field}"]//input
 txt_tableData                           xpath                               (//div[contains(@class,'grid3-body')])[${index1}]//table//td[${index2}]
+img_dropDown                            xpath                               (//div[contains(@class,'x-form-field-wrap') and @role="combobox"])[${index}]//img
+inp_addHost						    	xpath							    //div[@gxt-dindex='${fieldName}']/input
+txt_tableResult                         xpath                               //td[contains(@class,'x-grid3-td-${label}')]//div[text()='${value}']
+lst_column                              xpath                               //div[@role='listitem' and text()='${columnName}']
+btn_add                                 xpath                               //td[@class='x-toolbar-left']//button[text()='${btnName}']
+chkbox_column                           xpath                               //div[text()='${roomName}']/../preceding-sibling::td[2]//div[@class='x-grid3-row-checker']
+btn_recordsname                         xpath                               (//div[@class='x-grid3-row-checker'])[${recordnumber}]/../../following-sibling::td[1]/div
 btn_close								xpath								//button[text()='${btnName}']
 img_dropDown                            xpath                               (//div[contains(@class,'x-form-field-wrap') and @role="combobox"])[${index}]//img
 btn_recordsname                         xpath                               (//div[@class='x-grid3-row-checker'])[${recordnumber}]/../../following-sibling::td[1]/div
