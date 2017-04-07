@@ -623,6 +623,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 			clickAddMembershipButton("Add ACS Publication");
 			holdScriptExecution();
 			// isElementDisplayed("txt_legend","My ACS Publications");
+			holdScriptExecution();
 			selectAddToMembershipForParticularSubscription("PubAddToMembership");
 			clickSaveButtonToAddMembership();
 
@@ -668,9 +669,9 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 
 		wait.hardWait(8);
 		switchToEwebRenewalFrame();
-		System.out.println(elements("btn_addToMemberships").size());
-		elements("btn_addToMemberships")
-				.get(generateRandomNumberWithInRange(0, (elements("btn_addToMemberships").size()) - 1)).click();
+		
+		//System.out.println(elements("btn_addToMemberships").size());
+		elements("btn_addToMemberships").get(generateRandomNumberWithInRange(0, (elements("btn_addToMemberships").size()) - 1)).click();
 		logMessage("STEP : Button Add to membership is clicked for " + value);
 		switchToDefaultContent();
 	}
