@@ -802,9 +802,10 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnSearchButtonOnEditRecord() {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(8);
-		isElementDisplayed("btn_srchJudges");
+		isElementDisplayed("btn_search");
+//		isElementDisplayed("btn_srchJudges");
 		// wait.waitForElementToBeClickable(element("btn_search"));
-		clickUsingXpathInJavaScriptExecutor(element("btn_srchJudges"));
+		clickUsingXpathInJavaScriptExecutor(element("btn_search"));
 		// element("btn_search").click();
 		logMessage("STEP : Search button is clicked \n");
 	}

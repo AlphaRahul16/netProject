@@ -219,19 +219,4 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		click(elements("list_gripConfig").get(3));
 		logMessage("STEP: " + value + " is selected for Session Detail Type \n");
 	}
-
-	public void enterValuesInAddNewHost(String fname, String lname, String email,String institution) {
-		enterValueInInputtextField("session_host_first_name", fname);
-		enterValueInInputtextField("session_host_last_name", lname);
-		enterValueInInputtextField("session_host_institution", institution);
-		enterValueInInputtextField("session_host_email", email);
-		
-	}
-
-	private void enterValueInInputtextField(String text, String value) {
-		// TODO Auto-generated method stub
-		isElementDisplayed("inp_addHost", text);
-		element("inp_addHost", text).sendKeys(value);
-		logMessage("STEP: " + value + " is entered as " + text + "\n");
-	}
 }
