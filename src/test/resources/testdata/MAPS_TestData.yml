@@ -1,7 +1,7 @@
 MAPS_Url: https://acsnm253.beta.abstractcentral.com/?NO_SSO_OVERRIDE_FL=Y
 
 LogIn_Details:
-  userID: R_Yadav
+  userID: H_Sil1
   password: Password123
   
 Submission_Author_Step: 
@@ -36,4 +36,11 @@ Session:
      Last_Name: "LNAME_Host"
      Email: "EMAIL_Host"
      institution: "institution"
+  Symposium:
+      Title: "Test_Symposium_Title"
+      Type: "Oral"
+      Host_Role: "Organizer"
+      Abstract_AuthorFirstName: "Rahul"
+      Abstract_AuthorLastName: "Yadav"
+      
       

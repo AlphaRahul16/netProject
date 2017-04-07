@@ -161,8 +161,8 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 	public void verifyTheResult(String cID) {
 		waitForLoaderToDisappear();
 		isElementDisplayed("txt_tabledata");
-		System.out.println("actual" + elements("txt_tabledata").get(0).getText());
-		Assert.assertEquals(cID, elements("txt_tabledata").get(0).getText());
+		Assert.assertEquals(cID, elements("txt_tabledata").get(0).getText(),
+				"ASSERT FAILED: Result does not contains " + cID + "\n");
 		logMessage("ASSERT PASSED: Result contains " + cID + "\n");
 	}
 
@@ -219,4 +219,5 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		click(elements("list_gripConfig").get(3));
 		logMessage("STEP: " + value + " is selected for Session Detail Type \n");
 	}
+
 }

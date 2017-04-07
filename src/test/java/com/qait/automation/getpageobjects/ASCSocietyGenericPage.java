@@ -17,8 +17,11 @@ import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.Reporter;
 
@@ -501,6 +504,28 @@ public class ASCSocietyGenericPage extends GetPage {
 		} catch (NoSuchElementException Exp) {
 
 			logMessage("STEP : Process bar is not present \n");
+		}
+		wait.resetImplicitTimeout(timeOut);
+		wait.resetExplicitTimeout(timeOut);
+	}
+
+	public void dragAndDrop(WebElement sourceElement, WebElement destinationElement) {
+		Actions action = new Actions(driver);
+		action.dragAndDrop(sourceElement, destinationElement).build().perform();
+	}
+	public void waitForLoadingImageToDisappear(){
+		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
+		try {
+			wait.resetImplicitTimeout(4);
+			wait.resetExplicitTimeout(hiddenFieldTimeOut);
+			isElementDisplayed("img_loading");
+			wait.waitForElementToDisappear(element("img_loading"));
+			logMessage("STEP : Wait for Loading image to be disappeared \n");
+
+		} catch (NoSuchElementException Exp) {
+
+			logMessage("STEP : Loading image is not present \n");
 		}
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);

@@ -15,7 +15,6 @@ btn_ImportExportExcel				xpath							//button[contains(text(),'${text}')]
 list_drpdwnoptions				    css						     	.x-menu-item.x-component
 drpdown_role						xpath							//tr[@role='presentation']//input[@name='role']/following-sibling::img
 btn_expandIcon						xpath							//td[@align='right']//button/img
-btn_massUpdate						xpath							//button[text()='${btnName}']
 table_ReviewerScoreReport			xpath							//table[contains(@class,'row-table')]
 table_pageination					xpath							//div[contains(@class,'panel-bbar')]//tr[contains(@class,'left-row')]
 input_SaveGridConfig				xpath							//label[contains(text(),'${text}')]/following-sibling::div//input
