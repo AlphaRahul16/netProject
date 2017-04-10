@@ -660,7 +660,7 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.clickOnButtonUnderSessionModule("Cancel");
 	}
 	
-	@Test
+	@Test //passed
 	public void MAPS_Session_1566_Verify_application_adds_a_new_sort_criteria_on_clicking_Add_button(){
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Symposia");
@@ -677,19 +677,19 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.clickOnSaveButton("Close");
 	}
 	
-	//@Test
+	@Test
 	public void MAPS_Session_1569_Verify_application_allows_user_to_delete_the_criteria_added(){
-		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
-		test.maps_sessionpage.clickButtononLeftNavigationPanel("Symposia");
-		test.maps_sessionpage.clickOnArrowButton("Title");		
-		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
-		test.maps_sessionpage.verifyPopupMessage("Sort");
-		test.maps_sessionpage.clickOnAddButton("Add");
-		test.maps_sessionpage.selectColumnForSorting("Creator");
-		//test.maps_sessionpage.clickOnSaveButton("Apply");
+//		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
+//		test.maps_sessionpage.clickButtononLeftNavigationPanel("Symposia");
+//		test.maps_sessionpage.clickOnArrowButton("Title");		
 //		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
 //		test.maps_sessionpage.verifyPopupMessage("Sort");
-//		test.maps_sessionpage.verifyTextUnderMeetingSetup("Creator");
+		test.maps_sessionpage.clickOnAddButton("Add");
+		test.maps_sessionpage.selectColumnForSorting("Creator");
+//		test.maps_sessionpage.clickOnSaveButton("Apply");
+//		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
+//		test.maps_sessionpage.verifyPopupMessage("Sort");
+		test.maps_sessionpage.verifyTextUnderMeetingSetup("Creator");
 		test.maps_sessionpage.selectRoleOnSaveGridConfiguration("Criteria","Creator" );	
 		test.maps_sessionpage.clickOnAddButton("Delete");
 		test.maps_sessionpage.clickOnSaveButton("Close");
