@@ -664,3 +664,38 @@
 [0405/163721.456:ERROR:process_reader_win.cc(233)] ReadMemory at 0x761000 of 61440 bytes failed: Only part of a ReadProcessMemory or WriteProcessMemory request was completed. (0x12B)
 [0405/163721.456:ERROR:crash_report_exception_handler.cc(111)] WriteEverything failed
 [0405/163721.460:ERROR:scoped_process_suspend.cc(38)] NtResumeProcess: An attempt was made to access an exiting process.  (0xc000010a)
+[0407/131159.875:ERROR:process_info.cc(625)] range at 0xff8d7000, size 0x230 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff8dc000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff8d6000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff7ac000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff7a9000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff7a6000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff7a3000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff7af000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff7a0000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff79d000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff79a000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff797000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff794000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff791000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff78e000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff78b000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff788000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff785000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff782000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff77f000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff77c000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff779000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff776000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff773000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff770000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff76d000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff76a000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff767000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff764000, size 0xf84 fully unreadable
+[0407/131159.912:ERROR:process_info.cc(625)] range at 0xff761000, size 0xf84 fully unreadable
+[0407/131159.913:ERROR:process_info.cc(625)] range at 0xff75b000, size 0xf84 fully unreadable
+[0407/131159.913:ERROR:process_info.cc(625)] range at 0xff755000, size 0xf84 fully unreadable
+[0407/131159.913:ERROR:process_info.cc(625)] range at 0xff752000, size 0xf84 fully unreadable
+[0407/131159.913:ERROR:process_info.cc(625)] range at 0xff75e000, size 0xf84 fully unreadable
+[0407/131159.913:ERROR:process_info.cc(625)] range at 0xff74f000, size 0xf84 fully unreadable

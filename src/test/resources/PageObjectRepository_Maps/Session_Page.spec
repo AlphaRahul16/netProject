@@ -49,7 +49,7 @@ chkbox_records                          xpath                               (//d
 listItem_SymposiumType					xpath								//div[contains(@class,'combo-list-item') and contains(text(),'${value}')]
 txt_hostDetails							xpath								//td[contains(@class,'${value}')]/div
 txt_dropField							xpath								//div[@class='x-grid-empty']
-img_loading								xpath								//div[contains(text(),'Loading...')]
+img_loading								xpath								//div[contains(text(),'${text}')]
 btn_remove								xpath								(//button[text()='${btnName}'])[${index}]
 txt_dropField							xpath								//div[@class='x-grid-empty']
 ======================================================================================================================================

@@ -1,5 +1,6 @@
 package com.qait.MAPS.keywords;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -56,8 +57,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public void clickButtononLeftNavigationPanel(String buttonName) {
 		isElementDisplayed("btn_navPanel", buttonName);
 		wait.hardWait(2);
+		// clickUsingXpathInJavaScriptExecutor(element("btn_navPanel",
+		// buttonName));
 		element("btn_navPanel", buttonName).click();
-//		waitForProcessBarToDisappear();
+		waitForProcessBarToDisappear();
 		logMessage("Step : " + buttonName + " button is clicked on left navigation panel\n");
 	}
 
@@ -203,10 +206,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("Step : Clicked on " + fieldname + " checkbox\n");
 	}
 
-	public void selectRoleOnSaveGridConfiguration(String role) {
+	public void selectRoleOnSaveGridConfiguration(String label, String role) {
 		isElementDisplayed("select_role", role);
 		click(element("select_role", role));
-		logMessage("Step : Role is selected as " + role + "\n");
+		logMessage("Step : '"+label+"' is selected as " + role + "\n");
 	}
 
 	public void verifyCreatedFilterIsByDefaultSelected(String filterName) {
@@ -245,10 +248,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	}
 
-	public void verifyProgramIsaddedInTable() {
-		// TODO Auto-generated method stub
-		isElementDisplayed("txt_instruction", "");
-	}
+//	public void verifyProgramIsaddedInTable() {
+//		// TODO Auto-generated method stub
+//		isElementDisplayed("txt_instruction", "");
+//	}
 
 	public void enterFilterText(String drpdwnValue, String filterText) {
 		isElementDisplayed("lnk_filters", drpdwnValue);
@@ -320,13 +323,13 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : Print Selected Button is displayed on Session page\n");
 
 	}
-	
-	public void enterValuesInAddNewHost(String fname, String lname, String email,String institution) {
+
+	public void enterValuesInAddNewHost(String fname, String lname, String email, String institution) {
 		enterValueInInputtextField("session_host_first_name", fname);
 		enterValueInInputtextField("session_host_last_name", lname);
 		enterValueInInputtextField("session_host_institution", institution);
 		enterValueInInputtextField("session_host_email", email);
-		
+
 	}
 
 	public void enterValueInInputtextField(String text, String value) {
@@ -334,76 +337,77 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		element("inp_addHost", text).sendKeys(value);
 		logMessage("STEP: " + value + " is entered as " + text + "\n");
 	}
-	
-	public void verifyInputTextField(String fieldName){
+
+	public void verifyInputTextField(String fieldName) {
 		isElementDisplayed("inp_addHost", fieldName);
-		logMessage("ASSERT PASSED: "+fieldName+" is displayed on page\n");
+		logMessage("ASSERT PASSED: " + fieldName + " is displayed on page\n");
 	}
-	
-	public void verifyRoomIsAdded(String roomName,String venueName){
-		verifyAddedDetails("name",roomName);
-		verifyAddedDetails("venue",venueName);
+
+	public void verifyRoomIsAdded(String roomName, String venueName) {
+		verifyAddedDetails("name", roomName);
+		verifyAddedDetails("venue", venueName);
 	}
-	
-	public void verifyAddedDetails(String classLabel,String expValue){
+
+	public void verifyAddedDetails(String classLabel, String expValue) {
 		wait.hardWait(2);
-		isElementDisplayed("txt_tableResult",classLabel,expValue);
-		logMessage("ASSERT PASSED: "+expValue+" is added in table\n");
+		isElementDisplayed("txt_tableResult", classLabel, expValue);
+		logMessage("ASSERT PASSED: " + expValue + " is added in table\n");
 	}
-	
-	public void selectOptionsUnderColumnHeaders(String option){
-		isElementDisplayed("lnk_filters",option);
-		click(element("lnk_filters",option));
-		logMessage("Step : Clicked on "+option+" option under column headers\n");
+
+	public void selectOptionsUnderColumnHeaders(String option) {
+		isElementDisplayed("lnk_filters", option);
+		click(element("lnk_filters", option));
+		logMessage("Step : Clicked on " + option + " option under column headers\n");
 	}
-	
-	public void selectColumnForSorting(String columnName){
-		isElementDisplayed("lst_column",columnName);
-		click(element("lst_column",columnName));
-		logMessage("Step : "+columnName+" column is selected\n");
+
+	public void selectColumnForSorting(String columnName) {
+		isElementDisplayed("lst_column", columnName);
+		click(element("lst_column", columnName));
+		logMessage("Step : " + columnName + " column is selected\n");
 	}
-	
-	public void clickOnAddButton(String btnName){
-		isElementDisplayed("btn_add",btnName);
-		click(element("btn_add",btnName));
-		logMessage("Step : "+btnName+" button is clicked\n");
+
+	public void clickOnAddButton(String btnName) {
+		isElementDisplayed("btn_add", btnName);
+		click(element("btn_add", btnName));
+		logMessage("Step : " + btnName + " button is clicked\n");
 	}
-	
-	public List<String> getTableData(String index, String columnName){
-		List<String> tableData =new ArrayList<>();
+
+	public List<String> getTableData(String index, String columnName) {
+		List<String> tableData = new ArrayList<>();
 		waitForLoaderToDisappear();
 
 		wait.hardWait(4);
-		isElementDisplayed("txt_tableData",index,columnName);
-		for(WebElement ele:elements("txt_tableData",index,columnName)){
+		isElementDisplayed("txt_tableData", index, columnName);
+		for (WebElement ele : elements("txt_tableData", index, columnName)) {
 			tableData.add(ele.getText().trim());
 		}
 		return tableData;
 	}
-	
-	public void verifyDataIsSorted(List<String> dataBeforeSorting, List<String> dataAfterSorting){
-		int index=0;
+
+	public void verifyDataIsSorted(List<String> dataBeforeSorting, List<String> dataAfterSorting) {
+		int index = 0;
 		Collections.sort(dataBeforeSorting);
-		System.out.println("-----data sorted using sort:"+dataBeforeSorting);
-		System.out.println("-----actual data:"+dataAfterSorting);
-		for(String beforeSorting: dataBeforeSorting){
-			Assert.assertTrue(beforeSorting.equals(dataAfterSorting.get(index)),"ASSERT FAILED: Data is not sorted properly\n");
+		System.out.println("-----data sorted using sort:" + dataBeforeSorting);
+		System.out.println("-----actual data:" + dataAfterSorting);
+		for (String beforeSorting : dataBeforeSorting) {
+			Assert.assertTrue(beforeSorting.equals(dataAfterSorting.get(index)),
+					"ASSERT FAILED: Data is not sorted properly\n");
 			logMessage("ASSERT PASSED: Data is sorted properly\n");
 			index++;
 		}
 	}
-	
-	public void selectLastRecordFromList(){
+
+	public void selectLastRecordFromList() {
 		isElementDisplayed("chkbox_records");
 		click(element("chkbox_records"));
 		logMessage("Step : Last record is clicked from list\n");
 	}
-	
-	public void clickParticularRecordFromList(String recordName){
+
+	public void clickParticularRecordFromList(String recordName) {
 		wait.hardWait(2);
-		isElementDisplayed("chkbox_column",recordName);
-		click(element("chkbox_column",recordName));
-		logMessage("Step : "+recordName+" record is selected from list\n");
+		isElementDisplayed("chkbox_column", recordName);
+		click(element("chkbox_column", recordName));
+		logMessage("Step : " + recordName + " record is selected from list\n");
 	}
 
 	public void enterValuesInCreateSymposium(String symposiumTitle, String symposiumType) {
@@ -418,6 +422,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("Step : a random record is selected from the list with position " + randomnumber);
 		return element("btn_recordsname", toString().valueOf(randomnumber)).getText();
 	}
+
 	public void selectaRecordFromTheList(int number) {
 		isElementDisplayed("chkbox_records");
 		click(elements("chkbox_records").get(number));
@@ -435,7 +440,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void addHostforSymposium() {
-		waitForLoadingImageToDisappear();
+		waitForLoadingImageToDisappear("Loading...");
 		isElementDisplayed("txt_hostDetails", "session_host_last_name");
 
 		WebElement Sourcelocator = elements("txt_hostDetails", "session_host_last_name").get(2);
@@ -444,7 +449,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		WebElement Destinationlocator = element("txt_dropField");
 		dragAndDrop(Sourcelocator, Destinationlocator);
 		wait.hardWait(2);
-		waitForLoadingImageToDisappear();
+		waitForLoadingImageToDisappear("Loading...");
 		// waitForLoaderToDisappear();
 		logMessage("STEP: '" + hostlastname + " is selected as Host \n");
 	}
@@ -468,7 +473,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public void addAbstractsInCurrentlyAssignedAbstractsSection() {
 		isElementDisplayed("btn_navPanel", "Search Results");
 		wait.hardWait(5);
-		waitForLoadingImageToDisappear();
+		waitForLoadingImageToDisappear("Loading...");
 		isElementDisplayed("txt_hostDetails", "title");
 
 		System.out.println("size***************" + elements("txt_hostDetails", "title").size());
@@ -478,7 +483,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		WebElement Destinationlocator = element("txt_dropField");
 		dragAndDrop(Sourcelocator, Destinationlocator);
 		wait.hardWait(2);
-		waitForLoadingImageToDisappear();
+		waitForLoadingImageToDisappear("Loading...");
 	}
 
 	public void clickOnButtonByIndexing(String text) {
@@ -498,10 +503,44 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		click(element("btn_Types", btnName));
 		logMessage("Step : Clicked on " + btnName + "\n");
 	}
+
 	public void verifyDataIsDeleted(String title, String expValue) {
 		waitForLoaderToDisappear();
 		Assert.assertFalse(checkIfElementIsThere("txt_programTableData", title));
 		logMessage("STEP:" + expValue + " is deleted \n");
+	}
+
+	public void verifyValidFileIsDownloaded(String filePath) {
+		wait.hardWait(2);
+		waitForLoadingImageToDisappear("Generating CSV file... Please wait");
+		File sourceFile = new File(filePath);
+		Assert.assertTrue(sourceFile.exists(), "ASSERT FAILED: file is not downloaded \n");
+		logMessage("ASSERT PASSED: '" + filePath + "' is downloaded \n");
+
+	}
+
+	public void _deleteExistingCSVFile(String filePath) {
+		File sourceFile = new File(filePath);
+		if (sourceFile.exists()) {
+			sourceFile.delete();
+			logMessage("STEP: Already Existed File is deleted from location " + sourceFile.getAbsolutePath());
+		}
+	}
+
+	public void clickOnDownloadButtonAndVerifyValidFileIsDownloaded(String btnName, String fileName) {
+		String source = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + fileName
+				+ ".csv";
+		//String source="C:\\Users\\hitasheesil\\Desktop\\ACS Society\\netforumqatests\\src\\test\\resources\\DownloadedFiles\\"+fileName+".csv";
+		System.out.println("source" + source);
+		_deleteExistingCSVFile(source);
+		clickOnButtonUnderSessioning(btnName);
+		wait.hardWait(5);
+		verifyValidFileIsDownloaded(source);
+
+	}
+	public void selectACre (String text){
+		
 	}
 
 }

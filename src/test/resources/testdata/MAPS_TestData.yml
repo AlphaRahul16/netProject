@@ -42,5 +42,9 @@ Session:
       Host_Role: "Organizer"
       Abstract_AuthorFirstName: "Rahul"
       Abstract_AuthorLastName: "Yadav"
+      File_Download_template: "symposia_template"
+      File_Download_resources: "symposia_resources"
+      File_Download_Hosts: "session_hosts"
+      File_Download_Session_Owners: "sessioners"
       
       
