@@ -486,9 +486,9 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		waitForLoadingImageToDisappear("Loading...");
 	}
 
-	public void clickOnButtonByIndexing(String text) {
-		isElementDisplayed("btn_remove", text, "2");
-		click(element("btn_remove", text, "2"));
+	public void clickOnButtonByIndexing(String text,String index) {
+		isElementDisplayed("btn_remove", text, index);
+		click(element("btn_remove", text, index));
 		logMessage("STEP: '" + text + "' button is clicked \n");
 	}
 
@@ -540,6 +540,13 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	}
 	public void selectACre (String text){
+		
+	}
+
+	public void verifyAddedCriteriaIsDeleted(String critiria) {
+
+		Assert.assertFalse(checkIfElementIsThere("select_role", critiria));
+		logMessage("ASSERT PASSED: '"+critiria+"' is deleted \n");
 		
 	}
 
