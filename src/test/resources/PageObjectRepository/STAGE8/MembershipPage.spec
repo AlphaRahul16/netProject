@@ -22,7 +22,7 @@ link_subscriptionInSelectProduct                  id                          HY
 lnk_first_invoice_number                           xpath                        (//table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[1]/a/img)[1]
 txt_priceOrderEntryLineItmes                     xpath                          //a[starts-with(text(),'${itemName}')]/../following-sibling::td[9]/span
 btn_detailsMenuAACT                              xpath                        //span[text()='${menuName}']/../a[1]
-heading_transferPackage                          xpath                         //span[text()='Transfer Package']
+heading_transferPackage                          xpath                         //span[text()='Edit - Membership']
 btn_transferNow                                  id                            TransferMembershipButtonID
 btn_gotorenewal                                  xpath                       (//td[contains(text(),'Active Renewed-No Response')]/preceding-sibling::td[3]//i)[1]
 txt_PaymentStatus                                xpath                        //td[contains(text(),'${productName}')]//following-sibling::td[1]

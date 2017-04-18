@@ -42,7 +42,11 @@ public class ASM_MGMPage extends GetPage {
 
 	public void loginInToApplication(String userName, String password) {
 		wait.waitForPageToLoadCompletely();
-		clickOnLoginLink();
+//		try {
+			clickOnLoginLink();
+//		} catch (NoSuchElementException e) {
+//			logMessage("[Info]: login link is not appears \n");
+//		}
 		enterUserName(userName);
 		enterPassword(password);
 		clickOnLoginButton();
@@ -229,7 +233,7 @@ public class ASM_MGMPage extends GetPage {
 		}
 		Assert.assertTrue(flag, "ASSERT FAILED: nominee status is not same \n");
 		logMessage("ASSERT PASSED: Status of the nominee is " + status + "\n");
-		//return getCurrentURL();
+		// return getCurrentURL();
 	}
 	// public String verifyNomineeStatus(String status, String email) {
 	// System.out.println("status" + status);
@@ -272,10 +276,10 @@ public class ASM_MGMPage extends GetPage {
 	}
 
 	public void verifyStatusAfterClickResend(String email, String status) {
-		
+
 		clickOnNomineeStatus(email);
 		verifyNomineeStatus(status, email);
-		//return getCurrentURL();
+		// return getCurrentURL();
 	}
 
 	public void clickOnApplyForACSMembership() {
@@ -285,18 +289,18 @@ public class ASM_MGMPage extends GetPage {
 		if (isBrowser("ie") || isBrowser("internet explorer")) {
 			clickUsingXpathInJavaScriptExecutor(element("link_applyACSmembership", "Apply for ACS Membership"));
 		} else
-			element("link_applyACSmembership", "Apply for ACS Membership").click();		
+			element("link_applyACSmembership", "Apply for ACS Membership").click();
 		logMessage("STEP: 'Apply for ACS Mambership' link is clicked \n");
 	}
 
 	public void clickOnRenewYourMembershipNow() {
 		isElementDisplayed("link_applyACSmembership", "Renew your membership now");
 		logMessage("ASSERT PASSED:Renew your membership now link is present \n");
-		if (isBrowser("ie")|| isBrowser("internet explorer")) {
+		if (isBrowser("ie") || isBrowser("internet explorer")) {
 			clickUsingXpathInJavaScriptExecutor(element("link_applyACSmembership", "Renew your membership now"));
 		} else {
 			element("link_applyACSmembership", "Renew your membership now").click();
-		}		
+		}
 		wait.waitForPageToLoadCompletely();
 		logMessage("STEP: 'Renew your membership now' link is clicked \n");
 	}
@@ -324,7 +328,8 @@ public class ASM_MGMPage extends GetPage {
 	}
 
 	public void clickOnresendLink(String resendCount, String MGMpageURL, String uniqueEmail, String IWEBurl,
-			String fname, String lname, List<String> ewebStatus, List<String> IwebStatus,String webLogin,String logoutURL) {
+			String fname, String lname, List<String> ewebStatus, List<String> IwebStatus, String webLogin,
+			String logoutURL) {
 		membershipPageIweb = new MembershipPageActions_IWEB(driver);
 		// nomineeStatusMap.put(1, nomineeStatus[0]);
 		// nomineeStatusMap.put(2, nomineeStatus[1]);
@@ -355,18 +360,20 @@ public class ASM_MGMPage extends GetPage {
 		List<String> uniqueEmails = getAllInvitees();
 		List<String> notfoundEmails = new ArrayList<>();
 
-		boolean flag = true;int i=0;String nomineeStatus= "";
+		boolean flag = true;
+		int i = 0;
+		String nomineeStatus = "";
 		for (String email : emails) {
 			if (uniqueEmails.contains(email.trim())) {
-				try{
+				try {
 					nomineeStatus = element("link_nomineeStatus", email).getText().trim();
-					System.out.println("nomineeStatus*******"+nomineeStatus);
-				}catch(NoSuchElementException e){
+					System.out.println("nomineeStatus*******" + nomineeStatus);
+				} catch (NoSuchElementException e) {
 					clickOnPageLinkOnMGM(i);
 					nomineeStatus = element("link_nomineeStatus", email).getText().trim();
-					System.out.println("nomineeStatus*******"+nomineeStatus);
-				}		
-				
+					System.out.println("nomineeStatus*******" + nomineeStatus);
+				}
+
 				Assert.assertEquals(nomineeStatus, status);
 				logMessage("ASSERT PASSED: Nominee status is " + status + " for " + email + " member \n ");
 			} else {
@@ -387,21 +394,21 @@ public class ASM_MGMPage extends GetPage {
 
 	private List<String> getAllInvitees() {
 		List<String> uniqueEmails = new ArrayList<>();
-		
-		 int pageLinkSize = elements("link_pages").size();
+
+		int pageLinkSize = elements("link_pages").size();
 		int i = 0;
-		 do {
-		for (int count = 0; count < elements("lbl_nomineeEmail").size(); count++) {
-			isElementDisplayed("lbl_nomineeEmail");
-			wait.hardWait(2);
-			uniqueEmails.add(elements("lbl_nomineeEmail").get(count).getText().trim());
-		}
-		 i++;
-		 if (i > pageLinkSize) {
-		 break;
-		 }
-		 clickOnPageLinkOnMGM(i);
-		 } while (i <= pageLinkSize);
+		do {
+			for (int count = 0; count < elements("lbl_nomineeEmail").size(); count++) {
+				isElementDisplayed("lbl_nomineeEmail");
+				wait.hardWait(2);
+				uniqueEmails.add(elements("lbl_nomineeEmail").get(count).getText().trim());
+			}
+			i++;
+			if (i > pageLinkSize) {
+				break;
+			}
+			clickOnPageLinkOnMGM(i);
+		} while (i <= pageLinkSize);
 		return uniqueEmails;
 	}
 
@@ -419,15 +426,16 @@ public class ASM_MGMPage extends GetPage {
 	}
 
 	public void clickOnlogoutButton(String logoutUrl) {
-		if(ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage2")){
+		if (ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage2")
+				|| ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage8")) {
 			isElementDisplayed("btn_myAccount");
-			click(element("btn_myAccount"));			
-			isElementDisplayed("link_applyACSmembership","Log Out");
-			clickUsingXpathInJavaScriptExecutor(element("link_applyACSmembership","Log Out"));
+			click(element("btn_myAccount"));
+			isElementDisplayed("link_applyACSmembership", "Log Out");
+			clickUsingXpathInJavaScriptExecutor(element("link_applyACSmembership", "Log Out"));
 			wait.waitForPageToLoadCompletely();
-			//elements("link_applyACSmembership","Log Out").get(0).click();
+			// elements("link_applyACSmembership","Log Out").get(0).click();
 			logMessage("STEP: Log out button is clicked \n");
-		}else{
+		} else {
 			launchUrl(logoutUrl);
 			logMessage("STEP: Log out URL is launched \n");
 		}

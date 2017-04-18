@@ -25,6 +25,7 @@ app_url_ScarfReviewing: https://www.ewebtest.acs.org/NFStage8/studentchaptersrev
 app_url_MyAccount: https://aemwwwtst.acs.org/content/acs/en.html
 app_url_IwebMyAccount: https://stag-12iweb/NFStage8/iweb
 app_url_MyAccountNewUser: https://accounttest.acs.org/ssoamweb/account/signUp
+#app_url_AACT_OMR: https://www.ewebtest.acs.org/NFStage8/aactomr
 app_url_AACT_OMR: https://renewtest.teachchemistry.org/NFStage8/aactomr
 app_url_SourceCodeOMA: https://jointest.acs.org/NFStage8/oma?sc=
 app_url_MGMUrl: https://www.ewebtest.acs.org/NFStage8/mgm

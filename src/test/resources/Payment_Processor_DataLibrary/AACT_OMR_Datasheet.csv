@@ -1,5 +1,5 @@
 caseID	 caseID Execute	How do you want to receive ChemMatters?	Gender	Payment_Method	Visa/MC_Card_Number	AMEX_Card_Number	Discover_Card_Number	Diners_Card_Number	Expiry_Month	Expiry_Year	CVV_Number	Experience	GradMonth	GradYear
-1	Yes	Print	Male	Visa/MC	4457010000000009				12	2018	349	11	August	2018
+1	Yes	None	Male	Visa/MC	4457010000000009				12	2018	349	11	August	2018
 2	No	Electronic	Female	Visa/MC	5112000100000000				12	2022	123	11	August	2018
 3	No	Print and Electronic	Prefer Not to Say	AMEX		375000026600004			12	2022	421	11	August	2018
 4	No	None	Female	Discover			6011010000000000		12	2022	758	11	August	2018
