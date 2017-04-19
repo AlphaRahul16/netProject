@@ -80,8 +80,11 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		case "Found In":
 			isElementDisplayed("comboBox_reviewPage", fieldName);
 			click(element("comboBox_reviewPage", fieldName));
-			Assert.assertTrue(elements("list_drpdwnoptions").size() > 0,
+
+			Assert.assertTrue(elements("list_gripConfig").size() > 0,
 					" no option available on clicking dropdown " + fieldName);
+			// Assert.assertTrue(elements("list_drpdwnoptions").size() > 0,
+			// " no option available on clicking dropdown " + fieldName);
 			click(element("comboBox_reviewPage", fieldName));
 			break;
 
@@ -218,6 +221,11 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		String value = elements("list_gripConfig").get(3).getText();
 		click(elements("list_gripConfig").get(3));
 		logMessage("STEP: " + value + " is selected for Session Detail Type \n");
+	}
+
+	public void verifySuccessMessage(String msg) {
+		Assert.assertTrue(isElementDisplayed("txt_sucessMsg", msg));
+		logMessage("ASSERT PASSED: Sucess message '" + msg + "' is displayed \n");
 	}
 
 }

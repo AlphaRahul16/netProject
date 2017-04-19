@@ -4,8 +4,11 @@ import static com.qait.automation.TestSessionInitiator._getSessionConfig;
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +20,7 @@ import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 
 public class DataProvider {
 	static String ASM_dataSheet = YamlReader.getYamlValue("ASM_Data_File.path");
-	static String ASM_dataSheetSeparator = YamlReader
-			.getYamlValue("ASM_Data_File.data-separator");
+	static String ASM_dataSheetSeparator = YamlReader.getYamlValue("ASM_Data_File.data-separator");
 	static int count;
 
 	static String csvSeparator = getYamlValue("csv-data-file.data-separator");
@@ -27,11 +29,10 @@ public class DataProvider {
 	public DataProvider() {
 	}
 
-	public static String getSpecificColumnFromCsvLine(String csvLine,
-			String csvSeparator, int columnNumber) {
+	public static String getSpecificColumnFromCsvLine(String csvLine, String csvSeparator, int columnNumber) {
 		String returnStr = ""; // return blank if value / column not present
 		try {
-	      
+
 			returnStr = csvLine.split(csvSeparator)[columnNumber];
 			returnStr = returnStr.replaceAll("\"", "").trim();
 		} catch (ArrayIndexOutOfBoundsException ex) {
@@ -39,22 +40,21 @@ public class DataProvider {
 			// "Column Number "
 			// + columnNumber
 			// +
-			// " in the data csv file is empty . Please check your test script OR keyword",
+			// " in the data csv file is empty . Please check your test script
+			// OR keyword",
 			// true);
 		}
 
 		return returnStr;
 	}
 
-	public static String csvReaderRowSpecific(String csvFile, String hasHeader,
-			String rowNumberExact) {
+	public static String csvReaderRowSpecific(String csvFile, String hasHeader, String rowNumberExact) {
 		BufferedReader br = null;
 		ArrayList<String> dataRows = new ArrayList<>();
 		String line = "";
 		try {
 			br = new BufferedReader(new FileReader(csvFile));
-			if (hasHeader.equalsIgnoreCase("yes")
-					|| hasHeader.equalsIgnoreCase("true")) {
+			if (hasHeader.equalsIgnoreCase("yes") || hasHeader.equalsIgnoreCase("true")) {
 				br.readLine();// in case first line is header in the csv file
 			}
 			while ((line = br.readLine()) != null) {
@@ -80,8 +80,7 @@ public class DataProvider {
 	public static int getColumnNumber(String columnName) {
 		String csvdatafilepath = getYamlValue("csv-data-file.path_OMA");
 		String csvSeparator = getYamlValue("csv-data-file.data-separator");
-		String firstCSVLine = csvReaderRowSpecific(csvdatafilepath, "false",
-				"1");
+		String firstCSVLine = csvReaderRowSpecific(csvdatafilepath, "false", "1");
 		String[] arr = firstCSVLine.split(csvSeparator);
 		for (int i = 0; i <= arr.length - 1; i++) {
 			if (arr[i].trim().equalsIgnoreCase(columnName)) {
@@ -92,16 +91,14 @@ public class DataProvider {
 
 	}
 
-	public static int getTotalNumberOfRowsInSheet(String csvFile,
-			String hasHeader) {
+	public static int getTotalNumberOfRowsInSheet(String csvFile, String hasHeader) {
 		count = 0;
 		BufferedReader br = null;
 
 		String line = "";
 		try {
 			br = new BufferedReader(new FileReader(csvFile));
-			if (hasHeader.equalsIgnoreCase("yes")
-					|| hasHeader.equalsIgnoreCase("true")) {
+			if (hasHeader.equalsIgnoreCase("yes") || hasHeader.equalsIgnoreCase("true")) {
 				br.readLine();// in case first line is header in the csv file
 			}
 			while ((line = br.readLine()) != null) {
@@ -126,8 +123,7 @@ public class DataProvider {
 	public static int getColumnNumberForPriceValue(String columnName) {
 		String csvdatafilepath = getYamlValue("csv-data-file.path_PriceValue");
 		String csvSeparator = getYamlValue("csv-data-file.data-separator");
-		String firstCSVLine = csvReaderRowSpecific(csvdatafilepath, "false",
-				"1");
+		String firstCSVLine = csvReaderRowSpecific(csvdatafilepath, "false", "1");
 		String[] arr = firstCSVLine.split(csvSeparator);
 		for (int i = 0; i <= arr.length - 1; i++) {
 			if (arr[i].trim().equalsIgnoreCase(columnName)) {
@@ -141,8 +137,7 @@ public class DataProvider {
 	public static int getColumnNumber_AACTOMA(String columnName) {
 		String csvdatafilepath = getYamlValue("csv-data-file.path_AACT_OMA");
 		String csvSeparator = getYamlValue("csv-data-file.data-separator");
-		String firstCSVLine = csvReaderRowSpecific(csvdatafilepath, "false",
-				"1");
+		String firstCSVLine = csvReaderRowSpecific(csvdatafilepath, "false", "1");
 		String[] arr = firstCSVLine.split(csvSeparator);
 		for (int i = 0; i <= arr.length - 1; i++) {
 			if (arr[i].trim().equalsIgnoreCase(columnName)) {
@@ -156,8 +151,7 @@ public class DataProvider {
 	public static int getColumnNumber_ACS_Store(String columnName) {
 		String csvdatafilepath = getYamlValue("csv-data-file.path_ACS_Store");
 		String csvSeparator = getYamlValue("csv-data-file.data-separator");
-		String firstCSVLine = csvReaderRowSpecific(csvdatafilepath, "false",
-				"1");
+		String firstCSVLine = csvReaderRowSpecific(csvdatafilepath, "false", "1");
 		String[] arr = firstCSVLine.split(csvSeparator);
 		for (int i = 0; i <= arr.length - 1; i++) {
 			if (arr[i].trim().equalsIgnoreCase(columnName)) {
@@ -171,8 +165,7 @@ public class DataProvider {
 	public static int getColumnNumber_ACS_Giving(String columnName) {
 		String csvdatafilepath = getYamlValue("csv-data-file.path_giving_donate");
 		String csvSeparator = getYamlValue("csv-data-file.data-separator");
-		String firstCSVLine = csvReaderRowSpecific(csvdatafilepath, "false",
-				"1");
+		String firstCSVLine = csvReaderRowSpecific(csvdatafilepath, "false", "1");
 		String[] arr = firstCSVLine.split(csvSeparator);
 		for (int i = 0; i <= arr.length - 1; i++) {
 			if (arr[i].trim().equalsIgnoreCase(columnName)) {
@@ -183,14 +176,14 @@ public class DataProvider {
 
 	}
 
-	public static int getColumnNumber_CreateMember(String columnName,String sheetPath) {
-//		String csvdatafilepath = getYamlValue("csv-data-file.path_createMember");
+	public static int getColumnNumber_CreateMember(String columnName, String sheetPath) {
+		// String csvdatafilepath =
+		// getYamlValue("csv-data-file.path_createMember");
 		String csvdatafilepath = sheetPath;
 		String csvSeparator = getYamlValue("csv-data-file.data-separator");
-		String firstCSVLine = csvReaderRowSpecific(csvdatafilepath, "false",
-				"1");
+		String firstCSVLine = csvReaderRowSpecific(csvdatafilepath, "false", "1");
 		String[] arr = firstCSVLine.split(csvSeparator);
-		for (int i = 0; i <= arr.length - 1; i++) {		
+		for (int i = 0; i <= arr.length - 1; i++) {
 			if (arr[i].replaceAll("\"", "").trim().equalsIgnoreCase(columnName)) {
 				return i;
 			}
@@ -220,8 +213,7 @@ public class DataProvider {
 			int rowIndex = 1;
 			while ((line = br.readLine()) != null) {
 				dataRows.add(line);
-				if (line.split(ASM_dataSheetSeparator)[0]
-						.equalsIgnoreCase(rowId))
+				if (line.split(ASM_dataSheetSeparator)[0].equalsIgnoreCase(rowId))
 					rowNumber = rowIndex;
 				rowIndex++;
 			}
@@ -248,36 +240,31 @@ public class DataProvider {
 		return columnData.replace("\\\"", "\"");
 	}
 
-	public static List<String> getcaseIdToExecute(String executeColumnName,
-			String executeColumnValue, String caseIdColumnName, String sheetName) {
+	public static List<String> getcaseIdToExecute(String executeColumnName, String executeColumnValue,
+			String caseIdColumnName, String sheetName) {
 		int caseCount = 0;
 		String sheetPath;
 		listOfCaseIdToExecute.removeAll(listOfCaseIdToExecute);
 		YamlReader.setYamlFilePath();
 		String csvSeparator = getYamlValue("csv-data-file.data-separator");
 
-		sheetPath=getCsvSheetPath(sheetName);
-		int totalNumberOfRows = getTotalNumberOfRowsInSheet(
-				sheetPath, "true");
+		sheetPath = getCsvSheetPath(sheetName);
+		int totalNumberOfRows = getTotalNumberOfRowsInSheet(sheetPath, "true");
 		for (int i = 1; i <= totalNumberOfRows; i++) {
-			String csvLine = csvReaderRowSpecific(
-					sheetPath, "true",
-					String.valueOf(i));
+			String csvLine = csvReaderRowSpecific(sheetPath, "true", String.valueOf(i));
 
 			String value = getSpecificColumnFromCsvLine(csvLine, csvSeparator,
-					getColumnNumber_CreateMember(executeColumnName,sheetPath));
+					getColumnNumber_CreateMember(executeColumnName, sheetPath));
 
 			if (value.contains(executeColumnValue)) {
-				String csvLine1 = csvReaderRowSpecific(
-						sheetPath,"true", String.valueOf(i));
-				String value1 = DataProvider.getSpecificColumnFromCsvLine(
-						csvLine1, csvSeparator,
-						getColumnNumber_CreateMember(caseIdColumnName,sheetPath));
+				String csvLine1 = csvReaderRowSpecific(sheetPath, "true", String.valueOf(i));
+				String value1 = DataProvider.getSpecificColumnFromCsvLine(csvLine1, csvSeparator,
+						getColumnNumber_CreateMember(caseIdColumnName, sheetPath));
 				listOfCaseIdToExecute.add(value1);
 				caseCount++;
 			}
 		}
-		System.out.println("list "+listOfCaseIdToExecute.size());
+		System.out.println("list " + listOfCaseIdToExecute.size());
 
 		return listOfCaseIdToExecute;
 	}
@@ -287,8 +274,7 @@ public class DataProvider {
 	}
 
 	public static List<String> getIndividualLandingPageData() {
-		return getcaseIdToExecute("caseID Execute", "Yes", "caseID",
-				"landingPage");
+		return getcaseIdToExecute("caseID Execute", "Yes", "caseID", "landingPage");
 	}
 
 	public static String getRandomSpecificLineFromTextFile(String FileName) {
@@ -313,8 +299,7 @@ public class DataProvider {
 		}
 
 		try {
-			it = IOUtils.lineIterator(new BufferedReader(new FileReader(
-					FileName)));
+			it = IOUtils.lineIterator(new BufferedReader(new FileReader(FileName)));
 		} catch (FileNotFoundException e1) {
 
 			e1.printStackTrace();
@@ -332,16 +317,33 @@ public class DataProvider {
 
 		return line;
 	}
-	
-	public static String getCsvSheetPath(String sheetName){
+
+	public static String getCsvSheetPath(String sheetName) {
 		String sheetPath;
-		if(_getSessionConfig().get("tier").equalsIgnoreCase("stage8")){ //_getSessionConfig().get("tier").equalsIgnoreCase("dev9")||
-			sheetPath=getYamlValue("csv-data-file.path_" + sheetName);
-			sheetPath=sheetPath.replace("TestDataLibrary", "Payment_Processor_DataLibrary");
-		}
-		else
-			sheetPath=getYamlValue("csv-data-file.path_" + sheetName);
-	    return sheetPath;
+		if (_getSessionConfig().get("tier").equalsIgnoreCase("stage8")) { // _getSessionConfig().get("tier").equalsIgnoreCase("dev9")||
+			sheetPath = getYamlValue("csv-data-file.path_" + sheetName);
+			sheetPath = sheetPath.replace("TestDataLibrary", "Payment_Processor_DataLibrary");
+		} else
+			sheetPath = getYamlValue("csv-data-file.path_" + sheetName);
+		return sheetPath;
 	}
-	
+
+	public static void writeDataInAlreadyExistingCSVFile(String sheetpath, String data) {
+		File dir = new File(".");
+		// String sheetpath = "C:\\Users\\hitasheesil\\Downloads\\" +
+		// "decision_template.csv";
+		System.out.println("loc" + sheetpath);
+		FileWriter fstream;
+		try {
+			fstream = new FileWriter(sheetpath, true);
+			BufferedWriter out = new BufferedWriter(fstream);
+			out.write(data);
+			out.newLine();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 }

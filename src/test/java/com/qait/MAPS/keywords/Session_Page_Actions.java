@@ -19,11 +19,13 @@ import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.thoughtworks.selenium.webdriven.commands.IsElementPresent;
+import com.qait.automation.utils.DataProvider;
 import com.qait.automation.utils.DateUtil;
 
 public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	WebDriver driver;
+	private String downloadedFilePath;
 	static String pagename = "Session_Page";
 
 	public Session_Page_Actions(WebDriver driver) {
@@ -162,13 +164,13 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("STEP: " + value + " is selected as " + label + " \n");
 	}
 
-	// public void selectValueForSessionDetailType(String value) {
-	// //isElementDisplayed("")
-	// isElementDisplayed("inp_sessionType", "session_detail_type_id");
-	// element("inp_sessionType", "session_detail_type_id").sendKeys(value);
-	// wait.hardWait(5);
-	// logMessage("STEP: Session Detailed Type is selected as " + value + "\n");
-	// }
+//	public void selectValueForSessionDetailType(String value) {
+//
+//		isElementDisplayed("inp_sessionType", "session_detail_type_id");
+//		element("inp_sessionType", "session_detail_type_id").sendKeys(value);
+//		wait.hardWait(5);
+//		logMessage("STEP: Session Detailed Type is selected as " + value + "\n");
+//	}
 
 	public void verifyApplicationShouldAddSessionDetailType(String testType, String colorCode, String sessionType) {
 		verifyDataOfTypePage(testType, colorCode, "Color Code");
@@ -209,7 +211,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public void selectRoleOnSaveGridConfiguration(String label, String role) {
 		isElementDisplayed("select_role", role);
 		click(element("select_role", role));
-		logMessage("Step : '"+label+"' is selected as " + role + "\n");
+		logMessage("Step : '" + label + "' is selected as " + role + "\n");
 	}
 
 	public void verifyCreatedFilterIsByDefaultSelected(String filterName) {
@@ -248,10 +250,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	}
 
-//	public void verifyProgramIsaddedInTable() {
-//		// TODO Auto-generated method stub
-//		isElementDisplayed("txt_instruction", "");
-//	}
+	// public void verifyProgramIsaddedInTable() {
+	// // TODO Auto-generated method stub
+	// isElementDisplayed("txt_instruction", "");
+	// }
 
 	public void enterFilterText(String drpdwnValue, String filterText) {
 		isElementDisplayed("lnk_filters", drpdwnValue);
@@ -486,7 +488,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		waitForLoadingImageToDisappear("Loading...");
 	}
 
-	public void clickOnButtonByIndexing(String text,String index) {
+	public void clickOnButtonByIndexing(String text, String index) {
 		isElementDisplayed("btn_remove", text, index);
 		click(element("btn_remove", text, index));
 		logMessage("STEP: '" + text + "' button is clicked \n");
@@ -528,25 +530,38 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnDownloadButtonAndVerifyValidFileIsDownloaded(String btnName, String fileName) {
-		String source = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+		downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
 				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + fileName
 				+ ".csv";
-		//String source="C:\\Users\\hitasheesil\\Desktop\\ACS Society\\netforumqatests\\src\\test\\resources\\DownloadedFiles\\"+fileName+".csv";
-		System.out.println("source" + source);
-		_deleteExistingCSVFile(source);
+		// String source="C:\\Users\\hitasheesil\\Desktop\\ACS
+		// Society\\netforumqatests\\src\\test\\resources\\DownloadedFiles\\"+fileName+".csv";
+		System.out.println("source" + downloadedFilePath);
+		_deleteExistingCSVFile(downloadedFilePath);
 		clickOnButtonUnderSessioning(btnName);
 		wait.hardWait(5);
-		verifyValidFileIsDownloaded(source);
+		verifyValidFileIsDownloaded(downloadedFilePath);
 
-	}
-	public void selectACre (String text){
-		
 	}
 
 	public void verifyAddedCriteriaIsDeleted(String critiria) {
 
 		Assert.assertFalse(checkIfElementIsThere("select_role", critiria));
-		logMessage("ASSERT PASSED: '"+critiria+"' is deleted \n");
+		logMessage("ASSERT PASSED: '" + critiria + "' is deleted \n");
+
+	}
+
+	public void importValidFile(String abstractId) {
+		String data = abstractId + ",Reject";
+		DataProvider.writeDataInAlreadyExistingCSVFile(downloadedFilePath, data);
+		importFileWithValidData();
+		clickOnButtonUnderSessionModule("Import");
+	}
+
+	private void importFileWithValidData() {
+		isElementDisplayed("inp_sessionType", "FILE_UPLOAD_FIELD");
+		element("inp_sessionType", "FILE_UPLOAD_FIELD").sendKeys(downloadedFilePath);
+		wait.hardWait(5);
+		logMessage("STEP: File is imported after adding valid data \n");
 		
 	}
 

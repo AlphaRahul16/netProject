@@ -184,7 +184,7 @@ public class Maps_Submission_Test extends BaseTest {
 
 	@Test
 	public void Test19_MAPS_230_Verify_Status_Of_Submitted_Abstract_Changed_To_UnderReview() {
-		test.maps_submissionPage.verifyStatusOfSubmittedAbstract("subs",programName,"Under Review");
+		test.maps_submissionPage.verifyStatusOfSubmittedAbstract("subs",programName,"Under Review","1");
 	}
 
 	@Test

@@ -53,7 +53,6 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		selectSymposium();
 		selectPresentationType("sub_type", sciMix);
 
-
 	}
 
 	public void clickOnNamedButton(String linkName) {
@@ -67,7 +66,7 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 
 	public void verifyPageHeaderForASection(String header) {
 		wait.hardWait(5);
-		dynamicWait(20,"txt_pageHeader", "");
+		dynamicWait(20, "txt_pageHeader", "");
 		isElementDisplayed("txt_pageHeader");
 		System.out.println(element("txt_pageHeader").getText().trim());
 		Assert.assertTrue(element("txt_pageHeader").getText().trim().contains(header));
@@ -102,43 +101,40 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		wait.hardWait(4);
 		isElementDisplayed("btn_activeProgram");
 		sizeofActivePrograms = elements("btn_activeProgram").size();
-		randomProg=ASCSocietyGenericPage.generateRandomNumberWithInRange(0, (sizeofActivePrograms-1));
+		randomProg = ASCSocietyGenericPage.generateRandomNumberWithInRange(0, (sizeofActivePrograms - 1));
 		click(elements("btn_activeProgram").get(randomProg));
 		logMessage("Step : Active Submission program is selected\n");
 		return randomProg;
 	}
-	public String getSelectedProgramName(int index)
-	{
-		String programName=null,programid;
+
+	public String getSelectedProgramName(int index) {
+		String programName = null, programid;
 		boolean flag;
-		//includeJquery();
-		//programid=executeJqueryAndReturnString("window.jQuery('input[name=XIK_SELECTED_ROLE_ID]:checked').attr('id')");
+		// includeJquery();
+		// programid=executeJqueryAndReturnString("window.jQuery('input[name=XIK_SELECTED_ROLE_ID]:checked').attr('id')");
 		for (WebElement element : elements("btn_activeProgram")) {
-			programid=element.getAttribute("id");
-			flag=(boolean) executeJavascriptReturnValue("document.getElementById('"+programid+"').checked");
-			if(flag)
-			{
-				System.out.println(element("txt_activeProgramName",programid).getText().trim());
-				programName=element("txt_activeProgramName",programid).getText().trim();
-			}
-			else
-			{
+			programid = element.getAttribute("id");
+			flag = (boolean) executeJavascriptReturnValue("document.getElementById('" + programid + "').checked");
+			if (flag) {
+				System.out.println(element("txt_activeProgramName", programid).getText().trim());
+				programName = element("txt_activeProgramName", programid).getText().trim();
+			} else {
 				System.out.println("Not found");
 			}
-//		System.out.println(element.getCssValue("checked"));
-//		System.out.println(element.ge);
+			// System.out.println(element.getCssValue("checked"));
+			// System.out.println(element.ge);
 		}
-		//executeJavascript("");
-		//System.out.println(programid);
-		//programName=element("txt_activeProgramName",programid).getText().trim();
-		//logMessage("Step : selected program name is "+programName);
+		// executeJavascript("");
+		// System.out.println(programid);
+		// programName=element("txt_activeProgramName",programid).getText().trim();
+		// logMessage("Step : selected program name is "+programName);
 		return programName;
 	}
 
 	public void clickOnContinueButtonOnProgramArea() {
 		isElementDisplayed("btn_ContinueProgram");
 		wait.hardWait(5);
-	    element("btn_ContinueProgram").click();
+		element("btn_ContinueProgram").click();
 		logMessage("Step : Continue Button on Program Area page is clicked\n");
 
 	}
@@ -328,49 +324,58 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 
 	public void verifyAvailableOptionsForDraftedProgram(String draftoptions, String programName, String sectionId) {
 
-		boolean flag=false;
-		String optionsArray[] = draftoptions.split(",",3);
+		boolean flag = false;
+		String optionsArray[] = draftoptions.split(",", 3);
 		System.out.println("----program name:" + programName);
 
-		for(WebElement ele : elements("sel_Drafts_options", sectionId, programName)){
-			System.out.println("actual:"+ele.getText().trim());
-			for(String str:optionsArray){
-				System.out.println("expected:"+str);
-				if(str.equals(ele.getText().trim())){
-					flag=true;
+		for (WebElement ele : elements("sel_Drafts_options", sectionId, programName)) {
+			System.out.println("actual:" + ele.getText().trim());
+			for (String str : optionsArray) {
+				System.out.println("expected:" + str);
+				if (str.equals(ele.getText().trim())) {
+					flag = true;
 					break;
-				}	
+				}
 			}
-			Assert.assertTrue(flag, "Mentioned option"+ ele.getText().trim()+" is not available under draft options\n");
+			Assert.assertTrue(flag,
+					"Mentioned option" + ele.getText().trim() + " is not available under draft options\n");
 			logMessage("ASSERT PASSED: " + ele.getText().trim() + " option is displayed under draft action\n");
 		}
 
-
-
-		//		for (WebElement ele : elements("sel_Drafts_options", sectionId, programName)) {
-		//			
-		//			System.out.println(ele.getText().trim());
-		//			if(ele.getText().trim().equals(optionsArray[i]))
-		//				flag=true;
-		//			else
-		//			System.out.println("expected:" + optionsArray[0]);
-		//			Assert.assertTrue(ele.getText().trim().equals(optionsArray[0].trim()),
-		//					"Mentioned options are not available under draft options");
-		//			logMessage("ASSERT PASSED: " + ele.getText().trim() + " options is displayed under draft action\n");
-		//		}
+		// for (WebElement ele : elements("sel_Drafts_options", sectionId,
+		// programName)) {
+		//
+		// System.out.println(ele.getText().trim());
+		// if(ele.getText().trim().equals(optionsArray[i]))
+		// flag=true;
+		// else
+		// System.out.println("expected:" + optionsArray[0]);
+		// Assert.assertTrue(ele.getText().trim().equals(optionsArray[0].trim()),
+		// "Mentioned options are not available under draft options");
+		// logMessage("ASSERT PASSED: " + ele.getText().trim() + " options is
+		// displayed under draft action\n");
+		// }
 	}
 
-	public void selectPreDraftedAbstractForEditing(String sectionId,String programName,String draftOption){
-		isElementDisplayed("select_editDraft",sectionId,programName);
-		selectProvidedTextFromDropDown(element("select_editDraft",sectionId,programName), draftOption);
-		logMessage("Step : "+draftOption+" is selected for "+programName+" program\n");
-	}
-	
-	public void verifyStatusOfSubmittedAbstract(String sectionId, String programName, String status){
-		isElementDisplayed("txt_abstractStatus",sectionId,programName);
-		Assert.assertTrue(element("txt_abstractStatus",sectionId,programName).getText().trim().equalsIgnoreCase(status),"ASSERT FAILED: Status of submitted abstract "+programName+" is not "+status+"\n");
-		logMessage("ASSERT PASSED: Status of submitted abstract"+programName+" is "+status+"\n");
+	public void selectPreDraftedAbstractForEditing(String sectionId, String programName, String draftOption) {
+		isElementDisplayed("select_editDraft", sectionId, programName);
+		selectProvidedTextFromDropDown(element("select_editDraft", sectionId, programName), draftOption);
+		logMessage("Step : " + draftOption + " is selected for " + programName + " program\n");
 	}
 
+	public void verifyStatusOfSubmittedAbstract(String sectionId, String programName, String status, String index) {
+		isElementDisplayed("txt_abstractStatus", sectionId, programName, index);
+		Assert.assertTrue(
+				element("txt_abstractStatus", sectionId, programName, index).getText().trim().equalsIgnoreCase(status),
+				"ASSERT FAILED: Status of submitted abstract " + programName + " is not " + status + "\n");
+		logMessage("ASSERT PASSED: Status of submitted abstract" + programName + " is " + status + "\n");
+	}
+
+	public String getIDofAbstract(String subs, String title, String index, String label) {
+		isElementDisplayed("txt_abstractStatus", subs, title, index);
+		String value = element("txt_abstractStatus", subs, title, index).getText().trim();
+		logMessage("Step: '" + label + "' of " + title + " is fetched as " + value + "\n");
+		return value;
+	}
 
 }
