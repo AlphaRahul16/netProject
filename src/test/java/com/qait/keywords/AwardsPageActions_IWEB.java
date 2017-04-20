@@ -580,11 +580,11 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnSearchIcon(int index) {
 		waitForSpinner();
 		wait.hardWait(3);
-		isElementDisplayed("btn_searchNominee", String.valueOf(index));
+		isElementDisplayed("btn_srchNominee", String.valueOf(index));
 		// clickUsingXpathInJavaScriptExecutor(element("btn_searchNominee",
 		// String.valueOf(index)));
 		// hoverClick(element("btn_searchNominee", String.valueOf(index)));
-		element("btn_searchNominee", String.valueOf(index)).click();
+		element("btn_srchNominee", String.valueOf(index)).click();
 		logMessage("STEP : Clicked on Search icon");
 		wait.waitForPageToLoadCompletely();
 	}

@@ -73,6 +73,12 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED: 'Image for " + fieldName + "is not verified \n");
 
 	}
+	
+	public void clickOnCrossImageForNamedDropdown(String dropdownName){
+		isElementDisplayed("img_CrossFilter", dropdownName);
+		click(element("img_CrossFilter", dropdownName));
+		logMessage("Step : cross inage is clicked next to "+dropdownName+" dropdown\n");
+	}
 
 	public void verifyDropDown(String fieldName) {
 

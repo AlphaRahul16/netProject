@@ -12,7 +12,7 @@ import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
 public class Maps_Session_Tests extends BaseTest {
-	private String maps_url, symposiumTitle,selectedsymposia;
+	private String maps_url, symposiumTitle,selectedsymposia,gridName,lastRecordData;
 	private String griduniqueName = "Selenium_Test_Grid_" + System.currentTimeMillis();
 	private String[] roles = { "OPA Staff", "Program Viewer", "Program Chair Sessioning", "Abstract Editor",
 			"Session Admin" };
@@ -27,8 +27,8 @@ public class Maps_Session_Tests extends BaseTest {
 	private String[] optionSessioning = { "Symposia", "Sessions & Events", "Symposia Viewer", "Session Viewer",
 			"Session Builder", "Schedule Sessions", "Abstracts" };
 	private String[] filterDropDownsRoom = { "Add Room", "Delete Room" };
-	private String[] fieldsAddRoom = { "Save", "Cancel" };
-	private String[] filterDropDownRoomAvailability = { "Add Room", "Delete Room" };
+	private String[] fieldsAddRoom = { "Cancel", "Save" };
+	private String[] filterDropDownRoomAvailability = { "Add Availability", "Delete Availability" };
 
 	String roomName;
 
@@ -111,9 +111,9 @@ public class Maps_Session_Tests extends BaseTest {
 	//
 	// }
 
-	// @Test
+	 @Test
 	public void Step_04_MAPS_Session_914_Verify_User_Navigates_To_Room_Availability_Page() {
-		// test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Session");
+		 test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Session");
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Session Admin");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Meeting Setup");
@@ -161,6 +161,14 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_reviewpage.clickOnButton("Save/Edit");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Save Grid Configuration");
 		test.maps_reviewpage.enterDetailsAtSaveGridConfigurationPage("Abstract_" + griduniqueName);
+	}
+	
+//	@Test
+	public void MAPS_Session_17_Verify_Application_Filters_Result_On_Basis_Of_Criteria_For_OPA_Staff() {
+		String recordName=test.maps_sessionpage.getRandomRecordFromTable("6");
+		test.maps_reviewpage.enterValueInFilter(recordName);
+		test.maps_sessionpage.verifyFilterResults(recordName, 1, 7);
+		test.maps_reviewpage.clickOnCrossImageForNamedDropdown("Filter");
 	}
 
 	/**
@@ -228,41 +236,14 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.verifyFieldsOnRoomAvailablityPage("Delete", 1);
 	}
 
-	@Test
+//	@Test
 	public void Step_04_MAPS_Session_93_Verify_Application_Print_Selected_Symposia() {
-		selectedsymposia = test.maps_sessionpage.selectaRandomRecordFromTheList();
+//		selectedsymposia = test.maps_sessionpage.selectaRandomRecordFromTheList();
 		test.maps_sessionpage.clickOnSaveButton("Print Selected");
 	}
-	// @Test
-	// public void
-	// Step_05_MAPS_Session_915_Verify_Sections_Are_Displayed_On_Room_Availability_Page()
-	// {
-	// test.maps_sessionpage.verifySectionsOnRoomAvailabilityPage("Rooms", 1);
-	// test.maps_sessionpage.verifySectionsOnRoomAvailabilityPage("Room
-	// Availability", 2);
-	// }
-	//
-	// @Test
-	// public void
-	// Step_06_MAPS_Session_919_Verify_Fields_Are_Displayed_Under_Rooms_Section()
-	// {
-	// test.maps_sessionpage.verifyFilterDropdwonOnRoomAvailabalityPage(2);
-	// test.maps_sessionpage.verifyFieldsOnRoomAvailablityPage("Save/Edit", 1);
-	// test.maps_sessionpage.verifyFieldsOnRoomAvailablityPage("Delete", 1);
-	// }
-	//
-	// @Test
-	// public void
-	// Step_07_MAPS_Session_920_Verify_Application_Displays_Filter_Results_On_Room_Availability_Page()
-	// {
-	// test.maps_sessionpage.enterProgramName("Test Program BT 033017", 1);
-	// test.maps_sessionpage.clickOnArrowButton("Room Name");
-	// test.maps_sessionpage.enterFilterText("Filters", "Room1");
-	// test.maps_sessionpage.verifyFilterResults("Room1", 1, 3);
-	// }
 
-	//@Test
-	public void Step_07_MAPS_Session_920_Verify_Application_Displays_Filter_Results_On_Room_Availability_Page(){
+	@Test
+	public void Step_07_MAPS_Session_920_Verify_Application_Displays_Filter_Results_Under_Rooms_Section(){
 		test.maps_sessionpage.clickOnDropDownImage(1);
 		test.maps_sessionpage.selectRoleOnSaveGridConfiguration("Test Program BT 033017");
 		test.maps_sessionpage.clickOnArrowButton("Room Name");
@@ -324,6 +305,7 @@ public class Maps_Session_Tests extends BaseTest {
 	public void Step_13_MAPS_Session_984_Verify_User_Is_Able_To_Assign_And_Unassign_Room() {
 		test.maps_sessionpage.clickParticularRecordFromList(roomName);
 		test.maps_sessionpage.selectLastRecordFromList();
+		lastRecordData=test.maps_sessionpage.getCheckedColumnData("last()", "1");
 		test.maps_sessionpage.clickOnSaveButton("Multiple Assign / Unassign");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Assign selected availability to rooms");
 		test.maps_sessionpage.verifyTextUnderMeetingSetup("Successfully Saved");
@@ -344,7 +326,71 @@ public class Maps_Session_Tests extends BaseTest {
 	
 	@Test
 	public void Step_15_MAPS_Session_999_Verify_Buttons_Under_Filter_DropDown_For_Room_Availability() {
+//		test.maps_sessionpage.verifyButtonsOnTypes(filterDropDownRoomAvailability);
 		test.maps_sessionpage.verifyButtonsOnTypes(filterDropDownRoomAvailability);
+	}
+	
+	@Test
+	public void Step_16_MAPS_Session_988_Verify_Application_Displays_Filter_Results_Under_Rooms_Availability_Section() {
+		test.maps_sessionpage.clickOnArrowButton("Day/Date");
+		test.maps_sessionpage.hoverOverColumnHeader("Filters");
+//		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Before");
+		test.maps_sessionpage.hoverOverColumnHeader("After");
+		test.maps_sessionpage.selectCurrentDate();
+		List<String> filteredData=test.maps_sessionpage.getColumnSpecificTableData("td-date");
+		test.maps_sessionpage.verifyRoomsAreFilteredAccordingToDate(filteredData, "After");	
+	}
+	
+//	@Test //unable to locate save button on save grid config pop-up
+	public void Step_17_MAPS_Session_989_Verify_Application_Displays_Filter_Results_Under_Rooms_Availability_Section() {
+		gridName = "Test" + System.currentTimeMillis();
+		test.maps_sessionpage.clickOnSaveAndEditButton("Save/Edit", 2);
+		test.maps_sessionpage.enterNameOnSaveGridConfiguration("Name:", gridName);
+		test.maps_sessionpage.clickCheckboxOnSaveGridConfiguration("Added Filters");
+		test.maps_sessionpage.clickCheckboxOnSaveGridConfiguration("Make available");
+		test.maps_sessionpage.selectRoleOnSaveGridConfiguration("Session Admin");
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Save");
+		test.maps_sessionpage.verifyFilterIsByDefaultSelected(gridName, 4);
+		List<String> filteredData=test.maps_sessionpage.getTableData("1", "4");
+		test.maps_sessionpage.verifyRoomsAreFilteredAccordingToDate(filteredData, "Before");
+	}
+	
+//	@Test
+	public void Step_18_MAPS_Session_992_Verify_User_Is_Able_To_Delete_Selected_Filter() {
+		test.maps_sessionpage.clickOnDropDownImage(4);
+		test.maps_sessionpage.selectRoleOnSaveGridConfiguration(gridName);
+		test.maps_sessionpage.clickOnSaveAndEditButton("Delete", 2);
+		test.maps_sessionpage.clickOnSaveButton("Yes");
+	}
+	
+	@Test
+	public void Step_19_MAPS_Session_1000_Verify_Buttons_Under_Filter_DropDown_For_Room_Availability_Section() {
+		test.maps_sessionpage.verifyFilterDropdwonOnRoomAvailabalityPage(4);
+		test.maps_sessionpage.clickOnSaveButton("Add Availability");
+		test.maps_sessionpage.verifyInputTextField("date");
+		test.maps_sessionpage.verifyInputTextField("start_time");
+		test.maps_sessionpage.verifyInputTextField("end_time");
+		test.maps_sessionpage.verifyButtonsOnTypes(fieldsAddRoom);
+		test.maps_sessionpage.clickOnSaveButton("Cancel");
+	}
+	
+	@Test
+	public void Step_20_MAPS_Session_1031_Verify_Records_Are_Sorted_On_Criteria_Basis_Under_Room_Availability_Section() {
+		List<String> dataBeforeSorting=test.maps_sessionpage.getColumnSpecificTableData("td-date");
+		test.maps_sessionpage.clickOnArrowButton("Day/Date");
+		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
+		test.maps_sessionpage.verifyPopupMessage("Sort");
+		test.maps_sessionpage.clickOnAddButton("Add");
+		test.maps_sessionpage.selectColumnForSorting("Day/Date");//Room Name
+		test.maps_sessionpage.clickOnSaveButton("Apply");
+		List<String> dataAfterSorting=test.maps_sessionpage.getColumnSpecificTableData("td-date");
+		test.maps_sessionpage.verifyDataIsSorted(dataBeforeSorting, dataAfterSorting);
+	}
+	
+	@Test
+	public void Step_21_MAPS_Session_1051_Verify_Application_Displays_Added_Room_Availability_Under_Selected_Room() {
+		test.maps_sessionpage.clickOnPlusIcon(roomName);
+		test.maps_sessionpage.verifyAddedDetails("name",lastRecordData);
 	}
 
 //	@Test

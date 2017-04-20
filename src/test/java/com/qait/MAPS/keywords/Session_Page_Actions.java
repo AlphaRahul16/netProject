@@ -3,7 +3,9 @@ package com.qait.MAPS.keywords;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Random;
 
 import org.apache.tools.ant.taskdefs.condition.IsLastModified;
@@ -67,12 +69,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyLeftPanelOptionsOnSessionAdminPage(String[] leftPanelOptions) {
-		// int i = 0;
 		for (String text : leftPanelOptions) {
 			Assert.assertTrue(isElementDisplayed("btn_navPanel", text),
 					" option " + text + " is not displayed on application\n");
-			logMessage("ASSERT PASSED : verified options " + text + " is displayed on session admin page\n");
-			// i++;
+			logMessage("ASSERT PASSED : verified options " + text + " is displayed on page\n");
 		}
 	}
 
@@ -251,14 +251,18 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void enterFilterText(String drpdwnValue, String filterText) {
-		isElementDisplayed("lnk_filters", drpdwnValue);
-		hover(element("lnk_filters", drpdwnValue));
+		hoverOverColumnHeader(drpdwnValue);
 		isElementDisplayed("inp_filtertext");
 		wait.hardWait(2);
 		element("inp_filtertext").clear();
 		click(element("inp_filtertext"));
 		element("inp_filtertext").sendKeys(filterText);
 		logMessage("Step : Filter text is entered as " + filterText + "\n");
+	}
+	
+	public void hoverOverColumnHeader(String drpdwnValue){
+		isElementDisplayed("lnk_filters", drpdwnValue);
+		hover(element("lnk_filters", drpdwnValue));
 	}
 
 	public void enterProgramName(String roomValue, int index) {
@@ -272,8 +276,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		wait.hardWait(4);
 		isElementDisplayed("txt_tableData", String.valueOf(index), String.valueOf(columnIndex));
 		for (WebElement ele : elements("txt_tableData", String.valueOf(index), String.valueOf(columnIndex))) {
-			Assert.assertEquals(ele.getText().trim(), filterResult,
-					"ASSERT FAILED: Filter results does not contains " + filterResult + "\n");
+			Assert.assertTrue(org.apache.commons.lang3.StringUtils.containsIgnoreCase(ele.getText().trim(),filterResult),
+					"ASSERT FAILED: Filter results "+ele.getText().trim()+" does not contains " + filterResult + "\n");
 		}
 		logMessage("ASSERT PASSED: Filter results contains " + filterResult + "\n");
 	}
@@ -285,6 +289,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnButtonUnderSessioning(String btnName) {
+		wait.hardWait(2);
 		isElementDisplayed("btn_Types", btnName);
 		click(element("btn_Types", btnName));
 		logMessage("Step : Clicked on " + btnName + "\n");
@@ -304,7 +309,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 				wait.hardWait(1);
 			}
 		}
-		System.out.println("-----count:" + count);
 		Assert.assertTrue(flag, "ASSERT FAILED: Filter value is not " + filterName + " by default\n");
 		logMessage("ASSERT PASSED: Filter value is " + filterName + " by default\n");
 	}
@@ -336,6 +340,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 	
 	public void verifyInputTextField(String fieldName){
+		wait.hardWait(1);
 		isElementDisplayed("inp_addHost", fieldName);
 		logMessage("ASSERT PASSED: "+fieldName+" is displayed on page\n");
 	}
@@ -381,11 +386,21 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		return tableData;
 	}
 	
+	public List<String> getColumnSpecificTableData(String columnName){
+		wait.hardWait(5);
+		List<String> tableData =new ArrayList<>();
+		isElementDisplayed("table_columnDate",columnName);
+		for(int i=1;i<elements("table_columnDate",columnName).size();i++){
+			tableData.add(elements("table_columnDate",columnName).get(i).getText().trim());
+		}
+		return tableData;
+	}
+	
 	public void verifyDataIsSorted(List<String> dataBeforeSorting, List<String> dataAfterSorting){
 		int index=0;
-		Collections.sort(dataBeforeSorting);
-		System.out.println("-----data sorted using sort:"+dataBeforeSorting);
-		System.out.println("-----actual data:"+dataAfterSorting);
+		dataBeforeSorting=convertDataToLowerCase(dataBeforeSorting);
+		dataAfterSorting=convertDataToLowerCase(dataAfterSorting);
+	    Collections.sort(dataBeforeSorting);
 		for(String beforeSorting: dataBeforeSorting){
 			Assert.assertTrue(beforeSorting.equals(dataAfterSorting.get(index)),"ASSERT FAILED: Data is not sorted properly\n");
 			logMessage("ASSERT PASSED: Data is sorted properly\n");
@@ -393,9 +408,17 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		}
 	}
 	
+	public List<String> convertDataToLowerCase(List<String> arrayList){
+		ListIterator<String> iterator = arrayList.listIterator();
+	    while (iterator.hasNext()){
+	        iterator.set(iterator.next().toLowerCase());
+	     }	
+	    return arrayList;
+	}
+	
 	public void selectLastRecordFromList(){
-		isElementDisplayed("chkbox_records");
-		click(element("chkbox_records"));
+		isElementDisplayed("chkbox_records","last()");
+		click(element("chkbox_records","last()"));
 		logMessage("Step : Last record is clicked from list\n");
 	}
 	
@@ -411,12 +434,20 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		selectValueForSymposium("session_type", symposiumType);
 	}
 
-	public String selectaRandomRecordFromTheList() {
+//	public String selectaRandomRecordFromTheList() {
+//		isElementDisplayed("chkbox_records");
+//		int randomnumber = generateRandomNumberWithInRange(0, (elements("chkbox_records").size()) - 1);
+//		click(elements("chkbox_records").get(randomnumber));
+//		logMessage("Step : a random record is selected from the list with position " + randomnumber);
+//		return element("btn_recordsname", toString().valueOf(randomnumber)).getText();
+//	}
+	
+	public String getRandomRecordFromTable(String columnIndex){
 		isElementDisplayed("chkbox_records");
 		int randomnumber = generateRandomNumberWithInRange(0, (elements("chkbox_records").size()) - 1);
-		click(elements("chkbox_records").get(randomnumber));
-		logMessage("Step : a random record is selected from the list with position " + randomnumber);
-		return element("btn_recordsname", toString().valueOf(randomnumber)).getText();
+		isElementDisplayed("btn_recordsname",String.valueOf(randomnumber),columnIndex);
+		System.out.println("-----random record:"+element("btn_recordsname",String.valueOf(randomnumber),columnIndex).getText().trim());
+		return element("btn_recordsname",String.valueOf(randomnumber),columnIndex).getText().trim();
 	}
 
 	private void selectValueForSymposium(String dropdownName, String symposiumType) {
@@ -492,6 +523,47 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_Types", btnName);
 		click(element("btn_Types", btnName));
 		logMessage("Step : Clicked on " + btnName + "\n");
+	}
+	
+	public void selectCurrentDate(){
+		isElementDisplayed("date_currentDate");
+		click(element("date_currentDate"));
+		logMessage("Step : Selected Current date from Calendar\n");
+	}
+	
+	public void verifyRoomsAreFilteredAccordingToDate(List<String> filteredData,String criteria){
+		System.out.println("-----*****data:"+filteredData);
+		for(String date:filteredData){
+			Date convertedDate=DateUtil.convertStringToDate(date, "E, d MMM yy");	
+			Date currentDate=DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"), "MM/dd/yyyy");
+			Assert.assertTrue(compareDates(convertedDate,currentDate,criteria),"ASSERT PASSED: Filtered Date "+date+" is not "+criteria+" current date\n");
+			logMessage("ASSERT PASSED: Filtered Date "+date+" is "+criteria+" current date\n");
+		}
+	}
+	
+	public boolean compareDates(Date convertedDate, Date currentDate, String criteria){
+		boolean value = false;
+		switch(criteria){
+		case "Before":  value=convertedDate.before(currentDate);
+		                break;
+		case "After":   value=convertedDate.after(currentDate);
+		                break;
+		case "On":  value=convertedDate.equals(currentDate);
+		            break;
+		default: logMessage("Step : Enter correct choice\n");
+		}
+		return value;
+	}
+	
+	public void clickOnPlusIcon(String roomName){
+		isElementDisplayed("btn_add_column",roomName);
+		click(element("btn_add_column",roomName));
+		logMessage("Step : plus icon next to "+roomName+" is expanded\n");
+	}
+	
+	public String getCheckedColumnData(String index1,String index2){
+		isElementDisplayed("txt_chckdColumnData",index1,index2);
+		return element("txt_chckdColumnData",index1,index2).getText().trim();
 	}
 
 }

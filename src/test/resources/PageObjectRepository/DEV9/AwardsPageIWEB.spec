@@ -18,6 +18,7 @@ lbl_addRound                              xpath               span[text()='Add -
 inp_editRound_Judge                       xpath              //label[text()='${labeltext}:']/preceding-sibling::input
 list_awardJudge                           xpath              (//table[@class='DataFormChildTABLE'])[2]//td[starts-with(text(),'Round ${1}')]
 list_selectRoundNumber                    id                  awj_aws_key
+btn_search                                css                .glyphicon.iconpro-search
 img_goToJudge                             xpath               (//td[contains(text(),'@')]/preceding-sibling::td[7]//img)[${indexNumber}]
 link_goToRecord                           xpath               //td[starts-with(text(),'Round ${roundNumber}')]/preceding-sibling::td[1]/a[@title='goto record']
 list_judgeNames_awardJudges				  xpath				  //a[@title='goto record']/../following-sibling::td[1]
@@ -64,7 +65,7 @@ list_resetWinnerStatus                    id                     aws_winner_aww_
 btn_editAwards                            id                   F1_HYPERLINK_0   
 inp_editDateInEditAwards                  xpath                //label[text()='${labelname}:']/preceding-sibling::span/span/input
 btn_plusIconNominee                       xpath                //span[text()="${tabName}"]/../following-sibling::td//a//i
-btn_srchNominee                           xpath                (//input[@class='LookUpHyperLink'])[${index}]
+btn_searchNominee                         xpath                (//input[@class='LookUpHyperLink'])[${index}]
 inp_entryDate                             xpath                //label[text()='${field}:']/preceding-sibling::span//input
 hd_awards                                 xpath                //span[text()='Nominator details']
 inp_lookUp                                xpath                (//input[@class='DataFormTextBox LookUp'])[${index}]
@@ -76,6 +77,7 @@ btn_editJudges                            xpath               //img[@alt='collap
 btn_editChild                             xpath                //span[text()='${childTabName}']/../../following-sibling::tr//tr[position()>1]//i[@class='iconpro-pencil']
 btn_deleteJudge                           id                   ButtonDelete
 drpdwn_selectWinnerCategory               id                   awe_aww_key
- img_valid								  xpath					(//span[text()='${childTabName}']/../../following-sibling::tr//tr[position()>1]//img[@src='../images/img_chkmk.gif'])[${index}]
- img_awardClosed                          xpath                //td[starts-with(text(),'Round ${roundNumber}')]/preceding-sibling::td[1]/following-sibling::td//img
+ img_valid						          xpath					(//span[text()='${childTabName}']/../../following-sibling::tr//tr[position()>1]//img[@src='../images/img_chkmk.gif'])[${index}]
+ img_awardClosed                           xpath                //td[starts-with(text(),'Round ${roundNumber}')]/preceding-sibling::td[1]/following-sibling::td//img
+ btn_search                               css                  .glyphicon.iconpro-search
 ========================================================================================================================================
