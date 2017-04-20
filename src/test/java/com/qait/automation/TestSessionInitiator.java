@@ -26,6 +26,7 @@ import com.qait.automation.utils.ConfigPropertyReader;
 import com.qait.automation.utils.TakeScreenshot;
 import com.qait.automation.utils.YamlReader;
 import com.qait.keywords.*;
+import com.thoughtworks.selenium.condition.DefaultConditionRunner.Log4jMonitor;
 
 public class TestSessionInitiator {
 
@@ -436,6 +437,6 @@ public class TestSessionInitiator {
 
 	public void launchMAPSApplication(String maps_url) {
 		driver.get(maps_url);
-
+		System.out.println("Step: Launched "+maps_url+"\n");
 	}
 }

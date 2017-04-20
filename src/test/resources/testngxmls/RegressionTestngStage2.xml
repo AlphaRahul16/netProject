@@ -84,6 +84,11 @@
 			<class name="com.qait.tests.ACS_AACT_OMR"></class>
 		</classes>
 	</test>
+	<test name="ACS_SourceCodes_Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_SourceCodes_Test"></class>
+		</classes>
+	</test>
 	<test name="ACS MGM Test" group-by-instances="true">
 		<classes>
 			<class name="com.qait.tests.ACS_MGM_Test"></class>

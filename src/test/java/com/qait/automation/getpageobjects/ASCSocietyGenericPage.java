@@ -513,14 +513,15 @@ public class ASCSocietyGenericPage extends GetPage {
 		Actions action = new Actions(driver);
 		action.dragAndDrop(sourceElement, destinationElement).build().perform();
 	}
-	public void waitForLoadingImageToDisappear(){
+
+	public void waitForLoadingImageToDisappear(String loaderText){
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
 			wait.resetImplicitTimeout(4);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
-			isElementDisplayed("img_loading");
-			wait.waitForElementToDisappear(element("img_loading"));
+			isElementDisplayed("img_loading",loaderText);
+			wait.waitForElementToDisappear(element("img_loading",loaderText));
 			logMessage("STEP : Wait for Loading image to be disappeared \n");
 
 		} catch (NoSuchElementException Exp) {

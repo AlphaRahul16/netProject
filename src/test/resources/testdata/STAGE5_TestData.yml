@@ -21,6 +21,8 @@ app_url_Awards: https://ewebtest12.acs.org/NFStage5/awards
 app_url_IwebReporting: https://stag-12iweb/NFStage5/iweb
 app_url_ScarfReviewing: https://www.ewebtest.acs.org/NFStage5/studentchaptersreview
 app_url_EwebReporting: https://ewebtest12.acs.org/NFStage5/studentchaptersonline
+app_url_yellowBook: https://ewebtest.acs.org/NFStage5/yellowbook
+app_url_iweb_yb: https://iwebtest.acs.org/YBStage5/iWeb
 
 Authentication: 
   userName: C00767
