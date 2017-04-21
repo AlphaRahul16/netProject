@@ -49,5 +49,10 @@ Session:
       File_Download_Session_Owners: "sessioners"
   OPA_Staff: 
       File_Downloaded_Name: "abstracts.csv"
+  Session_Events:
+      Title: "Test_Session_Title"
+      Type: "Oral"
+      Duration: "15"
+      Symposia_Submission_Type: "Invited"
       
       

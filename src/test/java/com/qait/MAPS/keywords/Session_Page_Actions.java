@@ -164,13 +164,13 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("STEP: " + value + " is selected as " + label + " \n");
 	}
 
-//	public void selectValueForSessionDetailType(String value) {
-//
-//		isElementDisplayed("inp_sessionType", "session_detail_type_id");
-//		element("inp_sessionType", "session_detail_type_id").sendKeys(value);
-//		wait.hardWait(5);
-//		logMessage("STEP: Session Detailed Type is selected as " + value + "\n");
-//	}
+	// public void selectValueForSessionDetailType(String value) {
+	//
+	// isElementDisplayed("inp_sessionType", "session_detail_type_id");
+	// element("inp_sessionType", "session_detail_type_id").sendKeys(value);
+	// wait.hardWait(5);
+	// logMessage("STEP: Session Detailed Type is selected as " + value + "\n");
+	// }
 
 	public void verifyApplicationShouldAddSessionDetailType(String testType, String colorCode, String sessionType) {
 		verifyDataOfTypePage(testType, colorCode, "Color Code");
@@ -249,11 +249,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED: List of " + text + " is verified \n");
 
 	}
-
-	// public void verifyProgramIsaddedInTable() {
-	// // TODO Auto-generated method stub
-	// isElementDisplayed("txt_instruction", "");
-	// }
 
 	public void enterFilterText(String drpdwnValue, String filterText) {
 		hoverOverColumnHeader(drpdwnValue);
@@ -604,14 +599,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
 				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + fileName
 				+ ".csv";
-		// String source="C:\\Users\\hitasheesil\\Desktop\\ACS
-		// Society\\netforumqatests\\src\\test\\resources\\DownloadedFiles\\"+fileName+".csv";
-		System.out.println("source" + downloadedFilePath);
-		_deleteExistingCSVFile(downloadedFilePath);
-//		clickOnButtonUnderSessioning(btnName);
-//		wait.hardWait(5);
-		verifyValidFileIsDownloaded(downloadedFilePath);
-
+		 _deleteExistingCSVFile(downloadedFilePath);
+		 clickOnButtonUnderSessioning(btnName);
+		 wait.hardWait(5);
+		 verifyValidFileIsDownloaded(downloadedFilePath);
 	}
 
 	public void verifyAddedCriteriaIsDeleted(String critiria) {
@@ -624,16 +615,36 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public void importValidFile(String abstractId) {
 		String data = abstractId + ",Reject";
 		DataProvider.writeDataInAlreadyExistingCSVFile(downloadedFilePath, data);
+		wait.hardWait(5);
 		importFileWithValidData();
-		clickOnButtonUnderSessionModule("Import");
+		//clickOnButtonUnderSessionModule("Import");
 	}
 
 	private void importFileWithValidData() {
-		isElementDisplayed("inp_sessionType", "FILE_UPLOAD_FIELD");
-		element("inp_sessionType", "FILE_UPLOAD_FIELD").sendKeys(downloadedFilePath);
+		isElementDisplayed("inp_fileupload", "Please upload your file:", "1");
+		sendKeysUsingXpathInJavaScriptExecutor(element("inp_fileupload", "Please upload your file", "1"), downloadedFilePath);
+		//element("inp_fileupload", "Please upload your file", "1").sendKeys(downloadedFilePath);
 		wait.hardWait(5);
+		System.out.println("*********downloadedFilePath   " + downloadedFilePath);
 		logMessage("STEP: File is imported after adding valid data \n");
-		
+
+	}
+	
+	public void enterValuesInCreateSession(String sessionName, String sessionDuration,String sessionType,String symposiaSubmissionType) {
+		enterValuesForProgram("session_name", sessionName);
+		enterValuesForProgram("session_duration", sessionDuration);
+		selectValueForSymposium("session_type", sessionType);
+		selectValueForSession("Symposia Submission Type",symposiaSubmissionType);
+	}
+
+	private void selectValueForSession(String text, String symposiaSubmissionType) {
+		isElementDisplayed("drpDown_sympType",text);		
+		click(element("drpDown_sympType",text));
+		logMessage("STEP: '" + text + "' is clicked \n");
+
+		isElementDisplayed("listItem_SymposiumType", symposiaSubmissionType);
+		click(element("listItem_SymposiumType", symposiaSubmissionType));
+		logMessage("STEP: " + symposiaSubmissionType + " is selected \n");
 	}
 	
 	public void verifyColumnHeaders(String columnsList[]){

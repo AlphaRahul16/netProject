@@ -40,4 +40,5 @@ select_editDraft                                    xpath                       
 txt_abstractStatus                                  xpath                            (//table[@id='${subs}']//tr[last()]//td[contains(text(),'${title}')]/following-sibling::td)[${index}]
 btn_edit                                            xpath                            //h3[@id='Step${stepNumber}']/following-sibling::a
 txt_reviewAnswer                                    xpath                            //h3[@id='Step${stepNumber}']/../following-sibling::div//strong[text()='${fieldName}']/../following-sibling::td
-======================================================================================================================================
+txt_abstractStatus                                  xpath                            (//table[@id='${subs}']//tr[last()]//td[contains(text(),'%{title}')]/following-sibling::td)[#{index}]
+==========================================================================================================================================================================================
