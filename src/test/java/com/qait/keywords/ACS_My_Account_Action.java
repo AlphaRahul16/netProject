@@ -277,6 +277,7 @@ public class ACS_My_Account_Action extends ASCSocietyGenericPage{
 	}
 	
 	public void clickOnSideTab(String tabName){
+		wait.hardWait(2);
 		isElementDisplayed("tab_myAccount",tabName);
 		element("tab_myAccount",tabName).click();
 		logMessage("STEP: "+tabName+" side tab is clicked\n");

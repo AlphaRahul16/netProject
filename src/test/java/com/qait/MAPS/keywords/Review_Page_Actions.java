@@ -73,6 +73,12 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED: 'Image for " + fieldName + "is not verified \n");
 
 	}
+	
+	public void clickOnCrossImageForNamedDropdown(String dropdownName){
+		isElementDisplayed("img_CrossFilter", dropdownName);
+		click(element("img_CrossFilter", dropdownName));
+		logMessage("Step : cross inage is clicked next to "+dropdownName+" dropdown\n");
+	}
 
 	public void verifyDropDown(String fieldName) {
 
@@ -80,15 +86,15 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		case "Found In":
 			isElementDisplayed("comboBox_reviewPage", fieldName);
 			click(element("comboBox_reviewPage", fieldName));
-			Assert.assertTrue(elements("list_drpdwnoptions").size() > 0,
+			Assert.assertTrue(elements("list_gripConfig").size() > 0,
 					" no option available on clicking dropdown " + fieldName);
 			click(element("comboBox_reviewPage", fieldName));
 			break;
 
 		case "Records per page":
 			isElementDisplayed("drpdwn_records", fieldName);
-			click(element("drpdwn_records", fieldName));
-			Assert.assertTrue(elements("list_drpdwnoptions").size() > 0,
+			click(element("drpdwn_records", fieldName)); //listItem
+			Assert.assertTrue(elements("listItem").size() > 0,
 					" no option available on clicking dropdown " + fieldName);
 			click(element("drpdwn_records", fieldName));
 			break;
@@ -225,6 +231,9 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("STEP: " + value + " is selected for Session Detail Type \n");
 	}
 
-	
+	public void verifySuccessMessage(String msg) {
+		Assert.assertTrue(isElementDisplayed("txt_sucessMsg", msg));
+		logMessage("ASSERT PASSED: Sucess message '" + msg + "' is displayed \n");
+	}
 
 }

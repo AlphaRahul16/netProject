@@ -802,7 +802,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		}
 
 		float subtotal = verifySubTotalForRenewedProducts(mapRenewedProductDetails);
-		wait.hardWait(2);
+		wait.hardWait(4);
 		switchToEwebRenewalFrame();
 		float total = subtotal + Float.parseFloat(element("txt_ProductTax").getText().replaceAll("[^\\d.]", "").trim())
 				+ Float.parseFloat(

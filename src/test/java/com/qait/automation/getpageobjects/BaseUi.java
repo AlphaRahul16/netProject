@@ -459,7 +459,6 @@ public class BaseUi {
 		String value;
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		value=executor.executeScript("return arguments[0].value;", element).toString();
-		System.out.println("------value:"+value);
 		return value;
 	}
 

@@ -184,7 +184,7 @@ public class Maps_Submission_Test extends BaseTest {
 
 	@Test
 	public void Test19_MAPS_230_Verify_Status_Of_Submitted_Abstract_Changed_To_UnderReview() {
-		test.maps_submissionPage.verifyStatusOfSubmittedAbstract("subs",programName,"Under Review");
+		test.maps_submissionPage.verifyStatusOfSubmittedAbstract("subs",programName,"Under Review","1");
 	}
 
 	@Test
@@ -206,7 +206,7 @@ public class Maps_Submission_Test extends BaseTest {
 	public void Test22_MAPS_243_Verify_Application_Withdrawn_The_Abstract_And_Change_The_Status_To_Author_Withdrawn_On_Clicking_Yes_Button() {
 		test.maps_submissionPage.enterWithdrawReason(YamlReader.getYamlValue("Submission_withdraw_Reason"));
 		test.maps_submissionPage.clickOnNamedButton("Yes");
-		test.maps_submissionPage.verifyStatusOfSubmittedAbstract("subs",programName,"Author Withdrawn");
+		test.maps_submissionPage.verifyStatusOfSubmittedAbstract("subs",programName,"Author Withdrawn","2");
 	}
 
 	@Test

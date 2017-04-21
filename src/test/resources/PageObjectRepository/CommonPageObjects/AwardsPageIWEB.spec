@@ -64,7 +64,7 @@ list_resetWinnerStatus                    id                     aws_winner_aww_
 btn_editAwards                            id                   F1_HYPERLINK_0   
 inp_editDateInEditAwards                  xpath                //label[text()='${labelname}:']/preceding-sibling::span/span/input
 btn_plusIconNominee                       xpath                //span[text()="${tabName}"]/../following-sibling::td//a//i
-btn_searchNominee                         xpath                (//input[@class='LookUpHyperLink'])[${index}]
+btn_srchNominee                           xpath                (//input[@class='LookUpHyperLink'])[${index}]
 inp_entryDate                             xpath                //label[text()='${field}:']/preceding-sibling::span//input
 hd_awards                                 xpath                //span[text()='Nominator details']
 inp_lookUp                                xpath                (//input[@class='DataFormTextBox LookUp'])[${index}]

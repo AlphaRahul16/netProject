@@ -26,8 +26,10 @@ public class SSO_Page_Actions extends ASCSocietyGenericPage {
 	
 	public void loginWithValidCredentials(String userid, String password)
 	{
-		enterLoginFields("LOGIN_USER_ID",userid);
-		enterLoginFields("PASSWORD",password);
+		enterLoginFields("userid",userid);
+		enterLoginFields("password",password);
+		//enterLoginFields("LOGIN_USER_ID",userid);
+		//enterLoginFields("PASSWORD",password);
 		clickLoginButton();
 	}
 

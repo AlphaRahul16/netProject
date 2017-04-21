@@ -29,7 +29,11 @@ inp_sessionType							xpath								//input[@name='${text}']
 tabledata_type							xpath								//div[contains(text(),'${text1}')]/../following-sibling::td/div[contains(text(),'${text2}')]
 list_table								xpath								//td[@role='gridcell']
 img_processbar							xpath								//div[contains(@class,'progress-bar')]
+<<<<<<< HEAD
 listItem_programField					xpath								//div[contains(@class,'combo-list-item')]
+=======
+listItem_programField					xpath								//div[contains(@class,'combo-list-item')]
+>>>>>>> cbfe59a6a1922231396147dd2628901c4da051b2
 inp_addHost								xpath								//div[@gxt-dindex='${fieldName}']/input
 inp_filtertext                          xpath                               //div[contains(@class,'x-menu-list')]//input
 lnk_filters                             xpath                               //a[contains(@class,'x-menu-item') and contains(text(),'${dropdownOptions}')]
@@ -39,14 +43,21 @@ txt_tableResult                         xpath                               //td
 lst_column                              xpath                               //div[@role='listitem' and text()='${columnName}']
 btn_add                                 xpath                               //td[@class='x-toolbar-left']//button[text()='${btnName}']
 chkbox_column                           xpath                               //div[text()='${roomName}']/../preceding-sibling::td[2]//div[@class='x-grid3-row-checker']
+<<<<<<< HEAD
 btn_add_column                          xpath                               //div[text()='${roomName}']/../preceding-sibling::td[1]//div[@class='x-grid3-row-expander']
 btn_recordsname                         xpath                               (//div[@class='x-grid3-row-checker'])[${recordnumber}]/../../following-sibling::td[1]/div
+=======
+btn_close								xpath								//button[text()='${btnName}']
+btn_recordsname                         xpath                               (//div[@class='x-grid3-row-checker'])[${recordnumber}]/../../following-sibling::td[${index}]/div
+txt_totalRecords                        xpath                               //div[@class='x-grid3-row-checker']
+>>>>>>> cbfe59a6a1922231396147dd2628901c4da051b2
 chkbox_records                          xpath                               (//div[@class='x-grid3-row-checker'])[${recordnumber}]
 listItem_SymposiumType					xpath								//div[contains(@class,'combo-list-item') and contains(text(),'${value}')]
 txt_hostDetails							xpath								//td[contains(@class,'${value}')]/div
 txt_dropField							xpath								//div[@class='x-grid-empty']
-img_loading								xpath								//div[contains(text(),'Loading...')]
+img_loading								xpath								//div[contains(text(),'${text}')]
 btn_remove								xpath								(//button[text()='${btnName}'])[${index}]
+<<<<<<< HEAD
 btn_SessionTopic                        xpath                               //label[contains(.,'${value}')]/preceding-sibling::input
 txt_searchResults                       css                                 .x-grid3-col-owner_${value}
 txt_alertAddOwner                       css                                 .ext-mb-content>span
@@ -54,4 +65,14 @@ table_columnDate                        css                                 .x-g
 
 
 
+=======
+inp_fileupload							xpath								(//label[contains(text(),'${text}')]/following-sibling::div//input)[${index}]
+list_symposia							xpath								//table[contains(@class,'row-table')]
+drpDown_sympType						xpath								//span[contains(text(),'${label}')]/../following-sibling::div//img
+date_currentDate                        xpath                               //td[contains(@class,'x-date-today')]
+table_columnDate                        css                                 .x-grid3-${columnName}
+btn_add_column                          xpath                               //div[text()='${roomName}']/../preceding-sibling::td[1]//div[@class='x-grid3-row-expander']
+txt_chckdColumnData                     xpath                               (//div[@class='x-grid3-row-checker'])[${index1}]/../../following-sibling::td[${index2}]
+column_headers                          xpath                                //div[contains(@qtip,'${columnName')]
+>>>>>>> cbfe59a6a1922231396147dd2628901c4da051b2
 ======================================================================================================================================

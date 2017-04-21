@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="ACS Tests" preserve-order="true" thread-count="4"
+<suite name="ACS Tests" preserve-order="true" thread-count="1"
 	configfailurepolicy="continue" parallel="tests">
 
 	<test name="ACS Apply Payment Test" group-by-instances="true">
@@ -82,6 +82,11 @@
 	<test name="ACS AACT OMR Test" group-by-instances="true">
 		<classes>
 			<class name="com.qait.tests.ACS_AACT_OMR"></class>
+		</classes>
+	</test>
+	<test name="ACS_SourceCodes_Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_SourceCodes_Test"></class>
 		</classes>
 	</test>
 	<test name="ACS MGM Test" group-by-instances="true">

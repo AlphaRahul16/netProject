@@ -1,8 +1,10 @@
+
+#MAPS_Url: https://acsnm253.beta.abstractcentral.com/?NO_SSO_OVERRIDE_FL=Y
 MAPS_Url: https://acstraining.abstractcentral.com
 
 LogIn_Details:
-  userID: H_Sil1
-  password: Password123
+  userID: ACS1\C00839
+  password: 7O1y76!1a
   
 Submission_Author_Step: 
    institution: Test_Institution
@@ -49,5 +51,17 @@ Session:
       Alert_Text: "The Program Area must be saved before adding owners. Ok?"
       Email Address: R_Yadav@acs.org
       role: Program Admin
+      File_Download_template: "symposia_template"
+      File_Download_resources: "symposia_resources"
+      File_Download_Hosts: "session_hosts"
+      File_Download_Session_Owners: "sessioners"
+  OPA_Staff: 
+      File_Downloaded_Name: "abstracts.csv"
+  Session_Events:
+      Title: "Test_Session_Title"
+      Type: "Oral"
+      Duration: "15"
+      Symposia_Submission_Type: "Invited"
+
       
       

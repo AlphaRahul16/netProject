@@ -1781,6 +1781,26 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		clickOnSaveButtonForBillingAddress();
 
 	}
+	
+	public void addBatch_ForAddressChangeOnProforma(String batchName, String securityGroup) {
+		switchToDefaultContent();
+		switchToFrame("iframe1");
+		isElementDisplayed("btn_addBatch");
+		clickUsingXpathInJavaScriptExecutor(element("btn_addBatch"));
+		// element("btn_addBatch").click();
+		logMessage("STEP : Add batch button is clicked \n");
+		switchToDefaultContent();
+		switchToFrame("iframe2");
+		isElementDisplayed("inp_addBatchName");
+		element("inp_addBatchName").clear();
+		element("inp_addBatchName").sendKeys(batchName);
+		logMessage("STEP : Enter batch name " + batchName + "\n");
+		isElementDisplayed("list_batchSecurityGroup");
+		selectProvidedTextFromDropDown(element("list_batchSecurityGroup"), securityGroup);
+		logMessage("STEP : Select security group " + securityGroup + "\n");
+		clickOnSaveButtonForBillingAddress();
+		switchToDefaultContent();
+	}
 
 	public void addBatchOnCreditPage(String batchName, String securityGroup) {
 		switchToDefaultContent();
@@ -2555,8 +2575,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public String getCustomerID() {
-		switchToDefaultContent();
 		handleAlert();
+		switchToDefaultContent();
 		wait.waitForPageToLoadCompletely();
 		customerContactId = element("txt_ContactId").getText().trim();
 		logMessage("STEP : Customer id is " + customerContactId + " \n");
@@ -2713,6 +2733,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnCustomerNameAndNavigateToMembershipPage() {
 		isElementDisplayed("link_customerName");
+		String customerName=element("link_customerName").getText().trim();
 		try {
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			wait.resetImplicitTimeout(5);
@@ -2723,7 +2744,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		wait.resetExplicitTimeout(timeOut);
 		wait.resetImplicitTimeout(timeOut);
 		handleAlert();
-		logMessage("STEP : Customer Name as " + element("link_customerName").getText() + " is clicked\n");
+		logMessage("STEP : Customer Name as " + customerName + " is clicked\n");
 	}
 
 	public void selectMemberForRenewal(String membertype) {
@@ -2939,9 +2960,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		hardWaitForIEBrowser(10);
 		wait.resetImplicitTimeout(4);
 		wait.resetExplicitTimeout(hiddenFieldTimeOut);
-		System.out.println("-----before spinner");
 		waitForSpinner();
-		System.out.println("-----before wait");
 		hardWaitForIEBrowser(3);
 		memberPackage = memberPackage.split(": ", 3)[2];
 		isElementDisplayed("txt_memberInfo", "member package");
@@ -5245,9 +5264,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		if (verifyBatchIsPresent(batchName)) {
 			selectOrderEntryInfo("batch", batchName);
 		} else {
-			addBatch(batchName.replaceAll("ACS: ", ""), "QA");
+			addBatch_ForAddressChangeOnProforma(batchName.replaceAll("ACS: ", ""), "QA");
 		}
 		waitForSpinner();
+		switchToDefaultContent();
+		switchToFrame("iframe1");
 		// selectOrderEntryInfo("PaymentType", paymentType);
 		// waitForSpinner();
 		selectOrderEntryInfo("paymentMethod", paymentMethod);

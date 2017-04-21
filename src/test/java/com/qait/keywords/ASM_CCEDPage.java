@@ -34,7 +34,7 @@ public class ASM_CCEDPage extends ASCSocietyGenericPage {
 
 		} else {
 			enterZipCodeAndFindCCEDCoordinator(map().get("searchValue"));
-			verifyCoordinatorName(map().get("coordinatorName"));
+			verifyCoordinatorName(map().get("coordinatorName").trim());
 			clickContactCoordinator();
 		}
 

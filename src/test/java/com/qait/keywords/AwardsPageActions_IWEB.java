@@ -580,11 +580,11 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnSearchIcon(int index) {
 		waitForSpinner();
 		wait.hardWait(3);
-		isElementDisplayed("btn_searchNominee", String.valueOf(index));
+		isElementDisplayed("btn_srchNominee", String.valueOf(index));
 		// clickUsingXpathInJavaScriptExecutor(element("btn_searchNominee",
 		// String.valueOf(index)));
 		// hoverClick(element("btn_searchNominee", String.valueOf(index)));
-		element("btn_searchNominee", String.valueOf(index)).click();
+		element("btn_srchNominee", String.valueOf(index)).click();
 		logMessage("STEP : Clicked on Search icon");
 		wait.waitForPageToLoadCompletely();
 	}
@@ -802,10 +802,10 @@ public class AwardsPageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnSearchButtonOnEditRecord() {
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(8);
-		isElementDisplayed("btn_search");
+		isElementDisplayed("btn_lookup");
 //		isElementDisplayed("btn_srchJudges");
 		// wait.waitForElementToBeClickable(element("btn_search"));
-		clickUsingXpathInJavaScriptExecutor(element("btn_search"));
+		clickUsingXpathInJavaScriptExecutor(element("btn_lookup"));
 		// element("btn_search").click();
 		logMessage("STEP : Search button is clicked \n");
 	}
