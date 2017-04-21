@@ -264,8 +264,6 @@ public class DataProvider {
 				caseCount++;
 			}
 		}
-		System.out.println("list " + listOfCaseIdToExecute.size());
-
 		return listOfCaseIdToExecute;
 	}
 
@@ -320,9 +318,9 @@ public class DataProvider {
 
 	public static String getCsvSheetPath(String sheetName) {
 		String sheetPath;
-		if (_getSessionConfig().get("tier").equalsIgnoreCase("stage8")) { // _getSessionConfig().get("tier").equalsIgnoreCase("dev9")||
-			sheetPath = getYamlValue("csv-data-file.path_" + sheetName);
-			sheetPath = sheetPath.replace("TestDataLibrary", "Payment_Processor_DataLibrary");
+		if(_getSessionConfig().get("tier").equalsIgnoreCase("dev9")||_getSessionConfig().get("tier").equalsIgnoreCase("stage8")){ //
+			sheetPath=getYamlValue("csv-data-file.path_" + sheetName);
+			sheetPath=sheetPath.replace("TestDataLibrary", "Payment_Processor_DataLibrary");
 		} else
 			sheetPath = getYamlValue("csv-data-file.path_" + sheetName);
 		return sheetPath;
