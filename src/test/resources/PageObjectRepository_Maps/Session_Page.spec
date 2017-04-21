@@ -42,7 +42,7 @@ chkbox_column                           xpath                               //di
 btn_close								xpath								//button[text()='${btnName}']
 btn_recordsname                         xpath                               (//div[@class='x-grid3-row-checker'])[${recordnumber}]/../../following-sibling::td[${index}]/div
 txt_totalRecords                        xpath                               //div[@class='x-grid3-row-checker']
-chkbox_records                          xpath                               //div[@class='x-grid3-row-checker']
+chkbox_records                          xpath                               (//div[@class='x-grid3-row-checker'])[${recordnumber}]
 listItem_SymposiumType					xpath								//div[contains(@class,'combo-list-item') and contains(text(),'${value}')]
 txt_hostDetails							xpath								//td[contains(@class,'${value}')]/div
 txt_dropField							xpath								//div[@class='x-grid-empty']
@@ -53,4 +53,5 @@ date_currentDate                        xpath                               //td
 table_columnDate                        css                                 .x-grid3-${columnName}
 btn_add_column                          xpath                               //div[text()='${roomName}']/../preceding-sibling::td[1]//div[@class='x-grid3-row-expander']
 txt_chckdColumnData                     xpath                               (//div[@class='x-grid3-row-checker'])[${index1}]/../../following-sibling::td[${index2}]
+column_headers                          xpath                                //div[contains(@qtip,'${columnName')]
 ======================================================================================================================================

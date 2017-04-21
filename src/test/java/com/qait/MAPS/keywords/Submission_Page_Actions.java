@@ -377,5 +377,11 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("Step: '" + label + "' of " + title + " is fetched as " + value + "\n");
 		return value;
 	}
+	
+	public void clickOnEditButton(String stepNumber){
+		isElementDisplayed("btn_edit",stepNumber);
+		click(element("btn_edit",stepNumber));
+		logMessage("Step : Clicked on Edit button next to Step"+stepNumber+"\n");
+	}
 
 }

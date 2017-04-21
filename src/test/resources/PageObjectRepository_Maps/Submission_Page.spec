@@ -38,4 +38,6 @@ select_submissionAction                             xpath                       
 btn_draftStatus                                     xpath                            //span[text()='${btnName}']
 select_editDraft                                    xpath                            //table[@id='${sectionName}']//tr[last()]//td[contains(text(),'${programName}')]/preceding-sibling::td/select
 txt_abstractStatus                                  xpath                            (//table[@id='${subs}']//tr[last()]//td[contains(text(),'${title}')]/following-sibling::td)[${index}]
+btn_edit                                            xpath                            //h3[@id='Step${stepNumber}']/following-sibling::a
+txt_reviewAnswer                                    xpath                            //h3[@id='Step${stepNumber}']/../following-sibling::div//strong[text()='${fieldName}']/../following-sibling::td
 ======================================================================================================================================

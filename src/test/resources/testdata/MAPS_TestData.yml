@@ -47,5 +47,7 @@ Session:
       File_Download_resources: "symposia_resources"
       File_Download_Hosts: "session_hosts"
       File_Download_Session_Owners: "sessioners"
+  OPA_Staff: 
+      File_Downloaded_Name: "abstracts.csv"
       
       

@@ -608,8 +608,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		// Society\\netforumqatests\\src\\test\\resources\\DownloadedFiles\\"+fileName+".csv";
 		System.out.println("source" + downloadedFilePath);
 		_deleteExistingCSVFile(downloadedFilePath);
-		clickOnButtonUnderSessioning(btnName);
-		wait.hardWait(5);
+//		clickOnButtonUnderSessioning(btnName);
+//		wait.hardWait(5);
 		verifyValidFileIsDownloaded(downloadedFilePath);
 
 	}
@@ -634,6 +634,37 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		wait.hardWait(5);
 		logMessage("STEP: File is imported after adding valid data \n");
 		
+	}
+	
+	public void verifyColumnHeaders(String columnsList[]){
+		for(String columnName:columnsList){
+			isElementDisplayed("column_headers",columnName);
+			logMessage("ASSERT PASSED: Column "+columnName+" is displayed\n");
+		}
+	}
+	
+	public void selectAbstractForEditing(int index1,int index2){
+		isElementDisplayed("txt_tableData",String.valueOf(index1),String.valueOf(index2));
+		elements("txt_tableData",String.valueOf(index1),String.valueOf(index2)).get(0).click();
+		logMessage("Step : Clicked on edit link of first abstract\n");
+	}
+	
+	public void editAbstractDetails(){
+		Submission_Page_Actions objSubmission= new Submission_Page_Actions(driver);
+		wait.hardWait(3);
+		switchToWindowHavingIndex(1);
+		objSubmission.submitTitleAndBodyDetails("Test Title", "Test Abstract");
+		objSubmission.uploadImage("test.jpeg");
+		objSubmission.clickOnSaveAndContinueButton();
+		objSubmission.verifyPageHeaderForASection("Properties");
+		objSubmission.clickOnSaveAndContinueButton();
+		objSubmission.verifyPageHeaderForASection("Authors");
+		objSubmission.clickOnSaveAndContinueButton();
+		objSubmission.verifyPageHeaderForASection("Disclosures");
+		objSubmission.clickOnSaveAndContinueButton();
+		objSubmission.verifyPageHeaderForASection("Review & Submit");
+		objSubmission.clickOnNamedButton("Finish");
+		switchToWindowHavingIndex(0);
 	}
 
 }
