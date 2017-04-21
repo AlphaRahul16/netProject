@@ -47,5 +47,10 @@ Session:
       File_Download_resources: "symposia_resources"
       File_Download_Hosts: "session_hosts"
       File_Download_Session_Owners: "sessioners"
+  Session_Events:
+      Title: "Test_Session_Title"
+      Type: "Oral"
+      Duration: "15"
+      Symposia_Submission_Type: "Invited"
       
       

@@ -50,6 +50,7 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 
 	public void submitDetailsOnSelectSymposiumPage(String presentationType, String sciMix) {
 		selectPresentationType("type", presentationType);
+		wait.hardWait(2);
 		selectSymposium();
 		selectPresentationType("sub_type", sciMix);
 
@@ -372,6 +373,8 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public String getIDofAbstract(String subs, String title, String index, String label) {
+		System.out.println("*******title  " + title);
+		System.out.println("*******index  " + index);
 		isElementDisplayed("txt_abstractStatus", subs, title, index);
 		String value = element("txt_abstractStatus", subs, title, index).getText().trim();
 		logMessage("Step: '" + label + "' of " + title + " is fetched as " + value + "\n");

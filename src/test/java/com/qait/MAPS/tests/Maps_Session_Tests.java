@@ -13,7 +13,7 @@ import com.qait.automation.utils.YamlReader;
 
 public class Maps_Session_Tests extends BaseTest {
 
-	private String maps_url, symposiumTitle,selectedsymposia;
+	private String maps_url, symposiumTitle, selectedsymposia;
 	private String griduniqueName = "Selenium_Test_Grid_" + System.currentTimeMillis();
 	private String[] roles = { "OPA Staff", "Program Viewer", "Program Chair Sessioning", "Abstract Editor",
 			"Session Admin" };
@@ -34,7 +34,7 @@ public class Maps_Session_Tests extends BaseTest {
 	private String[] filterDropDownRoomAvailability = { "Add Room", "Delete Room" };
 
 	String roomName;
-
+	private String sessionTitle;
 
 	@BeforeClass
 	public void Start_Test_Session() {
@@ -52,81 +52,46 @@ public class Maps_Session_Tests extends BaseTest {
 	 */
 	@Test
 
-	public void MAPS_1_Launch_Application() {
+	public void Step_0001_MAPS_1_Launch_Application() {
 		test.launchMAPSApplication(maps_url);
-		test.maps_SSOPage.verifyUserIsOnMAPSHomePage("Meeting Abstracts Programming System");
+		// test.maps_SSOPage.verifyUserIsOnMAPSHomePage("Meeting Abstracts
+		// Programming System");
 	}
 
 	/**
 	 * Test case : Submission class MAPS_3 : login functionality
 	 */
 	@Test
-	public void MAPS_3_LogIn_With_Valid_Credentials() {
+	public void Step_0002_MAPS_3_LogIn_With_Valid_Credentials() {
 		test.maps_SSOPage.loginWithValidCredentials(YamlReader.getYamlValue("LogIn_Details.userID"),
 				YamlReader.getYamlValue("LogIn_Details.password"));
 	}
 
-
 	/**
-		 * Session : OPA Staff
-		 */
+	 * Session : OPA Staff
+	 */
 	@Test
-
-	public void MAPS_Session_0001_Click_On_Session_In_Top_Navigation_Menu() {
+	public void Step_0004_MAPS_Session_1_Click_On_Session_In_Top_Navigation_Menu() {
 		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Session");
 		test.maps_SSOPage.verifyUserIsOnTabPage("Session");
 		test.maps_reviewpage.verifyPageHeader("Multiple Role Selection");
 		test.maps_sessionpage.verifyApplicationDisplaysRadioButtonOnClickingSessionTab(roles);
-
 	}
-	
+
 	/**
 	 * Session : OPA Staff
 	 */
-//	@Test
-	public void Test04_MAPS_Session_4_User_Should_Navigate_To_Abstract_Page_On_Clicking_Go_Button() {
+
+	@Test
+	public void Step_0010_MAPS_Session_6_User_Should_Navigate_To_Abstract_Page_On_Clicking_Go_Button() {
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("OPA Staff");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");
-
 	}
 
-	
-	// @Test
-	// public void
-	// MAPS_Session_67_Verify_options_available_on_Program_Viewer_page(){
-	//
-	// }
-
-	// @Test
-	public void Step_04_MAPS_Session_914_Verify_User_Navigates_To_Room_Availability_Page() {
-		// test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Session");
-		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Session Admin");
-		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
-		test.maps_sessionpage.clickButtononLeftNavigationPanel("Meeting Setup");
-		test.maps_sessionpage.clickSubHeadingLeftNavigationPanel("Room Availability");
-		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Room Availability");
-	}
-
-
-	/**
-	 * Session : OPA Staff
-	 */
-
-	// @Test
-	public void Step_04_MAPS_Session_6_User_Should_Navigate_To_Abstract_Page_On_Clicking_Go_Button() {
-		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("OPA Staff");
-		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
-		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
-
-	}
-
-	//**
-	 //    Session : OPA Staff
-	 
-	//@Test
-	public void Step_05_MAPS_Session_7_Verify_Available_Options_On_Session_OPA_Staff_Page() {
+	@Test
+	public void Step_0011_MAPS_Session_7_Verify_Available_Options_On_Session_OPA_Staff_Page() {
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");
 		test.maps_reviewpage.verifyLinksUnderNamedModule("Save/Edit");
 		test.maps_reviewpage.verifyLinksUnderNamedModule("Delete");
@@ -144,8 +109,8 @@ public class Maps_Session_Tests extends BaseTest {
 	/**
 	 * Session : OPA Staff
 	 */
-	//@Test
-	public void Step_06_MAPS_Session_11_Verify_Application_Allows_User_To_Create_A_New_Grid() {
+	@Test
+	public void Step_0015_MAPS_Session_11_Verify_Application_Allows_User_To_Create_A_New_Grid() {
 		test.maps_reviewpage.clickOnButton("Save/Edit");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Save Grid Configuration");
 		test.maps_reviewpage.enterDetailsAtSaveGridConfigurationPage("Abstract_" + griduniqueName);
@@ -155,8 +120,8 @@ public class Maps_Session_Tests extends BaseTest {
 	 * Session : Program Viewer : Symposia
 	 */
 
-	//@Test
-	public void MAPS_Session_67_Click_On_Session_And_Navigate_To_Program_Viewer() {
+	@Test
+	public void Step_0072_MAPS_Session_67_Click_On_Session_And_Navigate_To_Program_Viewer() {
 		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Session");
 		test.maps_SSOPage.verifyUserIsOnTabPage("Session");
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Program Viewer");
@@ -171,8 +136,9 @@ public class Maps_Session_Tests extends BaseTest {
 	 * Session : Program Viewer : Symposia
 	 */
 
-	//@Test
-	public void MAPS_Session_70_Verify_Available_Options_On_Session_Program_Viewer_Page() { // List of Symposia verification is remaining due to its unavailability
+	@Test // List of Symposia verification is remaining due to its
+	// unavailability
+	public void Step_0076_MAPS_Session_70_Verify_Available_Options_On_Session_Program_Viewer_Page() {
 		test.maps_reviewpage.verifyLinksUnderNamedModule("Save/Edit");
 		test.maps_reviewpage.verifyLinksUnderNamedModule("Delete");
 		test.maps_reviewpage.verifyTextField("Filter");
@@ -190,8 +156,8 @@ public class Maps_Session_Tests extends BaseTest {
 	 * Session : Program Viewer : Symposia
 	 */
 
-	//@Test
-	public void MAPS_Session_74_Verify_Application_Allows_User_To_Create_A_New_Grid_In_Symposia() {
+	@Test
+	public void Step_0080_MAPS_Session_74_Verify_Application_Allows_User_To_Create_A_New_Grid_In_Symposia() {
 		test.maps_reviewpage.clickOnButton("Save/Edit");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Save Grid Configuration");
 		test.maps_reviewpage.enterDetailsAtSaveGridConfigurationPage("Symposia_" + griduniqueName);
@@ -201,161 +167,39 @@ public class Maps_Session_Tests extends BaseTest {
 	 * Session : Program Viewer : Symposia
 	 */
 
-//	@Test
-	public void MAPS_Session_93_Verify_Application_Print_Selected_Symposia() {
-
-	}
-
-	//@Test
-	 public void Step_05_MAPS_Session_915_Verify_Sections_Are_Displayed_On_Room_Availability_Page() {
-	 test.maps_sessionpage.verifySectionsOnRoomAvailabilityPage("Rooms", 1);
-	 test.maps_sessionpage.verifySectionsOnRoomAvailabilityPage("Room Availability", 2);
-	 }
-
-	//@Test
-	public void Step_06_MAPS_Session_919_Verify_Fields_Are_Displayed_Under_Rooms_Section() {
-		test.maps_sessionpage.verifyFilterDropdwonOnRoomAvailabalityPage(2);
-		test.maps_sessionpage.verifyFieldsOnRoomAvailablityPage("Save/Edit", 1);
-		test.maps_sessionpage.verifyFieldsOnRoomAvailablityPage("Delete", 1);
-	}
-
-	//@Test
-	public void Step_04_MAPS_Session_93_Verify_Application_Print_Selected_Symposia() {
+	@Test
+	public void Step_0099_MAPS_Session_93_Verify_Application_Print_Selected_Symposia() {
 		selectedsymposia = test.maps_sessionpage.selectaRandomRecordFromTheList();
 		test.maps_sessionpage.clickOnSaveButton("Print Selected");
 	}
-	// @Test
-	// public void
-	// Step_05_MAPS_Session_915_Verify_Sections_Are_Displayed_On_Room_Availability_Page()
-	// {
-	// test.maps_sessionpage.verifySectionsOnRoomAvailabilityPage("Rooms", 1);
-	// test.maps_sessionpage.verifySectionsOnRoomAvailabilityPage("Room
-	// Availability", 2);
-	// }
-	//
-	// @Test
-	// public void
-	// Step_06_MAPS_Session_919_Verify_Fields_Are_Displayed_Under_Rooms_Section()
-	// {
-	// test.maps_sessionpage.verifyFilterDropdwonOnRoomAvailabalityPage(2);
-	// test.maps_sessionpage.verifyFieldsOnRoomAvailablityPage("Save/Edit", 1);
-	// test.maps_sessionpage.verifyFieldsOnRoomAvailablityPage("Delete", 1);
-	// }
 
-	// @Test
-	public void Step_07_MAPS_Session_920_Verify_Application_Displays_Filter_Results_On_Room_Availability_Page() {
-		test.maps_sessionpage.clickOnDropDownImage(1);
-		test.maps_sessionpage.selectRoleOnSaveGridConfiguration("Room","Test Program BT 033017");
-		test.maps_sessionpage.clickOnArrowButton("Room Name");
-		test.maps_sessionpage.enterFilterText("Filters", "Room1");
-		test.maps_sessionpage.verifyFilterResults("Room1", 1, 3);
-	}
-
-	// @Test
-	public void Step_08_MAPS_Session_921_Verify_New_Filter_Is_Added_Upon_Clicking_Save_Edit_Link() {
-		String gridName = "Test" + System.currentTimeMillis();
-		test.maps_sessionpage.clickOnSaveAndEditButton("Save/Edit", 1);
-		test.maps_sessionpage.enterNameOnSaveGridConfiguration("Name:", gridName);
-		test.maps_sessionpage.clickCheckboxOnSaveGridConfiguration("Added Filters");
-		test.maps_sessionpage.clickCheckboxOnSaveGridConfiguration("Make available");
-		test.maps_sessionpage.selectRoleOnSaveGridConfiguration("Role","Session Admin");
-		test.maps_sessionpage.clickOnButtonUnderSessioning("Save");
-		test.maps_sessionpage.verifyFilterIsByDefaultSelected(gridName, 2);
-		test.maps_sessionpage.verifyFilterResults("Room1", 1, 3);
-	}
-
-	//@Test
-	public void Step_09_MAPS_Session_931_Verify_Buttons_Under_Filter_DropDown() {
-		test.maps_sessionpage.verifyButtonsOnTypes(filterDropDownsRoom);
-	}
-	
-	//@Test
-	public void Step_10_MAPS_Session_932_Verify_Fields_After_Clicking_Add_Room_Button() {
-		test.maps_sessionpage.clickOnSaveButton("Add Room");
-		test.maps_sessionpage.verifyInputTextField("name");
-		test.maps_sessionpage.verifyInputTextField("venue");
-		test.maps_sessionpage.verifyButtonsOnTypes(fieldsAddRoom);
-	}
-
-	//@Test
-	public void Step_11_MAPS_Session_933_Verify_User_Is_Able_To_Add_Meeting_Room() {
-		roomName="Test Room1"+System.currentTimeMillis();
-		String venueName="Test Venue1"+System.currentTimeMillis();
-		test.maps_sessionpage.enterValueInInputtextField("name",roomName);
-		test.maps_sessionpage.enterValueInInputtextField("venue",venueName);
-		test.maps_sessionpage.clickOnSaveButton("Save");
-		test.maps_sessionpage.verifyRoomIsAdded(roomName, venueName);
-	}
-	
-	//@Test
-	public void Step_12_MAPS_Session_966_Verify_Records_Are_Sorted_On_Criteria_Basis() {
-		List<String> dataBeforeSorting=test.maps_sessionpage.getTableData("1", "4");
-		test.maps_sessionpage.clickOnArrowButton("Room Name");
-		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
-		test.maps_sessionpage.verifyPopupMessage("Sort");
-		test.maps_sessionpage.clickOnAddButton("Add");
-		test.maps_sessionpage.selectColumnForSorting("Building/Venue");//Room Name
-		test.maps_sessionpage.clickOnSaveButton("Apply");
-		List<String> dataAfterSorting=test.maps_sessionpage.getTableData("1", "4");
-		test.maps_sessionpage.verifyDataIsSorted(dataBeforeSorting, dataAfterSorting);
-
-	}
-	
-	//@Test
-	public void Step_13_MAPS_Session_984_Verify_User_Is_Able_To_Assign_And_Unassign_Room() {
-		test.maps_sessionpage.clickParticularRecordFromList(roomName);
-		test.maps_sessionpage.selectLastRecordFromList();
-		test.maps_sessionpage.clickOnSaveButton("Multiple Assign / Unassign");
-		test.maps_sessionpage.clickButtonToContinueToNextPage("Assign selected availability to rooms");
-		test.maps_sessionpage.verifyTextUnderMeetingSetup("Successfully Saved");
-		test.maps_sessionpage.clickParticularRecordFromList(roomName);
-		test.maps_sessionpage.clickOnSaveButton("Multiple Assign / Unassign");
-		test.maps_sessionpage.clickButtonToContinueToNextPage("Unassign selected availability from rooms");
-		test.maps_sessionpage.verifyPopupMessage("You are about to unassign selected Room Availability from rooms. Are you sure?");
-		test.maps_sessionpage.clickOnSaveButton("Yes");
-		test.maps_sessionpage.verifyTextUnderMeetingSetup("Successfully Deleted");
-	}
-	
-	//@Test
-	public void Step_14_MAPS_Session_987_Verify_Fields_Are_Displayed_Under_Room_Availability_Section() {
-		test.maps_sessionpage.verifyFilterDropdwonOnRoomAvailabalityPage(4);
-		test.maps_sessionpage.verifyFieldsOnRoomAvailablityPage("Save/Edit", 2);
-		test.maps_sessionpage.verifyFieldsOnRoomAvailablityPage("Delete", 2);
-	}
-	
-	//@Test
-	public void Step_15_MAPS_Session_999_Verify_Buttons_Under_Filter_DropDown_For_Room_Availability() {
-		test.maps_sessionpage.verifyButtonsOnTypes(filterDropDownRoomAvailability);
-	}
-
-	@Test
-	public void MAPS_Session_0784_Verify_Application_navigates_to_Session_Admin_page_on_selecting_the_Session_Admin_radio_button() {
+	@Test // page title is not available
+	public void Step_0798_MAPS_Session_0784_Verify_Application_navigates_to_Session_Admin_page_on_selecting_the_Session_Admin_radio_button() {
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Session Admin");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
-		// page title is not available
+
 		// test.maps_sessionpage.verifyTitleForRoles("Session Admin");
 	}
 
-	// @Test passed
-	public void MAPS_Session_785_Verify_options_available_on_Session_Admin_page() {
+	@Test // passed
+	public void Step_0799_MAPS_Session_0785_Verify_options_available_on_Session_Admin_page() {
 
 		test.maps_reviewpage.verifybuttonOnRolesPage("Set Preferences");
 		test.maps_sessionpage.verifyLeftPanelOptionsOnSessionAdminPage(leftPanelOptionsSessionAdmin);
 	}
 
-	// @Test // passed with error
-	public void MAPS_Session_791_Application_navigates_the_user_to_the_Save_Grid_Configuration_on_clicking_the_Save_Edit_link() {
+	@Test // passed
+	public void Step_0807_MAPS_Session_0791_Application_navigates_the_user_to_the_Save_Grid_Configuration_on_clicking_the_Save_Edit_link() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Meeting Setup");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Programs");
-		// not clicked
 		test.maps_reviewpage.selectExistingConfigurationFromGridConfigurationDropdown();
 		test.maps_reviewpage.clickOnButton("Save/Edit");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Save Grid Configuration");
 		test.maps_reviewpage.clickOnButtonAtSaveGridConfigurationPage("Close");
 	}
 
-	// @Test // Passed
-	public void MAPS_Session_799_Verify_that_application_filters_the_result_on_the_basis_of_the_criteria_provided() {
+	@Test // Passed
+	public void Step_0815_MAPS_Session_0799_Verify_that_application_filters_the_result_on_the_basis_of_the_criteria_provided() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Meeting Setup");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Programs");
 		String programID = test.maps_sessionpage.getValueFromProgramsTable();
@@ -363,8 +207,8 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.verifyTheResultOfFilter("program_id", programID);
 	}
 
-	// @Test //passed
-	public void MAPS_Session_815_Verify_that_application_prompts_the_user_to_save_the_program_before_adding_the_owners() {
+	@Test // passed
+	public void Step_0831_MAPS_Session_0815_Verify_that_application_prompts_the_user_to_save_the_program_before_adding_the_owners() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Meeting Setup");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Programs");
 		test.maps_reviewpage.clickOnButtonAtSaveGridConfigurationPage("Create Program");
@@ -378,8 +222,8 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_reviewpage.clickOnButtonAtSaveGridConfigurationPage("Close");
 	}
 
-	// @Test // not verified functionality
-	public void MAPS_Session_847_Verify_that_application_navigates_to_Add_Edit_Rooms_tab_on_Saving_all_Information() {
+	@Test // not verified functionality
+	public void Step_0863_MAPS_Session_0847_Verify_that_application_navigates_to_Add_Edit_Rooms_tab_on_Saving_all_Information() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Meeting Setup");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Programs");
 		test.maps_reviewpage.clickOnButtonAtSaveGridConfigurationPage("Create Program");
@@ -391,8 +235,8 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.verifyPopupMessage("Add/Edit Rooms");
 	}
 
-	// @Test //need to be updated
-	public void MAPS_Session_875_Verify_that_the_application_Saves_data_and_creates_a_new_program_on_clicking_Save_button() {
+	@Test // need to be updated
+	public void Step_0891_MAPS_Session_0875_Verify_that_the_application_Saves_data_and_creates_a_new_program_on_clicking_Save_button() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Meeting Setup");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Programs");
 		test.maps_reviewpage.clickOnButtonAtSaveGridConfigurationPage("Create Program");
@@ -405,17 +249,127 @@ public class Maps_Session_Tests extends BaseTest {
 		// test.maps_sessionpage.verifyProgramIsaddedInTable();
 	}
 
-	// @Test //passed
-	public void MAPS_Session_1056_Verify_that_application_navigates_to_Types_page_on_clicking_Type_option_under_the_Meeting_Setup() {
+	@Test
+	public void Step_0931_MAPS_Session_914_Verify_User_Navigates_To_Room_Availability_Page() {
+		// test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Session");
+		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Session Admin");
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Meeting Setup");
+		test.maps_sessionpage.clickSubHeadingLeftNavigationPanel("Room Availability");
+		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Room Availability");
+	}
+
+	@Test
+	public void Step_0932_MAPS_Session_915_Verify_Sections_Are_Displayed_On_Room_Availability_Page() {
+		test.maps_sessionpage.verifySectionsOnRoomAvailabilityPage("Rooms", 1);
+		test.maps_sessionpage.verifySectionsOnRoomAvailabilityPage("Room Availability", 2);
+	}
+
+	@Test
+	public void Step_0936_MAPS_Session_919_Verify_Fields_Are_Displayed_Under_Rooms_Section() {
+		test.maps_sessionpage.verifyFilterDropdwonOnRoomAvailabalityPage(2);
+		test.maps_sessionpage.verifyFieldsOnRoomAvailablityPage("Save/Edit", 1);
+		test.maps_sessionpage.verifyFieldsOnRoomAvailablityPage("Delete", 1);
+	}
+
+	@Test
+	public void Step_0937_MAPS_Session_920_Verify_Application_Displays_Filter_Results_On_Room_Availability_Page() {
+		test.maps_sessionpage.clickOnDropDownImage(1);
+		test.maps_sessionpage.selectRoleOnSaveGridConfiguration("Room", "Test Program BT 033017");
+		test.maps_sessionpage.clickOnArrowButton("Room Name");
+		test.maps_sessionpage.enterFilterText("Filters", "Room1");
+		test.maps_sessionpage.verifyFilterResults("Room1", 1, 3);
+	}
+
+	@Test
+	public void Step_0938_MAPS_Session_921_Verify_New_Filter_Is_Added_Upon_Clicking_Save_Edit_Link() {
+		String gridName = "Test" + System.currentTimeMillis();
+		test.maps_sessionpage.clickOnSaveAndEditButton("Save/Edit", 1);
+		test.maps_sessionpage.enterNameOnSaveGridConfiguration("Name:", gridName);
+		test.maps_sessionpage.clickCheckboxOnSaveGridConfiguration("Added Filters");
+		test.maps_sessionpage.clickCheckboxOnSaveGridConfiguration("Make available");
+		test.maps_sessionpage.selectRoleOnSaveGridConfiguration("Role", "Session Admin");
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Save");
+		test.maps_sessionpage.verifyFilterIsByDefaultSelected(gridName, 2);
+		test.maps_sessionpage.verifyFilterResults("Room1", 1, 3);
+	}
+
+	@Test
+	public void Step_0948_MAPS_Session_931_Verify_Buttons_Under_Filter_DropDown() {
+		test.maps_sessionpage.verifyButtonsOnTypes(filterDropDownsRoom);
+	}
+
+	@Test
+	public void Step_0949_MAPS_Session_932_Verify_Fields_After_Clicking_Add_Room_Button() {
+		test.maps_sessionpage.clickOnSaveButton("Add Room");
+		test.maps_sessionpage.verifyInputTextField("name");
+		test.maps_sessionpage.verifyInputTextField("venue");
+		test.maps_sessionpage.verifyButtonsOnTypes(fieldsAddRoom);
+	}
+
+	@Test
+	public void Step_0950_MAPS_Session_933_Verify_User_Is_Able_To_Add_Meeting_Room() {
+		roomName = "Test Room1" + System.currentTimeMillis();
+		String venueName = "Test Venue1" + System.currentTimeMillis();
+		test.maps_sessionpage.enterValueInInputtextField("name", roomName);
+		test.maps_sessionpage.enterValueInInputtextField("venue", venueName);
+		test.maps_sessionpage.clickOnSaveButton("Save");
+		test.maps_sessionpage.verifyRoomIsAdded(roomName, venueName);
+	}
+
+	@Test
+	public void Step_0983_MAPS_Session_966_Verify_Records_Are_Sorted_On_Criteria_Basis() {
+		List<String> dataBeforeSorting = test.maps_sessionpage.getTableData("1", "4");
+		test.maps_sessionpage.clickOnArrowButton("Room Name");
+		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
+		test.maps_sessionpage.verifyPopupMessage("Sort");
+		test.maps_sessionpage.clickOnAddButton("Add");
+		test.maps_sessionpage.selectColumnForSorting("Building/Venue");// Room
+																		// Name
+		test.maps_sessionpage.clickOnSaveButton("Apply");
+		List<String> dataAfterSorting = test.maps_sessionpage.getTableData("1", "4");
+		test.maps_sessionpage.verifyDataIsSorted(dataBeforeSorting, dataAfterSorting);
+
+	}
+
+	@Test
+	public void Step_1001_MAPS_Session_984_Verify_User_Is_Able_To_Assign_And_Unassign_Room() {
+		test.maps_sessionpage.clickParticularRecordFromList(roomName);
+		test.maps_sessionpage.selectLastRecordFromList();
+		test.maps_sessionpage.clickOnSaveButton("Multiple Assign / Unassign");
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Assign selected availability to rooms");
+		test.maps_sessionpage.verifyTextUnderMeetingSetup("Successfully Saved");
+		test.maps_sessionpage.clickParticularRecordFromList(roomName);
+		test.maps_sessionpage.clickOnSaveButton("Multiple Assign / Unassign");
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Unassign selected availability from rooms");
+		test.maps_sessionpage
+				.verifyPopupMessage("You are about to unassign selected Room Availability from rooms. Are you sure?");
+		test.maps_sessionpage.clickOnSaveButton("Yes");
+		test.maps_sessionpage.verifyTextUnderMeetingSetup("Successfully Deleted");
+	}
+
+	@Test
+	public void Step_1004_MAPS_Session_0987_Verify_Fields_Are_Displayed_Under_Room_Availability_Section() {
+		test.maps_sessionpage.verifyFilterDropdwonOnRoomAvailabalityPage(4);
+		test.maps_sessionpage.verifyFieldsOnRoomAvailablityPage("Save/Edit", 2);
+		test.maps_sessionpage.verifyFieldsOnRoomAvailablityPage("Delete", 2);
+	}
+
+	@Test
+	public void Step_1016_MAPS_Session_0999_Verify_Buttons_Under_Filter_DropDown_For_Room_Availability() {
+		test.maps_sessionpage.verifyButtonsOnTypes(filterDropDownRoomAvailability);
+	}
+
+	@Test // passed
+	public void Step_1074_MAPS_Session_1056_Verify_that_application_navigates_to_Types_page_on_clicking_Type_option_under_the_Meeting_Setup() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Meeting Setup");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Types");
 		test.maps_sessionpage.verifyPopupMessage("Types");
 	}
 
-	// @Test //passed
-	public void MAPS_Session_1057_Verify_options_available_on_the_Types_page() {
-		String[] buttonTypes = { "Add Type", "Delete Types", "Export to Excel",
-				"Import Session/Event/Symposium Types" };
+	@Test // passed
+	public void Step_1075_MAPS_Session_1057_Verify_options_available_on_the_Types_page() {
+		String[] buttonTypes = { "Add Type", "Delete Types", "Export to Excel",	"Import Session/Event/Symposium Types" };
 		test.maps_sessionpage.verifyButtonsOnTypes(buttonTypes);
 		test.maps_sessionpage.verifyTextUnderMeetingSetup("Instructions");
 		String[] typeTableHeader = { "Session / Event / Symposium Type Name", "Type", "Color" };
@@ -423,8 +377,8 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.verifyListOfProgramAreas("Types");
 	}
 
-	// @Test //passed
-	public void MAPS_Session_1065_Verify_that_application_adds_Session_Detail_Type_on_clicking_the_Add_Session_Detail_Type_button() {
+	@Test // passed
+	public void Step_1083_MAPS_Session_1065_Verify_that_application_adds_Session_Detail_Type_on_clicking_the_Add_Session_Detail_Type_button() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Meeting Setup");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Types");
 		test.maps_sessionpage.verifyPopupMessage("Types");
@@ -441,8 +395,8 @@ public class Maps_Session_Tests extends BaseTest {
 				YamlReader.getYamlValue("Session.Types.SessionType"));
 	}
 
-	// @Test //passed
-	public void MAPS_Session_1080_Verify_options_available_on_the_Import_Types_popup() {
+	@Test // passed
+	public void Step_1098_MAPS_Session_1080_Verify_options_available_on_the_Import_Types_popup() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Meeting Setup");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Types");
 		test.maps_sessionpage.verifyPopupMessage("Types");
@@ -452,16 +406,15 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Cancel");
 	}
 
-	// @Test //passed
-	public void MAPS_Session_1105_Verify_that_application_navigates_to_Program_Areas_page_on_clicking_Program_Area_under_Meeting_Setup() {
+	@Test // passed
+	public void Step_1124_MAPS_Session_1105_Verify_that_application_navigates_to_Program_Areas_page_on_clicking_Program_Area_under_Meeting_Setup() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Meeting Setup");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Program Areas");
 		test.maps_sessionpage.verifyPopupMessage("Program Areas");
 	}
 
-	// @Test //passed
-	public void MAPS_Session_1106_Verify_options_available_on_Program_Areas_page() {
-
+	@Test // passed
+	public void Step_1125_MAPS_Session_1106_Verify_options_available_on_Program_Areas_page() {
 		test.maps_sessionpage.verifyButtonsOnTypes(buttonProgramArea);
 		test.maps_sessionpage.verifyTextUnderMeetingSetup("Instructions");
 		test.maps_reviewpage.verifyExpandIconUnderNamedModule();
@@ -469,8 +422,8 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.verifyListOfProgramAreas("Program Area");
 	}
 
-	// @Test //passed
-	public void MAPS_Session_1151_Verify_that_application_displays_Import_Program_Area_popup_on_clicking_Import_Program_Areas_button() {
+	@Test // passed
+	public void Step_1170_MAPS_Session_1151_Verify_that_application_displays_Import_Program_Area_popup_on_clicking_Import_Program_Areas_button() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Meeting Setup");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Program Areas");
 		test.maps_sessionpage.verifyPopupMessage("Program Areas");
@@ -479,8 +432,8 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Cancel");
 	}
 
-	// @Test // verifyApplicationShouldAllowToSelectGridConfiguration
-	public void MAPS_Session_1180_Verify_that_application_allows_to_select_different_grid_views_from_Grid_Configuration_dropdown() {
+	@Test // verifyApplicationShouldAllowToSelectGridConfiguration
+	public void Step_1200_MAPS_Session_1180_Verify_that_application_allows_to_select_different_grid_views_from_Grid_Configuration_dropdown() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Meeting Setup");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Hosts");
 		test.maps_sessionpage.verifyPopupMessage("Hosts");
@@ -488,15 +441,15 @@ public class Maps_Session_Tests extends BaseTest {
 		// test.maps_reviewpage.verifyApplicationShouldAllowToSelectGridConfiguration(gridConfig);
 	}
 
-	// @Test //passed
-	public void MAPS_Session_1181_Verify_that_application_navigates_to_the_SaveGridConfiguration_on_clicking_Save_Edit_link() {
+	@Test // passed
+	public void Step_1201_MAPS_Session_1181_Verify_that_application_navigates_to_the_SaveGridConfiguration_on_clicking_Save_Edit_link() {
 		test.maps_reviewpage.clickOnButton("Save/Edit");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Save Grid Configuration");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Close");
 	}
 
-	// @Test //passed
-	public void MAPS_Session_1198_Verify_application_allows_to_add_new_host_on_clicking_AddNewHost_button() {
+	@Test // passed
+	public void Step_1218_MAPS_Session_1198_Verify_application_allows_to_add_new_host_on_clicking_AddNewHost_button() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Meeting Setup");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Hosts");
 		test.maps_sessionpage.verifyPopupMessage("Hosts");
@@ -511,29 +464,51 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_reviewpage.verifyTheResult(email);
 	}
 
-
-	// @Test //passed
-	public void MAPS_Session_1277_Application_should_navigate_to_the_Roles_page() {
+	@Test // passed
+	public void Step_1298_MAPS_Session_1277_Application_should_navigate_to_the_Roles_page() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Meeting Setup");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Roles");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Roles");
 	}
 
-	// @Test //passed
-	public void MAPS_Session_1279_Application_should_display_Add_New_Role_popup_on_clicking_Add_role_button() {
+	@Test // passed
+	public void Step_1300_MAPS_Session_1279_Application_should_display_Add_New_Role_popup_on_clicking_Add_role_button() {
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Add Role");
 		test.maps_sessionpage.verifyPopupMessage("Add New Role");
 		test.maps_sessionpage.clickOnButtonUnderSessionModule("Close");
 	}
 
-	// @Test //passed
-	public void MAPS_Session_1308_Verify_sub_options_under_Sessioning_option() {
+	@Test // passed
+	public void Step_1330_MAPS_Session_1308_Verify_sub_options_under_Sessioning_option() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 		test.maps_sessionpage.verifyLeftPanelOptionsOnSessionAdminPage(optionSessioning);
 	}
 
-	// @Test
-	public void MAPS_Session_1503_Application_should_remove_the_selected_abstracts_when_user_clicks_on_Remove_Selected_button() {
+	@Test //passed
+	public void Step_1333_MAPS_Session_1310_Verify_options_available_on_Symposia_page() {
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
+		test.maps_sessionpage.verifyPopupMessage("Symposia");
+		test.maps_sessionpage.verifyListOfProgramAreas("Symposia");
+		test.maps_reviewpage.verifyLinksUnderNamedModule("Save/Edit");
+		test.maps_reviewpage.verifyLinksUnderNamedModule("Delete");
+		test.maps_reviewpage.verifyRoleDropDown();
+		test.maps_reviewpage.verifyTextField("Filter");
+		test.maps_reviewpage.verifyCrossImageForNamedDropDown("Filter");
+		test.maps_reviewpage.verifyLinksUnderNamedModule("Clear Filters");
+		test.maps_reviewpage.verifyDropDown("Found In");
+		test.maps_reviewpage.verifyExpandIconUnderNamedModule();
+		test.maps_reviewpage.verifyButton("Create New Symposium");
+		test.maps_reviewpage.verifyButton("Delete Selected");
+		test.maps_reviewpage.verifyButton("Print Selected");
+		test.maps_reviewpage.verifyDropDown("Import / Export");
+		test.maps_reviewpage.verifyPaginationSectionAtTheBottomOfTheTable();
+		test.maps_reviewpage.verifyDropDown("Records per page");
+		test.maps_sessionpage.verifyRefreshButtonAtBottom();
+
+	}
+
+	@Test
+	public void Step_1526_MAPS_Session_1503_Application_should_remove_the_selected_abstracts_when_user_clicks_on_Remove_Selected_button() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Symposia");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Create New Symposium");
@@ -555,12 +530,12 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.clickOnButtonUnderSessionModule("Search");
 		test.maps_sessionpage.addAbstractsInCurrentlyAssignedAbstractsSection();
 		test.maps_sessionpage.selectAbstract("session_abstract_order");
-		test.maps_sessionpage.clickOnButtonByIndexing("Remove Selected","2");
+		test.maps_sessionpage.clickOnButtonByIndexing("Remove Selected", "2");
 		test.maps_sessionpage.verifyTextUnderMeetingSetup("Successfully Removed");
 	}
 
-	// @Test //passed
-	public void MAPS_Session_1520_Verify_that_the_application_saves_the_session_on_clicking_Save_button() {
+	@Test // passed
+	public void Step_1543_MAPS_Session_1520_Verify_that_the_application_saves_the_session_on_clicking_Save_button() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Symposia");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Create New Symposium");
@@ -589,8 +564,8 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.verifyTheResultOfFilter("session_name", symposiumTitle);
 	}
 
-	// @Test //passed
-	public void MAPS_Session_1524_And_1527_Verify_that_the_application_saves_the_session_on_clicking_Save_button() {
+	@Test // passed
+	public void Step_1546_MAPS_Session_1524_And_1527_Verify_that_the_application_saves_the_session_on_clicking_Save_button() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Symposia");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Create New Symposium");
@@ -609,8 +584,8 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.verifyTheResultOfFilter("session_name", symposiumTitle);
 	}
 
-	// @Test functionality is not verified
-	public void MAPS_Session_1531_Verify_application_successfully_deletes_record_on_clicking_Yes_button_on_confirmation_popup() {
+	@Test // functionality is not verified
+	public void Step_1553_MAPS_Session_1531_Verify_application_successfully_deletes_record_on_clicking_Yes_button_on_confirmation_popup() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Symposia");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Create New Symposium");
@@ -630,9 +605,9 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.verifyDataIsDeleted("session_name", symposiumTitle);
 		test.maps_sessionpage.verifyTheResultOfFilter("session_name", symposiumTitle);
 	}
-	
-	//@Test //passed
-	public void MAPS_Session_1551_Verify_that_application_downloads_the_relevant_file_on_clicking_Download_options(){
+
+	@Test // passed
+	public void Step_1573_MAPS_Session_1551_Verify_that_application_downloads_the_relevant_file_on_clicking_Download_options() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Symposia");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Import / Export");
@@ -640,7 +615,7 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.verifyPopupMessage("Import Symposia");
 		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Download template",
 				YamlReader.getYamlValue("Session.Symposium.File_Download_template"));
-		//YamlReader.getYamlValue("Session.Symposium.Host_Role")
+		// YamlReader.getYamlValue("Session.Symposium.Host_Role")
 		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Download resources",
 				YamlReader.getYamlValue("Session.Symposium.File_Download_resources"));
 		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Download Hosts",
@@ -649,63 +624,63 @@ public class Maps_Session_Tests extends BaseTest {
 				YamlReader.getYamlValue("Session.Symposium.File_Download_Session_Owners"));
 		test.maps_sessionpage.clickOnButtonUnderSessionModule("Cancel");
 	}
-	
-	//@Test //passed
-	public void MAPS_Session_1566_Verify_application_adds_a_new_sort_criteria_on_clicking_Add_button(){
+
+	@Test // passed
+	public void Step_1588_MAPS_Session_1566_Verify_application_adds_a_new_sort_criteria_on_clicking_Add_button() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Symposia");
-		test.maps_sessionpage.clickOnArrowButton("Title");		
+		test.maps_sessionpage.clickOnArrowButton("Title");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
 		test.maps_sessionpage.verifyPopupMessage("Sort");
 		test.maps_sessionpage.clickOnAddButton("Add");
 		test.maps_sessionpage.selectColumnForSorting("Title");
 		test.maps_sessionpage.clickOnSaveButton("Apply");
-		test.maps_sessionpage.clickOnArrowButton("Title");		
+		test.maps_sessionpage.clickOnArrowButton("Title");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
 		test.maps_sessionpage.verifyPopupMessage("Sort");
 		test.maps_sessionpage.verifyTextUnderMeetingSetup("Title");
 		test.maps_sessionpage.clickOnSaveButton("Close");
 	}
-	
-	//@Test //passed
-	public void MAPS_Session_1569_Verify_application_allows_user_to_delete_the_criteria_added(){
-		test.maps_sessionpage.clickOnArrowButton("Title");		
+
+	@Test // passed
+	public void Step_1591_MAPS_Session_1569_Verify_application_allows_user_to_delete_the_criteria_added() {
+		test.maps_sessionpage.clickOnArrowButton("Title");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
 		test.maps_sessionpage.verifyPopupMessage("Sort");
 		test.maps_sessionpage.clickOnAddButton("Add");
 		test.maps_sessionpage.selectColumnForSorting("Session Kind");
 		test.maps_sessionpage.verifyTextUnderMeetingSetup("Session Kind");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sort");
-		test.maps_sessionpage.selectRoleOnSaveGridConfiguration("Criteria","Session Kind" );	
+		test.maps_sessionpage.selectRoleOnSaveGridConfiguration("Criteria", "Session Kind");
 		test.maps_sessionpage.clickOnAddButton("Delete");
-		test.maps_sessionpage.verifyAddedCriteriaIsDeleted("Session Kind" );
+		test.maps_sessionpage.verifyAddedCriteriaIsDeleted("Session Kind");
 		test.maps_sessionpage.clickOnSaveButton("Close");
 	}
-	
+
 	@Test
-	public void MAPS_Session_1577_Verify_application_sort_the_records_on_the_basis_of_the_criteria_added (){
+	public void Step_1599_MAPS_Session_1577_Verify_application_sort_the_records_on_the_basis_of_the_criteria_added() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Symposia");
-		List<String> dataBeforeSorting=test.maps_sessionpage.getTableData("1", "8");
-		test.maps_sessionpage.clickOnArrowButton("# of Assigned Abstracts");		
+		List<String> dataBeforeSorting = test.maps_sessionpage.getTableData("1", "8");
+		test.maps_sessionpage.clickOnArrowButton("# of Assigned Abstracts");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
 		test.maps_sessionpage.verifyPopupMessage("Sort");
 		test.maps_sessionpage.clickOnAddButton("Add");
 		test.maps_sessionpage.selectColumnForSorting("# of Assigned Abstracts");
 		test.maps_sessionpage.clickOnSaveButton("Apply");
-		List<String> dataAfterSorting=test.maps_sessionpage.getTableData("1", "8");
+		List<String> dataAfterSorting = test.maps_sessionpage.getTableData("1", "8");
 		test.maps_sessionpage.verifyDataIsSorted(dataBeforeSorting, dataAfterSorting);
 	}
-	
+
 	@Test
-	public void MAPS_Session_1595_Verify_that_Application_navigates_to_Sessions_Events_page_on_clicking_Session_Events_link (){
+	public void Step_1618_MAPS_Session_1595_Verify_that_Application_navigates_to_Sessions_Events_page_on_clicking_Session_Events_link() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessions & Events");
 		test.maps_sessionpage.verifyPopupMessage("Sessions & Events");
 	}
-	
+
 	@Test
-	public void MAPS_Session_1617_Verify_application_launches_CreateSession_popup_on_clicking_CreateNewSession(){
+	public void Step_1640_MAPS_Session_1617_Verify_application_launches_CreateSession_popup_on_clicking_CreateNewSession() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessions & Events");
 		test.maps_sessionpage.verifyPopupMessage("Sessions & Events");
@@ -713,9 +688,30 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Create New Session");
 		test.maps_sessionpage.verifyPopupMessage("Create Session");
 	}
-	
+
 	@Test
-	public void MAPS_Session_1738_Verify_application_navigates_to_Add_Remove_Withdraw_Abstracts_tab_on_clicking_Add_Remove_Withdraw_Abstracts_tab(){
-		
+	public void Step_1761_MAPS_Session_1738_Verify_application_navigates_to_Add_Remove_Withdraw_Abstracts_tab_on_clicking_Add_Remove_Withdraw_Abstracts_tab() {
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessions & Events");
+		test.maps_sessionpage.verifyPopupMessage("Sessions & Events");
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Create New");
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Create New Session");
+		test.maps_sessionpage.verifyPopupMessage("Create Session");
+
+		sessionTitle = YamlReader.getYamlValue("Session.Session_Events.Title") + System.currentTimeMillis();
+		test.maps_sessionpage.enterValuesInCreateSession(sessionTitle,
+				YamlReader.getYamlValue("Session.Session_Events.Duration"),
+				YamlReader.getYamlValue("Session.Session_Events.Type"),
+				YamlReader.getYamlValue("Session.Session_Events.Symposia_Submission_Type"));
+		test.maps_sessionpage.clickOnButtonUnderSessionModule("Save");
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Add/Edit Hosts");
+		test.maps_sessionpage.addHostforSymposium();
+		test.maps_sessionpage.addRoleForHost(YamlReader.getYamlValue("Session.Symposium.Host_Role"));
+		test.maps_sessionpage.clickOnButtonUnderSessionModule("Save");
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Add/Remove/Withdraw Abstracts");
+		test.maps_sessionpage.verifyPopupMessage("Search");
+		// test.maps_sessionpage.verifyTextUnderMeetingSetup("Successfully
+		// Saved");
+
 	}
 }

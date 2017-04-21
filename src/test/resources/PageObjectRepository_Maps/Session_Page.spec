@@ -52,4 +52,7 @@ txt_dropField							xpath								//div[@class='x-grid-empty']
 img_loading								xpath								//div[contains(text(),'${text}')]
 btn_remove								xpath								(//button[text()='${btnName}'])[${index}]
 txt_dropField							xpath								//div[@class='x-grid-empty']
+inp_fileupload							xpath								(//label[contains(text(),'${text}')]/following-sibling::div//input)[${index}]
+list_symposia							xpath								//table[contains(@class,'row-table')]
+drpDown_sympType						xpath								//span[contains(text(),'${label}')]/../following-sibling::div//img
 ======================================================================================================================================
