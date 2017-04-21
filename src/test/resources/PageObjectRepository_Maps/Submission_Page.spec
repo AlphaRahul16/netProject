@@ -38,4 +38,6 @@ select_submissionAction                             xpath                       
 btn_draftStatus                                     xpath                            //span[text()='${btnName}']
 select_editDraft                                    xpath                            //table[@id='${sectionName}']//tr[last()]//td[contains(text(),'${programName}')]/preceding-sibling::td/select
 txt_abstractStatus                                  xpath                            //table[@id='${sectionName}']//tr[last()]//td[contains(text(),'${programName}')]/following-sibling::td
+txt_modellabel                                      id                               myModalLabel
+txt_withdrn_reason                                  id                               WITHDRAW_REASON
 ======================================================================================================================================

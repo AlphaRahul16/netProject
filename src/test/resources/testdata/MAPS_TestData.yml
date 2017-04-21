@@ -1,4 +1,4 @@
-MAPS_Url: https://acsnm253.beta.abstractcentral.com/?NO_SSO_OVERRIDE_FL=Y
+MAPS_Url: https://acstraining.abstractcentral.com
 
 LogIn_Details:
   userID: H_Sil1
@@ -19,6 +19,7 @@ Submission_Symposium_Step:
    
 Success_alert_msg: "Success! Your submission was successfully submitted."
 Submission_draft_Options: Select ...,Edit Draft,View Emails
+Submission_withdraw_Reason: Selenium Test Withdraw
 
 Review:
   GridConfigName: "Test"
@@ -39,5 +40,14 @@ Session:
   Symposium:
       Title: "Test_Symposium_Title"
       Type: "Oral"
+      Host_Role: "Organizer"
+      Abstract_AuthorFirstName: "Rahul"
+      Abstract_AuthorLastName: "Yadav"
+  Program_Areas:
+      Color: "#FFCC00"
+      Type: Session
+      Alert_Text: "The Program Area must be saved before adding owners. Ok?"
+      Email Address: R_Yadav@acs.org
+      role: Program Admin
       
       

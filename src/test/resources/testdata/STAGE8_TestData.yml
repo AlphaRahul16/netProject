@@ -6,7 +6,7 @@ app_url_AACT: https://ewebtest.acs.org/NFStage8/aactoma
 app_url_email: https://ewebtest.acs.org/NFStage8/emailcenter
 app_url_nominateFellow: https://ewebtest.acs.org/NFStage8/nominatefellow
 app_url_egift: https://ewebtest.acs.org/NFStage8/egift
-app_url_givingDonate: https://ewebtest.acs.org/NFStage8/donate   
+app_url_givingDonate: https://www.ewebtest.acs.org/NFStage8/donate   
 app_url_givingGreen: https://ewebtest.acs.org/NFStage8/green
 app_url_givingScholars: https://ewebtest.acs.org/NFStage8/scholars/
 app_url_givingSeed: https://ewebtest.acs.org/NFStage8/seed

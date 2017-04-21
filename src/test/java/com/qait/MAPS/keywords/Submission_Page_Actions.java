@@ -372,5 +372,17 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED: Status of submitted abstract"+programName+" is "+status+"\n");
 	}
 
+	public void verifyPopUpIsDisplayed(String modelName) {
+		isElementDisplayed("txt_modellabel");
+		Assert.assertTrue(element("txt_modellabel").getText().equals(modelName));
+		logMessage("ASSERT PASSED : Pop up is displaye with heading text as "+modelName);
+		
+	}
+
+	public void enterWithdrawReason(String withdrawReason) {
+		EnterTextInField(element("txt_withdrn_reason"), withdrawReason);
+		
+	}
+
 
 }

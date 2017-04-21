@@ -534,4 +534,11 @@ public class GetPage extends BaseUi {
 		logMessage("ASSERT PASSED : Element " + elementName + " is visible and Text is " + expectedText);
 	}
 
+	public void doubleClick(WebElement element) {
+
+			Actions action = new Actions(driver).doubleClick(element);
+			action.build().perform();
+			System.out.println("Double clicked the element");
+	}
+	
 }
