@@ -21,6 +21,7 @@ import org.testng.Assert;
 
 import com.itextpdf.text.log.SysoCounter;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.thoughtworks.selenium.webdriven.commands.DoubleClick;
 import com.thoughtworks.selenium.webdriven.commands.IsElementPresent;
 import com.qait.automation.utils.DataProvider;
 import com.qait.automation.utils.DateUtil;
@@ -536,8 +537,54 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		click(element("btn_Types", btnName));
 		logMessage("Step : Clicked on " + btnName + "\n");
 	}
+	
+	public void selectSessionTopicWhenAddingProgramArea(String topicname)
+	{
+		isElementDisplayed("btn_SessionTopic",topicname);
+		click(element("btn_SessionTopic",topicname));
+		logMessage("Step : Session name in program area is selected as "+topicname);
+	}
 
-	public void selectCurrentDate() {
+	public void verifyAndAcceptProgramAreaAlertText(String alertText) {
+		Assert.assertTrue(element("txt_alertAddOwner").getText().equals(alertText),"Alert box text does not match with expected text "+getAlertText());
+		logMessage("ASSERT PASSED : Alert box is appered on clicking Add Owners button with text "+alertText);
+		clickOnButtonUnderSessioning("Yes");
+	}
+
+	public void verifyCorrectSearchResultsAreDisplayed(String fieldname, String expected_value) {
+		isElementDisplayed("txt_searchResults", fieldname);
+		Assert.assertTrue(element("txt_searchResults",fieldname).getText().equals(expected_value), " Owner's"+fieldname+" is not displayed\n");
+		logMessage("ASSERT PASSED : "+fieldname+" in search results is verified as "+expected_value);
+		
+	}
+	
+	public void selectAvailableSearchRecord(String index1,String index2)
+	{
+		isElementDisplayed("txt_tableData",index1,index2);
+		click(element("txt_tableData",index1,index2));
+		logMessage("Step : Search record is elected from the list");
+	}
+	
+	public void setRoleForTheUser(String rolevalue)
+	{
+		isElementDisplayed("table_columnDate","col-session_role_name");
+		click(element("table_columnDate","col-session_role_name"));
+		isElementDisplayed("listItem_SymposiumType", rolevalue);
+		click(element("listItem_SymposiumType", rolevalue));
+		logMessage("Step : Role selected for owner as "+rolevalue);
+		wait.hardWait(3);
+		Assert.assertTrue(element("table_columnDate","col-session_role_name").getText().trim().equals(rolevalue));
+		logMessage("ASSERT PASSED : Selected role for owner is verifed "+rolevalue);
+	}
+	
+	public void verifyProgramAreaIsAdded(String programname,String programtype,String color)
+	{
+		verifyAddedDetails("session_topic_name", programname);
+		verifyAddedDetails("session_kind_name", programtype);
+		verifyAddedDetails("session_topic_color",color);
+	}
+	
+	public void selectCurrentDate(){
 		isElementDisplayed("date_currentDate");
 		click(element("date_currentDate"));
 		logMessage("Step : Selected Current date from Calendar\n");
@@ -611,12 +658,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
 				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + fileName
 				+ ".csv";
-
-		_deleteExistingCSVFile(downloadedFilePath);
-		clickOnButtonUnderSessioning(btnName);
-		wait.hardWait(5);
-		verifyValidFileIsDownloaded(downloadedFilePath);
-
+		 _deleteExistingCSVFile(downloadedFilePath);
+		 clickOnButtonUnderSessioning(btnName);
+		 wait.hardWait(5);
+		 verifyValidFileIsDownloaded(downloadedFilePath);
 	}
 
 	public void verifyAddedCriteriaIsDeleted(String critiria) {
@@ -721,6 +766,37 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		System.out.println("actualVal " + actualVal + " expectedSessionType " + expectedSessionType);
 		Assert.assertEquals(actualVal, expectedSessionType);
 		logMessage("ASSERT PASSED: Application only changes the 'Session Type' \n");
+	}
+	
+	public void verifyColumnHeaders(String columnsList[]){
+		for(String columnName:columnsList){
+			isElementDisplayed("column_headers",columnName);
+			logMessage("ASSERT PASSED: Column "+columnName+" is displayed\n");
+		}
+	}
+	
+	public void selectAbstractForEditing(int index1,int index2){
+		isElementDisplayed("txt_tableData",String.valueOf(index1),String.valueOf(index2));
+		elements("txt_tableData",String.valueOf(index1),String.valueOf(index2)).get(0).click();
+		logMessage("Step : Clicked on edit link of first abstract\n");
+	}
+	
+	public void editAbstractDetails(){
+		Submission_Page_Actions objSubmission= new Submission_Page_Actions(driver);
+		wait.hardWait(3);
+		switchToWindowHavingIndex(1);
+		objSubmission.submitTitleAndBodyDetails("Test Title", "Test Abstract");
+		objSubmission.uploadImage("test.jpeg");
+		objSubmission.clickOnSaveAndContinueButton();
+		objSubmission.verifyPageHeaderForASection("Properties");
+		objSubmission.clickOnSaveAndContinueButton();
+		objSubmission.verifyPageHeaderForASection("Authors");
+		objSubmission.clickOnSaveAndContinueButton();
+		objSubmission.verifyPageHeaderForASection("Disclosures");
+		objSubmission.clickOnSaveAndContinueButton();
+		objSubmission.verifyPageHeaderForASection("Review & Submit");
+		objSubmission.clickOnNamedButton("Finish");
+		switchToWindowHavingIndex(0);
 	}
 
 }

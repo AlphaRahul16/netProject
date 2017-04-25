@@ -380,5 +380,23 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("Step: '" + label + "' of " + title + " is fetched as " + value + "\n");
 		return value;
 	}
+	
+	public void clickOnEditButton(String stepNumber){
+		isElementDisplayed("btn_edit",stepNumber);
+		click(element("btn_edit",stepNumber));
+		logMessage("Step : Clicked on Edit button next to Step"+stepNumber+"\n");
+	}
 
+
+	public void verifyPopUpIsDisplayed(String modelName) {
+		isElementDisplayed("txt_modellabel");
+		Assert.assertTrue(element("txt_modellabel").getText().equals(modelName));
+		logMessage("ASSERT PASSED : Pop up is displaye with heading text as "+modelName);
+		
+	}
+
+	public void enterWithdrawReason(String withdrawReason) {
+		EnterTextInField(element("txt_withdrn_reason"), withdrawReason);
+		
+	}
 }

@@ -2817,7 +2817,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void selectUserForIwebRenewal(Map<String, String> mapRenewalIWeb) {
 		clickOnTab("Query Membership");
-		selectAndRunQuery("Selenium - Renewal Query");
+		selectAndRunQuery("Selenium - Renewal Query OMR");
 		selectMemberForRenewal(mapRenewalIWeb.get("Member_Status?"));
 		clickOnGoButtonInRunQuery();
 		expandDetailsMenu("invoices");

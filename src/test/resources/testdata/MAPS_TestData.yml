@@ -1,3 +1,4 @@
+
 #MAPS_Url: https://acsnm253.beta.abstractcentral.com/?NO_SSO_OVERRIDE_FL=Y
 MAPS_Url: https://acstraining.abstractcentral.com
 
@@ -20,6 +21,7 @@ Submission_Symposium_Step:
    
 Success_alert_msg: "Success! Your submission was successfully submitted."
 Submission_draft_Options: Select ...,Edit Draft,View Emails
+Submission_withdraw_Reason: Selenium Test Withdraw
 
 Review:
   GridConfigName: "Test"
@@ -43,10 +45,21 @@ Session:
       Host_Role: "Organizer"
       Abstract_AuthorFirstName: "bhuwan"
       Abstract_AuthorLastName: "takkar"
+      
+  Program_Areas:
+      Color: "#FFCC00"
+      Type: Session
+      Alert_Text: "The Program Area must be saved before adding owners. Ok?"
+      Email Address: R_Yadav@acs.org
+      role: Program Admin
       File_Download_template: "symposia_template"
       File_Download_resources: "symposia_resources"
       File_Download_Hosts: "session_hosts"
       File_Download_Session_Owners: "sessioners"
+  
+  OPA_Staff: 
+      File_Downloaded_Name: "abstracts.csv"
+  
   Session_Events:
       Title: "Test_Session_Title"
       Type: "Oral"
@@ -60,7 +73,5 @@ Session:
       Session_Type: "Poster"
       owner_first_name: "Rahul"
       owner_last_name: "Yadav"
-      
-      
       
       

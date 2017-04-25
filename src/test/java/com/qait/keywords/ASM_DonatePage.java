@@ -378,7 +378,7 @@ public class ASM_DonatePage extends GetPage {
 			System.out.println(memberLoginDetails.get(0));
 			String MemberName = memberLoginDetails.get(0);
 			String arrayName[] = MemberName.split(" ");
-			//MemberName = arrayName[(arrayName.length) - 2] + " " + arrayName[(arrayName.length) - 1];
+			MemberName = arrayName[(arrayName.length) - 2] + " " + arrayName[(arrayName.length) - 1];
 			enterCreditCardHolderName(cardHolderName);
 		} else if (memberLoginDetails.size() == 1) {
 			enterCreditCardHolderName(cardHolderName);

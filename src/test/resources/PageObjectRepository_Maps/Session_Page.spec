@@ -10,7 +10,7 @@ btn_navPanel                            xpath                              //spa
 lnk_sessionTypes                        xpath                              //span[@class='x-tree3-node-text' and contains(text(),'${value}')]
 heading_sectionName                     xpath                              (//span[text()='${headingName}'])[${index}]
 btn_saveAndEdit                         xpath                              (//a[text()='${btnName}'])[${index}]
-inp_roomName                            xpath                              //label[text()='${label}']/..//input[@type='text']
+inp_roomName                            xpath                              //label[contains(text(),'${headingName}')]/..//input[@type='text']
 chkbox_room                             xpath                              //label[contains(text(),'${label}')]/..//input[@type='checkbox']
 select_role                             xpath                              //div[text()='${role}']
 inp_saveGridFilters                     xpath                              (//div[contains(@class,'x-form-field-wrap') and @role="combobox"])[${index}]//input
@@ -29,6 +29,7 @@ inp_sessionType							xpath								//input[@name='${text}']
 tabledata_type							xpath								//div[contains(text(),'${text1}')]/../following-sibling::td/div[contains(text(),'${text2}')]
 list_table								xpath								//td[@role='gridcell']
 img_processbar							xpath								//div[contains(@class,'progress-bar')]
+listItem_programField					xpath								//div[contains(@class,'combo-list-item')]
 inp_addHost								xpath								//div[@gxt-dindex='${fieldName}']/input
 inp_filtertext                          xpath                               //div[contains(@class,'x-menu-list')]//input
 lnk_filters                             xpath                               //a[contains(@class,'x-menu-item') and contains(text(),'${dropdownOptions}')]
@@ -38,6 +39,7 @@ txt_tableResult                         xpath                               //td
 lst_column                              xpath                               //div[@role='listitem' and text()='${columnName}']
 btn_add                                 xpath                               //td[@class='x-toolbar-left']//button[text()='${btnName}']
 chkbox_column                           xpath                               //div[text()='${roomName}']/../preceding-sibling::td[2]//div[@class='x-grid3-row-checker']
+btn_add_column                          xpath                               //div[text()='${roomName}']/../preceding-sibling::td[1]//div[@class='x-grid3-row-expander']
 btn_close								xpath								//button[text()='${btnName}']
 btn_recordsname                         xpath                               (//div[@class='x-grid3-row-checker'])[${recordnumber}]/../../following-sibling::td[${index}]/div
 txt_totalRecords                        xpath                               //div[@class='x-grid3-row-checker']
@@ -47,6 +49,10 @@ txt_hostDetails							xpath								//td[contains(@class,'${value}')]/div
 txt_dropField							xpath								//div[@class='x-grid-empty']
 img_loading								xpath								//div[contains(text(),'${text}')]
 btn_remove								xpath								(//button[text()='${btnName}'])[${index}]
+btn_SessionTopic                        xpath                               //label[contains(.,'${value}')]/preceding-sibling::input
+txt_searchResults                       css                                 .x-grid3-col-owner_${value}
+txt_alertAddOwner                       css                                 .ext-mb-content>span
+table_columnDate                        css                                 .x-grid3-${columnName}
 inp_fileupload							xpath								(//label[contains(text(),'${text}')]/following-sibling::div//input)[${index}]
 list_symposia							xpath								//table[contains(@class,'row-table')]
 drpDown_sympType						xpath								//span[contains(text(),'${label}')]/../following-sibling::div//img
@@ -57,4 +63,6 @@ txt_chckdColumnData                     xpath                               (//d
 drpdown_Symposium						xpath								//label[contains(text(),'${text}')]/following-sibling::div//img[contains(@class,'arrow')]
 txt_SchedulerGrid						xpath								//div[contains(@class,'${className}')]
 drpDown_meetingDay						xpath								//div[contains(text(),'${label}')]/../following-sibling::td//img
+column_headers                          xpath                                //div[contains(@qtip,'${columnName')]
+
 ======================================================================================================================================
