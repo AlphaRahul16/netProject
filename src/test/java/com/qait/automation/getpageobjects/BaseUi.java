@@ -808,10 +808,14 @@ public class BaseUi {
 	}
 	
 	public String executeJqueryAndReturnString(String query)
-	{
-
-		
+	{		
 		return toString().valueOf(executeJavascriptReturnValue(query));
+	}
+	
+	public void rightClick(WebElement element){
+		Actions action = new Actions(driver).contextClick(element);
+		action.build().perform();
+		System.out.println("STEP: Sucessfully Right clicked on the element \n");
 	}
 
 }

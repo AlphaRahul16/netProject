@@ -41,8 +41,8 @@ Session:
       Title: "Test_Symposium_Title"
       Type: "Oral"
       Host_Role: "Organizer"
-      Abstract_AuthorFirstName: "Rahul"
-      Abstract_AuthorLastName: "Yadav"
+      Abstract_AuthorFirstName: "bhuwan"
+      Abstract_AuthorLastName: "takkar"
       File_Download_template: "symposia_template"
       File_Download_resources: "symposia_resources"
       File_Download_Hosts: "session_hosts"
@@ -52,5 +52,15 @@ Session:
       Type: "Oral"
       Duration: "15"
       Symposia_Submission_Type: "Invited"
+      Session_Program_Area: "Qait_Program_Area"
+      Symposium: "Qait_Symposium"
+      
+  Schedule_Sessions: 
+      Programs: "Training Site"
+      Session_Type: "Poster"
+      owner_first_name: "Rahul"
+      owner_last_name: "Yadav"
+      
+      
       
       

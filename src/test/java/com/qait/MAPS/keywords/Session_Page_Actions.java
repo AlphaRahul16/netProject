@@ -19,6 +19,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 
+import com.itextpdf.text.log.SysoCounter;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.thoughtworks.selenium.webdriven.commands.IsElementPresent;
 import com.qait.automation.utils.DataProvider;
@@ -111,7 +112,11 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("dropdown_programField", field);
 		click(element("dropdown_programField", field));
 		logMessage("STEP: " + field + " is clicked \n");
+		selectValueByIndexing(index);
 
+	}
+
+	private void selectValueByIndexing(int index) {
 		isElementDisplayed("listItem_programField");
 		String value = elements("listItem_programField").get(index).getText();
 		System.out.println("" + value);
@@ -124,7 +129,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : refresh button is displayed at page bottom\n");
 	}
 
-	private void enterValuesForProgram(String field, String value) {
+	public void enterValuesForProgram(String field, String value) {
 		isElementDisplayed("inp_programField", field);
 		element("inp_programField", field).sendKeys(value);
 		logMessage("STEP: Enterd " + value + " in " + field + "field \n");
@@ -259,8 +264,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		element("inp_filtertext").sendKeys(filterText);
 		logMessage("Step : Filter text is entered as " + filterText + "\n");
 	}
-	
-	public void hoverOverColumnHeader(String drpdwnValue){
+
+	public void hoverOverColumnHeader(String drpdwnValue) {
 		isElementDisplayed("lnk_filters", drpdwnValue);
 		hover(element("lnk_filters", drpdwnValue));
 	}
@@ -276,8 +281,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		wait.hardWait(4);
 		isElementDisplayed("txt_tableData", String.valueOf(index), String.valueOf(columnIndex));
 		for (WebElement ele : elements("txt_tableData", String.valueOf(index), String.valueOf(columnIndex))) {
-			Assert.assertTrue(org.apache.commons.lang3.StringUtils.containsIgnoreCase(ele.getText().trim(),filterResult),
-					"ASSERT FAILED: Filter results "+ele.getText().trim()+" does not contains " + filterResult + "\n");
+			Assert.assertTrue(
+					org.apache.commons.lang3.StringUtils.containsIgnoreCase(ele.getText().trim(), filterResult),
+					"ASSERT FAILED: Filter results " + ele.getText().trim() + " does not contains " + filterResult
+							+ "\n");
 		}
 		logMessage("ASSERT PASSED: Filter results contains " + filterResult + "\n");
 	}
@@ -338,8 +345,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		element("inp_addHost", text).sendKeys(value);
 		logMessage("STEP: " + value + " is entered as " + text + "\n");
 	}
-	
-	public void verifyInputTextField(String fieldName){
+
+	public void verifyInputTextField(String fieldName) {
 		wait.hardWait(1);
 		isElementDisplayed("inp_addHost", fieldName);
 		logMessage("ASSERT PASSED: " + fieldName + " is displayed on page\n");
@@ -385,40 +392,41 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		}
 		return tableData;
 	}
-	
-	public List<String> getColumnSpecificTableData(String columnName){
+
+	public List<String> getColumnSpecificTableData(String columnName) {
 		wait.hardWait(5);
-		List<String> tableData =new ArrayList<>();
-		isElementDisplayed("table_columnDate",columnName);
-		for(int i=1;i<elements("table_columnDate",columnName).size();i++){
-			tableData.add(elements("table_columnDate",columnName).get(i).getText().trim());
+		List<String> tableData = new ArrayList<>();
+		isElementDisplayed("table_columnDate", columnName);
+		for (int i = 1; i < elements("table_columnDate", columnName).size(); i++) {
+			tableData.add(elements("table_columnDate", columnName).get(i).getText().trim());
 		}
 		return tableData;
 	}
-	
-	public void verifyDataIsSorted(List<String> dataBeforeSorting, List<String> dataAfterSorting){
-		int index=0;
-		dataBeforeSorting=convertDataToLowerCase(dataBeforeSorting);
-		dataAfterSorting=convertDataToLowerCase(dataAfterSorting);
-	    Collections.sort(dataBeforeSorting);
-		for(String beforeSorting: dataBeforeSorting){
-			Assert.assertTrue(beforeSorting.equals(dataAfterSorting.get(index)),"ASSERT FAILED: Data is not sorted properly\n");
+
+	public void verifyDataIsSorted(List<String> dataBeforeSorting, List<String> dataAfterSorting) {
+		int index = 0;
+		dataBeforeSorting = convertDataToLowerCase(dataBeforeSorting);
+		dataAfterSorting = convertDataToLowerCase(dataAfterSorting);
+		Collections.sort(dataBeforeSorting);
+		for (String beforeSorting : dataBeforeSorting) {
+			Assert.assertTrue(beforeSorting.equals(dataAfterSorting.get(index)),
+					"ASSERT FAILED: Data is not sorted properly\n");
 			logMessage("ASSERT PASSED: Data is sorted properly\n");
 			index++;
 		}
 	}
-	
-	public List<String> convertDataToLowerCase(List<String> arrayList){
+
+	public List<String> convertDataToLowerCase(List<String> arrayList) {
 		ListIterator<String> iterator = arrayList.listIterator();
-	    while (iterator.hasNext()){
-	        iterator.set(iterator.next().toLowerCase());
-	     }	
-	    return arrayList;
+		while (iterator.hasNext()) {
+			iterator.set(iterator.next().toLowerCase());
+		}
+		return arrayList;
 	}
-	
-	public void selectLastRecordFromList(){
-		isElementDisplayed("chkbox_records","last()");
-		click(element("chkbox_records","last()"));
+
+	public void selectLastRecordFromList() {
+		isElementDisplayed("chkbox_records", "last()");
+		click(element("chkbox_records", "last()"));
 		logMessage("Step : Last record is clicked from list\n");
 	}
 
@@ -434,36 +442,36 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		selectValueForSymposium("session_type", symposiumType);
 	}
 
-//	public String selectaRandomRecordFromTheList() {
-//		isElementDisplayed("chkbox_records");
-//		int randomnumber = generateRandomNumberWithInRange(0, (elements("chkbox_records").size()) - 1);
-//		click(elements("chkbox_records").get(randomnumber));
-//		logMessage("Step : a random record is selected from the list with position " + randomnumber);
-//		return element("btn_recordsname", toString().valueOf(randomnumber)).getText();
-//	}
-	
-	public String getRandomRecordFromTable(String columnIndex){
+	public String selectaRandomRecordFromTheList() {
+		isElementDisplayed("chkbox_records");
+		int randomnumber = generateRandomNumberWithInRange(0, (elements("chkbox_records").size()) - 1);
+		click(elements("chkbox_records").get(randomnumber));
+		logMessage("Step : a random record is selected from the list with position " + randomnumber);
+		return element("btn_recordsname", toString().valueOf(randomnumber)).getText();
+	}
+
+	public String getRandomRecordFromTable(String columnIndex) {
 		isElementDisplayed("txt_totalRecords");
 		int randomnumber = generateRandomNumberWithInRange(0, (elements("txt_totalRecords").size()) - 1);
-		isElementDisplayed("btn_recordsname",String.valueOf(randomnumber),columnIndex);
-		System.out.println("-----random record:"+element("btn_recordsname",String.valueOf(randomnumber),columnIndex).getText().trim());
-		return element("btn_recordsname",String.valueOf(randomnumber),columnIndex).getText().trim();
+		isElementDisplayed("btn_recordsname", String.valueOf(randomnumber), columnIndex);
+		System.out.println("-----random record:"
+				+ element("btn_recordsname", String.valueOf(randomnumber), columnIndex).getText().trim());
+		return element("btn_recordsname", String.valueOf(randomnumber), columnIndex).getText().trim();
 	}
 
-	public void selectaRecordFromTheList(int number) {
-		isElementDisplayed("chkbox_records");
-		click(elements("chkbox_records").get(number));
-		logMessage("Step : a random record is selected from the list with position " + number);
-	}
-
+		 public void selectaRecordFromTheList(int number) {
+		  isElementDisplayed("chkbox_records");
+		  click(elements("chkbox_records").get(number));
+		  logMessage("Step : a random record is selected from the list with position " + number);
+	 }
 	private void selectValueForSymposium(String dropdownName, String symposiumType) {
 		isElementDisplayed("dropdown_programField", dropdownName);
 		click(element("dropdown_programField", dropdownName));
 		logMessage("STEP: " + dropdownName + " is clicked \n");
-
-		isElementDisplayed("listItem_SymposiumType", symposiumType);
-		click(element("listItem_SymposiumType", symposiumType));
-		logMessage("STEP: " + symposiumType + " is selected \n");
+		selectValueFromDropDown(symposiumType);
+		// isElementDisplayed("listItem_SymposiumType", symposiumType);
+		// click(element("listItem_SymposiumType", symposiumType));
+		// logMessage("STEP: " + symposiumType + " is selected \n");
 	}
 
 	public void addHostforSymposium() {
@@ -483,12 +491,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void addRoleForHost(String hostRole) {
 		isElementDisplayed("txt_hostDetails", "session_host_role");
-		System.out.println("size##########" + elements("txt_hostDetails", "session_host_role").size());
+		// System.out.println("size##########" + elements("txt_hostDetails",
+		// "session_host_role").size());
 		click(elements("txt_hostDetails", "session_host_role").get(1));
-		isElementDisplayed("listItem_SymposiumType", hostRole);
-		click(element("listItem_SymposiumType", hostRole));
-		logMessage("STEP: " + hostRole + " is selected \n");
-
+		selectValueFromDropDown(hostRole);
 	}
 
 	public void searchAbstract(String searchBy, String value) {
@@ -530,46 +536,52 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		click(element("btn_Types", btnName));
 		logMessage("Step : Clicked on " + btnName + "\n");
 	}
-	
-	public void selectCurrentDate(){
+
+	public void selectCurrentDate() {
 		isElementDisplayed("date_currentDate");
 		click(element("date_currentDate"));
 		logMessage("Step : Selected Current date from Calendar\n");
 	}
-	
-	public void verifyRoomsAreFilteredAccordingToDate(List<String> filteredData,String criteria){
-		System.out.println("-----*****data:"+filteredData);
-		for(String date:filteredData){
-			Date convertedDate=DateUtil.convertStringToDate(date, "E, d MMM yy");	
-			Date currentDate=DateUtil.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"), "MM/dd/yyyy");
-			Assert.assertTrue(compareDates(convertedDate,currentDate,criteria),"ASSERT PASSED: Filtered Date "+date+" is not "+criteria+" current date\n");
-			logMessage("ASSERT PASSED: Filtered Date "+date+" is "+criteria+" current date\n");
+
+	public void verifyRoomsAreFilteredAccordingToDate(List<String> filteredData, String criteria) {
+		System.out.println("-----*****data:" + filteredData);
+		for (String date : filteredData) {
+			Date convertedDate = DateUtil.convertStringToDate(date, "E, d MMM yy");
+			Date currentDate = DateUtil
+					.convertStringToDate(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"), "MM/dd/yyyy");
+			Assert.assertTrue(compareDates(convertedDate, currentDate, criteria),
+					"ASSERT PASSED: Filtered Date " + date + " is not " + criteria + " current date\n");
+			logMessage("ASSERT PASSED: Filtered Date " + date + " is " + criteria + " current date\n");
 		}
 	}
-	
-	public boolean compareDates(Date convertedDate, Date currentDate, String criteria){
+
+	public boolean compareDates(Date convertedDate, Date currentDate, String criteria) {
 		boolean value = false;
-		switch(criteria){
-		case "Before":  value=convertedDate.before(currentDate);
-		                break;
-		case "After":   value=convertedDate.after(currentDate);
-		                break;
-		case "On":  value=convertedDate.equals(currentDate);
-		            break;
-		default: logMessage("Step : Enter correct choice\n");
+		switch (criteria) {
+		case "Before":
+			value = convertedDate.before(currentDate);
+			break;
+		case "After":
+			value = convertedDate.after(currentDate);
+			break;
+		case "On":
+			value = convertedDate.equals(currentDate);
+			break;
+		default:
+			logMessage("Step : Enter correct choice\n");
 		}
 		return value;
 	}
-	
-	public void clickOnPlusIcon(String roomName){
-		isElementDisplayed("btn_add_column",roomName);
-		click(element("btn_add_column",roomName));
-		logMessage("Step : plus icon next to "+roomName+" is expanded\n");
+
+	public void clickOnPlusIcon(String roomName) {
+		isElementDisplayed("btn_add_column", roomName);
+		click(element("btn_add_column", roomName));
+		logMessage("Step : plus icon next to " + roomName + " is expanded\n");
 	}
-	
-	public String getCheckedColumnData(String index1,String index2){
-		isElementDisplayed("txt_chckdColumnData",index1,index2);
-		return element("txt_chckdColumnData",index1,index2).getText().trim();
+
+	public String getCheckedColumnData(String index1, String index2) {
+		isElementDisplayed("txt_chckdColumnData", index1, index2);
+		return element("txt_chckdColumnData", index1, index2).getText().trim();
 	}
 
 	public void verifyDataIsDeleted(String title, String expValue) {
@@ -600,10 +612,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + fileName
 				+ ".csv";
 
-		 _deleteExistingCSVFile(downloadedFilePath);
-		 clickOnButtonUnderSessioning(btnName);
-		 wait.hardWait(5);
-		 verifyValidFileIsDownloaded(downloadedFilePath);
+		_deleteExistingCSVFile(downloadedFilePath);
+		clickOnButtonUnderSessioning(btnName);
+		wait.hardWait(5);
+		verifyValidFileIsDownloaded(downloadedFilePath);
 
 	}
 
@@ -619,34 +631,96 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		DataProvider.writeDataInAlreadyExistingCSVFile(downloadedFilePath, data);
 		wait.hardWait(5);
 		importFileWithValidData();
-		//clickOnButtonUnderSessionModule("Import");
+		// clickOnButtonUnderSessionModule("Import");
 	}
 
 	private void importFileWithValidData() {
 		isElementDisplayed("inp_fileupload", "Please upload your file:", "1");
-		sendKeysUsingXpathInJavaScriptExecutor(element("inp_fileupload", "Please upload your file", "1"), downloadedFilePath);
-		//element("inp_fileupload", "Please upload your file", "1").sendKeys(downloadedFilePath);
+		sendKeysUsingXpathInJavaScriptExecutor(element("inp_fileupload", "Please upload your file", "1"),
+				downloadedFilePath);
+		// element("inp_fileupload", "Please upload your file",
+		// "1").sendKeys(downloadedFilePath);
 		wait.hardWait(5);
 		System.out.println("*********downloadedFilePath   " + downloadedFilePath);
 		logMessage("STEP: File is imported after adding valid data \n");
 
 	}
-	
-	public void enterValuesInCreateSession(String sessionName, String sessionDuration,String sessionType,String symposiaSubmissionType) {
+
+	public void enterValuesInCreateSession(String sessionName, String sessionDuration, String sessionType,
+			String symposiaSubmissionType) {
 		enterValuesForProgram("session_name", sessionName);
 		enterValuesForProgram("session_duration", sessionDuration);
 		selectValueForSymposium("session_type", sessionType);
-		selectValueForSession("Symposia Submission Type",symposiaSubmissionType);
+		selectValueForSession("Symposia Submission Type", symposiaSubmissionType);
 	}
 
 	private void selectValueForSession(String text, String symposiaSubmissionType) {
-		isElementDisplayed("drpDown_sympType",text);		
-		click(element("drpDown_sympType",text));
+		isElementDisplayed("drpDown_sympType", text);
+		click(element("drpDown_sympType", text));
 		logMessage("STEP: '" + text + "' is clicked \n");
+		selectValueFromDropDown(symposiaSubmissionType);
 
-		isElementDisplayed("listItem_SymposiumType", symposiaSubmissionType);
-		click(element("listItem_SymposiumType", symposiaSubmissionType));
-		logMessage("STEP: " + symposiaSubmissionType + " is selected \n");
+	}
+
+	private void selectValueFromDropDown(String value) {
+		isElementDisplayed("listItem_SymposiumType","combo-list-item", value);
+		click(element("listItem_SymposiumType","combo-list-item", value));
+		logMessage("STEP: " + value + " is selected \n");
+	}
+
+	public void selectAbtractWithStatus(String status) {
+		isElementDisplayed("txt_instruction", status);
+
+	}
+
+	public void enterDetailsInCreateNewSessionFromSymposium(String sessionType, String SessionProgramArea,
+			String Symposium) {
+		selectValueForCreateNewSessionFromSymposium("Session Type", sessionType);
+		selectValueForCreateNewSessionFromSymposium("Session Program Area", SessionProgramArea);
+		selectValueForCreateNewSessionFromSymposium("Symposium", Symposium);
+
+	}
+
+	public void selectValueForCreateNewSessionFromSymposium(String label, String sessionType) {
+		isElementDisplayed("drpdown_Symposium", label);
+		click(element("drpdown_Symposium", label));
+		logMessage("STEP: '" + label + "' is clicked \n");
+		selectValueFromDropDown(sessionType);
+	}
+
+	public void enterValuesInCreateSessionFromSymposium(String duration, String symposiaSubmissionType) {
+		enterValuesForProgram("session_duration", duration);
+		selectValueForSession("Symposia Submission Type", symposiaSubmissionType);
+
+	}
+
+	public void verifySchedulerGrid() {
+		waitForProcessBarToDisappear();
+		isElementDisplayed("txt_SchedulerGrid", "pagecontents");
+		Assert.assertTrue(checkIfElementIsThere("txt_SchedulerGrid", "pagecontents"));
+		logMessage("STEP: Scheduler Grid is present \n");
+	}
+
+	public void selectValuesForMeetingday() {
+
+		isElementDisplayed("drpDown_meetingDay", "Meeting Day");
+		click(element("drpDown_meetingDay", "Meeting Day"));
+		logMessage("STEP: Meeting Day dropdown is selected \n");
+		selectValueByIndexing(2);
+	}
+
+	public void rightClickOnSession() {
+		isElementDisplayed("txt_SchedulerGrid", "view-item");
+		rightClick(elements("txt_SchedulerGrid", "view-item").get(3));
+		logMessage("STEP: Right clicked on session \n");
+	}
+
+	public void verifyApplicationChangesSessionType(String expectedSessionType) {
+		isElementDisplayed("inp_programField", "session_type");
+		String actualVal = getValUsingXpathInJavaScriptExecutor(element("inp_programField", "session_type")).trim();
+		System.out.println("actualVal " + actualVal + " expectedSessionType " + expectedSessionType);
+		Assert.assertEquals(actualVal, expectedSessionType);
+		logMessage("ASSERT PASSED: Application only changes the 'Session Type' \n");
 	}
 
 }
