@@ -128,7 +128,9 @@ public class MemberShipRenewalPage extends GetPage {
 		String runTaskDateTime = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/dd/YYYY", "EST5EDT")
 				+ " " + dateWithTimeSlabInString;
 		System.out.println("runTaskDateTime:" + runTaskDateTime);
-		element("inp_runTaskDateTime").click();
+		
+		clickUsingXpathInJavaScriptExecutor(element("inp_runTaskDateTime"));
+//		element("inp_runTaskDateTime").click();
 		wait.waitForPageToLoadCompletely();
 		element("inp_runTaskDateTime").clear();
 		wait.hardWait(3);
@@ -142,11 +144,12 @@ public class MemberShipRenewalPage extends GetPage {
 	}
 
 	public String fillDetailsAtAddMembershipRenewalPage(String association, String renewalYear, String renewalCycleName,
-			String batchName, String timeSlab) {
+			String batchName, String timeSlab,String emailId) {
 		selectValueAtAddMembershipRenewalPage("association", association);
 		selectValueAtAddMembershipRenewalPage("renewal year", renewalYear);
 		selectValueAtAddMembershipRenewalPage("renewal cycle name", renewalCycleName);
 		selectBatchAtAddMembershipRenewalPage("batch", batchName);
+		enterNotificationEmail(emailId);
 		String runTaskDateTime = enterRunTaskDateTime(timeSlab);
 
 		wait.hardWait(3);
@@ -389,6 +392,13 @@ public class MemberShipRenewalPage extends GetPage {
 		isElementDisplayed("hd_acsRenewalCycle");
 		element("hd_acsRenewalCycle").click();
 		logMessage("STEP : ACS renewal cycle tab is clicked in hd_acsRenewalCycle\n");
+	}
+	
+	public void enterNotificationEmail(String emailId){
+		isElementDisplayed("inp_notifyEmail");
+		element("inp_notifyEmail").clear();
+		element("inp_notifyEmail").sendKeys(emailId);
+		logMessage("Step : Notfy Email Id is entered as "+emailId+"\n");
 	}
 
 }

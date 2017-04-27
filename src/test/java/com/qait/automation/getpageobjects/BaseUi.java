@@ -809,8 +809,6 @@ public class BaseUi {
 	
 	public String executeJqueryAndReturnString(String query)
 	{
-
-		
 		return toString().valueOf(executeJavascriptReturnValue(query));
 	}
 

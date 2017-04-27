@@ -78,7 +78,7 @@ public class Membership_Renewal_Test extends BaseTest {
 						.getRenewalInfoAtAdd("renewalYear"), name,
 						getMemRenewalInfo.getRenewalInfoAtAdd("batch"),
 						getMemRenewalInfo
-								.getMemRenewalInfo("timeSlabInMinutes"));
+								.getMemRenewalInfo("timeSlabInMinutes"),YamlReader.getYamlValue("Authentication.emailId"));
 	}
 
 	@Test(dependsOnMethods = "Step03_Navigate_To_Add_Membership_Renewal_And_Fill_Details")

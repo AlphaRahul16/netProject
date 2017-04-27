@@ -35,6 +35,7 @@ import com.qait.automation.utils.YamlReader;
 public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	YamlInformationProvider getCenOrdEntry;
 	Map<String, Object> mapReinstateMember;
+	List<String> memberDetails1;
 	WebDriver driver;
 	static String pagename = "MembershipPage";
 	static int MemberTransferLoopCount = 0;
@@ -2544,8 +2545,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-		List<String> memberDetails1 = new ArrayList<String>();
 		public List<String> getCustomerLastNameAndContactID() {
+		memberDetails1	= new ArrayList<String>();
 		clickOnEditNameAndAddress();
 		switchToFrame("iframe1");
 		customerLname = getNameFromEditNameAndAddressButton("lastName");

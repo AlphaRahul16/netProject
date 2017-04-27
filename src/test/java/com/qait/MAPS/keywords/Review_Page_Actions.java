@@ -85,7 +85,9 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		switch (fieldName) {
 		case "Found In":
 			isElementDisplayed("comboBox_reviewPage", fieldName);
-			click(element("comboBox_reviewPage", fieldName));
+			clickUsingXpathInJavaScriptExecutor(element("comboBox_reviewPage", fieldName));
+//			click(element("comboBox_reviewPage", fieldName));
+			wait.hardWait(2);
 			Assert.assertTrue(elements("list_gripConfig").size() > 0,
 					" no option available on clicking dropdown " + fieldName);
 			click(element("comboBox_reviewPage", fieldName));
@@ -93,7 +95,8 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 
 		case "Records per page":
 			isElementDisplayed("drpdwn_records", fieldName);
-			click(element("drpdwn_records", fieldName)); //listItem
+			clickUsingXpathInJavaScriptExecutor(element("drpdwn_records", fieldName));
+//			click(element("drpdwn_records", fieldName)); //listItem
 			Assert.assertTrue(elements("listItem").size() > 0,
 					" no option available on clicking dropdown " + fieldName);
 			click(element("drpdwn_records", fieldName));
@@ -153,9 +156,9 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 
 	public void enterDetailsAtSaveGridConfigurationPage(String value) {
 		isElementDisplayed("input_SaveGridConfig", "Name");
+		element("input_SaveGridConfig", "Name").clear();
 		element("input_SaveGridConfig", "Name").sendKeys(value);
 		logMessage("STEP: Enter details at Save Grid Configuration Page");
-
 	}
 
 	public void enterValueInFilter(String value) {
