@@ -18,6 +18,8 @@ import org.testng.Assert;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DateUtil;
 
+import bsh.ParseException;
+
 public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	WebDriver driver;
@@ -2350,9 +2352,11 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		List<String> individualDatelist = new ArrayList<String>();
 		Assert.assertTrue(element("txt_total", mbrStatus).getText().trim().length() != 0,
 				"Effective date is not populated under individual membership tab");
+		logMessage("ASSERT PASSED : Effective date under individual membership is populated as "+element("txt_total", mbrStatus).getText());
 		individualDatelist.add(element("txt_total", mbrStatus).getText().trim());
 		Assert.assertTrue(element("txt_payment", mbrStatus).getText().trim().length() != 0,
 				"Expire date is not populated under individual membership tab");
+		logMessage("ASSERT PASSED : Expire date under individual membership is populated as "+element("txt_payment", mbrStatus).getText());
 		individualDatelist.add(element("txt_payment", mbrStatus).getText().trim());
 		logMessage("ASSERT PASSED : All Dates are now populated under individual membership tab\n");
 		return individualDatelist;
@@ -2367,7 +2371,13 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	private void verifyDatesUnderChapterMembership(List<WebElement> elements, List<String> individualDatelist,
 			int count) {
+		
+			wait.resetExplicitTimeout(4);
+			wait.resetImplicitTimeout(4);
 		for (WebElement ele : elements) {
+			try{
+				if(!(ele.getText().trim().equals("")))
+			{
 			Date chapterdate = DateUtil.convertStringToDate(ele.getText().trim(), "MM/dd/YYYY");
 			Date individualdate = DateUtil.convertStringToDate(individualDatelist.get(count), "MM/dd/YYYY");
 			System.out.println(chapterdate);
@@ -2376,27 +2386,25 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 			logMessage("ASSERT PASSED : individual date " + individualDatelist.get(count)
 					+ " is equal to chapter Dates " + ele.getText());
 		}
-
+			}
+			catch(Exception  e)
+			{
+				logMessage("Step : Chapter Dates are not available under Chapter Memberships\n");
+			}
+		}
+		
+		
+		wait.resetExplicitTimeout(hiddenFieldTimeOut);
+		wait.resetImplicitTimeout(timeOut);
 	}
 
 	public void verifyActiveSubscriptionDatesIfAvailable(String invoiceNumber, List<String> individualDatelist) {
+		int size = elements("txt_priceValue", invoiceNumber).size();
 		if (element("txt_priceValue", invoiceNumber).getText().trim().equals("Chemical and Engineering News")) {
 			logMessage("Step : active subscription Start and End dates for C&EN are empty\n");
-		} else {
+		} if(size>1){
 			verifyDatesUnderChapterMembership(elements("txt_total", invoiceNumber), individualDatelist, 0);
 			verifyDatesUnderChapterMembership(elements("txt_payment", invoiceNumber), individualDatelist, 1);
-			// isElementDisplayed("txt_total",invoiceNumber);
-			// isElementDisplayed("txt_payment",invoiceNumber);
-			// System.out.println(element("txt_total",invoiceNumber).getText());
-			// System.out.println(individualDatelist.get(0));
-			// System.out.println(element("txt_payment",invoiceNumber).getText());
-			// System.out.println(individualDatelist.get(1));
-			// Assert.assertTrue(element("txt_total",invoiceNumber).getText().trim().equals(individualDatelist.get(0)));
-			// logMessage("ASSERT PASSED : Start date for active subscription is
-			// same as individual dates as "+individualDatelist.get(0));
-			// Assert.assertTrue(element("txt_payment",invoiceNumber).getText().trim().equals(individualDatelist.get(1)));
-			// logMessage("ASSERT PASSED : End date for active subscription is
-			// same as individual dates as "+individualDatelist.get(1));
 		}
 
 	}

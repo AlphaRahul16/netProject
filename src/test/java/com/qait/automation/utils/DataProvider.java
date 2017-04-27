@@ -48,6 +48,7 @@ public class DataProvider {
 		return returnStr;
 	}
 
+
 	public static String csvReaderRowSpecific(String csvFile, String hasHeader, String rowNumberExact) {
 		BufferedReader br = null;
 		ArrayList<String> dataRows = new ArrayList<>();
@@ -73,6 +74,7 @@ public class DataProvider {
 				}
 			}
 		}
+		
 		int rowNumber = Integer.parseInt(rowNumberExact) - 1;
 		return dataRows.get(rowNumber);
 	}

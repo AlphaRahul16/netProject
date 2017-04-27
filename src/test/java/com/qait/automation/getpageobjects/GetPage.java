@@ -539,4 +539,11 @@ public class GetPage extends BaseUi {
 		  action.doubleClick(element).build().perform();
 		 }
 
+	public void doubleClick(WebElement element) {
+
+			Actions action = new Actions(driver).doubleClick(element);
+			action.build().perform();
+			System.out.println("Double clicked the element");
+	}
+	
 }

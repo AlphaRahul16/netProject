@@ -199,6 +199,20 @@ public class Maps_Submission_Test extends BaseTest {
 		test.maps_submissionPage.verifyPopUpHeaderOnSubmissionPage("Move to Draft status?");
 		test.maps_submissionPage.clickOnDraftStatusActionButton("No, Do Not Move");
 	}
+	
+	@Test
+	public void Test21_MAPS_239_Verify_Application_Displays_A_Popup_On_Clicking_Withdrawn_Abstracts_For_Submitted_Abstracts() {
+		test.maps_submissionPage.selectEditActionForSubmittedAbstracts(programName, "Withdraw Abstract");
+		test.maps_submissionPage.verifyPopUpIsDisplayed("Withdraw Abstract");
+		
+	}
+	
+	@Test
+	public void Test22_MAPS_243_Verify_Application_Withdrawn_The_Abstract_And_Change_The_Status_To_Author_Withdrawn_On_Clicking_Yes_Button() {
+		test.maps_submissionPage.enterWithdrawReason(YamlReader.getYamlValue("Submission_withdraw_Reason"));
+		test.maps_submissionPage.clickOnNamedButton("Yes");
+		test.maps_submissionPage.verifyStatusOfSubmittedAbstract("subs",programName,"Author Withdrawn","2");
+	}
 
 	@Test
 	public void Test21_MAPS_26_Application_LogsOut_On_Clicking_LogOut_Link() {

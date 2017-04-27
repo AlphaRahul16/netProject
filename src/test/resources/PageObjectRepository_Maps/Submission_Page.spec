@@ -41,4 +41,6 @@ btn_edit                                            xpath                       
 txt_reviewAnswer                                    xpath                            //h3[@id='Step${stepNumber}']/../following-sibling::div//strong[text()='${fieldName}']/../following-sibling::td
 txt_abstractStatus                                  xpath                            (//table[@id='${subs}']//tr[last()]//td[contains(text(),'%{title}')]/following-sibling::td)[#{index}]
 radio_programName                                   xpath                             //strong[contains(text(),'${programArea}')]/../preceding-sibling::td//input
+txt_modellabel                                      id                               myModalLabel
+txt_withdrn_reason                                  id                               WITHDRAW_REASON
 ==========================================================================================================================================================================================

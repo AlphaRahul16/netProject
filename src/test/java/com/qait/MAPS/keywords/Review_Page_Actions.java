@@ -106,6 +106,11 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		case "Export":
 		case "Export to Excel":
 		case "Import/Export to Excel":
+		case "Import / Export":
+		case "Delete Selected":
+		case "Print Selected":
+		case "Create New Symposium":
+			
 			isElementDisplayed("btn_ImportExportExcel", fieldName);
 			click(element("btn_ImportExportExcel", fieldName));
 			Assert.assertTrue(elements("list_drpdwnoptions").size() > 0,
