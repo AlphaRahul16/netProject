@@ -1,0 +1,9 @@
+[MPPG] Multidisciplinary Program Planning Group
+[AGFD] Division of Agricultural and Food Chemistry
+[WCC] Women Chemists Committee
+[AGRO] Division of Agrochemicals
+[SCHB] Division of Small Chemical Businesses
+[ENVR] Division of Environmental Chemistry
+[NUCL] Division of Nuclear Chemistry and Technology
+[ORGN] Division of Organic Chemistry
+[CELL] Division of Cellulose and Renewable Materials

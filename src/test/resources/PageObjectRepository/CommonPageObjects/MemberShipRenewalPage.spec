@@ -33,4 +33,5 @@ txt_beginDate                                    id                             
 txt_noResultsDisplay                             xpath                           //span[contains(text(),'There are no results to display.')]
 txt_addACSRenewalCycle                           xpath                           //td[text()='${acsRenewalCycleName}']
 hd_acsRenewalCycle                               xpath                           //h3[11]
+inp_notifyEmail                                  id                              tsk_email_notify_address
 ====================================================================================================================================================================================

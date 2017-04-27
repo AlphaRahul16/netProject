@@ -315,6 +315,7 @@ public class DataProvider {
 			}
 		}
 
+		System.out.println("------random program:"+line);
 		return line;
 	}
 

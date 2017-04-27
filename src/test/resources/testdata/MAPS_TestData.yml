@@ -2,6 +2,9 @@
 #MAPS_Url: https://acsnm253.beta.abstractcentral.com/?NO_SSO_OVERRIDE_FL=Y
 MAPS_Url: https://acstraining.abstractcentral.com
 
+csv-data-file: 
+  path_MapsProgramArea: ./src/test/resources/TestDataLibrary/MAPS_ProgramAreaTypeList.txt
+
 LogIn_Details:
   userID: ACS1\C00839
   password: 7O1y76!1a
@@ -58,18 +61,25 @@ Session:
       File_Download_resources: "symposia_resources"
       File_Download_Hosts: "session_hosts"
       File_Download_Session_Owners: "sessioners"
-  
   OPA_Staff: 
-      File_Downloaded_Name: "abstracts.csv"
-  
+      File_Downloaded_Name: "abstracts"
   Session_Events:
       Title: "Test_Session_Title"
       Type: "Oral"
       Duration: "15"
       Symposia_Submission_Type: "Invited"
+  Session_Builder: 
+      Session_Type1: "Oral"
+      Session_Type2: "Poster"
+      Session_Type3: "Sci-Mix"
+      Session_Type4: "Select..."
+      Title: "QAIT_Automation_Test"
+      Duration: "30"
+      Email: "R_Yadav@acs.org"
+      Author_First_Name: "Hitasheet"
+      Author_Last_Name: "Sil"
       Session_Program_Area: "Qait_Program_Area"
-      Symposium: "Qait_Symposium"
-      
+      Symposium: "Qait_Symposium"     
   Schedule_Sessions: 
       Programs: "Training Site"
       Session_Type: "Poster"

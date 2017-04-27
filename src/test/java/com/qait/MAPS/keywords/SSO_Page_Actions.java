@@ -17,7 +17,7 @@ public class SSO_Page_Actions extends ASCSocietyGenericPage {
 
 
 	public void verifyUserIsOnMAPSHomePage(String title) {
-		boolean flag=false;
+        wait.hardWait(2);
 		isElementDisplayed("txt_MAPS_title");
 		Assert.assertTrue(element("txt_MAPS_title").getText().trim().contains(title),"User is not on MAPS homepage");
 		logMessage("ASSERT PASSED : User is on MAPS home page\n");

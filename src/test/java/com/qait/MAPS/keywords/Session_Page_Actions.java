@@ -2,23 +2,28 @@ package com.qait.MAPS.keywords;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.tools.ant.taskdefs.condition.IsLastModified;
 import org.apache.xalan.xsltc.compiler.sym;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
-
+import org.testng.collections.CollectionUtils;
+import com.gargoylesoftware.htmlunit.javascript.host.Window;
 import com.itextpdf.text.log.SysoCounter;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.thoughtworks.selenium.webdriven.commands.DoubleClick;
@@ -442,6 +447,15 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		enterValuesForProgram("session_name", symposiumTitle);
 		selectValueForSymposium("session_type", symposiumType);
 	}
+	
+	public String getRandomRecordFromTable(String columnIndex){
+		wait.hardWait(2);
+		isElementDisplayed("txt_totalRecords");
+		int randomnumber = generateRandomNumberWithInRange(0, (elements("txt_totalRecords").size()) - 1);
+		isElementDisplayed("btn_recordsname",String.valueOf(randomnumber),columnIndex);
+		System.out.println("-----random record:"+element("btn_recordsname",String.valueOf(randomnumber),columnIndex).getText().trim());
+		return element("btn_recordsname",String.valueOf(randomnumber),columnIndex).getText().trim();
+    }
 
 	public String selectaRandomRecordFromTheList() {
 		isElementDisplayed("chkbox_records");
@@ -449,15 +463,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		click(elements("chkbox_records").get(randomnumber));
 		logMessage("Step : a random record is selected from the list with position " + randomnumber);
 		return element("btn_recordsname", toString().valueOf(randomnumber)).getText();
-	}
-
-	public String getRandomRecordFromTable(String columnIndex) {
-		isElementDisplayed("txt_totalRecords");
-		int randomnumber = generateRandomNumberWithInRange(0, (elements("txt_totalRecords").size()) - 1);
-		isElementDisplayed("btn_recordsname", String.valueOf(randomnumber), columnIndex);
-		System.out.println("-----random record:"
-				+ element("btn_recordsname", String.valueOf(randomnumber), columnIndex).getText().trim());
-		return element("btn_recordsname", String.valueOf(randomnumber), columnIndex).getText().trim();
 	}
 
 	public void selectaRecordFromTheList(int number) {
@@ -471,9 +476,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		click(element("dropdown_programField", dropdownName));
 		logMessage("STEP: " + dropdownName + " is clicked \n");
 		selectValueFromDropDown(symposiumType);
-		// isElementDisplayed("listItem_SymposiumType", symposiumType);
-		// click(element("listItem_SymposiumType", symposiumType));
-		// logMessage("STEP: " + symposiumType + " is selected \n");
 	}
 
 	public void addHostforSymposium() {
@@ -768,10 +770,11 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED: Application only changes the 'Session Type' \n");
 	}
 
-	public void verifyColumnHeaders(String columnsList[]) {
-		for (String columnName : columnsList) {
-			isElementDisplayed("column_headers", columnName);
-			logMessage("ASSERT PASSED: Column " + columnName + " is displayed\n");
+	public void verifyColumnHeaders(List<String> columnsList){
+		for(String columnName:columnsList){
+			wait.hardWait(1);
+			isElementDisplayed("column_headers",columnName);
+			logMessage("ASSERT PASSED: Column "+columnName+" is displayed\n");
 		}
 	}
 
@@ -781,11 +784,12 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("Step : Clicked on edit link of first abstract\n");
 	}
 
-	public void editAbstractDetails() {
-		Submission_Page_Actions objSubmission = new Submission_Page_Actions(driver);
+	public void editAbstractDetails(String title,String abstractData){
+		Submission_Page_Actions objSubmission= new Submission_Page_Actions(driver);
 		wait.hardWait(3);
 		switchToWindowHavingIndex(1);
-		objSubmission.submitTitleAndBodyDetails("Test Title", "Test Abstract");
+		driver.manage().window().maximize();
+		objSubmission.submitTitleAndBodyDetails(title,abstractData);
 		objSubmission.uploadImage("test.jpeg");
 		objSubmission.clickOnSaveAndContinueButton();
 		objSubmission.verifyPageHeaderForASection("Properties");
@@ -795,6 +799,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		objSubmission.verifyPageHeaderForASection("Disclosures");
 		objSubmission.clickOnSaveAndContinueButton();
 		objSubmission.verifyPageHeaderForASection("Review & Submit");
+		objSubmission.verifyAbstractAnswersForSubmission(2, "Title", title);
+		objSubmission.verifyAbstractAnswersForSubmission(2, "Abstract", abstractData);
 		objSubmission.clickOnNamedButton("Finish");
 		switchToWindowHavingIndex(0);
 	}
@@ -802,5 +808,189 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public void enterValuesInAddEditRooms(String roomName) {
 		enterValuesForProgram("room_name", roomName);
 	}
-
+	public void expandColumnWidth(String columnName, String value){
+		isElementDisplayed("column_headers",columnName);
+		JavascriptExecutor executor = (JavascriptExecutor) driver;
+		executor.executeScript("document.querySelector('div[qtip='Edit Abstract']').setAttribute(\"style\",\"width:50px\"));");
+//		modifyAttributeOfElement(element("column_headers",columnName), "width", value);
+//		JavascriptExecutor executor = (JavascriptExecutor) driver;
+//		executor.executeScript("arguments[0].attr('width','60');", element("column_headers",columnName));
+	}
+	
+	public void modifyAttributeOfElement(WebElement element, String attribute, String value) {
+		  try {
+		   wait.hardWait(3);
+		   ((JavascriptExecutor) driver).executeScript("arguments[0].setAttribute(arguments[1],arguments[2]);",
+		     element, attribute, value);
+		  } catch (WebDriverException web) {
+		  } catch (Exception e) {
+		   e.printStackTrace();
+		  }
+		 }
+	
+	public List<String> getTableDataFromSortPopUpWindow(String columnName,String[] fullColumnsList){ //add functionality
+		wait.hardWait(5);
+		List<String> tableDuplicateData =new ArrayList<>();
+		List<String> tableFullData =new ArrayList<>();
+		tableFullData.addAll(Arrays.asList(fullColumnsList));
+		if(checkIfElementIsThere("table_columnDate",columnName)){
+		for(WebElement elem:elements("table_columnDate",columnName)){
+			tableDuplicateData.add((elem).getText().trim());
+		  }
+		tableFullData.removeAll(tableDuplicateData);
+		}     
+			return tableFullData;
+	}
+	
+	public void verifyColumnNamesPresentForSorting(List<String> fastColumnNames){
+		for(String columnName: fastColumnNames){
+			isElementDisplayed("lst_column",columnName);
+			logMessage("ASSERT PASSED: Column "+columnName+" is available for sorting\n");
+		}
+	}
+	
+	public List<String> getCheckedColumnHeadings(){
+		List<String> columnsCheckedList=new ArrayList<>();
+		isElementDisplayed("checked_columnHeadings");
+		for(WebElement elem: elements("checked_columnHeadings")){
+			columnsCheckedList.add(elem.getText().trim());
+		}
+		return columnsCheckedList;
+	}
+	
+	public void verifySortingOrderIsPresent(String columnName){
+		isElementDisplayed("txt_sortingOrder",columnName);
+		logMessage("Step : Sorting order is present for "+columnName+"\n");
+	}
+	
+	public String getRandomTableData(String index, String columnName){
+		List<String> searchTerm = getTableData(index, columnName);
+		int listIndex = ThreadLocalRandom.current().nextInt(searchTerm.size());
+		logMessage("Step : SearchTerm is\" " + searchTerm.get(listIndex) + "\"\n");
+		return searchTerm.get(listIndex);
+	
+	}
+	
+	public void doubleClickOnRow(String index) {
+		waitForLoaderToDisappear();
+		doubleClick(element("chkbox_records",index));
+		logMessage("Step : Double clicked on table row\n");
+	}
+	
+	public void inputTextInFilter(String value,String index){
+		waitForLoaderToDisappear();
+		isElementDisplayed("input_filter", "Filter",index);
+		element("input_filter", "Filter",index).sendKeys(value);
+		logMessage("STEP : " + value + " is entered in filter input box \n");
+	}
+	
+	public void selectRoleOnSaveGridConfiguration(String role) {
+		isElementDisplayed("select_role", role);
+		click(element("select_role", role));
+		logMessage("Step : Role is selected as " + role + "\n");
+	}
+	
+	public void verifyIsDataDeleted(String expValue) {
+		waitForLoaderToDisappear();
+		Assert.assertFalse(checkIfElementIsThere("txt_instruction", expValue));
+		logMessage("STEP :" + expValue + " is deleted \n");
+	}
+	
+	public void clickOnDropDownOfLabel(String dropDown, String tagName) {
+		System.out.println("1");
+		isElementDisplayed("input_label", dropDown,tagName);
+		click(element("input_label", dropDown,tagName));
+		logMessage("Step : Clicked on " + dropDown + "\n");
+	}
+	
+	public void selectValueFromDropDown(String priviousValue,String value){
+		isElementDisplayed("listitem_dropdown", priviousValue,value);
+		click(element("listitem_dropdown", priviousValue,value));
+		logMessage("Step : Role is selected as " + value + "\n");
+	}
+	
+	public void verifySpanUnderlabelElement(String value){
+		waitForLoaderToDisappear();
+		if(value.matches("Oral")){
+			verifyCheckBoxUnderLableName("Sci-Mix:", "input");
+			verifySpanUnderlabelName("Financial Co-sponsor:", "textarea");
+			verifySpanUnderlabelName("Newsworthy Reason:", "textarea");
+			verifylistBoxUnderLableName("Themes:", "div");
+			verifylistBoxUnderLableName("Co-sponsor - Nominal:", "div");
+			verifylistBoxUnderLableName("Co-sponsor - Cooperative:", "div");
+			verifylistBoxUnderLableName("Session Half-Day:", "div");
+			verifySpanUnderlabelName("Symposia Submission Type:", "input");
+			verifySpanUnderlabelName("Session Track:", "input");
+			verifyCheckBoxUnderLableName("Newsworthy:", "input");
+		}
+		else if(value.matches("Sci-Mix")){
+			verifyPopupMessage("Confirm");
+			clickOnButtonUnderSessionModule("Yes");
+			verifySpanUnderlabelName("Session Track:", "input");
+			verifySpanUnderlabelName("Session Half-Day:", "div");
+		}
+		else if(value.matches("Poster")){
+			verifyPopupMessage("Confirm");
+			clickOnButtonUnderSessionModule("Yes");
+			verifyCheckBoxUnderLableName("Sci-Mix:", "input");
+			verifySpanUnderlabelName("Financial Co-sponsor:", "textarea");
+			verifySpanUnderlabelName("Newsworthy Reason:", "textarea");
+			verifylistBoxUnderLableName("Themes:", "div");
+			verifylistBoxUnderLableName("Co-sponsor - Nominal:", "div");
+			verifylistBoxUnderLableName("Co-sponsor - Cooperative:", "div");
+			verifylistBoxUnderLableName("Session Half-Day:", "div");
+			verifySpanUnderlabelName("Symposia Submission Type:", "input");
+			verifySpanUnderlabelName("Session Track:", "input");
+			verifyCheckBoxUnderLableName("Newsworthy:", "input");
+		}
+	}
+	
+	public void enterTitleOfSession(String fieldName,String tagName, String sessionTitle) {
+		isElementDisplayed("input_label", fieldName,tagName);
+		element("input_label", fieldName,tagName).clear();
+		element("input_label", fieldName,tagName).sendKeys(sessionTitle);
+		logMessage("Step : " + fieldName + " is entered as " + sessionTitle + "\n");
+	}
+	
+	public void checkRowInTable( int index, int columnIndex){
+		isElementDisplayed("txt_tableData", String.valueOf(index), String.valueOf(columnIndex));
+		click(element("txt_tableData", String.valueOf(index), String.valueOf(columnIndex)));
+		logMessage("Step : Checked on row.\n");
+	}
+	
+	public void verifyRowIsDeleted(String expValue,int index, int columnIndex){
+		waitForLoaderToDisappear();
+		try{
+		Assert.assertTrue(checkIfElementIsThere("txt_instruction", String.valueOf(index), String.valueOf(columnIndex)));
+		}
+		catch(AssertionError e){
+		logMessage("STEP :" + expValue + " is deleted \n");
+		}
+	}
+	
+	public void verifyLabelName(String fieldName,String tagName){
+		if(tagName==""){
+			isElementDisplayed("input_label_create", fieldName);
+			logMessage("STEP : " + fieldName + " label is verified \n");
+		}
+		else{
+			isElementDisplayed("input_label", fieldName,tagName);
+			logMessage("STEP : " + fieldName + " label is verified \n");
+		}
+	}
+	
+	public void verifyCheckBoxUnderLableName(String fieldName,String tagName){
+		isElementDisplayed("lable_checkbox", fieldName,tagName);
+		logMessage("STEP : " + fieldName + " label is verified \n");
+	}
+	
+	public void verifySpanUnderlabelName(String fieldName,String tagName){
+		isElementDisplayed("input_area", fieldName,tagName);
+		logMessage("STEP : " + fieldName + " label is verified \n");
+	}
+	
+	public void verifylistBoxUnderLableName(String fieldName,String tagName){
+		isElementDisplayed("label_listbox", fieldName,tagName);
+		logMessage("STEP : " + fieldName + " label is verified \n");
+	}
 }

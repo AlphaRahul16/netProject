@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.testng.ITestResult;
+import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -50,7 +51,7 @@ public class ACS_ScarfReviewing_Test {
 				YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
-//		test.acsScarfReviewPage.assignChapterName("Morningside College Student Chapter");
+//		test.acsScarfReviewPage.assignChapterName("Seattle Pacific University Student Chapter");
 	}
 
 	@Test
@@ -112,6 +113,7 @@ public class ACS_ScarfReviewing_Test {
 		test.launchApplication(app_url_eweb);
 		// test.acsScarfReporting.loginWithLastNameAndMemberId("Abrams","2346003");
 		// //"Easter", "2175095"
+		Reporter.log("---------value of i:"+i,true);
 		test.acsScarfReporting.loginWithLastNameAndMemberId(ReviewerLoginMap
 				.get("reviewer" + i).get(0),
 				ReviewerLoginMap.get("reviewer" + i).get(1)); 

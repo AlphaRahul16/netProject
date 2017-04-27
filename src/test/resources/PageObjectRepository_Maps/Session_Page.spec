@@ -59,9 +59,19 @@ date_currentDate                        xpath                               //td
 table_columnDate                        css                                 .x-grid3-${columnName}
 btn_add_column                          xpath                               //div[text()='${roomName}']/../preceding-sibling::td[1]//div[@class='x-grid3-row-expander']
 txt_chckdColumnData                     xpath                               (//div[@class='x-grid3-row-checker'])[${index1}]/../../following-sibling::td[${index2}]
+column_headers                          xpath                                //div[contains(@qtip,'${columnName}')]
+checked_columnHeadings                  xpath                                //a[contains(text(),'Columns')]/../../../following-sibling::div[2]//a[contains(@class,'x-menu-checked')]
+txt_sortingOrder                        xpath                                //div[contains(text(),'${columnName}')]/../following-sibling::td
+img_editColumnHeading                   xpath                                //img[contains(@src,'pencil_small.png')]/..
+input_filter							xpath								(//div[contains(text(),'${text}')]/../following-sibling::td//input)[${index}]
+input_label								xpath								//label[contains(text(),'${label}')]/following-sibling::div//${tagName}
+input_label_create						xpath								//label[contains(text(),'${label}')]
+input_area								xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//${tagName}
+listitem_dropdown						xpath								//div[text()='${text}']/following-sibling::div[text()='${Value}']
+lable_checkbox							xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//${tagName}[@type='checkbox']
+label_listbox							xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//${tagName}[@role='listbox']
+txt_deletedValue						xpath								//span[contains(text(),'${text}')]/../following-sibling::div//div[@class='grid3-scroller']//tbody//div[contains(text(),'${dataToBEdeleted}')]
 drpdown_Symposium						xpath								//label[contains(text(),'${text}')]/following-sibling::div//img[contains(@class,'arrow')]
 txt_SchedulerGrid						xpath								//div[contains(@class,'${className}')]
 drpDown_meetingDay						xpath								//div[contains(text(),'${label}')]/../following-sibling::td//img
-column_headers                          xpath                                //div[contains(@qtip,'${columnName')]
-
 ======================================================================================================================================

@@ -533,7 +533,6 @@ public class GetPage extends BaseUi {
 						.containsIgnoreCase(element(elementName).getAttribute("textContent"), expectedText));
 		logMessage("ASSERT PASSED : Element " + elementName + " is visible and Text is " + expectedText);
 	}
-
 	public void doubleClick(WebElement element) {
 
 			Actions action = new Actions(driver).doubleClick(element);
