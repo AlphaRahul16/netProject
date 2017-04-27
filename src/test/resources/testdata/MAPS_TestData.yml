@@ -30,6 +30,8 @@ Session:
   Programs:
     ProgramTitle: "QAIT_Test"
     Interval: "30"
+    Room: "Room1"
+    
   Types:
       TestType: "Test Type"
       ColorCode: "#00FFFF"
@@ -43,8 +45,8 @@ Session:
       Title: "Test_Symposium_Title"
       Type: "Oral"
       Host_Role: "Organizer"
-      Abstract_AuthorFirstName: "bhuwan"
-      Abstract_AuthorLastName: "takkar"
+      Abstract_AuthorFirstName: "Bhuwan"
+      Abstract_AuthorLastName: "Takkar"
       
   Program_Areas:
       Color: "#FFCC00"

@@ -22,8 +22,9 @@ txt_tabledata						xpath							(//table[contains(@class,'row-table')]//u)[1]
 img_Loader							xpath							//div[contains(text(),'Loading...')]
 img_CrossFilter                     xpath                           (//div[contains(text(),'${text}')]/../following-sibling::td//img)[1]
 drpdwn_records                      xpath                           //div[contains(text(),'${text}')]/../preceding-sibling::td[1]//input
-img_dropdown						xpath							//tr[@role='presentation']//input[contains(@id,'input')]
+img_dropdown						xpath							//tr[@role='presentation']//input[contains(@id,'input')]/following-sibling::img
 list_gripConfig						xpath							//div[contains(@class,'combo-list-item')]
 dropdown_sessionDetailType			xpath							//label[contains(text(),'Session Detail Type')]/following-sibling::div/img
 txt_sucessMsg						xpath							//p[contains(text(),'${msg}')]
+inp_gridConfig						xpath							//tr[@role='presentation']//input[contains(@id,'input')]
 ======================================================================================================================================

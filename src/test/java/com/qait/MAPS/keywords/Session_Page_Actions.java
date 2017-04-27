@@ -460,11 +460,12 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		return element("btn_recordsname", String.valueOf(randomnumber), columnIndex).getText().trim();
 	}
 
-		 public void selectaRecordFromTheList(int number) {
-		  isElementDisplayed("chkbox_records");
-		  click(elements("chkbox_records").get(number));
-		  logMessage("Step : a random record is selected from the list with position " + number);
-	 }
+	public void selectaRecordFromTheList(int number) {
+		isElementDisplayed("chkbox_records",String.valueOf(number));
+		click(element("chkbox_records",String.valueOf(number)));
+		logMessage("Step : Random record is selected from the list with position " + number);
+	}
+
 	private void selectValueForSymposium(String dropdownName, String symposiumType) {
 		isElementDisplayed("dropdown_programField", dropdownName);
 		click(element("dropdown_programField", dropdownName));
@@ -509,10 +510,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		wait.hardWait(5);
 		waitForLoadingImageToDisappear("Loading...");
 		isElementDisplayed("txt_hostDetails", "title");
-
-		System.out.println("size***************" + elements("txt_hostDetails", "title").size());
-
-		WebElement Sourcelocator = elements("txt_hostDetails", "title").get(3);
+		WebElement Sourcelocator = elements("txt_hostDetails", "title").get(2);
 		isElementDisplayed("txt_dropField");
 		WebElement Destinationlocator = element("txt_dropField");
 		dragAndDrop(Sourcelocator, Destinationlocator);
@@ -537,54 +535,52 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		click(element("btn_Types", btnName));
 		logMessage("Step : Clicked on " + btnName + "\n");
 	}
-	
-	public void selectSessionTopicWhenAddingProgramArea(String topicname)
-	{
-		isElementDisplayed("btn_SessionTopic",topicname);
-		click(element("btn_SessionTopic",topicname));
-		logMessage("Step : Session name in program area is selected as "+topicname);
+
+	public void selectSessionTopicWhenAddingProgramArea(String topicname) {
+		isElementDisplayed("btn_SessionTopic", topicname);
+		click(element("btn_SessionTopic", topicname));
+		logMessage("Step : Session name in program area is selected as " + topicname);
 	}
 
 	public void verifyAndAcceptProgramAreaAlertText(String alertText) {
-		Assert.assertTrue(element("txt_alertAddOwner").getText().equals(alertText),"Alert box text does not match with expected text "+getAlertText());
-		logMessage("ASSERT PASSED : Alert box is appered on clicking Add Owners button with text "+alertText);
+		Assert.assertTrue(element("txt_alertAddOwner").getText().equals(alertText),
+				"Alert box text does not match with expected text " + getAlertText());
+		logMessage("ASSERT PASSED : Alert box is appered on clicking Add Owners button with text " + alertText);
 		clickOnButtonUnderSessioning("Yes");
 	}
 
 	public void verifyCorrectSearchResultsAreDisplayed(String fieldname, String expected_value) {
 		isElementDisplayed("txt_searchResults", fieldname);
-		Assert.assertTrue(element("txt_searchResults",fieldname).getText().equals(expected_value), " Owner's"+fieldname+" is not displayed\n");
-		logMessage("ASSERT PASSED : "+fieldname+" in search results is verified as "+expected_value);
-		
+		Assert.assertTrue(element("txt_searchResults", fieldname).getText().equals(expected_value),
+				" Owner's" + fieldname + " is not displayed\n");
+		logMessage("ASSERT PASSED : " + fieldname + " in search results is verified as " + expected_value);
+
 	}
-	
-	public void selectAvailableSearchRecord(String index1,String index2)
-	{
-		isElementDisplayed("txt_tableData",index1,index2);
-		click(element("txt_tableData",index1,index2));
+
+	public void selectAvailableSearchRecord(String index1, String index2) {
+		isElementDisplayed("txt_tableData", index1, index2);
+		click(element("txt_tableData", index1, index2));
 		logMessage("Step : Search record is elected from the list");
 	}
-	
-	public void setRoleForTheUser(String rolevalue)
-	{
-		isElementDisplayed("table_columnDate","col-session_role_name");
-		click(element("table_columnDate","col-session_role_name"));
+
+	public void setRoleForTheUser(String rolevalue) {
+		isElementDisplayed("table_columnDate", "col-session_role_name");
+		click(element("table_columnDate", "col-session_role_name"));
 		isElementDisplayed("listItem_SymposiumType", rolevalue);
 		click(element("listItem_SymposiumType", rolevalue));
-		logMessage("Step : Role selected for owner as "+rolevalue);
+		logMessage("Step : Role selected for owner as " + rolevalue);
 		wait.hardWait(3);
-		Assert.assertTrue(element("table_columnDate","col-session_role_name").getText().trim().equals(rolevalue));
-		logMessage("ASSERT PASSED : Selected role for owner is verifed "+rolevalue);
+		Assert.assertTrue(element("table_columnDate", "col-session_role_name").getText().trim().equals(rolevalue));
+		logMessage("ASSERT PASSED : Selected role for owner is verifed " + rolevalue);
 	}
-	
-	public void verifyProgramAreaIsAdded(String programname,String programtype,String color)
-	{
+
+	public void verifyProgramAreaIsAdded(String programname, String programtype, String color) {
 		verifyAddedDetails("session_topic_name", programname);
 		verifyAddedDetails("session_kind_name", programtype);
-		verifyAddedDetails("session_topic_color",color);
+		verifyAddedDetails("session_topic_color", color);
 	}
-	
-	public void selectCurrentDate(){
+
+	public void selectCurrentDate() {
 		isElementDisplayed("date_currentDate");
 		click(element("date_currentDate"));
 		logMessage("Step : Selected Current date from Calendar\n");
@@ -632,9 +628,9 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyDataIsDeleted(String title, String expValue) {
-		waitForLoaderToDisappear();
-		Assert.assertFalse(checkIfElementIsThere("txt_programTableData", title));
-		logMessage("STEP:" + expValue + " is deleted \n");
+		waitForLoadingImageToDisappear("deleteing data");
+		Assert.assertFalse(checkIfElementIsThere("txt_tableResult", title, expValue));
+		logMessage("ASSERT PASSED: " + expValue + " is deleted \n");
 	}
 
 	public void verifyValidFileIsDownloaded(String filePath) {
@@ -658,10 +654,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
 				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + fileName
 				+ ".csv";
-		 _deleteExistingCSVFile(downloadedFilePath);
-		 clickOnButtonUnderSessioning(btnName);
-		 wait.hardWait(5);
-		 verifyValidFileIsDownloaded(downloadedFilePath);
+		_deleteExistingCSVFile(downloadedFilePath);
+		clickOnButtonUnderSessioning(btnName);
+		wait.hardWait(5);
+		verifyValidFileIsDownloaded(downloadedFilePath);
 	}
 
 	public void verifyAddedCriteriaIsDeleted(String critiria) {
@@ -708,8 +704,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	private void selectValueFromDropDown(String value) {
-		isElementDisplayed("listItem_SymposiumType","combo-list-item", value);
-		click(element("listItem_SymposiumType","combo-list-item", value));
+		isElementDisplayed("listItem_SymposiumType", "combo-list-item", value);
+		click(element("listItem_SymposiumType", "combo-list-item", value));
 		logMessage("STEP: " + value + " is selected \n");
 	}
 
@@ -722,14 +718,17 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 			String Symposium) {
 		selectValueForCreateNewSessionFromSymposium("Session Type", sessionType);
 		selectValueForCreateNewSessionFromSymposium("Session Program Area", SessionProgramArea);
-		selectValueForCreateNewSessionFromSymposium("Symposium", Symposium);
+		wait.hardWait(2);
+		selectValueForCreateNewSessionFromSymposium("Symposium:", Symposium);
 
 	}
 
 	public void selectValueForCreateNewSessionFromSymposium(String label, String sessionType) {
 		isElementDisplayed("drpdown_Symposium", label);
+		clickUsingXpathInJavaScriptExecutor(element("drpdown_Symposium", label));
 		click(element("drpdown_Symposium", label));
 		logMessage("STEP: '" + label + "' is clicked \n");
+		wait.hardWait(2);
 		selectValueFromDropDown(sessionType);
 	}
 
@@ -755,8 +754,9 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void rightClickOnSession() {
+		wait.hardWait(2);
 		isElementDisplayed("txt_SchedulerGrid", "view-item");
-		rightClick(elements("txt_SchedulerGrid", "view-item").get(3));
+		rightClick(elements("txt_SchedulerGrid", "view-item").get(10));
 		logMessage("STEP: Right clicked on session \n");
 	}
 
@@ -767,22 +767,22 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		Assert.assertEquals(actualVal, expectedSessionType);
 		logMessage("ASSERT PASSED: Application only changes the 'Session Type' \n");
 	}
-	
-	public void verifyColumnHeaders(String columnsList[]){
-		for(String columnName:columnsList){
-			isElementDisplayed("column_headers",columnName);
-			logMessage("ASSERT PASSED: Column "+columnName+" is displayed\n");
+
+	public void verifyColumnHeaders(String columnsList[]) {
+		for (String columnName : columnsList) {
+			isElementDisplayed("column_headers", columnName);
+			logMessage("ASSERT PASSED: Column " + columnName + " is displayed\n");
 		}
 	}
-	
-	public void selectAbstractForEditing(int index1,int index2){
-		isElementDisplayed("txt_tableData",String.valueOf(index1),String.valueOf(index2));
-		elements("txt_tableData",String.valueOf(index1),String.valueOf(index2)).get(0).click();
+
+	public void selectAbstractForEditing(int index1, int index2) {
+		isElementDisplayed("txt_tableData", String.valueOf(index1), String.valueOf(index2));
+		elements("txt_tableData", String.valueOf(index1), String.valueOf(index2)).get(0).click();
 		logMessage("Step : Clicked on edit link of first abstract\n");
 	}
-	
-	public void editAbstractDetails(){
-		Submission_Page_Actions objSubmission= new Submission_Page_Actions(driver);
+
+	public void editAbstractDetails() {
+		Submission_Page_Actions objSubmission = new Submission_Page_Actions(driver);
 		wait.hardWait(3);
 		switchToWindowHavingIndex(1);
 		objSubmission.submitTitleAndBodyDetails("Test Title", "Test Abstract");
@@ -797,6 +797,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		objSubmission.verifyPageHeaderForASection("Review & Submit");
 		objSubmission.clickOnNamedButton("Finish");
 		switchToWindowHavingIndex(0);
+	}
+
+	public void enterValuesInAddEditRooms(String roomName) {
+		enterValuesForProgram("room_name", roomName);
 	}
 
 }
