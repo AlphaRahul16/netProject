@@ -74,4 +74,5 @@ txt_deletedValue						xpath								//span[contains(text(),'${text}')]/../followi
 drpdown_Symposium						xpath								//label[contains(text(),'${text}')]/following-sibling::div//img[contains(@class,'arrow')]
 txt_SchedulerGrid						xpath								//div[contains(@class,'${className}')]
 drpDown_meetingDay						xpath								//div[contains(text(),'${label}')]/../following-sibling::td//img
+txt_session								xpath								//div[contains(@class,'view-item')]/font
 ======================================================================================================================================

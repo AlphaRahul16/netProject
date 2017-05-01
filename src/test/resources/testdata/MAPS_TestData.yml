@@ -40,7 +40,6 @@ Session:
       ColorCode: "#00FFFF"
       SessionType: "Session"
   Host:
-     First_Name: "FNAME_Host"
      Last_Name: "LNAME_Host"
      Email: "EMAIL_Host"
      institution: "institution"
@@ -83,7 +82,9 @@ Session:
   Schedule_Sessions: 
       Programs: "Training Site"
       Session_Type: "Poster"
-      owner_first_name: "Rahul"
-      owner_last_name: "Yadav"
+      owner_first_name: "Hitasheet"
+      owner_last_name: "Sil"
+      Session_Title: "Test_Session_Title"
+      owner_email: "H_Sil@acs.org"
       
       

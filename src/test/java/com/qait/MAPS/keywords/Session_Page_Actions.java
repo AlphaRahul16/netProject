@@ -365,10 +365,11 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void verifyAddedDetails(String classLabel, String expValue) {
 		wait.hardWait(2);
+		//Assert.assertTrue(checkIfElementIsThere("txt_tableResult", classLabel, expValue));
 		isElementDisplayed("txt_tableResult", classLabel, expValue);
 		logMessage("ASSERT PASSED: " + expValue + " is added in table\n");
 	}
-
+	
 	public void selectOptionsUnderColumnHeaders(String option) {
 		isElementDisplayed("lnk_filters", option);
 		click(element("lnk_filters", option));
@@ -471,26 +472,27 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("Step : Random record is selected from the list with position " + number);
 	}
 
-	private void selectValueForSymposium(String dropdownName, String symposiumType) {
+	public void selectValueForSymposium(String dropdownName, String symposiumType) {
 		isElementDisplayed("dropdown_programField", dropdownName);
 		click(element("dropdown_programField", dropdownName));
 		logMessage("STEP: " + dropdownName + " is clicked \n");
 		selectValueFromDropDown(symposiumType);
 	}
 
-	public void addHostforSymposium() {
+	public String addHostforSymposium(String label) {
 		waitForLoadingImageToDisappear("Loading...");
-		isElementDisplayed("txt_hostDetails", "session_host_last_name");
+		isElementDisplayed("txt_hostDetails", label);
 
-		WebElement Sourcelocator = elements("txt_hostDetails", "session_host_last_name").get(2);
-		String hostlastname = elements("txt_hostDetails", "session_host_last_name").get(2).getText();
+		WebElement Sourcelocator = elements("txt_hostDetails", label).get(1);
+		String value = elements("txt_hostDetails",label).get(1).getText();
 		isElementDisplayed("txt_dropField");
 		WebElement Destinationlocator = element("txt_dropField");
 		dragAndDrop(Sourcelocator, Destinationlocator);
 		wait.hardWait(2);
 		waitForLoadingImageToDisappear("Loading...");
 		// waitForLoaderToDisappear();
-		logMessage("STEP: '" + hostlastname + " is selected as Host \n");
+		logMessage("STEP: '" + value + " is selected as Host \n");
+		return value;
 	}
 
 	public void addRoleForHost(String hostRole) {
@@ -757,8 +759,11 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void rightClickOnSession() {
 		wait.hardWait(2);
-		isElementDisplayed("txt_SchedulerGrid", "view-item");
-		rightClick(elements("txt_SchedulerGrid", "view-item").get(10));
+		isElementDisplayed("txt_session");
+		System.out.println("************"+element("txt_session").getText());
+		rightClick(element("txt_session"));
+//		isElementDisplayed("txt_SchedulerGrid", "view-item");
+//		rightClick(elements("txt_SchedulerGrid", "view-item").get(number));
 		logMessage("STEP: Right clicked on session \n");
 	}
 
@@ -993,4 +998,13 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("label_listbox", fieldName,tagName);
 		logMessage("STEP : " + fieldName + " label is verified \n");
 	}
+
+	public void clickOnColumnHeaders(String header) {
+		isElementDisplayed("column_headers",header);
+		click(element("column_headers",header));
+		logMessage("STEP: column header '"+ header + "' is clicked \n");
+		
+	}
+	
+	
 }
