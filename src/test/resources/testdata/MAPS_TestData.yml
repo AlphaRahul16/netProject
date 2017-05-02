@@ -40,6 +40,7 @@ Session:
       ColorCode: "#00FFFF"
       SessionType: "Session"
   Host:
+     First_Name: "FNAME_Host"
      Last_Name: "LNAME_Host"
      Email: "EMAIL_Host"
      institution: "institution"
@@ -86,5 +87,7 @@ Session:
       owner_last_name: "Sil"
       Session_Title: "Test_Session_Title"
       owner_email: "H_Sil@acs.org"
+      placeHolder_Title: "placeholder_title"
+      placeHolder_desc: "placeHolder_desc"
       
       
