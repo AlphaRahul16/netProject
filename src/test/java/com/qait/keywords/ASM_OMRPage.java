@@ -606,9 +606,10 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	private void addACSMemberBenefits(Map<String, String> mapOMR) {
 
 		if (mapOMR.get("MemBenefits_To_Add?").equalsIgnoreCase("Yes")) {
-			try {
+			
 				clickAddMembershipButton("Add ACS Member Benefits");
 				holdScriptExecution();
+				try {
 				selectAddToMembershipForParticularSubscription("BenefitAddToMembership");
 			} catch (Exception e) {
 

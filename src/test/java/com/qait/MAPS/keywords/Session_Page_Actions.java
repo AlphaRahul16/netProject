@@ -12,6 +12,7 @@ import java.util.Random;
 import org.apache.tools.ant.taskdefs.condition.IsLastModified;
 import org.apache.xalan.xsltc.compiler.sym;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -70,8 +71,9 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyTitleForRoles(String title) {
-		// isElementDisplayed("btn_navPanel",title)
-		// logMessage("Step:");
+		wait.hardWait(2);
+		 isElementDisplayed("btn_navPanel",title);
+		 logMessage("Step: Title is verified as "+title);
 	}
 
 	public void verifyLeftPanelOptionsOnSessionAdminPage(String[] leftPanelOptions) {
@@ -321,7 +323,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void isPrintSelectedButtonDisplayed(String buttonname) {
-		isElementDisplayed("btn_Types");
+		isElementDisplayed("btn_Types",buttonname);
 		logMessage("ASSERT PASSED : Print Selected Button is displayed on Session page\n");
 
 	}
@@ -436,14 +438,15 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 //	public String selectaRandomRecordFromTheList() {
-//		isElementDisplayed("chkbox_records");
-//		int randomnumber = generateRandomNumberWithInRange(0, (elements("chkbox_records").size()) - 1);
-//		click(elements("chkbox_records").get(randomnumber));
-//		logMessage("Step : a random record is selected from the list with position " + randomnumber);
-//		return element("btn_recordsname", toString().valueOf(randomnumber)).getText();
-//	}
+//	isElementDisplayed("chkbox_records");
+//	int randomnumber = generateRandomNumberWithInRange(0, (elements("chkbox_records").size()) - 1);
+//	click(elements("chkbox_records").get(randomnumber));
+//	logMessage("Step : a random record is selected from the list with position " + randomnumber);
+//	return element("btn_recordsname", toString().valueOf(randomnumber)).getText();
+//}
 	
 	public String getRandomRecordFromTable(String columnIndex){
+		wait.hardWait(5);
 		isElementDisplayed("txt_totalRecords");
 		int randomnumber = generateRandomNumberWithInRange(0, (elements("txt_totalRecords").size()) - 1);
 		isElementDisplayed("btn_recordsname",String.valueOf(randomnumber),columnIndex);
@@ -647,7 +650,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + fileName
 				+ ".csv";
 		 _deleteExistingCSVFile(downloadedFilePath);
-		 clickOnButtonUnderSessioning(btnName);
+		clickOnButtonUnderSessioning(btnName);
 		 wait.hardWait(5);
 		 verifyValidFileIsDownloaded(downloadedFilePath);
 	}
@@ -723,6 +726,20 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		objSubmission.verifyPageHeaderForASection("Review & Submit");
 		objSubmission.clickOnNamedButton("Finish");
 		switchToWindowHavingIndex(0);
+	}
+	
+	public void verifyPrintPreviewTableContents(String value)
+	{
+		isElementDisplayed("tbl_contents",value);
+		logMessage("ASSERT PASSED : print preview table title is verified as "+value);
+	}
+	
+	public void selectHeaderCheckbox()
+	{
+		isElementDisplayed("chkbox_headingCheck");
+		click(element("chkbox_headingCheck"));
+		logMessage("Step : Header checkbox is clicked");
+		
 	}
 
 }
