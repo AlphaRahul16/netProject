@@ -77,4 +77,6 @@ drpdown_Symposium						xpath								//label[contains(text(),'${text}')]/followin
 txt_SchedulerGrid						xpath								//div[contains(@class,'${className}')]
 drpDown_meetingDay						xpath								//div[contains(text(),'${label}')]/../following-sibling::td//img
 txt_session								xpath								//div[contains(@class,'view-item')]/font
+txt_controlId							xpath								//td[contains(@class,'${className}')]//u[contains(text(),'${text}')]
+row_withdraw       						xpath        						//font[contains(text(),'${fontText}')]/following-sibling::u[contains(text(),'${text}')]
 ======================================================================================================================================
