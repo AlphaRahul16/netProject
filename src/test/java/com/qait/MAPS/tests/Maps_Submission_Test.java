@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.BaseTest;
+import com.qait.automation.utils.DataProvider;
 import com.qait.automation.utils.YamlReader;
 
 public class Maps_Submission_Test extends BaseTest {
@@ -29,7 +30,7 @@ public class Maps_Submission_Test extends BaseTest {
 	@Test
 	public void Test01_MAPS_1_Launch_Application() {
 		test.launchMAPSApplication(maps_url);
-		test.maps_SSOPage.verifyUserIsOnMAPSHomePage("Meeting Abstracts Programming System");
+//		test.maps_SSOPage.verifyUserIsOnMAPSHomePage("Meeting Abstracts Programming System");
 	}
 
 	@Test
@@ -67,8 +68,12 @@ public class Maps_Submission_Test extends BaseTest {
 
 	@Test
 	public void Test07_MAPS_42_Select_A_Active_Program_Area_And_Click_Continue_Button_User_Navigated_To_Title_Body_Page() {
-		randProgramindex=test.maps_submissionPage.selectRandomActiveSubmissionProgram();
-		programName = test.maps_submissionPage.getSelectedProgramName(randProgramindex);	
+//		randProgramindex=test.maps_submissionPage.selectRandomActiveSubmissionProgram(DataProvider
+//				.getRandomSpecificLineFromTextFile("MapsProgramArea").trim());
+//		programName = test.maps_submissionPage.getSelectedProgramName(randProgramindex);	
+		programName=DataProvider
+				.getRandomSpecificLineFromTextFile("MapsProgramArea").trim();
+		test.maps_submissionPage.selectRansdomActiveSubmissionProgram(programName);
 		test.maps_submissionPage.clickOnContinueButtonOnProgramArea();
 		test.maps_submissionPage.clickOnPopUpContinueButtonOnSelectingProgramArea("Continue With This Type");
 		test.maps_submissionPage.verifyPageHeaderForASection("Title/Body");
@@ -79,7 +84,7 @@ public class Maps_Submission_Test extends BaseTest {
 		test.maps_submissionPage.submitTitleAndBodyDetails("Test Title", "Test Abstract");
 		test.maps_submissionPage.uploadImage("test.jpeg");
 		test.maps_submissionPage.clickOnSaveAndContinueButton();
-		test.maps_submissionPage.verifyPageHeaderForASection("Select Symposium");
+		test.maps_submissionPage.verifyPageHeaderForASection("Properties");
 	}
 
 	@Test // for drafts saving
@@ -94,7 +99,7 @@ public class Maps_Submission_Test extends BaseTest {
 		test.maps_submissionPage.selectPreDraftedAbstractForEditing("drafts", programName, "Edit Draft");
 		test.maps_submissionPage.verifyPageHeaderForASection("Title/Body");
 		test.maps_submissionPage.clickOnSaveAndContinueButton();
-		test.maps_submissionPage.verifyPageHeaderForASection("Select Symposium");
+		test.maps_submissionPage.verifyPageHeaderForASection("Properties");
 	}
 
 	@Test

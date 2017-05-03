@@ -107,6 +107,12 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("Step : Active Submission program is selected\n");
 		return randomProg;
 	}
+	
+	public void selectRansdomActiveSubmissionProgram(String programType){
+		isElementDisplayed("radio_programName",programType);
+		click(element("radio_programName",programType));
+		logMessage("Step : Program Area "+programType+" is selected\n");
+	}
 
 	public String getSelectedProgramName(int index) {
 		String programName = null, programid;
@@ -385,6 +391,13 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_edit",stepNumber);
 		click(element("btn_edit",stepNumber));
 		logMessage("Step : Clicked on Edit button next to Step"+stepNumber+"\n");
+	}
+	
+	public void verifyAbstractAnswersForSubmission(int index,String section,String answers){
+		isElementDisplayed("txt_reviewAnswer",String.valueOf(index),section);
+		Assert.assertTrue(element("txt_reviewAnswer",String.valueOf(index),section).getText().trim().contains(answers),
+				"ASSERT FAILED: Abstract answer for section "+section+" does not contains "+answers+" value in Step"+index+"\n");
+		logMessage("ASSERT PASSED: Abstract answer for section "+section+" contains "+answers+" value in Step"+index+"\n");
 	}
 
 

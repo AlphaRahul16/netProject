@@ -150,30 +150,30 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 		test.inventoryIweb.verifySoldProductIsCheckedByDefaultUnderSelectOrdersToFulfill(productName);
 	}
 
-//	@Test(dependsOnMethods = "Step11_Click_On_Search_Button_On_Entering_Invoice_Start_And_End_Date_And_Verify_Sold_Product_Is_Checked_By_Default_Under_Select_Orders_To_Fulfill")
-//	public void Step12_Click_On_Process_Selected_Items_Button_To_Confirm_Orders_And_Verify_Fulfillment_Reports() {
-//
-//		test.inventoryIweb.verifyFulfillmentReportsOnClickingProcessSelectedItems();
-//	}
-//
-//	@Test(dependsOnMethods = "Step12_Click_On_Process_Selected_Items_Button_To_Confirm_Orders_And_Verify_Fulfillment_Reports")
-//	public void Step13_Click_On_Continue_Button_And_Verify_Fulfillment_Reports_Page() {
-//
-//		test.inventoryIweb.verifyFulfillmentGroupProfilePage(productName);
-//	}
-//
-//	@Test(dependsOnMethods = "Step13_Click_On_Continue_Button_And_Verify_Fulfillment_Reports_Page")
-//	public void Step14_Click_On_Shipped_Button_And_Verify_Fulfillment_Group_Profile_Page() {
-//
-//		test.inventoryIweb.VerifyFulfillmentGroupProfilePageOnClickingShippedButton();
-//		test.homePageIWEB.verifyUserIsOnHomePage("Inventory | Fulfillment | Fulfillment Group Profile");
-//		// test.inventoryIweb.verifyProductNameUnderLineItems(productName);
-//	}
-//
-//	@Test(dependsOnMethods = "Step14_Click_On_Shipped_Button_And_Verify_Fulfillment_Group_Profile_Page")
-//	public void Step15_Click_On_Icon_ACS_Fulfillment_Reports_And_Verify_Alert_Message() {
-//
-//		test.inventoryIweb.verifyAlertMessageOnClickingACSFulfillmentReportsIcon();
-//	}
+	@Test(dependsOnMethods = "Step11_Click_On_Search_Button_On_Entering_Invoice_Start_And_End_Date_And_Verify_Sold_Product_Is_Checked_By_Default_Under_Select_Orders_To_Fulfill")
+	public void Step12_Click_On_Process_Selected_Items_Button_To_Confirm_Orders_And_Verify_Fulfillment_Reports() {
+
+		test.inventoryIweb.verifyFulfillmentReportsOnClickingProcessSelectedItems();
+	}
+
+	@Test(dependsOnMethods = "Step12_Click_On_Process_Selected_Items_Button_To_Confirm_Orders_And_Verify_Fulfillment_Reports")
+	public void Step13_Click_On_Continue_Button_And_Verify_Fulfillment_Reports_Page() {
+
+		test.inventoryIweb.verifyFulfillmentGroupProfilePage(productName);
+	}
+
+	@Test(dependsOnMethods = "Step13_Click_On_Continue_Button_And_Verify_Fulfillment_Reports_Page")
+	public void Step14_Click_On_Shipped_Button_And_Verify_Fulfillment_Group_Profile_Page() {
+
+		test.inventoryIweb.VerifyFulfillmentGroupProfilePageOnClickingShippedButton();
+		test.homePageIWEB.verifyUserIsOnHomePage("Inventory | Fulfillment | Fulfillment Group Profile");
+		// test.inventoryIweb.verifyProductNameUnderLineItems(productName);
+	}
+
+	@Test(dependsOnMethods = "Step14_Click_On_Shipped_Button_And_Verify_Fulfillment_Group_Profile_Page")
+	public void Step15_Click_On_Icon_ACS_Fulfillment_Reports_And_Verify_Alert_Message() {
+
+		test.inventoryIweb.verifyAlertMessageOnClickingACSFulfillmentReportsIcon();
+	}
 
 }

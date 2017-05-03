@@ -60,8 +60,7 @@ public class BaseUi {
 		PageFactory.initElements(driver, this);
 		this.driver = driver;
 		this.pageName = pageName;
-		this.wait = new SeleniumWait(driver, Integer.parseInt(getProperty(
-				"Config.properties", "timeout")));
+		this.wait = new SeleniumWait(driver, Integer.parseInt(getProperty("Config.properties", "timeout")));
 
 	}
 
@@ -90,18 +89,15 @@ public class BaseUi {
 	}
 
 	public void verifyPageTitleExact(String expectedPagetitle) {
-		if (((expectedPagetitle == "") || (expectedPagetitle == null) || (expectedPagetitle
-				.isEmpty()))
+		if (((expectedPagetitle == "") || (expectedPagetitle == null) || (expectedPagetitle.isEmpty()))
 				&& (getProperty("browser").equalsIgnoreCase("chrome"))) {
 			expectedPagetitle = getCurrentURL();
 		}
 		try {
 			wait.waitForPageTitleToBeExact(expectedPagetitle);
-			logMessage("ASSERT PASSED : PageTitle for " + pageName
-					+ " is exactly: '" + expectedPagetitle + "'");
+			logMessage("ASSERT PASSED : PageTitle for " + pageName + " is exactly: '" + expectedPagetitle + "'");
 		} catch (TimeoutException ex) {
-			Assert.fail("ASSERT FAILED : PageTitle for " + pageName
-					+ " is not exactly: '" + expectedPagetitle
+			Assert.fail("ASSERT FAILED : PageTitle for " + pageName + " is not exactly: '" + expectedPagetitle
 					+ "'!!!\n instead it is :- " + driver.getTitle());
 		}
 	}
@@ -123,8 +119,7 @@ public class BaseUi {
 	 *            partial page title text
 	 */
 	public void verifyPageTitleContains(String expectedPagetitle) {
-		if (((expectedPagetitle == "") || (expectedPagetitle == null) || (expectedPagetitle
-				.isEmpty()))
+		if (((expectedPagetitle == "") || (expectedPagetitle == null) || (expectedPagetitle.isEmpty()))
 				&& (getProperty("browser").equalsIgnoreCase("chrome"))) {
 			expectedPagetitle = getCurrentURL();
 		}
@@ -136,26 +131,21 @@ public class BaseUi {
 			wait.resetExplicitTimeout(timeOut);
 		} catch (TimeoutException exp) {
 			String actualPageTitle = driver.getTitle().trim();
-			logMessage("ASSERT FAILED : As actual Page Title: '"
-					+ actualPageTitle
-					+ "' does not contain expected Page Title : '"
-					+ expectedPagetitle + "'.");
+			logMessage("ASSERT FAILED : As actual Page Title: '" + actualPageTitle
+					+ "' does not contain expected Page Title : '" + expectedPagetitle + "'.");
 			System.out.println("In catch---");
 		}
 		String actualPageTitle = getPageTitle().trim();
-		logMessage("ASSERT PASSED : PageTitle for " + actualPageTitle
-				+ " contains: '" + expectedPagetitle + "'.");
+		logMessage("ASSERT PASSED : PageTitle for " + actualPageTitle + " contains: '" + expectedPagetitle + "'.");
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
 	}
 
-	protected WebElement getElementByIndex(List<WebElement> elementlist,
-			int index) {
+	protected WebElement getElementByIndex(List<WebElement> elementlist, int index) {
 		return elementlist.get(index);
 	}
 
-	protected WebElement getElementByExactText(List<WebElement> elementlist,
-			String elementtext) {
+	protected WebElement getElementByExactText(List<WebElement> elementlist, String elementtext) {
 		WebElement element = null;
 		for (WebElement elem : elementlist) {
 			if (elem.getText().equalsIgnoreCase(elementtext.trim())) {
@@ -169,8 +159,7 @@ public class BaseUi {
 		return element;
 	}
 
-	protected WebElement getElementByContainsText(List<WebElement> elementlist,
-			String elementtext) {
+	protected WebElement getElementByContainsText(List<WebElement> elementlist, String elementtext) {
 		WebElement element = null;
 		for (WebElement elem : elementlist) {
 			if (elem.getText().contains(elementtext.trim())) {
@@ -222,10 +211,8 @@ public class BaseUi {
 
 	public void handleAlert() {
 		try {
-			timeOut = Integer.parseInt(getProperty("Config.properties",
-					"timeout"));
-			hiddenFieldTimeOut = Integer.parseInt(getProperty(
-					"Config.properties", "hiddenFieldTimeOut"));
+			timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+			hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 			wait.resetImplicitTimeout(3);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			switchToAlert().accept();
@@ -268,10 +255,8 @@ public class BaseUi {
 	protected String getAlertText() {
 		try {
 			System.out.println("----in alert");
-			timeOut = Integer.parseInt(getProperty("Config.properties",
-					"timeout"));
-			hiddenFieldTimeOut = Integer.parseInt(getProperty(
-					"Config.properties", "hiddenFieldTimeOut"));
+			timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
+			hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 			// wait.hardWait(2);
 			wait.resetImplicitTimeout(4);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
@@ -310,8 +295,7 @@ public class BaseUi {
 			// scrollDown(el);
 			// Select select = new Select(el);
 			sel.selectByVisibleText(text);
-			logMessage("Select Element " + el
-					+ " after catching Stale Element Exception");
+			logMessage("Select Element " + el + " after catching Stale Element Exception");
 		} catch (Exception ex2) {
 			sel.selectByValue(text);
 			// logMessage("Element " + el + " could not be clicked! "
@@ -320,8 +304,7 @@ public class BaseUi {
 	}
 
 	protected void scrollDown(WebElement element) {
-		((JavascriptExecutor) driver).executeScript(
-				"arguments[0].scrollIntoView(true);", element);
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 	}
 
 	protected void hoverClick(WebElement element) {
@@ -339,17 +322,14 @@ public class BaseUi {
 			// wait.waitForElementToBeClickable(element);
 			// scrollDown(element);
 			element.click();
-			logMessage("Clicked Element " + element
-					+ " after catching Stale Element Exception");
+			logMessage("Clicked Element " + element + " after catching Stale Element Exception");
 		} catch (WebDriverException ex3) {
 			wait.waitForElementToBeClickable(element);
 			scrollDown(element);
 			element.click();
-			logMessage("Clicked Element " + element
-					+ " after catching WebDriver Exception");
+			logMessage("Clicked Element " + element + " after catching WebDriver Exception");
 		} catch (Exception ex2) {
-			logMessage("Element " + element + " could not be clicked! "
-					+ ex2.getMessage());
+			logMessage("Element " + element + " could not be clicked! " + ex2.getMessage());
 		}
 	}
 
@@ -439,11 +419,9 @@ public class BaseUi {
 			// scrollDown(el);
 			Select sel = new Select(el);
 			sel.selectByIndex(index);
-			logMessage("select Element " + el
-					+ " after catching Stale Element Exception");
+			logMessage("select Element " + el + " after catching Stale Element Exception");
 		} catch (Exception ex2) {
-			logMessage("Element " + el + " could not be clicked! "
-					+ ex2.getMessage());
+			logMessage("Element " + el + " could not be clicked! " + ex2.getMessage());
 		}
 	}
 
@@ -455,20 +433,18 @@ public class BaseUi {
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].click();", element);
 	}
-	
+
 	public String getValUsingXpathInJavaScriptExecutor(WebElement element) {
 		String value;
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
-		value=executor.executeScript("return arguments[0].value;", element).toString();
+		value = executor.executeScript("return arguments[0].value;", element).toString();
 		return value;
 	}
-
 
 	public void EnterTextInFieldByJavascript(String id, String Text) {
 		System.out.println(Text);
 		// element.sendKeys(Text);
-		executeJavascript("document.getElementById('" + id
-				+ "').setAttribute('value', '" + Text + "')");
+		executeJavascript("document.getElementById('" + id + "').setAttribute('value', '" + Text + "')");
 		logMessage("STEP : Text entered as " + Text);
 	}
 
@@ -481,30 +457,23 @@ public class BaseUi {
 		logMessage("STEP : Text entered as " + Text);
 	}
 
-	public void sendKeysUsingXpathInJavaScriptExecutor(WebElement element,
-			String text) {
+	public void sendKeysUsingXpathInJavaScriptExecutor(WebElement element, String text) {
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
-		executor.executeScript("arguments[0].setAttribute('value', '" + text
-				+ "')", element);
+		executor.executeScript("arguments[0].setAttribute('value', '" + text + "')", element);
 	}
 
 	public void hardWaitForIEBrowser(int seconds) {
 		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
-				|| ConfigPropertyReader.getProperty("browser")
-						.equalsIgnoreCase("ie")
-				|| ConfigPropertyReader.getProperty("browser")
-						.equalsIgnoreCase("internetexplorer")) {
+				|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
+				|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer")) {
 			wait.hardWait(seconds);
 		}
 	}
 
 	public void hardWaitForChromeBrowser(int seconds) {
-		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase(
-				"chrome")
-				|| ConfigPropertyReader.getProperty("browser")
-						.equalsIgnoreCase("ie")
-				|| ConfigPropertyReader.getProperty("browser")
-						.equalsIgnoreCase("internetexplorer")) {
+		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("chrome")
+				|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
+				|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer")) {
 			wait.hardWait(seconds);
 		}
 	}
@@ -521,8 +490,7 @@ public class BaseUi {
 		builder.moveToElement(element).click().perform();
 	}
 
-	public boolean isDropDownValuePresent(List<WebElement> elements,
-			String value) {
+	public boolean isDropDownValuePresent(List<WebElement> elements, String value) {
 		for (WebElement element : elements) {
 			if (element.getText().equalsIgnoreCase(value)) {
 				flag = true;
@@ -551,22 +519,18 @@ public class BaseUi {
 			// wait.waitForElementToBeVisible(el);
 			// scrollDown(el);
 			Select sel = new Select(el);
-			logMessage("Get selected Element " + el
-					+ " after catching Stale Element Exception");
+			logMessage("Get selected Element " + el + " after catching Stale Element Exception");
 			return sel.getFirstSelectedOption().getText();
 
 		} catch (Exception ex2) {
-			logMessage("Element " + el + " could not be clicked! "
-					+ ex2.getMessage());
+			logMessage("Element " + el + " could not be clicked! " + ex2.getMessage());
 			return null;
 		}
 	}
 
 	protected void verifySelectedTextFromDropDown(WebElement el, String text) {
-		Assert.assertTrue(getSelectedTextFromDropDown(el)
-				.equalsIgnoreCase(text));
-		logMessage("ASSERT PASSED : " + text
-				+ " is verified which is selected \n");
+		Assert.assertTrue(getSelectedTextFromDropDown(el).equalsIgnoreCase(text));
+		logMessage("ASSERT PASSED : " + text + " is verified which is selected \n");
 	}
 
 	public void getUrlResponseCode(String url) {
@@ -584,10 +548,8 @@ public class BaseUi {
 
 	public boolean isIEBrowser() {
 		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
-				|| ConfigPropertyReader.getProperty("browser")
-						.equalsIgnoreCase("ie")
-				|| ConfigPropertyReader.getProperty("browser")
-						.equalsIgnoreCase("internetexplorer")) {
+				|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
+				|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer")) {
 			return true;
 		} else {
 			return false;
@@ -595,8 +557,7 @@ public class BaseUi {
 	}
 
 	public boolean isBrowser(String browserName) {
-		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase(
-				browserName)) {
+		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase(browserName)) {
 			return true;
 		} else {
 			return false;
@@ -613,8 +574,7 @@ public class BaseUi {
 
 	public static void setClipboardData(String string) {
 		StringSelection stringSelection = new StringSelection(string);
-		Toolkit.getDefaultToolkit().getSystemClipboard()
-				.setContents(stringSelection, null);
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
 	}
 
 	public void enterAuthentication(String uName, String password) {
@@ -651,16 +611,13 @@ public class BaseUi {
 
 	}
 
-
-
 	public String getElementText(WebElement element) {
 		return element.getText();
 
 	}
 
 	public void selectDropDownValue(String value) {
-		WebElement element = driver.findElement(By
-				.xpath("//select/option[text()='" + value + "']"));
+		WebElement element = driver.findElement(By.xpath("//select/option[text()='" + value + "']"));
 		element.click();
 		logMessage("STEP : " + value + " is selected in drop down");
 	}
@@ -743,24 +700,20 @@ public class BaseUi {
 		String wins[] = windows.toArray(new String[windows.size()]);
 		driver.switchTo().window(wins[i]);
 		wait.hardWait(1);
-		System.out.println("Title: "
-				+ driver.switchTo().window(wins[i]).getTitle());
+		System.out.println("Title: " + driver.switchTo().window(wins[i]).getTitle());
 	}
 
 	protected void SwitchToPopUpWindowAndVerifyTitle() {
 		changeWindow(1);
 		System.out.println(getPageTitle());
-		logMessage("STEP : Switched to Pop Up Window, title is "
-				+ getPageTitle());
+		logMessage("STEP : Switched to Pop Up Window, title is " + getPageTitle());
 		changeWindow(0);
 
 	}
 
 	public boolean isSafariBrowser() {
-		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase(
-				"Safari")
-				|| ConfigPropertyReader.getProperty("browser")
-						.equalsIgnoreCase("safari")) {
+		if (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("Safari")
+				|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("safari")) {
 			return true;
 		} else {
 			return false;
@@ -803,24 +756,25 @@ public class BaseUi {
 
 	public void verifyTextwithValues(WebElement ele, String value) {
 		String expectedtext = getElementText(ele).trim();
-		Assert.assertTrue(value.equals(expectedtext), value
-				+ " doesnot matches with " + expectedtext);
-		logMessage("ASSERT PASSED : expected " + expectedtext
-				+ " matches with " + value);
+		Assert.assertTrue(value.equals(expectedtext), value + " doesnot matches with " + expectedtext);
+		logMessage("ASSERT PASSED : expected " + expectedtext + " matches with " + value);
 
 	}
-	
-	public void includeJquery()
-	{
-		executeJavascript("var jq = document.createElement('script');jq.src = \"https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js\";"
-				+ "document.getElementsByTagName('head')[0].appendChild(jq);jQuery.noConflict();");
-	}
-	
-	public String executeJqueryAndReturnString(String query)
-	{
 
-		
+	public void includeJquery() {
+		executeJavascript(
+				"var jq = document.createElement('script');jq.src = \"https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js\";"
+						+ "document.getElementsByTagName('head')[0].appendChild(jq);jQuery.noConflict();");
+	}
+
+	public String executeJqueryAndReturnString(String query) {
 		return toString().valueOf(executeJavascriptReturnValue(query));
+	}
+
+	public void rightClick(WebElement element) {
+		Actions action = new Actions(driver).contextClick(element);
+		action.build().perform();
+		System.out.println("STEP: Sucessfully Right clicked on the element \n");
 	}
 
 }

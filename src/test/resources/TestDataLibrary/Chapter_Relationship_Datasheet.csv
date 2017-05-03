@@ -1,3 +1,3 @@
-'caseID'	'caseID Execute'	'Enviornment Notes'	'CRM_Query_Name'	'Relationship_Type_To_Add'	'Chapter_Query_Name'	'Individual_Sort_Name'	'Individual_Relationship_Type_To_Edit'
-1	'Yes'	'Stage7'	'Selenium – Find Random Active Member'	'CCED Coordinator'	'Selenium - Find Active Chapter'	'QA'	'CCED Enthusiast'
-2	'No'	'Stage2'	'Selenium – Find Random Active Member'	'Chapter Faculty Advisor'	'Selenium - Find Active Chapter'	'QA'	'Chapter Faculty Co-Advisor'
+caseID	caseID Execute	Enviornment Notes	CRM_Query_Name	Relationship_Type_To_Add	Chapter_Query_Name	Individual_Sort_Name	Individual_Relationship_Type_To_Edit
+1	No	Stage7	Selenium – Find Random Active Member	CCED Coordinator	Selenium - Find Active Chapter	QA	CCED Enthusiast
+2	Yes	Stage2	Selenium – Find Random Active Member	Chapter Faculty Advisor	Selenium - Find Active Chapter	QA	Chapter Faculty Co-Advisor
