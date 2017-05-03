@@ -76,7 +76,8 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 	
 	public void clickOnCrossImageForNamedDropdown(String dropdownName){
 		isElementDisplayed("img_CrossFilter", dropdownName);
-		click(element("img_CrossFilter", dropdownName));
+		//click(element("img_CrossFilter", dropdownName));
+		clickUsingXpathInJavaScriptExecutor(element("img_CrossFilter", dropdownName));
 		logMessage("Step : cross inage is clicked next to "+dropdownName+" dropdown\n");
 	}
 
@@ -85,7 +86,8 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		switch (fieldName) {
 		case "Found In":
 			isElementDisplayed("comboBox_reviewPage", fieldName);
-			clickUsingXpathInJavaScriptExecutor(element("comboBox_reviewPage", fieldName));
+			element("comboBox_reviewPage", fieldName).click();
+//			clickUsingXpathInJavaScriptExecutor(element("comboBox_reviewPage", fieldName));
 //			click(element("comboBox_reviewPage", fieldName));
 			wait.hardWait(2);
 			Assert.assertTrue(elements("list_gripConfig").size() > 0,
@@ -95,8 +97,9 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 
 		case "Records per page":
 			isElementDisplayed("drpdwn_records", fieldName);
+			scrollDown(element("drpdwn_records", fieldName));
+			wait.hardWait(2);
 			clickUsingXpathInJavaScriptExecutor(element("drpdwn_records", fieldName));
-//			click(element("drpdwn_records", fieldName)); //listItem
 			Assert.assertTrue(elements("listItem").size() > 0,
 					" no option available on clicking dropdown " + fieldName);
 			click(element("drpdwn_records", fieldName));

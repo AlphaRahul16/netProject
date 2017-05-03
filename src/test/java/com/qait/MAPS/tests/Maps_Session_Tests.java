@@ -16,9 +16,10 @@ import com.qait.automation.utils.YamlReader;
 
 public class Maps_Session_Tests extends BaseTest {
 
+	private String griduniqueName = "Test_Grid_" + System.currentTimeMillis();
 	private String maps_url, symposiumTitle, selectedsymposia, gridName, lastRecordData, roomName, sessionTitle,
 			downloadedFilePath;
-	private String griduniqueName = "Selenium_Test_Grid_" + System.currentTimeMillis();
+
 	private String[] roles = { "OPA Staff", "Program Viewer", "Program Chair Sessioning", "Abstract Editor",
 			"Session Admin" };
 	private String[] programViewerleftpaneloptions = { "Dashboard & Instructions", "Symposia Viewer", "Sessioning",
@@ -42,7 +43,6 @@ public class Maps_Session_Tests extends BaseTest {
 	private String[] fullColumnNames = { "Submission Role", "Control ID", "Edit Abstract", "Final ID", "Sessions",
 			"Title", "Presenting Author", "Presentation Type", "Sci-Mix Consideration", "Institutions (all)",
 			"Symposia", "Avg Score", "Abstract Status", "Date Submitted" };
-
 	List<String> sortColumnList = new ArrayList<String>();
 	List<String> controlId = new ArrayList<String>();
 
@@ -88,12 +88,18 @@ public class Maps_Session_Tests extends BaseTest {
 				YamlReader.getYamlValue("LogIn_Details.password"));
 	}
 
+	/**
+	 * Session : OPA Staff
+	 */
 	@Test
 	public void Step_0004_MAPS_Session_1_Click_On_Session_In_Top_Navigation_Menu() {
 		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Session");
 		test.maps_SSOPage.verifyUserIsOnTabPage("Session");
 		test.maps_reviewpage.verifyPageHeader("Multiple Role Selection");
 		test.maps_sessionpage.verifyApplicationDisplaysRadioButtonOnClickingSessionTab(roles);
+
 	}
+
+
 
 }

@@ -61,13 +61,20 @@ Session:
       File_Download_resources: "symposia_resources"
       File_Download_Hosts: "session_hosts"
       File_Download_Session_Owners: "sessioners"
+      
   OPA_Staff: 
       File_Downloaded_Name: "abstracts"
+  
   Session_Events:
       Title: "Test_Session_Title"
       Type: "Oral"
       Duration: "15"
       Symposia_Submission_Type: "Invited"
+  
+  Program_Viewer: 
+      File_Downloaded_Name: "symposia.csv"
+      Symposia_Submission_Type: "Invited"
+  
   Session_Builder: 
       Session_Type1: "Oral"
       Session_Type2: "Poster"
@@ -80,6 +87,7 @@ Session:
       Author_Last_Name: "Sil"
       Session_Program_Area: "Qait_Program_Area"
       Symposium: "Qait_Symposium"     
+  
   Schedule_Sessions: 
       Programs: "Training Site"
       Session_Type: "Poster"

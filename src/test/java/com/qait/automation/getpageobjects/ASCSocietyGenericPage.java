@@ -145,7 +145,6 @@ public class ASCSocietyGenericPage extends GetPage {
 				.getSpecificColumnFromCsvLine(csvLine, csvSeparator, DataProvider.getColumnNumber(valueFromDataSheet))
 				.trim();
 	}
-
 	public String getPriceSheetValue(String caseId, String valueFromDataSheet) {
 		String csvLine = csvReaderRowSpecific(getYamlValue("csv-data-file.path_PriceValue"),
 				getYamlValue("csv-data-file.has-header"), caseId);
@@ -494,7 +493,7 @@ public class ASCSocietyGenericPage extends GetPage {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
-			wait.resetImplicitTimeout(4);
+			wait.resetImplicitTimeout(7);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			// handleAlert();
 			isElementDisplayed("img_processbar");

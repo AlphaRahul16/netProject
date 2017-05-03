@@ -101,19 +101,132 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 		test.maps_sessionpage.verifyRefreshButtonAtBottom();
 	}
 
-	/**
-	 * Session : Program Viewer : Symposia
-	 */
+
+	
 	@Test
 	public void Step_0080_MAPS_Session_74_Verify_Application_Allows_User_To_Create_A_New_Grid_In_Symposia() {
 		test.maps_reviewpage.clickOnButton("Save/Edit");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Save Grid Configuration");
-		test.maps_reviewpage.enterDetailsAtSaveGridConfigurationPage("Symposia_" + griduniqueName);
+		test.maps_reviewpage.enterDetailsAtSaveGridConfigurationPage(griduniqueName);
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Save");
+		test.maps_sessionpage.waitForProcessBarToDisappear();
+	}
+	
+	/**
+	 * Session : Program Viewer : Symposia
+	 */
+	@Test
+	public void Step_0086_MAPS_Session_80_Verify_Application_Should_Filter_Results_On_The_Basis_Of_Criteria_Program_Viewer() {
+		String recordName = test.maps_sessionpage.getRandomRecordFromTable("3");
+		test.maps_reviewpage.enterValueInFilter(recordName);
+		test.maps_sessionpage.verifyFilterResults(recordName, 1, 4);
+		test.maps_reviewpage.clickOnCrossImageForNamedDropdown("Filter");
+	}
+	
+	/**
+	 * Session : Program Viewer : Symposia
+	 */
+	@Test
+	public void Step_0099_MAPS_Session_93_Verify_Application_Print_Selected_Symposia() {
+		test.maps_sessionpage.waitForProcessBarToDisappear();
+		test.maps_sessionpage.selectaRecordFromTheList(1);
+		selectedsymposia = test.maps_sessionpage.getCheckedColumnData("1","3");  // have to add this function
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Print Selected");
+		test.maps_sessionpage.verifyTitleForRoles("Print Symposia Preview");
+		test.maps_sessionpage.verifyPrintPreviewTableContents(selectedsymposia);
+		test.maps_submissionPage.clickOnNamedButton("Cancel");
+	}
+		
+	/**
+	 * Session : Program Viewer : Symposia
+	 */
+	@Test
+	public void Step_0100_MAPS_Session_94_Verify_Application_Print_All_Symposia_on_Clicking_Print_Selected_Button() {
+		int symposiasize;
+		test.maps_sessionpage.selectHeaderCheckbox();
+		symposiasize=test.maps_sessionpage.getSelectedListSize();
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Print Selected");
+		test.maps_sessionpage.verifyTitleForRoles("Print Symposia Preview");
+		test.maps_sessionpage.verifyAllSelectedListIsPresentInPrintPreview(symposiasize);
+		test.maps_submissionPage.clickOnNamedButton("Cancel");
+		
+	}
+	
+	@Test
+	public void Step_0103_MAPS_Session_97_Verify_Application_Download_Csv_File_On_Clicking_Export_To_Excel_Dropdown_On_Program_Viewer() {
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Export");
+		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (Displayed Columns)");
+		test.maps_sessionpage.waitForProcessBarToDisappear();
+		test.maps_sessionpage.verifyValidFileIsDownloaded(YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name"));
+	}
+	
+	@Test
+	public void Step_0104_MAPS_Session_98_Verify_Application_Download_Csv_File_On_Clicking_Export_To_Excel_Dropdown_On_Program_Viewer() {
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Export");
+		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (All Columns)");
+		test.maps_sessionpage.waitForProcessBarToDisappear();
+		test.maps_sessionpage.verifyValidFileIsDownloaded(YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name"));
 	}
 
 	@Test
-	public void Step_0099_MAPS_Session_93_Verify_Application_Print_Selected_Symposia() {
-		selectedsymposia = test.maps_sessionpage.selectaRandomRecordFromTheList();
-		test.maps_sessionpage.clickOnSaveButton("Print Selected");
+	public void Step_0115_MAPS_Session_109_Verify_Application_Sorts_The_Results_On_The_Basis_Of_Criteria_Program_Viewer()
+	{
+		List<String> dataBeforeSorting = test.maps_sessionpage.getTableData("1", "4");
+		test.maps_sessionpage.clickOnArrowButton("Title");
+		test.maps_sessionpage.clickOnArrowButton("Control ID");
+		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
+		test.maps_sessionpage.verifyPopupMessage("Sort");
+		test.maps_sessionpage.clickOnAddButton("Add");
+		test.maps_sessionpage.selectColumnForSorting("Title");													
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Apply");
+		List<String> dataAfterSorting = test.maps_sessionpage.getTableData("1", "4");
+		test.maps_sessionpage.verifyDataIsSorted(dataBeforeSorting, dataAfterSorting);
 	}
+	
+	@Test
+	public void Step_0182_MAPS_Session_175_Verify_Application_Allows_User_To_Create_A_New_Grid_On_Session__Viewer_Under_Program_Viewer_Page() {
+		test.maps_reviewpage.clickOnButton("Save/Edit");
+		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Save Grid Configuration");
+		test.maps_reviewpage.enterDetailsAtSaveGridConfigurationPage("Session_" + griduniqueName);
+		test.maps_reviewpage.clickOnButtonAtSaveGridConfigurationPage("Save");
+		
+	}
+	
+	@Test
+	public void Step_0188_MAPS_Session_181_Verify_that_application_filters_the_result_on_the_basis_of_the_criteria_provided_Session_Viewer()
+	{
+		String recordName = test.maps_sessionpage.getRandomRecordFromTable("4");
+		test.maps_reviewpage.enterValueInFilter(recordName);
+		test.maps_sessionpage.verifyFilterResults(recordName, 1, 5);
+		test.maps_reviewpage.clickOnCrossImageForNamedDropdown("Filter");
+	}
+
+	@Test
+	public void Step_0204_MAPS_Session_197_Verify_Application_Print_Selected_Symposia() {
+		String selectedsession;
+		test.maps_sessionpage.waitForProcessBarToDisappear();
+		test.maps_sessionpage.selectaRecordFromTheList(1);
+		selectedsession = test.maps_sessionpage.getCheckedColumnData("1","3");  // have to add this function
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Print Selected");
+		test.maps_sessionpage.verifyTitleForRoles("Print Sessions/Events Preview");
+		test.maps_sessionpage.verifyPrintPreviewTableContents(selectedsession);
+		test.maps_submissionPage.clickOnNamedButton("Cancel");
+	}
+	
+	/**
+	 * Session : Program Viewer : Symposia
+	 */
+	@Test
+	public void Step_0205_MAPS_Session_198_Verify_Application_Print_All_Symposia_on_Clicking_Print_Selected_Button() {
+		int symposiasize;
+		test.maps_sessionpage.selectHeaderCheckbox();
+		symposiasize=test.maps_sessionpage.getSelectedListSize();
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Print Selected");
+		test.maps_sessionpage.verifyTitleForRoles("Print Sessions/Events Preview");
+		test.maps_sessionpage.verifyAllSelectedListIsPresentInPrintPreview(symposiasize);
+		test.maps_submissionPage.clickOnNamedButton("Cancel");
+		
+	}
+
+
 }

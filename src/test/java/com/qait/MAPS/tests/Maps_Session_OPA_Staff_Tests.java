@@ -1,4 +1,5 @@
 package com.qait.MAPS.tests;
+
 import java.io.File;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -23,7 +24,6 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 			"Date Submitted" };
 	List<String> sortColumnList = new ArrayList<String>();
 	List<String> controlId = new ArrayList<String>();
-	
 
 	@BeforeClass
 	public void Start_Test_Session() {
@@ -38,7 +38,7 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 	public void printCaseIdExecuted(Method method) {
 		test.printMethodName(method.getName());
 	}
-	
+
 	@Test
 	public void Step_0004_MAPS_Session_1_Click_On_Session_In_Top_Navigation_Menu() {
 		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Session");
@@ -88,6 +88,7 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 		test.maps_reviewpage.enterDetailsAtSaveGridConfigurationPage("Abstract_" + griduniqueName);
 		test.maps_reviewpage.clickOnButtonAtSaveGridConfigurationPage("Save");
 	}
+
 	@Test
 	public void Step_0021_MAPS_Session_17_Verify_Application_Filters_Result_On_Basis_Of_Criteria_For_OPA_Staff() {
 		String recordName = test.maps_sessionpage.getRandomRecordFromTable("6");
@@ -95,6 +96,7 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 		test.maps_sessionpage.verifyFilterResults(recordName, 1, 7);
 		test.maps_reviewpage.clickOnCrossImageForNamedDropdown("Filter");
 	}
+
 	@Test
 	public void Step_0032_MAPS_Session_28_Verify_Application_Exports_Relevant_Csv_File_On_Clicking_Any_Otion_Under_Export_To_Excel_Dropdown() {
 		downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
@@ -121,7 +123,6 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath);
 	}
 
-
 	@Test // updated
 	public void Step_0034_MAPS_Session_30_Verify_Application_Switches_Views_On_Selecting_Options_From_Toggle_View_Dropdown() {
 		test.maps_sessionpage.clickOnSaveButton("Toggle View");
@@ -135,7 +136,7 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 		test.maps_sessionpage.hoverOverColumnHeader("Columns");
 		test.maps_sessionpage.verifyColumnHeaders(test.maps_sessionpage.getCheckedColumnHeadings());
 	}
-	
+
 	@Test
 	public void Step_0038_MAPS_Session_34_Verify_Edit_Link_Is_Present_For_Abstracts_And_User_Is_Navigated_To_Review_And_Submit_Page_On_Clicking_Edit_Link() {
 		test.maps_sessionpage.expandColumnWidth("Edit Abstract", "60");
@@ -146,7 +147,6 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 		test.maps_submissionPage.verifyPageHeaderForASection("Review & Submit");
 	}
 
-
 	@Test
 	public void Step_0041_MAPS_Session_37_Verify_Edit_Link_Is_Present_For_Abstracts_And_User_Is_Navigated_To_Abstracts_Page_On_Clicking_Finish_Button() {
 		test.maps_sessionpage.clickOnArrowButton("Edit Abstract");
@@ -156,8 +156,14 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");
 	}
 
+	// @Test //functionality to be added
+	public void Step_0041_MAPS_Session_38_Verify_Edit_Link_Is_Present_For_Abstracts_And_User_Is_Navigated_To_Abstracts_Page_On_Clicking_Finish_Button() {
+
+	}
+
 	@Test
 	public void Step_0048_MAPS_Session_44_Verify_User_Is_Able_To_Add_Sorting_Scenarios_By_Clicking_Add_Button_On_Sort_Popup() {
+		test.maps_sessionpage.clickOnMainPage();
 		test.maps_sessionpage.clickOnArrowButton("Title");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
 		test.maps_sessionpage.verifyPopupMessage("Sort");
@@ -168,7 +174,7 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 		test.maps_sessionpage.verifySortingOrderIsPresent("Title");
 		test.maps_sessionpage.clickOnSaveButton("Close");
 	}
-	
+
 	@Test // functionality to be added
 	public void Step_0052_MAPS_Session_48_Verify_Application_Sorts_Results_On_Basis_Of_Criteria() {
 		List<String> dataBeforeSorting = test.maps_sessionpage.getTableData("1", "3");
@@ -181,4 +187,12 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 		List<String> dataAfterSorting = test.maps_sessionpage.getTableData("1", "3");
 		test.maps_sessionpage.verifyDataIsSorted(dataBeforeSorting, dataAfterSorting);
 	}
+	@Test
+	public void Step_0057_MAPS_Session_53_Verify_User_Is_Able_To_Edit_Details_Of_Editable_Column() {
+		List<String> editableColumns = test.maps_sessionpage.getEditableColumnsList();
+		String editedData = "test" + System.currentTimeMillis();
+		test.maps_sessionpage.selectEditableColumnAndEditData(editableColumns, editedData);
+		test.maps_sessionpage.verifyDataIsEdited(editableColumns, editedData);
+	}
+
 }
