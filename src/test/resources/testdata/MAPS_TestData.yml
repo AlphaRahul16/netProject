@@ -33,6 +33,8 @@ Session:
   Programs:
     ProgramTitle: "QAIT_Test"
     Interval: "30"
+    Room: "Room1"
+    
   Types:
       TestType: "Test Type"
       ColorCode: "#00FFFF"
@@ -46,8 +48,8 @@ Session:
       Title: "Test_Symposium_Title"
       Type: "Oral"
       Host_Role: "Organizer"
-      Abstract_AuthorFirstName: "bhuwan"
-      Abstract_AuthorLastName: "takkar"
+      Abstract_AuthorFirstName: "Bhuwan"
+      Abstract_AuthorLastName: "Takkar"
       
   Program_Areas:
       Color: "#FFCC00"
@@ -66,6 +68,9 @@ Session:
       Type: "Oral"
       Duration: "15"
       Symposia_Submission_Type: "Invited"
+  Program_Viewer: 
+      File_Downloaded_Name: "symposia.csv"
+      Symposia_Submission_Type: "Invited"
   Session_Builder: 
       Session_Type1: "Oral"
       Session_Type2: "Poster"
@@ -81,7 +86,11 @@ Session:
   Schedule_Sessions: 
       Programs: "Training Site"
       Session_Type: "Poster"
-      owner_first_name: "Rahul"
-      owner_last_name: "Yadav"
+      owner_first_name: "Hitasheet"
+      owner_last_name: "Sil"
+      Session_Title: "Test_Session_Title"
+      owner_email: "H_Sil@acs.org"
+      placeHolder_Title: "placeholder_title"
+      placeHolder_desc: "placeHolder_desc"
       
       

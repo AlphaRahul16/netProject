@@ -76,7 +76,8 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 	
 	public void clickOnCrossImageForNamedDropdown(String dropdownName){
 		isElementDisplayed("img_CrossFilter", dropdownName);
-		click(element("img_CrossFilter", dropdownName));
+		//click(element("img_CrossFilter", dropdownName));
+		clickUsingXpathInJavaScriptExecutor(element("img_CrossFilter", dropdownName));
 		logMessage("Step : cross inage is clicked next to "+dropdownName+" dropdown\n");
 	}
 
@@ -96,8 +97,9 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 
 		case "Records per page":
 			isElementDisplayed("drpdwn_records", fieldName);
+			scrollDown(element("drpdwn_records", fieldName));
+			wait.hardWait(2);
 			clickUsingXpathInJavaScriptExecutor(element("drpdwn_records", fieldName));
-//			click(element("drpdwn_records", fieldName)); //listItem
 			Assert.assertTrue(elements("listItem").size() > 0,
 					" no option available on clicking dropdown " + fieldName);
 			click(element("drpdwn_records", fieldName));
@@ -214,8 +216,8 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("STEP: Clicked on grid config drop down");
 		wait.hardWait(3);
 		isElementDisplayed("list_gripConfig");
-		String gridConfig = elements("list_gripConfig").get(2).getText();
-		click(elements("list_gripConfig").get(2));
+		String gridConfig = elements("list_gripConfig").get(1).getText();
+		click(elements("list_gripConfig").get(1));
 		logMessage("STEP: Existing configuration from the Grid Configuration dropdown is selected \n ");
 		return gridConfig;
 	}
@@ -238,6 +240,13 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 	public void verifySuccessMessage(String msg) {
 		Assert.assertTrue(isElementDisplayed("txt_sucessMsg", msg));
 		logMessage("ASSERT PASSED: Sucess message '" + msg + "' is displayed \n");
+	}
+
+	public void verifyApplicationShouldAllowToSelectGridConfiguration(String expGridConfig) {
+		isElementDisplayed("inp_gridConfig");
+		String actualVal=getValUsingXpathInJavaScriptExecutor(element("inp_gridConfig"));
+		Assert.assertEquals(actualVal, expGridConfig,"ASSERT FAILED: Expected value is "+ expGridConfig +" but found "+ actualVal);
+		logMessage("ASSERT PASSED: Application allow to select Grid Configuration \n");
 	}
 
 }

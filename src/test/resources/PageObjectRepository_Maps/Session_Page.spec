@@ -17,7 +17,7 @@ inp_saveGridFilters                     xpath                              (//di
 btn_arrow                               xpath                               //div[contains(@qtip,"${label}")]//a
 iframe                                  id                                  com.scholarone.s1agxt.s1agxt
 img_Loader							    xpath							    //img[contains(@src,'preloader')]
-btn_refresh                             css                                .x-btn-text[aria-describedby='x-auto-61']
+btn_refresh                             xpath                               (//button[@class='x-btn-text']/img)[6]
 txt_programTableData					xpath								//td[contains(@class,'${className}')]/div
 inp_programField						id									${fieldName}-input
 dropdown_programField					css									#${fieldName}-input+img
@@ -33,7 +33,7 @@ listItem_programField					xpath								//div[contains(@class,'combo-list-item')]
 inp_addHost								xpath								//div[@gxt-dindex='${fieldName}']/input
 inp_filtertext                          xpath                               //div[contains(@class,'x-menu-list')]//input
 lnk_filters                             xpath                               //a[contains(@class,'x-menu-item') and contains(text(),'${dropdownOptions}')]
-txt_tableData                           xpath                               (//div[contains(@class,'grid3-body')])[${index1}]//table//td[${index2}]
+txt_tableData                           xpath                               (//div[contains(@class,'grid3-body')])[${index1}]//table//td[${index2}]/div
 img_dropDown                            xpath                               (//div[contains(@class,'x-form-field-wrap') and @role="combobox"])[${index}]//img
 txt_tableResult                         xpath                               //td[contains(@class,'x-grid3-td-${label}')]//div[text()='${value}']
 lst_column                              xpath                               //div[@role='listitem' and text()='${columnName}']
@@ -58,6 +58,7 @@ list_symposia							xpath								//table[contains(@class,'row-table')]
 drpDown_sympType						xpath								//span[contains(text(),'${label}')]/../following-sibling::div//img
 date_currentDate                        xpath                               //td[contains(@class,'x-date-today')]
 btn_add_column                          xpath                               //div[text()='${roomName}']/../preceding-sibling::td[1]//div[@class='x-grid3-row-expander']
+tbl_contents                            xpath                                //td[contains(text(),'${text}')]
 txt_chckdColumnData                     xpath                               (//div[@class='x-grid3-row-checker'])[${index1}]/../../following-sibling::td[${index2}]
 column_headers                          xpath                                //div[contains(@qtip,'${columnName}')]
 checked_columnHeadings                  xpath                                //a[contains(text(),'Columns')]/../../../following-sibling::div[2]//a[contains(@class,'x-menu-checked')]
@@ -78,4 +79,7 @@ input_editableColumn                    xpath                               //di
 table_abstracts                         css                                 .x-panel-mc
 top_scroller                            xpath                               //div[contains(@class,"x-menu-scroller-top")]
 list_abstracts                          xpath                               //div[contains(@class,'${className}')]//div[contains(@class,'x-unselectable-single')]
+txt_session								xpath								//div[contains(@class,'view-item')]/font
+txt_controlId							xpath								//td[contains(@class,'${className}')]//u[contains(text(),'${text}')]
+row_withdraw       						xpath        						//font[contains(text(),'${fontText}')]/following-sibling::u[contains(text(),'${text}')]
 ======================================================================================================================================

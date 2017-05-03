@@ -23,6 +23,7 @@ import java.util.Set;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
@@ -497,6 +498,14 @@ public class BaseUi {
 			}
 		}
 		return flag;
+	}
+	
+	public void pressKeyUsingAction(org.openqa.selenium.Keys keyName)
+	{
+		wait.hardWait(3);
+		Actions action = new Actions(driver);
+		action.sendKeys(keyName);
+		
 	}
 
 	protected String getSelectedTextFromDropDown(WebElement el) {
