@@ -95,254 +95,196 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_reviewpage.verifyPageHeader("Multiple Role Selection");
 		test.maps_sessionpage.verifyApplicationDisplaysRadioButtonOnClickingSessionTab(roles);
 	}
-	//
-	// /**
-	// * Session : OPA Staff
-	// */
-	// @Test
-	// public void
-	// Step_0010_MAPS_Session_6_User_Should_Navigate_To_Abstract_Page_On_Clicking_Go_Button()
-	// {
-	// test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("OPA
-	// Staff");
-	// test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
-	// test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
-	// test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts
-	// Assigned To Me");
-	//
-	// }
-	//
-	// /**
-	// * Session : OPA Staff
-	// */
-	// @Test
-	// public void
-	// Step_0011_MAPS_Session_7_Verify_Available_Options_On_Session_OPA_Staff_Page()
-	// {
-	// test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts
-	// Assigned To Me");
-	// test.maps_reviewpage.verifyLinksUnderNamedModule("Save/Edit");
-	// test.maps_reviewpage.verifyLinksUnderNamedModule("Delete");
-	// test.maps_reviewpage.verifyTextField("Filter");
-	// test.maps_reviewpage.verifyCrossImageForNamedDropDown("Filter");
-	// test.maps_reviewpage.verifyExpandIconUnderNamedModule();
-	// test.maps_reviewpage.verifyDropDown("Found In");
-	// test.maps_reviewpage.verifyDropDown("Export to Excel");
-	// test.maps_reviewpage.verifyDropDown("Toggle View");
-	// test.maps_reviewpage.verifyPaginationSectionAtTheBottomOfTheTable();
-	// test.maps_reviewpage.verifyDropDown("Records per page");
-	// test.maps_sessionpage.verifyRefreshButtonAtBottom();
-	// }
-	//
-	// /**
-	// * Session : OPA Staff
-	// */
-	// @Test
-	// public void
-	// Step_0015_MAPS_Session_11_Verify_Application_Allows_User_To_Create_A_New_Grid()
-	// {
-	// test.maps_reviewpage.clickOnButton("Save/Edit");
-	// test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Save Grid
-	// Configuration");
-	// test.maps_reviewpage.enterDetailsAtSaveGridConfigurationPage("Abstract_"
-	// + griduniqueName);
-	// test.maps_reviewpage.clickOnButtonAtSaveGridConfigurationPage("Save");
-	// }
-	//
-	// /**
-	// * Session : Program Viewer : Symposia
-	// */
-	// @Test
-	// public void
-	// Step_0021_MAPS_Session_17_Verify_Application_Filters_Result_On_Basis_Of_Criteria_For_OPA_Staff()
-	// {
-	// String recordName = test.maps_sessionpage.getRandomRecordFromTable("6");
-	// test.maps_reviewpage.enterValueInFilter(recordName);
-	// test.maps_sessionpage.verifyFilterResults(recordName, 1, 7);
-	// test.maps_reviewpage.clickOnCrossImageForNamedDropdown("Filter");
-	// }
 
-	// @Test
-	// public void
-	// Step_0032_MAPS_Session_28_Verify_Application_Exports_Relevant_Csv_File_On_Clicking_Any_Otion_Under_Export_To_Excel_Dropdown()
-	// {
-	// downloadedFilePath = System.getProperty("user.dir") + File.separator +
-	// "src" + File.separator + "test"
-	// + File.separator + "resources" + File.separator + "DownloadedFiles" +
-	// File.separator
-	// + YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name") +
-	// ".csv";
-	// test.maps_sessionpage._deleteExistingCSVFile(downloadedFilePath);
-	// test.maps_sessionpage.clickOnSaveButton("Export to Excel");
-	// test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel
-	// (All Columns)");
-	// test.maps_sessionpage.waitForProcessBarToDisappear();
-	// test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath);
-	// //
-	// test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Export
-	// // to Excel (All Columns)",
-	// // YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"));
-	// // test.maps_sessionpage.clickOnSaveButton("Export to Excel");
-	// // test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to
-	// // Excel (Displayed Columns)");
-	// // test.maps_sessionpage.waitForProcessBarToDisappear();
-	// //
-	// test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Export
-	// // to Excel (Displayed Columns)",
-	// // YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"));
-	// test.maps_sessionpage._deleteExistingCSVFile(downloadedFilePath);
-	// test.maps_sessionpage.clickOnSaveButton("Export to Excel");
-	// test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel
-	// (Displayed Columns)");
-	// test.maps_sessionpage.waitForProcessBarToDisappear();
-	// test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath);
-	// }
-	//
-	// @Test // updated
-	// public void
-	// Step_0034_MAPS_Session_30_Verify_Application_Switches_Views_On_Selecting_Options_From_Toggle_View_Dropdown()
-	// {
-	// test.maps_sessionpage.clickOnSaveButton("Toggle View");
-	// test.maps_sessionpage.selectOptionsUnderColumnHeaders("Fast");
-	// test.maps_sessionpage.clickOnArrowButton("Title");
-	// test.maps_sessionpage.hoverOverColumnHeader("Columns");
-	// test.maps_sessionpage.verifyColumnHeaders(test.maps_sessionpage.getCheckedColumnHeadings());
-	// test.maps_sessionpage.clickOnSaveButton("Toggle View");
-	// test.maps_sessionpage.selectOptionsUnderColumnHeaders("Full");
-	// test.maps_sessionpage.clickOnArrowButton("Title");
-	// test.maps_sessionpage.hoverOverColumnHeader("Columns");
-	// test.maps_sessionpage.verifyColumnHeaders(test.maps_sessionpage.getCheckedColumnHeadings());
-	// }
-	//
-	// @Test
-	// public void
-	// Step_0038_MAPS_Session_34_Verify_Edit_Link_Is_Present_For_Abstracts_And_User_Is_Navigated_To_Review_And_Submit_Page_On_Clicking_Edit_Link()
-	// {
-	// test.maps_sessionpage.expandColumnWidth("Edit Abstract", "60");
-	// test.maps_sessionpage.clickOnArrowButton("Edit Abstract");
-	// test.maps_sessionpage.selectOptionsUnderColumnHeaders("Sort Ascending");
-	// test.maps_sessionpage.verifyFilterResults("Edit", 1, 4);
-	// test.maps_sessionpage.selectAbstractForEditing(1, 4);
-	// test.maps_submissionPage.verifyPageHeaderForASection("Review & Submit");
-	// }
-	//
-	// @Test
-	// public void
-	// Step_0041_MAPS_Session_37_Verify_Edit_Link_Is_Present_For_Abstracts_And_User_Is_Navigated_To_Abstracts_Page_On_Clicking_Finish_Button()
-	// {
-	// test.maps_sessionpage.clickOnArrowButton("Edit Abstract");
-	// test.maps_sessionpage.selectOptionsUnderColumnHeaders("Sort Ascending");
-	// test.maps_sessionpage.verifyFilterResults("Edit", 1, 4);
-	// test.maps_sessionpage.editAbstractDetails("Test Title", "Test Abstract");
-	// test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts
-	// Assigned To Me");
-	// }
-	//
-	// @Test // functionality to be added
-	// public void
-	// Step_0041_MAPS_Session_38_Verify_Edit_Link_Is_Present_For_Abstracts_And_User_Is_Navigated_To_Abstracts_Page_On_Clicking_Finish_Button()
-	// {
-	//
-	// }
-	//
-	// @Test
-	// public void
-	// Step_0054_MAPS_Session_44_Verify_User_Is_Able_To_Add_Sorting_Scenarios_By_Clicking_Add_Button_On_Sort_Popup()
-	// {
-	// test.maps_sessionpage.clickOnArrowButton("Title");
-	// test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
-	// test.maps_sessionpage.verifyPopupMessage("Sort");
-	// sortColumnList =
-	// test.maps_sessionpage.getTableDataFromSortPopUpWindow("col-F_SORT_FIELD",
-	// fastColumnNames);
-	// test.maps_sessionpage.clickOnAddButton("Add");
-	// test.maps_sessionpage.verifyColumnNamesPresentForSorting(sortColumnList);
-	// test.maps_sessionpage.selectColumnForSorting("Title");
-	// test.maps_sessionpage.verifySortingOrderIsPresent("Title");
-	// test.maps_sessionpage.clickOnSaveButton("Close");
-	// }
-	//
-	// @Test // functionality to be added
-	// public void
-	// Step_0052_MAPS_Session_48_Verify_Application_Sorts_Results_On_Basis_Of_Criteria()
-	// {
-	// List<String> dataBeforeSorting = test.maps_sessionpage.getTableData("1",
-	// "3");
-	// test.maps_sessionpage.clickOnArrowButton("Control ID");
-	// test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
-	// test.maps_sessionpage.verifyPopupMessage("Sort");
-	// test.maps_sessionpage.clickOnAddButton("Add");
-	// test.maps_sessionpage.selectColumnForSorting("Control ID");
-	// test.maps_sessionpage.clickOnSaveButton("Apply");
-	// List<String> dataAfterSorting = test.maps_sessionpage.getTableData("1",
-	// "3");
-	// test.maps_sessionpage.verifyDataIsSorted(dataBeforeSorting,
-	// dataAfterSorting);
-	// }
-	//
-	// @Test
-	// public void
-	// Step_0072_MAPS_Session_67_Click_On_Session_And_Navigate_To_Program_Viewer()
-	// {
-	// test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Session");
-	// test.maps_SSOPage.verifyUserIsOnTabPage("Session");
-	// test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Program
-	// Viewer");
-	// test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
-	// test.maps_reviewpage.verifybuttonOnRolesPage("Set Preferences");
-	// test.maps_sessionpage.verifyLeftPanelOptionsOnSessionAdminPage(programViewerleftpaneloptions);
-	// test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
-	// test.maps_sessionpage.clickButtononLeftNavigationPanel("Symposia
-	// Viewer");
-	// }
-	//
-	// /**
-	// * Session : Program Viewer : Symposia
-	// */
-	//
-	// @Test // List of Symposia verification is remaining due to its
-	// // unavailability
-	// public void
-	// Step_0076_MAPS_Session_70_Verify_Available_Options_On_Session_Program_Viewer_Page()
-	// {
-	// test.maps_reviewpage.verifyLinksUnderNamedModule("Save/Edit");
-	// test.maps_reviewpage.verifyLinksUnderNamedModule("Delete");
-	// test.maps_reviewpage.verifyTextField("Filter");
-	// test.maps_reviewpage.verifyCrossImageForNamedDropDown("Filter");
-	// test.maps_reviewpage.verifyExpandIconUnderNamedModule();
-	// test.maps_reviewpage.verifyDropDown("Found In");
-	// test.maps_reviewpage.verifyDropDown("Export");
-	// test.maps_sessionpage.isPrintSelectedButtonDisplayed("Print Selected");
-	// test.maps_reviewpage.verifyPaginationSectionAtTheBottomOfTheTable();
-	// test.maps_reviewpage.verifyDropDown("Records per page");
-	// test.maps_sessionpage.verifyRefreshButtonAtBottom();
-	// }
-	//
-	// /**
-	// * Session : Program Viewer : Symposia
-	// */
-	// @Test
-	// public void
-	// Step_0080_MAPS_Session_74_Verify_Application_Allows_User_To_Create_A_New_Grid_In_Symposia()
-	// {
-	// test.maps_reviewpage.clickOnButton("Save/Edit");
-	// test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Save Grid
-	// Configuration");
-	// test.maps_reviewpage.enterDetailsAtSaveGridConfigurationPage("Symposia_"
-	// + griduniqueName);
-	// }
-	//
-	// @Test
-	// public void
-	// Step_0099_MAPS_Session_93_Verify_Application_Print_Selected_Symposia() {
-	// selectedsymposia =
-	// test.maps_sessionpage.selectaRandomRecordFromTheList();
-	// test.maps_sessionpage.clickOnSaveButton("Print Selected");
-	// }
-	//
-	// /**
-	// * Session : Session Admin
-	// */
+	/**
+	 * Session : OPA Staff
+	 */
+	@Test
+	public void Step_0010_MAPS_Session_6_User_Should_Navigate_To_Abstract_Page_On_Clicking_Go_Button() {
+		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("OPA Staff");
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
+		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");
+
+	}
+
+	/**
+	 * Session : OPA Staff
+	 */
+	@Test
+	public void Step_0011_MAPS_Session_7_Verify_Available_Options_On_Session_OPA_Staff_Page() {
+		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");
+		test.maps_reviewpage.verifyLinksUnderNamedModule("Save/Edit");
+		test.maps_reviewpage.verifyLinksUnderNamedModule("Delete");
+		test.maps_reviewpage.verifyTextField("Filter");
+		test.maps_reviewpage.verifyCrossImageForNamedDropDown("Filter");
+		test.maps_reviewpage.verifyExpandIconUnderNamedModule();
+		test.maps_reviewpage.verifyDropDown("Found In");
+		test.maps_reviewpage.verifyDropDown("Export to Excel");
+		test.maps_reviewpage.verifyDropDown("Toggle View");
+		test.maps_reviewpage.verifyPaginationSectionAtTheBottomOfTheTable();
+		test.maps_reviewpage.verifyDropDown("Records per page");
+		test.maps_sessionpage.verifyRefreshButtonAtBottom();
+	}
+
+	/**
+	 * Session : OPA Staff
+	 */
+	@Test
+	public void Step_0015_MAPS_Session_11_Verify_Application_Allows_User_To_Create_A_New_Grid() {
+		test.maps_reviewpage.clickOnButton("Save/Edit");
+		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Save Grid Configuration");
+		test.maps_reviewpage.enterDetailsAtSaveGridConfigurationPage("Abstract_" + griduniqueName);
+		test.maps_reviewpage.clickOnButtonAtSaveGridConfigurationPage("Save");
+	}
+
+	/**
+	 * Session : Program Viewer : Symposia
+	 */
+	@Test
+	public void Step_0021_MAPS_Session_17_Verify_Application_Filters_Result_On_Basis_Of_Criteria_For_OPA_Staff() {
+		String recordName = test.maps_sessionpage.getRandomRecordFromTable("6");
+		test.maps_reviewpage.enterValueInFilter(recordName);
+		test.maps_sessionpage.verifyFilterResults(recordName, 1, 7);
+		test.maps_reviewpage.clickOnCrossImageForNamedDropdown("Filter");
+	}
+
+	@Test
+	public void Step_0032_MAPS_Session_28_Verify_Application_Exports_Relevant_Csv_File_On_Clicking_Any_Otion_Under_Export_To_Excel_Dropdown() {
+		downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator
+				+ YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name") + ".csv";
+		test.maps_sessionpage._deleteExistingCSVFile(downloadedFilePath);
+		test.maps_sessionpage.clickOnSaveButton("Export to Excel");
+		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (All Columns)");
+		test.maps_sessionpage.waitForProcessBarToDisappear();
+		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath);
+
+		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Export  to Excel (All Columns)",
+				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"));
+		test.maps_sessionpage.clickOnSaveButton("Export to Excel");
+		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (Displayed Columns)");
+		test.maps_sessionpage.waitForProcessBarToDisappear();
+
+		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Export to Excel (Displayed Columns)",
+				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"));
+		test.maps_sessionpage._deleteExistingCSVFile(downloadedFilePath);
+		test.maps_sessionpage.clickOnSaveButton("Export to Excel");
+		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (Displayed Columns)");
+		test.maps_sessionpage.waitForProcessBarToDisappear();
+		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath);
+	}
+
+	@Test // updated
+	public void Step_0034_MAPS_Session_30_Verify_Application_Switches_Views_On_Selecting_Options_From_Toggle_View_Dropdown() {
+		test.maps_sessionpage.clickOnSaveButton("Toggle View");
+		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Fast");
+		test.maps_sessionpage.clickOnArrowButton("Title");
+		test.maps_sessionpage.hoverOverColumnHeader("Columns");
+		test.maps_sessionpage.verifyColumnHeaders(test.maps_sessionpage.getCheckedColumnHeadings());
+		test.maps_sessionpage.clickOnSaveButton("Toggle View");
+		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Full");
+		test.maps_sessionpage.clickOnArrowButton("Title");
+		test.maps_sessionpage.hoverOverColumnHeader("Columns");
+		test.maps_sessionpage.verifyColumnHeaders(test.maps_sessionpage.getCheckedColumnHeadings());
+	}
+
+	@Test
+	public void Step_0038_MAPS_Session_34_Verify_Edit_Link_Is_Present_For_Abstracts_And_User_Is_Navigated_To_Review_And_Submit_Page_On_Clicking_Edit_Link() {
+		test.maps_sessionpage.expandColumnWidth("Edit Abstract", "60");
+		test.maps_sessionpage.clickOnArrowButton("Edit Abstract");
+		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Sort Ascending");
+		test.maps_sessionpage.verifyFilterResults("Edit", 1, 4);
+		test.maps_sessionpage.selectAbstractForEditing(1, 4);
+		test.maps_submissionPage.verifyPageHeaderForASection("Review & Submit");
+	}
+
+	@Test
+	public void Step_0041_MAPS_Session_37_Verify_Edit_Link_Is_Present_For_Abstracts_And_User_Is_Navigated_To_Abstracts_Page_On_Clicking_Finish_Button() {
+		test.maps_sessionpage.clickOnArrowButton("Edit Abstract");
+		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Sort Ascending");
+		test.maps_sessionpage.verifyFilterResults("Edit", 1, 4);
+		test.maps_sessionpage.editAbstractDetails("Test Title", "Test Abstract");
+		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");
+	}
+
+	@Test
+	public void Step_0054_MAPS_Session_44_Verify_User_Is_Able_To_Add_Sorting_Scenarios_By_Clicking_Add_Button_On_Sort_Popup() {
+		test.maps_sessionpage.clickOnArrowButton("Title");
+		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
+		test.maps_sessionpage.verifyPopupMessage("Sort");
+		sortColumnList = test.maps_sessionpage.getTableDataFromSortPopUpWindow("col-F_SORT_FIELD", fastColumnNames);
+		test.maps_sessionpage.clickOnAddButton("Add");
+		test.maps_sessionpage.verifyColumnNamesPresentForSorting(sortColumnList);
+		test.maps_sessionpage.selectColumnForSorting("Title");
+		test.maps_sessionpage.verifySortingOrderIsPresent("Title");
+		test.maps_sessionpage.clickOnSaveButton("Close");
+	}
+
+	@Test // functionality to be added
+	public void Step_0052_MAPS_Session_48_Verify_Application_Sorts_Results_On_Basis_Of_Criteria() {
+		List<String> dataBeforeSorting = test.maps_sessionpage.getTableData("1", "3");
+		test.maps_sessionpage.clickOnArrowButton("Control ID");
+		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
+		test.maps_sessionpage.verifyPopupMessage("Sort");
+		test.maps_sessionpage.clickOnAddButton("Add");
+		test.maps_sessionpage.selectColumnForSorting("Control ID");
+		test.maps_sessionpage.clickOnSaveButton("Apply");
+		List<String> dataAfterSorting = test.maps_sessionpage.getTableData("1", "3");
+		test.maps_sessionpage.verifyDataIsSorted(dataBeforeSorting, dataAfterSorting);
+	}
+
+	@Test
+	public void Step_0072_MAPS_Session_67_Click_On_Session_And_Navigate_To_Program_Viewer() {
+		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Session");
+		test.maps_SSOPage.verifyUserIsOnTabPage("Session");
+		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Program Viewer");
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
+		test.maps_reviewpage.verifybuttonOnRolesPage("Set Preferences");
+		test.maps_sessionpage.verifyLeftPanelOptionsOnSessionAdminPage(programViewerleftpaneloptions);
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Symposia Viewer");
+	}
+
+	/**
+	 * Session : Program Viewer : Symposia
+	 */
+
+	@Test // List of Symposia verification is remaining due to its
+	// unavailability
+	public void Step_0076_MAPS_Session_70_Verify_Available_Options_On_Session_Program_Viewer_Page() {
+		test.maps_reviewpage.verifyLinksUnderNamedModule("Save/Edit");
+		test.maps_reviewpage.verifyLinksUnderNamedModule("Delete");
+		test.maps_reviewpage.verifyTextField("Filter");
+		test.maps_reviewpage.verifyCrossImageForNamedDropDown("Filter");
+		test.maps_reviewpage.verifyExpandIconUnderNamedModule();
+		test.maps_reviewpage.verifyDropDown("Found In");
+		test.maps_reviewpage.verifyDropDown("Export");
+		test.maps_sessionpage.isPrintSelectedButtonDisplayed("Print Selected");
+		test.maps_reviewpage.verifyPaginationSectionAtTheBottomOfTheTable();
+		test.maps_reviewpage.verifyDropDown("Records per page");
+		test.maps_sessionpage.verifyRefreshButtonAtBottom();
+	}
+
+	/**
+	 * Session : Program Viewer : Symposia
+	 */
+	@Test
+	public void Step_0080_MAPS_Session_74_Verify_Application_Allows_User_To_Create_A_New_Grid_In_Symposia() {
+		test.maps_reviewpage.clickOnButton("Save/Edit");
+		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Save Grid Configuration");
+		test.maps_reviewpage.enterDetailsAtSaveGridConfigurationPage("Symposia_" + griduniqueName);
+	}
+
+	@Test
+	public void Step_0099_MAPS_Session_93_Verify_Application_Print_Selected_Symposia() {
+		selectedsymposia = test.maps_sessionpage.selectaRandomRecordFromTheList();
+		test.maps_sessionpage.clickOnSaveButton("Print Selected");
+	}
+
+	/**
+	 * Session : Session Admin
+	 */
 
 	@Test // page title is not available
 	public void Step_0798_MAPS_Session_784_Verify_Application_navigates_to_Session_Admin_page_on_selecting_the_Session_Admin_radio_button() {
@@ -540,11 +482,6 @@ public class Maps_Session_Tests extends BaseTest {
 	}
 
 	@Test
-	public void Step_1016_MAPS_Session_999_Verify_Buttons_Under_Filter_DropDown_For_Room_Availability() {
-		test.maps_sessionpage.verifyButtonsOnTypes(filterDropDownRoomAvailability);
-	}
-
-	@Test
 	public void Step_1005_MAPS_Session_988_Verify_Application_Displays_Filter_Results_Under_Rooms_Availability_Section() {
 		test.maps_sessionpage.clickOnArrowButton("Day/Date");
 		test.maps_sessionpage.hoverOverColumnHeader("Filters");
@@ -579,7 +516,7 @@ public class Maps_Session_Tests extends BaseTest {
 	}
 
 	@Test
-	public void Step_1016_MAPS_Session_0999_Verify_Buttons_Under_Filter_DropDown_For_Room_Availability() {
+	public void Step_1016_MAPS_Session_999_Verify_Buttons_Under_Filter_DropDown_For_Room_Availability() {
 		test.maps_sessionpage.verifyButtonsOnTypes(filterDropDownRoomAvailability);
 	}
 
@@ -1045,6 +982,38 @@ public class Maps_Session_Tests extends BaseTest {
 		test.maps_sessionpage.verifyPopupMessage("Create New Session from Symposium");
 	}
 
+	@Test // passed
+	public void Step_2020_MAPS_Session_1997_Verify_application_navigates_to_SearchResult_tab_on_clicking_Search_button() {
+		test.maps_sessionpage.enterDetailsInCreateNewSessionFromSymposium(
+				YamlReader.getYamlValue("Session.Session_Events.Type"),
+				YamlReader.getYamlValue("Session.Session_Events.Session_Program_Area"),
+				YamlReader.getYamlValue("Session.Session_Events.Symposium"));
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Continue");
+		test.maps_sessionpage.verifyPopupMessage("Create Session");
+		test.maps_sessionpage.enterValuesInCreateSessionFromSymposium(
+				YamlReader.getYamlValue("Session.Session_Events.Duration"),
+				YamlReader.getYamlValue("Session.Session_Events.Symposia_Submission_Type"));
+		test.maps_sessionpage.clickOnButtonByIndexing("Save", "1");
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Add/Remove/Withdraw Abstracts");
+		test.maps_sessionpage.verifyPopupMessage("Search");
+		test.maps_sessionpage.searchAbstract("author_first_name",
+				YamlReader.getYamlValue("Session.Symposium.Abstract_AuthorFirstName"));
+		test.maps_sessionpage.searchAbstract("author_last_name",
+				YamlReader.getYamlValue("Session.Symposium.Abstract_AuthorLastName"));
+		test.maps_sessionpage.clickOnButtonByIndexing("Search", "1");
+		test.maps_sessionpage.verifyPopupMessage("Search Results");
+		test.maps_sessionpage.verifyAddedDetails("author_name",
+				YamlReader.getYamlValue("Session.Symposium.Abstract_AuthorLastName") + ", "
+						+ YamlReader.getYamlValue("Session.Symposium.Abstract_AuthorFirstName"));
+	}
+
+	@Test // passed
+	public void Step_2022_MAPS_Session_1999_Verify_application_allows_user_to_filter_the_results_by_provding_the_keyword_in_Filter_text_field() {
+		test.maps_sessionpage.clickOnButtonByIndexing("Save & Close", "1");
+		test.maps_reviewpage.enterValueInFilter("Oral");
+		test.maps_sessionpage.verifyFilterResults("session_type", 1, 8);
+	}
+
 	@Test
 	public void Step_2344_MAPS_Session_2320_Verify_that_the_application_navigates_to_the_Symposia_Viewer_page() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
@@ -1252,38 +1221,6 @@ public class Maps_Session_Tests extends BaseTest {
 	}
 
 	@Test // passed
-	public void Step_2020_MAPS_Session_1997_Verify_application_navigates_to_SearchResult_tab_on_clicking_Search_button() {
-		test.maps_sessionpage.enterDetailsInCreateNewSessionFromSymposium(
-				YamlReader.getYamlValue("Session.Session_Events.Type"),
-				YamlReader.getYamlValue("Session.Session_Events.Session_Program_Area"),
-				YamlReader.getYamlValue("Session.Session_Events.Symposium"));
-		test.maps_sessionpage.clickOnButtonUnderSessioning("Continue");
-		test.maps_sessionpage.verifyPopupMessage("Create Session");
-		test.maps_sessionpage.enterValuesInCreateSessionFromSymposium(
-				YamlReader.getYamlValue("Session.Session_Events.Duration"),
-				YamlReader.getYamlValue("Session.Session_Events.Symposia_Submission_Type"));
-		test.maps_sessionpage.clickOnButtonByIndexing("Save", "1");
-		test.maps_sessionpage.clickButtononLeftNavigationPanel("Add/Remove/Withdraw Abstracts");
-		test.maps_sessionpage.verifyPopupMessage("Search");
-		test.maps_sessionpage.searchAbstract("author_first_name",
-				YamlReader.getYamlValue("Session.Symposium.Abstract_AuthorFirstName"));
-		test.maps_sessionpage.searchAbstract("author_last_name",
-				YamlReader.getYamlValue("Session.Symposium.Abstract_AuthorLastName"));
-		test.maps_sessionpage.clickOnButtonByIndexing("Search", "1");
-		test.maps_sessionpage.verifyPopupMessage("Search Results");
-		test.maps_sessionpage.verifyAddedDetails("author_name",
-				YamlReader.getYamlValue("Session.Symposium.Abstract_AuthorLastName") + ", "
-						+ YamlReader.getYamlValue("Session.Symposium.Abstract_AuthorFirstName"));
-	}
-
-	@Test // passed
-	public void Step_2022_MAPS_Session_1999_Verify_application_allows_user_to_filter_the_results_by_provding_the_keyword_in_Filter_text_field() {
-		test.maps_sessionpage.clickOnButtonByIndexing("Save & Close", "1");
-		test.maps_reviewpage.enterValueInFilter("Oral");
-		test.maps_sessionpage.verifyFilterResults("session_type", 1, 8);
-	}
-
-	@Test // passed
 	public void Step_3102_MAPS_Session_3077_Verify_application_prompts_to_select_a_Program_as_user_clicks_on_Schedule_Session() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Schedule Sessions");
@@ -1475,7 +1412,18 @@ public class Maps_Session_Tests extends BaseTest {
 
 	public void Step_3320_MAPS_Session_3294_Verify_application_withdraws_abstract_from_all_sessions_and_displays_W_in_front_of_Abstract_withdrawn() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Add/Remove/Withdraw Abstract");
-		String value = test.maps_sessionpage.addHostforSymposium("title");
+		String value = test.maps_sessionpage.addHostforSymposium("abstract_id");
+		test.maps_sessionpage.verifyAddedDetails("title", value);
+		test.maps_sessionpage.selectAbtract(value);
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Withdraw Selected");
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Withdraw Selected");
+		test.maps_sessionpage.verifyTextUnderMeetingSetup("Successful Update");
+		test.maps_sessionpage.verifyWithDrawRow("(W)", value);
+	}
+
+	public void Step_3321_MAPS_Session_3295_Verify_application_withdraws_abstract_from_current_session_and_displays_SW_in_front_of_abstract_wihtdrawn() {
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Add/Remove/Withdraw Abstract");
+		String value = test.maps_sessionpage.addHostforSymposium("abstract_id");
 		test.maps_sessionpage.verifyAddedDetails("title", value);
 		test.maps_sessionpage.selectAbtract(value);
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Withdraw Selected");
