@@ -85,7 +85,8 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		switch (fieldName) {
 		case "Found In":
 			isElementDisplayed("comboBox_reviewPage", fieldName);
-			clickUsingXpathInJavaScriptExecutor(element("comboBox_reviewPage", fieldName));
+			element("comboBox_reviewPage", fieldName).click();
+//			clickUsingXpathInJavaScriptExecutor(element("comboBox_reviewPage", fieldName));
 //			click(element("comboBox_reviewPage", fieldName));
 			wait.hardWait(2);
 			Assert.assertTrue(elements("list_gripConfig").size() > 0,

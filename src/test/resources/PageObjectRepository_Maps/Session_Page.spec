@@ -57,12 +57,11 @@ inp_fileupload							xpath								(//label[contains(text(),'${text}')]/following
 list_symposia							xpath								//table[contains(@class,'row-table')]
 drpDown_sympType						xpath								//span[contains(text(),'${label}')]/../following-sibling::div//img
 date_currentDate                        xpath                               //td[contains(@class,'x-date-today')]
-table_columnDate                        css                                 .x-grid3-${columnName}
 btn_add_column                          xpath                               //div[text()='${roomName}']/../preceding-sibling::td[1]//div[@class='x-grid3-row-expander']
 txt_chckdColumnData                     xpath                               (//div[@class='x-grid3-row-checker'])[${index1}]/../../following-sibling::td[${index2}]
 column_headers                          xpath                                //div[contains(@qtip,'${columnName}')]
 checked_columnHeadings                  xpath                                //a[contains(text(),'Columns')]/../../../following-sibling::div[2]//a[contains(@class,'x-menu-checked')]
-txt_sortingOrder                        xpath                                //div[contains(text(),'${columnName}')]/../following-sibling::td
+txt_sortingOrder                        xpath                                //div[contains(text(),'${columnName}')]/../following-sibling::td[contains(@class,"x-grid3-td-F_SORT_DIR")]
 img_editColumnHeading                   xpath                                //img[contains(@src,'pencil_small.png')]/..
 input_filter							xpath								(//div[contains(text(),'${text}')]/../following-sibling::td//input)[${index}]
 input_label								xpath								//label[contains(text(),'${label}')]/following-sibling::div//${tagName}
@@ -75,4 +74,8 @@ txt_deletedValue						xpath								//span[contains(text(),'${text}')]/../followi
 drpdown_Symposium						xpath								//label[contains(text(),'${text}')]/following-sibling::div//img[contains(@class,'arrow')]
 txt_SchedulerGrid						xpath								//div[contains(@class,'${className}')]
 drpDown_meetingDay						xpath								//div[contains(text(),'${label}')]/../following-sibling::td//img
+input_editableColumn                    xpath                               //div[contains(@class,'x-grid3-col-${columnName}')]
+table_abstracts                         css                                 .x-panel-mc
+top_scroller                            xpath                               //div[contains(@class,"x-menu-scroller-top")]
+list_abstracts                          xpath                               //div[contains(@class,'${className}')]//div[contains(@class,'x-unselectable-single')]
 ======================================================================================================================================

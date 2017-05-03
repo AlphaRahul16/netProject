@@ -3,35 +3,21 @@ package com.qait.MAPS.keywords;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Random;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.tools.ant.taskdefs.condition.IsLastModified;
-import org.apache.xalan.xsltc.compiler.sym;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
-import org.testng.collections.CollectionUtils;
 
-<<<<<<< HEAD
-import com.gargoylesoftware.htmlunit.javascript.host.Window;
-=======
-import com.itextpdf.text.log.SysoCounter;
->>>>>>> b8739757ecd343b5df4589ffbbe5b586dbb60087
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
-import com.thoughtworks.selenium.webdriven.commands.DoubleClick;
-import com.thoughtworks.selenium.webdriven.commands.IsElementPresent;
 import com.qait.automation.utils.DataProvider;
 import com.qait.automation.utils.DateUtil;
 
@@ -40,6 +26,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	WebDriver driver;
 	private String downloadedFilePath;
 	static String pagename = "Session_Page";
+	Map<String,String> editableColumnsMap=new HashMap<>();
 
 	public Session_Page_Actions(WebDriver driver) {
 		super(driver, pagename);
@@ -863,7 +850,15 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	
 	public List<String> getCheckedColumnHeadings(){
 		List<String> columnsCheckedList=new ArrayList<>();
+		wait.hardWait(2);
 		isElementDisplayed("checked_columnHeadings");
+		System.out.println("------#####:"+element("checked_columnHeadings").getText().trim());
+		System.out.println("----size:"+elements("checked_columnHeadings").size());
+		System.out.println("-----first element:"+elements("checked_columnHeadings").get(0).getText().trim());
+		for(int i=0;i<elements("checked_columnHeadings").size();i++){
+			wait.hardWait(1);
+			columnsCheckedList.add(elements("checked_columnHeadings").get(i).getText().trim());
+		}
 		for(WebElement elem: elements("checked_columnHeadings")){
 			columnsCheckedList.add(elem.getText().trim());
 		}
@@ -1004,5 +999,86 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public void verifylistBoxUnderLableName(String fieldName,String tagName){
 		isElementDisplayed("label_listbox", fieldName,tagName);
 		logMessage("STEP : " + fieldName + " label is verified \n");
+	}
+	
+	public List<String> getEditableColumnsList(){
+		List<String> editableColumnsList=new ArrayList<>();
+		isElementDisplayed("img_editColumnHeading");
+		for(WebElement elem:elements("img_editColumnHeading")){
+			editableColumnsList.add(elem.getText().trim());
+		}
+		return editableColumnsList;
+	}
+	
+	public Map<String,String> addDataInMap(){
+		editableColumnsMap.put("Final ID", "final_id");
+		editableColumnsMap.put("Title", "title");
+		editableColumnsMap.put("Presenting Author", "presenterList");
+		editableColumnsMap.put("Presenter Institution", "presentersInstitutions");
+		editableColumnsMap.put("Presentation Type", "presentationType.name");
+		editableColumnsMap.put("Sci-Mix Consideration", "subPresentationType.name");
+		return editableColumnsMap;
+	}
+	
+	public void selectEditableColumn(List<String> editableColumnsList,Map<String, String>editableColumnsMap){
+		isElementDisplayed("input_editableColumn",editableColumnsMap.get(editableColumnsList.get(0)));
+		doubleClick(elements("input_editableColumn",editableColumnsMap.get(editableColumnsList.get(0))).get(0));
+		logMessage("Step : Double clicked on first element of "+editableColumnsList.get(0)+" column\n");
+	}
+	
+	public void editColumnData(List<String> editableColumnsList,Map<String, String>editableColumnsMap,String editedData){
+		isElementDisplayed("input_editableColumn",editableColumnsMap.get(editableColumnsList.get(0)));
+		elements("input_editableColumn",editableColumnsMap.get(editableColumnsList.get(0))).get(0).sendKeys(editedData);
+		logMessage("Step: Column data is updated as "+editedData);
+	}
+	
+	public void selectEditableColumnAndEditData(List<String> editableColumnsList,String editedData){
+		editableColumnsMap=addDataInMap();
+		selectEditableColumn(editableColumnsList,editableColumnsMap);
+		editColumnData(editableColumnsList, editableColumnsMap, editedData);	
+		click(element("table_abstracts"));
+	}
+	
+	public void verifyDataIsEdited(List<String> editableColumnsList,String editedData){
+		Assert.assertTrue(elements("input_editableColumn",editableColumnsMap.get(editableColumnsList.get(0))).get(0).getText().trim().
+				equals(editedData),"ASSERT FAILED : Updated data as "+editedData+" does not matches with data on page as "+elements("input_editableColumn",editableColumnsMap.get(editableColumnsList.get(0))).get(0).getText().trim()+"\n");
+		logMessage("ASSERT PASSED : Updated data as "+editedData+" matches with data on page as "+elements("input_editableColumn",editableColumnsMap.get(editableColumnsList.get(0))).get(0).getText().trim()+"\n");
+	}
+	
+	public void clickOnTopScroller(){
+		isElementDisplayed("top_scroller");
+		click(element("top_scroller"));
+		logMessage("Step : Clicked on Top Scoller\n");
+	}
+	
+	public void clickOnMainPage(){
+		isElementDisplayed("table_abstracts");
+		click(element("table_abstracts"));
+		logMessage("Step : Clicked on main page\n");
+	}
+	
+	public void clickOnSessionBuilderTab(String tabName){
+		isElementDisplayed("btn_navPanel",tabName);
+		elements("btn_navPanel",tabName).get(0).click();
+		logMessage("Step: Clicked on "+tabName+" tab\n");
+	}
+	
+	public void verifyAbstractsListIsPresent(String className){
+		wait.hardWait(2);
+		isElementDisplayed("list_abstracts",className);
+		Assert.assertTrue(elements("list_abstracts",className).size()>0,"ASSERT FAILED: Abstracts list is not present on page\n");
+		logMessage("ASSERT PASSED: Abstracts list is present on page\n");
+	}
+	
+	public void verifyAbstractsViewIsDisplayed(){
+		wait.hardWait(1);
+		if(checkIfElementIsThere("btn_saveAndEdit","Assign Hosts","1")){
+			logMessage("Step: Abstracts view is displayed by default\n");
+		}
+		else{
+			clickOnSaveAndEditButton("Assign Abstracts",1);
+			waitForLoadingImageToDisappear("Loading...");
+			isElementDisplayed("btn_saveAndEdit","Assign Hosts");
+		}
 	}
 }
