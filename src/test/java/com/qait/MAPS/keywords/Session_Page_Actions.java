@@ -5,34 +5,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
-<<<<<<< HEAD
 import java.util.HashMap;
-=======
 import java.util.Iterator;
->>>>>>> 1a206fc18995fe1cb4dd5e46073ee22fbe613423
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
-
 import org.openqa.selenium.JavascriptExecutor;
-<<<<<<< HEAD
-=======
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
->>>>>>> 1a206fc18995fe1cb4dd5e46073ee22fbe613423
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-<<<<<<< HEAD
-
-=======
 import org.testng.collections.CollectionUtils;
 import com.gargoylesoftware.htmlunit.javascript.host.Window;
 import com.itextpdf.text.log.SysoCounter;
->>>>>>> 1a206fc18995fe1cb4dd5e46073ee22fbe613423
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DataProvider;
 import com.qait.automation.utils.DateUtil;
