@@ -366,9 +366,13 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void verifyAddedDetails(String classLabel, String expValue) {
 		wait.hardWait(2);
-		// Assert.assertTrue(checkIfElementIsThere("txt_tableResult",
-		// classLabel, expValue));
 		isElementDisplayed("txt_tableResult", classLabel, expValue);
+		logMessage("ASSERT PASSED: " + expValue + " is added in table\n");
+	}
+	public void verifyAddedDetailsForHost(String classLabel, String expValue) {
+		wait.hardWait(2);
+		String value=elements("txt_tableResult", classLabel, expValue).get(1).getText();
+		System.out.println("*****value"+value);
 		logMessage("ASSERT PASSED: " + expValue + " is added in table\n");
 	}
 
@@ -496,6 +500,23 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		// waitForLoaderToDisappear();
 		logMessage("STEP: '" + value + " is selected as Host \n");
 		return value;
+	}
+	public List<String> addHostforSymposium(String label, int numberOfHost) {
+		List<String> abstractDetails= new ArrayList<>();
+		waitForLoadingImageToDisappear("Loading...");
+		isElementDisplayed("txt_hostDetails", label);
+		for(int i=1; i<= numberOfHost; i++){
+			WebElement Sourcelocator = elements("txt_hostDetails", label).get(1);
+			String value = elements("txt_hostDetails", label).get(1).getText();
+			abstractDetails.add(value);
+			isElementDisplayed("txt_dropField");
+			WebElement Destinationlocator = element("txt_dropField");
+			dragAndDrop(Sourcelocator, Destinationlocator);
+			wait.hardWait(2);
+			waitForLoadingImageToDisappear("Loading...");
+			logMessage("STEP: '" + value + " is selected as Host \n");
+		}
+		return abstractDetails;
 	}
 
 	public void addRoleForHost(String hostRole) {
