@@ -18,6 +18,7 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void submitTitleAndBodyDetails(String title, String abstractData) {
+		wait.hardWait(2);
 		enterTitleDetails(title, "1");
 		enterTitleDetails(abstractData, "2");
 	}
@@ -25,7 +26,9 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 	public void enterTitleDetails(String title, String index) {
 		switchToFrame(element("iframe", index));
 		isElementDisplayed("txt_title");
+		element("txt_title").clear();
 		element("txt_title").sendKeys(title);
+		logMessage("Step: Data is entered as "+title+"\n");
 		switchToDefaultContent();
 	}
 
@@ -72,6 +75,17 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		System.out.println(element("txt_pageHeader").getText().trim());
 		Assert.assertTrue(element("txt_pageHeader").getText().trim().contains(header));
 		logMessage("ASSERT PASSED: Page header is verified as " + header + "\n");
+	}
+	
+	public void verifyPageHeading(String header){
+		wait.hardWait(5);
+		switchToWindowHavingIndex(1);
+//		dynamicWait(20, "txt_pageHeader", "");
+		isElementDisplayed("txt_pageHeader");
+		System.out.println(element("txt_pageHeader").getText().trim());
+		Assert.assertTrue(element("txt_pageHeader").getText().trim().contains(header));
+		logMessage("ASSERT PASSED: Page header is verified as " + header + "\n");
+		switchToDefaultContent();
 	}
 
 	public void selectPresentationType(String dropdownType, String dropdownValue) {

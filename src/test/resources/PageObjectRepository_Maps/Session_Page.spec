@@ -82,4 +82,6 @@ list_abstracts                          xpath                               //di
 txt_session								xpath								//div[contains(@class,'view-item')]/font
 txt_controlId							xpath								//td[contains(@class,'${className}')]//u[contains(text(),'${text}')]
 row_withdraw       						xpath        						//font[contains(text(),'${fontText}')]/following-sibling::u[contains(text(),'${text}')]
+txt_rowData                             xpath                               //div[contains(@class,'x-grid3-col-F_SORT_FIELD')]/..
+inp_editColumnData                      xpath                               //div[contains(@class,'x-editor')]//input[contains(@class,'x-form-field x-form-text')]
 ======================================================================================================================================

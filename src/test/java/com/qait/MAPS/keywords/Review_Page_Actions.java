@@ -78,7 +78,7 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("img_CrossFilter", dropdownName);
 		//click(element("img_CrossFilter", dropdownName));
 		clickUsingXpathInJavaScriptExecutor(element("img_CrossFilter", dropdownName));
-		logMessage("Step : cross inage is clicked next to "+dropdownName+" dropdown\n");
+		logMessage("Step : cross image is clicked next to "+dropdownName+" dropdown\n");
 	}
 
 	public void verifyDropDown(String fieldName) {
@@ -86,8 +86,8 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		switch (fieldName) {
 		case "Found In":
 			isElementDisplayed("comboBox_reviewPage", fieldName);
-			element("comboBox_reviewPage", fieldName).click();
-//			clickUsingXpathInJavaScriptExecutor(element("comboBox_reviewPage", fieldName));
+//			element("comboBox_reviewPage", fieldName).click();
+			clickUsingXpathInJavaScriptExecutor(element("comboBox_reviewPage", fieldName));
 //			click(element("comboBox_reviewPage", fieldName));
 			wait.hardWait(2);
 			Assert.assertTrue(elements("list_gripConfig").size() > 0,
@@ -134,6 +134,12 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("drpdown_role");
 		click(element("drpdown_role"));
 		Assert.assertTrue(isElementDisplayed("listItem"));
+		click(element("drpdown_role"));
+		logMessage("ASSERT PASSED: 'Role'dropdown is verified \n");
+	}
+	
+	public void clickOnRoleDropdown(){
+		isElementDisplayed("drpdown_role");
 		click(element("drpdown_role"));
 		logMessage("ASSERT PASSED: 'Role'dropdown is verified \n");
 	}

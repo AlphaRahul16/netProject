@@ -28,6 +28,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public Session_Page_Actions(WebDriver driver) {
 		super(driver, pagename);
+		this.driver=driver;
 	}
 
 	public void verifyApplicationDisplaysRadioButtonOnClickingSessionTab(String[] role) {
@@ -412,6 +413,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		dataAfterSorting = convertDataToLowerCase(dataAfterSorting);
 		Collections.sort(dataBeforeSorting);
 		for (String beforeSorting : dataBeforeSorting) {
+			System.out.println("----data before sorting:"+beforeSorting);
+			System.out.println("----data after sorting:"+dataAfterSorting.get(index));
 			Assert.assertTrue(beforeSorting.equals(dataAfterSorting.get(index)),
 					"ASSERT FAILED: Data is not sorted properly\n");
 			logMessage("ASSERT PASSED: Data is sorted properly\n");
@@ -821,10 +824,14 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public void editAbstractDetails(String title, String abstractData) {
 		Submission_Page_Actions objSubmission = new Submission_Page_Actions(driver);
 		wait.hardWait(3);
+		System.out.println("------size:"+driver.getWindowHandles().size());
 		switchToWindowHavingIndex(1);
+//		String currentHandle=driver.getWindowHandle();
+//		System.out.println("-------currentHandle:"+currentHandle);
+//		driver.switchTo().window(currentHandle);
 		driver.manage().window().maximize();
+		objSubmission.clickOnEditButton("2");
 		objSubmission.submitTitleAndBodyDetails(title, abstractData);
-		objSubmission.uploadImage("test.jpeg");
 		objSubmission.clickOnSaveAndContinueButton();
 		objSubmission.verifyPageHeaderForASection("Properties");
 		objSubmission.clickOnSaveAndContinueButton();
@@ -860,8 +867,12 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public void expandColumnWidth(String columnName, String value) {
 		isElementDisplayed("column_headers", columnName);
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
-		executor.executeScript(
-				"document.querySelector('div[qtip='Edit Abstract']').setAttribute(\"style\",\"width:50px\"));");
+
+		executeJavascript("document.querySelector('div[qtip=\"Edit Abstract\"]').style.width=\"100px\"");
+//		executeJavascript("document.querySelector('.primaryNav >li:nth-child(7) ul').style.display ='block'");
+		//		executeJavascript("document.querySelector('div[qtip=\'Edit Abstract\']').setAttribute(\"style\",\"width:50px\"));");
+//		executor.executeScript(
+//				"document.querySelector('div[qtip='Edit Abstract']').setAttribute(\"style\",\"width:50px\"));");
 		// modifyAttributeOfElement(element("column_headers",columnName),
 		// "width", value);
 		// JavascriptExecutor executor = (JavascriptExecutor) driver;
@@ -894,8 +905,28 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		}
 		return tableFullData;
 	}
+	
+	public void deleteExistingSortingCriteria(String columnName,String criteriaName){
+		int index=0;
+		if (checkIfElementIsThere("table_columnDate", columnName)) {
+			for (WebElement elem : elements("table_columnDate", columnName)) {
+				index++;
+				if(elem.getText().trim().equals(criteriaName)){
+					break;
+				}
+			}
+			selectARowInSortWindowPopup(columnName, index-1);
+			clickOnAddButton("Delete");
+		}
+	}
+	
+	public void selectARowInSortWindowPopup(String columnName,int index){
+		isElementDisplayed("table_columnDate", columnName);
+		elements("table_columnDate", columnName).get(index).click();
+		logMessage("Step: Pre-existing criteria "+elements("table_columnDate", columnName).get(index).getText().trim()+" is selected\n");
+	}
 
-	public void verifyColumnNamesPresentForSorting(List<String> fastColumnNames) {
+	public void verifyColumnNamesPresentForSorting(String[] fastColumnNames) {
 		for (String columnName : fastColumnNames) {
 			isElementDisplayed("lst_column", columnName);
 			logMessage("ASSERT PASSED: Column " + columnName + " is available for sorting\n");
@@ -913,6 +944,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifySortingOrderIsPresent(String columnName) {
+		wait.hardWait(5);
 		isElementDisplayed("txt_sortingOrder", columnName);
 		logMessage("Step : Sorting order is present for " + columnName + "\n");
 	}
@@ -1067,13 +1099,22 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	
 	public void selectEditableColumn(List<String> editableColumnsList,Map<String, String>editableColumnsMap){
 		isElementDisplayed("input_editableColumn",editableColumnsMap.get(editableColumnsList.get(0)));
+		System.out.println("-------######"+elements("input_editableColumn",editableColumnsMap.get(editableColumnsList.get(0))).get(0).getText().trim());
 		doubleClick(elements("input_editableColumn",editableColumnsMap.get(editableColumnsList.get(0))).get(0));
 		logMessage("Step : Double clicked on first element of "+editableColumnsList.get(0)+" column\n");
 	}
 	
 	public void editColumnData(List<String> editableColumnsList,Map<String, String>editableColumnsMap,String editedData){
-		isElementDisplayed("input_editableColumn",editableColumnsMap.get(editableColumnsList.get(0)));
-		elements("input_editableColumn",editableColumnsMap.get(editableColumnsList.get(0))).get(0).sendKeys(editedData);
+//		isElementDisplayed("input_editableColumn",editableColumnsMap.get(editableColumnsList.get(0)));
+//		System.out.println("**********"+elements("input_editableColumn",editableColumnsMap.get(editableColumnsList.get(0))).get(0).getText().trim());
+////		elements("input_editableColumn",editableColumnsMap.get(editableColumnsList.get(0))).get(0).clear();
+//		sendKeysUsingXpathInJavaScriptExecutor(elements("input_editableColumn",editableColumnsMap.get(editableColumnsList.get(0))).get(0), editedData);
+////		elements("input_editableColumn",editableColumnsMap.get(editableColumnsList.get(0))).get(0).sendKeys(editedData);
+//		logMessage("Step: Column data is updated as "+editedData);	
+		isElementDisplayed("inp_editColumnData");
+		System.out.println("**********"+element("inp_editColumnData").getText().trim());
+		element("inp_editColumnData").clear();
+		element("inp_editColumnData").sendKeys(editedData);
 		logMessage("Step: Column data is updated as "+editedData);
 	}
 	
@@ -1085,6 +1126,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 	
 	public void verifyDataIsEdited(List<String> editableColumnsList,String editedData){
+		wait.hardWait(2);
 		Assert.assertTrue(elements("input_editableColumn",editableColumnsMap.get(editableColumnsList.get(0))).get(0).getText().trim().
 				equals(editedData),"ASSERT FAILED : Updated data as "+editedData+" does not matches with data on page as "+elements("input_editableColumn",editableColumnsMap.get(editableColumnsList.get(0))).get(0).getText().trim()+"\n");
 		logMessage("ASSERT PASSED : Updated data as "+editedData+" matches with data on page as "+elements("input_editableColumn",editableColumnsMap.get(editableColumnsList.get(0))).get(0).getText().trim()+"\n");
@@ -1096,9 +1138,9 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("Step : Clicked on Top Scoller\n");
 	}
 	
-	public void clickOnMainPage(){
+	public void clickOnMainPage(int index){
 		isElementDisplayed("table_abstracts");
-		click(element("table_abstracts"));
+		click(elements("table_abstracts").get(index));
 		logMessage("Step : Clicked on main page\n");
 	}
 	
