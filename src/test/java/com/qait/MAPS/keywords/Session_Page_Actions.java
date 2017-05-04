@@ -85,17 +85,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("STEP: Program id is fetched as " + programID + " from program table \n");
 		return programID;
 	}
-
-	public void verifyTheResultOfFilter(String title, String expValue) {
-		waitForLoaderToDisappear();
-		isElementDisplayed("txt_programTableData", title);
-		String actualValue = elements("txt_programTableData", title).get(1).getText();
-		System.out.println("***********actualValue:::::" + actualValue);
-		Assert.assertEquals(actualValue, expValue,
-				"ASSERT FAILED: Expected " + title + " is " + expValue + " but found " + actualValue + " \n");
-		logMessage("STEP:" + actualValue + " is exist as " + title + " \n");
-	}
-
 	public void enterValuesInCreateProgramPage(String ProgramTitle, String interval) {
 		enterValuesForProgram("program_title", ProgramTitle);
 		enterValuesForProgram("start_date", DateUtil.getCurrentdateInStringWithGivenFormate("EEE M/dd/yyyy"));
@@ -489,11 +478,27 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		selectValueFromDropDown(symposiumType);
 	}
 
+//	public String addHostforSymposium(String label) {
+//		waitForLoadingImageToDisappear("Loading...");
+//		isElementDisplayed("txt_hostDetails", label);
+//		//elements("txt_hostDetails", label).get(0).click();
+//		WebElement Sourcelocator = element("txt_hostDetails", label);
+//		//String value = elements("txt_hostDetails", label).get(0).getText();
+//		isElementDisplayed("txt_dropField");
+//		WebElement Destinationlocator = element("txt_dropField");
+//		dragAndDrop(Sourcelocator, Destinationlocator);
+//		wait.hardWait(2);
+//		waitForLoadingImageToDisappear("Loading...");
+//		// waitForLoaderToDisappear();
+//		//logMessage("STEP: '" + value + " is selected as Host \n");
+//		return "";
+//	}
 	public String addHostforSymposium(String label) {
 		waitForLoadingImageToDisappear("Loading...");
-		isElementDisplayed("txt_hostDetails", label);
-		WebElement Sourcelocator = elements("txt_hostDetails", label).get(1);
-		String value = elements("txt_hostDetails", label).get(1).getText();
+		isElementDisplayed("txt_linkEmail", label);
+		//elements("txt_controlId", label).get(0).click();
+		WebElement Sourcelocator = elements("txt_linkEmail", label).get(0);
+		String value = elements("txt_linkEmail", label).get(0).getText();
 		isElementDisplayed("txt_dropField");
 		WebElement Destinationlocator = element("txt_dropField");
 		dragAndDrop(Sourcelocator, Destinationlocator);
@@ -512,7 +517,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 			String value = elements("txt_hostDetails", label).get(1).getText();
 			abstractDetails.add(value);
 			isElementDisplayed("txt_dropField");
-			WebElement Destinationlocator = element("txt_dropField");
+			WebElement Destinationlocator = elements("txt_dropField").get(1);
 			dragAndDrop(Sourcelocator, Destinationlocator);
 			wait.hardWait(2);
 			waitForLoadingImageToDisappear("Loading...");
@@ -748,6 +753,13 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		element("txt_instruction", value).click();
 		logMessage("STEP: Abstract '" + value + "' is selected \n");
 
+	}
+	public void selectAbtract(List<String> values) {
+		for(String value: values){
+			isElementDisplayed("txt_instruction", value);
+			element("txt_instruction", value).click();
+			logMessage("STEP: Abstract '" + value + "' is selected \n");
+		}
 	}
 
 	public void enterDetailsInCreateNewSessionFromSymposium(String sessionType, String SessionProgramArea,
@@ -1054,7 +1066,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void verifyLabelName(String fieldName, String tagName) {
 		if (tagName == "") {
-			isElementDisplayed("input_label_create", fieldName);
+			isElementDisplayed("txt_label", fieldName);
 			logMessage("STEP : " + fieldName + " label is verified \n");
 		} else {
 			isElementDisplayed("input_label", fieldName, tagName);
@@ -1201,7 +1213,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyAddedAbstractsInTable(String classlbl, String expValue) {
-		Assert.assertTrue(checkIfElementIsThere("txt_controlId", classlbl, expValue));
+		isElementDisplayed("txt_controlId", classlbl, expValue);
+		//Assert.assertTrue(checkIfElementIsThere("txt_controlId", classlbl, expValue));
 		logMessage("ASSERT PASSED: '" + expValue + "' is present \n");
 	}
 
@@ -1221,5 +1234,69 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		Assert.assertTrue(checkIfElementIsThere("row_withdraw", fontText, text));
 		logMessage("ASSERT PASSED: " + text + " with " + fontText + " is displayed \n");
 	}
+
+	public void enterValuesInAssignDurationPage(String label, String value) {
+		isElementDisplayed("inp_assignDuration",label);
+		element("inp_assignDuration",label).sendKeys(value);
+		logMessage("STPE: " + value+ " is entered in "+ label+ "\n");
+		
+	}
+
+	public void verifyDurationForAssignedAbstracts(String title, String expValue, int numberOfAbstract) {
+		for(int i=1;i<=numberOfAbstract ;i++ ){
+			verifyAddedDetails(title, expValue);
+		}
+	}
+
+	public String getTimeDurationValues(String text) {
+		isElementDisplayed("txt_instruction",text);
+		return element("txt_instruction",text).getText().trim();
+	}
+
+	public void verifyTimeDuration(String text, String timeDurationLabel) {
+		isElementDisplayed("txt_instruction",text);
+		System.out.println("******** timeDurationLabel "+timeDurationLabel);
+		System.out.println("actual value: "+element("txt_instruction",text).getText().trim());
+		Assert.assertFalse(timeDurationLabel.contentEquals(element("txt_instruction",text).getText().trim()));
+		logMessage("ASSERT PASSED: Current duration is updated \n");
+		
+	}
+
+	public void enterValuesInAssignAbstractFinalID(String finalId, String hashtag) {
+		isElementDisplayed("inp_assignDuration","New");
+		elements("inp_assignDuration","New").get(0).sendKeys(finalId);
+		logMessage("STEP: "+ finalId + " is entered as FinalD Name \n");
+		elements("inp_assignDuration","New").get(1).sendKeys(hashtag);
+		logMessage("STEP: "+ hashtag + " is entered as hash tag \n");
+		
+	}
+
+	public void clickCheckboxOnAbstractAssignPage(String[] abstractTypes) {
+		for(String type: abstractTypes){
+			clickCheckboxOnSaveGridConfiguration(type);
+		}
+	}
+
+	public void verifyFieldsArePrefilledWithSavedDetails() {
+		isElementDisplayed("inp_assignDuration","New");
+		String finalId=getValUsingXpathInJavaScriptExecutor(elements("inp_assignDuration","New").get(0));
+		logMessage("STEP: "+ finalId + " is entered as FinalD Name \n");
+		String hashtag=getValUsingXpathInJavaScriptExecutor(elements("inp_assignDuration","New").get(1));
+		logMessage("STEP: "+ hashtag + " is entered as hash tag \n");
+		
+	}
+	public void verifyFinalIdIsDeleted(String value){
+		Assert.assertFalse(checkIfElementIsThere("txt_label",value));
+		logMessage("STEP : " + value + " is deleted \n");
+	}
+
+	public String clickOnPencilIconCloumn(String colHeader, String expVal) {
+		isElementDisplayed("txt_tableResult",colHeader,expVal);
+		doubleClick(element("txt_tableResult",colHeader,expVal));
+		String updatedVal=expVal+System.currentTimeMillis();
+		sendKeysUsingXpathInJavaScriptExecutor(elements("inp_editColumnData").get(1),updatedVal );
+		return updatedVal;
+	}
+
 
 }

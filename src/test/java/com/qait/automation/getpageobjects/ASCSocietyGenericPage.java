@@ -511,6 +511,7 @@ public class ASCSocietyGenericPage extends GetPage {
 	public void dragAndDrop(WebElement sourceElement, WebElement destinationElement) {
 		Actions action = new Actions(driver);
 		action.dragAndDrop(sourceElement, destinationElement).build().perform();
+		logMessage("Step: drag from "+ sourceElement+ " to "+ destinationElement+ "\n");
 	}
 
 	public void waitForLoadingImageToDisappear(String loaderText){

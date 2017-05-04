@@ -46,13 +46,13 @@ public class Maps_Session_Program_Chair_Sessioning_Tests extends BaseTest {
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Program Chair Sessioning");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
-		test.maps_sessionpage.clickOnSessionBuilderTab("Session Builder");
-		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Session Builder");
-		test.maps_sessionpage.verifyAbstractsViewIsDisplayed();
-		test.maps_sessionpage.verifyAbstractsListIsPresent("x-border-panel x-border-layout-ct");
+//		test.maps_sessionpage.clickOnSessionBuilderTab("Session Builder");
+//		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Session Builder");
+//		test.maps_sessionpage.verifyAbstractsViewIsDisplayed();
+//		test.maps_sessionpage.verifyAbstractsListIsPresent("x-border-panel x-border-layout-ct");
 	}
 
-	@Test
+	//@Test
 	public void Step_0422_MAPS_Session_411_Verify_Currently_Assign_Abstracts_Section_Is_Displayed_When_Any_Session_Is_Selected() {
 		test.maps_sessionpage.selectaRecordFromTheList(1);
 		test.maps_sessionpage.waitForLoadingImageToDisappear("Loading...");
@@ -113,7 +113,7 @@ public class Maps_Session_Program_Chair_Sessioning_Tests extends BaseTest {
 	}
 
 	@Test
-	public void Step_0774_MAPS_Session_761_Verify_Application_Sorts_Results_On_Basis_Of_CriteriaUnder_Abstract_Editor() {
+	public void Step_0774_MAPS_Session_761_Verify_Application_Sorts_Results_On_Basis_Of_Criteria_Under_Abstract_Editor() {
 		List<String> dataBeforeSorting = test.maps_sessionpage.getTableData("1", "3");
 		test.maps_sessionpage.clickOnArrowButton("Control ID");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");

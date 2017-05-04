@@ -1,6 +1,5 @@
 package com.qait.MAPS.tests;
 
-
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +31,12 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 	private String program_area_name = "program_area" + System.currentTimeMillis();
 	private String[] fieldsAddRoom = { "Cancel", "Save" };
 	private String[] filterDropDownRoomAvailability = { "Add Availability", "Delete Availability" };
+	private String[] abstractTypes = { "Placeholders", "Withdrawn Presentations", "Stubs" };
 	List<String> sortColumnList = new ArrayList<String>();
 	List<String> controlId = new ArrayList<String>();
+	List<String> abstractDetails;
+	private String timeDurationLabel;
+	private String hashtag;
 
 	@DataProvider
 	public String[][] getData() {
@@ -68,7 +71,6 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 		test.maps_reviewpage.verifyPageHeader("Multiple Role Selection");
 		test.maps_sessionpage.verifyApplicationDisplaysRadioButtonOnClickingSessionTab(roles);
 	}
-	
 
 	@Test // page title is not available
 	public void Step_0798_MAPS_Session_784_Verify_Application_navigates_to_Session_Admin_page_on_selecting_the_Session_Admin_radio_button() {
@@ -77,6 +79,7 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 		// page title is not available
 		// test.maps_sessionpage.verifyTitleForRoles("Session Admin");
 	}
+
 	@Test
 	public void Step_0799_MAPS_Session_785_Verify_options_available_on_Session_Admin_page() {
 
@@ -100,7 +103,7 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Programs");
 		String programID = test.maps_sessionpage.getValueFromProgramsTable();
 		test.maps_reviewpage.enterValueInFilter(programID);
-		test.maps_sessionpage.verifyTheResultOfFilter("program_id", programID);
+		test.maps_sessionpage.verifyAddedDetails("program_id", programID);
 	}
 
 	@Test // passed
@@ -228,7 +231,7 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
 		test.maps_sessionpage.verifyPopupMessage("Sort");
 		test.maps_sessionpage.clickOnAddButton("Add");
-		test.maps_sessionpage.selectColumnForSorting("Building/Venue");																
+		test.maps_sessionpage.selectColumnForSorting("Building/Venue");
 		test.maps_sessionpage.clickOnSaveButton("Apply");
 		List<String> dataAfterSorting = test.maps_sessionpage.getTableData("1", "4");
 		test.maps_sessionpage.verifyDataIsSorted(dataBeforeSorting, dataAfterSorting);
@@ -515,7 +518,7 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 	/**
 	 * Session : Program Viewer : Symposia
 	 */
-	
+
 	@Test // not executed
 	public void Step_1526_MAPS_Session_1503_Application_should_remove_the_selected_abstracts_when_user_clicks_on_Remove_Selected_button() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
@@ -570,7 +573,7 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 		test.maps_sessionpage.verifyTextUnderMeetingSetup("Successfully Saved");
 		test.maps_sessionpage.clickOnButtonByIndexing("Close", "1");
 		test.maps_reviewpage.enterValueInFilter(symposiumTitle);
-		test.maps_sessionpage.verifyTheResultOfFilter("session_name", symposiumTitle);
+		test.maps_sessionpage.verifyAddedDetails("session_name", symposiumTitle);
 	}
 
 	@Test // passed
@@ -590,7 +593,7 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 		test.maps_sessionpage.verifyTextUnderMeetingSetup("Successfully Saved");
 		// symposiumTitle="Test_Symposium_Title1491399157076";
 		test.maps_reviewpage.enterValueInFilter(symposiumTitle);
-		test.maps_sessionpage.verifyTheResultOfFilter("session_name", symposiumTitle);
+		test.maps_sessionpage.verifyAddedDetails("session_name", symposiumTitle);
 	}
 
 	@Test // passed
@@ -605,7 +608,7 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 		test.maps_sessionpage.clickOnButtonByIndexing("Save & Close", "1");
 		test.maps_sessionpage.verifyTextUnderMeetingSetup("Successfully Saved");
 		test.maps_reviewpage.enterValueInFilter(symposiumTitle);
-		test.maps_sessionpage.verifyTheResultOfFilter("session_name", symposiumTitle);
+		test.maps_sessionpage.verifyAddedDetails("session_name", symposiumTitle);
 		test.maps_sessionpage.selectaRecordFromTheList(1);
 		test.maps_sessionpage.clickOnButtonByIndexing("Delete Selected", "1");
 		test.maps_sessionpage.verifyPopupMessage("Confirm");
@@ -632,7 +635,7 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 				YamlReader.getYamlValue("Session.Symposium.File_Download_Session_Owners"));
 		test.maps_sessionpage.clickOnButtonByIndexing("Cancel", "1");
 	}
-	
+
 	/**
 	 * Session : Program Viewer : Symposia
 	 */
@@ -756,8 +759,6 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 		test.maps_sessionpage.verifyFilterResults("session_type", 1, 8);
 	}
 
-
-
 	@Test
 	public void Step_2355_MAPS_Session_2331_Verify_that_the_application_filters_the_result_on_the_basis_of_the_criteria_provided() {
 		String searchTerm = test.maps_sessionpage.getRandomTableData("1", "2");
@@ -828,7 +829,7 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 
 	}
 
-	@Test(dataProvider="getData")
+	@Test(dataProvider = "getData")
 	public void Step_2578_MAPS_Session_2552_Verify_the_different_options_displayed_on_selecting_options_from_Session_Type_dropdown(
 			String sessionType, String priviousValue) {
 		test.maps_sessionpage.clickOnDropDownOfLabel("Session Type:", "img");
@@ -879,7 +880,7 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 		test.maps_sessionpage.clickOnButtonByIndexing("Close", "1");
 
 	}
-	
+
 	@Test
 	public void Step_2617_MAPS_Session_2591_Verify_that_the_application_displays_appropriate_search_results_on_clicking_Search_button_after_providing_the_valid_search_criteria() {
 		String sessionTitle = YamlReader.getYamlValue("Session.Session_Builder.Title") + System.currentTimeMillis();
@@ -999,8 +1000,6 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 		test.maps_sessionpage
 				.verifyApplicationChangesSessionType(YamlReader.getYamlValue("Session.Schedule_Sessions.Session_Type"));
 	}
-	
-	
 
 	@Test // passed
 	public void Step_3143_MAPS_Session_3117_Verify_application_displays_appropriate_search_result_on_clicking_Search_button_after_providing_valid_search_results() {
@@ -1083,21 +1082,21 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 				YamlReader.getYamlValue("Session.Host.Last_Name") + System.currentTimeMillis(), email,
 				YamlReader.getYamlValue("Session.Host.institution"));
 		test.maps_sessionpage.clickOnButtonByIndexing("Save", "2");
-		test.maps_sessionpage.verifyTextUnderMeetingSetup("Information");
 		test.maps_sessionpage.verifyAddedDetails("session_host_email", email);
 		test.maps_sessionpage.verifyAddedDetails("session_host_institution",
 				YamlReader.getYamlValue("Session.Host.institution"));
 		test.maps_sessionpage.clickOnButtonByIndexing("Close", "2");
 	}
 
-	@Test
+	@Test // passed
 	public void Step_3227_MAPS_Session_3201_Verify_application_adds_hosts_in_Current_Hosts_section_if_user_drags_and_drops_records_from_Available_Hosts_section() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Add/Edit Hosts");
-		String hostLastname = test.maps_sessionpage.addHostforSymposium("session_host_last_name");
-		test.maps_sessionpage.verifyAddedDetails("session_host_last_name", hostLastname);
+		String abstractDetail = test.maps_sessionpage.addHostforSymposium("session_host_email");
+		test.maps_sessionpage.verifyAddedAbstractsInTable("session_host_first_name", abstractDetail);
+
 	}
 
-	@Test
+	@Test // data is not sorted
 	public void Step_3228_MAPS_Session_3202_Verify_application_sorts_current_hosts_section_on_clicking_column_headers() {
 		List<String> dataBeforeSorting = test.maps_sessionpage.getTableData("1", "17");
 		test.maps_sessionpage.clickOnColumnHeaders("# of Assigned to Sessions");
@@ -1107,14 +1106,14 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 
 	@Test
 	public void Step_3237_MAPS_Session_3211_Verify_application_only_removes_record_on_clicking_Yes_button_on_the_confirmation_popup() {
-		test.maps_reviewpage.enterValueInFilter(YamlReader.getYamlValue("Session.Schedule_Sessions.owner_email"));
-		String value = test.maps_sessionpage.addHostforSymposium("session_host_email");
-		test.maps_sessionpage.verifyAddedDetails("session_host_email", value);
-		test.maps_sessionpage.selectAbstractForEditing(2, 2);
+		// test.maps_reviewpage.enterValueInFilter(YamlReader.getYamlValue("Session.Schedule_Sessions.owner_email"));
+		String value = test.maps_sessionpage.addHostforSymposium("session_host_first_name ");
+		test.maps_sessionpage.verifyAddedDetails("session_host_first_name ", value);
+		test.maps_sessionpage.selectAbtract(value);
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Remove Selected");
 		test.maps_sessionpage.verifyPopupMessage("Confirm");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Yes");
-		test.maps_sessionpage.verifyTextUnderMeetingSetup("Information");
+		test.maps_sessionpage.verifyIsDataDeleted(value);
 
 	}
 
@@ -1150,6 +1149,7 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 
 	public void Step_3320_MAPS_Session_3294_Verify_application_withdraws_abstract_from_all_sessions_and_displays_W_in_front_of_Abstract_withdrawn() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Add/Remove/Withdraw Abstract");
+		test.maps_reviewpage.enterValueInFilter("Submitted");
 		String value = test.maps_sessionpage.addHostforSymposium("abstract_id");
 		test.maps_sessionpage.verifyAddedDetails("title", value);
 		test.maps_sessionpage.selectAbtract(value);
@@ -1161,6 +1161,7 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 
 	public void Step_3321_MAPS_Session_3295_Verify_application_withdraws_abstract_from_current_session_and_displays_SW_in_front_of_abstract_wihtdrawn() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Add/Remove/Withdraw Abstract");
+		test.maps_reviewpage.enterValueInFilter("Submitted");
 		String value = test.maps_sessionpage.addHostforSymposium("abstract_id");
 		test.maps_sessionpage.verifyAddedDetails("abstract_id", value);
 		test.maps_sessionpage.selectAbtract(value);
@@ -1169,27 +1170,129 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 		test.maps_sessionpage.verifyTextUnderMeetingSetup("Successful Update");
 		test.maps_sessionpage.verifyWithDrawRow("(SW)", value);
 	}
-	
-	public void Step_3324_MAPS_Session_3298_Verify_application_removes_selected_abstracts_when_clicks_on_Remove_Selected_button(){
+
+	public void Step_3324_MAPS_Session_3298_Verify_application_removes_selected_abstracts_when_clicks_on_Remove_Selected_button() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Add/Remove/Withdraw Abstract");
+		test.maps_reviewpage.enterValueInFilter("Submitted");
 		String symposiumTitle = test.maps_sessionpage.addHostforSymposium("title");
 		test.maps_sessionpage.verifyAddedDetails("title", symposiumTitle);
 		test.maps_sessionpage.selectAbtract(symposiumTitle);
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Remove Selected");
 		test.maps_sessionpage.verifyDataIsDeleted("session_name", symposiumTitle);
 	}
-	
-	public void Step_3329_MAPS_Session_3303_Verify_application_displays_updated_Duration_for_all_the_available_abstracts_under_Currently_Assigned_Abstracts_section(){
+
+	public void Step_3329_MAPS_Session_3303_Verify_application_displays_updated_Duration_for_all_the_available_abstracts_under_Currently_Assigned_Abstracts_section() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Add/Remove/Withdraw Abstract");
-		List<String> abstractDetails= test.maps_sessionpage.addHostforSymposium("abstract_id",4);
+		test.maps_reviewpage.enterValueInFilter("Submitted");
+		abstractDetails = test.maps_sessionpage.addHostforSymposium("abstract_id", 4);
 		test.maps_sessionpage.verifyAddedAbstracts("abstract_id", abstractDetails);
+		test.maps_sessionpage.selectAbtract(abstractDetails);
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Mass Update");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Assign Durations");
 		test.maps_sessionpage.verifyPopupMessage("Assign Abstracts Duration");
-		
-		
+		test.maps_sessionpage.enterValuesInAssignDurationPage("Assign each Abstract a duration of",
+				YamlReader.getYamlValue("Session.Schedule_Sessions.assign_Duration"));
+		test.maps_sessionpage.clickOnButtonByIndexing("Assign", "1");
+		test.maps_sessionpage.verifyTextUnderMeetingSetup("Successfully Saved");
+		test.maps_sessionpage.verifyDurationForAssignedAbstracts("duration",
+				YamlReader.getYamlValue("Session.Schedule_Sessions.assign_Duration"), 4);
+
 	}
-	
-	
-	
+
+	public void Step_3330_MAPS_Session_3304_Verify_application_throws_pop_message_when_user_tries_to_assign_more_than_available_duration() {
+		test.maps_sessionpage.selectAbtract(abstractDetails);
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Mass Update");
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Assign Durations");
+		test.maps_sessionpage.verifyPopupMessage("Assign Abstracts Duration");
+		test.maps_sessionpage.enterValuesInAssignDurationPage("Assign each Abstract a duration of", "300");
+		test.maps_sessionpage.clickOnButtonByIndexing("Assign", "1");
+		test.maps_sessionpage.verifyPopupMessage(YamlReader.getYamlValue("Session.Schedule_Sessions.err_msg_duration"));
+		test.maps_sessionpage.clickOnButtonByIndexing("OK", "1");
+	}
+
+	public void Step_3331_MAPS_Session_3305_Verify_user_can_assign_less_than_available_time() {
+		test.maps_sessionpage.selectAbtract(abstractDetails);
+		timeDurationLabel = test.maps_sessionpage.getTimeDurationValues("Current Duration:");
+		test.maps_sessionpage.enterValuesInAssignDurationPage("Assign each Abstract a duration of", "30");
+		test.maps_sessionpage.clickOnButtonByIndexing("Assign", "1");
+		test.maps_sessionpage.verifyTextUnderMeetingSetup("Successfully Saved");
+		test.maps_sessionpage.verifyDurationForAssignedAbstracts("duration",
+				YamlReader.getYamlValue("Session.Schedule_Sessions.assign_Duration"), 4);
+	}
+
+	public void Step_3332_MAPS_Session_3306_Verify_Current_duration_get_updated_when_assign_less_than_available_time() {
+		test.maps_sessionpage.verifyTimeDuration("Current Duration:", timeDurationLabel);
+	}
+
+	public void Step_3339_MAPS_Session_3313_Verify_applicaiton_assigns_FinalIDs_on_clicking_Continue_button_on_Select_types_of_Items_to_Assign_popup() {
+		String hashtag = YamlReader.getYamlValue("Session.Schedule_Sessions.hash_tag") + System.currentTimeMillis();
+		abstractDetails = test.maps_sessionpage.addHostforSymposium("abstract_id", 4);
+		test.maps_sessionpage.verifyAddedAbstracts("abstract_id", abstractDetails);
+		test.maps_sessionpage.selectAbtract(abstractDetails);
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Mass Update");
+		test.maps_sessionpage.clickButtonToContinueToNextPage(" Assign Final ID(s)");
+		test.maps_sessionpage.verifyPopupMessage("Assign Abstract Final ID(s)");
+		test.maps_sessionpage.enterValuesInAssignAbstractFinalID(
+				YamlReader.getYamlValue("Session.Schedule_Sessions.finalId_name") + System.currentTimeMillis(),
+				hashtag);
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Save");
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Run");
+		test.maps_sessionpage.verifyPopupMessage("Select Types of Items to Assign");
+		test.maps_sessionpage.clickCheckboxOnAbstractAssignPage(abstractTypes);
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Continue");
+		test.maps_sessionpage.verifyAddedDetails("final_id", hashtag);
+
+	}
+
+	public void Step_3340_MAPS_Session_3314_Verify_application_allows_user_to_edit_saved_format() {
+		hashtag = YamlReader.getYamlValue("Session.Schedule_Sessions.hash_tag") + System.currentTimeMillis();
+		abstractDetails = test.maps_sessionpage.addHostforSymposium("abstract_id", 4);
+		test.maps_sessionpage.verifyAddedAbstracts("abstract_id", abstractDetails);
+		test.maps_sessionpage.selectAbtract(abstractDetails);
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Mass Update");
+		test.maps_sessionpage.clickButtonToContinueToNextPage(" Assign Final ID(s)");
+		test.maps_sessionpage.verifyPopupMessage("Assign Abstract Final ID(s)");
+		test.maps_sessionpage.enterValuesInAssignAbstractFinalID(
+				YamlReader.getYamlValue("Session.Schedule_Sessions.finalId_name") + System.currentTimeMillis(),
+				hashtag);
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Save");
+		test.maps_sessionpage.clickButtonToContinueToNextPage("edit");
+		test.maps_sessionpage.verifyFieldsArePrefilledWithSavedDetails();
+	}
+
+	public void Step_3341_MAPS_Session_3315_Verify_application_allows_user_to_delete_saved_format() {
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Save");
+		test.maps_sessionpage.clickButtonToContinueToNextPage("delete");
+		test.maps_sessionpage.verifyTextUnderMeetingSetup("Successfully deleted");
+		test.maps_sessionpage.verifyFinalIdIsDeleted(hashtag);
+		test.maps_sessionpage.clickOnButtonByIndexing("Close", "2");
+	}
+
+	public void Step_3355_MAPS_Session_3329_Verify_application_allows_user_to_edit_fields_with_a_Pencil_icon_by_double_clicking_fields() {
+		String value = test.maps_sessionpage.addHostforSymposium("title");
+		String updatedVal = test.maps_sessionpage.clickOnPencilIconCloumn("title", value);
+		test.maps_sessionpage.clickOnButtonByIndexing("Save", "1");
+		test.maps_sessionpage.verifyAddedDetails("title", updatedVal);
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Save & Close");
+	}
+
+	public void Step_3357_MAPS_Session_3331_Verify_application_saves_the_session_on_clicking_Save_button() {
+		test.maps_sessionpage.rightClickOnSession();
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Edit Item");
+		test.maps_sessionpage.verifyPopupMessage("Edit Session");
+		test.maps_sessionpage.enterValuesForProgram("session_name",
+				YamlReader.getYamlValue("Session.Schedule_Sessions.Session_Title") + System.currentTimeMillis());
+		test.maps_sessionpage.enterValuesForProgram("session_duration",
+				YamlReader.getYamlValue("Session.Schedule_Sessions.assign_Duration"));
+		test.maps_sessionpage.clickOnButtonByIndexing("Save", "1");
+		test.maps_sessionpage.verifyTextUnderMeetingSetup("Successfully Saved");
+	}
+
+	public void Step_3468_MAPS_Session_3442_Verify_application_saves_session_on_clicking_Save_button() {
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Add/Edit Hosts");
+		String abstractDetail = test.maps_sessionpage.addHostforSymposium("session_host_email");
+		test.maps_sessionpage.verifyAddedAbstractsInTable("session_host_first_name", abstractDetail);
+		test.maps_sessionpage.clickOnButtonByIndexing("Save", "1");
+		test.maps_sessionpage.verifyTextUnderMeetingSetup("Successfully Saved");
+	}
 }
