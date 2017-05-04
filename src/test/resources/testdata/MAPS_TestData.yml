@@ -97,5 +97,11 @@ Session:
       owner_email: "H_Sil@acs.org"
       placeHolder_Title: "placeholder_title"
       placeHolder_desc: "placeHolder_desc"
+      assign_Duration: "120"
+      less_duration: "60"
+      err_msg_duration: "The duration you have entered exceeds the total available duration for this session."
+      finalId_name: "finalID_name"
+      hash_tag: "test_tag"
+      
       
       
