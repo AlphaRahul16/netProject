@@ -19,7 +19,6 @@ public class Maps_Session_Tests extends BaseTest {
 	private String griduniqueName = "Test_Grid_" + System.currentTimeMillis();
 	private String maps_url, symposiumTitle, selectedsymposia, gridName, lastRecordData, roomName, sessionTitle,
 			downloadedFilePath;
-
 	private String[] roles = { "OPA Staff", "Program Viewer", "Program Chair Sessioning", "Abstract Editor",
 			"Session Admin" };
 	private String[] programViewerleftpaneloptions = { "Dashboard & Instructions", "Symposia Viewer", "Sessioning",
