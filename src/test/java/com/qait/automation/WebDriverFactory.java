@@ -89,7 +89,9 @@ public class WebDriverFactory {
 		ChromeOptions options = new ChromeOptions();
 		HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
 
-		chromePrefs.put("download.prompt_for_download", "false");
+		chromePrefs.put("download.prompt_for_download", false);
+		chromePrefs.put("credentials_enable_service",false);
+		chromePrefs.put("profile.password_manager_enabled", false);
 		// disable flash and the PDF viewer
 		chromePrefs.put("plugins.plugins_disabled", new String[] { "Adobe Flash Player", "Chrome PDF Viewer" });
 

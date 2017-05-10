@@ -49,7 +49,7 @@ txt_inpName                                   xpath                        //lab
 txt_confirmDonation_product                   xpath                          //td[@class='program']/span/span
 txt_confirmDonation_amount                    xpath                         //td[@class='program']/span/span[contains(text(),'${value}')]/../../following-sibling::td/span
 inp_recipientPersonalisedMsg                  id                            cardMessage
-txt_thankYouMessage                           css                            .yui-u.first.confirmation-message>p:nth-child(2)
+txt_thankYouMessage                           css                             .yui-u.first.confirmation-message>p[id*='firstMessage']
 lnk_printReceipt                              css                            .print-receipt>a
 txt_confirmationEmailBox                      css                             .yui-g.confirmation-box>p
 btn_loginMember                               id                               btnMemberLogin

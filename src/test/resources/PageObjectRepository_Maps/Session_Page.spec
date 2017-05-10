@@ -82,4 +82,17 @@ list_abstracts                          xpath                               //di
 txt_session								xpath								//div[contains(@class,'view-item')]/font
 txt_controlId							xpath								//td[contains(@class,'${className}')]//u[contains(text(),'${text}')]
 row_withdraw       						xpath        						//font[contains(text(),'${fontText}')]/following-sibling::u[contains(text(),'${text}')]
+inp_sessionAbbrev                       xpath                               //label[contains(text(),'${label}')]/..//input[@type='text']
+inp_sessionNotes						xpath								//label[contains(text(),'${label}')]/following-sibling::div//textarea
+ipt_div									xpath								//label[contains(text(),'${label}')]/following-sibling::div//div
+inp_label								xpath								//label[contains(text(),'${label}')]
+inp_FnclCosponsor						xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//textarea
+inp_sessionTrack						xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//input[@type='text']
+lstItm_drpdwn							xpath								//div[contains(@class,'combo-list-item') and text()='${value}']
+chkbox_Newsworthy						xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//input[@type='checkbox']
+lstbox_Themes							xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//div[@role='listbox']
+row_withdraw							xpath								//font[contains(text(),'${fontText}')]/following-sibling::u[contains(text(),'${text}')]
+input_popup								xpath								(//label[contains(text(),'${label}')]/parent::td/following-sibling::td/..//input)[${index}]
+btn_lnkTxt								xpath								//label[contains(text(),'${text}')]/parent::td/following-sibling::td/..//a[text()='${linkText}']
+img_processbar							xpath								//div[contains(@class,'progress-bar')]
 ======================================================================================================================================

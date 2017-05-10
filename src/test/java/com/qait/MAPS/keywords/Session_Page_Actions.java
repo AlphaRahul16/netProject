@@ -1,6 +1,7 @@
 package com.qait.MAPS.keywords;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,6 +19,7 @@ import org.testng.Assert;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DataProvider;
 import com.qait.automation.utils.DateUtil;
+import com.qait.automation.utils.YamlReader;
 
 public class Session_Page_Actions extends ASCSocietyGenericPage {
 
@@ -160,7 +162,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	}
 
-	private void selectValueForSessionType(String label, String value) {
+	public void selectValueForSessionType(String label, String value) {
 		isElementDisplayed("radioBtn_sessionType", value);
 		element("radioBtn_sessionType", value).click();
 		logMessage("STEP: " + value + " is selected as " + label + " \n");
@@ -294,6 +296,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void clickOnButtonUnderSessioning(String btnName) {
 		wait.hardWait(2);
+		wait.waitForElementToBeClickable(element("btn_Types", btnName));
 		isElementDisplayed("btn_Types", btnName);
 		click(element("btn_Types", btnName));
 		logMessage("Step : Clicked on " + btnName + "\n");
@@ -457,7 +460,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public String getRandomRecordFromTable(String columnIndex) {
 		wait.hardWait(2);
 		isElementDisplayed("txt_totalRecords");
-		int randomnumber = generateRandomNumberWithInRange(0, (elements("txt_totalRecords").size()) - 1);
+		int randomnumber = generateRandomNumberWithInRange(1, (elements("txt_totalRecords").size()) - 1);
 		isElementDisplayed("btn_recordsname", String.valueOf(randomnumber), columnIndex);
 		System.out.println("-----random record:"
 				+ element("btn_recordsname", String.valueOf(randomnumber), columnIndex).getText().trim());
@@ -663,28 +666,53 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED: " + expValue + " is deleted \n");
 	}
 
-	public void verifyValidFileIsDownloaded(String filePath) {
+	public void verifyValidFileIsDownloaded(String filename) {
 		wait.hardWait(2);
+		String filePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+				+ File.separator + "resources" + File.separator + "DownloadedFiles"+ File.separator +filename+".csv";
 		waitForLoadingImageToDisappear("Generating CSV file... Please wait");
 		File sourceFile = new File(filePath);
+		System.out.println(sourceFile);
 		Assert.assertTrue(sourceFile.exists(), "ASSERT FAILED: file is not downloaded \n");
 		logMessage("ASSERT PASSED: '" + filePath + "' is downloaded \n");
 
 	}
 
-	public void _deleteExistingCSVFile(String filePath) {
-		File sourceFile = new File(filePath);
+	public void _deleteExistingCSVFile(String filename) {
+		
+	/*	File sourceFile = new File(filePath);
 		if (sourceFile.exists()) {
 			sourceFile.delete();
 			logMessage("STEP: Already Existed File is deleted from location " + sourceFile.getAbsolutePath());
+		}*/
+		String filePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+				+ File.separator + "resources" + File.separator + "DownloadedFiles"+ File.separator ;
+		System.out.println(filePath);
+		File folder = new File(filePath);
+		final File[] files = folder.listFiles( new FilenameFilter() {
+		    @Override
+		    public boolean accept( final File dir,final String name ) {
+		    	System.out.println(name);
+		    	//if(name.matches(filename+"(.*).csv"))
+		        return name.matches(filename+"(.*).csv");
+		    	
+		    }
+		} );
+		for ( final File file : files ) {
+			System.out.println("deleted file "+file);
+		    if ( !file.delete() ) {
+		        System.err.println( "Can't remove " + file.getAbsolutePath() );
+		    }
 		}
 	}
 
-	public void clickOnDownloadButtonAndVerifyValidFileIsDownloaded(String btnName, String fileName) {
+	public void clickOnDownloadButtonAndVerifyValidFileIsDownloaded(String btnName, String fileName) {		
 		downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
 				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + fileName
 				+ ".csv";
-		_deleteExistingCSVFile(downloadedFilePath);
+		downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+				+ File.separator + "resources" + File.separator + "DownloadedFiles";
+	//	_deleteExistingCSVFile(downloadedFilePath);
 		clickOnButtonUnderSessioning(btnName);
 		wait.hardWait(5);
 		verifyValidFileIsDownloaded(downloadedFilePath);
@@ -936,6 +964,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("input_filter", "Filter", index);
 		element("input_filter", "Filter", index).sendKeys(value);
 		logMessage("STEP : " + value + " is entered in filter input box \n");
+		waitForLoaderToDisappear();
 	}
 
 	public void selectRoleOnSaveGridConfiguration(String role) {
@@ -1140,9 +1169,9 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyAllSelectedListIsPresentInPrintPreview(int symposiasize) {
-	 isElementDisplayed("txt_SchedulerGrid");
-	 Assert.assertTrue(elements("txt_SchedulerGrid").get(4).equals(symposiasize),"All selected elements from list are not printed\n");
-	 logMessage("ASSERT PASSED :  All selected elements are avalaible in print preview\n");
+	 isElementDisplayed("txt_SchedulerGrid","my-paging-text");
+	 Assert.assertTrue(elements("txt_SchedulerGrid","my-paging-text").get(3).getText().contains(String.valueOf(symposiasize)),"All selected elements from list are not printed\n");
+	 logMessage("ASSERT PASSED :  All selected options list is avalaible in print preview\n");
 		
 	}
 	
@@ -1179,5 +1208,137 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		Assert.assertTrue(checkIfElementIsThere("row_withdraw", fontText, text));
 		logMessage("ASSERT PASSED: " + text + " with " + fontText + " is displayed \n");
 	}
+	
+   public void rightClickOnSessionList(String recordnumber)
+   {
+	   rightClick(element("chkbox_records",recordnumber));
+   }
+   
+   public String getHostColoumData(String hostname)
+   {	
+	   return elements("input_editableColumn").get(0).getText();
+		}
+   
+   public void verifyAvailableOptionsOnSaveGridPopUpUnderAbstracts(String fieldname)
+   {
+	   isElementDisplayed("inp_fileupload","1");
+	   logMessage("ASSERT PASSED : input box is available for "+fieldname);
+	   
+   }
+   
+	public void enterDurationOnCreateSessionPopUp(String fieldName, String roomName) {
+		isElementDisplayed("inp_sessionAbbrev", fieldName);
+		element("inp_sessionAbbrev", fieldName).clear();
+		element("inp_sessionAbbrev", fieldName).sendKeys(roomName);
+		logMessage("Step : " + fieldName + " is entered as " + roomName + "\n");
+	}
+	
+	public void clickOnButtonUnderSessionModule(String text) {
+		isElementDisplayed("btn_close", text);
+		click(elements("btn_close", text).get(0));
+		logMessage("STEP: clicked on '" + text + "' button \n");
+	}
+	
+	public String getTextformTable( int index, int columnIndex){
+		isElementDisplayed("txt_tableData", String.valueOf(index), String.valueOf(columnIndex));
+		return elements("txt_tableData", String.valueOf(index), String.valueOf(columnIndex)).get(0).getText();
+	}
+	
+	public void enterTextInPopUpInput(String labelName,String index, String value){
+		isElementDisplayed("input_popup", labelName, index);
+		element("input_popup", labelName, index).clear();
+		element("input_popup", labelName,index).sendKeys(value);
+	}
+	
+	public String subtractValue(String value, int toBeSubtrcated){
+		int value1 = Integer.parseInt(value); 
+		int subtrectrdValue = value1-toBeSubtrcated;
+		return String.valueOf(subtrectrdValue);
+	}
+	
+	public void isFinalIDAllocatedToAbstract(String privousFinalId){
+		String value = " ";
+		if(!privousFinalId.equals(value)){
+			verifyPopupMessage("Confirm");
+			clickOnButtonUnderSessionModule("Yes");
+		}
+	}
+	
+	public void clickOnLinkText(String text, String linkText) {
+		isElementDisplayed("btn_lnkTxt", text,linkText);
+		element("btn_lnkTxt", text,linkText).click();
+		logMessage("Step : " + linkText + " button is clicked\n");
+	}
+	
+	public void verifyLableFormateAfterEdit(String text){
+		Assert.assertTrue(checkIfElementIsThere("inp_label", text));
+		logMessage("Step : " + text + " is successfully edited\n");
+	}
+	
+	public void verifyFormateIsDeleted(String text){
+		waitForLoaderToDisappear();
+		try{
+		Assert.assertTrue(checkIfElementIsThere("inp_label", text));
+		}
+		catch(AssertionError e){
+		logMessage("STEP :" + text + " formate is deleted \n");
+		}
+	}
+	
+	public void doubleClickToEditTableData(int index, int columnIndex){
+		waitForLoaderToDisappear();
+		doubleClick(element("txt_tableData", String.valueOf(index), String.valueOf(columnIndex)));
+		logMessage("Step : Double clicked on table row\n");
+	}
+	
+	public void verifyInputBoxInTableData(int index){
+		isElementDisplayed("inp_saveGridFilters", String.valueOf(index));
+		Assert.assertTrue(checkIfElementIsThere("inp_saveGridFilters", String.valueOf(index)));
+		logMessage("STEP : Edit field on double click \n");
+	}
+	
+	public void rowIsNotPresentThenAddRowInCurrentlyAssignedAbstracts(int index, int columnIndex){
+		try{
+		Assert.assertTrue(checkIfElementIsThere("txt_tableData", String.valueOf(index), String.valueOf(columnIndex)));
+		logMessage("STEP: Row is not present, add a new row \n");
+		}
+		catch(AssertionError e){
+			clickOnArrowButton("Presenting Author");
+			enterFilterText("Filters", YamlReader.getYamlValue("Session.Session_Builder.Author_Last_Name"));
+			addHostforCurrentlyAssignedAbstracts();
+		}
+	}
+		
+//		public void addHostforSymposium() {
+//			waitForLoadingImageToDisappear("Loading...");
+//			isElementDisplayed("txt_hostDetails", "session_host_last_name");
+//
+//			WebElement Sourcelocator = elements("txt_hostDetails", "session_host_last_name").get(1);
+//			String hostlastname = elements("txt_hostDetails", "session_host_last_name").get(1).getText();
+//			isElementDisplayed("txt_dropField");
+//			WebElement Destinationlocator = element("txt_dropField");
+//			dragAndDrop(Sourcelocator, Destinationlocator);
+//			wait.hardWait(2);
+//			waitForLoadingImageToDisappear("Loading...");
+//			// waitForLoaderToDisappear();
+//			logMessage("STEP: '" + hostlastname + " is selected as Host \n");
+//		}
+public void addHostforCurrentlyAssignedAbstracts() {
+	waitForLoadingImageToDisappear("Loading...");
+	isElementDisplayed("txt_hostDetails", "presenterList");
 
+	WebElement Sourcelocator = elements("txt_hostDetails", "presenterList ").get(1);
+	String hostlastname = elements("txt_hostDetails", "presenterList ").get(1).getText();
+	isElementDisplayed("txt_dropField");
+	WebElement Destinationlocator = element("txt_dropField");
+	dragAndDrop(Sourcelocator, Destinationlocator);
+	wait.hardWait(2);
+	waitForLoadingImageToDisappear("Loading...");
+	// waitForLoaderToDisappear();
+	logMessage("STEP: '" + hostlastname + " is selected as Host \n");
 }
+	
+   
+   
+   }
+
