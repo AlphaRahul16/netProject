@@ -65,55 +65,63 @@ public class Maps_Session_Program_Chair_Sessioning_Tests extends BaseTest {
 		gridName = "Test_Grid" + System.currentTimeMillis();
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Abstracts");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");
-		test.maps_sessionpage.expandColumnWidth("Edit Abstract", "");
-//		test.maps_sessionpage.clickOnDropDownImage(1);
-//		test.maps_sessionpage.selectRoleOnSaveGridConfiguration("Select One...");
-//		test.maps_reviewpage.clickOnButton("Save/Edit");
-//		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Save Grid Configuration");
-//		test.maps_reviewpage.enterDetailsAtSaveGridConfigurationPage(gridName);
-//		test.maps_sessionpage.clickOnButtonUnderSessioning("Save");
-//		test.maps_sessionpage.verifyFilterIsByDefaultSelected(gridName, 1);
-//	}
-//
-//	@Test
-//	public void Step_0741_MAPS_Session_728_Verify_User_Is_Navigated_To_Abstract_Page_Under_Abstract_Editor() {
-//		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Session");
-//		test.maps_SSOPage.verifyUserIsOnTabPage("Session");
-//		test.maps_reviewpage.verifyPageHeader("Multiple Role Selection");
-//		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Abstract Editor");
-//		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
-//		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
-//		test.maps_sessionpage.clickOnSessionBuilderTab("Abstracts");
-//		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");
-//	}
-//
-//	@Test
-//	public void Step_0742_MAPS_Session_729_Available_Options_On_Abstracts_Page_Under_Abstract_Editor() {
-//		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");
-//		test.maps_reviewpage.verifyLinksUnderNamedModule("Save/Edit");
-//		test.maps_reviewpage.verifyLinksUnderNamedModule("Delete");
-//		test.maps_reviewpage.verifyTextField("Filter");
-//		test.maps_reviewpage.verifyCrossImageForNamedDropDown("Filter");
-//		test.maps_reviewpage.verifyExpandIconUnderNamedModule();
-//		test.maps_reviewpage.verifyDropDown("Found In");
-//		test.maps_reviewpage.verifyDropDown("Export to Excel");
-//		test.maps_reviewpage.verifyDropDown("Toggle View");
-//		test.maps_sessionpage.verifyAbstractsListIsPresent("x-grid3-body");
-//		test.maps_reviewpage.verifyPaginationSectionAtTheBottomOfTheTable();
-//		test.maps_reviewpage.verifyDropDown("Records per page");
-//		test.maps_sessionpage.verifyRefreshButtonAtBottom();
-//	}
-//
-//	@Test
-//	public void Step_0774_MAPS_Session_761_Verify_Application_Sorts_Results_On_Basis_Of_CriteriaUnder_Abstract_Editor() {
-//		List<String> dataBeforeSorting = test.maps_sessionpage.getTableData("1", "3");
-//		test.maps_sessionpage.clickOnArrowButton("Control ID");
-//		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
-//		test.maps_sessionpage.verifyPopupMessage("Sort");
-//		test.maps_sessionpage.clickOnAddButton("Add");
-//		test.maps_sessionpage.selectColumnForSorting("Control ID");
-//		test.maps_sessionpage.clickOnSaveButton("Apply");
-//		List<String> dataAfterSorting = test.maps_sessionpage.getTableData("1", "3");
-//		test.maps_sessionpage.verifyDataIsSorted(dataBeforeSorting, dataAfterSorting);
+		test.maps_sessionpage.clickOnDropDownImage(1);
+		test.maps_sessionpage.selectRoleOnSaveGridConfiguration("Select One...");
+		test.maps_reviewpage.clickOnButton("Save/Edit");
+		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Save Grid Configuration");
+		test.maps_reviewpage.enterDetailsAtSaveGridConfigurationPage(gridName);
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Save");
+		test.maps_sessionpage.verifyFilterIsByDefaultSelected(gridName, 1);
+	}
+
+	@Test
+	public void Step_0741_MAPS_Session_728_Verify_User_Is_Navigated_To_Abstract_Page_Under_Abstract_Editor() {
+		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Session");
+		test.maps_SSOPage.verifyUserIsOnTabPage("Session");
+		test.maps_reviewpage.verifyPageHeader("Multiple Role Selection");
+		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Abstract Editor");
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
+		test.maps_sessionpage.clickOnSessionBuilderTab("Abstracts");
+		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");
+	}
+
+	@Test
+	public void Step_0742_MAPS_Session_729_Available_Options_On_Abstracts_Page_Under_Abstract_Editor() {
+		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");
+		test.maps_reviewpage.verifyLinksUnderNamedModule("Save/Edit");
+		test.maps_reviewpage.verifyLinksUnderNamedModule("Delete");
+		test.maps_reviewpage.verifyTextField("Filter");
+		test.maps_reviewpage.verifyCrossImageForNamedDropDown("Filter");
+		test.maps_reviewpage.verifyExpandIconUnderNamedModule();
+		test.maps_reviewpage.verifyDropDown("Found In");
+		test.maps_reviewpage.verifyDropDown("Export to Excel");
+		test.maps_reviewpage.verifyDropDown("Toggle View");
+		test.maps_sessionpage.verifyAbstractsListIsPresent("x-grid3-body");
+		test.maps_reviewpage.verifyPaginationSectionAtTheBottomOfTheTable();
+		test.maps_reviewpage.verifyDropDown("Records per page");
+		test.maps_sessionpage.verifyRefreshButtonAtBottom();
+	}
+	
+	@Test
+	public void Step_0768_MAPS_Session_755_Verify_Edit_Links_Are_Present_For_Abstracts_And_User_Is_Navigated_To_Review_And_Submit_Page_On_Clicking_Edit_Link() {
+		test.maps_sessionpage.selectAbstractForEditing(1, 4);
+		test.maps_submissionPage.verifyPageHeading("Review & Submit");
+		test.maps_sessionpage.editAbstractDetails("Test Title", "Test Abstract");
+		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");
+		test.maps_sessionpage.verifyAddedDetails("title", "Test Title");
+	}
+
+	@Test
+	public void Step_0774_MAPS_Session_761_Verify_Application_Sorts_Results_On_Basis_Of_Criteria_Under_Abstract_Editor() {
+		List<String> dataBeforeSorting = test.maps_sessionpage.getTableData("1", "3");
+		test.maps_sessionpage.clickOnArrowButton("Control ID");
+		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
+		test.maps_sessionpage.verifyPopupMessage("Sort");
+		test.maps_sessionpage.clickOnAddButton("Add");
+		test.maps_sessionpage.selectColumnForSorting("Control ID");
+		test.maps_sessionpage.clickOnSaveButton("Apply");
+		List<String> dataAfterSorting = test.maps_sessionpage.getTableData("1", "3");
+		test.maps_sessionpage.verifyDataIsSorted(dataBeforeSorting, dataAfterSorting);
 	}
 }
