@@ -460,6 +460,7 @@ public class BaseUi {
 	public void sendKeysUsingXpathInJavaScriptExecutor(WebElement element, String text) {
 		JavascriptExecutor executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].setAttribute('value', '" + text + "')", element);
+		logMessage("STEP : Text entered as " + text);
 	}
 
 	public void hardWaitForIEBrowser(int seconds) {
@@ -636,6 +637,11 @@ public class BaseUi {
 	public void ScrollPage(int x, int y) {
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("window.scrollBy(" + x + "," + y + ")", "");
+	}
+	
+	public void scrollUp(){
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+		jse.executeScript("window.scrollBy(0,-1000)", "");
 	}
 
 	public String ReverseStringWords(String sentence) {

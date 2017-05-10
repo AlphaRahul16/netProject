@@ -46,13 +46,13 @@ public class Maps_Session_Program_Chair_Sessioning_Tests extends BaseTest {
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Program Chair Sessioning");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
-		test.maps_sessionpage.clickOnSessionBuilderTab("Session Builder");
-		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Session Builder");
-		test.maps_sessionpage.verifyAbstractsViewIsDisplayed();
-		test.maps_sessionpage.verifyAbstractsListIsPresent("x-border-panel x-border-layout-ct");
+//		test.maps_sessionpage.clickOnSessionBuilderTab("Session Builder");
+//		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Session Builder");
+//		test.maps_sessionpage.verifyAbstractsViewIsDisplayed();
+//		test.maps_sessionpage.verifyAbstractsListIsPresent("x-border-panel x-border-layout-ct");
 	}
 
-	@Test
+	//@Test
 	public void Step_0422_MAPS_Session_411_Verify_Currently_Assign_Abstracts_Section_Is_Displayed_When_Any_Session_Is_Selected() {
 		test.maps_sessionpage.selectaRecordFromTheList(1);
 		test.maps_sessionpage.waitForLoadingImageToDisappear("Loading...");
@@ -102,9 +102,18 @@ public class Maps_Session_Program_Chair_Sessioning_Tests extends BaseTest {
 		test.maps_reviewpage.verifyDropDown("Records per page");
 		test.maps_sessionpage.verifyRefreshButtonAtBottom();
 	}
+	
+	@Test
+	public void Step_0768_MAPS_Session_755_Verify_Edit_Links_Are_Present_For_Abstracts_And_User_Is_Navigated_To_Review_And_Submit_Page_On_Clicking_Edit_Link() {
+		test.maps_sessionpage.selectAbstractForEditing(1, 4);
+		test.maps_submissionPage.verifyPageHeading("Review & Submit");
+		test.maps_sessionpage.editAbstractDetails("Test Title", "Test Abstract");
+		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");
+		test.maps_sessionpage.verifyAddedDetails("title", "Test Title");
+	}
 
 	@Test
-	public void Step_0774_MAPS_Session_761_Verify_Application_Sorts_Results_On_Basis_Of_CriteriaUnder_Abstract_Editor() {
+	public void Step_0774_MAPS_Session_761_Verify_Application_Sorts_Results_On_Basis_Of_Criteria_Under_Abstract_Editor() {
 		List<String> dataBeforeSorting = test.maps_sessionpage.getTableData("1", "3");
 		test.maps_sessionpage.clickOnArrowButton("Control ID");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");

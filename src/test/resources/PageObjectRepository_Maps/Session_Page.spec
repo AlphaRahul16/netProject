@@ -29,7 +29,6 @@ inp_sessionType							xpath								//input[@name='${text}']
 tabledata_type							xpath								//div[contains(text(),'${text1}')]/../following-sibling::td/div[contains(text(),'${text2}')]
 list_table								xpath								//td[@role='gridcell']
 img_processbar							xpath								//div[contains(@class,'progress-bar')]
-listItem_programField					xpath								//div[contains(@class,'combo-list-item')]
 inp_addHost								xpath								//div[@gxt-dindex='${fieldName}']/input
 inp_filtertext                          xpath                               //div[contains(@class,'x-menu-list')]//input
 lnk_filters                             xpath                               //a[contains(@class,'x-menu-item') and contains(text(),'${dropdownOptions}')]
@@ -46,7 +45,7 @@ txt_totalRecords                        xpath                               //di
 chkbox_records                          xpath                               (//div[@class='x-grid3-row-checker'])[${recordnumber}]
 listItem_SymposiumType					xpath								//div[contains(@class,'${className}') and contains(text(),'${value}')]
 txt_hostDetails							xpath								//td[contains(@class,'${value}')]/div
-txt_dropField							xpath								//div[@class='x-grid-empty']
+txt_dropField							css								    .x-grid3-scroller
 img_loading								xpath								//div[contains(text(),'${text}')]
 btn_remove								xpath								(//button[text()='${btnName}'])[${index}]
 btn_SessionTopic                        xpath                               //label[contains(.,'${value}')]/preceding-sibling::input
@@ -66,7 +65,7 @@ txt_sortingOrder                        xpath                                //d
 img_editColumnHeading                   xpath                                //img[contains(@src,'pencil_small.png')]/..
 input_filter							xpath								(//div[contains(text(),'${text}')]/../following-sibling::td//input)[${index}]
 input_label								xpath								//label[contains(text(),'${label}')]/following-sibling::div//${tagName}
-input_label_create						xpath								//label[contains(text(),'${label}')]
+txt_label								xpath								//label[contains(text(),'${label}')]
 input_area								xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//${tagName}
 listitem_dropdown						xpath								//div[text()='${text}']/following-sibling::div[text()='${Value}']
 lable_checkbox							xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//${tagName}[@type='checkbox']
@@ -95,4 +94,9 @@ row_withdraw							xpath								//font[contains(text(),'${fontText}')]/following
 input_popup								xpath								(//label[contains(text(),'${label}')]/parent::td/following-sibling::td/..//input)[${index}]
 btn_lnkTxt								xpath								//label[contains(text(),'${text}')]/parent::td/following-sibling::td/..//a[text()='${linkText}']
 img_processbar							xpath								//div[contains(@class,'progress-bar')]
+txt_rowData                             xpath                               //div[contains(@class,'x-grid3-col-F_SORT_FIELD')]/..
+inp_assignDuration						xpath								//label[contains(.,'${text}')]/../following-sibling::td//input[@type='text']
+txt_linkEmail							xpath								//td[contains(@class,'${className}')]//u\
+inp_editColumnData                      xpath                               //div[contains(@class,'x-editor')]//input[contains(@class,'x-form-field x-form-text')]
+txt_emptyTable							css									.x-grid-empty
 ======================================================================================================================================

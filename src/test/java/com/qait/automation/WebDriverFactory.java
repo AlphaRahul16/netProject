@@ -97,6 +97,8 @@ public class WebDriverFactory {
 
 		chromePrefs.put("profile.default_content_settings.popups", 0);
 		chromePrefs.put("download.default_directory", downloadFilePath);
+		chromePrefs.put("credentials_enable_service", false);
+		chromePrefs.put("profile.password_manager_enabled", false);
 		options.setExperimentalOption("prefs", chromePrefs);
 		options.addArguments("--disable-extensions");
 		options.addArguments("test-type");
@@ -163,14 +165,10 @@ public class WebDriverFactory {
 
 		profile.setPreference("browser.download.manager.alertOnEXEOpen", false);
 		profile.setPreference("pdfjs.disabled", true);
-
-		profile.setPreference("browser.download.manager.showAlertOnComplete", false);
-
-		profile.setPreference("browser.download.manager.showAlertOnComplete", false);
-		profile.setPreference("browser.download.manager.showWhenStartinge", false);
 		profile.setPreference("browser.download.panel.shown", false);
 		profile.setPreference("browser.download.useToolkitUI", true);
 		profile.setPreference("dom.disable_beforeunload", true);
+		profile.setPreference("browser.download.manager.closeWhenDone", true);
 		// profile.setPreference("network.http.phishy-userpass-length", 255);
 		// profile.setPreference("network.automatic-ntlm-auth.trusted-uris","yourDomain");
 		// return new FirefoxDriver(ffbinary,profile);

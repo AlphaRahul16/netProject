@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
@@ -15,32 +14,13 @@ import com.qait.automation.utils.YamlReader;
 
 public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 
-	private String maps_url, symposiumTitle, selectedsymposia, gridName, lastRecordData, roomName, sessionTitle,
-			downloadedFilePath;
+	private String maps_url, selectedsymposia;
 	private String griduniqueName = "Selenium_Test_Grid_" + System.currentTimeMillis();
 	private String[] roles = { "OPA Staff", "Program Viewer", "Program Chair Sessioning", "Abstract Editor",
 			"Session Admin" };
 	private String[] programViewerleftpaneloptions = { "Dashboard & Instructions", "Symposia Viewer", "Sessioning",
 			"Session Viewer", "Abstracts" };
-	private String[] leftPanelOptionsSessionAdmin = { "Dashboard & Instructions", "Meeting Setup", "Sessioning",
-			"Invitations & Email", "Reports", "Data Export" };
-	private String[] importType = { "Download template", "Download resources", "Browse", "Import", "Cancel" };
-	private String[] buttonProgramArea = { "Add Program Area", "Delete Program Areas", "Export to Excel",
-			"Import Program Areas" };
-	private String[] programAreaTableHeader = { "Program Area Name", "Type", "Color", "Abstract Submission Role",
-			"Owners" };
-	private String[] optionSessioning = { "Symposia", "Sessions & Events", "Symposia Viewer", "Session Viewer",
-			"Session Builder", "Schedule Sessions", "Abstracts" };
-	private String[] filterDropDownsRoom = { "Add Room", "Delete Room" };
-	private String program_area_name = "program_area" + System.currentTimeMillis();
-	private String[] fieldsAddRoom = { "Cancel", "Save" };
-	private String[] filterDropDownRoomAvailability = { "Add Availability", "Delete Availability" };
-	private String[] fastColumnNames = { "Submission Role", "Control ID", "Edit Abstract", "Final ID", "Sessions",
-			"Title", "Presenting Author", "Presentation Type", "Sci-Mix Consideration", "Symposia", "Abstract Status",
-			"Date Submitted" };
-	private String[] fullColumnNames = { "Submission Role", "Control ID", "Edit Abstract", "Final ID", "Sessions",
-			"Title", "Presenting Author", "Presentation Type", "Sci-Mix Consideration", "Institutions (all)",
-			"Symposia", "Avg Score", "Abstract Status", "Date Submitted" };
+
 
 	List<String> sortColumnList = new ArrayList<String>();
 	List<String> controlId = new ArrayList<String>();
