@@ -269,10 +269,10 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 		test.maps_sessionpage.clickOnArrowButton("Day/Date");
 		test.maps_sessionpage.hoverOverColumnHeader("Filters");
 		// test.maps_sessionpage.selectOptionsUnderColumnHeaders("Before");
-		test.maps_sessionpage.hoverOverColumnHeader("After");
+		test.maps_sessionpage.hoverOverColumnHeader("Before");
 		test.maps_sessionpage.selectCurrentDate();
 		List<String> filteredData = test.maps_sessionpage.getColumnSpecificTableData("td-date");
-		test.maps_sessionpage.verifyRoomsAreFilteredAccordingToDate(filteredData, "After");
+		test.maps_sessionpage.verifyRoomsAreFilteredAccordingToDate(filteredData, "Before");
 	}
 
 	@Test // unable to locate save button on save grid config pop-up
@@ -293,7 +293,7 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 	@Test
 	public void Step_1009_MAPS_Session_992_Verify_User_Is_Able_To_Delete_Selected_Filter() {
 		test.maps_sessionpage.clickOnDropDownImage(4);
-		// test.maps_sessionpage.selectRoleOnSaveGridConfiguration(gridName);
+		 test.maps_sessionpage.selectRoleOnSaveGridConfiguration(gridName);
 		test.maps_sessionpage.clickOnSaveAndEditButton("Delete", 2);
 		test.maps_sessionpage.clickOnSaveButton("Yes");
 	}
