@@ -493,7 +493,7 @@ public class ASCSocietyGenericPage extends GetPage {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
-			wait.resetImplicitTimeout(7);
+			wait.resetImplicitTimeout(12);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			// handleAlert();
 			isElementDisplayed("img_processbar");

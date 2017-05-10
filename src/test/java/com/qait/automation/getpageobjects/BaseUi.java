@@ -638,6 +638,11 @@ public class BaseUi {
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("window.scrollBy(" + x + "," + y + ")", "");
 	}
+	
+	public void scrollUp(){
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+		jse.executeScript("window.scrollBy(0,-1000)", "");
+	}
 
 	public String ReverseStringWords(String sentence) {
 		String str[] = sentence.split(" ");

@@ -29,7 +29,6 @@ inp_sessionType							xpath								//input[@name='${text}']
 tabledata_type							xpath								//div[contains(text(),'${text1}')]/../following-sibling::td/div[contains(text(),'${text2}')]
 list_table								xpath								//td[@role='gridcell']
 img_processbar							xpath								//div[contains(@class,'progress-bar')]
-listItem_programField					xpath								//div[contains(@class,'combo-list-item')]
 inp_addHost								xpath								//div[@gxt-dindex='${fieldName}']/input
 inp_filtertext                          xpath                               //div[contains(@class,'x-menu-list')]//input
 lnk_filters                             xpath                               //a[contains(@class,'x-menu-item') and contains(text(),'${dropdownOptions}')]

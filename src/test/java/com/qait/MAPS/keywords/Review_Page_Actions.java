@@ -217,8 +217,8 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 
 	public String selectExistingConfigurationFromGridConfigurationDropdown() {
 		isElementDisplayed("img_dropdown");
-		// clickUsingXpathInJavaScriptExecutor(elements("img_dropdown").get(0));
-		elements("img_dropdown").get(0).click();
+		 clickUsingXpathInJavaScriptExecutor(elements("img_dropdown").get(2));
+//		elements("img_dropdown").get(0).click();
 		logMessage("STEP: Clicked on grid config drop down");
 		wait.hardWait(3);
 		isElementDisplayed("list_gripConfig");

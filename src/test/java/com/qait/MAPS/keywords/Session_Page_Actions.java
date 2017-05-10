@@ -56,11 +56,12 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void clickButtononLeftNavigationPanel(String buttonName) {
+		wait.hardWait(6);
 		isElementDisplayed("btn_navPanel", buttonName);
-		wait.hardWait(2);
 		// clickUsingXpathInJavaScriptExecutor(element("btn_navPanel",
 		// buttonName));
 		element("btn_navPanel", buttonName).click();
+		wait.hardWait(3);
 		waitForProcessBarToDisappear();
 		logMessage("Step : " + buttonName + " button is clicked on left navigation panel\n");
 	}
@@ -426,7 +427,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void clickParticularRecordFromList(String recordName) {
-		wait.hardWait(2);
+		wait.hardWait(4);
 		isElementDisplayed("chkbox_column", recordName);
 		click(element("chkbox_column", recordName));
 		logMessage("Step : " + recordName + " record is selected from list\n");
