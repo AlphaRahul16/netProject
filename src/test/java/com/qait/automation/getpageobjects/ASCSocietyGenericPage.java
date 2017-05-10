@@ -21,6 +21,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.Reporter;
@@ -509,8 +510,16 @@ public class ASCSocietyGenericPage extends GetPage {
 	}
 
 	public void dragAndDrop(WebElement sourceElement, WebElement destinationElement) {
-		Actions action = new Actions(driver);
-		action.dragAndDrop(sourceElement, destinationElement).build().perform();
+//		Actions action = new Actions(driver);
+//		action.dragAndDrop(sourceElement, destinationElement).perform();
+	Actions builder = new Actions(driver);
+
+	Action dragAndDrop = builder.clickAndHold(sourceElement)
+	   .moveToElement(destinationElement)
+	   .release(destinationElement)
+	   .build();
+
+	dragAndDrop.perform();
 		logMessage("Step: drag from "+ sourceElement+ " to "+ destinationElement+ "\n");
 	}
 

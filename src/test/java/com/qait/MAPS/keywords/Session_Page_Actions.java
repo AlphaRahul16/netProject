@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
+
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -479,29 +481,14 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		selectValueFromDropDown(symposiumType);
 	}
 
-//	public String addHostforSymposium(String label) {
-//		waitForLoadingImageToDisappear("Loading...");
-//		isElementDisplayed("txt_hostDetails", label);
-//		//elements("txt_hostDetails", label).get(0).click();
-//		WebElement Sourcelocator = element("txt_hostDetails", label);
-//		//String value = elements("txt_hostDetails", label).get(0).getText();
-//		isElementDisplayed("txt_dropField");
-//		WebElement Destinationlocator = element("txt_dropField");
-//		dragAndDrop(Sourcelocator, Destinationlocator);
-//		wait.hardWait(2);
-//		waitForLoadingImageToDisappear("Loading...");
-//		// waitForLoaderToDisappear();
-//		//logMessage("STEP: '" + value + " is selected as Host \n");
-//		return "";
-//	}
 	public String addHostforSymposium(String label) {
 		waitForLoadingImageToDisappear("Loading...");
-		isElementDisplayed("txt_linkEmail", label);
-		//elements("txt_controlId", label).get(0).click();
-		WebElement Sourcelocator = elements("txt_linkEmail", label).get(0);
-		String value = elements("txt_linkEmail", label).get(0).getText();
+		isElementDisplayed("txt_hostDetails", label);
+		elements("txt_hostDetails", label).get(1).click();
+		WebElement Sourcelocator = elements("txt_hostDetails", label).get(1);
+		String value = elements("txt_hostDetails", label).get(1).getText();
 		isElementDisplayed("txt_dropField");
-		WebElement Destinationlocator = element("txt_dropField");
+		WebElement Destinationlocator = elements("txt_dropField").get(1);
 		dragAndDrop(Sourcelocator, Destinationlocator);
 		wait.hardWait(2);
 		waitForLoadingImageToDisappear("Loading...");
@@ -509,6 +496,21 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("STEP: '" + value + " is selected as Host \n");
 		return value;
 	}
+//	public String addHostforSymposium(String label) {
+//		waitForLoadingImageToDisappear("Loading...");
+//		isElementDisplayed("txt_linkEmail", label);
+//		//elements("txt_controlId", label).get(0).click();
+//		WebElement Sourcelocator = elements("txt_linkEmail", label).get(0);
+//		String value = elements("txt_linkEmail", label).get(0).getText();
+//		isElementDisplayed("txt_dropField");
+//		WebElement Destinationlocator = element("txt_dropField");
+//		dragAndDrop(Sourcelocator, Destinationlocator);
+//		wait.hardWait(2);
+//		waitForLoadingImageToDisappear("Loading...");
+//		// waitForLoaderToDisappear();
+//		logMessage("STEP: '" + value + " is selected as Host \n");
+//		return value;
+//	}
 	public List<String> addHostforSymposium(String label, int numberOfHost) {
 		List<String> abstractDetails= new ArrayList<>();
 		waitForLoadingImageToDisappear("Loading...");
@@ -992,6 +994,13 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public void verifyIsDataDeleted(String expValue) {
 		waitForLoaderToDisappear();
 		Assert.assertFalse(checkIfElementIsThere("txt_instruction", expValue));
+		logMessage("STEP :" + expValue + " is deleted \n");
+	}
+	public void verifyIsHostDeleted(String expValue) {
+		waitForLoaderToDisappear();
+		int size=elements("txt_emptyTable").size();
+		Assert.assertTrue(size<=1);
+		//Assert.assertFalse(checkIfElementIsThere("txt_instruction", expValue));
 		logMessage("STEP :" + expValue + " is deleted \n");
 	}
 

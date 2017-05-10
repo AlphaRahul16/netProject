@@ -85,4 +85,5 @@ txt_rowData                             xpath                               //di
 inp_assignDuration						xpath								//label[contains(.,'${text}')]/../following-sibling::td//input[@type='text']
 txt_linkEmail							xpath								//td[contains(@class,'${className}')]//u\
 inp_editColumnData                      xpath                               //div[contains(@class,'x-editor')]//input[contains(@class,'x-form-field x-form-text')]
+txt_emptyTable							css									.x-grid-empty
 ======================================================================================================================================
