@@ -102,11 +102,18 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 		downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
 				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator
 				+ YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name") + ".csv";
-		test.maps_sessionpage._deleteExistingCSVFile(downloadedFilePath);
+		//test.maps_sessionpage._deleteExistingCSVFile(downloadedFilePath);
 		test.maps_sessionpage.clickOnSaveButton("Export to Excel");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (All Columns)");
 		test.maps_sessionpage.waitForProcessBarToDisappear();
 		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath);
+		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Export  to Excel (All Columns)",
+				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"));
+		test.maps_sessionpage.clickOnSaveButton("Export to Excel");
+		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (Displayed Columns)");
+		test.maps_sessionpage.waitForProcessBarToDisappear();
+		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Export to Excel (Displayed Columns)",
+				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"));
 		test.maps_sessionpage._deleteExistingCSVFile(downloadedFilePath);
 		test.maps_sessionpage.clickOnSaveButton("Export to Excel");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (Displayed Columns)");

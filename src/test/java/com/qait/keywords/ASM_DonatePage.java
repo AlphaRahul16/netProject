@@ -630,7 +630,6 @@ public class ASM_DonatePage extends GetPage {
 			} else {
 				loginIntoApplicationByMember(memberLoginDetails.get(2), "password");
 			}
-			wait.waitForPageToLoadCompletely();
 			try {
 				wait.hardWait(2);
 
@@ -781,6 +780,7 @@ public class ASM_DonatePage extends GetPage {
 
 	public void verifyThankyouMessageAfterDonation() {
 		wait.waitForPageToLoadCompletely();
+		holdExecution(10);
 		wait.waitForElementToBeVisible(element("txt_thankYouMessage"));
 		isElementDisplayed("txt_thankYouMessage");
 		Assert.assertTrue(element("txt_thankYouMessage").getText().trim()
