@@ -17,7 +17,7 @@ import com.qait.automation.utils.YamlReader;
 
 public class Maps_Session_Admin_Tests extends BaseTest {
 
-	private String maps_url, symposiumTitle, gridName, lastRecordData, roomName, sessionTitle,eventname,finalID,email,sessionBuilderTitle;
+	private String maps_url, symposiumTitle, gridName, lastRecordData, roomName, sessionName, sessionTitle,eventname,finalID,email,sessionBuilderTitle,levelName;
 	private String[] roles = { "OPA Staff", "Program Viewer", "Program Chair Sessioning", "Abstract Editor",
 			"Session Admin" };
 	private String[] leftPanelOptionsSessionAdmin = { "Dashboard & Instructions", "Meeting Setup", "Sessioning",
@@ -1587,7 +1587,6 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 	}
 	
 	public void Step_3486_MAPS_Session_3459_Verify_Application_Displays_Filtered_Results_On_Itinerary_Level_Top_view() {
-		String sessionName;
 		test.maps_sessionpage.clickOnSaveButton("Switch to Itinerary Level View");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Itinerary Level Top");
 		test.maps_reviewpage.verifyTextField("Filter");
@@ -1599,14 +1598,14 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 	}
 	
 	public void Step_3500_MAPS_Session_3473_Verify_Application_Displays_Options_Button_And_Export_Level_Assignments_to_CSV_Dropdown_At_Top_Of_Add_Session() {
-		test.maps_sessionpage.rightClickOnTopLevelSession();
+		test.maps_sessionpage.rightClickOnTopLevelSession("Top Level");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Add Session");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Add/Modify Session for Top Level");
 		test.maps_sessionpage.selectRoleOnSaveGridConfiguration("Options");
 		test.maps_sessionpage.verifydropdownOnPopupWindow("Export Level Assignments to CSV");
 	}
 	
-	public void Step_3534_MAPS_Session_3507_Verify_Application_Displays_Options_Button_And_Export_Level_Assignments_to_CSV_Dropdown_At_Top_Of_Add_Session() {
+	public void Step_3534_MAPS_Session_3507_Verify_Application_Removes_Selected_Session_Or_Event() {
 		test.maps_sessionpage.inputTextInFilter("Test Session","2");
 		String sessionTitle=test.maps_sessionpage.selectaRecordFromTheList(1,"1");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Add Selected");
@@ -1619,4 +1618,44 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 		test.maps_sessionpage.selectSessionOrEvent(sessionTitle, "1");
 		test.maps_sessionpage.verifySelectedSessionIsRemovedFromList(sessionTitle, "1");
 	}
+	
+	public void Step_3534_MAPS_Session_3518_Verify_Application_Displays_Add_Or_Modify_Event_For_Top_Level_Window_With_Available_Fields(){
+		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Add/Modify Session for Top Level");
+		test.maps_sessionpage.verifyTitleForRoles("Available Sessions","Title");
+		test.maps_sessionpage.verifyTitleForRoles("Assigned to Level","Title");
+		test.maps_sessionpage.isPrintSelectedButtonDisplayed("Close");
+		test.maps_sessionpage.clickOnSaveButton("Close");
+		test.maps_sessionpage.clickOnSaveButton("Ok");
+	}
+	
+	public void Step_3591_MAPS_Session_3564_Verify_Application_Launches_Add_Or_Modify_Popup_On_Clicking_Add_Level_Option(){
+		test.maps_sessionpage.rightClickOnTopLevelSession("Top Level");
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Add Level");
+		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Add / Modify Level");
+	}
+	
+	public void Step_3597_MAPS_Session_3570_Verify_Application_Creates_A_Level_Or_SubLevel_On_Clicking_Add_Level_Option(){
+		levelName="Test Level"+System.currentTimeMillis();
+		test.maps_sessionpage.enterNameOnSaveGridConfiguration("Name:", levelName);
+		test.maps_sessionpage.selectValuesForProgram("start_time",1);
+		test.maps_sessionpage.selectValuesForProgram("end_time",1);
+		test.maps_sessionpage.clickOnSaveButton("Save");
+		test.maps_sessionpage.verifyTitleForRoles(levelName, "Newly Added Level name");
+	}
+	
+	public void Step_3600_MAPS_Session_3573_Verify_Application_Saves_Changes_On_Clicking_Edit_Level_Option(){
+		levelName="QAIT level"+System.currentTimeMillis();
+		test.maps_sessionpage.rightClickOnTopLevelSession(levelName);
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Edit Level");
+		test.maps_sessionpage.enterNameOnSaveGridConfiguration("Name:", levelName);
+		test.maps_sessionpage.clickOnSaveButton("Save");
+		test.maps_sessionpage.verifyTitleForRoles(levelName, "Updated Level name");
+	}
+	
+	public void Step_3608_MAPS_Session_3581_Verify_Application_Launches_Add_Or_Modify_Session_Popup_On_Clicking_Edit_Session_Option(){
+		test.maps_sessionpage.rightClickOnTopLevelSession(sessionName);
+		test.maps_sessionpage.clickButtonToContinueToNextPage("edit");
+		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Add/Modify Session for Top Level");
+	}
+
 }
