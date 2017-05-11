@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -428,10 +429,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("Step : Last record is clicked from list\n");
 	}
 
-	public void clickParticularRecordFromList(String recordName) {
+	public void clickParticularRecordFromList(String recordName,String index) {
 		wait.hardWait(4);
-		isElementDisplayed("chkbox_column", recordName);
-		click(element("chkbox_column", recordName));
+		isElementDisplayed("chkbox_column", recordName,index);
+		click(element("chkbox_column", recordName,index));
 		logMessage("Step : " + recordName + " record is selected from list\n");
 	}
 
@@ -459,19 +460,18 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		return element("btn_recordsname", String.valueOf(randomnumber), columnIndex).getText().trim();
 	}
 
-	public String selectaRandomRecordFromTheList() {
-		isElementDisplayed("chkbox_records");
-		int randomnumber = generateRandomNumberWithInRange(0, (elements("chkbox_records").size()) - 1);
-		click(elements("chkbox_records").get(randomnumber));
-		logMessage("Step : a random record is selected from the list with position " + randomnumber);
-		return element("btn_recordsname", toString().valueOf(randomnumber)).getText();
-	}
+//	public String selectaRandomRecordFromTheList(String index) {
+//		isElementDisplayed("chkbox_records");
+//		click(elements("chkbox_records").get(index));
+//		logMessage("Step : a random record is selected from the list with position " + randomnumber);
+//		return element("btn_recordsname", index).getText();
+//	}
 
-	public String selectaRecordFromTheList(int number) {
+	public String selectaRecordFromTheList(int number,String columnValue) {
 		isElementDisplayed("chkbox_records", String.valueOf(number));
 		click(element("chkbox_records", String.valueOf(number)));
-		logMessage("Step : Random record is selected from the list with position " + number);
-		return null;
+		logMessage("Step : Record is selected from the list at position " + number);
+		return element("btn_recordsname",String.valueOf(number),columnValue).getText().trim();
 	}
 
 	public void selectValueForSymposium(String dropdownName, String symposiumType) {
@@ -495,6 +495,11 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		// waitForLoaderToDisappear();
 		logMessage("STEP: '" + value + " is selected as Host \n");
 		return value;
+	}
+	
+	public String getHostDetails(String label){
+		isElementDisplayed("txt_hostDetails",label);
+		return elements("txt_hostDetails",label).get(1).getText();
 	}
 //	public String addHostforSymposium(String label) {
 //		waitForLoadingImageToDisappear("Loading...");
@@ -1213,7 +1218,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public List<String> SelectRecords(int number) {
 		List<String> controlIds = new ArrayList<String>();
 		for (int i = 1; i <= number; i++) {
-			selectaRecordFromTheList(i);
+			selectaRecordFromTheList(i,"2");
 			String cid = getCheckedColumnData(String.valueOf(i), String.valueOf(1));
 			System.out.println("** cid:   " + cid);
 			controlIds.add(cid);
@@ -1306,6 +1311,69 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		String updatedVal=expVal+System.currentTimeMillis();
 		sendKeysUsingXpathInJavaScriptExecutor(elements("inp_editColumnData").get(1),updatedVal );
 		return updatedVal;
+	}
+	
+	public void expandSideTab(String tabName){
+		isElementDisplayed("img_expandTab",tabName);
+		click(element("img_expandTab",tabName));
+		logMessage("Step: "+tabName+" is expanded\n");
+	}
+	
+	public void clickOnUpdatedEventName(String eventName){
+		isElementDisplayed("lnk_eventName",eventName);
+		click(element("lnk_eventName",eventName));
+		logMessage("Step: Clicked on event "+eventName+"\n");
+	}
+	
+	public void verifySessionOrEventInformation(Map<String,String> eventInfo){
+		   Iterator mapIterator = eventInfo.entrySet().iterator();
+		    while (mapIterator.hasNext()) {
+		        Map.Entry pair = (Map.Entry)mapIterator.next();
+		        System.out.println(pair.getKey() + " = " + pair.getValue());
+		        System.out.println(element("txt_eventInfo",pair.getKey().toString()).getText().trim());
+
+		        Assert.assertEquals(element("txt_eventInfo",pair.getKey().toString()).getText().trim(),
+		        		pair.getValue(),"ASSERT FAILED: "+pair.getKey()+" value is not updated as "+pair.getValue());
+		        logMessage("ASSERT PASSED: "+pair.getKey()+" value is updated as "+pair.getValue());
+		    } 
+	}
+	
+	public String getRandomSessionName(){
+		isElementDisplayed("txt_sessionItinerary");
+		int randomnumber = generateRandomNumberWithInRange(0, (elements("txt_sessionItinerary").size()) - 1);
+		System.out.println("-----random record:"
+				+ elements("txt_sessionItinerary").get(randomnumber).getText().trim());
+		return elements("txt_sessionItinerary").get(randomnumber).getText().trim();
+	}
+	
+	public void verifyFilterResultsForSessions(String expectedSessionName){
+		isElementDisplayed("txt_sessionItinerary");
+		Assert.assertEquals(element("txt_sessionItinerary").getText().trim(), expectedSessionName,"ASSERT FAILED: Filetr results "+element("txt_sessionItinerary").getText().trim()+" does not matches with "+expectedSessionName+"\n");
+		logMessage("ASSERT FAILED: Filetr results "+element("txt_sessionItinerary").getText().trim()+" matches with "+expectedSessionName+"\n");
+	}
+	
+	public void rightClickOnTopLevelSession() {
+		wait.hardWait(2);
+		isElementDisplayed("btn_navPanel");
+		System.out.println("************" + element("btn_navPanel").getText());
+		rightClick(element("btn_navPanel"));
+		logMessage("STEP: Right clicked on Top level session \n");
+	}
+	
+	public void verifydropdownOnPopupWindow(String btnName){
+		isElementDisplayed("lnk_selButton");
+		logMessage("Step : "+btnName+" is displayed on page\n");
+	}
+	
+	public void selectSessionOrEvent(String sessionName,String index){
+		isElementDisplayed("chkbox_column",sessionName,index);
+		elements("chkbox_column",sessionName,index).get(1).click();
+		logMessage("Step : "+sessionName+" is selected\n");
+	}
+	
+	public void verifySelectedSessionIsRemovedFromList(String sessionName,String index){
+		Assert.assertTrue(elements("chkbox_column",sessionName,index).size()==1,"ASSERT FAILED: Session "+sessionName+" is not removed from list\n");
+		logMessage("ASSERT PASSED: Session "+sessionName+" is removed from list\n");
 	}
 
 

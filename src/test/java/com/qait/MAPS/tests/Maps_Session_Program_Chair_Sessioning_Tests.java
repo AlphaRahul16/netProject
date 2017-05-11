@@ -54,7 +54,7 @@ public class Maps_Session_Program_Chair_Sessioning_Tests extends BaseTest {
 
 	//@Test
 	public void Step_0422_MAPS_Session_411_Verify_Currently_Assign_Abstracts_Section_Is_Displayed_When_Any_Session_Is_Selected() {
-		test.maps_sessionpage.selectaRecordFromTheList(1);
+		test.maps_sessionpage.selectaRecordFromTheList(1,"2");
 		test.maps_sessionpage.waitForLoadingImageToDisappear("Loading...");
 		String heading = "Currently Assigned Abstracts" + test.maps_sessionpage.getCheckedColumnData("1", "4");
 		test.maps_sessionpage.verifyPopupMessage(heading);

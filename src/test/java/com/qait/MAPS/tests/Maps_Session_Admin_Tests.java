@@ -2,7 +2,9 @@ package com.qait.MAPS.tests;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -15,7 +17,7 @@ import com.qait.automation.utils.YamlReader;
 
 public class Maps_Session_Admin_Tests extends BaseTest {
 
-	private String maps_url, symposiumTitle, gridName, lastRecordData, roomName, sessionTitle;
+	private String maps_url, symposiumTitle, gridName, lastRecordData, roomName, sessionTitle,eventname;
 	private String[] roles = { "OPA Staff", "Program Viewer", "Program Chair Sessioning", "Abstract Editor",
 			"Session Admin" };
 	private String[] leftPanelOptionsSessionAdmin = { "Dashboard & Instructions", "Meeting Setup", "Sessioning",
@@ -35,6 +37,7 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 	List<String> sortColumnList = new ArrayList<String>();
 	List<String> controlId = new ArrayList<String>();
 	List<String> abstractDetails;
+	Map<String,String> eventInfo=new HashMap<>();
 	private String timeDurationLabel;
 	private String hashtag;
 
@@ -242,13 +245,13 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 
 	@Test // passed
 	public void Step_1001_MAPS_Session_984_Verify_User_Is_Able_To_Assign_And_Unassign_Room() {
-		test.maps_sessionpage.clickParticularRecordFromList(roomName);
+		test.maps_sessionpage.clickParticularRecordFromList(roomName,"2");
 		test.maps_sessionpage.selectLastRecordFromList();
 		lastRecordData = test.maps_sessionpage.getCheckedColumnData("last()", "1");
 		test.maps_sessionpage.clickOnSaveButton("Multiple Assign / Unassign");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Assign selected availability to rooms");
 		test.maps_sessionpage.verifyTextUnderMeetingSetup("Successfully Saved");
-		test.maps_sessionpage.clickParticularRecordFromList(roomName);
+		test.maps_sessionpage.clickParticularRecordFromList(roomName,"2");
 		test.maps_sessionpage.clickOnSaveButton("Multiple Assign / Unassign");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Unassign selected availability from rooms");
 		test.maps_sessionpage
@@ -612,7 +615,7 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 		test.maps_sessionpage.verifyTextUnderMeetingSetup("Successfully Saved");
 		test.maps_reviewpage.enterValueInFilter(symposiumTitle);
 		test.maps_sessionpage.verifyAddedDetails("session_name", symposiumTitle);
-		test.maps_sessionpage.selectaRecordFromTheList(1);
+		test.maps_sessionpage.selectaRecordFromTheList(1,"2");
 		test.maps_sessionpage.clickOnButtonByIndexing("Delete Selected", "1");
 		test.maps_sessionpage.verifyPopupMessage("Confirm");
 		test.maps_sessionpage.clickOnButtonByIndexing("Yes", "1");
@@ -1027,7 +1030,7 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 
 	@Test // passed
 	public void Step_3168_MAPS_Session_3142_Verify_application_saves_changes_and_closes_popup_on_clicking_SaveAndClose_button() {
-		test.maps_sessionpage.selectaRecordFromTheList(1);
+		test.maps_sessionpage.selectaRecordFromTheList(1,"2");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Add Selected");
 		test.maps_sessionpage.verifyAddedDetails("owner_first_name",
 				YamlReader.getYamlValue("Session.Schedule_Sessions.owner_first_name"));
@@ -1066,7 +1069,7 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 
 	@Test // passed
 	public void Step_3177_MAPS_Session_3151_Verify_application_adds_selected_host_under_CurrentHost_section_on_clicking_the_Add_hosts_to_current_session_button() {
-		test.maps_sessionpage.selectaRecordFromTheList(1);
+		test.maps_sessionpage.selectaRecordFromTheList(1,"2");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Add Hosts to Current Session");
 		test.maps_sessionpage.clickOnButtonByIndexing("Close", "2");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Add/Edit Hosts");
@@ -1085,7 +1088,7 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 		test.maps_sessionpage.clickOnButtonByIndexing("Search", "1");
 		test.maps_sessionpage.verifyAddedDetails("session_host_first_name",
 				YamlReader.getYamlValue("Session.Schedule_Sessions.owner_first_name"));
-		test.maps_sessionpage.selectaRecordFromTheList(1);
+		test.maps_sessionpage.selectaRecordFromTheList(1,"2");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Add New Host");
 		String email = YamlReader.getYamlValue("Session.Host.Email") + System.currentTimeMillis() + "@acs.org";
 		test.maps_sessionpage.enterValuesInAddNewHost(
@@ -1289,15 +1292,18 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 	}
 
 	public void Step_3357_MAPS_Session_3331_Verify_application_saves_the_session_on_clicking_Save_button() {
+		eventname=YamlReader.getYamlValue("Session.Schedule_Sessions.Session_Title") + System.currentTimeMillis();
+		test.maps_sessionpage.expandSideTab("Sessions");
+		test.maps_sessionpage.expandSideTab("Events");
 		test.maps_sessionpage.rightClickOnSession();
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Edit Item");
 		test.maps_sessionpage.verifyPopupMessage("Edit Session");
-		test.maps_sessionpage.enterValuesForProgram("session_name",
-				YamlReader.getYamlValue("Session.Schedule_Sessions.Session_Title") + System.currentTimeMillis());
+		test.maps_sessionpage.enterValuesForProgram("session_name",eventname);
 		test.maps_sessionpage.enterValuesForProgram("session_duration",
 				YamlReader.getYamlValue("Session.Schedule_Sessions.assign_Duration"));
 		test.maps_sessionpage.clickOnButtonByIndexing("Save", "1");
 		test.maps_sessionpage.verifyTextUnderMeetingSetup("Successfully Saved");
+		eventInfo.put("Title", eventname);
 	}
 
 	public void Step_3468_MAPS_Session_3442_Verify_application_saves_session_on_clicking_Save_button() {
@@ -1305,6 +1311,57 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 		String abstractDetail = test.maps_sessionpage.addHostforSymposium("session_host_email");
 		test.maps_sessionpage.verifyAddedAbstractsInTable("session_host_first_name", abstractDetail);
 		test.maps_sessionpage.clickOnButtonByIndexing("Save", "1");
+		test.maps_sessionpage.verifyPopupMessage("Confirm");
+		test.maps_sessionpage.clickOnSaveButton("Yes");
 		test.maps_sessionpage.verifyTextUnderMeetingSetup("Successfully Saved");
+		eventInfo.put("Hosts", test.maps_sessionpage.getHostDetails("session_host_first_name"));
+	}
+	
+	public void Step_3469_MAPS_Session_3443_Verify_Application_Saves_Session_On_Clicking_Save_And_Close_Button() {
+		test.maps_sessionpage.clickOnButtonByIndexing("Save & Close", "1");
+		test.maps_sessionpage.verifyTextUnderMeetingSetup("Successfully Saved");
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Schedule Sessions");
+		test.maps_sessionpage.verifyPopupMessage("Select Program");
+		test.maps_sessionpage.selectValueForCreateNewSessionFromSymposium("Programs",
+				YamlReader.getYamlValue("Session.Schedule_Sessions.Programs"));
+		test.maps_sessionpage.clickOnButtonByIndexing("OK", "1");
+		test.maps_sessionpage.expandSideTab("Sessions");
+		test.maps_sessionpage.expandSideTab("Events");
+		test.maps_sessionpage.clickOnUpdatedEventName(eventname);
+		test.maps_sessionpage.verifySessionOrEventInformation(eventInfo);
+	}
+	
+	public void Step_3486_MAPS_Session_3459_Verify_Application_Displays_Filtered_Results_On_Itinerary_Level_Top_view() {
+		String sessionName;
+		test.maps_sessionpage.clickOnSaveButton("Switch to Itinerary Level View");
+		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Itinerary Level Top");
+		test.maps_reviewpage.verifyTextField("Filter");
+		test.maps_reviewpage.verifyCrossImageForNamedDropDown("Filter");
+		sessionName=test.maps_sessionpage.getRandomSessionName();
+		test.maps_reviewpage.enterValueInFilter(sessionName);
+		test.maps_sessionpage.verifyFilterResultsForSessions(sessionName);
+		test.maps_reviewpage.clickOnCrossImageForNamedDropdown("Filter");
+	}
+	
+	public void Step_3500_MAPS_Session_3473_Verify_Application_Displays_Options_Button_And_Export_Level_Assignments_to_CSV_Dropdown_At_Top_Of_Add_Session() {
+		test.maps_sessionpage.rightClickOnTopLevelSession();
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Add Session");
+		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Add/Modify Session for Top Level");
+		test.maps_sessionpage.selectRoleOnSaveGridConfiguration("Options");
+		test.maps_sessionpage.verifydropdownOnPopupWindow("Export Level Assignments to CSV");
+	}
+	
+	public void Step_3534_MAPS_Session_3507_Verify_Application_Displays_Options_Button_And_Export_Level_Assignments_to_CSV_Dropdown_At_Top_Of_Add_Session() {
+		test.maps_sessionpage.inputTextInFilter("Test Session","2");
+		String sessionTitle=test.maps_sessionpage.selectaRecordFromTheList(1,"1");
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Add Selected");
+		test.maps_sessionpage.waitForLoadingImageToDisappear("Loading...");
+		test.maps_sessionpage.selectSessionOrEvent(sessionTitle, "1");
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Remove Selected");
+		test.maps_sessionpage.verifyPopupMessage("Confirm");
+		test.maps_sessionpage.clickOnSaveButton("Yes");
+		test.maps_sessionpage.verifyTextUnderMeetingSetup("Selected entries were deleted");
+		test.maps_sessionpage.selectSessionOrEvent(sessionTitle, "1");
+		test.maps_sessionpage.verifySelectedSessionIsRemovedFromList(sessionTitle, "1");
 	}
 }
