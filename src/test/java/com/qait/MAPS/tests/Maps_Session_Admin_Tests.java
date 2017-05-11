@@ -511,7 +511,7 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 		test.maps_reviewpage.verifyCrossImageForNamedDropDown("Filter");
 		test.maps_reviewpage.verifyExpandIconUnderNamedModule();
 		test.maps_reviewpage.verifyDropDown("Found In");
-		test.maps_reviewpage.verifyDropDown("Export to Excel");
+		test.maps_reviewpage.verifyDropDown("Export");
 		test.maps_reviewpage.verifyDropDown("Toggle View");
 		test.maps_reviewpage.verifyPaginationSectionAtTheBottomOfTheTable();
 		test.maps_reviewpage.verifyDropDown("Records per page");
@@ -618,6 +618,20 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 		test.maps_sessionpage.clickOnButtonByIndexing("Yes", "1");
 		test.maps_reviewpage.enterValueInFilter(symposiumTitle);
 		test.maps_sessionpage.verifyDataIsDeleted("session_name", symposiumTitle);
+	}
+	
+	@Test // passed
+	public void Step_1567_MAPS_Session_1545_Verify_application_print_Page_On_Clicking_Print_Button() {
+		String selectedsymposia,selected_title;
+		test.maps_sessionpage.waitForProcessBarToDisappear();
+		test.maps_sessionpage.selectaRecordFromTheList(1);
+		selected_title = test.maps_sessionpage.getCheckedColumnData("1","3"); 
+		selectedsymposia = test.maps_sessionpage.getCheckedColumnData("1","4"); // have to add this function
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Print Selected");
+		test.maps_sessionpage.verifyTitleForRoles("Print Symposia Preview");
+		test.maps_sessionpage.verifyPrintPreviewTableContents(selectedsymposia);
+		test.maps_sessionpage.verifyPrintPreviewTableContents(selected_title);
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Cancel");
 	}
 
 	@Test // passed

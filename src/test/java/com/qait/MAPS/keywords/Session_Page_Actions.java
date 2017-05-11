@@ -319,9 +319,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	// logMessage("STEP: clicked on '" + text + "' button \n");
 	// }
 
-	public void isPrintSelectedButtonDisplayed(String buttonname) {
-		isElementDisplayed("btn_Types",buttonname);
-		logMessage("ASSERT PASSED : Print Selected Button is displayed on Session page\n");
+	public void isPrintSelectedButtonDisplayed(String buttonName) {
+		wait.hardWait(2);
+		isElementDisplayed("btn_Types",buttonName);
+		logMessage("ASSERT PASSED : "+buttonName+" Button is displayed on Session page\n");
 
 	}
 
@@ -892,11 +893,12 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public void verifyPrintPreviewTableContents(String value)
 	{
 		isElementDisplayed("tbl_contents",value);
-		logMessage("ASSERT PASSED : print preview table title is verified as "+value);
+		logMessage("ASSERT PASSED : print preview table data is verified as "+value);
 	}
 	
 	public void selectHeaderCheckbox()
 	{
+		wait.hardWait(4);
 		isElementDisplayed("table_columnDate","hd-checker");
 		click(element("table_columnDate","hd-checker"));
 		logMessage("Step : Header checkbox is clicked\n");
@@ -1234,7 +1236,9 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void verifyAllSelectedListIsPresentInPrintPreview(int symposiasize) {
 	 isElementDisplayed("txt_SchedulerGrid","my-paging-text");
-	 Assert.assertTrue(elements("txt_SchedulerGrid","my-paging-text").get(3).getText().contains(String.valueOf(symposiasize)),"All selected elements from list are not printed\n");
+	int totalsymposia = Integer.parseInt((elements("txt_SchedulerGrid","my-paging-text").get(3).getText().split(" "))[1].trim());
+	 System.out.println(totalsymposia);
+	 Assert.assertTrue((symposiasize>1&& symposiasize<=totalsymposia),"All selected elements from list are not printed\n");
 	 logMessage("ASSERT PASSED :  All selected options list is avalaible in print preview\n");
 		
 	}
@@ -1281,12 +1285,12 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
    
    public String getHostColoumData(String hostname)
    {	
-	   return elements("input_editableColumn").get(0).getText();
+	   return elements("input_editableColumn",hostname).get(0).getText();
 		}
    
    public void verifyAvailableOptionsOnSaveGridPopUpUnderAbstracts(String fieldname)
    {
-	   isElementDisplayed("inp_fileupload","1");
+	   isElementDisplayed("inp_fileupload",fieldname,"1");
 	   logMessage("ASSERT PASSED : input box is available for "+fieldname);
 	   
    }
