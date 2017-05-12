@@ -217,7 +217,6 @@ public class ACS_MGM_Test extends BaseTest {
 		IWEBurl = test.individualsPage.getCurrentURL();
 		test.launchApplication(app_url_MGMUrl);
 		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
-
 	}
 
 	@Test
