@@ -501,7 +501,7 @@ public class ASCSocietyGenericPage extends GetPage {
 			wait.waitForElementToDisappear(element("img_processbar"));
 			logMessage("STEP : Wait for process bar to be disappeared \n");
 
-		} catch (NoSuchElementException Exp) {
+		} catch (Exception Exp) {
 
 			logMessage("STEP : Process bar is not present \n");
 		}

@@ -654,6 +654,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 			logMessage("STEP : " + valueofmembership + " button is clicked\n");
 		} catch (NoSuchElementException e) {
 			switchToDefaultContent();
+			holdScriptExecution();
 			executeJavascript(
 					"document.getElementById('eWebFrame').contentWindow.document.querySelectorAll(\"input[class='addItemButton'][value='"
 							+ valueofmembership + "']\")[0].click()");

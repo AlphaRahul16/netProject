@@ -34,7 +34,6 @@ Session:
     ProgramTitle: "QAIT_Test"
     Interval: "30"
     Room: "Room1"
-    
   Types:
       TestType: "Test Type"
       ColorCode: "#00FFFF"
@@ -50,7 +49,6 @@ Session:
       Host_Role: "Organizer"
       Abstract_AuthorFirstName: "Bhuwan"
       Abstract_AuthorLastName: "Takkar"
-      
   Program_Areas:
       Color: "#FFCC00"
       Type: Session
@@ -72,7 +70,8 @@ Session:
       Symposia_Submission_Type: "Invited"
   
   Program_Viewer: 
-      File_Downloaded_Name: "symposia.csv"
+      File_Downloaded_Name_symposia: "symposias"
+      File_Downloaded_Name_session: "session"
       Symposia_Submission_Type: "Invited"
   
   Session_Builder: 
@@ -86,7 +85,9 @@ Session:
       Author_First_Name: "Hitasheet"
       Author_Last_Name: "Sil"
       Session_Program_Area: "Qait_Program_Area"
-      Symposium: "Qait_Symposium"     
+      Symposium: "Qait_Symposium"    
+      Title_Description: "Automation_Test"
+      Final_ID: "Test" 
   
   Schedule_Sessions: 
       Programs: "Training Site"

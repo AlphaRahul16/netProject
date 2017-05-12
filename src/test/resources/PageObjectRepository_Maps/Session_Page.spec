@@ -37,7 +37,7 @@ img_dropDown                            xpath                               (//d
 txt_tableResult                         xpath                               //td[contains(@class,'x-grid3-td-${label}')]//div[text()='${value}']
 lst_column                              xpath                               //div[@role='listitem' and text()='${columnName}']
 btn_add                                 xpath                               //td[@class='x-toolbar-left']//button[text()='${btnName}']
-chkbox_column                           xpath                               //div[text()='${roomName}']/../preceding-sibling::td[2]//div[@class='x-grid3-row-checker']
+chkbox_column                           xpath                               //div[text()='${roomName}']/../preceding-sibling::td[${index}]//div[@class='x-grid3-row-checker']
 btn_add_column                          xpath                               //div[text()='${roomName}']/../preceding-sibling::td[1]//div[@class='x-grid3-row-expander']
 btn_close								xpath								//button[text()='${btnName}']
 btn_recordsname                         xpath                               (//div[@class='x-grid3-row-checker'])[${recordnumber}]/../../following-sibling::td[${index}]/div
@@ -56,7 +56,6 @@ inp_fileupload							xpath								(//label[contains(text(),'${text}')]/following
 list_symposia							xpath								//table[contains(@class,'row-table')]
 drpDown_sympType						xpath								//span[contains(text(),'${label}')]/../following-sibling::div//img
 date_currentDate                        xpath                               //td[contains(@class,'x-date-today')]
-btn_add_column                          xpath                               //div[text()='${roomName}']/../preceding-sibling::td[1]//div[@class='x-grid3-row-expander']
 tbl_contents                            xpath                                //td[contains(text(),'${text}')]
 txt_chckdColumnData                     xpath                               (//div[@class='x-grid3-row-checker'])[${index1}]/../../following-sibling::td[${index2}]
 column_headers                          xpath                                //div[contains(@qtip,'${columnName}')]
@@ -81,9 +80,26 @@ list_abstracts                          xpath                               //di
 txt_session								xpath								//div[contains(@class,'view-item')]/font
 txt_controlId							xpath								//td[contains(@class,'${className}')]//u[contains(text(),'${text}')]
 row_withdraw       						xpath        						//font[contains(text(),'${fontText}')]/following-sibling::u[contains(text(),'${text}')]
+inp_sessionAbbrev                       xpath                               //label[contains(text(),'${label}')]/..//input[@type='text']
+inp_sessionNotes						xpath								//label[contains(text(),'${label}')]/following-sibling::div//textarea
+ipt_div									xpath								//label[contains(text(),'${label}')]/following-sibling::div//div
+inp_label								xpath								//label[contains(text(),'${label}')]
+inp_FnclCosponsor						xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//textarea
+inp_sessionTrack						xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//input[@type='text']
+lstItm_drpdwn							xpath								//div[contains(@class,'combo-list-item') and text()='${value}']
+chkbox_Newsworthy						xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//input[@type='checkbox']
+lstbox_Themes							xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//div[@role='listbox']
+row_withdraw							xpath								//font[contains(text(),'${fontText}')]/following-sibling::u[contains(text(),'${text}')]
+input_popup								xpath								(//label[contains(text(),'${label}')]/parent::td/following-sibling::td/..//input)[${index}]
+btn_lnkTxt								xpath								//label[contains(text(),'${text}')]/parent::td/following-sibling::td/..//a[text()='${linkText}']
+img_processbar							xpath								//div[contains(@class,'progress-bar')]
 txt_rowData                             xpath                               //div[contains(@class,'x-grid3-col-F_SORT_FIELD')]/..
 inp_assignDuration						xpath								//label[contains(.,'${text}')]/../following-sibling::td//input[@type='text']
 txt_linkEmail							xpath								//td[contains(@class,'${className}')]//u\
 inp_editColumnData                      xpath                               //div[contains(@class,'x-editor')]//input[contains(@class,'x-form-field x-form-text')]
 txt_emptyTable							css									.x-grid-empty
+img_expandTab                           xpath                               //span[text()='${tabName}']/..//div[contains(@class,'x-panel-toolbar x-component')]
+lnk_eventName                           xpath                               //div[@qtip='${eventName}']
+txt_eventInfo                           xpath                               //b[text()='${fieldName}:']/../../td[2]
+txt_sessionItinerary                    xpath                               //div[@class='x-panel x-component']//div[@class='x-tree3-node-ct']//span[@class='x-tree3-node-text']
 ======================================================================================================================================

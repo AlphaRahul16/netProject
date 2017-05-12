@@ -53,7 +53,7 @@ public class ACS_Create_Member_Test extends BaseTest {
 		test.homePageIWEB.addValuesInMap("OMA", caseID);
 
 		test.launchApplication(app_url);
-		test.homePage.verifyUserIsOnHomePage("");
+		//test.homePage.verifyUserIsOnHomePage("");
 	}
 
 	@Test(dependsOnMethods = "Step01_Launch_Application_Under_Test")
