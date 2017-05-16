@@ -71,10 +71,16 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("Step : " + buttonName + " button is clicked on left navigation panel\n");
 	}
 
-	public void verifyTitleForRoles(String title,String fieldName) {
+	public void verifyTitleForRoles(String title) {
 		wait.hardWait(2);
 		isElementDisplayed("btn_navPanel", title);
-		logMessage("Step: "+fieldName+" is verified as " + title);
+		logMessage("Step: " + title + " is verified as " + title);
+	}
+
+	public void verifyTitleForRoles(String title, String fielname) {
+		wait.hardWait(2);
+		isElementDisplayed("btn_navPanel", title);
+		logMessage("Step: " + fielname + " is verified as " + title);
 	}
 
 	public void verifyLeftPanelOptionsOnSessionAdminPage(String[] leftPanelOptions) {
@@ -729,16 +735,16 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		}
 	}
 
-	public void clickOnDownloadButtonAndVerifyValidFileIsDownloaded(String btnName, String fileName) {
-		downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
-				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + fileName
-				+ ".csv";
-		downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
-				+ File.separator + "resources" + File.separator + "DownloadedFiles";
+	public void clickOnDownloadButtonAndVerifyValidFileIsDownloaded(String btnName, String fileName,String downloadedFilePath) {
+//		downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+//				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + fileName
+//				+ ".csv";
+//		
 		// _deleteExistingCSVFile(downloadedFilePath);
+		String filePath=downloadedFilePath+ File.separator + fileName + ".csv";
 		clickOnButtonUnderSessioning(btnName);
 		wait.hardWait(5);
-		verifyValidFileIsDownloaded(downloadedFilePath);
+		verifyValidFileIsDownloaded(filePath);
 
 	}
 
@@ -749,15 +755,15 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	}
 
-	public void importValidFile(String abstractId) {
+	public void importValidFile(String abstractId, String downloadedFilePath) {
 		String data = abstractId + ",Reject";
 		DataProvider.writeDataInAlreadyExistingCSVFile(downloadedFilePath, data);
 		wait.hardWait(5);
-		importFileWithValidData();
+		importFileWithValidData(downloadedFilePath);
 		// clickOnButtonUnderSessionModule("Import");
 	}
 
-	private void importFileWithValidData() {
+	public void importFileWithValidData(String downloadedFilePath) {
 		isElementDisplayed("inp_fileupload", "Please upload your file:", "1");
 		sendKeysUsingXpathInJavaScriptExecutor(element("inp_fileupload", "Please upload your file", "1"),
 				downloadedFilePath);
@@ -1199,8 +1205,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 		Assert.assertTrue(
 				elements("input_editableColumn", editableColumnsMap.get(editableColumnsList.get(0))).get(0).getText()
-						.trim().equals(
-								editedData),
+						.trim().equals(editedData),
 				"ASSERT FAILED : Updated data as " + editedData + " does not matches with data on page as "
 						+ elements("input_editableColumn", editableColumnsMap.get(editableColumnsList.get(0))).get(0)
 								.getText().trim()

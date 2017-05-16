@@ -45,7 +45,7 @@ public class ACS_MGM_Test extends BaseTest {
 		app_url_MGMjoin = getYamlValue("app_url_MGMjoin");
 		app_url_MGMOptOut = getYamlValue("app_url_MGMOputOut");
 		app_url_MGMLogout = getYamlValue("app_url_MGMLogout");
-		// toString();
+		
 		ASCSocietyGenericPage.addValuesInMap("MGM", String.valueOf(caseID));
 		test.launchApplication(app_url_IWEB);
 		test.homePage.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
@@ -79,7 +79,7 @@ public class ACS_MGM_Test extends BaseTest {
 		IWEBurl = test.individualsPage.getCurrentURL();
 	}
 
-	@Test
+	@Test (dependsOnMethods="Step01_Run_Query_And_Fetch_Weblogin_FirstName_LastName_For_Scenario2")
 	public void Step02_Launch_MGM_Application_And_Verify_All_Details_Are_Prepopulated_On_Clicking_Apply_for_ACS_Membership_link_For_Scenario2() {
 		test.launchApplication(app_url_MGMUrl);
 		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
@@ -87,20 +87,13 @@ public class ACS_MGM_Test extends BaseTest {
 		test.ContactInfoPage.verifyDetailsArePrepopulated();
 	}
 
-	@Test
+	@Test (dependsOnMethods="Step02_Launch_MGM_Application_And_Verify_All_Details_Are_Prepopulated_On_Clicking_Apply_for_ACS_Membership_link_For_Scenario2")
 	public void Step03_Activate_The_Membership_On_OMA_And_Invite_New_Member_From_MGM_Scenario2() {
 		test.ContactInfoPage.clickContinue();
-
 		test.EduAndEmpPage.enterEducationAndEmploymentInformation();
 		test.ContactInfoPage.clickContinue();
-
 		test.BenefitsPage.addACSPublicationAndTechnicalDivision(caseID);
 		test.ContactInfoPage.clickContinue();
-		// test.checkoutPage.enterPaymentInfo(YamlReader.getYamlValue("creditCardInfo.Type"),
-		// fname_Iweb + " " + lname_Iweb,
-		// YamlReader.getYamlValue("creditCardInfo.Number"),
-		// YamlReader.getYamlValue("creditCardInfo.cvv-number"));
-
 		test.asm_storePage.enterPaymentInfo("CardholderName", fname_Iweb + " " + lname_Iweb);
 		test.asm_storePage.enterPaymentInformation_OMAForAllPaymentTypes();
 		test.checkoutPage.clickAtTestStatement();
@@ -127,9 +120,9 @@ public class ACS_MGM_Test extends BaseTest {
 		IWEBurl = test.individualsPage.getCurrentURL();
 	}
 
-	@Test
+	@Test (dependsOnMethods="Step04_Run_Query_And_Fetch_Weblogin_For_Scenario3")
 	public void Step05_Invite_Non_Member_And_Verify_Nominee_Status_On_MGM_And_IWEB_For_Scenario3() {
-		// webLogin="flopezli";
+		
 		test.launchApplication(app_url_MGMUrl);
 		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
 		uniqueEmail = test.asm_MGM.submitMemberDetailsToInvite(ASCSocietyGenericPage.map().get("MGM_FNAME").trim(),
@@ -146,7 +139,7 @@ public class ACS_MGM_Test extends BaseTest {
 		app_ID = test.memberShipPage.getApplicationID(uniqueEmail);
 	}
 
-	@Test
+	@Test (dependsOnMethods="Step05_Invite_Non_Member_And_Verify_Nominee_Status_On_MGM_And_IWEB_For_Scenario3")
 	public void Step06_New_Individual_Opts_Out_And_Confirm_Status_On_IWEB_And_MGM_Dashboard_Scenario3() {
 		test.launchApplication(app_url_MGMOptOut + app_ID);
 		test.launchApplication(app_url_MGMUrl);
@@ -175,7 +168,7 @@ public class ACS_MGM_Test extends BaseTest {
 		test.asm_MGM.inviteButtonIsNotDisplayed();
 	}
 
-	@Test
+	@Test (dependsOnMethods="Step07_Run_Query_Fetch_Weblogin_And_Verify_Invite_Option_Is_not_Visible_Scenario4")
 	public void Step08_Renew_Membership_And_Invite_A_New_Member_Scenario4() { // uncommented
 																				// payment
 																				// steps
@@ -208,7 +201,7 @@ public class ACS_MGM_Test extends BaseTest {
 		sourceCode = test.memberShipPage.getDefaultSourceCodeForMGM(ASCSocietyGenericPage.map().get("Country"));
 	}
 
-	@Test
+	@Test 
 	public void Step09_Launch_MGM_Application_To_Invite_New_Member_For_Scenario1_Scenario5_Scenario6() {
 
 		Launch_IWeb_Application_And_Run_Query("Individuals", "Query Individual", getYamlValue("ACS_MGM.query1"), 0,
@@ -219,9 +212,9 @@ public class ACS_MGM_Test extends BaseTest {
 		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
 	}
 
-	@Test
+	@Test 
 	public void Step10_Invite_Nominee_And_Verify_Nominee_Status_On_MGM_And_IWEB_Scenario1_Scenario5() {
-		// webLogin="js0b";
+		
 		fname = ASCSocietyGenericPage.map().get("MGM_FNAME").trim() + System.currentTimeMillis();
 		lname = ASCSocietyGenericPage.map().get("MGM_LNAME").trim() + System.currentTimeMillis();
 		uniqueEmail = test.asm_MGM.submitMemberDetailsToInvite(fname, lname,
@@ -328,7 +321,7 @@ public class ACS_MGM_Test extends BaseTest {
 		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Individuals |" + customerFullNameList.get(0).trim());
 	}
 
-	@Test // scenario for pagination verification
+	@Test (dependsOnMethods="Step09_Launch_MGM_Application_To_Invite_New_Member_For_Scenario1_Scenario5_Scenario6") // scenario for pagination verification 
 	public void Step17_Invite_New_Members_For_Scenario6() {
 		uniqueEmails = test.asm_MGM.InviteNewMembersAccordingToInviteeNumber(
 				ASCSocietyGenericPage.map().get("Number_Of_Invitee").trim(),
@@ -337,7 +330,7 @@ public class ACS_MGM_Test extends BaseTest {
 				ASCSocietyGenericPage.map().get("MGM_Email").trim());
 	}
 
-	@Test
+	@Test (dependsOnMethods="Step17_Invite_New_Members_For_Scenario6")
 	public void Step18_Verify_All_Invitees_On_MGM_And_IWEB_For_Scenario6() {
 		test.asm_MGM.verifythatAllInviteesExistOnMGM(uniqueEmails, StatusOnEweb.get(0));
 		test.launchApplication(IWEBurl);

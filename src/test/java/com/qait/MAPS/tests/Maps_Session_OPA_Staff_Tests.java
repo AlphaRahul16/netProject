@@ -15,7 +15,9 @@ import com.qait.automation.utils.YamlReader;
 
 public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 
-	private String maps_url, downloadedFilePath;
+	private String maps_url;
+	private String downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+			+ File.separator + "resources" + File.separator + "DownloadedFiles";
 	private String griduniqueName = "Selenium_Test_Grid_" + System.currentTimeMillis();
 	private String[] roles = { "OPA Staff", "Program Viewer", "Program Chair Sessioning", "Abstract Editor",
 			"Session Admin" };
@@ -108,12 +110,12 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 		test.maps_sessionpage.waitForProcessBarToDisappear();
 		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath);
 		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Export  to Excel (All Columns)",
-				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"));
+				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"),downloadedFilePath);
 		test.maps_sessionpage.clickOnSaveButton("Export to Excel");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (Displayed Columns)");
 		test.maps_sessionpage.waitForProcessBarToDisappear();
 		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Export to Excel (Displayed Columns)",
-				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"));
+				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"),downloadedFilePath);
 		test.maps_sessionpage._deleteExistingCSVFile(downloadedFilePath);
 		test.maps_sessionpage.clickOnSaveButton("Export to Excel");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (Displayed Columns)");

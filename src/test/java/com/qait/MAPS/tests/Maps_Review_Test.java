@@ -1,5 +1,6 @@
 package com.qait.MAPS.tests;
 
+import java.io.File;
 import java.lang.reflect.Method;
 
 import org.testng.annotations.BeforeClass;
@@ -14,6 +15,8 @@ public class Maps_Review_Test extends BaseTest {
 	private String maps_url;
 	private String griduniqueName = "Selenium_Test_Grid_" + System.currentTimeMillis();
 	private String absract_id,abstract_details="Test_Abstract" + System.currentTimeMillis();
+	private String downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+			+ File.separator + "resources" + File.separator + "DownloadedFiles";
 
 	@BeforeClass
 	public void Start_Test_Session() {
@@ -80,21 +83,21 @@ public class Maps_Review_Test extends BaseTest {
 
 	@Test
 	public void MAPS_Review_Admin_42_Verify_that_application_uploads_file_when_user_clicks_on_Import_button() {
-		create_Abstract_As_Prerequisite();
+		String absract_id=create_Abstract_As_Prerequisite();
 		MAPS_Review_Admin_01_Verify_that_application_navigates_to_ReviewerScoreReport_page();
 		test.maps_reviewpage.clickOnButtonAtSaveGridConfigurationPage("Import/Export to Excel");
 		test.maps_reviewpage.clickOnButton("Import Decision");
 		test.maps_sessionpage.verifyPopupMessage("Import Decisions");
 		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Download template",
-				"decision_template");
-		test.maps_sessionpage.importValidFile(absract_id);
+				"decision_template",downloadedFilePath);
+		test.maps_sessionpage.importValidFile(absract_id,downloadedFilePath + File.separator+"decision_template.csv");
 //		test.maps_sessionpage.verifyPopupMessage("Import Report");
 //		test.maps_reviewpage.verifySuccessMessage("Successful import");
 //		test.maps_sessionpage.clickOnButtonByIndexing("Ok", "1");
 		
 	}
 
-	private void create_Abstract_As_Prerequisite() {
+	private String create_Abstract_As_Prerequisite() {
 		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Submission");
 		test.maps_SSOPage.verifyUserIsOnTabPage("Submission");
 		test.maps_submissionPage.clickOnNamedButton("Create New Submission");
@@ -123,6 +126,7 @@ public class Maps_Review_Test extends BaseTest {
 		
 		test.maps_submissionPage.verifySuccessAlertMessage(YamlReader.getYamlValue("Success_alert_msg"));
 		absract_id=test.maps_submissionPage.getIDofAbstract("subs",abstract_details,"1","ID");
+		return absract_id;
 	}
 
 	//@Test //passed
