@@ -1656,6 +1656,8 @@ public class Maps_Session_Admin_Tests extends BaseTest {
 		test.maps_sessionpage.rightClickOnTopLevelSession(sessionName);
 		test.maps_sessionpage.clickButtonToContinueToNextPage("edit");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Add/Modify Session for Top Level");
+		test.maps_sessionpage.clickOnSaveButton("Close");
+		test.maps_sessionpage.clickOnSaveButton("Ok");
 	}
 
 }

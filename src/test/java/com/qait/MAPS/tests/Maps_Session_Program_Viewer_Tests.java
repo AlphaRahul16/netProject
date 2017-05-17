@@ -112,7 +112,7 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 		test.maps_sessionpage.selectaRecordFromTheList(1,"2");
 		selectedsymposia = test.maps_sessionpage.getCheckedColumnData("1","3");  // have to add this function
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Print Selected");
-		test.maps_sessionpage.verifyTitleForRoles("Print Symposia Preview");
+		test.maps_sessionpage.verifyTitleForRoles("Print Symposia Preview","Title");
 		test.maps_sessionpage.verifyPrintPreviewTableContents(selectedsymposia);
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Cancel");
 	}
@@ -126,7 +126,7 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 		test.maps_sessionpage.selectHeaderCheckbox();
 		symposiasize=test.maps_sessionpage.getSelectedListSize();
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Print Selected");
-		test.maps_sessionpage.verifyTitleForRoles("Print Symposia Preview");
+		test.maps_sessionpage.verifyTitleForRoles("Print Symposia Preview","Title");
 		test.maps_sessionpage.verifyAllSelectedListIsPresentInPrintPreview(symposiasize);
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Cancel");
 		
@@ -210,7 +210,7 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 		test.maps_sessionpage.selectaRecordFromTheList(1,"2");
 		selectedsession = test.maps_sessionpage.getCheckedColumnData("1","3");  // have to add this function
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Print Selected");
-		test.maps_sessionpage.verifyTitleForRoles("Print Sessions/Events Preview");
+		test.maps_sessionpage.verifyTitleForRoles("Print Sessions/Events Preview","Title");
 		test.maps_sessionpage.verifyPrintPreviewTableContents(selectedsession);
 		test.maps_submissionPage.clickOnNamedButton("Cancel");
 	}
@@ -224,7 +224,7 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 		test.maps_sessionpage.selectHeaderCheckbox();
 		symposiasize=test.maps_sessionpage.getSelectedListSize();
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Print Selected");
-		test.maps_sessionpage.verifyTitleForRoles("Print Sessions/Events Preview");
+		test.maps_sessionpage.verifyTitleForRoles("Print Sessions/Events Preview","Title");
 		test.maps_sessionpage.verifyAllSelectedListIsPresentInPrintPreview(symposiasize);
 		test.maps_submissionPage.clickOnNamedButton("Cancel");
 		
@@ -257,7 +257,7 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 	{
 		test.maps_sessionpage.rightClickOnSessionList("1");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("View");
-		test.maps_sessionpage.verifyTitleForRoles("View Session");
+		test.maps_sessionpage.verifyTitleForRoles("View Session","Title");
 		test.maps_submissionPage.clickOnNamedButton("Cancel");
 		
 	}
