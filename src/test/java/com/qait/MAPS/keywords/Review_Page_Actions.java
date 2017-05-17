@@ -127,6 +127,7 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 			logMessage("ASSERT PASSED: '" + fieldName + "' dropdown is verified with options\n");
 
 		}
+		scrollUp();
 
 	}
 

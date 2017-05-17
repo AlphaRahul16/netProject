@@ -1,5 +1,6 @@
 package com.qait.MAPS.tests;
 
+import java.awt.AWTException;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -35,6 +36,20 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 	private String timeDurationLabel, hashtag;
 	private String downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator
 			+ "test" + File.separator + "resources" + File.separator + "DownloadedFiles";
+
+	private String itenarySessionName;
+
+	@DataProvider
+	public String[][] getData() {
+		String[][] data = new String[3][2];
+		data[0][0] = YamlReader.getYamlValue("Session.Session_Builder.Session_Type1");
+		data[0][1] = YamlReader.getYamlValue("Session.Session_Builder.Session_Type4");
+		data[1][0] = YamlReader.getYamlValue("Session.Session_Builder.Session_Type3");
+		data[1][1] = YamlReader.getYamlValue("Session.Session_Builder.Session_Type2");
+		data[2][0] = YamlReader.getYamlValue("Session.Session_Builder.Session_Type2");
+		data[2][1] = YamlReader.getYamlValue("Session.Session_Builder.Session_Type1");
+		return data;
+	}
 
 	@BeforeClass
 	public void Start_Test_Session() {
@@ -89,7 +104,7 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 		test.maps_reviewpage.verifyCrossImageForNamedDropDown("Filter");
 		test.maps_reviewpage.verifyExpandIconUnderNamedModule();
 		test.maps_reviewpage.verifyDropDown("Found In");
-		test.maps_reviewpage.verifyDropDown("Export to Excel");
+		test.maps_reviewpage.verifyDropDown("Export");
 		test.maps_reviewpage.verifyDropDown("Toggle View");
 		test.maps_reviewpage.verifyPaginationSectionAtTheBottomOfTheTable();
 		test.maps_reviewpage.verifyDropDown("Records per page");
@@ -199,6 +214,24 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 	}
 
 	@Test // passed
+	public void Step_1567_MAPS_Session_1545_Verify_application_print_Page_On_Clicking_Print_Button() {
+		String selectedsymposia, selected_title;
+		test.maps_sessionpage.waitForProcessBarToDisappear();
+		test.maps_sessionpage.selectaRecordFromTheList(1, "2");
+		selected_title = test.maps_sessionpage.getCheckedColumnData("1", "3");
+		selectedsymposia = test.maps_sessionpage.getCheckedColumnData("1", "4"); // have
+																					// to
+																					// add
+																					// this
+																					// function
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Print Selected");
+		test.maps_sessionpage.verifyTitleForRoles("Print Symposia Preview");
+		test.maps_sessionpage.verifyPrintPreviewTableContents(selectedsymposia);
+		test.maps_sessionpage.verifyPrintPreviewTableContents(selected_title);
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Cancel");
+	}
+
+	@Test // passed
 	public void Step_1573_MAPS_Session_1551_Verify_that_application_downloads_the_relevant_file_on_clicking_Download_options() {
 		// test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Symposia");
@@ -219,7 +252,7 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 
 	@Test
 	public void Step_1575_MAPS_Session_1553_Verify_application_imports_the_browsed_file_on_clicking_the_Import_button() {
-		
+
 		test.maps_sessionpage.importFileWithValidData(downloadedFilePath + File.separator
 				+ YamlReader.getYamlValue("Session.Symposium.File_Download_template"));
 
@@ -1251,6 +1284,7 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 	}
 
 	@Test
+
 	public void Step_3534_MAPS_Session_3518_Verify_Application_Displays_Add_Or_Modify_Event_For_Top_Level_Window_With_Available_Fields() {
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Add/Modify Session for Top Level");
 		test.maps_sessionpage.verifyTitleForRoles("Available Sessions", "Title");
@@ -1292,6 +1326,36 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 		test.maps_sessionpage.rightClickOnTopLevelSession(sessionName);
 		test.maps_sessionpage.clickButtonToContinueToNextPage("edit");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Add/Modify Session for Top Level");
+		test.maps_sessionpage.clickOnSaveButton("Close");
+		test.maps_sessionpage.clickOnSaveButton("Ok");
+	}
+
+	public void Step_3611_MAPS_Session_3584_Application_Should_Delete_Session_On_Clicking_Yes_Button_On_PopUp() {
+		test.maps_sessionpage.rightClickOnTopLevelSession(itenarySessionName);
+		test.maps_sessionpage.clickOnSaveAndEditButton("Delete", 1);
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Yes");
+		test.maps_sessionpage.verifySessionIsdeletedFromScheduleSession(itenarySessionName);
+	}
+
+	@Test
+	public void Step_3614_MAPS_Session_3586_Application_Navigates_User_To_Abstract_page() {
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Abstracts");
+		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts");
+	}
+
+	@Test
+	public void Step_3695_MAPS_Session_3665_Verify_Application_Prints_The_Table_On_Clicking_Print_Button()
+			throws AWTException {
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Reports");
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Session Event Report");
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Print");
+		test.maps_sessionpage.verifyApplicationPrintsReportsTable();
+
+	}
+
+	@Test
+	public void Step_3703_MAPS_Session_3586_Application_Should_Run_Report_And_Display_Conflicting_Records_In_Table() {
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Participant Conflict Report");
 	}
 
 }

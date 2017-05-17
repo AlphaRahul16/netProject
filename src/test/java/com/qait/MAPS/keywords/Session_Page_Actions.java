@@ -1,5 +1,8 @@
 package com.qait.MAPS.keywords;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
@@ -908,6 +911,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		objSubmission.clickOnNamedButton("Finish");
 		switchToWindowHavingIndex(0);
 	}
+	
 
 	public void verifyPrintPreviewTableContents(String value) {
 		isElementDisplayed("tbl_contents", value);
@@ -1267,12 +1271,11 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyAllSelectedListIsPresentInPrintPreview(int symposiasize) {
-		isElementDisplayed("txt_SchedulerGrid", "my-paging-text");
-		Assert.assertTrue(
-				elements("txt_SchedulerGrid", "my-paging-text").get(3).getText().contains(String.valueOf(symposiasize)),
-				"All selected elements from list are not printed\n");
-		logMessage("ASSERT PASSED :  All selected options list is avalaible in print preview\n");
-
+	 isElementDisplayed("txt_SchedulerGrid","my-paging-text");
+	int totalsymposia = Integer.parseInt((elements("txt_SchedulerGrid","my-paging-text").get(3).getText().split(" "))[1].trim());
+	 System.out.println(totalsymposia);
+	 Assert.assertTrue((symposiasize>1&& symposiasize<=totalsymposia),"All selected elements from list are not printed\n");
+	 logMessage("ASSERT PASSED :  All selected options list is avalaible in print preview\n");
 	}
 
 	public List<String> SelectRecords(int number) {
@@ -1310,6 +1313,14 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		Assert.assertTrue(checkIfElementIsThere("row_withdraw", fontText, text));
 		logMessage("ASSERT PASSED: " + text + " with " + fontText + " is displayed \n");
 	}
+	
+   
+   public void verifyAvailableOptionsOnSaveGridPopUpUnderAbstracts(String fieldname)
+   {
+	   isElementDisplayed("inp_fileupload",fieldname,"1");
+	   logMessage("ASSERT PASSED : input box is available for "+fieldname);
+	   
+   }
 
 	public void rightClickOnSessionList(String recordnumber) {
 		rightClick(element("chkbox_records", recordnumber));
@@ -1319,11 +1330,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		return elements("input_editableColumn").get(0).getText();
 	}
 
-	public void verifyAvailableOptionsOnSaveGridPopUpUnderAbstracts(String fieldname) {
-		isElementDisplayed("inp_fileupload", "1");
-		logMessage("ASSERT PASSED : input box is available for " + fieldname);
-
-	}
 
 	public void enterDurationOnCreateSessionPopUp(String fieldName, String roomName) {
 		isElementDisplayed("inp_sessionAbbrev", fieldName);
@@ -1543,14 +1549,14 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 				+ " matches with " + expectedSessionName + "\n");
 	}
 
-	public void rightClickOnTopLevelSession(String lnkName) {
-		wait.hardWait(2);
-		isElementDisplayed("btn_navPanel", lnkName);
-		System.out.println("************" + element("btn_navPanel", lnkName).getText());
-		rightClick(element("btn_navPanel", lnkName));
-		logMessage("STEP: Right clicked on Top level session \n");
-	}
-
+	 public void rightClickOnTopLevelSession(String lnkName) {
+		  wait.hardWait(2);
+		  isElementDisplayed("btn_navPanel",lnkName);
+		  System.out.println("************" + element("btn_navPanel",lnkName).getText());
+		  rightClick(element("btn_navPanel",lnkName));
+		  logMessage("STEP: Right clicked on Top level session \n");
+		 }
+	 
 	public void verifydropdownOnPopupWindow(String btnName) {
 		isElementDisplayed("lnk_selButton");
 		logMessage("Step : " + btnName + " is displayed on page\n");
@@ -1567,5 +1573,27 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 				"ASSERT FAILED: Session " + sessionName + " is not removed from list\n");
 		logMessage("ASSERT PASSED: Session " + sessionName + " is removed from list\n");
 	}
+	
+	public void verifySessionIsdeletedFromScheduleSession(String sessionName)
+	{
+		System.out.println(checkIfElementIsThere("btn_navPanel", sessionName));
+	}
 
+	public void verifyApplicationPrintsReportsTable() throws AWTException {
+		if(isBrowser("chrome"))
+		{
+	     changeWindow(1);
+	     isPrintSelectedButtonDisplayed("Print");
+	     clickOnButtonUnderSessioning("Cancel");
+	     changeWindow(0);
+		}
+		else if(isBrowser("firefox"))
+		{
+			wait.hardWait(4);
+			Robot r = new Robot();
+			r.keyPress(KeyEvent.VK_ESCAPE);
+		}
+		
+	}	
 }
+

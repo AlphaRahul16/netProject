@@ -607,7 +607,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				|| ConfigPropertyReader.getProperty("browser").equals("internet explorer"))
 			clickUsingXpathInJavaScriptExecutor(element("link_randomMemberInList", randomNumberInString));
 		else
-			element("link_randomMemberInList", randomNumberInString).click();
+			clickUsingXpathInJavaScriptExecutor(element("link_randomMemberInList", randomNumberInString));
+//			element("link_randomMemberInList", randomNumberInString).click();
 		logMessage("STEP : Member icon at the position of " + randomNumberInString
 				+ " is clicked in link_randomMemberInList\n");
 	}
