@@ -81,6 +81,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	}
 
 	public void logoutFromApplication() {
+		wait.hardWait(4);
 		isElementDisplayed("btn_logout");
 		element("btn_logout").click();
 		logMessage("STEP : Logout button is clicked\n");

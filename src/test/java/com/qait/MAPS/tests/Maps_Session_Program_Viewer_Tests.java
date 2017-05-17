@@ -109,7 +109,7 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 	@Test
 	public void Step_0099_MAPS_Session_93_Verify_Application_Print_Selected_Symposia() {
 		test.maps_sessionpage.waitForProcessBarToDisappear();
-		test.maps_sessionpage.selectaRecordFromTheList(1);
+		test.maps_sessionpage.selectaRecordFromTheList(1,"2");
 		selectedsymposia = test.maps_sessionpage.getCheckedColumnData("1","3");
 		selected_title = test.maps_sessionpage.getCheckedColumnData("1","4");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Print Selected");
@@ -209,7 +209,8 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 	public void Step_0200_MAPS_Session_193_Verify_Application_Print_Selected_Symposia() {
 		String selectedsession;
 		test.maps_sessionpage.waitForProcessBarToDisappear();
-		test.maps_sessionpage.selectaRecordFromTheList(1);
+
+        test.maps_sessionpage.selectaRecordFromTheList(1,"2");
 		selected_title = test.maps_sessionpage.getCheckedColumnData("1","4"); 
 		selectedsession = test.maps_sessionpage.getCheckedColumnData("1","6"); // have to add this function
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Print Selected");
