@@ -20,7 +20,8 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 			"Session Admin" };
 	private String[] programViewerleftpaneloptions = { "Dashboard & Instructions", "Symposia Viewer", "Sessioning",
 			"Session Viewer", "Abstracts" };
-
+	private String downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+			+ File.separator + "resources" + File.separator + "DownloadedFiles";
 
 	List<String> sortColumnList = new ArrayList<String>();
 	List<String> controlId = new ArrayList<String>();
@@ -134,20 +135,20 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 	
 	@Test
 	public void Step_0103_MAPS_Session_97_Verify_Application_Download_Csv_File_On_Clicking_Export_To_Excel_Dropdown_For_Selected_Symposia() {
-		test.maps_sessionpage._deleteExistingCSVFile(YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name"));
+		test.maps_sessionpage._deleteExistingCSVFile(downloadedFilePath,YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name"));
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Export");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (Displayed Columns)");
 		test.maps_sessionpage.waitForProcessBarToDisappear();
-		test.maps_sessionpage.verifyValidFileIsDownloaded(YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name"));
+		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath,YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name"));
 	}
 	
 	@Test
 	public void Step_0104_MAPS_Session_98_Verify_Application_Download_Csv_File_On_Clicking_Export_To_Excel_Dropdown_For_All_Symposia() {
-		test.maps_sessionpage._deleteExistingCSVFile(YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name_symposia"));
+		test.maps_sessionpage._deleteExistingCSVFile(downloadedFilePath,YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name_symposia"));
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Export");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (All Columns)");
 		test.maps_sessionpage.waitForProcessBarToDisappear();
-		test.maps_sessionpage.verifyValidFileIsDownloaded(YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name_symposia"));
+		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath,YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name_symposia"));
 	}
 
 	@Test
@@ -232,11 +233,11 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 	
 	@Test
 	public void Step_0204_MAPS_Session_197_Verify_Application_Download_Csv_File_On_Clicking_Export_To_Excel_Dropdown_For_Selected_Session() {
-		test.maps_sessionpage._deleteExistingCSVFile(YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name_session"));
+		test.maps_sessionpage._deleteExistingCSVFile(downloadedFilePath,YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name_session"));
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Export");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (Displayed Columns)");
 		test.maps_sessionpage.waitForProcessBarToDisappear();
-		test.maps_sessionpage.verifyValidFileIsDownloaded(YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name_session"));
+		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath,YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name_session"));
 	}
 		
 	/**
@@ -244,11 +245,11 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 	 */
 	@Test
 	public void Step_0205_MAPS_Session_198_Verify_Application_Download_Csv_File_On_Clicking_Export_To_Excel_Dropdown_For_All_Sessions() {
-		test.maps_sessionpage._deleteExistingCSVFile(YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name"));
+		test.maps_sessionpage._deleteExistingCSVFile(downloadedFilePath,YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name"));
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Export");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (All Columns)");
 		test.maps_sessionpage.waitForProcessBarToDisappear();
-		test.maps_sessionpage.verifyValidFileIsDownloaded(YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name"));
+		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath,YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name"));
 		
 	}
 	

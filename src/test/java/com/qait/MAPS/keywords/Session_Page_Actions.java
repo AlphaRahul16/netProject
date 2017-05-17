@@ -693,20 +693,20 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED: " + expValue + " is deleted \n");
 	}
 
-	public void verifyValidFileIsDownloaded(String filename) {
+	public void verifyValidFileIsDownloaded(String filepath,String filename) {
 		wait.hardWait(2);
-		String filePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
-				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + filename
-				+ ".csv";
+//		String filePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+//				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + filename
+//				+ ".csv";
+		String filePath=filepath+ File.separator + filename	+ ".csv";
 		waitForLoadingImageToDisappear("Generating CSV file... Please wait");
 		File sourceFile = new File(filePath);
-		System.out.println(sourceFile);
 		Assert.assertTrue(sourceFile.exists(), "ASSERT FAILED: file is not downloaded \n");
 		logMessage("ASSERT PASSED: '" + filePath + "' is downloaded \n");
 
 	}
 
-	public void _deleteExistingCSVFile(String filename) {
+	public void _deleteExistingCSVFile(String filePath,String filename) {
 
 		/*
 		 * File sourceFile = new File(filePath); if (sourceFile.exists()) {
@@ -714,8 +714,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		 * "STEP: Already Existed File is deleted from location " +
 		 * sourceFile.getAbsolutePath()); }
 		 */
-		String filePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
-				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator;
+//		String filePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+//				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator;
 		System.out.println(filePath);
 		File folder = new File(filePath);
 		final File[] files = folder.listFiles(new FilenameFilter() {
@@ -740,11 +740,12 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 //				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + fileName
 //				+ ".csv";
 //		
-		// _deleteExistingCSVFile(downloadedFilePath);
-		String filePath=downloadedFilePath+ File.separator + fileName + ".csv";
+		//String filePath=downloadedFilePath+ File.separator + fileName + ".csv";
+		 _deleteExistingCSVFile(downloadedFilePath,fileName);
+		//String filePath=downloadedFilePath+ File.separator + fileName + ".csv";
 		clickOnButtonUnderSessioning(btnName);
 		wait.hardWait(5);
-		verifyValidFileIsDownloaded(filePath);
+		verifyValidFileIsDownloaded(downloadedFilePath,fileName);
 
 	}
 

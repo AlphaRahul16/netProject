@@ -16,8 +16,8 @@ import com.qait.automation.utils.YamlReader;
 public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 
 	private String maps_url;
-	private String downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
-			+ File.separator + "resources" + File.separator + "DownloadedFiles";
+	private String downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator
+			+ "test" + File.separator + "resources" + File.separator + "DownloadedFiles";
 	private String griduniqueName = "Selenium_Test_Grid_" + System.currentTimeMillis();
 	private String[] roles = { "OPA Staff", "Program Viewer", "Program Chair Sessioning", "Abstract Editor",
 			"Session Admin" };
@@ -64,7 +64,7 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 	/**
 	 * Session : OPA Staff
 	 */
-	@Test//passed
+	@Test // passed
 	public void Step_0011_MAPS_Session_7_Verify_Available_Options_On_Session_OPA_Staff_Page() {
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");
 		test.maps_reviewpage.verifyLinksUnderNamedModule("Save/Edit");
@@ -83,7 +83,7 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 	/**
 	 * Session : OPA Staff
 	 */
-	@Test//passed
+	@Test // passed
 	public void Step_0015_MAPS_Session_11_Verify_Application_Allows_User_To_Create_A_New_Grid() {
 		test.maps_reviewpage.clickOnButton("Save/Edit");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Save Grid Configuration");
@@ -91,7 +91,7 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 		test.maps_reviewpage.clickOnButtonAtSaveGridConfigurationPage("Save");
 	}
 
-	@Test//passed
+	@Test // passed
 	public void Step_0021_MAPS_Session_17_Verify_Application_Filters_Result_On_Basis_Of_Criteria_For_OPA_Staff() {
 		String recordName = test.maps_sessionpage.getRandomRecordFromTable("2");
 		test.maps_reviewpage.enterValueInFilter(recordName);
@@ -99,31 +99,33 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 		test.maps_reviewpage.clickOnCrossImageForNamedDropdown("Filter");
 	}
 
-	@Test//passed
+	@Test // passed
 	public void Step_0032_MAPS_Session_28_Verify_Application_Exports_Relevant_Csv_File_On_Clicking_Any_Otion_Under_Export_To_Excel_Dropdown() {
 		downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
-				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator
-				+ YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name") + ".csv";
-		//test.maps_sessionpage._deleteExistingCSVFile(downloadedFilePath);
+				+ File.separator + "resources" + File.separator + "DownloadedFiles";
+		// test.maps_sessionpage._deleteExistingCSVFile(downloadedFilePath);
 		test.maps_sessionpage.clickOnSaveButton("Export to Excel");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (All Columns)");
 		test.maps_sessionpage.waitForProcessBarToDisappear();
-		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath);
+		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath,
+				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"));
 		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Export  to Excel (All Columns)",
-				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"),downloadedFilePath);
+				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"), downloadedFilePath);
 		test.maps_sessionpage.clickOnSaveButton("Export to Excel");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (Displayed Columns)");
 		test.maps_sessionpage.waitForProcessBarToDisappear();
 		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Export to Excel (Displayed Columns)",
-				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"),downloadedFilePath);
-		test.maps_sessionpage._deleteExistingCSVFile(downloadedFilePath);
+				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"), downloadedFilePath);
+		test.maps_sessionpage._deleteExistingCSVFile(downloadedFilePath,
+				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"));
 		test.maps_sessionpage.clickOnSaveButton("Export to Excel");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (Displayed Columns)");
 		test.maps_sessionpage.waitForProcessBarToDisappear();
-		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath);
+		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath,
+				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"));
 	}
 
-	@Test //passed
+	@Test // passed
 	public void Step_0034_MAPS_Session_30_Verify_Application_Switches_Views_On_Selecting_Options_From_Toggle_View_Dropdown() {
 		test.maps_sessionpage.clickOnSaveButton("Toggle View");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Fast");
@@ -142,7 +144,7 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 
 	@Test
 	public void Step_0038_MAPS_Session_34_Verify_Edit_Link_Is_Present_For_Abstracts_And_User_Is_Navigated_To_Review_And_Submit_Page_On_Clicking_Edit_Link() {
-//		test.maps_sessionpage.clickOnMainPage(0);
+		// test.maps_sessionpage.clickOnMainPage(0);
 		test.maps_sessionpage.waitForLoadingImageToDisappear("Loading...");
 		test.maps_sessionpage.expandColumnWidth("Edit Abstract", "60");
 		test.maps_sessionpage.clickOnArrowButton("Edit Abstract");
@@ -158,18 +160,20 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");
 	}
 
-    @Test //functionality to be added
+	@Test // functionality to be added
 	public void Step_0042_MAPS_Session_38_Verify_Edit_Link_Is_Present_For_Abstracts_And_User_Is_Navigated_To_Abstracts_Page_On_Clicking_Finish_Button() {
 		test.maps_sessionpage.verifyAddedDetails("title", "Test Title");
 	}
 
-	@Test //passed
+	@Test // passed
 	public void Step_0048_MAPS_Session_44_Verify_User_Is_Able_To_Add_Sorting_Scenarios_By_Clicking_Add_Button_On_Sort_Popup() {
 		test.maps_sessionpage.clickOnMainPage(0);
 		test.maps_sessionpage.clickOnArrowButton("Title");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
 		test.maps_sessionpage.verifyPopupMessage("Sort");
-//		sortColumnList = test.maps_sessionpage.getTableDataFromSortPopUpWindow("col-F_SORT_FIELD", fastColumnNames);
+		// sortColumnList =
+		// test.maps_sessionpage.getTableDataFromSortPopUpWindow("col-F_SORT_FIELD",
+		// fastColumnNames);
 		test.maps_sessionpage.deleteExistingSortingCriteria("col-F_SORT_FIELD", "Title");
 		test.maps_sessionpage.clickOnAddButton("Add");
 		test.maps_sessionpage.verifyColumnNamesPresentForSorting(fastColumnNames);
@@ -192,8 +196,8 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 		List<String> dataAfterSorting = test.maps_sessionpage.getTableData("1", "3");
 		test.maps_sessionpage.verifyDataIsSorted(dataBeforeSorting, dataAfterSorting);
 	}
-	
-	@Test //passed
+
+	@Test // passed
 	public void Step_0057_MAPS_Session_53_Verify_User_Is_Able_To_Edit_Details_Of_Editable_Column() {
 		List<String> editableColumns = test.maps_sessionpage.getEditableColumnsList();
 		String editedData = "test" + System.currentTimeMillis();
