@@ -254,5 +254,6 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		Assert.assertEquals(actualVal, expGridConfig,"ASSERT FAILED: Expected value is "+ expGridConfig +" but found "+ actualVal);
 		logMessage("ASSERT PASSED: Application allow to select Grid Configuration \n");
 	}
+	
 
 }
