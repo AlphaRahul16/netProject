@@ -329,7 +329,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public void isPrintSelectedButtonDisplayed(String buttonName) {
 		wait.hardWait(2);
 		isElementDisplayed("btn_Types", buttonName);
-		logMessage("ASSERT PASSED : " + buttonName + " Button is displayed on Session page\n");
+		logMessage("ASSERT PASSED : " + buttonName + " button is displayed on page\n");
 	}
 
 	public void enterValuesInAddNewHost(String fname, String lname, String email, String institution) {
@@ -1551,7 +1551,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifydropdownOnPopupWindow(String btnName) {
-		isElementDisplayed("lnk_selButton");
+		isElementDisplayed("lnk_selButton",btnName);
 		logMessage("Step : " + btnName + " is displayed on page\n");
 	}
 
