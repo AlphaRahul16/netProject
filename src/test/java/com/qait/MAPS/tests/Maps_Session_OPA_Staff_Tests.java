@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.BaseTest;
+import com.qait.automation.utils.CSVFileReaderWriter;
 import com.qait.automation.utils.YamlReader;
 
 public class Maps_Session_OPA_Staff_Tests extends BaseTest {
@@ -116,7 +117,7 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 		test.maps_sessionpage.waitForProcessBarToDisappear();
 		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Export to Excel (Displayed Columns)",
 				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"), downloadedFilePath);
-		test.maps_sessionpage._deleteExistingCSVFile(downloadedFilePath,
+		CSVFileReaderWriter._deleteExistingCSVFile(downloadedFilePath,
 				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"));
 		test.maps_sessionpage.clickOnSaveButton("Export to Excel");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (Displayed Columns)");

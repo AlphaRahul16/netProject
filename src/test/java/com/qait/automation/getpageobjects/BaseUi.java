@@ -577,6 +577,24 @@ public class BaseUi {
 		StringSelection stringSelection = new StringSelection(string);
 		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
 	}
+	public void importFileUsingRobot(String filepath){
+		setClipboardData(filepath);
+		Robot robot;
+		try {
+			robot = new Robot();
+			setClipboardData(filepath);
+			robot.delay(2000);
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_V);
+			robot.keyRelease(KeyEvent.VK_V);
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+			robot.delay(2000);
+			robot.keyPress(KeyEvent.VK_ENTER);
+			robot.keyRelease(KeyEvent.VK_ENTER);
+		} catch (AWTException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void enterAuthentication(String uName, String password) {
 
