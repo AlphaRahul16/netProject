@@ -49,29 +49,34 @@ Session:
       Host_Role: "Organizer"
       Abstract_AuthorFirstName: "Bhuwan"
       Abstract_AuthorLastName: "Takkar"
+      File_Download_template: "symposia_template"
+      File_Download_resources: "symposia_resources"
+      File_Download_Hosts: "session_hosts"
+      File_Download_Session_Owners: "sessioners"
+      File_Export_To_Excel_All_Col: "symposias"
+  Symposium_FileData:
+      id: ","
+      Session_Title: "test_sessionTitle"
+      other_Details: ",,Symposium,Poster,,,,,,,,,,,,,,,,,"
+      
+      
   Program_Areas:
       Color: "#FFCC00"
       Type: Session
       Alert_Text: "The Program Area must be saved before adding owners. Ok?"
       Email Address: R_Yadav@acs.org
       role: Program Admin
-      File_Download_template: "symposia_template"
-      File_Download_resources: "symposia_resources"
-      File_Download_Hosts: "session_hosts"
-      File_Download_Session_Owners: "sessioners"
-      
+     
   OPA_Staff: 
       File_Downloaded_Name: "abstracts"
-  
   Session_Events:
       Title: "Test_Session_Title"
       Type: "Oral"
       Duration: "15"
       Symposia_Submission_Type: "Invited"
-  
   Program_Viewer: 
       File_Downloaded_Name_symposia: "symposias"
-      File_Downloaded_Name_session: "session"
+      File_Downloaded_Name_session: "Sessions"
       Symposia_Submission_Type: "Invited"
   
   Session_Builder: 

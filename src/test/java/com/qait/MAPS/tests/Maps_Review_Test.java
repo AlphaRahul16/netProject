@@ -2,6 +2,8 @@ package com.qait.MAPS.tests;
 
 import java.io.File;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -12,11 +14,13 @@ import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
 public class Maps_Review_Test extends BaseTest {
+	List<String> dataForImportedFile = new ArrayList<String>();
 	private String maps_url;
 	private String griduniqueName = "Selenium_Test_Grid_" + System.currentTimeMillis();
 	private String absract_id,abstract_details="Test_Abstract" + System.currentTimeMillis();
 	private String downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
 			+ File.separator + "resources" + File.separator + "DownloadedFiles";
+	
 
 	@BeforeClass
 	public void Start_Test_Session() {
@@ -90,7 +94,11 @@ public class Maps_Review_Test extends BaseTest {
 		test.maps_sessionpage.verifyPopupMessage("Import Decisions");
 		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Download template",
 				"decision_template",downloadedFilePath);
-		test.maps_sessionpage.importValidFile(absract_id,downloadedFilePath + File.separator+"decision_template.csv");
+		
+		dataForImportedFile.add(absract_id);
+		dataForImportedFile.add(",Reject");
+		
+		test.maps_sessionpage.importValidFile(dataForImportedFile,downloadedFilePath + File.separator+"decision_template.csv");
 //		test.maps_sessionpage.verifyPopupMessage("Import Report");
 //		test.maps_reviewpage.verifySuccessMessage("Successful import");
 //		test.maps_sessionpage.clickOnButtonByIndexing("Ok", "1");

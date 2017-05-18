@@ -48,7 +48,6 @@ public class DataProvider {
 		return returnStr;
 	}
 
-
 	public static String csvReaderRowSpecific(String csvFile, String hasHeader, String rowNumberExact) {
 		BufferedReader br = null;
 		ArrayList<String> dataRows = new ArrayList<>();
@@ -74,7 +73,7 @@ public class DataProvider {
 				}
 			}
 		}
-		
+
 		int rowNumber = Integer.parseInt(rowNumberExact) - 1;
 		return dataRows.get(rowNumber);
 	}
@@ -315,36 +314,20 @@ public class DataProvider {
 			}
 		}
 
-		System.out.println("------random program:"+line);
+		System.out.println("------random program:" + line);
 		return line;
 	}
 
 	public static String getCsvSheetPath(String sheetName) {
 		String sheetPath;
-		if(_getSessionConfig().get("tier").equalsIgnoreCase("dev9")||_getSessionConfig().get("tier").equalsIgnoreCase("stage8")){ //
-			sheetPath=getYamlValue("csv-data-file.path_" + sheetName);
-			sheetPath=sheetPath.replace("TestDataLibrary", "Payment_Processor_DataLibrary");
+		if (_getSessionConfig().get("tier").equalsIgnoreCase("dev9")
+				|| _getSessionConfig().get("tier").equalsIgnoreCase("stage8")
+				|| _getSessionConfig().get("tier").equalsIgnoreCase("stage4")) { //
+			sheetPath = getYamlValue("csv-data-file.path_" + sheetName);
+			sheetPath = sheetPath.replace("TestDataLibrary", "Payment_Processor_DataLibrary");
 		} else
 			sheetPath = getYamlValue("csv-data-file.path_" + sheetName);
 		return sheetPath;
-	}
-
-	public static void writeDataInAlreadyExistingCSVFile(String sheetpath, String data) {
-		File dir = new File(".");
-		// String sheetpath = "C:\\Users\\hitasheesil\\Downloads\\" +
-		// "decision_template.csv";
-		System.out.println("loc" + sheetpath);
-		FileWriter fstream;
-		try {
-			fstream = new FileWriter(sheetpath, true);
-			BufferedWriter out = new BufferedWriter(fstream);
-			out.write(data);
-			out.newLine();
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 	}
 
 }

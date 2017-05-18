@@ -1,5 +1,8 @@
 package com.qait.MAPS.keywords;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
@@ -11,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.openqa.selenium.Dimension;
@@ -20,6 +24,7 @@ import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.qait.automation.utils.CSVFileReaderWriter;
 import com.qait.automation.utils.DataProvider;
 import com.qait.automation.utils.DateUtil;
 import com.qait.automation.utils.YamlReader;
@@ -62,10 +67,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void clickButtononLeftNavigationPanel(String buttonName) {
 		wait.hardWait(6);
-		isElementDisplayed("btn_navPanel", buttonName);
+		isElementDisplayed("lnk_selButton", buttonName);
 		// clickUsingXpathInJavaScriptExecutor(element("btn_navPanel",
 		// buttonName));
-		element("btn_navPanel", buttonName).click();
+		element("lnk_selButton", buttonName).click();
 		wait.hardWait(3);
 		waitForProcessBarToDisappear();
 		logMessage("Step : " + buttonName + " button is clicked on left navigation panel\n");
@@ -85,7 +90,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void verifyLeftPanelOptionsOnSessionAdminPage(String[] leftPanelOptions) {
 		for (String text : leftPanelOptions) {
-			Assert.assertTrue(isElementDisplayed("btn_navPanel", text),
+			Assert.assertTrue(isElementDisplayed("lnk_selButton", text),
 					" option " + text + " is not displayed on application\n");
 			logMessage("ASSERT PASSED : verified options " + text + " is displayed on page\n");
 		}
@@ -298,7 +303,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 		wait.waitForElementToBeClickable(element("btn_Types", btnName));
 		isElementDisplayed("btn_Types", btnName);
-		click(element("btn_Types", btnName));
+		clickUsingXpathInJavaScriptExecutor(element("btn_Types", btnName));
+		//click(element("btn_Types", btnName));
 		logMessage("Step : Clicked on " + btnName + "\n");
 	}
 
@@ -319,12 +325,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		Assert.assertTrue(flag, "ASSERT FAILED: Filter value is not " + filterName + " by default\n");
 		logMessage("ASSERT PASSED: Filter value is " + filterName + " by default\n");
 	}
-
-	// public void clickOnButtonUnderSessionModule(String text) {
-	// isElementDisplayed("btn_close", text);
-	// click(elements("btn_close", text).get(0));
-	// logMessage("STEP: clicked on '" + text + "' button \n");
-	// }
 
 	public void isPrintSelectedButtonDisplayed(String buttonName) {
 		wait.hardWait(2);
@@ -577,8 +577,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void clickOnButtonByIndexing(String text, String index) {
 		isElementDisplayed("btn_remove", text, index);
-		// clickUsingXpathInJavaScriptExecutor(element("btn_remove", text,
-		// index));
+//		 clickUsingXpathInJavaScriptExecutor(element("btn_remove", text,
+//		 index));
 		click(element("btn_remove", text, index));
 		wait.hardWait(2);
 		logMessage("STEP: '" + text + "' button is clicked \n");
@@ -693,58 +693,16 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED: " + expValue + " is deleted \n");
 	}
 
-	public void verifyValidFileIsDownloaded(String filename) {
-		wait.hardWait(2);
-		String filePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
-				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + filename
-				+ ".csv";
-		waitForLoadingImageToDisappear("Generating CSV file... Please wait");
-		File sourceFile = new File(filePath);
-		System.out.println(sourceFile);
-		Assert.assertTrue(sourceFile.exists(), "ASSERT FAILED: file is not downloaded \n");
-		logMessage("ASSERT PASSED: '" + filePath + "' is downloaded \n");
 
-	}
 
-	public void _deleteExistingCSVFile(String filename) {
 
-		/*
-		 * File sourceFile = new File(filePath); if (sourceFile.exists()) {
-		 * sourceFile.delete(); logMessage(
-		 * "STEP: Already Existed File is deleted from location " +
-		 * sourceFile.getAbsolutePath()); }
-		 */
-		String filePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
-				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator;
-		System.out.println(filePath);
-		File folder = new File(filePath);
-		final File[] files = folder.listFiles(new FilenameFilter() {
-			@Override
-			public boolean accept(final File dir, final String name) {
-				System.out.println(name);
-				// if(name.matches(filename+"(.*).csv"))
-				return name.matches(filename + "(.*).csv");
-
-			}
-		});
-		for (final File file : files) {
-			System.out.println("deleted file " + file);
-			if (!file.delete()) {
-				System.err.println("Can't remove " + file.getAbsolutePath());
-			}
-		}
-	}
 
 	public void clickOnDownloadButtonAndVerifyValidFileIsDownloaded(String btnName, String fileName,String downloadedFilePath) {
-//		downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
-//				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + fileName
-//				+ ".csv";
-//		
-		// _deleteExistingCSVFile(downloadedFilePath);
-		String filePath=downloadedFilePath+ File.separator + fileName + ".csv";
+		String file_name=fileName+ File.separator + ".csv";
+		CSVFileReaderWriter._deleteExistingCSVFile(downloadedFilePath,fileName);
 		clickOnButtonUnderSessioning(btnName);
 		wait.hardWait(5);
-		verifyValidFileIsDownloaded(filePath);
+		verifyValidFileIsDownloaded(downloadedFilePath,fileName);
 
 	}
 
@@ -755,20 +713,21 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	}
 
-	public void importValidFile(String abstractId, String downloadedFilePath) {
-		String data = abstractId + ",Reject";
-		DataProvider.writeDataInAlreadyExistingCSVFile(downloadedFilePath, data);
+	public void importValidFile(List<String> data, String downloadedFilePath) {
+
+		CSVFileReaderWriter.writeDataInAlreadyExistingCSVFile(downloadedFilePath, data);
 		wait.hardWait(5);
 		importFileWithValidData(downloadedFilePath);
-		// clickOnButtonUnderSessionModule("Import");
+		
 	}
 
 	public void importFileWithValidData(String downloadedFilePath) {
 		isElementDisplayed("inp_fileupload", "Please upload your file:", "1");
-		sendKeysUsingXpathInJavaScriptExecutor(element("inp_fileupload", "Please upload your file", "1"),
-				downloadedFilePath);
-		// element("inp_fileupload", "Please upload your file",
-		// "1").sendKeys(downloadedFilePath);
+//		sendKeysUsingXpathInJavaScriptExecutor(element("inp_fileupload", "Please upload your file", "1"),
+//				downloadedFilePath);
+		clickOnButtonUnderSessioning("Browse...");
+		//clickOnButtonByIndexing("Browse...", "1");
+		importFileUsingRobot(downloadedFilePath);
 		wait.hardWait(5);
 		System.out.println("*********downloadedFilePath   " + downloadedFilePath);
 		logMessage("STEP: File is imported after adding valid data \n");
@@ -907,6 +866,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		objSubmission.clickOnNamedButton("Finish");
 		switchToWindowHavingIndex(0);
 	}
+	
 
 	public void verifyPrintPreviewTableContents(String value) {
 		isElementDisplayed("tbl_contents", value);
@@ -1266,12 +1226,11 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyAllSelectedListIsPresentInPrintPreview(int symposiasize) {
-		isElementDisplayed("txt_SchedulerGrid", "my-paging-text");
-		Assert.assertTrue(
-				elements("txt_SchedulerGrid", "my-paging-text").get(3).getText().contains(String.valueOf(symposiasize)),
-				"All selected elements from list are not printed\n");
-		logMessage("ASSERT PASSED :  All selected options list is avalaible in print preview\n");
-
+	 isElementDisplayed("txt_SchedulerGrid","my-paging-text");
+	int totalsymposia = Integer.parseInt((elements("txt_SchedulerGrid","my-paging-text").get(3).getText().split(" "))[1].trim());
+	 System.out.println(totalsymposia);
+	 Assert.assertTrue((symposiasize>1&& symposiasize<=totalsymposia),"All selected elements from list are not printed\n");
+	 logMessage("ASSERT PASSED :  All selected options list is avalaible in print preview\n");
 	}
 
 	public List<String> SelectRecords(int number) {
@@ -1309,6 +1268,14 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		Assert.assertTrue(checkIfElementIsThere("row_withdraw", fontText, text));
 		logMessage("ASSERT PASSED: " + text + " with " + fontText + " is displayed \n");
 	}
+	
+   
+   public void verifyAvailableOptionsOnSaveGridPopUpUnderAbstracts(String fieldname)
+   {
+	   isElementDisplayed("inp_fileupload",fieldname,"1");
+	   logMessage("ASSERT PASSED : input box is available for "+fieldname);
+	   
+   }
 
 	public void rightClickOnSessionList(String recordnumber) {
 		rightClick(element("chkbox_records", recordnumber));
@@ -1318,23 +1285,12 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		return elements("input_editableColumn").get(0).getText();
 	}
 
-	public void verifyAvailableOptionsOnSaveGridPopUpUnderAbstracts(String fieldname) {
-		isElementDisplayed("inp_fileupload", "1");
-		logMessage("ASSERT PASSED : input box is available for " + fieldname);
-
-	}
 
 	public void enterDurationOnCreateSessionPopUp(String fieldName, String roomName) {
 		isElementDisplayed("inp_sessionAbbrev", fieldName);
 		element("inp_sessionAbbrev", fieldName).clear();
 		element("inp_sessionAbbrev", fieldName).sendKeys(roomName);
 		logMessage("Step : " + fieldName + " is entered as " + roomName + "\n");
-	}
-
-	public void clickOnButtonUnderSessionModule(String text) {
-		isElementDisplayed("btn_close", text);
-		click(elements("btn_close", text).get(0));
-		logMessage("STEP: clicked on '" + text + "' button \n");
 	}
 
 	public String getTextformTable(int index, int columnIndex) {
@@ -1358,7 +1314,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		String value = " ";
 		if (!privousFinalId.equals(value)) {
 			verifyPopupMessage("Confirm");
-			clickOnButtonUnderSessionModule("Yes");
+			clickOnButtonByIndexing("Yes","1");
 		}
 	}
 
@@ -1549,7 +1505,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		rightClick(element("btn_navPanel", lnkName));
 		logMessage("STEP: Right clicked on Top level session \n");
 	}
-
+	 
 	public void verifydropdownOnPopupWindow(String btnName) {
 		isElementDisplayed("lnk_selButton",btnName);
 		logMessage("Step : " + btnName + " is displayed on page\n");
@@ -1566,5 +1522,40 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 				"ASSERT FAILED: Session " + sessionName + " is not removed from list\n");
 		logMessage("ASSERT PASSED: Session " + sessionName + " is removed from list\n");
 	}
+	
+	public void verifySessionIsdeletedFromScheduleSession(String sessionName)
+	{
+		System.out.println(checkIfElementIsThere("btn_navPanel", sessionName));
+	}
 
+	public void verifyApplicationPrintsReportsTable() throws AWTException {
+		if(isBrowser("chrome"))
+		{
+	     changeWindow(1);
+	     isPrintSelectedButtonDisplayed("Print");
+	     clickOnButtonUnderSessioning("Cancel");
+	     changeWindow(0);
+		}
+		else if(isBrowser("firefox"))
+		{
+			wait.hardWait(4);
+			Robot r = new Robot();
+			r.keyPress(KeyEvent.VK_ESCAPE);
+		}
+		
+	}
+
+	public List<String> getDataForImportedFile(Map<String, Object> yamlValues) {
+		List<String> data= new ArrayList<String>();
+		Set keys = yamlValues.keySet();
+		for (Iterator i = keys.iterator(); i.hasNext();) {
+			String key = (String) i.next();
+			String value = (String) yamlValues.get(key);
+			System.out.println(key + " = " + value);
+			data.add(value);
+		}
+		return data;
+		
+	}	
 }
+

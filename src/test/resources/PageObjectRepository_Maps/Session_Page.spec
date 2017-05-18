@@ -9,7 +9,7 @@ lnk_selButton                           xpath                              //a[c
 btn_navPanel                            xpath                              //span[contains(text(),'${linkName}')]
 lnk_sessionTypes                        xpath                              //span[@class='x-tree3-node-text' and contains(text(),'${value}')]
 heading_sectionName                     xpath                              (//span[text()='${headingName}'])[${index}]
-btn_saveAndEdit                         xpath                              (//a[text()='${btnName}'])[${index}]
+btn_saveAndEdit                         xpath                              (//a[contains(text(),'${lnkname}')])[${index}]
 inp_roomName                            xpath                              //label[contains(text(),'${headingName}')]/..//input[@type='text']
 chkbox_room                             xpath                              //label[contains(text(),'${label}')]/..//input[@type='checkbox']
 select_role                             xpath                              //div[text()='${role}']
