@@ -56,5 +56,6 @@ txt_loadOnExistingQueryLabel                      id                            
 inp_customerId                                    xpath                        //input[contains(@id,'QueryAsk')]        
 btn_askGo                                         id                            ButtonAskGo
 lnk_invoice_number                                 xpath                        //table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3][contains(text(),'${value}')]
-lnk_first_invoice_number                           xpath                       (//table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3])[1] 
+lnk_first_invoice_number                           xpath                       (//table[@id='dgDynamicList']/tbody/tr[not(@class)]/td[3])[1]
+heading_transferPackage                           xpath                         //span[text()='Edit - Membership'] 
 ==============================================================================================================================================

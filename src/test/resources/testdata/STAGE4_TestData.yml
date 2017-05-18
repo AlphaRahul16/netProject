@@ -1,12 +1,12 @@
 app_url_IWEB: https://stag-12iweb/NFStage4/iweb/
 #app_url_AACT: https://www.ewebtest12.acs.org/NFStage4/eweb/AACTOMATemplate.aspx?Site=AACT_OMA&WebCode=CreateAccount
 app_url_yellowBook: https://www.ewebtest.acs.org/NFStage4/yellowbook/
-app_url_iweb_yb: https://iwebtest.acs.org/YBStage4/iWeb
+app_url_iweb_yb: https://stag-12iweb/YBStage3/iWeb
 app_url_OMR: https://ewebtest.acs.org/NFStage4/renew
 app_url_OMA: https://ewebtest.acs.org/NFStage4/oma
 app_url_CCED: https://ewebtest.acs.org/NFStage4/ccedlookup
 app_url_Store: https://www.ewebtest.acs.org/NFStage4/store  
-app_url_AACT: https://www.ewebtest.acs.org/NFStage4/aactoma
+app_url_AACT: https://ewebtest.acs.org/NFStage4/aactoma
 app_url_email: https://ewebtest.acs.org/NFStage4/emailcenter
 app_url_nominateFellow: https://ewebtest.acs.org/NFStage4/nominatefellow
 app_url_egift: https://ewebtest.acs.org/NFStage4/egift

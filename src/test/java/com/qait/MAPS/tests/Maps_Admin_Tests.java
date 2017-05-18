@@ -23,6 +23,8 @@ public class Maps_Admin_Tests extends BaseTest {
 	private String[]dropDownCriterias ={"Abstract Status","Sort Result By","Secondary Sort"};
 	private String[] fieldsNameAdmin={"Instructions","Abstract search","People","Customizable Data Export",
 			"Reports","Special","View Schedule","Abstract Proof Configuration","Session Proof Configuration","Email","File Export","Data Export","Configuration Settings"};
+	private String[] searchDropdownOptions={"Abstract Title","Abstract Contact First or Last Name",
+			"Person Email Address","Person First or Last Name"};
 
 	@BeforeClass
 	public void Start_Test_Session() {
@@ -89,6 +91,13 @@ public class Maps_Admin_Tests extends BaseTest {
 	public void Step_018_MAPS_Admin_12_Verify_Application_Displays_Options_On_Left_Navigation_Panel_For_Admin() {
 		test.maps_adminPage.verifyFieldsOnLeftNavigationPanel(fieldsNameAdmin);
 	}
+	
+	@Test
+	public void Step_019_MAPS_Admin_13_Verify_Application_Displays_Dropdown_Values_For_Search_Criteria_For_Admin() {
+		test.maps_sessionpage.clickOnSaveButton("Control ID");
+		test.maps_sessionpage.verifyLeftPanelOptionsOnSessionAdminPage(searchDropdownOptions);
+	}
+
 
 
 
