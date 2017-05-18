@@ -1283,6 +1283,7 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 	     test.maps_sessionpage.clickButtononLeftNavigationPanel("Participant Conflict Report");
 	}
 	
+	@Test
 	public void Step_3534_MAPS_Session_3518_Verify_Application_Displays_Add_Or_Modify_Event_For_Top_Level_Window_With_Available_Fields(){
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Add/Modify Session for Top Level");
 		test.maps_sessionpage.verifyTitleForRoles("Available Sessions","Title");

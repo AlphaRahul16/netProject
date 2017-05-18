@@ -58,6 +58,15 @@ public class Maps_Admin_Tests extends BaseTest {
 		test.maps_reviewpage.verifyPageHeader("Multiple Role Selection");
 
 	}
+	
+	@Test
+	public void Step_039_MAPS_Admin_32_Verify_Application_Adds_New_User_On_Entering_Mandatory_Details() {
+		test.maps_adminpage.clickLeftNavigationPanelOptions("People");
+		test.maps_adminpage.clickLeftNavigationPanelOptions("add user(s)");
+		
+	}
+	
+	
 
 
 

@@ -88,7 +88,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void verifyLeftPanelOptionsOnSessionAdminPage(String[] leftPanelOptions) {
 		for (String text : leftPanelOptions) {
-			Assert.assertTrue(isElementDisplayed("btn_navPanel", text),
+			Assert.assertTrue(isElementDisplayed("lnk_selButton", text),
 					" option " + text + " is not displayed on application\n");
 			logMessage("ASSERT PASSED : verified options " + text + " is displayed on page\n");
 		}
