@@ -180,8 +180,8 @@ public class SubscriptionPage extends ASCSocietyGenericPage {
 
 	public void clickOnSaveButton() {
 		isElementDisplayed("btn_save");
-		clickUsingXpathInJavaScriptExecutor(element("btn_save"));
-		// element("btn_save").click();
+		//clickUsingXpathInJavaScriptExecutor(element("btn_save"));
+		element("btn_save").click();
 		logMessage("STEP : Save button is clicked in btn_save\n");
 	}
 
