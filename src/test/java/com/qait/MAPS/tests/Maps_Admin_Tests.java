@@ -54,20 +54,20 @@ public class Maps_Admin_Tests extends BaseTest {
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Editor");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
 		test.maps_sessionpage.isPrintSelectedButtonDisplayed("Control ID");
-		test.maps_adminPage.verifySearchFieldIsDisplayed("SEARCH_FIELD_VALUE", "Search field");
+		test.maps_adminpage.verifySearchFieldIsDisplayed("SEARCH_FIELD_VALUE", "Search field");
 		test.maps_sessionpage.isPrintSelectedButtonDisplayed("Search");
 	}
 	
 	@Test
 	public void Step_008_MAPS_Admin_03_Verify_Application_Displays_Options_On_Left_Navigation_Panel_For_Editor() {
-		test.maps_adminPage.verifyFieldsOnLeftNavigationPanel(fieldsNameEditor);
+		test.maps_adminpage.verifyFieldsOnLeftNavigationPanel(fieldsNameEditor);
 	}
 	
 	@Test
 	public void Step_009_MAPS_Admin_04_Verify_Application_Displays_Abstract_Search_And_Search_Criteria_On_Abstract__Search_Page_For_Editor() {
-		test.maps_adminPage.clickLeftNavigationPanelOptions(fieldsNameEditor[1]);
-		test.maps_adminPage.verifyTitleDescriptionIsDisplayed("Abstract Search");
-		test.maps_adminPage.verifyFieldsInSearchCriteriaTable(inputCriterias, dropDownCriterias);
+		test.maps_adminpage.clickLeftNavigationPanelOptions(fieldsNameEditor[1]);
+		test.maps_adminpage.verifyTitleDescriptionIsDisplayed("Abstract Search");
+		test.maps_adminpage.verifyFieldsInSearchCriteriaTable(inputCriterias, dropDownCriterias);
 	}
 	
 	@Test
@@ -83,16 +83,23 @@ public class Maps_Admin_Tests extends BaseTest {
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Admin");	
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
 		test.maps_sessionpage.isPrintSelectedButtonDisplayed("Control ID");
-		test.maps_adminPage.verifySearchFieldIsDisplayed("SEARCH_FIELD_VALUE", "Search field");
+		test.maps_adminpage.verifySearchFieldIsDisplayed("SEARCH_FIELD_VALUE", "Search field");
 		test.maps_sessionpage.isPrintSelectedButtonDisplayed("Search");
 	}
 	
 	@Test
 	public void Step_018_MAPS_Admin_12_Verify_Application_Displays_Options_On_Left_Navigation_Panel_For_Admin() {
-		test.maps_adminPage.verifyFieldsOnLeftNavigationPanel(fieldsNameAdmin);
+		test.maps_adminpage.verifyFieldsOnLeftNavigationPanel(fieldsNameAdmin);
 	}
 	
 	@Test
+
+	public void Step_039_MAPS_Admin_32_Verify_Application_Adds_New_User_On_Entering_Mandatory_Details() {
+		test.maps_adminpage.clickLeftNavigationPanelOptions("People");
+		test.maps_adminpage.clickLeftNavigationPanelOptions("add user(s)");
+		
+	}
+
 	public void Step_019_MAPS_Admin_13_Verify_Application_Displays_Dropdown_Values_For_Search_Criteria_For_Admin() {
 		test.maps_sessionpage.clickOnSaveButton("Control ID");
 		test.maps_sessionpage.verifyLeftPanelOptionsOnSessionAdminPage(searchDropdownOptions);

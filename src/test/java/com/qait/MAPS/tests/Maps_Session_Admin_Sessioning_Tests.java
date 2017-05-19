@@ -82,14 +82,14 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 		// page title is not available
 		// test.maps_sessionpage.verifyTitleForRoles("Session Admin");
 	}
-//
-//	@Test // passed
-//	public void Step_0799_MAPS_Session_785_Verify_options_available_on_Session_Admin_page() {
-//
-//		test.maps_reviewpage.verifybuttonOnRolesPage("Set Preferences");
-//		test.maps_sessionpage.verifyLeftPanelOptionsOnSessionAdminPage(leftPanelOptionsSessionAdmin);
-//	}
-//
+
+	@Test // passed
+	public void Step_0799_MAPS_Session_785_Verify_options_available_on_Session_Admin_page() {
+
+		test.maps_reviewpage.verifybuttonOnRolesPage("Set Preferences");
+		test.maps_sessionpage.verifyLeftPanelOptionsOnSessionAdminPage(leftPanelOptionsSessionAdmin);
+	}
+
 	@Test // passed
 	public void Step_1330_MAPS_Session_1308_Verify_sub_options_under_Sessioning_option() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
@@ -242,12 +242,12 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 		test.maps_sessionpage.verifyPopupMessage("Import Symposia");
 		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Download template",
 				YamlReader.getYamlValue("Session.Symposium.File_Download_template"), downloadedFilePath);
-//		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Download resources",
-//				YamlReader.getYamlValue("Session.Symposium.File_Download_resources"), downloadedFilePath);
-//		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Download Hosts",
-//				YamlReader.getYamlValue("Session.Symposium.File_Download_Hosts"), downloadedFilePath);
-//		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Download Session Owners",
-//				YamlReader.getYamlValue("Session.Symposium.File_Download_Session_Owners"), downloadedFilePath);
+		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Download resources",
+				YamlReader.getYamlValue("Session.Symposium.File_Download_resources"), downloadedFilePath);
+		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Download Hosts",
+				YamlReader.getYamlValue("Session.Symposium.File_Download_Hosts"), downloadedFilePath);
+		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Download Session Owners",
+				YamlReader.getYamlValue("Session.Symposium.File_Download_Session_Owners"), downloadedFilePath);
 		// test.maps_sessionpage.clickOnButtonByIndexing("Cancel", "1");
 	}
 	

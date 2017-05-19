@@ -130,7 +130,6 @@ public class YamlReader {
 		Map<String, Object> object;
 			try{
 				try {
-					System.out.println("commonFilePath"+commonFilePath);
 					doc = new FileReader(commonFilePath);
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block

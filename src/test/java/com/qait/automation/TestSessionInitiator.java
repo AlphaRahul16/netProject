@@ -99,7 +99,7 @@ public class TestSessionInitiator {
 	public Submission_Page_Actions maps_submissionPage;
 	public Review_Page_Actions maps_reviewpage;
     public Session_Page_Actions maps_sessionpage;
-    public Admin_Page_Actions maps_adminPage;
+    public  Admin_Page_Actions maps_adminpage;
 	public TakeScreenshot takescreenshot;
 
 	public WebDriver getDriver() {
@@ -160,7 +160,7 @@ public class TestSessionInitiator {
 		maps_submissionPage = new Submission_Page_Actions(driver);
 		maps_reviewpage = new Review_Page_Actions(driver);
 		maps_sessionpage = new Session_Page_Actions(driver);
-		maps_adminPage= new Admin_Page_Actions(driver);
+		maps_adminpage= new Admin_Page_Actions(driver);
 	}
 
 	/**

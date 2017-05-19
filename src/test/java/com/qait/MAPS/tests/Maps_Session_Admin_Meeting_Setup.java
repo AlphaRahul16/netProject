@@ -19,7 +19,7 @@ public class Maps_Session_Admin_Meeting_Setup extends BaseTest {
 	private String maps_url, gridName, lastRecordData, roomName;
 	private String[] roles = { "OPA Staff", "Program Viewer", "Program Chair Sessioning", "Abstract Editor",
 			"Session Admin" };
-	private String[] leftPanelOptionsSessionAdmin = { "Dashboard & Instructions", "Meeting Setup", "Sessioning",
+	private String[] leftPanelOptionsSessionAdmin = {"Meeting Setup", "Sessioning",
 			"Invitations & Email", "Reports", "Data Export" };
 	private String[] importType = { "Download template", "Download resources", "Browse", "Import", "Cancel" };
 	private String[] buttonProgramArea = { "Add Program Area", "Delete Program Areas", "Export to Excel",
