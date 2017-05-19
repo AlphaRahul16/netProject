@@ -2,6 +2,7 @@ Page Title: BatchProcessing
 
 #Object Definitions
 ======================================================================================================================================
+<<<<<<< HEAD
 btn_invoiceAction                              xpath                             //div[@id='F1_InvoiceAction']//td[${index}]/a/img 
 txt_batchDetails                               xpath                             (//div[@id='DesignedDiv']//input)[${index}]
 drpdwn_securityGroup                           xpath                             //div[@id='DesignedDiv']//select[${index}]
