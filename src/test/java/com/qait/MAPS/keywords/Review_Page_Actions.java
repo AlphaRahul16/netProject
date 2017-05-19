@@ -31,18 +31,20 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnButton(String text) {
+		wait.waitForPageToLoadCompletely();
+		waitForLoaderToDisappear();
 		isElementDisplayed("btn_select", text);
 		click(element("btn_select", text));
 		logMessage("STEP: '" + text + "' button is clicked \n");
 	}
 
-	public void selectAbstractType(String text) {
-		wait.waitForPageToLoadCompletely();
-		waitForLoaderToDisappear();
-		isElementDisplayed("txt_reportType", text);
-		click(element("txt_reportType", text));
-		logMessage("STEP: Abstract is selected as '" + text + "' \n");
-	}
+//	public void selectAbstractType(String text) {
+//		wait.waitForPageToLoadCompletely();
+//		waitForLoaderToDisappear();
+//		isElementDisplayed("btn_select", text);
+//		click(element("btn_select", text));
+//		logMessage("STEP: Abstract is selected as '" + text + "' \n");
+//	}
 
 	public void verifyAbstractTitleUnderReviewModule(String title) {
 		Assert.assertTrue(isElementDisplayed("txt_abstractTitle", title),
@@ -177,8 +179,8 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void enterValueInFilter(String value) {
-		isElementDisplayed("input_filter", "Filter");
-		element("input_filter", "Filter").sendKeys(value);
+		isElementDisplayed("input_filter", "Search");
+		element("input_filter", "Search").sendKeys(value);
 		logMessage("STEP: " + value + " is entered in filter input box \n");
 	}
 

@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.BaseTest;
+import com.qait.automation.utils.CSVFileReaderWriter;
 import com.qait.automation.utils.YamlReader;
 
 public class Maps_Review_Test extends BaseTest {
@@ -43,13 +44,13 @@ public class Maps_Review_Test extends BaseTest {
 		test.maps_SSOPage.verifyUserIsOnTabPage("Welcome");
 	}
 
-	@Test
+	//@Test
 	public void MAPS_Review_Admin_01_Verify_that_application_navigates_to_ReviewerScoreReport_page() {
 		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Review");
 		test.maps_reviewpage.verifyPageHeader("Multiple Role Selection");
 		test.maps_reviewpage.selectRoleForReview("Review Admin");
 		test.maps_reviewpage.clickOnButton("Select");
-		test.maps_reviewpage.selectAbstractType("Reviewer Score Report");
+		test.maps_reviewpage.clickOnButton("Reviewer Score Report");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Reviewer Score Report");
 	}
 
@@ -57,10 +58,10 @@ public class Maps_Review_Test extends BaseTest {
 	public void MAPS_Review_Admin_02_Verify_options_available_on_ReviewerScoreReport_page() {
 		test.maps_reviewpage.verifyLinksUnderNamedModule("Save/Edit");
 		test.maps_reviewpage.verifyLinksUnderNamedModule("Delete");
-		test.maps_reviewpage.verifyLinksUnderNamedModule("Clear Filters");
+		test.maps_reviewpage.verifyLinksUnderNamedModule("Clear Search");
 		test.maps_reviewpage.verifyLinksUnderNamedModule("Hide Reviewer Comments");
-		test.maps_reviewpage.verifyTextField("Filter");
-		test.maps_reviewpage.verifyCrossImageForNamedDropDown("Filter");
+		test.maps_reviewpage.verifyTextField("Search");
+		test.maps_reviewpage.verifyCrossImageForNamedDropDown("Search");
 		test.maps_reviewpage.verifyDropDown("Found In");
 		test.maps_reviewpage.verifyDropDown("Import/Export to Excel");
 		test.maps_reviewpage.verifyRoleDropDown();
@@ -87,18 +88,24 @@ public class Maps_Review_Test extends BaseTest {
 
 	@Test
 	public void MAPS_Review_Admin_42_Verify_that_application_uploads_file_when_user_clicks_on_Import_button() {
-		String absract_id=create_Abstract_As_Prerequisite();
+	//	String absract_id=create_Abstract_As_Prerequisite();
+		absract_id="";
 		MAPS_Review_Admin_01_Verify_that_application_navigates_to_ReviewerScoreReport_page();
 		test.maps_reviewpage.clickOnButtonAtSaveGridConfigurationPage("Import/Export to Excel");
 		test.maps_reviewpage.clickOnButton("Import Decision");
 		test.maps_sessionpage.verifyPopupMessage("Import Decisions");
-		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Download template",
-				"decision_template",downloadedFilePath);
+		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("",
+				YamlReader.getYamlValue("Review.downloaded_template"),downloadedFilePath);
 		
 		dataForImportedFile.add(absract_id);
 		dataForImportedFile.add(",Reject");
 		
 		test.maps_sessionpage.importValidFile(dataForImportedFile,downloadedFilePath + File.separator+"decision_template.csv");
+		
+//		dataofFile=test.maps_sessionpage.getDataForImportedFile(YamlReader.getYamlValues("Session.Symposium_FileData"));
+//		test.maps_sessionpage.importValidFile(dataofFile, downloadedFilePath + File.separator + YamlReader.getYamlValue("Session.Symposium.File_Download_template")+".csv");
+		
+		
 //		test.maps_sessionpage.verifyPopupMessage("Import Report");
 //		test.maps_reviewpage.verifySuccessMessage("Successful import");
 //		test.maps_sessionpage.clickOnButtonByIndexing("Ok", "1");
@@ -139,10 +146,10 @@ public class Maps_Review_Test extends BaseTest {
 
 	//@Test //passed
 	public void MAPS_Review_Admin_83_Verify_Application_displays_results_as_per_searched_term_entered_in_filter_text_field_of_the_column_header_dropdown() {
-		test.maps_reviewpage.selectAbstractType("Reviewer Score Report");
+		test.maps_reviewpage.clickOnButton("Reviewer Score Report");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Reviewer Score Report");
 		test.maps_sessionpage.clickOnArrowButton("Presenter");
-		test.maps_sessionpage.enterFilterText("Filters", "Hitashee");
+		test.maps_sessionpage.enterFilterText("Filters", "Hitasheet");
 		test.maps_sessionpage.verifyFilterResults("Sil, Hitasheet", 1, 5);
 	}
 
