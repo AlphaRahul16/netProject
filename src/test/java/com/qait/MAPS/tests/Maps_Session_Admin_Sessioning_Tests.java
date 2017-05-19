@@ -1074,7 +1074,7 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 		// test.maps_sessionpage.verifyAddedAbstracts("abstract_id", controlId);
 
 	}
-	
+
 	@Test
 	public void Step_3267_MAPS_Session_3241_Verify_application_displays_newly_added_Placeholder_in_Currently_Assigned_Abstract_section() {
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Add Placeholder");

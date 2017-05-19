@@ -104,6 +104,12 @@ public class Maps_Admin_Tests extends BaseTest {
 		test.maps_sessionpage.clickOnSaveButton("Control ID");
 		test.maps_sessionpage.verifyLeftPanelOptionsOnSessionAdminPage(searchDropdownOptions);
 	}
+	
+	@Test
+	public void Step_027_MAPS_Admin_20_Verify_Application_Saves_Changes_For_Early_Late_Submission_Time_Date_Override_Field_For_Admin() {
+		test.maps_adminPage.clickLeftNavigationPanelOptions("People");
+	}
+
 
 
 

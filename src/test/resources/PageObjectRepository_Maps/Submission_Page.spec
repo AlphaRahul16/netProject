@@ -30,11 +30,11 @@ select_symposiumType                                css                         
 btn_saveandContinueFooter                           xpath                            //div[@class='modal-footer']//a[contains(text(),'${value}')]
 txt_popupHeader                                     id                               myModalLabel
 lnk_submissionSteps                                 xpath                            //a[contains(@class,'left-side-menu-item') and contains(text(),'${linkName}')]
-radio_disclosures                                   xpath                            //h3[text()='${headerName}']/..//label[@class='radio'][${index}]
-chckbox_disclosures                                 xpath                            //h3[text()='${label}']/..//label[@class='checkbox']/input
+radio_disclosures                                   xpath                            //h3[contains(text(),'${headerName}')]/..//label[@class='radio'][${index}]
+chckbox_disclosures                                 xpath                            //h3[contains(text(),'${label}')]/..//label[@class='checkbox']/input
 btn_submit                                          id                               submit_btn
 img_chkCompletedStep                                css                              #Step${index}>i
-select_submissionAction                             xpath                            //td[@data-label='Type' and text()='${programName}']/preceding-sibling::td[5]//select
+select_submissionAction                             xpath                            //td[text()='${programName}']/following-sibling::td[contains(text(),'Under Review')]/preceding-sibling::td[6]//select
 btn_draftStatus                                     xpath                            //span[text()='${btnName}']
 select_editDraft                                    xpath                            //table[@id='${sectionName}']//tr[last()]//td[contains(text(),'${programName}')]/preceding-sibling::td/select
 btn_edit                                            xpath                            //h3[@id='Step${stepNumber}']/following-sibling::a
