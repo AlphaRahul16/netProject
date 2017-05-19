@@ -160,7 +160,7 @@ public class TestSessionInitiator {
 		maps_submissionPage = new Submission_Page_Actions(driver);
 		maps_reviewpage = new Review_Page_Actions(driver);
 		maps_sessionpage = new Session_Page_Actions(driver);
-		maps_adminpage = new Admin_Page_Actions(driver);
+		maps_adminpage= new Admin_Page_Actions(driver);
 	}
 
 	/**

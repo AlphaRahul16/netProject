@@ -1,12 +1,42 @@
-app_url_OMA: http://www.ewebtest12.acs.org/NFStage4/oma
 app_url_IWEB: https://stag-12iweb/NFStage4/iweb/
-app_url_CCED: https://www.ewebtest.acs.org/NFStage4/ccedlookup
-app_url_Store: https://www.ewebtest.acs.org/NFStage4/store/
-app_url_AACT: https://www.ewebtest12.acs.org/NFStage4/eweb/AACTOMATemplate.aspx?Site=AACT_OMA&WebCode=CreateAccount
-app_url_yellowBook: https://www.ewebtest.acs.org/NFStage7/yellowbook/
+#app_url_AACT: https://www.ewebtest12.acs.org/NFStage4/eweb/AACTOMATemplate.aspx?Site=AACT_OMA&WebCode=CreateAccount
+app_url_yellowBook: https://www.ewebtest.acs.org/NFStage4/yellowbook/
 app_url_iweb_yb: https://iwebtest.acs.org/YBStage4/iWeb
-app_url_OMR: https://ewebtest.acs.org/NFStage4/renew
+app_url_OMR: https://www.renewtest.acs.org/NFStage4/renew
+app_url_OMA: https://ewebtest.acs.org/NFStage4/oma
+app_url_CCED: https://ewebtest.acs.org/NFStage4/ccedlookup
+app_url_Store: https://www.ewebtest.acs.org/NFStage4/store  
+app_url_AACT: https://www.ewebtest.acs.org/NFStage4/aactoma
+app_url_email: https://ewebtest.acs.org/NFStage4/emailcenter
+app_url_nominateFellow: https://www.ewebtest.acs.org/NFStage4/nominatefellow
+app_url_egift: https://ewebtest.acs.org/NFStage4/egift
+app_url_givingDonate: https://www.ewebtest.acs.org/NFStage4/donate   
+app_url_givingGreen: https://ewebtest.acs.org/NFStage4/green
+app_url_givingScholars: https://ewebtest.acs.org/NFStage4/scholars/
+app_url_givingSeed: https://ewebtest.acs.org/NFStage4/seed
+#app_url_OMR: https://www.renewtest.acs.org/NFStage4/renew
+app_url_MGM: https://ewebtest.acs.org/NFStage4/mgm
+app_url_Meeting: https://ewebtest.acs.org/NFStage4/meetings/2012gcec
+app_url_Nominate: https://ewebtest.acs.org/NFStage4/nominate
+app_url_MemberNumberLookup: https://ewebtest.acs.org/NFStage4/membernumberlookup
+app_url_NCW: https://ewebtest.acs.org/NFStage4/ncwlookup
+app_url_IwebReporting: https://stag-12iweb/NFStage4/iweb
+app_url_PUBS: https://ewebtest12.acs.org/NFStage4/pba
+app_url_EwebReporting: https://ewebtest12.acs.org/NFStage4/studentchaptersonline
+app_url_Awards: https://ewebtest12.acs.org/NFStage4/awards
+app_url_ScarfReviewing: https://www.ewebtest.acs.org/NFStage4/studentchaptersreview
+app_url_MyAccount: https://aemwwwtst.acs.org/content/acs/en.html
+app_url_IwebMyAccount: https://stag-12iweb/NFStage4/iweb
+app_url_MyAccountNewUser: https://accounttest.acs.org/ssoamweb/account/signUp
+#app_url_AACT_OMR: https://www.ewebtest.acs.org/NFStage4/aactomr
+app_url_AACT_OMR: https://renewtest.teachchemistry.org/NFStage4/aactomr
+app_url_SourceCodeOMA: https://jointest.acs.org/NFStage4/oma?sc=
+app_url_MGMUrl: https://www.ewebtest.acs.org/NFStage4/mgm
+app_url_MGMjoin: https://jointest.acs.org/NFStage4/oma?appID=
+app_url_MGMOputOut: https://www.ewebtest.acs.org/NFStage4/eweb/ACSMGMTemplate.aspx?site=ACS_MGM&WebCode=optout&appID=
+app_url_MGMLogout: https://www.ewebtest.acs.org/NFStage4/eweb/acslogout.aspx
 
 Authentication: 
-  userName: C00767
-  password: "8hC1b#1u7"
+  userName: C00687
+  password: "84Pa809!G"
+  emailId: "K_Sharma@acs.org"

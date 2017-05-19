@@ -22,7 +22,7 @@ public class YamlReader {
 	public static String yamlFilePath = "";
 	public static String newFilePath = "";
 	public static String commonFilePath = "";
-
+	
 	public static String setYamlFilePath() {
 		commonFilePath = "src/test/resources/testdata/Common_TestData.yml";
 		String tier = "";
@@ -124,11 +124,13 @@ public class YamlReader {
 	}
 
 	public static Map<String, Object> getYamlValues(String token){
+		
 		Reader doc = null;
 		Yaml yaml;
 		Map<String, Object> object;
 			try{
 				try {
+					System.out.println("commonFilePath"+commonFilePath);
 					doc = new FileReader(commonFilePath);
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
