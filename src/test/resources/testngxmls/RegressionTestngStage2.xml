@@ -1,17 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="ACS Tests" preserve-order="true" thread-count="1"
+<suite name="ACS Tests" preserve-order="true" thread-count="2"
 	configfailurepolicy="continue" parallel="tests">
 
-	<test name="ACS Apply Payment Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_Apply_Payment_Test"></class>
-		</classes>
-	</test>
-	<test name="ACS Batch Processing" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_Batch_Processing"></class>
-		</classes>
-	</test>
 	<test name="ACS BPA 1 and BPA 2" group-by-instances="true">
 		<classes>
 			<class name="com.qait.tests.ACS_BPA_Test" />
@@ -32,17 +22,7 @@
 			<class name="com.qait.tests.ACS_Chapter_Relationships_Test"></class>
 		</classes>
 	</test>
-	<test name="ACS Individual Landing Page Smoke Test"
-		group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_IndividualLandingPage_Smoke"></class>
-		</classes>
-	</test>
-	<test name="ACS Giving Application Smoke Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_GivingApplication_Smoke"></class>
-		</classes>
-	</test>
+
 	<test name="Inventory Product Fulfillment Test"
 		group-by-instances="true">
 		<classes>
@@ -52,21 +32,6 @@
 	<test name="ACS PBA Test" group-by-instances="true">
 		<classes>
 			<class name="com.qait.tests.ACS_PBA_Test" />
-		</classes>
-	</test>
-	<test name="ACS Reports" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_Reports"></class>
-		</classes>
-	</test>
-	<test name="ACS Return Cancel Refund" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_ReturnCancelRefund" />
-		</classes>
-	</test>
-	<test name="ACS MYD Transfer" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_MYD_Transfer"></class>
 		</classes>
 	</test>
 	<test name="ACS Void Invoice Test" group-by-instances="true">
@@ -84,14 +49,15 @@
 			<class name="com.qait.tests.ACS_AACT_OMR"></class>
 		</classes>
 	</test>
-	<test name="ACS_SourceCodes_Test" group-by-instances="true">
-		<classes>
-			<class name="com.qait.tests.ACS_SourceCodes_Test"></class>
-		</classes>
-	</test>
+
 	<test name="ACS MGM Test" group-by-instances="true">
 		<classes>
 			<class name="com.qait.tests.ACS_MGM_Test"></class>
+		</classes>
+	</test>
+	<test name="Subscription Fulfillment" parallel="false">
+		<classes>
+			<class name="com.qait.tests.Subscription_Fulfillment_Test"></class>
 		</classes>
 	</test>
 </suite>

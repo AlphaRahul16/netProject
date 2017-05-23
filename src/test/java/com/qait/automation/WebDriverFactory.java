@@ -92,9 +92,10 @@ public class WebDriverFactory {
 		chromePrefs.put("download.prompt_for_download", false);
 		chromePrefs.put("credentials_enable_service",false);
 		chromePrefs.put("profile.password_manager_enabled", false);
+		
 		// disable flash and the PDF viewer
-		chromePrefs.put("plugins.plugins_disabled", new String[] { "Adobe Flash Player", "Chrome PDF Viewer" });
-
+		chromePrefs.put("plugins.plugins_disabled", new String[] { "Adobe Flash Player", "Chrome PDF Viewer","plugins.always_open_pdf_externally" });
+		
 		chromePrefs.put("profile.default_content_settings.popups", 0);
 		chromePrefs.put("download.default_directory", downloadFilePath);
 		chromePrefs.put("credentials_enable_service", false);

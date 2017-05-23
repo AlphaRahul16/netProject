@@ -13,13 +13,15 @@ import com.qait.automation.utils.DataProvider;
 public class MyTest {
 
 	public static void main(String... s) {
-		List<String> dataOfFile = new ArrayList<String>();
-		dataOfFile.add(",");
-		dataOfFile.add("session_title");
-		dataOfFile.add(",,Symposium,Poster,,,,,,,,,,,,,,,,,");
-		YamlReader.getYamlValues("Symposium_FileData");
-		getDataForImportedFile(YamlReader.getYamlValues("Symposium_FileData"));
-		String downloadedFilePath = "C:\\Users\\hitasheesil\\Downloads\\symposia_template.csv";
+//		List<String> dataOfFile = new ArrayList<String>();
+//		dataOfFile.add(",");
+//		dataOfFile.add("session_title");
+//		dataOfFile.add(",,Symposium,Poster,,,,,,,,,,,,,,,,,");
+//		YamlReader.getYamlValues("Symposium_FileData");
+//		getDataForImportedFile(YamlReader.getYamlValues("Symposium_FileData"));
+		String csvFile = "C:\\Users\\hitasheesil\\Downloads\\symposias.csv";
+		String data= DataProvider.csvReaderRowSpecific(csvFile, "No", "1");
+		System.out.println("data**********"+data);
 		//DataProvider.writeDataInAlreadyExistingCSVFile(downloadedFilePath, dataOfFile);
 	}
 
@@ -32,5 +34,6 @@ public class MyTest {
 		}
 
 	}
+	
 
 }

@@ -699,11 +699,11 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void clickOnDownloadButtonAndVerifyValidFileIsDownloaded(String btnName, String fileName,
 			String downloadedFilePath) {
-		String file_name = fileName + File.separator + ".csv";
+		// String file_name = fileName + File.separator + ".csv";
 		CSVFileReaderWriter._deleteExistingCSVFile(downloadedFilePath, fileName);
 		clickOnButtonUnderSessioning(btnName);
 		wait.hardWait(5);
-		verifyValidFileIsDownloaded(downloadedFilePath, fileName);
+		verifyValidFileIsDownloaded(downloadedFilePath + File.separator + fileName + ".csv");
 
 	}
 
@@ -715,7 +715,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void importValidFile(List<String> data, String downloadedFilePath) {
-
 		CSVFileReaderWriter.writeDataInAlreadyExistingCSVFile(downloadedFilePath, data);
 		wait.hardWait(5);
 		importFileWithValidData(downloadedFilePath);
@@ -723,23 +722,15 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void importFileWithValidData(String downloadedFilePath) {
-		System.out.println("downloadedFilePath*******" + downloadedFilePath);
 		isElementDisplayed("inp_fileupload", "Please upload your file:", "1");
-		switchToDefaultContent();
-		executeJqueryAndReturnString("document.getElementById('"
-				+ element("inp_fileupload", "Please upload your file:", "1").getAttribute("id")
-				+ "').removeAttribute('readonly')");
-
-		// setClipboardData(file.getAbsolutePath());
-		element("inp_fileupload", "Please upload your file:", "1").clear();
-		sendKeysUsingXpathInJavaScriptExecutor(element("inp_fileupload", "Please upload your file", "1"),
-				downloadedFilePath);
-		// Actions action = new Actions(driver);
-		// action.keyDown(Keys.CONTROL).sendKeys("v").keyUp(Keys.CONTROL).perform();
-		// importFileUsingRobot(downloadedFilePath);
+		String value = getValUsingXpathInJavaScriptExecutor(element("inp_fileupload", "Please upload your file:", "1"));
+		System.out.println("value of inp file path:::::"+ value);
+		File sourceFile = new File(downloadedFilePath);
+		performClickByActionBuilder(element("btn_Types", "Browse..."));
+		wait.hardWait(3);
+		importFileUsingRobot(downloadedFilePath);
 		wait.hardWait(5);
-		System.out.println("*********downloadedFilePath   " + downloadedFilePath);
-		logMessage("ASSERT PASSED: File is imported after adding valid data \n");
+		logMessage("Step: File is imported after adding valid data \n");
 
 	}
 
@@ -1559,5 +1550,46 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		}
 		return data;
 
+	}
+
+	public List<String> getDisplayedColumnName() {
+		List<String> colName = new ArrayList<String>();
+		wait.hardWait(3);
+		// System.out.println(element("txt_colName").getText());
+		int totalCol = elements("txt_colName").size();
+		System.out.println("totalCol******" + totalCol);
+		for (int i = 1; i < totalCol; i++) {
+			colName.add(elements("txt_colName").get(i).getText());
+		}
+		return colName;
+	}
+
+	public void verifyExportedFileWithColumns(String csvFile, List<String> colHeader) {
+		String dataFromDownloadedFile = DataProvider.csvReaderRowSpecific(csvFile, "No", "1");
+		System.out.println("dataFromDownloadedFile******" + dataFromDownloadedFile);
+		for (String column_header : colHeader) {
+			Assert.assertTrue(dataFromDownloadedFile.contains(column_header),
+					"ASSERT FAILED: " + column_header + " is not present \n");
+		}
+		logMessage("ASSERT PASSED: All coloumns are present \n");
+
+	}
+
+	public List<String> getAllColumnName() {
+		List<String> colName = new ArrayList<String>();
+		int totalCol = elements("txt_AllColName").size();
+		System.out.println("totalCol******" + totalCol);
+		for (int i = 6; i < totalCol; i++) {
+			System.out.println("#################" + elements("txt_AllColName").get(i).getText());
+			colName.add(elements("txt_AllColName").get(i).getText());
+		}
+		return colName;
+	}
+
+	public void verifyPopUpText(String msg) {
+	
+		Assert.assertTrue(checkIfElementIsThere("txt_popUpmsg",msg));
+		logMessage("Step: '"+ msg + "' is displayed \n");
+		
 	}
 }

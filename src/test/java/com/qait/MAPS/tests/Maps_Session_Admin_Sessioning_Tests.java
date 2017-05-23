@@ -40,6 +40,8 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 			+ "test" + File.separator + "resources" + File.separator + "DownloadedFiles";
 
 	private String itenarySessionName;
+	private List<String> colHeader;
+	private String downloadedFile;
 
 	@DataProvider
 	public String[][] getData() {
@@ -248,36 +250,48 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 				YamlReader.getYamlValue("Session.Symposium.File_Download_Hosts"), downloadedFilePath);
 		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Download Session Owners",
 				YamlReader.getYamlValue("Session.Symposium.File_Download_Session_Owners"), downloadedFilePath);
-		// test.maps_sessionpage.clickOnButtonByIndexing("Cancel", "1");
+
 	}
 
-	@Test
+	@Test // not passed
 	public void Step_1575_MAPS_Session_1553_Verify_application_imports_the_browsed_file_on_clicking_the_Import_button() {
+
 		dataofFile = test.maps_sessionpage
 				.getDataForImportedFile(YamlReader.getYamlValues("Session.Symposium_FileData"));
 		test.maps_sessionpage.importValidFile(dataofFile, downloadedFilePath + File.separator
 				+ YamlReader.getYamlValue("Session.Symposium.File_Download_template") + ".csv");
 		test.maps_sessionpage.clickOnButtonByIndexing("Import", "1");
+		test.maps_sessionpage.verifyPopUpText("Import successfully completed.");
+		test.maps_sessionpage.clickOnButtonByIndexing("Ok", "1");
+		// test.maps_sessionpage.clickOnButtonByIndexing("Cancel", "1");
 
 	}
 
 	public void Step_1578_MAPS_Session_1556_Verify_application_exports_the_list_of_sessions_events_with_all_the_columns_on_clicking_Export_to_Excel_All_Columns() {
 		String fileName = YamlReader.getYamlValue("Session.Symposium.File_Export_To_Excel_All_Col");
+		downloadedFile = downloadedFilePath + File.separator + fileName + ".csv";
 		CSVFileReaderWriter._deleteExistingCSVFile(downloadedFilePath, fileName);
-		test.maps_sessionpage.clickButtononLeftNavigationPanel("Symposia");
+
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Import / Export");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Export to Excel (All Columns)");
-		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath, fileName);
+		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFile);
+		test.maps_sessionpage.clickOnArrowButton("Symposium Type");
+		test.maps_sessionpage.hoverOverColumnHeader("Columns");
+		colHeader = test.maps_sessionpage.getAllColumnName();
+		test.maps_sessionpage.verifyExportedFileWithColumns(downloadedFilePath, colHeader);
 	}
 
 	public void Step_1579_MAPS_Session_1557_Verify_application_exports_the_list_of_sessions_events_with_selected_columns_on_clicking_the_Export_to_Excel_Displayed_Columns() {
 		String fileName = YamlReader.getYamlValue("Session.Symposium.File_Export_To_Excel_All_Col");
+		downloadedFile = downloadedFilePath + File.separator + fileName + ".csv";
 		CSVFileReaderWriter._deleteExistingCSVFile(downloadedFilePath, fileName);
+
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Symposia");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Import / Export");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Export to Excel (Displayed Columns)");
-		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath, fileName);
-		// test.maps_sessionpage.exportFileWithSelectedColumns();
+		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFile);
+		colHeader = test.maps_sessionpage.getDisplayedColumnName();
+		test.maps_sessionpage.verifyExportedFileWithColumns(downloadedFilePath, colHeader);
 
 	}
 
