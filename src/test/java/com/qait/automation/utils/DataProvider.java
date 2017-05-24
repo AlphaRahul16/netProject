@@ -322,7 +322,8 @@ public class DataProvider {
 		String sheetPath;
 		if (_getSessionConfig().get("tier").equalsIgnoreCase("dev9")
 				|| _getSessionConfig().get("tier").equalsIgnoreCase("stage8")
-				|| _getSessionConfig().get("tier").equalsIgnoreCase("stage4")) { //
+				|| _getSessionConfig().get("tier").equalsIgnoreCase("stage4")
+				||_getSessionConfig().get("tier").equalsIgnoreCase("stage7")) { //
 			sheetPath = getYamlValue("csv-data-file.path_" + sheetName);
 			sheetPath = sheetPath.replace("TestDataLibrary", "Payment_Processor_DataLibrary");
 		} else

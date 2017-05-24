@@ -95,7 +95,7 @@ public class WebDriverFactory {
 		
 		// disable flash and the PDF viewer
 		chromePrefs.put("plugins.plugins_disabled", new String[] { "Adobe Flash Player", "Chrome PDF Viewer","plugins.always_open_pdf_externally" });
-		
+		//((Object) options).AddUserProfilePreference("plugins.always_open_pdf_externally", true);
 		chromePrefs.put("profile.default_content_settings.popups", 0);
 		chromePrefs.put("download.default_directory", downloadFilePath);
 		chromePrefs.put("credentials_enable_service", false);
