@@ -653,6 +653,7 @@ public class BaseUi {
 	}
 
 	public void ScrollPage(int x, int y) {
+		wait.hardWait(2);
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("window.scrollBy(" + x + "," + y + ")", "");
 	}
