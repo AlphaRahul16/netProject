@@ -1,5 +1,5 @@
 caseID	caseID Execute	Application URL	notes	Cordinator_MemberNumber	ncw/cced_email	searchMethod	searchValue	localSectionID	coordinatorName	emailFirstName	emailLastName	emailID	emailCity	emailState	emailPhone	emailText
-1	No	https://ewebtest.acs.org/NFStage2/membernumberlookup	Member Number Lookup													
-2	No	https://ewebtest.acs.org/NFStage2/ccedlookup	CCED Lookup by state - PA  LS=Central PA	2198361	a_rawat@acs.org	State	PA	L304	Ms Judith Ann Summers-Gates	FirstName123	LastName123	a_rawat@acs.org	Philadelphia	PA	6143371111	This is a test email to verify the CCED Lookup functionality.
-3	Yes	https://ewebtest.acs.org/NFStage2/ncwlookup	NCW Lookup by state � PA  LS = Central Pennsylvania	2200615	a_rawat@acs.org	State	PA	L215	Mr Vincent Michael Mautino	FirstName124	LastName124	a_rawat@acs.org	Pittsburgh	PA	6143371111	This is a test email to verify the NCW Lookup functionality.
+1	Yes	https://ewebtest.acs.org/NFStage2/membernumberlookup	Member Number Lookup													
+2	Yes	https://ewebtest.acs.org/NFStage2/ccedlookup	CCED Lookup by state - PA  LS=Central PA	2198361	a_rawat@acs.org	State	PA	L304	Ms Judith Ann Summers-Gates	FirstName123	LastName123	a_rawat@acs.org	Philadelphia	PA	6143371111	This is a test email to verify the CCED Lookup functionality.
+3	No	https://ewebtest.acs.org/NFStage2/ncwlookup	NCW Lookup by state � PA  LS = Central Pennsylvania	2200615	a_rawat@acs.org	State	PA	L215	Mr Vincent Michael Mautino	FirstName124	LastName124	a_rawat@acs.org	Pittsburgh	PA	6143371111	This is a test email to verify the NCW Lookup functionality.
 
