@@ -19,7 +19,7 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 	private String griduniqueName = "Selenium_Test_Grid_" + System.currentTimeMillis();
 	private String[] roles = { "OPA Staff", "Program Viewer", "Program Chair Sessioning", "Abstract Editor",
 			"Session Admin" };
-	private String[] programViewerleftpaneloptions = { "Dashboard & Instructions", "Symposia Viewer", "Sessioning",
+	private String[] programViewerleftpaneloptions = { "Dashboard & Instructions", "Symposia Viewer",
 			"Session Viewer", "Abstracts" };
 	private String downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
 			+ File.separator + "resources" + File.separator + "DownloadedFiles";
@@ -72,8 +72,8 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 	public void Step_0076_MAPS_Session_70_Verify_Available_Options_On_Session_Program_Viewer_Page() {
 		test.maps_reviewpage.verifyLinksUnderNamedModule("Save/Edit");
 		test.maps_reviewpage.verifyLinksUnderNamedModule("Delete");
-		test.maps_reviewpage.verifyTextField("Filter");
-		test.maps_reviewpage.verifyCrossImageForNamedDropDown("Filter");
+		test.maps_reviewpage.verifyTextField("Search");
+		test.maps_reviewpage.verifyCrossImageForNamedDropDown("Search");
 		test.maps_reviewpage.verifyExpandIconUnderNamedModule();
 		test.maps_reviewpage.verifyDropDown("Found In");
 		test.maps_reviewpage.verifyDropDown("Export");
@@ -102,7 +102,7 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 		String recordName = test.maps_sessionpage.getRandomRecordFromTable("3");
 		test.maps_reviewpage.enterValueInFilter(recordName);
 		test.maps_sessionpage.verifyFilterResults(recordName, 1, 4);
-		test.maps_reviewpage.clickOnCrossImageForNamedDropdown("Filter");
+		test.maps_reviewpage.clickOnCrossImageForNamedDropdown("Search");
 	}
 	
 	/**
@@ -138,11 +138,11 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 	
 	@Test
 	public void Step_0103_MAPS_Session_97_Verify_Application_Download_Csv_File_On_Clicking_Export_To_Excel_Dropdown_For_Selected_Symposia() {
-		CSVFileReaderWriter._deleteExistingCSVFile(downloadedFilePath,YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name"));
+		CSVFileReaderWriter._deleteExistingCSVFile(downloadedFilePath,YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name_symposia"));
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Export");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (Displayed Columns)");
 		test.maps_sessionpage.waitForProcessBarToDisappear();
-		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath,YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name"));
+		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath,YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name_symposia"));
 	}
 	
 	@Test
@@ -176,8 +176,8 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Sessions & Events Assigned To Me (View Only)");
 		test.maps_reviewpage.verifyLinksUnderNamedModule("Save/Edit");
 		test.maps_reviewpage.verifyLinksUnderNamedModule("Delete");
-		test.maps_reviewpage.verifyTextField("Filter");
-		test.maps_reviewpage.verifyCrossImageForNamedDropDown("Filter");
+		test.maps_reviewpage.verifyTextField("Search");
+		test.maps_reviewpage.verifyCrossImageForNamedDropDown("Search");
 		test.maps_reviewpage.verifyExpandIconUnderNamedModule();
 		test.maps_reviewpage.verifyDropDown("Found In");
 		test.maps_reviewpage.verifyDropDown("Export");
@@ -203,7 +203,7 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 		String recordName = test.maps_sessionpage.getRandomRecordFromTable("4");
 		test.maps_reviewpage.enterValueInFilter(recordName);
 		test.maps_sessionpage.verifyFilterResults(recordName, 1, 5);
-		test.maps_reviewpage.clickOnCrossImageForNamedDropdown("Filter");
+		test.maps_reviewpage.clickOnCrossImageForNamedDropdown("Search");
 	}
 	
 
@@ -251,11 +251,11 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 	 */
 	@Test
 	public void Step_0205_MAPS_Session_198_Verify_Application_Download_Csv_File_On_Clicking_Export_To_Excel_Dropdown_For_All_Sessions() {
-		CSVFileReaderWriter._deleteExistingCSVFile(downloadedFilePath,YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name"));
+		CSVFileReaderWriter._deleteExistingCSVFile(downloadedFilePath,YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name_session"));
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Export");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (All Columns)");
 		test.maps_sessionpage.waitForProcessBarToDisappear();
-		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath,YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name"));		
+		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath,YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name_session"));		
 	}
 	
 	@Test
@@ -263,7 +263,7 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 	{
 		test.maps_sessionpage.rightClickOnSessionList("1");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("View");
-		test.maps_sessionpage.verifyTitleForRoles("View Session");
+	//	test.maps_sessionpage.verifyTitleForRoles("View Symposium");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Close");
 
 		
@@ -289,8 +289,8 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 	{
 		test.maps_reviewpage.verifyLinksUnderNamedModule("Save/Edit");
 		test.maps_reviewpage.verifyLinksUnderNamedModule("Delete");
-		test.maps_reviewpage.verifyTextField("Filter");
-		test.maps_reviewpage.verifyCrossImageForNamedDropDown("Filter");
+		test.maps_reviewpage.verifyTextField("Search");
+		test.maps_reviewpage.verifyCrossImageForNamedDropDown("Search");
 		test.maps_reviewpage.verifyExpandIconUnderNamedModule();
 		test.maps_reviewpage.verifyDropDown("Found In");
 		test.maps_reviewpage.verifyDropDown("Export to Excel");

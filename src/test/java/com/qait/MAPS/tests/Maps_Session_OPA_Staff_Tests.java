@@ -70,8 +70,8 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");
 		test.maps_reviewpage.verifyLinksUnderNamedModule("Save/Edit");
 		test.maps_reviewpage.verifyLinksUnderNamedModule("Delete");
-		test.maps_reviewpage.verifyTextField("Filter");
-		test.maps_reviewpage.verifyCrossImageForNamedDropDown("Filter");
+		test.maps_reviewpage.verifyTextField("Search");
+		test.maps_reviewpage.verifyCrossImageForNamedDropDown("Search");
 		test.maps_reviewpage.verifyExpandIconUnderNamedModule();
 		test.maps_reviewpage.verifyDropDown("Found In");
 		test.maps_reviewpage.verifyDropDown("Export to Excel");
@@ -97,7 +97,7 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 		String recordName = test.maps_sessionpage.getRandomRecordFromTable("2");
 		test.maps_reviewpage.enterValueInFilter(recordName);
 		test.maps_sessionpage.verifyFilterResults(recordName, 1, 3);
-		test.maps_reviewpage.clickOnCrossImageForNamedDropdown("Filter");
+		test.maps_reviewpage.clickOnCrossImageForNamedDropdown("Search");
 	}
 
 	@Test // passed
@@ -110,20 +110,22 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 		test.maps_sessionpage.waitForProcessBarToDisappear();
 		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath,
 				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"));
-		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Export  to Excel (All Columns)",
-				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"), downloadedFilePath);
-		test.maps_sessionpage.clickOnSaveButton("Export to Excel");
-		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (Displayed Columns)");
 		test.maps_sessionpage.waitForProcessBarToDisappear();
-		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Export to Excel (Displayed Columns)",
-				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"), downloadedFilePath);
-		CSVFileReaderWriter._deleteExistingCSVFile(downloadedFilePath,
-				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"));
 		test.maps_sessionpage.clickOnSaveButton("Export to Excel");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (Displayed Columns)");
 		test.maps_sessionpage.waitForProcessBarToDisappear();
 		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath,
 				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"));
+		
+		CSVFileReaderWriter._deleteExistingCSVFile(downloadedFilePath,
+				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"));
+		test.maps_sessionpage.waitForProcessBarToDisappear();
+		test.maps_sessionpage.clickOnSaveButton("Export to Excel");
+		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (Displayed Columns)");
+		test.maps_sessionpage.waitForProcessBarToDisappear();
+		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath,
+				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"));
+		test.maps_sessionpage.waitForProcessBarToDisappear();
 	}
 
 	@Test // passed

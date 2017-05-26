@@ -177,9 +177,9 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void enterValueInFilter(String value) {
-		isElementDisplayed("input_filter", "Filter");
-		element("input_filter", "Filter").sendKeys(value);
-		logMessage("STEP: " + value + " is entered in filter input box \n");
+		isElementDisplayed("input_filter", "Search");
+		element("input_filter", "Search").sendKeys(value);
+		logMessage("STEP: " + value + " is entered in Search input box \n");
 	}
 
 	public void verifyTheResult(String cID) {

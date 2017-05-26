@@ -923,6 +923,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	public void verifyPrintReceiptMessageAfterPayment() {
 		wait.waitForPageToLoadCompletely();
 		// switchToEwebRenewalFrame();
+		holdScriptExecution();
 		dynamicWait(40, "btn_printreceipt", "1");
 		wait.hardWait(10);
 		Object display = executeJavascriptReturnValue(

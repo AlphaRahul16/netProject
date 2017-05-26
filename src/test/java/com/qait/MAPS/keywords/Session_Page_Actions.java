@@ -60,6 +60,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void clickButtonToContinueToNextPage(String buttonName) {
+
 		isElementDisplayed("lnk_selButton", buttonName);
 		element("lnk_selButton", buttonName).click();
 		logMessage("Step : " + buttonName + " button is clicked\n");
@@ -78,6 +79,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void verifyTitleForRoles(String title) {
 		wait.hardWait(2);
+		wait.waitForElementToBeVisible(element("btn_navPanel", title));
 		isElementDisplayed("btn_navPanel", title);
 		logMessage("Step: " + title + " is verified as " + title);
 	}
@@ -700,7 +702,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public void clickOnDownloadButtonAndVerifyValidFileIsDownloaded(String btnName, String fileName,String downloadedFilePath) {
 		String file_name=fileName+ File.separator + ".csv";
 		CSVFileReaderWriter._deleteExistingCSVFile(downloadedFilePath,fileName);
-		clickOnButtonUnderSessioning(btnName);
+		clickButtonToContinueToNextPage(btnName);
 		wait.hardWait(5);
 		verifyValidFileIsDownloaded(downloadedFilePath,fileName);
 
