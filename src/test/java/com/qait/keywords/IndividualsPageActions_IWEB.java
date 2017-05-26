@@ -1637,6 +1637,11 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		preferenceStartDate = element("txt_quantity", "ACSYBCommiteePreferenceStartDate").getText().trim();
 		logMessage("PreferenceStartDate   " + preferenceStartDate);
 		value = verfiyEndAndStartDate(preferenceEndDate, preferenceStartDate);
+		Assert.assertTrue(value,"ASSERT FAILED: Current date does not lies between the preference start date and end date\n");
+		logMessage("ASSERT PASSED: Current date lies between the preference start date and end date\n");
+		
+		clickPencilButtonToEditIndividualRecord("ACSYBCommiteePreferenceEndDate");
+		
 		return value;
 	}
 
@@ -2408,5 +2413,10 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 
 	}
+	
+//	public void updateCommitteePrefernceEndDate(){
+//		isElementDisplayed("txt_currentSetting");
+//		DateUtil.getNextDate(dateModule, frequency)
+//	}
 
 }
