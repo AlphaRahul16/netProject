@@ -142,7 +142,7 @@ public class ACS_Email_Communication_Preferences_Test extends BaseTest{
 	@Test(dependsOnMethods="Step08_Navigate_To_Iweb_Application_And_Verify_MailingList_Is_UnSubscribed")
 	public void Step09_Login_Into_Eweb_And_Unsubscribe_All_Mailing_List(){
 		test.launchApplication(app_url_email);
-//		test.asm_emailPage.loginInToApplication(webLogin, "password");	
+		test.asm_emailPage.loginInToApplication(webLogin, "password");	
 		mailingListCategories = test.asm_emailPage
 				.getAllCategoryOfMailingList();
 		mailingListMap=test.asm_emailPage.getMailingTypesList(categoryList);

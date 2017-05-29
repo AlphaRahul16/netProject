@@ -94,6 +94,7 @@ drpdwn_options                            xpath                 //label[text()='
 inp_startDate                             id                    cxc_start_date
 txt_active_chapters                       xpath                 //td[text()='active']/preceding-sibling::td[4]
 tab_pencilButton                          xpath                 //td[contains(text(),'${field}')][1]/preceding-sibling::td//i[@class='iconpro-pencil']
+txt_currentSetting                        id                    control
 
 
 ======================================================================================================================================

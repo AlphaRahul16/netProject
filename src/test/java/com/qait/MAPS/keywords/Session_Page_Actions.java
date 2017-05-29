@@ -140,7 +140,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public void enterValuesForProgram(String field, String value) {
 		isElementDisplayed("inp_programField", field);
 		element("inp_programField", field).sendKeys(value);
-		logMessage("STEP: Enterd " + value + " in " + field + "field \n");
+		logMessage("STEP: Entered " + value + " in " + field + "field \n");
 	}
 
 	public void verifyPopupMessage(String msg) {
