@@ -507,7 +507,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		WebElement Sourcelocator = elements("txt_hostDetails", label).get(1);
 		String value = elements("txt_hostDetails", label).get(1).getText();
 		isElementDisplayed("txt_dropField");
-		WebElement Destinationlocator = elements("txt_dropField").get(1);
+		WebElement Destinationlocator = elements("txt_dropField").get(2);
 		dragAndDrop(Sourcelocator, Destinationlocator);
 		wait.hardWait(2);
 		waitForLoadingImageToDisappear("Loading...");
