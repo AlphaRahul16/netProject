@@ -8,7 +8,7 @@ txt_searchList                 xpath              //div[@id='pnlCategoryList']/h
 lnk_logIn                      xpath              //a[text()='Log In']
 inp_userName                   classname          input-user-name
 inp_password                   classname           input-password
-btn_verify               	   xpath               //input[@value='Verify']
+btn_verify               	   id                  btnLogin
 lnk_logOut                     xpath               //a[text()='Log Out']
 lnk_secondFeatureItem          xpath               (//div[@class='pnlProductListing']/a/img)[2]
 btn_addToCart                  xpath               //input[contains(@id,'btnAddToCart')]
@@ -29,23 +29,24 @@ list_paymentInfo               xpath               //select[contains(@id,'ddl${p
 inp_paymentInfo               xpath                //input[contains(@id,'${paymentInfo}')]
 list_phone                    xpath                //select[contains(@id,'Phone')]
 hd_secureCheckout             xpath                //h1[contains(text(),'Secure Checkout')]
-txt_price                     css                  ul>li:first-child>div
-txt_members_price             css                  ul>li:nth-child(2)>div
+txt_price                     css                  .spnPriceValue
 lnk_searched_product          css                  .pnlProductListing>img[id*='imgProduct']+div>a
 txt_box_Quantity              xpath                 //div[@class='Attributes']/span/following-sibling::input
 txt_description               css                   .StoreCartDescriptionColumn>a[id*='lnkDescription']                  
 txt_shoppingCart              css                   .LayoutCell>div>h1
 txt_store_cart_column         xpath                 //table[@class='StoreCart']/tbody/tr/th[contains(text(),'Price')]/../following-sibling::tr/td/div[contains(@class,'Price')]/span
 txt_priceValue                css                   .StoreCartPriceColumn>span
+lnk_invoiceHeading            xpath                    //th/a[@class='DataFormListTDDataGridHeaderLink' and contains(text(),'Transaction Date')]
 txt_quantity                  css                   .StoreCartQtyColumn>input
 txt_discount                  xpath                  (//div[@class='StoreCartTotalColumn']/span)[1]
 txt_total                     xpath                  (//div[@class='StoreCartTotalColumn']/span)[2]
-txt_store_Summary             xpath                  //span[contains(text(),'${value}')]/../../following-sibling::td//span
+txt_store_Summary             xpath                  //span[contains(text(),'${value}')]/../../following-sibling::td/div[@class='StoreCartSummaryValue']/span
 inp_shipping_adress           xpath                  (//span[contains(text(),'${value}')]/../following-sibling::div[1]/input)[1]
 inp_country                   xpath                  //span[contains(text(),'Country')]/../following-sibling::div/select/option[@selected]
 txt_order_shipping_summary    xpath                  //span[contains(text(),'${value}')]/../../following-sibling::td/div[@class='StoreCartSummaryValue']/span
 btn_placeOrder                css                    input[value='Place Your Order']
 txt_summary_priceValue        css                    .StoreSummaryPriceColumn>span
+inp_dropdown                  xpath                  //span[contains(text(),'${value}')]/../following-sibling::div/select/option[@selected]
 txt_summary_quantity          css                    .StoreSummaryQtyColumn>span
 txt_summary_discount          xpath                  //div[@class='StoreCartTotalColumn']/span
 txt_summary_total             xpath                  //div[@class='StoreSummaryTotalColumn']/span
@@ -54,5 +55,5 @@ msg_thankyou                  css                    .StoreWrapper>div>.StoreMai
 lnk_print_receipt             css                     a[href*='ReportPDF']
 invoice_number                xpath                   .//*[@id='pageContainer1']/xhtml:div[2]/xhtml:div[54]
 txt_mailing_address           xpath                   //span[@class='DataFormTextBox' and contains(@id,'mailing_label')]
-img_store_loading             css                     #StoreLoading
+btn_newShip                   xpath                    //input[@value='NewShip']
 =================================================================================================================================

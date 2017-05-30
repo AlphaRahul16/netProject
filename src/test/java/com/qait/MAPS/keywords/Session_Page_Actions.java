@@ -19,10 +19,14 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
+
+import com.itextpdf.text.log.SysoCounter;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.CSVFileReaderWriter;
 import com.qait.automation.utils.DataProvider;
@@ -138,7 +142,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public void enterValuesForProgram(String field, String value) {
 		isElementDisplayed("inp_programField", field);
 		element("inp_programField", field).sendKeys(value);
-		logMessage("STEP: Enterd " + value + " in " + field + "field \n");
+		logMessage("STEP: Entered " + value + " in " + field + "field \n");
 	}
 
 	public void verifyPopupMessage(String msg) {
@@ -306,7 +310,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		wait.waitForElementToBeClickable(element("btn_Types", btnName));
 		isElementDisplayed("btn_Types", btnName);
 		clickUsingXpathInJavaScriptExecutor(element("btn_Types", btnName));
-		//click(element("btn_Types", btnName));
+		// click(element("btn_Types", btnName));
 		logMessage("Step : Clicked on " + btnName + "\n");
 	}
 
@@ -579,8 +583,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void clickOnButtonByIndexing(String text, String index) {
 		isElementDisplayed("btn_remove", text, index);
-//		 clickUsingXpathInJavaScriptExecutor(element("btn_remove", text,
-//		 index));
+		// clickUsingXpathInJavaScriptExecutor(element("btn_remove", text,
+		// index));
 		click(element("btn_remove", text, index));
 		wait.hardWait(2);
 		logMessage("STEP: '" + text + "' button is clicked \n");
@@ -695,16 +699,14 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED: " + expValue + " is deleted \n");
 	}
 
+	public void clickOnDownloadButtonAndVerifyValidFileIsDownloaded(String btnName, String fileName,
+			String downloadedFilePath) {
+		// String file_name = fileName + File.separator + ".csv";
+		CSVFileReaderWriter._deleteExistingCSVFile(downloadedFilePath, fileName);
+		clickOnButtonUnderSessioning(btnName);
 
-
-
-
-	public void clickOnDownloadButtonAndVerifyValidFileIsDownloaded(String btnName, String fileName,String downloadedFilePath) {
-		String file_name=fileName+ File.separator + ".csv";
-		CSVFileReaderWriter._deleteExistingCSVFile(downloadedFilePath,fileName);
-		clickButtonToContinueToNextPage(btnName);
 		wait.hardWait(5);
-		verifyValidFileIsDownloaded(downloadedFilePath,fileName);
+		verifyValidFileIsDownloaded(downloadedFilePath + File.separator + fileName + ".csv");
 
 	}
 
@@ -716,23 +718,22 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void importValidFile(List<String> data, String downloadedFilePath) {
-
 		CSVFileReaderWriter.writeDataInAlreadyExistingCSVFile(downloadedFilePath, data);
 		wait.hardWait(5);
 		importFileWithValidData(downloadedFilePath);
-		
+
 	}
 
 	public void importFileWithValidData(String downloadedFilePath) {
 		isElementDisplayed("inp_fileupload", "Please upload your file:", "1");
-//		sendKeysUsingXpathInJavaScriptExecutor(element("inp_fileupload", "Please upload your file", "1"),
-//				downloadedFilePath);
-		clickOnButtonUnderSessioning("Browse...");
-		//clickOnButtonByIndexing("Browse...", "1");
+		String value = getValUsingXpathInJavaScriptExecutor(element("inp_fileupload", "Please upload your file:", "1"));
+		System.out.println("value of inp file path:::::"+ value);
+		File sourceFile = new File(downloadedFilePath);
+		performClickByActionBuilder(element("btn_Types", "Browse..."));
+		wait.hardWait(3);
 		importFileUsingRobot(downloadedFilePath);
 		wait.hardWait(5);
-		System.out.println("*********downloadedFilePath   " + downloadedFilePath);
-		logMessage("STEP: File is imported after adding valid data \n");
+		logMessage("Step: File is imported after adding valid data \n");
 
 	}
 
@@ -868,7 +869,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		objSubmission.clickOnNamedButton("Finish");
 		switchToWindowHavingIndex(0);
 	}
-	
 
 	public void verifyPrintPreviewTableContents(String value) {
 		isElementDisplayed("tbl_contents", value);
@@ -1228,11 +1228,13 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyAllSelectedListIsPresentInPrintPreview(int symposiasize) {
-	 isElementDisplayed("txt_SchedulerGrid","my-paging-text");
-	int totalsymposia = Integer.parseInt((elements("txt_SchedulerGrid","my-paging-text").get(3).getText().split(" "))[1].trim());
-	 System.out.println(totalsymposia);
-	 Assert.assertTrue((symposiasize>1&& symposiasize<=totalsymposia),"All selected elements from list are not printed\n");
-	 logMessage("ASSERT PASSED :  All selected options list is avalaible in print preview\n");
+		isElementDisplayed("txt_SchedulerGrid", "my-paging-text");
+		int totalsymposia = Integer
+				.parseInt((elements("txt_SchedulerGrid", "my-paging-text").get(3).getText().split(" "))[1].trim());
+		System.out.println(totalsymposia);
+		Assert.assertTrue((symposiasize > 1 && symposiasize <= totalsymposia),
+				"All selected elements from list are not printed\n");
+		logMessage("ASSERT PASSED :  All selected options list is avalaible in print preview\n");
 	}
 
 	public List<String> SelectRecords(int number) {
@@ -1270,14 +1272,12 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		Assert.assertTrue(checkIfElementIsThere("row_withdraw", fontText, text));
 		logMessage("ASSERT PASSED: " + text + " with " + fontText + " is displayed \n");
 	}
-	
-   
-   public void verifyAvailableOptionsOnSaveGridPopUpUnderAbstracts(String fieldname)
-   {
-	   isElementDisplayed("inp_fileupload",fieldname,"1");
-	   logMessage("ASSERT PASSED : input box is available for "+fieldname);
-	   
-   }
+
+	public void verifyAvailableOptionsOnSaveGridPopUpUnderAbstracts(String fieldname) {
+		isElementDisplayed("inp_fileupload", fieldname, "1");
+		logMessage("ASSERT PASSED : input box is available for " + fieldname);
+
+	}
 
 	public void rightClickOnSessionList(String recordnumber) {
 		rightClick(element("chkbox_records", recordnumber));
@@ -1286,7 +1286,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public String getHostColoumData(String hostname) {
 		return elements("input_editableColumn").get(0).getText();
 	}
-
 
 	public void enterDurationOnCreateSessionPopUp(String fieldName, String roomName) {
 		isElementDisplayed("inp_sessionAbbrev", fieldName);
@@ -1316,7 +1315,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		String value = " ";
 		if (!privousFinalId.equals(value)) {
 			verifyPopupMessage("Confirm");
-			clickOnButtonByIndexing("Yes","1");
+			clickOnButtonByIndexing("Yes", "1");
 		}
 	}
 
@@ -1507,9 +1506,9 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		rightClick(element("btn_navPanel", lnkName));
 		logMessage("STEP: Right clicked on Top level session \n");
 	}
-	 
+
 	public void verifydropdownOnPopupWindow(String btnName) {
-		isElementDisplayed("lnk_selButton",btnName);
+		isElementDisplayed("lnk_selButton", btnName);
 		logMessage("Step : " + btnName + " is displayed on page\n");
 	}
 
@@ -1524,31 +1523,27 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 				"ASSERT FAILED: Session " + sessionName + " is not removed from list\n");
 		logMessage("ASSERT PASSED: Session " + sessionName + " is removed from list\n");
 	}
-	
-	public void verifySessionIsdeletedFromScheduleSession(String sessionName)
-	{
+
+	public void verifySessionIsdeletedFromScheduleSession(String sessionName) {
 		System.out.println(checkIfElementIsThere("btn_navPanel", sessionName));
 	}
 
 	public void verifyApplicationPrintsReportsTable() throws AWTException {
-		if(isBrowser("chrome"))
-		{
-	     changeWindow(1);
-	     isPrintSelectedButtonDisplayed("Print");
-	     clickOnButtonUnderSessioning("Cancel");
-	     changeWindow(0);
-		}
-		else if(isBrowser("firefox"))
-		{
+		if (isBrowser("chrome")) {
+			changeWindow(1);
+			isPrintSelectedButtonDisplayed("Print");
+			clickOnButtonUnderSessioning("Cancel");
+			changeWindow(0);
+		} else if (isBrowser("firefox")) {
 			wait.hardWait(4);
 			Robot r = new Robot();
 			r.keyPress(KeyEvent.VK_ESCAPE);
 		}
-		
+
 	}
 
 	public List<String> getDataForImportedFile(Map<String, Object> yamlValues) {
-		List<String> data= new ArrayList<String>();
+		List<String> data = new ArrayList<String>();
 		Set keys = yamlValues.keySet();
 		for (Iterator i = keys.iterator(); i.hasNext();) {
 			String key = (String) i.next();
@@ -1557,7 +1552,47 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 			data.add(value);
 		}
 		return data;
-		
-	}	
-}
 
+	}
+
+	public List<String> getDisplayedColumnName() {
+		List<String> colName = new ArrayList<String>();
+		wait.hardWait(3);
+		// System.out.println(element("txt_colName").getText());
+		int totalCol = elements("txt_colName").size();
+		System.out.println("totalCol******" + totalCol);
+		for (int i = 1; i < totalCol; i++) {
+			colName.add(elements("txt_colName").get(i).getText());
+		}
+		return colName;
+	}
+
+	public void verifyExportedFileWithColumns(String csvFile, List<String> colHeader) {
+		String dataFromDownloadedFile = DataProvider.csvReaderRowSpecific(csvFile, "No", "1");
+		System.out.println("dataFromDownloadedFile******" + dataFromDownloadedFile);
+		for (String column_header : colHeader) {
+			Assert.assertTrue(dataFromDownloadedFile.contains(column_header),
+					"ASSERT FAILED: " + column_header + " is not present \n");
+		}
+		logMessage("ASSERT PASSED: All coloumns are present \n");
+
+	}
+
+	public List<String> getAllColumnName() {
+		List<String> colName = new ArrayList<String>();
+		int totalCol = elements("txt_AllColName").size();
+		System.out.println("totalCol******" + totalCol);
+		for (int i = 6; i < totalCol; i++) {
+			System.out.println("#################" + elements("txt_AllColName").get(i).getText());
+			colName.add(elements("txt_AllColName").get(i).getText());
+		}
+		return colName;
+	}
+
+	public void verifyPopUpText(String msg) {
+	
+		Assert.assertTrue(checkIfElementIsThere("txt_popUpmsg",msg));
+		logMessage("Step: '"+ msg + "' is displayed \n");
+		
+	}
+}

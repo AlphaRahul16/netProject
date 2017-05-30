@@ -91,8 +91,8 @@ public class Maps_Session_Program_Chair_Sessioning_Tests extends BaseTest {
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");
 		test.maps_reviewpage.verifyLinksUnderNamedModule("Save/Edit");
 		test.maps_reviewpage.verifyLinksUnderNamedModule("Delete");
-		test.maps_reviewpage.verifyTextField("Filter");
-		test.maps_reviewpage.verifyCrossImageForNamedDropDown("Filter");
+		test.maps_reviewpage.verifyTextField("Search");
+		test.maps_reviewpage.verifyCrossImageForNamedDropDown("Search");
 		test.maps_reviewpage.verifyExpandIconUnderNamedModule();
 		test.maps_reviewpage.verifyDropDown("Found In");
 		test.maps_reviewpage.verifyDropDown("Export to Excel");

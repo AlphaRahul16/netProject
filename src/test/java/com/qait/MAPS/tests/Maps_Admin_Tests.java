@@ -3,6 +3,7 @@ package com.qait.MAPS.tests;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.testng.annotations.BeforeClass;
@@ -149,6 +150,16 @@ public class Maps_Admin_Tests extends BaseTest {
     test.maps_adminpage.clickLeftNavigationPanelOptions("Email");
     
 	}
+	
+	@Test
+	public void Step_027_MAPS_Admin_20_Verify_Application_Saves_Changes_For_Early_Late_Submission_Time_Date_Override_Field_For_Admin() {
+		 HashMap<String, String> searchCriteria = new HashMap<String, String>();
+		 searchCriteria.put("First Name", "Kanika");
+		 searchCriteria.put("Last Name", "Sharma");
+		test.maps_adminpage.clickLeftNavigationPanelOptions("People");
+		test.maps_adminpage.enterSearchCriteria(searchCriteria);
+	}
+
 
 
 

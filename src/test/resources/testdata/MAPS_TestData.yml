@@ -28,6 +28,8 @@ Submission_withdraw_Reason: Selenium Test Withdraw
 
 Review:
   GridConfigName: "Test"
+  downloaded_templateFile: "decision_template"
+  decision: ",Reject"
   
 Session:
   Programs:

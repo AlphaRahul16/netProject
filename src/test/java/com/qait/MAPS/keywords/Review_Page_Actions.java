@@ -31,18 +31,20 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnButton(String text) {
+		wait.waitForPageToLoadCompletely();
+		waitForLoaderToDisappear();
 		isElementDisplayed("btn_select", text);
 		click(element("btn_select", text));
 		logMessage("STEP: '" + text + "' button is clicked \n");
 	}
 
-	public void selectAbstractType(String text) {
-		wait.waitForPageToLoadCompletely();
-		waitForLoaderToDisappear();
-		isElementDisplayed("txt_reportType", text);
-		click(element("txt_reportType", text));
-		logMessage("STEP: Abstract is selected as '" + text + "' \n");
-	}
+//	public void selectAbstractType(String text) {
+//		wait.waitForPageToLoadCompletely();
+//		waitForLoaderToDisappear();
+//		isElementDisplayed("btn_select", text);
+//		click(element("btn_select", text));
+//		logMessage("STEP: Abstract is selected as '" + text + "' \n");
+//	}
 
 	public void verifyAbstractTitleUnderReviewModule(String title) {
 		Assert.assertTrue(isElementDisplayed("txt_abstractTitle", title),
@@ -178,8 +180,9 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 
 	public void enterValueInFilter(String value) {
 		isElementDisplayed("input_filter", "Search");
+		element("input_filter", "Search").clear();
 		element("input_filter", "Search").sendKeys(value);
-		logMessage("STEP: " + value + " is entered in Search input box \n");
+		logMessage("STEP: " + value + " is entered in filter input box \n");
 	}
 
 	public void verifyTheResult(String cID) {
@@ -223,8 +226,8 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("STEP: Clicked on grid config drop down");
 		wait.hardWait(3);
 		isElementDisplayed("list_gripConfig");
-		String gridConfig = elements("list_gripConfig").get(1).getText();
-		click(elements("list_gripConfig").get(1));
+		String gridConfig = elements("list_gripConfig").get(0).getText();
+		click(elements("list_gripConfig").get(0));
 		logMessage("STEP: Existing configuration from the Grid Configuration dropdown is selected \n ");
 		return gridConfig;
 	}

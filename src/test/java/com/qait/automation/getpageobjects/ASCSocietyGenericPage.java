@@ -542,13 +542,10 @@ public class ASCSocietyGenericPage extends GetPage {
 		wait.resetExplicitTimeout(timeOut);
 	}
 	
-	public void verifyValidFileIsDownloaded(String filepath,String filename) {
-		wait.hardWait(2);
-//		String filePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
-//				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + filename
-//				+ ".csv";
-		
+	public void verifyValidFileIsDownloaded(String filepath) {
+		wait.hardWait(6);		
 		//waitForLoadingImageToDisappear("Generating CSV file... Please wait");
+		
 		File sourceFile = new File(filepath);
 		Assert.assertTrue(sourceFile.exists(), "ASSERT FAILED: file is not downloaded \n");
 		logMessage("ASSERT PASSED: '" + filepath + "' is downloaded \n");

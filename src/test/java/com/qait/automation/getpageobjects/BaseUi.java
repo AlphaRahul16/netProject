@@ -500,13 +500,12 @@ public class BaseUi {
 		}
 		return flag;
 	}
-	
-	public void pressKeyUsingAction(org.openqa.selenium.Keys keyName)
-	{
+
+	public void pressKeyUsingAction(org.openqa.selenium.Keys keyName) {
 		wait.hardWait(3);
 		Actions action = new Actions(driver);
 		action.sendKeys(keyName);
-		
+
 	}
 
 	protected String getSelectedTextFromDropDown(WebElement el) {
@@ -577,7 +576,8 @@ public class BaseUi {
 		StringSelection stringSelection = new StringSelection(string);
 		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
 	}
-	public void importFileUsingRobot(String filepath){
+
+	public void importFileUsingRobot(String filepath) {
 		setClipboardData(filepath);
 		Robot robot;
 		try {
@@ -653,11 +653,12 @@ public class BaseUi {
 	}
 
 	public void ScrollPage(int x, int y) {
+		wait.hardWait(2);
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("window.scrollBy(" + x + "," + y + ")", "");
 	}
-	
-	public void scrollUp(){
+
+	public void scrollUp() {
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("window.scrollBy(0,-1000)", "");
 	}
