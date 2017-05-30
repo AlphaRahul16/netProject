@@ -111,5 +111,23 @@ Session:
       finalId_name: "finalID_name"
       hash_tag: "test_tag"
       
+Admin:
+   Add_user: 
+       FirstName: "Selenium"
+       LastName: "_user"
+       Email: "SeleniumTestEmail@acs.org"
+       Institution: "QA_Test"
+       City: "Ohio"
+       Country: "United States"
+       UserId: ""
+       Role: "Admin"
+   confimation_msg: "Your account has been created"
+   Report_LoginDetails: "Rahul Yadav - Last logged in:"
+   Fields_In_Body:
+       Abstract_Window_title: "ScholarOne Abstracts - Review & Submit"
+       
+       
+       
+      
       
       

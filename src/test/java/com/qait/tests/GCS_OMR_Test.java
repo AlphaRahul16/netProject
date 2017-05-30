@@ -117,7 +117,7 @@ public class GCS_OMR_Test extends BaseTest {
 				mapGcsOMR.get("Mobile_Number"), mapGcsOMR.get("Email_Id"), mapGcsOMR.get("CreditCard_Number"), name,
 				mapGcsOMR.get("CreditCardExpiration_Month"), mapGcsOMR.get("CreditCardExpiration_Year"),
 				mapGcsOMR.get("CreditCard_CVV_Number"), mapGcsOMR.get("Bank_Name").trim());
-		test.asm_OMR.logoutFromApplication();
+		//test.asm_OMR.logoutFromApplication();
 
 	}
 

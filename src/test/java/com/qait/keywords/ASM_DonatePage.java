@@ -368,7 +368,7 @@ public class ASM_DonatePage extends GetPage {
 		// element("btn_continue").click();
 		clickUsingXpathInJavaScriptExecutor(element("btn_submitPayment"));
 		logMessage("STEP : click on continue button in btn_submitPayment\n");
-		wait.waitForPageToLoadCompletely();
+		wait.hardWait(3);
 
 	}
 
