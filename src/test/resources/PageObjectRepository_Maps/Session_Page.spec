@@ -39,7 +39,6 @@ lst_column                              xpath                               //di
 btn_add                                 xpath                               //td[@class='x-toolbar-left']//button[text()='${btnName}']
 chkbox_column                           xpath                               //div[text()='${roomName}']/../preceding-sibling::td[${index}]//div[@class='x-grid3-row-checker']
 btn_add_column                          xpath                               //div[text()='${roomName}']/../preceding-sibling::td[1]//div[@class='x-grid3-row-expander']
-btn_close								xpath								//button[text()='${btnName}']
 btn_recordsname                         xpath                               (//div[@class='x-grid3-row-checker'])[${recordnumber}]/../../following-sibling::td[${index}]/div
 txt_totalRecords                        xpath                               //div[@class='x-grid3-row-checker']
 chkbox_records                          xpath                               (//div[@class='x-grid3-row-checker'])[${recordnumber}]
@@ -102,8 +101,9 @@ img_expandTab                           xpath                               //sp
 lnk_eventName                           xpath                               //div[@qtip='${eventName}']
 txt_eventInfo                           xpath                               //b[text()='${fieldName}:']/../../td[2]
 txt_sessionItinerary                    xpath                               //div[@class='x-panel x-component']//div[@class='x-tree3-node-ct']//span[@class='x-tree3-node-text']
-txt_colName								xpath								//colgroup[@role='presentation']/following-sibling::tbody//td//span
+#txt_colName						    xpath								(//colgroup[@role='presentation']/following-sibling::tbody//td//span)[${index}]
 txt_AllColName							xpath								//a[contains(@class,'x-menu-item')]
 txt_popUpmsg							xpath								//p[contains(text(),'${msg}')]
 input_editableColumnindex               xpath                               (//div[contains(@class,'x-grid3-col-${columnName}')])[${index}]
+txt_displayedCol						xpath								//a[contains(@class,'x-menu-checked')]
 ======================================================================================================================================
