@@ -20,6 +20,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -397,7 +398,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public List<String> getTableData(String index, String columnName) {
 		List<String> tableData = new ArrayList<>();
 		waitForLoaderToDisappear();
-
 		wait.hardWait(4);
 		isElementDisplayed("txt_tableData", index, columnName);
 		for (WebElement ele : elements("txt_tableData", index, columnName)) {
@@ -500,20 +500,66 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		selectValueFromDropDown(symposiumType);
 	}
 
-	public String addHostforSymposium(String label) {
+	public List<String> addHostforSymposium(String label, int numberOfHost) {
+		List<String> abstractDetails = new ArrayList<>();
 		waitForLoadingImageToDisappear("Loading...");
 		isElementDisplayed("txt_hostDetails", label);
-		elements("txt_hostDetails", label).get(1).click();
-		WebElement Sourcelocator = elements("txt_hostDetails", label).get(1);
-		String value = elements("txt_hostDetails", label).get(1).getText();
-		isElementDisplayed("txt_dropField");
-		WebElement Destinationlocator = elements("txt_dropField").get(2);
-		dragAndDrop(Sourcelocator, Destinationlocator);
+		for (int i = 1; i <= numberOfHost; i++) {
+			WebElement Sourcelocator = elements("txt_hostDetails", label).get(1);
+			String value = elements("txt_hostDetails", label).get(1).getText();
+			abstractDetails.add(value);
+			isElementDisplayed("txt_dropField");
+			WebElement Destinationlocator = elements("txt_dropField").get(1);
+			dragAndDrop(Sourcelocator, Destinationlocator);
+			wait.hardWait(2);
+			waitForLoadingImageToDisappear("Loading...");
+			logMessage("STEP: '" + value + " is selected as Host \n");
+		}
+		return abstractDetails;
+	}
+
+	
+	public String addHostforSymposium(String label) {
+		wait.hardWait(3);
+		//waitForLoadingImageToDisappear("Loading...");
+		isElementDisplayed("txt_hostDetails", label);
+		WebElement sourcelocator=null,destinationlocator=null;
+		String value=null;
+		try{
+			sourcelocator = elements("txt_hostDetails", label).get(1);
+			elements("txt_hostDetails", label).get(1).click();
+			value = elements("txt_hostDetails", label).get(1).getText();
+			isElementDisplayed("txt_dropField");
+			destinationlocator = elements("txt_dropField").get(2);
+		}catch(TimeoutException e){
+			sourcelocator = elements("txt_hostDetails", label).get(3);
+			elements("txt_hostDetails", label).get(3).click();
+			value = elements("txt_hostDetails", label).get(3).getText();
+			isElementDisplayed("txt_dropField");
+			destinationlocator = elements("txt_dropField").get(2);
+		}
+		
+		dragAndDrop(sourcelocator, destinationlocator);
 		wait.hardWait(2);
 		waitForLoadingImageToDisappear("Loading...");
 		// waitForLoaderToDisappear();
 		logMessage("STEP: '" + value + " is selected as Host \n");
 		return value;
+	}
+	public void addAbstractsInCurrentlyAssignedAbstractsSection() {
+		isElementDisplayed("btn_navPanel", "Search Results");
+		wait.hardWait(5);
+		waitForLoadingImageToDisappear("Loading...");
+		wait.hardWait(3);
+		//isElementDisplayed("txt_hostDetails", "status");
+		WebElement Sourcelocator = elements("txt_hostDetails", "title").get(1);
+		//WebElement Sourcelocator = elements("txt_hostDetails", "status").get(2);
+		elements("txt_hostDetails", "title").get(1).click();
+		isElementDisplayed("txt_dropField");
+		WebElement Destinationlocator = elements("txt_dropField").get(2);
+		dragAndDrop(Sourcelocator, Destinationlocator);
+		wait.hardWait(2);
+		waitForLoadingImageToDisappear("Loading...");
 	}
 
 	public String getHostDetails(String label) {
@@ -536,23 +582,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	// logMessage("STEP: '" + value + " is selected as Host \n");
 	// return value;
 	// }
-	public List<String> addHostforSymposium(String label, int numberOfHost) {
-		List<String> abstractDetails = new ArrayList<>();
-		waitForLoadingImageToDisappear("Loading...");
-		isElementDisplayed("txt_hostDetails", label);
-		for (int i = 1; i <= numberOfHost; i++) {
-			WebElement Sourcelocator = elements("txt_hostDetails", label).get(1);
-			String value = elements("txt_hostDetails", label).get(1).getText();
-			abstractDetails.add(value);
-			isElementDisplayed("txt_dropField");
-			WebElement Destinationlocator = elements("txt_dropField").get(1);
-			dragAndDrop(Sourcelocator, Destinationlocator);
-			wait.hardWait(2);
-			waitForLoadingImageToDisappear("Loading...");
-			logMessage("STEP: '" + value + " is selected as Host \n");
-		}
-		return abstractDetails;
-	}
 
 	public void addRoleForHost(String hostRole) {
 		isElementDisplayed("txt_hostDetails", "session_host_role");
@@ -566,19 +595,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("inp_programField", searchBy);
 		element("inp_programField", searchBy).sendKeys(value);
 		logMessage("STEP: Abstract is searched by " + searchBy + " with value " + value + "\n");
-	}
-
-	public void addAbstractsInCurrentlyAssignedAbstractsSection() {
-		isElementDisplayed("btn_navPanel", "Search Results");
-		wait.hardWait(5);
-		waitForLoadingImageToDisappear("Loading...");
-		isElementDisplayed("txt_hostDetails", "title");
-		WebElement Sourcelocator = elements("txt_hostDetails", "title").get(2);
-		isElementDisplayed("txt_dropField");
-		WebElement Destinationlocator = element("txt_dropField");
-		dragAndDrop(Sourcelocator, Destinationlocator);
-		wait.hardWait(2);
-		waitForLoadingImageToDisappear("Loading...");
 	}
 
 	public void clickOnButtonByIndexing(String text, String index) {
@@ -727,8 +743,9 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public void importFileWithValidData(String downloadedFilePath) {
 		isElementDisplayed("inp_fileupload", "Please upload your file:", "1");
 		String value = getValUsingXpathInJavaScriptExecutor(element("inp_fileupload", "Please upload your file:", "1"));
-		System.out.println("value of inp file path:::::"+ value);
+		System.out.println("value of inp file path:::::" + value);
 		File sourceFile = new File(downloadedFilePath);
+		clickUsingXpathInJavaScriptExecutor(element("btn_Types", "Browse..."));
 		performClickByActionBuilder(element("btn_Types", "Browse..."));
 		wait.hardWait(3);
 		importFileUsingRobot(downloadedFilePath);
@@ -941,7 +958,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 				}
 			}
 			selectARowInSortWindowPopup(columnName, index - 1);
-			clickOnAddButton("Delete");
+			clickOnButtonByIndexing("Delete", "1");
 		}
 	}
 
@@ -988,10 +1005,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("Step : Double clicked on table row\n");
 	}
 
-	public void inputTextInFilter(String value, String index) {
+	public void inputTextInFilter(String label,String value, String index) {
 		waitForLoaderToDisappear();
-		isElementDisplayed("input_filter", "Filter", index);
-		element("input_filter", "Filter", index).sendKeys(value);
+		isElementDisplayed("input_filter", label, index);
+		element("input_filter",label, index).sendKeys(value);
 		logMessage("STEP : " + value + " is entered in filter input box \n");
 		waitForLoaderToDisappear();
 	}
@@ -1471,7 +1488,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifySessionOrEventInformation(Map<String, String> eventInfo) {
-		Iterator mapIterator = eventInfo.entrySet().iterator();
+		Iterator<?> mapIterator = eventInfo.entrySet().iterator();
 		while (mapIterator.hasNext()) {
 			Map.Entry pair = (Map.Entry) mapIterator.next();
 			System.out.println(pair.getKey() + " = " + pair.getValue());
@@ -1544,10 +1561,15 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public List<String> getDataForImportedFile(Map<String, Object> yamlValues) {
 		List<String> data = new ArrayList<String>();
-		Set keys = yamlValues.keySet();
-		for (Iterator i = keys.iterator(); i.hasNext();) {
+		String value=null;
+		Set<String> keys = yamlValues.keySet();
+		for (Iterator<String> i = keys.iterator(); i.hasNext();) {
 			String key = (String) i.next();
-			String value = (String) yamlValues.get(key);
+			if(key.equals("Session_Title")){
+				value = (String) yamlValues.get(key)+System.currentTimeMillis();
+			}else{
+				value = (String) yamlValues.get(key);
+			}			
 			System.out.println(key + " = " + value);
 			data.add(value);
 		}
@@ -1559,19 +1581,28 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		List<String> colName = new ArrayList<String>();
 		wait.hardWait(3);
 		// System.out.println(element("txt_colName").getText());
-		int totalCol = elements("txt_colName").size();
+		int totalCol = elements("txt_displayedCol").size();
 		System.out.println("totalCol******" + totalCol);
-		for (int i = 1; i < totalCol; i++) {
-			colName.add(elements("txt_colName").get(i).getText());
+		for (int i = 0; i < totalCol; i++) {
+			colName.add(elements("txt_displayedCol").get(i).getText());
+			System.out.println("col name::::" + elements("txt_displayedCol").get(i).getText());
 		}
 		return colName;
 	}
 
 	public void verifyExportedFileWithColumns(String csvFile, List<String> colHeader) {
+		boolean flag=true;
 		String dataFromDownloadedFile = DataProvider.csvReaderRowSpecific(csvFile, "No", "1");
-		System.out.println("dataFromDownloadedFile******" + dataFromDownloadedFile);
+		System.out.println("dataFromDownloadedFile:   " + dataFromDownloadedFile);
 		for (String column_header : colHeader) {
-			Assert.assertTrue(dataFromDownloadedFile.contains(column_header),
+			if(column_header.contains("Abbrev")){
+				column_header="Abbreviation";
+			}else if(column_header.contains("# of Assigned Abstracts")){
+				column_header="Num Abstracts Assigned";
+			}
+			System.out.println("##### column_header:::"+ column_header);
+			
+			Assert.assertTrue(dataFromDownloadedFile.trim().contains(column_header.trim()),
 					"ASSERT FAILED: " + column_header + " is not present \n");
 		}
 		logMessage("ASSERT PASSED: All coloumns are present \n");
@@ -1581,18 +1612,23 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public List<String> getAllColumnName() {
 		List<String> colName = new ArrayList<String>();
 		int totalCol = elements("txt_AllColName").size();
-		System.out.println("totalCol******" + totalCol);
 		for (int i = 6; i < totalCol; i++) {
-			System.out.println("#################" + elements("txt_AllColName").get(i).getText());
 			colName.add(elements("txt_AllColName").get(i).getText());
 		}
 		return colName;
 	}
 
 	public void verifyPopUpText(String msg) {
-	
-		Assert.assertTrue(checkIfElementIsThere("txt_popUpmsg",msg));
-		logMessage("Step: '"+ msg + "' is displayed \n");
+
+		Assert.assertTrue(checkIfElementIsThere("txt_popUpmsg", msg));
+		logMessage("Step: '" + msg + "' is displayed \n");
+
+	}
+
+	public void selectUnassignedAbstracts() {
+		isElementDisplayed("inp_sessionType","unassigned_abstracts");
+		element("inp_sessionType","unassigned_abstracts").click();
+		logMessage("Step: check the unassigned abstracts \n");
 		
 	}
 }

@@ -20,8 +20,8 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 	private String griduniqueName = "Selenium_Test_Grid_" + System.currentTimeMillis();
 	private String[] roles = { "OPA Staff", "Program Viewer", "Program Chair Sessioning", "Abstract Editor",
 			"Session Admin" };
-	private String[] programViewerleftpaneloptions = { "Dashboard & Instructions", "Symposia Viewer",
-			"Session Viewer", "Abstracts" };
+	private String[] programViewerleftpaneloptions = { "Dashboard & Instructions", "Symposia Viewer", "Session Viewer",
+			"Abstracts" };
 	private String downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator
 			+ "test" + File.separator + "resources" + File.separator + "DownloadedFiles";
 
@@ -152,8 +152,8 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Export");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (All Columns)");
 		test.maps_sessionpage.waitForProcessBarToDisappear();
-		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath+ File.separator
-				+YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name_symposia")+".csv");
+		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath + File.separator
+				+ YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name_symposia") + ".csv");
 	}
 
 	@Test
@@ -246,8 +246,8 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Export");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (Displayed Columns)");
 		test.maps_sessionpage.waitForProcessBarToDisappear();
-		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath+ File.separator
-				+YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name_session")+".csv");
+		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath + File.separator
+				+ YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name_session") + ".csv");
 	}
 
 	/**
@@ -261,8 +261,8 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Export");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (All Columns)");
 		test.maps_sessionpage.waitForProcessBarToDisappear();
-		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath+ File.separator
-				+YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name")+".csv");
+		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath + File.separator
+				+ YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name") + ".csv");
 
 	}
 
@@ -270,7 +270,7 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 	public void Step_0276_MAPS_Session_269_Verify_Application_Launches_View_Event_PopUp_After_Clicking_View_Option() {
 		test.maps_sessionpage.rightClickOnSessionList("1");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("View");
-	//	test.maps_sessionpage.verifyTitleForRoles("View Symposium");
+		// test.maps_sessionpage.verifyTitleForRoles("View Symposium");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Close");
 
 	}
@@ -279,7 +279,8 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 	public void Step_0279_MAPS_Session_272_Verify_Application_Filter_Result_In_View_Host() {
 		test.maps_sessionpage.doubleClickOnRow("1");
 		test.maps_sessionpage.clickOnSessionBuilderTab("View Host");
-		test.maps_sessionpage.inputTextInFilter(test.maps_sessionpage.getHostColoumData("session_host_email"), "3");
+		test.maps_sessionpage.inputTextInFilter("Filter", test.maps_sessionpage.getHostColoumData("session_host_email"),
+				"3");
 	}
 
 	@Test
