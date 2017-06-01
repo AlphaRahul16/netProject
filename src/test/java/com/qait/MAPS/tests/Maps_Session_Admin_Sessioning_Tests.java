@@ -177,22 +177,20 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 		test.maps_sessionpage.verifyDataIsDeleted("session_name", symposiumTitle);
 	}
 
-	// //@Test // rahul
-	// public void
-	// Step_1567_MAPS_Session_1545_Verify_application_print_Page_On_Clicking_Print_Button()
-	// {
-	// String selectedsymposia, selected_title;
-	// test.maps_sessionpage.waitForProcessBarToDisappear();
-	// test.maps_sessionpage.selectaRecordFromTheList(1, "2");
-	// selected_title = test.maps_sessionpage.getCheckedColumnData("1", "3");
-	// selectedsymposia = test.maps_sessionpage.getCheckedColumnData("1", "4");
-	// // have to add this function
-	// test.maps_sessionpage.clickOnButtonUnderSessioning("Print Selected");
-	// test.maps_sessionpage.verifyTitleForRoles("Print Symposia Preview");
-	// test.maps_sessionpage.verifyPrintPreviewTableContents(selectedsymposia);
-	// test.maps_sessionpage.verifyPrintPreviewTableContents(selected_title);
-	// test.maps_sessionpage.clickOnButtonUnderSessioning("Cancel");
-	// }
+	// @Test // rahul
+	public void Step_1567_MAPS_Session_1545_Verify_application_print_Page_On_Clicking_Print_Button() {
+		String selectedsymposia, selected_title;
+		test.maps_sessionpage.waitForProcessBarToDisappear();
+		test.maps_sessionpage.selectaRecordFromTheList(1, "2");
+		selected_title = test.maps_sessionpage.getCheckedColumnData("1", "3");
+		selectedsymposia = test.maps_sessionpage.getCheckedColumnData("1", "4");
+		// have to add this function
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Print Selected");
+		test.maps_sessionpage.verifyTitleForRoles("Print Symposia Preview");
+		test.maps_sessionpage.verifyPrintPreviewTableContents(selectedsymposia);
+		test.maps_sessionpage.verifyPrintPreviewTableContents(selected_title);
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Cancel");
+	}
 
 	// @Test // passed
 	public void Step_1573_MAPS_Session_1551_Verify_that_application_downloads_the_relevant_file_on_clicking_Download_options() {
@@ -1255,19 +1253,17 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 	}
 
 	@Test
-	 public void
-	 Step_3500_MAPS_Session_3473_Verify_Application_Displays_Options_Button_And_Export_Level_Assignments_to_CSV_Dropdown_At_Top_Of_Add_Session()
-	 {
-	 test.maps_sessionpage.rightClickOnTopLevelSession("Top Level");
-	 test.maps_sessionpage.clickButtonToContinueToNextPage("Add Session");
-	 test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Add/Modify Session for Top Level");
-	 test.maps_sessionpage.selectRoleOnSaveGridConfiguration("Options");
-	 test.maps_sessionpage.verifydropdownOnPopupWindow("Export Level Assignments to CSV");
-	 }
+	public void Step_3500_MAPS_Session_3473_Verify_Application_Displays_Options_Button_And_Export_Level_Assignments_to_CSV_Dropdown_At_Top_Of_Add_Session() {
+		test.maps_sessionpage.rightClickOnTopLevelSession("Top Level");
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Add Session");
+		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Add/Modify Session for Top Level");
+		test.maps_sessionpage.selectRoleOnSaveGridConfiguration("Options");
+		test.maps_sessionpage.verifydropdownOnPopupWindow("Export Level Assignments to CSV");
+	}
 
 	@Test
 	public void Step_3534_MAPS_Session_3507_Verify_Application_Removes_Selected_Session_Or_Event() {
-		test.maps_sessionpage.inputTextInFilter("Filter","Test Session", "2");
+		test.maps_sessionpage.inputTextInFilter("Filter", "Test Session", "2");
 		String sessionTitle = test.maps_sessionpage.selectaRecordFromTheList(1, "1");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Add Selected");
 		test.maps_sessionpage.waitForLoadingImageToDisappear("Loading...");
