@@ -105,4 +105,5 @@ txt_sessionItinerary                    xpath                               //di
 txt_colName								xpath								//colgroup[@role='presentation']/following-sibling::tbody//td//span
 txt_AllColName							xpath								//a[contains(@class,'x-menu-item')]
 txt_popUpmsg							xpath								//p[contains(text(),'${msg}')]
+input_editableColumnindex               xpath                               (//div[contains(@class,'x-grid3-col-${columnName}')])[${index}]
 ======================================================================================================================================

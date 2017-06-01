@@ -108,32 +108,14 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 		test.maps_sessionpage.clickOnSaveButton("Export to Excel");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (All Columns)");
 		test.maps_sessionpage.waitForProcessBarToDisappear();
-/*
-		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath,
-				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"));
-		test.maps_sessionpage.waitForProcessBarToDisappear();*/
-
 		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath + File.separator
 				+ YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name") + ".csv");
-		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Export  to Excel (All Columns)",
-				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"), downloadedFilePath);
-		test.maps_sessionpage.clickOnSaveButton("Export to Excel");
-		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (Displayed Columns)");
-		test.maps_sessionpage.waitForProcessBarToDisappear();
-/*		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath,
-				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"));*/
-		
 		CSVFileReaderWriter._deleteExistingCSVFile(downloadedFilePath,
 				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"));
 		test.maps_sessionpage.waitForProcessBarToDisappear();
 		test.maps_sessionpage.clickOnSaveButton("Export to Excel");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (Displayed Columns)");
 		test.maps_sessionpage.waitForProcessBarToDisappear();
-
-/*		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath,
-				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"));*/
-		test.maps_sessionpage.waitForProcessBarToDisappear();
-
 		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath + File.separator
 				+ YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name") + ".csv");
 	}

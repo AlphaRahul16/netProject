@@ -20,6 +20,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -986,13 +987,14 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		waitForLoaderToDisappear();
 		doubleClick(element("chkbox_records", index));
 		logMessage("Step : Double clicked on table row\n");
+		wait.hardWait(2);
 	}
 
 	public void inputTextInFilter(String value, String index) {
 		waitForLoaderToDisappear();
-		isElementDisplayed("input_filter", "Filter", index);
-		element("input_filter", "Filter", index).sendKeys(value);
-		logMessage("STEP : " + value + " is entered in filter input box \n");
+		isElementDisplayed("input_filter", "Search", index);
+		element("input_filter", "Search", index).sendKeys(value);
+		logMessage("STEP : " + value + " is entered in Search input box \n");
 		waitForLoaderToDisappear();
 	}
 
@@ -1192,7 +1194,18 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void clickOnSessionBuilderTab(String tabName) {
 		isElementDisplayed("btn_navPanel", tabName);
+		try
+		{
+			wait.resetExplicitTimeout(4);
+			wait.resetImplicitTimeout(4);
 		elements("btn_navPanel", tabName).get(0).click();
+		}
+		catch(TimeoutException te)
+		{
+			clickUsingXpathInJavaScriptExecutor(element("btn_navPanel", tabName));
+		}
+		wait.resetExplicitTimeout(timeOut);
+		wait.resetImplicitTimeout(timeOut);
 		logMessage("Step: Clicked on " + tabName + " tab\n");
 	}
 
@@ -1283,8 +1296,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		rightClick(element("chkbox_records", recordnumber));
 	}
 
-	public String getHostColoumData(String hostname) {
-		return elements("input_editableColumn").get(0).getText();
+	public String getHostColoumData(String hostname, String index) {
+		return element("input_editableColumnindex",hostname,index).getText().trim();
 	}
 
 	public void enterDurationOnCreateSessionPopUp(String fieldName, String roomName) {
@@ -1593,6 +1606,19 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	
 		Assert.assertTrue(checkIfElementIsThere("txt_popUpmsg",msg));
 		logMessage("Step: '"+ msg + "' is displayed \n");
+		
+	}
+	
+	public void clickClosePopUpButton(String buttonname){
+		isElementDisplayed("btn_close",buttonname);
+		click(element("btn_close",buttonname));
+		logMessage("Step: Close pop up button is clicked\n");
+
+	}
+
+	public void verifyUserDetailsInFilterResults(String filterindex) {
+		Assert.assertTrue(getHostColoumData("session_host_email","1").equals(getValUsingXpathInJavaScriptExecutor(element("input_filter", "Search",filterindex))));
+		logMessage("ASSERT PASSED : Filtered result is succesfully verified as "+getHostColoumData("session_host_email","1"));
 		
 	}
 }
