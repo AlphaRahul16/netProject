@@ -112,6 +112,7 @@ public class Maps_Session_OPA_Staff_Tests extends BaseTest {
 				+ YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name") + ".csv");
 		CSVFileReaderWriter._deleteExistingCSVFile(downloadedFilePath,
 				YamlReader.getYamlValue("Session.OPA_Staff.File_Downloaded_Name"));
+		test.maps_sessionpage.waitForProcessBarToDisappear();
 		test.maps_sessionpage.clickOnSaveButton("Export to Excel");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (Displayed Columns)");
 		test.maps_sessionpage.waitForProcessBarToDisappear();

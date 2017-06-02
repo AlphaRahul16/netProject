@@ -7,9 +7,9 @@ app_url_email: https://ewebtest.acs.org/NFStage2/emailcenter
 app_url_nominateFellow: https://www.ewebtest.acs.org/NFStage2/nominatefellow
 app_url_egift: https://ewebtest.acs.org/NFStage2/egift
 app_url_givingDonate: https://www.ewebtest.acs.org/NFStage2/donate   
-app_url_givingGreen: https://ewebtest.acs.org/NFStage2/green
-app_url_givingScholars: https://ewebtest.acs.org/NFStage2/scholars/
-app_url_givingSeed: https://ewebtest.acs.org/NFStage2/seed
+app_url_givingGreen: https://www.ewebtest.acs.org/NFStage2/green
+app_url_givingScholars: https://www.ewebtest.acs.org/NFStage2/scholars/
+app_url_givingSeed: https://www.ewebtest.acs.org/NFStage2/seed
 app_url_OMR: https://www.renewtest.acs.org/NFStage2/renew
 app_url_MGM: https://ewebtest.acs.org/NFStage2/mgm
 app_url_Meeting: https://ewebtest.acs.org/NFStage2/meetings/2012gcec

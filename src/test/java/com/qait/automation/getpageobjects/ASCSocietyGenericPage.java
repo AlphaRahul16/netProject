@@ -147,6 +147,7 @@ public class ASCSocietyGenericPage extends GetPage {
 				.getSpecificColumnFromCsvLine(csvLine, csvSeparator, DataProvider.getColumnNumber(valueFromDataSheet))
 				.trim();
 	}
+
 	public String getPriceSheetValue(String caseId, String valueFromDataSheet) {
 		String csvLine = csvReaderRowSpecific(getYamlValue("csv-data-file.path_PriceValue"),
 				getYamlValue("csv-data-file.has-header"), caseId);
@@ -511,27 +512,25 @@ public class ASCSocietyGenericPage extends GetPage {
 	}
 
 	public void dragAndDrop(WebElement sourceElement, WebElement destinationElement) {
-//		Actions action = new Actions(driver);
-//		action.dragAndDrop(sourceElement, destinationElement).perform();
-	Actions builder = new Actions(driver);
+		Actions action = new Actions(driver);
+		//action.dragAndDrop(sourceElement, destinationElement).perform();
+		Actions builder = new Actions(driver);
 
-	Action dragAndDrop = builder.clickAndHold(sourceElement)
-	   .moveToElement(destinationElement)
-	   .release(destinationElement)
-	   .build();
+		Action dragAndDrop = builder.clickAndHold(sourceElement).moveToElement(destinationElement)
+				.release(destinationElement).build();
 
-	dragAndDrop.perform();
-		logMessage("Step: drag from "+ sourceElement+ " to "+ destinationElement+ "\n");
+		dragAndDrop.perform();
+		logMessage("Step: drag from " + sourceElement + " to " + destinationElement + "\n");
 	}
 
-	public void waitForLoadingImageToDisappear(String loaderText){
+	public void waitForLoadingImageToDisappear(String loaderText) {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
 			wait.resetImplicitTimeout(7);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
-			isElementDisplayed("img_loading",loaderText);
-			wait.waitForElementToDisappear(element("img_loading",loaderText));
+			isElementDisplayed("img_loading", loaderText);
+			wait.waitForElementToDisappear(element("img_loading", loaderText));
 			logMessage("STEP : Wait for Loading image to be disappeared \n");
 
 		} catch (NoSuchElementException Exp) {
@@ -541,16 +540,15 @@ public class ASCSocietyGenericPage extends GetPage {
 		wait.resetImplicitTimeout(timeOut);
 		wait.resetExplicitTimeout(timeOut);
 	}
-	
+
 	public void verifyValidFileIsDownloaded(String filepath) {
-		wait.hardWait(6);		
-		//waitForLoadingImageToDisappear("Generating CSV file... Please wait");
-		
+		wait.hardWait(6);
+		// waitForLoadingImageToDisappear("Generating CSV file... Please wait");
+
 		File sourceFile = new File(filepath);
 		Assert.assertTrue(sourceFile.exists(), "ASSERT FAILED: file is not downloaded \n");
 		logMessage("ASSERT PASSED: '" + filepath + "' is downloaded \n");
 
 	}
-	
 
 }

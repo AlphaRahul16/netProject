@@ -799,6 +799,7 @@ public class BaseUi {
 	public void rightClick(WebElement element) {
 		Actions action = new Actions(driver).contextClick(element);
 		action.build().perform();
+		action.release();
 		System.out.println("STEP: Sucessfully Right clicked on the element \n");
 	}
 

@@ -525,7 +525,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	}
 
 	public Map<String, String> addMembershipsForRegularMember(Map<String, String> mapOMR) {
-		receiveCENPrintOrElectronically(mapOMR.get("Receive_C&EN?"));
+		//receiveCENPrintOrElectronically(mapOMR.get("Receive_C&EN?"));
 		if (!mapOMR.get("Member_Status?").equalsIgnoreCase("Emeritus")) {
 			removeAllPreviousRenewals("RemoveBenefitItem");
 			removeAllPreviousRenewals("RemoveDivisionItem");
@@ -923,6 +923,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	public void verifyPrintReceiptMessageAfterPayment() {
 		wait.waitForPageToLoadCompletely();
 		// switchToEwebRenewalFrame();
+		holdScriptExecution();
 		dynamicWait(40, "btn_printreceipt", "1");
 		wait.hardWait(10);
 		Object display = executeJavascriptReturnValue(

@@ -334,7 +334,7 @@ public class ASM_MGMPage extends GetPage {
 		// nomineeStatusMap.put(1, nomineeStatus[0]);
 		// nomineeStatusMap.put(2, nomineeStatus[1]);
 		for (int i = 0; i < Integer.parseInt(resendCount); i++) {
-			launchUrl(MGMpageURL);
+			launchUrl(MGMpageURL);launchUrl(MGMpageURL);
 			loginInToApplication(webLogin, getYamlValue("password"));
 			verifyStatusAfterClickResend(uniqueEmail, ewebStatus.get(i));
 			clickOnlogoutButton(logoutURL);
@@ -426,8 +426,9 @@ public class ASM_MGMPage extends GetPage {
 	}
 
 	public void clickOnlogoutButton(String logoutUrl) {
-		if (ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage2")
-				|| ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage8")) {
+//		if (ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage2")
+//				|| ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage8")
+//				|| ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("dev9")) {
 			isElementDisplayed("btn_myAccount");
 			click(element("btn_myAccount"));
 			isElementDisplayed("link_applyACSmembership", "Log Out");
@@ -435,10 +436,10 @@ public class ASM_MGMPage extends GetPage {
 			wait.waitForPageToLoadCompletely();
 			// elements("link_applyACSmembership","Log Out").get(0).click();
 			logMessage("STEP: Log out button is clicked \n");
-		} else {
-			launchUrl(logoutUrl);
-			logMessage("STEP: Log out URL is launched \n");
-		}
+//		} else {
+//			launchUrl(logoutUrl);
+//			logMessage("STEP: Log out URL is launched \n");
+//		}
 	}
 
 }

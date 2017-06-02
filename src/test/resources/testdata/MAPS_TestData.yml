@@ -60,15 +60,13 @@ Session:
       id: ","
       Session_Title: "test_sessionTitle"
       other_Details: ",,Symposium,Poster,,,,,,,,,,,,,,,,,"
-      
-      
   Program_Areas:
       Color: "#FFCC00"
       Type: Session
       Alert_Text: "The Program Area must be saved before adding owners. Ok?"
       Email Address: R_Yadav@acs.org
       role: Program Admin
-     
+  
   OPA_Staff: 
       File_Downloaded_Name: "abstracts"
   Session_Events:
@@ -110,6 +108,31 @@ Session:
       err_msg_duration: "The duration you have entered exceeds the total available duration for this session."
       finalId_name: "finalID_name"
       hash_tag: "test_tag"
+      
+Admin:
+   Add_user: 
+       FirstName: "Selenium"
+       LastName: "_user"
+       Email: "SeleniumTestEmail@acs.org"
+       Institution: "QA_Test"
+       City: "Ohio"
+       Country: "United States"
+       UserId: ""
+       Role: "Admin"
+   confimation_msg: "Your account has been created"
+   Report_LoginDetails: "Rahul Yadav - Last logged in:"
+   Fields_In_Body:
+       Abstract_Window_title: "ScholarOne Abstracts - Review & Submit"
+       Title_details: "Edited Title Text"
+       Body_details: "Edited Body Text"
+   Email_Search_Criteria:
+       Email_Template_Name: "Account Creation" 
+       Email_Status: "Sent"
+       Subject: "ACS Submission Account Created"
+       Result: "sent"
+       
+       
+       
       
       
       
