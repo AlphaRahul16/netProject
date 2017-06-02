@@ -528,7 +528,7 @@ public class ASCSocietyGenericPage extends GetPage {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
 		try {
-			wait.resetImplicitTimeout(4);
+			wait.resetImplicitTimeout(7);
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			isElementDisplayed("img_loading",loaderText);
 			wait.waitForElementToDisappear(element("img_loading",loaderText));

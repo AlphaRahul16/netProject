@@ -99,6 +99,14 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 			logMessage("ASSERT PASSED : verified options " + text + " is displayed on page\n");
 		}
 	}
+	
+	public void verifyColumnsOnTypesPage(String[] columnOptions) {
+		for (String text : columnOptions) {
+			Assert.assertTrue(isElementDisplayed("heading_sectionName", text,"1"),
+					" option " + text + " is not displayed on application\n");
+			logMessage("ASSERT PASSED : verified options " + text + " is displayed on page\n");
+		}
+	}
 
 	public String getValueFromProgramsTable() {
 		isElementDisplayed("txt_programTableData", "program_id");
@@ -307,8 +315,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 		wait.waitForElementToBeClickable(element("btn_Types", btnName));
 		isElementDisplayed("btn_Types", btnName);
-		clickUsingXpathInJavaScriptExecutor(element("btn_Types", btnName));
-		// click(element("btn_Types", btnName));
+//		clickUsingXpathInJavaScriptExecutor(element("btn_Types", btnName));
+		click(element("btn_Types", btnName));
 		logMessage("Step : Clicked on " + btnName + "\n");
 	}
 
@@ -411,13 +419,18 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		for (int i = 1; i < elements("table_columnDate", columnName).size(); i++) {
 			tableData.add(elements("table_columnDate", columnName).get(i).getText().trim());
 		}
+		System.out.println("----size:"+tableData.size());
+		System.out.println("-----table data:"+tableData);
 		return tableData;
 	}
 
-	public void verifyDataIsSorted(List<String> dataBeforeSorting, List<String> dataAfterSorting) {
+	public void ConvertDataInLowerCaseAndVerifyDataIsSorted(List<String> dataBeforeSorting, List<String> dataAfterSorting) {
 		int index = 0;
 		dataBeforeSorting = convertDataToLowerCase(dataBeforeSorting);
 		dataAfterSorting = convertDataToLowerCase(dataAfterSorting);
+		System.out.println("-----convert data to lower case before sorting:"+dataBeforeSorting);
+		System.out.println("-----convert data to lower case after sorting:"+dataAfterSorting);
+
 		Collections.sort(dataBeforeSorting);
 		for (String beforeSorting : dataBeforeSorting) {
 			System.out.println("----data before sorting:" + beforeSorting);
@@ -428,6 +441,28 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 			index++;
 		}
 	}
+	
+	public void verifyDataIsSorted(List<String> dataBeforeSorting, List<String> dataAfterSorting) {
+		int index = 0;
+//		dataBeforeSorting = convertDataToLowerCase(dataBeforeSorting);
+//		dataAfterSorting = convertDataToLowerCase(dataAfterSorting);
+		System.out.println("----list size:"+dataBeforeSorting.size());
+		System.out.println("-----data before sorting:"+dataBeforeSorting);
+		System.out.println("-----sorted data:"+dataAfterSorting);
+
+		Collections.sort(dataBeforeSorting);
+		System.out.println("-----data after sorting:"+dataBeforeSorting);
+
+		for (String beforeSorting : dataBeforeSorting) {
+			System.out.println("----data before sorting:" + beforeSorting);
+			System.out.println("----data after sorting:" + dataAfterSorting.get(index));
+			Assert.assertTrue(beforeSorting.equals(dataAfterSorting.get(index)),
+					"ASSERT FAILED: Data is not sorted properly\n");
+			logMessage("ASSERT PASSED: Data is sorted properly\n");
+			index++;
+		}
+	}
+
 
 	public List<String> convertDataToLowerCase(List<String> arrayList) {
 		ListIterator<String> iterator = arrayList.listIterator();
@@ -581,9 +616,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void clickOnButtonByIndexing(String text, String index) {
 		isElementDisplayed("btn_remove", text, index);
-		// clickUsingXpathInJavaScriptExecutor(element("btn_remove", text,
-		// index));
-		click(element("btn_remove", text, index));
+		clickUsingXpathInJavaScriptExecutor(element("btn_remove", text,index));
+//		click(element("btn_remove", text, index));
 		wait.hardWait(2);
 		logMessage("STEP: '" + text + "' button is clicked \n");
 	}
@@ -596,8 +630,9 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void clickOnSaveButton(String btnName) {
 		isElementDisplayed("btn_Types", btnName);
-		click(element("btn_Types", btnName));
-		logMessage("Step : Clicked on " + btnName + "\n");
+		clickUsingXpathInJavaScriptExecutor(element("btn_Types", btnName));
+//		click(element("btn_Types", btnName));
+		logMessage("Step : Clicked on " + btnName + " button \n");
 	}
 
 	public void selectSessionTopicWhenAddingProgramArea(String topicname) {
@@ -855,6 +890,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		objSubmission.submitTitleAndBodyDetails(title, abstractData);
 		objSubmission.clickOnSaveAndContinueButton();
 		objSubmission.verifyPageHeaderForASection("Properties");
+		selectSymposiaIfNotSelecetd();
 		objSubmission.clickOnSaveAndContinueButton();
 		objSubmission.verifyPageHeaderForASection("Authors");
 		objSubmission.clickOnSaveAndContinueButton();
@@ -865,6 +901,16 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		objSubmission.verifyAbstractAnswersForSubmission(2, "Abstract", abstractData);
 		objSubmission.clickOnNamedButton("Finish");
 		switchToWindowHavingIndex(0);
+	}
+	
+	public void selectSymposiaIfNotSelecetd(){
+		System.out.println("-------value selected is:"+getSelectedTextFromDropDown(element("select_presentationType","symposia_title")));
+		if(getSelectedTextFromDropDown(element("select_presentationType","symposia_title")).equalsIgnoreCase("None Selected")){
+		element("select_presentationType","symposia_title").click();
+		isElementDisplayed("select_symposiumType");
+		// selectDropDownValue(element("select_symposiumType"), 2);
+		click(element("select_symposiumType"));
+		}
 	}
 
 	public void verifyPrintPreviewTableContents(String value) {
@@ -884,10 +930,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void expandColumnWidth(String columnName, String value) {
+		wait.hardWait(2);
 		isElementDisplayed("column_headers", columnName);
-		JavascriptExecutor executor = (JavascriptExecutor) driver;
-
 		executeJavascript("document.querySelector('div[qtip=\"Edit Abstract\"]').style.width=\"100px\"");
+		logMessage("Step: "+columnName+" column is expanded\n");
 		// executeJavascript("document.querySelector('.primaryNav
 		// >li:nth-child(7) ul').style.display ='block'");
 		// executeJavascript("document.querySelector('div[qtip=\'Edit
@@ -1185,6 +1231,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("table_abstracts");
 		click(elements("table_abstracts").get(index));
 		logMessage("Step : Clicked on main page\n");
+		wait.hardWait(4);
 	}
 
 	public void clickOnSessionBuilderTab(String tabName) {
@@ -1587,9 +1634,25 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyPopUpText(String msg) {
-	
 		Assert.assertTrue(checkIfElementIsThere("txt_popUpmsg",msg));
-		logMessage("Step: '"+ msg + "' is displayed \n");
-		
+		logMessage("Step: '"+ msg + "' is displayed \n");	
+	}
+	
+	public void enterColumnFilterData(String filterdata,String index){
+		isElementDisplayed("txt_filterData",index);
+		element("txt_filterData",index).sendKeys(filterdata);
+		logMessage("Step: Filter data is entered as "+filterdata+"\n");
+	}
+	
+	public void enterFilterData(String filterdata,String index){
+		enterColumnFilterData(filterdata,index);
+		wait.hardWait(4);
+	}
+	
+	public void verifyAbstractGridIsDisplayed(String[] abstractColumns){
+		for(String columnName: abstractColumns){
+			isElementDisplayed("btn_navPanel",columnName);
+			logMessage("ASSERT PASSED: Abstract grid column "+columnName+" is displayed\n");
+		}
 	}
 }

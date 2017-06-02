@@ -28,6 +28,7 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 			"Invitations & Email", "Reports", "Data Export" };
 	private String[] optionSessioning = { "Symposia", "Sessions & Events", "Symposia Viewer", "Session Viewer",
 			"Session Builder", "Schedule Sessions", "Abstracts" };
+	private String[] abstractColumnsList = {"Control ID", "Edit Abstract", "Title", "Final ID", "Presenting Author","Abstract Status"};
 	private String program_area_name = "program_area" + System.currentTimeMillis();
 	private String[] abstractTypes = { "Placeholders", "Withdrawn Presentations", "Stubs" };
 	List<String> sortColumnList = new ArrayList<String>();
@@ -797,9 +798,10 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 		test.maps_sessionpage.verifyRowIsDeleted(sessionBuilderTitle, 3, 5);
 	}
 
-	// @Test
+	@Test
 	public void Step_2823_MAPS_Session_2796_Verify_the_Grids_available_on_the_page_if_Assign_Abstracts_option_is_selected() {
-
+		test.maps_sessionpage.verifyAbstractsViewIsDisplayed();
+		test.maps_sessionpage.verifyAbstractGridIsDisplayed(abstractColumnsList);
 	}
 
 	@Test

@@ -105,4 +105,8 @@ txt_sessionItinerary                    xpath                               //di
 txt_colName								xpath								//colgroup[@role='presentation']/following-sibling::tbody//td//span
 txt_AllColName							xpath								//a[contains(@class,'x-menu-item')]
 txt_popUpmsg							xpath								//p[contains(text(),'${msg}')]
+select_presentationType                 id                                  ${dropdownType}_combobox
+select_symposiumType                    css                                 #symposia_title_combobox>option:nth-child(2)
+txt_filterData                          xpath                               (//img[contains(@class,'x-menu-item-icon')]/..//div//input)[${index}]
+
 ======================================================================================================================================
