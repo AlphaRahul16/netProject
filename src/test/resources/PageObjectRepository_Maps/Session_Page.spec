@@ -101,10 +101,14 @@ img_expandTab                           xpath                               //sp
 lnk_eventName                           xpath                               //div[@qtip='${eventName}']
 txt_eventInfo                           xpath                               //b[text()='${fieldName}:']/../../td[2]
 txt_sessionItinerary                    xpath                               //div[@class='x-panel x-component']//div[@class='x-tree3-node-ct']//span[@class='x-tree3-node-text']
-#txt_colName								xpath								(//colgroup[@role='presentation']/following-sibling::tbody//td//span)[${index}]
+#txt_colName						    xpath								(//colgroup[@role='presentation']/following-sibling::tbody//td//span)[${index}]
 txt_AllColName							xpath								//a[contains(@class,'x-menu-item')]
 txt_popUpmsg							xpath								//p[contains(text(),'${msg}')]
 txt_displayedCol						xpath								//a[contains(@class,'x-menu-checked')]
 txt_controlId							xpath								//div[contains(text(),'${value}')]/../preceding-sibling::td//u
-
+select_presentationType                 id                                  ${dropdownType}_combobox
+select_symposiumType                    css                                 #symposia_title_combobox>option:nth-child(2)
+txt_filterData                          xpath                               (//img[contains(@class,'x-menu-item-icon')]/..//div//input)[${index}]
+input_editableColumnindex               xpath                               (//div[contains(@class,'x-grid3-col-${columnName}')])[${index}]
+txt_displayedCol						xpath								//a[contains(@class,'x-menu-checked')]
 ======================================================================================================================================

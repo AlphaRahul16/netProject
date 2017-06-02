@@ -19,6 +19,7 @@ import com.qait.automation.utils.YamlReader;
 public class Maps_Admin_Tests extends BaseTest {
 
 	private String maps_url, controlId;
+
 	private String[] roles = { "Admin", "Editor" };
 	private String[] fieldsNameEditor = { "Instructions", "Abstract search", "Customizable Data Export" };
 	private String[] inputCriterias = { "Control ID", "Title", "Contact First Name", "Contact Last Name" };
@@ -29,6 +30,10 @@ public class Maps_Admin_Tests extends BaseTest {
 	private String[] searchDropdownOptions = { "Abstract Title", "Abstract Contact First or Last Name",
 			"Person Email Address", "Person First or Last Name" };
 	private String[] reviwerRoleOptionsArray = { "Staff Review", "Program Chair Review", "Review Admin" };
+	private String[] emailLogHeadings = {"E-Mail ID","Template NameSent byDate Sent/ScheduledTime Sent/Scheduled","ToCcBccFrom","# Successes# Failures# Pending","Details","Delete(Only if not sent)"};
+	private String statusRoleName;
+	private String templateName = "testTemplate" + System.currentTimeMillis();
+
 
 	@BeforeClass
 	public void Start_Test_Session() {
@@ -54,6 +59,7 @@ public class Maps_Admin_Tests extends BaseTest {
 	}
 
 	// @Test
+
 	public void Step_007_MAPS_Admin_02_Verify_Application_Displays_Options_And_Fields_For_Editor() {
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Editor");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Select");
@@ -103,7 +109,7 @@ public class Maps_Admin_Tests extends BaseTest {
 		test.maps_adminpage.verifyReviewerRoleOptionInReports("Select a reviewer role", reviwerRoleOptionsArray);
 	}
 
-	// @Test
+	@Test
 	public void Step_039_MAPS_Admin_32_Verify_Application_Adds_New_User_On_Entering_Mandatory_Details() {
 		test.maps_adminpage.clickLeftNavigationPanelOptions("People");
 		test.maps_adminpage.clickLeftNavigationPanelOptions("add user(s)");
@@ -130,7 +136,7 @@ public class Maps_Admin_Tests extends BaseTest {
 				.verfiyDefaultFieldOnLeftNavigationPanel(YamlReader.getYamlValue("Admin.Report_LoginDetails"));
 	}
 
-	// @Test
+	@Test
 	public void Step_055_MAPS_Admin_47_Verify_Application_Launches_New_Window_On_Clicking_ControlID() {
 		test.maps_adminpage.clickLeftNavigationPanelOptions("Special");
 		test.maps_adminpage.clickLeftNavigationPanelOptions("fields in body");
@@ -138,15 +144,15 @@ public class Maps_Admin_Tests extends BaseTest {
 
 	// @Test
 	public void Step_056_MAPS_Admin_48_Verify_Application_Allows_To_Edit_And_Save_Changes_And_Closes_On_Clicking_Finish_Button() {
-
-		controlId = test.maps_adminpage.selectRandomControlId();
-		test.maps_adminpage.verifyApplicationLaunchesNewWindowOnClickingControlId(
-				YamlReader.getYamlValue("Admin.Abstract_Window_title"));
-
-		test.maps_submissionPage.submitTitleAndBodyDetails(YamlReader.getYamlValue(""), YamlReader.getYamlValue(""));
-
-		// MAPS_Admin_82
-		test.maps_adminpage.clickLeftNavigationPanelOptions("Email");
+		 controlId = test.maps_adminpage.selectRandomControlId();
+	    test.maps_adminpage.verifyApplicationLaunchesNewWindowOnClickingControlId(YamlReader.getYamlValue("Admin.Fields_In_Body.Abstract_Window_title"));
+	    test.maps_adminpage.clickEditLinkForTitleAndBody();
+	    test.maps_submissionPage.submitTitleAndBodyDetails(YamlReader.getYamlValue("Admin.Fields_In_Body.Title_details"), YamlReader.getYamlValue("Admin.Fields_In_Body.Body_details"));
+	    test.maps_submissionPage.clickOnSaveAndContinueButton();
+	    test.maps_submissionPage.clickOnNamedButton("Step 5: Review & Submit");
+	    test.maps_submissionPage.clickOnNamedButton("Finish");
+	   // test.closeBrowserWindow();
+	    test.maps_adminpage.navigateToOriginalAdminWindow();
 
 	}
 
@@ -172,5 +178,46 @@ public class Maps_Admin_Tests extends BaseTest {
 		test.maps_adminpage.enterValueInCurrentTemplatePage(oldValue);
 		test.maps_adminpage.clickNamedButtonImage("save");
 	}
+	@Test
+	public void Step_089_MAPS_Admin_81_Verify_Application_Changes_Status_From_Active_To_Inactive_When_User_Checks_Active_Checkbox() {
+		  test.maps_adminpage.clickLeftNavigationPanelOptions("Email");
+		  statusRoleName = test.maps_adminpage.checkActiveCheckboxOfTemplate();
+		  test.maps_adminpage.clickNamedButtonImage("update_status");
+		  test.maps_adminpage.verifyStatusForRoleIsChangedTo("Inactive",statusRoleName);
+		  
+	}
 
+	@Test
+	public void Step_090_MAPS_Admin_82_Verify_Application_Changes_Status_From_Inactive_To_Active_When_User_Checks_Inactive_Checkbox() {
+		test.maps_adminpage.checkInactiveCheckboxOfTemplate(statusRoleName);
+		test.maps_adminpage.clickNamedButtonImage("update_status");
+		test.maps_adminpage.verifyStatusForRoleIsChangedTo("Active",statusRoleName);
+	}
+	
+	@Test
+	public void Step_098_MAPS_Admin_90_Verify_Application_Allows_User_To_Add_Template_By_Provding_Template_Name() {
+		test.maps_adminpage.clickLeftNavigationPanelOptions("custom e-mail");
+		test.maps_adminpage.addAndVerifyTemplateIsAddedToCustomEmail(templateName);
+		
+		
+	}
+	
+	@Test
+	public void Step_129_MAPS_Admin_121_Verify_Application_Displays_Email_Log_Table_From_Email_Log_Suboption() {
+		test.maps_adminpage.clickLeftNavigationPanelOptions("e-mail log");
+		test.maps_adminpage.verifyTablesPresentInReviewerReportTab();
+		test.maps_adminpage.verifyTablesHeadingsSuboptions(emailLogHeadings);
+
+	}
+	
+	@Test
+	public void Step_146_MAPS_Admin_138_Verify_Application_Displays_Results_As_Per_Search_Criteria_On_Clicking_Search_Icon() {
+		test.maps_adminpage.clickLeftNavigationPanelOptions("search for e-mails");
+		test.maps_adminpage.enterEmailSearchCriteriaFields(YamlReader.getYamlValue("Admin.Email_Search_Criteria.Email_Template_Name"),
+				YamlReader.getYamlValue("Admin.Email_Search_Criteria.Email_Status"));
+		test.maps_adminpage.clickNamedButtonImage("search");
+		test.maps_adminpage.verifyAccountCreationMessage(YamlReader.getYamlValue("Admin.Email_Search_Criteria.Subject"));
+		test.maps_adminpage.verifyAccountCreationMessage(YamlReader.getYamlValue("Admin.Email_Search_Criteria.Result"));
+		
+	}
 }

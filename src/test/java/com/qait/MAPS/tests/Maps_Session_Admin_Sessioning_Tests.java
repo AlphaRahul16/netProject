@@ -28,6 +28,7 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 			"Invitations & Email", "Reports", "Data Export" };
 	private String[] optionSessioning = { "Symposia", "Sessions & Events", "Symposia Viewer", "Session Viewer",
 			"Session Builder", "Schedule Sessions", "Abstracts" };
+	private String[] abstractColumnsList = {"Control ID", "Edit Abstract", "Title", "Final ID", "Presenting Author","Abstract Status"};
 	private String program_area_name = "program_area" + System.currentTimeMillis();
 	private String[] abstractTypes = { "Placeholders", "Withdrawn Presentations", "Stubs" };
 	List<String> sortColumnList = new ArrayList<String>();
@@ -264,7 +265,7 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 
 	//@Test
 	public void Step_1599_MAPS_Session_1577_Verify_application_sort_the_records_on_the_basis_of_the_criteria_added() {
-		test.maps_sessionpage.inputTextInFilter("Search", YamlReader.getYamlValue("Session.Symposium.Title"), "1");
+		test.maps_sessionpage.inputTextInFilter(YamlReader.getYamlValue("Session.Symposium.Title"), "1");
 		List<String> dataBeforeSorting = test.maps_sessionpage.getTableData("1", "12");
 		test.maps_sessionpage.clickOnArrowButton("# of Assigned Abstracts");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
@@ -751,9 +752,10 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 		test.maps_sessionpage.verifyRowIsDeleted(sessionBuilderTitle, 3, 5);
 	}
 
-	// @Test
+	@Test
 	public void Step_2823_MAPS_Session_2796_Verify_the_Grids_available_on_the_page_if_Assign_Abstracts_option_is_selected() {
-
+		test.maps_sessionpage.verifyAbstractsViewIsDisplayed();
+		test.maps_sessionpage.verifyAbstractGridIsDisplayed(abstractColumnsList);
 	}
 
 	@Test
@@ -1254,7 +1256,7 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 
 	@Test
 	public void Step_3534_MAPS_Session_3507_Verify_Application_Removes_Selected_Session_Or_Event() {
-		test.maps_sessionpage.inputTextInFilter("Filter", "Test Session", "2");
+		test.maps_sessionpage.inputTextInFilter("Test Session", "2");
 		String sessionTitle = test.maps_sessionpage.selectaRecordFromTheList(1, "1");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Add Selected");
 		test.maps_sessionpage.waitForLoadingImageToDisappear("Loading...");

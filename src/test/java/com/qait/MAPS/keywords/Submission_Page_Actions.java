@@ -94,6 +94,7 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void selectSymposium() {
+		element("select_presentationType").click();
 		isElementDisplayed("select_symposiumType");
 		// selectDropDownValue(element("select_symposiumType"), 2);
 		click(element("select_symposiumType"));
@@ -280,6 +281,7 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_saveandContinueFooter", btnName);
 		click(element("btn_saveandContinueFooter", btnName));
 		logMessage("Step : Clicked on Save & Continue button on Step Incomplete page\n");
+		wait.hardWait(2);
 	}
 
 	public void clickOnLinkUnderCreateNewSubmission(String lnkName) {

@@ -64,12 +64,12 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 	}
 
-//	public void clickButtonToContinueToNextPage(String buttonName) {
-//
-//		isElementDisplayed("lnk_selButton", buttonName);
-//		element("lnk_selButton", buttonName).click();
-//		logMessage("Step : " + buttonName + " button is clicked\n");
-//	}
+	// public void clickButtonToContinueToNextPage(String buttonName) {
+	//
+	// isElementDisplayed("lnk_selButton", buttonName);
+	// element("lnk_selButton", buttonName).click();
+	// logMessage("Step : " + buttonName + " button is clicked\n");
+	// }
 
 	public void clickButtononLeftNavigationPanel(String buttonName) {
 		wait.hardWait(6);
@@ -98,6 +98,14 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public void verifyLeftPanelOptionsOnSessionAdminPage(String[] leftPanelOptions) {
 		for (String text : leftPanelOptions) {
 			Assert.assertTrue(isElementDisplayed("lnk_selButton", text),
+					" option " + text + " is not displayed on application\n");
+			logMessage("ASSERT PASSED : verified options " + text + " is displayed on page\n");
+		}
+	}
+
+	public void verifyColumnsOnTypesPage(String[] columnOptions) {
+		for (String text : columnOptions) {
+			Assert.assertTrue(isElementDisplayed("heading_sectionName", text, "1"),
 					" option " + text + " is not displayed on application\n");
 			logMessage("ASSERT PASSED : verified options " + text + " is displayed on page\n");
 		}
@@ -310,8 +318,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 		wait.waitForElementToBeClickable(element("btn_Types", btnName));
 		isElementDisplayed("btn_Types", btnName);
-		clickUsingXpathInJavaScriptExecutor(element("btn_Types", btnName));
-		// click(element("btn_Types", btnName));
+		// clickUsingXpathInJavaScriptExecutor(element("btn_Types", btnName));
+		click(element("btn_Types", btnName));
 		logMessage("Step : Clicked on " + btnName + "\n");
 	}
 
@@ -413,14 +421,41 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		for (int i = 1; i < elements("table_columnDate", columnName).size(); i++) {
 			tableData.add(elements("table_columnDate", columnName).get(i).getText().trim());
 		}
+		System.out.println("----size:" + tableData.size());
+		System.out.println("-----table data:" + tableData);
 		return tableData;
+	}
+
+	public void ConvertDataInLowerCaseAndVerifyDataIsSorted(List<String> dataBeforeSorting,
+			List<String> dataAfterSorting) {
+		int index = 0;
+		dataBeforeSorting = convertDataToLowerCase(dataBeforeSorting);
+		dataAfterSorting = convertDataToLowerCase(dataAfterSorting);
+		System.out.println("-----convert data to lower case before sorting:" + dataBeforeSorting);
+		System.out.println("-----convert data to lower case after sorting:" + dataAfterSorting);
+
+		Collections.sort(dataBeforeSorting);
+		for (String beforeSorting : dataBeforeSorting) {
+			System.out.println("----data before sorting:" + beforeSorting);
+			System.out.println("----data after sorting:" + dataAfterSorting.get(index));
+			Assert.assertTrue(beforeSorting.equals(dataAfterSorting.get(index)),
+					"ASSERT FAILED: Data is not sorted properly\n");
+			logMessage("ASSERT PASSED: Data is sorted properly\n");
+			index++;
+		}
 	}
 
 	public void verifyDataIsSorted(List<String> dataBeforeSorting, List<String> dataAfterSorting) {
 		int index = 0;
-		dataBeforeSorting = convertDataToLowerCase(dataBeforeSorting);
-		dataAfterSorting = convertDataToLowerCase(dataAfterSorting);
+		// dataBeforeSorting = convertDataToLowerCase(dataBeforeSorting);
+		// dataAfterSorting = convertDataToLowerCase(dataAfterSorting);
+		System.out.println("----list size:" + dataBeforeSorting.size());
+		System.out.println("-----data before sorting:" + dataBeforeSorting);
+		System.out.println("-----sorted data:" + dataAfterSorting);
+
 		Collections.sort(dataBeforeSorting);
+		System.out.println("-----data after sorting:" + dataBeforeSorting);
+
 		for (String beforeSorting : dataBeforeSorting) {
 			System.out.println("----data before sorting:" + beforeSorting);
 			System.out.println("----data after sorting:" + dataAfterSorting.get(index));
@@ -600,9 +635,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void clickOnButtonByIndexing(String text, String index) {
 		isElementDisplayed("btn_remove", text, index);
-		// clickUsingXpathInJavaScriptExecutor(element("btn_remove", text,
-		// index));
-		click(element("btn_remove", text, index));
+		clickUsingXpathInJavaScriptExecutor(element("btn_remove", text, index));
+		// click(element("btn_remove", text, index));
 		wait.hardWait(2);
 		logMessage("STEP: '" + text + "' button is clicked \n");
 	}
@@ -615,8 +649,9 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void clickOnSaveButton(String btnName) {
 		isElementDisplayed("btn_Types", btnName);
-		click(element("btn_Types", btnName));
-		logMessage("Step : Clicked on " + btnName + "\n");
+		clickUsingXpathInJavaScriptExecutor(element("btn_Types", btnName));
+		// click(element("btn_Types", btnName));
+		logMessage("Step : Clicked on " + btnName + " button \n");
 	}
 
 	public void selectSessionTopicWhenAddingProgramArea(String topicname) {
@@ -877,6 +912,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		objSubmission.submitTitleAndBodyDetails(title, abstractData);
 		objSubmission.clickOnSaveAndContinueButton();
 		objSubmission.verifyPageHeaderForASection("Properties");
+		selectSymposiaIfNotSelecetd();
 		objSubmission.clickOnSaveAndContinueButton();
 		objSubmission.verifyPageHeaderForASection("Authors");
 		objSubmission.clickOnSaveAndContinueButton();
@@ -887,6 +923,18 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		objSubmission.verifyAbstractAnswersForSubmission(2, "Abstract", abstractData);
 		objSubmission.clickOnNamedButton("Finish");
 		switchToWindowHavingIndex(0);
+	}
+
+	public void selectSymposiaIfNotSelecetd() {
+		System.out.println("-------value selected is:"
+				+ getSelectedTextFromDropDown(element("select_presentationType", "symposia_title")));
+		if (getSelectedTextFromDropDown(element("select_presentationType", "symposia_title"))
+				.equalsIgnoreCase("None Selected")) {
+			element("select_presentationType", "symposia_title").click();
+			isElementDisplayed("select_symposiumType");
+			// selectDropDownValue(element("select_symposiumType"), 2);
+			click(element("select_symposiumType"));
+		}
 	}
 
 	public void verifyPrintPreviewTableContents(String value) {
@@ -906,10 +954,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void expandColumnWidth(String columnName, String value) {
+		wait.hardWait(2);
 		isElementDisplayed("column_headers", columnName);
-		JavascriptExecutor executor = (JavascriptExecutor) driver;
-
 		executeJavascript("document.querySelector('div[qtip=\"Edit Abstract\"]').style.width=\"100px\"");
+		logMessage("Step: " + columnName + " column is expanded\n");
 		// executeJavascript("document.querySelector('.primaryNav
 		// >li:nth-child(7) ul').style.display ='block'");
 		// executeJavascript("document.querySelector('div[qtip=\'Edit
@@ -1004,6 +1052,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public void doubleClickOnRow(String index) {
 		doubleClick(element("chkbox_records", index));
 		logMessage("Step : Double clicked on table row\n");
+		wait.hardWait(2);
 	}
 
 	public void inputTextInFilter(String label, String value, String index) {
@@ -1011,6 +1060,13 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		element("input_filter", label, index).clear();
 		element("input_filter", label, index).sendKeys(value);
 		logMessage("STEP : " + value + " is entered in filter input box \n");
+	}
+
+	public void inputTextInFilter(String value, String index) {
+		waitForLoaderToDisappear();
+		isElementDisplayed("input_filter", "Search", index);
+		element("input_filter", "Search", index).sendKeys(value);
+		logMessage("STEP : " + value + " is entered in Search input box \n");
 		waitForLoaderToDisappear();
 	}
 
@@ -1035,12 +1091,12 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("STEP :" + expValue + " is deleted \n");
 	}
 
-//	public void clickOnDropDownOfLabel(String dropDown, String tagName) {
-//		System.out.println("1");
-//		isElementDisplayed("input_label", dropDown, tagName);
-//		click(element("input_label", dropDown, tagName));
-//		logMessage("Step : Clicked on " + dropDown + "\n");
-//	}
+	// public void clickOnDropDownOfLabel(String dropDown, String tagName) {
+	// System.out.println("1");
+	// isElementDisplayed("input_label", dropDown, tagName);
+	// click(element("input_label", dropDown, tagName));
+	// logMessage("Step : Clicked on " + dropDown + "\n");
+	// }
 
 	public void selectValueFromDropDown(String priviousValue, String value) {
 		isElementDisplayed("listitem_dropdown", priviousValue, value);
@@ -1082,12 +1138,14 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		}
 	}
 
-//	public void enterTitleOfSession(String fieldName, String tagName, String sessionTitle) {
-//		isElementDisplayed("input_label", fieldName, tagName);
-//		element("input_label", fieldName, tagName).clear();
-//		element("input_label", fieldName, tagName).sendKeys(sessionTitle);
-//		logMessage("Step : " + fieldName + " is entered as " + sessionTitle + "\n");
-//	}
+	// public void enterTitleOfSession(String fieldName, String tagName, String
+	// sessionTitle) {
+	// isElementDisplayed("input_label", fieldName, tagName);
+	// element("input_label", fieldName, tagName).clear();
+	// element("input_label", fieldName, tagName).sendKeys(sessionTitle);
+	// logMessage("Step : " + fieldName + " is entered as " + sessionTitle +
+	// "\n");
+	// }
 
 	public void checkRowInTable(int index, int columnIndex) {
 		isElementDisplayed("txt_tableData", String.valueOf(index), String.valueOf(columnIndex));
@@ -1206,11 +1264,20 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("table_abstracts");
 		click(elements("table_abstracts").get(index));
 		logMessage("Step : Clicked on main page\n");
+		wait.hardWait(4);
 	}
 
 	public void clickOnSessionBuilderTab(String tabName) {
 		isElementDisplayed("btn_navPanel", tabName);
-		elements("btn_navPanel", tabName).get(0).click();
+		try {
+			wait.resetExplicitTimeout(4);
+			wait.resetImplicitTimeout(4);
+			elements("btn_navPanel", tabName).get(0).click();
+		} catch (TimeoutException te) {
+			clickUsingXpathInJavaScriptExecutor(element("btn_navPanel", tabName));
+		}
+		wait.resetExplicitTimeout(timeOut);
+		wait.resetImplicitTimeout(timeOut);
 		logMessage("Step: Clicked on " + tabName + " tab\n");
 	}
 
@@ -1301,8 +1368,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		rightClick(element("chkbox_records", recordnumber));
 	}
 
-	public String getHostColoumData(String hostname) {
-		return elements("input_editableColumn").get(0).getText();
+	public String getHostColoumData(String hostname, String index) {
+		return element("input_editableColumnindex", hostname, index).getText().trim();
 	}
 
 	public void enterDurationOnCreateSessionPopUp(String fieldName, String roomName) {
@@ -1620,10 +1687,26 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyPopUpText(String msg) {
-
 		Assert.assertTrue(checkIfElementIsThere("txt_popUpmsg", msg));
 		logMessage("Step: '" + msg + "' is displayed \n");
+	}
 
+	public void enterColumnFilterData(String filterdata, String index) {
+		isElementDisplayed("txt_filterData", index);
+		element("txt_filterData", index).sendKeys(filterdata);
+		logMessage("Step: Filter data is entered as " + filterdata + "\n");
+	}
+
+	public void enterFilterData(String filterdata, String index) {
+		enterColumnFilterData(filterdata, index);
+		wait.hardWait(4);
+	}
+
+	public void verifyAbstractGridIsDisplayed(String[] abstractColumns) {
+		for (String columnName : abstractColumns) {
+			isElementDisplayed("btn_navPanel", columnName);
+			logMessage("ASSERT PASSED: Abstract grid column " + columnName + " is displayed\n");
+		}
 	}
 
 	public void selectUnassignedAbstracts() {
@@ -1643,12 +1726,27 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyTextAreaOnCreateSessionPage(String id) {
-		Assert.assertTrue(checkIfElementIsThere("inp_programField",id),"ASSERT FAILED: " + id + " is not present \n");
-		logMessage("ASSERT PASSED: " + id + " is present \n");		
+		Assert.assertTrue(checkIfElementIsThere("inp_programField", id), "ASSERT FAILED: " + id + " is not present \n");
+		logMessage("ASSERT PASSED: " + id + " is present \n");
 	}
 
 	public void verifyDropDownOnSessionAdmin(String label) {
-		// TODO Auto-generated method stub
-		
+
+		isElementDisplayed("inp_sessionType", "unassigned_abstracts");
+		element("inp_sessionType", "unassigned_abstracts").click();
+		logMessage("Step: check the unassigned abstracts \n");
+	}
+
+	public void clickClosePopUpButton(String buttonname) {
+		isElementDisplayed("btn_close", buttonname);
+		click(element("btn_close", buttonname));
+		logMessage("Step: Close pop up button is clicked\n");
+	}
+
+	public void verifyUserDetailsInFilterResults(String filterindex) {
+		Assert.assertTrue(getHostColoumData("session_host_email", "1")
+				.equals(getValUsingXpathInJavaScriptExecutor(element("input_filter", "Search", filterindex))));
+		logMessage("ASSERT PASSED : Filtered result is succesfully verified as "
+				+ getHostColoumData("session_host_email", "1"));
 	}
 }

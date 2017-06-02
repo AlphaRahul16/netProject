@@ -160,14 +160,24 @@ public class Admin_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("Step : Edit button is clicked For title and body\n");
 	}
 
-	public void checkActiveCheckboxOfTemplate() {
+	public String checkActiveCheckboxOfTemplate() {
+		int randomCheckbox = 0;
+		String rolename;
 		if (isElementDisplayed("chkbox_chked_activate")) {
-			int randomCheckbox = generateRandomNumberWithInRange(0, (elements("chkbox_chked_activate").size() - 1));
-			elements("chkbox_chked_activate").get(randomCheckbox);
-
-		} else {
-
+			randomCheckbox = generateRandomNumberWithInRange(0, (elements("chkbox_chked_activate").size() - 1));
+			System.out.println(randomCheckbox);
+			elements("chkbox_chked_activate").get(randomCheckbox).click();
+			logMessage("Step: Active checkbox is unchecked to inactive\n");
 		}
+		rolename = elements("txt_chked_txtBox_name").get(randomCheckbox).getText();
+		return rolename;
+
+	}
+
+	public void clickOnSearchButton() {
+		isElementDisplayed("img_searchButton");
+		click(element("img_searchButton"));
+		logMessage("Step : Clicked on Search button\n");
 	}
 
 	public void enterSearchCriteria(HashMap criteriaList) {
@@ -178,18 +188,60 @@ public class Admin_Page_Actions extends ASCSocietyGenericPage {
 		}
 	}
 
-	public void clickOnSearchButton() {
-		isElementDisplayed("img_searchButton");
-		click(element("img_searchButton"));
-		logMessage("Step : Clicked on Search button\n");
+	public void navigateToOriginalAdminWindow() {
+		changeWindow(0);
+
+	}
+
+	public void verifyStatusForRoleIsChangedTo(String status, String statusRoleName) {
+		isElementDisplayed("txt_status", statusRoleName);
+		Assert.assertTrue(element("txt_status", statusRoleName).getText().trim().equals(status));
+		logMessage("ASSERT PASSED : Status for role " + statusRoleName + " is verifed as " + status + "\n");
+
+	}
+
+	public void checkInactiveCheckboxOfTemplate(String statusRoleName) {
+		isElementDisplayed("chkbox_inactiveRole", statusRoleName);
+		click(element("chkbox_inactiveRole", statusRoleName));
+		logMessage("Step : Inactive checkbox is checked to active for role " + statusRoleName);
+
+	}
+
+	public void addAndVerifyTemplateIsAddedToCustomEmail(String templateName) {
+		enterTemplateNameAndClickAddButton(templateName);
+		verifyAddedTemplateIsDisplayedOnTheList(templateName);
+	}
+
+	private void enterTemplateNameAndClickAddButton(String templateName) {
+		isElementDisplayed("inp_templateName");
+		EnterTextInField(element("inp_templateName"), templateName);
+		clickNamedButtonImage("add");
+	}
+
+	private void verifyAddedTemplateIsDisplayedOnTheList(String templateName) {
+		isElementDisplayed("lnk_templateName", templateName);
+		logMessage("ASSERT PASSED : Added template is displayed in the custom template list\n");
+	}
+
+	public void verifyTablesHeadingsSuboptions(String[] emailLogHeadings) {
+		int i = 0;
+		for (WebElement ele : elements("txt_emaillog_tbl_headings")) {
+			System.out.println(ele.getText().replace("\r", "").replace("\n", "").trim());
+			System.out.println(emailLogHeadings[i]);
+			Assert.assertTrue(ele.getText().replace("\r", "").replace("\n", "").trim().equals(emailLogHeadings[i]));
+			logMessage("ASSERT PASSED : Table sub headings is verified as " + emailLogHeadings[i]);
+			i++;
+		}
 
 	}
 
 	public String enterValueInCurrentTemplatePage(String newEmail) {
 
 		isElementDisplayed("inp_searchField", "EMAIL_TEMPLATE_FROM");
-		//getValUsingXpathInJavaScriptExecutor(element("inp_searchField", "EMAIL_TEMPLATE_FROM"))
-		String previousValue = getValUsingXpathInJavaScriptExecutor(element("inp_searchField", "EMAIL_TEMPLATE_FROM")).trim();
+		// getValUsingXpathInJavaScriptExecutor(element("inp_searchField",
+		// "EMAIL_TEMPLATE_FROM"))
+		String previousValue = getValUsingXpathInJavaScriptExecutor(element("inp_searchField", "EMAIL_TEMPLATE_FROM"))
+				.trim();
 		System.out.println("###### previousValue" + previousValue);
 		element("inp_searchField", "EMAIL_TEMPLATE_FROM").clear();
 		element("inp_searchField", "EMAIL_TEMPLATE_FROM").sendKeys(newEmail);
@@ -200,11 +252,24 @@ public class Admin_Page_Actions extends ASCSocietyGenericPage {
 
 	public void verifyChangesAreMadeInCurrentTemplateSection(String expectedValue) {
 		isElementDisplayed("inp_searchField", "EMAIL_TEMPLATE_FROM");
-		String actualValue = getValUsingXpathInJavaScriptExecutor(element("inp_searchField", "EMAIL_TEMPLATE_FROM")).trim();
+		String actualValue = getValUsingXpathInJavaScriptExecutor(element("inp_searchField", "EMAIL_TEMPLATE_FROM"))
+				.trim();
 		// System.out.println("###### previousValue" + previousValue);
 		Assert.assertEquals(actualValue, expectedValue,
 				"Assert failed: Expected value is " + expectedValue + " but found " + actualValue + "\n");
 		logMessage("ASSERT PASSED: 'EMAIL_TEMPLATE_FROM' is updated as " + expectedValue + "\n");
 
 	}
+
+	private void selectEmailTemplateToSearchEmail(String searchCriteria, String searchType) {
+		isElementDisplayed("select_email_template", searchType);
+		selectProvidedTextFromDropDown(element("select_email_template", searchType), searchCriteria);
+		logMessage("Step : Email template " + searchType + " is selected as " + searchCriteria);
+	}
+
+	public void enterEmailSearchCriteriaFields(String emailTemplateName, String emailStatus) {
+		selectEmailTemplateToSearchEmail(emailTemplateName, "EMAIL_SEARCH_TEMPLATEID");
+		selectEmailTemplateToSearchEmail(emailStatus, "EMAIL_SEARCH_STATUS");
+	}
+
 }

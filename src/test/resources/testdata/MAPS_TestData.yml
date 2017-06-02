@@ -6,8 +6,8 @@ csv-data-file:
   path_MapsProgramArea: ./src/test/resources/TestDataLibrary/MAPS_ProgramAreaTypeList.txt
 
 LogIn_Details:
-  userID: ACS1\C00687
-  password: 84Pa809!G
+  userID: ACS1\C00839
+  password: Winter216!
   
 Submission_Author_Step: 
    institution: Test_Institution
@@ -60,15 +60,13 @@ Session:
       id: ","
       Session_Title: "test_sessionTitle"
       other_Details: ",,Symposium,Poster,,,,,,,,,,,,,,,,,"
-      
-      
   Program_Areas:
       Color: "#FFCC00"
       Type: Session
       Alert_Text: "The Program Area must be saved before adding owners. Ok?"
       Email Address: R_Yadav@acs.org
       role: Program Admin
-     
+  
   OPA_Staff: 
       File_Downloaded_Name: "abstracts"
   Session_Events:
@@ -127,6 +125,13 @@ Admin:
        Abstract_Window_title: "ScholarOne Abstracts - Review & Submit"
    Email:
       emailFrom: "H_Sil@acs.org"
+   Title_details: "Edited Title Text"
+   Body_details: "Edited Body Text"
+   Email_Search_Criteria:
+       Email_Template_Name: "Account Creation" 
+       Email_Status: "Sent"
+       Subject: "ACS Submission Account Created"
+
        
        
        
