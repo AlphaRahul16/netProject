@@ -62,7 +62,7 @@ checked_columnHeadings                  xpath                                //a
 txt_sortingOrder                        xpath                                //div[contains(text(),'${columnName}')]/../following-sibling::td[contains(@class,"x-grid3-td-F_SORT_DIR")]
 img_editColumnHeading                   xpath                                //img[contains(@src,'pencil_small.png')]/..
 input_filter							xpath								(//div[contains(text(),'${text}')]/../following-sibling::td//input)[${index}]
-input_label								xpath								//label[contains(text(),'${label}')]/following-sibling::div//${tagName}
+chkbox_createSession					xpath								//label[contains(text(),'${label}')]/following-sibling::div//input
 txt_label								xpath								//label[contains(text(),'${label}')]
 input_area								xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//${tagName}
 listitem_dropdown						xpath								//div[text()='${text}']/following-sibling::div[text()='${Value}']
@@ -105,4 +105,6 @@ txt_sessionItinerary                    xpath                               //di
 txt_AllColName							xpath								//a[contains(@class,'x-menu-item')]
 txt_popUpmsg							xpath								//p[contains(text(),'${msg}')]
 txt_displayedCol						xpath								//a[contains(@class,'x-menu-checked')]
+txt_controlId							xpath								//div[contains(text(),'${value}')]/../preceding-sibling::td//u
+
 ======================================================================================================================================

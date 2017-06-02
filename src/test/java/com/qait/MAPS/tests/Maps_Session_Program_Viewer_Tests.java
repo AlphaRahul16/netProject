@@ -55,7 +55,7 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Session");
 		test.maps_SSOPage.verifyUserIsOnTabPage("Session");
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Program Viewer");
-		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Select");
 		test.maps_reviewpage.verifybuttonOnRolesPage("Set Preferences");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 		test.maps_sessionpage.verifyLeftPanelOptionsOnSessionAdminPage(programViewerleftpaneloptions);
@@ -269,7 +269,7 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 	@Test
 	public void Step_0276_MAPS_Session_269_Verify_Application_Launches_View_Event_PopUp_After_Clicking_View_Option() {
 		test.maps_sessionpage.rightClickOnSessionList("1");
-		test.maps_sessionpage.clickButtonToContinueToNextPage("View");
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("View");
 		// test.maps_sessionpage.verifyTitleForRoles("View Symposium");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Close");
 

@@ -73,6 +73,8 @@ Session:
       File_Downloaded_Name: "abstracts"
   Session_Events:
       Title: "Test_Session_Title"
+      Session_Program_Area: "AGFD"
+      Symposium: "Artisanal Foods-Invited,Oral"
       Type: "Oral"
       Duration: "15"
       Symposia_Submission_Type: "Invited"
@@ -95,6 +97,7 @@ Session:
       Symposium: "Qait_Symposium"    
       Title_Description: "Automation_Test"
       Final_ID: "Test" 
+      Symposia_Submission_Type: "Invited"
   
   Schedule_Sessions: 
       Programs: "Training Site"
@@ -125,6 +128,8 @@ Admin:
    Report_LoginDetails: "Rahul Yadav - Last logged in:"
    Fields_In_Body:
        Abstract_Window_title: "ScholarOne Abstracts - Review & Submit"
+   Email:
+      emailFrom: "H_Sil@acs.org"
        
        
        
