@@ -84,10 +84,7 @@ Session:
       Symposia_Submission_Type: "Invited"
   
   Session_Builder: 
-      Session_Type1: "Oral"
-      Session_Type2: "Poster"
-      Session_Type3: "Sci-Mix"
-      Session_Type4: "Select..."
+
       Title: "QAIT_Automation_Test"
       Duration: "30"
       Email: "R_Yadav@acs.org"

@@ -159,14 +159,18 @@ public class Maps_Admin_Tests extends BaseTest {
 		test.maps_adminpage.enterSearchCriteria(searchCriteria);
 	}
 
-	@Test
+	@Test //pass
 	public void Step_088_MAPS_Admin_80_Verify_Application_Saves_Changes_made_in_Current_Template_section_on_clicking_Save_button() {
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Admin");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Select");
 		test.maps_adminpage.clickLeftNavigationPanelOptions("Email");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Abstract Payment Confirmation");
 		test.maps_sessionpage.verifyPopUpText("Edit E-mail Template Instructions");
-		test.maps_adminpage.enterValueInCurrentTemplatePage(YamlReader.getYamlValue("Admin.Email.emailFrom"));
+		String oldValue=test.maps_adminpage.enterValueInCurrentTemplatePage(YamlReader.getYamlValue("Admin.Email.emailFrom"));
+		test.maps_adminpage.clickNamedButtonImage("save");
+		test.maps_adminpage.verifyChangesAreMadeInCurrentTemplateSection(YamlReader.getYamlValue("Admin.Email.emailFrom"));
+		test.maps_adminpage.enterValueInCurrentTemplatePage(oldValue);
+		test.maps_adminpage.clickNamedButtonImage("save");
 	}
 
 }

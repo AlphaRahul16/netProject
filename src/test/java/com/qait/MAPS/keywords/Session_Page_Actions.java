@@ -1646,4 +1646,9 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		Assert.assertTrue(checkIfElementIsThere("inp_programField",id),"ASSERT FAILED: " + id + " is not present \n");
 		logMessage("ASSERT PASSED: " + id + " is present \n");		
 	}
+
+	public void verifyDropDownOnSessionAdmin(String label) {
+		// TODO Auto-generated method stub
+		
+	}
 }

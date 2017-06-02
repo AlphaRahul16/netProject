@@ -102,7 +102,7 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 			scrollDown(element("drpdwn_records", fieldName));
 			wait.hardWait(2);
 			clickUsingXpathInJavaScriptExecutor(element("drpdwn_records", fieldName));
-			Assert.assertTrue(elements("listItem").size() > 0,
+			Assert.assertTrue(elements("list_gripConfig").size() > 0,
 					" no option available on clicking dropdown " + fieldName);
 			click(element("drpdwn_records", fieldName));
 			break;
@@ -136,7 +136,7 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 	public void verifyRoleDropDown() {
 		isElementDisplayed("drpdown_role");
 		click(element("drpdown_role"));
-		Assert.assertTrue(isElementDisplayed("listItem"));
+		Assert.assertTrue(isElementDisplayed("list_gripConfig"));
 		click(element("drpdown_role"));
 		logMessage("ASSERT PASSED: 'Role'dropdown is verified \n");
 	}
@@ -204,7 +204,7 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		int i = 0;
 		isElementDisplayed("comboBox_reviewPage", "Page");
 		click(element("comboBox_reviewPage", "Page"));
-		for (WebElement element : elements("listItem")) {
+		for (WebElement element : elements("list_gripConfig")) {
 			Assert.assertEquals(element.getText().trim(), pageSize[i]);
 			i++;
 		}
@@ -239,8 +239,8 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void selectValueForSessionDetailType() {
-		isElementDisplayed("dropdown_sessionDetailType");
-		click(element("dropdown_sessionDetailType"));
+		isElementDisplayed("dropdown_sessionDetailType","Session Detail Type");
+		click(element("dropdown_sessionDetailType","Session Detail Type"));
 		isElementDisplayed("list_gripConfig");
 		String value = elements("list_gripConfig").get(3).getText();
 		click(elements("list_gripConfig").get(3));

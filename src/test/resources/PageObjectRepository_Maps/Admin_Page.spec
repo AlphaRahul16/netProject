@@ -20,4 +20,5 @@ btn_editTitle                           id                   editBodyBtn
 chkbox_activate                         xpath                //td[3]/input[@type='CHECKBOX']
 chkbox_chked_activate                   xpath                //td[3]/input[@type='CHECKBOX'][@checked]
 
+
 ==========================================================================================================================================================================================

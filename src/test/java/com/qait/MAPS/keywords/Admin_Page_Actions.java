@@ -185,14 +185,26 @@ public class Admin_Page_Actions extends ASCSocietyGenericPage {
 
 	}
 
-	public void enterValueInCurrentTemplatePage(String newEmail) {
+	public String enterValueInCurrentTemplatePage(String newEmail) {
 
 		isElementDisplayed("inp_searchField", "EMAIL_TEMPLATE_FROM");
-		String previousValue = element("inp_searchField", "EMAIL_TEMPLATE_FROM").getText();
-		System.out.println("######previousValue" + previousValue);
+		//getValUsingXpathInJavaScriptExecutor(element("inp_searchField", "EMAIL_TEMPLATE_FROM"))
+		String previousValue = getValUsingXpathInJavaScriptExecutor(element("inp_searchField", "EMAIL_TEMPLATE_FROM")).trim();
+		System.out.println("###### previousValue" + previousValue);
 		element("inp_searchField", "EMAIL_TEMPLATE_FROM").clear();
 		element("inp_searchField", "EMAIL_TEMPLATE_FROM").sendKeys(newEmail);
-		logMessage("Step: "+newEmail+" is entered \n");
+		logMessage("Step: " + newEmail + " is entered \n");
+		return previousValue;
+
+	}
+
+	public void verifyChangesAreMadeInCurrentTemplateSection(String expectedValue) {
+		isElementDisplayed("inp_searchField", "EMAIL_TEMPLATE_FROM");
+		String actualValue = getValUsingXpathInJavaScriptExecutor(element("inp_searchField", "EMAIL_TEMPLATE_FROM")).trim();
+		// System.out.println("###### previousValue" + previousValue);
+		Assert.assertEquals(actualValue, expectedValue,
+				"Assert failed: Expected value is " + expectedValue + " but found " + actualValue + "\n");
+		logMessage("ASSERT PASSED: 'EMAIL_TEMPLATE_FROM' is updated as " + expectedValue + "\n");
 
 	}
 }
