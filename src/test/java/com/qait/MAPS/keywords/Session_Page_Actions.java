@@ -112,8 +112,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public String getValueFromProgramsTable() {
-		isElementDisplayed("txt_programTableData", "program_id");
-		String programID = elements("txt_programTableData", "program_id").get(1).getText();
+		isElementDisplayed("txt_hostDetails", "program_id");
+		String programID = elements("txt_hostDetails", "program_id").get(1).getText();
 		logMessage("STEP: Program id is fetched as " + programID + " from program table \n");
 		return programID;
 	}
@@ -378,13 +378,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED: " + expValue + " is added in table\n");
 	}
 
-	public void verifyAddedDetailsForHost(String classLabel, String expValue) {
-		wait.hardWait(2);
-		String value = elements("txt_tableResult", classLabel, expValue).get(1).getText();
-		System.out.println("*****value" + value);
-		logMessage("ASSERT PASSED: " + expValue + " is added in table\n");
-	}
-
 	public void selectOptionsUnderColumnHeaders(String option) {
 		isElementDisplayed("lnk_filters", option);
 		click(element("lnk_filters", option));
@@ -421,8 +414,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		for (int i = 1; i < elements("table_columnDate", columnName).size(); i++) {
 			tableData.add(elements("table_columnDate", columnName).get(i).getText().trim());
 		}
-		System.out.println("----size:" + tableData.size());
-		System.out.println("-----table data:" + tableData);
+
 		return tableData;
 	}
 
@@ -492,17 +484,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		selectValueForSymposium("session_type", symposiumType);
 	}
 
-	// public String selectaRandomRecordFromTheList() {
-	// isElementDisplayed("chkbox_records");
-	// int randomnumber = generateRandomNumberWithInRange(0,
-	// (elements("chkbox_records").size()) - 1);
-	// click(elements("chkbox_records").get(randomnumber));
-	// logMessage("Step : a random record is selected from the list with
-	// position " + randomnumber);
-	// return element("btn_recordsname",
-	// toString().valueOf(randomnumber)).getText();
-	// }
-
 	public String getRandomRecordFromTable(String columnIndex) {
 		wait.hardWait(2);
 		isElementDisplayed("txt_totalRecords");
@@ -512,14 +493,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 				+ element("btn_recordsname", String.valueOf(randomnumber), columnIndex).getText().trim());
 		return element("btn_recordsname", String.valueOf(randomnumber), columnIndex).getText().trim();
 	}
-
-	// public String selectaRandomRecordFromTheList(String index) {
-	// isElementDisplayed("chkbox_records");
-	// click(elements("chkbox_records").get(index));
-	// logMessage("Step : a random record is selected from the list with
-	// position " + randomnumber);
-	// return element("btn_recordsname", index).getText();
-	// }
 
 	public String selectaRecordFromTheList(int number, String columnValue) {
 		isElementDisplayed("chkbox_records", String.valueOf(number));
@@ -532,7 +505,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("dropdown_programField", dropdownName);
 		clickUsingXpathInJavaScriptExecutor(element("dropdown_programField", dropdownName));
 		wait.hardWait(2);
-		//click(element("dropdown_programField", dropdownName));
+		// click(element("dropdown_programField", dropdownName));
 		logMessage("STEP: " + dropdownName + " is clicked \n");
 		selectValueFromDropDown(symposiumType);
 	}
@@ -605,32 +578,15 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		return elements("txt_hostDetails", label).get(1).getText();
 	}
 
-	// public String addHostforSymposium(String label) {
-	// waitForLoadingImageToDisappear("Loading...");
-	// isElementDisplayed("txt_linkEmail", label);
-	// //elements("txt_controlId", label).get(0).click();
-	// WebElement Sourcelocator = elements("txt_linkEmail", label).get(0);
-	// String value = elements("txt_linkEmail", label).get(0).getText();
-	// isElementDisplayed("txt_dropField");
-	// WebElement Destinationlocator = element("txt_dropField");
-	// dragAndDrop(Sourcelocator, Destinationlocator);
-	// wait.hardWait(2);
-	// waitForLoadingImageToDisappear("Loading...");
-	// // waitForLoaderToDisappear();
-	// logMessage("STEP: '" + value + " is selected as Host \n");
-	// return value;
-	// }
-
 	public void addRoleForHost(String hostRole) {
 		isElementDisplayed("txt_hostDetails", "session_host_role");
-		// System.out.println("size##########" + elements("txt_hostDetails",
-		// "session_host_role").size());
 		click(elements("txt_hostDetails", "session_host_role").get(1));
 		selectValueFromDropDown(hostRole);
 	}
 
 	public void searchAbstract(String searchBy, String value) {
 		isElementDisplayed("inp_programField", searchBy);
+		element("inp_programField", searchBy).clear();
 		element("inp_programField", searchBy).sendKeys(value);
 		logMessage("STEP: Abstract is searched by " + searchBy + " with value " + value + "\n");
 	}
@@ -840,9 +796,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void selectValueForCreateNewSessionFromSymposium(String label, String sessionType) {
 		isElementDisplayed("drpdown_Symposium", label);
-		// clickUsingXpathInJavaScriptExecutor(element("drpdown_Symposium",
-		// label));
-		click(element("drpdown_Symposium", label));
+		clickUsingXpathInJavaScriptExecutor(element("drpdown_Symposium", label));
+		// click(element("drpdown_Symposium", label));
 		logMessage("STEP: '" + label + "' is clicked \n");
 		// wait.hardWait(2);
 		selectValueFromDropDown(sessionType);
@@ -1094,61 +1049,18 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("STEP :" + expValue + " is deleted \n");
 	}
 
-	// public void clickOnDropDownOfLabel(String dropDown, String tagName) {
-	// System.out.println("1");
-	// isElementDisplayed("input_label", dropDown, tagName);
-	// click(element("input_label", dropDown, tagName));
-	// logMessage("Step : Clicked on " + dropDown + "\n");
-	// }
+	public void verifyOwnerIsDeleted(String colName, String expValue) {
+		waitForLoaderToDisappear();
+		int size = elements("txt_tableResult", colName, expValue).size();
+		Assert.assertTrue(size <= 1);
+		logMessage("STEP :" + expValue + " is deleted from " + colName + "\n");
+	}
 
 	public void selectValueFromDropDown(String priviousValue, String value) {
 		isElementDisplayed("listitem_dropdown", priviousValue, value);
 		click(element("listitem_dropdown", priviousValue, value));
 		logMessage("Step : Role is selected as " + value + "\n");
 	}
-
-	// public void verifySpanUnderlabelElement(String value) {
-	// waitForLoaderToDisappear();
-	// if (value.matches("Oral")) {
-	// verifyCheckBoxUnderLableName("Sci-Mix:", "input");
-	// verifySpanUnderlabelName("Financial Co-sponsor:", "textarea");
-	// verifySpanUnderlabelName("Newsworthy Reason:", "textarea");
-	// verifylistBoxUnderLableName("Themes:", "div");
-	// verifylistBoxUnderLableName("Co-sponsor - Nominal:", "div");
-	// verifylistBoxUnderLableName("Co-sponsor - Cooperative:", "div");
-	// verifylistBoxUnderLableName("Session Half-Day:", "div");
-	// verifySpanUnderlabelName("Symposia Submission Type:", "input");
-	// verifySpanUnderlabelName("Session Track:", "input");
-	// verifyCheckBoxUnderLableName("Newsworthy:", "input");
-	// } else if (value.matches("Sci-Mix")) {
-	// verifyPopupMessage("Confirm");
-	// clickOnButtonByIndexing("Yes", "1");
-	// verifySpanUnderlabelName("Session Track:", "input");
-	// verifySpanUnderlabelName("Session Half-Day:", "div");
-	// } else if (value.matches("Poster")) {
-	// verifyPopupMessage("Confirm");
-	// clickOnButtonByIndexing("Yes", "1");
-	// verifyCheckBoxUnderLableName("Sci-Mix:", "input");
-	// verifySpanUnderlabelName("Financial Co-sponsor:", "textarea");
-	// verifySpanUnderlabelName("Newsworthy Reason:", "textarea");
-	// verifylistBoxUnderLableName("Themes:", "div");
-	// verifylistBoxUnderLableName("Co-sponsor - Nominal:", "div");
-	// verifylistBoxUnderLableName("Co-sponsor - Cooperative:", "div");
-	// verifylistBoxUnderLableName("Session Half-Day:", "div");
-	// verifySpanUnderlabelName("Symposia Submission Type:", "input");
-	// verifySpanUnderlabelName("Session Track:", "input");
-	// verifyCheckBoxUnderLableName("Newsworthy:", "input");
-	// }
-	// }
-
-	// public void enterTitleOfSession(String fieldName, String tagName, String
-	// sessionTitle) {
-	// isElementDisplayed("input_label", fieldName, tagName);
-	// element("input_label", fieldName, tagName).clear();
-	// element("input_label", fieldName, tagName).sendKeys(sessionTitle);
-	// logMessage("Step : " + fieldName + " is entered as " + sessionTitle +
-	// "\n");
-	// }
 
 	public void checkRowInTable(int index, int columnIndex) {
 		isElementDisplayed("txt_tableData", String.valueOf(index), String.valueOf(columnIndex));
@@ -1334,9 +1246,13 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyAddedAbstractsInTable(String classlbl, String expValue) {
-		isElementDisplayed("txt_controlId", classlbl, expValue);
-		// Assert.assertTrue(checkIfElementIsThere("txt_controlId", classlbl,
-		// expValue));
+		//isElementDisplayed("txt_controlId", classlbl, expValue);
+		Assert.assertTrue(checkIfElementIsThere("txt_controlId", classlbl,expValue));
+		logMessage("ASSERT PASSED: '" + expValue + "' is present \n");
+	}
+	public void verifyAddedAbstractsInTable(String classlbl, String expValue,int expSize) {
+		Assert.assertTrue(elements("txt_controlId", classlbl,expValue).size()==expSize,
+				"ASSERT FAILED: " + expValue + " is not present \n");
 		logMessage("ASSERT PASSED: '" + expValue + "' is present \n");
 	}
 
@@ -1371,13 +1287,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		return element("input_editableColumnindex", hostname, index).getText().trim();
 	}
 
-	public void enterDurationOnCreateSessionPopUp(String fieldName, String roomName) {
-		isElementDisplayed("inp_sessionAbbrev", fieldName);
-		element("inp_sessionAbbrev", fieldName).clear();
-		element("inp_sessionAbbrev", fieldName).sendKeys(roomName);
-		logMessage("Step : " + fieldName + " is entered as " + roomName + "\n");
-	}
-
 	public String getTextformTable(int index, int columnIndex) {
 		isElementDisplayed("txt_tableData", String.valueOf(index), String.valueOf(columnIndex));
 		return elements("txt_tableData", String.valueOf(index), String.valueOf(columnIndex)).get(0).getText();
@@ -1410,14 +1319,14 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyLableFormateAfterEdit(String text) {
-		Assert.assertTrue(checkIfElementIsThere("inp_label", text));
+		Assert.assertTrue(checkIfElementIsThere("txt_label", text));
 		logMessage("Step : " + text + " is successfully edited\n");
 	}
 
 	public void verifyFormateIsDeleted(String text) {
 		waitForLoaderToDisappear();
 		try {
-			Assert.assertTrue(checkIfElementIsThere("inp_label", text));
+			Assert.assertTrue(checkIfElementIsThere("txt_label", text));
 		} catch (AssertionError e) {
 			logMessage("STEP :" + text + " formate is deleted \n");
 		}
@@ -1609,7 +1518,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifySessionIsdeletedFromScheduleSession(String sessionName) {
-		System.out.println(checkIfElementIsThere("btn_navPanel", sessionName));
+		Assert.assertFalse(checkIfElementIsThere("btn_navPanel", sessionName));
+		logMessage("ASSERT PASSED: " + sessionName + " is deleted \n");
 	}
 
 	public void verifyApplicationPrintsReportsTable() throws AWTException {
@@ -1786,14 +1696,14 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 				verifyfrpdownOptionOnCreateSession(lblName);
 			}
 			break;
-			
-		case "Sci-Mix": 
+
+		case "Sci-Mix":
 			verifyfrpdownOptionOnCreateSession(drpdownSciMix);
 			verifySelectionOptionOnCreateSession(chkboxSciMix);
 			break;
-			
+
 		case "Default":
-			logMessage("Step : session type "+ sessionType +" is not present \n");
+			logMessage("Step : session type " + sessionType + " is not present \n");
 		}
 
 	}
@@ -1851,12 +1761,26 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 			String chkboxSciMix, String drpdownSciMix) {
 		for (String sessiontype : sessionTypes) {
 			selectValueForSymposium("session_type", sessiontype);
-			System.out.println("############sessiontype##########"+sessiontype);
-			handlePopUpIfAppears("Confirm","Yes");
+			System.out.println("############sessiontype##########" + sessiontype);
+			handlePopUpIfAppears("Confirm", "Yes");
 			verifyOptionsOfSessionTypeDropDown(sessiontype, chkboxOralAndPoster, textBoxForOralAndPoster,
 					selectionLabelOralAndPoster, drpdownOralAndPoster, chkboxSciMix, drpdownSciMix);
 		}
 
+	}
+
+	public void verifyOwnerIsAddedInCurrentOwner(String colName, String value, int expSize) {
+		wait.hardWait(2);
+		Assert.assertTrue(elements("txt_tableResult", colName, value).size() == expSize,
+				"ASSERT FAILED: " + value + " is not added \n");
+		logMessage("ASSERT PASSED: " + value + " is added in Current Owner\n");
+
+	}
+
+	public void verifySessionOwnerIsAdded(String text, String value) {
+		Assert.assertTrue(checkIfElementIsThere("txt_sessionOwner",text,value));
+		logMessage("ASSERT PASSED: "+value+" is displayed under "+text+" \n");
+		
 	}
 
 }

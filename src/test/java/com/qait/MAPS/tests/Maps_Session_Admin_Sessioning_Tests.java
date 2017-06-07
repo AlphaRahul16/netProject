@@ -44,6 +44,7 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 	private String itenarySessionName;
 	private List<String> colHeader;
 	private String downloadedFile;
+	private String authorEmail=YamlReader.getYamlValue("Session.Session_Builder.Author_Email");
 
 	@BeforeClass
 	public void Start_Test_Session() {
@@ -281,7 +282,7 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 	@Test // passed
 	public void Step_1618_MAPS_Session_1595_Verify_that_Application_navigates_to_Sessions_Events_page_on_clicking_Session_Events_link() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessions & Events");
-		test.maps_sessionpage.verifyPopupMessage("Sessions & Events");
+		//test.maps_sessionpage.verifyPopupMessage("Sessions & Events");
 	}
 
 	// @Test // passed
@@ -404,28 +405,23 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 	@Test // updated //passed
 	public void Step_2556_MAPS_Session_2530_2541_Verify_that_the_application_adds_a_new_sort_criteria_on_clicking_the_Add_button_and_apply_button() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Session Builder");
-		test.maps_sessionpage.verifyPopupMessage("Session Builder");
-		// test.maps_sessionpage.inputTextInFilter("Search",
-		// YamlReader.getYamlValue("Session.Session_Builder.Author_First_Name"),
-		// "2");
-		// List<String> dataBeforeSorting =
-		// test.maps_sessionpage.getTableData("2", "3");
-		// test.maps_sessionpage.clickOnArrowButton("Control ID");
-		// test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure
-		// Sort");
-		// test.maps_sessionpage.verifyPopupMessage("Sort");
-		// test.maps_sessionpage.clickOnAddButton("Add");
-		// test.maps_sessionpage.selectColumnForSorting("Control ID");
-		// test.maps_sessionpage.clickOnSaveButton("Apply");
-		// test.maps_sessionpage.clickOnArrowButton("Control ID");
-		// test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure
-		// Sort");
-		// test.maps_sessionpage.verifyTextUnderMeetingSetup("Control ID");
-		// test.maps_sessionpage.clickOnSaveButton("Close");
-		// List<String> dataAfterSorting =
-		// test.maps_sessionpage.getTableData("2", "3");
-		// test.maps_sessionpage.verifyDataIsSorted(dataBeforeSorting,
-		// dataAfterSorting);
+//		test.maps_sessionpage.verifyPopupMessage("Session Builder");
+//		 test.maps_sessionpage.inputTextInFilter("Search",
+//		 YamlReader.getYamlValue("Session.Session_Builder.Author_First_Name"), "2");
+//		 List<String> dataBeforeSorting = test.maps_sessionpage.getTableData("2", "3");
+//		 test.maps_sessionpage.clickOnArrowButton("Control ID");
+//		 test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
+//		 test.maps_sessionpage.verifyPopupMessage("Sort");
+//		 test.maps_sessionpage.clickOnAddButton("Add");
+//		 test.maps_sessionpage.selectColumnForSorting("Control ID");
+//		 test.maps_sessionpage.clickOnSaveButton("Apply");
+//		 test.maps_sessionpage.clickOnArrowButton("Control ID");
+//		 test.maps_sessionpage.selectOptionsUnderColumnHeaders("Configure Sort");
+//		 test.maps_sessionpage.verifyTextUnderMeetingSetup("Control ID");
+//		 test.maps_sessionpage.clickOnSaveButton("Close");
+//		 List<String> dataAfterSorting =
+//		 test.maps_sessionpage.getTableData("2", "3");
+//		 test.maps_sessionpage.verifyDataIsSorted(dataBeforeSorting,dataAfterSorting);
 	}
 
 	// @Test //pass
@@ -439,7 +435,7 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 		test.maps_sessionpage.clickOnSaveButton("Close");
 	}
 
-	@Test // updated (added verifications) //passed
+	//@Test // updated //passed
 	public void Step_2574_MAPS_Session_2548_Verify_that_the_application_adds_a_new_sort_criteria_on_clicking_the_Add_button() {
 		sessionTitle = YamlReader.getYamlValue("Session.Session_Builder.Title") + System.currentTimeMillis();
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Create Session");
@@ -460,6 +456,7 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 		test.maps_sessionpage.verifyLabelName(labelOnCreateSession);
 
 		test.maps_sessionpage.verifyCheckBoxOnCreateSessionPage(chkboxOnCreateSession);
+		//Step_2583_MAPS_Session_2557_Application_should_save_the_session_on_clicking_Yes_button();
 		test.maps_sessionpage.selectValueForCreateNewSessionFromSymposium("Program:",
 				YamlReader.getYamlValue("Session.Session_Builder.program"));
 		test.maps_sessionpage.selectValueForCreateNewSessionFromSymposium("Venue/Room:",
@@ -469,7 +466,7 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 
 	}
 
-	// @Test //automated //passed
+	//@Test //automated //passed
 	public void Step_2578_MAPS_Session_2552_Verify_the_different_options_displayed_on_selecting_options_from_Session_Type_dropdown() {
 		String textBoxForOralAndPoster[] = { "Financial Co-sponsor", "Newsworthy Reason" };
 		String[] selectionLabelOralAndPoster = { "Themes", "Co-sponsor - Nominal", "Co-sponsor - Cooperative",
@@ -482,116 +479,103 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 		test.maps_sessionpage.verifyFieldForSessionTypeDropDown(sessionType, chkboxOralAndPoster,
 				textBoxForOralAndPoster, selectionLabelOralAndPoster, drpdownOralAndPoster, chkboxSciMix,
 				drpdownSciMix);
-
+		test.maps_sessionpage.clickOnButtonByIndexing("Close", "1");
 	}
 
-	@Test // pass
+	@Test // passed
 	public void Step_2583_MAPS_Session_2557_Application_should_save_the_session_on_clicking_Yes_button() {
+		sessionTitle = YamlReader.getYamlValue("Session.Session_Builder.Title") + System.currentTimeMillis();
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Create Session");
+		test.maps_sessionpage.verifyPopupMessage("Create Session");
+		test.maps_sessionpage.enterValuesInCreateSession(sessionTitle,
+				YamlReader.getYamlValue("Session.Session_Builder.Duration"),
+				YamlReader.getYamlValue("Session.Session_Builder.Session_Type"),
+				YamlReader.getYamlValue("Session.Session_Builder.Symposia_Submission_Type"));
+		
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Add Owners");
 		test.maps_sessionpage.verifyPopupMessage("The session must be saved before adding owners. Ok?");
 		test.maps_sessionpage.clickOnButtonByIndexing("Yes", "1");
 		test.maps_sessionpage.verifyPopupMessage("Session Owners");
 	}
 
-	@Test // in progress
+	@Test // updated //passed
 	public void Step_2588_MAPS_Session_2562_Verify_that_the_application_add_the_records_under_the_Current_Owner_section_on_clicking_the_Add_Selected_button() {
-
+		authorEmail=YamlReader.getYamlValue("Session.Session_Builder.Author_Email");
+		test.maps_sessionpage.searchAbstract("owner_email_address",authorEmail);
 		test.maps_sessionpage.clickOnButtonByIndexing("Search", "1");
-		test.maps_sessionpage.verifyFilterResults(YamlReader.getYamlValue("Session.Session_Builder.Email"), 4, 5);
-		test.maps_sessionpage.checkRowInTable(4, 5);
+		test.maps_sessionpage.verifyAddedDetails("owner_email", authorEmail);
+		test.maps_sessionpage.clickParticularRecordFromList(authorEmail, "4");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Add Selected");
-		test.maps_sessionpage.verifyFilterResults(YamlReader.getYamlValue("Session.Session_Builder.Email"), 3, 5);
+		test.maps_sessionpage.verifyOwnerIsAddedInCurrentOwner("owner_email",authorEmail,2);
 	}
 
-	@Test
+	@Test //updated //passed
 	public void Step_2591_MAPS_Session_2565_Verify_that_the_application_successfully_deletes_the_record_on_clicking_the_Yes_button_on_the_confirmation_popup() {
-		test.maps_sessionpage.checkRowInTable(3, 5);
+		test.maps_sessionpage.selectAbstract("owner_email");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Remove Selected");
 		test.maps_sessionpage.verifyPopupMessage("Confirm");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Yes");
-		test.maps_sessionpage.verifyRowIsDeleted(YamlReader.getYamlValue("Session.Session_Builder.Email"), 3, 5);
+		test.maps_sessionpage.verifyOwnerIsDeleted("owner_email",authorEmail);
 	}
 
-	@Test
+	@Test // updated //passed
 	public void Step_2611_MAPS_Session_2585_Verify_that_the_application_saves_the_changes_and_closes_the_popup_on_clicking_the_Save_and_Close_button() {
-		test.maps_sessionpage.clickOnButtonUnderSessioning("Add Selected");
+		Step_2588_MAPS_Session_2562_Verify_that_the_application_add_the_records_under_the_Current_Owner_section_on_clicking_the_Add_Selected_button();
 		test.maps_sessionpage.clickOnButtonByIndexing("Save and Close", "1");
-		// test.maps_sessionpage.verifyLabelName("Session Owner(s):", "div");
-		test.maps_sessionpage.clickOnButtonByIndexing("Close", "1");
-
+		test.maps_sessionpage.verifySessionIsdeletedFromScheduleSession("Session Owners");
+		test.maps_reviewpage.verifyButton("Add/Edit Owners");
+		test.maps_sessionpage.verifySessionOwnerIsAdded("Session Owner(s)",YamlReader.getYamlValue("Session.Session_Builder.Author_Last_Name")+", "+
+				YamlReader.getYamlValue("Session.Session_Builder.Author_First_Name"));
 	}
 
-	@Test
+	//@Test //updated
 	public void Step_2617_MAPS_Session_2591_Verify_that_the_application_displays_appropriate_search_results_on_clicking_Search_button_after_providing_the_valid_search_criteria() {
-		// String sessionTitle =
-		// YamlReader.getYamlValue("Session.Session_Builder.Title") +
-		// System.currentTimeMillis();
-		// test.maps_sessionpage.clickOnButtonUnderSessioning("Create Session");
-		// test.maps_sessionpage.verifyPopupMessage("Create Session");
-		// test.maps_sessionpage.enterTitleOfSession("Session Title:",
-		// "textarea", sessionTitle);
-		// test.maps_sessionpage.clickOnDropDownOfLabel("Session Type:", "img");
-		// test.maps_sessionpage.selectValueFromDropDown("Poster", "Sci-Mix");
-		// test.maps_sessionpage.enterTitleOfSession("Duration (in minutes):",
-		// "input",
-		// YamlReader.getYamlValue("Session.Session_Builder.Duration"));
-		// test.maps_sessionpage.clickOnButtonByIndexing("Save", "1");
-		// test.maps_sessionpage.clickButtononLeftNavigationPanel("Add/Edit
-		// Hosts");
-		// test.maps_sessionpage.clickOnButtonByIndexing("Search for New Hosts",
-		// "2");
-		// test.maps_sessionpage.verifyPopupMessage("Search Hosts");
-		// test.maps_sessionpage.enterTitleOfSession("Email Address:", "input",
-		// YamlReader.getYamlValue("Session.Session_Builder.Email"));
-		// test.maps_sessionpage.clickOnButtonByIndexing("Search", "1");
-		// test.maps_sessionpage.verifyFilterResults(YamlReader.getYamlValue("Session.Session_Builder.Email"),
-		// 5, 5);
+		test.maps_sessionpage.clickOnSessionBuilderTab("Add/Edit Hosts");
+		test.maps_sessionpage.clickOnButtonByIndexing("Search for New Hosts", "2");
+		test.maps_sessionpage.verifyPopupMessage("Search Hosts");
+		test.maps_sessionpage.searchAbstract("session_host_email_address",authorEmail);
+		test.maps_sessionpage.clickOnButtonByIndexing("Search", "1");
+		test.maps_sessionpage.verifyAddedDetails("session_host_email",authorEmail);		
+		//test.maps_sessionpage.clickOnButtonByIndexing("Close", "2");
 	}
 
-	@Test
+	//@Test //in progress
 	public void Step_2620_MAPS_Session_2594_Verify_that_the_application_adds_the_selected_hosts_in_the_Available_Hosts_section_on_clicking_the_Add_to_the_list_of_available_hosts_Only_button() {
-		test.maps_sessionpage.checkRowInTable(5, 5);
+		test.maps_sessionpage.clickParticularRecordFromList(authorEmail, "4");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Add to List of Available Hosts Only");
-		test.maps_sessionpage.clickOnButtonByIndexing("Close", "2");
-		test.maps_reviewpage.enterValueInFilter(YamlReader.getYamlValue("Session.Session_Builder.Email"));
-		test.maps_sessionpage.verifyFilterResults(YamlReader.getYamlValue("Session.Session_Builder.Email"), 3, 14);
+		test.maps_sessionpage.verifyOwnerIsAddedInCurrentOwner("owner_email",authorEmail,2);
+		test.maps_sessionpage.clickOnButtonByIndexing("Close", "2");	
+		test.maps_reviewpage.enterValueInFilter(authorEmail);
+		test.maps_sessionpage.verifyAddedAbstractsInTable("session_host_email", authorEmail);
 	}
 
 	@Test
 	public void Step_2621_MAPS_Session_2595_Verify_that_the_application_adds_the_selected_host_under_the_Current_Host_section_on_clicking_the_Add_hosts_to_current_session_button() {
-		test.maps_sessionpage.clickOnButtonByIndexing("Search for New Hosts", "2");
-		test.maps_sessionpage.verifyPopupMessage("Search Hosts");
-		// test.maps_sessionpage.enterTitleOfSession("Email Address:", "input",
-		// YamlReader.getYamlValue("Session.Session_Builder.Email"));
-		test.maps_sessionpage.clickOnButtonUnderSessioning("Search");
-		test.maps_sessionpage.checkRowInTable(5, 5);
+		Step_2617_MAPS_Session_2591_Verify_that_the_application_displays_appropriate_search_results_on_clicking_Search_button_after_providing_the_valid_search_criteria();
+		test.maps_sessionpage.clickParticularRecordFromList(authorEmail, "4");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Add Hosts to Current Session");
+		test.maps_sessionpage.verifyTextUnderMeetingSetup("Hosts added successfully");
 		test.maps_sessionpage.clickOnButtonByIndexing("Close", "2");
-		test.maps_sessionpage.verifyFilterResults(YamlReader.getYamlValue("Session.Session_Builder.Email"), 4, 15);
+		test.maps_sessionpage.verifyAddedAbstractsInTable("session_host_email", authorEmail, 2);
 	}
 
-	@Test
+	@Test //updated
 	public void Step_2622_MAPS_Session_2596_Verify_that_the_application_allows_the_user_to_add_a_new_host_by_clicking_the_Add_New_Host_button() {
-		String email = YamlReader.getYamlValue("Session.Host.Email") + System.currentTimeMillis() + "@acs.org";
-		test.maps_sessionpage.clickOnButtonByIndexing("Search for New Hosts", "2");
-		test.maps_sessionpage.verifyPopupMessage("Search Hosts");
-		// test.maps_sessionpage.enterTitleOfSession("Email Address:", "input",
-		// email);
-		test.maps_sessionpage.clickOnButtonUnderSessioning("Search");
-		test.maps_sessionpage.clickOnButtonByIndexing("OK", "1");
-		test.maps_sessionpage.waitForLoadingImageToDisappear("Loading...");
+		String hostEmail = YamlReader.getYamlValue("Session.Host.Email") + System.currentTimeMillis() + "@acs.org";
+		Step_2617_MAPS_Session_2591_Verify_that_the_application_displays_appropriate_search_results_on_clicking_Search_button_after_providing_the_valid_search_criteria();
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Add New Host");
 		test.maps_sessionpage.enterValuesInAddNewHost(
 				YamlReader.getYamlValue("Session.Host.First_Name") + System.currentTimeMillis(),
-				YamlReader.getYamlValue("Session.Host.Last_Name") + System.currentTimeMillis(), email,
+				YamlReader.getYamlValue("Session.Host.Last_Name") + System.currentTimeMillis(), hostEmail,
 				YamlReader.getYamlValue("Session.Host.institution"));
 		test.maps_sessionpage.clickOnButtonByIndexing("Save", "2");
-		test.maps_sessionpage.verifyFilterResults(email, 5, 5);
+		test.maps_sessionpage.verifyAddedAbstractsInTable("session_host_email", hostEmail);
 		test.maps_sessionpage.clickOnButtonByIndexing("Close", "2");
 	}
 
 	@Test
 	public void Step_2671_MAPS_Session_2645_Verify_that_the_application_adds_the_hosts_in_the_Current_Hosts_section_if_user_drags_and_drops_the_records_from_the_Available_Hosts_section() {
+		//test.maps_sessionpage.filte
 		test.maps_sessionpage.addHostforSymposium("session_host_last_name");
 		test.maps_sessionpage.verifyFilterResults("session_host_last_name", 4, 14);
 	}
@@ -609,9 +593,9 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 	@Test
 	public void Step_2688_MAPS_Session_2662_Verify_that_the_application_navigates_the_user_to_the_Search_Result_tab_on_clicking_Search_button_after_providing_the_valid_search_criteria() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Manage Abstracts");
-		test.maps_sessionpage.enterDurationOnCreateSessionPopUp("Author First Name:",
+		test.maps_sessionpage.enterNameOnSaveGridConfiguration("Author First Name:",
 				YamlReader.getYamlValue("Session.Session_Builder.Author_First_Name"));
-		test.maps_sessionpage.enterDurationOnCreateSessionPopUp("Author Last Name:",
+		test.maps_sessionpage.enterNameOnSaveGridConfiguration("Author Last Name:",
 				YamlReader.getYamlValue("Session.Session_Builder.Author_Last_Name"));
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Search");
 		String authorName = YamlReader.getYamlValue("Session.Session_Builder.Author_Last_Name") + ", "
@@ -857,7 +841,7 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 		test.maps_sessionpage.clickOnButtonByIndexing("Search for New Hosts", "1");
 		test.maps_sessionpage.verifyPopupMessage("Search Hosts");
 		email = YamlReader.getYamlValue("Session.Host.Email") + System.currentTimeMillis() + "@acs.org";
-		test.maps_sessionpage.enterDurationOnCreateSessionPopUp("Email Address:", email);
+		test.maps_sessionpage.enterNameOnSaveGridConfiguration("Email Address:", email);
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Search");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("OK");
 		test.maps_sessionpage.waitForLoadingImageToDisappear("Loading...");
