@@ -66,8 +66,8 @@ chkbox_createSession					xpath								//label[contains(text(),'${label}')]/follo
 txt_label								xpath								//label[contains(text(),'${label}')]
 input_area								xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//${tagName}
 listitem_dropdown						xpath								//div[text()='${text}']/following-sibling::div[text()='${Value}']
-lable_checkbox							xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//${tagName}[@type='checkbox']
-label_listbox							xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//${tagName}[@role='listbox']
+#lable_checkbox							xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//${tagName}[@type='checkbox']
+#label_listbox							xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//${tagName}[@role='listbox']
 txt_deletedValue						xpath								//span[contains(text(),'${text}')]/../following-sibling::div//div[@class='grid3-scroller']//tbody//div[contains(text(),'${dataToBEdeleted}')]
 drpdown_Symposium						xpath								//label[contains(text(),'${text}')]/following-sibling::div//img[contains(@class,'arrow')]
 txt_SchedulerGrid						xpath								//div[contains(@class,'${className}')]
@@ -81,12 +81,11 @@ txt_controlId							xpath								//td[contains(@class,'${className}')]//u[contai
 row_withdraw       						xpath        						//font[contains(text(),'${fontText}')]/following-sibling::u[contains(text(),'${text}')]
 inp_sessionAbbrev                       xpath                               //label[contains(text(),'${label}')]/..//input[@type='text']
 inp_sessionNotes						xpath								//label[contains(text(),'${label}')]/following-sibling::div//textarea
-ipt_div									xpath								//label[contains(text(),'${label}')]/following-sibling::div//div
 inp_label								xpath								//label[contains(text(),'${label}')]
 inp_FnclCosponsor						xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//textarea
 inp_sessionTrack						xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//input[@type='text']
 lstItm_drpdwn							xpath								//div[contains(@class,'combo-list-item') and text()='${value}']
-chkbox_Newsworthy						xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//input[@type='checkbox']
+chkbox_SciMix							xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//input[@type='checkbox']
 lstbox_Themes							xpath								//span[contains(text(),'${label}')]/parent::label/following-sibling::div//div[@role='listbox']
 row_withdraw							xpath								//font[contains(text(),'${fontText}')]/following-sibling::u[contains(text(),'${text}')]
 input_popup								xpath								(//label[contains(text(),'${label}')]/parent::td/following-sibling::td/..//input)[${index}]
@@ -94,7 +93,7 @@ btn_lnkTxt								xpath								//label[contains(text(),'${text}')]/parent::td/fo
 img_processbar							xpath								//div[contains(@class,'progress-bar')]
 txt_rowData                             xpath                               //div[contains(@class,'x-grid3-col-F_SORT_FIELD')]/..
 inp_assignDuration						xpath								//label[contains(.,'${text}')]/../following-sibling::td//input[@type='text']
-txt_linkEmail							xpath								//td[contains(@class,'${className}')]//u\
+txt_linkEmail							xpath								//td[contains(@class,'${className}')]//u
 inp_editColumnData                      xpath                               //div[contains(@class,'x-editor')]//input[contains(@class,'x-form-field x-form-text')]
 txt_emptyTable							css									.x-grid-empty
 img_expandTab                           xpath                               //span[text()='${tabName}']/..//div[contains(@class,'x-panel-toolbar x-component')]
@@ -111,4 +110,8 @@ select_symposiumType                    css                                 #sym
 txt_filterData                          xpath                               (//img[contains(@class,'x-menu-item-icon')]/..//div//input)[${index}]
 input_editableColumnindex               xpath                               (//div[contains(@class,'x-grid3-col-${columnName}')])[${index}]
 txt_displayedCol						xpath								//a[contains(@class,'x-menu-checked')]
+txt_EditLink							xpath								//div[contains(text(),'${value}')]/../preceding-sibling::td//span
+txt_recordTitle	                        xpath                               //div[text()='${status}']/../preceding-sibling::td[${index}]//div
+sel_theme								xpath								//span[contains(text(),'${themes}')]/../following-sibling::div//div/div
+
 ======================================================================================================================================

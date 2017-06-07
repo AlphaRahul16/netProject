@@ -6,8 +6,8 @@ csv-data-file:
   path_MapsProgramArea: ./src/test/resources/TestDataLibrary/MAPS_ProgramAreaTypeList.txt
 
 LogIn_Details:
-  userID: ACS1\C00839
-  password: Winter216!
+  userID: ACS1\C00687
+  password: 84Pa809!G
   
 Submission_Author_Step: 
    institution: Test_Institution
@@ -49,7 +49,7 @@ Session:
       Title: "Test_Symposium_Title"
       Type: "Oral"
       Host_Role: "Organizer"
-      Abstract_AuthorFirstName: "Bhuwan"
+      Abstract_AuthorFirstName: "hitasheet"
       Abstract_AuthorLastName: "Takkar"
       File_Download_template: "symposia_template"
       File_Download_resources: "symposia_resources"
@@ -92,7 +92,10 @@ Session:
       Symposium: "Qait_Symposium"    
       Title_Description: "Automation_Test"
       Final_ID: "Test" 
+      Session_Type: "Oral"
       Symposia_Submission_Type: "Invited"
+      program: "Training Site"
+      Venue: "Placeholder"
   
   Schedule_Sessions: 
       Programs: "Training Site"

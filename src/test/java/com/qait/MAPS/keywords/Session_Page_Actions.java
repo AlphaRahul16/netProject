@@ -530,7 +530,9 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void selectValueForSymposium(String dropdownName, String symposiumType) {
 		isElementDisplayed("dropdown_programField", dropdownName);
-		click(element("dropdown_programField", dropdownName));
+		clickUsingXpathInJavaScriptExecutor(element("dropdown_programField", dropdownName));
+		wait.hardWait(2);
+		//click(element("dropdown_programField", dropdownName));
 		logMessage("STEP: " + dropdownName + " is clicked \n");
 		selectValueFromDropDown(symposiumType);
 	}
@@ -1056,6 +1058,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void inputTextInFilter(String label, String value, String index) {
+		wait.hardWait(2);
 		isElementDisplayed("input_filter", label, index);
 		element("input_filter", label, index).clear();
 		element("input_filter", label, index).sendKeys(value);
@@ -1104,39 +1107,39 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("Step : Role is selected as " + value + "\n");
 	}
 
-	public void verifySpanUnderlabelElement(String value) {
-		waitForLoaderToDisappear();
-		if (value.matches("Oral")) {
-			verifyCheckBoxUnderLableName("Sci-Mix:", "input");
-			verifySpanUnderlabelName("Financial Co-sponsor:", "textarea");
-			verifySpanUnderlabelName("Newsworthy Reason:", "textarea");
-			verifylistBoxUnderLableName("Themes:", "div");
-			verifylistBoxUnderLableName("Co-sponsor - Nominal:", "div");
-			verifylistBoxUnderLableName("Co-sponsor - Cooperative:", "div");
-			verifylistBoxUnderLableName("Session Half-Day:", "div");
-			verifySpanUnderlabelName("Symposia Submission Type:", "input");
-			verifySpanUnderlabelName("Session Track:", "input");
-			verifyCheckBoxUnderLableName("Newsworthy:", "input");
-		} else if (value.matches("Sci-Mix")) {
-			verifyPopupMessage("Confirm");
-			clickOnButtonByIndexing("Yes", "1");
-			verifySpanUnderlabelName("Session Track:", "input");
-			verifySpanUnderlabelName("Session Half-Day:", "div");
-		} else if (value.matches("Poster")) {
-			verifyPopupMessage("Confirm");
-			clickOnButtonByIndexing("Yes", "1");
-			verifyCheckBoxUnderLableName("Sci-Mix:", "input");
-			verifySpanUnderlabelName("Financial Co-sponsor:", "textarea");
-			verifySpanUnderlabelName("Newsworthy Reason:", "textarea");
-			verifylistBoxUnderLableName("Themes:", "div");
-			verifylistBoxUnderLableName("Co-sponsor - Nominal:", "div");
-			verifylistBoxUnderLableName("Co-sponsor - Cooperative:", "div");
-			verifylistBoxUnderLableName("Session Half-Day:", "div");
-			verifySpanUnderlabelName("Symposia Submission Type:", "input");
-			verifySpanUnderlabelName("Session Track:", "input");
-			verifyCheckBoxUnderLableName("Newsworthy:", "input");
-		}
-	}
+	// public void verifySpanUnderlabelElement(String value) {
+	// waitForLoaderToDisappear();
+	// if (value.matches("Oral")) {
+	// verifyCheckBoxUnderLableName("Sci-Mix:", "input");
+	// verifySpanUnderlabelName("Financial Co-sponsor:", "textarea");
+	// verifySpanUnderlabelName("Newsworthy Reason:", "textarea");
+	// verifylistBoxUnderLableName("Themes:", "div");
+	// verifylistBoxUnderLableName("Co-sponsor - Nominal:", "div");
+	// verifylistBoxUnderLableName("Co-sponsor - Cooperative:", "div");
+	// verifylistBoxUnderLableName("Session Half-Day:", "div");
+	// verifySpanUnderlabelName("Symposia Submission Type:", "input");
+	// verifySpanUnderlabelName("Session Track:", "input");
+	// verifyCheckBoxUnderLableName("Newsworthy:", "input");
+	// } else if (value.matches("Sci-Mix")) {
+	// verifyPopupMessage("Confirm");
+	// clickOnButtonByIndexing("Yes", "1");
+	// verifySpanUnderlabelName("Session Track:", "input");
+	// verifySpanUnderlabelName("Session Half-Day:", "div");
+	// } else if (value.matches("Poster")) {
+	// verifyPopupMessage("Confirm");
+	// clickOnButtonByIndexing("Yes", "1");
+	// verifyCheckBoxUnderLableName("Sci-Mix:", "input");
+	// verifySpanUnderlabelName("Financial Co-sponsor:", "textarea");
+	// verifySpanUnderlabelName("Newsworthy Reason:", "textarea");
+	// verifylistBoxUnderLableName("Themes:", "div");
+	// verifylistBoxUnderLableName("Co-sponsor - Nominal:", "div");
+	// verifylistBoxUnderLableName("Co-sponsor - Cooperative:", "div");
+	// verifylistBoxUnderLableName("Session Half-Day:", "div");
+	// verifySpanUnderlabelName("Symposia Submission Type:", "input");
+	// verifySpanUnderlabelName("Session Track:", "input");
+	// verifyCheckBoxUnderLableName("Newsworthy:", "input");
+	// }
+	// }
 
 	// public void enterTitleOfSession(String fieldName, String tagName, String
 	// sessionTitle) {
@@ -1163,20 +1166,16 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		}
 	}
 
-	public void verifyLabelName(String fieldName, String tagName) {
-		if (tagName == "") {
-			isElementDisplayed("txt_label", fieldName);
-			logMessage("STEP : " + fieldName + " label is verified \n");
-		} else {
-			isElementDisplayed("input_label", fieldName, tagName);
-			logMessage("STEP : " + fieldName + " label is verified \n");
-		}
+	public void verifyLabelName(String text) {
+		isElementDisplayed("txt_label", text);
+		logMessage("STEP : " + text + " label is verified \n");
 	}
 
-	public void verifyCheckBoxUnderLableName(String fieldName, String tagName) {
-		isElementDisplayed("lable_checkbox", fieldName, tagName);
-		logMessage("STEP : " + fieldName + " label is verified \n");
-	}
+	// public void verifyCheckBoxUnderLableName(String fieldName, String
+	// tagName) {
+	// isElementDisplayed("lable_checkbox", fieldName, tagName);
+	// logMessage("STEP : " + fieldName + " label is verified \n");
+	// }
 
 	public void verifySpanUnderlabelName(String fieldName, String tagName) {
 		isElementDisplayed("input_area", fieldName, tagName);
@@ -1716,18 +1715,16 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	}
 
-	public void selectAbtractByStatus(String status) {
-		isElementDisplayed("txt_instruction", status);
-		String cID = element("txt_controlId", status, "1").getText();
+	public String selectAbtractByStatus(String status) {
+		// isElementDisplayed("chkbox_column", status,"5");
+		String cID = elements("txt_recordTitle", status, "3").get(0).getText();
 		System.out.println("cid::" + cID + "\n");
-		elements("txt_instruction", status).get(0).click();
+
+		elements("chkbox_column", status, "5").get(0).click();
+
 		logMessage("STEP: Abstract '" + cID + "' is selected \n");
+		return cID;
 
-	}
-
-	public void verifyTextAreaOnCreateSessionPage(String id) {
-		Assert.assertTrue(checkIfElementIsThere("inp_programField", id), "ASSERT FAILED: " + id + " is not present \n");
-		logMessage("ASSERT PASSED: " + id + " is present \n");
 	}
 
 	public void verifyDropDownOnSessionAdmin(String label) {
@@ -1749,4 +1746,117 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED : Filtered result is succesfully verified as "
 				+ getHostColoumData("session_host_email", "1"));
 	}
+
+	public void verifyAbstractIsAddedInCurrentAssignedAbstract(String abstractTitle) {
+		Assert.assertTrue(checkIfElementIsThere("txt_EditLink", abstractTitle),
+				"Assert Fail : " + abstractTitle + " is not added in Current Assigned Abstract \n");
+		logMessage("ASSERT PASSED : " + abstractTitle + " is added in Current Assigned Abstract \n");
+
+	}
+
+	public void handlePopUpIfAppears(String msg, String buttonName) {
+		if (checkIfElementIsThere("btn_navPanel", msg)) {
+			clickOnButtonByIndexing(buttonName, "1");
+		} else {
+			logMessage("[info]: No popup appears \n");
+		}
+	}
+
+	public void verifyCheckBoxOnCreateSessionPage(String text) {
+		Assert.assertTrue(checkIfElementIsThere("chkbox_room", text),
+				"Assert Failed: " + text + " check box is not present \n");
+		logMessage("ASSERT PASSED: '" + text + "' check box is present \n");
+
+	}
+
+	public void verifyOptionsOfSessionTypeDropDown(String sessionType, String chkboxOralAndPoster,
+			String[] textBoxForOralAndPoster, String[] selectionLabelOralAndPoster, String[] drpdownOralAndPoster,
+			String chkboxSciMix, String drpdownSciMix) {
+		switch (sessionType) {
+		case "Oral":
+		case "Poster":
+			verifyChkBoxOnCreateSessionPage(chkboxOralAndPoster);
+			for (String lblName : textBoxForOralAndPoster) {
+				verifyTextboxOnCreateSession(lblName);
+			}
+			for (String lblName : selectionLabelOralAndPoster) {
+				verifySelectionOptionOnCreateSession(lblName);
+			}
+			for (String lblName : drpdownOralAndPoster) {
+				verifyfrpdownOptionOnCreateSession(lblName);
+			}
+			break;
+			
+		case "Sci-Mix": 
+			verifyfrpdownOptionOnCreateSession(drpdownSciMix);
+			verifySelectionOptionOnCreateSession(chkboxSciMix);
+			break;
+			
+		case "Default":
+			logMessage("Step : session type "+ sessionType +" is not present \n");
+		}
+
+	}
+
+	public void verifyfrpdownOptionOnCreateSession(String lblName) {
+		Assert.assertTrue(checkIfElementIsThere("drpDown_sympType", lblName),
+				"Assert Failed: " + lblName + " check box is not present \n");
+		logMessage("ASSERT PASSED: '" + lblName + "' check box is present \n");
+
+	}
+
+	public void verifySelectionOptionOnCreateSession(String text) {
+		Assert.assertTrue(elements("sel_theme", text).size() > 0);
+		logMessage("ASSERT PASSED: '" + text + "' is present \n");
+	}
+
+	public void verifyTextboxOnCreateSession(String lblName) {
+		Assert.assertTrue(checkIfElementIsThere("inp_FnclCosponsor", lblName),
+				"Assert Failed: " + lblName + " check box is not present \n");
+		logMessage("ASSERT PASSED: '" + lblName + "' check box is present \n");
+	}
+
+	public void verifyChkBoxOnCreateSessionPage(String text) {
+		Assert.assertTrue(checkIfElementIsThere("chkbox_SciMix", text),
+				"Assert Failed: " + text + " check box is not present \n");
+		logMessage("ASSERT PASSED: '" + text + "' check box is present \n");
+
+	}
+
+	public void verifyTextAreaOnCreateSessionPage(String[] fieldsOnCreateSession) {
+		for (String id : fieldsOnCreateSession) {
+			verifyTextAreaOnCreateSessionPage(id);
+		}
+	}
+
+	public void verifyTextAreaOnCreateSessionPage(String id) {
+		Assert.assertTrue(checkIfElementIsThere("inp_programField", id), "ASSERT FAILED: " + id + " is not present \n");
+		logMessage("ASSERT PASSED: " + id + " is present \n");
+	}
+
+	public void verifyLabelName(String[] labelOnCreateSession) {
+		for (String lblText : labelOnCreateSession) {
+			verifyLabelName(lblText);
+		}
+	}
+
+	public void verifyCheckBoxOnCreateSessionPage(String[] chkboxOnCreateSession) {
+		for (String lblText : chkboxOnCreateSession) {
+			verifyCheckBoxOnCreateSessionPage(lblText);
+		}
+	}
+
+	public void verifyFieldForSessionTypeDropDown(String[] sessionTypes, String chkboxOralAndPoster,
+			String[] textBoxForOralAndPoster, String[] selectionLabelOralAndPoster, String[] drpdownOralAndPoster,
+			String chkboxSciMix, String drpdownSciMix) {
+		for (String sessiontype : sessionTypes) {
+			selectValueForSymposium("session_type", sessiontype);
+			System.out.println("############sessiontype##########"+sessiontype);
+			handlePopUpIfAppears("Confirm","Yes");
+			verifyOptionsOfSessionTypeDropDown(sessiontype, chkboxOralAndPoster, textBoxForOralAndPoster,
+					selectionLabelOralAndPoster, drpdownOralAndPoster, chkboxSciMix, drpdownSciMix);
+		}
+
+	}
+
 }
