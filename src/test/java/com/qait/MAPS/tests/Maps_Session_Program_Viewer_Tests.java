@@ -284,7 +284,7 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 	public void Step_0279_MAPS_Session_272_Verify_Application_Filter_Result_In_View_Host() {
 		test.maps_sessionpage.doubleClickOnRow("1");
 		test.maps_sessionpage.clickOnSessionBuilderTab("View Host");
-		test.maps_sessionpage.inputTextInFilter(test.maps_sessionpage.getHostColoumData("session_host_email","2"), "3");
+		test.maps_sessionpage.inputTextInFilter("Search",test.maps_sessionpage.getHostColoumData("session_host_email","2"), "3");
 		test.maps_sessionpage.verifyUserDetailsInFilterResults("3");
 		test.maps_sessionpage.clickClosePopUpButton("Close");
 	}

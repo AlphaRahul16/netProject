@@ -82,7 +82,7 @@ Session:
       Symposia_Submission_Type: "Invited"
   
   Session_Builder: 
-
+      Host_FirstName: "Kanika"
       Title: "QAIT_Automation_Test"
       Duration: "30"
       Email: "R_Yadav@acs.org"
@@ -97,6 +97,8 @@ Session:
       Symposia_Submission_Type: "Invited"
       program: "Training Site"
       Venue: "Placeholder"
+      assign_Duration: "30"
+      assign_Duration_less: "10"
   
   Schedule_Sessions: 
       Programs: "Training Site"

@@ -107,4 +107,7 @@ txt_EditLink							xpath								//div[contains(text(),'${value}')]/../preceding-
 txt_recordTitle	                        xpath                               //div[text()='${status}']/../preceding-sibling::td[${index}]//div
 sel_theme								xpath								//span[contains(text(),'${themes}')]/../following-sibling::div//div/div
 txt_sessionOwner						xpath								//label[contains(text(),'${lbltext}')]/..//div[contains(text(),'${value}')]
+table_dropLocation						xpath								(.//div[@class='x-window-ml']//div[@class='x-grid3-scroller'])[${index}]
+chkbox_email							xpath								//u[text()='${email}']/../../../preceding-sibling::td//div[contains(@class,'row-checker')]
+lnk_ControlId							xpath								//u[contains(text(),'${text}')]/../../../following-sibling::td[contains(@class,'${classname}')]
 ======================================================================================================================================

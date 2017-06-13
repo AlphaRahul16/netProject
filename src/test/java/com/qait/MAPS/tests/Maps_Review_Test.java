@@ -109,7 +109,7 @@ public class Maps_Review_Test extends BaseTest {
 
 	}
 
-	private String create_Abstract_As_Prerequisite() {
+	public String create_Abstract_As_Prerequisite() {
 		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Submission");
 		test.maps_SSOPage.verifyUserIsOnTabPage("Submission");
 		test.maps_submissionPage.clickOnNamedButton("Create New Submission");

@@ -20,6 +20,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -74,12 +75,11 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public void clickButtononLeftNavigationPanel(String buttonName) {
 		wait.hardWait(6);
 		isElementDisplayed("lnk_selButton", buttonName);
-		// clickUsingXpathInJavaScriptExecutor(element("btn_navPanel",
-		// buttonName));
-		element("lnk_selButton", buttonName).click();
+		clickUsingXpathInJavaScriptExecutor(element("lnk_selButton",buttonName));
+		//element("lnk_selButton", buttonName).click();
 		wait.hardWait(3);
 		waitForProcessBarToDisappear();
-		logMessage("Step : " + buttonName + " button is clicked on left navigation panel\n");
+		logMessage("Step : '" + buttonName + "' button is clicked on left navigation panel\n");
 	}
 
 	public void verifyTitleForRoles(String title) {
@@ -228,7 +228,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void clickCheckboxOnSaveGridConfiguration(String fieldname) {
 		isElementDisplayed("chkbox_room", fieldname);
-		click(element("chkbox_room", fieldname));
+		clickUsingXpathInJavaScriptExecutor(element("chkbox_room", fieldname));
+		//click(element("chkbox_room", fieldname));
 		logMessage("Step : Clicked on " + fieldname + " checkbox\n");
 	}
 
@@ -373,8 +374,9 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyAddedDetails(String classLabel, String expValue) {
-		wait.hardWait(2);
-		isElementDisplayed("txt_tableResult", classLabel, expValue);
+		wait.hardWait(1);
+		Assert.assertTrue(checkIfElementIsThere("txt_tableResult", classLabel, expValue),
+				"ASSERT FAILED: '" + expValue + "' is not added \n");
 		logMessage("ASSERT PASSED: " + expValue + " is added in table\n");
 	}
 
@@ -556,22 +558,22 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		return value;
 	}
 
-	public void addAbstractsInCurrentlyAssignedAbstractsSection() {
-		isElementDisplayed("btn_navPanel", "Search Results");
-		wait.hardWait(5);
-		waitForLoadingImageToDisappear("Loading...");
-		wait.hardWait(3);
-		// isElementDisplayed("txt_hostDetails", "status");
-		WebElement Sourcelocator = elements("txt_hostDetails", "title").get(1);
-		// WebElement Sourcelocator = elements("txt_hostDetails",
-		// "status").get(2);
-		elements("txt_hostDetails", "title").get(1).click();
-		isElementDisplayed("txt_dropField");
-		WebElement Destinationlocator = elements("txt_dropField").get(2);
-		dragAndDrop(Sourcelocator, Destinationlocator);
-		wait.hardWait(2);
-		waitForLoadingImageToDisappear("Loading...");
-	}
+//	public void addAbstractsInCurrentlyAssignedAbstractsSection() {
+//		isElementDisplayed("btn_navPanel", "Search Results");
+//		wait.hardWait(5);
+//		waitForLoadingImageToDisappear("Loading...");
+//		wait.hardWait(3);
+//		// isElementDisplayed("txt_hostDetails", "status");
+//		WebElement Sourcelocator = elements("txt_hostDetails", "title").get(1);
+//		// WebElement Sourcelocator = elements("txt_hostDetails",
+//		// "status").get(2);
+//		elements("txt_hostDetails", "title").get(1).click();
+//		isElementDisplayed("txt_dropField");
+//		WebElement Destinationlocator = elements("txt_dropField").get(2);
+//		dragAndDrop(Sourcelocator, Destinationlocator);
+//		wait.hardWait(2);
+//		waitForLoadingImageToDisappear("Loading...");
+//	}
 
 	public String getHostDetails(String label) {
 		isElementDisplayed("txt_hostDetails", label);
@@ -599,10 +601,11 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("STEP: '" + text + "' button is clicked \n");
 	}
 
-	public void selectAbstract(String text) {
+	public void selectAbstract(String text, int index) {
 		isElementDisplayed("txt_hostDetails", text);
-		click(elements("txt_hostDetails", text).get(1));
-		logMessage("STEP: An Abstract is selected \n");
+		//clickUsingXpathInJavaScriptExecutor(elements("txt_hostDetails", text).get(index));
+		click(elements("txt_hostDetails", text).get(index));
+		logMessage("STEP: An Abstract is selected with value " + text + " \n");
 	}
 
 	public void clickOnSaveButton(String btnName) {
@@ -768,13 +771,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("listItem_SymposiumType", "combo-list-item", value);
 		click(element("listItem_SymposiumType", "combo-list-item", value));
 		logMessage("STEP: " + value + " is selected \n");
-	}
-
-	public void selectAbtract(String value) {
-		isElementDisplayed("txt_instruction", value);
-		element("txt_instruction", value).click();
-		logMessage("STEP: Abstract '" + value + "' is selected \n");
-
 	}
 
 	public void selectAbtract(List<String> values) {
@@ -1018,13 +1014,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		element("input_filter", label, index).clear();
 		element("input_filter", label, index).sendKeys(value);
 		logMessage("STEP : " + value + " is entered in filter input box \n");
-	}
-
-	public void inputTextInFilter(String value, String index) {
-		waitForLoaderToDisappear();
-		isElementDisplayed("input_filter", "Search", index);
-		element("input_filter", "Search", index).sendKeys(value);
-		logMessage("STEP : " + value + " is entered in Search input box \n");
 		waitForLoaderToDisappear();
 	}
 
@@ -1062,36 +1051,17 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("Step : Role is selected as " + value + "\n");
 	}
 
-	public void checkRowInTable(int index, int columnIndex) {
-		isElementDisplayed("txt_tableData", String.valueOf(index), String.valueOf(columnIndex));
-		click(element("txt_tableData", String.valueOf(index), String.valueOf(columnIndex)));
-		logMessage("Step : Checked on row.\n");
-	}
-
 	public void verifyRowIsDeleted(String expValue, int index, int columnIndex) {
 		waitForLoaderToDisappear();
-		try {
-			Assert.assertTrue(
-					checkIfElementIsThere("txt_instruction", String.valueOf(index), String.valueOf(columnIndex)));
-		} catch (AssertionError e) {
-			logMessage("STEP :" + expValue + " is deleted \n");
-		}
+		Assert.assertFalse(	checkIfElementIsThere("txt_instruction", String.valueOf(index), String.valueOf(columnIndex)),
+				"ASSERT FAILED :" + expValue + " is not deleted \n");
+		logMessage("ASSERT PASSED :" + expValue + " is deleted \n");
+
 	}
 
 	public void verifyLabelName(String text) {
 		isElementDisplayed("txt_label", text);
 		logMessage("STEP : " + text + " label is verified \n");
-	}
-
-	// public void verifyCheckBoxUnderLableName(String fieldName, String
-	// tagName) {
-	// isElementDisplayed("lable_checkbox", fieldName, tagName);
-	// logMessage("STEP : " + fieldName + " label is verified \n");
-	// }
-
-	public void verifySpanUnderlabelName(String fieldName, String tagName) {
-		isElementDisplayed("input_area", fieldName, tagName);
-		logMessage("STEP : " + fieldName + " label is verified \n");
 	}
 
 	public void verifylistBoxUnderLableName(String fieldName, String tagName) {
@@ -1246,7 +1216,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyAddedAbstractsInTable(String classlbl, String expValue) {
-		//isElementDisplayed("txt_controlId", classlbl, expValue);
+		
 		Assert.assertTrue(checkIfElementIsThere("txt_controlId", classlbl,expValue));
 		logMessage("ASSERT PASSED: '" + expValue + "' is present \n");
 	}
@@ -1267,7 +1237,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED: " + placeholderValue + "is present \n");
 	}
 
-	public void verifyWithDrawRow(String fontText, String text) {
+	public void verifyWithdrawRow(String fontText, String text) {
 		waitForLoaderToDisappear();
 		Assert.assertTrue(checkIfElementIsThere("row_withdraw", fontText, text));
 		logMessage("ASSERT PASSED: " + text + " with " + fontText + " is displayed \n");
@@ -1323,26 +1293,17 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("Step : " + text + " is successfully edited\n");
 	}
 
-	public void verifyFormateIsDeleted(String text) {
-		waitForLoaderToDisappear();
-		try {
-			Assert.assertTrue(checkIfElementIsThere("txt_label", text));
-		} catch (AssertionError e) {
-			logMessage("STEP :" + text + " formate is deleted \n");
-		}
-	}
-
-	public void doubleClickToEditTableData(int index, int columnIndex) {
-		waitForLoaderToDisappear();
-		doubleClick(element("txt_tableData", String.valueOf(index), String.valueOf(columnIndex)));
-		logMessage("Step : Double clicked on table row\n");
-	}
-
-	public void verifyInputBoxInTableData(int index) {
-		isElementDisplayed("inp_saveGridFilters", String.valueOf(index));
-		Assert.assertTrue(checkIfElementIsThere("inp_saveGridFilters", String.valueOf(index)));
-		logMessage("STEP : Edit field on double click \n");
-	}
+//	public void doubleClickToEditTableData(int index, int columnIndex) {
+//		waitForLoaderToDisappear();
+//		doubleClick(element("txt_tableData", String.valueOf(index), String.valueOf(columnIndex)));
+//		logMessage("Step : Double clicked on table row\n");
+//	}
+//
+//	public void verifyInputBoxInTableData(int index) {
+//		isElementDisplayed("inp_saveGridFilters", String.valueOf(index));
+//		Assert.assertTrue(checkIfElementIsThere("inp_saveGridFilters", String.valueOf(index)));
+//		logMessage("STEP : Edit field on double click \n");
+//	}
 
 	public void rowIsNotPresentThenAddRowInCurrentlyAssignedAbstracts(int index, int columnIndex) {
 		try {
@@ -1389,6 +1350,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void enterValuesInAssignDurationPage(String label, String value) {
 		isElementDisplayed("inp_assignDuration", label);
+		element("inp_assignDuration", label).clear();
 		element("inp_assignDuration", label).sendKeys(value);
 		logMessage("STPE: " + value + " is entered in " + label + "\n");
 
@@ -1402,22 +1364,24 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public String getTimeDurationValues(String text) {
 		isElementDisplayed("txt_instruction", text);
-		return element("txt_instruction", text).getText().trim();
+		String value = element("txt_instruction", text).getText().trim();
+		logMessage("[info]:: '" + value + " is selected \n");
+		return value;
 	}
 
-	public void verifyTimeDuration(String text, String timeDurationLabel) {
-		isElementDisplayed("txt_instruction", text);
-		System.out.println("******** timeDurationLabel " + timeDurationLabel);
-		System.out.println("actual value: " + element("txt_instruction", text).getText().trim());
-		Assert.assertFalse(timeDurationLabel.contentEquals(element("txt_instruction", text).getText().trim()));
-		logMessage("ASSERT PASSED: Current duration is updated \n");
+	public void verifyTimeDurationGetUpdated(String newtimeDurationLabel, String timeDurationLabel) {
+		Assert.assertFalse(timeDurationLabel.contentEquals(newtimeDurationLabel));
+		logMessage("ASSERT PASSED: Current duration is updated to " + newtimeDurationLabel + " from "
+				+ timeDurationLabel + "\n");
 
 	}
 
 	public void enterValuesInAssignAbstractFinalID(String finalId, String hashtag) {
 		isElementDisplayed("inp_assignDuration", "New");
+		elements("inp_assignDuration", "New").get(0).clear();
 		elements("inp_assignDuration", "New").get(0).sendKeys(finalId);
 		logMessage("STEP: " + finalId + " is entered as FinalD Name \n");
+		elements("inp_assignDuration", "New").get(1).clear();
 		elements("inp_assignDuration", "New").get(1).sendKeys(hashtag);
 		logMessage("STEP: " + hashtag + " is entered as hash tag \n");
 
@@ -1429,24 +1393,28 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		}
 	}
 
-	public void verifyFieldsArePrefilledWithSavedDetails() {
+	public void verifyFieldsArePrefilledWithSavedDetails(String exp_finalID, String exp_hashtag) {
 		isElementDisplayed("inp_assignDuration", "New");
-		String finalId = getValUsingXpathInJavaScriptExecutor(elements("inp_assignDuration", "New").get(0));
-		logMessage("STEP: " + finalId + " is entered as FinalD Name \n");
-		String hashtag = getValUsingXpathInJavaScriptExecutor(elements("inp_assignDuration", "New").get(1));
-		logMessage("STEP: " + hashtag + " is entered as hash tag \n");
+		String actual_finalID = getValUsingXpathInJavaScriptExecutor(elements("inp_assignDuration", "New").get(0));
+		Assert.assertEquals(actual_finalID.trim(), exp_finalID,
+				"ASSERT FAILED: final id should be " + exp_finalID + " but found " + actual_finalID);
+		logMessage("ASSERT PASSED: final id should be " + exp_finalID + " but found " + actual_finalID);
+		String actual_hashtag = getValUsingXpathInJavaScriptExecutor(elements("inp_assignDuration", "New").get(1));
+		Assert.assertEquals(actual_hashtag.trim(), exp_hashtag,
+				"ASSERT FAILED: final id should be " + exp_hashtag + " but found " + actual_hashtag);
 
 	}
 
 	public void verifyFinalIdIsDeleted(String value) {
-		Assert.assertFalse(checkIfElementIsThere("txt_label", value));
-		logMessage("STEP : " + value + " is deleted \n");
+		Assert.assertFalse(checkIfElementIsThere("txt_label", value),
+				"ASSERT FAILED : " + value + " is not deleted \n");
+		logMessage("ASSERT PASSED : " + value + " is deleted \n");
 	}
 
-	public String clickOnPencilIconCloumn(String colHeader, String expVal) {
+	public String clickOnPencilIconCloumn(String colHeader, String expVal,String newVal) {
 		isElementDisplayed("txt_tableResult", colHeader, expVal);
 		doubleClick(element("txt_tableResult", colHeader, expVal));
-		String updatedVal = expVal + System.currentTimeMillis();
+		String updatedVal = newVal + System.currentTimeMillis();
 		sendKeysUsingXpathInJavaScriptExecutor(elements("inp_editColumnData").get(1), updatedVal);
 		return updatedVal;
 	}
@@ -1782,5 +1750,68 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED: "+value+" is displayed under "+text+" \n");
 		
 	}
+
+	public void addHostforSessionBulider(String colname, String host_email) {
+		wait.hardWait(3);
+		// waitForLoadingImageToDisappear("Loading...");
+		isElementDisplayed("txt_tableResult", colname, host_email);
+		WebElement sourcelocator = element("txt_tableResult", colname, host_email);
+		element("txt_tableResult", colname, host_email).click();
+		isElementDisplayed("table_dropLocation", "2");
+		WebElement destinationlocator = element("table_dropLocation", "2");
+		dragAndDrop(sourcelocator, destinationlocator);
+		wait.hardWait(2);
+		waitForLoadingImageToDisappear("Loading...");
+		logMessage("STEP: '" + host_email + "' is selected as Host \n");
+
+	}
+
+	public void clickCheckboxOfaRecord(String host_email) {
+		wait.hardWait(2);
+		isElementDisplayed("chkbox_email", host_email);
+		try {
+			element("chkbox_email", host_email).click();
+		} catch (WebDriverException e) {
+			clickUsingXpathInJavaScriptExecutor(element("chkbox_email", host_email));
+		}
+		logMessage("Step: '" + host_email + "' is selected \n");
+	}	
+	
+	public void enterValueInAddPlaceholderpage(String sessionTitle, String sessiondesc) {
+		enterValuesForProgram("title", sessionTitle);
+		enterValuesForProgram("session_event_desc", sessiondesc);
+		
+	}
+
+	public void checkWhetherHostIsAlreadyPresent(String classlbl, String host_name) {
+		if (checkIfElementIsThere("txt_tableResult", classlbl, classlbl)) {
+			clickParticularRecordFromList(host_name, "1");
+			clickOnButtonByIndexing("Delete Hosts", "1");
+			verifyPopupMessage("Are you sure you want to delete the selected session hosts?");
+			clickOnButtonByIndexing("Yes", "1");
+			verifyDataIsDeleted(classlbl,host_name);
+
+		} else {
+			logMessage("[Info::] '" + host_name + "' is not present \n");
+		}
+	}
+
+	public void verifyAbstractIsDeleted(String classlbl, String expValue) {
+		waitForLoadingImageToDisappear("deleteing data");
+		Assert.assertFalse(checkIfElementIsThere("lnk_ControlId", expValue,"edit_abstract"),
+				"Assert Failed : " + expValue + " is not deleted in Current Assigned Abstract \n");
+		logMessage("ASSERT PASSED : " + expValue + " is deleted in Current Assigned Abstract \n");
+		
+	}
+
+	public void clickOnAssignAbstract() {
+		wait.hardWait(1);
+		if (checkIfElementIsThere("btn_saveAndEdit", "Assign Hosts", "1")) {
+			clickOnSaveAndEditButton("Assign Hosts", 1);
+		}
+		isElementDisplayed("btn_saveAndEdit", "Assign Abstracts");
+		clickOnSaveAndEditButton("Assign Abstracts", 1);
+		logMessage("STEP: clicked on 'Assign Abstracts' button \n");
+	}	
 
 }

@@ -36,18 +36,7 @@ public class Maps_Session_Admin_Meeting_Setup extends BaseTest {
 
 	List<String> abstractDetails;
 	Map<String, String> eventInfo = new HashMap<>();
-	@DataProvider
-	public String[][] getData() {
-		String[][] data = new String[3][2];
-		data[0][0] = YamlReader.getYamlValue("Session.Session_Builder.Session_Type1");
-		data[0][1] = YamlReader.getYamlValue("Session.Session_Builder.Session_Type4");
-		data[1][0] = YamlReader.getYamlValue("Session.Session_Builder.Session_Type3");
-		data[1][1] = YamlReader.getYamlValue("Session.Session_Builder.Session_Type2");
-		data[2][0] = YamlReader.getYamlValue("Session.Session_Builder.Session_Type2");
-		data[2][1] = YamlReader.getYamlValue("Session.Session_Builder.Session_Type1");
-		return data;
-	}
-
+	
 	@BeforeClass
 	public void Start_Test_Session() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
