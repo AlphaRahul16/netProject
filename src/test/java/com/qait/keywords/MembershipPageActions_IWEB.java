@@ -4350,8 +4350,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		String importedFileName = importName + System.currentTimeMillis();
 		isElementDisplayed("inp_dateForReviewModes", "import name ");
 		element("inp_dateForReviewModes", "import name ").sendKeys(importedFileName);
+		logMessage("Step: "+ importedFileName + " is entered \n");
 		isElementDisplayed("inp_dateForReviewModes", "description ");
 		element("inp_dateForReviewModes", "description ").sendKeys(description);
+		logMessage("Step: "+ description + " is entered \n");
 		selectDropDownValue(fileType);
 		return importedFileName;
 	}
