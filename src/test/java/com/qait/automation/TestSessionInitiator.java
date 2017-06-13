@@ -250,7 +250,7 @@ public class TestSessionInitiator {
 				} else
 					Reporter.log("\nThe application url is :- " + baseurl, true);
 			}
-			if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/"))
+			if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/")||baseurl.equalsIgnoreCase("https://stag-12eweb1/NFStage4/iweb/"))
 					&& (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
 							|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
 							|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer"))) {
@@ -295,7 +295,7 @@ public class TestSessionInitiator {
 		if (driver.getTitle().contains("Certificate Error")) {
 			driver.get("javascript:document.getElementById('overridelink').click();");
 			System.out.println("Step : handle SSL certificate condition\n");
-			if (baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/")
+			if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/")||baseurl.equalsIgnoreCase("https://stag-12eweb1/NFStage4/iweb/"))
 					&& ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
 					|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
 					|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer")) {
@@ -310,7 +310,7 @@ public class TestSessionInitiator {
 			}
 		}
 
-		if (baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/")
+		if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/")||baseurl.equalsIgnoreCase("https://stag-12eweb1/NFStage4/iweb/"))
 				&& ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
 				|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
 				|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer")) {
