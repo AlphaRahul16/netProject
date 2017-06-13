@@ -49,8 +49,8 @@ Session:
       Title: "Test_Symposium_Title"
       Type: "Oral"
       Host_Role: "Organizer"
-      Abstract_AuthorFirstName: "Bhuwan"
-      Abstract_AuthorLastName: "Takkar"
+      Abstract_AuthorFirstName: "hitasheet"
+      Abstract_AuthorLastName: "Sil"
       File_Download_template: "symposia_template"
       File_Download_resources: "symposia_resources"
       File_Download_Hosts: "session_hosts"
@@ -71,6 +71,8 @@ Session:
       File_Downloaded_Name: "abstracts"
   Session_Events:
       Title: "Test_Session_Title"
+      Session_Program_Area: "AGFD"
+      Symposium: "Artisanal Foods-Invited,Oral"
       Type: "Oral"
       Duration: "15"
       Symposia_Submission_Type: "Invited"
@@ -80,19 +82,23 @@ Session:
       Symposia_Submission_Type: "Invited"
   
   Session_Builder: 
-      Session_Type1: "Oral"
-      Session_Type2: "Poster"
-      Session_Type3: "Sci-Mix"
-      Session_Type4: "Select..."
+      Host_FirstName: "Kanika"
       Title: "QAIT_Automation_Test"
       Duration: "30"
       Email: "R_Yadav@acs.org"
       Author_First_Name: "Hitasheet"
       Author_Last_Name: "Sil"
+      Author_Email: "H_Sil@acs.org"
       Session_Program_Area: "Qait_Program_Area"
       Symposium: "Qait_Symposium"    
       Title_Description: "Automation_Test"
       Final_ID: "Test" 
+      Session_Type: "Oral"
+      Symposia_Submission_Type: "Invited"
+      program: "Training Site"
+      Venue: "Placeholder"
+      assign_Duration: "30"
+      assign_Duration_less: "10"
   
   Schedule_Sessions: 
       Programs: "Training Site"
@@ -123,13 +129,15 @@ Admin:
    Report_LoginDetails: "Rahul Yadav - Last logged in:"
    Fields_In_Body:
        Abstract_Window_title: "ScholarOne Abstracts - Review & Submit"
-       Title_details: "Edited Title Text"
-       Body_details: "Edited Body Text"
+   Email:
+      emailFrom: "H_Sil@acs.org"
+   Title_details: "Edited Title Text"
+   Body_details: "Edited Body Text"
    Email_Search_Criteria:
        Email_Template_Name: "Account Creation" 
        Email_Status: "Sent"
        Subject: "ACS Submission Account Created"
-       Result: "sent"
+
        
        
        

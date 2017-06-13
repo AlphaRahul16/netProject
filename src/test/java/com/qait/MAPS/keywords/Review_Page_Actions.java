@@ -38,13 +38,13 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("STEP: '" + text + "' button is clicked \n");
 	}
 
-//	public void selectAbstractType(String text) {
-//		wait.waitForPageToLoadCompletely();
-//		waitForLoaderToDisappear();
-//		isElementDisplayed("btn_select", text);
-//		click(element("btn_select", text));
-//		logMessage("STEP: Abstract is selected as '" + text + "' \n");
-//	}
+	// public void selectAbstractType(String text) {
+	// wait.waitForPageToLoadCompletely();
+	// waitForLoaderToDisappear();
+	// isElementDisplayed("btn_select", text);
+	// click(element("btn_select", text));
+	// logMessage("STEP: Abstract is selected as '" + text + "' \n");
+	// }
 
 	public void verifyAbstractTitleUnderReviewModule(String title) {
 		Assert.assertTrue(isElementDisplayed("txt_abstractTitle", title),
@@ -75,12 +75,12 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED: 'Image for " + fieldName + "is not verified \n");
 
 	}
-	
-	public void clickOnCrossImageForNamedDropdown(String dropdownName){
+
+	public void clickOnCrossImageForNamedDropdown(String dropdownName) {
 		isElementDisplayed("img_CrossFilter", dropdownName);
-		//click(element("img_CrossFilter", dropdownName));
+		// click(element("img_CrossFilter", dropdownName));
 		clickUsingXpathInJavaScriptExecutor(element("img_CrossFilter", dropdownName));
-		logMessage("Step : cross image is clicked next to "+dropdownName+" dropdown\n");
+		logMessage("Step : cross image is clicked next to " + dropdownName + " dropdown\n");
 	}
 
 	public void verifyDropDown(String fieldName) {
@@ -88,9 +88,9 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		switch (fieldName) {
 		case "Found In":
 			isElementDisplayed("comboBox_reviewPage", fieldName);
-//			element("comboBox_reviewPage", fieldName).click();
+			// element("comboBox_reviewPage", fieldName).click();
 			clickUsingXpathInJavaScriptExecutor(element("comboBox_reviewPage", fieldName));
-//			click(element("comboBox_reviewPage", fieldName));
+			// click(element("comboBox_reviewPage", fieldName));
 			wait.hardWait(2);
 			Assert.assertTrue(elements("list_gripConfig").size() > 0,
 					" no option available on clicking dropdown " + fieldName);
@@ -102,7 +102,7 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 			scrollDown(element("drpdwn_records", fieldName));
 			wait.hardWait(2);
 			clickUsingXpathInJavaScriptExecutor(element("drpdwn_records", fieldName));
-			Assert.assertTrue(elements("listItem").size() > 0,
+			Assert.assertTrue(elements("list_gripConfig").size() > 0,
 					" no option available on clicking dropdown " + fieldName);
 			click(element("drpdwn_records", fieldName));
 			break;
@@ -115,7 +115,7 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		case "Delete Selected":
 		case "Print Selected":
 		case "Create New Symposium":
-			
+
 			isElementDisplayed("btn_ImportExportExcel", fieldName);
 			click(element("btn_ImportExportExcel", fieldName));
 			Assert.assertTrue(elements("list_drpdwnoptions").size() > 0,
@@ -124,7 +124,7 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 			break;
 
 		case "Default":
-			logMessage("Step : Dropdown not available\n");
+			logMessage("Step : Dropdown "+fieldName+" not available\n");
 
 			logMessage("ASSERT PASSED: '" + fieldName + "' dropdown is verified with options\n");
 
@@ -136,12 +136,12 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 	public void verifyRoleDropDown() {
 		isElementDisplayed("drpdown_role");
 		click(element("drpdown_role"));
-		Assert.assertTrue(isElementDisplayed("listItem"));
+		Assert.assertTrue(isElementDisplayed("list_gripConfig"));
 		click(element("drpdown_role"));
 		logMessage("ASSERT PASSED: 'Role'dropdown is verified \n");
 	}
-	
-	public void clickOnRoleDropdown(){
+
+	public void clickOnRoleDropdown() {
 		isElementDisplayed("drpdown_role");
 		click(element("drpdown_role"));
 		logMessage("ASSERT PASSED: 'Role'dropdown is verified \n");
@@ -204,7 +204,7 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		int i = 0;
 		isElementDisplayed("comboBox_reviewPage", "Page");
 		click(element("comboBox_reviewPage", "Page"));
-		for (WebElement element : elements("listItem")) {
+		for (WebElement element : elements("list_gripConfig")) {
 			Assert.assertEquals(element.getText().trim(), pageSize[i]);
 			i++;
 		}
@@ -239,8 +239,8 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void selectValueForSessionDetailType() {
-		isElementDisplayed("dropdown_sessionDetailType");
-		click(element("dropdown_sessionDetailType"));
+		isElementDisplayed("dropdown_sessionDetailType", "Session Detail Type");
+		click(element("dropdown_sessionDetailType", "Session Detail Type"));
 		isElementDisplayed("list_gripConfig");
 		String value = elements("list_gripConfig").get(3).getText();
 		click(elements("list_gripConfig").get(3));
@@ -254,10 +254,16 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 
 	public void verifyApplicationShouldAllowToSelectGridConfiguration(String expGridConfig) {
 		isElementDisplayed("inp_gridConfig");
-		String actualVal=getValUsingXpathInJavaScriptExecutor(element("inp_gridConfig"));
-		Assert.assertEquals(actualVal, expGridConfig,"ASSERT FAILED: Expected value is "+ expGridConfig +" but found "+ actualVal);
+		String actualVal = getValUsingXpathInJavaScriptExecutor(element("inp_gridConfig"));
+		Assert.assertEquals(actualVal, expGridConfig,
+				"ASSERT FAILED: Expected value is " + expGridConfig + " but found " + actualVal);
 		logMessage("ASSERT PASSED: Application allow to select Grid Configuration \n");
 	}
-	
+
+	public void verifyButton(String[] btnOnCreateSession) {
+		for (String btnName : btnOnCreateSession) {
+			verifyButton(btnName);
+		}
+	}
 
 }

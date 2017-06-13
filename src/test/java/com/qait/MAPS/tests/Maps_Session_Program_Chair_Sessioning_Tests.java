@@ -44,7 +44,7 @@ public class Maps_Session_Program_Chair_Sessioning_Tests extends BaseTest {
 		test.maps_SSOPage.verifyUserIsOnTabPage("Session");
 		test.maps_reviewpage.verifyPageHeader("Multiple Role Selection");
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Program Chair Sessioning");
-		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Select");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 //		test.maps_sessionpage.clickOnSessionBuilderTab("Session Builder");
 //		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Session Builder");
@@ -80,7 +80,7 @@ public class Maps_Session_Program_Chair_Sessioning_Tests extends BaseTest {
 		test.maps_SSOPage.verifyUserIsOnTabPage("Session");
 		test.maps_reviewpage.verifyPageHeader("Multiple Role Selection");
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Abstract Editor");
-		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Select");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 		test.maps_sessionpage.clickOnSessionBuilderTab("Abstracts");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");
