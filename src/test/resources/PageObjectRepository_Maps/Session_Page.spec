@@ -22,7 +22,7 @@ txt_programTableData					xpath								//td[contains(@class,'${className}')]/div
 inp_programField						id									${fieldName}-input
 dropdown_programField					css									#${fieldName}-input+img
 listItem_programField					xpath								//div[contains(@class,'combo-list-item')]
-btn_Types								xpath								//button[contains(text(),'${text}')]
+btn_Types								xpath								//div[@class='x-window-bl']//button[contains(text(),'${text}')]
 txt_instruction							xpath								//div[contains(text(),'${text}')]
 radioBtn_sessionType					xpath								//label[contains(text(),'${text}')]/preceding-sibling::input
 inp_sessionType							xpath								//input[@name='${text}']
@@ -109,4 +109,6 @@ select_symposiumType                    css                                 #sym
 txt_filterData                          xpath                               (//img[contains(@class,'x-menu-item-icon')]/..//div//input)[${index}]
 input_editableColumnindex               xpath                               (//div[contains(@class,'x-grid3-col-${columnName}')])[${index}]
 txt_displayedCol						xpath								//a[contains(@class,'x-menu-checked')]
+btn_sessionTypes                        xpath    							//button[contains(text(),'${text}')]
+btn_cancel                              xpath                               //div[@class='x-plain-bwrap']//td[${index}]//table
 ======================================================================================================================================

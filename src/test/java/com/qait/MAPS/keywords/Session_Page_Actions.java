@@ -162,11 +162,34 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void verifyButtonsOnTypes(String[] options) {
 		for (String text : options) {
-			Assert.assertTrue(isElementDisplayed("btn_Types", text),
+			Assert.assertTrue(isElementDisplayed("btn_sessionTypes", text),
 					" option " + text + " is not displayed on application\n");
 			logMessage("ASSERT PASSED : verified options " + text + " is displayed on session admin page\n");
 		}
 	}
+	
+	public void verifyButtonsUnderRoomAvailability(String[] options) {
+		ScrollPage(0, -100);
+		wait.hardWait(5);
+		String elementId=verifyCancelButtonOnRoomAvailabilityPage("1", options[0]);
+		verifyCancelButtonOnRoomAvailabilityPage("2", options[1]);
+		clickOnCancelButton(elementId, "Cancel");
+	}
+	
+	public String verifyCancelButtonOnRoomAvailabilityPage(String index, String expectedValue){		
+		isElementDisplayed("btn_cancel",index);
+		String id=element("btn_cancel",index).getAttribute("id");
+		System.out.println("Id is:"+id);
+		Assert.assertEquals(executeJavascriptReturnValue("document.querySelector('#"+id+" button').innerHTML"), expectedValue,"ASSERT FAILED: "+expectedValue+" button is not displayed on page\n");
+		logMessage("ASSERT PASSED: "+expectedValue+" button is displayed on page\n");
+		return id;
+	}
+	
+	public void clickOnCancelButton(String elementId,String btnName){
+		executeJavascript("document.querySelector('#"+elementId+" button').click();");
+		logMessage("Step: Clicked on "+btnName+" button\n");
+	}
+
 
 	public void verifyTextUnderMeetingSetup(String text) {
 		Assert.assertTrue(isElementDisplayed("txt_instruction", text));
@@ -320,6 +343,14 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("btn_Types", btnName);
 //		clickUsingXpathInJavaScriptExecutor(element("btn_Types", btnName));
 		click(element("btn_Types", btnName));
+		logMessage("Step : Clicked on " + btnName + "\n");
+	}
+	
+	public void clickOnButtonUnderGridConfiguration(String btnName) {
+		wait.hardWait(2);
+		wait.waitForElementToBeClickable(element("btn_sessionTypes", btnName));
+		isElementDisplayed("btn_sessionTypes", btnName);
+		click(element("btn_sessionTypes", btnName));
 		logMessage("Step : Clicked on " + btnName + "\n");
 	}
 
@@ -682,9 +713,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void setRoleForTheUser(String rolevalue) {
 		isElementDisplayed("table_columnDate", "col-session_role_name");
-		click(element("table_columnDate", "col-session_role_name"));
-		isElementDisplayed("listItem_SymposiumType", rolevalue);
-		click(element("listItem_SymposiumType", rolevalue));
+//		click(element("table_columnDate", "col-session_role_name"));
+		clickUsingXpathInJavaScriptExecutor(element("table_columnDate", "col-session_role_name"));
+		isElementDisplayed("listItem_SymposiumType","x-combo-list-item", rolevalue);
+		click(element("listItem_SymposiumType","x-combo-list-item", rolevalue));
 		logMessage("Step : Role selected for owner as " + rolevalue);
 		wait.hardWait(3);
 		Assert.assertTrue(element("table_columnDate", "col-session_role_name").getText().trim().equals(rolevalue));
@@ -734,6 +766,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnPlusIcon(String roomName) {
+		wait.hardWait(4);
 		isElementDisplayed("btn_add_column", roomName);
 		click(element("btn_add_column", roomName));
 		logMessage("Step : plus icon next to " + roomName + " is expanded\n");

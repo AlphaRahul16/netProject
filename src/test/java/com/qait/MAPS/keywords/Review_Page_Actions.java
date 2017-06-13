@@ -219,15 +219,15 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 
 	}
 
-	public String selectExistingConfigurationFromGridConfigurationDropdown() {
+	public String selectExistingConfigurationFromGridConfigurationDropdown(int dropdownIndex,int dropdwonValueIndex) {
 		isElementDisplayed("img_dropdown");
-		 clickUsingXpathInJavaScriptExecutor(elements("img_dropdown").get(2));
+		 clickUsingXpathInJavaScriptExecutor(elements("img_dropdown").get(dropdownIndex));
 //		elements("img_dropdown").get(0).click();
 		logMessage("STEP: Clicked on grid config drop down");
 		wait.hardWait(3);
 		isElementDisplayed("list_gripConfig");
-		String gridConfig = elements("list_gripConfig").get(0).getText();
-		click(elements("list_gripConfig").get(0));
+		String gridConfig = elements("list_gripConfig").get(dropdwonValueIndex).getText();
+		click(elements("list_gripConfig").get(dropdwonValueIndex));
 		logMessage("STEP: Existing configuration from the Grid Configuration dropdown is selected \n ");
 		return gridConfig;
 	}
