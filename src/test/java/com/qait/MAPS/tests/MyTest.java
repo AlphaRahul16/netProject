@@ -70,17 +70,18 @@ public class MyTest {
          e.printStackTrace();
       }
    }
+}  
 
-   public static void main(String[] args) {
-
-      String host = "pop.gmail.com";// change accordingly
-      String mailStoreType = "pop3";
-      String username = "sil.hitashee@gmail.com";// change accordingly
-      String password = "995360755700";// change accordingly
-
-      check(host, mailStoreType, username, password);
-
-   }}
+//   public static void main(String[] args) {
+//
+//      String host = "pop.gmail.com";// change accordingly
+//      String mailStoreType = "pop3";
+//      String username = "sil.hitashee@gmail.com";// change accordingly
+//      String password = "995360755700";// change accordingly
+//
+//      check(host, mailStoreType, username, password);
+//
+//   }}
 //=======
 //	public static void main(String... s) {
 //		List<String> dataOfFile = new ArrayList<String>();
@@ -93,6 +94,7 @@ public class MyTest {
 //		String data= DataProvider.csvReaderRowSpecific(csvFile, "No", "1");
 //		System.out.println("data**********"+data);
 //		//DataProvider.writeDataInAlreadyExistingCSVFile(downloadedFilePath, dataOfFile);
+		
 //		
 //		List<String> dataBeforeSorting=new ArrayList<>();
 //		dataBeforeSorting.add("2538697");
@@ -114,6 +116,13 @@ public class MyTest {
 //		}
 //
 //	}
+	
+//		String str="var"+" "+"aTags=document.getElementsByTagName(\"button\");var"+" " +"searchText=\"Cancel\";"+
+//		"var"+" "+"found;"+"for(var"+" "+"i=0;i<aTags.length;i++){"+ "(aTags[i].textContent===searchText ? found=aTags[i] : '')"+" "+"}"+
+//		"var"+" "+"style=window.getComputedStyle(found);"+"console.log(style.display);";
+//	System.out.println("---------:"+str);
+//	}
+//}
 //	
 //>>>>>>> 5c38ac663844cd67dfa88e3386970624cbf0f760
 //

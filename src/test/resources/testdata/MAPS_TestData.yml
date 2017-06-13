@@ -6,8 +6,8 @@ csv-data-file:
   path_MapsProgramArea: ./src/test/resources/TestDataLibrary/MAPS_ProgramAreaTypeList.txt
 
 LogIn_Details:
-  userID: ACS1\C00687
-  password: 84Pa809!G
+  userID: ACS1\C00839
+  password: Tm58406*t
   
 Submission_Author_Step: 
    institution: Test_Institution
