@@ -340,10 +340,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void clickOnButtonUnderSessioning(String btnName) {
 		wait.hardWait(2);
-		wait.waitForElementToBeClickable(element("btn_Types", btnName));
-		isElementDisplayed("btn_Types", btnName);
+		wait.waitForElementToBeClickable(element("btn_sessionTypes", btnName));
+		isElementDisplayed("btn_sessionTypes", btnName);
 		// clickUsingXpathInJavaScriptExecutor(element("btn_Types", btnName));
-		click(element("btn_Types", btnName));
+		click(element("btn_sessionTypes", btnName));
 		logMessage("Step : Clicked on " + btnName + "\n");
 	}
 	
@@ -406,6 +406,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void verifyAddedDetails(String classLabel, String expValue) {
 		wait.hardWait(1);
+		isElementDisplayed("txt_tableResult", classLabel, expValue);
 		Assert.assertTrue(checkIfElementIsThere("txt_tableResult", classLabel, expValue),
 				"ASSERT FAILED: '" + expValue + "' is not added \n");
 		logMessage("ASSERT PASSED: " + expValue + " is added in table\n");
@@ -585,31 +586,13 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 		waitForLoadingImageToDisappear("Loading...");
 		// waitForLoaderToDisappear();
-		logMessage("STEP: '" + value + " is selected as Host \n");
+		logMessage("STEP: '" + value + "' is selected \n");
 		return value;
 	}
-
-//	public void addAbstractsInCurrentlyAssignedAbstractsSection() {
-//		isElementDisplayed("btn_navPanel", "Search Results");
-//		wait.hardWait(5);
-//		waitForLoadingImageToDisappear("Loading...");
-//		wait.hardWait(3);
-//		// isElementDisplayed("txt_hostDetails", "status");
-//		WebElement Sourcelocator = elements("txt_hostDetails", "title").get(1);
-//		// WebElement Sourcelocator = elements("txt_hostDetails",
-//		// "status").get(2);
-//		elements("txt_hostDetails", "title").get(1).click();
-//		isElementDisplayed("txt_dropField");
-//		WebElement Destinationlocator = elements("txt_dropField").get(2);
-//		dragAndDrop(Sourcelocator, Destinationlocator);
-//		wait.hardWait(2);
-//		waitForLoadingImageToDisappear("Loading...");
+//	public String getHostDetails(String label) {
+//		isElementDisplayed("txt_hostDetails", label);
+//		return elements("txt_hostDetails", label).get(1).getText();
 //	}
-
-	public String getHostDetails(String label) {
-		isElementDisplayed("txt_hostDetails", label);
-		return elements("txt_hostDetails", label).get(1).getText();
-	}
 
 	public void addRoleForHost(String hostRole) {
 		isElementDisplayed("txt_hostDetails", "session_host_role");
@@ -1295,11 +1278,11 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		return elements("txt_tableData", String.valueOf(index), String.valueOf(columnIndex)).get(0).getText();
 	}
 
-	public void enterTextInPopUpInput(String labelName, String index, String value) {
-		isElementDisplayed("input_popup", labelName, index);
-		element("input_popup", labelName, index).clear();
-		element("input_popup", labelName, index).sendKeys(value);
-	}
+//	public void enterTextInPopUpInput(String labelName, String index, String value) {
+//		isElementDisplayed("input_popup", labelName, index);
+//		element("input_popup", labelName, index).clear();
+//		element("input_popup", labelName, index).sendKeys(value);
+//	}
 
 	public String subtractValue(String value, int toBeSubtrcated) {
 		int value1 = Integer.parseInt(value);
@@ -1324,61 +1307,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public void verifyLableFormateAfterEdit(String text) {
 		Assert.assertTrue(checkIfElementIsThere("txt_label", text));
 		logMessage("Step : " + text + " is successfully edited\n");
-	}
-
-//	public void doubleClickToEditTableData(int index, int columnIndex) {
-//		waitForLoaderToDisappear();
-//		doubleClick(element("txt_tableData", String.valueOf(index), String.valueOf(columnIndex)));
-//		logMessage("Step : Double clicked on table row\n");
-//	}
-//
-//	public void verifyInputBoxInTableData(int index) {
-//		isElementDisplayed("inp_saveGridFilters", String.valueOf(index));
-//		Assert.assertTrue(checkIfElementIsThere("inp_saveGridFilters", String.valueOf(index)));
-//		logMessage("STEP : Edit field on double click \n");
-//	}
-
-	public void rowIsNotPresentThenAddRowInCurrentlyAssignedAbstracts(int index, int columnIndex) {
-		try {
-			Assert.assertTrue(
-					checkIfElementIsThere("txt_tableData", String.valueOf(index), String.valueOf(columnIndex)));
-			logMessage("STEP: Row is not present, add a new row \n");
-		} catch (AssertionError e) {
-			clickOnArrowButton("Presenting Author");
-			enterFilterText("Filters", YamlReader.getYamlValue("Session.Session_Builder.Author_Last_Name"));
-			addHostforCurrentlyAssignedAbstracts();
-		}
-	}
-
-	// public void addHostforSymposium() {
-	// waitForLoadingImageToDisappear("Loading...");
-	// isElementDisplayed("txt_hostDetails", "session_host_last_name");
-	//
-	// WebElement Sourcelocator = elements("txt_hostDetails",
-	// "session_host_last_name").get(1);
-	// String hostlastname = elements("txt_hostDetails",
-	// "session_host_last_name").get(1).getText();
-	// isElementDisplayed("txt_dropField");
-	// WebElement Destinationlocator = element("txt_dropField");
-	// dragAndDrop(Sourcelocator, Destinationlocator);
-	// wait.hardWait(2);
-	// waitForLoadingImageToDisappear("Loading...");
-	// // waitForLoaderToDisappear();
-	// logMessage("STEP: '" + hostlastname + " is selected as Host \n");
-	// }
-	public void addHostforCurrentlyAssignedAbstracts() {
-		waitForLoadingImageToDisappear("Loading...");
-		isElementDisplayed("txt_hostDetails", "presenterList");
-
-		WebElement Sourcelocator = elements("txt_hostDetails", "presenterList ").get(1);
-		String hostlastname = elements("txt_hostDetails", "presenterList ").get(1).getText();
-		isElementDisplayed("txt_dropField");
-		WebElement Destinationlocator = element("txt_dropField");
-		dragAndDrop(Sourcelocator, Destinationlocator);
-		wait.hardWait(2);
-		waitForLoadingImageToDisappear("Loading...");
-		// waitForLoaderToDisappear();
-		logMessage("STEP: '" + hostlastname + " is selected as Host \n");
 	}
 
 	public void enterValuesInAssignDurationPage(String label, String value) {
@@ -1831,7 +1759,14 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void verifyAbstractIsDeleted(String classlbl, String expValue) {
 		waitForLoadingImageToDisappear("deleteing data");
-		Assert.assertFalse(checkIfElementIsThere("lnk_ControlId", expValue,"edit_abstract"),
+		Assert.assertFalse(checkIfElementIsThere("lnk_ControlId", expValue,classlbl),
+				"Assert Failed : " + expValue + " is not deleted in Current Assigned Abstract \n");
+		logMessage("ASSERT PASSED : " + expValue + " is deleted in Current Assigned Abstract \n");
+		
+	}
+	public void verifyAbstractIsAddedInCurrentlyAssignedAbstracts(String classlbl, String expValue) {
+		isElementDisplayed("lnk_ControlId", expValue,classlbl);
+		Assert.assertTrue(checkIfElementIsThere("lnk_ControlId", expValue,classlbl),
 				"Assert Failed : " + expValue + " is not deleted in Current Assigned Abstract \n");
 		logMessage("ASSERT PASSED : " + expValue + " is deleted in Current Assigned Abstract \n");
 		
@@ -1842,7 +1777,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		if (checkIfElementIsThere("btn_saveAndEdit", "Assign Hosts", "1")) {
 			clickOnSaveAndEditButton("Assign Hosts", 1);
 		}
-		isElementDisplayed("btn_saveAndEdit", "Assign Abstracts");
+		isElementDisplayed("btn_saveAndEdit", "Assign Abstracts","1");
 		clickOnSaveAndEditButton("Assign Abstracts", 1);
 		logMessage("STEP: clicked on 'Assign Abstracts' button \n");
 	}	

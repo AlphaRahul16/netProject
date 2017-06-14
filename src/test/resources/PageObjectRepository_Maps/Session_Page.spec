@@ -33,7 +33,7 @@ inp_filtertext                          xpath                               //di
 lnk_filters                             xpath                               //a[contains(@class,'x-menu-item') and contains(text(),'${dropdownOptions}')]
 txt_tableData                           xpath                               (//div[contains(@class,'grid3-body')])[${index1}]//table//td[${index2}]/div
 img_dropDown                            xpath                               (//div[contains(@class,'x-form-field-wrap') and @role="combobox"])[${index}]//img
-txt_tableResult                         xpath                               //td[contains(@class,'x-grid3-td-${label}')]//div[text()='${value}']
+txt_tableResult                         xpath                               //td[contains(@class,'x-grid3-td-${label}')]//div[contains(text(),'${value}')]
 lst_column                              xpath                               //div[@role='listitem' and text()='${columnName}']
 btn_add                                 xpath                               //td[@class='x-toolbar-left']//button[text()='${btnName}']
 chkbox_column                           xpath                               //div[text()='${roomName}']/../preceding-sibling::td[${index}]//div[@class='x-grid3-row-checker']
@@ -42,7 +42,7 @@ btn_recordsname                         xpath                               (//d
 txt_totalRecords                        xpath                               //div[@class='x-grid3-row-checker']
 chkbox_records                          xpath                               (//div[@class='x-grid3-row-checker'])[${recordnumber}]
 listItem_SymposiumType					xpath								//div[contains(@class,'${className}') and contains(text(),'${value}')]
-txt_hostDetails							xpath								//td[contains(@class,'${value}')]/div
+txt_hostDetails							xpath								//td[contains(@class,'x-grid3-td-${value}')]/div
 txt_dropField							css								    .x-grid3-scroller
 img_loading								xpath								//div[contains(text(),'${text}')]
 btn_remove								xpath								(//button[text()='${btnName}'])[${index}]
