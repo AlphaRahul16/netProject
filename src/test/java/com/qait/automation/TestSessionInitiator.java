@@ -212,7 +212,7 @@ public class TestSessionInitiator {
 			deleteAllCookies();
 			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")
 					|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer"))) {
-				if (baseurl.contains("https://stag-12iweb/NFStage")) {
+				if (baseurl.contains("https://stag-12iweb/NFStage") || baseurl.contains("https://stag-12eweb1/NFStage")) {
 					baseurl = baseurl.replaceAll("https://stag",
 							"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
 									+ URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), "UTF-8")

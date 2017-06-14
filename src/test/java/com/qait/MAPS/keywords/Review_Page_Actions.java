@@ -220,9 +220,11 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public String selectExistingConfigurationFromGridConfigurationDropdown(int dropdownIndex,int dropdwonValueIndex) {
+		wait.hardWait(2);
 		isElementDisplayed("img_dropdown");
-		 clickUsingXpathInJavaScriptExecutor(elements("img_dropdown").get(dropdownIndex));
-//		elements("img_dropdown").get(0).click();
+		System.out.println("--------#####:"+dropdownIndex);
+		clickUsingXpathInJavaScriptExecutor(elements("img_dropdown").get(dropdownIndex));
+//		elements("img_dropdown").get(dropdownIndex).click();
 		logMessage("STEP: Clicked on grid config drop down");
 		wait.hardWait(3);
 		isElementDisplayed("list_gripConfig");

@@ -77,8 +77,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("lnk_selButton", buttonName);
 		clickUsingXpathInJavaScriptExecutor(element("lnk_selButton",buttonName));
 		//element("lnk_selButton", buttonName).click();
-		wait.hardWait(3);
-		waitForProcessBarToDisappear();
+//		wait.hardWait(3);
+//		waitForProcessBarToDisappear();
 		logMessage("Step : '" + buttonName + "' button is clicked on left navigation panel\n");
 	}
 
@@ -162,7 +162,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void verifyButtonsOnTypes(String[] options) {
 		for (String text : options) {
-			Assert.assertTrue(isElementDisplayed("btn_sessionTypes", text),
+			Assert.assertTrue(isElementDisplayed("btn_Types", text),
 					" option " + text + " is not displayed on application\n");
 			logMessage("ASSERT PASSED : verified options " + text + " is displayed on session admin page\n");
 		}

@@ -282,7 +282,7 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 	}
 
 
-	public void verifyReviewerAnswers(Map<String, Map<String, String>> reviewerCommentsMap,int reviewerNumber,String sectionName,String ReviewerName) {
+	public void verifyReviewerAnswers(Map<String, Map<String, String>> reviewerCommentsMap,int reviewerNumber,String sectionName,String ReviewerName,String tabName) {
 		
 		System.out.println("-----original map is:"+reviewerComments);
 
@@ -299,11 +299,11 @@ public class ACS_Scarf_Reviewing_Eweb_Action extends ASCSocietyGenericPage{
 	}
 	catch(NoSuchElementException e)
 	{
-	element("lnk_PageNumber","2").click();
+	element("lnk_PageNumber",tabName,"2").click();
 	logMessage("STEP : Page 2 is clicked in the list\n");
 	Assert.assertTrue(element("txt_answersReview", sectionName, ReviewerName).getText().trim().equals(reviewerCommentsMap.get("Reviewer" + reviewerNumber).get(sectionName)));
 	logMessage("ASSERT PASSED : Reviewer "+ReviewerName+" answers for "+sectionName+" is verified as "+reviewerCommentsMap.get("Reviewer" + reviewerNumber).get(sectionName));
-	element("lnk_PageNumber","1").click();
+	element("lnk_PageNumber",tabName,"1").click();
 	logMessage("STEP  : Page 2 is clicked in the list\n");
 	}
 	wait.resetExplicitTimeout(hiddenfieldtimeout);

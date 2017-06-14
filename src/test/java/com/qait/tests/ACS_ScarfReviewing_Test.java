@@ -273,10 +273,10 @@ public class ACS_ScarfReviewing_Test {
 			String sectionName) {
 		test.acsScarfReviewing.verifyReviewerAnswers(reviewerComments, 1,
 				sectionName,
-				test.acsScarfReviewPage.getReviewerNameList().get(0));
+				test.acsScarfReviewPage.getReviewerNameList().get(0),"report online reviewer answer");
 		test.acsScarfReviewing.verifyReviewerAnswers(reviewerComments, 2,
 				sectionName,
-				test.acsScarfReviewPage.getReviewerNameList().get(1));
+				test.acsScarfReviewPage.getReviewerNameList().get(1),"report online reviewer answer");
 
 	}
 
@@ -300,7 +300,7 @@ public class ACS_ScarfReviewing_Test {
 			String sectionName) {
 		test.acsScarfReviewing.verifyReviewerAnswers(reviewerComments, 3,
 				sectionName,
-				test.acsScarfReviewPage.getReviewerNameList().get(2));
+				test.acsScarfReviewPage.getReviewerNameList().get(2),"report faculty decision panel answer");
 	}
 
 	@Test
@@ -322,7 +322,7 @@ public class ACS_ScarfReviewing_Test {
 	public void Step22_Verify_Green_Chemistry_Reviewer_Answers_On_Iweb() {
 		test.acsScarfReviewing.verifyReviewerAnswers(reviewerComments, 4,
 				"Green Chemistry", test.acsScarfReviewPage
-						.getReviewerNameList().get(3));
+						.getReviewerNameList().get(3),"report green chemistry reviewer answer");
 	}
 
 	@DataProvider(name = "loginDetails")
