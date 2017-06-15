@@ -161,7 +161,7 @@ public class Maps_Session_Admin_Meeting_Setup extends BaseTest {
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Session Admin");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Meeting Setup");
-		test.maps_sessionpage.clickSubHeadingLeftNavigationPanel("Room Availability");
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Room Availability");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Room Availability");
 	}
 

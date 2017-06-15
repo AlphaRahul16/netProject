@@ -55,7 +55,7 @@ public class Maps_Admin_Tests extends BaseTest {
 		test.maps_sessionpage.verifydropdownOnPopupWindow("Select");
 	}
 	
-/*	@Test
+	@Test
 	public void Step_007_MAPS_Admin_02_Verify_Application_Displays_Options_And_Fields_For_Editor() {
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Editor");
 		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
@@ -111,6 +111,9 @@ public class Maps_Admin_Tests extends BaseTest {
 		 HashMap<String, String> searchCriteria = new HashMap<String, String>();
 		 searchCriteria.put("First Name", "Kanika");
 		 searchCriteria.put("Last Name", "Sharma");
+		 test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Admin");
+		   test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Admin"); 
+		   test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
 		test.maps_adminpage.clickLeftNavigationPanelOptions("People");
 		test.maps_adminpage.enterSearchCriteria(searchCriteria);
 	}
@@ -141,7 +144,7 @@ public class Maps_Admin_Tests extends BaseTest {
 	@Test
 	public void Step_049_MAPS_Admin_42_Verify_Application_Displays_Last_Login_Details_Of_Individual() {
 		test.maps_adminpage.verfiyDefaultFieldOnLeftNavigationPanel(YamlReader.getYamlValue("Admin.Report_LoginDetails"));
-	}*/
+	}
 	
 	@Test
 	public void Step_055_MAPS_Admin_47_Verify_Application_Launches_New_Window_On_Clicking_ControlID() {
@@ -207,7 +210,92 @@ public class Maps_Admin_Tests extends BaseTest {
 		
 	}
 	
+	@Test
+	public void Step_018_MAPS_Admin_71_Verify_Application_Copies_Configuration_Of_Role_From_SelectRole_To_CopyAllConfigurationFromRole() {
+		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Admin");
+		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Admin");	
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
+		test.maps_adminpage.clickLeftNavigationPanelOptions("Abstract Proof Configuration");
+		test.maps_adminpage.clickOnSelectRoleDropDownAndSelectARole("Admin");
+		test.maps_adminpage.clickOnCopyRoleDropDownAndSelectARole("Decision");
+		test.maps_adminpage.clickOnGoButton();
+	}
 	
+	
+	@Test
+	public void Step_025_MAPS_Admin_157_Verify_Application_Saves_The_Change_And_Navigates_User_Back_To_AbstractsPage() {
+		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Admin");
+		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Admin");	
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
+		test.maps_adminpage.clickLeftNavigationPanelOptions("Abstract search");
+		String first_name=test.maps_adminpage.getFirstNameOfUser();
+		test.maps_adminpage.enterSearchTermForAbstractSearch(first_name);
+		test.maps_adminpage.clickOnSearchButton();
+		test.maps_adminpage.clickOnTitleOfSearchTerm(first_name);
+		test.maps_adminpage.clickOnEditTitleButton();
+		test.maps_adminpage.enterTitleDetails(YamlReader.getYamlValue("Admin.title"));
+		test.maps_submissionPage.clickOnSaveAndContinueButton();
+		test.maps_adminpage.clickOnFinishButton();
+		test.maps_adminpage.verifyTitleIsEdited(YamlReader.getYamlValue("Admin.title"));
+	
+	}
+		
+	@Test
+	public void Step_027_MAPS_Admin_164_Verify_Application_Changes_Status_Of_Abstract_To_AuthorWithdraw_When_Click_On_Withdraw() {
+		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Admin");
+		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Admin");	
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
+		test.maps_adminpage.clickLeftNavigationPanelOptions("Abstract search");
+		String first_name=test.maps_adminpage.getFirstNameOfUser();
+		test.maps_adminpage.enterSearchTermForAbstractSearch(first_name);
+		test.maps_adminpage.clickOnSearchButton();
+		String abstractID=test.maps_adminpage.getAbstractID();
+		test.maps_adminpage.clickOnWithdrawLink();	
+		test.maps_adminpage.verifyStatusOnAbstractInSearchTableAfterWithdraw();
+		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Submission");
+		test.maps_adminpage.verifyStatusOfAbstractOnSubmissionTabAfterWithdraw(abstractID);
+	}
+
+	@Test
+	public void Step_028_MAPS_Admin_165_Verify_Application_Changes_Status_Of_Abstract_To_UnderReview_When_Click_On_Unwithdraw() {
+		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Admin");
+		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Admin");	
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
+		test.maps_adminpage.clickLeftNavigationPanelOptions("Abstract search");
+		String first_name=test.maps_adminpage.getFirstNameOfUser();
+		test.maps_adminpage.enterSearchTermForAbstractSearch(first_name);
+		test.maps_adminpage.clickOnSearchButton();
+		String abstractID=test.maps_adminpage.getAbstractIDOfUnwithdraw();
+		test.maps_adminpage.clickOnUnwithdrawLink();
+		test.maps_adminpage.verifyStatusOnAbstractInSearchTableAfterUnwithdraw();
+		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Submission");
+		test.maps_adminpage.verifyStatusOfAbstractOnSubmissionTabAfterUnwithdraw(abstractID);
+	}
+	
+	
+	@Test
+	public void Step_029_MAPS_Admin_180_Verify_Functionality_Of_Start_A_New_Data_Export_Link(){
+		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Admin");
+		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Admin");	
+		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
+		test.maps_adminpage.clickOnDataExportLinkFromLeftPanel("Data Export");
+		test.maps_adminpage.clickOnStartANewDataExportLink();
+		test.maps_adminpage.createANewDataExport(YamlReader.getYamlValue("Admin.data_export"));
+		test.maps_adminpage.verifyExportCreated(YamlReader.getYamlValue("Admin.data_export"));
+	}
+	
+	@Test
+	public void Step_030_MAPS_Admin_158_Verify_Application_Does_Not_Display_Finish_Button_For_User_with_Draft_Status() {
+			test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Admin");
+			test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Admin");	
+			test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
+			test.maps_adminpage.clickLeftNavigationPanelOptions("Abstract search");
+			String first_name=test.maps_adminpage.getFirstNameOfUser();
+			test.maps_adminpage.enterSearchTermForAbstractSearch(first_name);
+			test.maps_adminpage.clickOnSearchButton();
+			test.maps_adminpage.clickOnTitleOfSearchTermWithDraftStatus("Draft");
+			test.maps_adminpage.verifyFinishNotDisplay();	
+		}
 	
 
 

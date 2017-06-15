@@ -802,5 +802,10 @@ public class BaseUi {
 		action.release();
 		System.out.println("STEP: Sucessfully Right clicked on the element \n");
 	}
+	public void closeSwitchedWindow(int i){
+		Set<String> ar = driver.getWindowHandles();
+		String windows[] = ar.toArray(new String[ar.size()]);
+		driver.switchTo().window(windows[i]).close();
+	}
 
 }

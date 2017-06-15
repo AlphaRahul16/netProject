@@ -8,7 +8,7 @@ csv-data-file:
 LogIn_Details:
   userID: ACS1\C00687
   password: 84Pa809!G
-  
+    
 Submission_Author_Step: 
    institution: Test_Institution
    department: QA
@@ -130,6 +130,10 @@ Admin:
        Email_Status: "Sent"
        Subject: "ACS Submission Account Created"
        Result: "sent"
+   first_name: "Hitasheet"
+   title: abcde
+   search: draft
+   data_export: "Test_Data_Export"
        
        
        

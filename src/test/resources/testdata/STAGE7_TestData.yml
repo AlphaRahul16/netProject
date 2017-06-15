@@ -14,7 +14,7 @@ app_url_OMR: https://www.renewtest.acs.org/NFStage7/renew
 app_url_MGM: https://ewebtest.acs.org/NFStage7/mgm
 app_url_Meeting: https://ewebtest.acs.org/NFStage7/meetings/2012gcec
 app_url_egift: https://www.ewebtest.acs.org/NFStage7/egift
-app_url_Nominate: https://ewebtest.acs.org/NFStage7/nominate
+app_url_Nominate: https://www.ewebtest.acs.org/NFStage7/nominate
 app_url_MemberNumberLookup: https://www.ewebtest.acs.org/NFStage7/membernumberlookup
 app_url_NCW: https://www.ewebtest.acs.org/NFStage7/ncwlookup
 app_url_IwebReporting: https://stag-12iweb/NFStage7/iweb
@@ -34,7 +34,7 @@ app_url_MGMOputOut: https://www.ewebtest.acs.org/NFStage7/eweb/ACSMGMTemplate.as
 app_url_MGMLogout: https://www.ewebtest.acs.org/NFStage7/eweb/acslogout.aspx
 
 Authentication: 
-  userName: C00767
-  password: "Ih99785b*"
+  userName: C00687
+  password: "84Pa809!G"
   emailId: "K_Sharma@acs.org"
 

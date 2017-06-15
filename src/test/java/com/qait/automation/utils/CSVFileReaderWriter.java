@@ -10,16 +10,6 @@ import java.util.List;
 public class CSVFileReaderWriter {
 	
 	public static void _deleteExistingCSVFile(String filePath,String filename) {
-
-		/*
-		 * File sourceFile = new File(filePath); if (sourceFile.exists()) {
-		 * sourceFile.delete(); logMessage(
-		 * "STEP: Already Existed File is deleted from location " +
-		 * sourceFile.getAbsolutePath()); }
-		 */
-//		String filePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
-//				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator;
-		System.out.println(filePath);
 		File folder = new File(filePath);
 		final File[] files = folder.listFiles(new FilenameFilter() {
 			@Override

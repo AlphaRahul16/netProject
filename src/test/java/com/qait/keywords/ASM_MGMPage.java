@@ -426,9 +426,9 @@ public class ASM_MGMPage extends GetPage {
 	}
 
 	public void clickOnlogoutButton(String logoutUrl) {
-		if (ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage2")
-				|| ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage8")
-				|| ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("dev9")) {
+//		if (ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage2")
+//				|| ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage8")
+//				|| ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("dev9")) {
 			isElementDisplayed("btn_myAccount");
 			click(element("btn_myAccount"));
 			isElementDisplayed("link_applyACSmembership", "Log Out");
@@ -436,10 +436,10 @@ public class ASM_MGMPage extends GetPage {
 			wait.waitForPageToLoadCompletely();
 			// elements("link_applyACSmembership","Log Out").get(0).click();
 			logMessage("STEP: Log out button is clicked \n");
-		} else {
-			launchUrl(logoutUrl);
-			logMessage("STEP: Log out URL is launched \n");
-		}
+//		} else {
+//			launchUrl(logoutUrl);
+//			logMessage("STEP: Log out URL is launched \n");
+//		}
 	}
 
 }

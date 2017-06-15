@@ -73,8 +73,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		enterUserName_lastName(lastName);
 		wait.hardWait(2);
 		enterPassword_mem_notice(noticeNumber);
-		clickOnVerifyButton();
 		wait.waitForPageToLoadCompletely();
+		clickOnVerifyButton();
 		// renewConfirmYourInformation();
 		switchToDefaultContent();
 
@@ -1043,7 +1043,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		switchToEwebRenewalFrame();
 		holdScriptExecution();
 		dynamicWait(30, "txt_productIndividualAmount", "");
-		System.out.println(elements("txt_productIndividualAmount").get(0).getText().replaceAll("[^\\d.]", ""));
+		//System.out.println(elements("txt_productIndividualAmount").get(0).getText().replaceAll("[^\\d.]", ""));
 		System.out.println(expectedDiscount);
 		System.out.println(Productamount);
 		isElementDisplayed("txt_productIndividualAmount");

@@ -712,7 +712,6 @@ public class ASM_NominatePage extends GetPage {
 		waitForSpinner();
 		clickOnSelectNomineeButtonForAwardsNomination();
 
-		wait.waitForPageToLoadCompletely();
 
 	}
 

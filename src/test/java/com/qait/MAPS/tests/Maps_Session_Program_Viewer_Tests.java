@@ -20,8 +20,8 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 	private String griduniqueName = "Selenium_Test_Grid_" + System.currentTimeMillis();
 	private String[] roles = { "OPA Staff", "Program Viewer", "Program Chair Sessioning", "Abstract Editor",
 			"Session Admin" };
-	private String[] programViewerleftpaneloptions = { "Dashboard & Instructions", "Symposia Viewer",
-			"Session Viewer", "Abstracts" };
+	private String[] programViewerleftpaneloptions = { "Dashboard & Instructions", "Symposia Viewer", "Session Viewer",
+			"Abstracts" };
 	private String downloadedFilePath = System.getProperty("user.dir") + File.separator + "src" + File.separator
 			+ "test" + File.separator + "resources" + File.separator + "DownloadedFiles";
 
@@ -128,7 +128,7 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 		symposiasize = test.maps_sessionpage.getSelectedListSize();
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Print Selected");
 		test.maps_sessionpage.verifyTitleForRoles("Print Symposia Preview", "Title");
-		test.maps_sessionpage.verifyAllSelectedListIsPresentInPrintPreview(symposiasize);
+		test.maps_sessionpage.verifyAllSelectedListIsPresentInPrintPreview(symposiasize,"4");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Cancel");
 
 	}
@@ -152,8 +152,8 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Export");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (All Columns)");
 		test.maps_sessionpage.waitForProcessBarToDisappear();
-		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath+ File.separator
-				+YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name_symposia")+".csv");
+		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath + File.separator
+				+ YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name_symposia") + ".csv");
 	}
 
 	@Test
@@ -234,7 +234,7 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 		symposiasize = test.maps_sessionpage.getSelectedListSize();
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Print Selected");
 		test.maps_sessionpage.verifyTitleForRoles("Print Sessions/Events Preview", "Title");
-		test.maps_sessionpage.verifyAllSelectedListIsPresentInPrintPreview(symposiasize);
+		test.maps_sessionpage.verifyAllSelectedListIsPresentInPrintPreview(symposiasize,"4");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Cancel");
 
 	}
@@ -246,8 +246,8 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Export");
 		test.maps_sessionpage.selectOptionsUnderColumnHeaders("Export to Excel (Displayed Columns)");
 		test.maps_sessionpage.waitForProcessBarToDisappear();
-		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath+ File.separator
-				+YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name_session")+".csv");
+		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath + File.separator
+				+ YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name_session") + ".csv");
 	}
 
 	/**
@@ -264,6 +264,7 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 		test.maps_sessionpage.verifyValidFileIsDownloaded(downloadedFilePath+ File.separator
 				+YamlReader.getYamlValue("Session.Program_Viewer.File_Downloaded_Name_session")+".csv");
 
+
 	}
 
 	@Test
@@ -271,7 +272,7 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 		test.maps_sessionpage.rightClickOnSessionList("1");
 		test.maps_sessionpage.clickOnSaveAndEditButton("View",3);
 		test.maps_sessionpage.verifyTitleForRoles(test.maps_sessionpage.getHostColoumData("session_name", "1"));
-		test.maps_sessionpage.clickClosePopUpButton("Close");
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Close");
 
 	}
 
@@ -281,8 +282,7 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 		test.maps_sessionpage.clickOnSessionBuilderTab("View Host");
 		test.maps_sessionpage.inputTextInFilter(test.maps_sessionpage.getHostColoumData("session_host_email","2"), "3");
 		test.maps_sessionpage.verifyUserDetailsInFilterResults("3");
-		test.maps_sessionpage.clickClosePopUpButton("Close");
-		
+		test.maps_sessionpage.clickOnButtonUnderSessioning("Close");
 	}
 
 	@Test
