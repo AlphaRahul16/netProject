@@ -44,7 +44,7 @@ public class Maps_Session_Program_Chair_Sessioning_Tests extends BaseTest {
 		test.maps_SSOPage.verifyUserIsOnTabPage("Session");
 		test.maps_reviewpage.verifyPageHeader("Multiple Role Selection");
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Program Chair Sessioning");
-		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Select");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 //		test.maps_sessionpage.clickOnSessionBuilderTab("Session Builder");
 //		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Session Builder");
@@ -52,9 +52,9 @@ public class Maps_Session_Program_Chair_Sessioning_Tests extends BaseTest {
 //		test.maps_sessionpage.verifyAbstractsListIsPresent("x-border-panel x-border-layout-ct");
 	}
 
-	//@Test
+	//@Test  //commented 1 step
 	public void Step_0422_MAPS_Session_411_Verify_Currently_Assign_Abstracts_Section_Is_Displayed_When_Any_Session_Is_Selected() {
-		test.maps_sessionpage.selectaRecordFromTheList(1,"2");
+//		test.maps_sessionpage.selectaRecordFromTheList(1,"2");
 		test.maps_sessionpage.waitForLoadingImageToDisappear("Loading...");
 		String heading = "Currently Assigned Abstracts" + test.maps_sessionpage.getCheckedColumnData("1", "4");
 		test.maps_sessionpage.verifyPopupMessage(heading);
@@ -80,7 +80,7 @@ public class Maps_Session_Program_Chair_Sessioning_Tests extends BaseTest {
 		test.maps_SSOPage.verifyUserIsOnTabPage("Session");
 		test.maps_reviewpage.verifyPageHeader("Multiple Role Selection");
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Abstract Editor");
-		test.maps_sessionpage.clickButtonToContinueToNextPage("Select");
+		test.maps_sessionpage.clickButtononLeftNavigationPanel("Select");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 		test.maps_sessionpage.clickOnSessionBuilderTab("Abstracts");
 		test.maps_reviewpage.verifyAbstractTitleUnderReviewModule("Abstracts Assigned To Me");

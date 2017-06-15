@@ -10,7 +10,6 @@ txt_reportType						xpath							//span[contains(text(),'${text}')]
 txt_abstractTitle					xpath							(//div[@role='presentation']/span[contains(text(),'${title}')])[1]
 input_filter						xpath							(//div[contains(text(),'${text}')]/../following-sibling::td//input)[1]
 comboBox_reviewPage					xpath							//div[contains(text(),'${text}')]/../following-sibling::td/div[contains(@role,'combobox')]/input
-listItem							xpath							//div[contains(@class,'combo-list-item')]
 btn_ImportExportExcel				xpath							//button[contains(text(),'${text}')]
 list_drpdwnoptions				    css						     	.x-menu-item.x-component
 drpdown_role						xpath							//a[contains(text(),'Save/Edit')]/../../preceding-sibling::td[1]//input
@@ -24,7 +23,7 @@ img_CrossFilter                     xpath                           (//div[conta
 drpdwn_records                      xpath                           //div[contains(text(),'${text}')]/../preceding-sibling::td[1]//input
 img_dropdown						xpath							//tr[@role='presentation']//input[contains(@id,'input')]/following-sibling::img
 list_gripConfig						xpath							//div[contains(@class,'combo-list-item')]
-dropdown_sessionDetailType			xpath							//label[contains(text(),'Session Detail Type')]/following-sibling::div/img
+dropdown_sessionDetailType			xpath							//label[contains(text(),'${labelText}')]/following-sibling::div/img
 txt_sucessMsg						xpath							//p[contains(text(),'${msg}')]
 inp_gridConfig						xpath							//tr[@role='presentation']//input[contains(@id,'input')]
 ======================================================================================================================================

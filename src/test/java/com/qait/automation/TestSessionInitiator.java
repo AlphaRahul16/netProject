@@ -212,11 +212,12 @@ public class TestSessionInitiator {
 			deleteAllCookies();
 			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")
 					|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer"))) {
-				if (baseurl.contains("https://stag-12iweb/NFStage")) {
+				if (baseurl.contains("https://stag-12iweb/NFStage")||baseurl.contains("https://stag-12eweb1/NFStage")) {
 					baseurl = baseurl.replaceAll("https://stag",
 							"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
 									+ URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), "UTF-8")
 									+ "@stag");
+					
 					driver.get(baseurl);
 				} else if (baseurl.contains("https://dev-eweb12/YBDev3/iWeb")
 						|| baseurl.contains("https://dev-eweb12/NFDev")
@@ -231,6 +232,8 @@ public class TestSessionInitiator {
 							"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
 									+ URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), "UTF-8")
 									+ "@iwebtest");
+					
+					System.out.println("baseurl:"+baseurl);
 
 				}
 				driver.get(baseurl);
@@ -250,7 +253,7 @@ public class TestSessionInitiator {
 				} else
 					Reporter.log("\nThe application url is :- " + baseurl, true);
 			}
-			if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/"))
+			if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/")||baseurl.equalsIgnoreCase("https://stag-12eweb1/NFStage4/iweb/"))
 					&& (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
 							|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
 							|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer"))) {
@@ -295,7 +298,7 @@ public class TestSessionInitiator {
 		if (driver.getTitle().contains("Certificate Error")) {
 			driver.get("javascript:document.getElementById('overridelink').click();");
 			System.out.println("Step : handle SSL certificate condition\n");
-			if (baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/")
+			if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/")||baseurl.equalsIgnoreCase("https://stag-12eweb1/NFStage4/iweb/"))
 					&& ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
 					|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
 					|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer")) {
@@ -310,7 +313,7 @@ public class TestSessionInitiator {
 			}
 		}
 
-		if (baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/")
+		if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/")||baseurl.equalsIgnoreCase("https://stag-12eweb1/NFStage4/iweb/"))
 				&& ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
 				|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
 				|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer")) {

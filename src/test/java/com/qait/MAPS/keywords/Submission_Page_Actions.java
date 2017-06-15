@@ -94,6 +94,7 @@ public class Submission_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void selectSymposium() {
+		element("select_presentationType").click();
 		isElementDisplayed("select_symposiumType");
 		// selectDropDownValue(element("select_symposiumType"), 2);
 		click(element("select_symposiumType"));

@@ -74,6 +74,7 @@ public class BaseUi {
 	}
 
 	public void launchUrl(String url) {
+		//deleteAllCookies();
 		driver.get(url);
 		wait.waitForPageToLoadCompletely();
 		logMessage("STEP: Launch Application URL " + url + "\n");

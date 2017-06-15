@@ -246,23 +246,23 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 		isElementDisplayed("list_tableRows", tabName);
 		for (i = 1; i <= elements("list_tableRows", tabName).size(); i++) {
 			wait.hardWait(1);
-//			if(ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Dev9")){
-//			if (element("txt_listData", tabName, String.valueOf(index1), String.valueOf(i)).getText().trim()
-//					.equals("No")
-//					&& element("txt_listData", tabName, String.valueOf(index2), String.valueOf(i)).getText().trim()
-//							.equals(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy")) &&
-//							element("txt_listData", tabName, String.valueOf(9), String.valueOf(i)).getText().trim()
-//							.equals("ACS Website")) {
-//				break;
-//			}
-//		  }else{
+			if(ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Dev9")||ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("stage7")){
+			if (element("txt_listData", tabName, String.valueOf(index1), String.valueOf(i)).getText().trim()
+					.equals("No")
+					&& element("txt_listData", tabName, String.valueOf(index2), String.valueOf(i)).getText().trim()
+							.equals(DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy")) &&
+							element("txt_listData", tabName, String.valueOf(9), String.valueOf(i)).getText().trim()
+							.equals("ACS Website")) {
+				break;
+			}
+		  }else{
 				if (element("txt_listData", tabName, String.valueOf(index1), String.valueOf(i)).getText().trim()
 						.equals("Yes")
 						&& element("txt_listData", tabName, String.valueOf(index2), String.valueOf(i)).getText().trim()
 								.equals(DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy","EST5EDT"))) {
 					break;
 				}
-//		  }
+		  }
 		}
 		verifyGiftIsAdded(tabName, amount, 5, "Gift Amount", i);
 		verifyGiftIsAdded(tabName, fundCode, 7, "Fund Code", i);

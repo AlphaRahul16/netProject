@@ -25,6 +25,7 @@ inp_templateName                        xpath                //p[contains(text()
 lnk_templateName                        xpath                //a[contains(text(),'${text}')]
 txt_emaillog_tbl_headings               css                  .headercells>.pagecontents>b
 select_email_template                   css                  select[name='${text}']
+<<<<<<< HEAD
 drpdwn_selectRole						css					select[name*='XIK_SELECTED_ROLE_ID']
 drpdwn_copyRole							css					select[name*='XIK_ROLE_ID_TO_COPY_FROM']
 btn_go									css					img[src*='/images/buttons/go.gif']
@@ -50,4 +51,9 @@ list_exportName							xpath				//span[contains(.,'${value}')]
 lnk_dataExport							xpath				(//div[contains(.,'${value}')])[4]
 img_abstractSearch						xpath				//img[contains(@src,'search.gif')]
 lnk_username							css					.dropdown-toggle.modify-account-lnk
+=======
+
+
+
+>>>>>>> 6dfc0807eb370341077dfb1a9e969ea97a325515
 ==========================================================================================================================================================================================

@@ -94,8 +94,8 @@ public class Maps_Review_Test extends BaseTest {
 		test.maps_reviewpage.clickOnButtonAtSaveGridConfigurationPage("Import/Export to Excel");
 		test.maps_reviewpage.clickOnButton("Import Decision");
 		test.maps_sessionpage.verifyPopupMessage("Import Decisions");
-/*		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Download template",
-				YamlReader.getYamlValue("Review.downloaded_templateFile"), downloadedFilePath);*/
+		test.maps_sessionpage.clickOnDownloadButtonAndVerifyValidFileIsDownloaded("Download template",
+				YamlReader.getYamlValue("Review.downloaded_templateFile"), downloadedFilePath);
 		dataForImportedFile.add(absract_id);
 		dataForImportedFile.add(YamlReader.getYamlValue("Review.decision"));
 		System.out.println("absract_id   "+absract_id+"\n "+YamlReader.getYamlValue("Review.decision"));
@@ -109,7 +109,7 @@ public class Maps_Review_Test extends BaseTest {
 
 	}
 
-	private String create_Abstract_As_Prerequisite() {
+	public String create_Abstract_As_Prerequisite() {
 		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Submission");
 		test.maps_SSOPage.verifyUserIsOnTabPage("Submission");
 		test.maps_submissionPage.clickOnNamedButton("Create New Submission");

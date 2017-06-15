@@ -20,6 +20,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -64,22 +65,21 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		wait.waitForPageToLoadCompletely();
 	}
 
-	public void clickButtonToContinueToNextPage(String buttonName) {
-
-		isElementDisplayed("lnk_selButton", buttonName);
-		element("lnk_selButton", buttonName).click();
-		logMessage("Step : " + buttonName + " button is clicked\n");
-	}
+	// public void clickButtonToContinueToNextPage(String buttonName) {
+	//
+	// isElementDisplayed("lnk_selButton", buttonName);
+	// element("lnk_selButton", buttonName).click();
+	// logMessage("Step : " + buttonName + " button is clicked\n");
+	// }
 
 	public void clickButtononLeftNavigationPanel(String buttonName) {
 		wait.hardWait(6);
 		isElementDisplayed("lnk_selButton", buttonName);
-		// clickUsingXpathInJavaScriptExecutor(element("btn_navPanel",
-		// buttonName));
-		element("lnk_selButton", buttonName).click();
-		wait.hardWait(3);
-		waitForProcessBarToDisappear();
-		logMessage("Step : " + buttonName + " button is clicked on left navigation panel\n");
+		clickUsingXpathInJavaScriptExecutor(element("lnk_selButton",buttonName));
+		//element("lnk_selButton", buttonName).click();
+//		wait.hardWait(3);
+//		waitForProcessBarToDisappear();
+		logMessage("Step : '" + buttonName + "' button is clicked on left navigation panel\n");
 	}
 
 	public void verifyTitleForRoles(String title) {
@@ -103,9 +103,17 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		}
 	}
 
+	public void verifyColumnsOnTypesPage(String[] columnOptions) {
+		for (String text : columnOptions) {
+			Assert.assertTrue(isElementDisplayed("heading_sectionName", text, "1"),
+					" option " + text + " is not displayed on application\n");
+			logMessage("ASSERT PASSED : verified options " + text + " is displayed on page\n");
+		}
+	}
+
 	public String getValueFromProgramsTable() {
-		isElementDisplayed("txt_programTableData", "program_id");
-		String programID = elements("txt_programTableData", "program_id").get(1).getText();
+		isElementDisplayed("txt_hostDetails", "program_id");
+		String programID = elements("txt_hostDetails", "program_id").get(1).getText();
 		logMessage("STEP: Program id is fetched as " + programID + " from program table \n");
 		return programID;
 	}
@@ -159,6 +167,29 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 			logMessage("ASSERT PASSED : verified options " + text + " is displayed on session admin page\n");
 		}
 	}
+	
+	public void verifyButtonsUnderRoomAvailability(String[] options) {
+		ScrollPage(0, -100);
+		wait.hardWait(5);
+		String elementId=verifyCancelButtonOnRoomAvailabilityPage("1", options[0]);
+		verifyCancelButtonOnRoomAvailabilityPage("2", options[1]);
+		clickOnCancelButton(elementId, "Cancel");
+	}
+	
+	public String verifyCancelButtonOnRoomAvailabilityPage(String index, String expectedValue){		
+		isElementDisplayed("btn_cancel",index);
+		String id=element("btn_cancel",index).getAttribute("id");
+		System.out.println("Id is:"+id);
+		Assert.assertEquals(executeJavascriptReturnValue("document.querySelector('#"+id+" button').innerHTML"), expectedValue,"ASSERT FAILED: "+expectedValue+" button is not displayed on page\n");
+		logMessage("ASSERT PASSED: "+expectedValue+" button is displayed on page\n");
+		return id;
+	}
+	
+	public void clickOnCancelButton(String elementId,String btnName){
+		executeJavascript("document.querySelector('#"+elementId+" button').click();");
+		logMessage("Step: Clicked on "+btnName+" button\n");
+	}
+
 
 	public void verifyTextUnderMeetingSetup(String text) {
 		Assert.assertTrue(isElementDisplayed("txt_instruction", text));
@@ -220,7 +251,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void clickCheckboxOnSaveGridConfiguration(String fieldname) {
 		isElementDisplayed("chkbox_room", fieldname);
-		click(element("chkbox_room", fieldname));
+		clickUsingXpathInJavaScriptExecutor(element("chkbox_room", fieldname));
+		//click(element("chkbox_room", fieldname));
 		logMessage("Step : Clicked on " + fieldname + " checkbox\n");
 	}
 
@@ -310,10 +342,18 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void clickOnButtonUnderSessioning(String btnName) {
 		wait.hardWait(2);
-		wait.waitForElementToBeClickable(element("btn_Types", btnName));
-		isElementDisplayed("btn_Types", btnName);
-		clickUsingXpathInJavaScriptExecutor(element("btn_Types", btnName));
-		// click(element("btn_Types", btnName));
+		wait.waitForElementToBeClickable(element("btn_sessionTypes", btnName));
+		isElementDisplayed("btn_sessionTypes", btnName);
+		// clickUsingXpathInJavaScriptExecutor(element("btn_Types", btnName));
+		click(element("btn_sessionTypes", btnName));
+		logMessage("Step : Clicked on " + btnName + "\n");
+	}
+	
+	public void clickOnButtonUnderGridConfiguration(String btnName) {
+		wait.hardWait(2);
+		wait.waitForElementToBeClickable(element("btn_sessionTypes", btnName));
+		isElementDisplayed("btn_sessionTypes", btnName);
+		click(element("btn_sessionTypes", btnName));
 		logMessage("Step : Clicked on " + btnName + "\n");
 	}
 
@@ -367,15 +407,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyAddedDetails(String classLabel, String expValue) {
-		wait.hardWait(2);
+		wait.hardWait(1);
 		isElementDisplayed("txt_tableResult", classLabel, expValue);
-		logMessage("ASSERT PASSED: " + expValue + " is added in table\n");
-	}
-
-	public void verifyAddedDetailsForHost(String classLabel, String expValue) {
-		wait.hardWait(2);
-		String value = elements("txt_tableResult", classLabel, expValue).get(1).getText();
-		System.out.println("*****value" + value);
+		Assert.assertTrue(checkIfElementIsThere("txt_tableResult", classLabel, expValue),
+				"ASSERT FAILED: '" + expValue + "' is not added \n");
 		logMessage("ASSERT PASSED: " + expValue + " is added in table\n");
 	}
 
@@ -415,14 +450,40 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		for (int i = 1; i < elements("table_columnDate", columnName).size(); i++) {
 			tableData.add(elements("table_columnDate", columnName).get(i).getText().trim());
 		}
+
 		return tableData;
+	}
+
+	public void ConvertDataInLowerCaseAndVerifyDataIsSorted(List<String> dataBeforeSorting,
+			List<String> dataAfterSorting) {
+		int index = 0;
+		dataBeforeSorting = convertDataToLowerCase(dataBeforeSorting);
+		dataAfterSorting = convertDataToLowerCase(dataAfterSorting);
+		System.out.println("-----convert data to lower case before sorting:" + dataBeforeSorting);
+		System.out.println("-----convert data to lower case after sorting:" + dataAfterSorting);
+
+		Collections.sort(dataBeforeSorting);
+		for (String beforeSorting : dataBeforeSorting) {
+			System.out.println("----data before sorting:" + beforeSorting);
+			System.out.println("----data after sorting:" + dataAfterSorting.get(index));
+			Assert.assertTrue(beforeSorting.equals(dataAfterSorting.get(index)),
+					"ASSERT FAILED: Data is not sorted properly\n");
+			logMessage("ASSERT PASSED: Data is sorted properly\n");
+			index++;
+		}
 	}
 
 	public void verifyDataIsSorted(List<String> dataBeforeSorting, List<String> dataAfterSorting) {
 		int index = 0;
-		dataBeforeSorting = convertDataToLowerCase(dataBeforeSorting);
-		dataAfterSorting = convertDataToLowerCase(dataAfterSorting);
+		// dataBeforeSorting = convertDataToLowerCase(dataBeforeSorting);
+		// dataAfterSorting = convertDataToLowerCase(dataAfterSorting);
+		System.out.println("----list size:" + dataBeforeSorting.size());
+		System.out.println("-----data before sorting:" + dataBeforeSorting);
+		System.out.println("-----sorted data:" + dataAfterSorting);
+
 		Collections.sort(dataBeforeSorting);
+		System.out.println("-----data after sorting:" + dataBeforeSorting);
+
 		for (String beforeSorting : dataBeforeSorting) {
 			System.out.println("----data before sorting:" + beforeSorting);
 			System.out.println("----data after sorting:" + dataAfterSorting.get(index));
@@ -459,17 +520,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		selectValueForSymposium("session_type", symposiumType);
 	}
 
-	// public String selectaRandomRecordFromTheList() {
-	// isElementDisplayed("chkbox_records");
-	// int randomnumber = generateRandomNumberWithInRange(0,
-	// (elements("chkbox_records").size()) - 1);
-	// click(elements("chkbox_records").get(randomnumber));
-	// logMessage("Step : a random record is selected from the list with
-	// position " + randomnumber);
-	// return element("btn_recordsname",
-	// toString().valueOf(randomnumber)).getText();
-	// }
-
 	public String getRandomRecordFromTable(String columnIndex) {
 		wait.hardWait(2);
 		isElementDisplayed("txt_totalRecords");
@@ -480,14 +530,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		return element("btn_recordsname", String.valueOf(randomnumber), columnIndex).getText().trim();
 	}
 
-	// public String selectaRandomRecordFromTheList(String index) {
-	// isElementDisplayed("chkbox_records");
-	// click(elements("chkbox_records").get(index));
-	// logMessage("Step : a random record is selected from the list with
-	// position " + randomnumber);
-	// return element("btn_recordsname", index).getText();
-	// }
-
 	public String selectaRecordFromTheList(int number, String columnValue) {
 		isElementDisplayed("chkbox_records", String.valueOf(number));
 		click(element("chkbox_records", String.valueOf(number)));
@@ -497,7 +539,9 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void selectValueForSymposium(String dropdownName, String symposiumType) {
 		isElementDisplayed("dropdown_programField", dropdownName);
-		click(element("dropdown_programField", dropdownName));
+		clickUsingXpathInJavaScriptExecutor(element("dropdown_programField", dropdownName));
+		wait.hardWait(2);
+		// click(element("dropdown_programField", dropdownName));
 		logMessage("STEP: " + dropdownName + " is clicked \n");
 		selectValueFromDropDown(symposiumType);
 	}
@@ -520,104 +564,65 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		return abstractDetails;
 	}
 
-	
-	public String addHostforSymposium(String label) {
+	public String addHostforSymposium(int dropFieldindex, String label) {
 		wait.hardWait(3);
-		//waitForLoadingImageToDisappear("Loading...");
+		// waitForLoadingImageToDisappear("Loading...");
 		isElementDisplayed("txt_hostDetails", label);
-		WebElement sourcelocator=null,destinationlocator=null;
-		String value=null;
-		try{
-			sourcelocator = elements("txt_hostDetails", label).get(1);
-			elements("txt_hostDetails", label).get(1).click();
-			value = elements("txt_hostDetails", label).get(1).getText();
-			isElementDisplayed("txt_dropField");
-			destinationlocator = elements("txt_dropField").get(2);
-		}catch(TimeoutException e){
-			sourcelocator = elements("txt_hostDetails", label).get(3);
-			elements("txt_hostDetails", label).get(3).click();
-			value = elements("txt_hostDetails", label).get(3).getText();
-			isElementDisplayed("txt_dropField");
-			destinationlocator = elements("txt_dropField").get(2);
-		}
-		
+		WebElement sourcelocator = null, destinationlocator = null;
+		String value = null;
+		sourcelocator = elements("txt_hostDetails", label).get(1);
+		elements("txt_hostDetails", label).get(1).click();
+		value = elements("txt_hostDetails", label).get(1).getText();
+		isElementDisplayed("txt_dropField");
+		destinationlocator = elements("txt_dropField").get(dropFieldindex);
+
 		dragAndDrop(sourcelocator, destinationlocator);
 		wait.hardWait(2);
 		waitForLoadingImageToDisappear("Loading...");
 		// waitForLoaderToDisappear();
-		logMessage("STEP: '" + value + " is selected as Host \n");
+		logMessage("STEP: '" + value + "' is selected \n");
 		return value;
 	}
-	public void addAbstractsInCurrentlyAssignedAbstractsSection() {
-		isElementDisplayed("btn_navPanel", "Search Results");
-		wait.hardWait(5);
-		waitForLoadingImageToDisappear("Loading...");
-		wait.hardWait(3);
-		//isElementDisplayed("txt_hostDetails", "status");
-		WebElement Sourcelocator = elements("txt_hostDetails", "title").get(1);
-		//WebElement Sourcelocator = elements("txt_hostDetails", "status").get(2);
-		elements("txt_hostDetails", "title").get(1).click();
-		isElementDisplayed("txt_dropField");
-		WebElement Destinationlocator = elements("txt_dropField").get(2);
-		dragAndDrop(Sourcelocator, Destinationlocator);
-		wait.hardWait(2);
-		waitForLoadingImageToDisappear("Loading...");
-	}
 
-	public String getHostDetails(String label) {
-		isElementDisplayed("txt_hostDetails", label);
-		return elements("txt_hostDetails", label).get(1).getText();
-	}
-
-	// public String addHostforSymposium(String label) {
-	// waitForLoadingImageToDisappear("Loading...");
-	// isElementDisplayed("txt_linkEmail", label);
-	// //elements("txt_controlId", label).get(0).click();
-	// WebElement Sourcelocator = elements("txt_linkEmail", label).get(0);
-	// String value = elements("txt_linkEmail", label).get(0).getText();
-	// isElementDisplayed("txt_dropField");
-	// WebElement Destinationlocator = element("txt_dropField");
-	// dragAndDrop(Sourcelocator, Destinationlocator);
-	// wait.hardWait(2);
-	// waitForLoadingImageToDisappear("Loading...");
-	// // waitForLoaderToDisappear();
-	// logMessage("STEP: '" + value + " is selected as Host \n");
-	// return value;
-	// }
+	
+//	public String getHostDetails(String label) {
+//		isElementDisplayed("txt_hostDetails", label);
+//		return elements("txt_hostDetails", label).get(1).getText();
+//	}
 
 	public void addRoleForHost(String hostRole) {
 		isElementDisplayed("txt_hostDetails", "session_host_role");
-		// System.out.println("size##########" + elements("txt_hostDetails",
-		// "session_host_role").size());
 		click(elements("txt_hostDetails", "session_host_role").get(1));
 		selectValueFromDropDown(hostRole);
 	}
 
 	public void searchAbstract(String searchBy, String value) {
 		isElementDisplayed("inp_programField", searchBy);
+		element("inp_programField", searchBy).clear();
 		element("inp_programField", searchBy).sendKeys(value);
 		logMessage("STEP: Abstract is searched by " + searchBy + " with value " + value + "\n");
 	}
 
 	public void clickOnButtonByIndexing(String text, String index) {
 		isElementDisplayed("btn_remove", text, index);
-		// clickUsingXpathInJavaScriptExecutor(element("btn_remove", text,
-		// index));
-		click(element("btn_remove", text, index));
+		clickUsingXpathInJavaScriptExecutor(element("btn_remove", text, index));
+		// click(element("btn_remove", text, index));
 		wait.hardWait(2);
 		logMessage("STEP: '" + text + "' button is clicked \n");
 	}
 
-	public void selectAbstract(String text) {
+	public void selectAbstract(String text, int index) {
 		isElementDisplayed("txt_hostDetails", text);
-		click(elements("txt_hostDetails", text).get(1));
-		logMessage("STEP: An Abstract is selected \n");
+		//clickUsingXpathInJavaScriptExecutor(elements("txt_hostDetails", text).get(index));
+		click(elements("txt_hostDetails", text).get(index));
+		logMessage("STEP: An Abstract is selected with value " + text + " \n");
 	}
 
 	public void clickOnSaveButton(String btnName) {
 		isElementDisplayed("btn_Types", btnName);
-		click(element("btn_Types", btnName));
-		logMessage("Step : Clicked on " + btnName + "\n");
+		clickUsingXpathInJavaScriptExecutor(element("btn_Types", btnName));
+		// click(element("btn_Types", btnName));
+		logMessage("Step : Clicked on " + btnName + " button \n");
 	}
 
 	public void selectSessionTopicWhenAddingProgramArea(String topicname) {
@@ -649,9 +654,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void setRoleForTheUser(String rolevalue) {
 		isElementDisplayed("table_columnDate", "col-session_role_name");
-		click(element("table_columnDate", "col-session_role_name"));
-		isElementDisplayed("listItem_SymposiumType", rolevalue);
-		click(element("listItem_SymposiumType", rolevalue));
+//		click(element("table_columnDate", "col-session_role_name"));
+		clickUsingXpathInJavaScriptExecutor(element("table_columnDate", "col-session_role_name"));
+		isElementDisplayed("listItem_SymposiumType","x-combo-list-item", rolevalue);
+		click(element("listItem_SymposiumType","x-combo-list-item", rolevalue));
 		logMessage("Step : Role selected for owner as " + rolevalue);
 		wait.hardWait(3);
 		Assert.assertTrue(element("table_columnDate", "col-session_role_name").getText().trim().equals(rolevalue));
@@ -701,6 +707,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnPlusIcon(String roomName) {
+		wait.hardWait(4);
 		isElementDisplayed("btn_add_column", roomName);
 		click(element("btn_add_column", roomName));
 		logMessage("Step : plus icon next to " + roomName + " is expanded\n");
@@ -778,13 +785,6 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("STEP: " + value + " is selected \n");
 	}
 
-	public void selectAbtract(String value) {
-		isElementDisplayed("txt_instruction", value);
-		element("txt_instruction", value).click();
-		logMessage("STEP: Abstract '" + value + "' is selected \n");
-
-	}
-
 	public void selectAbtract(List<String> values) {
 		for (String value : values) {
 			isElementDisplayed("txt_instruction", value);
@@ -805,9 +805,9 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public void selectValueForCreateNewSessionFromSymposium(String label, String sessionType) {
 		isElementDisplayed("drpdown_Symposium", label);
 		clickUsingXpathInJavaScriptExecutor(element("drpdown_Symposium", label));
-		click(element("drpdown_Symposium", label));
+		// click(element("drpdown_Symposium", label));
 		logMessage("STEP: '" + label + "' is clicked \n");
-		wait.hardWait(2);
+		// wait.hardWait(2);
 		selectValueFromDropDown(sessionType);
 	}
 
@@ -832,14 +832,13 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		selectValueByIndexing(2);
 	}
 
-	public void rightClickOnSession() {
+	public String rightClickOnSession() {
 		wait.hardWait(2);
 		isElementDisplayed("txt_session");
-		System.out.println("************" + element("txt_session").getText());
-		rightClick(element("txt_session"));
-		// isElementDisplayed("txt_SchedulerGrid", "view-item");
-		// rightClick(elements("txt_SchedulerGrid", "view-item").get(number));
-		logMessage("STEP: Right clicked on session \n");
+		String session_name=element("txt_session").getText().replace("(", "").replace(")", "");
+		rightClick(element("txt_session"));		
+		logMessage("STEP: Right clicked on session "+session_name+" \n");
+		return session_name.trim();
 	}
 
 	public void verifyApplicationChangesSessionType(String expectedSessionType) {
@@ -877,6 +876,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		objSubmission.submitTitleAndBodyDetails(title, abstractData);
 		objSubmission.clickOnSaveAndContinueButton();
 		objSubmission.verifyPageHeaderForASection("Properties");
+		selectSymposiaIfNotSelecetd();
 		objSubmission.clickOnSaveAndContinueButton();
 		objSubmission.verifyPageHeaderForASection("Authors");
 		objSubmission.clickOnSaveAndContinueButton();
@@ -887,6 +887,18 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		objSubmission.verifyAbstractAnswersForSubmission(2, "Abstract", abstractData);
 		objSubmission.clickOnNamedButton("Finish");
 		switchToWindowHavingIndex(0);
+	}
+
+	public void selectSymposiaIfNotSelecetd() {
+		System.out.println("-------value selected is:"
+				+ getSelectedTextFromDropDown(element("select_presentationType", "symposia_title")));
+		if (getSelectedTextFromDropDown(element("select_presentationType", "symposia_title"))
+				.equalsIgnoreCase("None Selected")) {
+			element("select_presentationType", "symposia_title").click();
+			isElementDisplayed("select_symposiumType");
+			// selectDropDownValue(element("select_symposiumType"), 2);
+			click(element("select_symposiumType"));
+		}
 	}
 
 	public void verifyPrintPreviewTableContents(String value) {
@@ -906,10 +918,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void expandColumnWidth(String columnName, String value) {
+		wait.hardWait(2);
 		isElementDisplayed("column_headers", columnName);
-		JavascriptExecutor executor = (JavascriptExecutor) driver;
-
 		executeJavascript("document.querySelector('div[qtip=\"Edit Abstract\"]').style.width=\"100px\"");
+		logMessage("Step: " + columnName + " column is expanded\n");
 		// executeJavascript("document.querySelector('.primaryNav
 		// >li:nth-child(7) ul').style.display ='block'");
 		// executeJavascript("document.querySelector('div[qtip=\'Edit
@@ -996,23 +1008,25 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	public String getRandomTableData(String index, String columnName) {
 		List<String> searchTerm = getTableData(index, columnName);
 		int listIndex = ThreadLocalRandom.current().nextInt(searchTerm.size());
-		logMessage("Step : SearchTerm is\" " + searchTerm.get(listIndex) + "\"\n");
+		logMessage("Step : SearchTerm is fetched as ' " + searchTerm.get(listIndex) + "' \n");
 		return searchTerm.get(listIndex);
 
 	}
 
 	public void doubleClickOnRow(String index) {
-		waitForLoaderToDisappear();
 		doubleClick(element("chkbox_records", index));
 		logMessage("Step : Double clicked on table row\n");
 		wait.hardWait(2);
 	}
 
-	public void inputTextInFilter(String value, String index) {
-		waitForLoaderToDisappear();
-		isElementDisplayed("input_filter", "Search", index);
-		element("input_filter", "Search", index).sendKeys(value);
-		logMessage("STEP : " + value + " is entered in Search input box \n");
+
+	public void inputTextInFilter(String label, String value, String index) {
+		wait.hardWait(2);
+		isElementDisplayed("input_filter", label, index);
+		element("input_filter", label, index).clear();
+		element("input_filter", label, index).sendKeys(value);
+		logMessage("STEP : " + value + " is entered in filter input box \n");
+
 		waitForLoaderToDisappear();
 	}
 
@@ -1037,11 +1051,11 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("STEP :" + expValue + " is deleted \n");
 	}
 
-	public void clickOnDropDownOfLabel(String dropDown, String tagName) {
-		System.out.println("1");
-		isElementDisplayed("input_label", dropDown, tagName);
-		click(element("input_label", dropDown, tagName));
-		logMessage("Step : Clicked on " + dropDown + "\n");
+	public void verifyOwnerIsDeleted(String colName, String expValue) {
+		waitForLoaderToDisappear();
+		int size = elements("txt_tableResult", colName, expValue).size();
+		Assert.assertTrue(size <= 1);
+		logMessage("STEP :" + expValue + " is deleted from " + colName + "\n");
 	}
 
 	public void selectValueFromDropDown(String priviousValue, String value) {
@@ -1050,81 +1064,17 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("Step : Role is selected as " + value + "\n");
 	}
 
-	public void verifySpanUnderlabelElement(String value) {
-		waitForLoaderToDisappear();
-		if (value.matches("Oral")) {
-			verifyCheckBoxUnderLableName("Sci-Mix:", "input");
-			verifySpanUnderlabelName("Financial Co-sponsor:", "textarea");
-			verifySpanUnderlabelName("Newsworthy Reason:", "textarea");
-			verifylistBoxUnderLableName("Themes:", "div");
-			verifylistBoxUnderLableName("Co-sponsor - Nominal:", "div");
-			verifylistBoxUnderLableName("Co-sponsor - Cooperative:", "div");
-			verifylistBoxUnderLableName("Session Half-Day:", "div");
-			verifySpanUnderlabelName("Symposia Submission Type:", "input");
-			verifySpanUnderlabelName("Session Track:", "input");
-			verifyCheckBoxUnderLableName("Newsworthy:", "input");
-		} else if (value.matches("Sci-Mix")) {
-			verifyPopupMessage("Confirm");
-			clickOnButtonByIndexing("Yes", "1");
-			verifySpanUnderlabelName("Session Track:", "input");
-			verifySpanUnderlabelName("Session Half-Day:", "div");
-		} else if (value.matches("Poster")) {
-			verifyPopupMessage("Confirm");
-			clickOnButtonByIndexing("Yes", "1");
-			verifyCheckBoxUnderLableName("Sci-Mix:", "input");
-			verifySpanUnderlabelName("Financial Co-sponsor:", "textarea");
-			verifySpanUnderlabelName("Newsworthy Reason:", "textarea");
-			verifylistBoxUnderLableName("Themes:", "div");
-			verifylistBoxUnderLableName("Co-sponsor - Nominal:", "div");
-			verifylistBoxUnderLableName("Co-sponsor - Cooperative:", "div");
-			verifylistBoxUnderLableName("Session Half-Day:", "div");
-			verifySpanUnderlabelName("Symposia Submission Type:", "input");
-			verifySpanUnderlabelName("Session Track:", "input");
-			verifyCheckBoxUnderLableName("Newsworthy:", "input");
-		}
-	}
-
-	public void enterTitleOfSession(String fieldName, String tagName, String sessionTitle) {
-		isElementDisplayed("input_label", fieldName, tagName);
-		element("input_label", fieldName, tagName).clear();
-		element("input_label", fieldName, tagName).sendKeys(sessionTitle);
-		logMessage("Step : " + fieldName + " is entered as " + sessionTitle + "\n");
-	}
-
-	public void checkRowInTable(int index, int columnIndex) {
-		isElementDisplayed("txt_tableData", String.valueOf(index), String.valueOf(columnIndex));
-		click(element("txt_tableData", String.valueOf(index), String.valueOf(columnIndex)));
-		logMessage("Step : Checked on row.\n");
-	}
-
 	public void verifyRowIsDeleted(String expValue, int index, int columnIndex) {
 		waitForLoaderToDisappear();
-		try {
-			Assert.assertTrue(
-					checkIfElementIsThere("txt_instruction", String.valueOf(index), String.valueOf(columnIndex)));
-		} catch (AssertionError e) {
-			logMessage("STEP :" + expValue + " is deleted \n");
-		}
+		Assert.assertFalse(	checkIfElementIsThere("txt_instruction", String.valueOf(index), String.valueOf(columnIndex)),
+				"ASSERT FAILED :" + expValue + " is not deleted \n");
+		logMessage("ASSERT PASSED :" + expValue + " is deleted \n");
+
 	}
 
-	public void verifyLabelName(String fieldName, String tagName) {
-		if (tagName == "") {
-			isElementDisplayed("txt_label", fieldName);
-			logMessage("STEP : " + fieldName + " label is verified \n");
-		} else {
-			isElementDisplayed("input_label", fieldName, tagName);
-			logMessage("STEP : " + fieldName + " label is verified \n");
-		}
-	}
-
-	public void verifyCheckBoxUnderLableName(String fieldName, String tagName) {
-		isElementDisplayed("lable_checkbox", fieldName, tagName);
-		logMessage("STEP : " + fieldName + " label is verified \n");
-	}
-
-	public void verifySpanUnderlabelName(String fieldName, String tagName) {
-		isElementDisplayed("input_area", fieldName, tagName);
-		logMessage("STEP : " + fieldName + " label is verified \n");
+	public void verifyLabelName(String text) {
+		isElementDisplayed("txt_label", text);
+		logMessage("STEP : " + text + " label is verified \n");
 	}
 
 	public void verifylistBoxUnderLableName(String fieldName, String tagName) {
@@ -1208,18 +1158,16 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		isElementDisplayed("table_abstracts");
 		click(elements("table_abstracts").get(index));
 		logMessage("Step : Clicked on main page\n");
+		wait.hardWait(4);
 	}
 
 	public void clickOnSessionBuilderTab(String tabName) {
 		isElementDisplayed("btn_navPanel", tabName);
-		try
-		{
+		try {
 			wait.resetExplicitTimeout(4);
 			wait.resetImplicitTimeout(4);
-		elements("btn_navPanel", tabName).get(0).click();
-		}
-		catch(TimeoutException te)
-		{
+			elements("btn_navPanel", tabName).get(0).click();
+		} catch (TimeoutException te) {
 			clickUsingXpathInJavaScriptExecutor(element("btn_navPanel", tabName));
 		}
 		wait.resetExplicitTimeout(timeOut);
@@ -1282,9 +1230,14 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyAddedAbstractsInTable(String classlbl, String expValue) {
-		isElementDisplayed("txt_controlId", classlbl, expValue);
-		// Assert.assertTrue(checkIfElementIsThere("txt_controlId", classlbl,
-		// expValue));
+		
+		Assert.assertTrue(checkIfElementIsThere("txt_controlId", classlbl,expValue));
+		logMessage("ASSERT PASSED: '" + expValue + "' is present \n");
+	}
+	public void verifyAddedAbstractsInTable(String classlbl, String expValue,int expSize) {
+		isElementDisplayed("txt_controlId", classlbl,expValue);
+		Assert.assertTrue(elements("txt_controlId", classlbl,expValue).size()==expSize,
+				"ASSERT FAILED: " + expValue + " is not present \n");
 		logMessage("ASSERT PASSED: '" + expValue + "' is present \n");
 	}
 
@@ -1299,7 +1252,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED: " + placeholderValue + "is present \n");
 	}
 
-	public void verifyWithDrawRow(String fontText, String text) {
+	public void verifyWithdrawRow(String fontText, String text) {
 		waitForLoaderToDisappear();
 		Assert.assertTrue(checkIfElementIsThere("row_withdraw", fontText, text));
 		logMessage("ASSERT PASSED: " + text + " with " + fontText + " is displayed \n");
@@ -1316,14 +1269,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public String getHostColoumData(String hostname, String index) {
-		return element("input_editableColumnindex",hostname,index).getText().trim();
-	}
-
-	public void enterDurationOnCreateSessionPopUp(String fieldName, String roomName) {
-		isElementDisplayed("inp_sessionAbbrev", fieldName);
-		element("inp_sessionAbbrev", fieldName).clear();
-		element("inp_sessionAbbrev", fieldName).sendKeys(roomName);
-		logMessage("Step : " + fieldName + " is entered as " + roomName + "\n");
+		return element("input_editableColumnindex", hostname, index).getText().trim();
 	}
 
 	public String getTextformTable(int index, int columnIndex) {
@@ -1331,11 +1277,11 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		return elements("txt_tableData", String.valueOf(index), String.valueOf(columnIndex)).get(0).getText();
 	}
 
-	public void enterTextInPopUpInput(String labelName, String index, String value) {
-		isElementDisplayed("input_popup", labelName, index);
-		element("input_popup", labelName, index).clear();
-		element("input_popup", labelName, index).sendKeys(value);
-	}
+//	public void enterTextInPopUpInput(String labelName, String index, String value) {
+//		isElementDisplayed("input_popup", labelName, index);
+//		element("input_popup", labelName, index).clear();
+//		element("input_popup", labelName, index).sendKeys(value);
+//	}
 
 	public String subtractValue(String value, int toBeSubtrcated) {
 		int value1 = Integer.parseInt(value);
@@ -1358,76 +1304,13 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyLableFormateAfterEdit(String text) {
-		Assert.assertTrue(checkIfElementIsThere("inp_label", text));
+		Assert.assertTrue(checkIfElementIsThere("txt_label", text));
 		logMessage("Step : " + text + " is successfully edited\n");
-	}
-
-	public void verifyFormateIsDeleted(String text) {
-		waitForLoaderToDisappear();
-		try {
-			Assert.assertTrue(checkIfElementIsThere("inp_label", text));
-		} catch (AssertionError e) {
-			logMessage("STEP :" + text + " formate is deleted \n");
-		}
-	}
-
-	public void doubleClickToEditTableData(int index, int columnIndex) {
-		waitForLoaderToDisappear();
-		doubleClick(element("txt_tableData", String.valueOf(index), String.valueOf(columnIndex)));
-		logMessage("Step : Double clicked on table row\n");
-	}
-
-	public void verifyInputBoxInTableData(int index) {
-		isElementDisplayed("inp_saveGridFilters", String.valueOf(index));
-		Assert.assertTrue(checkIfElementIsThere("inp_saveGridFilters", String.valueOf(index)));
-		logMessage("STEP : Edit field on double click \n");
-	}
-
-	public void rowIsNotPresentThenAddRowInCurrentlyAssignedAbstracts(int index, int columnIndex) {
-		try {
-			Assert.assertTrue(
-					checkIfElementIsThere("txt_tableData", String.valueOf(index), String.valueOf(columnIndex)));
-			logMessage("STEP: Row is not present, add a new row \n");
-		} catch (AssertionError e) {
-			clickOnArrowButton("Presenting Author");
-			enterFilterText("Filters", YamlReader.getYamlValue("Session.Session_Builder.Author_Last_Name"));
-			addHostforCurrentlyAssignedAbstracts();
-		}
-	}
-
-	// public void addHostforSymposium() {
-	// waitForLoadingImageToDisappear("Loading...");
-	// isElementDisplayed("txt_hostDetails", "session_host_last_name");
-	//
-	// WebElement Sourcelocator = elements("txt_hostDetails",
-	// "session_host_last_name").get(1);
-	// String hostlastname = elements("txt_hostDetails",
-	// "session_host_last_name").get(1).getText();
-	// isElementDisplayed("txt_dropField");
-	// WebElement Destinationlocator = element("txt_dropField");
-	// dragAndDrop(Sourcelocator, Destinationlocator);
-	// wait.hardWait(2);
-	// waitForLoadingImageToDisappear("Loading...");
-	// // waitForLoaderToDisappear();
-	// logMessage("STEP: '" + hostlastname + " is selected as Host \n");
-	// }
-	public void addHostforCurrentlyAssignedAbstracts() {
-		waitForLoadingImageToDisappear("Loading...");
-		isElementDisplayed("txt_hostDetails", "presenterList");
-
-		WebElement Sourcelocator = elements("txt_hostDetails", "presenterList ").get(1);
-		String hostlastname = elements("txt_hostDetails", "presenterList ").get(1).getText();
-		isElementDisplayed("txt_dropField");
-		WebElement Destinationlocator = element("txt_dropField");
-		dragAndDrop(Sourcelocator, Destinationlocator);
-		wait.hardWait(2);
-		waitForLoadingImageToDisappear("Loading...");
-		// waitForLoaderToDisappear();
-		logMessage("STEP: '" + hostlastname + " is selected as Host \n");
 	}
 
 	public void enterValuesInAssignDurationPage(String label, String value) {
 		isElementDisplayed("inp_assignDuration", label);
+		element("inp_assignDuration", label).clear();
 		element("inp_assignDuration", label).sendKeys(value);
 		logMessage("STPE: " + value + " is entered in " + label + "\n");
 
@@ -1441,22 +1324,24 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public String getTimeDurationValues(String text) {
 		isElementDisplayed("txt_instruction", text);
-		return element("txt_instruction", text).getText().trim();
+		String value = element("txt_instruction", text).getText().trim();
+		logMessage("[info]:: '" + value + " is selected \n");
+		return value;
 	}
 
-	public void verifyTimeDuration(String text, String timeDurationLabel) {
-		isElementDisplayed("txt_instruction", text);
-		System.out.println("******** timeDurationLabel " + timeDurationLabel);
-		System.out.println("actual value: " + element("txt_instruction", text).getText().trim());
-		Assert.assertFalse(timeDurationLabel.contentEquals(element("txt_instruction", text).getText().trim()));
-		logMessage("ASSERT PASSED: Current duration is updated \n");
+	public void verifyTimeDurationGetUpdated(String newtimeDurationLabel, String timeDurationLabel) {
+		Assert.assertFalse(timeDurationLabel.contentEquals(newtimeDurationLabel));
+		logMessage("ASSERT PASSED: Current duration is updated to " + newtimeDurationLabel + " from "
+				+ timeDurationLabel + "\n");
 
 	}
 
 	public void enterValuesInAssignAbstractFinalID(String finalId, String hashtag) {
 		isElementDisplayed("inp_assignDuration", "New");
+		elements("inp_assignDuration", "New").get(0).clear();
 		elements("inp_assignDuration", "New").get(0).sendKeys(finalId);
 		logMessage("STEP: " + finalId + " is entered as FinalD Name \n");
+		elements("inp_assignDuration", "New").get(1).clear();
 		elements("inp_assignDuration", "New").get(1).sendKeys(hashtag);
 		logMessage("STEP: " + hashtag + " is entered as hash tag \n");
 
@@ -1468,24 +1353,28 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		}
 	}
 
-	public void verifyFieldsArePrefilledWithSavedDetails() {
+	public void verifyFieldsArePrefilledWithSavedDetails(String exp_finalID, String exp_hashtag) {
 		isElementDisplayed("inp_assignDuration", "New");
-		String finalId = getValUsingXpathInJavaScriptExecutor(elements("inp_assignDuration", "New").get(0));
-		logMessage("STEP: " + finalId + " is entered as FinalD Name \n");
-		String hashtag = getValUsingXpathInJavaScriptExecutor(elements("inp_assignDuration", "New").get(1));
-		logMessage("STEP: " + hashtag + " is entered as hash tag \n");
+		String actual_finalID = getValUsingXpathInJavaScriptExecutor(elements("inp_assignDuration", "New").get(0));
+		Assert.assertEquals(actual_finalID.trim(), exp_finalID,
+				"ASSERT FAILED: final id should be " + exp_finalID + " but found " + actual_finalID);
+		logMessage("ASSERT PASSED: final id should be " + exp_finalID + " but found " + actual_finalID);
+		String actual_hashtag = getValUsingXpathInJavaScriptExecutor(elements("inp_assignDuration", "New").get(1));
+		Assert.assertEquals(actual_hashtag.trim(), exp_hashtag,
+				"ASSERT FAILED: final id should be " + exp_hashtag + " but found " + actual_hashtag);
 
 	}
 
 	public void verifyFinalIdIsDeleted(String value) {
-		Assert.assertFalse(checkIfElementIsThere("txt_label", value));
-		logMessage("STEP : " + value + " is deleted \n");
+		Assert.assertFalse(checkIfElementIsThere("txt_label", value),
+				"ASSERT FAILED : " + value + " is not deleted \n");
+		logMessage("ASSERT PASSED : " + value + " is deleted \n");
 	}
 
-	public String clickOnPencilIconCloumn(String colHeader, String expVal) {
+	public String clickOnPencilIconCloumn(String colHeader, String expVal,String newVal) {
 		isElementDisplayed("txt_tableResult", colHeader, expVal);
 		doubleClick(element("txt_tableResult", colHeader, expVal));
-		String updatedVal = expVal + System.currentTimeMillis();
+		String updatedVal = newVal + System.currentTimeMillis();
 		sendKeysUsingXpathInJavaScriptExecutor(elements("inp_editColumnData").get(1), updatedVal);
 		return updatedVal;
 	}
@@ -1557,7 +1446,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifySessionIsdeletedFromScheduleSession(String sessionName) {
-		System.out.println(checkIfElementIsThere("btn_navPanel", sessionName));
+		Assert.assertFalse(checkIfElementIsThere("btn_navPanel", sessionName));
+		logMessage("ASSERT PASSED: " + sessionName + " is deleted \n");
 	}
 
 	public void verifyApplicationPrintsReportsTable() throws AWTException {
@@ -1576,15 +1466,15 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public List<String> getDataForImportedFile(Map<String, Object> yamlValues) {
 		List<String> data = new ArrayList<String>();
-		String value=null;
+		String value = null;
 		Set<String> keys = yamlValues.keySet();
 		for (Iterator<String> i = keys.iterator(); i.hasNext();) {
 			String key = (String) i.next();
-			if(key.equals("Session_Title")){
-				value = (String) yamlValues.get(key)+System.currentTimeMillis();
-			}else{
+			if (key.equals("Session_Title")) {
+				value = (String) yamlValues.get(key) + System.currentTimeMillis();
+			} else {
 				value = (String) yamlValues.get(key);
-			}			
+			}
 			System.out.println(key + " = " + value);
 			data.add(value);
 		}
@@ -1606,17 +1496,17 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyExportedFileWithColumns(String csvFile, List<String> colHeader) {
-		boolean flag=true;
+		boolean flag = true;
 		String dataFromDownloadedFile = DataProvider.csvReaderRowSpecific(csvFile, "No", "1");
 		System.out.println("dataFromDownloadedFile:   " + dataFromDownloadedFile);
 		for (String column_header : colHeader) {
-			if(column_header.contains("Abbrev")){
-				column_header="Abbreviation";
-			}else if(column_header.contains("# of Assigned Abstracts")){
-				column_header="Num Abstracts Assigned";
+			if (column_header.contains("Abbrev")) {
+				column_header = "Abbreviation";
+			} else if (column_header.contains("# of Assigned Abstracts")) {
+				column_header = "Num Abstracts Assigned";
 			}
-			System.out.println("##### column_header:::"+ column_header);
-			
+			System.out.println("##### column_header:::" + column_header);
+
 			Assert.assertTrue(dataFromDownloadedFile.trim().contains(column_header.trim()),
 					"ASSERT FAILED: " + column_header + " is not present \n");
 		}
@@ -1634,29 +1524,260 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyPopUpText(String msg) {
-
 		Assert.assertTrue(checkIfElementIsThere("txt_popUpmsg", msg));
 		logMessage("Step: '" + msg + "' is displayed \n");
+	}
 
+	public void enterColumnFilterData(String filterdata, String index) {
+		isElementDisplayed("txt_filterData", index);
+		element("txt_filterData", index).sendKeys(filterdata);
+		logMessage("Step: Filter data is entered as " + filterdata + "\n");
+	}
+
+	public void enterFilterData(String filterdata, String index) {
+		enterColumnFilterData(filterdata, index);
+		wait.hardWait(4);
+	}
+
+	public void verifyAbstractGridIsDisplayed(String[] abstractColumns) {
+		for (String columnName : abstractColumns) {
+			isElementDisplayed("btn_navPanel", columnName);
+			logMessage("ASSERT PASSED: Abstract grid column " + columnName + " is displayed\n");
+		}
 	}
 
 	public void selectUnassignedAbstracts() {
-		isElementDisplayed("inp_sessionType","unassigned_abstracts");
-		element("inp_sessionType","unassigned_abstracts").click();
+		isElementDisplayed("inp_sessionType", "unassigned_abstracts");
+		element("inp_sessionType", "unassigned_abstracts").click();
 		logMessage("Step: check the unassigned abstracts \n");
-		
-	}
-	
-	public void clickClosePopUpButton(String buttonname){
-		isElementDisplayed("btn_close",buttonname);
-		click(element("btn_close",buttonname));
-		logMessage("Step: Close pop up button is clicked\n");
 
+	}
+
+	public String selectAbtractByStatus(String status) {
+		// isElementDisplayed("chkbox_column", status,"5");
+		String cID = elements("txt_recordTitle", status, "3").get(0).getText();
+		System.out.println("cid::" + cID + "\n");
+
+		elements("chkbox_column", status, "5").get(0).click();
+
+		logMessage("STEP: Abstract '" + cID + "' is selected \n");
+		return cID;
+
+	}
+
+	public void verifyDropDownOnSessionAdmin(String label) {
+
+		isElementDisplayed("inp_sessionType", "unassigned_abstracts");
+		element("inp_sessionType", "unassigned_abstracts").click();
+		logMessage("Step: check the unassigned abstracts \n");
+	}
+
+	public void clickClosePopUpButton(String buttonname) {
+		isElementDisplayed("btn_close", buttonname);
+		click(element("btn_close", buttonname));
+		logMessage("Step: Close pop up button is clicked\n");
 	}
 
 	public void verifyUserDetailsInFilterResults(String filterindex) {
-		Assert.assertTrue(getHostColoumData("session_host_email","1").equals(getValUsingXpathInJavaScriptExecutor(element("input_filter", "Search",filterindex))));
-		logMessage("ASSERT PASSED : Filtered result is succesfully verified as "+getHostColoumData("session_host_email","1"));
+		Assert.assertTrue(getHostColoumData("session_host_email", "1")
+				.equals(getValUsingXpathInJavaScriptExecutor(element("input_filter", "Search", filterindex))));
+		logMessage("ASSERT PASSED : Filtered result is succesfully verified as "
+				+ getHostColoumData("session_host_email", "1"));
+	}
+
+	public void verifyAbstractIsAddedInCurrentAssignedAbstract(String abstractTitle) {
+		Assert.assertTrue(checkIfElementIsThere("txt_EditLink", abstractTitle),
+				"Assert Fail : " + abstractTitle + " is not added in Current Assigned Abstract \n");
+		logMessage("ASSERT PASSED : " + abstractTitle + " is added in Current Assigned Abstract \n");
+
+	}
+
+	public void handlePopUpIfAppears(String msg, String buttonName) {
+		if (checkIfElementIsThere("btn_navPanel", msg)) {
+			clickOnButtonByIndexing(buttonName, "1");
+		} else {
+			logMessage("[info]: No popup appears \n");
+		}
+	}
+
+	public void verifyCheckBoxOnCreateSessionPage(String text) {
+		Assert.assertTrue(checkIfElementIsThere("chkbox_room", text),
+				"Assert Failed: " + text + " check box is not present \n");
+		logMessage("ASSERT PASSED: '" + text + "' check box is present \n");
+
+	}
+
+	public void verifyOptionsOfSessionTypeDropDown(String sessionType, String chkboxOralAndPoster,
+			String[] textBoxForOralAndPoster, String[] selectionLabelOralAndPoster, String[] drpdownOralAndPoster,
+			String chkboxSciMix, String drpdownSciMix) {
+		switch (sessionType) {
+		case "Oral":
+		case "Poster":
+			verifyChkBoxOnCreateSessionPage(chkboxOralAndPoster);
+			for (String lblName : textBoxForOralAndPoster) {
+				verifyTextboxOnCreateSession(lblName);
+			}
+			for (String lblName : selectionLabelOralAndPoster) {
+				verifySelectionOptionOnCreateSession(lblName);
+			}
+			for (String lblName : drpdownOralAndPoster) {
+				verifyfrpdownOptionOnCreateSession(lblName);
+			}
+			break;
+
+		case "Sci-Mix":
+			verifyfrpdownOptionOnCreateSession(drpdownSciMix);
+			verifySelectionOptionOnCreateSession(chkboxSciMix);
+			break;
+
+		case "Default":
+			logMessage("Step : session type " + sessionType + " is not present \n");
+		}
+
+	}
+
+	public void verifyfrpdownOptionOnCreateSession(String lblName) {
+		Assert.assertTrue(checkIfElementIsThere("drpDown_sympType", lblName),
+				"Assert Failed: " + lblName + " check box is not present \n");
+		logMessage("ASSERT PASSED: '" + lblName + "' check box is present \n");
+
+	}
+
+	public void verifySelectionOptionOnCreateSession(String text) {
+		Assert.assertTrue(elements("sel_theme", text).size() > 0);
+		logMessage("ASSERT PASSED: '" + text + "' is present \n");
+	}
+
+	public void verifyTextboxOnCreateSession(String lblName) {
+		Assert.assertTrue(checkIfElementIsThere("inp_FnclCosponsor", lblName),
+				"Assert Failed: " + lblName + " check box is not present \n");
+		logMessage("ASSERT PASSED: '" + lblName + "' check box is present \n");
+	}
+
+	public void verifyChkBoxOnCreateSessionPage(String text) {
+		Assert.assertTrue(checkIfElementIsThere("chkbox_SciMix", text),
+				"Assert Failed: " + text + " check box is not present \n");
+		logMessage("ASSERT PASSED: '" + text + "' check box is present \n");
+
+	}
+
+	public void verifyTextAreaOnCreateSessionPage(String[] fieldsOnCreateSession) {
+		for (String id : fieldsOnCreateSession) {
+			verifyTextAreaOnCreateSessionPage(id);
+		}
+	}
+
+	public void verifyTextAreaOnCreateSessionPage(String id) {
+		Assert.assertTrue(checkIfElementIsThere("inp_programField", id), "ASSERT FAILED: " + id + " is not present \n");
+		logMessage("ASSERT PASSED: " + id + " is present \n");
+	}
+
+	public void verifyLabelName(String[] labelOnCreateSession) {
+		for (String lblText : labelOnCreateSession) {
+			verifyLabelName(lblText);
+		}
+	}
+
+	public void verifyCheckBoxOnCreateSessionPage(String[] chkboxOnCreateSession) {
+		for (String lblText : chkboxOnCreateSession) {
+			verifyCheckBoxOnCreateSessionPage(lblText);
+		}
+	}
+
+	public void verifyFieldForSessionTypeDropDown(String[] sessionTypes, String chkboxOralAndPoster,
+			String[] textBoxForOralAndPoster, String[] selectionLabelOralAndPoster, String[] drpdownOralAndPoster,
+			String chkboxSciMix, String drpdownSciMix) {
+		for (String sessiontype : sessionTypes) {
+			selectValueForSymposium("session_type", sessiontype);
+			System.out.println("############sessiontype##########" + sessiontype);
+			handlePopUpIfAppears("Confirm", "Yes");
+			verifyOptionsOfSessionTypeDropDown(sessiontype, chkboxOralAndPoster, textBoxForOralAndPoster,
+					selectionLabelOralAndPoster, drpdownOralAndPoster, chkboxSciMix, drpdownSciMix);
+		}
+
+	}
+
+	public void verifyOwnerIsAddedInCurrentOwner(String colName, String value, int expSize) {
+		wait.hardWait(2);
+		Assert.assertTrue(elements("txt_tableResult", colName, value).size() == expSize,
+				"ASSERT FAILED: " + value + " is not added \n");
+		logMessage("ASSERT PASSED: " + value + " is added in Current Owner\n");
+
+	}
+
+	public void verifySessionOwnerIsAdded(String text, String value) {
+		Assert.assertTrue(checkIfElementIsThere("txt_sessionOwner",text,value));
+		logMessage("ASSERT PASSED: "+value+" is displayed under "+text+" \n");
 		
 	}
+
+	public void addHostforSessionBulider(String colname, String host_email, String locatorindex) {
+		wait.hardWait(3);
+		isElementDisplayed("txt_tableResult", colname, host_email);
+		WebElement sourcelocator = element("txt_tableResult", colname, host_email);
+		element("txt_tableResult", colname, host_email).click();
+		isElementDisplayed("table_dropLocation", "2");
+		WebElement destinationlocator = element("table_dropLocation", locatorindex);
+		dragAndDrop(sourcelocator, destinationlocator);
+		wait.hardWait(2);
+		waitForLoadingImageToDisappear("Loading...");
+		logMessage("STEP: '" + host_email + "' is selected as Host \n");
+
+	}
+
+	public void clickCheckboxOfaRecord(String host_email) {
+		wait.hardWait(2);
+		isElementDisplayed("chkbox_email", host_email);
+		try {
+			element("chkbox_email", host_email).click();
+		} catch (WebDriverException e) {
+			clickUsingXpathInJavaScriptExecutor(element("chkbox_email", host_email));
+		}
+		logMessage("Step: '" + host_email + "' is selected \n");
+	}	
+	
+	public void enterValueInAddPlaceholderpage(String sessionTitle, String sessiondesc) {
+		enterValuesForProgram("title", sessionTitle);
+		enterValuesForProgram("session_event_desc", sessiondesc);
+		
+	}
+
+	public void checkWhetherHostIsAlreadyPresent(String classlbl, String host_name) {
+		if (checkIfElementIsThere("txt_tableResult", classlbl, classlbl)) {
+			clickParticularRecordFromList(host_name, "1");
+			clickOnButtonByIndexing("Delete Hosts", "1");
+			verifyPopupMessage("Are you sure you want to delete the selected session hosts?");
+			clickOnButtonByIndexing("Yes", "1");
+			verifyDataIsDeleted(classlbl,host_name);
+
+		} else {
+			logMessage("[Info::] '" + host_name + "' is not present \n");
+		}
+	}
+
+	public void verifyAbstractIsDeleted(String classlbl, String expValue) {
+		waitForLoadingImageToDisappear("deleteing data");
+		Assert.assertFalse(checkIfElementIsThere("lnk_ControlId", expValue,classlbl),
+				"Assert Failed : " + expValue + " is not deleted in Current Assigned Abstract \n");
+		logMessage("ASSERT PASSED : " + expValue + " is deleted in Current Assigned Abstract \n");
+		
+	}
+	public void verifyAbstractIsAddedInCurrentlyAssignedAbstracts(String classlbl, String expValue) {
+		isElementDisplayed("lnk_ControlId", expValue,classlbl);
+		Assert.assertTrue(checkIfElementIsThere("lnk_ControlId", expValue,classlbl),
+				"Assert Failed : " + expValue + " is not deleted in Current Assigned Abstract \n");
+		logMessage("ASSERT PASSED : " + expValue + " is deleted in Current Assigned Abstract \n");
+		
+	}
+
+	public void clickOnAssignAbstract() {
+		wait.hardWait(1);
+		if (checkIfElementIsThere("btn_saveAndEdit", "Assign Hosts", "1")) {
+			clickOnSaveAndEditButton("Assign Hosts", 1);
+		}
+		isElementDisplayed("btn_saveAndEdit", "Assign Abstracts","1");
+		clickOnSaveAndEditButton("Assign Abstracts", 1);
+		logMessage("STEP: clicked on 'Assign Abstracts' button \n");
+	}	
+
 }
