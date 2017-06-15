@@ -46,7 +46,7 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 	private String downloadedFile;
 	private String authorEmail = YamlReader.getYamlValue("Session.Session_Builder.Author_Email");
 	private String host_email="EMAIL_Host1496986031797@acs.org", host_fname="FNAME_Host1496986031807", abstract_id = "2760788";
-	Maps_Review_Test maps_review;
+	Maps_Review_Test maps_review = new Maps_Review_Test();
 	private String session_name;
 
 	@BeforeClass
@@ -86,7 +86,7 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 		test.maps_sessionpage.verifyLeftPanelOptionsOnSessionAdminPage(leftPanelOptionsSessionAdmin);
 	}
 
-	//@Test
+	@Test
 	public void Step_0800_create_Host_As_Prerequisite(){
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Meeting Setup");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Hosts");
@@ -102,15 +102,15 @@ public class Maps_Session_Admin_Sessioning_Tests extends BaseTest {
 		
 	} 
 	
-	//@Test //passed
+	@Test //passed
 	public void Step_0801_Prerequisite_For_MAPS_Session_2594() {
 		test.maps_reviewpage.enterValueInFilter(YamlReader.getYamlValue("Session.Session_Builder.Host_FirstName"));
 		test.maps_sessionpage.checkWhetherHostIsAlreadyPresent("session_host_first_name",
 				YamlReader.getYamlValue("Session.Session_Builder.Host_FirstName"));
-		abstract_id=maps_review.create_Abstract_As_Prerequisite();
+		//abstract_id=maps_review.create_Abstract_As_Prerequisite();
 	}
 	
-	@Test // passed
+/*	@Test // passed
 	public void Step_1330_MAPS_Session_1308_Verify_sub_options_under_Sessioning_option() {
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Sessioning");
 		test.maps_sessionpage.verifyLeftPanelOptionsOnSessionAdminPage(optionSessioning);

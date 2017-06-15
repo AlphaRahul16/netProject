@@ -1710,7 +1710,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		wait.hardWait(3);
 		isElementDisplayed("txt_tableResult", colname, host_email);
 		WebElement sourcelocator = element("txt_tableResult", colname, host_email);
-		element("txt_tableResult", colname, host_email).click();
+		clickUsingXpathInJavaScriptExecutor(element("txt_tableResult", colname, host_email));
+		//element("txt_tableResult", colname, host_email).click();
 		isElementDisplayed("table_dropLocation", "2");
 		WebElement destinationlocator = element("table_dropLocation", locatorindex);
 		dragAndDrop(sourcelocator, destinationlocator);
