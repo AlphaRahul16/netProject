@@ -21,6 +21,7 @@ public class Admin_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void clickLeftNavigationPanelOptions(String fieldName) {
+		wait.hardWait(3);
 		isElementDisplayed("lnk_leftPanelInstructions", fieldName);
 		click(element("lnk_leftPanelInstructions", fieldName));
 		logMessage("Step : " + fieldName + " is clicked on left navigation panel\n");
@@ -142,7 +143,7 @@ public class Admin_Page_Actions extends ASCSocietyGenericPage {
 	public String selectRandomControlId() {
 		int randomlink = generateRandomNumberWithInRange(0, elements("lnk_controlId").size());
 		isElementDisplayed("lnk_controlId");
-		String controlId = elements("lnk_controlId").get(randomlink).getText();
+		String controlId = elements("lnk_controlId").get(randomlink-1).getText();
 		elements("lnk_controlId").get(randomlink).click();
 		return controlId;
 
@@ -271,5 +272,172 @@ public class Admin_Page_Actions extends ASCSocietyGenericPage {
 		selectEmailTemplateToSearchEmail(emailTemplateName, "EMAIL_SEARCH_TEMPLATEID");
 		selectEmailTemplateToSearchEmail(emailStatus, "EMAIL_SEARCH_STATUS");
 	}
+	
+
+	public void clickOnSelectRoleDropDownAndSelectARole(String role) {
+		isElementDisplayed("drpdwn_selectRole");
+		selectProvidedTextFromDropDown(element("drpdwn_selectRole"),role);
+		
+	}
+
+	public void clickOnCopyRoleDropDownAndSelectARole(String role) {
+		isElementDisplayed("drpdwn_copyRole");
+		selectProvidedTextFromDropDown(element("drpdwn_copyRole"),role);
+		
+	}
+
+	public void clickOnGoButton() {
+		isElementDisplayed("btn_go");
+		click(element("btn_go"));
+		hardWaitForChromeBrowser(5);
+		handleAlert();
+		
+	}
+
+	public void enterSearchTermForAbstractSearch(String searchTerm) {
+		isElementDisplayed("txt_searchField");
+		element("txt_searchField").sendKeys(searchTerm);
+		
+	}
+
+	public void clickOnTitleOfSearchTerm(String value) {
+		wait.hardWait(3);
+		for (WebElement ele : elements("list_searchTitle", value)) {
+			click(ele);
+			break;
+		}		
+	}
+	
+	public void clickOnTitleOfSearchTermWithDraftStatus(String value) {
+		for (WebElement ele : elements("list_titleWithDraftStatus", value)) {
+			click(ele);
+			break;
+		}
+		}
+
+	public void clickOnEditTitleButton() {
+		switchToWindowHavingIndex(1);
+		isElementDisplayed("btn_editBody");
+		click(element("btn_editBody"));	
+	}
+
+	public void enterTitleDetails(String title) {
+		switchToDefaultContent();
+		switchToFrame(element("iframe_title"));
+		isElementDisplayed("txt_editTitle");
+		element("txt_editTitle").clear();
+		element("txt_editTitle").sendKeys(title);
+		switchToDefaultContent();
+		
+	}
+
+	public void clickOnFinishButton() {
+		isElementDisplayed("lnk_ReviewSubmit");
+		click(element("lnk_ReviewSubmit"));	
+		isElementDisplayed("btn_finish");
+		click(element("btn_finish"));	
+		switchWindow();
+	}
+
+	public void verifyFinishNotDisplay() {
+		switchToWindowHavingIndex(1);
+		Assert.assertFalse(checkIfElementIsThere("btn_finish"));
+		closeSwitchedWindow(1);
+		switchToWindowHavingIndex(0);
+	}
+	
+	public String getAbstractID() {
+		String abstractID = null;
+		wait.hardWait(3);
+		for (WebElement ele : elements("list_abstractID")) {
+			abstractID= ele.getText();
+			break;
+		}	
+		return abstractID;
+	}
+	
+	public String getAbstractIDOfUnwithdraw() {
+		String abstractID = null;
+		for (WebElement ele : elements("list_abstractIDUnwithdraw")) {
+			abstractID= ele.getText();
+			break;
+		}	
+		System.out.println(abstractID);
+		return abstractID;
+	}
+
+
+	public void clickOnWithdrawLink() {
+		for (WebElement ele : elements("lnk_withdraw")) {
+			click(ele);
+			break;
+		}	
+		handleAlert();
+	}
+	
+	public void clickOnUnwithdrawLink() {
+		for (WebElement ele : elements("lnk_unwithdraw")) {
+			click(ele);
+			break;
+		}	
+		handleAlert();		
+	}
+
+	public void verifyStatusOnAbstractInSearchTableAfterWithdraw() {
+		isElementDisplayed("lnk_unwithdraw");	
+	}
+
+	public void verifyStatusOfAbstractOnSubmissionTabAfterWithdraw(String abstractID) {
+		isElementDisplayed("txt_abstractID",abstractID);
+		
+	}
+
+	public void verifyStatusOnAbstractInSearchTableAfterUnwithdraw() {
+		isElementDisplayed("lnk_withdraw");		
+	}
+
+	public void verifyStatusOfAbstractOnSubmissionTabAfterUnwithdraw(String abstractID) {
+		isElementDisplayed("txt_abstractIDUnwithdraw",abstractID);
+	}
+
+	public void clickOnStartANewDataExportLink() {
+		isElementDisplayed("img_startANewDataExport");
+		click(element("img_startANewDataExport"));
+	}
+
+	public void createANewDataExport(String exportName) {
+		switchToWindowHavingIndex(1);
+		isElementDisplayed("txt_exportName");
+		element("txt_exportName").sendKeys(exportName);
+		isElementDisplayed("btn_exportGo");
+		click(element("btn_exportGo"));
+		handleAlert();
+		switchWindow();
+	}
+
+	public void verifyExportCreated(String value) {
+		isElementDisplayed("list_exportName",value);
+		
+	}
+
+	public void clickOnDataExportLinkFromLeftPanel(String value) {
+		wait.hardWait(3);
+		isElementDisplayed("lnk_dataExport",value);
+		click(element("lnk_dataExport",value));
+		wait.hardWait(3);
+		//waitForProcessBarToDisappear();
+	}
+
+	public void verifyTitleIsEdited(String title) {
+		isElementDisplayed("lnk_abstractTitle",title);
+	}
+
+	public String getFirstNameOfUser() {
+		isElementDisplayed("lnk_username");
+		String displayName=element("lnk_username").getText();
+		String[] splited = displayName.split("\\s+");
+		return splited[0];
+	}
+
 
 }

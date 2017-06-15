@@ -324,6 +324,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		wait.hardWait(4);
 		isElementDisplayed("txt_tableData", String.valueOf(index), String.valueOf(columnIndex));
 		for (WebElement ele : elements("txt_tableData", String.valueOf(index), String.valueOf(columnIndex))) {
+			System.out.println(ele.getText().trim());
+			System.out.println(filterResult);
 			Assert.assertTrue(
 					org.apache.commons.lang3.StringUtils.containsIgnoreCase(ele.getText().trim(), filterResult),
 					"ASSERT FAILED: Filter results " + ele.getText().trim() + " does not contains " + filterResult
@@ -1017,12 +1019,14 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		wait.hardWait(2);
 	}
 
+
 	public void inputTextInFilter(String label, String value, String index) {
 		wait.hardWait(2);
 		isElementDisplayed("input_filter", label, index);
 		element("input_filter", label, index).clear();
 		element("input_filter", label, index).sendKeys(value);
 		logMessage("STEP : " + value + " is entered in filter input box \n");
+
 		waitForLoaderToDisappear();
 	}
 
@@ -1202,10 +1206,11 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	}
 
-	public void verifyAllSelectedListIsPresentInPrintPreview(int symposiasize) {
-		isElementDisplayed("txt_SchedulerGrid", "my-paging-text");
+	public void verifyAllSelectedListIsPresentInPrintPreview(int symposiasize,String index) {
+		wait.hardWait(4);
+		isElementDisplayed("txt_gridprintpages", "my-paging-text",index);
 		int totalsymposia = Integer
-				.parseInt((elements("txt_SchedulerGrid", "my-paging-text").get(3).getText().split(" "))[1].trim());
+				.parseInt((element("txt_gridprintpages","my-paging-text",index).getText().split(" "))[1].trim());
 		System.out.println(totalsymposia);
 		Assert.assertTrue((symposiasize > 1 && symposiasize <= totalsymposia),
 				"All selected elements from list are not printed\n");
