@@ -27,9 +27,9 @@ app_url_IwebMyAccount: https://stag-12iweb/NFStage7/iweb
 app_url_MyAccountNewUser: https://accounttest.acs.org/ssoamweb/account/signUp
 #app_url_OMR: https://ewebtest.acs.org/NFStage7/renew
 app_url_AACT_OMR: https://www.renewtest.teachchemistry.org/NFStage7/aactomr
-app_url_SourceCodeOMA: https://jointest.acs.org/NFStage7/oma?sc=
+app_url_SourceCodeOMA: https://www.jointest.acs.org/NFStage7/oma?sc=
 app_url_MGMUrl: https://www.ewebtest.acs.org/NFStage7/mgm
-app_url_MGMjoin: https://jointest.acs.org/NFStage7/oma?appID=
+app_url_MGMjoin: https://www.jointest.acs.org/NFStage7/oma?appID=
 app_url_MGMOputOut: https://www.ewebtest.acs.org/NFStage7/eweb/ACSMGMTemplate.aspx?site=ACS_MGM&WebCode=optout&appID=
 app_url_MGMLogout: https://www.ewebtest.acs.org/NFStage7/eweb/acslogout.aspx
 

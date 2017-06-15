@@ -562,25 +562,17 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		return abstractDetails;
 	}
 
-	public String addHostforSymposium(String label) {
+	public String addHostforSymposium(int dropFieldindex, String label) {
 		wait.hardWait(3);
 		// waitForLoadingImageToDisappear("Loading...");
 		isElementDisplayed("txt_hostDetails", label);
 		WebElement sourcelocator = null, destinationlocator = null;
 		String value = null;
-		try {
-			sourcelocator = elements("txt_hostDetails", label).get(1);
-			elements("txt_hostDetails", label).get(1).click();
-			value = elements("txt_hostDetails", label).get(1).getText();
-			isElementDisplayed("txt_dropField");
-			destinationlocator = elements("txt_dropField").get(2);
-		} catch (TimeoutException e) {
-			sourcelocator = elements("txt_hostDetails", label).get(3);
-			elements("txt_hostDetails", label).get(3).click();
-			value = elements("txt_hostDetails", label).get(3).getText();
-			isElementDisplayed("txt_dropField");
-			destinationlocator = elements("txt_dropField").get(2);
-		}
+		sourcelocator = elements("txt_hostDetails", label).get(1);
+		elements("txt_hostDetails", label).get(1).click();
+		value = elements("txt_hostDetails", label).get(1).getText();
+		isElementDisplayed("txt_dropField");
+		destinationlocator = elements("txt_dropField").get(dropFieldindex);
 
 		dragAndDrop(sourcelocator, destinationlocator);
 		wait.hardWait(2);
@@ -589,6 +581,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("STEP: '" + value + "' is selected \n");
 		return value;
 	}
+
+	
 //	public String getHostDetails(String label) {
 //		isElementDisplayed("txt_hostDetails", label);
 //		return elements("txt_hostDetails", label).get(1).getText();
@@ -836,14 +830,13 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		selectValueByIndexing(2);
 	}
 
-	public void rightClickOnSession() {
+	public String rightClickOnSession() {
 		wait.hardWait(2);
 		isElementDisplayed("txt_session");
-		System.out.println("************" + element("txt_session").getText());
-		rightClick(element("txt_session"));
-		// isElementDisplayed("txt_SchedulerGrid", "view-item");
-		// rightClick(elements("txt_SchedulerGrid", "view-item").get(number));
-		logMessage("STEP: Right clicked on session \n");
+		String session_name=element("txt_session").getText().replace("(", "").replace(")", "");
+		rightClick(element("txt_session"));		
+		logMessage("STEP: Right clicked on session "+session_name+" \n");
+		return session_name.trim();
 	}
 
 	public void verifyApplicationChangesSessionType(String expectedSessionType) {
@@ -1237,6 +1230,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		logMessage("ASSERT PASSED: '" + expValue + "' is present \n");
 	}
 	public void verifyAddedAbstractsInTable(String classlbl, String expValue,int expSize) {
+		isElementDisplayed("txt_controlId", classlbl,expValue);
 		Assert.assertTrue(elements("txt_controlId", classlbl,expValue).size()==expSize,
 				"ASSERT FAILED: " + expValue + " is not present \n");
 		logMessage("ASSERT PASSED: '" + expValue + "' is present \n");
@@ -1712,14 +1706,13 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		
 	}
 
-	public void addHostforSessionBulider(String colname, String host_email) {
+	public void addHostforSessionBulider(String colname, String host_email, String locatorindex) {
 		wait.hardWait(3);
-		// waitForLoadingImageToDisappear("Loading...");
 		isElementDisplayed("txt_tableResult", colname, host_email);
 		WebElement sourcelocator = element("txt_tableResult", colname, host_email);
 		element("txt_tableResult", colname, host_email).click();
 		isElementDisplayed("table_dropLocation", "2");
-		WebElement destinationlocator = element("table_dropLocation", "2");
+		WebElement destinationlocator = element("table_dropLocation", locatorindex);
 		dragAndDrop(sourcelocator, destinationlocator);
 		wait.hardWait(2);
 		waitForLoadingImageToDisappear("Loading...");
