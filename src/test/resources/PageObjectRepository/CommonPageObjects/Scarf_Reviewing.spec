@@ -30,5 +30,5 @@ list_ratingGreenChemistry                       xpath                      //spa
 txt_submittedChapter                            xpath                      //div[@id='submitted']//tbody//tr[${index1}]//td[${index2}]
 list_reviewerNameOptions                        xpath                        //select[contains(@id,'lstReviewer')]//option
 txt_answersReview                               xpath                        //td[contains(text(),'${value1}')]/following-sibling::td[1][contains(text(),'${reviewername}')]/following-sibling::td[2]
-lnk_PageNumber                                  xpath                       //a[contains(text(),'${value}')]
+lnk_PageNumber                                  xpath                       //span[contains(text(),'${tabname}')]/ancestor::tr/following-sibling::tr//a[contains(text(),'${index}')]
 =============================================================================================================================================
