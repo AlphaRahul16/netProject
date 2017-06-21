@@ -112,9 +112,9 @@ public class Admin_Page_Actions extends ASCSocietyGenericPage {
 	public void enterDetailsToAddNewUserUnderPeople(Map<String, Object> userDetails) {
 		long uniquefield = System.currentTimeMillis();
 		enterUserDetailsToAdd("First Name", toString().valueOf(userDetails.get("FirstName")));
-		enterUserDetailsToAdd("Last Name", toString().valueOf(userDetails.get("LastName")) + uniquefield);
+		enterUserDetailsToAdd("Last Name", toString().valueOf(userDetails.get("LastName")));
 		clickNamedButtonImage("next");
-		enterUserDetailsToAdd("E-mail", toString().valueOf(userDetails.get("Email")));
+		enterUserDetailsToAdd("E-mail", toString().valueOf(userDetails.get("Email"))+uniquefield);
 		enterUserDetailsToAdd("Institution", toString().valueOf(userDetails.get("Institution")));
 		enterUserDetailsToAdd("City", toString().valueOf(userDetails.get("City")));
 		selectOptionsToAddUser("Country", toString().valueOf(userDetails.get("Country")));
@@ -141,9 +141,9 @@ public class Admin_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public String selectRandomControlId() {
-		int randomlink = generateRandomNumberWithInRange(0, elements("lnk_controlId").size());
+		int randomlink = generateRandomNumberWithInRange(0, (elements("lnk_controlId").size()-1));
 		isElementDisplayed("lnk_controlId");
-		String controlId = elements("lnk_controlId").get(randomlink-1).getText();
+		String controlId = elements("lnk_controlId").get(randomlink).getText();
 		elements("lnk_controlId").get(randomlink).click();
 		return controlId;
 
@@ -300,19 +300,16 @@ public class Admin_Page_Actions extends ASCSocietyGenericPage {
 		
 	}
 
-	public void clickOnTitleOfSearchTerm(String value) {
+	public void clickOnTitleOfSearchTerm() {
 		wait.hardWait(3);
-		for (WebElement ele : elements("list_searchTitle", value)) {
-			click(ele);
-			break;
-		}		
+		isElementDisplayed("list_searchTitle");
+		click(element("list_searchTitle"));
+		logMessage("Step : Click on first record title of results table\n");
 	}
 	
-	public void clickOnTitleOfSearchTermWithDraftStatus(String value) {
-		for (WebElement ele : elements("list_titleWithDraftStatus", value)) {
-			click(ele);
-			break;
-		}
+	public void clickOnTitleOfSearchTermWithDraftStatus() {
+			click(element("list_titleWithDraftStatus"));
+             logMessage("Step : Title with status as Draft is clicked\n");
 		}
 
 	public void clickOnEditTitleButton() {
@@ -349,38 +346,29 @@ public class Admin_Page_Actions extends ASCSocietyGenericPage {
 	public String getAbstractID() {
 		String abstractID = null;
 		wait.hardWait(3);
-		for (WebElement ele : elements("list_abstractID")) {
-			abstractID= ele.getText();
-			break;
-		}	
+		abstractID= element("list_abstractID").getText();
+		System.out.println(abstractID);
 		return abstractID;
 	}
 	
 	public String getAbstractIDOfUnwithdraw() {
 		String abstractID = null;
-		for (WebElement ele : elements("list_abstractIDUnwithdraw")) {
-			abstractID= ele.getText();
-			break;
-		}	
+		abstractID= element("list_withdrawabstract").getText();
 		System.out.println(abstractID);
 		return abstractID;
 	}
 
 
 	public void clickOnWithdrawLink() {
-		for (WebElement ele : elements("lnk_withdraw")) {
-			click(ele);
-			break;
-		}	
+		click(element("lnk_withdraw"));
+		logMessage("Step : Withdraw link is clicked\n");
 		handleAlert();
 	}
 	
 	public void clickOnUnwithdrawLink() {
-		for (WebElement ele : elements("lnk_unwithdraw")) {
-			click(ele);
-			break;
-		}	
-		handleAlert();		
+			click(element("lnk_unwithdraw"));
+			logMessage("Step : Unwithdraw link is clicked\n");
+			handleAlert();
 	}
 
 	public void verifyStatusOnAbstractInSearchTableAfterWithdraw() {
@@ -397,7 +385,7 @@ public class Admin_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void verifyStatusOfAbstractOnSubmissionTabAfterUnwithdraw(String abstractID) {
-		isElementDisplayed("txt_abstractIDUnwithdraw",abstractID);
+		isElementDisplayed("txt_UnwithdrawabstractID",abstractID);
 	}
 
 	public void clickOnStartANewDataExportLink() {

@@ -25,7 +25,6 @@ inp_templateName                        xpath                //p[contains(text()
 lnk_templateName                        xpath                //a[contains(text(),'${text}')]
 txt_emaillog_tbl_headings               css                  .headercells>.pagecontents>b
 select_email_template                   css                  select[name='${text}']
-<<<<<<< HEAD
 drpdwn_selectRole						css					select[name*='XIK_SELECTED_ROLE_ID']
 drpdwn_copyRole							css					select[name*='XIK_ROLE_ID_TO_COPY_FROM']
 btn_go									css					img[src*='/images/buttons/go.gif']
@@ -41,9 +40,9 @@ btn_finish								xpath				//a[contains(.,'Finish')]
 lnk_withdraw							xpath				//a[contains(.,'Withdraw')]
 lnk_unwithdraw							xpath				//a[contains(.,'Unwithdraw')]
 list_abstractID							xpath				//a[contains(.,'Withdraw')]/../../../td[1]
-list_abstractIDUnwithdraw				xpath				//a[contains(.,'Unwithdraw')]/../../../td[1]
+list_withdrawabstract     			    xpath				//a[contains(.,'Unwithdraw')]/../../../td[1]
 txt_abstractID							xpath				//td[@data-label='ID' and contains(.,'${abstractID}')]/../td[contains(.,'Withdrawn')]
-txt_abstractIDUnwithdraw				xpath				//td[@data-label='ID' and contains(.,'${abstractID}')]/../td[contains(.,'Under Review')]
+txt_UnwithdrawabstractID				xpath				//td[@data-label='ID' and contains(.,'${abstractID}')]/../td[contains(.,'Under Review')]
 img_startANewDataExport					xpath				//img[@src='/images/buttons/start_a_new_data_export.gif']
 txt_exportName							xpath				//input[@name='EXPORT_LOCATION_NAME']
 btn_exportGo							xpath				//input[@src='images/buttons/go.gif']
@@ -51,9 +50,4 @@ list_exportName							xpath				//span[contains(.,'${value}')]
 lnk_dataExport							xpath				(//div[contains(.,'${value}')])[4]
 img_abstractSearch						xpath				//img[contains(@src,'search.gif')]
 lnk_username							css					.dropdown-toggle.modify-account-lnk
-=======
-
-
-
->>>>>>> 6dfc0807eb370341077dfb1a9e969ea97a325515
 ==========================================================================================================================================================================================

@@ -115,8 +115,8 @@ public class ACS_IndividualLandingPage_Smoke extends BaseTest {
 				mapSheetData.get("PostalMail_Address"), mapSheetData.get("PostalMail_City"),
 				mapSheetData.get("PostalMail_State"), mapSheetData.get("PostalMail_ZipCode"));
 
-		test.asm_Donate.BreakMyDonationForMonthlyPaymentsForIndividualLanding(mapSheetData.get("BreakMyDonation?"),
-				mapSheetData.get("Pledge_Months"));
+		//test.asm_Donate.BreakMyDonationForMonthlyPaymentsForIndividualLanding(mapSheetData.get("BreakMyDonation?"),
+		//		mapSheetData.get("Pledge_Months"));
 		test.asm_Donate.enterPaymentDetailsForACSDonateSmoke(memberLoginDetails,
 				mapSheetData.get("Guest_FirstName") + " " + uniquelastname,mapSheetData);
 
@@ -125,8 +125,8 @@ public class ACS_IndividualLandingPage_Smoke extends BaseTest {
 	@Test
 	public void Step05_TC05_Verify_ThankyouMessage_At_Confirm_Your_Donation_Page() {
 		Reporter.log("CASE ID:" + caseID);
-		test.asm_Donate.verifyProductPledgedSummaryOnConfirmDonationPage(ProductNames, totalAmount,
-				mapSheetData.get("Pledge_Months"));
+		//test.asm_Donate.verifyProductPledgedSummaryOnConfirmDonationPage(ProductNames, totalAmount,
+		//		mapSheetData.get("Pledge_Months"));
 		TotalAmountMap = test.asm_Donate.verifyTotalAmountOnDonationPage(totalAmount,
 				mapSheetData.get("Pledge_Months"));
 		test.asm_Donate.verifyThankyouMessageAfterDonation();
