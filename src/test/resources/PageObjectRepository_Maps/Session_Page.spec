@@ -85,7 +85,6 @@ lstbox_Themes							xpath								//span[contains(text(),'${label}')]/parent::lab
 row_withdraw							xpath								//font[contains(text(),'${fontText}')]/following-sibling::u[contains(text(),'${text}')]
 input_popup								xpath								(//label[contains(text(),'${label}')]/parent::td/following-sibling::td/..//input)[${index}]
 btn_lnkTxt								xpath								//label[contains(text(),'${text}')]/parent::td/following-sibling::td/..//a[text()='${linkText}']
-img_processbar							xpath								//div[contains(@class,'progress-bar')]
 txt_rowData                             xpath                               //div[contains(@class,'x-grid3-col-F_SORT_FIELD')]/..
 inp_assignDuration						xpath								//label[contains(.,'${text}')]/../following-sibling::td//input[@type='text']
 txt_linkEmail							xpath								//td[contains(@class,'${className}')]//u
@@ -112,4 +111,5 @@ txt_sessionOwner						xpath								//label[contains(text(),'${lbltext}')]/..//di
 table_dropLocation						xpath								(.//div[@class='x-window-ml']//div[@class='x-grid3-scroller'])[${index}]
 chkbox_email							xpath								//u[text()='${email}']/../../../preceding-sibling::td//div[contains(@class,'row-checker')]
 lnk_ControlId							xpath								//u[contains(text(),'${text}')]/../../../following-sibling::td[contains(@class,'${classname}')]
+txt_hostData                            xpath                               //td[contains(@class,'x-grid3-td-${label}')]//u[contains(text(),'${value}')]
 ======================================================================================================================================

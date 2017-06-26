@@ -26,6 +26,7 @@ public class Maps_Review_Test extends BaseTest {
 
 	@BeforeClass
 	public void Start_Test_Session() {
+		System.out.println("in before class");
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		maps_url = YamlReader.getYamlValue("MAPS_Url");
 	}
@@ -89,7 +90,7 @@ public class Maps_Review_Test extends BaseTest {
 
 	@Test //passed
 	public void MAPS_Review_Admin_42_Verify_that_application_uploads_file_when_user_clicks_on_Import_button() {
-		String absract_id = create_Abstract_As_Prerequisite();
+		String absract_id =test.maps_reviewpage.create_Abstract_As_Prerequisite();
 		MAPS_Review_Admin_01_Verify_that_application_navigates_to_ReviewerScoreReport_page();
 		test.maps_reviewpage.clickOnButtonAtSaveGridConfigurationPage("Import/Export to Excel");
 		test.maps_reviewpage.clickOnButton("Import Decision");
@@ -109,39 +110,39 @@ public class Maps_Review_Test extends BaseTest {
 
 	}
 
-	public String create_Abstract_As_Prerequisite() {
-		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Submission");
-		test.maps_SSOPage.verifyUserIsOnTabPage("Submission");
-		test.maps_submissionPage.clickOnNamedButton("Create New Submission");
-		programName=DataProvider
-				.getRandomSpecificLineFromTextFile("MapsProgramArea").trim();
-		test.maps_submissionPage.selectRansdomActiveSubmissionProgram(programName);
-		test.maps_submissionPage.clickOnContinueButtonOnProgramArea();
-
-		test.maps_submissionPage.clickOnPopUpContinueButtonOnSelectingProgramArea("Continue With This Type");
-		test.maps_submissionPage.submitTitleAndBodyDetails(abstract_details, abstract_details);
-		test.maps_submissionPage.clickOnSaveAndContinueButton();
-		
-		test.maps_submissionPage.submitDetailsOnSelectSymposiumPage(
-				YamlReader.getYamlValue("Submission_Symposium_Step.presentation_type"),
-				YamlReader.getYamlValue("Submission_Symposium_Step.scimix_value"));
-		test.maps_submissionPage.clickOnSaveAndContinueButton();
-		test.maps_submissionPage.verifyPageHeaderForASection("Authors");
-		test.maps_submissionPage.clickOnSaveAndContinueButton();
-
-		test.maps_submissionPage.verifyPageHeaderForASection("Disclosures");
-		test.maps_submissionPage.clickOnLinkUnderCreateNewSubmission("Disclosures");
-		test.maps_submissionPage.verifyPageHeaderForASection("Disclosures");
-		test.maps_submissionPage.enterDetailsInDisclosuresSection();
-		test.maps_submissionPage.clickOnSaveAndContinueButton();
-		test.maps_submissionPage.verifyPageHeaderForASection("Review & Submit");
-		test.maps_submissionPage.verifyAllStepsAreCompleteOnReviewAndSubmitPage(5);
-		test.maps_submissionPage.clickOnSubmitButton();
-
-		test.maps_submissionPage.verifySuccessAlertMessage(YamlReader.getYamlValue("Success_alert_msg"));
-		absract_id = test.maps_submissionPage.getIDofAbstract("subs", abstract_details, "1", "ID");
-		return absract_id;
-	}
+//	public String create_Abstract_As_Prerequisite() {
+//		test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Submission");
+//		test.maps_SSOPage.verifyUserIsOnTabPage("Submission");
+//		test.maps_submissionPage.clickOnNamedButton("Create New Submission");
+//		programName=DataProvider
+//				.getRandomSpecificLineFromTextFile("MapsProgramArea").trim();
+//		test.maps_submissionPage.selectRansdomActiveSubmissionProgram(programName);
+//		test.maps_submissionPage.clickOnContinueButtonOnProgramArea();
+//
+//		test.maps_submissionPage.clickOnPopUpContinueButtonOnSelectingProgramArea("Continue With This Type");
+//		test.maps_submissionPage.submitTitleAndBodyDetails(abstract_details, abstract_details);
+//		test.maps_submissionPage.clickOnSaveAndContinueButton();
+//		
+//		test.maps_submissionPage.submitDetailsOnSelectSymposiumPage(
+//				YamlReader.getYamlValue("Submission_Symposium_Step.presentation_type"),
+//				YamlReader.getYamlValue("Submission_Symposium_Step.scimix_value"));
+//		test.maps_submissionPage.clickOnSaveAndContinueButton();
+//		test.maps_submissionPage.verifyPageHeaderForASection("Authors");
+//		test.maps_submissionPage.clickOnSaveAndContinueButton();
+//
+//		test.maps_submissionPage.verifyPageHeaderForASection("Disclosures");
+//		test.maps_submissionPage.clickOnLinkUnderCreateNewSubmission("Disclosures");
+//		test.maps_submissionPage.verifyPageHeaderForASection("Disclosures");
+//		test.maps_submissionPage.enterDetailsInDisclosuresSection();
+//		test.maps_submissionPage.clickOnSaveAndContinueButton();
+//		test.maps_submissionPage.verifyPageHeaderForASection("Review & Submit");
+//		test.maps_submissionPage.verifyAllStepsAreCompleteOnReviewAndSubmitPage(5);
+//		test.maps_submissionPage.clickOnSubmitButton();
+//
+//		test.maps_submissionPage.verifySuccessAlertMessage(YamlReader.getYamlValue("Success_alert_msg"));
+//		absract_id = test.maps_submissionPage.getIDofAbstract("subs", abstract_details, "1", "ID");
+//		return absract_id;
+//	}
 
 	@Test //passed
 	public void MAPS_Review_Admin_83_Verify_Application_displays_results_as_per_searched_term_entered_in_filter_text_field_of_the_column_header_dropdown() {

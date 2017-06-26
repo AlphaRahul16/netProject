@@ -513,13 +513,17 @@ public class ASCSocietyGenericPage extends GetPage {
 
 	public void dragAndDrop(WebElement sourceElement, WebElement destinationElement) {
 		Actions action = new Actions(driver);
+//		action.dragAndDrop(sourceElement, destinationElement).build().perform();
+		action.clickAndHold(sourceElement).moveToElement(destinationElement).release().build().perform();
+		
+//		action.moveToElement(sourceElement, 0, 0).moveByOffset(0, 100).build().perform();
 		//action.dragAndDrop(sourceElement, destinationElement).perform();
-		Actions builder = new Actions(driver);
+//		Actions builder = new Actions(driver);
+//
+//		Action dragAndDrop = builder.clickAndHold(sourceElement).moveToElement(destinationElement)
+//				.release(destinationElement).build();
 
-		Action dragAndDrop = builder.clickAndHold(sourceElement).moveToElement(destinationElement)
-				.release(destinationElement).build();
-
-		dragAndDrop.perform();
+//		dragAndDrop.perform();
 		logMessage("Step: drag from " + sourceElement + " to " + destinationElement + "\n");
 	}
 

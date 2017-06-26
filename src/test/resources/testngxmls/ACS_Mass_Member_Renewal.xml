@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="ACS Tests">
-	<test name="ACS Rubber Insurance Test"
+	<test name="Membership Renewal Test"
 			group-by-instances="true">
 		<classes>
 			<class name="com.qait.tests.Membership_Renewal_Test"></class>

@@ -129,7 +129,8 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void selectValuesForProgram(String field, int index) {
 		isElementDisplayed("dropdown_programField", field);
-		click(element("dropdown_programField", field));
+//		click(element("dropdown_programField", field));
+		clickUsingXpathInJavaScriptExecutor(element("dropdown_programField", field));
 		logMessage("STEP: " + field + " is clicked \n");
 		selectValueByIndexing(index);
 	}
@@ -340,10 +341,10 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 
 	public void clickOnButtonUnderSessioning(String btnName) {
 		wait.hardWait(2);
-		wait.waitForElementToBeClickable(element("btn_sessionTypes", btnName));
-		isElementDisplayed("btn_sessionTypes", btnName);
+		wait.waitForElementToBeClickable(element("btn_Types", btnName));
+		isElementDisplayed("btn_Types", btnName);
 		// clickUsingXpathInJavaScriptExecutor(element("btn_Types", btnName));
-		click(element("btn_sessionTypes", btnName));
+		click(element("btn_Types", btnName));
 		logMessage("Step : Clicked on " + btnName + "\n");
 	}
 	
@@ -569,10 +570,13 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 		WebElement sourcelocator = null, destinationlocator = null;
 		String value = null;
 		sourcelocator = elements("txt_hostDetails", label).get(1);
+		System.out.println("-----sourcelocator:"+sourcelocator);
 		elements("txt_hostDetails", label).get(1).click();
 		value = elements("txt_hostDetails", label).get(1).getText();
 		isElementDisplayed("txt_dropField");
 		destinationlocator = elements("txt_dropField").get(dropFieldindex);
+		System.out.println("-----destinationlocator:"+destinationlocator);
+
 
 		dragAndDrop(sourcelocator, destinationlocator);
 		wait.hardWait(2);
@@ -1707,19 +1711,20 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void addHostforSessionBulider(String colname, String host_email, String locatorindex) {
-		wait.hardWait(3);
-		isElementDisplayed("txt_tableResult", colname, host_email);
-		WebElement sourcelocator = element("txt_tableResult", colname, host_email);
-		element("txt_tableResult", colname, host_email).click();
-		isElementDisplayed("table_dropLocation", "2");
-		WebElement destinationlocator = element("table_dropLocation", locatorindex);
-		dragAndDrop(sourcelocator, destinationlocator);
-		wait.hardWait(2);
-		waitForLoadingImageToDisappear("Loading...");
-		logMessage("STEP: '" + host_email + "' is selected as Host \n");
+		  wait.hardWait(3);
+		  isElementDisplayed("txt_tableResult", colname, host_email);
+		  WebElement sourcelocator = element("txt_tableResult", colname, host_email);
+		  clickUsingXpathInJavaScriptExecutor(element("txt_tableResult", colname, host_email));
+		  //element("txt_tableResult", colname, host_email).click();
+		  isElementDisplayed("table_dropLocation", "2");
+		  WebElement destinationlocator = element("table_dropLocation", locatorindex);
+		  dragAndDrop(sourcelocator, destinationlocator);
+		  wait.hardWait(2);
+		  waitForLoadingImageToDisappear("Loading...");
+		  logMessage("STEP: '" + host_email + "' is selected as Host \n");
 
-	}
-
+		 }
+	
 	public void clickCheckboxOfaRecord(String host_email) {
 		wait.hardWait(2);
 		isElementDisplayed("chkbox_email", host_email);
@@ -1738,7 +1743,7 @@ public class Session_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void checkWhetherHostIsAlreadyPresent(String classlbl, String host_name) {
-		if (checkIfElementIsThere("txt_tableResult", classlbl, classlbl)) {
+		if (checkIfElementIsThere("txt_tableResult", classlbl, host_name)) {
 			clickParticularRecordFromList(host_name, "1");
 			clickOnButtonByIndexing("Delete Hosts", "1");
 			verifyPopupMessage("Are you sure you want to delete the selected session hosts?");
