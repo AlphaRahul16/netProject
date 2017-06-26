@@ -25,7 +25,29 @@ inp_templateName                        xpath                //p[contains(text()
 lnk_templateName                        xpath                //a[contains(text(),'${text}')]
 txt_emaillog_tbl_headings               css                  .headercells>.pagecontents>b
 select_email_template                   css                  select[name='${text}']
-
-
-
+drpdwn_selectRole						css					select[name*='XIK_SELECTED_ROLE_ID']
+drpdwn_copyRole							css					select[name*='XIK_ROLE_ID_TO_COPY_FROM']
+btn_go									css					img[src*='/images/buttons/go.gif']
+txt_searchField							css					input[name*='ABSTRACT_SEARCH_FIRST_NAME']
+list_searchTitle						xpath				(//p/a[contains(@href,'popWindow')])[1]
+list_titleWithDraftStatus				xpath				//p[contains(.,'Draft')]/../..//td[2]/p/a[contains(@href,'popWindow')]
+lnk_abstractTitle						xpath				//a[contains(.,'${value}')]
+btn_editBody							id					editBodyBtn
+iframe_title							xpath				//div[@id='cke_1_contents']/iframe
+txt_editTitle                           xpath               //body[contains(@class,'cke_editable cke')]
+lnk_ReviewSubmit						xpath				//a[contains(.,'Review & Submit')]
+btn_finish								xpath				//a[contains(.,'Finish')]
+lnk_withdraw							xpath				//a[contains(.,'Withdraw')]
+lnk_unwithdraw							xpath				//a[contains(.,'Unwithdraw')]
+list_abstractID							xpath				//a[contains(.,'Withdraw')]/../../../td[1]
+list_withdrawabstract     			    xpath				//a[contains(.,'Unwithdraw')]/../../../td[1]
+txt_abstractID							xpath				//td[@data-label='ID' and contains(.,'${abstractID}')]/../td[contains(.,'Withdrawn')]
+txt_UnwithdrawabstractID				xpath				//td[@data-label='ID' and contains(.,'${abstractID}')]/../td[contains(.,'Under Review')]
+img_startANewDataExport					xpath				//img[@src='/images/buttons/start_a_new_data_export.gif']
+txt_exportName							xpath				//input[@name='EXPORT_LOCATION_NAME']
+btn_exportGo							xpath				//input[@src='images/buttons/go.gif']
+list_exportName							xpath				//span[contains(.,'${value}')]
+lnk_dataExport							xpath				(//div[contains(.,'${value}')])[4]
+img_abstractSearch						xpath				//img[contains(@src,'search.gif')]
+lnk_username							css					.dropdown-toggle.modify-account-lnk
 ==========================================================================================================================================================================================

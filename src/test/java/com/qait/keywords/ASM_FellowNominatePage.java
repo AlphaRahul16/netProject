@@ -774,7 +774,6 @@ public class ASM_FellowNominatePage extends GetPage {
 		wait.hardWait(6);
 		selectNominationChecklistName(NominationName);
 		wait.hardWait(6);
-		wait.waitForElementToBeVisible(element("btn_Edit"));
 		element("btn_Edit").click();
 		logMessage("STEP : User returned to current nomination\n");
 

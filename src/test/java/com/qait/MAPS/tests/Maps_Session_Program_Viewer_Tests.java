@@ -128,7 +128,7 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 		symposiasize = test.maps_sessionpage.getSelectedListSize();
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Print Selected");
 		test.maps_sessionpage.verifyTitleForRoles("Print Symposia Preview", "Title");
-		test.maps_sessionpage.verifyAllSelectedListIsPresentInPrintPreview(symposiasize);
+		test.maps_sessionpage.verifyAllSelectedListIsPresentInPrintPreview(symposiasize,"4");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Cancel");
 
 	}
@@ -234,7 +234,7 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 		symposiasize = test.maps_sessionpage.getSelectedListSize();
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Print Selected");
 		test.maps_sessionpage.verifyTitleForRoles("Print Sessions/Events Preview", "Title");
-		test.maps_sessionpage.verifyAllSelectedListIsPresentInPrintPreview(symposiasize);
+		test.maps_sessionpage.verifyAllSelectedListIsPresentInPrintPreview(symposiasize,"4");
 		test.maps_sessionpage.clickOnButtonUnderSessioning("Cancel");
 
 	}
@@ -287,6 +287,7 @@ public class Maps_Session_Program_Viewer_Tests extends BaseTest {
 		test.maps_sessionpage.inputTextInFilter("Search",test.maps_sessionpage.getHostColoumData("session_host_email","2"), "3");
 		test.maps_sessionpage.verifyUserDetailsInFilterResults("3");
 		test.maps_sessionpage.clickClosePopUpButton("Close");
+
 	}
 
 	@Test

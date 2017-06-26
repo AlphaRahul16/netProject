@@ -30,7 +30,6 @@ public class ACS_GivingApplication_Smoke extends BaseTest {
 	Map<String, List<String>> mapIwebProductDetails;
 	Map<String, String> mapSheetData = new HashMap<String, String>();
 	private String caseID;
-
 	String[] ProductNames;
 
 	public ACS_GivingApplication_Smoke() {
@@ -139,8 +138,8 @@ public class ACS_GivingApplication_Smoke extends BaseTest {
 				mapSheetData.get("PostalMail_Address"), mapSheetData.get("PostalMail_City"),
 				mapSheetData.get("PostalMail_State"), mapSheetData.get("PostalMail_ZipCode"));
 
-		test.asm_Donate.BreakMyDonationForMonthlyPayments(mapSheetData.get("BreakMyDonation?"),
-				mapSheetData.get("Pledge_Months"));
+	//	test.asm_Donate.BreakMyDonationForMonthlyPayments(mapSheetData.get("BreakMyDonation?"),
+		//		mapSheetData.get("Pledge_Months"));
 		test.asm_Donate.enterPaymentDetailsForACSDonateSmoke(memberLoginDetails,
 				mapSheetData.get("Guest_FirstName") + " " + uniquelastname, mapSheetData);
 
@@ -152,8 +151,8 @@ public class ACS_GivingApplication_Smoke extends BaseTest {
 		String Amount[] = { mapSheetData.get("Program1 Donate Amount"), mapSheetData.get("Program2 Donate Amount"),
 				mapSheetData.get("Program3 Donate Amount"), mapSheetData.get("Other Program Donate Amount") };
 
-		test.asm_Donate.verifyProductPledgedSummaryOnConfirmDonationPage(ProductNames, Amount,
-				mapSheetData.get("Pledge_Months"));
+	//	test.asm_Donate.verifyProductPledgedSummaryOnConfirmDonationPage(ProductNames, Amount,
+		//		mapSheetData.get("Pledge_Months"));
 		TotalAmountMap = test.asm_Donate.verifyTotalAmountOnDonationPage(Amount, mapSheetData.get("Pledge_Months"));
 		test.asm_Donate.verifyThankyouMessageAfterDonation();
 		test.asm_Donate.verifyPrintReceiptMessageAfterDonation();

@@ -21,6 +21,7 @@ public class Admin_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public void clickLeftNavigationPanelOptions(String fieldName) {
+		wait.hardWait(3);
 		isElementDisplayed("lnk_leftPanelInstructions", fieldName);
 		click(element("lnk_leftPanelInstructions", fieldName));
 		logMessage("Step : " + fieldName + " is clicked on left navigation panel\n");
@@ -111,9 +112,9 @@ public class Admin_Page_Actions extends ASCSocietyGenericPage {
 	public void enterDetailsToAddNewUserUnderPeople(Map<String, Object> userDetails) {
 		long uniquefield = System.currentTimeMillis();
 		enterUserDetailsToAdd("First Name", toString().valueOf(userDetails.get("FirstName")));
-		enterUserDetailsToAdd("Last Name", toString().valueOf(userDetails.get("LastName")) + uniquefield);
+		enterUserDetailsToAdd("Last Name", toString().valueOf(userDetails.get("LastName")));
 		clickNamedButtonImage("next");
-		enterUserDetailsToAdd("E-mail", toString().valueOf(userDetails.get("Email")));
+		enterUserDetailsToAdd("E-mail", toString().valueOf(userDetails.get("Email"))+uniquefield);
 		enterUserDetailsToAdd("Institution", toString().valueOf(userDetails.get("Institution")));
 		enterUserDetailsToAdd("City", toString().valueOf(userDetails.get("City")));
 		selectOptionsToAddUser("Country", toString().valueOf(userDetails.get("Country")));
@@ -140,7 +141,7 @@ public class Admin_Page_Actions extends ASCSocietyGenericPage {
 	}
 
 	public String selectRandomControlId() {
-		int randomlink = generateRandomNumberWithInRange(0, elements("lnk_controlId").size());
+		int randomlink = generateRandomNumberWithInRange(0, (elements("lnk_controlId").size()-1));
 		isElementDisplayed("lnk_controlId");
 		String controlId = elements("lnk_controlId").get(randomlink).getText();
 		elements("lnk_controlId").get(randomlink).click();
@@ -271,5 +272,160 @@ public class Admin_Page_Actions extends ASCSocietyGenericPage {
 		selectEmailTemplateToSearchEmail(emailTemplateName, "EMAIL_SEARCH_TEMPLATEID");
 		selectEmailTemplateToSearchEmail(emailStatus, "EMAIL_SEARCH_STATUS");
 	}
+	
+
+	public void clickOnSelectRoleDropDownAndSelectARole(String role) {
+		isElementDisplayed("drpdwn_selectRole");
+		selectProvidedTextFromDropDown(element("drpdwn_selectRole"),role);
+		
+	}
+
+	public void clickOnCopyRoleDropDownAndSelectARole(String role) {
+		isElementDisplayed("drpdwn_copyRole");
+		selectProvidedTextFromDropDown(element("drpdwn_copyRole"),role);
+		
+	}
+
+	public void clickOnGoButton() {
+		isElementDisplayed("btn_go");
+		click(element("btn_go"));
+		hardWaitForChromeBrowser(5);
+		handleAlert();
+		
+	}
+
+	public void enterSearchTermForAbstractSearch(String searchTerm) {
+		isElementDisplayed("txt_searchField");
+		element("txt_searchField").sendKeys(searchTerm);
+		
+	}
+
+	public void clickOnTitleOfSearchTerm() {
+		wait.hardWait(3);
+		isElementDisplayed("list_searchTitle");
+		click(element("list_searchTitle"));
+		logMessage("Step : Click on first record title of results table\n");
+	}
+	
+	public void clickOnTitleOfSearchTermWithDraftStatus() {
+			click(element("list_titleWithDraftStatus"));
+             logMessage("Step : Title with status as Draft is clicked\n");
+		}
+
+	public void clickOnEditTitleButton() {
+		switchToWindowHavingIndex(1);
+		isElementDisplayed("btn_editBody");
+		click(element("btn_editBody"));	
+	}
+
+	public void enterTitleDetails(String title) {
+		switchToDefaultContent();
+		switchToFrame(element("iframe_title"));
+		isElementDisplayed("txt_editTitle");
+		element("txt_editTitle").clear();
+		element("txt_editTitle").sendKeys(title);
+		switchToDefaultContent();
+		
+	}
+
+	public void clickOnFinishButton() {
+		isElementDisplayed("lnk_ReviewSubmit");
+		click(element("lnk_ReviewSubmit"));	
+		isElementDisplayed("btn_finish");
+		click(element("btn_finish"));	
+		switchWindow();
+	}
+
+	public void verifyFinishNotDisplay() {
+		switchToWindowHavingIndex(1);
+		Assert.assertFalse(checkIfElementIsThere("btn_finish"));
+		closeSwitchedWindow(1);
+		switchToWindowHavingIndex(0);
+	}
+	
+	public String getAbstractID() {
+		String abstractID = null;
+		wait.hardWait(3);
+		abstractID= element("list_abstractID").getText();
+		System.out.println(abstractID);
+		return abstractID;
+	}
+	
+	public String getAbstractIDOfUnwithdraw() {
+		String abstractID = null;
+		abstractID= element("list_withdrawabstract").getText();
+		System.out.println(abstractID);
+		return abstractID;
+	}
+
+
+	public void clickOnWithdrawLink() {
+		click(element("lnk_withdraw"));
+		logMessage("Step : Withdraw link is clicked\n");
+		handleAlert();
+	}
+	
+	public void clickOnUnwithdrawLink() {
+			click(element("lnk_unwithdraw"));
+			logMessage("Step : Unwithdraw link is clicked\n");
+			handleAlert();
+	}
+
+	public void verifyStatusOnAbstractInSearchTableAfterWithdraw() {
+		isElementDisplayed("lnk_unwithdraw");	
+	}
+
+	public void verifyStatusOfAbstractOnSubmissionTabAfterWithdraw(String abstractID) {
+		isElementDisplayed("txt_abstractID",abstractID);
+		
+	}
+
+	public void verifyStatusOnAbstractInSearchTableAfterUnwithdraw() {
+		isElementDisplayed("lnk_withdraw");		
+	}
+
+	public void verifyStatusOfAbstractOnSubmissionTabAfterUnwithdraw(String abstractID) {
+		isElementDisplayed("txt_UnwithdrawabstractID",abstractID);
+	}
+
+	public void clickOnStartANewDataExportLink() {
+		isElementDisplayed("img_startANewDataExport");
+		click(element("img_startANewDataExport"));
+	}
+
+	public void createANewDataExport(String exportName) {
+		switchToWindowHavingIndex(1);
+		isElementDisplayed("txt_exportName");
+		element("txt_exportName").sendKeys(exportName);
+		isElementDisplayed("btn_exportGo");
+		click(element("btn_exportGo"));
+		handleAlert();
+		switchWindow();
+	}
+
+	public void verifyExportCreated(String value) {
+		isElementDisplayed("list_exportName",value);
+		
+	}
+
+	public void clickOnDataExportLinkFromLeftPanel(String value) {
+		wait.hardWait(3);
+		isElementDisplayed("lnk_dataExport",value);
+		click(element("lnk_dataExport",value));
+		wait.hardWait(3);
+		//waitForProcessBarToDisappear();
+	}
+
+	public void verifyTitleIsEdited(String title) {
+		isElementDisplayed("lnk_abstractTitle",title);
+	}
+
+	public String getFirstNameOfUser() {
+		isElementDisplayed("lnk_username");
+		String displayName=element("lnk_username").getText();
+		String[] splited = displayName.split("\\s+");
+		return splited[0];
+	}
+
 
 }

@@ -6,9 +6,9 @@ csv-data-file:
   path_MapsProgramArea: ./src/test/resources/TestDataLibrary/MAPS_ProgramAreaTypeList.txt
 
 LogIn_Details:
-  userID: ACS1\C00839
-  password: Tm58406*t
-  
+  userID: ACS1\C00687
+  password: 84Pa809!G
+
 Submission_Author_Step: 
    institution: Test_Institution
    department: QA
@@ -124,19 +124,24 @@ Admin:
        City: "Ohio"
        Country: "United States"
        UserId: ""
-       Role: "Admin"
+       Role: " Admin  "
    confimation_msg: "Your account has been created"
    Report_LoginDetails: "Rahul Yadav - Last logged in:"
    Fields_In_Body:
        Abstract_Window_title: "ScholarOne Abstracts - Review & Submit"
+       Title_details: "Edited Title Text"
+       Body_details: "Edited Body Text"
    Email:
       emailFrom: "H_Sil@acs.org"
-   Title_details: "Edited Title Text"
-   Body_details: "Edited Body Text"
    Email_Search_Criteria:
        Email_Template_Name: "Account Creation" 
        Email_Status: "Sent"
        Subject: "ACS Submission Account Created"
+       Result: "sent"
+   first_name: "Hitasheet"
+   title: abcde
+   search: draft
+   data_export: "Test_Data_Export"
 
        
        
