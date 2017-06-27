@@ -126,7 +126,7 @@ Admin:
        City: "Ohio"
        Country: "United States"
        UserId: ""
-       Role: "Admin"
+       Role: " Admin  "
    confimation_msg: "Your account has been created"
    Report_LoginDetails: "Rahul Yadav - Last logged in:"
    Fields_In_Body:

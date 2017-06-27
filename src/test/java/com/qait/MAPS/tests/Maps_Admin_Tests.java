@@ -58,7 +58,7 @@ public class Maps_Admin_Tests extends BaseTest {
 		test.maps_sessionpage.verifydropdownOnPopupWindow("Select");
 	}
 
-	 @Test
+/*	 @Test
 	public void Step_007_MAPS_Admin_02_Verify_Application_Displays_Options_And_Fields_For_Editor() {
 		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Editor");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Select");
@@ -105,12 +105,11 @@ public class Maps_Admin_Tests extends BaseTest {
 	public void Step_019_MAPS_Admin_13_Verify_Application_Displays_Dropdown_Values_For_Search_Criteria_For_Admin() {
 		test.maps_sessionpage.clickOnSaveButton("Control ID");
 		test.maps_sessionpage.verifyLeftPanelOptionsOnSessionAdminPage(searchDropdownOptions);
-		//test.maps_adminpage.verifyReviewerRoleOptionInReports("Select a reviewer role", reviwerRoleOptionsArray);
+	//	test.maps_adminpage.verifyReviewerRoleOptionInReports("Select a reviewer role", reviwerRoleOptionsArray);
 	}
 
 	@Test
 	public void Step_039_MAPS_Admin_32_Verify_Application_Adds_New_User_On_Entering_Mandatory_Details() {
-		test.maps_adminpage.clickLeftNavigationPanelOptions("People");
 		test.maps_adminpage.clickLeftNavigationPanelOptions("add user(s)");
 		test.maps_adminpage.enterDetailsToAddNewUserUnderPeople(YamlReader.getYamlValues("Admin.Add_user"));
 		test.maps_adminpage.verifyAccountCreationMessage(YamlReader.getYamlValue("Admin.confimation_msg"));
@@ -166,8 +165,6 @@ public class Maps_Admin_Tests extends BaseTest {
 
 	@Test //pass
 	public void Step_088_MAPS_Admin_80_Verify_Application_Saves_Changes_made_in_Current_Template_section_on_clicking_Save_button() {
-		test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Admin");
-		test.maps_sessionpage.clickButtononLeftNavigationPanel("Select");
 		test.maps_adminpage.clickLeftNavigationPanelOptions("Email");
 		test.maps_sessionpage.clickButtononLeftNavigationPanel("Abstract Payment Confirmation");
 		test.maps_sessionpage.verifyPopUpText("Edit E-mail Template Instructions");
@@ -180,6 +177,9 @@ public class Maps_Admin_Tests extends BaseTest {
 	
 	@Test
 	public void Step_089_MAPS_Admin_81_Verify_Application_Changes_Status_From_Active_To_Inactive_When_User_Checks_Active_Checkbox() {
+		  test.maps_SSOPage.clickOnTabOnUpperNavigationBar("Admin");
+		  test.maps_sessionpage.clickNamedRadioButtonOnRoleSelectionPage("Admin");
+		  test.maps_sessionpage.clickButtononLeftNavigationPanel("Select");
 		  test.maps_adminpage.clickLeftNavigationPanelOptions("Email");
 		  statusRoleName = test.maps_adminpage.checkActiveCheckboxOfTemplate();
 		  test.maps_adminpage.clickNamedButtonImage("update_status");
@@ -241,15 +241,15 @@ public class Maps_Admin_Tests extends BaseTest {
 		test.maps_adminpage.clickLeftNavigationPanelOptions("Abstract search");
 		String first_name=test.maps_adminpage.getFirstNameOfUser();
 		test.maps_adminpage.enterSearchTermForAbstractSearch(first_name);
-		test.maps_adminpage.clickOnSearchButton();
-		test.maps_adminpage.clickOnTitleOfSearchTerm(first_name);
+		test.maps_adminpage.clickNamedButtonImage("search");
+		test.maps_adminpage.clickOnTitleOfSearchTerm();
 		test.maps_adminpage.clickOnEditTitleButton();
 		test.maps_adminpage.enterTitleDetails(YamlReader.getYamlValue("Admin.title"));
 		test.maps_submissionPage.clickOnSaveAndContinueButton();
 		test.maps_adminpage.clickOnFinishButton();
 		test.maps_adminpage.verifyTitleIsEdited(YamlReader.getYamlValue("Admin.title"));
 	
-	}
+	}*/
 		
 	@Test
 	public void Step_171_MAPS_Admin_164_Verify_Application_Changes_Status_Of_Abstract_To_AuthorWithdraw_When_Click_On_Withdraw() {
@@ -259,7 +259,7 @@ public class Maps_Admin_Tests extends BaseTest {
 		test.maps_adminpage.clickLeftNavigationPanelOptions("Abstract search");
 		String first_name=test.maps_adminpage.getFirstNameOfUser();
 		test.maps_adminpage.enterSearchTermForAbstractSearch(first_name);
-		test.maps_adminpage.clickOnSearchButton();
+		test.maps_adminpage.clickNamedButtonImage("search");
 		String abstractID=test.maps_adminpage.getAbstractID();
 		test.maps_adminpage.clickOnWithdrawLink();	
 		test.maps_adminpage.verifyStatusOnAbstractInSearchTableAfterWithdraw();
@@ -275,7 +275,7 @@ public class Maps_Admin_Tests extends BaseTest {
 		test.maps_adminpage.clickLeftNavigationPanelOptions("Abstract search");
 		String first_name=test.maps_adminpage.getFirstNameOfUser();
 		test.maps_adminpage.enterSearchTermForAbstractSearch(first_name);
-		test.maps_adminpage.clickOnSearchButton();
+		test.maps_adminpage.clickNamedButtonImage("search");
 		String abstractID=test.maps_adminpage.getAbstractIDOfUnwithdraw();
 		test.maps_adminpage.clickOnUnwithdrawLink();
 		test.maps_adminpage.verifyStatusOnAbstractInSearchTableAfterUnwithdraw();
@@ -303,8 +303,8 @@ public class Maps_Admin_Tests extends BaseTest {
 			test.maps_adminpage.clickLeftNavigationPanelOptions("Abstract search");
 			String first_name=test.maps_adminpage.getFirstNameOfUser();
 			test.maps_adminpage.enterSearchTermForAbstractSearch(first_name);
-			test.maps_adminpage.clickOnSearchButton();
-			test.maps_adminpage.clickOnTitleOfSearchTermWithDraftStatus("Draft");
+			test.maps_adminpage.clickNamedButtonImage("search");
+			test.maps_adminpage.clickOnTitleOfSearchTermWithDraftStatus();
 			test.maps_adminpage.verifyFinishNotDisplay();	
 		}
 

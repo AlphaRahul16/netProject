@@ -27,6 +27,7 @@ public class Maps_Review_Test extends BaseTest {
 
 	@BeforeClass
 	public void Start_Test_Session() {
+		System.out.println("in before class");
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		maps_url = YamlReader.getYamlValue("MAPS_Url");
 	}
@@ -177,6 +178,7 @@ public class Maps_Review_Test extends BaseTest {
 		test.maps_sessionpage.clickOnDropdownOnReviewScoreReport("Found In");
 		test.maps_reviewpage.selectvalueFromDropdown("Decision");
 	}
+
 
 //	@Test //passed
 //	public void MAPS_Review_Admin_42_Verify_that_application_uploads_file_when_user_clicks_on_Import_button() {

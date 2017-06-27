@@ -7,7 +7,7 @@ rad_ACSid                                    xpath                              
 rad_LNMemNo                                  xpath                                     //input[contains(@id,'Login1')]
 rad_LNNoticeNo                               xpath                                     //input[contains(@id,'Login0')]
 inp_userName_lastName                        xpath                                     //input[contains(@id,'Credential1')]
-inp_password_mem_notice                      css                                       label-password>input
+inp_password_mem_notice                      css                                       .input-password
 btn_verify                                   xpath                                     //input[contains(@id,'btnLogin')]
 txt_loginErrorMessage                        xpath                                     //span[contains(@id,'lblMessage')]
 hdng_welcome                                 id                                        welcome-msg

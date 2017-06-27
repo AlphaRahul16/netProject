@@ -83,7 +83,6 @@ lstbox_Themes							xpath								//span[contains(text(),'${label}')]/parent::lab
 row_withdraw							xpath								//font[contains(text(),'${fontText}')]/following-sibling::u[contains(text(),'${text}')]
 input_popup								xpath								(//label[contains(text(),'${label}')]/parent::td/following-sibling::td/..//input)[${index}]
 btn_lnkTxt								xpath								//label[contains(text(),'${text}')]/parent::td/following-sibling::td/..//a[text()='${linkText}']
-img_processbar							xpath								//div[contains(@class,'progress-bar')]
 txt_rowData                             xpath                               //div[contains(@class,'x-grid3-col-F_SORT_FIELD')]/..
 inp_assignDuration						xpath								//label[contains(.,'${text}')]/../following-sibling::td//input[@type='text']
 txt_linkEmail							xpath								//td[contains(@class,'${className}')]//u
@@ -101,6 +100,11 @@ select_presentationType                 id                                  ${dr
 select_symposiumType                    css                                 #symposia_title_combobox>option:nth-child(2)
 txt_filterData                          xpath                               (//img[contains(@class,'x-menu-item-icon')]/..//div//input)[${index}]
 input_editableColumnindex               xpath                               (//div[contains(@class,'x-grid3-col-${columnName}')])[${index}]
+txt_displayedCol						xpath								//a[contains(@class,'x-menu-checked')]
+select_presentationType                 id                                  ${dropdownType}_combobox
+select_symposiumType                    css                                 #symposia_title_combobox>option:nth-child(2)
+txt_filterData                          xpath                               (//img[contains(@class,'x-menu-item-icon')]/..//div//input)[${index}]
+txt_displayedCol						xpath								//a[contains(@class,'x-menu-checked')]
 btn_Types                               xpath    							//button[contains(text(),'${text}')]
 btn_cancel                              xpath                               //div[@class='x-plain-bwrap']//td[${index}]//table
 txt_EditLink							xpath								//div[contains(text(),'${value}')]/../preceding-sibling::td//span
@@ -111,4 +115,5 @@ table_dropLocation						xpath								(.//div[@class='x-window-ml']//div[@class='
 chkbox_email							xpath								//u[text()='${email}']/../../../preceding-sibling::td//div[contains(@class,'row-checker')]
 lnk_ControlId							xpath								//u[contains(text(),'${text}')]/../../../following-sibling::td[contains(@class,'${classname}')]
 options_roles							xpath							    //label[contains(text(),'${text}')]/following-sibling::div//div[contains(@class,'${className}')]
-==============================================================================================================================================================================
+txt_hostData                            xpath                               //td[contains(@class,'x-grid3-td-${label}')]//u[contains(text(),'${value}')]
+=================================================================================================================================================================================

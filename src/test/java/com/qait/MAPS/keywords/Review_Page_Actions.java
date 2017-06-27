@@ -7,6 +7,8 @@ import org.testng.Assert;
 
 import com.itextpdf.text.log.SysoCounter;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.qait.automation.utils.DataProvider;
+import com.qait.automation.utils.YamlReader;
 
 public class Review_Page_Actions extends ASCSocietyGenericPage {
 
@@ -266,6 +268,45 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 			verifyButton(btnName);
 		}
 	}
+	
+	public String create_Abstract_As_Prerequisite() {
+		String programName,absract_id;
+		String abstract_details = "Test_Abstract" + System.currentTimeMillis();
+		SSO_Page_Actions obj_SSOPage= new SSO_Page_Actions(driver);
+		Submission_Page_Actions obj_submissionPage= new Submission_Page_Actions(driver);
+	    obj_SSOPage.clickOnTabOnUpperNavigationBar("Submission");
+		obj_SSOPage.verifyUserIsOnTabPage("Submission");
+		obj_submissionPage.clickOnNamedButton("Create New Submission");
+		programName=DataProvider
+				.getRandomSpecificLineFromTextFile("MapsProgramArea").trim();
+		obj_submissionPage.selectRansdomActiveSubmissionProgram(programName);
+		obj_submissionPage.clickOnContinueButtonOnProgramArea();
+
+		obj_submissionPage.clickOnPopUpContinueButtonOnSelectingProgramArea("Continue With This Type");
+		obj_submissionPage.submitTitleAndBodyDetails(abstract_details, abstract_details);
+		obj_submissionPage.clickOnSaveAndContinueButton();
+		
+		obj_submissionPage.submitDetailsOnSelectSymposiumPage(
+				YamlReader.getYamlValue("Submission_Symposium_Step.presentation_type"),
+				YamlReader.getYamlValue("Submission_Symposium_Step.scimix_value"));
+		obj_submissionPage.clickOnSaveAndContinueButton();
+		obj_submissionPage.verifyPageHeaderForASection("Authors");
+		obj_submissionPage.clickOnSaveAndContinueButton();
+
+		obj_submissionPage.verifyPageHeaderForASection("Disclosures");
+		obj_submissionPage.clickOnLinkUnderCreateNewSubmission("Disclosures");
+		obj_submissionPage.verifyPageHeaderForASection("Disclosures");
+		obj_submissionPage.enterDetailsInDisclosuresSection();
+		obj_submissionPage.clickOnSaveAndContinueButton();
+		obj_submissionPage.verifyPageHeaderForASection("Review & Submit");
+		obj_submissionPage.verifyAllStepsAreCompleteOnReviewAndSubmitPage(5);
+		obj_submissionPage.clickOnSubmitButton();
+
+		obj_submissionPage.verifySuccessAlertMessage(YamlReader.getYamlValue("Success_alert_msg"));
+		absract_id = obj_submissionPage.getIDofAbstract("subs", abstract_details, "1", "ID");
+		return absract_id;
+	}
+
 
 	public void verifyGridConfigurationDropdownNotDisplayed(String lbl_name) {
 		isElementDisplayed("inp_greyoutedField");
