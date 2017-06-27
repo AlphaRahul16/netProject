@@ -222,7 +222,6 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 	public String selectExistingConfigurationFromGridConfigurationDropdown(int dropdownIndex,int dropdwonValueIndex) {
 		wait.hardWait(2);
 		isElementDisplayed("img_dropdown");
-		System.out.println("--------#####:"+dropdownIndex);
 		clickUsingXpathInJavaScriptExecutor(elements("img_dropdown").get(dropdownIndex));
 //		elements("img_dropdown").get(dropdownIndex).click();
 		logMessage("STEP: Clicked on grid config drop down");
@@ -266,6 +265,25 @@ public class Review_Page_Actions extends ASCSocietyGenericPage {
 		for (String btnName : btnOnCreateSession) {
 			verifyButton(btnName);
 		}
+	}
+
+	public void verifyGridConfigurationDropdownNotDisplayed(String lbl_name) {
+		isElementDisplayed("inp_greyoutedField");
+		Assert.assertTrue(checkIfElementIsThere("inp_greyoutedField"),"ASSERT FAILED: "+ lbl_name + " is displayed \n");
+		logMessage("ASSERT PASSED: " + lbl_name + " is not displayed \n");	
+	}
+
+	public void clickOnlinkOnGridCongirationPopup(String linkTxt, String popupHeading) {
+		isElementDisplayed("link_editInstruction", linkTxt, popupHeading);
+		clickUsingXpathInJavaScriptExecutor(element("link_editInstruction", linkTxt, popupHeading));
+		wait.hardWait(2);
+		logMessage("STEP: " + linkTxt + " is clicked \n");
+	}
+
+	public void selectvalueFromDropdown(String value) {
+		isElementDisplayed("lstItm_drpdwn", value);
+		clickUsingXpathInJavaScriptExecutor(element("lstItm_drpdwn", value));
+		logMessage("STEP: " + value + " is selected \n");
 	}
 
 }

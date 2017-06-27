@@ -27,7 +27,9 @@ Submission_draft_Options: Select ...,Edit Draft,View Emails
 Submission_withdraw_Reason: Selenium Test Withdraw
 
 Review:
-  GridConfigName: "Test"
+  GridConfigName: "Test_gridconfig"
+  search_decision: "Accept"
+  delete_msg_gridConfig: "This will delete an existing saved grid view. Are you sure?"
   downloaded_templateFile: "decision_template"
   decision: ",Reject"
   

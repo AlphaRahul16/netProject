@@ -1,7 +1,7 @@
 Page Title: MAPS_Review_Page
 
 #Object Definitions
-======================================================================================================================================
+======================================================================================================================================================================
 txt_header							xpath							//h2[contains(text(),'${header}')]
 radiobtn_role						xpath							//span[contains(text(),'${role}')]/preceding-sibling::input
 btn_select							xpath							//a[contains(text(),'${text}')]
@@ -26,4 +26,7 @@ list_gripConfig						xpath							//div[contains(@class,'combo-list-item')]
 dropdown_sessionDetailType			xpath							//label[contains(text(),'${labelText}')]/following-sibling::div/img
 txt_sucessMsg						xpath							//p[contains(text(),'${msg}')]
 inp_gridConfig						xpath							//tr[@role='presentation']//input[contains(@id,'input')]
-======================================================================================================================================
+inp_greyoutedField					xpath							//input[contains(@class,'empty-field')]
+link_editInstruction				xpath							//p[contains(text(),'${linktxt}')]/ancestor::div//span[contains(text(),'${heading}')]
+lstItm_drpdwn						xpath							//div[contains(@class,'combo-list-item') and text()='${value}']
+=============================================================================================================================================================================
