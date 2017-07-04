@@ -426,23 +426,20 @@ public class ASM_MGMPage extends GetPage {
 	}
 
 	public void clickOnlogoutButton(String logoutUrl) {
-		// if
-		// (ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage2")
-		// ||
-		// ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage8")
-		// || ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("dev9"))
-		// {
-		wait.waitForPageToLoadCompletely();
-		isElementDisplayed("btn_myAccount");
-		click(element("btn_myAccount"));
-		isElementDisplayed("link_applyACSmembership", "Log Out");
-		clickUsingXpathInJavaScriptExecutor(element("link_applyACSmembership", "Log Out"));
-		wait.waitForPageToLoadCompletely();
-		logMessage("STEP: Log out button is clicked \n");
-		// } else {
-		// launchUrl(logoutUrl);
-		// logMessage("STEP: Log out URL is launched \n");
-		// }
+		if (ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage2")
+				|| ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage8")
+				|| ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("dev9")) {
+			wait.waitForPageToLoadCompletely();
+			isElementDisplayed("btn_myAccount");
+			click(element("btn_myAccount"));
+			isElementDisplayed("link_applyACSmembership", "Log Out");
+			clickUsingXpathInJavaScriptExecutor(element("link_applyACSmembership", "Log Out"));
+			wait.waitForPageToLoadCompletely();
+			logMessage("STEP: Log out button is clicked \n");
+		} else {
+			launchUrl(logoutUrl);
+			logMessage("STEP: Log out URL is launched \n");
+		}
 	}
 
 }

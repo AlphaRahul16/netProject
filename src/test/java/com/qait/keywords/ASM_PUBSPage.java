@@ -351,6 +351,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 
 	public void selectCreditCardType(String cardType) {
 		isElementDisplayed("list_cardType");
+		System.out.println("cardType******"+cardType);
 		selectProvidedTextFromDropDown(element("list_cardType"), cardType);
 	}
 
