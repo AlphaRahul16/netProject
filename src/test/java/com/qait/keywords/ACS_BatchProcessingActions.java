@@ -293,6 +293,7 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 
 	public void verifyRefundDetails(ArrayList<String> refundInfo, String type) {
 		wait.hardWait(2);
+		System.out.println("-------refundInfo:"+refundInfo);
 		for (WebElement ele : elements("tbl_RefundTotal", type)) {
 			System.out.println(ele.getText().trim());
 			Assert.assertTrue(refundInfo.contains(ele.getText().trim()),

@@ -194,7 +194,7 @@ public class Membership_Renewal_Test extends BaseTest {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
 		mapMemberShipRenewal = YamlReader.getYamlValues("MemberShipRenewal");
 		getMemRenewalInfo = new YamlInformationProvider(mapMemberShipRenewal);
-		app_url_IWEB = getYamlValue("app_url_IwebReporting");
+		app_url_IWEB = getYamlValue("app_url_IWEB");
 		test.launchApplication(app_url_IWEB);
 
 	}
