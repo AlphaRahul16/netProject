@@ -1,5 +1,4 @@
 #app_url_IWEB: https://stag-12eweb1/NFStage4/iweb/
-#app_url_AACT: https://www.ewebtest12.acs.org/NFStage4/eweb/AACTOMATemplate.aspx?Site=AACT_OMA&WebCode=CreateAccount
 app_url_IWEB: https://iwebtest.acs.org/NFStage4/iweb
 app_url_yellowBook: https://www.ewebtest.acs.org/NFStage4/yellowbook
 app_url_iweb_yb: https://iwebtest.acs.org/YBStage3/iWeb
@@ -21,7 +20,7 @@ app_url_Meeting: https://ewebtest.acs.org/NFStage4/meetings/2012gcec
 app_url_Nominate: https://www.ewebtest.acs.org/NFStage4/nominate
 app_url_MemberNumberLookup: https://www.ewebtest.acs.org/NFStage4/membernumberlookup
 app_url_NCW: https://www.ewebtest.acs.org/NFStage4/ncwlookup
-app_url_IwebReporting: https://stag-12iweb/NFStage4/iweb
+app_url_IWEB: https://stag-12iweb/NFStage4/iweb
 app_url_PUBS: https://www.ewebtest.acs.org/NFStage4/pba
 app_url_EwebReporting: https://www.ewebtest.acs.org/NFStage4/studentchaptersonline
 app_url_Awards: https://www.ewebtest.acs.org/NFStage4/awards
@@ -29,7 +28,6 @@ app_url_ScarfReviewing: https://www.ewebtest.acs.org/NFStage4/studentchaptersrev
 app_url_MyAccount: https://aemwwwtst.acs.org/content/acs/en.html
 app_url_IwebMyAccount: https://stag-12iweb/NFStage4/iweb
 app_url_MyAccountNewUser: https://accounttest.acs.org/ssoamweb/account/signUp
-#app_url_AACT_OMR: https://www.ewebtest.acs.org/NFStage4/aactomr
 app_url_AACT_OMR: https://www.renewtest.teachchemistry.org/NFStage4/aactomr
 app_url_SourceCodeOMA: https://www.jointest.acs.org/NFStage4/oma?sc=
 app_url_MGMUrl: https://www.ewebtest.acs.org/NFStage4/mgm
@@ -38,6 +36,6 @@ app_url_MGMOputOut: https://www.ewebtest.acs.org/NFStage4/eweb/ACSMGMTemplate.as
 app_url_MGMLogout: https://www.ewebtest.acs.org/NFStage4/eweb/acslogout.aspx
 
 Authentication: 
-  userName: C00767
-  password: "Ih99785b*"
+  userName: C00839
+  password: "Tm58406*t"
   emailId: "K_Sharma@acs.org"
