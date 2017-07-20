@@ -39,6 +39,7 @@ csv-data-file:
   path_PBA_Datasheet: ./src/test/resources/TestDataLibrary/PBA_Datasheet.csv
   path_AutoRenewal_OMR:   ./src/test/resources/TestDataLibrary/AutoRenewalSelectionOMR.csv
   path_Inventory_Product_Fulfillment: ./src/test/resources/TestDataLibrary/Inventory_Product_Fulfillment.csv
+  path_Subscription_Fulfillment: ./src/test/resources/TestDataLibrary/Subscription_Fulfillment.csv
   
   data-separator: '\t'
   has-header: true

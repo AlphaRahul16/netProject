@@ -8,9 +8,11 @@ import java.util.Map;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 import com.qait.keywords.YamlInformationProvider;
@@ -22,15 +24,24 @@ public class Subscription_Fulfillment_Test extends BaseTest{
 	Map<String, Object> mapSubscriptionFulfillment;
 	static String taskStartTime, commitStartTime;
 	List<String> memberDetails;
-	String cardNumber, paymentMethod, expireDate, cvvNumber, checkNumber;
-	
+	private String batchprefix = "ACS: ";
+
+	// String cardNumber, paymentMethod, expireDate, cvvNumber, checkNumber;
+	public Subscription_Fulfillment_Test() {
+		com.qait.tests.DataProvider_FactoryClass.sheetName = "Subscription_Fulfillment";
+	}
+
+	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
+	public Subscription_Fulfillment_Test(String caseID) {
+		this.caseID = caseID;
+	}
+
 	@Test
 	public void Step00_Launch_Application_Under_Test() {
-		test.homePageIWEB.enterAuthentication(
-				YamlReader.getYamlValue("Authentication.userName"),
+		System.out.println("payment type*************" + ASCSocietyGenericPage.map().get("Payment_Type"));
+		test.homePageIWEB.enterAuthentication(YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
-		test.homePageIWEB
-				.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
+		test.homePageIWEB.verifyUserIsOnHomePage("CRM | Overview | Overview and Setup");
 	}
 
 	@Test(dependsOnMethods="Step00_Launch_Application_Under_Test")
@@ -50,12 +61,25 @@ public class Subscription_Fulfillment_Test extends BaseTest{
 		subscriptionName = test.memberShipPage
 				.addSubscriptionInOrderEntry(getSubscriptionInfo
 						.getSubscriptionInfo("productCode"));
-		test.memberShipPage.selectBatchAndPaymentDetails_subscription(
-				getSubscriptionInfo.getSubsFul_cenOrdEntry("batch"),
-				getSubscriptionInfo.getSubsFul_cenOrdEntry("paymentType"),
-				paymentMethod, cardNumber, expireDate, cvvNumber, checkNumber
-
-		);
+		
+		test.memberShipPage.selectAndAddBatchIFNotPresent(
+				batchprefix + ASCSocietyGenericPage.map().get("Batch_Name?") + System.currentTimeMillis(),
+				ASCSocietyGenericPage.map().get("Payment_Type"), ASCSocietyGenericPage.map().get("Payment_Method"));
+		
+		test.memberShipPage.fillAllTypeOFPaymentDetails(ASCSocietyGenericPage.map().get("Payment_Method"),
+				ASCSocietyGenericPage.map().get("Visa_Card_Number"),
+				ASCSocietyGenericPage.map().get("Diners_Card_Number"),
+				ASCSocietyGenericPage.map().get("Reference_Number"),
+				ASCSocietyGenericPage.map().get("Discover_Card_Number"),
+				ASCSocietyGenericPage.map().get("AMEX_Card_Number"), ASCSocietyGenericPage.map().get("Expiry_Date"),
+				ASCSocietyGenericPage.map().get("CVV_Number"), ASCSocietyGenericPage.map().get("Check_Number"));
+		test.memberShipPage.navigateToCRMPageByClickingSaveAndFinish();
+//		test.memberShipPage.selectBatchAndPaymentDetails_subscription(
+//				getSubscriptionInfo.getSubsFul_cenOrdEntry("batch"),
+//				getSubscriptionInfo.getSubsFul_cenOrdEntry("paymentType"),
+//				paymentMethod, cardNumber, expireDate, cvvNumber, checkNumber
+//
+//		);
 		test.homePageIWEB.GoToSubscriptionModule();
 	}
 
@@ -174,9 +198,6 @@ public class Subscription_Fulfillment_Test extends BaseTest{
 				memberDetails.get(1), subscriptionName);
 	}
 
-	/**
-	 * Following methods are to setup and clean up the tests
-	 */
 	@BeforeClass
 	public void Open_Browser_Window() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
@@ -184,18 +205,19 @@ public class Subscription_Fulfillment_Test extends BaseTest{
 				.getYamlValues("SubscriptionFulfillment");
 		getSubscriptionInfo = new YamlInformationProvider(
 				mapSubscriptionFulfillment);
+		ASCSocietyGenericPage.addValuesInMap("Subscription_Fulfillment", caseID);
 		app_url_IWEB = getYamlValue("app_url_IWEB");
 		test.launchApplication(app_url_IWEB);
-		cardNumber = YamlReader
-				.getYamlValue("SubscriptionFulfillment.centralizedOrderEntry.paymentMethodVisaMC.cardNumber");
-		expireDate = YamlReader
-				.getYamlValue("SubscriptionFulfillment.centralizedOrderEntry.paymentMethodVisaMC.expireDate");
-		cvvNumber = YamlReader
-				.getYamlValue("SubscriptionFulfillment.centralizedOrderEntry.paymentMethodVisaMC.cvvNumber");
-		paymentMethod = YamlReader
-				.getYamlValue("SubscriptionFulfillment.centralizedOrderEntry.PaymentMethod.Select");
-		checkNumber = YamlReader
-				.getYamlValue("SubscriptionFulfillment.centralizedOrderEntry.paymentMethodBOACheck.checkNumber");
+//		cardNumber = YamlReader
+//				.getYamlValue("SubscriptionFulfillment.centralizedOrderEntry.paymentMethodVisaMC.cardNumber");
+//		expireDate = YamlReader
+//				.getYamlValue("SubscriptionFulfillment.centralizedOrderEntry.paymentMethodVisaMC.expireDate");
+//		cvvNumber = YamlReader
+//				.getYamlValue("SubscriptionFulfillment.centralizedOrderEntry.paymentMethodVisaMC.cvvNumber");
+//		paymentMethod = YamlReader
+//				.getYamlValue("SubscriptionFulfillment.centralizedOrderEntry.PaymentMethod.Select");
+//		checkNumber = YamlReader
+//				.getYamlValue("SubscriptionFulfillment.centralizedOrderEntry.paymentMethodBOACheck.checkNumber");
 
 	}
 	@BeforeMethod

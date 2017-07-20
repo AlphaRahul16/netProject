@@ -144,7 +144,7 @@ public class ACS_MGM_Test extends BaseTest {
 		test.launchApplication(app_url_MGMUrl);
 		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
 		test.asm_MGM.verifyNomineeStatus(StatusOnEweb.get(1), uniqueEmail);
-		// test.asm_MGM.clickOnlogoutButton(app_url_MGMLogout);
+		test.asm_MGM.clickOnlogoutButton(app_url_MGMLogout);
 		// test.launchApplication(IWEBurl);
 		test.memberShipPage.verifyNomineeStatusOnIWEB(IWEBurl, StatusOnIweb.get(1), uniqueEmail,
 				ASCSocietyGenericPage.map().get("MGM_FNAME").trim(),
