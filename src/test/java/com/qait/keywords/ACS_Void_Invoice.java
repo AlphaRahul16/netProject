@@ -259,7 +259,8 @@ public class ACS_Void_Invoice extends ASCSocietyGenericPage {
 	public void clickOnGotoCreditRecord(String batchName) {
 
 		isElementDisplayed("btn_gotoCreditRecord",batchName);
-		element("btn_gotoCreditRecord",batchName).click();
+//		element("btn_gotoCreditRecord",batchName).click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_gotoCreditRecord",batchName));
 		logMessage("STEP : Goto Record is clicked for "+batchName);
 	}
 

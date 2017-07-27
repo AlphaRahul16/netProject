@@ -4834,7 +4834,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			addBatch(batchName.replaceAll("ACS: ", ""), "QA");
 		}
 		waitForSpinner();
-		wait.hardWait(3);
+		wait.hardWait(6);
 		selectOrderEntryInfo("PaymentType", paymentType);
 		waitForSpinner();
 		selectOrderEntryInfo("paymentMethod", paymentMethod);

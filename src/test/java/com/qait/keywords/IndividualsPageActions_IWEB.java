@@ -1640,7 +1640,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		Assert.assertTrue(value,"ASSERT FAILED: Current date does not lies between the preference start date and end date\n");
 		logMessage("ASSERT PASSED: Current date lies between the preference start date and end date\n");
 		
-		clickPencilButtonToEditIndividualRecord("ACSYBCommiteePreferenceEndDate");
+//		clickPencilButtonToEditIndividualRecord("ACSYBCommiteePreferenceEndDate");
 		
 		return value;
 	}
