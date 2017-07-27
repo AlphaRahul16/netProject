@@ -191,14 +191,10 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 	public void clickOnTab(String tabName) {
 		hardWaitForIEBrowser(3);
 		isElementDisplayed("link_tabsOnModule", tabName);
-		if (isIEBrowser()|| isBrowser("chrome")) {
-			clickUsingXpathInJavaScriptExecutor(element("link_tabsOnModule",
-					tabName));
-			logMessage("STEP : " + tabName + " tab is clicked\n");
-		} else {
-			element("link_tabsOnModule", tabName).click();
-			logMessage("STEP : " + tabName + " tab is clicked\n");
-		}
+
+		clickUsingXpathInJavaScriptExecutor(element("link_tabsOnModule", tabName));
+		logMessage("STEP : " + tabName + " tab is clicked\n");
+
 	}
 
 	public void clickOnSacrfReportingModule() {

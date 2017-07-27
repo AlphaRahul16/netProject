@@ -87,7 +87,7 @@ public class ACS_MGM_Test extends BaseTest {
 		test.ContactInfoPage.verifyDetailsArePrepopulated();
 	}
 
-	@Test 
+	@Test
 	public void Step03_Activate_The_Membership_On_OMA_And_Invite_New_Member_From_MGM_Scenario2() {
 		test.ContactInfoPage.clickContinue();
 		test.EduAndEmpPage.enterEducationAndEmploymentInformation();
@@ -104,7 +104,7 @@ public class ACS_MGM_Test extends BaseTest {
 		test.launchApplication(app_url_MGMUrl);
 		test.asm_MGM.clickOnlogoutButton(app_url_MGMLogout);
 		test.launchApplication(app_url_MGMUrl);
-		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
+		test.asm_MGM.loginInToApplication(webLogin,getYamlValue("password"));
 		uniqueEmail = test.asm_MGM.submitMemberDetailsToInvite(ASCSocietyGenericPage.map().get("MGM_FNAME").trim(),
 				ASCSocietyGenericPage.map().get("MGM_LNAME").trim(),
 				ASCSocietyGenericPage.map().get("MGM_Email").trim());
@@ -145,7 +145,7 @@ public class ACS_MGM_Test extends BaseTest {
 		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
 		test.asm_MGM.verifyNomineeStatus(StatusOnEweb.get(1), uniqueEmail);
 		test.asm_MGM.clickOnlogoutButton(app_url_MGMLogout);
-		// test.launchApplication(IWEBurl);
+		test.launchApplication(IWEBurl);
 		test.memberShipPage.verifyNomineeStatusOnIWEB(IWEBurl, StatusOnIweb.get(1), uniqueEmail,
 				ASCSocietyGenericPage.map().get("MGM_FNAME").trim(),
 				ASCSocietyGenericPage.map().get("MGM_LNAME").trim());
@@ -244,7 +244,7 @@ public class ACS_MGM_Test extends BaseTest {
 		// test.launchApplication(app_url_MGMLogout);
 	}
 
-	@Test
+	//@Test
 	public void Step12_New_Individual_Joins_ACS_And_Verify_Source_Code_Is_Prepopulated_For_Scenario1_Scenario5() {
 		test.launchApplication(app_url_MGMjoin + app_ID);
 		test.ContactInfoPage.enterContactInformationWithMemberNumber(uniqueEmail, fname, lname, "",
@@ -279,7 +279,6 @@ public class ACS_MGM_Test extends BaseTest {
 		test.asm_MGM.loginInToApplication(webLogin, getYamlValue("password"));
 		test.asm_MGM.verifyNomineeStatus(StatusOnEweb.get(1), uniqueEmail);
 		test.asm_MGM.clickOnlogoutButton(app_url_MGMLogout);
-		// test.launchApplication(app_url_MGMLogout);
 		test.launchApplication(IWEBurl);
 		test.memberShipPage.verifyNominatorDetailsOnIweb(IWEBurl, app_ID,
 				ASCSocietyGenericPage.map().get("Program").trim(), ASCSocietyGenericPage.map().get("Channel").trim(),

@@ -42,14 +42,15 @@ public class ASM_MGMPage extends GetPage {
 
 	public void loginInToApplication(String userName, String password) {
 		wait.waitForPageToLoadCompletely();
-//		try {
+		try {
 			clickOnLoginLink();
-//		} catch (NoSuchElementException e) {
-//			logMessage("[Info]: login link is not appears \n");
-//		}
-		enterUserName(userName);
-		enterPassword(password);
-		clickOnLoginButton();
+			enterUserName(userName);
+			enterPassword(password);
+			clickOnLoginButton();
+		} catch (NoSuchElementException e) {
+			logMessage("[Info]: login link is not appears \n");
+		}
+		
 	}
 
 	public void enterUserName(String userName) {
@@ -428,7 +429,7 @@ public class ASM_MGMPage extends GetPage {
 	public void clickOnlogoutButton(String logoutUrl) {
 		if (ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage2")
 				|| ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage8")
-				|| ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("dev9")) {
+				|| ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("stage4")) {
 			wait.waitForPageToLoadCompletely();
 			isElementDisplayed("btn_myAccount");
 			click(element("btn_myAccount"));

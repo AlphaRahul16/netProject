@@ -77,7 +77,7 @@ public class ACS_CCED_NCW_MemberNumberLookup_Test extends BaseTest {
 		System.out.println("----case id:"+caseID);
 		test.launchApplication(test.asm_CCEDPage.map().get("Application URL")
 				.replaceAll("Stage7", ConfigPropertyReader.getProperty("tier")));
-		test.asm_CCEDPage.verifyPageTitle("Chemists Celebrate Earth Day");
+		test.asm_CCEDPage.verifyPageTitle("Chemists Celebrate Earth Week");
 		test.asm_CCEDPage
 				.selectSearchTypeAndNavigateToCoordinator(test.asm_CCEDPage
 						.map().get("searchMethod"));
