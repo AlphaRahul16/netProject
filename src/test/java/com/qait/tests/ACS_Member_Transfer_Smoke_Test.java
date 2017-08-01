@@ -219,9 +219,10 @@ public class ACS_Member_Transfer_Smoke_Test extends BaseTest{
 
 	@Test(dependsOnMethods = "Step01_TC01_launch_Iweb_And_Fetch_Member_Details_Before_Transfer")
 	public void Step03_TC03_Match_Before_Data_With_After_Data_According_To_Mentioned_Criteria() {
-		/* resultList = */test.memberShipPage.matchBeforeDataWithAfterDataAccordingToMentionedCriteria(BeforeList,
-				AfterList, dataList, custId);
-		// test.memberShipPage.verifyResultListData(resultList);
+//		resultList = 
+		test.memberShipPage.matchBeforeDataWithAfterDataAccordingToMentionedCriteria(BeforeList,AfterList, dataList, custId);
+//		 test.memberShipPage.verifyResultListData(resultList);
+		
 	}
 
 }
