@@ -20,4 +20,5 @@ link_applyACSmembership								xpath									//a[contains(text(),'${text}')]
 link_pages											xpath									.//*[@id='gvNominee']//table//td/a
 lbl_nomineeEmail										id										lblNomEmail
 btn_myAccount										id											myAccountButton
+lbl_CustomerServiceText 							xpath									//span[contains(@id,'lblCustomerServiceText')]
 =====================================================================================================================================

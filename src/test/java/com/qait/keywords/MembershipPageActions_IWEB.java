@@ -133,7 +133,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void clickOnSideBar(String tabName) {
-		hardWaitForIEBrowser(10);
+		hardWaitForIEBrowser(4);
 		isElementDisplayed("hd_sideBar", tabName);
 		clickUsingXpathInJavaScriptExecutor(element("hd_sideBar", tabName));
 		logMessage("STEP : Click on side bar for tab " + tabName + " at hd_sideBar\n");
@@ -4687,12 +4687,10 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		handleAlert();
 		expandDetailsMenuIfAlreadyExpanded("my acs nominations");
 		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy", "EST5EDT");
-		// String currentDate =
-		// DateUtil.getCurrentdateInStringWithGivenFormate("M/d/yyyy");
 		hardWaitForIEBrowser(4);
 		verifyMembershipTypeForAACTOMR(email, "2", fname, "First Name");
 		verifyMembershipTypeForAACTOMR(email, "1", lname, "Last Name");
-		verifyDetailsForAACTOMR(currentDate, email, "1", "Invitation Date");
+		//verifyDetailsForAACTOMR(currentDate, email, "1", "Invitation Date");
 		verifyDetailsForAACTOMR(status, email, "2", "Status");
 
 	}
@@ -4802,7 +4800,11 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				+ DateUtil.getAnyDateForType("MM/dd/yyyy", +3, "year"));
 	}
 
-	public String getDefaultSourceCodeForMGM(String country) {
+	public String getDefaultSourceCodeForMGM(String tabname,String country) {
+		if(!checkIfElementIsThere("label_profile_title",tabname)){
+			clickOnSideBar("More");
+			clickOnSideBar(tabname);
+		}
 		String sourceCode = "";
 		System.out.println("country " + country);
 		expandDetailsMenu("acs membership application program default source code");
@@ -5419,6 +5421,22 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 				individualDates.get("EffectiveDate").toString(), "MM/dd/yyyy"), 5, "Effective date");
 		verifyTerminateDateIsCurrentDate(newChpName, DateUtil.convertStringToParticularDateFormat(
 				individualDates.get("ExpireDate").toString(), "MM/dd/yyyy"), 6, "Expire date");
+	}
+
+	public String getConfigurableTextFromIweb(String tabname, String menuName,String title) {
+		if(!checkIfElementIsThere("label_profile_title",tabname)){
+			clickOnSideBar("More");
+			clickOnSideBar(tabname);
+		}
+		expandDetailsMenuIfAlreadyExpanded(menuName);
+		return _getConfigText(title);
+	}
+
+	private String _getConfigText(String title) {
+		isElementDisplayed("txt_payments", title, "1");
+		String text = element("txt_payments", title, "1").getText().trim();
+		logMessage("STEP:" + title + " is fetched as " + text + "\n");
+		return text;
 	}
 
 }
