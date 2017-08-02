@@ -20,7 +20,6 @@ app_url_Meeting: https://ewebtest.acs.org/NFStage4/meetings/2012gcec
 app_url_Nominate: https://www.ewebtest.acs.org/NFStage4/nominate
 app_url_MemberNumberLookup: https://www.ewebtest.acs.org/NFStage4/membernumberlookup
 app_url_NCW: https://www.ewebtest.acs.org/NFStage4/ncwlookup
-app_url_IWEB: https://stag-12iweb/NFStage4/iweb
 app_url_PUBS: https://www.ewebtest.acs.org/NFStage4/pba
 app_url_EwebReporting: https://www.ewebtest.acs.org/NFStage4/studentchaptersonline
 app_url_Awards: https://www.ewebtest.acs.org/NFStage4/awards
@@ -34,6 +33,7 @@ app_url_MGMUrl: https://www.ewebtest.acs.org/NFStage4/mgm
 app_url_MGMjoin: https://www.jointest.acs.org/NFStage4/oma?appID=
 app_url_MGMOputOut: https://www.ewebtest.acs.org/NFStage4/eweb/ACSMGMTemplate.aspx?site=ACS_MGM&WebCode=optout&appID=
 app_url_MGMLogout: https://www.ewebtest.acs.org/NFStage4/eweb/acslogout.aspx
+app_url_IwebReporting: https://stag-12iweb/NFStage4/iweb
 
 Authentication: 
   userName: C00767
