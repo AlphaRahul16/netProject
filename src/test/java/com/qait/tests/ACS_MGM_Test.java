@@ -317,6 +317,7 @@ public class ACS_MGM_Test extends BaseTest {
 	public void Step18_Verify_All_Invitees_On_MGM_And_IWEB_For_Scenario6() {
 		test.asm_MGM.verifythatAllInviteesExistOnMGM(uniqueEmails, StatusOnEweb.get(0));
 		test.launchApplication(IWEBurl);
+		test.launchApplication(IWEBurl);
 		test.memberShipPage.verifythatAllInviteesExistOnIWEB(uniqueEmails, StatusOnIweb.get(0));
 	}// end of scenario6
 

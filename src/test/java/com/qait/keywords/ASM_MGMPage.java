@@ -390,7 +390,8 @@ public class ASM_MGMPage extends GetPage {
 	public void clickOnlogoutButton(String logoutUrl) {
 		if (ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage2")
 				|| ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage8")
-				|| ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("stage4")) {
+				|| ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("stage4")
+				|| ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("stage7")) {
 			wait.waitForPageToLoadCompletely();
 			isElementDisplayed("btn_myAccount");
 			click(element("btn_myAccount"));

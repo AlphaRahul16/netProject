@@ -726,17 +726,17 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 	}
 
 	public void enterPaymentInformation_OMAForAllPaymentTypes() {
-	    String paymentMethod;
 		wait.waitForPageToLoadCompletely();
 		wait.hardWait(8);
-		selectPaymentInfo("CreditCardType", map().get("Payment_Method"));
-		paymentMethod=map().get("Payment_Method");
-		enterPaymentInfo("CreditCardNumber", map().get(paymentMethod+"_Card_Number"));
+		String paymentMethod=map().get("Payment_Method").trim();
+		System.out.println("%%%%%%" + map().get(paymentMethod+"_Card_Number").trim());
+		selectPaymentInfo("CreditCardType", paymentMethod);		
+		enterPaymentInfo("CreditCardNumber", map().get(paymentMethod+"_Card_Number").trim());
 		wait.hardWait(4);
-		selectPaymentInfo("ExpirationMonth", map().get("Expiry_Month"));
+		selectPaymentInfo("ExpirationMonth", map().get("Expiry_Month").trim());
 		wait.hardWait(4);
-		selectPaymentInfo("ExpirationYear", map().get("Expiry_Year"));
-		enterPaymentInfo("CcvNumber", map().get("CVV_Number"));
+		selectPaymentInfo("ExpirationYear", map().get("Expiry_Year").trim());
+		enterPaymentInfo("CcvNumber", map().get("CVV_Number").trim());
 
 	}
 

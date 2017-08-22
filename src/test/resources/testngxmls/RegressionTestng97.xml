@@ -1,0 +1,128 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ACS Tests" preserve-order="true" thread-count="1"
+	parallel="tests">
+
+	<test name="ACS_AddressChangeTermsInvoice_Test"
+		group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_AddressChangeTermsInvoice_Test"></class>
+		</classes>
+	</test>
+	<test name="ACS Rubber Insurance Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_Rubber_Insurance_Test"></class>
+		</classes>
+	</test>
+	<test name="ACS AutoRenewal" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_AutoRenewalSelectionOMR"></class>
+		</classes>
+	</test>
+	<test name="OMA Discount Smoke Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_OMA_Discount_Test"></class>
+		</classes>
+	</test>
+	<test name="ACS PBA Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_PBA_Test" />
+		</classes>
+	</test>
+	<test name="ACS Address Validation Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_Address_Validation_Test" />
+		</classes>
+	</test>
+	<test name="Inventory Product Fulfillment Test"
+		group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.Inventory_Product_Fulfillment_Test" />
+		</classes>
+	</test>
+	<test name="ACS_CCED_NCW_MemberNumberLookup_Test"
+		group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_CCED_NCW_MemberNumberLookup_Test"></class>
+		</classes>
+	</test>
+	<test name="COE Inventory Smoke Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.COE_Inventory_Test"></class>
+		</classes>
+	</test>
+
+	<test name="ACS MYD Transfer" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_MYD_Transfer"></class>
+		</classes>
+	</test>
+	<test name="Yellow_Book_Smoke_Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_Yellow_Book_Smoke_Test"></class>
+		</classes>
+	</test>
+	<test name="ACS_YB_Iweb_Regression_Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_YB_Iweb_Regression_Test"></class>
+		</classes>
+	</test>
+	<test name="ACS AACT OMR Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_AACT_OMR"></class>
+		</classes>
+	</test>
+
+	<test name="ACS Email Communication Preferences Test"
+		group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_Email_Communication_Preferences_Test" />
+		</classes>
+	</test>
+
+	<test name="ACS Void Invoice Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_Void_Invoice_Test" />
+		</classes>
+	</test>
+
+	<test name="Fundraising Module" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_Fundraising_Module_Test" />
+		</classes>
+	</test>
+	<test name="ACS_Scarf_Reporting" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_Scarf_Reporting">
+			</class>
+		</classes>
+	</test>
+
+	<test name="ACS_ScarfReviewing_Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_ScarfReviewing_Test">
+			</class>
+		</classes>
+	</test>
+	<test name="Subscription Fulfillment" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.Subscription_Fulfillment_Test"></class>
+		</classes>
+	</test>
+	<test name="ACS_SourceCodes_Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_SourceCodes_Test"></class>
+		</classes>
+	</test>
+
+	<test name="ACS AwardsVoting Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_AwardsVoting_Test" />
+		</classes>
+	</test>
+
+	<test name="Membership_Renewal_Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.Membership_Renewal_Test" />
+		</classes>
+	</test>
+</suite>
