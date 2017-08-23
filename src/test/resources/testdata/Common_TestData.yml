@@ -147,7 +147,7 @@ ASM_StoreSmokeChecklist_Data:
               
               
 ACS_fellowNominatedData: 
-    NomineeName: Alice,Laura,Tomm,Cal,Don,Edd,Eva,Fed,Kim,Lee,Leo,Jan,May,Meg,Mia,Tom,Pan,Sue,Ova,Pet
+    NomineeName: Laura,Tomm,Cal,Don,Edd,Eva,Fed,Kim,Lee,Leo,Jan,May,Meg,Mia,Tom,Pan,Sue,Ova,Pet
     EducationDetails: 
          Institution: TestInstitution
          Degree: AssociateDegree
