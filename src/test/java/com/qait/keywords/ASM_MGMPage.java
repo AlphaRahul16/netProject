@@ -74,7 +74,7 @@ public class ASM_MGMPage extends GetPage {
 		} else {
 			element("btn_login").click();
 		}
-
+		wait.waitForPageToLoadCompletely();
 		logMessage("STEP : Click on login button \n");
 
 	}
@@ -225,6 +225,7 @@ public class ASM_MGMPage extends GetPage {
 			wait.hardWait(2);
 			isElementDisplayed("link_nomineeStatus", email);
 			String nomineeStatus = element("link_nomineeStatus", email).getText().trim();
+			logMessage("[info]:: nominee status is found as "+ nomineeStatus + "\n");
 			if (status.equals(nomineeStatus)) {
 				flag = true;
 				break;
@@ -232,43 +233,10 @@ public class ASM_MGMPage extends GetPage {
 				flag = false;
 			}
 		}
-		Assert.assertTrue(flag, "ASSERT FAILED: nominee status is not same \n");
+		Assert.assertTrue(flag, "ASSERT FAILED: nominee status is not same expected \n");
 		logMessage("ASSERT PASSED: Status of the nominee is " + status + "\n");
-		// return getCurrentURL();
 	}
-	// public String verifyNomineeStatus(String status, String email) {
-	// System.out.println("status" + status);
-	// boolean flag = false;
-	// int attempts = 0;
-	// for (int i = 0; i < 30; i++) {
-	// wait.hardWait(2);
-	//// while (attempts < 2) {
-	//// try {
-	// isElementDisplayed("link_nomineeStatus", email);
-	// String nomineeStatus = element("link_nomineeStatus",
-	// email).getText().trim();
-	// if (status.equals(nomineeStatus)) {
-	// flag = true;
-	// break;
-	// } else {
-	// flag = false;
-	//// }
-	//// } catch (StaleElementReferenceException e) {
-	//// attempts++;
-	//// logMessage("[INFO:] Status on MGM Dashboard is not same after " +
-	// attempts + "\n");
-	//// }
-	// }
-	//// if (flag == true) {
-	//// break;
-	//// }
-	// }
-	// Assert.assertTrue(flag,"ASSERT FAILED: nominee status is not same \n");
-	//
-	// logMessage("ASSERT PASSED: Status of the nominee is " + status + "\n");
-	// return getCurrentURL();
-	// }
-
+	
 	public void clickOnNomineeStatus(String email) {
 		isElementDisplayed("link_nomineeStatus", email);
 		clickUsingXpathInJavaScriptExecutor(element("link_nomineeStatus", email));
@@ -280,7 +248,6 @@ public class ASM_MGMPage extends GetPage {
 
 		clickOnNomineeStatus(email);
 		verifyNomineeStatus(status, email);
-		// return getCurrentURL();
 	}
 
 	public void clickOnApplyForACSMembership() {
@@ -321,11 +288,6 @@ public class ASM_MGMPage extends GetPage {
 		element("inp_inviteMemberDetails", detailName).sendKeys(detailValue);
 		logMessage("STEP : " + detailName + " is entered as " + detailValue + " in inp_inviteMemberDetails\n");
 
-	}
-
-	public void inviteButtonIsNotDisplayed() {
-		Assert.assertFalse(checkIfElementIsThere("btn_invite"), "ASSERT FAILED: Invite option is given \n");
-		logMessage("ASSERT PASSED: Active member with a renewal is not given the option to invite a member\n");
 	}
 
 	public void clickOnresendLink(String resendCount, String MGMpageURL, String uniqueEmail, String IWEBurl,
@@ -420,7 +382,6 @@ public class ASM_MGMPage extends GetPage {
 	}
 
 	public List<String> getStatus(String status) {
-		// List<String> statuses = new ArrayList<>();
 		System.out.println("status:::" + status);
 		List<String> statuses = Arrays.asList(status.split(","));
 		return statuses;
@@ -429,7 +390,8 @@ public class ASM_MGMPage extends GetPage {
 	public void clickOnlogoutButton(String logoutUrl) {
 		if (ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage2")
 				|| ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("Stage8")
-				|| ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("stage4")) {
+				|| ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("stage4")
+				|| ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("stage7")) {
 			wait.waitForPageToLoadCompletely();
 			isElementDisplayed("btn_myAccount");
 			click(element("btn_myAccount"));
@@ -443,4 +405,10 @@ public class ASM_MGMPage extends GetPage {
 		}
 	}
 
+	public void verifyCustomerServiceText(String config_Text) {
+		isElementDisplayed("lbl_CustomerServiceText");
+		String actualText=element("lbl_CustomerServiceText").getText().trim();
+		Assert.assertEquals(actualText, config_Text);
+		logMessage("ASSERT PASSED: '" + config_Text + "' is dispalyed \n");
+	}
 }

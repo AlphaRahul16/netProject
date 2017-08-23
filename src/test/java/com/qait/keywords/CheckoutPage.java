@@ -809,7 +809,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	public void verifySourceCodeIsAlreadyPrepoulated(String sourceCodeIweb) {
 		isElementDisplayed("inp_sourceCode");
 		String sourceCode = element("inp_sourceCode").getAttribute("value");
-		Assert.assertTrue(sourceCode.length() != 0, "ASSERT FAILED: Source is not pre populated \n");
+		Assert.assertTrue(sourceCode.length() != 0, "ASSERT FAILED: Source code is not pre populated \n");
 		logMessage("ASSERET PASSED: Source code is already populated as " + sourceCode + " on OMA \n");
 		Assert.assertEquals(sourceCode, sourceCodeIweb,"ASSERT FAILED: SourceCode is not matched with the Iweb");
 		logMessage("ASSERET PASSED: SourceCode is as same as on Iweb \n");

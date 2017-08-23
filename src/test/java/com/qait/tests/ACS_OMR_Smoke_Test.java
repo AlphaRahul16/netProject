@@ -3,16 +3,20 @@ package com.qait.tests;
 
 import static com.qait.automation.utils.YamlReader.getYamlValue;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.testng.Reporter;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
 import com.qait.automation.TestSessionInitiator;
+import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
 
@@ -115,6 +119,11 @@ public class ACS_OMR_Smoke_Test extends BaseTest {
 		test.invoicePage.collapseDetailsMenu("invoices");
 	}
 
+	@BeforeMethod
+	public void print_test_method_And_Case_id(Method method) {
+		test.printMethodName(method.getName());
+		Reporter.log("CASE ID::" + this.caseID + "\n", true);
+	} 
 	@BeforeClass
 	public void open_Browser_Window() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
