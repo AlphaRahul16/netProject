@@ -587,7 +587,7 @@ VoidWithAdjustment:
     memberDetailsQuestion1: paid in full
     memberDetailsQuestion2: balance
     actionValue: Void with Adjustment
-    prodName: "Regular Member Dues C&EN-Electronic"
+    prodName: "Regular Member Dues C&EN-Digital"
     emptItemsMessage: "There are no results to display."  
     
 ScarfReviewer:
