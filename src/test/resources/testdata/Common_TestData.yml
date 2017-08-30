@@ -147,7 +147,7 @@ ASM_StoreSmokeChecklist_Data:
               
               
 ACS_fellowNominatedData: 
-    NomineeName: Alice,Laura,Tomm,Cal,Don,Edd,Eva,Fed,Kim,Lee,Leo,Jan,May,Meg,Mia,Tom,Pan,Sue,Ova,Pet
+    NomineeName: Laura,Tomm,Cal,Don,Edd,Eva,Fed,Kim,Lee,Leo,Jan,May,Meg,Mia,Tom,Pan,Sue,Ova,Pet
     EducationDetails: 
          Institution: TestInstitution
          Degree: AssociateDegree
@@ -587,7 +587,7 @@ VoidWithAdjustment:
     memberDetailsQuestion1: paid in full
     memberDetailsQuestion2: balance
     actionValue: Void with Adjustment
-    prodName: "Regular Member Dues C&EN-Electronic"
+    prodName: "Regular Member Dues C&EN-Digital"
     emptItemsMessage: "There are no results to display."  
     
 ScarfReviewer:
