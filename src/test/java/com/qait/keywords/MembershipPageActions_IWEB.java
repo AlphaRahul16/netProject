@@ -93,6 +93,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			verifyQueryTablePresent();
 		}
 		clickOnRunQuery();
+		wait.hardWait(5);
 	}
 
 //	public List<String> selectAndRunQueryForMemberOrNonMember(String caseId) {

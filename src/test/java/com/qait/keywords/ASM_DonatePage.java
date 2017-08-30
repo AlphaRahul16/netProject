@@ -185,7 +185,13 @@ public class ASM_DonatePage extends GetPage {
 		logMessage("STEP : " + otherAmount + " is entered in inp_otherAmount\n");
 	}
 
-	public void logOut() {
+	public void logOutForMembers(String isGuest)
+	{
+		if (!isGuest.equals("Yes")) {
+			logOut();
+		}
+	}
+	private void logOut() {
 		isElementDisplayed("btn_logout");
 		element("btn_logout").click();
 		logMessage("STEP : Log out button is clicked\n");

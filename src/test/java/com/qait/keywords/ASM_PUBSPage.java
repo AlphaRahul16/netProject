@@ -446,6 +446,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 			}
 		}
 		if (!flag) {
+			holdExecution(10000);
 			Assert.assertTrue(flag, "ASSERT FAILED: report.pdf is not downloaded");
 		}
 	}
