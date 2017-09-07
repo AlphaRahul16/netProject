@@ -155,7 +155,7 @@ public class ACS_AACT_OMR extends BaseTest {
 	@Test(dependsOnMethods = "Step08_Verify_Details_On_Summary_Page_And_Click_On_Submit_Payment_Button")
 	public void Step09_Click_On_Print_Your_Receipt_And_Verify_Details_In_Downloaded_PDF() throws IOException {
 		test.acs_aactOmr.verifyPageHeader("title_header", "greydarker-title", "Member Invoice -");
-		test.asm_PUBSPage._deleteExistingFIleFile("report");
+		test.asm_PUBSPage._deleteExistingPDFFile("report");
 		test.acs_aactOmr.clickButtonByInputValue("Print your receipt");
 		test.asm_PUBSPage.verifyDataFromPdfFileForAACTOMR(membershipType, invoiceTotal,
 				customerFullNameList.get(1).trim(), productName);

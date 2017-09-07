@@ -17,6 +17,7 @@ import org.testng.annotations.Test;
 import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.BaseTest;
 import com.qait.automation.utils.YamlReader;
+import com.qait.keywords.ASM_PUBSPage;
 
 public class ACS_PBA_Test extends BaseTest {
 
@@ -50,6 +51,7 @@ public class ACS_PBA_Test extends BaseTest {
 
 	@Test
 	public void Step01_Launch_Iweb_Application_And_Verify_User_Is_On_Home_Page() {
+		ASM_PUBSPage._deleteExistingPDFFile("report");
 		Reporter.log("STEP: Case id : "+caseID,true);
 		mapPba = test.homePageIWEB.addValuesInMap("PBA_Datasheet", caseID);
 		test.launchApplication(app_url_IWEB);
