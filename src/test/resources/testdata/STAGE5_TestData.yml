@@ -1,4 +1,4 @@
-app_url_OMA: https://ewebtest12.acs.org/NFStage5/oma
+app_url_OMA: https://www.jointest.acs.org/NFStage5/oma
 app_url_IWEB: https://iwebtest.acs.org/NFStage5/iweb
 app_url_CCED: https://ewebtest12.acs.org/NFStage5/ccedlookup
 app_url_Store: https://ewebtest12.acs.org/NFStage5/store/
@@ -10,7 +10,7 @@ app_url_givingDonate: https://ewebtest12.acs.org/NFStage5/donate
 app_url_givingGreen: https://ewebtest12.acs.org/NFStage5/green
 app_url_givingScholars: https://ewebtest12.acs.org/NFStage5/scholars/
 app_url_givingSeed: https://ewebtest12.acs.org/NFStage5/seed
-app_url_OMR: https://ewebtest12.acs.org/NFStage5/renew
+app_url_OMR: https://www.renewtest.acs.org/NFStage5/renew
 app_url_MGM: https://ewebtest12.acs.org/NFStage5/mgm
 app_url_Meeting: https://ewebtest12.acs.org/NFStage5/meetings/2012gcec
 app_url_MemberNumberLookup: https://ewebtest12.acs.org/NFStage5/membernumberlookup
@@ -25,5 +25,5 @@ app_url_yellowBook: https://ewebtest.acs.org/NFStage5/yellowbook
 app_url_iweb_yb: https://iwebtest.acs.org/YBStage5/iWeb
 
 Authentication: 
-  userName: C00767
-  password: "Ih99785b*"
+  userName: C00839
+  password: "g6s2A4*43"

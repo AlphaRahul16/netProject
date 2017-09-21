@@ -26,7 +26,6 @@ csv-data-file:
   path_MyAccount: ./src/test/resources/TestDataLibrary/My_Account_Datasheet.csv
   path_Import_Profile: ./src/test/resources/TestDataLibrary/Rubber_Import_Insurance_Profile.csv
   path_Chapter_Relationships: ./src/test/resources/TestDataLibrary/Chapter_Relationship_Datasheet.csv
-  path_AACT_OMR: ./src/test/resources/TestDataLibrary/AACT_OMR_Datasheet.csv
   path_SourceCodes: ./src/test/resources/TestDataLibrary/ACS_SourceCodes_Datasheet.csv 
   path_MGM: ./src/test/resources/TestDataLibrary/ACS_MGM_Datesheet.csv
   path_GiftCard_Scenariosheet: ./src/test/resources/TestDataLibrary/GiftCard_Scenariosheet.csv
@@ -575,6 +574,12 @@ CMR_Inventory:
 
 OMR:
      queryName: "Selenium - Find Active Regular Member with Proforma"
+     
+OMR_Discount:
+    queryName: "Selenium - Renewal Query OMR"
+    
+New_Member_Benefits:
+    OMR: "Selenium-Invoices with Subscriptions"
      
 Product_Fulfillment_Inventory:
                         queryName: "Selenium – Find Random Active Member USA"

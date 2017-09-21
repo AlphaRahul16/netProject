@@ -31,7 +31,6 @@ public class ACS_OMR_Smoke_Test extends BaseTest {
 
 	public ACS_OMR_Smoke_Test() {
 		sheetname = com.qait.tests.DataProvider_FactoryClass.sheetName = "OMR";
-		System.out.println("SheetName" + sheetname);
 	}
 
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
@@ -42,29 +41,32 @@ public class ACS_OMR_Smoke_Test extends BaseTest {
 	@Test
 	public void Step01_TC01_launch_Iweb_And_Select_Valid_User_For_Renewal() {
 		Reporter.log("STEP: Case id : "+caseID,true);
-		mapOMR = test.homePageIWEB.addValuesInMap(sheetname, caseID);
-		test.homePageIWEB.clickOnModuleTab();
-		test.homePageIWEB.clickOnTab("Membership");
-		test.homePageIWEB.clickOnSideBarTab("Members");
-		test.memberShipPage.selectValidUserForRenewal(mapOMR);
-
+		mapOMR = ASCSocietyGenericPage.addValuesInMap(sheetname, caseID);
+		test.homePageIWEB.clickOnSideBarTab("Invoice");
+		test.homePageIWEB.clickOnTab("Query Invoice");
+		test.memberShipPage.selectAndRunQuery(YamlReader.getYamlValue("New_Member_Benefits.OMR"));
+//		test.homePageIWEB.clickOnModuleTab();
+//		test.homePageIWEB.clickOnTab("Membership");
+//		test.homePageIWEB.clickOnSideBarTab("Members");
+//		test.memberShipPage.selectValidUserForRenewal(mapOMR, YamlReader.getYamlValue("New_Member_Benefits.OMR"));
 	}
 
-	@Test
+	@Test (dependsOnMethods = { "Step01_TC01_launch_Iweb_And_Select_Valid_User_For_Renewal" })
 	public void Step02_TC01_Verify_Payment_Status_And_Invoice_Details_Before_Renewal() {
-		test.individualsPage.clickGotoRecordForRenewal();
+		//test.individualsPage.clickGotoRecordForRenewal();
+		test.memberShipPage.clickOnGoButtonAfterPackageSelection();
 		invoiceNumber = test.invoicePage.verifyInvoiceDetailsBeforeRenewal();
 
 	}
 
-	@Test
+	@Test (dependsOnMethods = { "Step02_TC01_Verify_Payment_Status_And_Invoice_Details_Before_Renewal" })
 	public void Step03_TC01_Navigate_to_Membership_Page_And_Fetch_Member_Details() {
 		test.memberShipPage.clickOnCustomerNameAndNavigateToMembershipPage();
 		memDetails = test.memberShipPage.getCustomerAllDetails(invoiceNumber);
 		//test.memberShipPage.getCustomerDetails("lastName","firstName");
 	}
 
-	@Test
+	@Test (dependsOnMethods = { "Step03_TC01_Navigate_to_Membership_Page_And_Fetch_Member_Details" })
 	public void Step04_TC01_launch_Eweb_Renewal_Application_And_Login_With_Valid_Credentials() {
 		test.launchApplication(app_url_OMR);
 		test.asm_OMR.loginIntoApplicationWithValidChoice(mapOMR, memDetails);
@@ -73,25 +75,25 @@ public class ACS_OMR_Smoke_Test extends BaseTest {
 		test.asm_OMR.selectNoIfRegularToEmeritusPromptAppears();
 	}
 
-	@Test
+	@Test (dependsOnMethods = { "Step04_TC01_launch_Eweb_Renewal_Application_And_Login_With_Valid_Credentials" })
 	public void Step05_TC01_Add_Membership_For_Member() {
-		test.asm_OMR.FillRequiredDetailsForStudentMember(mapOMR);
+		//test.asm_OMR.FillRequiredDetailsForStudentMember(mapOMR);
 		mapRenewedProductDetails = test.asm_OMR
 				.addMembershipsForRegularMember(mapOMR);
+		test.asm_OMR.verifyPublicationIsAdded(mapOMR.get("Publications_Name"));
 	}
 
-	@Test
+	@Test (dependsOnMethods = { "Step05_TC01_Add_Membership_For_Member" })
 	public void Step06_TC01_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage() {
 		test.asm_OMR.submitPaymentDetails(memDetails.get(1) + " " + memDetails.get(0));
-		test.asm_OMR.verifyRenewedProductsSummaryOnCheckOutPage(mapRenewedProductDetails);
+		//test.asm_OMR.verifyRenewedProductsSummaryOnCheckOutPage(mapRenewedProductDetails);		
 		test.asm_OMR.clickOnSubmitPayment();
 		test.asm_OMR.verifyPrintReceiptMessageAfterPayment();
 		test.asm_OMR.logoutFromApplication();
 	}
 
-	@Test
+	@Test (dependsOnMethods = { "Step06_TC01_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage" })
 	public void Step07_TC01_Navigate_to_Latest_invoice_And_verify_Details_After_Renewal() {
-
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.clickOnSideBarTab("Invoice");
 		test.memberShipPage.clickOnSideBar("Find Invoice");
@@ -107,7 +109,7 @@ public class ACS_OMR_Smoke_Test extends BaseTest {
 
 	}
 
-	@Test
+	@Test (dependsOnMethods = { "Step07_TC01_Navigate_to_Latest_invoice_And_verify_Details_After_Renewal" })
 	public void Step08_TC01_Navigate_to_Membership_Page_And_Verify_Details_After_Renewal() {
 		test.memberShipPage.clickOnCustomerNameAndNavigateToMembershipPage();
 		test.invoicePage.expandDetailsMenu("individual memberships");
@@ -124,6 +126,7 @@ public class ACS_OMR_Smoke_Test extends BaseTest {
 		test.printMethodName(method.getName());
 		Reporter.log("CASE ID::" + this.caseID + "\n", true);
 	} 
+	
 	@BeforeClass
 	public void open_Browser_Window() {
 		test = new TestSessionInitiator(this.getClass().getSimpleName());
@@ -133,7 +136,6 @@ public class ACS_OMR_Smoke_Test extends BaseTest {
 		test.homePage.enterAuthentication(
 				YamlReader.getYamlValue("Authentication.userName"),
 				YamlReader.getYamlValue("Authentication.password"));
-		System.out.println(sheetname);
 	}
 
 

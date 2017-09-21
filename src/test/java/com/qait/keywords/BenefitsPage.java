@@ -4,6 +4,7 @@ import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.util.ArrayList;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
@@ -46,6 +47,8 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 		}
 
 	}
+	
+	
 
 	public void addACSTechnicalDivision(String divisionName) {
 		if (!divisionName.equalsIgnoreCase("")) {
@@ -127,7 +130,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 		logMessage("STEP :  btn_ACStechnicalDivision is clicked\n");
 	}
 
-	private void clickOnAddToMembership(String divisionName) {
+	public void clickOnAddToMembership(String divisionName) {
 		hardWaitForIEBrowser(20);
 		if (isBrowser("ie") || isBrowser("internet explorer")) {
 			element("btn_addToMembership", divisionName).click();

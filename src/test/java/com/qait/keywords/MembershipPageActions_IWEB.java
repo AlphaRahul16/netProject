@@ -2799,15 +2799,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public void selectValidUserForRenewal(Map<String, String> mapOMR) {
+	public void selectValidUserForRenewal(Map<String, String> mapOMR, String query) {
 		if (MemberTransferLoopCount < 3) {
-			clickOnTab("Query Membership");
-			selectAndRunQuery("Selenium - Renewal Query OMR");
-			selectMemberForRenewal(mapOMR.get("Member_Status?"));
+			clickOnTab("Query Invoice");
+			selectAndRunQuery(query);
+			//selectMemberForRenewal(mapOMR.get("Member_Status?"));
 			clickOnGoButtonInRunQuery();
 			// expandDetailsMenuIfAlreadyExpanded("invoices");
 			expandDetailsMenu("invoices");
-			verifyTermStartDateAndEndDatesAreEmpty(mapOMR);
+			verifyTermStartDateAndEndDatesAreEmpty(mapOMR,query);
 			verifyPaymentStatusBeforeRenewal(mapOMR);
 			MemberTransferLoopCount++;
 		} else {
@@ -2818,13 +2818,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public void selectUserForIwebRenewal(Map<String, String> mapRenewalIWeb) {
+	public void selectUserForIwebRenewal(Map<String, String> mapRenewalIWeb, String query) {
 		clickOnTab("Query Membership");
-		selectAndRunQuery("Selenium - Renewal Query OMR");
+		selectAndRunQuery(query);
 		selectMemberForRenewal(mapRenewalIWeb.get("Member_Status?"));
 		clickOnGoButtonInRunQuery();
 		expandDetailsMenu("invoices");
-		verifyTermStartDateAndEndDatesAreEmpty(mapRenewalIWeb);
+		verifyTermStartDateAndEndDatesAreEmpty(mapRenewalIWeb,query);
 	}
 
 	public void verifyPaymentStatusBeforeRenewal(Map<String, String> mapOMR) {
@@ -2836,7 +2836,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 						"ASSERT FAILED: Expected value is 'Paid' but found "
 								+ element("txt_PaymentStatus", "Payment Status").getText());
 			} catch (AssertionError e) {
-				selectValidUserForRenewal(mapOMR);
+				selectValidUserForRenewal(mapOMR,"");
 			}
 
 		}
@@ -3068,7 +3068,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// wait.hardWait(4);
 	}
 
-	public void verifyTermStartDateAndEndDatesAreEmpty(Map<String, String> mapOMR) {
+	public void verifyTermStartDateAndEndDatesAreEmpty(Map<String, String> mapOMR, String query) {
 		try {
 
 			wait.resetImplicitTimeout(4);
@@ -3085,7 +3085,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			collapseDetailsMenu("invoices");
 			logMessage("STEP : Term Start date and Term End Date are not empty for " + MemberTransferLoopCount
 					+ " attempt\n");
-			selectValidUserForRenewal(mapOMR);
+			selectValidUserForRenewal(mapOMR,query);
 		} else {
 			Assert.assertTrue(element("txt_termStartDaterenewal", "1").getText().length() == 1,
 					"Term Start Date is not Empty");

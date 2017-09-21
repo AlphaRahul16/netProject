@@ -54,8 +54,7 @@ public class ACS_OMR_Discount_Test extends BaseTest {
 	}
 
 	@Test
-	public void Step01_Launch_IWEB_Application_And_Navigate_To_Find_Members_Tab() {
-		
+	public void Step01_Launch_IWEB_Application_And_Navigate_To_Find_Members_Tab() {		
 		mapOMRDiscount = test.homePageIWEB.addValuesInMap(sheetname, caseID);
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Membership");
@@ -63,16 +62,13 @@ public class ACS_OMR_Discount_Test extends BaseTest {
 	}
 
 	@Test
-	public void Step02_Select_Valid_User_For_Renewal_And_Verify_Term_Start_And_End_Dates_Is_Empty() {
-		
+	public void Step02_Select_Valid_User_For_Renewal_And_Verify_Term_Start_And_End_Dates_Is_Empty() {		
 		test.memberShipPage.selectValidUserForRenewalAccordingToCountry(mapOMRDiscount);
 		ProductPrice = test.individualsPage.verifyYearForOMRDiscountByPrice(mapOMRDiscount);
-
 	}
 
 	@Test
-	public void Step03_Verify_Payment_Status_And_Invoice_Details_Before_Renewal() {
-	
+	public void Step03_Verify_Payment_Status_And_Invoice_Details_Before_Renewal() {	
 		test.individualsPage.clickGotoRecordForRenewal();
 		invoiceNumber = test.invoicePage.verifyInvoiceDetailsBeforeRenewal();
 		test.invoicePage.expandDetailsMenu("line items");
