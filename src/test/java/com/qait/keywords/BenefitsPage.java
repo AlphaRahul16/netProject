@@ -3,11 +3,13 @@ package com.qait.keywords;
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.qait.automation.utils.YamlReader;
 
 public class BenefitsPage extends ASCSocietyGenericPage {
 
@@ -29,6 +31,9 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 		if (!publicationName.equalsIgnoreCase("")) {
 			System.out.println("add acs publication --------------------------------");
 			clickOnACSPublication();
+			verifyPublicationConditionsOnBenefitsPage("lblDescriptionText",
+					YamlReader.getYamlValues("OMA_SmokeChecklistData.conditionsAcsPublications"));
+			verifyListOfPublications(map().get("Country"));
 			clickOnAddToMembership(publicationName);
 			if (isBrowser("ie") || isBrowser("internet explorer")) {
 				verifyPrdouctAddition(publicationName);
@@ -36,9 +41,9 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 			String str = getDivision_publicationScore(publicationName);
 			score_publicationName.add(str);
 			subtotalPublication_score = subtotalPublication_score + Float.parseFloat(score_publicationName.get(0));
-
 			verifyTotalScorePublication(subtotalPublication_score);
 			verifyDivision_PublicationAdded(publicationName);
+//			verifySaveButtonColor("blue");
 			clickSaveButton();
 			logMessage("STEP :  Add ACS Publication is added as " + publicationName + "\n");
 		} else {
@@ -46,10 +51,49 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 		}
 
 	}
+	
+	public void verifySaveButtonColor(String color){
+		isElementDisplayed("btn_saveColor");
+		System.out.println("-----color:"+element("btn_saveColor").getAttribute("background"));
+	}
+	
+	public void verifyListOfPublications(String country){
+		String userType;
+		if(country.equals("UNITED STATES")){
+			userType="domestic";
+			verifyPublicationsListSize(userType, Integer.parseInt(YamlReader.getYamlValue("OMA_SmokeChecklistData.acsPublicationsDomesticSize")));
+			verifyPublicationNames(YamlReader.getYamlValues("OMA_SmokeChecklistData.acsPublicationsDomesticList"), userType);
+		}
+		else{
+			userType="international";
+			verifyPublicationsListSize(userType, Integer.parseInt(YamlReader.getYamlValue("OMA_SmokeChecklistData.acsPublicationsInternationalSize")));
+			verifyPublicationNames(YamlReader.getYamlValues("OMA_SmokeChecklistData.acsPublicationsInternationalList"), userType);
+		}
+	}
+	
+	public void verifyPublicationsListSize(String userType, int listSize){
+		isElementDisplayed("txt_publicationTitle");
+		Assert.assertTrue(elements("txt_publicationTitle").size()==listSize,"ASSERT PASSED: ACS Publication list size is not verified as "+listSize+" for "+userType+" user\n");
+		logMessage("ASSERT PASSED: ACS Publication list size is verified as "+listSize+" for "+userType+" user\n");
+	}
+	
+	public void verifyPublicationNames(Map<String,Object> publicationList,String userType){
+		isElementDisplayed("txt_publicationTitle");
+		for(int index=0;index<elements("txt_publicationTitle").size();index++){
+			System.out.println("--actual: "+elements("txt_publicationTitle").get(index).getText().trim());
+			String key="List"+(index+1);
+			System.out.println("-----exp: "+publicationList.get(key));
+			Assert.assertEquals(elements("txt_publicationTitle").get(index).getText().trim(),
+					publicationList.get(key),"ASSERT PASSED: Publication "+publicationList.get(key)+" is not verified for "+userType+" user\n");
+			logMessage("ASSERT PASSED: Publication "+publicationList.get(key)+" is verified for "+userType+" user\n");
+		}
+	}
 
 	public void addACSTechnicalDivision(String divisionName) {
 		if (!divisionName.equalsIgnoreCase("")) {
 			clickOnACSTechnicalDivision();
+			verifyTechnicalDivisionCondition(map().get("Member Type?"), 
+					YamlReader.getYamlValue("OMA_SmokeChecklistData.txtTechnicalDivisionCondition1"),"lblDescriptionText");
 			clickOnAddToMembership(divisionName);
 			if (isBrowser("ie") || isBrowser("internet explorer")) {
 				verifyPrdouctAddition(divisionName);
@@ -180,13 +224,17 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 
 	public void addACSPublicationAndTechnicalDivision(String caseId) {
 		wait.hardWait(3);
+		verifyTechnicalDivisionFreeDivision(map().get("Member Type?"), YamlReader.getYamlValue("OMA_SmokeChecklistData.txtTechnicalDivisionCondition1"));
 		addACSTechnicalDivision(map().get("Technical Division"));
 		wait.waitForPageToLoadCompletely();
 		System.out.println("before add -=-=-===-=-=-=-=");
+		verifyTextForAcsPublications(YamlReader.getYamlValue("OMA_SmokeChecklistData.acsPublicationsHeading"));
+		verifyPublicationConditionsOnBenefitsPage("lblPublicationMarket",YamlReader.getYamlValues("OMA_SmokeChecklistData.conditionsAcsPublications"));
+		
 		addACSPublication(map().get("PublicationName"));
 
 	}
-
+	
 	public void verifyPrdouctAddition(String divisionName) {
 		int count = 0;
 		hardWaitForIEBrowser(5);
@@ -197,6 +245,53 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 			System.out.println("Step: " + divisionName + " is again clicked");
 			count++;
 		}
+	}
+	
+	public void verifyTechnicalDivisionFreeDivision(String memberType,String expCondition){
+		if(memberType.equals("Society Affiliate")){
+			Assert.assertFalse(checkIfElementIsThere("txt_freeDivision"),
+					"ASSERT FAILED: Free division text should not be available for "+memberType+"\n");
+			logMessage("ASSERT PASSED: Free division text is not available for "+memberType+"\n");
+		}
+		else{
+		isElementDisplayed("txt_freeDivision");
+		Assert.assertEquals(element("txt_freeDivision").getText().trim(), expCondition);
+		logMessage("ASSERT PASSED: "+expCondition+" text is available for "+memberType+"\n");
+	  }
+	}
+	
+	public void verifyTechnicalDivisionCondition(String memberType,String expCondition,String sectionName){
+		if(!memberType.equals("Society Affiliate")){
+			for(int i=1;i<=elements("list_technicalDivisionPoints",sectionName).size();i++){
+			if(elements("list_technicalDivisionPoints",sectionName).get(i).getText().trim().equals(YamlReader.getYamlValue("OMA_SmokeChecklistData.txtTechnicalDivisionCondition1"))){
+				Assert.assertFalse(true,"ASSERT FAILED: "+YamlReader.getYamlValue("OMA_SmokeChecklistData.txtTechnicalDivisionCondition1")+" should not be displayed on page\n");
+			}
+		  }	
+		}
+		else
+			verifyConditionsOnBenefitsPage(sectionName,YamlReader.getYamlValue("OMA_SmokeChecklistData.txtTechnicalDivisionCondition2"), 1);
+	}
+	
+	public void verifyConditionsOnBenefitsPage(String sectionId,String expCondition,int index){
+		isElementDisplayed("txt_technicalDivisionPoints",sectionId,String.valueOf(index));
+		System.out.println("-------expCondition:  "+expCondition);
+		String output = element("txt_technicalDivisionPoints",sectionId,String.valueOf(index)).getText().trim();
+		output=output.replaceAll("\\n"," ");
+		System.out.println("actual:  "+output);
+		Assert.assertEquals(output, expCondition,"ASSERT FAILED: "+expCondition+" text is not displayed on page\n");
+		logMessage("ASSERT PASSED: "+expCondition+" text is displayed on page\n");
+	}
+	
+	public void verifyPublicationConditionsOnBenefitsPage(String sectionId,Map<String,Object> publicationConditions){
+		isElementDisplayed("list_technicalDivisionPoints",sectionId);
+		for(int index=1;index<=publicationConditions.size();index++){ //start indexing from 1
+			verifyConditionsOnBenefitsPage(sectionId, publicationConditions.get("condition"+index).toString(), index);
+		}
+	}
+	
+	public void verifyTextForAcsPublications(String text){
+		isElementDisplayed("txt_acsPublications",text);
+		logMessage("ASSERT PASSED: "+text+" is displayed on page\n");
 	}
 
 }

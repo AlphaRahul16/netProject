@@ -116,6 +116,27 @@ OMA_SmokeChecklistData:
     jobExp: test data
     university: A.T. Still University of Health Sciences
     paymentErrorMessage: "Payment has failed, please confirm your information and try again"
+    txtPreCollegeChemistryTeacher: "You can qualify for regular membership if you teach pre-college chemistry, even if you didn't major in a chemistry related field. Otherwise, you will become an affiliate member."
+    txtDemographicsInformation: "(We collect demographic information to improve our programs, benefits, and services.)"
+    txtTechnicalDivisionCondition1: "As a first-time member of the ACS, you are entitled to one free division for your first year."
+    txtTechnicalDivisionCondition2: "Some divisions have subdivisions for specialized interests which may require an additional fee to join."
+    acsPublicationsHeading: "Your ACS membership includes the following publication benefits:"
+    conditionsAcsPublications:
+        condition1: "Free online access to any 25 articles from all ACS Journals, ACS eBooks and C&EN archives. This will
+                     automatically increase to 50 articles on January 1, 2018."
+        condition2: "Discounted single articles or chapters from any ACS journal, eBook and the C&EN archives"
+        condition3: "Free access to articles published in ACS Central Science and ACS Editors' choice."
+        condition4: "Free Chemical & Engineering News weekly magazine."
+        condition5: "Discounts on printed books."
+    acsPublicationsDomesticSize: 3
+    acsPublicationsDomesticList:
+        List1: Chemistry International (IUPAC)
+        List2: Jrnl of Chemical Education Web
+        List3: Jrnl of Chemical Education Web Combo
+    acsPublicationsInternationalSize: 2
+    acsPublicationsInternationalList: 
+        List1: "Jrnl of Chemical Education Web"
+        List2: "Jrnl of Chemical Education Web Combo"
     
     
     
@@ -147,7 +168,7 @@ ASM_StoreSmokeChecklist_Data:
               
               
 ACS_fellowNominatedData: 
-    NomineeName: Laura,Tomm,Cal,Don,Edd,Eva,Fed,Kim,Lee,Leo,Jan,May,Meg,Mia,Tom,Pan,Sue,Ova,Pet
+    NomineeName: Tom,Cal,Don,Edd,Eva,Fed,Kim,Lee,Leo,Jan,May,Meg,Mia,Tom,Pan,Sue,Ova,Pet,Laura
     EducationDetails: 
          Institution: TestInstitution
          Degree: AssociateDegree

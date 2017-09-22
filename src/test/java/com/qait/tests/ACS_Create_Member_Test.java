@@ -74,6 +74,8 @@ public class ACS_Create_Member_Test extends BaseTest {
 	public void Step03_Enter_Education_And_Employment_Info() {
 		Reporter.log("****** CASE ID : " + caseID + " ******\n", true);
 		Reporter.log("****** USER EMAIL ID : " + userEmail + " ******\n", true);
+		test.EduAndEmpPage.verifyEducationSectionHeaders("Education");
+		test.EduAndEmpPage.verifyEducationSectionHeaders("Employment");
 		test.EduAndEmpPage.enterEducationAndEmploymentInformation();
 		test.ContactInfoPage.clickContinue();
 		isErrorMessage = test.EduAndEmpPage.verifyDisplayedMessage(caseID);

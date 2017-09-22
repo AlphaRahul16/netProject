@@ -797,7 +797,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	}
 	
 	public Map<String,String> verifyAdditionOfProductAndGetPrice(){
-		changeMembershipYear();
+//		changeMembershipYear();
 		//productAmounts.put("Iweb Pub Name?", verifyProductsAmount(map().get("Iweb Pub Name?")));
 		productAmounts.put("Iweb Division Name?", verifyProductsAmount(map().get("Iweb Division Name?")));
 		productAmounts.put("Product?", verifyProductsAmount(map().get("Product?")));

@@ -4524,7 +4524,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnGoToRecordButton(String membershipType, String index) {
 		isElementDisplayed("txt_gotorecord", membershipType, index);
-		element("txt_gotorecord", membershipType, index).click();
+		clickUsingXpathInJavaScriptExecutor(element("txt_gotorecord", membershipType, index));
+//		element("txt_gotorecord", membershipType, index).click();
 		wait.waitForPageToLoadCompletely();
 
 		logMessage("Step: click on 'go to record' image for " + membershipType + " \n");
@@ -5437,6 +5438,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		String text = element("txt_payments", title, "1").getText().trim();
 		logMessage("STEP:" + title + " is fetched as " + text + "\n");
 		return text;
+	}
+	
+	public void enterDatesForNotExpiredScenario(String sceanrio,String date){
+		if(sceanrio.equals("4"))
+            enterSingleCustomerIdInRunQuery(date);
+		else
+			clickOnGoButtonAfterPackageSelection();
 	}
 
 }

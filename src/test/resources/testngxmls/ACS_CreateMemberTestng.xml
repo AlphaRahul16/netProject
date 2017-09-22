@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="ACS Tests" preserve-order="true" thread-count="1">
-	<test name="ACS Create Member IWEB Test"
-		group-by-instances="true">
+<suite name="ACS Tests" preserve-order="true" thread-count="2" parallel="instances">
+	<test name="ACS Create Member IWEB Test">
 		<classes>
 			<class name="com.qait.tests.ACS_Create_Member_IWEB_Test"></class>
 		</classes>

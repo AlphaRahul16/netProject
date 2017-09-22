@@ -74,7 +74,7 @@ public class ASM_MGMPage extends GetPage {
 		} else {
 			element("btn_login").click();
 		}
-		wait.waitForPageToLoadCompletely();
+//		wait.waitForPageToLoadCompletely();
 		logMessage("STEP : Click on login button \n");
 
 	}
