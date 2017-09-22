@@ -1,6 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="ACS Tests" preserve-order="true" thread-count="1"
-	parallel="tests">
+<suite name="ACS Tests" thread-count="2" parallel="tests" preserve-order="true">
 	
     <test name="ACS_CCED_NCW_MemberNumberLookup_Test"
 		group-by-instances="true">
@@ -8,6 +7,19 @@
 			<class name="com.qait.tests.ACS_CCED_NCW_MemberNumberLookup_Test"></class>
 		</classes>
 	</test>
+	  <test name="ACS Apply Payment Test"
+		group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_Apply_Payment_Test"></class>
+		</classes>
+	</test>
+	
+	<test name="ACS Rubber Insurance Test" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_Rubber_Insurance_Test"></class>
+		</classes>
+	</test>
+	
 	<test name="COE Inventory Smoke Test" group-by-instances="true">
 		<classes>
 			<class name="com.qait.tests.COE_Inventory_Test"></class>
@@ -28,18 +40,22 @@
 			<class name="com.qait.tests.ACS_PBA_Test" />
 		</classes>
 	</test>
-	
-	<test name="ACS MGM Test" group-by-instances="true">
+	<test name="ACS_Batch_Processing">
 		<classes>
-			<class name="com.qait.tests.ACS_MGM_Test"></class>
+			<class name="com.qait.tests.ACS_Batch_Processing"></class>
 		</classes>
 	</test>
 
-	<test name="OMA Discount Smoke Test" group-by-instances="true">
+	<test name="ACS Reports" group-by-instances="true">
 		<classes>
-			<class name="com.qait.tests.ACS_OMA_Discount_Test"></class>
+			<class name="com.qait.tests.ACS_Reports"></class>
 		</classes>
 	</test>
 
+	<test name="ACS BPA 1 and BPA 2" group-by-instances="true">
+		<classes>
+			<class name="com.qait.tests.ACS_BPA_Test" />
+		</classes>
+	</test>
 	
 </suite>

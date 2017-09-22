@@ -699,7 +699,7 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 		if (membesstatus.equals("Emeritus")) {
 			expandDetailsMenu("adjusted/voided line items");
-			Assert.assertEquals((mapRenewedProductDetails.get("Voluntary Contribution To C&EN")).trim(),
+			Assert.assertEquals((mapRenewedProductDetails.get(" ")).trim(),
 					(elements("txt_priceValue", "Voluntary Contribution To C&EN").get(1).getText().trim()));
 			logMessage("ASSERT PASSED : Voluntary Contribution To C&EN price inside line items verified as "
 					+ mapRenewedProductDetails.get("Voluntary Contribution To C&EN"));

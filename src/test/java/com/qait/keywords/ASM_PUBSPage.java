@@ -3,6 +3,7 @@ package com.qait.keywords;
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -118,6 +119,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 				+ ".pdf";
 		File sourceFile = new File(source);
 		Assert.assertTrue(sourceFile.exists());
+		logMessage("ASSERT PASSED:: " + fileName + " is downloaded \n");
 	}
 
 	public void verifyDataFromPdfFile() throws IOException {
@@ -149,15 +151,40 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 
 	}
 
-	public void _deleteExistingFIleFile(String fileName) {
-		String source = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
-				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + fileName
-				+ ".pdf";
+//	public void _deleteExistingFIleFile(String fileName) {
+//		String source = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+//				+ File.separator + "resources" + File.separator + "DownloadedFiles" + File.separator + fileName
+//				+ ".pdf";
+//
+//		File sourceFile = new File(source);
+//		if (sourceFile.exists()) {
+//			sourceFile.delete();
+//			logMessage("STEP: Already Existed File is deleted from location " + sourceFile.getAbsolutePath());
+//		}
+//	
+//	}
+	
+	
+	public static void _deleteExistingPDFFile(String filename) {
+		String filePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
+				+ File.separator + "resources" + File.separator + "DownloadedFiles"; 
+				//+ File.separator + fileName + ".pdf";
 
-		File sourceFile = new File(source);
-		if (sourceFile.exists()) {
-			sourceFile.delete();
-			logMessage("STEP: Already Existed File is deleted from location " + sourceFile.getAbsolutePath());
+		File folder = new File(filePath);
+		final File[] files = folder.listFiles(new FilenameFilter() {
+			@Override
+			public boolean accept(final File dir, final String name) {
+				System.out.println(name);
+				// if(name.matches(filename+"(.*).csv"))
+				return name.matches(filename + "(.*).pdf");
+
+			}
+		});
+		for (final File file : files) {
+			System.out.println("deleted file " + file);
+			if (!file.delete()) {
+				System.err.println("Can't remove " + file.getAbsolutePath());
+			}
 		}
 	}
 
@@ -414,7 +441,8 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 	}
 
 	public void verifyUserIsOnHomePageForEwebPBA(String individualName) {
-		_deleteExistingFIleFile("report");
+		//_deleteExistingFIleFile("report");
+		//_deleteExistingPDFFile("report");
 		wait.waitForPageToLoadCompletely();
 		hardWaitForIEBrowser(2);
 		wait.hardWait(2);
@@ -446,6 +474,7 @@ public class ASM_PUBSPage extends ASCSocietyGenericPage {
 			}
 		}
 		if (!flag) {
+			holdExecution(10000);
 			Assert.assertTrue(flag, "ASSERT FAILED: report.pdf is not downloaded");
 		}
 	}

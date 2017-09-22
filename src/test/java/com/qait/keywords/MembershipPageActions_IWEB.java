@@ -93,6 +93,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			verifyQueryTablePresent();
 		}
 		clickOnRunQuery();
+		wait.hardWait(5);
 	}
 
 //	public List<String> selectAndRunQueryForMemberOrNonMember(String caseId) {
@@ -2798,15 +2799,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public void selectValidUserForRenewal(Map<String, String> mapOMR) {
+	public void selectValidUserForRenewal(Map<String, String> mapOMR, String query) {
 		if (MemberTransferLoopCount < 3) {
-			clickOnTab("Query Membership");
-			selectAndRunQuery("Selenium - Renewal Query OMR");
-			selectMemberForRenewal(mapOMR.get("Member_Status?"));
+			clickOnTab("Query Invoice");
+			selectAndRunQuery(query);
+			//selectMemberForRenewal(mapOMR.get("Member_Status?"));
 			clickOnGoButtonInRunQuery();
 			// expandDetailsMenuIfAlreadyExpanded("invoices");
 			expandDetailsMenu("invoices");
-			verifyTermStartDateAndEndDatesAreEmpty(mapOMR);
+			verifyTermStartDateAndEndDatesAreEmpty(mapOMR,query);
 			verifyPaymentStatusBeforeRenewal(mapOMR);
 			MemberTransferLoopCount++;
 		} else {
@@ -2817,13 +2818,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
-	public void selectUserForIwebRenewal(Map<String, String> mapRenewalIWeb) {
+	public void selectUserForIwebRenewal(Map<String, String> mapRenewalIWeb, String query) {
 		clickOnTab("Query Membership");
-		selectAndRunQuery("Selenium - Renewal Query OMR");
+		selectAndRunQuery(query);
 		selectMemberForRenewal(mapRenewalIWeb.get("Member_Status?"));
 		clickOnGoButtonInRunQuery();
 		expandDetailsMenu("invoices");
-		verifyTermStartDateAndEndDatesAreEmpty(mapRenewalIWeb);
+		verifyTermStartDateAndEndDatesAreEmpty(mapRenewalIWeb,query);
 	}
 
 	public void verifyPaymentStatusBeforeRenewal(Map<String, String> mapOMR) {
@@ -2835,7 +2836,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 						"ASSERT FAILED: Expected value is 'Paid' but found "
 								+ element("txt_PaymentStatus", "Payment Status").getText());
 			} catch (AssertionError e) {
-				selectValidUserForRenewal(mapOMR);
+				selectValidUserForRenewal(mapOMR,"");
 			}
 
 		}
@@ -3067,7 +3068,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// wait.hardWait(4);
 	}
 
-	public void verifyTermStartDateAndEndDatesAreEmpty(Map<String, String> mapOMR) {
+	public void verifyTermStartDateAndEndDatesAreEmpty(Map<String, String> mapOMR, String query) {
 		try {
 
 			wait.resetImplicitTimeout(4);
@@ -3084,7 +3085,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			collapseDetailsMenu("invoices");
 			logMessage("STEP : Term Start date and Term End Date are not empty for " + MemberTransferLoopCount
 					+ " attempt\n");
-			selectValidUserForRenewal(mapOMR);
+			selectValidUserForRenewal(mapOMR,query);
 		} else {
 			Assert.assertTrue(element("txt_termStartDaterenewal", "1").getText().length() == 1,
 					"Term Start Date is not Empty");
@@ -4687,18 +4688,16 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		launchUrl(url);
 		handleAlert();
 		expandDetailsMenuIfAlreadyExpanded("my acs nominations");
-		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy", "EST5EDT");
+//		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy", "EST5EDT");
 		hardWaitForIEBrowser(4);
 		verifyMembershipTypeForAACTOMR(email, "2", fname, "First Name");
 		verifyMembershipTypeForAACTOMR(email, "1", lname, "Last Name");
-		//verifyDetailsForAACTOMR(currentDate, email, "1", "Invitation Date");
+		verifyDetailsForAACTOMR("", email, "1", "Invitation Date");
 		verifyDetailsForAACTOMR(status, email, "2", "Status");
 
 	}
 
 	public String getApplicationID(String email) {
-		// String currentDate =
-		// DateUtil.getCurrentdateInStringWithGivenFormate("MM/d/yyyy");
 		isElementDisplayed("txt_membershipType", email, "5");
 		String appID = element("txt_membershipType", email, "5").getText().trim();
 		logMessage("STEP: Application Id of the nominee is " + appID + "\n");
@@ -4710,6 +4709,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			String memberID) {
 		launchUrl(iWEBurl);
 		handleAlert();
+		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy", "EST5EDT");
 		expandDetailsMenuIfAlreadyExpanded("my acs nominations");
 		verifyDetailsForNominator("Application ID", app_ID, "1", "4");
 		verifyDetailsForNominator("Program", program, "1", "5");
@@ -4717,22 +4717,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		verifyDetailsForNominator("First Name", fname, "1", "7");
 		verifyDetailsForNominator("Last Name", lname, "1", "8");
 		verifyDetailsForNominator("Email", email, "1", "9");
-		verifyDetailsForNominator("Invitation Date", "1", "10");
+		verifyDetailsForNominator("Invitation Date","", "1", "10");
 		verifyDetailsForNominator("Status", status, "1", "11");
-		verifyDetailsForNominator("Joined Date", "1", "13");
+		verifyDetailsForNominator("Joined Date",currentDate, "1", "13");
 		verifyDetailsForNominator("Payment Status", paymentStatus, "1", "14");
 		verifyDetailsForNominator("Source code", sourceCode, "1", "15");
 		verifyDetailsForNominator("Mbr Source code", sourceCode, "1", "16");
 		verifyDetailsForNominator("ConstitID", memberID, "1", "12");
-
-	}
-
-	public void verifyDetailsForNominator(String label, String rowNum, String index) {
-		isElementDisplayed("txt_endDate", rowNum, index);
-		String valueFromIWEB = element("txt_endDate", rowNum, index).getText().trim();
-		String value = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy", "EST5EDT");
-		Assert.assertEquals(valueFromIWEB, value);
-		logMessage("ASSERT PASSED: " + label + " is verfied as " + valueFromIWEB);
 
 	}
 
@@ -4757,14 +4748,15 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void verifyNomieeDetails(String app_ID, String program, String channel, String status, String paymentStatus,
 			String sourceCode, String memberID) {
+		String currentDate = DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone("M/d/yyyy", "EST5EDT");
 		collapseDetailsMenu("my acs nominations");
 		expandDetailsMenuIfAlreadyExpanded("my acs applications");
 		verifyDetailsForNominator("Application ID", app_ID, "1", "4");
 		verifyDetailsForNominator("Program", program, "1", "5");
 		verifyDetailsForNominator("Channel", channel, "1", "6");
-		verifyDetailsForNominator("App Date", "1", "7");
+		verifyDetailsForNominator("App Date",currentDate, "1", "7");
 		verifyDetailsForNominator("Status", status, "1", "9");
-		verifyDetailsForNominator("Joined Date", "1", "10");
+		verifyDetailsForNominator("Joined Date",currentDate, "1", "10");
 		verifyDetailsForNominator("Payment Status", paymentStatus, "1", "11");
 		verifyDetailsForNominator("Source code", sourceCode, "1", "12");
 		verifyDetailsForNominator("Mbr Source code", sourceCode, "1", "13");
