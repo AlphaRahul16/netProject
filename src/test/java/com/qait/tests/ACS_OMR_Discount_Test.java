@@ -61,13 +61,13 @@ public class ACS_OMR_Discount_Test extends BaseTest {
 		test.homePageIWEB.clickOnSideBarTab("Members");
 	}
 
-	@Test
+	@Test (dependsOnMethods = "Step01_Launch_IWEB_Application_And_Navigate_To_Find_Members_Tab")
 	public void Step02_Select_Valid_User_For_Renewal_And_Verify_Term_Start_And_End_Dates_Is_Empty() {		
 		test.memberShipPage.selectValidUserForRenewalAccordingToCountry(mapOMRDiscount);
 		ProductPrice = test.individualsPage.verifyYearForOMRDiscountByPrice(mapOMRDiscount);
 	}
 
-	@Test
+	@Test (dependsOnMethods = "Step02_Select_Valid_User_For_Renewal_And_Verify_Term_Start_And_End_Dates_Is_Empty")
 	public void Step03_Verify_Payment_Status_And_Invoice_Details_Before_Renewal() {	
 		test.individualsPage.clickGotoRecordForRenewal();
 		invoiceNumber = test.invoicePage.verifyInvoiceDetailsBeforeRenewal();
@@ -79,14 +79,14 @@ public class ACS_OMR_Discount_Test extends BaseTest {
 
 	}
 
-	@Test
+	@Test (dependsOnMethods = "Step03_Verify_Payment_Status_And_Invoice_Details_Before_Renewal")
 	public void Step04_Navigate_to_Membership_Page_And_Fetch_Member_Details() {
 		
 		test.memberShipPage.clickOnCustomerNameAndNavigateToMembershipPage();
 		memDetails = test.memberShipPage.getCustomerFullNameBasedOnInvoice(invoiceNumber);
 	}
 
-	@Test
+	@Test (dependsOnMethods = "Step04_Navigate_to_Membership_Page_And_Fetch_Member_Details")
 	public void Step05_launch_Eweb_Renewal_Application_And_Login_With_Valid_Credentials() {
 		
 		test.launchApplication(app_url_OMR);
@@ -95,7 +95,7 @@ public class ACS_OMR_Discount_Test extends BaseTest {
 		test.asm_OMR.OMRLogo("Online Membership Renewal");
 	}
 
-	@Test
+	@Test (dependsOnMethods = "Step05_launch_Eweb_Renewal_Application_And_Login_With_Valid_Credentials")
 	public void Step06_Verify_Member_Can_Renew_For_Multiple_Years_After_Selecting_Currency_As_INR() {
 		
 		test.asm_OMR.FillRequiredDetailsForStudentMember(mapOMRDiscount);
@@ -105,7 +105,7 @@ public class ACS_OMR_Discount_Test extends BaseTest {
 
 	}
 
-	@Test
+	@Test (dependsOnMethods = "Step06_Verify_Member_Can_Renew_For_Multiple_Years_After_Selecting_Currency_As_INR")
 	public void Step07_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage() {
 		
 		test.asm_OMR.submitPaymentDetails(memDetails.get(1) + " " + memDetails.get(0));
@@ -114,7 +114,7 @@ public class ACS_OMR_Discount_Test extends BaseTest {
 		// test.asm_OMR.verifyPrintReceiptMessageAfterPayment();
 	}
 
-	@Test
+	@Test (dependsOnMethods = "Step07_Submit_Payment_Details_And_Verify_Renewal_Summary_On_CheckoutPage")
 	public void Step08_Navigate_to_Latest_invoice_And_verify_Details_After_Renewal() {
 		
 		test.launchApplication(app_url_IWEB);

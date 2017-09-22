@@ -657,7 +657,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			switchToEwebRenewalFrame();
 			isElementDisplayed("btn_addSubscription", valueofmembership);
-			element("btn_addSubscription", valueofmembership).click();
+			click(element("btn_addSubscription", valueofmembership));
+			//element("btn_addSubscription", valueofmembership).click();
 			logMessage("STEP : " + valueofmembership + " button is clicked\n");
 		} catch (NoSuchElementException e) {
 			switchToDefaultContent();
