@@ -2,6 +2,7 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -28,6 +29,7 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	String IWEBProduct;
 	int timeOut, hiddenFieldTimeOut;
 	boolean flag, flag1;
+	static int supportCount=0;
 
 	public IndividualsPageActions_IWEB(WebDriver driver) {
 		super(driver, "IndividualsPage");
@@ -1421,8 +1423,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 				+ mapAwardsNomination.get("SuggestCitation_Text"));
 		verifySupporterNamesOnAwardEntryProfilePage(createMemberCredentials, "1");
 		verifySupporterNamesOnAwardEntryProfilePage(createMemberCredentials, "2");
-		verifySupporterDocumentsContainsUploadedFile(mapAwardsNomination, "1");
-		verifySupporterDocumentsContainsUploadedFile(mapAwardsNomination, "2");
+		verifySupporterDocumentsContainsUploadedFile("1");
+		verifySupporterDocumentsContainsUploadedFile("2");
 	}
 
 	// private void verifySupporterDocumentsContainsUploadedFile(Map<String,
@@ -1447,22 +1449,11 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 	// + mapAwardsNomination.get("FileNameForSupportForm" + supportNo2));
 	// }
 
-	private void verifySupporterDocumentsContainsUploadedFile(Map<String, String> mapAwardsNomination,
-			String SupporterNumber) {
-		//String supportNo2 = null;
-		/*if (SupporterNumber.equals("1")) {
-			supportNo2 = "2";
-		} else {
-			supportNo2 = "1";
-		}*/
-		String docurl = element("lnk_awardsSupporterDoc", SupporterNumber).getAttribute("href");
-		docurl = docurl.replaceAll("%20", " ");
-		Assert.assertTrue(docurl.contains(mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber)),
-				"ASSERT FAILED: Expected value is " + mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber)
-						+ " but found " + docurl);
-
-		logMessage("ASSERT PASSED : Document for supporter " + SupporterNumber + " succesfully verified as "
-				+ mapAwardsNomination.get("FileNameForSupportForm" + SupporterNumber));
+	private void verifySupporterDocumentsContainsUploadedFile(String SupporterNumber) {
+		isElementDisplayed("lnk_awardsSupporterDoc",SupporterNumber);
+		element("lnk_awardsSupporterDoc", SupporterNumber).click();
+		verifyLetterDocuments_AwardsNomination("Letter of Support", "Test Support Form "+SupporterNumber,"Support Form "+SupporterNumber);
+		logMessage("ASSERT PASSED : Document for supporter " + SupporterNumber + " succesfully verified\n");
 	}
 
 	private void verifySupporterNamesOnAwardEntryProfilePage(Map<String, String> createMemberCredentials,
@@ -1486,42 +1477,35 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 				+ createMemberCredentials.get("Nominee" + (Integer.parseInt(SupporterNumber) + 1) + "Name"));
 	}
 
-	private void verifyLetterDocuments_AwardsNomination(Map<String, String> mapAwardsNomination, String lettername,
-			String datasheetValue) {
-		if (datasheetValue.equalsIgnoreCase("FileNameForSupportForm1")) {
-			Assert.assertTrue(
-					elements("lnk_awardsLettersDoc", lettername).get(0).getAttribute("onclick")
-							.contains(mapAwardsNomination.get(datasheetValue)),
-					"ASSERT FAILED: " + elements("lnk_awardsLettersDoc", lettername).get(0).getAttribute("onclick")
-							+ " doest not contains " + mapAwardsNomination.get(datasheetValue));
-			logMessage("ASSERT PASSED : File uploaded for Support form 1 is displayed under Documents \n");
-		} else if (datasheetValue.equalsIgnoreCase("FileNameForSupportForm2")) {
-			Assert.assertTrue(
-					elements("lnk_awardsLettersDoc", lettername).get(1).getAttribute("onclick")
-							.contains(mapAwardsNomination.get(datasheetValue)),
-					"ASSERT FAILED: " + elements("lnk_awardsLettersDoc", lettername).get(1).getAttribute("onclick")
-							+ " doest not contains " + mapAwardsNomination.get(datasheetValue));
-			logMessage("ASSERT PASSED : File uploaded for Support form 2 is displayed under Documents \n");
-		} else {
-			Assert.assertTrue(
-					element("lnk_awardsLettersDoc", lettername).getAttribute("onclick")
-							.contains(mapAwardsNomination.get(datasheetValue)),
-					"ASSERT FAILED: " + element("lnk_awardsLettersDoc", lettername).getAttribute("onclick")
-							+ " doest not contains " + mapAwardsNomination.get(datasheetValue));
-			logMessage("ASSERT PASSED : File uploaded for " + lettername + " is displayed under Documents \n");
-
+	private void verifyLetterDocuments_AwardsNomination(String lettername,
+			String datasheetValue, String ValueToVerify) {
+		
+		if (lettername.equalsIgnoreCase("Letter of Support")) {
+			elements("lnk_awardsLettersDoc", lettername).get(supportCount).click();
+			 supportCount ++;
 		}
-	}
+		else
+		{
+		element("lnk_awardsLettersDoc", lettername).click();
+		}
+		wait.hardWait(5);
+		
+		String name = ASCSocietyGenericPage.getfilesByUniquePartOFName(datasheetValue);
+		extractAndCompareTextFromPdfFile(name,ValueToVerify, 1, "downloads");          
+		logMessage("ASSERT PASSED : File uploaded for "+lettername+" is displayed under Documents \n");
+		
+		}
+
+	
 
 	public void verifyLetterDocumentsOnAwardEntryProfilePage(Map<String, String> mapAwardsNomination) {
-		verifyLetterDocuments_AwardsNomination(mapAwardsNomination, "Letter of Support", "FileNameForSupportForm1");
-		verifyLetterDocuments_AwardsNomination(mapAwardsNomination, "Letter of Support", "FileNameForSupportForm2");
+		verifyLetterDocuments_AwardsNomination("Biographical Sketch", "Test Biographical Sketch","Test Biography");
+		verifyLetterDocuments_AwardsNomination("Publications List", "Patents","Test Publications");
 		if (mapAwardsNomination.get("UploadFileFor_Recommendation?").equals("Yes")) {
-			verifyLetterDocuments_AwardsNomination(mapAwardsNomination, "Letter of Recommendation",
-					"FileNameForReccomendation");
+		verifyLetterDocuments_AwardsNomination("Test Recommendation", "Reccomendation","Test Recommendation");
 		}
-		verifyLetterDocuments_AwardsNomination(mapAwardsNomination, "Biographical Sketch", "FileNameForBioSketch");
-		verifyLetterDocuments_AwardsNomination(mapAwardsNomination, "Publications List", "FileNameForPubPatents");
+		verifyLetterDocuments_AwardsNomination("Letter of Support", "Test Support Form 1","Support Form 1");
+		verifyLetterDocuments_AwardsNomination("Letter of Support", "Test Support Form 2","Support Form 2");
 	}
 
 	public void clickOnEditButtonAndVerifyNomineeDetails_AwardRequirementsAndRecommendation(
@@ -2414,9 +2398,5 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 	
-//	public void updateCommitteePrefernceEndDate(){
-//		isElementDisplayed("txt_currentSetting");
-//		DateUtil.getNextDate(dateModule, frequency)
-//	}
 
 }

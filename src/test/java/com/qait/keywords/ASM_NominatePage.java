@@ -711,8 +711,6 @@ public class ASM_NominatePage extends GetPage {
 		}
 		waitForSpinner();
 		clickOnSelectNomineeButtonForAwardsNomination();
-
-
 	}
 
 	private String saveNomineeInformation() {

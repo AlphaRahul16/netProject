@@ -35,23 +35,21 @@ public class ACS_AwardsNomination_Test extends BaseTest{
 	@Factory(dataProviderClass = com.qait.tests.DataProvider_FactoryClass.class, dataProvider = "data")
 	public ACS_AwardsNomination_Test(String caseID) {
 		this.caseID = caseID;
-
 	}
 
-	@Test(invocationCount = 4)
+	//@Test(invocationCount = 4)
 	public void Step01_TC01_CreateMember_As_A_Prerequisite_For_Award_Nomination() {
-		test.homePageIWEB.addValuesInMap("AwardNomination", "3");
+		mapAwardsNomination = test.homePageIWEB.addValuesInMap("AwardNomination", "3");
 		test.homePageIWEB.clickOnAddIndividual();
 		memDetails = test.addMember.enterMemberDetailsInAddIndividual();
 		test.memberShipPage.getIndividualFullNameForAwardsNomination();
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("CRM");
-
 	}
 
 	@Test
 	public void Step02_TC02_Launch_Iweb_And_Select_General_Award() {
-		mapAwardsNomination = test.homePageIWEB.addValuesInMap("AwardNomination", caseID);
+		mapAwardsNomination = test.homePageIWEB.addValuesInMap("AwardNomination", "3");
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Awards");
 		test.homePageIWEB.clickOnTab("Find Award");
@@ -71,8 +69,10 @@ public class ACS_AwardsNomination_Test extends BaseTest{
 
 	@Test
 	public void Step03_TC03_Launch_AwardsNominateApplication_And_Perform_Nomination() {
+		test.memberShipPage.getIndividualFullNameForAwardsNomination();
 		createMemberCredentials = test.memberShipPage
 				.getIndividualMapFromCreateMemberScript();
+
 		test.launchApplication(app_url_Nominate);
 
 		test.asm_NominatePage.loginInToAwardsNominateApplication(
@@ -84,8 +84,7 @@ public class ACS_AwardsNomination_Test extends BaseTest{
 
 		test.asm_NominatePage.clickOnCreateNewNominationButton();
 
-		test.asm_NominatePage.SearchNomineeByMemeberNameOrNumber(
-				mapAwardsNomination, createMemberCredentials);
+		test.asm_NominatePage.SearchNomineeByMemeberNameOrNumber(mapAwardsNomination, createMemberCredentials);
 		test.asm_NominatePage
 				.FillEligibilityQuestionsDetails_AwardsNomination(mapAwardsNomination);
 		test.asm_NominatePage.clickSaveForLaterButtonToNavigateToHomePage();
@@ -123,23 +122,22 @@ public class ACS_AwardsNomination_Test extends BaseTest{
 				.selectRandomGeneralAward_AwardNomination(currentAwardName);
 		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Entrants");
 		test.invoicePage.expandDetailsMenu("acs nominee/ entry");
-
 		test.individualsPage
 				.selectNomineeEntryForVerification(createMemberCredentials.get("Nominee0Name").trim());
+		
+		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Documents");
+		test.invoicePage.expandDetailsMenu("document");
+		test.asm_NominatePage.verifyPdfContent();
+		test.individualsPage.verifyLetterDocumentsOnAwardEntryProfilePage(mapAwardsNomination);
+		test.invoicePage.collapseDetailsMenu("document");
+		
+		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Entries");
 		test.invoicePage.expandDetailsMenu("acs award entry supporter");
 		test.individualsPage.verifyDetailsForAwardsNomination(
 				mapAwardsNomination, createMemberCredentials);
 		test.invoicePage.collapseDetailsMenu("acs award entry supporter");
-
-		test.individualsPage.navigateToGeneralMenuOnHoveringMore("Documents");
-		test.invoicePage.expandDetailsMenu("document");
-		test.individualsPage
-				.verifyLetterDocumentsOnAwardEntryProfilePage(mapAwardsNomination);
-		test.asm_NominatePage.verifyPdfContent();
-		test.invoicePage.collapseDetailsMenu("document");
 		test.individualsPage
 				.clickOnEditButtonAndVerifyNomineeDetails_AwardRequirementsAndRecommendation(mapAwardsNomination);
-
 	}
 
 	@BeforeClass

@@ -2666,34 +2666,46 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	}
 
+//	public void getIndividualFullNameForAwardsNomination() {
+//
+//		clickOnEditNameAndAddress();
+//		wait.hardWait(5);
+//		switchToDefaultContent();
+//		wait.hardWait(9);
+//		switchToFrame(element("iframe"));
+//		customerLname = getNameFromEditNameAndAddressButton("lastName") + " "
+//				+ getNameFromEditNameAndAddressButton("firstName") + " "
+//				+ getNameFromEditNameAndAddressButton("middleName");
+//		clickOnCancelButton();
+//		handleAlert();
+//		switchToDefaultContent();
+//		customerContactId = element("txt_renewalContactId").getText();
+//
+//		// System.out.println(customerLname);
+//		createMemberCredentials.put("Nominee" + individualCount + "Name", customerLname);
+//		createMemberCredentials.put("Nominee" + individualCount + "Number", customerContactId);
+//		
+//		 System.out.println(createMemberCredentials.get("Nominee" +
+//		  individualCount + "Name"));
+//		 System.out.println(createMemberCredentials.get("Nominee" +
+//		  individualCount + "Number"));
+//		 
+//		System.out.println("customerContactId::" + customerContactId);
+//		logMessage("STEP : Individual Details saved from iweb profile page\n");
+//		individualCount++;
+//
+//	}
+	
 	public void getIndividualFullNameForAwardsNomination() {
-
-		clickOnEditNameAndAddress();
-		wait.hardWait(5);
-		switchToDefaultContent();
-		wait.hardWait(9);
-		switchToFrame(element("iframe"));
-		customerLname = getNameFromEditNameAndAddressButton("lastName") + " "
-				+ getNameFromEditNameAndAddressButton("firstName") + " "
-				+ getNameFromEditNameAndAddressButton("middleName");
-		clickOnCancelButton();
-		handleAlert();
-		switchToDefaultContent();
-		customerContactId = element("txt_renewalContactId").getText();
-
-		// System.out.println(customerLname);
-		createMemberCredentials.put("Nominee" + individualCount + "Name", customerLname);
-		createMemberCredentials.put("Nominee" + individualCount + "Number", customerContactId);
-		/*
-		 * System.out.println(createMemberCredentials.get("Nominee" +
-		 * individualCount + "Name"));
-		 * System.out.println(createMemberCredentials.get("Nominee" +
-		 * individualCount + "Number"));
-		 */
-		System.out.println("customerContactId::" + customerContactId);
-		logMessage("STEP : Individual Details saved from iweb profile page\n");
-		individualCount++;
-
+		
+		createMemberCredentials.put("Nominee" + 0 + "Name", "LN1505414760652");
+		createMemberCredentials.put("Nominee" + 0 + "Number", "31395978");
+		createMemberCredentials.put("Nominee" + 1 + "Name", "LN1505415216157");
+		createMemberCredentials.put("Nominee" + 1 + "Number", "31395979");
+		createMemberCredentials.put("Nominee" + 2 + "Name", "LN1505415483858");
+		createMemberCredentials.put("Nominee" + 2 + "Number", "31395980");
+		createMemberCredentials.put("Nominee" + 3 + "Name", "LN1505415750359");
+		createMemberCredentials.put("Nominee" + 3 + "Number", "31395982");
 	}
 
 	public void selectMemberByContactID() {
