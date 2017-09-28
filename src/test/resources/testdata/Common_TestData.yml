@@ -136,7 +136,8 @@ OMA_SmokeChecklistData:
     acsPublicationsInternationalList: 
         List1: "Jrnl of Chemical Education Web"
         List2: "Jrnl of Chemical Education Web Combo"
-    
+    saveButtonColor: blue
+    saveButtonColorHex: "#286cb6"
     
     
 ASM_StoreSmokeChecklist_Data: 

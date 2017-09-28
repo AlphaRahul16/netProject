@@ -326,7 +326,8 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		// verifyPriceType(map().get( "Iweb Pub Name?"),
 		// "amount", getPriceSheetValue(caseId, "pubsPrice?"), 1);
 
-		verifyPriceType(map().get("Iweb Pub Name?"), "shipping", getPriceSheetValue(caseId, "pubsShipping?"), 1);
+//		verifyPriceType(map().get("Iweb Pub Name?"), "shipping", getPriceSheetValue(caseId, "pubsShipping?"), 1);
+		verifyPriceType(map().get("PublicationName"), "shipping", getPriceSheetValue(caseId, "pubsShipping?"), 1);
 
 		verifyPriceType(map().get("Iweb Division Name?"), "Tax", getPriceSheetValue(caseId, "divisionTax?"),
 				mutliYearInInteger);
