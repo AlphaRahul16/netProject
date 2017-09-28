@@ -2684,17 +2684,18 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		// System.out.println(customerLname);
 		createMemberCredentials.put("Nominee" + individualCount + "Name", customerLname);
 		createMemberCredentials.put("Nominee" + individualCount + "Number", customerContactId);
-		/*
-		 * System.out.println(createMemberCredentials.get("Nominee" +
-		 * individualCount + "Name"));
-		 * System.out.println(createMemberCredentials.get("Nominee" +
-		 * individualCount + "Number"));
-		 */
+		
+		 System.out.println(createMemberCredentials.get("Nominee" +
+		  individualCount + "Name"));
+		 System.out.println(createMemberCredentials.get("Nominee" +
+		  individualCount + "Number"));
+		 
 		System.out.println("customerContactId::" + customerContactId);
 		logMessage("STEP : Individual Details saved from iweb profile page\n");
 		individualCount++;
 
 	}
+	
 
 	public void selectMemberByContactID() {
 		System.out.println("customerContactId::" + customerContactId);
@@ -2801,15 +2802,23 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void selectValidUserForRenewal(Map<String, String> mapOMR, String query) {
 		if (MemberTransferLoopCount < 3) {
+	        clickOnModuleTab();
+		    clickOnTab("CRM");
+		    clickOnSideBarTab("Invoice");
 			clickOnTab("Query Invoice");
 			selectAndRunQuery(query);
 			//selectMemberForRenewal(mapOMR.get("Member_Status?"));
 			clickOnGoButtonInRunQuery();
 			// expandDetailsMenuIfAlreadyExpanded("invoices");
+			
+			clickOnCustomerNameAndNavigateToMembershipPage();
+			expandDetailsMenu("individual memberships");
+			navigateToInvoicePageForRenewedProduct();
 			expandDetailsMenu("invoices");
 			verifyTermStartDateAndEndDatesAreEmpty(mapOMR,query);
-			verifyPaymentStatusBeforeRenewal(mapOMR);
+			verifyPaymentStatusBeforeRenewal(mapOMR,query);
 			MemberTransferLoopCount++;
+			logMessage("STEP : Looping again to find new member "+MemberTransferLoopCount+" time \n");
 		} else {
 			Assert.fail("ASSERT FAIL : Member is not selected after " + MemberTransferLoopCount + " attempts\n");
 			logMessage("ASSERT FAIL : Member is not selected after " + MemberTransferLoopCount + " attempts\n");
@@ -2827,7 +2836,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		verifyTermStartDateAndEndDatesAreEmpty(mapRenewalIWeb,query);
 	}
 
-	public void verifyPaymentStatusBeforeRenewal(Map<String, String> mapOMR) {
+	public void verifyPaymentStatusBeforeRenewal(Map<String, String> mapOMR,String query) {
 		if (!mapOMR.get("Member_Status?").equals("Emeritus")) {
 			try {
 				wait.resetImplicitTimeout(4);
@@ -2836,7 +2845,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 						"ASSERT FAILED: Expected value is 'Paid' but found "
 								+ element("txt_PaymentStatus", "Payment Status").getText());
 			} catch (AssertionError e) {
-				selectValidUserForRenewal(mapOMR,"");
+				selectValidUserForRenewal(mapOMR,query);
 			}
 
 		}

@@ -200,14 +200,23 @@ public class FundProfilePage extends ASCSocietyGenericPage {
 	}
 
 	public void editpostToWebAndRemoveFromWebDates_AwardNomination() {
+		String postToWeb = element("inp_invoiceValue", "post to web").getText().trim();
+		String removeFromWeb = element("inp_invoiceValue", "remove from web").getText().trim();
+		if(postToWeb.length() == 0 || removeFromWeb.length()==0)
+		{
+		editDatesIfNotPresent(postToWeb, removeFromWeb);
+		}
+		else
+		{
 		System.out.println(
-				"flag" + isCurrentDateFallsBetweenTwoDates(element("inp_invoiceValue", "post to web").getText().trim(),
-						element("inp_invoiceValue", "remove from web").getText().trim()));
+				"flag" + isCurrentDateFallsBetweenTwoDates(postToWeb,
+						removeFromWeb));
 		if (isCurrentDateFallsBetweenTwoDates(element("inp_invoiceValue", "post to web").getText().trim(),
 				element("inp_invoiceValue", "remove from web").getText().trim()) == true) {
 			clickEditButtonOnAwardsProfile();
 			editPostToAndRemoveFromDatesForAwardNomination();
 
+		}
 		}
 	}
 
@@ -215,17 +224,13 @@ public class FundProfilePage extends ASCSocietyGenericPage {
 		switchToFrame(element("iframeMessageMenu"));
 		if (AwardsNominateDateCompareList.get(0) == -1) {
 			System.out.println("post " + DateUtil.getAnyDateForType("MM/dd/yyyy", -1, "year"));
-			EnterTextInFieldByJavascript("awh_post_to_web_date", DateUtil.getAnyDateForType("MM/dd/yyyy", -1, "year"));
-			logMessage("STEP : Post to web date is entered as " + DateUtil.getAnyDateForType("MM/dd/yyyy", -1, "year"));
+			fillDatesAsNamed("awh_post_to_web_date", -1);
 		}
 		if (AwardsNominateDateCompareList.get(1) == 1) {
 			System.out.println("remove " + DateUtil.getAnyDateForType("MM/dd/yyyy", 1, "year"));
-			EnterTextInFieldByJavascript("awh_remove_from_web_date",
-					DateUtil.getAnyDateForType("MM/dd/yyyy", 1, "year"));
-			logMessage(
-					"STEP : Remove from web date is entered as " + DateUtil.getAnyDateForType("MM/dd/yyyy", 1, "year"));
-		}
+			fillDatesAsNamed("awh_remove_from_web_date", 1);
 
+		}
 		clickSaveButtonInAwardNomination();
 
 	}
@@ -265,6 +270,24 @@ public class FundProfilePage extends ASCSocietyGenericPage {
 		}
 		return flag;
 
+	}
+	
+	private void editDatesIfNotPresent(String postToWeb, String removeFromWeb) {
+		System.out.println("length "+postToWeb.length());
+
+			clickEditButtonOnAwardsProfile();
+			wait.hardWait(10);
+			switchToDefaultContent();
+			switchToFrame(element("iframeMessageMenu"));
+			fillDatesAsNamed("awh_post_to_web_date", -1);
+			fillDatesAsNamed("awh_remove_from_web_date", 1);
+			clickSaveButtonInAwardNomination();
+	}
+	
+	private void fillDatesAsNamed(String name,int difference)
+	{
+		EnterTextInFieldByJavascript(name, DateUtil.getAnyDateForType("MM/dd/yyyy", difference, "year"));
+		logMessage("STEP : For "+name+" date entered as " + DateUtil.getAnyDateForType("MM/dd/yyyy",difference, "year"));
 	}
 
 }

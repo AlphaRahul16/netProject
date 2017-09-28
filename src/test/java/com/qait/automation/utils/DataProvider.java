@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.LineIterator;
+import org.jboss.netty.util.internal.SystemPropertyUtil;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 
@@ -321,7 +322,7 @@ public class DataProvider {
 	public static String getCsvSheetPath(String sheetName) {
 		String sheetPath;
 		if (_getSessionConfig().get("tier").equalsIgnoreCase("dev9")
-				|| _getSessionConfig().get("tier").equalsIgnoreCase("stage8")
+				|| _getSessionConfig().get("tier").equalsIgnoreCase("dev4")
 				|| _getSessionConfig().get("tier").equalsIgnoreCase("stage4")
 				||_getSessionConfig().get("tier").equalsIgnoreCase("stage7")
 				|| _getSessionConfig().get("tier").equalsIgnoreCase("dev7")
@@ -330,6 +331,7 @@ public class DataProvider {
 			sheetPath = sheetPath.replace("TestDataLibrary", "Payment_Processor_DataLibrary");
 		} else
 			sheetPath = getYamlValue("csv-data-file.path_" + sheetName);
+		System.out.println("Sheet path "+sheetPath);
 		return sheetPath;
 	}
 
