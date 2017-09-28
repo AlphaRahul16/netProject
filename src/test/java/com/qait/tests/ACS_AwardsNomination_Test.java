@@ -37,7 +37,7 @@ public class ACS_AwardsNomination_Test extends BaseTest{
 		this.caseID = caseID;
 	}
 
-	//@Test(invocationCount = 4)
+	@Test(invocationCount = 4)
 	public void Step01_TC01_CreateMember_As_A_Prerequisite_For_Award_Nomination() {
 		mapAwardsNomination = test.homePageIWEB.addValuesInMap("AwardNomination", "3");
 		test.homePageIWEB.clickOnAddIndividual();
@@ -49,7 +49,6 @@ public class ACS_AwardsNomination_Test extends BaseTest{
 
 	@Test
 	public void Step02_TC02_Launch_Iweb_And_Select_General_Award() {
-		mapAwardsNomination = test.homePageIWEB.addValuesInMap("AwardNomination", "3");
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Awards");
 		test.homePageIWEB.clickOnTab("Find Award");
@@ -69,7 +68,7 @@ public class ACS_AwardsNomination_Test extends BaseTest{
 
 	@Test
 	public void Step03_TC03_Launch_AwardsNominateApplication_And_Perform_Nomination() {
-		test.memberShipPage.getIndividualFullNameForAwardsNomination();
+
 		createMemberCredentials = test.memberShipPage
 				.getIndividualMapFromCreateMemberScript();
 

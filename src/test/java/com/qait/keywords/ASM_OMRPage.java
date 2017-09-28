@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
+import com.qait.automation.TestSessionInitiator;
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DateUtil;
 
@@ -21,6 +22,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	static boolean flag, confirmPage;
 	int timeOut, hiddenFieldTimeOut;
 	Map<String, String> mapRenewedProductDetails = new HashMap<String, String>();
+	
 
 	public ASM_OMRPage(WebDriver driver) {
 		super(driver, pagename);
@@ -502,9 +504,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		if (mapOMR.get("Login_With_AcsID?").equalsIgnoreCase("Yes")) {
 			loginIntoApplication_ACS_ID(memDetails.get(2), "password");
 		} else if (mapOMR.get("Login_With_LastNameMemberNumber?").equalsIgnoreCase("Yes")) {
+			//loginIntoApplication_LastName_MemberNumber("Turnbull", "00851131");			
 			loginIntoApplication_LastName_MemberNumber(memDetails.get(0).split(" ")[0], memDetails.get(1));
-
-			// loginIntoApplication_LastName_MemberNumber("Agrawal", "2397066");
 		} else if (mapOMR.get("Login_With_LastNameNoticeNumber?").equalsIgnoreCase("Yes")) {
 			loginIntoApplication_LastName_NoticeNumber(memDetails.get(0).split(" ")[0], memDetails.get(2));
 		}
@@ -527,17 +528,20 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	public Map<String, String> addMembershipsForRegularMember(Map<String, String> mapOMR) {
 		//receiveCENPrintOrElectronically(mapOMR.get("Receive_C&EN?"));
 		if (!mapOMR.get("Member_Status?").equalsIgnoreCase("Emeritus")) {
-			removeAllPreviousRenewals("RemoveBenefitItem");
-			removeAllPreviousRenewals("RemoveDivisionItem");
-			removeAllPreviousRenewals("RemovePublicationItem");
-			removeAllPreviousRenewals("RemoveContributionItem");
-			addACSTechnicalDivision(mapOMR);
+//			removeAllPreviousRenewals("RemoveBenefitItem");
+//			removeAllPreviousRenewals("RemoveDivisionItem");
+//			removeAllPreviousRenewals("RemovePublicationItem");
+//			removeAllPreviousRenewals("RemoveContributionItem");
+//			addACSTechnicalDivision(mapOMR);
+			//removeAlreadyAddedPublication();
+			holdScriptExecution();
+			//BenefitsPage.addACSPublication("Jrnl of Chemical Education Web");
 			addACSPublications(mapOMR);
-			addACSMemberBenefits(mapOMR);
-			addACSContributions(mapOMR);
+//			addACSMemberBenefits(mapOMR);
+//			addACSContributions(mapOMR);
 		} else if (mapOMR.get("Member_Status?").equalsIgnoreCase("Emeritus")) {
 
-			removeAllPreviousRenewalsForEmeritusMember();
+			//removeAllPreviousRenewalsForEmeritusMember();
 
 		} else if (mapOMR.get("Member_Status?").equalsIgnoreCase("Regular")) {
 			clickRadioButtonForRenewalYears(mapOMR.get("Renew_For_Years?"));
@@ -546,6 +550,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 
 		return saveProductsWithRespectiveRenewalAmount();
 	}
+
+	
 
 	private void clickCENElecronicallyButton() {
 		switchToEwebRenewalFrame();
@@ -623,15 +629,15 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	private void addACSPublications(Map<String, String> mapOMR) {
 		if (mapOMR.get("Publications_To_Add?").equalsIgnoreCase("Yes")) {
 			clickAddMembershipButton("Add ACS Publication");
-			holdScriptExecution();
+			holdScriptExecution();			
+			
 			// isElementDisplayed("txt_legend","My ACS Publications");
-			holdScriptExecution();
-			selectAddToMembershipForParticularSubscription("PubAddToMembership");
+			selectAddToMembershipForParticularSubscription(mapOMR.get("Publications_Name"));
 			clickSaveButtonToAddMembership();
 
 		}
 	}
-
+	
 	private void addACSTechnicalDivision(Map<String, String> mapOMR) {
 		if (mapOMR.get("Technical_Division_To_Add?").equalsIgnoreCase("Yes")) {
 			clickAddMembershipButton("Add ACS Technical Division");
@@ -651,7 +657,8 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			switchToEwebRenewalFrame();
 			isElementDisplayed("btn_addSubscription", valueofmembership);
-			element("btn_addSubscription", valueofmembership).click();
+			click(element("btn_addSubscription", valueofmembership));
+			//element("btn_addSubscription", valueofmembership).click();
 			logMessage("STEP : " + valueofmembership + " button is clicked\n");
 		} catch (NoSuchElementException e) {
 			switchToDefaultContent();
@@ -669,15 +676,25 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	}
 
 	private void selectAddToMembershipForParticularSubscription(String value) {
-
 		wait.hardWait(8);
-		switchToEwebRenewalFrame();
-		
-		//System.out.println(elements("btn_addToMemberships").size());
-		elements("btn_addToMemberships").get(generateRandomNumberWithInRange(0, (elements("btn_addToMemberships").size()) - 1)).click();
+		switchToEwebRenewalFrame();		
+//		isElementDisplayed("btn_addToMemberships");
+//		System.out.println(elements("btn_addToMemberships").size());
+//		List <WebElement> publications = elements("btn_addToMemberships");
+//		clickUsingXpathInJavaScriptExecutor(elements("btn_addToMemberships").get(generateRandomNumberWithInRange(0, (elements("btn_addToMemberships").size()) - 1)));
+//		elements("btn_addToMemberships").get(generateRandomNumberWithInRange(0, (elements("btn_addToMemberships").size()) - 1)).click();
+//		click(element("btn_addToMemberships","1"));
+		try{
+			isElementDisplayed("btn_removePubs",value);
+			click(element("btn_removePubs",value));			
+		}catch(NoSuchElementException e){
+			
+		}
+		click(element("btn_addToMembership",value));
 		logMessage("STEP : Button Add to membership is clicked for " + value);
 		switchToDefaultContent();
 	}
+	
 
 	public void clickSaveButtonToAddMembership() {
 		switchToDefaultContent();
@@ -792,7 +809,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 
 	public void verifyRenewedProductsSummaryOnCheckOutPage(Map<String, String> mapRenewedProductDetails) {
 
-		// verifyProductsIndividualAmount(mapRenewedProductDetails);
+		verifyProductsIndividualAmount(mapRenewedProductDetails);
 		verifyTotalAndBalanceDueOnCheckOutPage(mapRenewedProductDetails);
 
 	}
@@ -1118,5 +1135,11 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 		System.out.println(invoice);
 		return invoice;
 
+	}
+
+	public void verifyPublicationIsAdded(String publication_name) {
+		holdScriptExecution();
+		Assert.assertTrue(checkIfElementIsThere("btn_YesSurePopUp", publication_name));
+		logMessage("ASSERT PASSED:: " + publication_name + " is added \n");		
 	}
 }

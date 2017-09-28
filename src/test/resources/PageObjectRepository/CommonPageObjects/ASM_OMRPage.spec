@@ -36,7 +36,7 @@ rad_undergraduate                           css                                 
 iframe_ewebframe                            css                                        #eWebFrame
 btn_addSubscription                          css                                        input[class='addItemButton'][value='${value}']
 txt_legend                                  xpath                                      //legend[contains(text(),'${value}')]
-btn_addToMemberships                        css                                     input[value*='Add to Membership']
+#btn_addToMemberships                        css                                     input[value*='Add to Membership']
 inp_contribution                            xpath                                      //span[contains(text(),'${value}')]/../../following-sibling::td//input
 btn_saveToAddMembership                     xpath                                         //input[contains(@id,'btnSave')]
 txt_productamount                           xpath                                     //td[@class='category']/following-sibling::td[@class='amount']/span
@@ -68,4 +68,7 @@ txt_productIndividualAmount                 css                                 
 txt_AsteriskFields                          css                                       span[id*='${value}']
 logo_OMR                                    css                                     .app-logo>h2
 btn_PayINR                                  css                                      .btn.btn-blue
+btn_addToMembership						   xpath									//span[text()='${pubsName}']/../../preceding-sibling::td/input[3]
+btn_removePubs								xpath									//span[text()='${pubsName}']/../../following-sibling::td//a
+
 =================================================================================================================================================

@@ -9,6 +9,7 @@ import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
 import com.qait.automation.utils.DateUtil;
+import com.qait.automation.utils.YamlReader;
 
 public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 
@@ -45,6 +46,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 		futureMonth = date1.getDate("Over 30 days from now")[1];
 
 		clickRadioButton_Detail("majorInChemistry", majorInChemistryValue);
+		verifyAddAnotherDegreeButtonPosition();
 		if (degreeWithFutureDate.equalsIgnoreCase("Null")
 				&& !(degreeWithPastDate.equalsIgnoreCase("Null"))) {
 			selectPastDegreeWithOtherDetail(degreeWithPastDate, major, month,
@@ -70,6 +72,11 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 			}
 		}
 		verifyFieldVisibility("lbl_chemistryTeacher", hasChemistryTeacher);
+	}
+	
+	public void verifyAddAnotherDegreeButtonPosition(){
+		isElementDisplayed("btn_addAnotherDegreePosition");
+		logMessage("Step: Add another degree button is right justified\n");
 	}
 
 	public void selectPastDegreeWithOtherDetail(String degree, String major,
@@ -144,11 +151,12 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 	}
 
 	private void isMajorChemistry(String chemistryTeacherStatus,
-			String hasChemistryTeacher) {
+			String hasChemistryTeacher,String expText) {
 		System.out.println("has chem ------------" + hasChemistryTeacher);
 		majorInChemistryValue = "No";
 		clickRadioButton_Detail("majorInChemistry", majorInChemistryValue);
 		verifyFieldVisibility("lbl_chemistryTeacher", hasChemistryTeacher);
+		verifyTextUnderPreCollegeChemitryTeacher(expText);
 		if (chemistryTeacherStatus.equalsIgnoreCase("Y")) {
 			chemistryTeacherValue = "Yes";
 			clickRadioButton_Detail("chemistryTeacher", chemistryTeacherValue);
@@ -161,6 +169,13 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 		} else {
 			logMessage("STEP : chemistry Teacher Status is not present in data sheet");
 		}
+	}
+	
+	public void verifyTextUnderPreCollegeChemitryTeacher(String expText){
+		isElementDisplayed("txt_chemistryTeacher");
+		Assert.assertEquals(element("txt_chemistryTeacher").getText().trim(), expText,
+				"ASSERT FAILED: "+expText+" is not displayed under Pre-College Chemistry Teacher question\n");
+		logMessage("ASSERT PASSED: "+expText+" is verified under Pre-College Chemistry Teacher question\n");
 	}
 
 	public void fillDegree(String degree, int index) {
@@ -364,6 +379,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 
 		if (map().get("Chemistry Major Status").equalsIgnoreCase("Y")) {
 
+			
 			isMajorChemistry(
 					map().get("Select Degree(s) with past date"),
 					map().get("Select Degree(s) with future date"),
@@ -375,7 +391,8 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 					map().get("Evaluate degree type and enter past/future date"));
 		} else if (map().get("Chemistry Major Status").equalsIgnoreCase("N")) {
 			isMajorChemistry(map().get("Chemistry Teacher Status"),
-					map().get("Has Chemistry teacher?"));
+					map().get("Has Chemistry teacher?")
+					,YamlReader.getYamlValue("OMA_SmokeChecklistData.txtPreCollegeChemistryTeacher"));
 
 		} else {
 			logMessage("Chemistry status is invalid in data sheet");
@@ -385,11 +402,28 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 				"Has Summer mailing address?"));
 		System.out.println("case id :-" + map().get("CASE ID"));
 		isSummerMailingAddress(map().get("CASE ID"));
+		verifyIfApplicableConditionForEmployee("name", "(if applicable)");
+		verifyIfApplicableConditionForEmployee("industry", "(if applicable)");
+		verifyIfApplicableConditionForEmployee("occupation", "(if applicable)");
+		verifyConditionForDemographics("Demographics", YamlReader.getYamlValue("OMA_SmokeChecklistData.txtDemographicsInformation"));
 		enterEmployerDetails(map().get("CASE ID"));
 		verifyJobExpFieldVisibility(map().get(
 				"Has Chemistry professional experience?"));
 		enterJobExperience(map().get("Has Chemistry professional experience?"),
 				map().get("Enter Job Experience Value"));
+	}
+	
+	public void verifyIfApplicableConditionForEmployee(String empDetail,String expText){
+		if(empDetail.equals("name")){
+			Assert.assertTrue(element("condition_empDetail",empDetail).getText().trim().contains(expText),
+					"ASSERT FAILED: "+expText+" condition is not present for employee "+empDetail+"\n");
+			logMessage("ASSERT PASSED: "+expText+" condition is present for employee "+empDetail+"\n");
+		}
+		else{
+			Assert.assertTrue(!(element("condition_empDetail",empDetail).getText().trim().contains(expText)),
+					"ASSERT FAILED: "+expText+" condition should not be present for employee "+empDetail+"\n");
+			logMessage("ASSERT PASSED: "+expText+" condition is not present for employee "+empDetail+"\n");
+		}
 	}
 
 	private void verifyIndustryTypeFieldVisibility(String hasIndustryCategory) {
@@ -431,7 +465,8 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 			System.out.println("-----------"
 					+ map().get("Has Chemistry teacher?"));
 			isMajorChemistry(map().get("Chemistry Teacher Status"),
-					map().get("Has Chemistry teacher?"));
+					map().get("Has Chemistry teacher?"),
+					YamlReader.getYamlValue("OMA_SmokeChecklistData.txtPreCollegeChemistryTeacher"));
 		} else {
 			logMessage("Chemistry status is invalid in data sheet");
 			Assert.fail("ASSERT FAILED : Chemistry major status is not valid in data sheet");
@@ -550,6 +585,18 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 		clickRadioButton_Detail("currentStudent", studentAvailable);
 		enterEduAndEmpDetail("universityName", universityName);
 
+	}
+	
+	public void verifyEducationSectionHeaders(String headerName){
+		isElementDisplayed("header_sectionName",headerName);
+		logMessage("ASSERT PASSED: "+headerName+" section is displayed on Education & Employment page\n");
+	}
+	
+	public void verifyConditionForDemographics(String header,String expectedText){
+		isElementDisplayed("txt_headerCondition",header);
+		Assert.assertEquals(element("txt_headerCondition",header).getText().trim(), expectedText,
+				"ASSERT FAILED: "+expectedText+" text is not present corresponding to "+header+" header\n");
+		logMessage("ASSERT PASSED: "+expectedText+" text is present corresponding to "+header+" header\n");
 	}
 
 }

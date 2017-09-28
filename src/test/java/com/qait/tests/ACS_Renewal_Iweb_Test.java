@@ -39,7 +39,7 @@ public class ACS_Renewal_Iweb_Test extends BaseTest {
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Membership");
 		test.homePageIWEB.clickOnSideBarTab("Members");
-		test.memberShipPage.selectUserForIwebRenewal(mapRenewalIweb);
+		test.memberShipPage.selectUserForIwebRenewal(mapRenewalIweb,"Selenium - Renewal Query OMR");
 
 	}
 
