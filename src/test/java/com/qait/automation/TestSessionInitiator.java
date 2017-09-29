@@ -210,7 +210,6 @@ public class TestSessionInitiator {
 					
 					driver.get(baseurl);
 				} else if (baseurl.contains("https://dev-eweb12/YBDev3/iWeb")
-						|| baseurl.contains("https://dev-eweb12/NFDev4/iWeb")
 						|| (baseurl.contains("https://dev-eweb12.acs.org/NFDev"))) {
 					baseurl = baseurl.replaceAll("https://dev",
 							"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
