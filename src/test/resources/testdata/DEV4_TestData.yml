@@ -1,31 +1,25 @@
-app_url_OMA: https://www.ewebdev.acs.org/NFDev4/oma  
+app_url_OMA: https://ewebdev.acs.org/NFDev4/oma
 app_url_IWEB: https://dev-eweb12/NFDev4/iWeb/
-app_url_AACT_OMR: https://www.ewebdev.acs.org/NFDev4/aactomr
-app_url_CCED: https://www.ewebdev.acs.org/NFDev4/ccedlookup  
-app_url_Store: https://www.ewebdev.acs.org/NFDev4/store   
-app_url_AACT: https://www.ewebdev.acs.org/NFDev4/aactoma  
-app_url_email: https://www.ewebdev.acs.org/NFDev4/emailcenter 
-app_url_nominateFellow: https://www.ewebdev.acs.org/NFDev4/nominatefellow
-app_url_egift: https://www.ewebdev.acs.org/NFDev4/egift
-app_url_givingDonate: https://www.ewebdev.acs.org/NFDev4/donate   
-app_url_givingGreen: https://www.ewebdev.acs.org/NFDev4/green  
-app_url_givingScholars: https://www.ewebdev.acs.org/NFDev4/scholars 
-app_url_givingSeed: https://www.ewebdev.acs.org/NFDev4/seed
-app_url_OMR:  https://www.ewebdev.acs.org/NFDev4/renew 
-app_url_MGM: https://www.ewebdev.acs.org/NFDev4/mgm  
-app_url_Meeting: https://ewebtest12.acs.org/NFDev4/meetings/2012gcec
-app_url_MemberNumberLookup: https://www.ewebdev.acs.org/NFDev4/membernumberlookup
-app_url_NCW: https://www.ewebdev.acs.org/NFDev4/ncwlookup 
-app_url_PUBS: https://www.ewebdev.acs.org/NFDev4/pba  
-app_url_Nominate: https://www.ewebdev.acs.org/NFDev4/nominate
-app_url_Awards: https://www.ewebdev.acs.org/NFDev4/awards 
-app_url_yellowBook: https://dev-eweb12.acs.org/NFDev4/yellowbook
-app_url_iweb_yb: https://iwebtest.acs.org/NFDev3/iWeb
-app_url_ScarfReviewing: https://www.ewebdev.acs.org/NFDev4/studentchaptersreview
-
-
+app_url_CCED: https://ewebdev.acs.org/NFDev4/ccedlookup
+app_url_Store: https://ewebdev.acs.org/NFDev4/store
+app_url_AACT: https://ewebdev.acs.org/NFDev4/aactoma
+app_url_email: https://ewebdev.acs.org/NFDev4/emailcenter
+app_url_nominateFellow: https://ewebdev.acs.org/NFDev4/nominatefellow
+app_url_egift: https://ewebdev.acs.org/NFDev4/egift
+app_url_givingDonate: https://ewebdev.acs.org/NFDev4/donate  
+app_url_givingGreen: https://ewebdev.acs.org/NFDev4/green
+app_url_givingScholars: https://ewebdev.acs.org/NFDev4/scholars
+app_url_givingSeed: https://ewebdev.acs.org/NFDev4/seed
+app_url_OMR: https://ewebdev.acs.org/NFDev4/renew
+app_url_MGM: https://ewebdev.acs.org/NFDev4/mgm
+app_url_Meeting: https://ewebtest12.acs.org/NFStage3/meetings/2012gcec
+app_url_MemberNumberLookup: https://ewebdev.acs.org/NFDev4/membernumberlookup
+app_url_NCW: https://ewebdev.acs.org/NFDev4/ncwlookup
+app_url_PUBS: https://ewebdev.acs.org/NFDev4/pba
+app_url_Nominate: https://ewebdev.acs.org/NFDev4/nominate
+app_url_Awards: https://ewebdev.acs.org/NFDev4/awards
 
 Authentication: 
-  userName: C00767
-  password: "1c7U696a^"
+  userName: C00839
+  password: "g6s2A4*43"
   
