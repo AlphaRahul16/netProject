@@ -953,7 +953,8 @@ public class InvoicePageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void clickOnNextButton() {
 		isElementDisplayed("btn_next");
-		element("btn_next").click();
+//		element("btn_next").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_next"));
 		logMessage("Step: Clicked on Next button\n");
 	}
 

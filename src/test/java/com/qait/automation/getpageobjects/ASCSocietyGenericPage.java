@@ -553,5 +553,38 @@ public class ASCSocietyGenericPage extends GetPage {
 		logMessage("ASSERT PASSED: '" + filepath + "' is downloaded \n");
 
 	}
+	
+	public static String getfilesByUniquePartOFName(String uniqueValue)
+	{
+		File dir = new File("./src/test/resources/DownloadedFiles");
+		File[] foundFiles = dir.listFiles(new FilenameFilter() {
+		    public boolean accept(File dir, String name) {
+		        return name.contains(uniqueValue);
 
+	}});
+		String[] filepath = foundFiles[0].toString().split("\\\\");
+		String filename = filepath[filepath.length-1];
+		System.out.println("name "+filename);
+		return filename;
+		
+		
+
+}
+	
+	public static String cleanDownloadsDirectory(String uniqueValue)
+	{
+		File dir = new File("./src/test/resources/DownloadedFiles");
+		File[] foundFiles = dir.listFiles(new FilenameFilter() {
+		    public boolean accept(File dir, String name) {
+		        return name.contains(uniqueValue);
+
+	}});
+		String[] filepath = foundFiles[0].toString().split("\\\\");
+		String filename = filepath[filepath.length-1];
+		System.out.println("name "+filename);
+		return filename;
+		
+		
+
+}
 }
