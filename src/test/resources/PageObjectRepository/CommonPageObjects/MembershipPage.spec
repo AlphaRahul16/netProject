@@ -197,7 +197,7 @@ lnk_sourceCode                                  xpath                           
 txt_sourceCode                                  xpath                           //label[text()='${label}:']/preceding-sibling::span
 txt_memberDetails                               xpath                           (//span[text()='${tabName}']/parent::td/parent::tr/following-sibling::tr//tr[not(contains(@style,'none'))])[%{index1}]/td[#{column}]
 txt_recordNo									css							  #dgDynamicList>tbody>tr:nth-child(3)>td:nth-child(6)
-txt_weblogin									css								#dgDynamicList>tbody>tr:nth-child(3)>td:nth-child(${index})
+txt_weblogin									css								#dgDynamicList>tbody>tr:nth-child(4)>td:nth-child(${index})
 txt_chapterName                                 xpath                           //td[contains(text(),'Local Section Member')]/following-sibling::td[contains(text(),'Active')]/following-sibling::td[contains(text(),'${effDate}')]/following-sibling::td[contains(text(),'%{expDate}')]/..//td[#{index}]
 txt_termDates                                   xpath                          //span[text()='${tabName}']/parent::td/parent::tr/following-sibling::tr//td[contains(text(),'Regular Member')]/following-sibling::td[contains(text(),'Active')]/following-sibling::td[${column}]
 lnk_goToRecord                                  xpath                          //td[contains(text(),'Regular Member')]/following-sibling::td[contains(text(),'Active')]/preceding-sibling::td[${column}]/a/i

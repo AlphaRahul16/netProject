@@ -23,8 +23,17 @@ app_url_MGMUrl: https://ewebdev.acs.org/NFDev4/mgm
 app_url_MGMjoin: https://ewebdev.acs.org/NFDev4/oma?appID=
 app_url_MGMOputOut: https://ewebdev.acs.org/NFDev4/eweb/ACSMGMTemplate.aspx?site=ACS_MGM&WebCode=optout&appID=
 app_url_MGMLogout: https://ewebdev.acs.org/NFDev4/eweb/acslogout.aspx 
+app_url_IwebReporting: https://dev-eweb12/NFDev4/iWeb/
+app_url_ScarfReviewing: https://ewebdev.acs.org/NFDev4/studentchaptersreview
+app_url_EwebReporting: https://ewebdev.acs.org/NFDev4/studentchaptersonline
+app_url_AACT_OMR: https://ewebdev.acs.org/NFDev4/aactomr
+app_url_MGMUrl: https://ewebdev.acs.org/NFDev4/mgm
+app_url_MGMjoin: https://www.jointest.acs.org/NFDev4/oma?appID=
+app_url_MGMOputOut: https://www.ewebtest.acs.org/NFDev4/eweb/ACSMGMTemplate.aspx?site=ACS_MGM&WebCode=optout&appID=
+app_url_MGMLogout: https://www.ewebtest.acs.org/NFDev4/eweb/acslogout.aspx
 
 Authentication: 
   userName: C00839
   password: "g6s2A4*43"
-  
+  emailId: "H_Sil@acs.org"
+

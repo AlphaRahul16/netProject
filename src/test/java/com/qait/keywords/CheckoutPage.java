@@ -274,7 +274,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 	public String[] verifyPriceValues(String caseId) {
 		timeOut = Integer.parseInt(getProperty("Config.properties", "timeout"));
 		hiddenFieldTimeOut = Integer.parseInt(getProperty("Config.properties", "hiddenFieldTimeOut"));
-		String[] productNames = { map().get("Product?"), map().get("Iweb Pub Name?"), map().get("Iweb Division Name?"),
+		String[] productNames = { map().get("Product?"), map().get("PublicationName"), map().get("Iweb Division Name?"),
 				getPriceSheetValue(caseId, "LSproductName?"), getPriceSheetValue(caseId, "CENproductName?") };
 		verifyMultiYearShow_Hide(map().get("multiYearFlag?"));
 		if (!map().get("multiYearDecision").equalsIgnoreCase("")) {
@@ -326,7 +326,8 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 		// verifyPriceType(map().get( "Iweb Pub Name?"),
 		// "amount", getPriceSheetValue(caseId, "pubsPrice?"), 1);
 
-		verifyPriceType(map().get("Iweb Pub Name?"), "shipping", getPriceSheetValue(caseId, "pubsShipping?"), 1);
+//		verifyPriceType(map().get("Iweb Pub Name?"), "shipping", getPriceSheetValue(caseId, "pubsShipping?"), 1);
+		verifyPriceType(map().get("PublicationName"), "shipping", getPriceSheetValue(caseId, "pubsShipping?"), 1);
 
 		verifyPriceType(map().get("Iweb Division Name?"), "Tax", getPriceSheetValue(caseId, "divisionTax?"),
 				mutliYearInInteger);
@@ -358,6 +359,7 @@ public class CheckoutPage extends ASCSocietyGenericPage {
 
 	private String[] getProductQuantity(String[] productName) {
 		for (int i = 0; i < productName.length; i++) {
+			System.out.println("------i:"+i+"-----productName:"+productName[i]);
 			isElementDisplayed("txt_quantity", productName[i]);
 			quantity[i] = element("txt_quantity", productName[i]).getText();
 		}

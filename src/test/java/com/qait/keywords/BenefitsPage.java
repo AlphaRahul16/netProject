@@ -2,11 +2,14 @@ package com.qait.keywords;
 
 import static com.qait.automation.utils.ConfigPropertyReader.getProperty;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
@@ -34,7 +37,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 			clickOnACSPublication();
 			verifyPublicationConditionsOnBenefitsPage("lblDescriptionText",
 					YamlReader.getYamlValues("OMA_SmokeChecklistData.conditionsAcsPublications"));
-			verifyListOfPublications(map().get("Country"));
+//			verifyListOfPublications(map().get("Country")); //for new changes
 			clickOnAddToMembership(publicationName);
 			if (isBrowser("ie") || isBrowser("internet explorer")) {
 				verifyPrdouctAddition(publicationName);
@@ -44,7 +47,8 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 			subtotalPublication_score = subtotalPublication_score + Float.parseFloat(score_publicationName.get(0));
 			verifyTotalScorePublication(subtotalPublication_score);
 			verifyDivision_PublicationAdded(publicationName);
-//			verifySaveButtonColor("blue");
+			verifySaveButtonColor(YamlReader.getYamlValue("OMA_SmokeChecklistData.saveButtonColor"),
+					YamlReader.getYamlValue("OMA_SmokeChecklistData.saveButtonColorHex"));
 			clickSaveButton();
 			logMessage("STEP :  Add ACS Publication is added as " + publicationName + "\n");
 		} else {
@@ -53,9 +57,25 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 
 	}
 	
-	public void verifySaveButtonColor(String color){
+	public void verifySaveButtonColor(String color,String colorHex){
 		isElementDisplayed("btn_saveColor");
-		System.out.println("-----color:"+element("btn_saveColor").getAttribute("background"));
+		System.out.println("-----color:"+element("btn_saveColor").getCssValue("background-color"));
+		Assert.assertEquals(convertRGBToHexaDecimalFromGetCssValue(element("btn_saveColor"), "background-color"), colorHex
+				,"ASSERT FAILED: Color of Save button is not "+color+"\n");
+		logMessage("ASSERT PASSED: Color of Save button is "+color+"\n");
+	}
+	
+	public String convertRGBToHexaDecimalFromGetCssValue(WebElement element, String attributeName) {
+		  String color = element.getCssValue(attributeName);
+		  String s1 = color.substring(5);
+		  StringTokenizer st = new StringTokenizer(s1);
+		  int r = Integer.parseInt(st.nextToken(",").trim());
+		  int g = Integer.parseInt(st.nextToken(",").trim());
+		  int b = Integer.parseInt(st.nextToken(",").trim());
+		  Color c = new Color(r, g, b);
+		  String hex = "#" + Integer.toHexString(c.getRGB()).substring(2);
+		  System.out.println("-------hexadecimal vale:"+hex);
+		  return hex;
 	}
 	
 	public void verifyListOfPublications(String country){
@@ -263,10 +283,14 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 	
 	public void verifyTechnicalDivisionCondition(String memberType,String expCondition,String sectionName){
 		if(!memberType.equals("Society Affiliate")){
-			for(int i=1;i<=elements("list_technicalDivisionPoints",sectionName).size();i++){
-			if(elements("list_technicalDivisionPoints",sectionName).get(i).getText().trim().equals(YamlReader.getYamlValue("OMA_SmokeChecklistData.txtTechnicalDivisionCondition1"))){
-				Assert.assertFalse(true,"ASSERT FAILED: "+YamlReader.getYamlValue("OMA_SmokeChecklistData.txtTechnicalDivisionCondition1")+" should not be displayed on page\n");
-			}
+			for(int i=0;i<elements("list_technicalDivisionPoints",sectionName).size();i++){
+				logMessage("------i:"+i);
+				logMessage("-------value:"+elements("list_technicalDivisionPoints",sectionName).get(i).getText().trim());
+				logMessage("------expected:"+YamlReader.getYamlValue("OMA_SmokeChecklistData.txtTechnicalDivisionCondition"+(i+1)));
+//			if(elements("list_technicalDivisionPoints",sectionName).get(i).getText().trim().equals(YamlReader.getYamlValue("OMA_SmokeChecklistData.txtTechnicalDivisionCondition"+(i+1)))){
+//				Assert.assertFalse(true,"ASSERT FAILED: "+YamlReader.getYamlValue("OMA_SmokeChecklistData.txtTechnicalDivisionCondition"+(i+1))+" should not be displayed on page\n");
+//			}
+				verifyConditionsOnBenefitsPage(sectionName,YamlReader.getYamlValue("OMA_SmokeChecklistData.txtTechnicalDivisionCondition"+(i+1)), (i+1));
 		  }	
 		}
 		else
