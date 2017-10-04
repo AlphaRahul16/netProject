@@ -744,7 +744,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void selectOrderEntryInfo(String orderEntryInfo, String value) {
-		hardWaitForIEBrowser(2);
+		hardWaitForIEBrowser(5);
 		isElementDisplayed("list_" + orderEntryInfo);
 		selectProvidedTextFromDropDown(element("list_" + orderEntryInfo), value);
 		logMessage("STEP : " + orderEntryInfo + " is selected as " + value + "\n");

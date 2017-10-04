@@ -324,6 +324,7 @@ public class DataProvider {
 				|| _getSessionConfig().get("tier").equalsIgnoreCase("stage8")
 				|| _getSessionConfig().get("tier").equalsIgnoreCase("stage4")
 				||_getSessionConfig().get("tier").equalsIgnoreCase("stage7")
+				||_getSessionConfig().get("tier").equalsIgnoreCase("dev4")
 				||_getSessionConfig().get("tier").equalsIgnoreCase("stage5")) { //
 			sheetPath = getYamlValue("csv-data-file.path_" + sheetName);
 			sheetPath = sheetPath.replace("TestDataLibrary", "Payment_Processor_DataLibrary");

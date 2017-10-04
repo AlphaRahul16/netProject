@@ -77,7 +77,7 @@ public class ACS_OMR_Smoke_Test extends BaseTest {
 
 	@Test (dependsOnMethods = { "Step04_TC01_launch_Eweb_Renewal_Application_And_Login_With_Valid_Credentials" })
 	public void Step05_TC01_Add_Membership_For_Member() {
-		//test.asm_OMR.FillRequiredDetailsForStudentMember(mapOMR);
+		test.asm_OMR.FillRequiredDetailsForStudentMember(mapOMR);
 		mapRenewedProductDetails = test.asm_OMR
 				.addMembershipsForRegularMember(mapOMR);
 		test.asm_OMR.verifyPublicationIsAdded(mapOMR.get("Publications_Name"));
