@@ -2642,9 +2642,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			isElementDisplayed("txt_current", String.valueOf(1));
 			clickUsingXpathInJavaScriptExecutor(element("txt_current", String.valueOf(1)));
 		} else {
-			isElementDisplayed("txt_current", String.valueOf(1));
-			cst = element("txt_current", String.valueOf(1)).getText().trim();
-			element("txt_current", String.valueOf(1)).click();
+			isElementDisplayed("txt_current", String.valueOf(2));
+			cst = element("txt_current", String.valueOf(2)).getText().trim();
+			element("txt_current", String.valueOf(2)).click();
 		}
 		logMessage("STEP : CstWebLogin is fetched as " + cst);
 		return cst;

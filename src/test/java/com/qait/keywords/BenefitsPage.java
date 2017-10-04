@@ -37,7 +37,7 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 			clickOnACSPublication();
 			verifyPublicationConditionsOnBenefitsPage("lblDescriptionText",
 					YamlReader.getYamlValues("OMA_SmokeChecklistData.conditionsAcsPublications"));
-			verifyListOfPublications(map().get("Country"));
+//			verifyListOfPublications(map().get("Country")); //for new changes
 			clickOnAddToMembership(publicationName);
 			if (isBrowser("ie") || isBrowser("internet explorer")) {
 				verifyPrdouctAddition(publicationName);
@@ -283,10 +283,14 @@ public class BenefitsPage extends ASCSocietyGenericPage {
 	
 	public void verifyTechnicalDivisionCondition(String memberType,String expCondition,String sectionName){
 		if(!memberType.equals("Society Affiliate")){
-			for(int i=1;i<=elements("list_technicalDivisionPoints",sectionName).size();i++){
-			if(elements("list_technicalDivisionPoints",sectionName).get(i).getText().trim().equals(YamlReader.getYamlValue("OMA_SmokeChecklistData.txtTechnicalDivisionCondition1"))){
-				Assert.assertFalse(true,"ASSERT FAILED: "+YamlReader.getYamlValue("OMA_SmokeChecklistData.txtTechnicalDivisionCondition1")+" should not be displayed on page\n");
-			}
+			for(int i=0;i<elements("list_technicalDivisionPoints",sectionName).size();i++){
+				logMessage("------i:"+i);
+				logMessage("-------value:"+elements("list_technicalDivisionPoints",sectionName).get(i).getText().trim());
+				logMessage("------expected:"+YamlReader.getYamlValue("OMA_SmokeChecklistData.txtTechnicalDivisionCondition"+(i+1)));
+//			if(elements("list_technicalDivisionPoints",sectionName).get(i).getText().trim().equals(YamlReader.getYamlValue("OMA_SmokeChecklistData.txtTechnicalDivisionCondition"+(i+1)))){
+//				Assert.assertFalse(true,"ASSERT FAILED: "+YamlReader.getYamlValue("OMA_SmokeChecklistData.txtTechnicalDivisionCondition"+(i+1))+" should not be displayed on page\n");
+//			}
+				verifyConditionsOnBenefitsPage(sectionName,YamlReader.getYamlValue("OMA_SmokeChecklistData.txtTechnicalDivisionCondition"+(i+1)), (i+1));
 		  }	
 		}
 		else

@@ -431,4 +431,86 @@ public class TestSessionInitiator {
 		driver.get(maps_url);
 		System.out.println("Step: Launched "+maps_url+"\n");
 	}
+	
+	public void launchApplication1(String baseurl) {
+		try {
+			Reporter.log("The test browser is :- " + _getSessionConfig().get("browser") + "\n", true);
+			deleteAllCookies();
+			if (!(_getSessionConfig().get("browser").equalsIgnoreCase("ie")
+					|| _getSessionConfig().get("browser").equalsIgnoreCase("internetexplorer"))) {
+				String[] tier,env;
+				tier=baseurl.split("-");
+				env=tier[0].split("//");
+				
+				switch(env[1]){
+				
+				}
+				
+				
+				
+				
+				
+				
+				if (baseurl.contains("https://stag-12iweb/NFStage")) {
+					baseurl = baseurl.replaceAll("https://stag",
+							"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
+									+ URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), "UTF-8")
+									+ "@stag");
+					
+					driver.get(baseurl);
+				} else if (baseurl.contains("https://dev-eweb12/YBDev3/iWeb")
+						|| baseurl.contains("https://dev-eweb12/NFDev4/iWeb")
+						|| (baseurl.contains("https://dev-eweb12.acs.org/NFDev"))) {
+					baseurl = baseurl.replaceAll("https://dev",
+							"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
+									+ URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), "UTF-8")
+									+ "@dev");
+					driver.get(baseurl);
+				} else {
+					baseurl = baseurl.replaceAll("https://iwebtest",
+							"https://" + YamlReader.getYamlValue("Authentication.userName") + ":"
+									+ URLEncoder.encode(YamlReader.getYamlValue("Authentication.password"), "UTF-8")
+									+ "@iwebtest");
+				}
+				driver.get(baseurl);
+			} else {
+				driver.get(baseurl);
+			}
+
+			if (!_getSessionConfig().get("browser").equalsIgnoreCase("ie")) {
+				if (baseurl.contains("iweb")) {
+					Reporter.log("\nThe application url is :- "
+							+ baseurl.replace(baseurl.split("@")[0], "https://").replace("@", ""), true);
+				} else if ((baseurl.contains("dev") && _getSessionConfig().get("browser").equalsIgnoreCase("chrome"))
+						|| baseurl.contains("https://dev-eweb12/YBDev3/iWeb")) {
+
+					Reporter.log("\nThe application url is :- "
+							+ baseurl.replace(baseurl.split("@")[0], "https://").replace("@", ""), true);
+				} else
+					Reporter.log("\nThe application url is :- " + baseurl, true);
+			}
+			if ((baseurl.equalsIgnoreCase("https://stag-12iweb/NFStage4/iweb/")||baseurl.equalsIgnoreCase("https://stag-12eweb1/NFStage4/iweb/"))
+					&& (ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("IE")
+							|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("ie")
+							|| ConfigPropertyReader.getProperty("browser").equalsIgnoreCase("internetexplorer"))) {
+				// ((JavascriptExecutor)
+				// driver).executeScript("document.documentMode=10");
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e1) {
+					System.out.println(e1.getMessage());
+				}
+			}
+			if (!baseurl.equalsIgnoreCase("https://iwebtest.acs.org/NFStage3/iweb")) {
+				handleSSLCertificateCondition(baseurl);
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		System.out.println("launched application");
+
+	}
+
 }

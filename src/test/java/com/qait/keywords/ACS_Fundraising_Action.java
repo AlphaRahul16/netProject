@@ -294,12 +294,12 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 	public void verifyInstallments(float noOfPayments, float totalAmount) {
 		 DecimalFormat df = new DecimalFormat("#.00");
 		float payments = totalAmount / noOfPayments;
-		int count=30;
+		int count=1;
 		wait.hardWait(2);
 		isElementDisplayed("list_folderTable");
 		if (noOfPayments == elements("list_folderTable").size() - 1) {
 			for (int i = 2; i <= elements("list_folderTable").size(); i++) {
-				String[] ar = DateUtil.getNextDate("day", count);	
+				String[] ar = DateUtil.getNextDate("month", count);	
 				String date=ar[1] + "/" + ar[2] + "/" + ar[0];
 				System.out.println("-----actual date:"+element("txt_folderData", String.valueOf(i), String.valueOf(4)).getText().trim());
 				System.out.println("-----expected date:"+DateUtil.convertStringToParticularDateFormat(date, "m/d/yyyy"));
@@ -312,7 +312,7 @@ public class ACS_Fundraising_Action extends ASCSocietyGenericPage {
 						.equals(df.format(payments)),
 				"ASSERT FAILED : Schedule amount for installment "+count+" is not verified as " + df.format(payments));
 		logMessage("ASSERT PASSED : Schedule amount for installment "+count+" is verified as " + df.format(payments));
-		count=count+30;
+		count=count+1;
 			}
 		}
 		else

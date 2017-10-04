@@ -38,8 +38,8 @@ public class HomePageActions_IWEB extends ASCSocietyGenericPage {
 		} else {
 			isElementDisplayed("link_findIndividuals");
 			wait.hardWait(1);
-			clickUsingXpathInJavaScriptExecutor(element("link_findIndividuals"));
-			// element("link_findIndividuals").click();
+//			clickUsingXpathInJavaScriptExecutor(element("link_findIndividuals"));
+		    element("link_findIndividuals").click();
 		}
 		logMessage("STEP : Click find button for individual search\n");
 	}

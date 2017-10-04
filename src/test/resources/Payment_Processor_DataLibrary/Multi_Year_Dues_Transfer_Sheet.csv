@@ -3,7 +3,7 @@ caseID	caseID Execute	Original MemberPackage	Years	New MemberPackage?	Product Pa
 2	No	ACS : Regular Member : Regular Member Dues C&EN-Print	3 year	Regular Member 3Y Dues C&EN-Print	Regular Member Dues C&EN-Print 3Y
 3	No	ACS : Regular Member : Regular Member 2Y Dues C&EN-Print	1 year	Regular Member Dues C&EN-Print	Regular Member Dues C&EN-Print
 4	No	ACS : Regular Member : Regular Member 2Y Dues C&EN-Print	3 year	Regular Member 3Y Dues C&EN-Print	Regular Member Dues C&EN-Print 3Y
-5	No	ACS : Regular Member : Regular Member 3Y Dues C&EN-Print	1 year	Regular Member Dues C&EN-Print	Regular Member Dues C&EN-Print
+5	Yes	ACS : Regular Member : Regular Member 3Y Dues C&EN-Print	1 year	Regular Member Dues C&EN-Print	Regular Member Dues C&EN-Print
 6	No	ACS : Regular Member : Regular Member 3Y Dues C&EN-Print	2 year	Regular Member 2Y Dues C&EN-Print	Regular Member Dues C&EN-Print 2Y
 7	No	ACS : Regular Member : Regular Member Dues C&EN-Print	2 year	Regular Member 2Y Dues C&EN-Digital	Regular Member Dues C&EN-Digital 2Y
 8	Yes	ACS : Regular Member : Regular Member Dues C&EN-Print	3 year	Regular Member 3Y Dues C&EN-Digital	Regular Member 3Y Dues C&EN-Digital 
@@ -15,7 +15,7 @@ caseID	caseID Execute	Original MemberPackage	Years	New MemberPackage?	Product Pa
 14	No	ACS : Regular Member : Regular Member Dues C&EN-Digital	3 year	Regular Member 3Y Dues C&EN-Digital	Regular Member 3Y Dues C&EN-Digital 
 15	No	ACS : Regular Member : Regular Member 2Y Dues C&EN-Digital	1 year	Regular Member Dues C&EN-Digital	Regular Member Dues C&EN-Digital
 16	No	ACS : Regular Member : Regular Member 2Y Dues C&EN-Digital	3 year	Regular Member 3Y Dues C&EN-Digital	Regular Member 3Y Dues C&EN-Digital 
-17	No	ACS : Regular Member : Regular Member 3Y Dues C&EN-Digital	1 year	Regular Member Dues C&EN-Digital	Regular Member Dues C&EN-Digital
+17	Yes	ACS : Regular Member : Regular Member 3Y Dues C&EN-Digital	1 year	Regular Member Dues C&EN-Digital	Regular Member Dues C&EN-Digital
 18	No	ACS : Regular Member : Regular Member 3Y Dues C&EN-Digital	2 year	Regular Member 2Y Dues C&EN-Digital	Regular Member Dues C&EN-Digital 2Y
 19	No	ACS : Regular Member : Regular Member Dues C&EN-Digital	2 year	Regular Member 2Y Dues C&EN-Print	Regular Member Dues C&EN-Print 2Y
 20	No	ACS : Regular Member : Regular Member Dues C&EN-Digital	3 year	Regular Member 3Y Dues C&EN-Print	Regular Member Dues C&EN-Print 3Y
