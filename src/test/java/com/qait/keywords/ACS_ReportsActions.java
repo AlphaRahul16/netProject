@@ -46,7 +46,8 @@ public class ACS_ReportsActions extends ASCSocietyGenericPage  {
 		isElementDisplayed("txt_reportName",reportName);
 		isElementDisplayed("btn_goReport",reportName);
 		hardWaitForIEBrowser(3);
-		element("btn_goReport",reportName).click();
+		//element("btn_goReport",reportName).click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_goReport",reportName));
 		logMessage("STEP : Go Button for Report "+reportName+" is clicked\n");
 		
 	}

@@ -18,6 +18,11 @@ app_url_NCW: https://ewebdev.acs.org/NFDev4/ncwlookup
 app_url_PUBS: https://ewebdev.acs.org/NFDev4/pba
 app_url_Nominate: https://ewebdev.acs.org/NFDev4/nominate
 app_url_Awards: https://ewebdev.acs.org/NFDev4/awards
+app_url_AACT_OMR: https://ewebdev.acs.org/NFDev4/aactomr
+app_url_MGMUrl: https://ewebdev.acs.org/NFDev4/mgm
+app_url_MGMjoin: https://ewebdev.acs.org/NFDev4/oma?appID=
+app_url_MGMOputOut: https://ewebdev.acs.org/NFDev4/eweb/ACSMGMTemplate.aspx?site=ACS_MGM&WebCode=optout&appID=
+app_url_MGMLogout: https://ewebdev.acs.org/NFDev4/eweb/acslogout.aspx 
 
 Authentication: 
   userName: C00839
