@@ -100,7 +100,7 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 		// YamlReader.getYamlValue("creditCardDetails.paymentMethodVisaMC.cvv-number"),
 		// YamlReader.getYamlValue("creditCardDetails.paymentMethodBOACheck.CheckNumber"));
 		//
-		test.memberShipPage.selectAndAddBatchIFNotPresent(
+		test.memberShipPage.selectAndAddBatchIFNotPresentCreateMember(
 				batchprefix + ASCSocietyGenericPage.map().get("Batch_Name?") + System.currentTimeMillis(),
 				ASCSocietyGenericPage.map().get("Payment_Type"), ASCSocietyGenericPage.map().get("Payment_Method"));
 		test.memberShipPage.fillAllTypeOFPaymentDetails(ASCSocietyGenericPage.map().get("Payment_Method"),

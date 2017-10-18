@@ -3995,7 +3995,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		if (isBrowser("ie") || isBrowser("internet explorer")) {
 			clickUsingXpathInJavaScriptExecutor(element("arrow_selectMember", String.valueOf(i)));
 		} else
-			element("arrow_selectMember", String.valueOf(i)).click();
+//			element("arrow_selectMember", String.valueOf(i)).click();
+		clickUsingXpathInJavaScriptExecutor(element("arrow_selectMember", String.valueOf(i)));
 	}
 
 	public void verifyPayment(int index) {
@@ -4829,6 +4830,22 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : " + productName + " is selected from product merchandise\n");
 	}
 
+	public void selectAndAddBatchIFNotPresentCreateMember(String batchName, String paymentType, String paymentMethod) {
+
+		holdExecution(2000);
+		if (verifyBatchIsPresent(batchName)) {
+			selectOrderEntryInfo("batch", batchName);
+		} else {
+			addBatch(batchName.replaceAll("ACS: ", ""), "QA");
+		}
+		waitForSpinner();
+		wait.hardWait(6);
+		selectOrderEntryInfo("PaymentTypeCreateMember", paymentType);
+		waitForSpinner();
+		selectOrderEntryInfo("paymentMethod", paymentMethod);
+
+	}
+	
 	public void selectAndAddBatchIFNotPresent(String batchName, String paymentType, String paymentMethod) {
 
 		holdExecution(2000);
