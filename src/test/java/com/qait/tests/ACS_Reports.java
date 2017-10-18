@@ -55,13 +55,10 @@ public class ACS_Reports extends BaseTest{
 		app_url_IWEB =getYamlValue("app_url_IWEB");
 		mapReportDetails = YamlReader.getYamlValues("Acs_Reports");
 		getReportsDetails=new YamlInformationProvider(mapReportDetails);
-		test.enterAuthenticationAutoIt();
+		//test.enterAuthenticationAutoIt();
 		test.launchApplication(app_url_IWEB);
-		
-		
 
 	}
-
 
 	@DataProvider(name = "ReportsData")
 	public static Object[][] Reports_Criteria() {

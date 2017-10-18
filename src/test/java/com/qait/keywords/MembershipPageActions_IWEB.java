@@ -744,8 +744,9 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void selectOrderEntryInfo(String orderEntryInfo, String value) {
-		hardWaitForIEBrowser(5);
+		wait.hardWait(5);
 		isElementDisplayed("list_" + orderEntryInfo);
+		clickUsingXpathInJavaScriptExecutor(element("list_" + orderEntryInfo));
 		selectProvidedTextFromDropDown(element("list_" + orderEntryInfo), value);
 		logMessage("STEP : " + orderEntryInfo + " is selected as " + value + "\n");
 		wait.hardWait(3);
@@ -4855,7 +4856,6 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 			addBatch(batchName.replaceAll("ACS: ", ""), "QA");
 		}
 		waitForSpinner();
-		wait.hardWait(6);
 		selectOrderEntryInfo("PaymentType", paymentType);
 		waitForSpinner();
 		selectOrderEntryInfo("paymentMethod", paymentMethod);

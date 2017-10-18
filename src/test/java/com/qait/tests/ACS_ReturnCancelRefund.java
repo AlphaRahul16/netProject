@@ -96,7 +96,7 @@ public class ACS_ReturnCancelRefund extends BaseTest {
 	}
 
 	@Test(dependsOnMethods="Step08_Create_New_Batch_For_Refund_And_And_Fetch_Refund_Info")
-	public void Step10_Verify_Refund_And_Credit_Details() {
+	public void Step09_Verify_Refund_And_Credit_Details() {
 		test.invoicePage.expandDetailsMenu("refund detail");
 		test.acsbatchProcessing.verifyRefundDetails(refundInfo, "refund");
 		test.invoicePage.collapseDetailsMenu("refund detail");
@@ -105,8 +105,8 @@ public class ACS_ReturnCancelRefund extends BaseTest {
 		test.invoicePage.collapseDetailsMenu("related credit");
 	}
 
-	@Test(dependsOnMethods="Step10_Verify_Refund_And_Credit_Details")
-	public void Step11_Prcoess_Refund_Batch_For_Close_And_Verify_FTP_Button_Is_Inactive() {
+	@Test(dependsOnMethods="Step09_Verify_Refund_And_Credit_Details")
+	public void Step10_Prcoess_Refund_Batch_For_Close_And_Verify_FTP_Button_Is_Inactive() {
 		test.acsVoidInvoice
 				.NavigateToBatchProfilePageByClickingOnBatchName(refundbatchname);
 		test.acsbatchProcessing.clickEditButtonOnBatchProcessingPage();
