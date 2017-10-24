@@ -90,17 +90,8 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 	@Test(dependsOnMethods = "Step06_Sell_Subscription")
 	public void Step07_Verify_NetPrice_Amount_And_Make_Payment() {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
-		//test.memberShipPage.verifyNetPriceValue("netbalance");
-//	
-//		test.memberShipPage.selectAndAddBatchIFNotPresent(
-//				batchprefix + ASCSocietyGenericPage.map().get("Batch_Name?") + System.currentTimeMillis(),
-//				ASCSocietyGenericPage.map().get("Payment_Type"), ASCSocietyGenericPage.map().get("Payment_Method"));
-//		test.memberShipPage.fillAllTypeOFPaymentDetails(ASCSocietyGenericPage.map().get("Payment_Method"),
-//				ASCSocietyGenericPage.map().get("Visa_Card_Number"), ASCSocietyGenericPage.map().get("Diners_Card_Number"),
-//				ASCSocietyGenericPage.map().get("Reference_Number"), ASCSocietyGenericPage.map().get("Discover_Card_Number"),
-//				ASCSocietyGenericPage.map().get("AMEX_Card_Number"), ASCSocietyGenericPage.map().get("Expiry_Date"),
-//				ASCSocietyGenericPage.map().get("CVV_Number"), ASCSocietyGenericPage.map().get("Check_Number"));
-		
+		test.memberShipPage.verifyNetPriceValue("netbalance");
+			
 		test.memberShipPage.selectAndAddBatchIFNotPresent(
 				batchprefix + ASCSocietyGenericPage.map().get("Batch_Name?") + System.currentTimeMillis(),
 				ASCSocietyGenericPage.map().get("Payment_Type"), ASCSocietyGenericPage.map().get("Payment_Method"));
