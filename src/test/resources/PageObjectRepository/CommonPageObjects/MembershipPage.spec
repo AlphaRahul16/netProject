@@ -30,7 +30,11 @@ btn_saveAndFinish                                    css                    inpu
 txt_itemsAdded                                      xpath                  	//a[text()='${itemName}']
 lineitem_product									xpath					.//table[@class='table']//a[contains(text(),'${Product}')]
 list_batch                                          id                        inv_bat_key
+<<<<<<< HEAD
+list_PaymentTypeCreateMember                        xpath                     //select[@name="inv_orig_trans_type"]
+=======
 list_PaymentType                                    xpath                      .//*[@id='inv_orig_trans_type']
+>>>>>>> 3b689a79143a497f18b34adb2668be48174deb13
 list_paymentMethod                                   id                       pin_apm_key
 btn_go                                              id                           ButtonSearch
 inp_cardNumber                                       id                       pin_cc_number
@@ -203,6 +207,7 @@ txt_termDates                                   xpath                          /
 lnk_goToRecord                                  xpath                          //td[contains(text(),'Regular Member')]/following-sibling::td[contains(text(),'Active')]/preceding-sibling::td[${column}]/a/i
 lst_childTable                                  xpath                          (//th/a)[2]/../../following-sibling::tr
 txt_date                                        xpath                          (//th/a)[2]/../../following-sibling::tr[${rowNumber}]//td[${colNumber}]
+list_PaymentType                                css                            #inv_orig_trans_type
 ##----------------------------------------------------------Credit_Page-------------------------------------------------------------------------
 icon_expand										css								.icon-chevron-down
 drpdown_batchNameCreditPage						css								#cdt_bat_key
