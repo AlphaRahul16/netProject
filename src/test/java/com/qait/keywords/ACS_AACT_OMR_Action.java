@@ -137,45 +137,20 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 
 	}
 
-//	public List<String> checkTheValuesOnUpdateAboutYou(String value) {
-//
-//		List<String> checkedValues = new ArrayList<String>();
-//		int size = elements("unchked_label", value).size();
-//		System.out.println("**********size" + size);
-//		int max = 12, min = 1;
-//		Random rand = new Random();
-//		int randomNumber = rand.nextInt((size - min) + 1) + min;
-//		System.out.println("**********Random no" + randomNumber);
-//		for (int i = size - 1; i > randomNumber; i--) {
-//
-//			// checkedValues.add(elements("txt_label",
-//			// value).get(i).getText().trim());
-//			checkedValues.add(elements("unchked_label", value).get(i).getText().trim());
-//			// System.out.println("checked values " + elements("txt_label",
-//			// value).get(i).getText().trim());
-//			elements("unchked_label", value).get(i).click();
-//			logMessage("STEP: " + elements("txt_label", value).get(i).getText().trim() + " is checked for " + value
-//					+ "\n");
-//		}
-//		logMessage("\nSTEP: values of '" + value + "' field are updated \n");
-//		return checkedValues;
-//	}
 	public List<String> checkTheValuesOnUpdateAboutYou(String value) {
 
-		  List<String> checkedValues = new ArrayList<String>();
-		  int size = elements("unchked_label", value).size();
-		  for (int i = size - 1; i > size - 10; i--) {
+		List<String> checkedValues = new ArrayList<String>();
+		int size = elements("unchked_label", value).size();
+		for (int i = size - 1; i > size - 10; i--) {
 
-		   checkedValues.add(elements("txt_label", value).get(i).getText().trim());
-		   // System.out.println("checked values " + elements("txt_label",
-		   // value).get(i).getText().trim());
-		   elements("unchked_label", value).get(i).click();
-		   logMessage("STEP: " + elements("txt_label", value).get(i).getText().trim() + " is checked for " + value
-		     + "\n");
-		  }
-		  logMessage("\nSTEP: values of '" + value + "' field are updated \n");
-		  return checkedValues;
-		 }
+			checkedValues.add(elements("txt_label", value).get(i).getText().trim());
+			elements("unchked_label", value).get(i).click();
+			logMessage("STEP: " + elements("txt_label", value).get(i).getText().trim() + " is checked for " + value
+					+ "\n");
+		}
+		logMessage("\nSTEP: values of '" + value + "' field are updated \n");
+		return checkedValues;
+	}
 
 	public void enterGenderExperienceAndGraduationDetails(String gender, String experience, String gradMonth,
 			String gradYear,String memberType) {
@@ -196,12 +171,7 @@ public class ACS_AACT_OMR_Action extends ASCSocietyGenericPage {
 		logMessage("STEP: Gender is selected as " + gender + "\n");
 	}
 
-	// public void verifyDetailsOfUpdateAboutYou(List<String> checkedValues) {
-	//
-	//
-	// // verifyDetailsOfList(checkedValues,"SubjectsList");
-	// }
-
+	
 	private void verifyDetailsOfList(Map<String, List<String>> checkedValues, String listName) {
 
 		int size = checkedValues.size();
