@@ -44,18 +44,15 @@ public class ACS_OMR_Smoke_Test extends BaseTest {
 		mapOMR = ASCSocietyGenericPage.addValuesInMap(sheetname, caseID);
 		//test.homePageIWEB.clickOnSideBarTab("Invoice");
 	//	test.homePageIWEB.clickOnTab("Query Invoice");
-	//	test.memberShipPage.selectAndRunQuery(YamlReader.getYamlValue("New_Member_Benefits.OMR"));
-//		test.homePageIWEB.clickOnModuleTab();
-//		test.homePageIWEB.clickOnTab("CRM");
-//		test.homePageIWEB.clickOnSideBarTab("Invoice");
-		test.memberShipPage.selectValidUserForRenewal(mapOMR, YamlReader.getYamlValue("New_Member_Benefits.OMR"));
+	//	test.memberShipPage.selectAndRunQuery(YamlReader.getYamlValue("New_Member_Benefits.OMR"));		
+		test.memberShipPage.selectValidUserForRenewal(mapOMR, YamlReader.getYamlValue("OMR_Discount.queryName"));
 	}
 
 	@Test (dependsOnMethods = { "Step01_TC01_launch_Iweb_And_Select_Valid_User_For_Renewal" })
 	public void Step02_TC01_Verify_Payment_Status_And_Invoice_Details_Before_Renewal() {
-		//test.individualsPage.clickGotoRecordForRenewal();
+		test.individualsPage.clickGotoRecordForRenewal();
 		//test.memberShipPage.clickOnGoButtonAfterPackageSelection();
-		//invoiceNumber = test.invoicePage.verifyInvoiceDetailsBeforeRenewal();
+		invoiceNumber = test.invoicePage.verifyInvoiceDetailsBeforeRenewal();
 
 	}
 

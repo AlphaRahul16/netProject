@@ -2722,7 +2722,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		customerContactId = element("txt_renewalContactId").getText();
 		memberDetails.add(customerLname);
 		memberDetails.add(customerContactId);
-		// memberDetails.add(getMemberWebLogin());
+		//memberDetails.add(getMemberWebLogin());
 		memberDetails.add(invoiceNumber);
 		logMessage("STEP : Full Name of member is " + memberDetails.get(0));
 		logMessage("STEP : Customer Id of member is " + memberDetails.get(1));
@@ -2803,14 +2803,18 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void selectValidUserForRenewal(Map<String, String> mapOMR, String query) {
 		if (MemberTransferLoopCount < 3) {
-	        clickOnModuleTab();
-		    clickOnTab("CRM");
-		    clickOnSideBarTab("Invoice");
-			clickOnTab("Query Invoice");
+//	        clickOnModuleTab();
+//		    clickOnTab("CRM");
+//		    clickOnSideBarTab("Invoice");
+//			clickOnTab("Query Invoice");
+			clickOnModuleTab();
+			clickOnTab("Membership");
+			clickOnSideBarTab("Members");
+			clickOnTab("Query Membership");	
 			selectAndRunQuery(query);
-			//selectMemberForRenewal(mapOMR.get("Member_Status?"));
+			selectMemberForRenewal(mapOMR.get("Member_Status?"));
 			clickOnGoButtonInRunQuery();
-			// expandDetailsMenuIfAlreadyExpanded("invoices");
+			expandDetailsMenuIfAlreadyExpanded("invoices");
 			
 			clickOnCustomerNameAndNavigateToMembershipPage();
 			expandDetailsMenu("individual memberships");
