@@ -91,16 +91,8 @@ public class ACS_Create_Member_IWEB_Test extends BaseTest {
 	public void Step07_Verify_NetPrice_Amount_And_Make_Payment() {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
 		test.memberShipPage.verifyNetPriceValue("netbalance");
-		// test.memberShipPage.selectBatchAndPaymentDetails_subscription(
-		// YamlReader.getYamlValue("Acs_CreateMember_IWEB.batch"),
-		// YamlReader.getYamlValue("Acs_CreateMember_IWEB.PaymentType"),
-		// YamlReader.getYamlValue("creditCardDetails.PaymentMethod.Select"),
-		// YamlReader.getYamlValue("creditCardDetails.paymentMethodVisaMC.Number"),
-		// YamlReader.getYamlValue("Acs_CreateMember_IWEB.expireDate"),
-		// YamlReader.getYamlValue("creditCardDetails.paymentMethodVisaMC.cvv-number"),
-		// YamlReader.getYamlValue("creditCardDetails.paymentMethodBOACheck.CheckNumber"));
-		//
-		test.memberShipPage.selectAndAddBatchIFNotPresentCreateMember(
+			
+		test.memberShipPage.selectAndAddBatchIFNotPresent(
 				batchprefix + ASCSocietyGenericPage.map().get("Batch_Name?") + System.currentTimeMillis(),
 				ASCSocietyGenericPage.map().get("Payment_Type"), ASCSocietyGenericPage.map().get("Payment_Method"));
 		

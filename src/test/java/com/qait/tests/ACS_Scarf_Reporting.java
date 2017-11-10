@@ -93,7 +93,7 @@ public class ACS_Scarf_Reporting{
 		test.memberShipPage.clickOnTab("Query Chapter");
 		test.memberShipPage.selectAndRunQuery(getYamlValue("ScarfReporting.queryName"));
 		test.memberShipPage.verifyOueryAskAtRunTimePage();
-		test.memberShipPage.selectMemberPackage("2016-2017");
+		test.memberShipPage.selectMemberPackage("2017-2018");
 		test.memberShipPage.clickOnGoButtonAfterPackageSelection();
 	}
 

@@ -5,4 +5,4 @@
             <class name="com.qait.tests.Inventory_Product_Fulfillment_Test" />
         </classes>
     </test>
-</suite>
+   </suite>
