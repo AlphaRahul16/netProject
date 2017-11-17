@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Factory;
@@ -40,7 +41,7 @@ public class ACS_GivingApplication_Smoke extends BaseTest {
 	public ACS_GivingApplication_Smoke(String caseID) {
 		this.caseID = caseID;
 	}
-
+	
 	@Test
 	public void Step01_TC01_Launch_IWeb_Application_And_Navigate_To_Funds() {
 
@@ -208,6 +209,7 @@ public class ACS_GivingApplication_Smoke extends BaseTest {
 	@BeforeMethod
 	public void handleTestMethodName(Method method) {
 		test.printMethodName(method.getName());
+		Reporter.log("CASE ID:::::" + this.caseID + "\n", true);
 	}
 
 }

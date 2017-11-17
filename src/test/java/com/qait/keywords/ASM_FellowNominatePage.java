@@ -782,7 +782,7 @@ public class ASM_FellowNominatePage extends GetPage {
 	private void clickGotoDashboardButtonOnPopUp() {
 		isElementDisplayed("btn_gotoDashboardOnPopUp");
 		element("btn_gotoDashboardOnPopUp").click();
-		logMessage("STEP : Goto Dashboard nutton on PopUp is clicked\n");
+		logMessage("STEP : Goto Dashboard button on PopUp is clicked\n");
 
 	}
 
