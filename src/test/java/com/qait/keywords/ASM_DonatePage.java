@@ -629,7 +629,7 @@ public class ASM_DonatePage extends GetPage {
 			String sheetValue, List<String> memberdetails) {
 		System.out.println("member login details" + memberLoginDetails.size());
 		if (memberLoginDetails.size() > 1) {
-			wait.waitForPageToLoadCompletely();
+//			wait.waitForPageToLoadCompletely();
 			if (sheetValue.equalsIgnoreCase("YES")) {
 				System.out.println("$$$$$$$$");
 				loginIntoApplicationByMemberViaIDOrMemmberNumber(memberdetails.get(1), memberdetails.get(0));
