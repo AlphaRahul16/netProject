@@ -2074,12 +2074,11 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 		waitForSpinner();
 		System.out.println(chapterName);
 		wait.hardWait(4);
-		System.out.println(element("txt_priceValue", chapterName).getText().trim());
 		System.out.println(chapterRole);
 		isElementDisplayed("txt_divisionPubName", chapterName);
 		Assert.assertTrue(element("txt_priceValue", chapterName).getText().trim().equals(chapterRole),
 				"Chapter Role is not " + chapterRole);
-		System.out.println(DateUtil.getCurrentdateInStringWithGivenFormate("MM/dd/yyyy"));
+		System.out.println(DateUtil.getCurrentdateInStringWithGivenFormateForTimeZone(dateFormate, "EST5EDT"));
 		logMessage("ASSERT PASSED : chapter " + chapterName + " role is verified as " + chapterName);
 		Assert.assertTrue(
 				element("txt_quantity", chapterName).getText().trim()

@@ -653,7 +653,7 @@ AddressChange:
     state: "DC"
     
 ACS_AutoRenewal_Selection_In_OMR:
-    AutoRenewal_Query: Selenium – Find Random Active Member with Proforma
+    AutoRenewal_Query: "Selenium – Find Random Active Member with Proforma"
     
 ACS_Create_Manual_Credit_Test:
   CreditReason: Check Transfer

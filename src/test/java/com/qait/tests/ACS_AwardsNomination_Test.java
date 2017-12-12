@@ -68,7 +68,7 @@ public class ACS_AwardsNomination_Test extends BaseTest{
 
 	@Test
 	public void Step03_TC03_Launch_AwardsNominateApplication_And_Perform_Nomination() {
-
+		mapAwardsNomination = test.homePageIWEB.addValuesInMap("AwardNomination",caseID );
 		createMemberCredentials = test.memberShipPage
 				.getIndividualMapFromCreateMemberScript();
 

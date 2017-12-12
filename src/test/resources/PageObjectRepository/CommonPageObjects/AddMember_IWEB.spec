@@ -18,4 +18,5 @@ btn_addVerifySave                           id                            SaveBu
 list_state_ver		                        id                            DropDownListState_adr
 list_country_ver							id							  DropDownListCountry_adr
 inp_city									id							  adr_city
+inp_memberDetailCityState					id 								adr_city
 =============================================================================================================================================

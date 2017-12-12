@@ -90,7 +90,7 @@ public class ACS_OMR_Discount_Test extends BaseTest {
 	public void Step05_launch_Eweb_Renewal_Application_And_Login_With_Valid_Credentials() {
 		
 		test.launchApplication(app_url_OMR);
-		test.asm_OMR.selectNoIfRegularToEmeritusPromptAppears();
+		//.test.asm_OMR.selectNoIfRegularToEmeritusPromptAppears();
 		test.asm_OMR.loginIntoOMRApplicationForDiscount(mapOMRDiscount, memDetails);
 		test.asm_OMR.OMRLogo("Online Membership Renewal");
 	}

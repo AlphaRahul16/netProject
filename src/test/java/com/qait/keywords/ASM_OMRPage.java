@@ -955,6 +955,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 	public void selectNoIfRegularToEmeritusPromptAppears() {
 
 		wait.hardWait(4);
+		switchToDefaultContent();
 		switchToEwebRenewalFrame();
 		try {
 			wait.resetImplicitTimeout(5);
