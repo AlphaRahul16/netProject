@@ -24,5 +24,6 @@ btn_searchRefund                                id                              
 img_spinner                                    css                                #__UPIMG
 list_productNames							   xpath                              //table[@class='table']//tr//td[${index}]
 lst_productNames                               xpath                              //table[@class='table']//tr//td[contains(text(),'${invoiceNo}')]/following-sibling::td[1]
-lnk_addbatch                                   css                                .icon-plus-sign
+lnk_addbatch                                  xpath                             //div[@class='AddEditLinkDiv']/a/span
+#lnk_addbatch                                   css                                .icon-plus-sign
 ======================================================================================================================================

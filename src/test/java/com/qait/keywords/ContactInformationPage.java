@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 import com.qait.automation.getpageobjects.ASCSocietyGenericPage;
+import com.qait.automation.utils.ConfigPropertyReader;
 
 public class ContactInformationPage extends ASCSocietyGenericPage {
 
@@ -46,12 +47,46 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 		String[] arr = { userEmail, fname, lname };
 		return arr;
 	}
+	
+	public String[] enterContactInformationOmaDiscount(String email, String firstName, String lastName, String addressType,
+			String address, String city, String country, String state, String zipCode) {
+
+		wait.hardWait(6);
+		String userEmail = enterEmail(email);
+		String fname = enterMemberContactDetail("firstName", firstName); // + System.currentTimeMillis()
+		String lname = enterMemberContactDetail("lastName", lastName + System.currentTimeMillis());
+		selectMemberContactDetail("addressType", addressType);
+
+		if (addressType.equalsIgnoreCase("Work")) {
+			wait.waitForElementToBeVisible(element("inp_organization"));
+		}
+		enterMemberContactDetail("address", address);
+		enterMemberContactDetail("city", city);
+		selectMemberContactDetail("countryName", country);
+		if (ConfigPropertyReader.getProperty("tier").equalsIgnoreCase("dev4")) {
+			selectMemberContactDetail("stateName", state);
+		} else {
+			if (country.equalsIgnoreCase("UNITED STATES")) {
+				selectMemberContactDetail("stateName", state);
+			} else {
+				try {
+					wait.waitForElementToDisappear(element("list_stateName"));
+				} catch (Exception E) {
+					logMessage("Element not present");
+				}
+			 }
+			}
+		enterMemberContactDetail("zipCode", zipCode);
+		String[] arr = { userEmail, fname, lname };
+		return arr;
+	}
+
 
 	public void clickContinue() {
 		try {
 			wait.hardWait(3);
 			isElementDisplayed("btn_continue");
-			//element("btn_continue").click();
+//			element("btn_continue").click();
 			 clickUsingXpathInJavaScriptExecutor(element("btn_continue"));
 			wait.hardWait(1);
 			logMessage("STEP : Click on btn_continue\n");
@@ -109,6 +144,7 @@ public class ContactInformationPage extends ASCSocietyGenericPage {
 
 	private void selectMemberContactDetail(String detailType, String detailValue) {
 		if (!detailValue.equalsIgnoreCase("null")) {
+			wait.hardWait(3);
 			isElementDisplayed("list_" + detailType);
 			selectProvidedTextFromDropDown(element("list_" + detailType), detailValue);
 			logMessage("STEP : " + detailValue + " is selected in the " + detailType + "\n");

@@ -70,7 +70,7 @@ public class ACS_FellowNominate extends BaseTest{
 								.getYamlValue("creditCardDetails.paymentMethodBOACheck.CheckNumber"));
 	}
 
-	@Test
+	@Test (dependsOnMethods = "Step01_TC01_CreateMember_As_A_Prerequisite_For_Fellow_Nomination")
 	// For Login Into Fellow Nominate Application
 	public void Step02_TC02_Enter_Valid_Credentials_To_Login_Into_Application() {
 		//test.homePageIWEB.addValuesInMap("fellowNominate", caseID);
@@ -86,7 +86,7 @@ public class ACS_FellowNominate extends BaseTest{
 		test.asm_FellowNomiate.verifyUserIsOnFellowsDashboard();
 	}
 
-	@Test
+	@Test (dependsOnMethods = "Step02_TC02_Enter_Valid_Credentials_To_Login_Into_Application")
 	// For Individual
 	public void Step03_TC03_Nominate_For_Individual_FellowType() {
 
@@ -101,7 +101,7 @@ public class ACS_FellowNominate extends BaseTest{
 		// test.asm_FellowNomiate.clickPrintPDFButton("Individual Nomination");
 	}
 
-	@Test
+	@Test (dependsOnMethods = "Step03_TC03_Nominate_For_Individual_FellowType")
 	// For Local Section
 	public void Step04_TC04_Nominate_For_LocalSection_FellowType() {
 
@@ -115,7 +115,7 @@ public class ACS_FellowNominate extends BaseTest{
 
 	}
 
-	@Test
+	@Test (dependsOnMethods = "Step04_TC04_Nominate_For_LocalSection_FellowType")
 	// For Technical division
 	public void Step05_TC05_Nominate_For_TechnicalDivision_FellowType() {
 		test.asm_FellowNomiate.preRequisiteForACSNomination(
@@ -130,7 +130,7 @@ public class ACS_FellowNominate extends BaseTest{
 
 	}
 
-	@Test(dataProvider = "test1")
+	@Test(dataProvider = "test1" , dependsOnMethods = "Step05_TC05_Nominate_For_TechnicalDivision_FellowType")
 	public void Step06_TC06_Navigate_To_Iweb_And_Verify_Nomination_Details(
 			String FellowType) {
 		test.launchApplication(app_url_IWEB);

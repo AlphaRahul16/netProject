@@ -44,10 +44,10 @@ public class ACS_OMA_Discount_Test extends BaseTest {
 	@Test(dependsOnMethods = "Step01_Launch_Application_Under_Test")
 	public void Step02_Enter_Contact_Information() {
 		Reporter.log("****** TEST CASE ID : " + caseID + " ******\n", true);
-		userDetail = test.ContactInfoPage.enterContactInformation(ASCSocietyGenericPage.map().get("Email"),
+		userDetail = test.ContactInfoPage.enterContactInformationOmaDiscount(ASCSocietyGenericPage.map().get("Email"),
 				ASCSocietyGenericPage.map().get("FirstName"), ASCSocietyGenericPage.map().get("LastName"),
 				ASCSocietyGenericPage.map().get("AddressType"), ASCSocietyGenericPage.map().get("Address"),
-				ASCSocietyGenericPage.map().get("City"), ASCSocietyGenericPage.map().get("Country"), "",
+				ASCSocietyGenericPage.map().get("City"), ASCSocietyGenericPage.map().get("Country"), ASCSocietyGenericPage.map().get("Province"),
 				ASCSocietyGenericPage.map().get("ZipCode"));
 		test.ContactInfoPage.clickContinue();
 		userEmail = userDetail[0];

@@ -320,7 +320,8 @@ public class ASM_FellowNominatePage extends GetPage {
 
 	public void clickOnSaveAndContinueButton() {
 		isElementDisplayed("btn_saveAnContinue");
-		element("btn_saveAnContinue").click();
+//		element("btn_saveAnContinue").click();
+		clickUsingXpathInJavaScriptExecutor(element("btn_saveAnContinue"));
 		logMessage("STEP : Save and continue button is clicked in btn_saveAnContinue\n");
 	}
 
@@ -782,7 +783,7 @@ public class ASM_FellowNominatePage extends GetPage {
 	private void clickGotoDashboardButtonOnPopUp() {
 		isElementDisplayed("btn_gotoDashboardOnPopUp");
 		element("btn_gotoDashboardOnPopUp").click();
-		logMessage("STEP : Goto Dashboard nutton on PopUp is clicked\n");
+		logMessage("STEP : Goto Dashboard button on PopUp is clicked\n");
 
 	}
 

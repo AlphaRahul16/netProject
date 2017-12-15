@@ -13,7 +13,7 @@ txt_additionalInfo                        xpath                //span[text()='${
 btn_memberShip                            xpath                //span[text()='${membershipName}']/preceding-sibling::a//i[@class='icon-chevron-down']
 btn_memberShipAACT                        xpath                //span[text()='${membershipName}']/../a[1]
 img_moreMenu                              id                   ProfileTabMenuImage_TS0
-link_moreMenuName                         xpath                //a[@title='${menuNames}']
+link_moreMenuName                         xpath                //a[@title='${menuNames}'and @class='ProfileTabMenuLink']
 txt_divisionPubName                       xpath                //td[contains(text(),'${divisionPubName}')]
 txt_numberOfyears                         xpath                //td[contains(text(),'Total Years of Service')]/following-sibling::td
 txt_invoiceValue                          xpath                //td[@id='UP24']

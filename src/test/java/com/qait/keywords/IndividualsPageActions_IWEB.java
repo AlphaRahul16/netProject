@@ -1423,8 +1423,8 @@ public class IndividualsPageActions_IWEB extends ASCSocietyGenericPage {
 				+ mapAwardsNomination.get("SuggestCitation_Text"));
 		verifySupporterNamesOnAwardEntryProfilePage(createMemberCredentials, "1");
 		verifySupporterNamesOnAwardEntryProfilePage(createMemberCredentials, "2");
-		verifySupporterDocumentsContainsUploadedFile("1");
-		verifySupporterDocumentsContainsUploadedFile("2");
+//		verifySupporterDocumentsContainsUploadedFile("1");
+//		verifySupporterDocumentsContainsUploadedFile("2");
 	}
 
 	// private void verifySupporterDocumentsContainsUploadedFile(Map<String,

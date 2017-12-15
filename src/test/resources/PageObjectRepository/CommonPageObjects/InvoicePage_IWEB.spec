@@ -46,5 +46,6 @@ txt_tableColumn                 xpath                 //span[text()='${menuName}
 table_rows                      xpath                 //table[@class='table']//tr
 icon_applyDiscount              id                    ACSApplyDiscountsAction
 btn_next                        xpath                 //input[contains(@value,'Next')]
+lnk_addbatch                    xpath                             //div[@class='AddEditLinkDiv']/a/span
 ====================================================================================================================================
 

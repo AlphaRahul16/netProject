@@ -101,6 +101,7 @@ public class Inventory_Product_Fulfillment_Test extends BaseTest {
 		// YamlReader.getYamlValue("Acs_CreateMember_IWEB.expireDate"),
 		// test.homePageIWEB.map().get("CVV?").trim(),
 		// YamlReader.getYamlValue("COE_Inventory.checkNumber"));
+		
 		test.memberShipPage.selectAndAddBatchIFNotPresent(
 				batchprefix + ASCSocietyGenericPage.map().get("Batch_Name?") + System.currentTimeMillis(),
 				ASCSocietyGenericPage.map().get("Payment_Type"), ASCSocietyGenericPage.map().get("Payment_Method"));

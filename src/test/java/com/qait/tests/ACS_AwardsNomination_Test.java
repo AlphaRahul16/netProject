@@ -47,7 +47,7 @@ public class ACS_AwardsNomination_Test extends BaseTest{
 		test.homePageIWEB.clickOnTab("CRM");
 	}
 
-	@Test
+	@Test (dependsOnMethods = "Step01_TC01_CreateMember_As_A_Prerequisite_For_Award_Nomination")
 	public void Step02_TC02_Launch_Iweb_And_Select_General_Award() {
 		test.homePageIWEB.clickOnModuleTab();
 		test.homePageIWEB.clickOnTab("Awards");
@@ -66,7 +66,7 @@ public class ACS_AwardsNomination_Test extends BaseTest{
 
 	}
 
-	@Test
+	@Test (dependsOnMethods = "Step02_TC02_Launch_Iweb_And_Select_General_Award")
 	public void Step03_TC03_Launch_AwardsNominateApplication_And_Perform_Nomination() {
 		mapAwardsNomination = test.homePageIWEB.addValuesInMap("AwardNomination",caseID );
 		createMemberCredentials = test.memberShipPage
@@ -107,7 +107,7 @@ public class ACS_AwardsNomination_Test extends BaseTest{
 		// test.asm_NominatePage.verifyDocumentsAreDownloadableOnConfirmNominationPage("AwardNomination");
 	}
 
-	@Test
+	@Test (dependsOnMethods = "Step03_TC03_Launch_AwardsNominateApplication_And_Perform_Nomination")
 	public void Step04_TC04_Launch_Iweb_And_Verify_Details() {
 		test.launchApplication(app_url_IWEB);
 		test.homePageIWEB.clickOnModuleTab();

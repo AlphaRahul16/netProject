@@ -15,6 +15,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.CapabilityType;
@@ -37,7 +38,7 @@ public class WebDriverFactory {
 
 		if (seleniumServer.equalsIgnoreCase("local")) {
 			if (browser.equalsIgnoreCase("firefox")) {
-				return getFirefoxDriver(seleniumconfig.get("tier"));
+				return getFirefoxDriver(seleniumconfig.get("driverpath") + "geckodriver.exe",seleniumconfig.get("tier"));
 			} else if (browser.equalsIgnoreCase("chrome")) {
 
 				if (System.getProperty("os.name").equals("Linux")) {
@@ -58,6 +59,7 @@ public class WebDriverFactory {
 		}
 		return new FirefoxDriver();
 	}
+
 
 	private WebDriver setRemoteDriver(Map<String, String> selConfig) {
 		DesiredCapabilities cap = null;
@@ -128,7 +130,8 @@ public class WebDriverFactory {
 		return new SafariDriver();
 	}
 
-	private static WebDriver getFirefoxDriver(String tier) {
+	private static WebDriver getFirefoxDriver(String path,String tier) {
+		System.setProperty("webdriver.gecko.driver", path);
 		FirefoxProfile profile;
 		if (tier.equalsIgnoreCase("Dev7")) {
 			String firefoxProfilePath = "." + File.separator + "src" + File.separator + "test" + File.separator
@@ -139,12 +142,7 @@ public class WebDriverFactory {
 
 			profile = new FirefoxProfile(firefoxProfile);
 			File extension = new File(autoAuthPath);
-			try {
-				profile.addExtension(extension);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			profile.addExtension(extension);
 		} else
 			profile = new FirefoxProfile();
 
@@ -173,7 +171,9 @@ public class WebDriverFactory {
 		// profile.setPreference("network.http.phishy-userpass-length", 255);
 		// profile.setPreference("network.automatic-ntlm-auth.trusted-uris","yourDomain");
 		// return new FirefoxDriver(ffbinary,profile);
-		return new FirefoxDriver(profile);
+		FirefoxOptions options = new FirefoxOptions();
+		options.setProfile(profile);
+		return new FirefoxDriver(options);
 	}
 
 	public static FirefoxProfile getFirefoxProfile(String tier) {
@@ -187,11 +187,7 @@ public class WebDriverFactory {
 
 			profile = new FirefoxProfile(firefoxProfile);
 			File extension = new File(autoAuthPath);
-			try {
-				profile.addExtension(extension);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			profile.addExtension(extension);
 		}
 		return profile;
 	}

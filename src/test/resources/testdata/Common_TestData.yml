@@ -136,7 +136,8 @@ OMA_SmokeChecklistData:
     acsPublicationsInternationalList: 
         List1: "Jrnl of Chemical Education Web"
         List2: "Jrnl of Chemical Education Web Combo"
-    
+    saveButtonColor: blue
+    saveButtonColorHex: "#286cb6"
     
     
 ASM_StoreSmokeChecklist_Data: 
@@ -167,7 +168,7 @@ ASM_StoreSmokeChecklist_Data:
               
               
 ACS_fellowNominatedData: 
-    NomineeName: Tom,Cal,Don,Edd,Eva,Fed,Kim,Lee,Leo,Jan,May,Meg,Mia,Tom,Pan,Sue,Ova,Pet,Laura
+    NomineeName: Jan,Edd,Eva,Fed,Kim,Lee,Leo,May,Meg,Mia,Pan,Sue,Ova,Pet,Laura,Tom,Cal,Don
     EducationDetails: 
          Institution: TestInstitution
          Degree: AssociateDegree

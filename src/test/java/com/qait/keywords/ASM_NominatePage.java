@@ -486,6 +486,7 @@ public class ASM_NominatePage extends GetPage {
 	}
 
 	public void selectValueForDiscussedAwardNominationRadioButton(String value) {
+		System.out.println("value" + value);
 		isElementDisplayed("rad_disscusNomination", value);
 		element("rad_disscusNomination", value).click();
 		logMessage("STEP : Have discussed award nomination radio button as " + value + "\n");

@@ -515,6 +515,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 			isElementDisplayed("lbl_warnings");
 			String actualMsg = element("lbl_warnings").getText().trim();
 			System.out.println("actual msz: " + actualMsg);
+			System.out.println("warning Message: " + warningMessage);
 			if (element("lbl_warnings").getAttribute("id").contains("Warning")) {
 				messageType = "Warning";
 			} else if (element("lbl_warnings").getAttribute("id").contains(

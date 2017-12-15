@@ -12,14 +12,29 @@ app_url_givingScholars: https://ewebdev.acs.org/NFDev4/scholars
 app_url_givingSeed: https://ewebdev.acs.org/NFDev4/seed
 app_url_OMR: https://ewebdev.acs.org/NFDev4/renew
 app_url_MGM: https://ewebdev.acs.org/NFDev4/mgm
-app_url_Meeting: https://ewebtest12.acs.org/NFStage3/meetings/2012gcec
+#app_url_Meeting: https://ewebtest12.acs.org/NFStage3/meetings/2012gcec
 app_url_MemberNumberLookup: https://ewebdev.acs.org/NFDev4/membernumberlookup
 app_url_NCW: https://ewebdev.acs.org/NFDev4/ncwlookup
 app_url_PUBS: https://ewebdev.acs.org/NFDev4/pba
 app_url_Nominate: https://ewebdev.acs.org/NFDev4/nominate
 app_url_Awards: https://ewebdev.acs.org/NFDev4/awards
+app_url_AACT_OMR: https://ewebdev.acs.org/NFDev4/aactomr
+app_url_MGMUrl: https://ewebdev.acs.org/NFDev4/mgm
+app_url_MGMjoin: https://ewebdev.acs.org/NFDev4/oma?appID=
+app_url_MGMOputOut: https://ewebdev.acs.org/NFDev4/eweb/ACSMGMTemplate.aspx?site=ACS_MGM&WebCode=optout&appID=
+app_url_MGMLogout: https://ewebdev.acs.org/NFDev4/eweb/acslogout.aspx 
+app_url_IwebReporting: https://dev-eweb12/NFDev4/iWeb/
+app_url_ScarfReviewing: https://ewebdev.acs.org/NFDev4/studentchaptersreview
+app_url_EwebReporting: https://ewebdev.acs.org/NFDev4/studentchaptersonline
+app_url_AACT_OMR: https://ewebdev.acs.org/NFDev4/aactomr
+app_url_MGMUrl: https://ewebdev.acs.org/NFDev4/mgm
+app_url_MGMjoin: https://www.jointest.acs.org/NFDev4/oma?appID=
+app_url_MGMOputOut: https://www.ewebtest.acs.org/NFDev4/eweb/ACSMGMTemplate.aspx?site=ACS_MGM&WebCode=optout&appID=
+app_url_MGMLogout: https://www.ewebtest.acs.org/NFDev4/eweb/acslogout.aspx
+app_url_IwebMyAccount: https://dev-eweb12/NFDev4/iWeb/
+app_url_SourceCodeOMA: https://www.jointest.acs.org/dev4/oma?sc=
 
 Authentication: 
-  userName: C00767  
-  password: "1c7U696a^"
-  
+  userName: C00839
+  password: "g6s2A4*43"
+  emailId: "H_Sil@acs.org"

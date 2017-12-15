@@ -744,10 +744,13 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 	}
 
 	public void selectOrderEntryInfo(String orderEntryInfo, String value) {
-		hardWaitForIEBrowser(2);
+		
 		//isElementDisplayed("list_" + orderEntryInfo);
 		wait.hardWait(5);
 		//executeJavascript("document.getElementById(\"inv_orig_trans_type\").value=\""+value+"\"");
+		wait.hardWait(5);
+		isElementDisplayed("list_" + orderEntryInfo);
+		clickUsingXpathInJavaScriptExecutor(element("list_" + orderEntryInfo));
 		selectProvidedTextFromDropDown(element("list_" + orderEntryInfo), value);
 		logMessage("STEP : " + orderEntryInfo + " is selected as " + value + "\n");
 		wait.hardWait(3);
@@ -2723,7 +2726,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		customerContactId = element("txt_renewalContactId").getText();
 		memberDetails.add(customerLname);
 		memberDetails.add(customerContactId);
-		// memberDetails.add(getMemberWebLogin());
+		//memberDetails.add(getMemberWebLogin());
 		memberDetails.add(invoiceNumber);
 		logMessage("STEP : Full Name of member is " + memberDetails.get(0));
 		logMessage("STEP : Customer Id of member is " + memberDetails.get(1));
@@ -2804,14 +2807,18 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 
 	public void selectValidUserForRenewal(Map<String, String> mapOMR, String query) {
 		if (MemberTransferLoopCount < 3) {
-	        clickOnModuleTab();
-		    clickOnTab("CRM");
-		    clickOnSideBarTab("Invoice");
-			clickOnTab("Query Invoice");
+//	        clickOnModuleTab();
+//		    clickOnTab("CRM");
+//		    clickOnSideBarTab("Invoice");
+//			clickOnTab("Query Invoice");
+			clickOnModuleTab();
+			clickOnTab("Membership");
+			clickOnSideBarTab("Members");
+			clickOnTab("Query Membership");	
 			selectAndRunQuery(query);
-			//selectMemberForRenewal(mapOMR.get("Member_Status?"));
+			selectMemberForRenewal(mapOMR.get("Member_Status?"));
 			clickOnGoButtonInRunQuery();
-			// expandDetailsMenuIfAlreadyExpanded("invoices");
+			expandDetailsMenuIfAlreadyExpanded("invoices");
 			
 			clickOnCustomerNameAndNavigateToMembershipPage();
 			expandDetailsMenu("individual memberships");
@@ -3997,7 +4004,8 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		if (isBrowser("ie") || isBrowser("internet explorer")) {
 			clickUsingXpathInJavaScriptExecutor(element("arrow_selectMember", String.valueOf(i)));
 		} else
-			element("arrow_selectMember", String.valueOf(i)).click();
+//			element("arrow_selectMember", String.valueOf(i)).click();
+		clickUsingXpathInJavaScriptExecutor(element("arrow_selectMember", String.valueOf(i)));
 	}
 
 	public void verifyPayment(int index) {
@@ -4831,7 +4839,7 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		logMessage("Step : " + productName + " is selected from product merchandise\n");
 	}
 
-	public void selectAndAddBatchIFNotPresent(String batchName, String paymentType, String paymentMethod) {
+	public void selectAndAddBatchIFNotPresentCreateMember(String batchName, String paymentType, String paymentMethod) {
 
 		holdExecution(2000);
 		if (verifyBatchIsPresent(batchName)) {
@@ -4841,6 +4849,21 @@ public class MembershipPageActions_IWEB extends ASCSocietyGenericPage {
 		}
 		waitForSpinner();
 		wait.hardWait(6);
+		selectOrderEntryInfo("PaymentTypeCreateMember", paymentType);
+		waitForSpinner();
+		selectOrderEntryInfo("paymentMethod", paymentMethod);
+
+	}
+	
+	public void selectAndAddBatchIFNotPresent(String batchName, String paymentType, String paymentMethod) {
+
+		holdExecution(2000);
+		if (verifyBatchIsPresent(batchName)) {
+			selectOrderEntryInfo("batch", batchName);
+		} else {
+			addBatch(batchName.replaceAll("ACS: ", ""), "QA");
+		}
+		waitForSpinner();
 		selectOrderEntryInfo("PaymentType", paymentType);
 		waitForSpinner();
 		selectOrderEntryInfo("paymentMethod", paymentMethod);

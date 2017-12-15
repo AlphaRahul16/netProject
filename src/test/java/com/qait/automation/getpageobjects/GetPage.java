@@ -20,7 +20,6 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.security.UserAndPassword;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -442,11 +441,6 @@ public class GetPage extends BaseUi {
 		individualMember.put("Step08_Search_Individual_In_IWEB_Application_And_Verify_Details", !isIndividualMember);
 	}
 
-	public void handleAuthenticationPopup(String username, String password) {
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		Alert alert = wait.until(ExpectedConditions.alertIsPresent());
-		alert.authenticateUsing(new UserAndPassword(username, password));
-	}
 
 	public void scriptExecutionController() {
 		// if

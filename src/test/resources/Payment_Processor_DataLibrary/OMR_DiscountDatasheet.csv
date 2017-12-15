@@ -4,11 +4,11 @@ caseID	caseID Execute	Member_Status?	Country?	Previous_Year_Dues?	Current_Year_D
 3	No	Regular	Colombia	$158.00	$162.00	$166.00	50		Yes											10	2019	Visa/MC	4457010000000009 				349
 4	No	Regular	Iraq	$158.00	$162.00	$166.00	50		Yes											10	2019	Visa/MC	4457010000000009 		375000026600004		349
 5	No	Regular	Malaysia	$158.00	$162.00	$166.00	50		Yes			print	1					ACS Endowment Fund 	8	10	2019	Visa/MC	4457010000000009 				349
-6	Yes	Regular	Peru	$158.00	$162.00	$166.00	50		Yes											10	2019	Visa/MC	4457010000000009 	36474027424147			349
+6	No	Regular	Peru	$158.00	$162.00	$166.00	50		Yes											10	2019	Visa/MC	4457010000000009 	36474027424147			349
 7	No	Regular	Romania	$158.00	$162.00	$166.00	50		Yes											10	2019	Visa/MC	4457010000000009 		375000026600004		349
 8	No	Regular	South Africa	$158.00	$162.00	$166.00	50		Yes											10	2019	Visa/MC	4457010000000009 		375000026600004		349
 9	No	Regular	Thailand	$158.00	$162.00	$166.00	50		Yes											10	2019	Visa/MC	4457010000000009 	5412345438954640			349
 10	No	Regular	Nigeria 	$158.00	$162.00	$166.00	66		Yes			print	1		Jrnl of Chemical Education Web Combo	Yes		ACS Endowment Fund 	3	10	2019	Visa/MC	4457010000000009 	36474027424147			349
 11	No	Regular	India	$158.00	$162.00	$166.00	66		Yes			print	1		Jrnl of Chemical Education Web Combo	Yes		ACS Endowment Fund 	3	10	2019	Visa/MC	4457010000000009 		375000026600004		349
-12	No	Regular	China	$158.00	$162.00	$166.00	50		Yes						Jrnl of Chemical Education Web Combo	Yes				10	2019	Visa/MC	4457010000000009 				349
+12	Yes	Regular	China	$158.00	$162.00	$166.00	50		Yes						Jrnl of Chemical Education Web Combo	Yes				10	2019	Visa/MC	4457010000000009 				349
 13	No	Regular	Nigeria 	$158.00	$162.00	$166.00	66		Yes			print	1		Jrnl of Chemical Education Web Combo	Yes		ACS Endowment Fund 	3	10	2019	Visa/MC	4457010000000009 				349

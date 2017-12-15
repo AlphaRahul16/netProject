@@ -17,5 +17,5 @@ txt_technicalDivisionPoints    xpath     //span[contains(@id,'${sectionId}')]//l
 list_technicalDivisionPoints   xpath     //span[contains(@id,'${sectionId}')]//li
 txt_acsPublications            xpath     //p[text()='${benefitText}']
 txt_publicationTitle           classname  item-title
-btn_saveColor                  css       .btn.btn-blue
+btn_saveColor                  id       btnSave
 =================================================================================================================================

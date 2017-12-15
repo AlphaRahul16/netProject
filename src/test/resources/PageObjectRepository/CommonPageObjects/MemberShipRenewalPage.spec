@@ -34,4 +34,5 @@ txt_noResultsDisplay                             xpath                          
 txt_addACSRenewalCycle                           xpath                           //td[text()='${acsRenewalCycleName}']
 hd_acsRenewalCycle                               xpath                           //h3[11]
 inp_notifyEmail                                  id                              tsk_email_notify_address
+hd_sideBar											xpath						//li/a[text()='${text}']
 ====================================================================================================================================================================================
