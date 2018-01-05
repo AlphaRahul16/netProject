@@ -320,8 +320,9 @@ public class BaseUi {
 			element.click();
 			logMessage("Clicked Element " + element + "");
 		} catch (StaleElementReferenceException ex1) {
-			// wait.waitForElementToBeClickable(element);
-			// scrollDown(element);
+			wait.hardWait(3);
+			 wait.waitForElementToBeClickable(element);
+			 scrollDown(element);
 			element.click();
 			logMessage("Clicked Element " + element + " after catching Stale Element Exception");
 		} catch (WebDriverException ex3) {

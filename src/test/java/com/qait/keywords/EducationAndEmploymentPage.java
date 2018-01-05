@@ -93,6 +93,7 @@ public class EducationAndEmploymentPage extends ASCSocietyGenericPage {
 				selectListOfDropdown("major", major, 1);
 				selectListOfDropdown("month", month, 1);
 				selectListOfDropdown("year", year, 1);
+				holdExecution(4000);
 				click(element("btn_addAnotherDegree"));
 				holdExecution(2000);
 			} else {

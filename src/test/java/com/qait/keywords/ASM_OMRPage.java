@@ -962,7 +962,7 @@ public class ASM_OMRPage extends ASCSocietyGenericPage {
 			wait.resetExplicitTimeout(hiddenFieldTimeOut);
 			element("btn_applyForEmeritusNo").click();
 			logMessage("STEP : Regular member does not applied for Emeritus status\n");
-		} catch (NoSuchElementException e) {
+		} catch (Exception e) {
 			logMessage("STEP : Regular to Emeritus prompt does not appear\n");
 		}
 		wait.resetImplicitTimeout(timeOut);

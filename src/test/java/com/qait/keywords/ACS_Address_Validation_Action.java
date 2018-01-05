@@ -167,7 +167,7 @@ public class ACS_Address_Validation_Action extends ASCSocietyGenericPage {
 	public void checkAlert() {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, 2);
-			wait.until(ExpectedConditions.alertIsPresent());
+		//	wait.until(ExpectedConditions.alertIsPresent());
 			Alert alert = driver.switchTo().alert();
 			alert.accept();
 		} catch (Exception e) {

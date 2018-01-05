@@ -66,7 +66,7 @@ public class ASM_StorePage extends ASCSocietyGenericPage {
 	}
 
 	public void verifySearchSuccessfully() {
-		hardWaitForIEBrowser(2);
+		wait.hardWait(3);
 		isElementDisplayed("txt_searchList");
 		verifyElementTextContains("txt_searchList", "Search Results");
 		logMessage("STEP : Verify search successfully in txt_searchList\n");

@@ -11,8 +11,10 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.assertj.core.internal.asm.Opcodes;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -87,9 +89,16 @@ public class WebDriverFactory {
 	}
 
 	private static WebDriver getChromeDriver(String driverpath) {
+			
 		System.setProperty("webdriver.chrome.driver", driverpath);
+/*		  ChromeDriverService service = new ChromeDriverService.Builder()
+	                .usingDriverExecutable(new File(driverpath))
+	                .usingAnyFreePort()
+	                .build();
+	  return new ChromeDriver(service,options);*/
+		
 		ChromeOptions options = new ChromeOptions();
-		HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+/*		HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
 
 		chromePrefs.put("download.prompt_for_download", false);
 		chromePrefs.put("credentials_enable_service",false);
@@ -102,15 +111,21 @@ public class WebDriverFactory {
 		chromePrefs.put("download.default_directory", downloadFilePath);
 		chromePrefs.put("credentials_enable_service", false);
 		chromePrefs.put("profile.password_manager_enabled", false);
-		options.setExperimentalOption("prefs", chromePrefs);
+		options.setExperimentalOption("prefs", chromePrefs);*/
 		options.addArguments("--disable-extensions");
 		options.addArguments("test-type");
 		options.addArguments("--disable-impl-side-painting");
+		
+		
 
-		DesiredCapabilities cap = DesiredCapabilities.chrome();
-		cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-		cap.setCapability(ChromeOptions.CAPABILITY, options);
-		return new ChromeDriver(cap);
+//		DesiredCapabilities cap = DesiredCapabilities.chrome();
+//		cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+//		cap.setCapability(ChromeOptions.CAPABILITY, options);
+		  ChromeDriverService service = new ChromeDriverService.Builder()
+                .usingDriverExecutable(new File(driverpath))
+                .usingAnyFreePort()
+                .build();
+      return new ChromeDriver(service,options);
 	}
 
 	private static WebDriver getInternetExplorerDriver(String driverpath) {

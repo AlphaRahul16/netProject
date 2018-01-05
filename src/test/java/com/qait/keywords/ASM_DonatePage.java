@@ -484,7 +484,7 @@ public class ASM_DonatePage extends GetPage {
 
 	private String[] getProductNamesAndCodes() {
 		String productName = null;
-		for (int i = 0; i < elements("txt_productNames").size(); i++) {
+		for (int i = 0; i < elements("txt_productNames").size()-1; i++) {
 			productNameValues1[i] = elements("txt_productNames").get(i).getText();
 			List<String> productNameValues = new ArrayList<String>();
 			productName = elements("txt_productNames").get(i).getText();

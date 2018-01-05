@@ -108,6 +108,7 @@ public class ACS_BatchProcessingActions extends ASCSocietyGenericPage {
 			// logMessage("Step : Switched to Pop Up Window, title is verified
 			// as "+getPageTitle());
 		} else {
+			wait.hardWait(4);
 			element("btn_ForProcesingBatch", btnName).click();
 			logMessage("STEP : " + btnName + " is clicked on batch processing page\n");
 		}
